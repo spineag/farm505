@@ -21,6 +21,7 @@ public class MainStarling extends Sprite {
         sAssets = new AssetManager();
         sAssets.verbose = true;
         sAssets.enqueue(EmbedAssets);
+
         //addChild(progress);
         sAssets.loadQueue(function (ratio:Number):void {
             if (ratio == 1.0){
