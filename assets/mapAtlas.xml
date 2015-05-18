@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:fbba8f2fffb300ca219e984910f43012:6627c7c7543bbddff66dcd28763697e8:a81df8e3ec822ce336cdfaae17dbbe1f$ -->
+<TextureAtlas imagePath="mapAtlas.png">
+    <SubTexture name="tile1" x="2" y="2" width="38" height="19"/>
+    <SubTexture name="tile2" x="42" y="2" width="38" height="19"/>
+</TextureAtlas>
