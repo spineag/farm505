@@ -15,7 +15,7 @@ import utils.IsoUtils;
 import utils.Point3D;
 
 public class MatrixGrid {
-    public static const WIDTH_CELL:uint = 36 / Math.SQRT2;
+    public static const WIDTH_CELL:uint = 30;
     public static const FACTOR:Number = WIDTH_CELL / Math.SQRT2;
     public static const DIAGONAL:Number = Math.sqrt(WIDTH_CELL * WIDTH_CELL + WIDTH_CELL * WIDTH_CELL);
 
@@ -38,16 +38,16 @@ public class MatrixGrid {
 
         _matrix = [];
 
-        var tempWidth:int = int(g.realGameWidth / DIAGONAL + 1/2);
-        var tempHeight:int = int(g.realGameHeight / (DIAGONAL / 2) + 1/2);
+        var tempWidth:int = int(g.realGameWidth / DIAGONAL + .5);
+        var tempHeight:int = int(g.realGameHeight / (DIAGONAL / 2) + .5);
         var size:int = tempWidth + tempHeight;
 
-        _offsetY = tempWidth;
+        _offsetY = size*FACTOR/2 - g.realGameHeight/2;
 
         for (var i:int = 0; i < size; i++) {
             _matrix.push([]);
             for (var j:int = 0; j < size; j++) {
-                _matrix[i][j] = {id: 0, sources: [], isNorm: true /*getIsNormTile(i - offsetY, j)*/, findId: 0};
+                _matrix[i][j] = {id: 0, sources: [], inGame: isTileInGame(i, j), findId: 0};
 //                if (matrix[i][j].isNorm) {
 //                    matrix[i][j].findId = 0;
 //                }
@@ -55,6 +55,13 @@ public class MatrixGrid {
         }
 
         _graf.buildGraf(_matrix);
+    }
+
+    private function isTileInGame(i:int, j:int):Boolean { // перевіряємо чи тайл попадає в ігрову зону, якщо ні - то його не використовуємо
+        var p:Point = getXYFromIndex(new Point(i,j));
+        if (p.x < -g.realGameWidth/2 || p.x > g.realGameWidth/2) return false;
+        if (p.y < _offsetY || p.y > g.realGameHeight + _offsetY) return false;
+        return true;
     }
 
     public function setBuildFromIndex(cityObject:WorldObject, point:Point):void {

@@ -65,6 +65,8 @@ public class Vars {
         matrixGrid.createMatrix();
 
         background = new BackgroundArea();
+
+        cont.moveCenterToXY(realGameWidth/2, realGameHeight/2, true);
     }
 
 

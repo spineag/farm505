@@ -4,6 +4,8 @@
 package manager {
 import flash.geom.Point;
 
+import starling.animation.Tween;
+
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
@@ -80,5 +82,26 @@ public class Containers {
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
     }
+
+    public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // потрібно переробити, бо не правильно
+        //переміщаємо ігрову область так, щоб вказана точка була по центру екрана
+        var newX:int;
+        var newY:int;
+
+        newX = _x - g.stageWidth/2;
+        newY = _y - g.stageHeight/2;
+        if (needQuick) {
+            gameCont.x = newX;
+            gameCont.y = newY;
+        } else {
+            var tween:Tween = new Tween(gameCont, 1);
+            tween.moveTo(newX, newY);
+            tween.onComplete = function ():void {
+                g.starling.juggler.remove(tween);
+            };
+            g.starling.juggler.add(tween);
+        }
+    }
+
 }
 }

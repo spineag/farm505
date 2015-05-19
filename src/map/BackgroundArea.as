@@ -2,21 +2,27 @@
  * Created by user on 5/14/15.
  */
 package map {
+import flash.geom.Matrix;
 import flash.geom.Point;
 
 import manager.Vars;
+
+import starling.display.Quad;
 import starling.display.Sprite;
+import starling.utils.Color;
 
 import utils.IsoUtils;
 import utils.Point3D;
 
 public class BackgroundArea {
     private var _cont:Sprite;
+    private var _additionalCont:Sprite;
 
     protected var g:Vars = Vars.getInstance();
 
     public function BackgroundArea() {
         _cont = g.cont.backgroundCont;
+        _additionalCont = new Sprite();
 
         fillBG();
     }
@@ -27,15 +33,22 @@ public class BackgroundArea {
         var tile:BackgroundTile;
         var p:Point;
 
+        var quad:Quad = new Quad(g.realGameWidth, g.realGameHeight, Color.GREEN);
+
         for (var i:int = 0; i < arr.length; i++) {
             arr2 = arr[i];
             for (var j:int = 0; j < arr2.length; j++) {
-                tile = new BackgroundTile((i+j)%2 + 1);
+                tile = new BackgroundTile((i+j)%2 + 1, arr2[j].inGame);
                 p = new Point(i, j);
                 setTileFromIndex(tile, p);
                 _cont.addChild(tile.graphicsSource);
             }
         }
+
+        _additionalCont.addChild(quad);
+        _additionalCont.x = -_additionalCont.width/2 + MatrixGrid.DIAGONAL/2;
+        _additionalCont.y = _cont.height/2 - _additionalCont.height/2;
+        _cont.addChildAt(_additionalCont, 0);
 
         _cont.flatten();
     }
