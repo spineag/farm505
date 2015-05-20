@@ -24,8 +24,8 @@ public class Vars {
     public var mainStage:Stage;
     public var stageWidth:int = 1000;
     public var stageHeight:int = 640;
-    public var realGameWidth:int = 2000;
-    public var realGameHeight:int = 1500;
+    public var realGameWidth:int = 1000;
+    public var realGameHeight:int = 640;
     public var isDebug:Boolean = true;
     public var gameDispatcher:FarmDispatcher;
 
