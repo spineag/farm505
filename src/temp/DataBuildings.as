@@ -21,6 +21,7 @@ public class DataBuildings {
 
         obj = {};
         obj.id = 1;
+        obj.name = "2x2";
         obj.width = 2;
         obj.height = 2;
         obj.posX = 1;
@@ -31,6 +32,7 @@ public class DataBuildings {
         objectBuilding[obj.id ] = obj;
 
         obj.id = 2;
+        obj.name = "3x3";
         obj.width = 2;
         obj.height = 2;
         obj.posX = 1;

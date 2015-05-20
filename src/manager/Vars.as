@@ -14,6 +14,7 @@ import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
 import temp.DataBuildings;
+import temp.MapEditorInterface;
 
 import utils.FarmDispatcher;
 
@@ -27,6 +28,8 @@ public class Vars {
     public var realGameWidth:int = 2000;
     public var realGameHeight:int = 1500;
     public var isDebug:Boolean = true;
+    public var showMapEditor:Boolean = true;
+    public var mapEditor:MapEditorInterface;
     public var gameDispatcher:FarmDispatcher;
 
     public var mapAtlas:TextureAtlas;
@@ -71,6 +74,10 @@ public class Vars {
         background = new BackgroundArea();
 
         cont.moveCenterToXY(realGameWidth/2, realGameHeight/2, true);
+
+        if(showMapEditor) {
+            mapEditor = new MapEditorInterface();
+        }
     }
 
 
