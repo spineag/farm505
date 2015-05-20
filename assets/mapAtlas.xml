@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:fbba8f2fffb300ca219e984910f43012:6627c7c7543bbddff66dcd28763697e8:a81df8e3ec822ce336cdfaae17dbbe1f$ -->
+<!-- $TexturePacker:SmartUpdate:64b2168c52eb07d1608eab92bcf1b67e:02a1e09793407ca20552a9b813faed7c:a81df8e3ec822ce336cdfaae17dbbe1f$ -->
 <TextureAtlas imagePath="mapAtlas.png">
-    <SubTexture name="tile1" x="2" y="2" width="38" height="19"/>
-    <SubTexture name="tile2" x="42" y="2" width="38" height="19"/>
+    <SubTexture name="tile1" x="88" y="69" width="42" height="22"/>
+    <SubTexture name="tile2" x="88" y="93" width="42" height="22"/>
+    <SubTexture name="tile3x3" x="2" y="2" width="127" height="65"/>
+    <SubTexture name="tile4x4" x="2" y="69" width="84" height="43"/>
 </TextureAtlas>
