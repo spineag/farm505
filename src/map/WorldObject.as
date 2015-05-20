@@ -76,37 +76,6 @@ public class WorldObject {
         }
     }
 
-//    public function set tint(value:Boolean):void {
-//        var mul:Number = value ? 0.50 : 0;
-//        var color:uint = 0;
-//        var ctMul:Number = (1 - mul);
-//        var exRed:uint = (color >> 16) & 0xFF;
-//        var exGreen:uint = (color >> 8) & 0xFF;
-//        var exBlue:uint = color & 0xFF;
-//        var ctRedOff:Number = Math.round(mul * exRed);
-//        var ctGreenOff:Number = Math.round(mul * exGreen);
-//        var ctBlueOff:Number = Math.round(mul * exBlue);
-//        var ct:ColorTransform = _source.transform.colorTransform;
-//        var alpha:Number = _source.alpha;
-//
-//        _isTint = value;
-//        ct.redMultiplier = ctMul;
-//        ct.greenMultiplier = ctMul;
-//        ct.blueMultiplier = ctMul;
-//        ct.alphaMultiplier = 1;
-//        ct.redOffset = ctRedOff;
-//        ct.greenOffset = ctGreenOff;
-//        ct.blueOffset = ctBlueOff;
-//        ct.alphaOffset = 0;
-//
-//        _source.transform.colorTransform = ct;
-//        _source.alpha = alpha;
-//    }
-
-//    public function get tint():Boolean {
-//        return _isTint;
-//    }
-
     public function set enabled(value:Boolean):void {
 
     }

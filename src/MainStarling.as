@@ -2,6 +2,8 @@
  * Created by andriy.grynkiv on 16/03/14.
  */
 package {
+import com.junkbyte.console.Cc;
+
 import manager.EmbedAssets;
 import manager.Vars;
 

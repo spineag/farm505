@@ -6,6 +6,9 @@ public class DataBuildings {
     public static const STATIC_BUILDING:String = "static building";
     public static const ACTIVE_BUILDING:String = "active building";
 
+    public static const HARD_CURRENCY:String = 'diamant';
+    public static const SOFT_CURRENCY:String = 'coin';
+
     public var objectBuilding:Object;
 
     public function DataBuildings() {
@@ -28,6 +31,10 @@ public class DataBuildings {
         obj.url = " ";
         obj.image = "tile 3x3";
         obj.type = ACTIVE_BUILDING;
+        obj.cost = 10;
+        obj.currency = SOFT_CURRENCY;
+        obj.blockByLevel = 1;
+        obj.arrayResources = [];
         objectBuilding[obj.id ] = obj;
 
         obj.id = 2;
@@ -38,6 +45,10 @@ public class DataBuildings {
         obj.url = " ";
         obj.image = "tile 4x4";
         obj.type = ACTIVE_BUILDING;
+        obj.cost = 10;
+        obj.currency = SOFT_CURRENCY;
+        obj.blockByLevel = 1;
+        obj.arrayResources = [];
         objectBuilding[obj.id ] = obj;
     }
 }
