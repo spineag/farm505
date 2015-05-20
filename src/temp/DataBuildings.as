@@ -36,6 +36,8 @@ public class DataBuildings {
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
         obj.arrayResources = [];
+        obj.skipBuildIt = 1;
+        obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
 
         obj = {};
@@ -52,6 +54,8 @@ public class DataBuildings {
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
         obj.arrayResources = [];
+        obj.skipBuildIt = 2;
+        obj.buildTime = 15000;
         objectBuilding[obj.id ] = obj;
     }
 }
