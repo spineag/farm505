@@ -38,6 +38,7 @@ public class DataBuildings {
         obj.arrayResources = [];
         objectBuilding[obj.id ] = obj;
 
+        obj = {};
         obj.id = 2;
         obj.name = "3x3";
         obj.width = 2;
