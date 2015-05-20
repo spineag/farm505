@@ -83,13 +83,19 @@ public class Containers {
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
     }
 
-    public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // потрібно переробити, бо не правильно
+    public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в системі (realGameWidth, realGameHeight)
         //переміщаємо ігрову область так, щоб вказана точка була по центру екрана
         var newX:int;
         var newY:int;
 
-        newX = _x - g.stageWidth/2;
-        newY = _y - g.stageHeight/2;
+        newX = 0   + g.stageWidth/2;
+        newY = -g.matrixGrid.offsetY - g.realGameHeight/2    + g.stageHeight/2;
+
+        //потрібно переробити
+//        newX = _x - g.stageWidth/2;
+//        newY = _y  - g.matrixGrid.offsetY;
+//
+////        newY = _y - g.stageHeight/2;
         if (needQuick) {
             gameCont.x = newX;
             gameCont.y = newY;
