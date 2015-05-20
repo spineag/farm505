@@ -13,6 +13,8 @@ import starling.display.Stage;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
+import temp.DataBuildings;
+
 import utils.FarmDispatcher;
 
 public class Vars {
@@ -35,6 +37,8 @@ public class Vars {
 
     public var background:BackgroundArea;
 
+    public var dataBuilding:DataBuildings;
+
     public static function getInstance():Vars {
         if (!_instance) {
             _instance = new Vars(new SingletonEnforcer());
@@ -56,7 +60,7 @@ public class Vars {
     private function initVariables():void {
         cont = new Containers();
         matrixGrid = new MatrixGrid();
-
+        dataBuilding = new DataBuildings();
 
         continueInitGame();
     }
