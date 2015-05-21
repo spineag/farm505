@@ -17,6 +17,8 @@ import starling.events.Event;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import utils.CButton;
+
 public class MapEditorInterface {
     private const TYPE_HOUSE:String = 'house';
     private const TYPE_TREE:String = 'tree';
@@ -30,11 +32,11 @@ public class MapEditorInterface {
     private var _contDecors:Sprite;
     private var _bg:Quad;
     private var _arrowBg:Quad;
-    private var _leftArrow:Button;
-    private var _rightArrow:Button;
-    private var _houseBtn:Button;
-    private var _treeBtn:Button;
-    private var _decorBtn:Button;
+    private var _leftArrow:CButton;
+    private var _rightArrow:CButton;
+    private var _houseBtn:CButton;
+    private var _treeBtn:CButton;
+    private var _decorBtn:CButton;
 
     private var g:Vars = Vars.getInstance();
 
@@ -65,7 +67,7 @@ public class MapEditorInterface {
         var BMP:BitmapData = new BitmapData(10, 20, true, 0x00000000);
         BMP.draw(shape);
         var Txr:Texture = Texture.fromBitmapData(BMP,false, false);
-        _leftArrow = new Button(Txr);
+        _leftArrow = new CButton(Txr);
         _leftArrow.x = g.stageWidth - 45;
         _leftArrow.y = 0;
         _allTable.addChild(_leftArrow);
@@ -80,7 +82,7 @@ public class MapEditorInterface {
         var BM:BitmapData = new BitmapData(10, 20, true, 0x00000000);
         BM.draw(shape);
         var Tx:Texture = Texture.fromBitmapData(BM,false, false);
-        _rightArrow = new Button(Tx);
+        _rightArrow = new CButton(Tx);
         _rightArrow.x = g.stageWidth - 15;
         _rightArrow.y = 0;
         _allTable.addChild(_rightArrow);
@@ -97,7 +99,7 @@ public class MapEditorInterface {
         var BM1:BitmapData = new BitmapData(50, 20, true, 0x00000000);
         BM1.draw(shape);
         var Tx1:Texture = Texture.fromBitmapData(BM1,false, false);
-        _houseBtn = new Button(Tx1,"House");
+        _houseBtn = new CButton(Tx1,"House");
         _allTable.addChild(_houseBtn);
 
         //Button2
@@ -112,7 +114,7 @@ public class MapEditorInterface {
         var BM2:BitmapData = new BitmapData(50, 20, true, 0x00000000);
         BM2.draw(shape);
         var Tx2:Texture = Texture.fromBitmapData(BM2,false, false);
-        _treeBtn = new Button(Tx2,"Tree");
+        _treeBtn = new CButton(Tx2,"Tree");
         _treeBtn.x = 50;
         _allTable.addChild(_treeBtn);
 
@@ -128,7 +130,7 @@ public class MapEditorInterface {
         var BM3:BitmapData = new BitmapData(50, 20, true, 0x00000000);
         BM3.draw(shape);
         var Tx3:Texture = Texture.fromBitmapData(BM3,false, false);
-        _decorBtn = new Button(Tx3,"Decor");
+        _decorBtn = new CButton(Tx3,"Decor");
         _decorBtn.x = 100;
         _allTable.addChild(_decorBtn);
 
