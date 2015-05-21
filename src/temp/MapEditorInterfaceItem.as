@@ -46,7 +46,7 @@ public class MapEditorInterfaceItem {
         _image.x = 45;
         _image.y = 50;
         source.addChild(_image);
-
+        source.flatten();
 
     }
 }

@@ -8,6 +8,8 @@ import flash.display.Shape;
 
 import manager.Vars;
 
+import starling.animation.Tween;
+
 import starling.display.Button;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -151,6 +153,8 @@ public class MapEditorInterface {
         _houseBtn.addEventListener(Event.TRIGGERED,onTriggered);
         _treeBtn.addEventListener(Event.TRIGGERED,onTriggered);
         _decorBtn.addEventListener(Event.TRIGGERED,onTriggered);
+        _leftArrow.addEventListener(Event.TRIGGERED,onTriggered)
+        _rightArrow.addEventListener(Event.TRIGGERED,onTriggered)
     }
 
     private function checkType():void {
@@ -188,9 +192,13 @@ public class MapEditorInterface {
             case _decorBtn:
                 _type = TYPE_DECOR;
                 break;
-
+            case _leftArrow:
+                scroleType(-500);
+                break;
+            case _rightArrow:
+                scroleType(500);
+                break;
         }
-
         checkType();
     }
 
@@ -206,7 +214,29 @@ public class MapEditorInterface {
           _contBuildings.addChild(item.source);
             i++;
         }
+    }
 
+    private function scroleType(delta:int):void{
+        var cont:Sprite;
+
+        switch (_type){
+            case TYPE_HOUSE:
+                cont = _contBuildings;
+                break;
+            case TYPE_TREE:
+                cont = _contTrees;
+                break;
+            case TYPE_DECOR:
+                cont = _contDecors;
+                break;
+        }
+
+        var tween:Tween = new Tween(cont, 1);
+        tween.moveTo(cont.x + delta, cont.y);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+        };
+        g.starling.juggler.add(tween);
 
     }
 }
