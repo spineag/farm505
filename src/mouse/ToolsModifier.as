@@ -39,6 +39,7 @@ public class ToolsModifier {
                 break;
         }
 
+        _imageForMove.touchable = false;
         _imageForMove.pivotX = _imageForMove.width/2;
         _imageForMove.pivotY = _imageForMove.height/2;
 
