@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:e264f4bda8110a2640a675b4abce29a0:e3252f0f56a545b633a406b7db6a3936:a81df8e3ec822ce336cdfaae17dbbe1f$ -->
+<!-- $TexturePacker:SmartUpdate:7b1df95aa83001c76c3e774ab5eeb54c:e9dfd55ba2d24b2a8973715f69fcd309:a81df8e3ec822ce336cdfaae17dbbe1f$ -->
 <TextureAtlas imagePath="mapAtlas.png">
     <SubTexture name="Cancel" x="153" y="69" width="59" height="54" frameX="-6" frameY="-5" frameWidth="70" frameHeight="61"/>
     <SubTexture name="Move" x="88" y="69" width="63" height="54" frameX="-4" frameY="-6" frameWidth="70" frameHeight="62"/>
     <SubTexture name="Rotate" x="131" y="2" width="66" height="65" frameX="-10" frameY="0" frameWidth="76" frameHeight="70"/>
     <SubTexture name="Storage" x="199" y="2" width="68" height="63" frameX="0" frameY="0" frameWidth="72" frameHeight="67"/>
-    <SubTexture name="Tols" x="214" y="67" width="43" height="47" frameX="-6" frameY="0" frameWidth="49" frameHeight="49"/>
-    <SubTexture name="cursor" x="269" y="2" width="24" height="28"/>
-    <SubTexture name="cursor_active" x="269" y="32" width="23" height="26" frameX="-2" frameY="-3" frameWidth="25" frameHeight="30"/>
-    <SubTexture name="tile1" x="259" y="67" width="42" height="22"/>
-    <SubTexture name="tile2" x="259" y="91" width="42" height="22"/>
+    <SubTexture name="Tols" x="269" y="2" width="43" height="47" frameX="-6" frameY="0" frameWidth="49" frameHeight="49"/>
+    <SubTexture name="cursor" x="258" y="75" width="28" height="28"/>
+    <SubTexture name="cursor_click" x="288" y="75" width="26" height="26" frameX="-2" frameY="-2" frameWidth="28" frameHeight="28"/>
+    <SubTexture name="cursor_hover" x="214" y="91" width="28" height="28"/>
+    <SubTexture name="tile1" x="269" y="51" width="42" height="22"/>
+    <SubTexture name="tile2" x="214" y="67" width="42" height="22"/>
     <SubTexture name="tile2x2" x="2" y="69" width="84" height="43"/>
     <SubTexture name="tile3x3" x="2" y="2" width="127" height="65"/>
 </TextureAtlas>
