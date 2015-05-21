@@ -4,6 +4,8 @@
 package mouse {
 import manager.Vars;
 
+import starling.display.Sprite;
+
 import starling.events.Touch;
 
 import starling.events.TouchEvent;
@@ -12,6 +14,7 @@ public class OwnMouse {
     private var _mouseX:Number;
     private var _mouseY:Number;
     private var _touch:Touch;
+    private var cont:Sprite = g.cont.mouseCont;
 
     private var g:Vars = Vars.getInstance();
 
@@ -34,5 +37,6 @@ public class OwnMouse {
     public function get mouseY():Number {
         return _mouseY;
     }
+
 }
 }

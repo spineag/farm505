@@ -30,7 +30,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -42,13 +42,13 @@ public class DataBuildings {
 //        2
         obj = {};
         obj.id = 2;
-        obj.name = "3x3";
+        obj.name = "2x2";
         obj.width = 2;
         obj.height = 2;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 4x4";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -66,7 +66,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -84,7 +84,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -96,13 +96,13 @@ public class DataBuildings {
 //         5
         obj = {};
         obj.id = 5;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "3x3";
+        obj.width = 3;
+        obj.height = 3;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile3x3";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -120,7 +120,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -132,13 +132,13 @@ public class DataBuildings {
 //         7
         obj = {};
         obj.id = 7;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "3x3";
+        obj.width = 3;
+        obj.height = 3;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile3x3";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -156,7 +156,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -168,13 +168,13 @@ public class DataBuildings {
 //         9
         obj = {};
         obj.id = 9;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "3x3";
+        obj.width = 3;
+        obj.height = 3;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile3x3";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -192,7 +192,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -204,13 +204,13 @@ public class DataBuildings {
 //        11
         obj = {};
         obj.id = 11;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "3x3";
+        obj.width = 3;
+        obj.height = 3;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile3x3";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -228,7 +228,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -240,13 +240,13 @@ public class DataBuildings {
 //        13
         obj = {};
         obj.id = 13;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "3x3";
+        obj.width = 3;
+        obj.height = 3;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile3x3";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -264,7 +264,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -276,13 +276,13 @@ public class DataBuildings {
 //        15
         obj = {};
         obj.id = 15;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "3x3";
+        obj.width = 3;
+        obj.height = 3;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile3x3";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -300,7 +300,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -312,13 +312,13 @@ public class DataBuildings {
 //        17
         obj = {};
         obj.id = 17;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "3x3";
+        obj.width = 3;
+        obj.height = 3;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile3x3";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -336,7 +336,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -348,13 +348,13 @@ public class DataBuildings {
 //        19
         obj = {};
         obj.id = 19;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "3x3";
+        obj.width = 3;
+        obj.height = 3;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile3x3";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -372,7 +372,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile 3x3";
+        obj.image = "tile2x2";
         obj.type = ACTIVE_BUILDING;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;

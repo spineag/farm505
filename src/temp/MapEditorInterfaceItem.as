@@ -29,15 +29,7 @@ public class MapEditorInterfaceItem {
         _txt.x = 45;
         _txt.y = 5;
         source.addChild(_txt);
-
-        switch (_data.image) {
-            case "tile 3x3":
-                _image = new Image(g.mapAtlas.getTexture("tile3x3"));
-                break;
-            case "tile 4x4":
-                _image = new Image(g.mapAtlas.getTexture("tile4x4"));
-                break;
-        }
+        _image = new Image(g.mapAtlas.getTexture(_data.image));
         _image.pivotX = _image.width /2;
         _image.pivotY = _image.height /2;
         MCScaler.scale(_image,70, 70);
