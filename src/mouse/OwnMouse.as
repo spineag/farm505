@@ -14,11 +14,12 @@ public class OwnMouse {
     private var _mouseX:Number;
     private var _mouseY:Number;
     private var _touch:Touch;
-    private var cont:Sprite = g.cont.mouseCont;
+    private var _cont:Sprite;
 
     private var g:Vars = Vars.getInstance();
 
     public function OwnMouse() {
+        _cont = g.cont.mouseCont;
         g.mainStage.addEventListener(TouchEvent.TOUCH, onTouchEvent);
     }
 
