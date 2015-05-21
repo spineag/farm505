@@ -2,10 +2,13 @@
  * Created by user on 5/20/15.
  */
 package temp {
+import flash.geom.Point;
+
 import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.events.Event;
 import starling.text.TextField;
 import starling.text.TextFieldAutoSize;
 import starling.utils.HAlign;
@@ -18,7 +21,9 @@ public class MapEditorInterfaceItem {
     private var _txt:TextField;
     private var _image:Image;
     private var _data:Object;
+
     private var g:Vars = Vars.getInstance();
+
     public function MapEditorInterfaceItem(ob:Object) {
         _data = ob;
         source = new Sprite();
@@ -26,7 +31,7 @@ public class MapEditorInterfaceItem {
         _txt.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
         _txt.hAlign = HAlign.CENTER;
         _txt.vAlign = VAlign.CENTER;
-        _txt.x = 45;
+        _txt.x = 45 - _txt.width/2;
         _txt.y = 5;
         source.addChild(_txt);
         _image = new Image(g.mapAtlas.getTexture(_data.image));
@@ -37,6 +42,16 @@ public class MapEditorInterfaceItem {
         _image.y = 50;
         source.addChild(_image);
         source.flatten();
+
+        source.addEventListener(Event.TRIGGERED, onTriggered);
+    }
+
+    private function onTriggered(e:Event):void {
+        g.toolsModifier.startMove(_data.id, onMove);
+    }
+
+    private function onMove(p:Point):void {
+        trace('point: ' + p);
     }
 }
 }

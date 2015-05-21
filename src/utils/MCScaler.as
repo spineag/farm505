@@ -4,8 +4,6 @@
 package utils {
 import starling.display.DisplayObject;
 
-;
-
 public class MCScaler {
     static public function scale(graphics:DisplayObject, heightMax:int, widthMax:int):void {
         var s:Number;

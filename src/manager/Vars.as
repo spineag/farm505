@@ -9,6 +9,7 @@ import map.BackgroundArea;
 import map.MatrixGrid;
 
 import mouse.OwnMouse;
+import mouse.ToolsModifier;
 
 import starling.core.Starling;
 import starling.display.Stage;
@@ -38,6 +39,7 @@ public class Vars {
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
+    public var toolsModifier:ToolsModifier;
 
     public var matrixGrid:MatrixGrid;
 
@@ -69,6 +71,7 @@ public class Vars {
         matrixGrid = new MatrixGrid();
         dataBuilding = new DataBuildings();
         ownMouse = new OwnMouse();
+        toolsModifier = new ToolsModifier();
 
         continueInitGame();
     }

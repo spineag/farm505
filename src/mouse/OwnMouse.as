@@ -6,8 +6,6 @@ package mouse {
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
-import flash.display.Shape;
-import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.ui.Mouse;
 
@@ -16,18 +14,18 @@ import flash.ui.MouseCursorData;
 import manager.Vars;
 
 import starling.display.Image;
-
-
 import starling.display.Sprite;
-
 import starling.events.Touch;
-
 import starling.events.TouchEvent;
 import starling.textures.Texture;
 
 import utils.DrawToBitmap;
 
 public class OwnMouse {
+    public static const USUAL_CURSOR:String = 'usual_cursor';
+    public static const HOVER_CURSOR:String = 'hover_cursor';
+    public static const CLICK_CURSOR:String = 'click_cursor';
+
     private var _mouseX:Number;
     private var _mouseY:Number;
     private var _touch:Touch;
@@ -60,49 +58,32 @@ public class OwnMouse {
     }
 
     private function CreateMouseCursor():void {
-        _cont = new Sprite();
-
-        var vec_D:Vector.<BitmapData> = new Vector.<BitmapData>(1, true);
-        var texture:Texture = g.mapAtlas.getTexture("cursor");
-        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(new Image(texture));
-        vec_D[0] = bitMap.bitmapData;
-
         var cursor_D:MouseCursorData = new MouseCursorData();
-        cursor_D.data = makeCursorImages();//vec_D;
+        cursor_D.data = makeCursorImages("cursor");
+        cursor_D.frameRate = 0;
         cursor_D.hotSpot = new Point(0, 0);
-        Mouse.registerCursor("newCursor", cursor_D);
-        Mouse.cursor = "newCursor";
+        Mouse.registerCursor(USUAL_CURSOR, cursor_D);
+        Mouse.cursor = USUAL_CURSOR;
 
+        cursor_D = new MouseCursorData();
+        cursor_D.data = makeCursorImages("cursor_hover");
+        cursor_D.frameRate = 0;
+        cursor_D.hotSpot = new Point(0, 0);
+        Mouse.registerCursor(HOVER_CURSOR, cursor_D);
 
-//        var mouseCursorData:MouseCursorData = new MouseCursorData();
-//        mouseCursorData.data = makeCursorImages();
-//        mouseCursorData.frameRate = 1;
-
-//        Mouse.registerCursor("spinningArrow", mouseCursorData);
-//        Mouse.cursor = "spinningArrow";
-
+        cursor_D = new MouseCursorData();
+        cursor_D.data = makeCursorImages("cursor_click");
+        cursor_D.frameRate = 0;
+        cursor_D.hotSpot = new Point(0, 0);
+        Mouse.registerCursor(CLICK_CURSOR, cursor_D);
     }
 
-    private function makeCursorImages():Vector.<BitmapData> {
+    private function makeCursorImages(st:String):Vector.<BitmapData> {
         var cursorData:Vector.<BitmapData> = new Vector.<BitmapData>();
+        var texture:Texture = g.mapAtlas.getTexture(st);
+        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(new Image(texture));
+        cursorData.push(bitMap.bitmapData);
 
-        var cursorShape:Shape = new Shape();
-        cursorShape.graphics.beginFill(0xff5555, .75);
-        cursorShape.graphics.lineStyle(1);
-        cursorShape.graphics.drawPath(cursorDrawCommands, cursorPoints);
-        cursorShape.graphics.endFill();
-        var transformer:Matrix = new Matrix();
-
-        //Rotate and draw the arrow shape to a BitmapData object for each of 8 frames
-        for (var i:int = 0; i < 8; i++) {
-            var cursorFrame:BitmapData = new BitmapData(32, 32, true, 0);
-            cursorFrame.draw(cursorShape, transformer);
-            cursorData.push(cursorFrame);
-
-            transformer.translate(-15, -15);
-            transformer.rotate(0.785398163);
-            transformer.translate(15, 15);
-        }
         return cursorData;
 
     }
