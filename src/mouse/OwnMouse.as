@@ -8,7 +8,6 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.ui.Mouse;
-
 import flash.ui.MouseCursorData;
 
 import manager.Vars;
@@ -30,31 +29,29 @@ public class OwnMouse {
     private var _mouseY:Number;
     private var _touch:Touch;
     private var _cont:Sprite;
-    private var cursorPoints:Vector.<Number> = new <Number>[0,8, 16,8, 16,0, 24,12, 16,24, 16,16, 0,16, 0,8];//
-    private var cursorDrawCommands:Vector.<int> = new <int>[1,2,2,2,2,2,2,2];//
 
     private var g:Vars = Vars.getInstance();
 
     public function OwnMouse() {
         _cont = g.cont.mouseCont;
-        g.mainStage.addEventListener(TouchEvent.TOUCH, onTouchEvent);
+//        g.mainStage.addEventListener(TouchEvent.TOUCH, onTouchEvent);
         CreateMouseCursor();
     }
 
-    private function onTouchEvent(e:TouchEvent):void {
-        _touch = e.getTouch(g.mainStage);
-        if (_touch) {
-            _mouseX = _touch.globalX;
-            _mouseY = _touch.globalY;
-        }
-    }
+//    private function onTouchEvent(e:TouchEvent):void {
+//        _touch = e.getTouch(g.mainStage);
+//        if (_touch) {
+//            _mouseX = _touch.globalX;
+//            _mouseY = _touch.globalY;
+//        }
+//    }
 
     public function get mouseX():Number {
-        return _mouseX;
+        return g.starling.nativeOverlay.mouseX;
     }
 
     public function get mouseY():Number {
-        return _mouseY;
+        return g.starling.nativeOverlay.mouseY;
     }
 
     private function CreateMouseCursor():void {
