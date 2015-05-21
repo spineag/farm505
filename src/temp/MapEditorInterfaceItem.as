@@ -7,17 +7,18 @@ import flash.geom.Point;
 import manager.Vars;
 
 import starling.display.Image;
-import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.text.TextFieldAutoSize;
 import starling.utils.HAlign;
 import starling.utils.VAlign;
 
+import utils.CSprite;
+
 import utils.MCScaler;
 
 public class MapEditorInterfaceItem {
-    public var source:Sprite;
+    public var source:CSprite;
     private var _txt:TextField;
     private var _image:Image;
     private var _data:Object;
@@ -26,7 +27,7 @@ public class MapEditorInterfaceItem {
 
     public function MapEditorInterfaceItem(ob:Object) {
         _data = ob;
-        source = new Sprite();
+        source = new CSprite();
        _txt = new TextField(100, 10, _data.name, "Arial", 12, 0xffffff);
         _txt.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
         _txt.hAlign = HAlign.CENTER;
@@ -43,10 +44,11 @@ public class MapEditorInterfaceItem {
         source.addChild(_image);
         source.flatten();
 
-        source.addEventListener(Event.TRIGGERED, onTriggered);
+//        source.addEventListener(Event.TRIGGERED, onTriggered);
+        source.clickCallback = onTriggered;
     }
 
-    private function onTriggered(e:Event):void {
+    private function onTriggered():void {
         g.toolsModifier.startMove(_data.id, onMove);
     }
 
