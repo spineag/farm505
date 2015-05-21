@@ -8,6 +8,8 @@ import map.BackgroundArea;
 
 import map.MatrixGrid;
 
+import mouse.OwnMouse;
+
 import starling.core.Starling;
 import starling.display.Stage;
 import starling.textures.Texture;
@@ -35,12 +37,14 @@ public class Vars {
     public var mapAtlas:TextureAtlas;
 
     public var cont:Containers;
+    public var ownMouse:OwnMouse;
 
     public var matrixGrid:MatrixGrid;
 
     public var background:BackgroundArea;
 
     public var dataBuilding:DataBuildings;
+//    public var selectedBuild:
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -64,6 +68,7 @@ public class Vars {
         cont = new Containers();
         matrixGrid = new MatrixGrid();
         dataBuilding = new DataBuildings();
+        ownMouse = new OwnMouse();
 
         continueInitGame();
     }

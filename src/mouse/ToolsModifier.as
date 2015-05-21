@@ -5,6 +5,7 @@ package mouse {
 import manager.Vars;
 
 import starling.display.Image;
+import starling.display.Sprite;
 
 public class ToolsModifier {
     public static var NONE:int = 0;
@@ -12,10 +13,12 @@ public class ToolsModifier {
 
     private var _activeBuildingId:int;
     private var _imageForMove:Image;
+    private var _cont:Sprite;
 
     private var g:Vars = Vars.getInstance();
 
     public function ToolsModifier() {
+        _cont = g.cont.animationsContTop;
     }
 
     public function addMoveIcon(add:Boolean = true):void {
@@ -23,7 +26,7 @@ public class ToolsModifier {
     }
 
     public function startMove(buildingID:int, mouseX:Number, mouseY:Number):void {
-        // реалізація пересування, поки тільки  для будівль
+        // реалізація пересування, поки тільки  для будівль для режиму MapEditor
 
         addMoveIcon(false);
         _activeBuildingId = buildingID;
@@ -38,6 +41,11 @@ public class ToolsModifier {
 
         _imageForMove.pivotX = _imageForMove.width/2;
         _imageForMove.pivotY = _imageForMove.height/2;
+
+        _cont.x = g.cont.gameCont.x;
+        _cont.y = g.cont.gameCont.y;
+
+
     }
 }
 }
