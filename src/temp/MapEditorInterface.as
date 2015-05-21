@@ -40,18 +40,18 @@ public class MapEditorInterface {
 
     public function MapEditorInterface() {
         _allTable = new Sprite();
-        _allTable.y = 540;
+        _allTable.y = g.stageHeight - 100;
         g.cont.interfaceCont.addChild(_allTable);
 
         _contBuildings = new Sprite();
         _allTable.addChild(_contBuildings);
 
-        _bg = new Quad(1000, 80, Color.GRAY);
+        _bg = new Quad(g.stageWidth, 80, Color.GRAY);
         _bg.y = 20;
         _allTable.addChild(_bg);
 
         _arrowBg = new Quad(50, 20, Color.BLUE);
-        _arrowBg.x = 950;
+        _arrowBg.x = g.stageWidth - 50;
         _arrowBg.y = 0;
         _allTable.addChild(_arrowBg);
 
@@ -66,7 +66,7 @@ public class MapEditorInterface {
         BMP.draw(shape);
         var Txr:Texture = Texture.fromBitmapData(BMP,false, false);
         _leftArrow = new Button(Txr);
-        _leftArrow.x = 955;
+        _leftArrow.x = g.stageWidth - 45;
         _leftArrow.y = 0;
         _allTable.addChild(_leftArrow);
 
@@ -81,7 +81,7 @@ public class MapEditorInterface {
         BM.draw(shape);
         var Tx:Texture = Texture.fromBitmapData(BM,false, false);
         _rightArrow = new Button(Tx);
-        _rightArrow.x = 985;
+        _rightArrow.x = g.stageWidth - 15;
         _rightArrow.y = 0;
         _allTable.addChild(_rightArrow);
 
@@ -218,26 +218,37 @@ public class MapEditorInterface {
 
     private function scroleType(delta:int):void{
         var cont:Sprite;
+        var endX:int;
 
         switch (_type){
             case TYPE_HOUSE:
                 cont = _contBuildings;
+                    endX = - _contBuildings.width +g.stageWidth;
                 break;
             case TYPE_TREE:
                 cont = _contTrees;
+                endX = - _contTrees.width + g.stageWidth;
                 break;
             case TYPE_DECOR:
                 cont = _contDecors;
+                endX = - _contDecors.width + g.stageWidth;
                 break;
         }
-
+        var newX:int;
+        newX = cont.x + delta;
+        if(newX > 0){
+         newX = 0;
+        }
+        if(newX < endX)
+        {
+            newX = endX - 20;
+        }
         var tween:Tween = new Tween(cont, 1);
-        tween.moveTo(cont.x + delta, cont.y);
+        tween.moveTo(newX, cont.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
         g.starling.juggler.add(tween);
-
     }
 }
 }

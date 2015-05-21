@@ -38,8 +38,6 @@ public class MapEditorInterfaceItem {
                 _image = new Image(g.mapAtlas.getTexture("tile4x4"));
                 break;
         }
-
-
         _image.pivotX = _image.width /2;
         _image.pivotY = _image.height /2;
         MCScaler.scale(_image,70, 70);
@@ -47,7 +45,6 @@ public class MapEditorInterfaceItem {
         _image.y = 50;
         source.addChild(_image);
         source.flatten();
-
     }
 }
 }
