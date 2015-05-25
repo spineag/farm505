@@ -18,6 +18,7 @@ import starling.textures.TextureAtlas;
 
 import temp.DataBuildings;
 import temp.DataTrees;
+import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
 import utils.FarmDispatcher;
@@ -33,7 +34,9 @@ public class Vars {
     public var realGameHeight:int = 640;
     public var isDebug:Boolean = true;
     public var showMapEditor:Boolean = true;
+    public var showButtonEditor:Boolean = true;
     public var mapEditor:MapEditorInterface;
+    public var editorButtons:EditorButtonInterface;
     public var gameDispatcher:FarmDispatcher;
 
     public var mapAtlas:TextureAtlas;
@@ -89,6 +92,9 @@ public class Vars {
 
         if(showMapEditor) {
             mapEditor = new MapEditorInterface();
+        }
+        if(showButtonEditor) {
+            editorButtons = new EditorButtonInterface();
         }
     }
 
