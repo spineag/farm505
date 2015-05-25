@@ -24,13 +24,13 @@ public class DataTrees {
 //        1
         obj = {};
         obj.id = 1;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "1x1";
+        obj.width = 1;
+        obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile2x2";
+        obj.image = "tile1";
         obj.type = ACTIVE_TREE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -42,13 +42,13 @@ public class DataTrees {
 //        2
         obj = {};
         obj.id = 2;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "1x1";
+        obj.width = 1;
+        obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile2x2";
+        obj.image = "tile1";
         obj.type = ACTIVE_TREE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -60,13 +60,13 @@ public class DataTrees {
 //         3
         obj = {};
         obj.id = 3;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "1x1";
+        obj.width = 1;
+        obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile2x2";
+        obj.image = "tile1";
         obj.type = ACTIVE_TREE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -78,13 +78,13 @@ public class DataTrees {
 //         4
         obj = {};
         obj.id = 4;
-        obj.name = "2x2";
-        obj.width = 2;
-        obj.height = 2;
+        obj.name = "1x1";
+        obj.width = 1;
+        obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile2x2";
+        obj.image = "tile1";
         obj.type = ACTIVE_TREE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -96,13 +96,13 @@ public class DataTrees {
 //         5
         obj = {};
         obj.id = 5;
-        obj.name = "3x3";
-        obj.width = 3;
-        obj.height = 3;
+        obj.name = "1x1";
+        obj.width = 1;
+        obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
         obj.url = " ";
-        obj.image = "tile3x3";
+        obj.image = "tile1";
         obj.type = ACTIVE_TREE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
