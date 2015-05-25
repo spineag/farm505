@@ -5,10 +5,15 @@ package map {
 import flash.geom.Matrix;
 import flash.geom.Point;
 
+import manager.EmbedAssets;
+
 import manager.Vars;
+
+import starling.display.Image;
 
 import starling.display.Quad;
 import starling.display.Sprite;
+import starling.textures.Texture;
 import starling.utils.Color;
 
 import utils.IsoUtils;
@@ -33,19 +38,22 @@ public class BackgroundArea {
         var tile:BackgroundTile;
         var p:Point;
 
-        var quad:Quad = new Quad(g.realGameWidth, g.realGameHeight, Color.GREEN);
+//        var quad:Quad = new Quad(g.realGameWidth, g.realGameHeight, Color.GREEN);
+        var texture:Texture = Texture.fromBitmap(new EmbedAssets.Valey());
+        var bg:Image = new Image(texture);
 
         for (var i:int = 0; i < arr.length; i++) {
             arr2 = arr[i];
             for (var j:int = 0; j < arr2.length; j++) {
                 tile = new BackgroundTile((i+j)%2 + 1, arr2[j].inGame);
                 p = new Point(i, j);
+                tile.graphicsSource.pivotX = tile.graphicsSource.width/2;
                 setTileFromIndex(tile, p);
                 _cont.addChild(tile.graphicsSource);
             }
         }
 
-        _additionalCont.addChild(quad);
+        _additionalCont.addChild(bg);
         _additionalCont.x = -_additionalCont.width/2 + MatrixGrid.DIAGONAL/2;
         _additionalCont.y = _cont.height/2 - _additionalCont.height/2;
         _cont.addChildAt(_additionalCont, 0);

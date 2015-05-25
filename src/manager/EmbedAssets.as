@@ -6,8 +6,11 @@ package manager {
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
-public class EmbedAssets
-{
+public class EmbedAssets {
+    // usual embed
+    [Embed(source="../../diff/valey.png")]
+    public static const Valey:Class;
+
     // Texture
     [Embed(source="../../assets/mapAtlas.png")]
     public static const MapTexture:Class;
@@ -39,6 +42,5 @@ public class EmbedAssets
 //
 //        g.gameAtlas = atlas;
     }
-
-   }
+}
 }

@@ -2,7 +2,6 @@
  * Created by user on 5/20/15.
  */
 package temp {
-import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Shape;
 
@@ -10,7 +9,6 @@ import manager.Vars;
 
 import starling.animation.Tween;
 
-import starling.display.Button;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -20,9 +18,9 @@ import starling.utils.Color;
 import utils.CButton;
 
 public class MapEditorInterface {
-    private const TYPE_HOUSE:String = 'house';
-    private const TYPE_TREE:String = 'tree';
-    private const TYPE_DECOR:String = 'decor';
+    public static const TYPE_HOUSE:String = 'house';
+    public static const TYPE_TREE:String = 'tree';
+    public static const TYPE_DECOR:String = 'decor';
 
     private var _type:String;
 
@@ -211,6 +209,7 @@ public class MapEditorInterface {
 
         for(var id:String in obj) {
             item = new MapEditorInterfaceItem(obj[id]);
+            item.type = TYPE_HOUSE;
             item.source.y = 20;
             item.source.x = i*80;
           _contBuildings.addChild(item.source);
@@ -224,6 +223,7 @@ public class MapEditorInterface {
 
         for (var id:String in obj) {
             item = new MapEditorInterfaceItem(obj[id]);
+            item.type = TYPE_TREE;
             item.source.y = 20;
             item.source.x = i * 80;
             _contTrees.addChild(item.source);

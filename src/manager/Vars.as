@@ -30,8 +30,8 @@ public class Vars {
     public var mainStage:Stage;
     public var stageWidth:int = 1000;
     public var stageHeight:int = 640;
-    public var realGameWidth:int = 1000;
-    public var realGameHeight:int = 640;
+    public var realGameWidth:int = 2048;
+    public var realGameHeight:int = 1500;
     public var isDebug:Boolean = true;
     public var showMapEditor:Boolean = true;
     public var showButtonEditor:Boolean = true;
@@ -95,6 +95,7 @@ public class Vars {
         }
         if(showButtonEditor) {
             editorButtons = new EditorButtonInterface();
+            matrixGrid.drawDebugGrid();
         }
 
     }

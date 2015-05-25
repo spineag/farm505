@@ -2,6 +2,8 @@
  * Created by user on 5/20/15.
  */
 package mouse {
+import flash.geom.Point;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -9,6 +11,8 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
+
+import temp.MapEditorInterface;
 
 public class ToolsModifier {
     public static var NONE:int = 0;
@@ -37,16 +41,24 @@ public class ToolsModifier {
         // добавлення іконки пересування до мишки
     }
 
-    public function startMove(buildingID:int, callback:Function = null):void {
+    public function startMove(buildingID:int, type:String, callback:Function = null):void {
         // реалізація пересування, поки тільки  для будівль для режиму MapEditor
         addMoveIcon(false);
         _callbackAfterMove = callback;
         _activeBuildingId = buildingID;
-        _imageForMove = new Image(g.mapAtlas.getTexture(String(g.dataBuilding.objectBuilding[buildingID].image)));
+        switch (type) {
+            case MapEditorInterface.TYPE_HOUSE:
+                _imageForMove = new Image(g.mapAtlas.getTexture(String(g.dataBuilding.objectBuilding[buildingID].image)));
+                break;
+            case MapEditorInterface.TYPE_TREE:
+                _imageForMove = new Image(g.mapAtlas.getTexture(String(g.dataTree.objectTree[buildingID].image)));
+                break;
+        }
+
 
         //_imageForMove.touchable = false;
         _imageForMove.pivotX = _imageForMove.width/2;
-        _imageForMove.pivotY = _imageForMove.height/2;
+//        _imageForMove.pivotY = _imageForMove.height/2;
         _imageForMove.x = _mouse.mouseX - _cont.x;
         _imageForMove.y = _mouse.mouseY - _cont.y;
         _cont.addChild(_imageForMove);
@@ -71,6 +83,8 @@ public class ToolsModifier {
     private function moveIt():void {
         _imageForMove.x = _mouse.mouseX - _cont.x;
         _imageForMove.y = _mouse.mouseY - _cont.y;
+        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_imageForMove.x, _imageForMove.y));
+        g.matrixGrid.setSpriteFromIndex(_imageForMove, point);
     }
 
     private function onEnterFrame():void {

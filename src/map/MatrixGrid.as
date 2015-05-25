@@ -2,13 +2,22 @@
  * Created by user on 5/14/15.
  */
 package map {
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.Stage3D;
+import flash.geom.Matrix;
 import flash.geom.Point;
 
 import manager.Vars;
 
 import pathFinder.V_GrafGrid;
 
+import starling.display.DisplayObject;
+import starling.display.Image;
+
 import starling.display.Sprite;
+import starling.textures.Texture;
+import starling.utils.Color;
 
 import utils.IsoUtils;
 
@@ -23,6 +32,8 @@ public class MatrixGrid {
     private var _graf:V_GrafGrid;
 
     private var _matrix:Array;
+    private var _matrixSize:int;
+    private var _gridTexture:Texture;
 //    private var _finder:V_Finder;
 //    private var _hev:V_HevristicToTarget;
 
@@ -40,17 +51,14 @@ public class MatrixGrid {
 
         var tempWidth:int = int(g.realGameWidth / DIAGONAL + .5);
         var tempHeight:int = int(g.realGameHeight / (DIAGONAL / 2) + .5);
-        var size:int = tempWidth + tempHeight;
+        _matrixSize = tempWidth + tempHeight;
 
-        _offsetY = size*FACTOR/2 - g.realGameHeight/2;
+        _offsetY = _matrixSize*FACTOR/2 - g.realGameHeight/2;
 
-        for (var i:int = 0; i < size; i++) {
+        for (var i:int = 0; i < _matrixSize; i++) {
             _matrix.push([]);
-            for (var j:int = 0; j < size; j++) {
+            for (var j:int = 0; j < _matrixSize; j++) {
                 _matrix[i][j] = {id: 0, sources: [], inGame: isTileInGame(i, j), findId: 0};
-//                if (matrix[i][j].isNorm) {
-//                    matrix[i][j].findId = 0;
-//                }
             }
         }
 
@@ -59,8 +67,8 @@ public class MatrixGrid {
 
     private function isTileInGame(i:int, j:int):Boolean { // перевіряємо чи тайл попадає в ігрову зону, якщо ні - то його не використовуємо
         var p:Point = getXYFromIndex(new Point(i,j));
-        if (p.x < -g.realGameWidth/2 || p.x > g.realGameWidth/2) return false;
-        if (p.y < _offsetY || p.y > g.realGameHeight + _offsetY) return false;
+        if (p.x < -g.realGameWidth/2 + DIAGONAL|| p.x > g.realGameWidth/2) return false;
+        if (p.y < _offsetY || p.y > g.realGameHeight + _offsetY - FACTOR) return false;
         return true;
     }
 
@@ -75,6 +83,15 @@ public class MatrixGrid {
         cityObject.posY = point.y;
     }
 
+    public function setSpriteFromIndex(sp:DisplayObject, point:Point):void {
+        var pos:Point3D = new Point3D();
+        pos.x = point.x * FACTOR;
+        pos.z = point.y * FACTOR;
+        var isoPoint:Point = IsoUtils.isoToScreen(pos);
+        sp.x = isoPoint.x;
+        sp.y = isoPoint.y;
+    }
+
     public function getLengthMatrix():int {
         return _matrix.length;
     }
@@ -87,10 +104,10 @@ public class MatrixGrid {
         return _matrix;
     }
 
-    public function getIndexFromXY(point:Point):Point {  //martix[i][j] => Point(i,j) - це індекс
+    public function getIndexFromXY(point:Point):Point {
         var point3d:Point3D = IsoUtils.screenToIso(point);
-        var bufX:int = Math.round(point3d.x / FACTOR);
-        var bufY:int = Math.round(point3d.z / FACTOR);
+        var bufX:int = int(point3d.x / FACTOR);
+        var bufY:int = int(point3d.z / FACTOR);
 
         return new Point(bufX, bufY);
     }
@@ -103,13 +120,47 @@ public class MatrixGrid {
     }
 
     public function drawDebugGrid():void {
-        var cont:Sprite = g.cont.gridDebugCont;
+        createGridTexture();
 
-
+        for (var i:int = 0; i < _matrixSize; i++) {
+            for (var j:int = 0; j < _matrixSize; j++) {
+                if (_matrix[i][j].inGame) {
+                    drawGrid(i, j);
+                }
+            }
+        }
+        g.cont.gridDebugCont.flatten();
     }
 
     public function deleteDebugGrid():void {
-
+        g.cont.gridDebugCont.unflatten();
+        while (g.cont.gridDebugCont.numChildren) {
+            g.cont.gridDebugCont.removeChildAt(0);
+        }
     }
+
+    private function drawGrid(i:int, j:int):void {
+        var im:Image;
+        im = new Image(_gridTexture);
+        im.alpha= .5;
+        im.pivotX = im.width/2;
+        setSpriteFromIndex(im, new Point(i, j));
+        g.cont.gridDebugCont.addChild(im);
+    }
+
+    private function createGridTexture():void {
+        var sp:flash.display.Shape = new flash.display.Shape();
+        sp.graphics.lineStyle(1, Color.WHITE);
+        sp.graphics.moveTo(DIAGONAL/2, 0);
+        sp.graphics.lineTo(0, FACTOR/2);
+        sp.graphics.lineTo(DIAGONAL/2, FACTOR);
+        sp.graphics.lineTo(DIAGONAL, FACTOR/2);
+        sp.graphics.lineTo(DIAGONAL/2, 0);
+        var BMP:BitmapData = new BitmapData(DIAGONAL, FACTOR, true, 0x00000000);
+        BMP.draw(sp);
+        _gridTexture = Texture.fromBitmapData(BMP,false, false);
+    }
+
+
 }
 }

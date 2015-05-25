@@ -18,6 +18,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 public class MapEditorInterfaceItem {
+    public var type:String;
     public var source:CSprite;
     private var _txt:TextField;
     private var _image:Image;
@@ -48,7 +49,7 @@ public class MapEditorInterfaceItem {
     }
 
     private function onEndClick():void {
-        g.toolsModifier.startMove(_data.id, afterMove);
+        g.toolsModifier.startMove(_data.id, type, afterMove);
     }
 
     private function afterMove(p:Point):void {
