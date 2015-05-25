@@ -67,6 +67,7 @@ public class Vars {
     }
 
     private function initVariables():void {
+        gameDispatcher = new FarmDispatcher(mainStage);
         cont = new Containers();
         matrixGrid = new MatrixGrid();
         dataBuilding = new DataBuildings();

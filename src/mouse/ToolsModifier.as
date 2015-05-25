@@ -6,6 +6,7 @@ import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.events.Event;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 
@@ -43,7 +44,7 @@ public class ToolsModifier {
         _activeBuildingId = buildingID;
         _imageForMove = new Image(g.mapAtlas.getTexture(String(g.dataBuilding.objectBuilding[buildingID].image)));
 
-        _imageForMove.touchable = false;
+        //_imageForMove.touchable = false;
         _imageForMove.pivotX = _imageForMove.width/2;
         _imageForMove.pivotY = _imageForMove.height/2;
         _imageForMove.x = _mouse.mouseX - _cont.x;
@@ -54,24 +55,26 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
 
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
+        g.gameDispatcher.addEnterFrame(onEnterFrame);
     }
 
     private function onTouch(te:TouchEvent):void {
-        if (te.getTouch(_cont, TouchPhase.MOVED)) {
-            moveIt();
-        }
-
         if (te.getTouch(_cont, TouchPhase.ENDED)) {
             if (_callbackAfterMove != null) {
                 _callbackAfterMove.apply(null, [te.touches[0].getLocation(g.mainStage)])
             }
             _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
+            g.gameDispatcher.removeEnterFrame(onEnterFrame);
         }
     }
 
     private function moveIt():void {
         _imageForMove.x = _mouse.mouseX - _cont.x;
         _imageForMove.y = _mouse.mouseY - _cont.y;
+    }
+
+    private function onEnterFrame():void {
+        moveIt();
     }
 }
 }

@@ -44,15 +44,14 @@ public class MapEditorInterfaceItem {
         source.addChild(_image);
         source.flatten();
 
-//        source.addEventListener(Event.TRIGGERED, onTriggered);
-        source.clickCallback = onTriggered;
+        source.endClickCallback = onEndClick;
     }
 
-    private function onTriggered():void {
-        g.toolsModifier.startMove(_data.id, onMove);
+    private function onEndClick():void {
+        g.toolsModifier.startMove(_data.id, afterMove);
     }
 
-    private function onMove(p:Point):void {
+    private function afterMove(p:Point):void {
         trace('point: ' + p);
     }
 }

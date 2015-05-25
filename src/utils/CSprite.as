@@ -11,7 +11,8 @@ import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 
 public class CSprite extends Sprite {
-    private var _clickCallback:Function;
+    private var _endClickCallback:Function;
+    private var _startClickCallback:Function;
     private var _hoverCallback:Function;
     private var _outCallback:Function;
 
@@ -25,10 +26,13 @@ public class CSprite extends Sprite {
 
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
             Mouse.cursor = OwnMouse.CLICK_CURSOR;
+            if (_startClickCallback != null) {
+                _startClickCallback.apply();
+            }
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
-            if (_clickCallback != null) {
-                _clickCallback.apply();
+            if (_endClickCallback != null) {
+                _endClickCallback.apply();
             }
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
             Mouse.cursor = OwnMouse.HOVER_CURSOR;
@@ -43,8 +47,12 @@ public class CSprite extends Sprite {
         }
     }
 
-    public function set clickCallback(f:Function):void {
-        _clickCallback = f;
+    public function set endClickCallback(f:Function):void {
+        _endClickCallback = f;
+    }
+
+    public function set startClickCallback(f:Function):void {
+        _startClickCallback = f;
     }
 
     public function set hoverCallback(f:Function):void {
