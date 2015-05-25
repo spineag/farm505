@@ -17,6 +17,7 @@ import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
 import temp.DataBuildings;
+import temp.DataTrees;
 import temp.MapEditorInterface;
 
 import utils.FarmDispatcher;
@@ -46,6 +47,7 @@ public class Vars {
     public var background:BackgroundArea;
 
     public var dataBuilding:DataBuildings;
+    public var dataTree:DataTrees;
 //    public var selectedBuild:
 
     public static function getInstance():Vars {
@@ -71,6 +73,7 @@ public class Vars {
         cont = new Containers();
         matrixGrid = new MatrixGrid();
         dataBuilding = new DataBuildings();
+        dataTree = new DataTrees();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
 

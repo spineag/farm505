@@ -136,7 +136,7 @@ public class MapEditorInterface {
 
         fillIt();
         fillHouses();
-//        fillTrees();
+        fillTrees();
 //        fillDecors();
     }
 
@@ -215,6 +215,20 @@ public class MapEditorInterface {
             item.source.x = i*80;
           _contBuildings.addChild(item.source);
             i++;
+        }
+    }
+    private function fillTrees():void {
+        var obj:Object = g.dataTree.objectTree;
+        var item:MapEditorInterfaceItem;
+        var i:int = 0;
+
+        for (var id:String in obj) {
+            item = new MapEditorInterfaceItem(obj[id]);
+            item.source.y = 20;
+            item.source.x = i * 80;
+            _contTrees.addChild(item.source);
+            i++;
+
         }
     }
 
