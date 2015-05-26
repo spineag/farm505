@@ -304,18 +304,27 @@ public class MapEditorInterface {
         var f1:Function = function ():void {
             _typeEditor = TYPE_MOVE_EDITOR;
             checkTypeEditor();
+            if (_typeEditor == TYPE_MOVE_EDITOR)
+            {
+                _typeEditor = TYPE_NONE_EDITOR;
+            }
+
+
         };
         _moveBtn.source.endClickCallback = f1;
 
         var f2:Function = function ():void {
             _typeEditor = TYPE_ROTATE_EDITOR;
+
             checkTypeEditor();
+
         };
         _rotateBtn.source.endClickCallback = f2;
 
         var f3:Function = function ():void {
             _typeEditor = TYPE_CANCEL_EDITOR;
             checkTypeEditor();
+
         };
         _cancelBtn.source.endClickCallback = f3;
     }
@@ -336,6 +345,7 @@ public class MapEditorInterface {
                 break;
             case TYPE_CANCEL_EDITOR:
                 _cancelBtn.source.y = -20;
+
                 break;
         }
     }
