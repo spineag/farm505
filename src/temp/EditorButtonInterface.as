@@ -18,8 +18,8 @@ import utils.MCScaler;
 public class EditorButtonInterface {
 
     public var source:Sprite;
-    public var spriteBtn;Sprite;
-    public var iconEditor:Image;
+
+    private var _iconEditor:Image;
 
     private var _buttonEditor:CButton;
     private var g:Vars = Vars.getInstance();
@@ -40,28 +40,17 @@ public class EditorButtonInterface {
         BMP.draw(shape);
         var Txr:Texture = Texture.fromBitmapData(BMP,false, false);
         _buttonEditor = new CButton(Txr);
-        _buttonEditor.x = 400;
         source.addChild(_buttonEditor);
-
     }
-
 
         public function IconButton(s:String):void {
-
-
-            spriteBtn = new Sprite();
-            iconEditor = new Image(g.mapAtlas.getTexture(""));
-            MCScaler.scale(iconEditor,50,50);
-            iconEditor.pivotX = iconEditor.width / 2;
-            iconEditor.pivotY = iconEditor.height / 2;
-            iconEditor.x = 0;
-            iconEditor.y = g.stageHeight - 100;
-            spriteBtn.addChild(iconEditor)
-            s = new String(spriteBtn);
-
-
-
+            _iconEditor = new Image(g.mapAtlas.getTexture(s));
+            MCScaler.scale(_iconEditor,50,50);
+            _iconEditor.pivotX = _iconEditor.width / 2;
+            _iconEditor.pivotY = _iconEditor.height / 2;
+            _iconEditor.x = 0;
+            _iconEditor.y = g.stageHeight - 100;
+            source.addChild(_iconEditor);
         }
     }
-
 }

@@ -36,9 +36,9 @@ public class MapEditorInterface {
     private var _houseBtn:CButton;
     private var _treeBtn:CButton;
     private var _decorBtn:CButton;
-   // private var _moveBtn:EditorButtonInterface;
-  //  private var _rotateBtn:EditorButtonInterface;
-   // private var _cancelBtn:EditorButtonInterface;
+    private var _moveBtn:EditorButtonInterface;
+     private var _rotateBtn:EditorButtonInterface;
+     private var _cancelBtn:EditorButtonInterface;
 
 
     private var g:Vars = Vars.getInstance();
@@ -273,13 +273,31 @@ public class MapEditorInterface {
     }
 
     private function EditorButton():void{
-      var _moveBtn:EditorButtonInterface;
+        _moveBtn = new EditorButtonInterface();
         _moveBtn.IconButton("Move");
-        _moveBtn.iconEditor.x = 300;
-        _moveBtn.iconEditor.y = g.stageHeight - 100;
+        _moveBtn.source.x = 300;
+        _allTable.addChild(_moveBtn.source);
 
+        _rotateBtn = new EditorButtonInterface();
+        _rotateBtn.IconButton("Rotate");
+        _rotateBtn.source.x = 400;
+        _allTable.addChild(_rotateBtn.source);
+
+        _cancelBtn = new EditorButtonInterface();
+        _cancelBtn.IconButton("Cancel");
+        _cancelBtn.source.x = 500;
+        _allTable.addChild(_cancelBtn.source);
+
+//        _moveBtn.addEventListener(Event.TRIGGERED,onTriggeredEditor);
+//        _rotateBtn.addEventListener(Event.TRIGGERED,onTriggeredEditor);
+//        _cancelBtn.addEventListener(Event.TRIGGERED,onTriggeredEditor);
 
 
     }
+
+//    private function onTriggeredEditor(e:Event):void{
+//
+//
+//    }
 }
 }
