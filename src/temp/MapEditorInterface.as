@@ -8,6 +8,7 @@ import flash.display.Shape;
 import manager.Vars;
 
 import starling.animation.Tween;
+import starling.display.Image;
 
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -35,6 +36,10 @@ public class MapEditorInterface {
     private var _houseBtn:CButton;
     private var _treeBtn:CButton;
     private var _decorBtn:CButton;
+   // private var _moveBtn:EditorButtonInterface;
+  //  private var _rotateBtn:EditorButtonInterface;
+   // private var _cancelBtn:EditorButtonInterface;
+
 
     private var g:Vars = Vars.getInstance();
 
@@ -265,6 +270,16 @@ public class MapEditorInterface {
             g.starling.juggler.remove(tween);
         };
         g.starling.juggler.add(tween);
+    }
+
+    private function EditorButton():void{
+      var _moveBtn:EditorButtonInterface;
+        _moveBtn.IconButton("Move");
+        _moveBtn.iconEditor.x = 300;
+        _moveBtn.iconEditor.y = g.stageHeight - 100;
+
+
+
     }
 }
 }
