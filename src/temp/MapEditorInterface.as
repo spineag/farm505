@@ -22,11 +22,12 @@ public class MapEditorInterface {
     public static const TYPE_HOUSE:String = 'house';
     public static const TYPE_TREE:String = 'tree';
     public static const TYPE_DECOR:String = 'decor';
-    public static const TYPE_MOVE:String = 'move';
-    public static const TYPE_ROTATE:String = 'rotate';
-    public static const TYPE_CANCEL:String = 'cancel';
+    public static const TYPE_MOVE_EDITOR:String = 'move';
+    public static const TYPE_ROTATE_EDITOR:String = 'rotate';
+    public static const TYPE_CANCEL_EDITOR:String = 'cancel';
 
     private var _type:String;
+    private var _typeEditor:String;
 
     private var _allTable:Sprite;
     private var _contBuildings:Sprite;
@@ -293,7 +294,7 @@ public class MapEditorInterface {
         _cancelBtn.source.x = 780;
         _allTable.addChild(_cancelBtn.source);
 
-        _type = TYPE_MOVE;
+        _typeEditor = TYPE_MOVE_EDITOR;
 
         checkTypeEditor();
 
@@ -306,17 +307,17 @@ public class MapEditorInterface {
        // _rotateBtn.source.y = 30;
        // _cancelBtn.source.y = 30;
 
-        switch (_type) {
-            case TYPE_MOVE:
-                _moveBtn.source.y =-23;
+        switch (_typeEditor) {
+            case TYPE_MOVE_EDITOR:
+                _moveBtn.source.y =-40;
 
                 break;
-            case TYPE_ROTATE:
-                _rotateBtn.source.y = -7;
+            case TYPE_ROTATE_EDITOR:
+                _rotateBtn.source.y = -40;
 
                 break;
-            case TYPE_CANCEL:
-                _cancelBtn.source.y = -7;
+            case TYPE_CANCEL_EDITOR:
+                _cancelBtn.source.y = -40;
                 break;
         }
     }
@@ -324,13 +325,13 @@ public class MapEditorInterface {
     private function onTriggeredEditor(e:Event):void{
          switch (e.target){
              case _moveBtn:
-                 _type = TYPE_MOVE;
+                 _typeEditor = TYPE_MOVE_EDITOR;
                  break;
              case _rotateBtn:
-                 _type = TYPE_ROTATE;
+                 _typeEditor = TYPE_ROTATE_EDITOR;
                  break;
              case _cancelBtn:
-                 _type = TYPE_CANCEL;
+                 _typeEditor = TYPE_CANCEL_EDITOR;
                  break;
          }
 
