@@ -142,7 +142,7 @@ public class MatrixGrid {
     private function drawGrid(i:int, j:int):void {
         var im:Image;
         im = new Image(_gridTexture);
-        im.alpha= .5;
+        im.alpha = .5;
         im.pivotX = im.width/2;
         setSpriteFromIndex(im, new Point(i, j));
         g.cont.gridDebugCont.addChild(im);

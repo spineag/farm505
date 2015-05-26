@@ -7,19 +7,20 @@ package temp {
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
-import starling.display.Sprite;
 import starling.utils.Color;
+
+import utils.CSprite;
 
 import utils.MCScaler;
 
 public class EditorButtonInterface {
 
-    public var source:Sprite;
+    public var source:CSprite;
     private var _iconEditor:Image;
     private var g:Vars = Vars.getInstance();
 
     public function EditorButtonInterface() {
-        source = new Sprite();
+        source = new CSprite();
         source.y = - 10;
         var quad:Quad = new Quad(30, 50, Color.WHITE);
         source.addChild(quad);

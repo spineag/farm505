@@ -22,9 +22,11 @@ public class MapEditorInterface {
     public static const TYPE_HOUSE:String = 'house';
     public static const TYPE_TREE:String = 'tree';
     public static const TYPE_DECOR:String = 'decor';
+
     public static const TYPE_MOVE_EDITOR:String = 'move';
     public static const TYPE_ROTATE_EDITOR:String = 'rotate';
     public static const TYPE_CANCEL_EDITOR:String = 'cancel';
+    public static const TYPE_NONE_EDITOR:String = 'none';
 
     private var _type:String;
     private var _typeEditor:String;
@@ -164,8 +166,8 @@ public class MapEditorInterface {
         _houseBtn.addEventListener(Event.TRIGGERED,onTriggered);
         _treeBtn.addEventListener(Event.TRIGGERED,onTriggered);
         _decorBtn.addEventListener(Event.TRIGGERED,onTriggered);
-        _leftArrow.addEventListener(Event.TRIGGERED,onTriggered)
-        _rightArrow.addEventListener(Event.TRIGGERED,onTriggered)
+        _leftArrow.addEventListener(Event.TRIGGERED,onTriggered);
+        _rightArrow.addEventListener(Event.TRIGGERED,onTriggered);
     }
 
     private function checkType():void {
@@ -294,49 +296,48 @@ public class MapEditorInterface {
         _cancelBtn.source.x = 780;
         _allTable.addChild(_cancelBtn.source);
 
-        _typeEditor = TYPE_MOVE_EDITOR;
+        _typeEditor = TYPE_NONE_EDITOR;
 
         checkTypeEditor();
 
-        _moveBtn.source.addEventListener(Event.TRIGGERED, onTriggeredEditor);
-        _rotateBtn.source.addEventListener(Event.TRIGGERED, onTriggeredEditor);
-        _cancelBtn.source.addEventListener(Event.TRIGGERED, onTriggeredEditor);
+
+        var f1:Function = function ():void {
+            _typeEditor = TYPE_MOVE_EDITOR;
+            checkTypeEditor();
+        };
+        _moveBtn.source.endClickCallback = f1;
+
+        var f2:Function = function ():void {
+            _typeEditor = TYPE_ROTATE_EDITOR;
+            checkTypeEditor();
+        };
+        _rotateBtn.source.endClickCallback = f2;
+
+        var f3:Function = function ():void {
+            _typeEditor = TYPE_CANCEL_EDITOR;
+            checkTypeEditor();
+        };
+        _cancelBtn.source.endClickCallback = f3;
     }
+
     private function checkTypeEditor():void {
-        //_moveBtn.source.y = 30;
-       // _rotateBtn.source.y = 30;
-       // _cancelBtn.source.y = 30;
+        _moveBtn.source.y = -10;
+        _rotateBtn.source.y = -10;
+        _cancelBtn.source.y = -10;
 
         switch (_typeEditor) {
             case TYPE_MOVE_EDITOR:
-                _moveBtn.source.y =-40;
+                _moveBtn.source.y = -20;
 
                 break;
             case TYPE_ROTATE_EDITOR:
-                _rotateBtn.source.y = -40;
+                _rotateBtn.source.y = -20;
 
                 break;
             case TYPE_CANCEL_EDITOR:
-                _cancelBtn.source.y = -40;
+                _cancelBtn.source.y = -20;
                 break;
         }
     }
-
-    private function onTriggeredEditor(e:Event):void{
-         switch (e.target){
-             case _moveBtn:
-                 _typeEditor = TYPE_MOVE_EDITOR;
-                 break;
-             case _rotateBtn:
-                 _typeEditor = TYPE_ROTATE_EDITOR;
-                 break;
-             case _cancelBtn:
-                 _typeEditor = TYPE_CANCEL_EDITOR;
-                 break;
-         }
-
-        checkTypeEditor();
-    }
-
 }
 }
