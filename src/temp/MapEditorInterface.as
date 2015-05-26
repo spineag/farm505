@@ -22,6 +22,9 @@ public class MapEditorInterface {
     public static const TYPE_HOUSE:String = 'house';
     public static const TYPE_TREE:String = 'tree';
     public static const TYPE_DECOR:String = 'decor';
+    public static const TYPE_MOVE:String = 'move';
+    public static const TYPE_ROTATE:String = 'rotate';
+    public static const TYPE_CANCEL:String = 'cancel';
 
     private var _type:String;
 
@@ -290,16 +293,49 @@ public class MapEditorInterface {
         _cancelBtn.source.x = 780;
         _allTable.addChild(_cancelBtn.source);
 
+        _type = TYPE_MOVE;
+
+        checkTypeEditor();
+
         _moveBtn.source.addEventListener(Event.TRIGGERED, onTriggeredEditor);
         _rotateBtn.source.addEventListener(Event.TRIGGERED, onTriggeredEditor);
         _cancelBtn.source.addEventListener(Event.TRIGGERED, onTriggeredEditor);
+    }
+    private function checkTypeEditor():void {
+        //_moveBtn.source.y = 30;
+       // _rotateBtn.source.y = 30;
+       // _cancelBtn.source.y = 30;
 
+        switch (_type) {
+            case TYPE_MOVE:
+                _moveBtn.source.y =-23;
 
+                break;
+            case TYPE_ROTATE:
+                _rotateBtn.source.y = -7;
+
+                break;
+            case TYPE_CANCEL:
+                _cancelBtn.source.y = -7;
+                break;
+        }
     }
 
     private function onTriggeredEditor(e:Event):void{
+         switch (e.target){
+             case _moveBtn:
+                 _type = TYPE_MOVE;
+                 break;
+             case _rotateBtn:
+                 _type = TYPE_ROTATE;
+                 break;
+             case _cancelBtn:
+                 _type = TYPE_CANCEL;
+                 break;
+         }
 
-
+        checkTypeEditor();
     }
+
 }
 }
