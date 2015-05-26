@@ -48,6 +48,8 @@ public class MapEditorInterface {
         _allTable.y = g.stageHeight - 100;
         g.cont.interfaceCont.addChild(_allTable);
 
+        setEditorButtons();
+
         _contBuildings = new Sprite();
         _allTable.addChild(_contBuildings);
 
@@ -272,32 +274,32 @@ public class MapEditorInterface {
         g.starling.juggler.add(tween);
     }
 
-    private function EditorButton():void{
+    private function setEditorButtons():void{
         _moveBtn = new EditorButtonInterface();
-        _moveBtn.IconButton("Move");
-        _moveBtn.source.x = 300;
+        _moveBtn.setIconButton("Move");
+        _moveBtn.source.x = 700;
         _allTable.addChild(_moveBtn.source);
 
         _rotateBtn = new EditorButtonInterface();
-        _rotateBtn.IconButton("Rotate");
-        _rotateBtn.source.x = 400;
+        _rotateBtn.setIconButton("Rotate");
+        _rotateBtn.source.x = 740;
         _allTable.addChild(_rotateBtn.source);
 
         _cancelBtn = new EditorButtonInterface();
-        _cancelBtn.IconButton("Cancel");
-        _cancelBtn.source.x = 500;
+        _cancelBtn.setIconButton("Cancel");
+        _cancelBtn.source.x = 780;
         _allTable.addChild(_cancelBtn.source);
 
-//        _moveBtn.addEventListener(Event.TRIGGERED,onTriggeredEditor);
-//        _rotateBtn.addEventListener(Event.TRIGGERED,onTriggeredEditor);
-//        _cancelBtn.addEventListener(Event.TRIGGERED,onTriggeredEditor);
+        _moveBtn.source.addEventListener(Event.TRIGGERED, onTriggeredEditor);
+        _rotateBtn.source.addEventListener(Event.TRIGGERED, onTriggeredEditor);
+        _cancelBtn.source.addEventListener(Event.TRIGGERED, onTriggeredEditor);
 
 
     }
 
-//    private function onTriggeredEditor(e:Event):void{
-//
-//
-//    }
+    private function onTriggeredEditor(e:Event):void{
+
+
+    }
 }
 }
