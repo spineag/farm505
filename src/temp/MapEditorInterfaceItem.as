@@ -36,10 +36,14 @@ public class MapEditorInterfaceItem {
         _txt.x = 45 - _txt.width/2;
         _txt.y = 5;
         source.addChild(_txt);
-        _image = new Image(g.mapAtlas.getTexture(_data.image));
+        if (_data.url == "buildAtlas") {
+            _image = new Image(g.tempBuildAtlas.getTexture(_data.image));
+        } else {
+            _image = new Image(g.mapAtlas.getTexture(_data.image));
+        }
         _image.pivotX = _image.width /2;
         _image.pivotY = _image.height /2;
-        MCScaler.scale(_image,70, 70);
+        MCScaler.scale(_image, 50, 50);
         _image.x = 45;
         _image.y = 50;
         source.addChild(_image);
@@ -49,7 +53,7 @@ public class MapEditorInterfaceItem {
     }
 
     private function onEndClick():void {
-        g.toolsModifier.startMove(_data.id, type, afterMove);
+        g.toolsModifier.startMove(_data, type, afterMove);
     }
 
     private function afterMove(p:Point):void {

@@ -14,23 +14,25 @@ public class DataTrees {
     public function DataTrees() {
         objectTree={};
 
-        filltree();
+        fillTree();
 
 
     }
 
-    private function filltree():void {
+    private function fillTree():void {
         var obj:Object;
 //        1
         obj = {};
         obj.id = 1;
-        obj.name = "1x1";
+        obj.name = "tree1";
         obj.width = 1;
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = " ";
-        obj.image = "tile1";
+        obj.innerX = -33;
+        obj.innerY = -58;
+        obj.url = "buildAtlas";
+        obj.image = "tree1";
         obj.type = ACTIVE_TREE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -42,13 +44,15 @@ public class DataTrees {
 //        2
         obj = {};
         obj.id = 2;
-        obj.name = "1x1";
+        obj.name = "tree2";
         obj.width = 1;
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = " ";
-        obj.image = "tile1";
+        obj.innerX = -33;
+        obj.innerY = -63;
+        obj.url = "buildAtlas";
+        obj.image = "tree2";
         obj.type = ACTIVE_TREE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -60,13 +64,15 @@ public class DataTrees {
 //         3
         obj = {};
         obj.id = 3;
-        obj.name = "1x1";
+        obj.name = "tree3";
         obj.width = 1;
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = " ";
-        obj.image = "tile1";
+        obj.innerX = -28;
+        obj.innerY = -64;
+        obj.url = "buildAtlas";
+        obj.image = "tree3";
         obj.type = ACTIVE_TREE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -78,13 +84,15 @@ public class DataTrees {
 //         4
         obj = {};
         obj.id = 4;
-        obj.name = "1x1";
+        obj.name = "tree4";
         obj.width = 1;
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = " ";
-        obj.image = "tile1";
+        obj.innerX = -36;
+        obj.innerY = -59;
+        obj.url = "buildAtlas";
+        obj.image = "tree4";
         obj.type = ACTIVE_TREE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
@@ -96,11 +104,33 @@ public class DataTrees {
 //         5
         obj = {};
         obj.id = 5;
-        obj.name = "1x1";
+        obj.name = "tree5";
         obj.width = 1;
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
+        obj.innerX = -27;
+        obj.innerY = -60;
+        obj.url = "buildAtlas";
+        obj.image = "tree5";
+        obj.type = ACTIVE_TREE;
+        obj.cost = 10;
+        obj.currency = SOFT_CURRENCY;
+        obj.blockByLevel = 1;
+        obj.arrayResources = [];
+        obj.skipBuildIt = 1;
+        obj.buildTime = 10000;
+        objectTree[obj.id ] = obj;
+//         6
+        obj = {};
+        obj.id = 6;
+        obj.name = "tree6";
+        obj.width = 1;
+        obj.height = 1;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = 0;
+        obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile1";
         obj.type = ACTIVE_TREE;

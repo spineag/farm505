@@ -23,8 +23,8 @@ public class ToolsModifier {
     public static var PLANT_SEED:int = 5;
     public static var PLANT_TREES:int = 6;
 
-    private var _activeBuildingId:int;
-    private var _imageForMove:Image;
+    private var _activeBuildingData:Object;
+    private var _spriteForMove:Sprite;
     private var _cont:Sprite;
     private var _callbackAfterMove:Function;
     private var _mouse:OwnMouse;
@@ -41,27 +41,27 @@ public class ToolsModifier {
         // добавлення іконки пересування до мишки
     }
 
-    public function startMove(buildingID:int, type:String, callback:Function = null):void {
+    public function startMove(buildingData:Object, type:String, callback:Function = null):void {
         // реалізація пересування, поки тільки  для будівль для режиму MapEditor
+        var im:Image;
+
         addMoveIcon(false);
+        _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
-        _activeBuildingId = buildingID;
-        switch (type) {
-            case MapEditorInterface.TYPE_HOUSE:
-                _imageForMove = new Image(g.mapAtlas.getTexture(String(g.dataBuilding.objectBuilding[buildingID].image)));
-                break;
-            case MapEditorInterface.TYPE_TREE:
-                _imageForMove = new Image(g.mapAtlas.getTexture(String(g.dataTree.objectTree[buildingID].image)));
-                break;
+        _activeBuildingData = buildingData;
+        if (_activeBuildingData.url == "buildAtlas") {
+            im  = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
+            im.x = _activeBuildingData.innerX;
+            im.y = _activeBuildingData.innerY;
+        } else {
+            im  = new Image(g.mapAtlas.getTexture(_activeBuildingData.image));
+            im.x = -im.width/2;
         }
 
-
-        //_imageForMove.touchable = false;
-        _imageForMove.pivotX = _imageForMove.width/2;
-//        _imageForMove.pivotY = _imageForMove.height/2;
-        _imageForMove.x = _mouse.mouseX - _cont.x;
-        _imageForMove.y = _mouse.mouseY - _cont.y;
-        _cont.addChild(_imageForMove);
+        _spriteForMove.addChild(im);
+        _spriteForMove.x = _mouse.mouseX - _cont.x;
+        _spriteForMove.y = _mouse.mouseY - _cont.y;
+        _cont.addChild(_spriteForMove);
 
         _cont.x = g.cont.gameCont.x;
         _cont.y = g.cont.gameCont.y;
@@ -81,10 +81,10 @@ public class ToolsModifier {
     }
 
     private function moveIt():void {
-        _imageForMove.x = _mouse.mouseX - _cont.x;
-        _imageForMove.y = _mouse.mouseY - _cont.y;
-        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_imageForMove.x, _imageForMove.y));
-        g.matrixGrid.setSpriteFromIndex(_imageForMove, point);
+        _spriteForMove.x = _mouse.mouseX - _cont.x;
+        _spriteForMove.y = _mouse.mouseY - _cont.y;
+        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
+        g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
     }
 
     private function onEnterFrame():void {

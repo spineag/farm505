@@ -14,14 +14,14 @@ public class EmbedAssets {
     // Texture
     [Embed(source="../../assets/mapAtlas.png")]
     public static const MapTexture:Class;
-//    [Embed(source="../../assets/stadium_page.png")]
-//    public static const GameTexture:Class;
+    [Embed(source="../../assets/buildAndTree2.png")]
+    public static const BuildTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
     public static const MapTextureXML:Class;
-//    [Embed(source="../../assets/stadium_page.xml", mimeType="application/octet-stream")]
-//    public static const GameTextureXML:Class;
+    [Embed(source="../../assets/buildAndTree2.xml", mimeType="application/octet-stream")]
+    public static const BuildTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -32,15 +32,11 @@ public class EmbedAssets {
     private function createTexture():void {
         var texture:Texture = Texture.fromBitmap(new MapTexture());
         var xml:XML = XML(new MapTextureXML());
-        var atlas:TextureAtlas = new TextureAtlas(texture, xml);
+        g.mapAtlas = new TextureAtlas(texture, xml);
 
-        g.mapAtlas = atlas;
-
-//        texture = Texture.fromBitmap(new GameTexture());
-//        xml = XML(new GameTextureXML());
-//        atlas = new TextureAtlas(texture, xml);
-//
-//        g.gameAtlas = atlas;
+        texture = Texture.fromBitmap(new BuildTexture());
+        xml= XML(new BuildTextureXML());
+        g.tempBuildAtlas = new TextureAtlas(texture, xml);
     }
 }
 }

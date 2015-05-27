@@ -40,6 +40,7 @@ public class Vars {
     public var gameDispatcher:FarmDispatcher;
 
     public var mapAtlas:TextureAtlas;
+    public var tempBuildAtlas:TextureAtlas;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
