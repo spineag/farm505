@@ -26,6 +26,7 @@ public class MapEditorInterface {
     public static const TYPE_MOVE_EDITOR:String = 'move';
     public static const TYPE_ROTATE_EDITOR:String = 'rotate';
     public static const TYPE_CANCEL_EDITOR:String = 'cancel';
+    public static const TYPE_ACTIVE_EDITOR:String = 'rhomb';
     public static const TYPE_NONE_EDITOR:String = 'none';
 
     private var _type:String;
@@ -43,8 +44,9 @@ public class MapEditorInterface {
     private var _treeBtn:CButton;
     private var _decorBtn:CButton;
     private var _moveBtn:EditorButtonInterface;
-     private var _rotateBtn:EditorButtonInterface;
-     private var _cancelBtn:EditorButtonInterface;
+    private var _rotateBtn:EditorButtonInterface;
+    private var _cancelBtn:EditorButtonInterface;
+    private var _activeBtn:EditorButtonInterface;
 
 
     private var g:Vars = Vars.getInstance();
@@ -296,36 +298,61 @@ public class MapEditorInterface {
         _cancelBtn.source.x = 780;
         _allTable.addChild(_cancelBtn.source);
 
+        _activeBtn = new EditorButtonInterface();
+        _activeBtn.setIconButton("Active");
+        _activeBtn.source.x = 840;
+        _allTable.addChild(_activeBtn.source);
+
         _typeEditor = TYPE_NONE_EDITOR;
 
         checkTypeEditor();
 
 
         var f1:Function = function ():void {
+            if(_typeEditor == TYPE_ACTIVE_EDITOR){
+                _typeEditor = TYPE_ACTIVE_EDITOR;
+            } else {
             _typeEditor == TYPE_MOVE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_MOVE_EDITOR;
+                }
             checkTypeEditor();
         };
         _moveBtn.source.endClickCallback = f1;
 
         var f2:Function = function ():void {
-            _typeEditor == TYPE_ROTATE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_ROTATE_EDITOR;
+            if(_typeEditor == TYPE_ACTIVE_EDITOR){
+                _typeEditor = TYPE_ACTIVE_EDITOR;
+            } else {
+                _typeEditor == TYPE_ROTATE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR : _typeEditor = TYPE_ROTATE_EDITOR;
+            }
             checkTypeEditor();
 
         };
         _rotateBtn.source.endClickCallback = f2;
 
         var f3:Function = function ():void {
-            _typeEditor == TYPE_CANCEL_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_CANCEL_EDITOR;
+            if(_typeEditor == TYPE_ACTIVE_EDITOR){
+                _typeEditor = TYPE_ACTIVE_EDITOR;
+            } else {
+                _typeEditor == TYPE_CANCEL_EDITOR ? _typeEditor = TYPE_NONE_EDITOR : _typeEditor = TYPE_CANCEL_EDITOR;
+            }
             checkTypeEditor();
 
         };
         _cancelBtn.source.endClickCallback = f3;
+
+        var f4:Function = function ():void {
+            _typeEditor == TYPE_ACTIVE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_ACTIVE_EDITOR;
+            checkTypeEditor();
+
+        };
+        _activeBtn.source.endClickCallback = f4;
     }
 
     private function checkTypeEditor():void {
         _moveBtn.source.y = -10;
         _rotateBtn.source.y = -10;
         _cancelBtn.source.y = -10;
+        _activeBtn.source.y = -10;
 
         switch (_typeEditor) {
             case TYPE_MOVE_EDITOR:
@@ -338,6 +365,10 @@ public class MapEditorInterface {
                 break;
             case TYPE_CANCEL_EDITOR:
                 _cancelBtn.source.y = -20;
+
+                break;
+            case TYPE_ACTIVE_EDITOR:
+                _activeBtn.source.y = -20;
 
                 break;
         }
