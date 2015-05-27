@@ -8,6 +8,9 @@ import flash.display.BitmapData;
 import flash.display.Shape;
 
 import manager.Vars;
+
+import map.MatrixGrid;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.textures.Texture;
@@ -18,9 +21,6 @@ import utils.CSprite;
 import utils.MCScaler;
 
 public class EditorButtonInterface {
-    public static const WIDTH_CELL:uint = 30;
-    public static const FACTOR:Number = WIDTH_CELL / Math.SQRT2;
-    public static const DIAGONAL:Number = Math.sqrt(WIDTH_CELL * WIDTH_CELL + WIDTH_CELL * WIDTH_CELL);
 
     public var source:CSprite;
     private var _iconEditor:Image;
@@ -34,15 +34,16 @@ public class EditorButtonInterface {
     }
 
     public function setIconButton(s:String):void {
+
         if (s == "Active") {
             var sp:flash.display.Shape = new flash.display.Shape();
             sp.graphics.beginFill(0xFF0000);
-            sp.graphics.moveTo(DIAGONAL/2, 0);
-            sp.graphics.lineTo(0, FACTOR/2);
-            sp.graphics.lineTo(DIAGONAL/2, FACTOR);
-            sp.graphics.lineTo(DIAGONAL, FACTOR/2);
-            sp.graphics.lineTo(DIAGONAL/2, 0);
-            var BMP:BitmapData = new BitmapData(DIAGONAL, FACTOR, true, 0x00000000);
+            sp.graphics.moveTo(MatrixGrid.DIAGONAL/2, 0);
+            sp.graphics.lineTo(0, MatrixGrid.FACTOR/2);
+            sp.graphics.lineTo(MatrixGrid.DIAGONAL/2, MatrixGrid.FACTOR);
+            sp.graphics.lineTo(MatrixGrid.DIAGONAL, MatrixGrid.FACTOR/2);
+            sp.graphics.lineTo(MatrixGrid.DIAGONAL/2, 0);
+            var BMP:BitmapData = new BitmapData(MatrixGrid.DIAGONAL, MatrixGrid.FACTOR, true, 0x00000000);
             BMP.draw(sp);
             _iconEditor = new Image(Texture.fromBitmapData(BMP,false, false));
             _iconEditor.y = 8;
