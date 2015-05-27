@@ -59,6 +59,7 @@ public class ToolsModifier {
         }
 
         _spriteForMove.addChild(im);
+        _spriteForMove.flatten();
         _spriteForMove.x = _mouse.mouseX - _cont.x;
         _spriteForMove.y = _mouse.mouseY - _cont.y;
         _cont.addChild(_spriteForMove);
@@ -77,6 +78,12 @@ public class ToolsModifier {
             }
             _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
             g.gameDispatcher.removeEnterFrame(onEnterFrame);
+            _cont.removeChild(_spriteForMove);
+//            _spriteForMove.unflatten();
+//            while (_spriteForMove.numChildren) {
+//                _spriteForMove.removeChildAt(0);
+//            }
+//            _spriteForMove = null;
         }
     }
 

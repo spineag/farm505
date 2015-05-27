@@ -14,13 +14,13 @@ public class EmbedAssets {
     // Texture
     [Embed(source="../../assets/mapAtlas.png")]
     public static const MapTexture:Class;
-    [Embed(source="../../assets/buildAndTree2.png")]
+    [Embed(source="../../assets/buildAndTree.png")]
     public static const BuildTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
     public static const MapTextureXML:Class;
-    [Embed(source="../../assets/buildAndTree2.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/buildAndTree.xml", mimeType="application/octet-stream")]
     public static const BuildTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();
