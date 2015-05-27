@@ -26,7 +26,7 @@ public class MapEditorInterface {
     public static const TYPE_MOVE_EDITOR:String = 'move';
     public static const TYPE_ROTATE_EDITOR:String = 'rotate';
     public static const TYPE_CANCEL_EDITOR:String = 'cancel';
-    public static const TYPE_ACTIVE_EDITOR:String = 'rhomb';
+    public static const TYPE_DEACTIVATING_EDITOR:String = 'red_romb';
     public static const TYPE_NONE_EDITOR:String = 'none';
 
     private var _type:String;
@@ -223,8 +223,7 @@ public class MapEditorInterface {
         var i:int = 0;
 
         for(var id:String in obj) {
-            item = new MapEditorInterfaceItem(obj[id]);
-            item.type = TYPE_HOUSE;
+            item = new MapEditorInterfaceItem(obj[id], TYPE_HOUSE);
             item.source.y = 20;
             item.source.x = i*80;
           _contBuildings.addChild(item.source);
@@ -237,8 +236,7 @@ public class MapEditorInterface {
         var i:int = 0;
 
         for (var id:String in obj) {
-            item = new MapEditorInterfaceItem(obj[id]);
-            item.type = TYPE_TREE;
+            item = new MapEditorInterfaceItem(obj[id], TYPE_TREE);
             item.source.y = 20;
             item.source.x = i * 80;
             _contTrees.addChild(item.source);
@@ -309,7 +307,7 @@ public class MapEditorInterface {
 
 
         var f1:Function = function ():void {
-            if(_typeEditor != TYPE_ACTIVE_EDITOR){
+            if(_typeEditor != TYPE_DEACTIVATING_EDITOR){
                 _typeEditor == TYPE_MOVE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_MOVE_EDITOR;
                 checkTypeEditor();
             }
@@ -317,7 +315,7 @@ public class MapEditorInterface {
         _moveBtn.source.endClickCallback = f1;
 
         var f2:Function = function ():void {
-            if(_typeEditor != TYPE_ACTIVE_EDITOR){
+            if(_typeEditor != TYPE_DEACTIVATING_EDITOR){
                 _typeEditor == TYPE_ROTATE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR : _typeEditor = TYPE_ROTATE_EDITOR;
                 checkTypeEditor();
             }
@@ -326,7 +324,7 @@ public class MapEditorInterface {
         _rotateBtn.source.endClickCallback = f2;
 
         var f3:Function = function ():void {
-            if(_typeEditor != TYPE_ACTIVE_EDITOR){
+            if(_typeEditor != TYPE_DEACTIVATING_EDITOR){
                 _typeEditor == TYPE_CANCEL_EDITOR ? _typeEditor = TYPE_NONE_EDITOR : _typeEditor = TYPE_CANCEL_EDITOR;
                 checkTypeEditor();
             }
@@ -335,7 +333,7 @@ public class MapEditorInterface {
         _cancelBtn.source.endClickCallback = f3;
 
         var f4:Function = function ():void {
-            _typeEditor == TYPE_ACTIVE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_ACTIVE_EDITOR;
+            _typeEditor == TYPE_DEACTIVATING_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_DEACTIVATING_EDITOR;
             checkTypeEditor();
 
         };
@@ -358,7 +356,7 @@ public class MapEditorInterface {
             case TYPE_CANCEL_EDITOR:
                 _cancelBtn.source.y = -20;
                 break;
-            case TYPE_ACTIVE_EDITOR:
+            case TYPE_DEACTIVATING_EDITOR:
                 _activeBtn.source.y = -20;
                 break;
         }

@@ -18,7 +18,6 @@ import utils.CSprite;
 import utils.MCScaler;
 
 public class MapEditorInterfaceItem {
-    public var type:String;
     public var source:CSprite;
     private var _txt:TextField;
     private var _image:Image;
@@ -26,8 +25,9 @@ public class MapEditorInterfaceItem {
 
     private var g:Vars = Vars.getInstance();
 
-    public function MapEditorInterfaceItem(ob:Object) {
+    public function MapEditorInterfaceItem(ob:Object, type:String) {
         _data = ob;
+        _data.type = type;
         source = new CSprite();
        _txt = new TextField(100, 10, _data.name, "Arial", 12, 0xffffff);
         _txt.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
@@ -53,11 +53,10 @@ public class MapEditorInterfaceItem {
     }
 
     private function onEndClick():void {
-        g.toolsModifier.startMove(_data, type, afterMove);
+        g.toolsModifier.startMove(_data, afterMove);
     }
 
     private function afterMove(p:Point):void {
-        trace('point: ' + p);
     }
 }
 }

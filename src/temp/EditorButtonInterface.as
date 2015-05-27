@@ -3,17 +3,13 @@
  */
 package temp {
 
-
-import flash.display.BitmapData;
-import flash.display.Shape;
-
 import manager.Vars;
 
 import map.MatrixGrid;
 
 import starling.display.Image;
 import starling.display.Quad;
-import starling.textures.Texture;
+import starling.display.Sprite;
 import starling.utils.Color;
 
 import utils.CSprite;
@@ -23,11 +19,12 @@ import utils.MCScaler;
 public class EditorButtonInterface {
 
     public var source:CSprite;
-    private var _iconEditor:Image;
+    private var _iconEditor:Sprite;
     private var g:Vars = Vars.getInstance();
 
     public function EditorButtonInterface() {
         source = new CSprite();
+        _iconEditor = new Sprite();
         source.y = - 10;
         var quad:Quad = new Quad(30, 50, Color.WHITE);
         source.addChild(quad);
@@ -36,24 +33,20 @@ public class EditorButtonInterface {
     public function setIconButton(s:String):void {
 
         if (s == "Active") {
-            var sp:flash.display.Shape = new flash.display.Shape();
-            sp.graphics.beginFill(0xFF0000);
-            sp.graphics.moveTo(MatrixGrid.DIAGONAL/2, 0);
-            sp.graphics.lineTo(0, MatrixGrid.FACTOR/2);
-            sp.graphics.lineTo(MatrixGrid.DIAGONAL/2, MatrixGrid.FACTOR);
-            sp.graphics.lineTo(MatrixGrid.DIAGONAL, MatrixGrid.FACTOR/2);
-            sp.graphics.lineTo(MatrixGrid.DIAGONAL/2, 0);
-            var BMP:BitmapData = new BitmapData(MatrixGrid.DIAGONAL, MatrixGrid.FACTOR, true, 0x00000000);
-            BMP.draw(sp);
-            _iconEditor = new Image(Texture.fromBitmapData(BMP,false, false));
-            _iconEditor.y = 8;
-
+            var q:Quad = new Quad(MatrixGrid.WIDTH_CELL, MatrixGrid.WIDTH_CELL, Color.RED);
+            q.rotation = Math.PI/4;
+            _iconEditor.addChild(q);
+            _iconEditor.scaleY /= 2;
+            _iconEditor.y = 5;
+            _iconEditor.x = 15;
         } else{
-            _iconEditor = new Image(g.mapAtlas.getTexture(s));
+            var im:Image = new Image(g.mapAtlas.getTexture(s));
+            _iconEditor.addChild(im);
         }
 
         MCScaler.scale(_iconEditor, 30, 30);
         source.addChild(_iconEditor);
+        source.flatten();
     }
 }
 }

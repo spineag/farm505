@@ -41,7 +41,7 @@ public class ToolsModifier {
         // добавлення іконки пересування до мишки
     }
 
-    public function startMove(buildingData:Object, type:String, callback:Function = null):void {
+    public function startMove(buildingData:Object, callback:Function = null):void {
         // реалізація пересування, поки тільки  для будівль для режиму MapEditor
         var im:Image;
 
@@ -78,7 +78,7 @@ public class ToolsModifier {
             }
             _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
             g.gameDispatcher.removeEnterFrame(onEnterFrame);
-            _cont.removeChild(_spriteForMove);
+//            _cont.removeChild(_spriteForMove);
 //            _spriteForMove.unflatten();
 //            while (_spriteForMove.numChildren) {
 //                _spriteForMove.removeChildAt(0);
