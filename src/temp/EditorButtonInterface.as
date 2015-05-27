@@ -24,10 +24,7 @@ public class EditorButtonInterface {
 
     public var source:CSprite;
     private var _iconEditor:Image;
-    private var _rhombEditor:Image;
     private var g:Vars = Vars.getInstance();
-    private var gridTexture:Texture;
-
 
     public function EditorButtonInterface() {
         source = new CSprite();
@@ -37,9 +34,8 @@ public class EditorButtonInterface {
     }
 
     public function setIconButton(s:String):void {
-        if (s == "Active"){
+        if (s == "Active") {
             var sp:flash.display.Shape = new flash.display.Shape();
-
             sp.graphics.beginFill(0xFF0000);
             sp.graphics.moveTo(DIAGONAL/2, 0);
             sp.graphics.lineTo(0, FACTOR/2);
@@ -48,18 +44,15 @@ public class EditorButtonInterface {
             sp.graphics.lineTo(DIAGONAL/2, 0);
             var BMP:BitmapData = new BitmapData(DIAGONAL, FACTOR, true, 0x00000000);
             BMP.draw(sp);
-            gridTexture =  Texture.fromBitmapData(BMP,false, false);
-            _rhombEditor = new Image(gridTexture);
-            MCScaler.scale(_rhombEditor, 30, 30);
-            _rhombEditor.y = 8;
-            source.addChild(_rhombEditor);
+            _iconEditor = new Image(Texture.fromBitmapData(BMP,false, false));
+            _iconEditor.y = 8;
+
         } else{
             _iconEditor = new Image(g.mapAtlas.getTexture(s));
-            MCScaler.scale(_iconEditor, 30, 30);
-            source.addChild(_iconEditor);
         }
 
-
+        MCScaler.scale(_iconEditor, 30, 30);
+        source.addChild(_iconEditor);
     }
 }
 }

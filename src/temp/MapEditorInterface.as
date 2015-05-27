@@ -309,33 +309,27 @@ public class MapEditorInterface {
 
 
         var f1:Function = function ():void {
-            if(_typeEditor == TYPE_ACTIVE_EDITOR){
-                _typeEditor = TYPE_ACTIVE_EDITOR;
-            } else {
-            _typeEditor == TYPE_MOVE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_MOVE_EDITOR;
-                }
-            checkTypeEditor();
+            if(_typeEditor != TYPE_ACTIVE_EDITOR){
+                _typeEditor == TYPE_MOVE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_MOVE_EDITOR;
+                checkTypeEditor();
+            }
         };
         _moveBtn.source.endClickCallback = f1;
 
         var f2:Function = function ():void {
-            if(_typeEditor == TYPE_ACTIVE_EDITOR){
-                _typeEditor = TYPE_ACTIVE_EDITOR;
-            } else {
+            if(_typeEditor != TYPE_ACTIVE_EDITOR){
                 _typeEditor == TYPE_ROTATE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR : _typeEditor = TYPE_ROTATE_EDITOR;
+                checkTypeEditor();
             }
-            checkTypeEditor();
 
         };
         _rotateBtn.source.endClickCallback = f2;
 
         var f3:Function = function ():void {
-            if(_typeEditor == TYPE_ACTIVE_EDITOR){
-                _typeEditor = TYPE_ACTIVE_EDITOR;
-            } else {
+            if(_typeEditor != TYPE_ACTIVE_EDITOR){
                 _typeEditor == TYPE_CANCEL_EDITOR ? _typeEditor = TYPE_NONE_EDITOR : _typeEditor = TYPE_CANCEL_EDITOR;
+                checkTypeEditor();
             }
-            checkTypeEditor();
 
         };
         _cancelBtn.source.endClickCallback = f3;
@@ -357,19 +351,15 @@ public class MapEditorInterface {
         switch (_typeEditor) {
             case TYPE_MOVE_EDITOR:
                 _moveBtn.source.y = -20;
-
                 break;
             case TYPE_ROTATE_EDITOR:
                 _rotateBtn.source.y = -20;
-
                 break;
             case TYPE_CANCEL_EDITOR:
                 _cancelBtn.source.y = -20;
-
                 break;
             case TYPE_ACTIVE_EDITOR:
                 _activeBtn.source.y = -20;
-
                 break;
         }
     }
