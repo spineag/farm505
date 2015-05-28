@@ -4,6 +4,8 @@
 package manager {
 import flash.geom.Point;
 
+import map.MatrixGrid;
+
 import starling.animation.Tween;
 
 import starling.display.Sprite;
@@ -81,6 +83,13 @@ public class Containers {
     private function dragGameCont(mouseP:Point):void {
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
+        var oY:Number = g.matrixGrid.offsetY;
+        var oX:Number = 0 + g.stageWidth;
+        if (gameCont.y > -oY) gameCont.y = -oY;
+        if (gameCont.y < -oY - g.realGameHeight + g.stageHeight) gameCont.y = -oY - g.realGameHeight + g.stageHeight;
+        if (gameCont.x > g.realGameWidth/2 - MatrixGrid.DIAGONAL/2) gameCont.x =  g.realGameWidth/2 - MatrixGrid.DIAGONAL/2;
+        if (gameCont.x < -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth) gameCont.x =  -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth;
+
     }
 
     public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в системі (realGameWidth, realGameHeight)
@@ -90,6 +99,7 @@ public class Containers {
 
         newX = 0   + g.stageWidth/2;
         newY = -g.matrixGrid.offsetY - g.realGameHeight/2    + g.stageHeight/2;
+
 
         //потрібно переробити
 //        newX = _x - g.stageWidth/2;
@@ -107,6 +117,8 @@ public class Containers {
             };
             g.starling.juggler.add(tween);
         }
+
+
     }
 
 }
