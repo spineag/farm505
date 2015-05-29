@@ -4,6 +4,10 @@
 package build.testBuild {
 import build.AreaObject;
 
+import com.junkbyte.console.Cc;
+
+import mouse.ToolsModifier;
+
 public class TestBuild extends AreaObject{
     public function TestBuild(_data:Object) {
         super(_data);
@@ -18,6 +22,21 @@ public class TestBuild extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+
+        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+
+        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+
+        } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+
+        } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
+            // ничего не делаем вообще
+        } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+
+        } else {
+            Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+        }
 
     }
 

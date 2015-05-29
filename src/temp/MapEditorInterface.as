@@ -26,7 +26,6 @@ public class MapEditorInterface {
     public static const TYPE_DECOR:String = 'decor';
 
     private var _type:String;
-    private var _typeEditor:int;
 
     private var _allTable:Sprite;
     private var _contBuildings:Sprite;
@@ -248,15 +247,15 @@ public class MapEditorInterface {
         switch (_type){
             case TYPE_HOUSE:
                 cont = _contBuildings;
-                    endX = - _contBuildings.width +g.stageWidth;
+                    endX = -_contBuildings.width + g.stageWidth;
                 break;
             case TYPE_TREE:
                 cont = _contTrees;
-                endX = - _contTrees.width + g.stageWidth;
+                endX = -_contTrees.width + g.stageWidth;
                 break;
             case TYPE_DECOR:
                 cont = _contDecors;
-                endX = - _contDecors.width + g.stageWidth;
+                endX = -_contDecors.width + g.stageWidth;
                 break;
         }
         var newX:int = cont.x + delta;
@@ -292,24 +291,24 @@ public class MapEditorInterface {
         _activeBtn.source.x = 840;
         _allTable.addChild(_activeBtn.source);
 
-        _typeEditor = ToolsModifier.NONE;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
 
         checkTypeEditor();
 
 
         var f1:Function = function ():void {
-            if(_typeEditor != ToolsModifier.GRID_DEACTIVATED){
-                _typeEditor == ToolsModifier.MOVE
-                        ? _typeEditor = ToolsModifier.NONE :_typeEditor = ToolsModifier.MOVE;
+            if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
+                g.toolsModifier.modifierType == ToolsModifier.MOVE
+                        ? g.toolsModifier.modifierType= ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
                 checkTypeEditor();
             }
         };
         _moveBtn.source.endClickCallback = f1;
 
         var f2:Function = function ():void {
-            if(_typeEditor != ToolsModifier.GRID_DEACTIVATED){
-                _typeEditor == ToolsModifier.FLIP
-                        ? _typeEditor = ToolsModifier.NONE : _typeEditor = ToolsModifier.FLIP;
+            if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
+                g.toolsModifier.modifierType == ToolsModifier.FLIP
+                        ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.FLIP;
                 checkTypeEditor();
             }
 
@@ -317,8 +316,9 @@ public class MapEditorInterface {
         _rotateBtn.source.endClickCallback = f2;
 
         var f3:Function = function ():void {
-            if(_typeEditor != ToolsModifier.GRID_DEACTIVATED){
-                _typeEditor == ToolsModifier.DELETE ? _typeEditor = ToolsModifier.NONE : _typeEditor = ToolsModifier.DELETE;
+            if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
+                g.toolsModifier.modifierType == ToolsModifier.DELETE
+                        ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType= ToolsModifier.DELETE;
                 checkTypeEditor();
             }
 
@@ -326,8 +326,8 @@ public class MapEditorInterface {
         _cancelBtn.source.endClickCallback = f3;
 
         var f4:Function = function ():void {
-            _typeEditor == ToolsModifier.GRID_DEACTIVATED
-                    ? _typeEditor = ToolsModifier.NONE :_typeEditor = ToolsModifier.GRID_DEACTIVATED;
+            g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED
+                    ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.GRID_DEACTIVATED;
             checkTypeEditor();
 
         };
@@ -340,7 +340,7 @@ public class MapEditorInterface {
         _cancelBtn.source.y = -10;
         _activeBtn.source.y = -10;
 
-        switch (_typeEditor) {
+        switch (g.toolsModifier.modifierType) {
             case ToolsModifier.MOVE:
                 _moveBtn.source.y = -20;
                 break;

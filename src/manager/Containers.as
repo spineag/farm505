@@ -6,6 +6,8 @@ import flash.geom.Point;
 
 import map.MatrixGrid;
 
+import mouse.ToolsModifier;
+
 import starling.animation.Tween;
 
 import starling.display.Sprite;
@@ -63,11 +65,16 @@ public class Containers {
     }
 
     private function onGameContTouch(te:TouchEvent):void {
-        if (te.getTouch(gameCont, TouchPhase.MOVED)) {
-            dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати
+        if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
+            //......
+            return;
         }
 
-        if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
+        if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
+
+        if (te.getTouch(gameCont, TouchPhase.MOVED)) {
+            dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати перевірки на спосіб тачу
+        } else if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
             _startDragPointCont = new Point(gameCont.x, gameCont.y);
         }

@@ -110,7 +110,7 @@ public class ToolsModifier {
 
     private var i:int;
     private var j:int;
-    var obj:Object;
+    private var obj:Object;
     private function checkFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
         for (i = posY; i < posY + height; i++) {
             for (j = posX; j < posX + width; j++) {
