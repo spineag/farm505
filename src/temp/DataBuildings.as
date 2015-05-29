@@ -108,8 +108,8 @@ public class DataBuildings {
         obj.height = 5;
         obj.posX = 1;
         obj.posY = 1;
-        obj.innerX = -75;
-        obj.innerY = 12;
+        obj.innerX = -105;
+        obj.innerY = 0;
         obj.url = "buildAtlas";
         obj.image = "build5";
         obj.buildType = BuildType.TEST;
@@ -124,8 +124,8 @@ public class DataBuildings {
         obj = {};
         obj.id = 6;
         obj.name = "build6";
-        obj.width = 4;
-        obj.height = 4;
+        obj.width = 1;
+        obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
         obj.innerX = -21;

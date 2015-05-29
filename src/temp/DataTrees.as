@@ -72,7 +72,7 @@ public class DataTrees {
         obj.innerY = -64;
         obj.url = "buildAtlas";
         obj.image = "tree3";
-        obj.type = BuildType.TEST;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;

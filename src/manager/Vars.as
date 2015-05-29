@@ -82,13 +82,14 @@ public class Vars {
         dataTree = new DataTrees();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
-        townArea = new TownArea();
 
         continueInitGame();
     }
 
     private function continueInitGame():void {
         matrixGrid.createMatrix();
+        townArea = new TownArea();
+        toolsModifier.setTownArray();
 
         background = new BackgroundArea();
 

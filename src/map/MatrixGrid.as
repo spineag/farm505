@@ -35,7 +35,8 @@ public class MatrixGrid {
 
     private var _matrix:Array;
     private var _matrixSize:int;
-    private var _gridTexture:Texture;
+    private var _gridWhiteTexture:Texture;
+    private var _gridRedTexture:Texture;
 //    private var _finder:V_Finder;
 //    private var _hev:V_HevristicToTarget;
 
@@ -112,8 +113,8 @@ public class MatrixGrid {
 
     public function getIndexFromXY(point:Point):Point {
         var point3d:Point3D = IsoUtils.screenToIso(point);
-        var bufX:int = int(point3d.x / FACTOR);
-        var bufY:int = int(point3d.z / FACTOR);
+        var bufX:int = int(point3d.x / FACTOR + 1/2);
+        var bufY:int = int(point3d.z / FACTOR + 1/2);
 
         return new Point(bufX, bufY);
     }
@@ -138,6 +139,20 @@ public class MatrixGrid {
         g.cont.gridDebugCont.flatten();
     }
 
+    public function drawDebugPartGrid(posX:int, posY:int, width:int, height:int):void {
+        createGridTexture();
+        g.cont.gridDebugCont.unflatten();
+
+        for (var i:int = posX; i < posX + width; i++) {
+            for (var j:int = posY; j < posY + height; j++) {
+                if (_matrix[i][j].inGame) {
+                    drawGrid(i, j, false);
+                }
+            }
+        }
+        g.cont.gridDebugCont.flatten();
+    }
+
     public function deleteDebugGrid():void {
         g.cont.gridDebugCont.unflatten();
         while (g.cont.gridDebugCont.numChildren) {
@@ -145,16 +160,18 @@ public class MatrixGrid {
         }
     }
 
-    private function drawGrid(i:int, j:int):void {
+    private function drawGrid(i:int, j:int, isWhite:Boolean = true):void {
         var im:Image;
-        im = new Image(_gridTexture);
-        im.alpha = .5;
+        isWhite ? im = new Image(_gridWhiteTexture) : im = new Image(_gridRedTexture);
+        isWhite ? im.alpha = .5 : im.alpha = 1;
         im.pivotX = im.width/2;
         setSpriteFromIndex(im, new Point(i, j));
         g.cont.gridDebugCont.addChild(im);
     }
 
     private function createGridTexture():void {
+        if (_gridWhiteTexture) return;
+
         var sp:flash.display.Shape = new flash.display.Shape();
         sp.graphics.lineStyle(1, Color.WHITE);
         sp.graphics.moveTo(DIAGONAL/2, 0);
@@ -164,7 +181,18 @@ public class MatrixGrid {
         sp.graphics.lineTo(DIAGONAL/2, 0);
         var BMP:BitmapData = new BitmapData(DIAGONAL, FACTOR, true, 0x00000000);
         BMP.draw(sp);
-        _gridTexture = Texture.fromBitmapData(BMP,false, false);
+        _gridWhiteTexture = Texture.fromBitmapData(BMP,false, false);
+
+        sp.graphics.clear();
+        sp.graphics.lineStyle(1, Color.RED);
+        sp.graphics.moveTo(DIAGONAL/2, 0);
+        sp.graphics.lineTo(0, FACTOR/2);
+        sp.graphics.lineTo(DIAGONAL/2, FACTOR);
+        sp.graphics.lineTo(DIAGONAL, FACTOR/2);
+        sp.graphics.lineTo(DIAGONAL/2, 0);
+        var BMP2:BitmapData = new BitmapData(DIAGONAL, FACTOR, true, 0x00000000);
+        BMP2.draw(sp);
+        _gridRedTexture = Texture.fromBitmapData(BMP2,false, false);
     }
 
 
