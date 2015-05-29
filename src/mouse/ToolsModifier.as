@@ -28,6 +28,7 @@ public class ToolsModifier {
     private var _cont:Sprite;
     private var _callbackAfterMove:Function;
     private var _mouse:OwnMouse;
+    private var _townMatrix:Array;
 
     private var g:Vars = Vars.getInstance();
 
@@ -35,6 +36,10 @@ public class ToolsModifier {
         _cont = g.cont.animationsContTop;
         _mouse = g.ownMouse;
         _callbackAfterMove = null;
+    }
+
+    public function setTownArray():void {
+        _townMatrix = g.townArea.townMatrix;
     }
 
     public function addMoveIcon(add:Boolean = true):void {
@@ -92,10 +97,25 @@ public class ToolsModifier {
         _spriteForMove.y = _mouse.mouseY - _cont.y;
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
+
+        checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height) ? _spriteForMove.alpha = 1 : _spriteForMove.alpha = .4;
     }
 
     private function onEnterFrame():void {
         moveIt();
+    }
+
+    private var i:int;
+    private var j:int;
+    private function checkFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
+        for (i = posY; i < posY + height; i++) {
+            for (j = posX; j < posX + width; j++) {
+                if (!_townMatrix[i][j].inGame) return false;
+                if (_townMatrix[i][j].isFull) return false;
+            }
+        }
+
+        return true;
     }
 }
 }

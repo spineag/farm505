@@ -33,7 +33,7 @@ public class TownArea extends Sprite {
         _dataObjects = {};
         _cont = g.cont.contentCont;
 
-//        setDefaultMatrix();
+        setDefaultMatrix();
 
 //        _finder = new V_Finder();
 //        _hev = new V_HevristicToTarget();
@@ -78,12 +78,18 @@ public class TownArea extends Sprite {
 //        }
 //    }
 
+    public function get townMatrix():Array {
+        return _townMatrix;
+    }
+
     public function setDefaultMatrix():void {
         var arr:Array = g.matrixGrid.matrix;
         var ln:int = g.matrixGrid.matrixSize;
 
         for (var i:int = 0; i < ln; i++) {
+            _townMatrix.push([]);
             for (var j:int = 0; j < ln; j++) {
+                _townMatrix[i][j] = {};
                 if (arr[i][j].inGame) {
                     _townMatrix[i][j].build = null;
                     _townMatrix[i][j].isFull = false;
@@ -96,8 +102,8 @@ public class TownArea extends Sprite {
     }
 
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:WorldObject):void {
-        return;
-//			drawGrid(posX, posY, sizeX, sizeY, 0xff00ff);
+		g.matrixGrid.drawDebugPartGrid(posX, posY, sizeX, sizeY);
+
         for (var i:int = posY; i < (posY + sizeY); i++) {
             for (var j:int = posX; j < (posX + sizeX); j++) {
                 _townMatrix[i][j].build = source;
@@ -125,6 +131,10 @@ public class TownArea extends Sprite {
             //case и так далее проходимся по всем классам
         }
 
+        if (!build) {
+            Cc.error('TownArea:: BUILD is null');
+            return;
+        }
         pasteBuild(build, _x, _y);
     }
 
@@ -341,26 +351,6 @@ public class TownArea extends Sprite {
 //        }
 //
 //        return tempObj;
-//    }
-
-//    public function drawGrid(posX:int, posY:int, sizeX:int, sizeY:int, color:uint):void {
-//        var i:int;
-//        var point:Point;
-//
-//        _containerElementsTop.graphics.lineStyle(1, color);
-//
-//        for (i = posY; i <= (posY + sizeY); i++) {
-//            point = getXYFromIndex(new Point(posX, i));
-//            _containerElementsTop.graphics.moveTo(point.x, point.y);
-//            point = getXYFromIndex(new Point(posX + sizeX, i));
-//            _containerElementsTop.graphics.lineTo(point.x, point.y);
-//        }
-//        for (i = posX; i <= (posX + sizeX); i++) {
-//            point = getXYFromIndex(new Point(i, posY));
-//            _containerElementsTop.graphics.moveTo(point.x, point.y);
-//            point = getXYFromIndex(new Point(i, posY + sizeY));
-//            _containerElementsTop.graphics.lineTo(point.x, point.y);
-//        }
 //    }
 
 //    public function clearGrid():void {
