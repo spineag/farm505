@@ -10,13 +10,14 @@ import starling.display.Sprite;
 
 import utils.IsoUtils;
 import utils.Point3D;
+import utils.CSprite;
 
 public class WorldObject {
     public var posX:int = 0;
     public var posY:int = 0;
     protected var _sizeX:int;
     protected var _sizeY:int;
-    protected var _source:Sprite;
+    protected var _source:CSprite;
     protected var _build:Sprite;
     protected var _depth:Number = 0;
     protected var _rect:Rectangle;

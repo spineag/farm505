@@ -7,13 +7,15 @@ import starling.display.Image;
 
 import starling.display.Sprite;
 
+import utils.CSprite;
+
 public class AreaObject extends WorldObject {
     protected var _dataBuild:Object;
     protected var _flip:Boolean;
     protected var _defaultScale:Number;
 
     public function AreaObject(dataBuild:Object) {
-        _source = new Sprite();
+        _source = new CSprite();
         _build = new Sprite();
         _dataBuild = dataBuild;
         _flip = false;
