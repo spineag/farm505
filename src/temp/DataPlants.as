@@ -25,8 +25,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Пшеница";
-        obj.image = "Пшеница";
+        obj.url = "buildAtlas";
+        obj.image = "Wheat";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 1;
         obj.costMax = 3;
@@ -35,6 +35,7 @@ public class DataPlants {
         obj.priceSkipHard = 1;
         obj.blockByLevel = 1;
         obj.buildTime = 120;
+        obj.buildType = BuildType.TEST;
         obj.xp = 1;
         objectPlants[obj.id ] = obj;
 //        2
@@ -46,8 +47,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Кукуруза";
-        obj.image = "Кукуруза";
+        obj.url = "buildAtlas";
+        obj.image = "Corn";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
@@ -56,6 +57,7 @@ public class DataPlants {
         obj.priceSkipHard = 1;
         obj.blockByLevel = 2;
         obj.buildTime = 300;
+        obj.buildType = BuildType.TEST;
         obj.xp = 1;
         objectPlants[obj.id ] = obj;
 //         3
@@ -67,8 +69,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Фасоль";
-        obj.image = "Фасоль";
+        obj.url = "buildAtlas";
+        obj.image = "Soybean";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 3;
         obj.costMax = 10;
@@ -77,6 +79,7 @@ public class DataPlants {
         obj.priceSkipHard = 2;
         obj.blockByLevel = 5;
         obj.buildTime = 1200;
+        obj.buildType = BuildType.TEST;
         obj.xp = 2;
         objectPlants[obj.id ] = obj;
 //         4
@@ -88,8 +91,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Сахараная трость";
-        obj.image = "Сахараная трость";
+        obj.url = "buildAtlas";
+        obj.image = "Sugarcane";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 4;
         obj.costMax = 14;
@@ -98,6 +101,7 @@ public class DataPlants {
         obj.priceSkipHard = 3;
         obj.blockByLevel = 7;
         obj.buildTime = 1800;
+        obj.buildType = BuildType.TEST;
         obj.xp = 3;
         objectPlants[obj.id ] = obj;
 //         5
@@ -109,8 +113,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Морковь";
-        obj.image = "Морковь";
+        obj.url = "buildAtlas";
+        obj.image = "Carrot";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
@@ -119,6 +123,7 @@ public class DataPlants {
         obj.priceSkipHard = 2;
         obj.blockByLevel = 9;
         obj.buildTime = 600;
+        obj.buildType = BuildType.TEST;
         obj.xp = 2;
         objectPlants[obj.id ] = obj;
 //         6
@@ -130,8 +135,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Индиго";
-        obj.image = "Индиго";
+        obj.url = "buildAtlas";
+        obj.image = "Indigo";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 7;
         obj.costMax = 25;
@@ -140,6 +145,7 @@ public class DataPlants {
         obj.priceSkipHard = 5;
         obj.blockByLevel = 13;
         obj.buildTime = 12000;
+        obj.buildType = BuildType.TEST;
         obj.xp = 5;
         objectPlants[obj.id ] = obj;
 //         7
@@ -151,8 +157,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Тыква";
-        obj.image = "Тыква";
+        obj.url = "buildAtlas";
+        obj.image = "Pumpkin";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 9;
         obj.costMax = 32;
@@ -161,6 +167,7 @@ public class DataPlants {
         obj.priceSkipHard = 1;
         obj.blockByLevel = 15;
         obj.buildTime = 18000;
+        obj.buildType = BuildType.TEST;
         obj.xp = 6;
         objectPlants[obj.id ] = obj;
 //         8
@@ -172,8 +179,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Хлопок";
-        obj.image = "Хлопок";
+        obj.url = "buildAtlas";
+        obj.image = "Cotton";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 8;
         obj.costMax = 28;
@@ -182,6 +189,7 @@ public class DataPlants {
         obj.priceSkipHard = 7;
         obj.blockByLevel = 18;
         obj.buildTime = 13800;
+        obj.buildType = BuildType.TEST;
         obj.xp = 6;
         objectPlants[obj.id ] = obj;
 //         9
@@ -193,8 +201,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Чили Перец";
-        obj.image = "Чили Перец";
+        obj.url = "buildAtlas";
+        obj.image = "Chili Pepper";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 10;
         obj.costMax = 36;
@@ -203,6 +211,7 @@ public class DataPlants {
         obj.priceSkipHard = 7;
         obj.blockByLevel = 25;
         obj.buildTime = 24000;
+        obj.buildType = BuildType.TEST;
         obj.xp = 7;
         objectPlants[obj.id ] = obj;
 //        10
@@ -214,8 +223,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Помидор";
-        obj.image = "Помидор";
+        obj.url = "buildAtlas";
+        obj.image = "Tomato";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 12;
         obj.costMax = 43;
@@ -224,6 +233,7 @@ public class DataPlants {
         obj.priceSkipHard = 8;
         obj.blockByLevel = 30;
         obj.buildTime = 36000;
+        obj.buildType = BuildType.TEST;
         obj.xp = 8;
         objectPlants[obj.id ] = obj;
 //        11
@@ -235,8 +245,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Клубника";
-        obj.image = "Клубника";
+        obj.url = "buildAtlas";
+        obj.image = "Stawberry";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 14;
         obj.costMax = 50;
@@ -245,6 +255,7 @@ public class DataPlants {
         obj.priceSkipHard = 10;
         obj.blockByLevel = 34;
         obj.buildTime = 48000;
+        obj.buildType = BuildType.TEST;
         obj.xp = 10;
         objectPlants[obj.id ] = obj;
 //        12
@@ -256,8 +267,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Картофель";
-        obj.image = "Картофель";
+        obj.url = "buildAtlas";
+        obj.image = "Potato";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 10;
         obj.costMax = 36;
@@ -266,6 +277,7 @@ public class DataPlants {
         obj.priceSkipHard = 7;
         obj.blockByLevel = 35;
         obj.buildTime = 20400;
+        obj.buildType = BuildType.TEST;
         obj.xp = 7;
         objectPlants[obj.id ] = obj;
 //        13
@@ -277,8 +289,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Рис";
-        obj.image = "Рис";
+        obj.url = "buildAtlas";
+        obj.image = "Rice";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 5;
         obj.costMax = 18;
@@ -287,6 +299,7 @@ public class DataPlants {
         obj.priceSkipHard = 3;
         obj.blockByLevel = 56;
         obj.buildTime = 2700;
+        obj.buildType = BuildType.TEST;
         obj.xp = 3;
         objectPlants[obj.id ] = obj;
 //        14
@@ -298,8 +311,8 @@ public class DataPlants {
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
-        obj.url = "Салат латук";
-        obj.image = "Салат латук";
+        obj.url = "buildAtlas";
+        obj.image = "Lettuce";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 9;
         obj.costMax = 32;
@@ -308,6 +321,7 @@ public class DataPlants {
         obj.priceSkipHard = 7;
         obj.blockByLevel = 58;
         obj.buildTime = 19800;
+        obj.buildType = BuildType.TEST;
         obj.xp = 7;
         objectPlants[obj.id ] = obj;
     }
