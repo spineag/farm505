@@ -2,10 +2,9 @@
  * Created by user on 5/20/15.
  */
 package temp {
-public class DataBuildings {
-    public static const STATIC_BUILDING:String = "static building";
-    public static const ACTIVE_BUILDING:String = "active building";
+import data.BuildType;
 
+public class DataBuildings {
     public static const HARD_CURRENCY:String = 'diamant';
     public static const SOFT_CURRENCY:String = 'coin';
 
@@ -33,7 +32,7 @@ public class DataBuildings {
         obj.innerY = -77;
         obj.url = "buildAtlas";
         obj.image = "build1";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -53,7 +52,7 @@ public class DataBuildings {
         obj.innerY = -46;
         obj.url = "buildAtlas";
         obj.image = "build2";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -73,7 +72,7 @@ public class DataBuildings {
         obj.innerY = -39;
         obj.url = "buildAtlas";
         obj.image = "build3";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -93,7 +92,7 @@ public class DataBuildings {
         obj.innerY = -21;
         obj.url = "buildAtlas";
         obj.image = "build4";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -113,7 +112,7 @@ public class DataBuildings {
         obj.innerY = 12;
         obj.url = "buildAtlas";
         obj.image = "build5";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -133,7 +132,7 @@ public class DataBuildings {
         obj.innerY = -79;
         obj.url = "buildAtlas";
         obj.image = "build6";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -153,7 +152,7 @@ public class DataBuildings {
         obj.innerY = -83;
         obj.url = "buildAtlas";
         obj.image = "build7";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -173,7 +172,7 @@ public class DataBuildings {
         obj.innerY = -48;
         obj.url = "buildAtlas";
         obj.image = "build8";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -193,7 +192,7 @@ public class DataBuildings {
         obj.innerY = -39;
         obj.url = "buildAtlas";
         obj.image = "build9";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -213,7 +212,7 @@ public class DataBuildings {
         obj.innerY = -56;
         obj.url = "buildAtlas";
         obj.image = "build10";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -233,7 +232,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile3x3";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -253,7 +252,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile2x2";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -273,7 +272,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile3x3";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -293,7 +292,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile2x2";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -313,7 +312,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile3x3";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -333,7 +332,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile2x2";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -353,7 +352,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile3x3";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -373,7 +372,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile2x2";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -393,7 +392,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile3x3";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -413,7 +412,7 @@ public class DataBuildings {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile2x2";
-        obj.type = ACTIVE_BUILDING;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;

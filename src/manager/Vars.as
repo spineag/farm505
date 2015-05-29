@@ -7,6 +7,7 @@ import flash.geom.Matrix;
 import map.BackgroundArea;
 
 import map.MatrixGrid;
+import map.TownArea;
 
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
@@ -47,6 +48,7 @@ public class Vars {
     public var toolsModifier:ToolsModifier;
 
     public var matrixGrid:MatrixGrid;
+    public var townArea:TownArea;
 
     public var background:BackgroundArea;
 
@@ -80,6 +82,7 @@ public class Vars {
         dataTree = new DataTrees();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
+        townArea = new TownArea();
 
         continueInitGame();
     }

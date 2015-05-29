@@ -2,10 +2,9 @@
  * Created by user on 5/25/15.
  */
 package temp {
-public class DataTrees {
-    public static const STATIC_TREE:String = "static building";
-    public static const ACTIVE_TREE:String = "active building";
+import data.BuildType;
 
+public class DataTrees {
     public static const HARD_CURRENCY:String = 'diamant';
     public static const SOFT_CURRENCY:String = 'coin';
 
@@ -33,7 +32,7 @@ public class DataTrees {
         obj.innerY = -58;
         obj.url = "buildAtlas";
         obj.image = "tree1";
-        obj.type = ACTIVE_TREE;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -53,7 +52,7 @@ public class DataTrees {
         obj.innerY = -63;
         obj.url = "buildAtlas";
         obj.image = "tree2";
-        obj.type = ACTIVE_TREE;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -73,7 +72,7 @@ public class DataTrees {
         obj.innerY = -64;
         obj.url = "buildAtlas";
         obj.image = "tree3";
-        obj.type = ACTIVE_TREE;
+        obj.type = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -93,7 +92,7 @@ public class DataTrees {
         obj.innerY = -59;
         obj.url = "buildAtlas";
         obj.image = "tree4";
-        obj.type = ACTIVE_TREE;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -113,7 +112,7 @@ public class DataTrees {
         obj.innerY = -60;
         obj.url = "buildAtlas";
         obj.image = "tree5";
-        obj.type = ACTIVE_TREE;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;
@@ -133,7 +132,7 @@ public class DataTrees {
         obj.innerY = 0;
         obj.url = " ";
         obj.image = "tile1";
-        obj.type = ACTIVE_TREE;
+        obj.buildType = BuildType.TEST;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;

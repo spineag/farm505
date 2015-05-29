@@ -2,19 +2,16 @@
  * Created by user on 5/20/15.
  */
 package temp {
-import flash.geom.Point;
 
 import manager.Vars;
 
 import starling.display.Image;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.text.TextFieldAutoSize;
 import starling.utils.HAlign;
 import starling.utils.VAlign;
 
 import utils.CSprite;
-
 import utils.MCScaler;
 
 public class MapEditorInterfaceItem {
@@ -56,7 +53,8 @@ public class MapEditorInterfaceItem {
         g.toolsModifier.startMove(_data, afterMove);
     }
 
-    private function afterMove(p:Point):void {
+    private function afterMove(_x:Number, _y:Number):void {
+        g.townArea.createNewBuild(_data, _x, _y);
     }
 }
 }

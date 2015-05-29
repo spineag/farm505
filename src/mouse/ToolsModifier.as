@@ -74,16 +74,16 @@ public class ToolsModifier {
     private function onTouch(te:TouchEvent):void {
         if (te.getTouch(_cont, TouchPhase.ENDED)) {
             if (_callbackAfterMove != null) {
-                _callbackAfterMove.apply(null, [te.touches[0].getLocation(g.mainStage)])
+                _callbackAfterMove.apply(null, [_spriteForMove.x, _spriteForMove.y])
             }
             _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
             g.gameDispatcher.removeEnterFrame(onEnterFrame);
-//            _cont.removeChild(_spriteForMove);
-//            _spriteForMove.unflatten();
-//            while (_spriteForMove.numChildren) {
-//                _spriteForMove.removeChildAt(0);
-//            }
-//            _spriteForMove = null;
+            _cont.removeChild(_spriteForMove);
+            _spriteForMove.unflatten();
+            while (_spriteForMove.numChildren) {
+                _spriteForMove.removeChildAt(0);
+            }
+            _spriteForMove = null;
         }
     }
 

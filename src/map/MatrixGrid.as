@@ -2,6 +2,8 @@
  * Created by user on 5/14/15.
  */
 package map {
+import build.WorldObject;
+
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Stage3D;
@@ -98,6 +100,10 @@ public class MatrixGrid {
 
     public function get offsetY():int {
         return _offsetY;
+    }
+
+    public function get matrixSize():int {
+        return _matrixSize;
     }
 
     public function get matrix():Array {

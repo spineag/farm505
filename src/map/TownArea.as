@@ -1,49 +1,39 @@
 ﻿package map {
 
+import build.WorldObject;
+import build.testBuild.TestBuild;
+
 import com.junkbyte.console.Cc;
 
-import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
-import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.MouseEvent;
-import flash.filters.ColorMatrixFilter;
-import flash.filters.GlowFilter;
+import data.BuildType;
+
 import flash.geom.Point;
+
 import flash.geom.Rectangle;
 
 import manager.Vars;
 
+import starling.display.Sprite;
+
 
 public class TownArea extends Sprite {
-    public static var idFind:int = 1;
-
-    private var lastMouseX:Number = 0;
-    private var lastMouseY:Number = 0;
-    private var _needAllZsort:int = 0;
-
     private var _cityObjects:Array;
-    private var _isDragged:Boolean = false;
     private var _dataPreloaders:Object;
     private var _dataObjects:Object;
     private var _enabled:Boolean = true;
-
-
-//    private var _glowFilter:GlowFilter;
-//    private var _contrastFilter:ColorMatrixFilter;
-//    private var _brightnessFilter:ColorMatrixFilter;
-
-    private var _rectanglesArray:Array = [];
+    private var _cont:Sprite;
+    private var _townMatrix:Array;
 
     protected var g:Vars = Vars.getInstance();
 
     public function TownArea() {
         _cityObjects = [];
+        _townMatrix = [];
         _dataPreloaders = {};
         _dataObjects = {};
-        //_glowFilter = new GlowFilter(0xFFFF00, 1, 8, 8, 5);
-        //_contrastFilter = MatrixUtil.setContrast(30);
-        //_brightnessFilter = MatrixUtil.setBrightness(20);
+        _cont = g.cont.contentCont;
+
+//        setDefaultMatrix();
 
 //        _finder = new V_Finder();
 //        _hev = new V_HevristicToTarget();
@@ -88,47 +78,71 @@ public class TownArea extends Sprite {
 //        }
 //    }
 
-//    public function addObject(source:WorldObject):void {
-//        var key:String = '';
-//        var currCont:DisplayObjectContainer = _containerElements;
-//        var arr:Array = _cityObjects;
-//
-//        if (source is BuildingDecor) {
-//            if ((source as BuildingDecor).decorType == 'track') {
-//                currCont = _containerElementsBottom;
-//                arr = _cityObjectsBottom;
-//            }
-//        } else if (source is BuildingWild) {
-//            if ((source as BuildingWild).type == BuildingWild.TYPE_STATIC) {
-//                currCont = _containerElementsBottom;
-//                arr = _cityObjectsBottom;
-//            }
-//        } else if (source is BuildingArea) {
-//            currCont = _containerElementsBottom;
-//            arr = _cityObjectsBottom;
-//        }
-//
-//        if (!currCont.contains(source.source)) {
-//            currCont.addChild(source.source);
-//            arr.push(source);
-//            if (source is BuildingDecor) {
-//                currCont.setChildIndex(source.source, 0);
-//            }
-//        }
-//
-//        if (source is AreaObject && !(source is BuildingTemple) && !(source is BuildingBridge) && !(source is BuildingFence)) {
-//            key = String((source as AreaObject).userBuildingId);
-//            if (source is BuildingPlant) {
-//                key += '-0';
-//            } else if (source is BuildingRidge) {
-//                key += '-1';
-//            } else {
-//                key += '-2';
-//            }
-//            _dataObjects[key] = source;
-//        }
-//
-//    }
+    public function setDefaultMatrix():void {
+        var arr:Array = g.matrixGrid.matrix;
+        var ln:int = g.matrixGrid.matrixSize;
+
+        for (var i:int = 0; i < ln; i++) {
+            for (var j:int = 0; j < ln; j++) {
+                if (arr[i][j].inGame) {
+                    _townMatrix[i][j].build = null;
+                    _townMatrix[i][j].isFull = false;
+                    _townMatrix[i][j].inGame = true;
+                } else {
+                    _townMatrix[i][j].inGame = false;
+                }
+            }
+        }
+    }
+
+    public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:WorldObject):void {
+        return;
+//			drawGrid(posX, posY, sizeX, sizeY, 0xff00ff);
+        for (var i:int = posY; i < (posY + sizeY); i++) {
+            for (var j:int = posX; j < (posX + sizeX); j++) {
+                _townMatrix[i][j].build = source;
+                _townMatrix[i][j].isFull = true;
+            }
+        }
+    }
+
+    public function unFillMatrix(posX:int, posY:int, sizeX:int, sizeY:int):void {
+        for (var i:int = posY; i < (posY + sizeY); i++) {
+            for (var j:int = posX; j < (posX + sizeX); j++) {
+                _townMatrix[i][j].build = null;
+                _townMatrix[i][j].isFull = false;
+            }
+        }
+    }
+
+    public function createNewBuild(_data:Object, _x:Number, _y:Number):void {
+        var build:WorldObject;
+
+        switch (_data.buildType) {
+            case BuildType.TEST:
+                build = new TestBuild(_data);
+                break;
+            //case и так далее проходимся по всем классам
+        }
+
+        pasteBuild(build, _x, _y);
+    }
+
+    public function pasteBuild(source:WorldObject, _x:Number, _y:Number):void {
+        if (!_cont.contains(source.source)) {
+            source.source.x = _x;
+            source.source.y = _y;
+            _cont.addChild(source.source);
+            var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+            source.posX = point.x;
+            source.posY = point.y;
+            fillMatrix(source.posX, source.posY, source.sizeX, source.sizeY, source);
+            //arr.push(source);
+            // нужно добавить заполнение матрицы зданий
+            // нужно добавить сортировку по з-индексу
+        }
+
+    }
 
 //    public function removeObject(source:WorldObject):void {
 //        var i:int = 0;
@@ -545,14 +559,5 @@ public class TownArea extends Sprite {
 //            }
 //        }
 //    }
-
-    public function getMainRectangle():Rectangle {
-        var rectangle:Rectangle = new Rectangle(_rectanglesArray[0].t_x, _rectanglesArray[0].t_y, _rectanglesArray[0].width, _rectanglesArray[0].height);
-        for (var i:int = 1; i < _rectanglesArray.length; i++) {
-            var rect:Rectangle = new Rectangle(_rectanglesArray[i].t_x, _rectanglesArray[i].t_y, _rectanglesArray[i].width, _rectanglesArray[i].height);
-            rectangle = rectangle.union(rect);
-        }
-        return rectangle;
-    }
 }
 }

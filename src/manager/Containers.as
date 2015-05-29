@@ -26,7 +26,6 @@ public class Containers {
     public var mouseCont:Sprite;
     public var gameCont:Sprite;
 
-    public var isDragged:Boolean = false;
     private var _startDragPoint:Point;
     private var _startDragPointCont:Point;
 
@@ -69,26 +68,22 @@ public class Containers {
         }
 
         if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
-//            isDragged = true;
-//            g.gameDispatcher.addEnterFrame(dragGameCont);
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
             _startDragPointCont = new Point(gameCont.x, gameCont.y);
         }
-//        } else if (te.getTouch(gameCont, TouchPhase.ENDED)) {
-//            g.gameDispatcher.removeEnterFrame(dragGameCont);
-//            isDragged = false;
-//        }
     }
 
     private function dragGameCont(mouseP:Point):void {
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
         var oY:Number = g.matrixGrid.offsetY;
-        var oX:Number = 0 + g.stageWidth;
         if (gameCont.y > -oY) gameCont.y = -oY;
-        if (gameCont.y < -oY - g.realGameHeight + g.stageHeight) gameCont.y = -oY - g.realGameHeight + g.stageHeight;
-        if (gameCont.x > g.realGameWidth/2 - MatrixGrid.DIAGONAL/2) gameCont.x =  g.realGameWidth/2 - MatrixGrid.DIAGONAL/2;
-        if (gameCont.x < -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth) gameCont.x =  -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth;
+        if (gameCont.y < -oY - g.realGameHeight + g.stageHeight)
+            gameCont.y = -oY - g.realGameHeight + g.stageHeight;
+        if (gameCont.x > g.realGameWidth/2 - MatrixGrid.DIAGONAL/2)
+            gameCont.x =  g.realGameWidth/2 - MatrixGrid.DIAGONAL/2;
+        if (gameCont.x < -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth)
+            gameCont.x =  -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth;
 
     }
 
