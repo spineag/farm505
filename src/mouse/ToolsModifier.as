@@ -22,6 +22,7 @@ public class ToolsModifier {
     public static var INVENTORY:int = 4;
     public static var PLANT_SEED:int = 5;
     public static var PLANT_TREES:int = 6;
+    public static var GRID_DEACTIVATED:int = 6;
 
     private var _activeBuildingData:Object;
     private var _spriteForMove:Sprite;
@@ -29,6 +30,7 @@ public class ToolsModifier {
     private var _callbackAfterMove:Function;
     private var _mouse:OwnMouse;
     private var _townMatrix:Array;
+    public var modifierType:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -36,6 +38,7 @@ public class ToolsModifier {
         _cont = g.cont.animationsContTop;
         _mouse = g.ownMouse;
         _callbackAfterMove = null;
+        modifierType = NONE;
     }
 
     public function setTownArray():void {
@@ -107,11 +110,14 @@ public class ToolsModifier {
 
     private var i:int;
     private var j:int;
+    var obj:Object;
     private function checkFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
         for (i = posY; i < posY + height; i++) {
             for (j = posX; j < posX + width; j++) {
-                if (!_townMatrix[i][j].inGame) return false;
-                if (_townMatrix[i][j].isFull) return false;
+                obj = _townMatrix[i][j];
+                if (!obj.inGame) return false;
+                if (obj.isFull) return false;
+                if (obj.isBlocked) return false;
             }
         }
 

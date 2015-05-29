@@ -7,6 +7,8 @@ import flash.display.Shape;
 
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import starling.animation.Tween;
 import starling.display.Image;
 
@@ -23,14 +25,8 @@ public class MapEditorInterface {
     public static const TYPE_TREE:String = 'tree';
     public static const TYPE_DECOR:String = 'decor';
 
-    public static const TYPE_MOVE_EDITOR:String = 'move';
-    public static const TYPE_ROTATE_EDITOR:String = 'rotate';
-    public static const TYPE_CANCEL_EDITOR:String = 'cancel';
-    public static const TYPE_DEACTIVATING_EDITOR:String = 'red_romb';
-    public static const TYPE_NONE_EDITOR:String = 'none';
-
     private var _type:String;
-    private var _typeEditor:String;
+    private var _typeEditor:int;
 
     private var _allTable:Sprite;
     private var _contBuildings:Sprite;
@@ -263,15 +259,10 @@ public class MapEditorInterface {
                 endX = - _contDecors.width + g.stageWidth;
                 break;
         }
-        var newX:int;
-        newX = cont.x + delta;
-        if(newX > 0){
-         newX = 0;
-        }
-        if(newX < endX)
-        {
-            newX = endX - 20;
-        }
+        var newX:int = cont.x + delta;
+        if(newX > 0) newX = 0;
+        if(newX < endX) newX = endX - 20;
+
         var tween:Tween = new Tween(cont, 1);
         tween.moveTo(newX, cont.y);
         tween.onComplete = function ():void {
@@ -301,22 +292,24 @@ public class MapEditorInterface {
         _activeBtn.source.x = 840;
         _allTable.addChild(_activeBtn.source);
 
-        _typeEditor = TYPE_NONE_EDITOR;
+        _typeEditor = ToolsModifier.NONE;
 
         checkTypeEditor();
 
 
         var f1:Function = function ():void {
-            if(_typeEditor != TYPE_DEACTIVATING_EDITOR){
-                _typeEditor == TYPE_MOVE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_MOVE_EDITOR;
+            if(_typeEditor != ToolsModifier.GRID_DEACTIVATED){
+                _typeEditor == ToolsModifier.MOVE
+                        ? _typeEditor = ToolsModifier.NONE :_typeEditor = ToolsModifier.MOVE;
                 checkTypeEditor();
             }
         };
         _moveBtn.source.endClickCallback = f1;
 
         var f2:Function = function ():void {
-            if(_typeEditor != TYPE_DEACTIVATING_EDITOR){
-                _typeEditor == TYPE_ROTATE_EDITOR ? _typeEditor = TYPE_NONE_EDITOR : _typeEditor = TYPE_ROTATE_EDITOR;
+            if(_typeEditor != ToolsModifier.GRID_DEACTIVATED){
+                _typeEditor == ToolsModifier.FLIP
+                        ? _typeEditor = ToolsModifier.NONE : _typeEditor = ToolsModifier.FLIP;
                 checkTypeEditor();
             }
 
@@ -324,8 +317,8 @@ public class MapEditorInterface {
         _rotateBtn.source.endClickCallback = f2;
 
         var f3:Function = function ():void {
-            if(_typeEditor != TYPE_DEACTIVATING_EDITOR){
-                _typeEditor == TYPE_CANCEL_EDITOR ? _typeEditor = TYPE_NONE_EDITOR : _typeEditor = TYPE_CANCEL_EDITOR;
+            if(_typeEditor != ToolsModifier.GRID_DEACTIVATED){
+                _typeEditor == ToolsModifier.DELETE ? _typeEditor = ToolsModifier.NONE : _typeEditor = ToolsModifier.DELETE;
                 checkTypeEditor();
             }
 
@@ -333,7 +326,8 @@ public class MapEditorInterface {
         _cancelBtn.source.endClickCallback = f3;
 
         var f4:Function = function ():void {
-            _typeEditor == TYPE_DEACTIVATING_EDITOR ? _typeEditor = TYPE_NONE_EDITOR :_typeEditor = TYPE_DEACTIVATING_EDITOR;
+            _typeEditor == ToolsModifier.GRID_DEACTIVATED
+                    ? _typeEditor = ToolsModifier.NONE :_typeEditor = ToolsModifier.GRID_DEACTIVATED;
             checkTypeEditor();
 
         };
@@ -347,16 +341,16 @@ public class MapEditorInterface {
         _activeBtn.source.y = -10;
 
         switch (_typeEditor) {
-            case TYPE_MOVE_EDITOR:
+            case ToolsModifier.MOVE:
                 _moveBtn.source.y = -20;
                 break;
-            case TYPE_ROTATE_EDITOR:
+            case ToolsModifier.FLIP:
                 _rotateBtn.source.y = -20;
                 break;
-            case TYPE_CANCEL_EDITOR:
+            case ToolsModifier.DELETE:
                 _cancelBtn.source.y = -20;
                 break;
-            case TYPE_DEACTIVATING_EDITOR:
+            case ToolsModifier.GRID_DEACTIVATED:
                 _activeBtn.source.y = -20;
                 break;
         }

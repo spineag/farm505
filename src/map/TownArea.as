@@ -94,6 +94,7 @@ public class TownArea extends Sprite {
                     _townMatrix[i][j].build = null;
                     _townMatrix[i][j].isFull = false;
                     _townMatrix[i][j].inGame = true;
+                    _townMatrix[i][j].isBlocked = false;
                 } else {
                     _townMatrix[i][j].inGame = false;
                 }
@@ -147,10 +148,11 @@ public class TownArea extends Sprite {
             source.posX = point.x;
             source.posY = point.y;
             fillMatrix(source.posX, source.posY, source.sizeX, source.sizeY, source);
-            //arr.push(source);
-            // нужно добавить заполнение матрицы зданий
             // нужно добавить сортировку по з-индексу
         }
+    }
+
+    public function setBlockedGrid(posX:int, posY:int, sizeX:int, sizeY:int):void {
 
     }
 
