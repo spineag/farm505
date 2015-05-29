@@ -132,7 +132,7 @@ public class MatrixGrid {
         for (var i:int = 0; i < _matrixSize; i++) {
             for (var j:int = 0; j < _matrixSize; j++) {
                 if (_matrix[i][j].inGame) {
-                    drawGrid(i, j);
+                    drawGrid(j, i);
                 }
             }
         }
@@ -143,10 +143,10 @@ public class MatrixGrid {
         createGridTexture();
         g.cont.gridDebugCont.unflatten();
 
-        for (var i:int = posX; i < posX + width; i++) {
-            for (var j:int = posY; j < posY + height; j++) {
+        for (var i:int = posY; i < posY + height; i++) {
+            for (var j:int = posX; j < posX + width; j++) {
                 if (_matrix[i][j].inGame) {
-                    drawGrid(i, j, false);
+                    drawGrid(j, i, false);
                 }
             }
         }
@@ -160,12 +160,12 @@ public class MatrixGrid {
         }
     }
 
-    private function drawGrid(i:int, j:int, isWhite:Boolean = true):void {
+    private function drawGrid(x:int, y:int, isWhite:Boolean = true):void {
         var im:Image;
         isWhite ? im = new Image(_gridWhiteTexture) : im = new Image(_gridRedTexture);
         isWhite ? im.alpha = .5 : im.alpha = 1;
         im.pivotX = im.width/2;
-        setSpriteFromIndex(im, new Point(i, j));
+        setSpriteFromIndex(im, new Point(x, y));
         g.cont.gridDebugCont.addChild(im);
     }
 

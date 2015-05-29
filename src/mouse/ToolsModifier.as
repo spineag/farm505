@@ -98,7 +98,7 @@ public class ToolsModifier {
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
 
-//        checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height) ? _spriteForMove.alpha = 1 : _spriteForMove.alpha = .4;
+        checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height) ? _spriteForMove.alpha = 1 : _spriteForMove.alpha = .4;
     }
 
     private function onEnterFrame():void {
@@ -108,8 +108,8 @@ public class ToolsModifier {
     private var i:int;
     private var j:int;
     private function checkFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
-        for (i = posX; i < posX + width; i++) {
-            for (j = posY; j < posY + height; j++) {
+        for (i = posY; i < posY + height; i++) {
+            for (j = posX; j < posX + width; j++) {
                 if (!_townMatrix[i][j].inGame) return false;
                 if (_townMatrix[i][j].isFull) return false;
             }
