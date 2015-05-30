@@ -5,6 +5,8 @@ package temp {
 
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.text.TextFieldAutoSize;
@@ -50,6 +52,7 @@ public class MapEditorInterfaceItem {
     }
 
     private function onEndClick():void {
+        g.toolsModifier.modifierType = ToolsModifier.MOVE;
         g.toolsModifier.startMove(_data, afterMove);
     }
 

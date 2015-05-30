@@ -61,16 +61,35 @@ public class Containers {
 
         g.mainStage.addChild(mainCont);
 
-        gameCont.addEventListener(TouchEvent.TOUCH, onGameContTouch);
+        addGameContListener(true);
+    }
+
+    public function addGameContListener(value:Boolean):void {
+        if (value) {
+            if (gameCont.hasEventListener(TouchEvent.TOUCH)) return;
+            gameCont.addEventListener(TouchEvent.TOUCH, onGameContTouch);
+        } else {
+            if (!gameCont.hasEventListener(TouchEvent.TOUCH)) return;
+            gameCont.removeEventListener(TouchEvent.TOUCH, onGameContTouch);
+        }
     }
 
     private function onGameContTouch(te:TouchEvent):void {
-        if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
-            //......
+        if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED && te.getTouch(gameCont, TouchPhase.ENDED)) {
+            var p:Point = te.touches[0].getLocation(g.mainStage);
+            p.x -= gameCont.x;
+            p.y -= gameCont.y;
+            p = g.matrixGrid.getStrongIndexFromXY(p);
+            g.deactivatedAreaManager.deactivatedTheArea(p.x, p.y);
             return;
         }
 
-        if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
+        if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+            // если садяться растение - то скинуть
+            // если деревья-то посадить его
+            // если передвижение - то поставить
+            return;
+        }
 
         if (te.getTouch(gameCont, TouchPhase.MOVED)) {
             dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати перевірки на спосіб тачу

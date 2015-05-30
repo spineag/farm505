@@ -30,7 +30,7 @@ public class ToolsModifier {
     private var _callbackAfterMove:Function;
     private var _mouse:OwnMouse;
     private var _townMatrix:Array;
-    public var modifierType:int;
+    private var _modifierType:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -38,22 +38,29 @@ public class ToolsModifier {
         _cont = g.cont.animationsContTop;
         _mouse = g.ownMouse;
         _callbackAfterMove = null;
-        modifierType = NONE;
+        _modifierType = NONE;
     }
 
     public function setTownArray():void {
         _townMatrix = g.townArea.townMatrix;
     }
 
-    public function addMoveIcon(add:Boolean = true):void {
-        // добавлення іконки пересування до мишки
+    public function set modifierType(a:int):void {
+        _modifierType = a;
+        checkMouseIcon();
+    }
+
+    public function get modifierType():int {
+        return _modifierType;
+    }
+
+    public function checkMouseIcon():void {
+        // добавлення іконки до мишки або видалення
     }
 
     public function startMove(buildingData:Object, callback:Function = null):void {
-        // реалізація пересування, поки тільки  для будівль для режиму MapEditor
         var im:Image;
 
-        addMoveIcon(false);
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;

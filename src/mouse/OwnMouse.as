@@ -2,8 +2,6 @@
  * Created by user on 5/21/15.
  */
 package mouse {
-
-
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Point;
@@ -25,26 +23,13 @@ public class OwnMouse {
     public static const HOVER_CURSOR:String = 'hover_cursor';
     public static const CLICK_CURSOR:String = 'click_cursor';
 
-    private var _mouseX:Number;
-    private var _mouseY:Number;
-    private var _touch:Touch;
     private var _cont:Sprite;
-
     private var g:Vars = Vars.getInstance();
 
     public function OwnMouse() {
         _cont = g.cont.mouseCont;
-//        g.mainStage.addEventListener(TouchEvent.TOUCH, onTouchEvent);
         CreateMouseCursor();
     }
-
-//    private function onTouchEvent(e:TouchEvent):void {
-//        _touch = e.getTouch(g.mainStage);
-//        if (_touch) {
-//            _mouseX = _touch.globalX;
-//            _mouseY = _touch.globalY;
-//        }
-//    }
 
     public function get mouseX():Number {
         return g.starling.nativeOverlay.mouseX;

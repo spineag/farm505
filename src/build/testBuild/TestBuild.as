@@ -8,6 +8,9 @@ import com.junkbyte.console.Cc;
 
 import mouse.ToolsModifier;
 
+import starling.filters.BlurFilter;
+import starling.utils.Color;
+
 public class TestBuild extends AreaObject{
     public function TestBuild(_data:Object) {
         super(_data);
@@ -18,7 +21,7 @@ public class TestBuild extends AreaObject{
     }
 
     private function onHover():void {
-
+        _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
     }
 
     private function onClick():void {
@@ -32,6 +35,8 @@ public class TestBuild extends AreaObject{
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             // ничего не делаем вообще
+        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
+            // скидываем на дефолтный NONE
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
 
         } else {
@@ -41,7 +46,7 @@ public class TestBuild extends AreaObject{
     }
 
     private function onOut():void {
-
+        _source.filter = null;
     }
 }
 }

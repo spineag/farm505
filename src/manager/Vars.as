@@ -17,8 +17,10 @@ import starling.display.Stage;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
-import temp.DataBuildings;
-import temp.DataTrees;
+import temp.DeactivatedAreaManager;
+
+import temp.dataTemp.DataBuildings;
+import temp.dataTemp.DataTrees;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
@@ -33,12 +35,14 @@ public class Vars {
     public var stageHeight:int = 640;
     public var realGameWidth:int = 2048;
     public var realGameHeight:int = 1500;
+    public var gameDispatcher:FarmDispatcher;
+
     public var isDebug:Boolean = true;
     public var showMapEditor:Boolean = true;
     public var showButtonEditor:Boolean = true;
     public var mapEditor:MapEditorInterface;
     public var editorButtons:EditorButtonInterface;
-    public var gameDispatcher:FarmDispatcher;
+    public var deactivatedAreaManager:DeactivatedAreaManager;
 
     public var mapAtlas:TextureAtlas;
     public var tempBuildAtlas:TextureAtlas;
@@ -101,6 +105,7 @@ public class Vars {
         if(showButtonEditor) {
             editorButtons = new EditorButtonInterface();
             matrixGrid.drawDebugGrid();
+            deactivatedAreaManager = new DeactivatedAreaManager();
         }
 
     }

@@ -1,7 +1,7 @@
 /**
  * Created by user on 5/25/15.
  */
-package temp {
+package temp.dataTemp {
 import data.BuildType;
 
 public class DataTrees {

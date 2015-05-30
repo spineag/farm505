@@ -119,6 +119,14 @@ public class MatrixGrid {
         return new Point(bufX, bufY);
     }
 
+    public function getStrongIndexFromXY(point:Point):Point {
+        var point3d:Point3D = IsoUtils.screenToIso(point);
+        var bufX:int = int(point3d.x / FACTOR);
+        var bufY:int = int(point3d.z / FACTOR);
+
+        return new Point(bufX, bufY);
+    }
+
     public function getXYFromIndex(point:Point):Point {
         var point3d:Point3D = new Point3D(point.x * FACTOR, 0, point.y * FACTOR);
         point = IsoUtils.isoToScreen(point3d);

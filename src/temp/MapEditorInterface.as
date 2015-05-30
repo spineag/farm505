@@ -326,8 +326,11 @@ public class MapEditorInterface {
         _cancelBtn.source.endClickCallback = f3;
 
         var f4:Function = function ():void {
-            g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED
-                    ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.GRID_DEACTIVATED;
+            if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+            } else{
+                g.toolsModifier.modifierType = ToolsModifier.GRID_DEACTIVATED;
+            }
             checkTypeEditor();
 
         };
