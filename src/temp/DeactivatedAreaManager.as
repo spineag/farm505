@@ -70,12 +70,12 @@ public class DeactivatedAreaManager {
         if (_cont.contains(area.source)) {
             _cont.removeChild(area.source);
         }
-        var f:Function = function():void {
+//        var f:Function = function():void {
             _townMatrix[area.posY][area.posX].isBlocked = false;
             g.townArea.unFillMatrix(area.posX, area.posY, 1, 1);
             area = null;
-        };
-        setTimeout(f, 50);
+//        };
+//        setTimeout(f, 50);
 
 
     }

@@ -25,16 +25,19 @@ public class CSprite extends Sprite {
         if (te.getTouch(this, TouchPhase.MOVED)) {
 
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
+            te.stopImmediatePropagation();
             Mouse.cursor = OwnMouse.CLICK_CURSOR;
             if (_startClickCallback != null) {
                 _startClickCallback.apply();
             }
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
+            te.stopImmediatePropagation();
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
             if (_endClickCallback != null) {
                 _endClickCallback.apply();
             }
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
+            te.stopImmediatePropagation();
             Mouse.cursor = OwnMouse.HOVER_CURSOR;
             if (_hoverCallback != null) {
                 _hoverCallback.apply();
