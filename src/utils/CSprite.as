@@ -2,26 +2,58 @@
  * Created by user on 5/21/15.
  */
 package utils {
+import com.junkbyte.console.Cc;
+
+import flash.display.BitmapData;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 import flash.ui.Mouse;
+import flash.utils.ByteArray;
 
 import mouse.OwnMouse;
 
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
+import starling.textures.Texture;
 
 public class CSprite extends Sprite {
     private var _endClickCallback:Function;
     private var _startClickCallback:Function;
     private var _hoverCallback:Function;
     private var _outCallback:Function;
+    private var _needStrongCheckHitTest:Boolean;
+    private var _needStrongCheckByteArray:Boolean;
+    private var _byteArray:ByteArray;
+    private var _bmd:BitmapData;
+    private var _scale:Number;
 
     public function CSprite() {
         super();
+
+        _needStrongCheckHitTest = false;
+        _needStrongCheckByteArray = false;
+        _scale = 1;
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
 
+    private var b:Boolean;
+    private var p:Point;
     private function onTouch(te:TouchEvent):void {
+        if (_needStrongCheckHitTest && te.getTouch(this, TouchPhase.ENDED)) {
+            p = new Point(te.touches[0].globalX, te.touches[0].globalY);
+            p = this.globalToLocal(p);
+            b = hitTestOwn(p, true);
+            if (!b) return;
+        }
+
+//        if (_needStrongCheckByteArray && te.getTouch(this, TouchPhase.ENDED)) {
+//            p = new Point(te.touches[0].globalX, te.touches[0].globalY);
+//            p = this.globalToLocal(p);
+//            b = checkTransparent(p);
+//            if (!b) return;
+//        }
+
         if (te.getTouch(this, TouchPhase.MOVED)) {
 
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
@@ -75,6 +107,45 @@ public class CSprite extends Sprite {
             if(this.hasEventListener(TouchEvent.TOUCH))
                 this.removeEventListener(TouchEvent.TOUCH, onTouch);
         }
+    }
+
+    // method via byteArray ------------------------------------------------------------------------
+//    public function createOwnHitAreaViaBitmap():void {
+//        if (!this.numChildren) {
+//            Cc.error('CSprite:: empty source1');
+//            return;
+//        }
+//        _needStrongCheckByteArray = true;
+//        _bmd = Screenshot.copyToBitmap(this, _scale);                     // all this function need remake
+//        _byteArray = _bmd.getPixels(_bmd.rect);
+//        _bmd = null;
+//    }
+//
+//    private function checkTransparent(_p:Point):Boolean {
+//        var pos:int = int(_p.y) * this.height + int(_p.x);
+//        _byteArray.position = pos;
+//        return _byteArray.readBoolean();
+//    }
+
+    // method via hitTest --------------------------------------------------------------------------
+    public function createStrongCheckHitTest():void {
+        if (!this.numChildren) {
+            Cc.error('CSprite:: empty source2');
+            return;
+        }
+        _needStrongCheckHitTest = true;
+        _bmd = Screenshot.copyToBitmap(this, _scale);
+    }
+
+    private function hitTestOwn(localPoint:Point, forTouch:Boolean=false):Boolean { // some analogy to hitTest logic
+        if (forTouch && (!visible || !touchable)) { return false; } // test fails if the object is invisible or not touchable
+
+        if (! getBounds(this).containsPoint(localPoint)) { return false; } // likewise if touch is outside bounds of the object
+
+        var color:uint = _bmd.getPixel32(localPoint.x * _scale, localPoint.y * _scale);
+//        if (Color.getAlpha(color) > 1) {
+        if (color) return true;
+            else return false;
     }
 }
 }

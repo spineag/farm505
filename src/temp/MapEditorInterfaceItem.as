@@ -51,7 +51,8 @@ public class MapEditorInterfaceItem {
         source.endClickCallback = onEndClick;
     }
 
-    private function onEndClick():void {
+    public function onEndClick():void {
+        // это условие только для включенного режима передвижения, нужно добавить и на остальные
         g.toolsModifier.modifierType = ToolsModifier.MOVE;
         g.toolsModifier.startMove(_data, afterMove);
     }

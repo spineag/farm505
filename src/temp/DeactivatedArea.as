@@ -22,6 +22,7 @@ public class DeactivatedArea {
         onRemoveCallback = f;
         posX = _x;
         posY = _y;
+        source.createStrongCheckHitTest();
     }
 
     private function onEndedTouch():void {

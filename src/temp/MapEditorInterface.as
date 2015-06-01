@@ -299,7 +299,7 @@ public class MapEditorInterface {
         var f1:Function = function ():void {
             if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                 g.toolsModifier.modifierType == ToolsModifier.MOVE
-                        ? g.toolsModifier.modifierType= ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
+                        ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
                 checkTypeEditor();
             }
         };
