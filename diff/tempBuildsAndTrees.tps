@@ -203,6 +203,7 @@
             <filename>build8.png</filename>
             <filename>build9.png</filename>
             <filename>build10.png</filename>
+            <filename>ridge.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
