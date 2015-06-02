@@ -1,6 +1,7 @@
 ﻿package map {
 
 import build.WorldObject;
+import build.ridge.Ridge;
 import build.testBuild.TestBuild;
 
 import com.junkbyte.console.Cc;
@@ -37,46 +38,7 @@ public class TownArea extends Sprite {
 
 //        _finder = new V_Finder();
 //        _hev = new V_HevristicToTarget();
-
-//        addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-//        addEventListener(MouseEvent.MOUSE_UP, mouseUpStageHandler, true);
-//        Main.stageS.addEventListener(MouseEvent.MOUSE_UP, mouseUpStageHandler, true);
-//        Main.stageS.addEventListener(Event.MOUSE_LEAVE, mouseLeaveStageHandler);
-//        Main.stageS.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownStageHandler, true);
     }
-
-
-//    public function getIsNormTile(indexY:int, indexX:int):Boolean {
-//        var contain:Boolean = false;
-//        for (var i:int = indexY; i < (indexY + 1); i++) {
-//            for (var j:int = indexX; j < (indexX + 1); j++) {
-//                var point:Point = new Point(j, i);
-//
-//                point = getXYFromIndex(point);
-//                for (var k:int = 0; k < _rectanglesArray.length; k++) {
-//                    var rect:Rectangle = new Rectangle(_rectanglesArray[k].t_x, _rectanglesArray[k].t_y, _rectanglesArray[k].width, _rectanglesArray[k].height);
-//                    if (rect.containsPoint(point)) {
-//                        contain = true;
-//                        return contain;
-//                    }
-//                }
-//            }
-//        }
-//        return contain;
-//    }
-
-
-//    public function addMoveObject(source:WorldObject):void {
-//        if (!contains(source.source)) {
-//            addChild(source.source);
-//        }
-//    }
-//
-//    public function removeMoveObject(source:WorldObject):void {
-//        if (contains(source.source)) {
-//            removeChild(source.source);
-//        }
-//    }
 
     public function get townMatrix():Array {
         return _townMatrix;
@@ -128,6 +90,9 @@ public class TownArea extends Sprite {
         switch (_data.buildType) {
             case BuildType.TEST:
                 build = new TestBuild(_data);
+                break;
+            case BuildType.RIDGE:
+                build = new Ridge(_data);
                 break;
             //case и так далее проходимся по всем классам
         }

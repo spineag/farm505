@@ -223,16 +223,16 @@ public class DataBuildings {
 //        11
         obj = {};
         obj.id = 11;
-        obj.name = "3x3";
-        obj.width = 3;
-        obj.height = 3;
+        obj.name = "Ridge";
+        obj.width = 2;
+        obj.height = 2;
         obj.posX = 1;
         obj.posY = 1;
-        obj.innerX = 0;
+        obj.innerX = -40;
         obj.innerY = 0;
-        obj.url = " ";
-        obj.image = "tile3x3";
-        obj.buildType = BuildType.TEST;
+        obj.url = "buildAtlas";
+        obj.image = "ridge";
+        obj.buildType = BuildType.RIDGE;
         obj.cost = 10;
         obj.currency = SOFT_CURRENCY;
         obj.blockByLevel = 1;

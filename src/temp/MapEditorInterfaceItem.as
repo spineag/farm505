@@ -58,6 +58,7 @@ public class MapEditorInterfaceItem {
     }
 
     private function afterMove(_x:Number, _y:Number):void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.townArea.createNewBuild(_data, _x, _y);
     }
 }

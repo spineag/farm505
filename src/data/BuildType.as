@@ -9,5 +9,6 @@ public class BuildType {
     public static const RIDGE:int = 4;
     public static const TREE:int = 5;
     public static const DECOR:int = 6;
+    public static const PLANT:int = 6;
 }
 }
