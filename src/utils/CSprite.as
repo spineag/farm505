@@ -134,7 +134,7 @@ public class CSprite extends Sprite {
             return;
         }
         _needStrongCheckHitTest = true;
-        _bmd = Screenshot.copyToBitmap(this, _scale);
+        _bmd = DrawToBitmap.drawToBitmap(this).bitmapData;
     }
 
     private function hitTestOwn(localPoint:Point, forTouch:Boolean=false):Boolean { // some analogy to hitTest logic

@@ -7,6 +7,7 @@ import flash.geom.Rectangle;
 import starling.core.RenderSupport;
 import starling.core.Starling;
 import starling.display.DisplayObject;
+import starling.display.Stage;
 
 public class DrawToBitmap {
 
@@ -33,7 +34,27 @@ public class DrawToBitmap {
         resultBitmap.scaleX = displayObject.scaleX;
         resultBitmap.scaleY = displayObject.scaleY;
         return resultBitmap;
+    }
 
+    public static function copyToBitmapScale(disp:DisplayObject, scl:Number=1.0):BitmapData
+    {
+        var rc:Rectangle = new Rectangle();
+        disp.getBounds(disp, rc);
+
+        var stage:Stage= Starling.current.stage;
+        var rs:RenderSupport = new RenderSupport();
+
+        rs.clear();
+        rs.scaleMatrix(scl, scl);
+        rs.setOrthographicProjection(0, 0, stage.stageWidth, stage.stageHeight);
+        rs.translateMatrix(-rc.x, -rc.y); // move to 0,0
+        disp.render(rs, 1.0);
+        rs.finishQuadBatch();
+
+        var outBmp:BitmapData = new BitmapData(rc.width*scl, rc.height*scl, true);
+        Starling.context.drawToBitmapData(outBmp);
+
+        return outBmp;
     }
 }
 }
