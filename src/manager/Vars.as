@@ -2,8 +2,6 @@
  * Created by user on 5/13/15.
  */
 package manager {
-import build.WorldObject;
-
 import flash.geom.Matrix;
 
 import map.BackgroundArea;
@@ -22,11 +20,14 @@ import starling.textures.TextureAtlas;
 import temp.DeactivatedAreaManager;
 
 import temp.dataTemp.DataBuildings;
+import temp.dataTemp.DataPlants;
 import temp.dataTemp.DataTrees;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
 import utils.FarmDispatcher;
+
+import windows.buyPlant.WOBuyPlant;
 
 public class Vars {
     private static var _instance:Vars;
@@ -48,6 +49,8 @@ public class Vars {
 
     public var mapAtlas:TextureAtlas;
     public var tempBuildAtlas:TextureAtlas;
+    public var plantAtlas:TextureAtlas;
+    public var interfaceAtlas:TextureAtlas;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
@@ -60,7 +63,10 @@ public class Vars {
 
     public var dataBuilding:DataBuildings;
     public var dataTree:DataTrees;
-    public var selectedBuild:WorldObject;
+    public var dataPlant:DataPlants;
+//    public var selectedBuild:
+
+    public var woBuyPlant:WOBuyPlant;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -86,6 +92,7 @@ public class Vars {
         matrixGrid = new MatrixGrid();
         dataBuilding = new DataBuildings();
         dataTree = new DataTrees();
+        dataPlant = new DataPlants();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
 
@@ -109,6 +116,8 @@ public class Vars {
             matrixGrid.drawDebugGrid();
             deactivatedAreaManager = new DeactivatedAreaManager();
         }
+
+        woBuyPlant = new WOBuyPlant();
 
     }
 

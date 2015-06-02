@@ -16,12 +16,20 @@ public class EmbedAssets {
     public static const MapTexture:Class;
     [Embed(source="../../assets/buildAndTree.png")]
     public static const BuildTexture:Class;
+    [Embed(source="../../assets/plants.png")]
+    public static const PlantTexture:Class;
+    [Embed(source="../../assets/interfaceAtlas.png")]
+    public static const InterfaceTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
     public static const MapTextureXML:Class;
     [Embed(source="../../assets/buildAndTree.xml", mimeType="application/octet-stream")]
     public static const BuildTextureXML:Class;
+    [Embed(source="../../assets/plants.xml", mimeType="application/octet-stream")]
+    public static const PlantTextureXML:Class;
+    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
+    public static const InterfaceTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -37,6 +45,14 @@ public class EmbedAssets {
         texture = Texture.fromBitmap(new BuildTexture());
         xml= XML(new BuildTextureXML());
         g.tempBuildAtlas = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new PlantTexture());
+        xml= XML(new PlantTextureXML());
+        g.plantAtlas = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new InterfaceTexture());
+        xml= XML(new InterfaceTextureXML());
+        g.interfaceAtlas = new TextureAtlas(texture, xml);
     }
 }
 }

@@ -32,7 +32,7 @@ public class DataPlants {
         obj.image4 = "wheat4";
         obj.imageShop = "wheatShop";
         obj.imageHarvested = "wheatHarvested"; // иконка собраного растения, которое летит в изображение склада
-        obj.innerPositions = [];
+        obj.innerPositions = [-33, 0, -35, 0, -40, -2, -37, -19];
         obj.currency = SOFT_CURRENCY;
         obj.cost = 1;
         obj.costMax = 3;
@@ -56,6 +56,7 @@ public class DataPlants {
         obj.image4 = "corn4";
         obj.imageShop = "cornShop";
         obj.imageHarvested = "cornHarvested";
+        obj.innerPositions = [-32, -5, -36, -16, -36, -22, -37, -32];
         obj.currency = SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
@@ -79,6 +80,7 @@ public class DataPlants {
         obj.image4 = "soybean4";
         obj.imageShop = "soybeanShop";
         obj.imageHarvested = "soybeanHarvested";
+        obj.innerPositions = [-34, 2, -35, 0, -42, -11, -42, 26];
         obj.currency = SOFT_CURRENCY;
         obj.cost = 3;
         obj.costMax = 10;

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:6f794188323e030634e50dc0e043cc97:736906418e793c362358e8e9d3d4e29e:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<TextureAtlas imagePath="interfaceAtlas.png">
+    <SubTexture name="btn_exit" x="2" y="2" width="31" height="31"/>
+    <SubTexture name="btn_exit_click" x="35" y="2" width="31" height="31"/>
+    <SubTexture name="btn_exit_hover" x="68" y="2" width="31" height="31"/>
+</TextureAtlas>

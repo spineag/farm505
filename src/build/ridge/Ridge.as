@@ -11,9 +11,22 @@ import mouse.ToolsModifier;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 public class Ridge extends AreaObject{
+    public static const EMPTY:int = 1;
+    public static const GROW1:int = 2;
+    public static const GROW2:int = 3;
+    public static const GROW3:int = 4;
+    public static const GROWED:int = 5;
+
+    private var _dataPlant:Object;
+    private var _plant:PlantOnRidge;
+    private var _stateRidge:int;
+
     public function Ridge(_data:Object) {
         super(_data);
+        _stateRidge = EMPTY;
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
@@ -38,15 +51,29 @@ public class Ridge extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             // скидываем на дефолтный NONE
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-
+            _source.filter = null;
+            g.woBuyPlant.showItWithParams(this);
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
-
     }
 
     private function onOut():void {
         _source.filter = null;
+    }
+
+    public function fillPlant(data:Object):void {
+        _stateRidge = GROW1;
+        _dataPlant = data;
+        _plant = new PlantOnRidge(this, _dataPlant);
+    }
+
+    public function get stateRidge():int {
+        return _stateRidge;
+    }
+
+    public function set stateRidge(a:int):void {
+        _stateRidge = a;
     }
 }
 }

@@ -15,10 +15,14 @@ import starling.textures.Texture;
 
 public class CButton extends Button{
     private var g:Vars = Vars.getInstance();
+    private var _hoverState:Texture;
+    private var _upState:Texture;
 
-    public function CButton(upState:Texture,text:String = "",downState:Texture = null) {
+    public function CButton(upState:Texture, text:String = "", downState:Texture = null, hoverState:Texture = null) {
         super (upState,text,downState);
 
+        _upState = upState;
+        _hoverState = hoverState;
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
 
@@ -30,10 +34,13 @@ public class CButton extends Button{
             Mouse.cursor = OwnMouse.CLICK_CURSOR;
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
+            super.upState = _upState;
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
             Mouse.cursor = OwnMouse.HOVER_CURSOR;
+            if (_hoverState) super.upState = _hoverState;
         } else {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
+            super.upState = _upState;
         }
     }
 }
