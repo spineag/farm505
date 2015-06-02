@@ -34,7 +34,10 @@ public class TestBuild extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
         g.townArea.deleteBuild(this);
 
-        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {//Нужно сделать проверку на пересечения с другими объектами
+            _flip = !_flip;
+            _source.scaleX  *=-1;
+            if (_sizeX != _sizeY) g.townArea.flipBuild(this);
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
 

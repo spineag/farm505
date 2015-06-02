@@ -123,10 +123,10 @@ public class TownArea extends Sprite {
         }
 
     }
-    public function flipBuild(wordObject:WorldObject):void{
+    public function flipBuild(wordObject:WorldObject):void{ //Нужно сделать проверку на пересечения с другими объектами
         if(_cont.contains(wordObject.source)){
-            _cont.addChild(wordObject.source);
-            fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY, wordObject);
+            unFillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY);
+            fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeY, wordObject.sizeX, wordObject);
 
         }
 
