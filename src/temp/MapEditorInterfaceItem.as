@@ -52,9 +52,11 @@ public class MapEditorInterfaceItem {
     }
 
     public function onEndClick():void {
+        if(g.toolsModifier.modifierType !== ToolsModifier.NONE) return;
         // это условие только для включенного режима передвижения, нужно добавить и на остальные
         g.toolsModifier.modifierType = ToolsModifier.MOVE;
         g.toolsModifier.startMove(_data, afterMove);
+
     }
 
     private function afterMove(_x:Number, _y:Number):void {

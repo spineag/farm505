@@ -6,12 +6,15 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import map.TownArea;
+
 import mouse.ToolsModifier;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 public class TestBuild extends AreaObject{
+    private var _deleteBuild:TownArea;
     public function TestBuild(_data:Object) {
         super(_data);
 
@@ -25,9 +28,11 @@ public class TestBuild extends AreaObject{
     }
 
     private function onClick():void {
+
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+        g.townArea.deleteBuild(this);
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
 

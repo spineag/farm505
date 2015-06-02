@@ -104,18 +104,34 @@ public class TownArea extends Sprite {
         pasteBuild(build, _x, _y);
     }
 
-    public function pasteBuild(source:WorldObject, _x:Number, _y:Number):void {
-        if (!_cont.contains(source.source)) {
-            source.source.x = _x;
-            source.source.y = _y;
-            _cont.addChild(source.source);
+    public function pasteBuild(wordObject:WorldObject, _x:Number, _y:Number):void {
+        if (!_cont.contains(wordObject.source)) {
+            wordObject.source.x = _x;
+            wordObject.source.y = _y;
+            _cont.addChild(wordObject.source);
             var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
-            source.posX = point.x;
-            source.posY = point.y;
-            fillMatrix(source.posX, source.posY, source.sizeX, source.sizeY, source);
+            wordObject.posX = point.x;
+            wordObject.posY = point.y;
+            fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY, wordObject);
             // нужно добавить сортировку по з-индексу
         }
     }
+    public function deleteBuild(wordObject:WorldObject):void{
+        if(_cont.contains(wordObject.source)){
+            _cont.removeChild(wordObject.source);
+            unFillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY);
+        }
+
+    }
+    public function flipBuild(wordObject:WorldObject):void{
+        if(_cont.contains(wordObject.source)){
+            _cont.addChild(wordObject.source);
+            fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY, wordObject);
+
+        }
+
+    }
+
 
     public function setBlockedGrid(posX:int, posY:int, sizeX:int, sizeY:int):void {
 
