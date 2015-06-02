@@ -126,17 +126,6 @@ public class TownArea extends Sprite {
 
     }
 
-    public function flipBuild(wordObject:WorldObject):void {// не работает поворот не для квадратных объектов
-        if (_cont.contains(wordObject.source)) {
-            if((wordObject as AreaObject).flip) {
-                fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeY, wordObject.sizeX, wordObject);
-            }else {
-                fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY, wordObject);
-            }
-
-        }
-    }
-
     public function moveBuild(wordObject:WorldObject):void{// не сохраняется флип при муве
         if(_cont.contains(wordObject.source)) {
             g.selectedBuild = wordObject;

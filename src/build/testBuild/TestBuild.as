@@ -33,21 +33,7 @@ public class TestBuild extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {  // не работает поворот не для квадратных объектов
-            if (_sizeX == _sizeY) {
-                _flip = !_flip;
-                _flip ? _source.scaleX = -_defaultScale : _source.scaleX = _defaultScale;
-                return;
-            }
-            _flip ? g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX) : g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
-            if (_flip && g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY) || !_flip && g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
-                _flip = !_flip;
-                _flip ? _source.scaleX = -_defaultScale : _source.scaleX = _defaultScale;
-                g.townArea.flipBuild(this);
-            } else{
-                _flip ? g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this) : g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
-                trace("Not can");
-            }
-
+            releaseFlip();
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
@@ -64,6 +50,34 @@ public class TestBuild extends AreaObject{
 
     private function onOut():void {
         _source.filter = null;
+    }
+
+    private function releaseFlip():void {
+        if (_sizeX == _sizeY) {
+            _flip = !_flip;
+            _flip ? _source.scaleX = -_defaultScale : _source.scaleX = _defaultScale;
+            return;
+        }
+
+        if (_flip) {
+            g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
+            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY)) {
+                _flip = false;
+                _source.scaleX = _defaultScale;
+                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+            } else {
+                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+            }
+        } else {
+            g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
+            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
+                _flip = true;
+                _source.scaleX = -_defaultScale;
+                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+            } else {
+                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+            }
+        }
     }
 }
 }
