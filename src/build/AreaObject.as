@@ -75,19 +75,22 @@ public class AreaObject extends WorldObject {
     override public function get sizeX():uint {
         return _flip ? _sizeY : _sizeX;
     }
+    public function get dataBuild():Object{
+        return _dataBuild;
+    }
 
     override public function get sizeY():uint {
         return _flip ? _sizeX : _sizeY;
     }
 
-    public function set flip(value:Boolean):void {
-        _flip = value;
-        if (_flip) {
-            _build.scaleX = -_defaultScale;
-        } else {
-            _build.scaleX = _defaultScale;
-        }
-    }
+//    public function set flip(value:Boolean):void {
+//        _flip = value;
+//        if (_flip) {
+//            _build.scaleX = -_defaultScale;
+//        } else {
+//            _build.scaleX = _defaultScale;
+//        }
+//    }
 
     public function get flip():Boolean {
         return _flip;

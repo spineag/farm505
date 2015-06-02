@@ -1,5 +1,6 @@
 ﻿package map {
 
+import build.AreaObject;
 import build.WorldObject;
 import build.ridge.Ridge;
 import build.testBuild.TestBuild;
@@ -116,6 +117,7 @@ public class TownArea extends Sprite {
             // нужно добавить сортировку по з-индексу
         }
     }
+
     public function deleteBuild(wordObject:WorldObject):void{
         if(_cont.contains(wordObject.source)){
             _cont.removeChild(wordObject.source);
@@ -123,13 +125,29 @@ public class TownArea extends Sprite {
         }
 
     }
-    public function flipBuild(wordObject:WorldObject):void{ //Нужно сделать проверку на пересечения с другими объектами
-        if(_cont.contains(wordObject.source)){
-            unFillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY);
-            fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeY, wordObject.sizeX, wordObject);
+
+    public function flipBuild(wordObject:WorldObject):void {// не работает поворот не для квадратных объектов
+        if (_cont.contains(wordObject.source)) {
+            if((wordObject as AreaObject).flip) {
+                fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeY, wordObject.sizeX, wordObject);
+            }else {
+                fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY, wordObject);
+            }
 
         }
+    }
 
+    public function moveBuild(wordObject:WorldObject):void{// не сохраняется флип при муве
+        if(_cont.contains(wordObject.source)) {
+            g.selectedBuild = wordObject;
+            deleteBuild(wordObject);
+               g.toolsModifier.startMove((wordObject as AreaObject).dataBuild, afterMove);
+        }
+    }
+
+    private function afterMove(_x:Number, _y:Number):void {
+        g.townArea.createNewBuild((g.selectedBuild as AreaObject).dataBuild, _x, _y);
+        g.selectedBuild = null;
     }
 
 

@@ -118,7 +118,7 @@ public class ToolsModifier {
     private var i:int;
     private var j:int;
     private var obj:Object;
-    private function checkFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
+    public function checkFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
         for (i = posY; i < posY + height; i++) {
             for (j = posX; j < posX + width; j++) {
                 obj = _townMatrix[i][j];

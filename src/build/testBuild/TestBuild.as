@@ -29,15 +29,30 @@ public class TestBuild extends AreaObject{
 
     private function onClick():void {
 
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) { // не сохраняется флип при муве
+            g.townArea.moveBuild(this);
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
         g.townArea.deleteBuild(this);
 
-        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {//Нужно сделать проверку на пересечения с другими объектами
-            _flip = !_flip;
-            _source.scaleX  *=-1;
-            if (_sizeX != _sizeY) g.townArea.flipBuild(this);
+        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {  // не работает поворот не для квадратных объектов
+            if (_flip) {
+                g.townArea.unFillMatrix(posX, posY,_sizeY,_sizeX);
+            } else {
+                g.townArea.unFillMatrix(posX, posY,_sizeX,_sizeY);
+            }
+            if (_flip && g.toolsModifier.checkFreeGrids(posX, posY,_sizeX,_sizeY) || !_flip && g.toolsModifier.checkFreeGrids(posX, posY,_sizeY,_sizeX)) {
+                _flip = !_flip;
+                _source.scaleX *= -1;
+                if (_sizeX != _sizeY) g.townArea.flipBuild(this);
+            } else{
+                if (_flip) {
+                    g.townArea.fillMatrix(posX, posY,_sizeY,_sizeX, this);
+                } else {
+                    g.townArea.fillMatrix(posX, posY,_sizeX,_sizeY, this);
+                }
+                trace("Not can");
+            }
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
 
