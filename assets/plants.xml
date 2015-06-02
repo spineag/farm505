@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:847d8931427f8958212f9f0db3683279:4d8f0d8a805486867af42acdf15d8f6e:2ea56412c5f553caed8742db801c3f51$ -->
+<TextureAtlas imagePath="plants.png">
+    <SubTexture name="corn1" x="537" y="66" width="66" height="43"/>
+    <SubTexture name="corn2" x="623" y="2" width="69" height="55"/>
+    <SubTexture name="corn3" x="476" y="2" width="69" height="62"/>
+    <SubTexture name="corn4" x="320" y="2" width="73" height="70"/>
+    <SubTexture name="cornShop" x="103" y="2" width="106" height="104" frameX="-23" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="soybean1" x="749" y="55" width="68" height="37"/>
+    <SubTexture name="soybean2" x="465" y="68" width="70" height="39"/>
+    <SubTexture name="soybean3" x="694" y="2" width="81" height="51"/>
+    <SubTexture name="soybean4" x="395" y="2" width="79" height="64"/>
+    <SubTexture name="soybeanShop" x="211" y="2" width="107" height="96" frameX="-23" frameY="-30" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="wheat1" x="681" y="59" width="66" height="39"/>
+    <SubTexture name="wheat2" x="395" y="68" width="68" height="40"/>
+    <SubTexture name="wheat3" x="605" y="63" width="74" height="42"/>
+    <SubTexture name="wheat4" x="547" y="2" width="74" height="59"/>
+    <SubTexture name="wheatShop" x="2" y="2" width="99" height="107" frameX="-28" frameY="-22" frameWidth="150" frameHeight="150"/>
+</TextureAtlas>
