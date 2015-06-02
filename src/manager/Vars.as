@@ -2,6 +2,8 @@
  * Created by user on 5/13/15.
  */
 package manager {
+import build.WorldObject;
+
 import flash.geom.Matrix;
 
 import map.BackgroundArea;
@@ -64,7 +66,7 @@ public class Vars {
     public var dataBuilding:DataBuildings;
     public var dataTree:DataTrees;
     public var dataPlant:DataPlants;
-//    public var selectedBuild:
+    public var selectedBuild:WorldObject;
 
     public var woBuyPlant:WOBuyPlant;
 
