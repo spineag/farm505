@@ -66,7 +66,7 @@ public class TownArea extends Sprite {
     }
 
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
-		if (source is WorldObject) g.matrixGrid.drawDebugPartGrid(posX, posY, sizeX, sizeY);
+		//if (source is WorldObject) g.matrixGrid.drawDebugPartGrid(posX, posY, sizeX, sizeY);
 
         for (var i:int = posY; i < (posY + sizeY); i++) {
             for (var j:int = posX; j < (posX + sizeX); j++) {
@@ -87,7 +87,9 @@ public class TownArea extends Sprite {
 
     public function createNewBuild(_data:Object, _x:Number, _y:Number):void {
         var build:WorldObject;
+        var isFlip:Boolean = false;
 
+        if (_data.isFlip) isFlip = true;
         switch (_data.buildType) {
             case BuildType.TEST:
                 build = new TestBuild(_data);
@@ -103,6 +105,9 @@ public class TownArea extends Sprite {
             return;
         }
         pasteBuild(build, _x, _y);
+        if (isFlip && _data.buildType == BuildType.TEST) {
+            (build as TestBuild).releaseFlip();
+        }
     }
 
     public function pasteBuild(wordObject:WorldObject, _x:Number, _y:Number):void {
@@ -130,12 +135,12 @@ public class TownArea extends Sprite {
         if(_cont.contains(wordObject.source)) {
             g.selectedBuild = wordObject;
             deleteBuild(wordObject);
-               g.toolsModifier.startMove((wordObject as AreaObject).dataBuild, afterMove);
+            g.toolsModifier.startMove((wordObject as AreaObject).dataBuild, afterMove);
         }
     }
 
     private function afterMove(_x:Number, _y:Number):void {
-        g.townArea.createNewBuild((g.selectedBuild as AreaObject).dataBuild, _x, _y);
+        createNewBuild((g.selectedBuild as AreaObject).dataBuild, _x, _y);
         g.selectedBuild = null;
     }
 

@@ -73,6 +73,7 @@ public class ToolsModifier {
             im.x = -im.width/2;
         }
 
+        if (_activeBuildingData.isFlip) _spriteForMove.scaleX *= -1;
         _spriteForMove.addChild(im);
         _spriteForMove.flatten();
         _spriteForMove.x = _mouse.mouseX - _cont.x;

@@ -21,6 +21,7 @@ public class TestBuild extends AreaObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
+        _dataBuild.isFlip = _flip;
     }
 
     private function onHover():void {
@@ -52,10 +53,11 @@ public class TestBuild extends AreaObject{
         _source.filter = null;
     }
 
-    private function releaseFlip():void {
+    public function releaseFlip():void {
         if (_sizeX == _sizeY) {
             _flip = !_flip;
             _flip ? _source.scaleX = -_defaultScale : _source.scaleX = _defaultScale;
+            _dataBuild.isFlip = _flip;
             return;
         }
 
@@ -78,6 +80,7 @@ public class TestBuild extends AreaObject{
                 g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
             }
         }
+        _dataBuild.isFlip = _flip;
     }
 }
 }
