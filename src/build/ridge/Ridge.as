@@ -51,8 +51,12 @@ public class Ridge extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             // скидываем на дефолтный NONE
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            _source.filter = null;
-            g.woBuyPlant.showItWithParams(this);
+            if (_stateRidge == EMPTY) {
+                _source.filter = null;
+                g.woBuyPlant.showItWithParams(this);
+            } else if (_stateRidge == GROWED) {
+                // собираем урожай
+            }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
