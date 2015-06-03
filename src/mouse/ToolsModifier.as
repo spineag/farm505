@@ -6,6 +6,8 @@ import flash.geom.Point;
 
 import manager.Vars;
 
+import map.MatrixGrid;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -77,7 +79,7 @@ public class ToolsModifier {
         _spriteForMove.addChild(im);
         _spriteForMove.flatten();
         _spriteForMove.x = _mouse.mouseX - _cont.x;
-        _spriteForMove.y = _mouse.mouseY - _cont.y;
+        _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
         _cont.addChild(_spriteForMove);
 
         _cont.x = g.cont.gameCont.x;
@@ -105,7 +107,7 @@ public class ToolsModifier {
 
     private function moveIt():void {
         _spriteForMove.x = _mouse.mouseX - _cont.x;
-        _spriteForMove.y = _mouse.mouseY - _cont.y;
+        _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
 

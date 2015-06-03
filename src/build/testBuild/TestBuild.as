@@ -14,7 +14,6 @@ import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 public class TestBuild extends AreaObject{
-    private var _deleteBuild:TownArea;
     public function TestBuild(_data:Object) {
         super(_data);
 

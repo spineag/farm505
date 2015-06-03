@@ -66,7 +66,7 @@ public class TownArea extends Sprite {
     }
 
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
-		//if (source is WorldObject) g.matrixGrid.drawDebugPartGrid(posX, posY, sizeX, sizeY);
+//		if (source is WorldObject) g.matrixGrid.drawDebugPartGrid(posX, posY, sizeX, sizeY);
 
         for (var i:int = posY; i < (posY + sizeY); i++) {
             for (var j:int = posX; j < (posX + sizeX); j++) {
