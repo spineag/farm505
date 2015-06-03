@@ -28,11 +28,11 @@ public class TestBuild extends AreaObject{
     }
 
     private function onClick():void {
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) { // не сохраняется флип при муве
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             g.townArea.moveBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
-        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {  // не работает поворот не для квадратных объектов
+        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
 

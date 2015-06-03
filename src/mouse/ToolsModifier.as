@@ -9,12 +9,16 @@ import manager.Vars;
 import map.MatrixGrid;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
+import starling.utils.Color;
 
 import temp.MapEditorInterface;
+
+import utils.MCScaler;
 
 public class ToolsModifier {
     public static var NONE:int = 0;
@@ -33,14 +37,18 @@ public class ToolsModifier {
     private var _mouse:OwnMouse;
     private var _townMatrix:Array;
     private var _modifierType:int;
+    private var _mouseIcon:Sprite;
+    private var _mouseCont:Sprite;
 
     private var g:Vars = Vars.getInstance();
 
     public function ToolsModifier() {
+        _mouseCont = g.cont.mouseCont;
         _cont = g.cont.animationsContTop;
         _mouse = g.ownMouse;
         _callbackAfterMove = null;
         _modifierType = NONE;
+        _mouseIcon = new Sprite();
     }
 
     public function setTownArray():void {
@@ -57,7 +65,53 @@ public class ToolsModifier {
     }
 
     public function checkMouseIcon():void {
-        // добавлення іконки до мишки або видалення
+        var im:Image;
+        switch (g.toolsModifier.modifierType){
+             case ToolsModifier.NONE:
+                 clearCont();
+                 if(_mouseCont.contains(_mouseIcon)) _mouseCont.removeChild(_mouseIcon);
+                 g.gameDispatcher.removeEnterFrame(moveMouseIcon);
+                 return;
+             case ToolsModifier.MOVE:
+                clearCont();
+                 im = new Image(g.mapAtlas.getTexture("Move"));
+                 _mouseIcon.addChild(im);
+                 break;
+             case ToolsModifier.FLIP:
+                clearCont();
+                 im = new Image(g.mapAtlas.getTexture("Rotate"));
+                 _mouseIcon.addChild(im);
+                break;
+             case ToolsModifier.DELETE:
+                clearCont();
+                 im = new Image(g.mapAtlas.getTexture("Cancel"));
+                 _mouseIcon.addChild(im);
+                break;
+             case ToolsModifier.GRID_DEACTIVATED:
+                 clearCont();
+                 var q:Quad = new Quad(100, 100, Color.RED);
+                 q.rotation = Math.PI/4;
+                     var _iconEditor:Sprite = new Sprite();
+                 _iconEditor.addChild(q);
+                 _iconEditor.scaleY /= 2;
+                 _iconEditor.x = _iconEditor.width/2;
+                 _mouseIcon.addChild(_iconEditor);
+                break;
+        }
+        if(!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
+        MCScaler.scale(_mouseIcon, 30, 30);
+        g.gameDispatcher.addEnterFrame(moveMouseIcon);
+     }
+
+    [Inline]
+    private function clearCont():void{
+        while (_mouseIcon.numChildren) {
+            _mouseIcon.removeChildAt(0);
+        }
+    }
+    private function moveMouseIcon():void{
+        _mouseCont.x = g.ownMouse.mouseX + 20;
+        _mouseCont.y = g.ownMouse.mouseY + 10;
     }
 
     public function startMove(buildingData:Object, callback:Function = null):void {
