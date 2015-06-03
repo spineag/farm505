@@ -108,7 +108,7 @@ public class Vars {
 
         background = new BackgroundArea();
 
-        cont.moveCenterToXY(realGameWidth/2, realGameHeight/2, true);
+        cont.moveCenterToXY(0, realGameHeight/2 + matrixGrid.offsetY, true);
 
         if(showMapEditor) {
             mapEditor = new MapEditorInterface();

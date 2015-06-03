@@ -114,20 +114,14 @@ public class Containers {
 
     }
 
-    public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в системі (realGameWidth, realGameHeight)
+    public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в загальній системі gameCont
         //переміщаємо ігрову область так, щоб вказана точка була по центру екрана
         var newX:int;
         var newY:int;
 
-        newX = 0   + g.stageWidth/2;
-        newY = -g.matrixGrid.offsetY - g.realGameHeight/2    + g.stageHeight/2;
-
-
-        //потрібно переробити
-//        newX = _x - g.stageWidth/2;
-//        newY = _y  - g.matrixGrid.offsetY;
+        newX = -(_x - g.stageWidth/2); // - g.realGameWidth/2;
+        newY = -(_y - g.stageHeight/2);// - g.matrixGrid.offsetY;
 //
-////        newY = _y - g.stageHeight/2;
         if (needQuick) {
             gameCont.x = newX;
             gameCont.y = newY;
