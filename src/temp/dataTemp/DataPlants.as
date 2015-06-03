@@ -20,7 +20,6 @@ public class DataPlants {
         obj = {};
         obj.id = 1;
         obj.name = "Wheat";
-        obj.isPlant = true;
 //        obj.width = 1;
 //        obj.height = 1;
 //        obj.posX = 1;      // пригодиться только при получениие данных юзера, а не тут в общих данных
@@ -48,7 +47,6 @@ public class DataPlants {
         obj = {};
         obj.id = 2;
         obj.name = "Corn";
-        obj.isPlant = true;
         obj.url = "plantAtlas";
         obj.image1 = "corn1";
         obj.image2 = "corn2";
@@ -72,7 +70,6 @@ public class DataPlants {
         obj = {};
         obj.id = 3;
         obj.name = "Soybean";
-        obj.isPlant = true;
         obj.url = "plantAtlas";
         obj.image1 = "soybean1";
         obj.image2 = "soybean2";
@@ -119,7 +116,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 5;
 //        obj.name = "Carrot";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "carrot1";
 //        obj.image2 = "carrot2";
@@ -142,7 +138,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 6;
 //        obj.name = "Indigo";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "indigo1";
 //        obj.image2 = "indigo2";
@@ -165,7 +160,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 7;
 //        obj.name = "Pumpkin";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "pumpkin1";
 //        obj.image2 = "pumpkin2";
@@ -188,7 +182,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 8;
 //        obj.name = "Cotton";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "cotton1";
 //        obj.image2 = "cotton2";
@@ -211,7 +204,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 9;
 //        obj.name = "Chili Pepper";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "chiliPepper1";
 //        obj.image2 = "chiliPepper2";
@@ -234,7 +226,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 10;
 //        obj.name = "Tomato";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "tomato1";
 //        obj.image2 = "tomato2";
@@ -257,7 +248,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 11;
 //        obj.name = "Strawberry";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "strawberry1";
 //        obj.image2 = "strawberry2";
@@ -280,7 +270,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 12;
 //        obj.name = "Potato";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "potato1";
 //        obj.image2 = "potato2";
@@ -303,7 +292,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 13;
 //        obj.name = "Rice";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "rice1";
 //        obj.image2 = "rice2";
@@ -326,7 +314,6 @@ public class DataPlants {
 //        obj = {};
 //        obj.id = 14;
 //        obj.name = "Lettuce";
-//        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "lettuce1";
 //        obj.image2 = "lettuce2";

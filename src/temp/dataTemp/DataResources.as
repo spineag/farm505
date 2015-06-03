@@ -20,8 +20,7 @@ public class DataResources {
         obj = {};
         obj.id = 1;
         obj.name = "Bolt";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Bolt";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 75;
@@ -35,8 +34,7 @@ public class DataResources {
         obj = {};
         obj.id = 2;
         obj.name = "Plank";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Plank";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 75;
@@ -50,8 +48,7 @@ public class DataResources {
         obj = {};
         obj.id = 3;
         obj.name = "Duct tape";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Duct tape";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 75;
@@ -65,8 +62,7 @@ public class DataResources {
         obj = {};
         obj.id = 4;
         obj.name = "Nail";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Nail";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 75;
@@ -80,8 +76,7 @@ public class DataResources {
         obj = {};
         obj.id = 5;
         obj.name = "Screw";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Screw";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 75;
@@ -95,8 +90,7 @@ public class DataResources {
         obj = {};
         obj.id = 6;
         obj.name = "Wood Panel";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Wood Panel";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 75;
@@ -110,8 +104,7 @@ public class DataResources {
         obj = {};
         obj.id = 7;
         obj.name = "Marker stake";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Marker stake";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 112;
@@ -125,8 +118,7 @@ public class DataResources {
         obj = {};
         obj.id = 8;
         obj.name = "Land deed";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Land deed";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 112;
@@ -140,8 +132,7 @@ public class DataResources {
         obj = {};
         obj.id = 9;
         obj.name = "Mallet";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Mallet";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 112;
@@ -155,8 +146,7 @@ public class DataResources {
         obj = {};
         obj.id = 10;
         obj.name = "Dynamite";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Dynamite";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 7;
@@ -170,8 +160,7 @@ public class DataResources {
         obj = {};
         obj.id = 11;
         obj.name = "TNT barrel";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "TNT barrel";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 20;
@@ -185,8 +174,7 @@ public class DataResources {
         obj = {};
         obj.id = 12;
         obj.name = "Shovel";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Shovel";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 30;
@@ -200,8 +188,7 @@ public class DataResources {
         obj = {};
         obj.id = 13;
         obj.name = "Axe";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Axe";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 10;
@@ -215,8 +202,7 @@ public class DataResources {
         obj = {};
         obj.id = 14;
         obj.name = "Saw";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Saw";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 15;
@@ -230,8 +216,7 @@ public class DataResources {
         obj = {};
         obj.id = 15;
         obj.name = "Egg";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Egg";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 5;
@@ -248,8 +233,7 @@ public class DataResources {
         obj = {};
         obj.id = 16;
         obj.name = "Milk";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Milk";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 9;
@@ -266,8 +250,7 @@ public class DataResources {
         obj = {};
         obj.id = 17;
         obj.name = "Bacon";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Bacon";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 14;
@@ -284,8 +267,7 @@ public class DataResources {
         obj = {};
         obj.id = 18;
         obj.name = "Wool";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Wool";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 15;
@@ -302,8 +284,7 @@ public class DataResources {
         obj = {};
         obj.id = 19;
         obj.name = "Chiken feed";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Chiken feed";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 2;
@@ -327,8 +308,7 @@ public class DataResources {
         obj = {};
         obj.id = 20;
         obj.name = "Cow feed";
-        obj.isPlant = false;
-        obj.url = "buildAtlas";
+        obj.url = "resourcesAtlas";
         obj.image = "Cow feed";
         obj.currency = SOFT_CURRENCY;
         obj.cost = 4;
