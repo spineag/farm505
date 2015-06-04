@@ -42,6 +42,7 @@ public class MapEditorInterface {
     private var _rotateBtn:EditorButtonInterface;
     private var _cancelBtn:EditorButtonInterface;
     private var _activeBtn:EditorButtonInterface;
+    private var _mouseCoordinates:IsometricMouseCoordinates;
 
 
     private var g:Vars = Vars.getInstance();
@@ -50,6 +51,10 @@ public class MapEditorInterface {
         _allTable = new Sprite();
         _allTable.y = g.stageHeight - 100;
         g.cont.interfaceCont.addChild(_allTable);
+
+        _mouseCoordinates = new IsometricMouseCoordinates();
+        g.cont.interfaceCont.addChild(_mouseCoordinates.source);
+
 
         setEditorButtons();
 
