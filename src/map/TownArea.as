@@ -50,34 +50,10 @@ public class TownArea extends Sprite {
     }
 
     private function zSort():void{
-
-
         _cityObjects.sortOn("depth", Array.NUMERIC);
         for (var  i:int = 0; i < _cityObjects.length; i++) {
             _cont.setChildIndex(_cityObjects[i].source, i);
         }
-
-//            var sortArray:Array = new Array();
-//            var objectsCount:int = c.numChildren;
-//
-//            for (var i:int = 0; i < objectsCount; i++){
-//                var currentFace:DisplayObject = c.getChildAt(i);
-//
-//                var m:Matrix3D = currentFace.transform.matrix3D.clone();
-//                m.append(c.transform.matrix3D);
-//
-//                sortArray[i] = { obj:currentFace, z:m.position.z };
-//            }
-//
-//            sortArray.sortOn("z", Array.NUMERIC | Array.DESCENDING);
-//
-//            for (i = 0; i < objectsCount; i++){
-//                c.setChildIndex(sortArray[i].obj, i);
-//            }
-//
-//            sortArray = null;
-//        }//sort
-
     }
 
     public function setDefaultMatrix():void {
