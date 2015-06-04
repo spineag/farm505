@@ -45,6 +45,41 @@ public class TownArea extends Sprite {
         return _townMatrix;
     }
 
+    public function get cityObjects():Array {
+        return _cityObjects;
+    }
+
+    private function zSort():void{
+
+
+        _cityObjects.sortOn("depth", Array.NUMERIC);
+        for (var  i:int = 0; i < _cityObjects.length; i++) {
+            _cont.setChildIndex(_cityObjects[i].source, i);
+        }
+
+//            var sortArray:Array = new Array();
+//            var objectsCount:int = c.numChildren;
+//
+//            for (var i:int = 0; i < objectsCount; i++){
+//                var currentFace:DisplayObject = c.getChildAt(i);
+//
+//                var m:Matrix3D = currentFace.transform.matrix3D.clone();
+//                m.append(c.transform.matrix3D);
+//
+//                sortArray[i] = { obj:currentFace, z:m.position.z };
+//            }
+//
+//            sortArray.sortOn("z", Array.NUMERIC | Array.DESCENDING);
+//
+//            for (i = 0; i < objectsCount; i++){
+//                c.setChildIndex(sortArray[i].obj, i);
+//            }
+//
+//            sortArray = null;
+//        }//sort
+
+    }
+
     public function setDefaultMatrix():void {
         var arr:Array = g.matrixGrid.matrix;
         var ln:int = g.matrixGrid.matrixSize;
@@ -120,13 +155,17 @@ public class TownArea extends Sprite {
             wordObject.posY = point.y;
             fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY, wordObject);
             // нужно добавить сортировку по з-индексу
+            _cityObjects.push(wordObject);
+            wordObject.updateDepth();
         }
+        zSort();
     }
 
     public function deleteBuild(wordObject:WorldObject):void{
         if(_cont.contains(wordObject.source)){
             _cont.removeChild(wordObject.source);
             unFillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY);
+            _cityObjects.splice(_cityObjects.indexOf(wordObject),1);
         }
 
     }
@@ -143,44 +182,6 @@ public class TownArea extends Sprite {
         createNewBuild((g.selectedBuild as AreaObject).dataBuild, _x, _y);
         g.selectedBuild = null;
     }
-
-
-    public function setBlockedGrid(posX:int, posY:int, sizeX:int, sizeY:int):void {
-
-    }
-
-//    public function removeObject(source:WorldObject):void {
-//        var i:int = 0;
-//        var key:String = '';
-//
-//        while (i < _cityObjects.length && _cityObjects[i] != source) {
-//            i++;
-//        }
-//        if (source) {
-//            if (source.source) {
-//                if (source.source.parent) {
-//                    source.source.parent.removeChild(source.source);
-//                }
-//            }
-//        }
-//
-//        if (_cityObjects[i] == source) {
-//            _cityObjects.splice(i, 1);
-//            if (source is AreaObject && !(source is BuildingTemple) && !(source is BuildingBridge)) {
-//                key = String((source as AreaObject).userBuildingId);
-//                if (source is BuildingPlant) {
-//                    key += '-0';
-//                } else if (source is BuildingRidge) {
-//                    key += '-1';
-//                } else {
-//                    key += '-2';
-//                }
-//                delete _dataObjects[key];
-//            }
-//        }
-//    }
-
-
 //    public function addPreloader(posX:int, posY:int, sizeX:int, sizeY:int, p:PreloaderBuilding, buildingType:uint = 0):void {
 //        if (buildingType == BuildingType.BTI_DECOR) {
 //            return;

@@ -27,7 +27,7 @@ public class WorldObject {
     public function WorldObject() {
     }
 
-    public function get sizeX():uint {
+        public function get sizeX():uint {
         return 0;
     }
 
