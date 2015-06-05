@@ -20,6 +20,10 @@ public class EmbedAssets {
     public static const PlantTexture:Class;
     [Embed(source="../../assets/interfaceAtlas.png")]
     public static const InterfaceTexture:Class;
+    [Embed(source="../../assets/instrumentAtlas.png")]
+    public static const InstrumentTexture:Class;
+    [Embed(source="../../assets/resourceAtlas.png")]
+    public static const ResourceTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
@@ -30,6 +34,10 @@ public class EmbedAssets {
     public static const PlantTextureXML:Class;
     [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
     public static const InterfaceTextureXML:Class;
+    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
+    public static const InstrumentTextureXML:Class;
+    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
+    public static const ResourceTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -53,6 +61,14 @@ public class EmbedAssets {
         texture = Texture.fromBitmap(new InterfaceTexture());
         xml= XML(new InterfaceTextureXML());
         g.interfaceAtlas = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new InstrumentTexture());
+        xml= XML(new InstrumentTextureXML());
+        g.instrumentAtlas = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new ResourceTexture());
+        xml= XML(new ResourceTextureXML());
+        g.resourceAtlas = new TextureAtlas(texture, xml);
     }
 }
 }
