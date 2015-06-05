@@ -130,6 +130,7 @@ public class TownArea extends Sprite {
             wordObject.posX = point.x;
             wordObject.posY = point.y;
             fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY, wordObject);
+            trace(wordObject.posX + " " + wordObject.posY);
             // нужно добавить сортировку по з-индексу
             _cityObjects.push(wordObject);
             wordObject.updateDepth();
