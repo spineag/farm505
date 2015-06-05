@@ -132,6 +132,7 @@ public class Vars {
 
     private function closeMapEditorInterface():void {
         cont.interfaceContMapEditor.visible = false;
+        toolsModifier.modifierType = ToolsModifier.NONE;
     }
 }
 }
