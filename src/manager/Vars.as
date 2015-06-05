@@ -54,6 +54,8 @@ public class Vars {
     public var tempBuildAtlas:TextureAtlas;
     public var plantAtlas:TextureAtlas;
     public var interfaceAtlas:TextureAtlas;
+    public var instrumentAtlas:TextureAtlas;
+    public var resourceAtlas:TextureAtlas;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:649ace5e60ef56fb3af85534c9d4c8b7:13a2e5209539a959ab9890ed2aea30ee:b31bb3fd388fd787e9b00954f0b80b18$ -->
+<TextureAtlas imagePath="resourceAtlas.png">
+    <SubTexture name="Apple" x="2" y="2" width="100" height="114" frameX="-25" frameY="-19" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Blackberry" x="644" y="2" width="102" height="104" frameX="-23" frameY="-28" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Bread" x="453" y="2" width="105" height="108" frameX="-23" frameY="-22" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Brown_Sugar" x="104" y="2" width="95" height="114" frameX="-20" frameY="-22" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Butter" x="1126" y="2" width="123" height="93" frameX="-14" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Buttered_Popcorn" x="560" y="2" width="82" height="107" frameX="-33" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Cherry" x="748" y="2" width="97" height="104" frameX="-26" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Chicken_Feed" x="1251" y="2" width="118" height="91" frameX="-17" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Chili_Popcorn" x="932" y="2" width="83" height="103" frameX="-33" frameY="-28" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Cookie" x="1731" y="2" width="117" height="85" frameX="-16" frameY="-36" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Corn_Bread" x="1017" y="2" width="107" height="95" frameX="-23" frameY="-31" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Cow_Feed" x="1371" y="2" width="118" height="91" frameX="-17" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Egg" x="1850" y="2" width="70" height="85" frameX="-41" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Hamburger" x="1922" y="2" width="94" height="79" frameX="-28" frameY="-40" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Milk" x="361" y="2" width="90" height="111" frameX="-27" frameY="-21" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Pig_Feed" x="1491" y="2" width="118" height="91" frameX="-17" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Popcorn" x="847" y="2" width="83" height="104" frameX="-33" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Sheep_Feed" x="1611" y="2" width="118" height="91" frameX="-17" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="Syrup" x="201" y="2" width="62" height="114" frameX="-44" frameY="-23" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="White_Sugar" x="265" y="2" width="94" height="113" frameX="-21" frameY="-22" frameWidth="150" frameHeight="150"/>
+</TextureAtlas>
