@@ -50,10 +50,10 @@ public class MapEditorInterface {
     public function MapEditorInterface() {
         _allTable = new Sprite();
         _allTable.y = g.stageHeight - 100;
-        g.cont.interfaceCont.addChild(_allTable);
+        g.cont.interfaceContMapEditor.addChild(_allTable);
 
         _mouseCoordinates = new IsometricMouseCoordinates();
-        g.cont.interfaceCont.addChild(_mouseCoordinates.source);
+        g.cont.interfaceContMapEditor.addChild(_mouseCoordinates.source);
 
 
         setEditorButtons();

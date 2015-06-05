@@ -4,6 +4,8 @@
 package manager {
 import build.WorldObject;
 
+import com.junkbyte.console.Cc;
+
 import flash.geom.Matrix;
 
 import map.BackgroundArea;
@@ -44,7 +46,6 @@ public class Vars {
 
     public var isDebug:Boolean = true;
     public var showMapEditor:Boolean = true;
-    public var showButtonEditor:Boolean = true;
     public var mapEditor:MapEditorInterface;
     public var editorButtons:EditorButtonInterface;
     public var deactivatedAreaManager:DeactivatedAreaManager;
@@ -112,8 +113,6 @@ public class Vars {
 
         if(showMapEditor) {
             mapEditor = new MapEditorInterface();
-        }
-        if(showButtonEditor) {
             editorButtons = new EditorButtonInterface();
             matrixGrid.drawDebugGrid();
             deactivatedAreaManager = new DeactivatedAreaManager();
@@ -121,9 +120,17 @@ public class Vars {
 
         woBuyPlant = new WOBuyPlant();
 
+        Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
+        Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
     }
 
+    private function openMapEditorInterface():void {
+        cont.interfaceContMapEditor.visible = true;
+    }
 
+    private function closeMapEditorInterface():void {
+        cont.interfaceContMapEditor.visible = false;
+    }
 }
 }
 
