@@ -206,6 +206,18 @@
             <filename>ridge.png</filename>
             <filename>stolb.png</filename>
             <filename>lenta.png</filename>
+            <filename>buildings/ambar.png</filename>
+            <filename>buildings/building1.png</filename>
+            <filename>buildings/building2.png</filename>
+            <filename>buildings/building3.png</filename>
+            <filename>buildings/building4.png</filename>
+            <filename>buildings/building5.png</filename>
+            <filename>buildings/building6.png</filename>
+            <filename>buildings/chicken.png</filename>
+            <filename>buildings/cow.png</filename>
+            <filename>buildings/farm1.png</filename>
+            <filename>buildings/farm2.png</filename>
+            <filename>buildings/sklad.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
