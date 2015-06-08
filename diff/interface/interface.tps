@@ -191,6 +191,10 @@
             <filename>btn_exit_click.png</filename>
             <filename>btn_exit_hover.png</filename>
             <filename>btn_exit.png</filename>
+            <filename>hintMiddle.png</filename>
+            <filename>hintSidePixels.png</filename>
+            <filename>hintTopLeftPart.png</filename>
+            <filename>popup.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
