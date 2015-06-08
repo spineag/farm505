@@ -41,15 +41,17 @@ public class Ridge extends AreaObject{
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             // ничего не делаем вообще
-        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
-            // скидываем на дефолтный NONE
+        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == EMPTY) {
                 _source.filter = null;

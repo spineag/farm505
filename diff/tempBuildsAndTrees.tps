@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/tempBuildsAndTrees.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/tempBuildsAndTrees.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -204,6 +204,8 @@
             <filename>build9.png</filename>
             <filename>build10.png</filename>
             <filename>ridge.png</filename>
+            <filename>stolb.png</filename>
+            <filename>lenta.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

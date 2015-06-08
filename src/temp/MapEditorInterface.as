@@ -150,7 +150,7 @@ public class MapEditorInterface {
         fillIt();
         fillHouses();
         fillTrees();
-//        fillDecors();
+        fillDecors();
     }
 
     private function fillIt():void {
@@ -230,6 +230,7 @@ public class MapEditorInterface {
             i++;
         }
     }
+
     private function fillTrees():void {
         var obj:Object = g.dataTree.objectTree;
         var item:MapEditorInterfaceItem;
@@ -240,6 +241,21 @@ public class MapEditorInterface {
             item.source.y = 20;
             item.source.x = i * 80;
             _contTrees.addChild(item.source);
+            i++;
+
+        }
+    }
+
+    private function fillDecors():void {
+        var obj:Object = g.dataDecor.objectDecor;
+        var item:MapEditorInterfaceItem;
+        var i:int = 0;
+
+        for (var id:String in obj) {
+            item = new MapEditorInterfaceItem(obj[id], TYPE_DECOR);
+            item.source.y = 20;
+            item.source.x = i * 80;
+            _contDecors.addChild(item.source);
             i++;
 
         }

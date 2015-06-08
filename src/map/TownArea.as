@@ -2,6 +2,9 @@
 
 import build.AreaObject;
 import build.WorldObject;
+import build.decor.Decor;
+import build.decor.DecorFence;
+import build.decor.DecorPostFence;
 import build.ridge.Ridge;
 import build.testBuild.TestBuild;
 
@@ -66,9 +69,11 @@ public class TownArea extends Sprite {
                 _townMatrix[i][j] = {};
                 if (arr[i][j].inGame) {
                     _townMatrix[i][j].build = null;
+                    _townMatrix[i][j].buildFence = null;
                     _townMatrix[i][j].isFull = false;
                     _townMatrix[i][j].inGame = true;
                     _townMatrix[i][j].isBlocked = false;
+                    _townMatrix[i][j].isFence = false;
                 } else {
                     _townMatrix[i][j].inGame = false;
                 }
@@ -96,6 +101,24 @@ public class TownArea extends Sprite {
         }
     }
 
+    public function fillMatrixWithFence(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
+        for (var i:int = posY; i < (posY + sizeY); i++) {
+            for (var j:int = posX; j < (posX + sizeX); j++) {
+                _townMatrix[i][j].buildFence = source;
+                _townMatrix[i][j].isFence = true;
+            }
+        }
+    }
+
+    public function unFillMatrixWithFence(posX:int, posY:int, sizeX:int, sizeY:int):void {
+        for (var i:int = posY; i < (posY + sizeY); i++) {
+            for (var j:int = posX; j < (posX + sizeX); j++) {
+                _townMatrix[i][j].buildFence = null;
+                _townMatrix[i][j].isFence = false;
+            }
+        }
+    }
+
     public function createNewBuild(_data:Object, _x:Number, _y:Number):void {
         var build:WorldObject;
         var isFlip:Boolean = false;
@@ -108,6 +131,12 @@ public class TownArea extends Sprite {
             case BuildType.RIDGE:
                 build = new Ridge(_data);
                 break;
+            case BuildType.DECOR_POST_FENCE:
+                build = new DecorPostFence(_data);
+                break;
+            case BuildType.DECOR:
+                build = new Decor(_data);
+                break;
             //case и так далее проходимся по всем классам
         }
 
@@ -116,33 +145,47 @@ public class TownArea extends Sprite {
             return;
         }
         pasteBuild(build, _x, _y);
-        if (isFlip && _data.buildType == BuildType.TEST) {
-            (build as TestBuild).releaseFlip();
+        if (isFlip) {
+            if (_data.buildType == BuildType.TEST) {
+                (build as TestBuild).releaseFlip();
+            } else if (_data.buildType == BuildType.DECOR) {
+                (build as Decor).releaseFlip();
+            }
         }
     }
 
-    public function pasteBuild(wordObject:WorldObject, _x:Number, _y:Number):void {
-        if (!_cont.contains(wordObject.source)) {
-            wordObject.source.x = _x;
-            wordObject.source.y = _y;
-            _cont.addChild(wordObject.source);
+    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number):void {
+        if (!_cont.contains(worldObject.source)) {
+            worldObject.source.x = _x;
+            worldObject.source.y = _y;
+            _cont.addChild(worldObject.source);
             var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
-            wordObject.posX = point.x;
-            wordObject.posY = point.y;
-            fillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY, wordObject);
-            trace(wordObject.posX + " " + wordObject.posY);
-            // нужно добавить сортировку по з-индексу
-            _cityObjects.push(wordObject);
-            wordObject.updateDepth();
+            worldObject.posX = point.x;
+            worldObject.posY = point.y;
+            _cityObjects.push(worldObject);
+            worldObject.updateDepth();
+            if (worldObject is DecorFence || worldObject is DecorPostFence) {
+                fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+                if (worldObject is DecorPostFence) addFenceLenta(worldObject as DecorPostFence);
+            } else {
+                fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+            }
         }
+
+        // временно полная сортировка, далее нужно будет дописать "умную"
         zSort();
     }
 
-    public function deleteBuild(wordObject:WorldObject):void{
-        if(_cont.contains(wordObject.source)){
-            _cont.removeChild(wordObject.source);
-            unFillMatrix(wordObject.posX, wordObject.posY, wordObject.sizeX, wordObject.sizeY);
-            _cityObjects.splice(_cityObjects.indexOf(wordObject),1);
+    public function deleteBuild(worldObject:WorldObject):void{
+        if(_cont.contains(worldObject.source)){
+            _cont.removeChild(worldObject.source);
+            if (worldObject is DecorFence || worldObject is DecorPostFence) {
+                if (worldObject is DecorPostFence) removeFenceLenta(worldObject as DecorPostFence);
+                unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+            } else {
+                unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+            }
+            _cityObjects.splice(_cityObjects.indexOf(worldObject), 1);
         }
 
     }
@@ -159,303 +202,43 @@ public class TownArea extends Sprite {
         createNewBuild((g.selectedBuild as AreaObject).dataBuild, _x, _y);
         g.selectedBuild = null;
     }
-//    public function addPreloader(posX:int, posY:int, sizeX:int, sizeY:int, p:PreloaderBuilding, buildingType:uint = 0):void {
-//        if (buildingType == BuildingType.BTI_DECOR) {
-//            return;
-//        }
-//        var key:String = String(posX) + String(posY);
-//        var pos:Point3D = new Point3D();
-//        pos.x = posX * FACTOR + FACTOR * sizeX * 0.5;
-//        pos.z = posY * FACTOR + FACTOR * sizeY * 0.5;
-//        var isoPoint:Point = IsoUtils.isoToScreen(pos);
-//        p.source.x = isoPoint.x - p.source.width / 2;
-//        p.source.y = isoPoint.y - p.source.height / 2;
-//
-//        if (!_dataPreloaders[key]) {
-//            _dataPreloaders[key] = [];
-//        }
-//
-//        _dataPreloaders[key].push(p);
-//        _containerElements.addChild(p.source);
-//    }
 
-    //FIXME нерациональная уборка прелоадера с объэкта
-//    public function removePreloader(posX:int, posY:int, buildingType:uint = 0):void {
-//        if (buildingType == BuildingType.BTI_DECOR) {
-//            return;
-//        }
-//        var key:String = String(posX) + String(posY);
-//        var p:PreloaderBuilding = _dataPreloaders[key].shift();
-//
-//        if (p) {
-//            if (_containerElements.contains(p.source)) {
-//                _containerElements.removeChild(p.source);
-//            }
-//            p.remove();
-//        }
-//    }
+    private function addFenceLenta(d:DecorPostFence):void {
+        // проверяем, есть ли по соседству еще столбы забора, если да - то проводим между ними ленту
+        var obj:Object;
 
-//    public function setObjectToTopLayer(object:DisplayObject):void {
-//        if (object.parent && object.parent.contains(object)) {
-//            object.parent.removeChild(object);
-//        }
-//        _containerElementsTop.addChild(object);
-//    }
-//
-//    public function setObjectToNormalLayer(object:DisplayObject):void {
-//        if (object.parent && object.parent.contains(object)) {
-//            object.parent.removeChild(object);
-//        }
-//        _containerElements.addChild(object);
-//    }
+        obj = _townMatrix[d.posY][d.posX-1];
+        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
+            obj.buildFence.addRightLenta();
 
-//    public function arrangeTop(object:DisplayObject, target:DisplayObject):void {
-//        var index1:int = target.parent.getChildIndex(target);
-//        var index2:int = target.parent.getChildIndex(object);
-//
-//        if (index2 < index1) {
-//            target.parent.setChildIndex(object, index1);
-//        }
-//    }
+        obj = _townMatrix[d.posY-1][d.posX];
+        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
+            obj.buildFence.addLeftLenta();
 
-//    public function updatePosition():void {
-//        var normW:Number;
-//        var normH:Number;
-//
-//        if (!fon) {
-//            return;
-//        }
-//        normW = width / scaleX;
-//        normH = height / scaleY;
-//        layerTop.scaleX = scaleX;
-//        layerTop.scaleY = scaleY;
-//
-//        x = Main.stageS.stageWidth / 2 - width / 2;
-//        y = Main.stageS.stageHeight / 2 - height / 2;
-//        if (Main.stageS.stageWidth >= width) {
-//            _handler.areaRectMove.x = x;
-//            _handler.areaRectMove.width = 0;
-//            width = Math.min(normW, Main.stageS.stageWidth);
-//            scaleY = scaleX;
-//        } else {
-//            _handler.areaRectMove.x = Main.stageS.stageWidth - width;
-//            _handler.areaRectMove.width = width - Main.stageS.stageWidth;
-//        }
-//
-//        if (Main.stageS.stageHeight >= height) {
-//            _handler.areaRectMove.y = y;
-//            _handler.areaRectMove.height = 0;
-//            height = Math.min(normH, Main.stageS.stageHeight);
-//            scaleX = scaleY;
-//        } else {
-//            _handler.areaRectMove.y = Main.stageS.stageHeight - height;
-//            _handler.areaRectMove.height = height - Main.stageS.stageHeight;
-//        }
-//        layerTop.x = x;
-//        layerTop.y = y;
-//    }
+        obj = _townMatrix[d.posY][d.posX+1];
+        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
+            d.addRightLenta();
 
-//    public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, sourceId:int, source:AreaObject, pass:Boolean = true, id:int = 1):void {
-//        var arr:Array;
-////			drawGrid(posX, posY, sizeX, sizeY, 0xff00ff);
-//        for (var i:int = posY + offsetY; i < (posY + offsetY + sizeY); i++) {
-//            for (var j:int = posX; j < (posX + sizeX); j++) {
-//                arr = matrix[i][j].sources;
-//                matrix[i][j].id = sourceId;
-//                if (source) {
-//                    if (source is BuildingArea) {
-//                        arr.push(source);
-//                    } else {
-//                        arr.unshift(source);
-//                    }
-//                }
-//                if (pass) {
-//                    if ((i == posY + offsetY) && (j == posX)) {
-//                        matrix[i][j].findId = 0;
-//                    } else {
-//                        matrix[i][j].findId = id;
-//                    }
-//                } else {
-//                    matrix[i][j].findId = id;
-//                }
-//            }
-//        }
-//    }
+        obj = _townMatrix[d.posY+1][d.posX];
+        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
+            d.addLeftLenta();
+    }
 
-//    public function isPointFree(point:Point):Boolean {
-//        var obj:Object = matrix[point.x][point.y + offsetY];
-//        var answer:Boolean = !obj.id;
-//        if (obj.sources[0] is BuildingZone) {
-//            answer = true;
-//        }
-//        return answer;
-//    }
+    private function removeFenceLenta(d:DecorPostFence):void {
+        // проверяем, есть ли по соседству еще столбы забора, если да - то забираем между ними ленту
+        var obj:Object;
 
-//    public function unFillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:AreaObject):void {
-//        var arr:Array;
-//        var obj:AreaObject;
-//
-//        for (var i:int = posY + offsetY; i < (posY + offsetY + sizeY); i++) {
-//            for (var j:int = posX; j < (posX + sizeX); j++) {
-//                matrix[i][j].id = 0;
-//                matrix[i][j].findId = 0;
-//                arr = matrix[i][j].sources;
-//                for (var k:int = 0; k < arr.length; k++) {
-//                    if (arr[k] == source) {
-//                        arr.splice(k, 1);
-//                        k--;
-//                    }
-//                }
-//                if (arr[0]) {
-//                    obj = arr[0];
-//                    fillMatrix(obj.posX, obj.posY, obj.sizeX, obj.sizeY, obj.id, obj);
-//                }
-//            }
-//        }
-//    }
+        obj = _townMatrix[d.posY][d.posX-1];
+        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
+            obj.buildFence.removeRightLenta();
 
-//    public function getElementMatrix(indexX:int, indexY:int):Object {
-//        var tempObj:Object;
-//
-//        try {
-//            tempObj= matrix[indexY + offsetY][indexX];
-//        } catch (e:Error) {
-//            return null;
-//        }
-//
-//        return tempObj;
-//    }
+        obj = _townMatrix[d.posY-1][d.posX];
+        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
+            obj.buildFence.removeLeftLenta();
 
-//    public function clearGrid():void {
-//        _containerElementsTop.graphics.clear();
-//    }
-
-//    public function allZsort(cityObject:WorldObject = null):void {
-//        _needAllZsort++;
-//    }
-
-//    public function checkZsort():void {
-//        if (_needAllZsort) {
-//            allZsortFunction();
-//            _needAllZsort = 0;
-//        }
-//    }
-
-//    public function allZsortFunction(cityObject:WorldObject = null):void {
-//        var buffer:WorldObject;
-//        var i:int;
-//        var index:int = 0;
-//
-//        for (i = 0; i < _cityObjects.length; i++) {
-//            (_cityObjects[i] as WorldObject).updateDepth();
-//        }
-//        _cityObjects.sortOn('depth', Array.NUMERIC);
-//
-//        for (i = 0; i < _cityObjects.length; i++) {
-//            buffer = _cityObjects[i];
-//            index = i;
-//            if (buffer is BuildingZone) {
-//               index = _cityObjects.length - 1;
-//            }
-//            _containerElements.setChildIndex(buffer.source, index);
-//        }
-//    }
-
-//    public function zSort(cityObject:WorldObject):void {
-//        var i:int;
-//        var maxMinIndex:int = 0;
-//        var index:int;
-//        var wo:WorldObject;
-//        var isChanged:Boolean;
-//        var woIndex:int;
-//
-//        if (!cityObject) {
-//            return;
-//        }
-//        if (!_containerElements.contains(cityObject.source)) {
-//            return;
-//        }
-//        index = _containerElements.getChildIndex(cityObject.source);
-//        for (i = 0; i < _cityObjects.length; i++) {
-//            wo = _cityObjects[i];
-//
-//            if (wo == cityObject || !wo.source) {
-//                continue;
-//            }
-//            if (wo.source.hitTestObject(cityObject.source)) {
-//                isChanged = false;
-//                woIndex = _containerElements.getChildIndex(wo.source);
-//
-//                if (cityObject.posX > (wo.posX + wo.sizeX - 1) || cityObject.posY > (wo.posY + wo.sizeY - 1)) {
-//                    isChanged = true;
-//                } else {
-//                    isChanged = (cityObject.posX > wo.posX) && (cityObject.posY > wo.posY);
-//                }
-//
-//                if (isChanged) {
-//                    if (woIndex > maxMinIndex) {
-//                        maxMinIndex = woIndex;
-//                    }
-//                    if (index > maxMinIndex) {
-//                        maxMinIndex++;
-//                    }
-//                }
-//            }
-//        }
-//        _containerElements.setChildIndex(cityObject.source, maxMinIndex);
-//    }
-
-//    public function setBuildFromIndex(cityObject:WorldObject, point:Point):void {
-//        var pos:Point3D = new Point3D();
-//        pos.x = point.x * FACTOR;
-//        pos.z = point.y * FACTOR;
-//        var isoPoint:Point = IsoUtils.isoToScreen(pos);
-//        cityObject.source.x = isoPoint.x;
-//        cityObject.source.y = isoPoint.y;
-//        cityObject.posX = point.x;
-//        cityObject.posY = point.y;
-//    }
-
-//    public function getIndexFromXY(point:Point):Point {
-//        var point3d:Point3D = IsoUtils.screenToIso(point);
-//        var bufX:int = Math.round(point3d.x / FACTOR);
-//        var bufY:int = Math.round(point3d.z / FACTOR);
-//
-//        return new Point(bufX, bufY);
-//    }
-
-//    public function getXYFromIndex(point:Point):Point {
-//        var point3d:Point3D = new Point3D(point.x * FACTOR, 0, point.y * FACTOR);
-//        point = IsoUtils.isoToScreen(point3d);
-//
-//        return point;
-//    }
-
-//    public function set blockObjects(value:Boolean):void {
-//        _containerElements.mouseChildren = !value;
-//        _containerElementsBottom.mouseChildren = !value;
-//        _containerElementsTop.mouseChildren = !value;
-//    }
-
-//    public function get blockObjects():Boolean {
-//        return !_containerElements.mouseEnabled;
-//    }
-
-//    public function get cityObjects():Array {
-//        return _cityObjects;
-//    }
-
-//    public function removeAllElements():void {
-//        removeObjectsArray(_cityObjects);
-//        removeObjectsArray(_cityObjectsBottom);
-//        removeZones();
-//    }
-
-//    public function getObjectFroUserId(userBuildingId:int, type:int):AreaObject {
-//        var key:String = String(userBuildingId) + '-' + String(type);
-//
-//        return _dataObjects[key];
-//    }
+        d.removeLeftLenta();
+        d.removeRightLenta();
+    }
 
 //    public function findPath(startPosX:int, startPosY:int, endPosX:int, endPosY:int, type:int = 0):Array {
 //        var path:Array;
@@ -492,11 +275,6 @@ public class TownArea extends Sprite {
 //        return path;
 //    }
 
-
-//    public function set enabled(value:Boolean):void {
-//        _enabled = value;
-//    }
-
 //    public function getArrayFromClass(c:Class):Array {
 //        var temp:Array = [];
 //
@@ -509,18 +287,5 @@ public class TownArea extends Sprite {
 //        return temp;
 //    }
 
-//    private function removeObjectsArray(arr:Array):void {
-//        var temp:WorldObject;
-//
-//        while (arr.length > 0) {
-//            temp = arr.pop();
-//            if (temp) {
-//                if (temp.source && temp.source.parent) {
-//                    temp.source.parent.removeChild(temp.source);
-//                }
-//                temp.remove();
-//            }
-//        }
-//    }
 }
 }

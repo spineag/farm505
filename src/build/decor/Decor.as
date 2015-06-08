@@ -1,20 +1,18 @@
 /**
- * Created by andy on 5/28/15.
+ * Created by user on 6/8/15.
  */
-package build.testBuild {
+package build.decor {
 import build.AreaObject;
 
 import com.junkbyte.console.Cc;
-
-import map.TownArea;
 
 import mouse.ToolsModifier;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
-public class TestBuild extends AreaObject{
-    public function TestBuild(_data:Object) {
+public class Decor extends AreaObject{
+    public function Decor(_data:Object) {
         super(_data);
 
         _source.hoverCallback = onHover;
@@ -24,7 +22,7 @@ public class TestBuild extends AreaObject{
     }
 
     private function onHover():void {
-        _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
+        _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
     }
 
     private function onClick():void {

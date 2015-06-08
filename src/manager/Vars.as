@@ -21,7 +21,9 @@ import starling.display.Stage;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
-import temp.DeactivatedAreaManager;
+import temp.dataTemp.DataDecor;
+
+import temp.deactivatedArea.DeactivatedAreaManager;
 
 import temp.dataTemp.DataBuildings;
 import temp.dataTemp.DataPlants;
@@ -69,6 +71,7 @@ public class Vars {
     public var dataBuilding:DataBuildings;
     public var dataTree:DataTrees;
     public var dataPlant:DataPlants;
+    public var dataDecor:DataDecor;
     public var selectedBuild:WorldObject;
 
     public var woBuyPlant:WOBuyPlant;
@@ -98,6 +101,7 @@ public class Vars {
         dataBuilding = new DataBuildings();
         dataTree = new DataTrees();
         dataPlant = new DataPlants();
+        dataDecor = new DataDecor();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
 

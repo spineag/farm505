@@ -1,7 +1,7 @@
 /**
  * Created by andy on 5/30/15.
  */
-package temp {
+package temp.deactivatedArea {
 import flash.display.BitmapData;
 import flash.display.Shape;
 import flash.geom.Point;
@@ -15,6 +15,8 @@ import mouse.ToolsModifier;
 
 import starling.display.Sprite;
 import starling.textures.Texture;
+
+import temp.deactivatedArea.DeactivatedArea;
 
 public class DeactivatedAreaManager {
     private var _texture:Texture;

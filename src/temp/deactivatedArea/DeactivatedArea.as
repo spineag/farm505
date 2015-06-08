@@ -1,7 +1,7 @@
 /**
  * Created by andy on 5/30/15.
  */
-package temp {
+package temp.deactivatedArea {
 
 import starling.display.Image;
 import starling.textures.Texture;

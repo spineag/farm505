@@ -145,18 +145,22 @@ public class ToolsModifier {
 
     private function onTouch(te:TouchEvent):void {
         if (te.getTouch(_cont, TouchPhase.ENDED)) {
-            if (_callbackAfterMove != null) {
-                _callbackAfterMove.apply(null, [_spriteForMove.x, _spriteForMove.y])
-            }
-            _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
-            g.gameDispatcher.removeEnterFrame(onEnterFrame);
-            _cont.removeChild(_spriteForMove);
-            _spriteForMove.unflatten();
-            while (_spriteForMove.numChildren) {
-                _spriteForMove.removeChildAt(0);
-            }
-            _spriteForMove = null;
+            onTouchEnded();
         }
+    }
+
+    public function onTouchEnded():void {
+        if (_callbackAfterMove != null) {
+            _callbackAfterMove.apply(null, [_spriteForMove.x, _spriteForMove.y])
+        }
+        _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
+        g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        _cont.removeChild(_spriteForMove);
+        _spriteForMove.unflatten();
+        while (_spriteForMove.numChildren) {
+            _spriteForMove.removeChildAt(0);
+        }
+        _spriteForMove = null;
     }
 
     private function moveIt():void {
@@ -182,6 +186,7 @@ public class ToolsModifier {
                 if (!obj.inGame) return false;
                 if (obj.isFull) return false;
                 if (obj.isBlocked) return false;
+                if (obj.isFence) return false;
             }
         }
 

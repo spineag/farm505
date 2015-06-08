@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:4ed07e10603f2b4f257a10be0fb6ec60:c86aa8afe402b01ad59de4e227378dee:84c7e14bbf4b99ac5fd17545225ccbea$ -->
+<!-- $TexturePacker:SmartUpdate:3863e95d775b2cd53f010724cfe672db:67468a793259ecfdd7c7c56eb4879085:84c7e14bbf4b99ac5fd17545225ccbea$ -->
 <TextureAtlas imagePath="buildAndTree.png">
     <SubTexture name="build1" x="199" y="2" width="137" height="145"/>
     <SubTexture name="build10" x="2" y="159" width="59" height="86" frameX="0" frameY="-2" frameWidth="59" frameHeight="88"/>
@@ -12,10 +12,12 @@
     <SubTexture name="build7" x="2" y="2" width="195" height="155"/>
     <SubTexture name="build8" x="621" y="125" width="109" height="110"/>
     <SubTexture name="build9" x="718" y="45" width="32" height="59"/>
+    <SubTexture name="lenta" x="514" y="125" width="23" height="16"/>
     <SubTexture name="ridge" x="732" y="2" width="81" height="41"/>
-    <SubTexture name="tree1" x="752" y="45" width="65" height="79"/>
+    <SubTexture name="stolb" x="815" y="2" width="5" height="23"/>
+    <SubTexture name="tree1" x="732" y="129" width="65" height="79"/>
     <SubTexture name="tree2" x="63" y="159" width="66" height="84"/>
     <SubTexture name="tree3" x="193" y="159" width="56" height="84"/>
-    <SubTexture name="tree4" x="732" y="126" width="73" height="82" frameX="0" frameY="-1" frameWidth="73" frameHeight="83"/>
+    <SubTexture name="tree4" x="752" y="45" width="73" height="82" frameX="0" frameY="-1" frameWidth="73" frameHeight="83"/>
     <SubTexture name="tree5" x="131" y="159" width="60" height="84"/>
 </TextureAtlas>
