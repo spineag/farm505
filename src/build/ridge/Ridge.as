@@ -55,7 +55,12 @@ public class Ridge extends AreaObject{
                 _source.filter = null;
                 g.woBuyPlant.showItWithParams(this);
             } else if (_stateRidge == GROWED) {
-                // собираем урожай
+                _stateRidge = EMPTY;
+                _plant.checkStateRidge();
+                _plant = null;
+
+
+
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')

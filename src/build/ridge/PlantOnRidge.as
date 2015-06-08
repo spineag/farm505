@@ -31,10 +31,12 @@ public class PlantOnRidge {
         g.gameDispatcher.addToTimer(render);
     }
 
-    private function checkStateRidge():void {
+    public function checkStateRidge():void {
         switch (_ridge.stateRidge) {
             case Ridge.EMPTY:
-                Cc.error('PlantOnRidge:: Wrong ridge state!');
+                while (_source.numChildren) {
+                    _source.removeChildAt(0);
+                }
                 return;
 
             case Ridge.GROW1:
