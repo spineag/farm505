@@ -150,6 +150,7 @@ public class ToolsModifier {
     }
 
     public function onTouchEnded():void {
+        if (!_spriteForMove) return;
         if (_callbackAfterMove != null) {
             _callbackAfterMove.apply(null, [_spriteForMove.x, _spriteForMove.y])
         }
