@@ -8,6 +8,8 @@ import com.junkbyte.console.Cc;
 
 import flash.geom.Matrix;
 
+import hint.TimerHint;
+
 import map.BackgroundArea;
 
 import map.MatrixGrid;
@@ -74,6 +76,8 @@ public class Vars {
     public var dataDecor:DataDecor;
     public var selectedBuild:WorldObject;
 
+    public var timerHint:TimerHint;
+
     public var woBuyPlant:WOBuyPlant;
 
     public static function getInstance():Vars {
@@ -104,6 +108,7 @@ public class Vars {
         dataDecor = new DataDecor();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
+        timerHint = new TimerHint();
 
         continueInitGame();
     }

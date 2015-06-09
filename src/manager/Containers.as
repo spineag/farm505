@@ -26,6 +26,7 @@ public class Containers {
     public var animationsContTop:Sprite;
     public var windowsCont:Sprite;
     public var popupCont:Sprite;
+    public var hintCont:Sprite;
     public var mouseCont:Sprite;
     public var gameCont:Sprite;
 
@@ -46,6 +47,7 @@ public class Containers {
         animationsContTop = new Sprite();
         windowsCont = new Sprite();
         popupCont = new Sprite();
+        hintCont = new Sprite();
         mouseCont = new Sprite();
         interfaceContMapEditor = new Sprite();
 
@@ -60,6 +62,7 @@ public class Containers {
         mainCont.addChild(animationsContTop);
         mainCont.addChild(windowsCont);
         mainCont.addChild(popupCont);
+        mainCont.addChild(hintCont);
         mainCont.addChild(mouseCont);
 
         g.mainStage.addChild(mainCont);
