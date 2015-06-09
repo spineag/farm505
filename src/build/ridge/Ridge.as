@@ -38,7 +38,8 @@ public class Ridge extends AreaObject{
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         if(_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3){
-            g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
+            var inner:int = _dataPlant.innerPositions[_stateRidge * 2 -2];
+            g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y + inner, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
         }
     }
 
