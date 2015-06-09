@@ -96,8 +96,34 @@ public class AreaObject extends WorldObject {
         return _flip;
     }
 
-    public function get rect():Rectangle {
-        return _rect;
+    public function releaseFlip():void {
+        if (_sizeX == _sizeY) {
+            _flip = !_flip;
+            _flip ? _source.scaleX = -_defaultScale : _source.scaleX = _defaultScale;
+            _dataBuild.isFlip = _flip;
+            return;
+        }
+
+        if (_flip) {
+            g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
+            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY)) {
+                _flip = false;
+                _source.scaleX = _defaultScale;
+                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+            } else {
+                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+            }
+        } else {
+            g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
+            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
+                _flip = true;
+                _source.scaleX = -_defaultScale;
+                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+            } else {
+                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+            }
+        }
+        _dataBuild.isFlip = _flip;
     }
 
 

@@ -24,6 +24,8 @@ import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
 import temp.dataTemp.DataDecor;
+import temp.dataTemp.DataRecipe;
+import temp.dataTemp.DataResources;
 
 import temp.deactivatedArea.DeactivatedAreaManager;
 
@@ -36,6 +38,7 @@ import temp.MapEditorInterface;
 import utils.FarmDispatcher;
 
 import windows.buyPlant.WOBuyPlant;
+import windows.fabricaWindow.WOFabrica;
 
 public class Vars {
     private static var _instance:Vars;
@@ -71,14 +74,17 @@ public class Vars {
     public var background:BackgroundArea;
 
     public var dataBuilding:DataBuildings;
+    public var dataResource:DataResources;
     public var dataTree:DataTrees;
     public var dataPlant:DataPlants;
     public var dataDecor:DataDecor;
+    public var dataRecipe:DataRecipe;
     public var selectedBuild:WorldObject;
 
     public var timerHint:TimerHint;
 
     public var woBuyPlant:WOBuyPlant;
+    public var woFabrica:WOFabrica;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -106,6 +112,8 @@ public class Vars {
         dataTree = new DataTrees();
         dataPlant = new DataPlants();
         dataDecor = new DataDecor();
+        dataRecipe = new DataRecipe();
+        dataResource = new DataResources();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
         timerHint = new TimerHint();
@@ -130,6 +138,7 @@ public class Vars {
         }
 
         woBuyPlant = new WOBuyPlant();
+        woFabrica = new WOFabrica();
 
         Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
         Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);

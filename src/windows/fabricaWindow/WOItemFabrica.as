@@ -1,20 +1,15 @@
 /**
- * Created by user on 6/2/15.
+ * Created by user on 6/9/15.
  */
-package windows.buyPlant {
+package windows.fabricaWindow {
 import manager.Vars;
 
 import starling.display.Image;
-import starling.display.Quad;
-import starling.display.Sprite;
-import starling.events.Event;
-import starling.utils.Color;
 
 import utils.CSprite;
-
 import utils.MCScaler;
 
-public class WOItem {
+public class WOItemFabrica {
     public var source:CSprite;
     private var _bg:Image;
     private var _icon:Image;

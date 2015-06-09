@@ -5,6 +5,7 @@ import build.WorldObject;
 import build.decor.Decor;
 import build.decor.DecorFence;
 import build.decor.DecorPostFence;
+import build.fabrica.Fabrica;
 import build.ridge.Ridge;
 import build.testBuild.TestBuild;
 
@@ -137,6 +138,9 @@ public class TownArea extends Sprite {
             case BuildType.DECOR:
                 build = new Decor(_data);
                 break;
+            case BuildType.FABRICA:
+                build = new Fabrica(_data);
+                break;
             //case и так далее проходимся по всем классам
         }
 
@@ -145,12 +149,8 @@ public class TownArea extends Sprite {
             return;
         }
         pasteBuild(build, _x, _y);
-        if (isFlip) {
-            if (_data.buildType == BuildType.TEST) {
-                (build as TestBuild).releaseFlip();
-            } else if (_data.buildType == BuildType.DECOR) {
-                (build as Decor).releaseFlip();
-            }
+        if (isFlip && !(build is DecorPostFence)) {
+            (build as AreaObject).releaseFlip();
         }
     }
 

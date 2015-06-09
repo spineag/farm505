@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:da8999f5c6aca4fa2e7c6552da971eed:78834eda4661841b10fba51acbda3782:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:50ebf9e6d476cecc879a13f4cfa43f36:037fb9f818dbf5c13f1a2494c0266007:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png">
-    <SubTexture name="btn_exit" x="188" y="2" width="31" height="31"/>
-    <SubTexture name="btn_exit_click" x="188" y="35" width="31" height="31"/>
-    <SubTexture name="btn_exit_hover" x="188" y="68" width="31" height="31"/>
-    <SubTexture name="hintMiddle" x="201" y="101" width="1" height="1"/>
-    <SubTexture name="hintSidePixels" x="198" y="101" width="1" height="7"/>
-    <SubTexture name="hintTopLeftPart" x="188" y="101" width="8" height="7"/>
+    <SubTexture name="btn_exit" x="117" y="139" width="31" height="31"/>
+    <SubTexture name="btn_exit_click" x="150" y="139" width="31" height="31"/>
+    <SubTexture name="btn_exit_hover" x="117" y="172" width="31" height="31"/>
+    <SubTexture name="hintMiddle" x="183" y="148" width="1" height="1"/>
+    <SubTexture name="hintSidePixels" x="183" y="139" width="1" height="7"/>
+    <SubTexture name="hintTopLeftPart" x="150" y="172" width="8" height="7"/>
     <SubTexture name="popup" x="2" y="2" width="184" height="135"/>
+    <SubTexture name="tempItemBG" x="2" y="139" width="113" height="112"/>
 </TextureAtlas>
