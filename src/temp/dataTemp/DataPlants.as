@@ -20,10 +20,8 @@ public class DataPlants {
         obj = {};
         obj.id = 1;
         obj.name = "Wheat";
-//        obj.width = 1;
-//        obj.height = 1;
-//        obj.posX = 1;      // пригодиться только при получениие данных юзера, а не тут в общих данных
-//        obj.posY = 1;
+        obj.width = 1;
+        obj.height = 1;
         obj.url = "plantAtlas";
         obj.image1 = "wheat1";
         obj.image2 = "wheat2";

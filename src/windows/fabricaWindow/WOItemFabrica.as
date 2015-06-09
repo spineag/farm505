@@ -18,7 +18,7 @@ public class WOItemFabrica {
 
     private var g:Vars = Vars.getInstance();
 
-    public function WOItem() {
+    public function WOItemFabrica() {
         source = new CSprite();
         _bg = new Image(g.interfaceAtlas.getTexture('tempItemBG'));
         MCScaler.scale(_bg, 100, 100);
