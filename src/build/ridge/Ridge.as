@@ -6,6 +6,8 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import hint.TimerHint;
+
 import mouse.ToolsModifier;
 
 import starling.filters.BlurFilter;
@@ -35,6 +37,9 @@ public class Ridge extends AreaObject{
 
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
+        if(_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3){
+            g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
+        }
     }
 
     private function onClick():void {
@@ -60,9 +65,6 @@ public class Ridge extends AreaObject{
                 _stateRidge = EMPTY;
                 _plant.checkStateRidge();
                 _plant = null;
-
-
-
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -71,6 +73,7 @@ public class Ridge extends AreaObject{
 
     private function onOut():void {
         _source.filter = null;
+        g.timerHint.hideIt();
     }
 
     public function fillPlant(data:Object):void {
