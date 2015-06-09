@@ -77,5 +77,21 @@ public class PlantOnRidge {
             }
         }
     }
+
+    public function getTimeToGrowed():int {
+        var n:int;
+      switch  (_ridge.stateRidge) {
+            case Ridge.GROW1:
+                n = _timeToEndState + _data.timeToGrow3 + _data.timeToStateGwoned;
+                break;
+            case Ridge.GROW2:
+                n = _timeToEndState + _data.timeToStateGwoned;
+                break;
+            case Ridge.GROW3:
+                n = _timeToEndState;
+                break;
+        }
+        return n;
+    }
 }
 }

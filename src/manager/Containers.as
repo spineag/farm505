@@ -61,8 +61,8 @@ public class Containers {
         mainCont.addChild(interfaceContMapEditor);
         mainCont.addChild(animationsContTop);
         mainCont.addChild(windowsCont);
-        mainCont.addChild(popupCont);
         mainCont.addChild(hintCont);
+        mainCont.addChild(popupCont);
         mainCont.addChild(mouseCont);
 
         g.mainStage.addChild(mainCont);
