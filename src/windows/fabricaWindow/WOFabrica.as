@@ -20,7 +20,7 @@ public class WOFabrica extends Window {
         createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
 
-        _list = new WOFabricaWorkList(_source, 3);
+        _list = new WOFabricaWorkList(_source);
         createItems();
     }
 
@@ -28,9 +28,9 @@ public class WOFabrica extends Window {
         hideIt();
     }
 
-    public function showItWithParams(arr:Array, f:Function):void {
+    public function showItWithParams(arrRecipes:Array, arrList:Array, maxCount:int, f:Function):void {
         _callbackOnClick = f;
-        fillItems(arr);
+        fillItems(arrRecipes, arrList, maxCount);
         super.showIt();
     }
 
@@ -39,15 +39,35 @@ public class WOFabrica extends Window {
         _arrItems = [];
         for (var i:int = 0; i < 10; i++) {
             item = new WOItemFabrica();
-            item.source.alpha = .5;
             item.source.x = -220 + i%5 * 110;
             i > 4 ? item.source.y = 0 : item.source.y = -120;
             _source.addChild(item.source);
+            _arrItems.push(item);
+        }
+    }
+    
+    private function unfillItems():void {
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _arrItems[i].unfillIt();
         }
     }
 
-    private function fillItems(arr:Array):void {
+    private function fillItems(arrRecipes:Array, arrList:Array, maxCount:int):void {
+        unfillItems();
+        if (arrRecipes.length > 10) arrRecipes.length = 10; // временно, пока не сделана нормальная прокрутка
+        for (var i:int = 0; i < arrRecipes.length; i++) {
+            _arrItems[i].fillData(arrRecipes[i], onItemClick);
+        }
+        _list.fillIt(arrList, maxCount);
+    }
 
+    private function onItemClick(dataRecipe:Object):void {
+        if (_list.isFull) return;
+        dataRecipe.leftTime = dataRecipe.buildTime;
+        _list.addRecipe(dataRecipe);
+        if (_callbackOnClick != null) {
+            _callbackOnClick.apply(null, [dataRecipe]);
+        }
     }
 }
 }

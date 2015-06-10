@@ -34,9 +34,9 @@ public class EmbedAssets {
     public static const PlantTextureXML:Class;
     [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
     public static const InterfaceTextureXML:Class;
-    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
     public static const InstrumentTextureXML:Class;
-    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
     public static const ResourceTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();
