@@ -48,6 +48,7 @@ public class Fabrica extends AreaObject {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             g.woFabrica.showItWithParams(_arrRecipes, callbackOnClick);
+            _source.filter = null;
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }

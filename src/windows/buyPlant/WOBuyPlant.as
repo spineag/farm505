@@ -4,6 +4,8 @@
 package windows.buyPlant {
 import build.ridge.Ridge;
 
+import data.BuildType;
+
 import starling.events.Event;
 import starling.utils.Color;
 
@@ -33,18 +35,20 @@ public class WOBuyPlant extends Window {
     }
 
     private function fillItems():void {
-        var obj:Object = g.dataPlant.objectPlants;
+        var obj:Object = g.dataResource.objectResources;
         var item:WOItem;
         var i:int = 0;
 
         _itemsArr = [];
         for(var id:String in obj) {
-            item = new WOItem();
-            item.fillData(obj[id], onClickItem);
-            item.source.x = -170 + i*170;
-            i++;
-            _source.addChild(item.source);
-            _itemsArr.push(item);
+            if (obj[id].buildType == BuildType.PLANT) {
+                item = new WOItem();
+                item.fillData(obj[id], onClickItem);
+                item.source.x = -170 + i * 170;
+                i++;
+                _source.addChild(item.source);
+                _itemsArr.push(item);
+            }
         }
     }
 

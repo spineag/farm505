@@ -3,6 +3,9 @@
  */
 package data {
 public class BuildType {
+    public static const HARD_CURRENCY:String = 'diamant';
+    public static const SOFT_CURRENCY:String = 'coin';
+
     public static const TEST:int = 1;
     public static const RIDGE:int = 2;
     public static const TREE:int = 3;

@@ -6,8 +6,6 @@ import build.WorldObject;
 
 import com.junkbyte.console.Cc;
 
-import flash.geom.Matrix;
-
 import hint.TimerHint;
 
 import map.BackgroundArea;
@@ -20,7 +18,6 @@ import mouse.ToolsModifier;
 
 import starling.core.Starling;
 import starling.display.Stage;
-import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
 import temp.dataTemp.DataDecor;
@@ -30,7 +27,6 @@ import temp.dataTemp.DataResources;
 import temp.deactivatedArea.DeactivatedAreaManager;
 
 import temp.dataTemp.DataBuildings;
-import temp.dataTemp.DataPlants;
 import temp.dataTemp.DataTrees;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
@@ -76,7 +72,6 @@ public class Vars {
     public var dataBuilding:DataBuildings;
     public var dataResource:DataResources;
     public var dataTree:DataTrees;
-    public var dataPlant:DataPlants;
     public var dataDecor:DataDecor;
     public var dataRecipe:DataRecipe;
     public var selectedBuild:WorldObject;
@@ -110,7 +105,6 @@ public class Vars {
         matrixGrid = new MatrixGrid();
         dataBuilding = new DataBuildings();
         dataTree = new DataTrees();
-        dataPlant = new DataPlants();
         dataDecor = new DataDecor();
         dataRecipe = new DataRecipe();
         dataResource = new DataResources();
