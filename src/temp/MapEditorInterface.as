@@ -2,16 +2,15 @@
  * Created by user on 5/20/15.
  */
 package temp {
+import data.BuildType;
+
 import flash.display.BitmapData;
 import flash.display.Shape;
 
 import manager.Vars;
-
 import mouse.ToolsModifier;
 
 import starling.animation.Tween;
-import starling.display.Image;
-
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -21,7 +20,7 @@ import starling.utils.Color;
 import utils.CButton;
 
 public class MapEditorInterface {
-    public static const TYPE_HOUSE:String = 'house';
+    public static const TYPE_BUILDING:String = 'building';
     public static const TYPE_TREE:String = 'tree';
     public static const TYPE_DECOR:String = 'decor';
 
@@ -43,7 +42,6 @@ public class MapEditorInterface {
     private var _cancelBtn:EditorButtonInterface;
     private var _activeBtn:EditorButtonInterface;
     private var _mouseCoordinates:IsometricMouseCoordinates;
-
 
     private var g:Vars = Vars.getInstance();
 
@@ -112,7 +110,7 @@ public class MapEditorInterface {
         var BM1:BitmapData = new BitmapData(50, 20, true, 0x00000000);
         BM1.draw(shape);
         var Tx1:Texture = Texture.fromBitmapData(BM1,false, false);
-        _houseBtn = new CButton(Tx1,"House");
+        _houseBtn = new CButton(Tx1,"Building");
         _allTable.addChild(_houseBtn);
 
         //Button2
@@ -161,7 +159,7 @@ public class MapEditorInterface {
         _allTable.addChild(_contTrees);
         _allTable.addChild(_contDecors);
 
-        _type = TYPE_HOUSE;
+        _type = TYPE_BUILDING;
 
         checkType();
 
@@ -181,7 +179,7 @@ public class MapEditorInterface {
         _contDecors.visible = false;
 
         switch (_type) {
-            case TYPE_HOUSE:
+            case TYPE_BUILDING:
                 _houseBtn.y = -7;
                 _contBuildings.visible = true;
                 break;
@@ -199,7 +197,7 @@ public class MapEditorInterface {
     private function onTriggered(e:Event):void{
         switch (e.target) {
             case _houseBtn:
-                _type = TYPE_HOUSE;
+                _type = TYPE_BUILDING;
                 break;
             case _treeBtn:
                 _type = TYPE_TREE;
@@ -223,41 +221,46 @@ public class MapEditorInterface {
         var i:int = 0;
 
         for(var id:String in obj) {
-            item = new MapEditorInterfaceItem(obj[id], TYPE_HOUSE);
-            item.source.y = 20;
-            item.source.x = i*80;
-          _contBuildings.addChild(item.source);
-            i++;
+            if (obj[id].buildType == BuildType.FABRICA || obj[id].buildType == BuildType.TEST || obj[id].buildType == BuildType.RIDGE) {
+                item = new MapEditorInterfaceItem(obj[id], TYPE_BUILDING);
+                item.source.y = 20;
+                item.source.x = i * 80;
+                _contBuildings.addChild(item.source);
+                i++;
+            }
         }
     }
 
     private function fillTrees():void {
-        var obj:Object = g.dataTree.objectTree;
+        var obj:Object = g.dataBuilding.objectBuilding;
         var item:MapEditorInterfaceItem;
         var i:int = 0;
 
         for (var id:String in obj) {
-            item = new MapEditorInterfaceItem(obj[id], TYPE_TREE);
-            item.source.y = 20;
-            item.source.x = i * 80;
-            _contTrees.addChild(item.source);
-            i++;
-
+            if (obj[id].buildType == BuildType.TREE) {
+                item = new MapEditorInterfaceItem(obj[id], TYPE_TREE);
+                item.source.y = 20;
+                item.source.x = i * 80;
+                _contTrees.addChild(item.source);
+                i++;
+            }
         }
     }
 
     private function fillDecors():void {
-        var obj:Object = g.dataDecor.objectDecor;
+        var obj:Object = g.dataBuilding.objectBuilding;
         var item:MapEditorInterfaceItem;
         var i:int = 0;
 
         for (var id:String in obj) {
-            item = new MapEditorInterfaceItem(obj[id], TYPE_DECOR);
-            item.source.y = 20;
-            item.source.x = i * 80;
-            _contDecors.addChild(item.source);
-            i++;
-
+            if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_FULL_FENСE
+                    || obj[id].buildType == BuildType.DECOR_POST_FENCE) {
+                item = new MapEditorInterfaceItem(obj[id], TYPE_DECOR);
+                item.source.y = 20;
+                item.source.x = i * 80;
+                _contDecors.addChild(item.source);
+                i++;
+            }
         }
     }
 
@@ -266,7 +269,7 @@ public class MapEditorInterface {
         var endX:int;
 
         switch (_type){
-            case TYPE_HOUSE:
+            case TYPE_BUILDING:
                 cont = _contBuildings;
                     endX = -_contBuildings.width + g.stageWidth;
                 break;

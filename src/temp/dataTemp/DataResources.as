@@ -13,7 +13,9 @@ public class DataResources {
     }
     private function fillDataResources():void {
         var obj:Object;
-//        1 Строительные материалы
+
+                                    //   ---------------------------  INSTRUMENTS  ----------------------------------
+//        1
         obj = {};
         obj.id = 1;
         obj.name = "Bolt";
@@ -196,8 +198,8 @@ public class DataResources {
         obj.buildType = BuildType.INSTRUMENT;
         objectResources[obj.id ] = obj;
 
-
-//         15  Products
+                                    //   ---------------------------   RESOURCES  ----------------------------------
+//         15
         obj = {};
         obj.id = 15;
         obj.name = "Apple";
@@ -486,7 +488,7 @@ public class DataResources {
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 
-//      Plants
+                              //   ---------------------------   PLANTS  ----------------------------------
 //        31
         obj = {};
         obj.id = 31;

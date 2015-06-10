@@ -9,7 +9,6 @@ import com.junkbyte.console.Cc;
 import hint.TimerHint;
 
 import map.BackgroundArea;
-
 import map.MatrixGrid;
 import map.TownArea;
 
@@ -20,14 +19,10 @@ import starling.core.Starling;
 import starling.display.Stage;
 import starling.textures.TextureAtlas;
 
-import temp.dataTemp.DataDecor;
 import temp.dataTemp.DataRecipe;
 import temp.dataTemp.DataResources;
-
-import temp.deactivatedArea.DeactivatedAreaManager;
-
 import temp.dataTemp.DataBuildings;
-import temp.dataTemp.DataTrees;
+import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
@@ -71,8 +66,6 @@ public class Vars {
 
     public var dataBuilding:DataBuildings;
     public var dataResource:DataResources;
-    public var dataTree:DataTrees;
-    public var dataDecor:DataDecor;
     public var dataRecipe:DataRecipe;
     public var selectedBuild:WorldObject;
 
@@ -104,8 +97,6 @@ public class Vars {
         cont = new Containers();
         matrixGrid = new MatrixGrid();
         dataBuilding = new DataBuildings();
-        dataTree = new DataTrees();
-        dataDecor = new DataDecor();
         dataRecipe = new DataRecipe();
         dataResource = new DataResources();
         ownMouse = new OwnMouse();
