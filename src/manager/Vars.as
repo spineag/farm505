@@ -26,6 +26,8 @@ import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
+import user.User;
+
 import utils.FarmDispatcher;
 
 import windows.buyPlant.WOBuyPlant;
@@ -41,6 +43,7 @@ public class Vars {
     public var realGameWidth:int = 2048;
     public var realGameHeight:int = 1500;
     public var gameDispatcher:FarmDispatcher;
+    public var user:User;
 
     public var isDebug:Boolean = true;
     public var showMapEditor:Boolean = true;
@@ -93,6 +96,7 @@ public class Vars {
     }
 
     private function initVariables():void {
+        user = new User();
         gameDispatcher = new FarmDispatcher(mainStage);
         cont = new Containers();
         matrixGrid = new MatrixGrid();
