@@ -461,8 +461,6 @@ public class DataResources {
         obj = {};
         obj.id = 31;
         obj.name = "Wheat";
-        obj.width = 1;
-        obj.height = 1;
         obj.url = "plantAtlas";
         obj.image1 = "wheat1";
         obj.image2 = "wheat2";
