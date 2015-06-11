@@ -196,6 +196,8 @@
             <filename>hintTopLeftPart.png</filename>
             <filename>popup.png</filename>
             <filename>tempItemBG.png</filename>
+            <filename>hint_wild.png</filename>
+            <filename>hint_circle.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
