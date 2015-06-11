@@ -601,7 +601,7 @@ public class DataBuildings {
 //        32
         obj = {};
         obj.id = 32;
-        obj.name = "tree1";
+        obj.name = "Яблуня";
         obj.width = 1;
         obj.height = 1;
         obj.posX = 1;
@@ -614,7 +614,7 @@ public class DataBuildings {
         obj.cost = 10;
         obj.currency = BuildType.SOFT_CURRENCY;
         obj.blockByLevel = 1;
-        obj.arrayResources = [];
+        obj.craftIdResource = 15;
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
@@ -634,7 +634,7 @@ public class DataBuildings {
         obj.cost = 10;
         obj.currency = BuildType.SOFT_CURRENCY;
         obj.blockByLevel = 1;
-        obj.arrayResources = [];
+        obj.craftIdResource = 20;
         obj.skipBuildIt = 2;
         obj.buildTime = 15000;
         objectBuilding[obj.id ] = obj;
@@ -654,7 +654,7 @@ public class DataBuildings {
         obj.cost = 10;
         obj.currency = BuildType.SOFT_CURRENCY;
         obj.blockByLevel = 1;
-        obj.arrayResources = [];
+        obj.craftIdResource = 16;
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
@@ -674,7 +674,7 @@ public class DataBuildings {
         obj.cost = 10;
         obj.currency = BuildType.SOFT_CURRENCY;
         obj.blockByLevel = 1;
-        obj.arrayResources = [];
+        obj.craftIdResource = 15;
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
@@ -694,7 +694,7 @@ public class DataBuildings {
         obj.cost = 10;
         obj.currency = BuildType.SOFT_CURRENCY;
         obj.blockByLevel = 1;
-        obj.arrayResources = [];
+        obj.craftIdResource = 15;
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
@@ -714,7 +714,7 @@ public class DataBuildings {
         obj.cost = 10;
         obj.currency = BuildType.SOFT_CURRENCY;
         obj.blockByLevel = 1;
-        obj.arrayResources = [];
+        obj.craftIdResource = 15;
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;

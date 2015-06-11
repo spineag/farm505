@@ -211,7 +211,7 @@ public class DataResources {
         obj.priceHard = 4;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 1200;
+        obj.buildTime = 12;
         obj.buildType = BuildType.RESOURCE;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;

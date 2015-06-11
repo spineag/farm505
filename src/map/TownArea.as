@@ -8,6 +8,7 @@ import build.decor.DecorPostFence;
 import build.fabrica.Fabrica;
 import build.ridge.Ridge;
 import build.testBuild.TestBuild;
+import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
 
@@ -140,6 +141,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.FABRICA:
                 build = new Fabrica(_data);
+                break;
+            case BuildType.TREE:
+                build = new Tree(_data);
                 break;
             //case и так далее проходимся по всем классам
         }

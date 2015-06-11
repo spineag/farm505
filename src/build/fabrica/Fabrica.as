@@ -89,7 +89,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function craftResource(resourceItem:ResourceItem):void {
-        trace('craft resourceId: ' + resourceItem.id);
+        trace('craft from Fabrica resourceId: ' + resourceItem.id);
     }
 
 }
