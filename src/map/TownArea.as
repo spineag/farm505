@@ -9,6 +9,7 @@ import build.fabrica.Fabrica;
 import build.ridge.Ridge;
 import build.testBuild.TestBuild;
 import build.tree.Tree;
+import build.wild.Wild;
 
 import com.junkbyte.console.Cc;
 
@@ -146,7 +147,7 @@ public class TownArea extends Sprite {
                 build = new Tree(_data);
                 break;
             case BuildType.WILD:
-                build = new Tree(_data);
+                build = new Wild(_data);
                 break;
             //case и так далее проходимся по всем классам
         }

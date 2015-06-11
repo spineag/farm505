@@ -12,6 +12,8 @@ import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 public class Wild extends AreaObject{
+    private var _isOnHover:Boolean;
+
     public function Wild(_data:Object) {
         super(_data);
 
@@ -19,14 +21,27 @@ public class Wild extends AreaObject{
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
         _dataBuild.isFlip = _flip;
+        _isOnHover = false;
     }
 
     private function onHover():void {
-        _source.filter = BlurFilter.createGlow(Color.BLACK, 10, 2, 1);
+        _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
+        _isOnHover = true;
+        var f:Function = function():void{
+            if (_isOnHover)  g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10, _dataBuild.craftIdResource);
+            g.gameDispatcher.removeFromTimer(f);
+        };
+        g.gameDispatcher.addToTimer(f);
     }
 
     private function onOut():void {
         _source.filter = null;
+        _isOnHover = false;
+        var f:Function = function():void{
+            if (!_isOnHover) g.wildHint.hideIt();
+            g.gameDispatcher.removeFromTimer(f);
+        };
+        g.gameDispatcher.addToTimer(f);
     }
 
     private function onClick():void {
