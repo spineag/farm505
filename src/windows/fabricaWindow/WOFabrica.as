@@ -2,6 +2,8 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
+import manager.ResourceItem;
+
 import starling.events.Event;
 import starling.utils.Color;
 
@@ -25,6 +27,8 @@ public class WOFabrica extends Window {
     }
 
     private function onClickExit(e:Event):void {
+        unfillItems();
+        _list.unfillIt();
         hideIt();
     }
 
@@ -52,21 +56,22 @@ public class WOFabrica extends Window {
         }
     }
 
-    private function fillItems(arrRecipes:Array, arrList:Array, maxCount:int):void {
+    private function fillItems(arrAllRecipes:Array, arrList:Array, maxCount:int):void {
         unfillItems();
-        if (arrRecipes.length > 10) arrRecipes.length = 10; // временно, пока не сделана нормальная прокрутка
-        for (var i:int = 0; i < arrRecipes.length; i++) {
-            _arrItems[i].fillData(arrRecipes[i], onItemClick);
+        if (arrAllRecipes.length > 10) arrAllRecipes.length = 10; // временно, пока не сделана нормальная прокрутка
+        for (var i:int = 0; i < arrAllRecipes.length; i++) {
+            _arrItems[i].fillData(arrAllRecipes[i], onItemClick);
         }
         _list.fillIt(arrList, maxCount);
     }
 
     private function onItemClick(dataRecipe:Object):void {
         if (_list.isFull) return;
-        dataRecipe.leftTime = dataRecipe.buildTime;
-        _list.addRecipe(dataRecipe);
+        var resource:ResourceItem = new ResourceItem();
+        resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);
+        _list.addResource(resource);
         if (_callbackOnClick != null) {
-            _callbackOnClick.apply(null, [dataRecipe]);
+            _callbackOnClick.apply(null, [resource]);
         }
     }
 }

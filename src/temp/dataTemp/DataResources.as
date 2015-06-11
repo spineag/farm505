@@ -307,7 +307,7 @@ public class DataResources {
         obj.priceHard = 3;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 600;
+        obj.buildTime = 50;
         obj.buildType = BuildType.RESOURCE;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
@@ -371,7 +371,7 @@ public class DataResources {
         obj.priceHard = 3;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 600;
+        obj.buildTime = 15;
         obj.buildType = BuildType.RESOURCE;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
@@ -403,7 +403,7 @@ public class DataResources {
         obj.priceHard = 3;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 600;
+        obj.buildTime = 20;
         obj.buildType = BuildType.RESOURCE;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
@@ -435,7 +435,7 @@ public class DataResources {
         obj.priceHard = 3;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 600;
+        obj.buildTime = 10;
         obj.buildType = BuildType.RESOURCE;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;

@@ -27,28 +27,31 @@ public class ResourceItem {
     public var innerPositions:Array;
     public var leftTime:int;
 
-    public function ResourceItem(data:Object) {
-        _data = data;
+    public function ResourceItem() {}
 
-        data.id ?_id = data.id : _id = -1;
-        data.name ?_name = data.name : _name = 'noName';
-        data.url ? _url = data.url : _url = '';
-        data.imageShop ? _imageShop = data.imageShop : _imageShop = '';
-        data.currency ? _currency = data.currency : _currency = BuildType.HARD_CURRENCY;
-        data.costMax ? _costMax = data.costMax : _costMax = 0;
-        data.costMin ? _costMin = data.costMin : _costMin = 0;
-        data.priceHard ? _priceHard = data.priceHard : _priceHard = 10000;
-        data.priceSkipHard ? _priceSkipHard = data.priceSkipHard : _priceSkipHard = 10000;
-        data.blockByLevel ? _blockByLevel = data.blockByLevel : _blockByLevel = 1;
-        data.buildTime ? _buildTime = data.buildTime : _buildTime = 30;
-        data.builType ? _buildType = data.buildType : _buildType = BuildType.TEST;
-        data.craftXP ? craftXP = data.craftXP : craftXP = 1;
-        data.image1 ? image1 = data.image1 : image1 = '';
-        data.image2 ? image2 = data.image2 : image2 = '';
-        data.image3 ? image3 = data.image3 : image3 = '';
-        data.image4 ? image4 = data.image4 : image4 = '';
-        data.imageHarvested ? imageHarvested = data.imageHarvested : imageHarvested = _imageShop;
-        data.innerPositions ? innerPositions = data.innerPositions : innerPositions = [];
+    public function fillIt(dataResource:Object):void {
+        _data = dataResource;
+
+        dataResource.id ?_id = dataResource.id : _id = -1;
+        dataResource.name ?_name = dataResource.name : _name = 'noName';
+        dataResource.url ? _url = dataResource.url : _url = '';
+        dataResource.imageShop ? _imageShop = dataResource.imageShop : _imageShop = '';
+        dataResource.currency ? _currency = dataResource.currency : _currency = BuildType.HARD_CURRENCY;
+        dataResource.costMax ? _costMax = dataResource.costMax : _costMax = 0;
+        dataResource.costMin ? _costMin = dataResource.costMin : _costMin = 0;
+        dataResource.priceHard ? _priceHard = dataResource.priceHard : _priceHard = 10000;
+        dataResource.priceSkipHard ? _priceSkipHard = dataResource.priceSkipHard : _priceSkipHard = 10000;
+        dataResource.blockByLevel ? _blockByLevel = dataResource.blockByLevel : _blockByLevel = 1;
+        dataResource.buildTime ? _buildTime = dataResource.buildTime : _buildTime = 30;
+        dataResource.builType ? _buildType = dataResource.buildType : _buildType = BuildType.TEST;
+        dataResource.craftXP ? craftXP = dataResource.craftXP : craftXP = 1;
+        dataResource.image1 ? image1 = dataResource.image1 : image1 = '';
+        dataResource.image2 ? image2 = dataResource.image2 : image2 = '';
+        dataResource.image3 ? image3 = dataResource.image3 : image3 = '';
+        dataResource.image4 ? image4 = dataResource.image4 : image4 = '';
+        dataResource.imageHarvested ? imageHarvested = dataResource.imageHarvested : imageHarvested = _imageShop;
+        dataResource.innerPositions ? innerPositions = dataResource.innerPositions : innerPositions = [];
+        leftTime = _buildTime;
     }
 
     public function get id():int { return _id}

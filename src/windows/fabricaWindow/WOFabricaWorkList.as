@@ -2,6 +2,7 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
+import manager.ResourceItem;
 import manager.Vars;
 
 import starling.display.Quad;
@@ -43,31 +44,53 @@ public class WOFabricaWorkList {
             _parent.removeChild(_arrItems[i].source);
         }
         _arrItems.length = 0;
+        _arrRecipes.length = 0;
     }
 
     public function get isFull():Boolean {
         return _arrRecipes.length >= _maxCount;
     }
 
-    public function fillIt(arr:Array, maxCount:int):void {
+    public function fillIt(arrCurList:Array, maxCount:int):void {
         _maxCount = maxCount;
         destroyItems();
         createItems();
+        for (var i:int = 0; i < arrCurList.length; i++) {
+            addResource(arrCurList[i]);
+        }
     }
 
-    public function addRecipe(ob:Object):void {
-        if (isFull) return;
-        _arrItems[_arrRecipes.length].fillData(ob, null);
-        _arrRecipes.push(ob);
+    public function addResource(resource:ResourceItem):void {
+        _arrItems[_arrRecipes.length].fillData(resource, null);
+        _arrRecipes.push(resource);
         if (_arrRecipes.length == 1) {
             activateTimer();
         }
     }
 
-    public function activateTimer():void {
-        _arrItems[0].activateTimer();
+    private function activateTimer():void {
+        _arrItems[0].activateTimer(onFinishTimer);
     }
 
+    private function onFinishTimer():void {
+        var i:int;
 
+        for (i=0; i<_arrItems.length; i++) {
+            _arrItems[i].unfillIt();
+        }
+        _arrRecipes.shift();
+        if (_arrRecipes.length) {
+            for (i=0; i<_arrRecipes.length; i++) {
+                _arrItems[i].fillData(_arrRecipes[i], null);
+            }
+            activateTimer();
+        }
+    }
+
+    public function unfillIt():void {
+        if (_arrItems.length) _arrItems[0].destroyTimer();
+        destroyItems();
+
+    }
 }
 }
