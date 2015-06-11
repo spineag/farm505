@@ -6,9 +6,18 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+
+
 import hint.TimerHint;
 
+import map.MatrixGrid;
+
 import mouse.ToolsModifier;
+
+import starling.display.BlendMode;
+
+import starling.display.Quad;
+import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
@@ -25,6 +34,8 @@ public class Ridge extends AreaObject{
     private var _dataPlant:Object;
     private var _plant:PlantOnRidge;
     private var _stateRidge:int;
+    private var _isOnHover:Boolean;
+   // private var _openHint:Sprite;
 
     public function Ridge(_data:Object) {
         super(_data);
@@ -33,13 +44,32 @@ public class Ridge extends AreaObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
+        _isOnHover = false;
+//        _openHint = new Sprite();
+//        _openHint.x = -93;
+//        _openHint.y = MatrixGrid.FACTOR - 155;
     }
 
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
-        if(_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3){
-            var inner:int = _dataPlant.innerPositions[_stateRidge * 2 -2];
-            g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y + inner, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
+        _isOnHover = true;
+//        var inner:int;
+//        if(_stateRidge == GROW1) {
+//            inner = _dataPlant.innerPositions[2];
+//        }if(_stateRidge == GROW2) {
+//            inner = _dataPlant.innerPositions[4];
+//        }if(_stateRidge == GROW3) {
+//            inner = _dataPlant.innerPositions[6];
+//        }
+            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+                var f:Function = function():void{
+                    if (_isOnHover == true) {
+                      //  bgHintSprite();
+                        g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
+                    }
+                    g.gameDispatcher.removeFromTimer(f);
+                }
+                g.gameDispatcher.addToTimer(f);
         }
     }
 
@@ -73,8 +103,22 @@ public class Ridge extends AreaObject{
     }
 
     private function onOut():void {
-        _source.filter = null;
-        g.timerHint.hideIt();
+
+        _isOnHover = false;
+        var f:Function = function():void{
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.timerHint.hideIt();
+            }
+            g.gameDispatcher.removeFromTimer(f);
+            }
+        g.gameDispatcher.addToTimer(f);
+//        if (_source.contains(_openHint)) {
+//            _source.removeChild(_openHint)
+//        }
+//        while (_openHint.numChildren) {
+//            _openHint.removeChildAt(0);
+//        }
     }
 
     public function fillPlant(data:Object):void {
@@ -90,5 +134,13 @@ public class Ridge extends AreaObject{
     public function set stateRidge(a:int):void {
         _stateRidge = a;
     }
+
+//    private function bgHintSprite():void {
+//        var quad:Quad = new Quad(184, 155,Color.WHITE ,false);
+//        quad.alpha = 0.01;
+//        trace("sd")
+//        _openHint.addChild(quad);
+//        _source.addChildAt(_openHint,0);
+//    }
 }
 }

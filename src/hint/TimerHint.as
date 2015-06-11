@@ -8,6 +8,7 @@ import manager.Vars;
 import map.TownArea;
 
 import starling.display.Image;
+import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -15,17 +16,22 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 
 public class TimerHint {
 
-    public var source:Sprite;
+    public var source:CSprite;
     private var _txtTimer:TextField;
     private var _timer:int;
     private var _textureHint:Image;
+    private var _isOnHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
+
     public function TimerHint() {
-        source = new Sprite();
+        source = new CSprite();
+        _isOnHover = false;
         _txtTimer = new TextField(50,30," ","Arial",18,Color.BLACK);
         _textureHint = new Image(g.interfaceAtlas.getTexture("popup"));
         source.addChild(_textureHint);
@@ -34,26 +40,45 @@ public class TimerHint {
         _txtTimer.x = 20;
         _txtTimer.y = 65;
         source.addChild(_txtTimer);
+        var quad:Quad = new Quad(source.width, source.height,Color.WHITE ,false);
+        quad.alpha = 0;
+        source.addChildAt(quad,0);
+        source.hoverCallback = onHover;
+        source.outCallback = outHover;
+
     }
+
     public function showIt(x:int,y:int,timer:int, cost:int, name:String):void {
-        source.x = x;
-        source.y = y;
-        _timer = timer;
-        g.cont.hintCont.addChild(source);
-        g.gameDispatcher.addToTimer(onTimer);
+            source.x = x;
+            source.y = y;
+            _timer = timer;
+            g.cont.hintCont.addChild(source);
+            g.gameDispatcher.addToTimer(onTimer);
     }
-    public function hideIt():void{
+
+    public function hideIt():void {
+        if (_isOnHover) return;
         if (g.cont.hintCont.contains(source)) {
             g.cont.hintCont.removeChild(source);
         }
         g.gameDispatcher.removeFromTimer(onTimer);
     }
-    private function onTimer():void{
+
+    private function onTimer():void {
         _timer --;
         _txtTimer.text = String(_timer);
         if(_timer <=0){
             hideIt();
         }
+    }
+
+    private function onHover():void {
+        _isOnHover = true;
+    }
+
+    private function outHover():void {
+        _isOnHover = false;
+        hideIt();
     }
 }
 }
