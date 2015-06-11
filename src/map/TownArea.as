@@ -145,6 +145,9 @@ public class TownArea extends Sprite {
             case BuildType.TREE:
                 build = new Tree(_data);
                 break;
+            case BuildType.WILD:
+                build = new Tree(_data);
+                break;
             //case и так далее проходимся по всем классам
         }
 

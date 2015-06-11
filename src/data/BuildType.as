@@ -17,5 +17,6 @@ public class BuildType {
     public static const DECOR_FULL_FENСE:int = 9;  // полная секция забора
     public static const DECOR_POST_FENCE:int = 10; // столб забора, к которому будут автоматом крепиться перегородки
     public static const FABRICA:int = 11;
+    public static const WILD:int = 12;
 }
 }

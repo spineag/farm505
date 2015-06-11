@@ -718,6 +718,96 @@ public class DataBuildings {
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
+//
+        obj = {};
+        obj.id = 38;
+        obj.name = "Wild1";
+        obj.width = 3;
+        obj.height = 3;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -38;
+        obj.innerY = 2;
+        obj.url = "buildAtlas";
+        obj.image = "wild1";
+        obj.buildType = BuildType.WILD;
+        obj.craftIdResource = 12;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        objectBuilding[obj.id ] = obj;
+//
+        obj = {};
+        obj.id = 39;
+        obj.name = "Wild2";
+        obj.width = 1;
+        obj.height = 1;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -34;
+        obj.innerY = -70;
+        obj.url = "buildAtlas";
+        obj.image = "wild2";
+        obj.buildType = BuildType.WILD;
+        obj.craftIdResource = 10;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        objectBuilding[obj.id ] = obj;
+//
+        obj = {};
+        obj.id = 40;
+        obj.name = "Wild3";
+        obj.width = 2;
+        obj.height = 2;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -26;
+        obj.innerY = -16;
+        obj.url = "buildAtlas";
+        obj.image = "wild3";
+        obj.buildType = BuildType.WILD;
+        obj.craftIdResource = 4;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        objectBuilding[obj.id ] = obj;
+//
+        obj = {};
+        obj.id = 41;
+        obj.name = "Wild4";
+        obj.width = 1;
+        obj.height = 1;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -17;
+        obj.innerY = -75;
+        obj.url = "buildAtlas";
+        obj.image = "wild4";
+        obj.buildType = BuildType.WILD;
+        obj.craftIdResource = 2;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        objectBuilding[obj.id ] = obj;
+//
+        obj = {};
+        obj.id = 42;
+        obj.name = "Wild5";
+        obj.width = 2;
+        obj.height = 2;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -32;
+        obj.innerY = -22;
+        obj.url = "buildAtlas";
+        obj.image = "wild5";
+        obj.buildType = BuildType.WILD;
+        obj.craftIdResource = 13;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        objectBuilding[obj.id ] = obj;
+//
+        obj = {};
+        obj.id = 43;
+        obj.name = "Wild6";
+        obj.width = 1;
+        obj.height = 1;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -24;
+        obj.innerY = -44;
+        obj.url = "buildAtlas";
+        obj.image = "wild6";
+        obj.buildType = BuildType.WILD;
+        obj.craftIdResource = 2;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        objectBuilding[obj.id ] = obj;
     }
 }
 }
