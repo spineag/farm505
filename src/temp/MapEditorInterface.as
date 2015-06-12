@@ -237,7 +237,7 @@ public class MapEditorInterface {
         var i:int = 0;
 
         for (var id:String in obj) {
-            if (obj[id].buildType == BuildType.TREE) {
+            if (obj[id].buildType == BuildType.TREE || obj[id].buildType == BuildType.WILD) {
                 item = new MapEditorInterfaceItem(obj[id], TYPE_TREE);
                 item.source.y = 20;
                 item.source.x = i * 80;

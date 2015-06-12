@@ -3,10 +3,15 @@
  */
 package build.fabrica {
 import build.AreaObject;
+import build.CraftItem;
 
 import com.junkbyte.console.Cc;
 
+import manager.ResourceItem;
+
 import mouse.ToolsModifier;
+
+import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
@@ -26,6 +31,8 @@ public class Fabrica extends AreaObject {
         _source.outCallback = onOut;
         _dataBuild.isFlip = _flip;
 
+        _craftSprite = new Sprite();
+        _source.addChild(_craftSprite);
         fillRecipes();
     }
 
@@ -68,8 +75,8 @@ public class Fabrica extends AreaObject {
         }
     }
 
-    private function callbackOnChooseRecipe(dataRecipe:Object):void {
-        _arrList.push(dataRecipe);
+    private function callbackOnChooseRecipe(resourceItem:ResourceItem):void {
+        _arrList.push(resourceItem);
         if (_arrList.length == 1) {
             g.gameDispatcher.addToTimer(render);
         }
@@ -78,19 +85,17 @@ public class Fabrica extends AreaObject {
     private function render():void {
         _arrList[0].leftTime--;
         if (_arrList[0].leftTime <= 0) {
-            _arrList[0].leftTime = _arrList[0].buildTime;
-            craftRecipe(_arrList[0]);
+            craftResource(_arrList[0]);
             _arrList.shift();
-            if (_arrList.length) {
-                _arrList[0].timeLeft = _arrList[0].buildTime;
-            } else {
+            if (!_arrList.length) {
                 g.gameDispatcher.removeFromTimer(render);
             }
         }
     }
 
-    private function craftRecipe(recipe:Object):void {
-
+    private function craftResource(resourceItem:ResourceItem):void {
+        trace('craft from Fabrica resourceId: ' + resourceItem.id);
+        var item:CraftItem = new CraftItem(0, 0, resourceItem, _craftSprite);
     }
 
 }

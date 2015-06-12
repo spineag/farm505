@@ -27,6 +27,7 @@ public class DataResources {
         obj.priceHard = 8;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //        2
         obj = {};
@@ -40,6 +41,7 @@ public class DataResources {
         obj.priceHard = 8;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //         3
         obj = {};
@@ -53,6 +55,7 @@ public class DataResources {
         obj.priceHard = 8;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //         4
         obj = {};
@@ -66,6 +69,7 @@ public class DataResources {
         obj.priceHard = 8;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //         5
         obj = {};
@@ -79,6 +83,7 @@ public class DataResources {
         obj.priceHard = 8;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //         6
         obj = {};
@@ -92,6 +97,7 @@ public class DataResources {
         obj.priceHard = 8;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //         7
         obj = {};
@@ -105,6 +111,7 @@ public class DataResources {
         obj.priceHard = 12;
         obj.blockByLevel = 22;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //         8
         obj = {};
@@ -118,6 +125,7 @@ public class DataResources {
         obj.priceHard = 12;
         obj.blockByLevel = 22;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //         9
         obj = {};
@@ -131,6 +139,7 @@ public class DataResources {
         obj.priceHard = 12;
         obj.blockByLevel = 22;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //        10
         obj = {};
@@ -144,6 +153,7 @@ public class DataResources {
         obj.priceHard = 3;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //        11
         obj = {};
@@ -157,6 +167,7 @@ public class DataResources {
         obj.priceHard = 7;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //        12
         obj = {};
@@ -170,6 +181,7 @@ public class DataResources {
         obj.priceHard = 10;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //        13
         obj = {};
@@ -183,6 +195,7 @@ public class DataResources {
         obj.priceHard = 4;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 //        14
         obj = {};
@@ -196,6 +209,7 @@ public class DataResources {
         obj.priceHard = 5;
         obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
 
                                     //   ---------------------------   RESOURCES  ----------------------------------
@@ -211,8 +225,9 @@ public class DataResources {
         obj.priceHard = 4;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 1200;
+        obj.buildTime = 12;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_AMBAR;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //         16
@@ -229,6 +244,7 @@ public class DataResources {
         obj.blockByLevel = 6;
         obj.buildTime = 6000;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_AMBAR;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //         17
@@ -245,6 +261,7 @@ public class DataResources {
         obj.blockByLevel = 10;
         obj.buildTime = 24000;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //         18
@@ -261,6 +278,7 @@ public class DataResources {
         obj.blockByLevel = 16;
         obj.buildTime = 36000;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //         19
@@ -277,6 +295,7 @@ public class DataResources {
         obj.blockByLevel = 3;
         obj.buildTime = 300;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        20
@@ -293,6 +312,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 600;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_AMBAR;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        21
@@ -307,8 +327,9 @@ public class DataResources {
         obj.priceHard = 3;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 600;
+        obj.buildTime = 50;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        22
@@ -325,6 +346,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 600;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        23
@@ -341,6 +363,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 600;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        24
@@ -357,6 +380,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 600;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        25
@@ -371,8 +395,9 @@ public class DataResources {
         obj.priceHard = 3;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 600;
+        obj.buildTime = 15;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        26
@@ -389,6 +414,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 600;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        27
@@ -403,8 +429,9 @@ public class DataResources {
         obj.priceHard = 3;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 600;
+        obj.buildTime = 20;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        28
@@ -421,6 +448,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 600;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        29
@@ -435,8 +463,9 @@ public class DataResources {
         obj.priceHard = 3;
         obj.priceSkipHard = 2;
         obj.blockByLevel = 1;
-        obj.buildTime = 600;
+        obj.buildTime = 10;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        30
@@ -453,6 +482,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 600;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 
@@ -478,6 +508,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 120;
         obj.buildType = BuildType.PLANT;
+        obj.placeBuild = BuildType.PLACE_AMBAR;
         obj.craftXP = 1;
         objectResources[obj.id ] = obj;
 //        32
@@ -501,6 +532,7 @@ public class DataResources {
         obj.blockByLevel = 2;
         obj.buildTime = 300;
         obj.buildType = BuildType.PLANT;
+        obj.placeBuild = BuildType.PLACE_AMBAR;
         obj.craftXP = 1;
         objectResources[obj.id ] = obj;
 //         33
@@ -524,6 +556,7 @@ public class DataResources {
         obj.blockByLevel = 5;
         obj.buildTime = 1200;
         obj.buildType = BuildType.PLANT;
+        obj.placeBuild = BuildType.PLACE_AMBAR;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //         34
@@ -547,6 +580,7 @@ public class DataResources {
 //        obj.blockByLevel = 7;
 //        obj.buildTime = 1800;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 3;
 //        objectResources[obj.id ] = obj;
 ////         35
@@ -569,6 +603,7 @@ public class DataResources {
 //        obj.blockByLevel = 9;
 //        obj.buildTime = 600;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 2;
 //        objectResources[obj.id ] = obj;
 ////         36
@@ -591,6 +626,7 @@ public class DataResources {
 //        obj.blockByLevel = 13;
 //        obj.buildTime = 12000;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 5;
 //        objectResources[obj.id ] = obj;
 //         37
@@ -613,6 +649,7 @@ public class DataResources {
 //        obj.blockByLevel = 15;
 //        obj.buildTime = 18000;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 6;
 //        objectResources[obj.id ] = obj;
 ////         38
@@ -635,6 +672,7 @@ public class DataResources {
 //        obj.blockByLevel = 18;
 //        obj.buildTime = 13800;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 6;
 //        objectResources[obj.id ] = obj;
 ////         39
@@ -657,6 +695,7 @@ public class DataResources {
 //        obj.blockByLevel = 25;
 //        obj.buildTime = 24000;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 7;
 //        objectResources[obj.id ] = obj;
 ////        40
@@ -679,6 +718,7 @@ public class DataResources {
 //        obj.blockByLevel = 30;
 //        obj.buildTime = 36000;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 8;
 //        objectResources[obj.id ] = obj;
 ////        41
@@ -701,6 +741,7 @@ public class DataResources {
 //        obj.blockByLevel = 34;
 //        obj.buildTime = 48000;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 10;
 //        objectResources[obj.id ] = obj;
 ////        42
@@ -723,6 +764,7 @@ public class DataResources {
 //        obj.blockByLevel = 35;
 //        obj.buildTime = 20400;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 7;
 //        objectResources[obj.id ] = obj;
 ////        43
@@ -745,6 +787,7 @@ public class DataResources {
 //        obj.blockByLevel = 56;
 //        obj.buildTime = 2700;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 3;
 //        objectResources[obj.id ] = obj;
 ////        44
@@ -767,6 +810,7 @@ public class DataResources {
 //        obj.blockByLevel = 58;
 //        obj.buildTime = 19800;
 //        obj.buildType = BuildType.PLANT;
+//        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 7;
 //        objectResources[obj.id ] = obj;
 
@@ -784,6 +828,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 600;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
 //        46
@@ -800,6 +845,7 @@ public class DataResources {
         obj.blockByLevel = 1;
         obj.buildTime = 600;
         obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
     }

@@ -6,6 +6,10 @@ public class BuildType {
     public static const HARD_CURRENCY:String = 'diamant';
     public static const SOFT_CURRENCY:String = 'coin';
 
+    public static const PLACE_AMBAR:int = 1;
+    public static const PLACE_SKLAD:int = 2;
+    public static const PLACE_NONE:int = 3;
+
     public static const TEST:int = 1;
     public static const RIDGE:int = 2;
     public static const TREE:int = 3;
@@ -17,5 +21,6 @@ public class BuildType {
     public static const DECOR_FULL_FENСE:int = 9;  // полная секция забора
     public static const DECOR_POST_FENCE:int = 10; // столб забора, к которому будут автоматом крепиться перегородки
     public static const FABRICA:int = 11;
+    public static const WILD:int = 12;
 }
 }

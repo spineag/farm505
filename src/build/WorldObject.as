@@ -19,6 +19,7 @@ public class WorldObject {
     protected var _sizeY:int;
     protected var _source:CSprite;
     protected var _build:Sprite;
+    protected var _craftSprite:Sprite;
     protected var _depth:Number = 0;
     protected var _rect:Rectangle;
 
