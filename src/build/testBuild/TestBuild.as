@@ -14,6 +14,8 @@ import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 public class TestBuild extends AreaObject{
+
+
     public function TestBuild(_data:Object) {
         super(_data);
 
@@ -25,6 +27,8 @@ public class TestBuild extends AreaObject{
 
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
+        g.hint.showIt(_dataBuild.name, "0");
+
     }
 
     private function onClick():void {
@@ -50,6 +54,7 @@ public class TestBuild extends AreaObject{
 
     private function onOut():void {
         _source.filter = null;
+        g.hint.hideIt();
     }
 
 }

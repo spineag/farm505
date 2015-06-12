@@ -5,15 +5,12 @@ package hint {
 
 import manager.Vars;
 
-import map.TownArea;
 
 import starling.display.Image;
 import starling.display.Quad;
 
-import starling.display.Sprite;
 import starling.text.TextField;
 
-import starling.textures.Texture;
 import starling.utils.Color;
 
 import utils.CSprite;
@@ -26,12 +23,14 @@ public class TimerHint {
     private var _timer:int;
     private var _textureHint:Image;
     private var _isOnHover:Boolean;
+    private var _isShow:Boolean;
     private var g:Vars = Vars.getInstance();
 
 
     public function TimerHint() {
         source = new CSprite();
         _isOnHover = false;
+        _isShow = false;
         _txtTimer = new TextField(50,30," ","Arial",18,Color.BLACK);
         _textureHint = new Image(g.interfaceAtlas.getTexture("popup"));
         source.addChild(_textureHint);
@@ -49,14 +48,17 @@ public class TimerHint {
     }
 
     public function showIt(x:int,y:int,timer:int, cost:int, name:String):void {
-            source.x = x;
-            source.y = y;
-            _timer = timer;
-            g.cont.hintCont.addChild(source);
-            g.gameDispatcher.addToTimer(onTimer);
+        if(_isShow) return;
+        _isShow = true;
+        source.x = x;
+        source.y = y;
+        _timer = timer;
+        g.cont.hintCont.addChild(source);
+        g.gameDispatcher.addToTimer(onTimer);
     }
 
     public function hideIt():void {
+        _isShow = false;
         if (_isOnHover) return;
         if (g.cont.hintCont.contains(source)) {
             g.cont.hintCont.removeChild(source);

@@ -6,6 +6,8 @@ import build.WorldObject;
 
 import com.junkbyte.console.Cc;
 
+import hint.Hint;
+
 import hint.TimerHint;
 
 import map.BackgroundArea;
@@ -73,6 +75,7 @@ public class Vars {
     public var selectedBuild:WorldObject;
 
     public var timerHint:TimerHint;
+    public var hint:Hint;
 
     public var woBuyPlant:WOBuyPlant;
     public var woFabrica:WOFabrica;
@@ -106,6 +109,7 @@ public class Vars {
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
         timerHint = new TimerHint();
+        hint = new Hint();
 
         continueInitGame();
     }

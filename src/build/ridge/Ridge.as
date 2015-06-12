@@ -64,11 +64,10 @@ public class Ridge extends AreaObject{
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 var f:Function = function():void{
                     if (_isOnHover == true) {
-                      //  bgHintSprite();
                         g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
                     }
                     g.gameDispatcher.removeFromTimer(f);
-                }
+                };
                 g.gameDispatcher.addToTimer(f);
         }
     }
@@ -113,12 +112,6 @@ public class Ridge extends AreaObject{
             g.gameDispatcher.removeFromTimer(f);
             }
         g.gameDispatcher.addToTimer(f);
-//        if (_source.contains(_openHint)) {
-//            _source.removeChild(_openHint)
-//        }
-//        while (_openHint.numChildren) {
-//            _openHint.removeChildAt(0);
-//        }
     }
 
     public function fillPlant(data:Object):void {
@@ -134,13 +127,5 @@ public class Ridge extends AreaObject{
     public function set stateRidge(a:int):void {
         _stateRidge = a;
     }
-
-//    private function bgHintSprite():void {
-//        var quad:Quad = new Quad(184, 155,Color.WHITE ,false);
-//        quad.alpha = 0.01;
-//        trace("sd")
-//        _openHint.addChild(quad);
-//        _source.addChildAt(_openHint,0);
-//    }
 }
 }
