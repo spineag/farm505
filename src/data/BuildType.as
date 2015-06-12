@@ -6,6 +6,10 @@ public class BuildType {
     public static const HARD_CURRENCY:String = 'diamant';
     public static const SOFT_CURRENCY:String = 'coin';
 
+    public static const PLACE_AMBAR:int = 1;
+    public static const PLACE_SKLAD:int = 2;
+    public static const PLACE_NONE:int = 3;
+
     public static const TEST:int = 1;
     public static const RIDGE:int = 2;
     public static const TREE:int = 3;
