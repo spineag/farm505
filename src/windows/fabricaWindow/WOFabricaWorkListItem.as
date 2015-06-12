@@ -63,7 +63,7 @@ public class WOFabricaWorkListItem {
 
     public function destroyTimer():void {
         g.gameDispatcher.removeFromTimer(render);
-        _txtTimer.text = '';
+        //_txtTimer.text = '';
         _timerFinishCallback = null;
         source.removeChild(_txtTimer);
         _txtTimer = null;

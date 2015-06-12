@@ -3,12 +3,15 @@
  */
 package build.fabrica {
 import build.AreaObject;
+import build.CraftItem;
 
 import com.junkbyte.console.Cc;
 
 import manager.ResourceItem;
 
 import mouse.ToolsModifier;
+
+import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
@@ -28,6 +31,8 @@ public class Fabrica extends AreaObject {
         _source.outCallback = onOut;
         _dataBuild.isFlip = _flip;
 
+        _craftSprite = new Sprite();
+        _source.addChild(_craftSprite);
         fillRecipes();
     }
 
@@ -90,6 +95,7 @@ public class Fabrica extends AreaObject {
 
     private function craftResource(resourceItem:ResourceItem):void {
         trace('craft from Fabrica resourceId: ' + resourceItem.id);
+        var item:CraftItem = new CraftItem(0, 0, resourceItem, _craftSprite);
     }
 
 }

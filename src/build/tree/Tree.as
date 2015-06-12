@@ -3,12 +3,15 @@
  */
 package build.tree {
 import build.AreaObject;
+import build.CraftItem;
 
 import com.junkbyte.console.Cc;
 
 import manager.ResourceItem;
 
 import mouse.ToolsModifier;
+
+import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
@@ -30,7 +33,7 @@ public class Tree extends AreaObject{
     private const FULL_DEAD:int = 14;
 
     private var _state:int;
-    private var _resource:ResourceItem;
+    private var _resourceItem:ResourceItem;
 
     public function Tree(_data:Object) {
         super(_data);
@@ -40,8 +43,10 @@ public class Tree extends AreaObject{
         _source.outCallback = onOut;
         _dataBuild.isFlip = _flip;
 
-        _resource = new ResourceItem();
-        _resource.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
+        _craftSprite = new Sprite();
+        _source.addChild(_craftSprite);
+        _resourceItem = new ResourceItem();
+        _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
         startGrow(GROW1);
     }
 
@@ -79,9 +84,9 @@ public class Tree extends AreaObject{
     }
 
     private function render():void {
-        _resource.leftTime--;
-        if (_resource.leftTime <=0) {
-            _resource.leftTime = _resource.buildTime;
+        _resourceItem.leftTime--;
+        if (_resourceItem.leftTime <=0) {
+            _resourceItem.leftTime = _resourceItem.buildTime;
             craftResource();
             g.gameDispatcher.removeFromTimer(render);
             switch (_state) {
@@ -95,7 +100,8 @@ public class Tree extends AreaObject{
     }
 
     private function craftResource():void {
-        trace('craft from Tree resoureId: ' + _resource.id);
+        trace('craft from Tree resoureId: ' + _resourceItem.id);
+        var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite);
     }
 }
 }
