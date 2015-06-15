@@ -198,6 +198,9 @@
             <filename>tempItemBG.png</filename>
             <filename>hint_wild.png</filename>
             <filename>hint_circle.png</filename>
+            <filename>scroll_line.png</filename>
+            <filename>wo_ambar.png</filename>
+            <filename>scroll_box.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
