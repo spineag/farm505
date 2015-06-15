@@ -22,6 +22,7 @@ public class CSprite extends Sprite {
     private var _startClickCallback:Function;
     private var _hoverCallback:Function;
     private var _outCallback:Function;
+    private var _onMovedCallback:Function;
     private var _needStrongCheckHitTest:Boolean;
     private var _needStrongCheckByteArray:Boolean;
     private var _byteArray:ByteArray;
@@ -55,7 +56,9 @@ public class CSprite extends Sprite {
 //        }
 
         if (te.getTouch(this, TouchPhase.MOVED)) {
-
+            if (_onMovedCallback != null) {
+                _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
+            }
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
             te.stopImmediatePropagation();
             Mouse.cursor = OwnMouse.CLICK_CURSOR;
@@ -96,6 +99,10 @@ public class CSprite extends Sprite {
 
     public function set outCallback(f:Function):void {
         _outCallback = f;
+    }
+
+    public function set onMovedCallback(f:Function):void {
+        _onMovedCallback = f;
     }
 
     public function set isTouchable(value:Boolean):void {
