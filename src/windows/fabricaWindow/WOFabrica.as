@@ -2,7 +2,7 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
-import manager.ResourceItem;
+import resourceItem.ResourceItem;
 
 import starling.events.Event;
 import starling.utils.Color;

@@ -3,11 +3,11 @@
  */
 package build.tree {
 import build.AreaObject;
-import build.CraftItem;
+import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
 
-import manager.ResourceItem;
+import resourceItem.ResourceItem;
 
 import mouse.ToolsModifier;
 

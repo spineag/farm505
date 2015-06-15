@@ -1,7 +1,7 @@
 /**
  * Created by user on 6/10/15.
  */
-package manager {
+package resourceItem {
 import data.BuildType;
 
 public class ResourceItem {

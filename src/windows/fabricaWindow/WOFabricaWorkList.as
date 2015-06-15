@@ -2,7 +2,7 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
-import manager.ResourceItem;
+import resourceItem.ResourceItem;
 import manager.Vars;
 
 import starling.display.Quad;

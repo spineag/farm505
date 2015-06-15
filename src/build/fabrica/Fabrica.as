@@ -3,11 +3,11 @@
  */
 package build.fabrica {
 import build.AreaObject;
-import build.CraftItem;
+import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
 
-import manager.ResourceItem;
+import resourceItem.ResourceItem;
 
 import mouse.ToolsModifier;
 
@@ -94,7 +94,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function craftResource(resourceItem:ResourceItem):void {
-        trace('craft from Fabrica resourceId: ' + resourceItem.id);
+        //trace('craft from Fabrica resourceId: ' + resourceItem.id);
         var item:CraftItem = new CraftItem(0, 0, resourceItem, _craftSprite);
     }
 
