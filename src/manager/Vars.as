@@ -30,8 +30,12 @@ import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
 import user.User;
+import user.UserInventory;
 
 import utils.FarmDispatcher;
+
+import windows.ambar.WOAmbar;
+import windows.ambar.WOSklad;
 
 import windows.buyPlant.WOBuyPlant;
 import windows.fabricaWindow.WOFabrica;
@@ -47,6 +51,7 @@ public class Vars {
     public var realGameHeight:int = 1500;
     public var gameDispatcher:FarmDispatcher;
     public var user:User;
+    public var userInventory:UserInventory;
 
     public var isDebug:Boolean = true;
     public var showMapEditor:Boolean = true;
@@ -81,6 +86,8 @@ public class Vars {
 
     public var woBuyPlant:WOBuyPlant;
     public var woFabrica:WOFabrica;
+    public var woAmbar:WOAmbar;
+    public var woSklad:WOSklad;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -102,6 +109,7 @@ public class Vars {
 
     private function initVariables():void {
         user = new User();
+        userInventory = new UserInventory();
         gameDispatcher = new FarmDispatcher(mainStage);
         cont = new Containers();
         matrixGrid = new MatrixGrid();
@@ -135,6 +143,10 @@ public class Vars {
 
         woBuyPlant = new WOBuyPlant();
         woFabrica = new WOFabrica();
+        woAmbar = new WOAmbar();
+        woSklad = new WOSklad();
+
+        temporaryFillUserInventory();
 
         Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
         Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
@@ -147,6 +159,18 @@ public class Vars {
     private function closeMapEditorInterface():void {
         cont.interfaceContMapEditor.visible = false;
         toolsModifier.modifierType = ToolsModifier.NONE;
+    }
+
+    private function temporaryFillUserInventory():void {
+        var k:int;
+        var i:int = 200;
+        while (i>0) {
+            k = int(Math.random()*34) + 1;
+            if (dataResource.objectResources[k]) {
+                userInventory.addResource(k, 1);
+            }
+            i--;
+        }
     }
 }
 }

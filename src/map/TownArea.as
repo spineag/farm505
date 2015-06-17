@@ -2,6 +2,8 @@
 
 import build.AreaObject;
 import build.WorldObject;
+import build.ambar.Ambar;
+import build.ambar.Sklad;
 import build.decor.Decor;
 import build.decor.DecorFence;
 import build.decor.DecorPostFence;
@@ -148,6 +150,12 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.WILD:
                 build = new Wild(_data);
+                break;
+            case BuildType.AMBAR:
+                build = new Ambar(_data);
+                break;
+            case BuildType.SKLAD:
+                build = new Sklad(_data);
                 break;
             //case и так далее проходимся по всем классам
         }

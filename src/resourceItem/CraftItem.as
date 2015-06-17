@@ -30,7 +30,7 @@ public class CraftItem {
         _resourceItem = resourceItem;
         if (_resourceItem.url == 'resourceAtlas') {
             _image = new Image(g.resourceAtlas.getTexture(_resourceItem.imageShop));
-        } else if (_resourceItem.url == 'plantsAtlas') {
+        } else if (_resourceItem.url == 'plantAtlas') {
             _image = new Image(g.plantAtlas.getTexture(_resourceItem.imageShop));
         }
 
@@ -67,6 +67,7 @@ public class CraftItem {
                 _source.removeChildAt(0);
             }
             _source = null;
+            g.userInventory.addResource(_resourceItem.id, 1);
         };
         g.starling.juggler.add(tween);
     }

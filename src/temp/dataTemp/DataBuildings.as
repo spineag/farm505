@@ -225,45 +225,33 @@ public class DataBuildings {
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
-//        12
+
         obj = {};
         obj.id = 12;
-        obj.name = "2x2";
+        obj.name = "Ambar";
         obj.width = 2;
         obj.height = 2;
         obj.posX = 1;
         obj.posY = 1;
-        obj.innerX = 0;
-        obj.innerY = 0;
-        obj.url = " ";
-        obj.image = "tile2x2";
-        obj.buildType = BuildType.TEST;
-        obj.cost = 10;
-        obj.currency = BuildType.SOFT_CURRENCY;
-        obj.blockByLevel = 1;
-        obj.arrayResources = [];
-        obj.skipBuildIt = 1;
-        obj.buildTime = 10000;
+        obj.innerX = -29;
+        obj.innerY = -67;
+        obj.url = "buildAtlas";
+        obj.image = "ambar";
+        obj.buildType = BuildType.AMBAR;
         objectBuilding[obj.id ] = obj;
-//        13
+
         obj = {};
         obj.id = 13;
-        obj.name = "3x3";
+        obj.name = "Sklad";
         obj.width = 3;
-        obj.height = 3;
+        obj.height = 4;
         obj.posX = 1;
         obj.posY = 1;
-        obj.innerX = 0;
-        obj.innerY = 0;
-        obj.url = " ";
-        obj.image = "tile3x3";
-        obj.buildType = BuildType.TEST;
-        obj.cost = 10;
-        obj.currency = BuildType.SOFT_CURRENCY;
-        obj.blockByLevel = 1;
-        obj.arrayResources = [];
-        obj.skipBuildIt = 1;
-        obj.buildTime = 10000;
+        obj.innerX = -58;
+        obj.innerY = -37;
+        obj.url = "buildAtlas";
+        obj.image = "sklad";
+        obj.buildType = BuildType.SKLAD;
         objectBuilding[obj.id ] = obj;
 //        14
         obj = {};
@@ -808,6 +796,7 @@ public class DataBuildings {
         obj.buildType = BuildType.WILD;
         obj.craftIdResource = 2;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
         objectBuilding[obj.id ] = obj;
+
     }
 }
 }

@@ -19,7 +19,7 @@ public class DefaultVerticalScrollSprite {
     private var _nextCellX:int;
     private var _nextCellY:int;
 
-    public function DefaultVerticalScrollSprite(w:int, h:int, parent:Sprite, cellW:int, cellH:int) {
+    public function DefaultVerticalScrollSprite(w:int, h:int, cellW:int, cellH:int) {
         _nextCellX = 0;
         _nextCellY = 0;
         _width = w;
@@ -30,11 +30,14 @@ public class DefaultVerticalScrollSprite {
         _source = new Sprite();
         _scrolledSprite = new Sprite();
         _source.addChild(_scrolledSprite);
-        _source.clipRect = new Rectangle(0, 0, _width, _height);
+        _source.clipRect = new Rectangle(0, 0, _width*2, _height); // умножили ширину на 2, так как иначе не будет видно полосу прокрутки
     }
 
     public function createScoll(x:int, y:int, h:int, lineTexture:Texture, boxTexture:Texture):void {
         _scroll = new OwnScroll(h, lineTexture, boxTexture, checkPercent);
+        _scroll.source.x = x;
+        _scroll.source.y = y;
+        _source.addChild(_scroll.source);
         _scroll.source.visible = false;
     }
 
@@ -62,7 +65,13 @@ public class DefaultVerticalScrollSprite {
         while (_scrolledSprite.numChildren) {
             _scrolledSprite.removeChildAt(0);
         }
+        _scrolledSprite.y = 0;
+        _scroll.resetPosition();
         _scroll.source.visible = false;
+    }
+
+    public function get source():Sprite {
+        return _source;
     }
 }
 }

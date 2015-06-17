@@ -32,7 +32,7 @@ public class OwnScroll {
         _lineImage.pivotX = _lineImage.width/2;
 
         _box = new CSprite();
-        var boxImage = new Image(boxTexture);
+        var boxImage:Image = new Image(boxTexture);
         boxImage.pivotX = boxImage.width/2;
         _box.addChild(boxImage);
 
@@ -53,13 +53,14 @@ public class OwnScroll {
         }
     }
 
-    var _delta:int;
-    var _percent:Number;
+    private var _delta:int;
+    private var _percent:Number;
     private function onDrag(_globalX:int, _globalY:int):void {
         if (_isVertical) {
             _delta = _globalY - _startDragPoint;
             _box.y = _startDragSourcePoint + _delta;
             if (_box.y > _size - _box.height) _box.y = _size - _box.height;
+            if (_box.y < 0) _box.y = 0;
             _percent = _box.y / (_size - _box.height);
         } else {
             // для горизонталього скролла

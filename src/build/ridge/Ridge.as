@@ -14,6 +14,9 @@ import map.MatrixGrid;
 
 import mouse.ToolsModifier;
 
+import resourceItem.CraftItem;
+import resourceItem.ResourceItem;
+
 import starling.display.BlendMode;
 
 import starling.display.Quad;
@@ -32,9 +35,11 @@ public class Ridge extends AreaObject{
     public static const GROWED:int = 5;
 
     private var _dataPlant:Object;
+    private var _resourceItem:ResourceItem;
     private var _plant:PlantOnRidge;
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
+
    // private var _openHint:Sprite;
 
     public function Ridge(_data:Object) {
@@ -45,9 +50,9 @@ public class Ridge extends AreaObject{
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
         _isOnHover = false;
-//        _openHint = new Sprite();
-//        _openHint.x = -93;
-//        _openHint.y = MatrixGrid.FACTOR - 155;
+
+        _craftSprite = new Sprite();
+        _source.addChild(_craftSprite);
     }
 
     private function onHover():void {
@@ -95,6 +100,9 @@ public class Ridge extends AreaObject{
                 _stateRidge = EMPTY;
                 _plant.checkStateRidge();
                 _plant = null;
+//                _resourceItem = new ResourceItem();
+//                _resourceItem.fillIt(_dataPlant);
+//                var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite);
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -102,7 +110,6 @@ public class Ridge extends AreaObject{
     }
 
     private function onOut():void {
-
         _isOnHover = false;
         var f:Function = function():void{
             if (_isOnHover == false) {
@@ -110,7 +117,7 @@ public class Ridge extends AreaObject{
                 g.timerHint.hideIt();
             }
             g.gameDispatcher.removeFromTimer(f);
-            }
+            };
         g.gameDispatcher.addToTimer(f);
     }
 

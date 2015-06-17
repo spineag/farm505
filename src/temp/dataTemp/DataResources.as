@@ -74,9 +74,9 @@ public class DataResources {
 //         5
         obj = {};
         obj.id = 5;
-        obj.name = "Land Deep";
+        obj.name = "Land Deed";
         obj.url = "instrumentAtlas";
-        obj.imageShop = "LandDeep";
+        obj.imageShop = "LandDeed";
         obj.currency = BuildType.SOFT_CURRENCY;
         obj.costMax = 270;
         obj.costMin = 1;
@@ -559,7 +559,42 @@ public class DataResources {
         obj.placeBuild = BuildType.PLACE_AMBAR;
         obj.craftXP = 2;
         objectResources[obj.id ] = obj;
-//         34
+
+        obj = {};
+        obj.id = 34;
+        obj.name = "Hamburger";
+        obj.url = "resourceAtlas";
+        obj.imageShop = "Hamburger";
+        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.costMax = 14;
+        obj.costMin = 1;
+        obj.priceHard = 3;
+        obj.priceSkipHard = 2;
+        obj.blockByLevel = 1;
+        obj.buildTime = 600;
+        obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
+        obj.craftXP = 2;
+        objectResources[obj.id ] = obj;
+//
+        obj = {};
+        obj.id = 35;
+        obj.name = "Milk";
+        obj.url = "resourceAtlas";
+        obj.imageShop = "Milk";
+        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.costMax = 14;
+        obj.costMin = 1;
+        obj.priceHard = 3;
+        obj.priceSkipHard = 2;
+        obj.blockByLevel = 1;
+        obj.buildTime = 600;
+        obj.buildType = BuildType.RESOURCE;
+        obj.placeBuild = BuildType.PLACE_SKLAD;
+        obj.craftXP = 2;
+        objectResources[obj.id ] = obj;
+
+//
 //        obj = {};
 //        obj.id = 34;
 //        obj.name = "Sugarcane";
@@ -814,40 +849,7 @@ public class DataResources {
 //        obj.craftXP = 7;
 //        objectResources[obj.id ] = obj;
 
-//        45
-        obj = {};
-        obj.id = 45;
-        obj.name = "Hamburger";
-        obj.url = "resourceAtlas";
-        obj.imageShop = "Hamburger";
-        obj.currency = BuildType.SOFT_CURRENCY;
-        obj.costMax = 14;
-        obj.costMin = 1;
-        obj.priceHard = 3;
-        obj.priceSkipHard = 2;
-        obj.blockByLevel = 1;
-        obj.buildTime = 600;
-        obj.buildType = BuildType.RESOURCE;
-        obj.placeBuild = BuildType.PLACE_SKLAD;
-        obj.craftXP = 2;
-        objectResources[obj.id ] = obj;
-//        46
-        obj = {};
-        obj.id = 46;
-        obj.name = "Milk";
-        obj.url = "resourceAtlas";
-        obj.imageShop = "Milk";
-        obj.currency = BuildType.SOFT_CURRENCY;
-        obj.costMax = 14;
-        obj.costMin = 1;
-        obj.priceHard = 3;
-        obj.priceSkipHard = 2;
-        obj.blockByLevel = 1;
-        obj.buildTime = 600;
-        obj.buildType = BuildType.RESOURCE;
-        obj.placeBuild = BuildType.PLACE_SKLAD;
-        obj.craftXP = 2;
-        objectResources[obj.id ] = obj;
+
     }
 }
 }
