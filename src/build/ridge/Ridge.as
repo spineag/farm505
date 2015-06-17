@@ -39,6 +39,7 @@ public class Ridge extends AreaObject{
     private var _plant:PlantOnRidge;
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
+    private var _count:int;
 
    // private var _openHint:Sprite;
 
@@ -58,22 +59,9 @@ public class Ridge extends AreaObject{
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         _isOnHover = true;
-//        var inner:int;
-//        if(_stateRidge == GROW1) {
-//            inner = _dataPlant.innerPositions[2];
-//        }if(_stateRidge == GROW2) {
-//            inner = _dataPlant.innerPositions[4];
-//        }if(_stateRidge == GROW3) {
-//            inner = _dataPlant.innerPositions[6];
-//        }
+        _count = 20;
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                var f:Function = function():void{
-                    if (_isOnHover == true) {
-                        g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
-                    }
-                    g.gameDispatcher.removeFromTimer(f);
-                };
-                g.gameDispatcher.addToTimer(f);
+                g.gameDispatcher.addEnterFrame(countEnterFrame);
         }
     }
 
@@ -110,15 +98,9 @@ public class Ridge extends AreaObject{
     }
 
     private function onOut():void {
+        _source.filter = null;
         _isOnHover = false;
-        var f:Function = function():void{
-            if (_isOnHover == false) {
-                _source.filter = null;
-                g.timerHint.hideIt();
-            }
-            g.gameDispatcher.removeFromTimer(f);
-            };
-        g.gameDispatcher.addToTimer(f);
+        g.gameDispatcher.addEnterFrame(countEnterFrame);
     }
 
     public function fillPlant(data:Object):void {
@@ -133,6 +115,20 @@ public class Ridge extends AreaObject{
 
     public function set stateRidge(a:int):void {
         _stateRidge = a;
+    }
+
+    private function countEnterFrame():void{
+        _count--;
+        if(_count <=0){
+            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+            if (_isOnHover == true) {
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
+            }
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.timerHint.hideIt();
+            }
+        }
     }
 }
 }
