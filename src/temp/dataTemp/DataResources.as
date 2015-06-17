@@ -18,7 +18,7 @@ public class DataResources {
 //        1
         obj = {};
         obj.id = 1;
-        obj.name = "Bolt";
+        obj.name = "Болт";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Bolt";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -32,7 +32,7 @@ public class DataResources {
 //        2
         obj = {};
         obj.id = 2;
-        obj.name = "Axe";
+        obj.name = "Топор";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Axe";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -46,7 +46,7 @@ public class DataResources {
 //         3
         obj = {};
         obj.id = 3;
-        obj.name = "Duct tape";
+        obj.name = "Скотч";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Duct_Tape";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -60,7 +60,7 @@ public class DataResources {
 //         4
         obj = {};
         obj.id = 4;
-        obj.name = "Dynamite";
+        obj.name = "Динамит";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Dynamite";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -74,7 +74,7 @@ public class DataResources {
 //         5
         obj = {};
         obj.id = 5;
-        obj.name = "Land Deed";
+        obj.name = "Купча на землю";
         obj.url = "instrumentAtlas";
         obj.imageShop = "LandDeed";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -88,7 +88,7 @@ public class DataResources {
 //         6
         obj = {};
         obj.id = 6;
-        obj.name = "Mallet";
+        obj.name = "Молот";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Mallet";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -102,7 +102,7 @@ public class DataResources {
 //         7
         obj = {};
         obj.id = 7;
-        obj.name = "Marker stake";
+        obj.name = "Колышек";
         obj.url = "instrumentAtlas";
         obj.imageShop = "MarkerStake";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -116,7 +116,7 @@ public class DataResources {
 //         8
         obj = {};
         obj.id = 8;
-        obj.name = "Nail";
+        obj.name = "Гвоздь";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Nail";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -130,7 +130,7 @@ public class DataResources {
 //         9
         obj = {};
         obj.id = 9;
-        obj.name = "Plank";
+        obj.name = "Доска";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Plank";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -144,7 +144,7 @@ public class DataResources {
 //        10
         obj = {};
         obj.id = 10;
-        obj.name = "Saw";
+        obj.name = "Пила";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Saw";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -158,7 +158,7 @@ public class DataResources {
 //        11
         obj = {};
         obj.id = 11;
-        obj.name = "Screw";
+        obj.name = "Шуруп";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Screw";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -172,7 +172,7 @@ public class DataResources {
 //        12
         obj = {};
         obj.id = 12;
-        obj.name = "Shovel";
+        obj.name = "Лопата";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Shovel";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -186,7 +186,7 @@ public class DataResources {
 //        13
         obj = {};
         obj.id = 13;
-        obj.name = "TNT";
+        obj.name = "Тротил";
         obj.url = "instrumentAtlas";
         obj.imageShop = "TNT";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -200,7 +200,7 @@ public class DataResources {
 //        14
         obj = {};
         obj.id = 14;
-        obj.name = "Woo panel";
+        obj.name = "Деревянная панель";
         obj.url = "instrumentAtlas";
         obj.imageShop = "Wood_Panel";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -216,7 +216,7 @@ public class DataResources {
 //         15
         obj = {};
         obj.id = 15;
-        obj.name = "Apple";
+        obj.name = "Яблоко";
         obj.url = "resourceAtlas";
         obj.imageShop = "Apple";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -233,7 +233,7 @@ public class DataResources {
 //         16
         obj = {};
         obj.id = 16;
-        obj.name = "Blackberry";
+        obj.name = "Ежевика";
         obj.url = "resourceAtlas";
         obj.imageShop = "Blackberry";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -250,7 +250,7 @@ public class DataResources {
 //         17
         obj = {};
         obj.id = 17;
-        obj.name = "Bread";
+        obj.name = "Хлеб";
         obj.url = "resourceAtlas";
         obj.imageShop = "Bread";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -267,7 +267,7 @@ public class DataResources {
 //         18
         obj = {};
         obj.id = 18;
-        obj.name = "Brown Sugar";
+        obj.name = "Коричневый Сахар";
         obj.url = "resourceAtlas";
         obj.imageShop = "Brown_Sugar";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -284,7 +284,7 @@ public class DataResources {
 //         19
         obj = {};
         obj.id = 19;
-        obj.name = "Buttered Popcorn";
+        obj.name = "Попкорн с маслом";
         obj.url = "resourceAtlas";
         obj.imageShop = "Buttered_Popcorn";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -301,7 +301,7 @@ public class DataResources {
 //        20
         obj = {};
         obj.id = 20;
-        obj.name = "Cherry";
+        obj.name = "Вишня";
         obj.url = "resourceAtlas";
         obj.imageShop = "Cherry";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -318,7 +318,7 @@ public class DataResources {
 //        21
         obj = {};
         obj.id = 21;
-        obj.name = "Chicken Feed";
+        obj.name = "Корм для куриц";
         obj.url = "resourceAtlas";
         obj.imageShop = "Chicken_Feed";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -335,7 +335,7 @@ public class DataResources {
 //        22
         obj = {};
         obj.id = 22;
-        obj.name = "Chili Popcorn";
+        obj.name = "Попкорн с чили";
         obj.url = "resourceAtlas";
         obj.imageShop = "Chili_Popcorn";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -352,7 +352,7 @@ public class DataResources {
 //        23
         obj = {};
         obj.id = 23;
-        obj.name = "Cookie";
+        obj.name = "Печенье";
         obj.url = "resourceAtlas";
         obj.imageShop = "Cookie";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -369,7 +369,7 @@ public class DataResources {
 //        24
         obj = {};
         obj.id = 24;
-        obj.name = "Corn Bread";
+        obj.name = "Кукурузный хлеб";
         obj.url = "resourceAtlas";
         obj.imageShop = "Corn_Bread";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -386,7 +386,7 @@ public class DataResources {
 //        25
         obj = {};
         obj.id = 25;
-        obj.name = "Cow Feed";
+        obj.name = "Корм для коров";
         obj.url = "resourceAtlas";
         obj.imageShop = "Cow_Feed";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -403,7 +403,7 @@ public class DataResources {
 //        26
         obj = {};
         obj.id = 26;
-        obj.name = "Egg";
+        obj.name = "Яйцо";
         obj.url = "resourceAtlas";
         obj.imageShop = "Egg";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -420,7 +420,7 @@ public class DataResources {
 //        27
         obj = {};
         obj.id = 27;
-        obj.name = "Pig Feed";
+        obj.name = "Корм для свиней";
         obj.url = "resourceAtlas";
         obj.imageShop = "Pig_Feed";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -437,7 +437,7 @@ public class DataResources {
 //        28
         obj = {};
         obj.id = 28;
-        obj.name = "Popcorn";
+        obj.name = "Попкорн";
         obj.url = "resourceAtlas";
         obj.imageShop = "Popcorn";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -454,7 +454,7 @@ public class DataResources {
 //        29
         obj = {};
         obj.id = 29;
-        obj.name = "Sheep Feed";
+        obj.name = "Корм для овец";
         obj.url = "resourceAtlas";
         obj.imageShop = "Sheep_Feed";
         obj.currency = BuildType.SOFT_CURRENCY;
@@ -471,7 +471,7 @@ public class DataResources {
 //        30
         obj = {};
         obj.id = 30;
-        obj.name = "Syrup";
+        obj.name = "Сироп";
         obj.url = "resourceAtlas";
         obj.imageShop = "Syrup";
         obj.costMax = 14;
@@ -490,7 +490,7 @@ public class DataResources {
 //        31
         obj = {};
         obj.id = 31;
-        obj.name = "Wheat";
+        obj.name = "Пшеница";
         obj.url = "plantAtlas";
         obj.image1 = "wheat1";
         obj.image2 = "wheat2";
@@ -514,7 +514,7 @@ public class DataResources {
 //        32
         obj = {};
         obj.id = 32;
-        obj.name = "Corn";
+        obj.name = "Кукуруза";
         obj.url = "plantAtlas";
         obj.image1 = "corn1";
         obj.image2 = "corn2";
@@ -538,7 +538,7 @@ public class DataResources {
 //         33
         obj = {};
         obj.id = 33;
-        obj.name = "Soybean";
+        obj.name = "Соя";
         obj.url = "plantAtlas";
         obj.image1 = "soybean1";
         obj.image2 = "soybean2";
@@ -597,7 +597,7 @@ public class DataResources {
 //
 //        obj = {};
 //        obj.id = 34;
-//        obj.name = "Sugarcane";
+//        obj.name = "Сахарная трость";
 //        obj.isPlant = true;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "sugarcane1";
@@ -621,7 +621,7 @@ public class DataResources {
 ////         35
 //        obj = {};
 //        obj.id = 35;
-//        obj.name = "Carrot";
+//        obj.name = "Морковь";
 //        obj.url = "plantAtlas";
 //        obj.image1 = "carrot1";
 //        obj.image2 = "carrot2";
@@ -644,7 +644,7 @@ public class DataResources {
 ////         36
 //        obj = {};
 //        obj.id = 36;
-//        obj.name = "Indigo";
+//        obj.name = "Индиго";
 //        obj.url = "plantAtlas";
 //        obj.image1 = "indigo1";
 //        obj.image2 = "indigo2";
@@ -667,7 +667,7 @@ public class DataResources {
 //         37
 //        obj = {};
 //        obj.id = 37;
-//        obj.name = "Pumpkin";
+//        obj.name = "Тыква";
 //        obj.url = "plantAtlas";
 //        obj.image1 = "pumpkin1";
 //        obj.image2 = "pumpkin2";
@@ -690,7 +690,7 @@ public class DataResources {
 ////         38
 //        obj = {};
 //        obj.id = 38;
-//        obj.name = "Cotton";
+//        obj.name = "Хлопок";
 //        obj.url = "plantAtlas";
 //        obj.image1 = "cotton1";
 //        obj.image2 = "cotton2";
@@ -713,7 +713,7 @@ public class DataResources {
 ////         39
 //        obj = {};
 //        obj.id = 39;
-//        obj.name = "Chili Pepper";
+//        obj.name = "Перец Чили";
 //        obj.url = "plantAtlas";
 //        obj.image1 = "chiliPepper1";
 //        obj.image2 = "chiliPepper2";
@@ -736,7 +736,7 @@ public class DataResources {
 ////        40
 //        obj = {};
 //        obj.id = 40;
-//        obj.name = "Tomato";
+//        obj.name = "Помидор";
 //        obj.url = "plantAtlas";
 //        obj.image1 = "tomato1";
 //        obj.image2 = "tomato2";
@@ -759,7 +759,7 @@ public class DataResources {
 ////        41
 //        obj = {};
 //        obj.id = 41;
-//        obj.name = "Strawberry";
+//        obj.name = "Клубника";
 //        obj.url = "plantAtlas";
 //        obj.image1 = "strawberry1";
 //        obj.image2 = "strawberry2";
@@ -782,7 +782,7 @@ public class DataResources {
 ////        42
 //        obj = {};
 //        obj.id = 42;
-//        obj.name = "Potato";
+//        obj.name = "Картофель";
 //        obj.url = "plantAtlas";
 //        obj.image1 = "potato1";
 //        obj.image2 = "potato2";
@@ -805,7 +805,7 @@ public class DataResources {
 ////        43
 //        obj = {};
 //        obj.id = 43;
-//        obj.name = "Rice";
+//        obj.name = "Рис;
 //        obj.url = "plantAtlas";
 //        obj.image1 = "rice1";
 //        obj.image2 = "rice2";
@@ -828,7 +828,7 @@ public class DataResources {
 ////        44
 //        obj = {};
 //        obj.id = 44;
-//        obj.name = "Lettuce";
+//        obj.name = "Салат латук";
 //        obj.url = "plantAtlas";
 //        obj.image1 = "lettuce1";
 //        obj.image2 = "lettuce2";
@@ -848,7 +848,6 @@ public class DataResources {
 //        obj.placeBuild = BuildType.PLACE_AMBAR;
 //        obj.craftXP = 7;
 //        objectResources[obj.id ] = obj;
-
 
     }
 }
