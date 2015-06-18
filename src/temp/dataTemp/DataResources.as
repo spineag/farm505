@@ -506,7 +506,7 @@ public class DataResources {
         obj.priceHard = 1;
         obj.priceSkipHard = 1;
         obj.blockByLevel = 1;
-        obj.buildTime = 120;
+        obj.buildTime = 30;
         obj.buildType = BuildType.PLANT;
         obj.placeBuild = BuildType.PLACE_AMBAR;
         obj.craftXP = 1;
