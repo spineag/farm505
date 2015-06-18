@@ -56,6 +56,7 @@ public class WOSklad extends Window {
     private function fillItems():void {
         var cell:AmbarCell;
         var arr:Array = g.userInventory.getResourcesForSklad();
+        arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
         for (var i:int = 0; i < arr.length; i++) {
             cell = new AmbarCell(arr[i]);
             _arrCells.push(cell);

@@ -2,6 +2,7 @@
  * Created by user on 6/17/15.
  */
 package windows.ambar {
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.text.TextField;
@@ -56,6 +57,7 @@ public class WOAmbar extends Window {
     private function fillItems():void {
         var cell:AmbarCell;
         var arr:Array = g.userInventory.getResourcesForAmbar();
+        arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
         for (var i:int = 0; i < arr.length; i++) {
             cell = new AmbarCell(arr[i]);
             _arrCells.push(cell);
