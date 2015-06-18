@@ -17,6 +17,7 @@ public class DataRecipe {
         obj = {};
         obj.id = 1;
         obj.idResource = 27;
+        obj.numberCreate = 3;
         obj.ingriedientsId = [1, 2];
         obj.ingridientsCount = [1, 1];
         obj.buildingId = 3;
@@ -27,6 +28,7 @@ public class DataRecipe {
         obj = {};
         obj.id = 2;
         obj.idResource = 29;
+        obj.numberCreate = 3;
         obj.ingriedientsId = [2, 3];
         obj.ingridientsCount = [1, 1];
         obj.buildingId = 3;
@@ -37,6 +39,7 @@ public class DataRecipe {
         obj = {};
         obj.id = 3;
         obj.idResource = 25;
+        obj.numberCreate = 3;
         obj.ingriedientsId = [1, 3];
         obj.ingridientsCount = [1, 1];
         obj.buildingId = 3;

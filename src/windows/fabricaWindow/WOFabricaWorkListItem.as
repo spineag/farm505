@@ -2,6 +2,7 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
+
 import resourceItem.ResourceItem;
 import manager.Vars;
 
@@ -21,10 +22,13 @@ public class WOFabricaWorkListItem {
     private var _clickCallback:Function;
     private var _txtTimer:TextField;
     private var _timerFinishCallback:Function;
+    private var _txtNumberCreate:TextField;
 
     private var g:Vars = Vars.getInstance();
 
     public function WOFabricaWorkListItem() {
+        _txtNumberCreate = new TextField(30,30,"","Arial", 18,Color.BLACK);
+        _txtNumberCreate.y = 10;
         source = new CSprite();
         _bg = new Image(g.interfaceAtlas.getTexture('tempItemBG'));
         MCScaler.scale(_bg, 100, 100);
@@ -48,11 +52,23 @@ public class WOFabricaWorkListItem {
         }
         _icon = new Image(g.resourceAtlas.getTexture(s));
         MCScaler.scale(_icon, 100, 100);
+        for(var id:String in g.dataRecipe.objectRecipe){
+            if(g.dataRecipe.objectRecipe[id].idResource == _resource.id){
+                if(g.dataRecipe.objectRecipe[id].numberCreate > 1) {
+                    _txtNumberCreate.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
+                    break;
+                }
+                else _txtNumberCreate.text = "";
+            }
+        }
         source.addChild(_icon);
+        source.addChild(_txtNumberCreate);
     }
 
     public function unfillIt():void {
         if (_icon) {
+            _txtNumberCreate.text = "";
+            source.removeChild(_txtNumberCreate);
             source.removeChild(_icon);
             _icon = null;
         }
@@ -70,7 +86,7 @@ public class WOFabricaWorkListItem {
     }
 
     public function activateTimer(f:Function):void {
-        _txtTimer = new TextField(source.width, 40, "","Arial", 18,Color.BLACK);
+        _txtTimer = new TextField(source.width, 40, "","Arial", 18,Color.RED);
         source.addChild(_txtTimer);
         _timerFinishCallback = f;
         g.gameDispatcher.addToTimer(render);

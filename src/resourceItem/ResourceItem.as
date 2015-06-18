@@ -26,6 +26,7 @@ public class ResourceItem {
     public var imageHarvested:String; // иконка собраного растения, которое летит в изображение склада
     public var innerPositions:Array;
     public var leftTime:int;
+    public var recipeId:int;
 
     public function ResourceItem() {}
 
@@ -52,6 +53,7 @@ public class ResourceItem {
         dataResource.imageHarvested ? imageHarvested = dataResource.imageHarvested : imageHarvested = _imageShop;
         dataResource.innerPositions ? innerPositions = dataResource.innerPositions : innerPositions = [];
         leftTime = _buildTime;
+        recipeId = 0;
     }
 
     public function get id():int { return _id}
