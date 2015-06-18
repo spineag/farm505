@@ -188,19 +188,60 @@
         </struct>
         <key>fileList</key>
         <array>
+            <filename>add_friend.png</filename>
+            <filename>arrow_small.png</filename>
+            <filename>blue_coupone.png</filename>
+            <filename>board_shop_part.png</filename>
             <filename>btn_exit_click.png</filename>
             <filename>btn_exit_hover.png</filename>
             <filename>btn_exit.png</filename>
+            <filename>buy_coupons.png</filename>
+            <filename>clock_icon.png</filename>
+            <filename>friend_frame.png</filename>
+            <filename>friends_icon.png</filename>
+            <filename>friends_plawka.png</filename>
+            <filename>friends_tab.png</filename>
+            <filename>green_coupone.png</filename>
+            <filename>hard_board.png</filename>
+            <filename>help_icon.png</filename>
+            <filename>hint_circle.png</filename>
+            <filename>hint_wild.png</filename>
             <filename>hintMiddle.png</filename>
             <filename>hintSidePixels.png</filename>
             <filename>hintTopLeftPart.png</filename>
+            <filename>interface_bg.png</filename>
+            <filename>korzina_icon.png</filename>
+            <filename>kowolka_icon.png</filename>
+            <filename>mouse_circle.png</filename>
+            <filename>option_anim.png</filename>
+            <filename>option_fullscreen.png</filename>
+            <filename>option_icon.png</filename>
+            <filename>option_music.png</filename>
+            <filename>option_scale_minus.png</filename>
+            <filename>option_scale_plus.png</filename>
+            <filename>option_screenshot.png</filename>
+            <filename>option_sound.png</filename>
             <filename>popup.png</filename>
-            <filename>tempItemBG.png</filename>
-            <filename>hint_wild.png</filename>
-            <filename>hint_circle.png</filename>
-            <filename>scroll_line.png</filename>
-            <filename>wo_ambar.png</filename>
+            <filename>red_coupone.png</filename>
+            <filename>sciccors_icon.png</filename>
             <filename>scroll_box.png</filename>
+            <filename>scroll_line.png</filename>
+            <filename>serp_icon.png</filename>
+            <filename>shop_arrow.png</filename>
+            <filename>shop_icon.png</filename>
+            <filename>shop_item.png</filename>
+            <filename>shop_plawka.png</filename>
+            <filename>shop_tab.png</filename>
+            <filename>soft_board.png</filename>
+            <filename>star.png</filename>
+            <filename>tempItemBG.png</filename>
+            <filename>tools_icon.png</filename>
+            <filename>vedro_icon.png</filename>
+            <filename>wo_ambar.png</filename>
+            <filename>xp_progres_part_end.png</filename>
+            <filename>xp_progres_part.png</filename>
+            <filename>xp_progres.png</filename>
+            <filename>yellow_coupone.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
