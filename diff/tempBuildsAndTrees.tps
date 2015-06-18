@@ -219,6 +219,8 @@
             <filename>buildings/farm2.png</filename>
             <filename>buildings/sklad.png</filename>
             <filename>buildings/wild</filename>
+            <filename>buildings/farm1_house.png</filename>
+            <filename>buildings/farm2_house.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

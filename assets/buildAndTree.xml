@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:342480ec4aa64191a80eb17a9866bf21:02d72fa2364b250ec15502e28aee9ca6:84c7e14bbf4b99ac5fd17545225ccbea$ -->
+<!-- $TexturePacker:SmartUpdate:230578ad57a34168213f880f33aca3b5:15a382137b0fb4bf05eaf8ff1d6652b0:84c7e14bbf4b99ac5fd17545225ccbea$ -->
 <TextureAtlas imagePath="buildAndTree.png">
-    <SubTexture name="ambar" x="1074" y="88" width="58" height="103"/>
-    <SubTexture name="build1" x="824" y="104" width="137" height="145"/>
-    <SubTexture name="build10" x="1185" y="157" width="59" height="86" frameX="0" frameY="-2" frameWidth="59" frameHeight="88"/>
-    <SubTexture name="build2" x="648" y="107" width="174" height="140"/>
-    <SubTexture name="build3" x="407" y="2" width="155" height="121"/>
-    <SubTexture name="build4" x="564" y="2" width="157" height="103"/>
-    <SubTexture name="build5" x="273" y="141" width="209" height="106"/>
-    <SubTexture name="build6" x="1246" y="145" width="45" height="102"/>
+    <SubTexture name="ambar" x="879" y="2" width="58" height="103"/>
+    <SubTexture name="build1" x="199" y="2" width="137" height="145"/>
+    <SubTexture name="build10" x="1008" y="90" width="59" height="86" frameX="0" frameY="-2" frameWidth="59" frameHeight="88"/>
+    <SubTexture name="build2" x="338" y="2" width="174" height="140"/>
+    <SubTexture name="build3" x="722" y="2" width="155" height="121"/>
+    <SubTexture name="build4" x="849" y="125" width="157" height="103"/>
+    <SubTexture name="build5" x="363" y="144" width="209" height="106"/>
+    <SubTexture name="build6" x="208" y="149" width="45" height="102"/>
     <SubTexture name="build7" x="2" y="2" width="195" height="155"/>
-    <SubTexture name="build8" x="963" y="88" width="109" height="110"/>
-    <SubTexture name="build9" x="1344" y="188" width="32" height="59"/>
+    <SubTexture name="build8" x="574" y="141" width="109" height="110"/>
+    <SubTexture name="build9" x="1245" y="174" width="32" height="59"/>
     <SubTexture name="building1" x="2" y="159" width="102" height="90"/>
-    <SubTexture name="building2" x="1103" y="2" width="79" height="62"/>
-    <SubTexture name="building3" x="1134" y="66" width="62" height="89"/>
-    <SubTexture name="building4" x="1256" y="59" width="64" height="67"/>
-    <SubTexture name="building5" x="1102" y="193" width="81" height="59"/>
-    <SubTexture name="building6" x="106" y="159" width="92" height="85"/>
-    <SubTexture name="chicken" x="484" y="231" width="17" height="19"/>
-    <SubTexture name="cow" x="1265" y="2" width="46" height="39"/>
-    <SubTexture name="farm1" x="484" y="125" width="162" height="104"/>
-    <SubTexture name="farm2" x="199" y="2" width="206" height="137"/>
-    <SubTexture name="lenta" x="199" y="141" width="23" height="16"/>
-    <SubTexture name="ridge" x="963" y="200" width="81" height="41"/>
-    <SubTexture name="sklad" x="723" y="2" width="106" height="100"/>
-    <SubTexture name="stolb" x="1134" y="157" width="5" height="23"/>
-    <SubTexture name="tree1" x="974" y="2" width="65" height="79"/>
-    <SubTexture name="tree2" x="906" y="2" width="66" height="84"/>
-    <SubTexture name="tree3" x="1198" y="59" width="56" height="84"/>
-    <SubTexture name="tree4" x="831" y="2" width="73" height="82" frameX="0" frameY="-1" frameWidth="73" frameHeight="83"/>
-    <SubTexture name="tree5" x="1041" y="2" width="60" height="84"/>
-    <SubTexture name="wild1" x="1184" y="2" width="79" height="55"/>
-    <SubTexture name="wild2" x="200" y="159" width="71" height="86"/>
-    <SubTexture name="wild3" x="1046" y="200" width="54" height="53"/>
-    <SubTexture name="wild4" x="1322" y="2" width="36" height="88"/>
-    <SubTexture name="wild5" x="1293" y="128" width="64" height="58"/>
-    <SubTexture name="wild6" x="1293" y="188" width="49" height="65"/>
+    <SubTexture name="building2" x="1243" y="2" width="79" height="62"/>
+    <SubTexture name="building3" x="106" y="159" width="62" height="89"/>
+    <SubTexture name="building4" x="1080" y="175" width="64" height="67"/>
+    <SubTexture name="building5" x="1324" y="2" width="81" height="59"/>
+    <SubTexture name="building6" x="1012" y="2" width="92" height="85"/>
+    <SubTexture name="chicken" x="849" y="230" width="17" height="19"/>
+    <SubTexture name="cow" x="1197" y="167" width="46" height="39"/>
+    <SubTexture name="farm1" x="685" y="141" width="162" height="104"/>
+    <SubTexture name="farm1_house" x="1262" y="121" width="53" height="51"/>
+    <SubTexture name="farm2" x="514" y="2" width="206" height="137"/>
+    <SubTexture name="farm2_house" x="1008" y="178" width="70" height="67"/>
+    <SubTexture name="lenta" x="868" y="230" width="23" height="16"/>
+    <SubTexture name="ridge" x="1324" y="63" width="81" height="41"/>
+    <SubTexture name="sklad" x="255" y="149" width="106" height="100"/>
+    <SubTexture name="stolb" x="939" y="90" width="5" height="23"/>
+    <SubTexture name="tree1" x="1195" y="86" width="65" height="79"/>
+    <SubTexture name="tree2" x="1069" y="89" width="66" height="84"/>
+    <SubTexture name="tree3" x="1137" y="88" width="56" height="84"/>
+    <SubTexture name="tree4" x="1168" y="2" width="73" height="82" frameX="0" frameY="-1" frameWidth="73" frameHeight="83"/>
+    <SubTexture name="tree5" x="1106" y="2" width="60" height="84"/>
+    <SubTexture name="wild1" x="1318" y="106" width="79" height="55"/>
+    <SubTexture name="wild2" x="939" y="2" width="71" height="86"/>
+    <SubTexture name="wild3" x="1262" y="66" width="54" height="53"/>
+    <SubTexture name="wild4" x="170" y="159" width="36" height="88"/>
+    <SubTexture name="wild5" x="1279" y="174" width="64" height="58"/>
+    <SubTexture name="wild6" x="1146" y="174" width="49" height="65"/>
 </TextureAtlas>

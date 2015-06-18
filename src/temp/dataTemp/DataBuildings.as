@@ -797,6 +797,49 @@ public class DataBuildings {
         obj.craftIdResource = 2;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
         objectBuilding[obj.id ] = obj;
 
+        obj = {};
+        obj.id = 44;
+        obj.name = "Куриная ферма";
+        obj.width = 4;
+        obj.height = 4;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -80;
+        obj.innerY = -20;
+        obj.innerHouseX = -32;
+        obj.innerHouseY = -20;
+        obj.url = "buildAtlas";
+        obj.image = "farm1";
+        obj.imageHouse = "farm1_house";
+        obj.buildType = BuildType.FARM;
+        obj.cost = 10;
+        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.blockByLevel = 1;
+        obj.skipBuildIt = 1;
+        obj.buildTime = 10000;
+        objectBuilding[obj.id ] = obj;
+
+        obj = {};
+        obj.id = 45;
+        obj.name = "Коровья ферма";
+        obj.width = 4;
+        obj.height = 4;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -104;
+        obj.innerY = -32;
+        obj.innerHouseX = -37;
+        obj.innerHouseY = -22;
+        obj.url = "buildAtlas";
+        obj.image = "farm2";
+        obj.imageHouse = "farm2_house";
+        obj.buildType = BuildType.FARM;
+        obj.cost = 10;
+        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.blockByLevel = 1;
+        obj.skipBuildIt = 1;
+        obj.buildTime = 10000;
+        objectBuilding[obj.id ] = obj;
     }
 }
 }
