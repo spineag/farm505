@@ -6,6 +6,8 @@ import build.WorldObject;
 
 import com.junkbyte.console.Cc;
 
+import hint.FarmHint;
+
 import hint.Hint;
 
 import hint.TimerHint;
@@ -21,6 +23,8 @@ import mouse.ToolsModifier;
 import starling.core.Starling;
 import starling.display.Stage;
 import starling.textures.TextureAtlas;
+
+import temp.dataTemp.DataAnimal;
 
 import temp.dataTemp.DataLevel;
 
@@ -82,12 +86,14 @@ public class Vars {
     public var dataBuilding:DataBuildings;
     public var dataResource:DataResources;
     public var dataRecipe:DataRecipe;
+    public var dataAnimal:DataAnimal;
     public var dataLevel:DataLevel;
     public var selectedBuild:WorldObject;
 
     public var timerHint:TimerHint;
     public var wildHint:WildHint;
     public var hint:Hint;
+    public var farmHint:FarmHint;
     public var xpPanel:XPPanel;
 
     public var woBuyPlant:WOBuyPlant;
@@ -122,12 +128,14 @@ public class Vars {
         dataBuilding = new DataBuildings();
         dataRecipe = new DataRecipe();
         dataResource = new DataResources();
+        dataAnimal = new DataAnimal();
         dataLevel = new DataLevel();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();
+        farmHint = new FarmHint();
         xpPanel = new XPPanel();
 
         continueInitGame();

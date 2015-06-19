@@ -17,7 +17,6 @@ import utils.CSprite;
 
 
 public class TimerHint {
-
     public var source:CSprite;
     private var _txtTimer:TextField;
     private var _timer:int;
@@ -25,7 +24,6 @@ public class TimerHint {
     private var _isOnHover:Boolean;
     private var _isShow:Boolean;
     private var g:Vars = Vars.getInstance();
-
 
     public function TimerHint() {
         source = new CSprite();
@@ -44,7 +42,6 @@ public class TimerHint {
         source.addChildAt(quad,0);
         source.hoverCallback = onHover;
         source.outCallback = outHover;
-
     }
 
     public function showIt(x:int,y:int,timer:int, cost:int, name:String):void {
