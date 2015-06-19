@@ -21,10 +21,12 @@ public class CraftItem {
     private var _resourceItem:ResourceItem;
     private var _image:Image;
     private var _cont:Sprite;
+    private var _callback:Function;
 
     private var g:Vars = Vars.getInstance();
 
-    public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite) {
+    public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, f:Function = null) {
+        _callback = f;
         _cont = g.cont.animationsResourceCont;
         _source = new CSprite();
         _resourceItem = resourceItem;
@@ -46,6 +48,9 @@ public class CraftItem {
     }
 
     private function flyIt():void {
+        if (_callback != null) {
+            _callback.apply(null, []);
+        }
         _source.endClickCallback = null;
 
         var start:Point = new Point(int(_source.x), int(_source.y));

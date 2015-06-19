@@ -242,6 +242,7 @@
             <filename>xp_progres_part.png</filename>
             <filename>xp_progres.png</filename>
             <filename>yellow_coupone.png</filename>
+            <filename>popup_farm.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
