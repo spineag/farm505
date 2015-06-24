@@ -74,7 +74,7 @@ public class CraftItem {
                 _source.removeChildAt(0);
             }
             _source = null;
-            g.userInventory.addResource(_resourceItem.id, _count);
+            g.userInventory.addResource(_resourceItem.resourceID, _count);
         };
         g.starling.juggler.add(tween);
     }

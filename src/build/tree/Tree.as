@@ -100,7 +100,6 @@ public class Tree extends AreaObject{
     }
 
     private function craftResource():void {
-        trace('craft from Tree resoureId: ' + _resourceItem.id);
         var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
     }
 }

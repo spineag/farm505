@@ -93,15 +93,15 @@ public class Fabrica extends AreaObject {
         }
     }
 
-    private function craftResource(resourceItem:ResourceItem):void {
-        //trace('craft from Fabrica resourceId: ' + resourceItem.id);
+    private function craftResource(item:ResourceItem):void {
         var countResources:int = 1;
         for(var id:String in g.dataRecipe.objectRecipe) {
-            if (g.dataRecipe.objectRecipe[id].buildingId == _dataBuild.id && g.dataRecipe.objectRecipe[id].idResource == resourceItem.id) {
+            if (g.dataRecipe.objectRecipe[id].buildingId == _dataBuild.id &&
+                    item.resourceID == g.dataRecipe.objectRecipe[id].idResource) {
                 countResources = g.dataRecipe.objectRecipe[id].numberCreate;
             }
         }
-        var item:CraftItem = new CraftItem(0, 0, resourceItem, _craftSprite, countResources);
+        var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources);
     }
 
 }

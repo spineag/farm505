@@ -56,7 +56,7 @@ public class ResourceItem {
         recipeId = 0;
     }
 
-    public function get id():int { return _id}
+    public function get resourceID():int { return _id}
     public function get name():String { return _name}
     public function get url():String { return _url}
     public function get imageShop():String { return _imageShop}

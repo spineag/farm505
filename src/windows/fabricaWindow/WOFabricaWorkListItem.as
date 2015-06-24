@@ -53,7 +53,7 @@ public class WOFabricaWorkListItem {
         _icon = new Image(g.resourceAtlas.getTexture(s));
         MCScaler.scale(_icon, 100, 100);
         for(var id:String in g.dataRecipe.objectRecipe){
-            if(g.dataRecipe.objectRecipe[id].idResource == _resource.id){
+            if(g.dataRecipe.objectRecipe[id].idResource == _resource.resourceID){
                 if(g.dataRecipe.objectRecipe[id].numberCreate > 1) {
                     _txtNumberCreate.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
                     break;
