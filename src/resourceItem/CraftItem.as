@@ -22,10 +22,12 @@ public class CraftItem {
     private var _image:Image;
     private var _cont:Sprite;
     private var _callback:Function;
+    private var _count:int;
 
     private var g:Vars = Vars.getInstance();
 
-    public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, f:Function = null) {
+    public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, count:int = 1, f:Function = null) {
+        _count = count;
         _callback = f;
         _cont = g.cont.animationsResourceCont;
         _source = new CSprite();
@@ -72,7 +74,7 @@ public class CraftItem {
                 _source.removeChildAt(0);
             }
             _source = null;
-            g.userInventory.addResource(_resourceItem.id, 1);
+            g.userInventory.addResource(_resourceItem.id, _count);
         };
         g.starling.juggler.add(tween);
     }

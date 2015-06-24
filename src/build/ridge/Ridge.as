@@ -90,7 +90,7 @@ public class Ridge extends AreaObject{
                 _plant = null;
                 _resourceItem = new ResourceItem();
                 _resourceItem.fillIt(_dataPlant);
-                var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite);
+                var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2);
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
