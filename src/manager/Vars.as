@@ -26,12 +26,16 @@ import starling.textures.TextureAtlas;
 
 import temp.dataTemp.DataAnimal;
 
+import temp.dataTemp.DataLevel;
+
 import temp.dataTemp.DataRecipe;
 import temp.dataTemp.DataResources;
 import temp.dataTemp.DataBuildings;
 import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
+
+import ui.xpPanel.XPPanel;
 
 import user.User;
 import user.UserInventory;
@@ -83,12 +87,14 @@ public class Vars {
     public var dataResource:DataResources;
     public var dataRecipe:DataRecipe;
     public var dataAnimal:DataAnimal;
+    public var dataLevel:DataLevel;
     public var selectedBuild:WorldObject;
 
     public var timerHint:TimerHint;
     public var wildHint:WildHint;
     public var hint:Hint;
     public var farmHint:FarmHint;
+    public var xpPanel:XPPanel;
 
     public var woBuyPlant:WOBuyPlant;
     public var woFabrica:WOFabrica;
@@ -123,12 +129,14 @@ public class Vars {
         dataRecipe = new DataRecipe();
         dataResource = new DataResources();
         dataAnimal = new DataAnimal();
+        dataLevel = new DataLevel();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();
         farmHint = new FarmHint();
+        xpPanel = new XPPanel();
 
         continueInitGame();
     }
