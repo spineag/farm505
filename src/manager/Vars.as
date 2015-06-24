@@ -35,6 +35,8 @@ import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
+import ui.bottomInterface.MainBottomPanel;
+
 import ui.xpPanel.XPPanel;
 
 import user.User;
@@ -95,6 +97,7 @@ public class Vars {
     public var hint:Hint;
     public var farmHint:FarmHint;
     public var xpPanel:XPPanel;
+    public var bottomPanel:MainBottomPanel;
 
     public var woBuyPlant:WOBuyPlant;
     public var woFabrica:WOFabrica;
@@ -137,6 +140,7 @@ public class Vars {
         hint = new Hint();
         farmHint = new FarmHint();
         xpPanel = new XPPanel();
+        bottomPanel = new MainBottomPanel();
 
         continueInitGame();
     }
