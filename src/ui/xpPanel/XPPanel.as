@@ -15,11 +15,13 @@ public class XPPanel {
     private var _XPProgres:Image;
     private var _XPProgresEnd:Image;
     private var _XPPanel:Image;
-    private var _XP:int;
+    private var _maxXP:int;
+    private var _maxWidth:int = 162;
     private var curentXP:int;
 
     private var g:Vars = Vars.getInstance();
     public function XPPanel() {
+
         _contXP = new Sprite();
         g.cont.xpCont.addChild(_contXP);
         _contXPProgres = new Sprite();
@@ -28,21 +30,29 @@ public class XPPanel {
         _XPPanel = new Image(g.interfaceAtlas.getTexture("xp_progres"));
         _XPPanel.x = g.stageWidth - _XPPanel.width -10;
         _XPPanel.y = 5;
-        _XPProgres.x = g.stageWidth - 205;
-        _XPProgres.y = _XPPanel.height - _XPProgres.height - 5;
-        _XPProgres.width = 190;
-        _XPProgresEnd.x = g.stageWidth - _XPPanel.width/2 - 5;
+        _XPProgres.x = g.stageWidth - 175;
+        _XPProgres.y = _XPPanel.height - _XPProgres.height - 10;
+        //_XPProgresEnd.x = g.stageWidth - 160 ;
         _XPProgresEnd.y = _XPPanel.height - _XPProgresEnd.height - 10;
         _contXP.addChild(_XPProgres);
         _contXP.addChild(_XPProgresEnd);
         _contXP.addChild(_XPPanel);
     }
 
-    private function xpLevel():void{
-        if(_XP == g.dataLevel.objectLevels.xp){
-            _XPProgres.width = _XPProgres.width;
-            _XPProgresEnd.x = 0;//начальная позиция
+    private function addXP(number:int):void{
+        g.user.xp += number;
+        if (g.user.xp >= _maxXP){
+            g.user.xp -= _maxXP;
+            g.user.level++;
+            _maxXP = g.dataLevel.objectLevels[g.user.level].xp;
         }
+        checkXP();
     }
+
+    private function checkXP():void{
+        _XPProgres.width = (g.user.xp * _maxWidth) / _maxXP;
+        _XPProgresEnd.x = _XPProgres.x +_XPProgres.width - 4;
+    }
+
 }
 }

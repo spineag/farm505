@@ -12,11 +12,11 @@ public class DataLevel {
     }
     private function fillDataLevels():void {
         var obj:Object;
-//        1
-        obj = {};
-        obj.id = 1;
-        obj.xp = 100;
-        objectLevels[obj.id ] = obj;
+////        1
+//        obj = {};
+//        obj.id = 1;
+//        obj.xp = 100;
+//        objectLevels[obj.id ] = obj;
 //        2
         obj = {};
         obj.id = 2;
