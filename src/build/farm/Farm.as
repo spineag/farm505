@@ -66,7 +66,7 @@ public class Farm extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            if (_arrAnimals.length < _dataBuild.maxAnimalsCount) {
+            if (!isFull) {
                 g.farmHint.showIt(_source.x, _source.y + _dataBuild.innerHouseY + 15, _dataAnimal, onHintClick);
                 _house.filter = null;
             }
@@ -114,16 +114,20 @@ public class Farm extends AreaObject{
     }
 
     private function onHintClick():void {
-        if (_arrAnimals.length < _dataBuild.maxAnimalsCount)  addAnimal();
+        if (!isFull) addAnimal();
     }
 
-    private function addAnimal():void {
+    public function addAnimal():void {
         var animal:Animal = new Animal(_dataAnimal);
         animal.source.x = (1/2 - Math.random()) * _source.width/2;
         animal.source.y = (1 - Math.random()/2) * _source.height/2;
         _source.addChild(animal.source);
         _arrAnimals.push(animal);
 //        checkAnimalsZindex();
+    }
+
+    public function get isFull():Boolean {
+        return _arrAnimals.length >= _dataBuild.maxAnimalsCount;
     }
 }
 }

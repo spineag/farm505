@@ -2,7 +2,13 @@
  * Created by user on 6/24/15.
  */
 package windows.shop {
+import build.farm.Farm;
+
+import data.BuildType;
+
 import manager.Vars;
+
+import mouse.ToolsModifier;
 
 import starling.display.Image;
 import starling.text.TextField;
@@ -41,6 +47,8 @@ public class ShopItem {
         _countTxt.x = 22;
         _countTxt.y = 220;
         source.addChild(_countTxt);
+
+        source.endClickCallback = onClick;
     }
 
     public function clearIt():void {
@@ -48,5 +56,30 @@ public class ShopItem {
             source.removeChildAt(0);
         }
     }
+
+    private function onClick():void {
+        if (_data.buildType != BuildType.ANIMAL) {
+            g.woShop.hideIt();
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            g.toolsModifier.startMove(_data, afterMove);
+        } else {
+            //додаємо на відповідну ферму
+            var arr:Array = g.townArea.cityObjects;
+            for (var i:int = 0; i < arr.length; i++) {
+                if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
+                    (arr[i] as Farm).addAnimal();
+                    return;
+                }
+            }
+            trace('no such Farm :(');
+        }
+    }
+
+    private function afterMove(_x:Number, _y:Number):void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        g.townArea.createNewBuild(_data, _x, _y);
+    }
+
+
 }
 }

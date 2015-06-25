@@ -2,6 +2,8 @@
  * Created by user on 6/19/15.
  */
 package temp.dataTemp {
+import data.BuildType;
+
 public class DataAnimal {
     public var objectAnimal:Object;
 
@@ -27,6 +29,7 @@ public class DataAnimal {
         obj.idResource = 26;                           // что дает
         obj.idResourceFeed = 21;                       // что кушает
         obj.costForceCraft = 5;
+        obj.buildType = BuildType.ANIMAL;
         objectAnimal[obj.id ] = obj;
 
         obj = {};
@@ -42,6 +45,8 @@ public class DataAnimal {
         obj.idResource = 35;
         obj.idResourceFeed = 25;
         obj.costForceCraft = 5;
+        obj.costForceCraft = 5;
+        obj.buildType = BuildType.ANIMAL;
         objectAnimal[obj.id ] = obj;
     }
 }

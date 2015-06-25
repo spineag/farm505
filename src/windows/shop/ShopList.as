@@ -69,7 +69,6 @@ public class ShopList {
             _arrItems.push(item);
         }
 
-        trace('l: ' + arr.length);
         checkArrows();
     }
 
