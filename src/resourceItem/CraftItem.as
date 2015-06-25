@@ -12,6 +12,10 @@ import starling.animation.Tween;
 import starling.display.Image;
 
 import starling.display.Sprite;
+import starling.text.TextField;
+import starling.utils.Color;
+
+import ui.xpPanel.XPPanel;
 
 import ui.xpPanel.XPStar;
 
@@ -27,6 +31,7 @@ public class CraftItem {
     private var _cont:Sprite;
     private var _callback:Function;
     private var _count:int;
+    private var _txtNumber:TextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -50,6 +55,9 @@ public class CraftItem {
         _source.y = _y + int(Math.random()*30) - 15;
         parent.addChild(_source);
         _source.endClickCallback = flyIt;
+        _txtNumber = new TextField(50,50," ","Arial",18,Color.WHITE);
+        _txtNumber.y = 25;
+        _source.addChild(_txtNumber);
     }
 
     private function flyIt():void {
@@ -57,10 +65,15 @@ public class CraftItem {
             _callback.apply(null, []);
         }
         _source.endClickCallback = null;
-
+        for(var id:String in g.dataRecipe.objectRecipe) {
+            if (g.dataRecipe.objectRecipe[id].idResource == _resourceItem.resourceID) {
+                _txtNumber.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
+            }
+        }
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
         _source.parent.removeChild(_source);
+//        _txtNumber.text = "4";
 
         var endX:int = g.stageWidth/2;
         var endY:int = 50;
@@ -80,7 +93,7 @@ public class CraftItem {
             g.userInventory.addResource(_resourceItem.resourceID, _count);
         };
         g.starling.juggler.add(tween);
-        var xp:XPStar = new XPStar(_source.x,_source.y);
+        var xp:XPStar = new XPStar(_source.x,_source.y,_resourceItem);
     }
 }
 }
