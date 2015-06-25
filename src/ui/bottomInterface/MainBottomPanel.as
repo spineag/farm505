@@ -80,6 +80,7 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
+                    g.woShop.showIt();
                 break;
             case 'tools':
                 break;

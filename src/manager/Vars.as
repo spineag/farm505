@@ -49,6 +49,7 @@ import windows.ambar.WOSklad;
 
 import windows.buyPlant.WOBuyPlant;
 import windows.fabricaWindow.WOFabrica;
+import windows.shop.WOShop;
 
 public class Vars {
     private static var _instance:Vars;
@@ -103,6 +104,7 @@ public class Vars {
     public var woFabrica:WOFabrica;
     public var woAmbar:WOAmbar;
     public var woSklad:WOSklad;
+    public var woShop:WOShop;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -165,6 +167,7 @@ public class Vars {
         woFabrica = new WOFabrica();
         woAmbar = new WOAmbar();
         woSklad = new WOSklad();
+        woShop = new WOShop();
 
         temporaryFillUserInventory();
 

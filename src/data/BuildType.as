@@ -26,5 +26,7 @@ public class BuildType {
     public static const SKLAD:int = 14;
     public static const DECOR_TAIL:int = 15; // вид декора Плитка
     public static const FARM:int = 16;
+    public static const PET:int = 17;
+    public static const PET_HOUSE:int = 18;
 }
 }
