@@ -13,6 +13,10 @@ import starling.display.Image;
 
 import starling.display.Sprite;
 
+import ui.xpPanel.XPStar;
+
+import ui.xpPanel.XPStar;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -42,10 +46,9 @@ public class CraftItem {
         _source.addChild(_image);
         _source.pivotX = _source.width/2;
         _source.pivotY = _source.height/2;
-        _source.x = _x + Math.random()*30 - 15;
-        _source.y = _y + Math.random()*30 - 15;
+        _source.x = _x + int(Math.random()*30) - 15;
+        _source.y = _y + int(Math.random()*30) - 15;
         parent.addChild(_source);
-
         _source.endClickCallback = flyIt;
     }
 
@@ -77,6 +80,7 @@ public class CraftItem {
             g.userInventory.addResource(_resourceItem.resourceID, _count);
         };
         g.starling.juggler.add(tween);
+        var xp:XPStar = new XPStar(_source.x,_source.y);
     }
 }
 }

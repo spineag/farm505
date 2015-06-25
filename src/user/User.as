@@ -19,6 +19,8 @@ public class User {
     public var level:int;
 
     public function User() {
+        level = 1;
+        xp = 0;
     }
 }
 }
