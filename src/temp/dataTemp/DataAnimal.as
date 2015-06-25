@@ -27,7 +27,7 @@ public class DataAnimal {
         obj.buildId = 14;                               // здание -> куриная ферма
         obj.timeCraft = 30;
         obj.idResource = 26;                           // что дает
-        obj.idResourceFeed = 21;                       // что кушает
+        obj.idResourceRaw = 21;                       // что кушает
         obj.costForceCraft = 5;
         obj.buildType = BuildType.ANIMAL;
         objectAnimal[obj.id ] = obj;
@@ -43,8 +43,7 @@ public class DataAnimal {
         obj.buildId = 15;
         obj.timeCraft = 40;
         obj.idResource = 35;
-        obj.idResourceFeed = 25;
-        obj.costForceCraft = 5;
+        obj.idResourceRaw = 25;
         obj.costForceCraft = 5;
         obj.buildType = BuildType.ANIMAL;
         objectAnimal[obj.id ] = obj;

@@ -3,9 +3,16 @@
  */
 package build.fabrica {
 import build.AreaObject;
+
+import data.BuildType;
+
+import flash.geom.Point;
+
 import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
+
+import resourceItem.RawItem;
 
 import resourceItem.ResourceItem;
 
@@ -14,6 +21,7 @@ import mouse.ToolsModifier;
 import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
+import starling.textures.Texture;
 import starling.utils.Color;
 
 public class Fabrica extends AreaObject {
@@ -75,10 +83,25 @@ public class Fabrica extends AreaObject {
         }
     }
 
-    private function callbackOnChooseRecipe(resourceItem:ResourceItem):void {
+    private function callbackOnChooseRecipe(resourceItem:ResourceItem, dataRecipe:Object):void {
         _arrList.push(resourceItem);
         if (_arrList.length == 1) {
             g.gameDispatcher.addToTimer(render);
+        }
+        var p:Point = new Point(source.x, source.y);
+        p = source.parent.localToGlobal(p);
+        var obj:Object;
+        var texture:Texture;
+        for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+            obj = g.dataResource.objectResources[dataRecipe.ingridientsId[i]];
+            if (obj.buildType == BuildType.PLANT) {
+                texture = g.plantAtlas.getTexture(g.dataResource.objectResources[dataRecipe.ingridientsId[i]].imageShop);
+            } else if (obj.buildType == BuildType.RESOURCE) {
+                texture = g.resourceAtlas.getTexture(g.dataResource.objectResources[dataRecipe.ingridientsId[i]].imageShop);
+            } else if (obj.buildType == BuildType.INSTRUMENT) {
+                texture = g.instrumentAtlas.getTexture(g.dataResource.objectResources[dataRecipe.ingridientsId[i]].imageShop);
+            }
+            new RawItem(p, texture, dataRecipe.ingridientsCount[i], i*.1);
         }
     }
 

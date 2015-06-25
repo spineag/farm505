@@ -71,7 +71,7 @@ public class WOFabrica extends Window {
         resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);
         _list.addResource(resource);
         if (_callbackOnClick != null) {
-            _callbackOnClick.apply(null, [resource]);
+            _callbackOnClick.apply(null, [resource, dataRecipe]);
         }
     }
 }

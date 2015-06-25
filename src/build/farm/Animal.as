@@ -2,9 +2,12 @@
  * Created by user on 6/19/15.
  */
 package build.farm {
+import flash.geom.Point;
+
 import manager.Vars;
 
 import resourceItem.CraftItem;
+import resourceItem.RawItem;
 import resourceItem.ResourceItem;
 
 import starling.display.Image;
@@ -76,6 +79,9 @@ public class Animal {
             _timeToEnd = _data.timeCraft;
             g.gameDispatcher.addToTimer(render);
             _state = WORKED;
+            var p:Point = new Point(source.x, source.y);
+            p = source.parent.localToGlobal(p);
+            var rawItem:RawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
         }
     }
 

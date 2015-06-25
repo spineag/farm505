@@ -6,6 +6,7 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
 
 
 import hint.TimerHint;
@@ -15,6 +16,7 @@ import map.MatrixGrid;
 import mouse.ToolsModifier;
 
 import resourceItem.CraftItem;
+import resourceItem.RawItem;
 import resourceItem.ResourceItem;
 
 import starling.display.BlendMode;
@@ -107,6 +109,9 @@ public class Ridge extends AreaObject{
         _stateRidge = GROW1;
         _dataPlant = data;
         _plant = new PlantOnRidge(this, _dataPlant);
+        var p:Point = new Point(_source.x, _source.y);
+        p = _source.parent.localToGlobal(p);
+        var rawItem:RawItem = new RawItem(p, g.plantAtlas.getTexture(_dataPlant.imageShop), 1, 0);
     }
 
     public function get stateRidge():int {
@@ -122,7 +127,8 @@ public class Ridge extends AreaObject{
         if(_count <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
+                if (_plant)
+                    g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
             }
             if (_isOnHover == false) {
                 _source.filter = null;
