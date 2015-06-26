@@ -2,6 +2,12 @@
  * Created by user on 6/12/15.
  */
 package resourceItem {
+import com.greensock.TweenMax;
+import com.greensock.easing.Back;
+import com.greensock.easing.Ease;
+import com.greensock.easing.Linear;
+import com.greensock.easing.Quint;
+
 import flash.geom.Point;
 
 import resourceItem.ResourceItem;
@@ -81,10 +87,22 @@ public class CraftItem {
         _source.y = start.y;
         _cont.addChild(_source);
 
-        var tween:Tween = new Tween(_source, 1);
-        tween.moveTo(endX, endY);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
+        // using Starling Tween
+//        var tween:Tween = new Tween(_source, 1);
+//        tween.moveTo(endX, endY);
+//        tween.onComplete = function ():void {
+//            g.starling.juggler.remove(tween);
+//            _cont.removeChild(_source);
+//            while (_source.numChildren) {
+//                _source.removeChildAt(0);
+//            }
+//            _source = null;
+//            g.userInventory.addResource(_resourceItem.resourceID, _count);
+//        };
+//        g.starling.juggler.add(tween);
+
+        // using TweenMax
+        var f1:Function = function():void {
             _cont.removeChild(_source);
             while (_source.numChildren) {
                 _source.removeChildAt(0);
@@ -92,8 +110,34 @@ public class CraftItem {
             _source = null;
             g.userInventory.addResource(_resourceItem.resourceID, _count);
         };
-        g.starling.juggler.add(tween);
-        var xp:XPStar = new XPStar(_source.x,_source.y,_resourceItem);
+        var tempX:int;
+        _source.x < endX ? tempX = _source.x + 50 : tempX = _source.x - 50;
+        var tempY:int = _source.y + 30 + int(Math.random()*20);
+        var dist:int = int(Math.sqrt((_source.x - endX)*(_source.x - endX) + (_source.y - endY)*(_source.y - endY)));
+        var v:Number = 170;
+        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], ease:Linear.easeOut ,onComplete: f1});
+        new XPStar(_source.x,_source.y,_resourceItem);
     }
+
+
+
+
+// as EXAMPLE
+//    private function tweenStarling( obj:Image ):void {
+//        var tw:Tween = new Tween(obj, 1+(Math.random()*3), Transitions.EASE_OUT );
+//        tw.moveTo( Math.random() * 480 , Math.random() * 762);
+//        tw.onComplete = tweenStarling;
+//        tw.onCompleteArgs = [obj];
+//        Starling.current.juggler.add(tw);
+//    }
+//
+//    private function tweenGreenSock( obj:Image ):void {
+//        var tw:TweenLite = new TweenLite(obj, 1 + (Math.random() * 3) , {
+//            x:Math.random() * 480 ,
+//            y: Math.random() * 762 ,
+//            onComplete:tweenGreenSock ,
+//            onCompleteParams:[obj]
+//        } );
+//    }
 }
 }
