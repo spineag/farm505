@@ -243,6 +243,8 @@
             <filename>xp_progres.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>popup_farm.png</filename>
+            <filename>ambar_plawka_arrow.png</filename>
+            <filename>ambar_plawka.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

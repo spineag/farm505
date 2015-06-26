@@ -15,7 +15,7 @@ public class UserInventory {
         _inventoryResource = new Object();
     }
 
-    public function getCountResource(id:int):int {
+    public function getCountResourceById(id:int):int {
         if (_inventoryResource[id])  return _inventoryResource[id];
          else return 0;
     }
