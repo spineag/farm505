@@ -9,6 +9,7 @@ import com.junkbyte.console.Cc;
 import hint.FarmHint;
 
 import hint.Hint;
+import hint.MouseHint;
 
 import hint.TimerHint;
 import hint.WildHint;
@@ -97,6 +98,7 @@ public class Vars {
     public var wildHint:WildHint;
     public var hint:Hint;
     public var farmHint:FarmHint;
+    public var mouseHint:MouseHint;
     public var xpPanel:XPPanel;
     public var bottomPanel:MainBottomPanel;
 
@@ -141,6 +143,7 @@ public class Vars {
         wildHint = new WildHint();
         hint = new Hint();
         farmHint = new FarmHint();
+        mouseHint = new MouseHint();
         xpPanel = new XPPanel();
         bottomPanel = new MainBottomPanel();
 

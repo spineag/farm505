@@ -8,6 +8,8 @@ import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
+import hint.MouseHint;
+
 
 import hint.TimerHint;
 
@@ -42,6 +44,7 @@ public class Ridge extends AreaObject{
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
     private var _count:int;
+    private var _countMouse:int;
 
    // private var _openHint:Sprite;
 
@@ -62,9 +65,11 @@ public class Ridge extends AreaObject{
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         _isOnHover = true;
         _count = 20;
+        _countMouse =10;
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.gameDispatcher.addEnterFrame(countEnterFrame);
         }
+        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
     }
 
     private function onClick():void {
@@ -93,6 +98,7 @@ public class Ridge extends AreaObject{
                 _resourceItem = new ResourceItem();
                 _resourceItem.fillIt(_dataPlant);
                 var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2);
+                g.mouseHint.hideHintMouse();
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -103,6 +109,10 @@ public class Ridge extends AreaObject{
         _source.filter = null;
         _isOnHover = false;
         g.gameDispatcher.addEnterFrame(countEnterFrame);
+        g.mouseHint.hideHintMouse();
+        g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+
+
     }
 
     public function fillPlant(data:Object):void {
@@ -122,7 +132,7 @@ public class Ridge extends AreaObject{
         _stateRidge = a;
     }
 
-    private function countEnterFrame():void{
+    private function countEnterFrame():void {
         _count--;
         if(_count <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
@@ -133,6 +143,20 @@ public class Ridge extends AreaObject{
             if (_isOnHover == false) {
                 _source.filter = null;
                 g.timerHint.hideIt();
+            }
+        }
+    }
+
+    private function countMouseEnterFrame():void {
+        _countMouse--;
+        if(_countMouse <= 0){
+            if (_isOnHover == true) {
+                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
+                }
+                if (_stateRidge == GROWED) {
+                    g.mouseHint.checkMouseHint(MouseHint.SERP);
+                }
             }
         }
     }
