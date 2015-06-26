@@ -210,16 +210,23 @@ public class TownArea extends Sprite {
 
     }
 
-    public function moveBuild(wordObject:WorldObject):void{// не сохраняется флип при муве
-        if(_cont.contains(wordObject.source)) {
-            g.selectedBuild = wordObject;
-            deleteBuild(wordObject);
-            g.toolsModifier.startMove((wordObject as AreaObject).dataBuild, afterMove);
+    public function moveBuild(worldObject:WorldObject):void{// не сохраняется флип при муве
+        if(_cont.contains(worldObject.source)) {
+            g.selectedBuild = worldObject;
+            _cont.removeChild(worldObject.source);
+            if (worldObject is DecorFence || worldObject is DecorPostFence) {
+                if (worldObject is DecorPostFence) removeFenceLenta(worldObject as DecorPostFence);
+                unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+            } else {
+                unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+            }
+            g.toolsModifier.startMove((worldObject as AreaObject).dataBuild, afterMove);
         }
     }
 
     private function afterMove(_x:Number, _y:Number):void {
-        createNewBuild((g.selectedBuild as AreaObject).dataBuild, _x, _y);
+//        createNewBuild((g.selectedBuild as AreaObject).dataBuild, _x, _y);
+        pasteBuild(g.selectedBuild, _x, _y);
         g.selectedBuild = null;
     }
 
@@ -293,18 +300,6 @@ public class TownArea extends Sprite {
 //        }
 //
 //        return path;
-//    }
-
-//    public function getArrayFromClass(c:Class):Array {
-//        var temp:Array = [];
-//
-//        for (var i:int = 0; i < _cityObjects.length; i++) {
-//            if (_cityObjects[i] is c) {
-//                temp.push(_cityObjects[i]);
-//            }
-//        }
-//
-//        return temp;
 //    }
 
 }
