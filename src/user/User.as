@@ -23,6 +23,12 @@ public class User {
         xp = 0;
         ambarMaxCount = 50;
         skladMaxCount = 50;
+        softCurrencyCount = 10000;
+        hardCurrency = 50;
+        yellowCouponCount = 10;
+        redCouponCount = 10;
+        blueCouponCount = 10;
+        greenCouponCount = 10;
     }
 }
 }
