@@ -37,6 +37,7 @@ import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
 import ui.bottomInterface.MainBottomPanel;
+import ui.craftPanel.CraftPanel;
 
 import ui.xpPanel.XPPanel;
 
@@ -101,6 +102,7 @@ public class Vars {
     public var mouseHint:MouseHint;
     public var xpPanel:XPPanel;
     public var bottomPanel:MainBottomPanel;
+    public var craftPanel:CraftPanel;
 
     public var woBuyPlant:WOBuyPlant;
     public var woFabrica:WOFabrica;
@@ -146,6 +148,7 @@ public class Vars {
         mouseHint = new MouseHint();
         xpPanel = new XPPanel();
         bottomPanel = new MainBottomPanel();
+        craftPanel = new CraftPanel();
 
         continueInitGame();
     }
@@ -189,7 +192,7 @@ public class Vars {
 
     private function temporaryFillUserInventory():void {
         var k:int;
-        var i:int = 200;
+        var i:int = 30;
         while (i>0) {
             k = int(Math.random()*34) + 1;
             if (dataResource.objectResources[k]) {

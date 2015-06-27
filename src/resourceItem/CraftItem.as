@@ -3,27 +3,16 @@
  */
 package resourceItem {
 import com.greensock.TweenMax;
-import com.greensock.easing.Back;
-import com.greensock.easing.Ease;
 import com.greensock.easing.Linear;
-import com.greensock.easing.Quint;
 
+import data.BuildType;
 import flash.geom.Point;
-
-import resourceItem.ResourceItem;
 import manager.Vars;
 
-import starling.animation.Tween;
-
 import starling.display.Image;
-
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
-import ui.xpPanel.XPPanel;
-
-import ui.xpPanel.XPStar;
 
 import ui.xpPanel.XPStar;
 
@@ -67,6 +56,9 @@ public class CraftItem {
     }
 
     private function flyIt():void {
+        if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
+            g.craftPanel.showIt(_resourceItem.placeBuild);
+
         if (_callback != null) {
             _callback.apply(null, []);
         }
@@ -79,10 +71,8 @@ public class CraftItem {
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
         _source.parent.removeChild(_source);
-//        _txtNumber.text = "4";
 
-        var endX:int = g.stageWidth/2;
-        var endY:int = 50;
+        var endPoint:Point = g.craftPanel.pointXY();
         _source.x = start.x;
         _source.y = start.y;
         _cont.addChild(_source);
@@ -109,13 +99,15 @@ public class CraftItem {
             }
             _source = null;
             g.userInventory.addResource(_resourceItem.resourceID, _count);
+            if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
+                g.craftPanel.afterFly(_resourceItem);
         };
         var tempX:int;
-        _source.x < endX ? tempX = _source.x + 50 : tempX = _source.x - 50;
+        _source.x < endPoint.x ? tempX = _source.x + 50 : tempX = _source.x - 50;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
-        var dist:int = int(Math.sqrt((_source.x - endX)*(_source.x - endX) + (_source.y - endY)*(_source.y - endY)));
-        var v:Number = 170;
-        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], ease:Linear.easeOut ,onComplete: f1});
+        var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
+        var v:Number = 250;
+        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
         new XPStar(_source.x,_source.y,_resourceItem);
     }
 

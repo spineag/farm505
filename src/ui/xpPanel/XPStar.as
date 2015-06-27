@@ -74,7 +74,7 @@ public class XPStar {
         _source.x < endX ? tempX = _source.x + 70 : tempX = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
         var dist:int = int(Math.sqrt((_source.x - endX)*(_source.x - endX) + (_source.y - endY)*(_source.y - endY)));
-        var v:Number = 170;
+        var v:Number = 250;
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], ease:Linear.easeOut ,onComplete: f1, delay:.2});
     }
 }

@@ -21,8 +21,8 @@ public class User {
     public function User() {
         level = 1;
         xp = 0;
-        ambarMaxCount = 500;
-        skladMaxCount = 500;
+        ambarMaxCount = 50;
+        skladMaxCount = 50;
     }
 }
 }

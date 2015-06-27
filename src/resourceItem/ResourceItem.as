@@ -27,6 +27,7 @@ public class ResourceItem {
     public var innerPositions:Array;
     public var leftTime:int;
     public var recipeId:int;
+    public var placeBuild:int;
 
     public function ResourceItem() {}
 
@@ -52,6 +53,7 @@ public class ResourceItem {
         dataResource.image4 ? image4 = dataResource.image4 : image4 = '';
         dataResource.imageHarvested ? imageHarvested = dataResource.imageHarvested : imageHarvested = _imageShop;
         dataResource.innerPositions ? innerPositions = dataResource.innerPositions : innerPositions = [];
+        dataResource.placeBuild ? placeBuild = dataResource.placeBuild : BuildType.PLACE_NONE;
         leftTime = _buildTime;
         recipeId = 0;
     }
