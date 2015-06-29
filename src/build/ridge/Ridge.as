@@ -68,6 +68,7 @@ public class Ridge extends AreaObject{
         _countMouse =10;
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.gameDispatcher.addEnterFrame(countEnterFrame);
+
         }
         g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
     }
@@ -110,7 +111,7 @@ public class Ridge extends AreaObject{
         _isOnHover = false;
         g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.mouseHint.hideHintMouse();
-        g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
 
 
     }
@@ -150,6 +151,7 @@ public class Ridge extends AreaObject{
     private function countMouseEnterFrame():void {
         _countMouse--;
         if(_countMouse <= 0){
+            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             if (_isOnHover == true) {
                 if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                     g.mouseHint.checkMouseHint(MouseHint.CLOCK);
@@ -157,6 +159,9 @@ public class Ridge extends AreaObject{
                 if (_stateRidge == GROWED) {
                     g.mouseHint.checkMouseHint(MouseHint.SERP);
                 }
+            }
+            if(_isOnHover == false){
+             g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             }
         }
     }
