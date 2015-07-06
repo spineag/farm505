@@ -8,6 +8,7 @@ import starling.events.Event;
 import starling.utils.Color;
 
 import windows.Window;
+import windows.ambar.AmbarCell;
 
 public class WOFabrica extends Window {
     private var _list:WOFabricaWorkList;
@@ -66,6 +67,10 @@ public class WOFabrica extends Window {
     }
 
     private function onItemClick(dataRecipe:Object):void {
+        if(!g.user.checkRecipe(dataRecipe)) return;
+        for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+               g.userInventory.addResource(dataRecipe.ingridientsId[i],-dataRecipe.ingridientsCount[i]);
+        }
         if (_list.isFull) return;
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);

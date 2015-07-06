@@ -51,6 +51,7 @@ import windows.ambar.WOSklad;
 
 import windows.buyPlant.WOBuyPlant;
 import windows.fabricaWindow.WOFabrica;
+import windows.noResources.WONoResources;
 import windows.shop.WOShop;
 
 public class Vars {
@@ -110,6 +111,8 @@ public class Vars {
     public var woSklad:WOSklad;
     public var woShop:WOShop;
 
+    public var noResources:WONoResources;
+
     public static function getInstance():Vars {
         if (!_instance) {
             _instance = new Vars(new SingletonEnforcer());
@@ -149,6 +152,8 @@ public class Vars {
         xpPanel = new XPPanel();
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
+
+        noResources = new WONoResources();
 
         continueInitGame();
     }

@@ -53,8 +53,13 @@ public class WOBuyPlant extends Window {
     }
 
     private function onClickItem(data:Object):void {
+        var count:int;
         hideIt();
+//        if (!g.user.checkResource(data,1)) return;
         _ridge.fillPlant(data);
+//        g.userInventory.addResource(data.id,-1);
+//        count = g.userInventory.getCountResourceById();
+
     }
 }
 }
