@@ -111,7 +111,7 @@ public class Vars {
     public var woSklad:WOSklad;
     public var woShop:WOShop;
 
-    public var noResources:WONoResources;
+    public var woNoResources:WONoResources;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -153,7 +153,7 @@ public class Vars {
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
 
-        noResources = new WONoResources();
+        woNoResources = new WONoResources();
 
         continueInitGame();
     }
