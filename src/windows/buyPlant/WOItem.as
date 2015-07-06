@@ -31,12 +31,14 @@ public class WOItem {
         source.pivotX = source.width/2;
         source.pivotY = source.height/2;
         source.endClickCallback = onClick;
+        source.alpha = .5;
     }
 
     public function fillData(ob:Object, f:Function):void {
         _data = ob;
         _clickCallback = f;
         fillIcon(_data.imageShop);
+        source.alpha = 1;
     }
 
     private function fillIcon(s:String):void {
@@ -53,6 +55,16 @@ public class WOItem {
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_data]);
         }
+    }
+
+    public function unfillIt():void {
+        if (_icon) {
+            source.removeChild(_icon);
+            _icon = null;
+        }
+        _data = null;
+        _clickCallback = null;
+        source.alpha = .5;
     }
 }
 }
