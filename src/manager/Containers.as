@@ -114,6 +114,9 @@ public class Containers {
         } else if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
             _startDragPointCont = new Point(gameCont.x, gameCont.y);
+            if (g.currentOpenedWindow) {
+                g.currentOpenedWindow.hideIt();
+            }
         }
     }
 
