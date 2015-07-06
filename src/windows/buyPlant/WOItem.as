@@ -8,6 +8,7 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
+import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
@@ -20,6 +21,7 @@ public class WOItem {
     private var _icon:Image;
     private var _data:Object;
     private var _clickCallback:Function;
+    private var _txtNumber:TextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -32,11 +34,16 @@ public class WOItem {
         source.pivotY = source.height/2;
         source.endClickCallback = onClick;
         source.alpha = .5;
+        _txtNumber = new TextField(40,30,"","Arial", 18,Color.BLACK);
+        _txtNumber.x = 50;
+        _txtNumber.y = 60;
+        source.addChild(_txtNumber);
     }
 
     public function fillData(ob:Object, f:Function):void {
         _data = ob;
         _clickCallback = f;
+        _txtNumber.text = String(g.userInventory.getCountResourceById(_data.id));
         fillIcon(_data.imageShop);
         source.alpha = 1;
     }
@@ -64,6 +71,7 @@ public class WOItem {
         }
         _data = null;
         _clickCallback = null;
+        _txtNumber.text = '';
         source.alpha = .5;
     }
 }
