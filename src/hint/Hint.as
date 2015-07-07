@@ -82,6 +82,7 @@ public class Hint {
     public function showIt(name:String, number:String):void {
         if(_isShow) return;
         _isShow = true;
+//        _txtHintOne.text = name;
         createHint();
         g.cont.hintCont.addChild(source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);

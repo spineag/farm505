@@ -2,9 +2,14 @@
  * Created by user on 7/7/15.
  */
 package ui.couponePanel {
+import flash.geom.Rectangle;
+
 import manager.Vars;
 
+import starling.animation.Tween;
+
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -13,6 +18,7 @@ import utils.CSprite;
 
 public class CouponePanel {
     private var _source:CSprite;
+    private var _contClipRect:Sprite;
     private var _contCoupone:Sprite;
     private var _imCoupone:Image;
     private var _imYellow:Image;
@@ -28,24 +34,43 @@ public class CouponePanel {
     private var g:Vars = Vars.getInstance();
     public function CouponePanel() {
         _source = new CSprite();
+        g.cont.interfaceCont.addChild(_source);
+        _contCoupone = new Sprite();
+        _contClipRect = new Sprite();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-        g.cont.interfaceCont.addChild(_source);
-        g.cont.interfaceCont.addChild(_contCoupone);
+        _source.addChild(_contClipRect);
+        _contClipRect.addChild(_contCoupone);
         _imCoupone = new Image(g.interfaceAtlas.getTexture("buy_coupons"));
         _imGreen = new Image(g.interfaceAtlas.getTexture("green_coupone"));
+        _imGreen.x = 70;
+        _imGreen.y += 5;
         _imBlue = new Image(g.interfaceAtlas.getTexture("blue_coupone"));
+        _imBlue.x = 95;
+        _imBlue.y += 5;
         _imRed = new Image(g.interfaceAtlas.getTexture("red_coupone"));
+        _imRed.x = 120;
+        _imRed.y += 5;
         _imYellow = new Image(g.interfaceAtlas.getTexture("yellow_coupone"));
+        _imYellow.x = 145;
+        _imYellow.y += 5;
 
-        _txtGreen = new TextField(50,50,"","Arial",14,Color.WHITE);
-        _txtBlue = new TextField(50,50,"","Arial",18,Color.WHITE);
-        _txtRed = new TextField(50,50,"","Arial",18,Color.WHITE);
-        _txtYellow = new TextField(50,50,"","Arial",18,Color.WHITE);
+        _txtGreen = new TextField(50,50,"","Arial",16,Color.WHITE);
+        _txtGreen.x = 55;
+        _txtGreen.y = 20;
+        _txtBlue = new TextField(50,50,"","Arial",16,Color.WHITE);
+        _txtBlue.x = 80;
+        _txtBlue.y = 20;
+        _txtRed = new TextField(50,50,"","Arial",16,Color.WHITE);
+        _txtRed.x = 105;
+        _txtRed.y = 20;
+        _txtYellow = new TextField(50,50,"","Arial",16,Color.WHITE);
+        _txtYellow.x = 130;
+        _txtYellow.y = 20;
         _source.addChild(_imCoupone);
 
         _source.x = 5;
-        _source.y = 80;
+        _source.y = 120;
 
         _contCoupone.addChild(_imGreen);
         _contCoupone.addChild(_imBlue);
@@ -57,17 +82,39 @@ public class CouponePanel {
         _contCoupone.addChild(_txtRed);
         _contCoupone.addChild(_txtYellow);
         _contCoupone.visible = false;
+        _contCoupone.x = -100;
     }
     private function onHover():void {
+        _contCoupone.visible = true;
+        var quad:Quad = new Quad(_imCoupone.width, _imCoupone.height,Color.WHITE ,false);
+        quad.alpha = 0;
+        _source.addChildAt(quad,0);
         _txtGreen.text = String(g.user.greenCouponCount);
         _txtBlue.text = String(g.user.blueCouponCount);
         _txtRed.text = String(g.user.redCouponCount);
         _txtYellow.text = String(g.user.yellowCouponCount);
-        _contCoupone.visible = true;
+        g.hint.showIt("kypon","lol");
+       _contClipRect.clipRect = new Rectangle(15,0,400,400);
+
+        var tween:Tween = new Tween(_contCoupone, 0.2);
+        tween.moveTo(0,0);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+
+        };
+        g.starling.juggler.add(tween);
     }
 
     private function onOut():void {
-        _contCoupone.visible = false;
+        var tween:Tween = new Tween(_contCoupone, 0.2);
+        tween.moveTo(-100,0);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+            _contCoupone.visible = false;
+        };
+        g.starling.juggler.add(tween);
+
+        g.hint.hideIt();
     }
 }
 }
