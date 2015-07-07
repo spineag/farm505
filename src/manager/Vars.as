@@ -37,7 +37,9 @@ import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
 import ui.bottomInterface.MainBottomPanel;
+import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
+import ui.softHardCurrencyPanel.SoftHardCurrency;
 
 import ui.xpPanel.XPPanel;
 
@@ -102,6 +104,8 @@ public class Vars {
     public var farmHint:FarmHint;
     public var mouseHint:MouseHint;
     public var xpPanel:XPPanel;
+    public var softHardCurrency:SoftHardCurrency;
+    public var couponePanel:CouponePanel;
     public var bottomPanel:MainBottomPanel;
     public var craftPanel:CraftPanel;
 
@@ -150,6 +154,8 @@ public class Vars {
         farmHint = new FarmHint();
         mouseHint = new MouseHint();
         xpPanel = new XPPanel();
+        couponePanel = new CouponePanel();
+        softHardCurrency = new SoftHardCurrency();
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
 

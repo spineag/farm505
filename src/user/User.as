@@ -31,7 +31,7 @@ public class User {
         xp = 0;
         ambarMaxCount = 50;
         skladMaxCount = 50;
-        softCurrencyCount = 1;
+        softCurrencyCount = 10;
         hardCurrency = 50;
         yellowCouponCount = 10;
         redCouponCount = 10;
