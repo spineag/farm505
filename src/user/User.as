@@ -66,7 +66,7 @@ public class User {
 //        if(greenCouponCount < ) {
 //            bol = false
 //        }
-        if (!bol) g.noResources.showItMenu(_data,count);
+        if (!bol) g.woNoResources.showItMenu(_data,count);
         return bol;
     }
 
@@ -75,7 +75,7 @@ public class User {
         for (var i:int = 0; i < _data.ingridientsId.length; i++) {
            count =  g.userInventory.getCountResourceById(_data.ingridientsId[i]);
             if (count < _data.ingridientsCount[i]) {
-                g.noResources.showItMenu(_data,_data.ingridientsCount[i] - count);
+                g.woNoResources.showItMenu(_data,_data.ingridientsCount[i] - count);
                 return false;
             }
         }
@@ -87,13 +87,13 @@ public class User {
             if(_data.buildType == BuildType.ANIMAL){
                 count = g.userInventory.getCountResourceById(_data.idResourceRaw);
                 if (count < countResource) {
-                    g.noResources.showItMenu(_data, countResource - count);
+                    g.woNoResources.showItMenu(_data, countResource - count);
                     return false;
                 }
             }
             count = g.userInventory.getCountResourceById(_data.id);
             if (count < countResource) {
-                g.noResources.showItMenu(_data, countResource - count);
+                g.woNoResources.showItMenu(_data, countResource - count);
                 return false;
             }
         return true;

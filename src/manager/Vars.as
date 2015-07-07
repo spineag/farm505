@@ -48,6 +48,8 @@ import user.UserInventory;
 
 import utils.FarmDispatcher;
 
+import windows.Window;
+
 import windows.ambar.WOAmbar;
 import windows.ambar.WOSklad;
 
@@ -109,13 +111,13 @@ public class Vars {
     public var bottomPanel:MainBottomPanel;
     public var craftPanel:CraftPanel;
 
+    public var currentOpenedWindow:Window;
     public var woBuyPlant:WOBuyPlant;
     public var woFabrica:WOFabrica;
     public var woAmbar:WOAmbar;
     public var woSklad:WOSklad;
     public var woShop:WOShop;
-
-    public var noResources:WONoResources;
+    public var woNoResources:WONoResources;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -159,7 +161,7 @@ public class Vars {
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
 
-        noResources = new WONoResources();
+        woNoResources = new WONoResources();
 
         continueInitGame();
     }
@@ -203,7 +205,7 @@ public class Vars {
 
     private function temporaryFillUserInventory():void {
         var k:int;
-        var i:int = 30;
+        var i:int = 100;
         while (i>0) {
             k = int(Math.random()*34) + 1;
             if (dataResource.objectResources[k]) {
