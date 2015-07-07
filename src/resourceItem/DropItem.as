@@ -1,16 +1,12 @@
 /**
  * Created by user on 6/24/15.
  */
-package ui.xpPanel {
+package resourceItem {
 
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 
 import manager.Vars;
-
-import resourceItem.ResourceItem;
-
-import starling.animation.Tween;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -19,19 +15,15 @@ import starling.utils.Color;
 
 import utils.MCScaler;
 
-public class XPStar {
-
+public class DropItem {
     private var _source:Sprite;
     private var _image:Image;
     private var _resourceItem:ResourceItem;
-    private var _txtStar:TextField;
 
     private var g:Vars = Vars.getInstance();
 
-    public function XPStar(_x:int, _y:int,resourceItem:ResourceItem) {
+    public function DropItem(_x:int, _y:int,resourceItem:ResourceItem, _prise:Object) {
         _source = new Sprite();
-        _txtStar = new TextField(50,50," ","Arial",18,Color.WHITE);
-        _txtStar.y = 25;
         _image = new Image(g.interfaceAtlas.getTexture("star"));
         _resourceItem = resourceItem;
         g.cont.animationsResourceCont.addChild(_source);
@@ -41,15 +33,12 @@ public class XPStar {
         _source.pivotY = _source.height / 2;
         _source.x = _x;
         _source.y = _y;
-        _source.addChild(_txtStar);
         flyItStar();
-
     }
 
     public function flyItStar():void {
         var endX:int = g.stageWidth - 200;
         var endY:int = 50;
-        _txtStar.text = String(_resourceItem.craftXP);
 
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);

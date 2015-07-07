@@ -70,6 +70,7 @@ public class Vars {
     public var gameDispatcher:FarmDispatcher;
     public var user:User;
     public var userInventory:UserInventory;
+    public var managerDropResources:ManagerDropBonusResource;
 
     public var isDebug:Boolean = true;
     public var showMapEditor:Boolean = true;
@@ -187,6 +188,8 @@ public class Vars {
         woAmbar = new WOAmbar();
         woSklad = new WOSklad();
         woShop = new WOShop();
+
+        managerDropResources = new ManagerDropBonusResource();
 
         temporaryFillUserInventory();
 
