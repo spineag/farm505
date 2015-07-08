@@ -63,7 +63,7 @@ public class ShopItem {
 
     private function onClick():void {
         if (!g.user.checkMoney(_data)) return;
-        g.softHardCurrency.deleteSoft(_data.cost);
+        g.userInventory.addMoney(_data,-_data.cost);
         if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.hideIt();
             g.toolsModifier.modifierType = ToolsModifier.MOVE;

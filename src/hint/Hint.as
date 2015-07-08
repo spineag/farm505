@@ -36,7 +36,7 @@ public class Hint {
         _contHint = new Sprite();
 
         _isShow = false;
-        _txtHintOne = new TextField(70,50,"dadadadadada ","Arial",14,Color.BLACK);
+        _txtHintOne = new TextField(70,50,"","Arial",14,Color.BLACK);
 
          _plankUp = new Image(g.interfaceAtlas.getTexture("hintSidePixels"));
          _plankDown = new Image(g.interfaceAtlas.getTexture("hintSidePixels"));
@@ -65,24 +65,22 @@ public class Hint {
         _contHint.addChild(_cornerRightUp);
         _contHint.addChild(_hintMiddle);
 
-        _hintMiddle.height = _txtHintOne.textBounds.height;
-        _hintMiddle.width = _txtHintOne.textBounds.width;
-        _plankUp.width = _txtHintOne.textBounds.width;
-        _plankDown.width = _txtHintOne.textBounds.width;
-        _plankRight.width = _txtHintOne.textBounds.height  - _plankRight.width;
-        _plankLeft.width = _txtHintOne.textBounds.height  - _plankLeft.width;
-
-        _plankRight.rotation = Math.PI / 2;
-        _plankLeft.rotation = Math.PI / 2;
-
         source.addChild(_contHint);
         source.addChild(_txtHintOne);
     }
 
     public function showIt(name:String, number:String):void {
+        _txtHintOne.text = name;
+        _hintMiddle.height = _txtHintOne.textBounds.height;
+        _hintMiddle.width = _txtHintOne.textBounds.width;
+        _plankUp.width = _txtHintOne.textBounds.width;
+        _plankDown.width = _txtHintOne.textBounds.width;
+        _plankRight.width = _txtHintOne.textBounds.height - _plankRight.width;
+        _plankLeft.width = _txtHintOne.textBounds.height - _plankLeft.width;
+        _plankRight.rotation = Math.PI / 2;
+        _plankLeft.rotation = Math.PI / 2;
         if(_isShow) return;
         _isShow = true;
-//        _txtHintOne.text = name;
         createHint();
         g.cont.hintCont.addChild(source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
@@ -102,7 +100,7 @@ public class Hint {
         _plankRight.y = _txtHintOne.textBounds.y + _plankRight.height - _txtHintOne.textBounds.height;
 
         _plankLeft.x = _txtHintOne.textBounds.x - _plankLeft.width;
-        _plankLeft.y = _txtHintOne.textBounds.y + _plankLeft.height - _txtHintOne.textBounds.height;
+        _plankLeft.y = _txtHintOne.textBounds.y + _plankLeft.height - _txtHintOne.textBounds.height + 5;
 
         _cornerLeftUp.x = _txtHintOne.textBounds.x - _cornerLeftUp.width;
         _cornerLeftUp.y = _txtHintOne.textBounds.y - _cornerLeftUp.height;

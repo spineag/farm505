@@ -2,8 +2,6 @@
  * Created by user on 7/6/15.
  */
 package ui.softHardCurrencyPanel {
-import flash.geom.Point;
-
 import manager.Vars;
 
 import starling.display.Image;
@@ -42,12 +40,9 @@ public class SoftHardCurrency {
         _source.addChild(_txtHard);
 
     }
-//    public function addSoft():void {
-//
-//    }
-//
-    public function deleteSoft(number:int):void {
-       _txtSoft.text =  String(g.user.softCurrencyCount - number);
+
+    public function checkSoft():void {
+       _txtSoft.text =  String(g.user.softCurrencyCount);
     }
 //
 //    public function addHard():void {
@@ -72,6 +67,10 @@ public class SoftHardCurrency {
         p.y = _imageSoft.y + 10;
         p = _source.localToGlobal(p);
         return p;
+    }
+
+    public function checkHard():void {
+
     }
 }
 }
