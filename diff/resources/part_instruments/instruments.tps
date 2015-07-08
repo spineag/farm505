@@ -188,20 +188,17 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>Axe.png</filename>
-            <filename>Bolt.png</filename>
-            <filename>Duct_Tape.png</filename>
-            <filename>Dynamite.png</filename>
-            <filename>LandDeed.png</filename>
-            <filename>Mallet.png</filename>
-            <filename>MarkerStake.png</filename>
-            <filename>Nail.png</filename>
-            <filename>Plank.png</filename>
-            <filename>Saw.png</filename>
-            <filename>Screw.png</filename>
-            <filename>Shovel.png</filename>
-            <filename>TNT.png</filename>
-            <filename>Wood_Panel.png</filename>
+            <filename>axe.png</filename>
+            <filename>cutter.png</filename>
+            <filename>duct_tape.png</filename>
+            <filename>dynamite.png</filename>
+            <filename>nail.png</filename>
+            <filename>paint.png</filename>
+            <filename>plank.png</filename>
+            <filename>saw.png</filename>
+            <filename>shovel.png</filename>
+            <filename>tin_sheet.png</filename>
+            <filename>tnt_barrel.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

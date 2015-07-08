@@ -70,6 +70,7 @@ public class Vars {
     public var gameDispatcher:FarmDispatcher;
     public var user:User;
     public var userInventory:UserInventory;
+    public var managerDropResources:ManagerDropBonusResource;
 
     public var isDebug:Boolean = true;
     public var showMapEditor:Boolean = true;
@@ -83,6 +84,7 @@ public class Vars {
     public var interfaceAtlas:TextureAtlas;
     public var instrumentAtlas:TextureAtlas;
     public var resourceAtlas:TextureAtlas;
+    public var treeAtlas:TextureAtlas;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
@@ -188,6 +190,8 @@ public class Vars {
         woSklad = new WOSklad();
         woShop = new WOShop();
 
+        managerDropResources = new ManagerDropBonusResource();
+
         temporaryFillUserInventory();
 
         Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
@@ -207,7 +211,7 @@ public class Vars {
         var k:int;
         var i:int = 100;
         while (i>0) {
-            k = int(Math.random()*34) + 1;
+            k = int(Math.random()*129) + 1;
             if (dataResource.objectResources[k]) {
                 userInventory.addResource(k, 1);
             }

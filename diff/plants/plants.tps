@@ -188,21 +188,71 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>soybean1.png</filename>
-            <filename>soybean2.png</filename>
-            <filename>soybean3.png</filename>
-            <filename>soybean4.png</filename>
-            <filename>soybeanShop.png</filename>
-            <filename>wheat1.png</filename>
-            <filename>wheat2.png</filename>
-            <filename>wheat3.png</filename>
-            <filename>wheat4.png</filename>
-            <filename>wheatShop.png</filename>
+            <filename>carrot_shop.png</filename>
+            <filename>carrot1.png</filename>
+            <filename>carrot2.png</filename>
+            <filename>carrot3.png</filename>
+            <filename>carrot4.png</filename>
+            <filename>chilipepper1.png</filename>
+            <filename>chilipepper2.png</filename>
+            <filename>chilipepper3.png</filename>
+            <filename>chilipepper4.png</filename>
+            <filename>clover_shop.png</filename>
+            <filename>clover1.png</filename>
+            <filename>clover2.png</filename>
+            <filename>clover3.png</filename>
+            <filename>clover4.png</filename>
+            <filename>corn_shop.png</filename>
             <filename>corn1.png</filename>
             <filename>corn2.png</filename>
             <filename>corn3.png</filename>
             <filename>corn4.png</filename>
-            <filename>cornShop.png</filename>
+            <filename>cotton_shop.png</filename>
+            <filename>cotton1.png</filename>
+            <filename>cotton2.png</filename>
+            <filename>cotton3.png</filename>
+            <filename>cotton4.png</filename>
+            <filename>grape_shop.png</filename>
+            <filename>grape1.png</filename>
+            <filename>grape2.png</filename>
+            <filename>grape3.png</filename>
+            <filename>grape4.png</filename>
+            <filename>potato_shop.png</filename>
+            <filename>potato1.png</filename>
+            <filename>potato2.png</filename>
+            <filename>potato3.png</filename>
+            <filename>potato4.png</filename>
+            <filename>pumpkin_shop.png</filename>
+            <filename>pumpkin1.png</filename>
+            <filename>pumpkin2.png</filename>
+            <filename>pumpkin3.png</filename>
+            <filename>pumpkin4.png</filename>
+            <filename>soybean_shop.png</filename>
+            <filename>soybean1.png</filename>
+            <filename>soybean2.png</filename>
+            <filename>soybean3.png</filename>
+            <filename>soybean4.png</filename>
+            <filename>strawberry_shop.png</filename>
+            <filename>strawberry1.png</filename>
+            <filename>strawberry2.png</filename>
+            <filename>strawberry3.png</filename>
+            <filename>strawberry4.png</filename>
+            <filename>sugarcane_shop.png</filename>
+            <filename>sugarcane1.png</filename>
+            <filename>sugarcane2.png</filename>
+            <filename>sugarcane3.png</filename>
+            <filename>sugarcane4.png</filename>
+            <filename>tomato_shop.png</filename>
+            <filename>tomato1.png</filename>
+            <filename>tomato2.png</filename>
+            <filename>tomato3.png</filename>
+            <filename>tomato4.png</filename>
+            <filename>wheat_shop.png</filename>
+            <filename>wheat1.png</filename>
+            <filename>wheat2.png</filename>
+            <filename>wheat3.png</filename>
+            <filename>wheat4.png</filename>
+            <filename>chilipepper_shop.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

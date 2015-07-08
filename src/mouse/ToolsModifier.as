@@ -124,6 +124,10 @@ public class ToolsModifier {
             im  = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
             im.x = _activeBuildingData.innerX;
             im.y = _activeBuildingData.innerY;
+        } else if (_activeBuildingData.url == "treeAtlas") {
+            im = new Image(g.treeAtlas.getTexture(_activeBuildingData.image));
+            im.x = _activeBuildingData.innerPositionsGrow3[0];
+            im.y = _activeBuildingData.innerPositionsGrow3[1];
         } else {
             im  = new Image(g.mapAtlas.getTexture(_activeBuildingData.image));
             im.x = -im.width/2;

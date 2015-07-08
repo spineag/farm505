@@ -24,6 +24,8 @@ public class EmbedAssets {
     public static const InstrumentTexture:Class;
     [Embed(source="../../assets/resourceAtlas.png")]
     public static const ResourceTexture:Class;
+    [Embed(source="../../assets/treeAtlas.png")]
+    public static const TreeTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
@@ -38,6 +40,8 @@ public class EmbedAssets {
     public static const InstrumentTextureXML:Class;
     [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
     public static const ResourceTextureXML:Class;
+    [Embed(source="../../assets/treeAtlas.xml", mimeType="application/octet-stream")]
+    public static const TreeTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -49,6 +53,10 @@ public class EmbedAssets {
         var texture:Texture = Texture.fromBitmap(new MapTexture());
         var xml:XML = XML(new MapTextureXML());
         g.mapAtlas = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new ResourceTexture());
+        xml= XML(new ResourceTextureXML());
+        g.resourceAtlas = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new BuildTexture());
         xml= XML(new BuildTextureXML());
@@ -66,9 +74,9 @@ public class EmbedAssets {
         xml= XML(new InstrumentTextureXML());
         g.instrumentAtlas = new TextureAtlas(texture, xml);
 
-        texture = Texture.fromBitmap(new ResourceTexture());
-        xml= XML(new ResourceTextureXML());
-        g.resourceAtlas = new TextureAtlas(texture, xml);
+        texture = Texture.fromBitmap(new TreeTexture());
+        xml= XML(new TreeTextureXML());
+        g.treeAtlas = new TextureAtlas(texture, xml);
     }
 }
 }
