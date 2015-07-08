@@ -3,6 +3,7 @@
  */
 package temp.dataTemp {
 import data.BuildType;
+import data.DataMoney;
 
 public class DataResources {
     public var objectResources:Object;
@@ -21,7 +22,7 @@ public class DataResources {
         obj.name = "Шуруп";
         obj.url = "instrumentAtlas";
         obj.imageShop = "cutter";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 270;
         obj.costMin = 1;
         obj.priceHard = 8;
@@ -35,7 +36,7 @@ public class DataResources {
         obj.name = "Топор";
         obj.url = "instrumentAtlas";
         obj.imageShop = "axe";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 270;
         obj.costMin = 1;
         obj.priceHard = 8;
@@ -49,7 +50,7 @@ public class DataResources {
         obj.name = "Изолента";
         obj.url = "instrumentAtlas";
         obj.imageShop = "duct_tape";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 270;
         obj.costMin = 1;
         obj.priceHard = 8;
@@ -63,7 +64,7 @@ public class DataResources {
         obj.name = "Динамит";
         obj.url = "instrumentAtlas";
         obj.imageShop = "dynamite";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 270;
         obj.costMin = 1;
         obj.priceHard = 8;
@@ -77,7 +78,7 @@ public class DataResources {
         obj.name = "Жесть";
         obj.url = "instrumentAtlas";
         obj.imageShop = "tin_sheet";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 270;
         obj.costMin = 1;
         obj.priceHard = 8;
@@ -91,7 +92,7 @@ public class DataResources {
         obj.name = "Лопата";
         obj.url = "instrumentAtlas";
         obj.imageShop = "shovel";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 270;
         obj.costMin = 1;
         obj.priceHard = 8;
@@ -105,7 +106,7 @@ public class DataResources {
         obj.name = "Пила";
         obj.url = "instrumentAtlas";
         obj.imageShop = "saw";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
@@ -119,7 +120,7 @@ public class DataResources {
         obj.name = "Гвоздь";
         obj.url = "instrumentAtlas";
         obj.imageShop = "nail";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
@@ -133,7 +134,7 @@ public class DataResources {
         obj.name = "Доска";
         obj.url = "instrumentAtlas";
         obj.imageShop = "plank";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
@@ -149,7 +150,7 @@ public class DataResources {
         obj.name = "Шерсть";
         obj.url = "resourceAtlas";
         obj.imageShop = "wool";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -166,7 +167,7 @@ public class DataResources {
         obj.name = "Козье молоко";
         obj.url = "resourceAtlas";
         obj.imageShop = "goat_milk";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -183,7 +184,7 @@ public class DataResources {
         obj.name = "Мед";
         obj.url = "resourceAtlas";
         obj.imageShop = "honey";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -200,7 +201,7 @@ public class DataResources {
         obj.name = "Булка";
         obj.url = "resourceAtlas";
         obj.imageShop = "bun";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -217,7 +218,7 @@ public class DataResources {
         obj.name = "Запеканка";
         obj.url = "resourceAtlas";
         obj.imageShop = "gratin";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -236,7 +237,7 @@ public class DataResources {
         obj.name = "Яблоко";
         obj.url = "resourceAtlas";
         obj.imageShop = "apple";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 18;
         obj.costMin = 1;
         obj.priceHard = 4;
@@ -253,7 +254,7 @@ public class DataResources {
         obj.name = "Вишня";
         obj.url = "resourceAtlas";
         obj.imageShop = "cherry";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 32;
         obj.costMin = 1;
         obj.priceHard = 6;
@@ -270,7 +271,7 @@ public class DataResources {
         obj.name = "Булка с изюмом";
         obj.url = "resourceAtlas";
         obj.imageShop = "raisin_bun";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 50;
         obj.costMin = 1;
         obj.priceHard = 10;
@@ -287,7 +288,7 @@ public class DataResources {
         obj.name = "Сахар";
         obj.url = "resourceAtlas";
         obj.imageShop = "sugar";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 54;
         obj.costMin = 1;
         obj.priceHard = 11;
@@ -304,7 +305,7 @@ public class DataResources {
         obj.name = "Кекс с малиной";
         obj.url = "resourceAtlas";
         obj.imageShop = "raspberry_muffin";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 7;
         obj.costMin = 1;
         obj.priceHard = 2;
@@ -321,7 +322,7 @@ public class DataResources {
         obj.name = "Лимон";
         obj.url = "resourceAtlas";
         obj.imageShop = "lemon";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -338,7 +339,7 @@ public class DataResources {
         obj.name = "Корм для кур";
         obj.url = "resourceAtlas";
         obj.imageShop = "chicken_feed";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -355,7 +356,7 @@ public class DataResources {
         obj.name = "Кекс с черникой";
         obj.url = "resourceAtlas";
         obj.imageShop = "blueberry_muffin";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -372,7 +373,7 @@ public class DataResources {
         obj.name = "Печенье";
         obj.url = "resourceAtlas";
         obj.imageShop = "cookie";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -389,7 +390,7 @@ public class DataResources {
         obj.name = "Кукурузный хлеб";
         obj.url = "resourceAtlas";
         obj.imageShop = "corn_bread";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -406,7 +407,7 @@ public class DataResources {
         obj.name = "Корм для коров";
         obj.url = "resourceAtlas";
         obj.imageShop = "cow_feed";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -423,7 +424,7 @@ public class DataResources {
         obj.name = "Яйцо";
         obj.url = "resourceAtlas";
         obj.imageShop = "egg";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -440,7 +441,7 @@ public class DataResources {
         obj.name = "Корм для свиней";
         obj.url = "resourceAtlas";
         obj.imageShop = "pig_feed";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -457,7 +458,7 @@ public class DataResources {
         obj.name = "Сметана";
         obj.url = "resourceAtlas";
         obj.imageShop = "cream";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -474,7 +475,7 @@ public class DataResources {
         obj.name = "Корм для овец";
         obj.url = "resourceAtlas";
         obj.imageShop = "sheep_feed";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -492,7 +493,7 @@ public class DataResources {
         obj.url = "resourceAtlas";
         obj.imageShop = "corn_syrup";
         obj.costMax = 14;
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMin = 1;
         obj.priceHard = 3;
         obj.priceSkipHard = 2;
@@ -516,7 +517,7 @@ public class DataResources {
         obj.imageShop = "wheat_shop";
         obj.imageHarvested = "wheat_harvested"; // иконка собраного растения, которое летит в изображение склада
         obj.innerPositions = [-33, 0, -35, 0, -40, -2, -37, -19];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 1;
         obj.costMax = 3;
         obj.costMin = 1;
@@ -540,7 +541,7 @@ public class DataResources {
         obj.imageShop = "corn_shop";
         obj.imageHarvested = "corn_harvested";
         obj.innerPositions = [-32, -5, -36, -16, -36, -22, -37, -32];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -564,7 +565,7 @@ public class DataResources {
         obj.imageShop = "carrot_shop";
         obj.imageHarvested = "carrot_harvested";
         obj.innerPositions = [-34, -3, -36, -2, -37, -2, -34, -8];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 3;
         obj.costMax = 10;
         obj.costMin = 1;
@@ -582,7 +583,7 @@ public class DataResources {
         obj.name = "Гамбургер";
         obj.url = "resourceAtlas";
         obj.imageShop = "hamburger";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -599,7 +600,7 @@ public class DataResources {
         obj.name = "Молоко";
         obj.url = "resourceAtlas";
         obj.imageShop = "milk";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -616,7 +617,7 @@ public class DataResources {
         obj.name = "Мясо";
         obj.url = "resourceAtlas";
         obj.imageShop = "meat";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 24;
         obj.costMin = 10;
         obj.priceHard = 3;
@@ -633,7 +634,7 @@ public class DataResources {
         obj.name = "Корм для коз";
         obj.url = "resourceAtlas";
         obj.imageShop = "goat_feed";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -650,7 +651,7 @@ public class DataResources {
         obj.name = "Масло";
         obj.url = "resourceAtlas";
         obj.imageShop = "butter";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -667,7 +668,7 @@ public class DataResources {
         obj.name = "Сыр";
         obj.url = "resourceAtlas";
         obj.imageShop = "cheese";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -684,7 +685,7 @@ public class DataResources {
         obj.name = "Козий сыр";
         obj.url = "resourceAtlas";
         obj.imageShop = "goat_cheese";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -701,7 +702,7 @@ public class DataResources {
         obj.name = "Закваска";
         obj.url = "resourceAtlas";
         obj.imageShop = "starter";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -718,7 +719,7 @@ public class DataResources {
         obj.name = "Блин";
         obj.url = "resourceAtlas";
         obj.imageShop = "pancake";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -735,7 +736,7 @@ public class DataResources {
         obj.name = "Омлет";
         obj.url = "resourceAtlas";
         obj.imageShop = "omelette";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -752,7 +753,7 @@ public class DataResources {
         obj.name = "Чизбургер";
         obj.url = "resourceAtlas";
         obj.imageShop = "cheeseburger";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -769,7 +770,7 @@ public class DataResources {
         obj.name = "Бекон с яйцами";
         obj.url = "resourceAtlas";
         obj.imageShop = "bacon_and_eggs";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -786,7 +787,7 @@ public class DataResources {
         obj.name = "Печенный картофель";
         obj.url = "resourceAtlas";
         obj.imageShop = "baked_potato";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -803,7 +804,7 @@ public class DataResources {
         obj.name = "Пирог с виноградом";
         obj.url = "resourceAtlas";
         obj.imageShop = "grape_pie";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -820,7 +821,7 @@ public class DataResources {
         obj.name = "Яблочный пирог";
         obj.url = "resourceAtlas";
         obj.imageShop = "apple_pie";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -837,7 +838,7 @@ public class DataResources {
         obj.name = "Пирог с беконом";
         obj.url = "resourceAtlas";
         obj.imageShop = "bacon_pie";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -854,7 +855,7 @@ public class DataResources {
         obj.name = "Вишневый пирог";
         obj.url = "resourceAtlas";
         obj.imageShop = "berry_pie";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -871,7 +872,7 @@ public class DataResources {
         obj.name = "Лимонный пирог";
         obj.url = "resourceAtlas";
         obj.imageShop = "lemon_pie";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -888,7 +889,7 @@ public class DataResources {
         obj.name = "Пирог с фетой";
         obj.url = "resourceAtlas";
         obj.imageShop = "feta_pie";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -905,7 +906,7 @@ public class DataResources {
         obj.name = "Тыквенный пирог";
         obj.url = "resourceAtlas";
         obj.imageShop = "pumpkin_pie";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -922,7 +923,7 @@ public class DataResources {
         obj.name = "Яблочный сок";
         obj.url = "resourceAtlas";
         obj.imageShop = "apple_juice";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -939,7 +940,7 @@ public class DataResources {
         obj.name = "Виноградный сок";
         obj.url = "resourceAtlas";
         obj.imageShop = "grape_juice";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -956,7 +957,7 @@ public class DataResources {
         obj.name = "Ягодный сок";
         obj.url = "resourceAtlas";
         obj.imageShop = "berry_juice";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -973,7 +974,7 @@ public class DataResources {
         obj.name = "Томатный сок";
         obj.url = "resourceAtlas";
         obj.imageShop = "tomato_juice";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -990,7 +991,7 @@ public class DataResources {
         obj.name = "Морковный сок";
         obj.url = "resourceAtlas";
         obj.imageShop = "carrot_juice";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1007,7 +1008,7 @@ public class DataResources {
         obj.name = "Апельсиновый сок";
         obj.url = "resourceAtlas";
         obj.imageShop = "orange_juice";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1024,7 +1025,7 @@ public class DataResources {
         obj.name = "Лимонно-вишневый сок";
         obj.url = "resourceAtlas";
         obj.imageShop = "lemon_cherry_juice";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1041,7 +1042,7 @@ public class DataResources {
         obj.name = "Носки";
         obj.url = "resourceAtlas";
         obj.imageShop = "socks";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1058,7 +1059,7 @@ public class DataResources {
         obj.name = "Шарф";
         obj.url = "resourceAtlas";
         obj.imageShop = "scarf";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1075,7 +1076,7 @@ public class DataResources {
         obj.name = "Шапка";
         obj.url = "resourceAtlas";
         obj.imageShop = "winter_hat";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1092,7 +1093,7 @@ public class DataResources {
         obj.name = "Свитер";
         obj.url = "resourceAtlas";
         obj.imageShop = "sweater";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1109,7 +1110,7 @@ public class DataResources {
         obj.name = "Хлопковая ткань";
         obj.url = "resourceAtlas";
         obj.imageShop = "cotton_fabric";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1126,7 +1127,7 @@ public class DataResources {
         obj.name = "Сахарная пудра";
         obj.url = "resourceAtlas";
         obj.imageShop = "powdered_sugar";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1143,7 +1144,7 @@ public class DataResources {
         obj.name = "Пицца";
         obj.url = "resourceAtlas";
         obj.imageShop = "pizza";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1160,7 +1161,7 @@ public class DataResources {
         obj.name = "Пряная пицца";
         obj.url = "resourceAtlas";
         obj.imageShop = "spicy_pizza";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1177,7 +1178,7 @@ public class DataResources {
         obj.name = "Пицца с беконом";
         obj.url = "resourceAtlas";
         obj.imageShop = "bacon_pizza";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1194,7 +1195,7 @@ public class DataResources {
         obj.name = "Пицца с брынзой";
         obj.url = "resourceAtlas";
         obj.imageShop = "feta_pizza";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1211,7 +1212,7 @@ public class DataResources {
         obj.name = "Медный слиток";
         obj.url = "resourceAtlas";
         obj.imageShop = "copper_bar";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1228,7 +1229,7 @@ public class DataResources {
         obj.name = "Железный слиток";
         obj.url = "resourceAtlas";
         obj.imageShop = "iron_bar";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1245,7 +1246,7 @@ public class DataResources {
         obj.name = "Серебрянный слиток";
         obj.url = "resourceAtlas";
         obj.imageShop = "silver_bar";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1262,7 +1263,7 @@ public class DataResources {
         obj.name = "Золотой слиток";
         obj.url = "resourceAtlas";
         obj.imageShop = "golden_bar";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1279,7 +1280,7 @@ public class DataResources {
         obj.name = "Кольцо";
         obj.url = "resourceAtlas";
         obj.imageShop = "ring";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1296,7 +1297,7 @@ public class DataResources {
         obj.name = "Серебрянный браслет";
         obj.url = "resourceAtlas";
         obj.imageShop = "silver_bracelet";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1313,7 +1314,7 @@ public class DataResources {
         obj.name = "Железный браслет";
         obj.url = "resourceAtlas";
         obj.imageShop = "iron_bracelet";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1330,7 +1331,7 @@ public class DataResources {
         obj.name = "Колье";
         obj.url = "resourceAtlas";
         obj.imageShop = "necklace";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1347,7 +1348,7 @@ public class DataResources {
         obj.name = "Яблоко в карамели";
         obj.url = "resourceAtlas";
         obj.imageShop = "caramel_apple";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1364,7 +1365,7 @@ public class DataResources {
         obj.name = "Сладкая вата";
         obj.url = "resourceAtlas";
         obj.imageShop = "cotton_candy";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1381,7 +1382,7 @@ public class DataResources {
         obj.name = "Ирис";
         obj.url = "resourceAtlas";
         obj.imageShop = "toffee";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1398,7 +1399,7 @@ public class DataResources {
         obj.name = "Шоколад";
         obj.url = "resourceAtlas";
         obj.imageShop = "chocolate";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1415,7 +1416,7 @@ public class DataResources {
         obj.name = "Желейные бобы";
         obj.url = "resourceAtlas";
         obj.imageShop = "jelly_beans";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1432,7 +1433,7 @@ public class DataResources {
         obj.name = "Картошка фри";
         obj.url = "resourceAtlas";
         obj.imageShop = "french_fries";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1449,7 +1450,7 @@ public class DataResources {
         obj.name = "Крокет";
         obj.url = "resourceAtlas";
         obj.imageShop = "croquete";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1466,7 +1467,7 @@ public class DataResources {
         obj.name = "Пончик";
         obj.url = "resourceAtlas";
         obj.imageShop = "donut";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1483,7 +1484,7 @@ public class DataResources {
         obj.name = "Хотдог";
         obj.url = "resourceAtlas";
         obj.imageShop = "hot_dog";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1500,7 +1501,7 @@ public class DataResources {
         obj.name = "Корндог";
         obj.url = "resourceAtlas";
         obj.imageShop = "corn_dog";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1517,7 +1518,7 @@ public class DataResources {
         obj.name = "Жаренная свинина";
         obj.url = "resourceAtlas";
         obj.imageShop = "porkfry";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1534,7 +1535,7 @@ public class DataResources {
         obj.name = "Ванильное мороженное";
         obj.url = "resourceAtlas";
         obj.imageShop = "vanilla_ice_cream";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1551,7 +1552,7 @@ public class DataResources {
         obj.name = "Вишневое мороженное";
         obj.url = "resourceAtlas";
         obj.imageShop = "cherry_popsicle";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1568,7 +1569,7 @@ public class DataResources {
         obj.name = "Клубничное мороженное";
         obj.url = "resourceAtlas";
         obj.imageShop = "strawberry_ice_cream";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1585,7 +1586,7 @@ public class DataResources {
         obj.name = "Шоколадное мороженное";
         obj.url = "resourceAtlas";
         obj.imageShop = "chocolate_ice_cream";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1602,7 +1603,7 @@ public class DataResources {
         obj.name = "Яблочное варенье";
         obj.url = "resourceAtlas";
         obj.imageShop = "apple_jam";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1619,7 +1620,7 @@ public class DataResources {
         obj.name = "Малиновое варенье";
         obj.url = "resourceAtlas";
         obj.imageShop = "raspberry_jam";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1636,7 +1637,7 @@ public class DataResources {
         obj.name = "Черничное варенье";
         obj.url = "resourceAtlas";
         obj.imageShop = "blueberry_jam";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1653,7 +1654,7 @@ public class DataResources {
         obj.name = "Вишневое варенье";
         obj.url = "resourceAtlas";
         obj.imageShop = "cherry_jam";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1670,7 +1671,7 @@ public class DataResources {
         obj.name = "Клубничное варенье";
         obj.url = "resourceAtlas";
         obj.imageShop = "strawberry_jam";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1687,7 +1688,7 @@ public class DataResources {
         obj.name = "Бекон";
         obj.url = "resourceAtlas";
         obj.imageShop = "bacon";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1704,7 +1705,7 @@ public class DataResources {
         obj.name = "Копченое мясо";
         obj.url = "resourceAtlas";
         obj.imageShop = "smoked_meat";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1721,7 +1722,7 @@ public class DataResources {
         obj.name = "Сосиска";
         obj.url = "resourceAtlas";
         obj.imageShop = "sausage";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1738,7 +1739,7 @@ public class DataResources {
         obj.name = "Оливковое масло";
         obj.url = "resourceAtlas";
         obj.imageShop = "olive_oil";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1755,7 +1756,7 @@ public class DataResources {
         obj.name = "Майонез";
         obj.url = "resourceAtlas";
         obj.imageShop = "mayonnaise";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1772,7 +1773,7 @@ public class DataResources {
         obj.name = "Лимонный курд";
         obj.url = "resourceAtlas";
         obj.imageShop = "lemon_curd";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1789,7 +1790,7 @@ public class DataResources {
         obj.name = "Кетчуп";
         obj.url = "resourceAtlas";
         obj.imageShop = "ketchup";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1806,7 +1807,7 @@ public class DataResources {
         obj.name = "Ягодный йогурт";
         obj.url = "resourceAtlas";
         obj.imageShop = "berry_yogurt";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1823,7 +1824,7 @@ public class DataResources {
         obj.name = "Клубничный йогурт";
         obj.url = "resourceAtlas";
         obj.imageShop = "strawberry_yogurt";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1840,7 +1841,7 @@ public class DataResources {
         obj.name = "Виноградный йогурт";
         obj.url = "resourceAtlas";
         obj.imageShop = "grape_yogurt";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 14;
         obj.costMin = 1;
         obj.priceHard = 3;
@@ -1863,7 +1864,7 @@ public class DataResources {
         obj.imageShop = "soybean_shop";
         obj.imageHarvested = "soybean_harvested";
         obj.innerPositions = [-33, 0, -34, -1, -42, -12, -43, -26];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -1887,7 +1888,7 @@ public class DataResources {
         obj.imageShop = "sugarcane_shop";
         obj.imageHarvested = "sugarcane_harvested";
         obj.innerPositions = [-36, -6, -36, -11, -34, -25, -38, -42];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -1912,7 +1913,7 @@ public class DataResources {
         obj.imageShop = "grape_shop";
         obj.imageHarvested = "grape_harvested";
         obj.innerPositions = [-32, -10, -32, -31, -34, -37, -38, -24];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -1936,7 +1937,7 @@ public class DataResources {
         obj.imageShop = "potato_shop";
         obj.imageHarvested = "potato_harvested";
         obj.innerPositions = [-30, 2, -30, -5, -36, -13, -37, -15];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -1960,7 +1961,7 @@ public class DataResources {
         obj.imageShop = "pumpkin_shop";
         obj.imageHarvested = "pumpkin_harvested";
         obj.innerPositions = [-27, 5, -31, 3, -34, -1, -30, -3];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -1984,7 +1985,7 @@ public class DataResources {
         obj.imageShop = "cotton_shop";
         obj.imageHarvested = "cotton_harvested";
         obj.innerPositions = [-33, 0, -38, -7, -41, -11, -36, -22];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -2008,7 +2009,7 @@ public class DataResources {
         obj.imageShop = "tomato_shop";
         obj.imageHarvested = "tomato_harvested";
         obj.innerPositions = [-37, -25, -33, -25, -37, -22, -38, -18];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -2032,7 +2033,7 @@ public class DataResources {
         obj.imageShop = "strawberry_shop";
         obj.imageHarvested = "strawberry_harvested";
         obj.innerPositions = [-33, 3, -32, 1, -34, 0, -36, 0];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -2056,7 +2057,7 @@ public class DataResources {
         obj.imageShop = "chilipepper_shop";
         obj.imageHarvested = "chilipepper_harvested";
         obj.innerPositions = [-33, -1, -32, -6, -42, -20, -41, -26];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -2080,7 +2081,7 @@ public class DataResources {
         obj.imageShop = "clover_shop";
         obj.imageHarvested = "clover_harvested";
         obj.innerPositions = [-28, 1, -36, -4, -38, -2, -34, -2];
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.cost = 2;
         obj.costMax = 7;
         obj.costMin = 1;
@@ -2098,7 +2099,7 @@ public class DataResources {
         obj.name = "Оливка";
         obj.url = "resourceAtlas";
         obj.imageShop = "olive";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 18;
         obj.costMin = 1;
         obj.priceHard = 4;
@@ -2115,7 +2116,7 @@ public class DataResources {
         obj.name = "Какао";
         obj.url = "resourceAtlas";
         obj.imageShop = "cacao";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 18;
         obj.costMin = 1;
         obj.priceHard = 4;
@@ -2132,7 +2133,7 @@ public class DataResources {
         obj.name = "Апельсин";
         obj.url = "resourceAtlas";
         obj.imageShop = "orange";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 18;
         obj.costMin = 1;
         obj.priceHard = 4;
@@ -2149,7 +2150,7 @@ public class DataResources {
         obj.name = "Малина";
         obj.url = "resourceAtlas";
         obj.imageShop = "raspberry";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 18;
         obj.costMin = 1;
         obj.priceHard = 4;
@@ -2166,7 +2167,7 @@ public class DataResources {
         obj.name = "Черника";
         obj.url = "resourceAtlas";
         obj.imageShop = "blueberry";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 18;
         obj.costMin = 1;
         obj.priceHard = 4;
@@ -2183,7 +2184,7 @@ public class DataResources {
         obj.name = "Краска";
         obj.url = "instrumentAtlas";
         obj.imageShop = "paint";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
@@ -2197,7 +2198,7 @@ public class DataResources {
         obj.name = "Бочка с тротилом";
         obj.url = "instrumentAtlas";
         obj.imageShop = "tnt_barrel";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
@@ -2211,7 +2212,7 @@ public class DataResources {
         obj.name = "Медная руда";
         obj.url = "resourceAtlas";
         obj.imageShop = "copper_ore";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
@@ -2225,7 +2226,7 @@ public class DataResources {
         obj.name = "Железная руда";
         obj.url = "resourceAtlas";
         obj.imageShop = "iron_ore";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
@@ -2239,7 +2240,7 @@ public class DataResources {
         obj.name = "Серебренная руда";
         obj.url = "resourceAtlas";
         obj.imageShop = "silver_ore";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
@@ -2253,7 +2254,7 @@ public class DataResources {
         obj.name = "Золотая руда";
         obj.url = "resourceAtlas";
         obj.imageShop = "gold_ore";
-        obj.currency = BuildType.SOFT_CURRENCY;
+        obj.currency = DataMoney.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;

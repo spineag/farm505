@@ -81,20 +81,7 @@ public class DropItem {
                 item.fillIt(g.dataResource.objectResources[prise.id]);
                 g.craftPanel.afterFly(item);
             } else {
-                switch (prise.id) {
-                    case DataMoney.HARD_CURRENCY:
-                        break;
-                    case DataMoney.SOFT_CURRENCY:
-                        break;
-                    case DataMoney.BLUE_COUPONE:
-                        break;
-                    case DataMoney.GREEN_COUPONE:
-                        break;
-                    case DataMoney.RED_COUPONE:
-                        break;
-                    case DataMoney.YELLOW_COUPONE:
-                        break;
-                }
+                g.userInventory.addMoney(prise.id, prise.count);
             }
         };
         var tempX:int = _source.x - 70;

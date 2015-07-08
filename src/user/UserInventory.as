@@ -3,6 +3,7 @@
  */
 package user {
 import data.BuildType;
+import data.DataMoney;
 
 import manager.Vars;
 
@@ -60,16 +61,29 @@ public class UserInventory {
         return arr;
     }
 
-    public function addMoney(_data:Object, money:int):void {
-        if (_data.currency == data.BuildType.SOFT_CURRENCY) {
-            g.user.softCurrencyCount += money;
-            g.softHardCurrency.checkSoft();
+    public function addMoney(typeCurrency:int, count:int):void {
+        switch (typeCurrency) {
+            case DataMoney.HARD_CURRENCY:
+                g.user.hardCurrency += count;
+                g.softHardCurrency.checkHard();
+                break;
+            case DataMoney.SOFT_CURRENCY:
+                g.user.softCurrencyCount += count;
+                g.softHardCurrency.checkSoft();
+                break;
+            case DataMoney.BLUE_COUPONE:
+                g.user.blueCouponCount += count;
+                break;
+            case DataMoney.YELLOW_COUPONE:
+                g.user.yellowCouponCount += count;
+                break;
+            case DataMoney.RED_COUPONE:
+                g.user.redCouponCount += count;
+                break;
+            case DataMoney.GREEN_COUPONE:
+                g.user.greenCouponCount += count;
+                break;
         }
-        if (_data.currency == data.BuildType.HARD_CURRENCY) {
-            g.user.hardCurrency += money;
-            g.softHardCurrency.checkHard();
-        }
-
     }
 
 }

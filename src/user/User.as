@@ -4,6 +4,7 @@
 package user {
 
 import data.BuildType;
+import data.DataMoney;
 
 import manager.Vars;
 
@@ -42,13 +43,13 @@ public class User {
     public function checkMoney(_data:Object):Boolean {
         var count:int;
         var bol:Boolean = true;
-        if (_data.currency == data.BuildType.SOFT_CURRENCY) {
+        if (_data.currency == DataMoney.SOFT_CURRENCY) {
             if (softCurrencyCount < _data.cost) {
                 count = _data.cost - softCurrencyCount;
                 bol = false;
             }
         }
-        if (_data.currency == data.BuildType.HARD_CURRENCY) {
+        if (_data.currency == DataMoney.HARD_CURRENCY) {
             if (hardCurrency < _data.cost) {
                 count = _data.cost - hardCurrency;
                 bol = false;
@@ -66,7 +67,7 @@ public class User {
 //        if(greenCouponCount < ) {
 //            bol = false
 //        }
-        if (!bol) g.woNoResources.showItMenu(_data,count);
+        if (!bol) g.woNoResources.showItMenu(_data, count);
         return bol;
     }
 

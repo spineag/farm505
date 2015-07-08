@@ -2,6 +2,8 @@
  * Created by user on 7/6/15.
  */
 package ui.softHardCurrencyPanel {
+import flash.geom.Point;
+
 import manager.Vars;
 
 import starling.display.Image;
