@@ -189,14 +189,20 @@
         <key>fileList</key>
         <array>
             <filename>add_friend.png</filename>
+            <filename>ambar_plawka_arrow.png</filename>
+            <filename>ambar_plawka.png</filename>
             <filename>arrow_small.png</filename>
             <filename>blue_coupone.png</filename>
             <filename>board_shop_part.png</filename>
             <filename>btn_exit_click.png</filename>
             <filename>btn_exit_hover.png</filename>
             <filename>btn_exit.png</filename>
+            <filename>btn1.png</filename>
+            <filename>btn2.png</filename>
             <filename>buy_coupons.png</filename>
             <filename>clock_icon.png</filename>
+            <filename>coin.png</filename>
+            <filename>diamont.png</filename>
             <filename>friend_frame.png</filename>
             <filename>friends_icon.png</filename>
             <filename>friends_plawka.png</filename>
@@ -221,6 +227,8 @@
             <filename>option_scale_plus.png</filename>
             <filename>option_screenshot.png</filename>
             <filename>option_sound.png</filename>
+            <filename>plus.png</filename>
+            <filename>popup_farm.png</filename>
             <filename>popup.png</filename>
             <filename>red_coupone.png</filename>
             <filename>sciccors_icon.png</filename>
@@ -242,9 +250,6 @@
             <filename>xp_progres_part.png</filename>
             <filename>xp_progres.png</filename>
             <filename>yellow_coupone.png</filename>
-            <filename>popup_farm.png</filename>
-            <filename>ambar_plawka_arrow.png</filename>
-            <filename>ambar_plawka.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

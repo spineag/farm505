@@ -209,7 +209,7 @@ public class Vars {
 
     private function temporaryFillUserInventory():void {
         var k:int;
-        var i:int = 100;
+        var i:int = 1000;
         while (i>0) {
             k = int(Math.random()*129) + 1;
             if (dataResource.objectResources[k]) {
