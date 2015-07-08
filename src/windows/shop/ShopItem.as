@@ -32,7 +32,11 @@ public class ShopItem {
         source = new CSprite();
         _bg = new Image(g.interfaceAtlas.getTexture('shop_item'));
         source.addChild(_bg);
-        _im = new Image(g.tempBuildAtlas.getTexture(_data.image));
+        if (_data.url == "buildAtlas") {
+            _im  = new Image(g.tempBuildAtlas.getTexture(_data.image));
+        } else if (_data.url == "treeAtlas") {
+            _im = new Image(g.treeAtlas.getTexture(_data.image));
+        }
         MCScaler.scale(_im, 100, 100);
         _im.x = 35    + 50 - _im.width/2;
         _im.y = 30    + 50 - _im.height/2;

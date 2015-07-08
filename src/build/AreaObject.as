@@ -1,4 +1,8 @@
 package build {
+import build.tree.Tree;
+
+import com.junkbyte.console.Cc;
+
 import flash.geom.Rectangle;
 
 import starling.display.DisplayObject;
@@ -26,8 +30,9 @@ public class AreaObject extends WorldObject {
     }
 
     public function createBuild():void {
-        var im:Image;
+        if (this is Tree) return;
 
+        var im:Image;
         if (_build) {
             if (_source.contains(_build)) {
                 _source.removeChild(_build);
@@ -38,6 +43,8 @@ public class AreaObject extends WorldObject {
             im  = new Image(g.tempBuildAtlas.getTexture(_dataBuild.image));
             im.x = _dataBuild.innerX;
             im.y = _dataBuild.innerY;
+        } else if (_dataBuild.url == "treeAtlas") {
+            Cc.error('TREE in createBuild in AreaObject!');
         } else {
             im  = new Image(g.mapAtlas.getTexture(_dataBuild.image));
             im.x = -im.width/2;

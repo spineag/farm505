@@ -55,6 +55,14 @@ public class CraftItem {
         _source.addChild(_txtNumber);
     }
 
+    public function set callback(f:Function):void {
+        _callback = f;
+    }
+
+    public function get source():CSprite {
+        return _source;
+    }
+
     private function flyIt():void {
         if (g.managerDropResources.checkDrop()) {
             g.managerDropResources.makeDrop(_source.x,_source.y,_resourceItem);
@@ -76,6 +84,9 @@ public class CraftItem {
         start = _source.parent.localToGlobal(start);
         _source.parent.removeChild(_source);
 
+        _image.width = 100;
+        _image.scaleY = _image.scaleX;
+        MCScaler.scale(_image, 50, 50);
         var endPoint:Point = g.craftPanel.pointXY();
         _source.x = start.x;
         _source.y = start.y;

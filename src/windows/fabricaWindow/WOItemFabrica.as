@@ -42,7 +42,9 @@ public class WOItemFabrica {
             _icon = null;
         }
         _icon = new Image(g.resourceAtlas.getTexture(s));
-        MCScaler.scale(_icon, 100, 100);
+        MCScaler.scale(_icon, 80, 80);
+        _icon.x = _bg.width/2 - _icon.width/2;
+        _icon.y = _bg.height/2 - _icon.height/2;
         source.addChild(_icon);
     }
 
