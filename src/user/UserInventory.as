@@ -23,7 +23,7 @@ public class UserInventory {
     public function addResource(id:int, count:int):void {
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
         _inventoryResource[id] += count;
-        if (_inventoryResource[id] == 0) _inventoryResource[id] = null;
+        if (_inventoryResource[id] == 0) delete(_inventoryResource[id]);
     }
 
     public function getResourcesForAmbar():Array {

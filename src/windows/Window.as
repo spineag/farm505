@@ -32,13 +32,18 @@ public class Window {
         while (g.cont.windowsCont.numChildren) {
             g.cont.windowsCont.removeChildAt(0);
         }
+        if (g.currentOpenedWindow) {
+            g.currentOpenedWindow.hideIt();
+        }
         g.cont.windowsCont.addChild(_source);
+        g.currentOpenedWindow = this;
     }
 
     public function hideIt():void {
         while (g.cont.windowsCont.numChildren) {
             g.cont.windowsCont.removeChildAt(0);
         }
+        g.currentOpenedWindow = null;
     }
 
     public function destroyedIt():void {

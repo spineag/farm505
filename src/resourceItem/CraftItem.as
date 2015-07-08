@@ -56,6 +56,10 @@ public class CraftItem {
     }
 
     private function flyIt():void {
+        if (g.managerDropResources.checkDrop()) {
+            g.managerDropResources.makeDrop(_source.x,_source.y,_resourceItem);
+        }
+
         if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
             g.craftPanel.showIt(_resourceItem.placeBuild);
 
@@ -77,21 +81,6 @@ public class CraftItem {
         _source.y = start.y;
         _cont.addChild(_source);
 
-        // using Starling Tween
-//        var tween:Tween = new Tween(_source, 1);
-//        tween.moveTo(endX, endY);
-//        tween.onComplete = function ():void {
-//            g.starling.juggler.remove(tween);
-//            _cont.removeChild(_source);
-//            while (_source.numChildren) {
-//                _source.removeChildAt(0);
-//            }
-//            _source = null;
-//            g.userInventory.addResource(_resourceItem.resourceID, _count);
-//        };
-//        g.starling.juggler.add(tween);
-
-        // using TweenMax
         var f1:Function = function():void {
             _cont.removeChild(_source);
             while (_source.numChildren) {

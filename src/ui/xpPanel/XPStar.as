@@ -13,15 +13,15 @@ import resourceItem.ResourceItem;
 import starling.animation.Tween;
 
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import utils.CSprite;
 import utils.MCScaler;
 
 public class XPStar {
 
-    private var _source:CSprite;
+    private var _source:Sprite;
     private var _image:Image;
     private var _resourceItem:ResourceItem;
     private var _txtStar:TextField;
@@ -29,7 +29,7 @@ public class XPStar {
     private var g:Vars = Vars.getInstance();
 
     public function XPStar(_x:int, _y:int,resourceItem:ResourceItem) {
-        _source = new CSprite();
+        _source = new Sprite();
         _txtStar = new TextField(50,50," ","Arial",18,Color.WHITE);
         _txtStar.y = 25;
         _image = new Image(g.interfaceAtlas.getTexture("star"));
@@ -50,17 +50,6 @@ public class XPStar {
         var endX:int = g.stageWidth - 200;
         var endY:int = 50;
         _txtStar.text = String(_resourceItem.craftXP);
-//        var tween:Tween = new Tween(_source, 1);
-//        tween.moveTo(endX, endY);
-//        tween.onComplete = function ():void {
-//            g.starling.juggler.remove(tween);
-//            while (_source.numChildren) {
-//                _source.removeChildAt(0);
-//            }
-//            _source = null;
-//            g.xpPanel.addXP(_resourceItem.craftXP);
-//        };
-//        g.starling.juggler.add(tween);
 
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);

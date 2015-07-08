@@ -70,6 +70,7 @@ public class Fabrica extends AreaObject {
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             g.woFabrica.showItWithParams(_arrRecipes, _arrList, _maxListCount, callbackOnChooseRecipe);
             _source.filter = null;
+            g.hint.hideIt();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }

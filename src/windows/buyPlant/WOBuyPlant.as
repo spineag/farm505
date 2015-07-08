@@ -13,16 +13,16 @@ import windows.Window;
 
 public class WOBuyPlant extends Window {
     private var _ridge:Ridge;
-    private var _itemsArr:Array;
+    private var _arrItems:Array;
 
     public function WOBuyPlant() {
         super();
-        _woHeight = 200;
-        _woWidth = 510;
+        _woHeight = 400;
+        _woWidth = 560;
         createTempBG(_woWidth, _woHeight, Color.GRAY);
         createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        fillItems();
+        createItems();
     }
 
     private function onClickExit(e:Event):void {
@@ -31,30 +31,51 @@ public class WOBuyPlant extends Window {
 
     public function showItWithParams(ridge:Ridge):void {
         _ridge = ridge;
+        fillItems();
         super.showIt();
+    }
+
+    private function createItems():void {
+        var item:WOItem;
+        _arrItems = [];
+        for (var i:int = 0; i < 15; i++) {
+            item = new WOItem();
+            item.source.x = -220 + i%5 * 110;
+            if (i > 9) {
+                item.source.y = 120;
+            } else if (i > 4) {
+                item.source.y = 0;
+            } else {
+                item.source.y = -120;
+            }
+            _source.addChild(item.source);
+            _arrItems.push(item);
+        }
     }
 
     private function fillItems():void {
         var obj:Object = g.dataResource.objectResources;
-        var item:WOItem;
         var i:int = 0;
 
-        _itemsArr = [];
         for(var id:String in obj) {
             if (obj[id].buildType == BuildType.PLANT) {
-                item = new WOItem();
-                item.fillData(obj[id], onClickItem);
-                item.source.x = -170 + i * 170;
+                _arrItems[i].fillData(obj[id], onClickItem);
                 i++;
-                _source.addChild(item.source);
-                _itemsArr.push(item);
             }
         }
     }
 
     private function onClickItem(data:Object):void {
+        var count:int;
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _arrItems[i].unfillIt();
+        }
         hideIt();
+//        if (!g.user.checkResource(data,1)) return;
         _ridge.fillPlant(data);
+//        g.userInventory.addResource(data.id,-1);
+//        count = g.userInventory.getCountResourceById();
+
     }
 }
 }

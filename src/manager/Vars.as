@@ -37,7 +37,9 @@ import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
 import ui.bottomInterface.MainBottomPanel;
+import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
+import ui.softHardCurrencyPanel.SoftHardCurrency;
 
 import ui.xpPanel.XPPanel;
 
@@ -46,11 +48,14 @@ import user.UserInventory;
 
 import utils.FarmDispatcher;
 
+import windows.Window;
+
 import windows.ambar.WOAmbar;
 import windows.ambar.WOSklad;
 
 import windows.buyPlant.WOBuyPlant;
 import windows.fabricaWindow.WOFabrica;
+import windows.noResources.WONoResources;
 import windows.shop.WOShop;
 
 public class Vars {
@@ -65,6 +70,7 @@ public class Vars {
     public var gameDispatcher:FarmDispatcher;
     public var user:User;
     public var userInventory:UserInventory;
+    public var managerDropResources:ManagerDropBonusResource;
 
     public var isDebug:Boolean = true;
     public var showMapEditor:Boolean = true;
@@ -101,14 +107,18 @@ public class Vars {
     public var farmHint:FarmHint;
     public var mouseHint:MouseHint;
     public var xpPanel:XPPanel;
+    public var softHardCurrency:SoftHardCurrency;
+    public var couponePanel:CouponePanel;
     public var bottomPanel:MainBottomPanel;
     public var craftPanel:CraftPanel;
 
+    public var currentOpenedWindow:Window;
     public var woBuyPlant:WOBuyPlant;
     public var woFabrica:WOFabrica;
     public var woAmbar:WOAmbar;
     public var woSklad:WOSklad;
     public var woShop:WOShop;
+    public var woNoResources:WONoResources;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -147,8 +157,12 @@ public class Vars {
         farmHint = new FarmHint();
         mouseHint = new MouseHint();
         xpPanel = new XPPanel();
+        couponePanel = new CouponePanel();
+        softHardCurrency = new SoftHardCurrency();
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
+
+        woNoResources = new WONoResources();
 
         continueInitGame();
     }
@@ -175,6 +189,8 @@ public class Vars {
         woSklad = new WOSklad();
         woShop = new WOShop();
 
+        managerDropResources = new ManagerDropBonusResource();
+
         temporaryFillUserInventory();
 
         Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
@@ -192,7 +208,7 @@ public class Vars {
 
     private function temporaryFillUserInventory():void {
         var k:int;
-        var i:int = 30;
+        var i:int = 100;
         while (i>0) {
             k = int(Math.random()*34) + 1;
             if (dataResource.objectResources[k]) {
