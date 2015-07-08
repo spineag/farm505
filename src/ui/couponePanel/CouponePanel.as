@@ -2,6 +2,7 @@
  * Created by user on 7/7/15.
  */
 package ui.couponePanel {
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import manager.Vars;
@@ -32,6 +33,7 @@ public class CouponePanel {
     private var _txtGreen:TextField;
 
     private var g:Vars = Vars.getInstance();
+
     public function CouponePanel() {
         _source = new CSprite();
         g.cont.interfaceCont.addChild(_source);
@@ -84,6 +86,7 @@ public class CouponePanel {
         _contCoupone.visible = false;
         _contCoupone.x = -100;
     }
+
     private function onHover():void {
         _contCoupone.visible = true;
         var quad:Quad = new Quad(_imCoupone.width, _imCoupone.height,Color.WHITE ,false);
@@ -115,6 +118,14 @@ public class CouponePanel {
         g.starling.juggler.add(tween);
 
         g.hint.hideIt();
+    }
+
+    public function getPoint():Point {
+        var p:Point = new Point();
+        p.x = _imCoupone.x + 20;
+        p.y = _imCoupone.y + 10;
+        p = _source.localToGlobal(p);
+        return p;
     }
 }
 }

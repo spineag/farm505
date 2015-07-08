@@ -23,7 +23,6 @@ public class CraftItem {
     private var _source:CSprite;
     private var _resourceItem:ResourceItem;
     private var _image:Image;
-    private var _cont:Sprite;
     private var _callback:Function;
     private var _count:int;
     private var _txtNumber:TextField;
@@ -33,7 +32,6 @@ public class CraftItem {
     public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, count:int = 1, f:Function = null) {
         _count = count;
         _callback = f;
-        _cont = g.cont.animationsResourceCont;
         _source = new CSprite();
         _resourceItem = resourceItem;
         if (_resourceItem.url == 'resourceAtlas') {
@@ -64,10 +62,6 @@ public class CraftItem {
     }
 
     private function flyIt():void {
-        if (g.managerDropResources.checkDrop()) {
-            g.managerDropResources.makeDrop(_source.x,_source.y,_resourceItem);
-        }
-
         if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
             g.craftPanel.showIt(_resourceItem.placeBuild);
 
@@ -90,10 +84,13 @@ public class CraftItem {
         var endPoint:Point = g.craftPanel.pointXY();
         _source.x = start.x;
         _source.y = start.y;
-        _cont.addChild(_source);
+        g.cont.animationsResourceCont.addChild(_source);
+        if (g.managerDropResources.checkDrop()) {
+            g.managerDropResources.makeDrop(_source.x,_source.y);
+        }
 
         var f1:Function = function():void {
-            _cont.removeChild(_source);
+            g.cont.animationsResourceCont.removeChild(_source);
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }

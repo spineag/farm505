@@ -6,39 +6,68 @@ package resourceItem {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 
+import data.BuildType;
+
+import data.DataMoney;
+
+import flash.geom.Point;
+
 import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
-import starling.utils.Color;
+
+import temp.DropResourceVariaty;
 
 import utils.MCScaler;
 
 public class DropItem {
     private var _source:Sprite;
     private var _image:Image;
-    private var _resourceItem:ResourceItem;
 
     private var g:Vars = Vars.getInstance();
 
-    public function DropItem(_x:int, _y:int,resourceItem:ResourceItem, _prise:Object) {
+    public function DropItem(_x:int, _y:int, prise:Object) {
+        var endPoint:Point;
+
         _source = new Sprite();
-        _image = new Image(g.interfaceAtlas.getTexture("star"));
-        _resourceItem = resourceItem;
-        g.cont.animationsResourceCont.addChild(_source);
+
+        if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
+            _image = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[prise.id].imageShop));
+             endPoint = g.craftPanel.pointXY();
+             g.craftPanel.showIt(BuildType.PLACE_SKLAD);
+        } else {
+            endPoint = g.couponePanel.getPoint();
+            switch (prise.id) {
+                case DataMoney.HARD_CURRENCY:
+                    _image = new Image(g.interfaceAtlas.getTexture('diamont'));
+                    endPoint = g.softHardCurrency.getHardCurrencyPoint();
+                    break;
+                case DataMoney.SOFT_CURRENCY:
+                    _image = new Image(g.interfaceAtlas.getTexture('coin'));
+                    endPoint = g.softHardCurrency.getSoftCurrencyPoint();
+                    break;
+                case DataMoney.BLUE_COUPONE:
+                    _image = new Image(g.interfaceAtlas.getTexture('blue_coupone'));
+                    break;
+                case DataMoney.GREEN_COUPONE:
+                    _image = new Image(g.interfaceAtlas.getTexture('green_coupone'));
+                    break;
+                case DataMoney.RED_COUPONE:
+                    _image = new Image(g.interfaceAtlas.getTexture('red_coupone'));
+                    break;
+                case DataMoney.YELLOW_COUPONE:
+                    _image = new Image(g.interfaceAtlas.getTexture('yellow_coupone'));
+                    break;
+            }
+        }
         MCScaler.scale(_image, 50, 50);
         _source.addChild(_image);
         _source.pivotX = _source.width / 2;
         _source.pivotY = _source.height / 2;
         _source.x = _x;
         _source.y = _y;
-        flyItStar();
-    }
-
-    public function flyItStar():void {
-        var endX:int = g.stageWidth - 200;
-        var endY:int = 50;
+        g.cont.animationsResourceCont.addChild(_source);
 
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
@@ -46,14 +75,32 @@ public class DropItem {
                 _source.removeChildAt(0);
             }
             _source = null;
-            g.xpPanel.addXP(_resourceItem.craftXP);
+            if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
+                g.userInventory.addResource(prise.id, prise.count);
+                var item:ResourceItem = new ResourceItem();
+                item.fillIt(g.dataResource.objectResources[prise.id]);
+                g.craftPanel.afterFly(item);
+            } else {
+                switch (prise.id) {
+                    case DataMoney.HARD_CURRENCY:
+                        break;
+                    case DataMoney.SOFT_CURRENCY:
+                        break;
+                    case DataMoney.BLUE_COUPONE:
+                        break;
+                    case DataMoney.GREEN_COUPONE:
+                        break;
+                    case DataMoney.RED_COUPONE:
+                        break;
+                    case DataMoney.YELLOW_COUPONE:
+                        break;
+                }
+            }
         };
-        var tempX:int;
-        _source.x < endX ? tempX = _source.x + 70 : tempX = _source.x - 70;
+        var tempX:int = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
-        var dist:int = int(Math.sqrt((_source.x - endX)*(_source.x - endX) + (_source.y - endY)*(_source.y - endY)));
-        var v:Number = 250;
-        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], ease:Linear.easeOut ,onComplete: f1, delay:.2});
+        var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
+        new TweenMax(_source, dist/250, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay:.3});
     }
 }
 }

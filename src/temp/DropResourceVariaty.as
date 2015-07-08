@@ -5,7 +5,7 @@ package temp {
 import data.DataMoney;
 
 public class DropResourceVariaty {
-    public static const DROP_VARIATY:int = 5; // == 0,05 %
+    public static const DROP_VARIATY:int = 100; // == 0,05 %
     public static const DROP_TYPE_RESOURSE:String = 'resource';
     public static const DROP_TYPE_MONEY:String = 'money';
 
@@ -87,35 +87,14 @@ public class DropResourceVariaty {
         obj.type = DROP_TYPE_RESOURSE;
         obj.count = 1;
         obj.variaty = 1;
-        obj.id = 10;
+        obj.id = 124;
         resources.push(obj);
 
         obj = {};
         obj.type = DROP_TYPE_RESOURSE;
         obj.count = 1;
         obj.variaty = 1;
-        obj.id = 11;
-        resources.push(obj);
-
-        obj = {};
-        obj.type = DROP_TYPE_RESOURSE;
-        obj.count = 1;
-        obj.variaty = 1;
-        obj.id = 12;
-        resources.push(obj);
-
-        obj = {};
-        obj.type = DROP_TYPE_RESOURSE;
-        obj.count = 1;
-        obj.variaty = 1;
-        obj.id = 13;
-        resources.push(obj);
-
-        obj = {};
-        obj.type = DROP_TYPE_RESOURSE;
-        obj.count = 1;
-        obj.variaty = 1;
-        obj.id = 14;
+        obj.id = 125;
         resources.push(obj);
 
         obj = {};

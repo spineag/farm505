@@ -13,18 +13,17 @@ public class ManagerDropBonusResource {
     private var arr:Array;
 
     public function ManagerDropBonusResource() {
-        var temp:DropResourceVariaty = new DropResourceVariaty();
-
-        //arr = temp.resources;
+        arr = new DropResourceVariaty().resources;
     }
 
     public function checkDrop():Boolean {
         return int(Math.random()*10000) < DropResourceVariaty.DROP_VARIATY*100;
     }
 
-    public function makeDrop(_x:int, _y:int,resourceItem:ResourceItem):void {
+    public function makeDrop(_x:int, _y:int):void {
+        if (!arr.length) return;
         var prise:Object = getDropPrise();
-        new DropItem(_x, _y, resourceItem, prise);
+        new DropItem(_x, _y, prise);
     }
 
     private function getDropPrise():Object {
