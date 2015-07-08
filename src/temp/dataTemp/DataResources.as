@@ -2210,7 +2210,7 @@ public class DataResources {
         obj.id = 126;
         obj.name = "Медная руда";
         obj.url = "resourceAtlas";
-        obj.imageShop = "cooper_ore";
+        obj.imageShop = "copper_ore";
         obj.currency = BuildType.SOFT_CURRENCY;
         obj.costMax = 403;
         obj.costMin = 1;
