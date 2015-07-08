@@ -23,6 +23,7 @@ public class ManagerDropBonusResource {
     }
 
     public function makeDrop(_x:int, _y:int,resourceItem:ResourceItem):void {
+        return;
         var prise:Object = getDropPrise();
         new DropItem(_x, _y, resourceItem, prise);
     }

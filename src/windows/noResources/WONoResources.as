@@ -35,7 +35,7 @@ public class WONoResources extends Window {
         _txtBuyBtn = new TextField(100,100,"","Arial",14,Color.WHITE);
         _txtNoResource = new TextField(300,100,"","Arial",18,Color.WHITE);
         _txtPanel = new TextField(350,200,"","Arial",18,Color.WHITE);
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("scroll_box"));
+        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn1"));
         _imageBtn.x -= 50;
         _imageBtn.y +=80;
         _imageBtn.width = 90;
@@ -68,7 +68,7 @@ public class WONoResources extends Window {
         if(_data.priceHard) _txtHardCost.text = String(_data.priceHard * count);
         _txtHardCost.text = "666";
         _txtResourceNumber.text = String(count);
-        _imageHard = new Image(g.interfaceAtlas.getTexture("interface_bg"));
+        _imageHard = new Image(g.interfaceAtlas.getTexture("diamont"));
 //        _imageResource = new Image(g.atlas.getTexture(_data.image));
         MCScaler.scale(_imageHard, 20, 20);
         _imageHard.y += 90;

@@ -64,6 +64,7 @@ public class XPPanel {
             g.user.xp -= _maxXP;
             g.user.level++;
             _txtLevel.text = String(g.user.level);
+            g.woLevelUp.showLevelUp();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
         }
         checkXP();

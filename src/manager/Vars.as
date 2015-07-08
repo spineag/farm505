@@ -55,6 +55,7 @@ import windows.ambar.WOSklad;
 
 import windows.buyPlant.WOBuyPlant;
 import windows.fabricaWindow.WOFabrica;
+import windows.levelUp.WOLevelUp;
 import windows.noResources.WONoResources;
 import windows.shop.WOShop;
 
@@ -119,6 +120,7 @@ public class Vars {
     public var woAmbar:WOAmbar;
     public var woSklad:WOSklad;
     public var woShop:WOShop;
+    public var woLevelUp:WOLevelUp;
     public var woNoResources:WONoResources;
 
     public static function getInstance():Vars {
@@ -189,6 +191,7 @@ public class Vars {
         woAmbar = new WOAmbar();
         woSklad = new WOSklad();
         woShop = new WOShop();
+        woLevelUp = new WOLevelUp();
 
         managerDropResources = new ManagerDropBonusResource();
 

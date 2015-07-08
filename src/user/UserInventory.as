@@ -60,5 +60,17 @@ public class UserInventory {
         return arr;
     }
 
+    public function addMoney(_data:Object, money:int):void {
+        if (_data.currency == data.BuildType.SOFT_CURRENCY) {
+            g.user.softCurrencyCount += money;
+            g.softHardCurrency.checkSoft();
+        }
+        if (_data.currency == data.BuildType.HARD_CURRENCY) {
+            g.user.hardCurrency += money;
+            g.softHardCurrency.checkHard();
+        }
+
+    }
+
 }
 }

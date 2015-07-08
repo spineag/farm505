@@ -40,20 +40,13 @@ public class SoftHardCurrency {
         _source.addChild(_txtHard);
 
     }
-//    public function addSoft():void {
-//
-//    }
-//
-    public function deleteSoft(number:int):void {
-       _txtSoft.text =  String(g.user.softCurrencyCount - number);
+
+    public function checkSoft():void {
+       _txtSoft.text =  String(g.user.softCurrencyCount);
     }
-//
-//    public function addHard():void {
-//
-//    }
-//
-//    public function deleteHard():void {
-//
-//    }
+
+    public function checkHard():void {
+
+    }
 }
 }
