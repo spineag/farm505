@@ -55,7 +55,7 @@ public class WOItem {
         }
         _icon = new Image(g.plantAtlas.getTexture(s));
         MCScaler.scale(_icon, 100, 100);
-        source.addChild(_icon);
+        source.addChildAt(_icon, 1);
     }
 
     private function onClick():void {
