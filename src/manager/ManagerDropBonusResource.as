@@ -15,7 +15,7 @@ public class ManagerDropBonusResource {
     public function ManagerDropBonusResource() {
         var temp:DropResourceVariaty = new DropResourceVariaty();
 
-        arr = temp.resources;
+        //arr = temp.resources;
     }
 
     public function checkDrop():Boolean {
