@@ -1,20 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:847d8931427f8958212f9f0db3683279:4d8f0d8a805486867af42acdf15d8f6e:2ea56412c5f553caed8742db801c3f51$ -->
+<!-- $TexturePacker:SmartUpdate:b4255663bd94aa63f66945c2557a8cd7:c789239faefd084981b893a483da6172:2ea56412c5f553caed8742db801c3f51$ -->
 <TextureAtlas imagePath="plants.png">
-    <SubTexture name="corn1" x="537" y="66" width="66" height="43"/>
-    <SubTexture name="corn2" x="623" y="2" width="69" height="55"/>
-    <SubTexture name="corn3" x="476" y="2" width="69" height="62"/>
-    <SubTexture name="corn4" x="320" y="2" width="73" height="70"/>
-    <SubTexture name="cornShop" x="103" y="2" width="106" height="104" frameX="-23" frameY="-27" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="soybean1" x="749" y="55" width="68" height="37"/>
-    <SubTexture name="soybean2" x="465" y="68" width="70" height="39"/>
-    <SubTexture name="soybean3" x="694" y="2" width="81" height="51"/>
-    <SubTexture name="soybean4" x="395" y="2" width="79" height="64"/>
-    <SubTexture name="soybeanShop" x="211" y="2" width="107" height="96" frameX="-23" frameY="-30" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="wheat1" x="681" y="59" width="66" height="39"/>
-    <SubTexture name="wheat2" x="395" y="68" width="68" height="40"/>
-    <SubTexture name="wheat3" x="605" y="63" width="74" height="42"/>
-    <SubTexture name="wheat4" x="547" y="2" width="74" height="59"/>
-    <SubTexture name="wheatShop" x="2" y="2" width="99" height="107" frameX="-28" frameY="-22" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="carrot1" x="1778" y="88" width="67" height="40"/>
+    <SubTexture name="carrot2" x="1727" y="46" width="72" height="40"/>
+    <SubTexture name="carrot3" x="1869" y="2" width="71" height="38"/>
+    <SubTexture name="carrot4" x="1514" y="2" width="71" height="46"/>
+    <SubTexture name="carrot_shop" x="103" y="2" width="114" height="106" frameX="-19" frameY="-25" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="chilipepper1" x="1942" y="2" width="67" height="37"/>
+    <SubTexture name="chilipepper2" x="1661" y="2" width="68" height="42"/>
+    <SubTexture name="chilipepper3" x="956" y="97" width="85" height="55"/>
+    <SubTexture name="chilipepper4" x="525" y="104" width="85" height="66"/>
+    <SubTexture name="chilipepper_shop" x="219" y="2" width="107" height="105" frameX="-22" frameY="-26" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="clover1" x="1638" y="138" width="57" height="32"/>
+    <SubTexture name="clover2" x="1706" y="92" width="70" height="42"/>
+    <SubTexture name="clover3" x="1574" y="50" width="75" height="41"/>
+    <SubTexture name="clover4" x="1820" y="130" width="68" height="39"/>
+    <SubTexture name="clover_shop" x="525" y="2" width="109" height="100"/>
+    <SubTexture name="corn1" x="1638" y="93" width="66" height="43"/>
+    <SubTexture name="corn2" x="1043" y="97" width="69" height="55"/>
+    <SubTexture name="corn3" x="373" y="108" width="69" height="62"/>
+    <SubTexture name="corn4" x="672" y="100" width="73" height="70"/>
+    <SubTexture name="corn_shop" x="328" y="2" width="106" height="104" frameX="-23" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cotton1" x="1361" y="54" width="69" height="37"/>
+    <SubTexture name="cotton2" x="1420" y="93" width="75" height="48"/>
+    <SubTexture name="cotton3" x="1361" y="2" width="81" height="50"/>
+    <SubTexture name="cotton4" x="150" y="110" width="75" height="60"/>
+    <SubTexture name="cotton_shop" x="745" y="2" width="92" height="96" frameX="-28" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="grape1" x="1571" y="93" width="65" height="46"/>
+    <SubTexture name="grape2" x="612" y="104" width="58" height="64"/>
+    <SubTexture name="grape3" x="747" y="100" width="65" height="70"/>
+    <SubTexture name="grape4" x="227" y="109" width="73" height="58"/>
+    <SubTexture name="grape_shop" x="1260" y="2" width="99" height="89" frameX="0" frameY="-2" frameWidth="99" frameHeight="91"/>
+    <SubTexture name="potato1" x="1949" y="115" width="58" height="33"/>
+    <SubTexture name="potato2" x="1801" y="43" width="59" height="39" frameX="0" frameY="-2" frameWidth="59" frameHeight="41"/>
+    <SubTexture name="potato3" x="1444" y="2" width="68" height="48"/>
+    <SubTexture name="potato4" x="1346" y="93" width="72" height="51"/>
+    <SubTexture name="potato_shop" x="1147" y="2" width="111" height="91" frameX="-20" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pumpkin1" x="1571" y="141" width="48" height="29"/>
+    <SubTexture name="pumpkin2" x="1697" y="138" width="55" height="32" frameX="-2" frameY="0" frameWidth="57" frameHeight="32"/>
+    <SubTexture name="pumpkin3" x="1890" y="125" width="57" height="37"/>
+    <SubTexture name="pumpkin4" x="1847" y="84" width="59" height="39"/>
+    <SubTexture name="pumpkin_shop" x="949" y="2" width="99" height="93" frameX="-25" frameY="-34" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="soybean1" x="1432" y="54" width="68" height="37"/>
+    <SubTexture name="soybean2" x="1502" y="52" width="70" height="39"/>
+    <SubTexture name="soybean3" x="1189" y="95" width="81" height="51"/>
+    <SubTexture name="soybean4" x="444" y="106" width="79" height="64"/>
+    <SubTexture name="soybean_shop" x="636" y="2" width="107" height="96" frameX="-23" frameY="-30" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="strawberry1" x="1949" y="80" width="65" height="33"/>
+    <SubTexture name="strawberry2" x="1754" y="136" width="64" height="34"/>
+    <SubTexture name="strawberry3" x="1942" y="41" width="67" height="37"/>
+    <SubTexture name="strawberry4" x="1862" y="43" width="72" height="38"/>
+    <SubTexture name="strawberry_shop" x="436" y="2" width="87" height="102" frameX="-32" frameY="-26" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="sugarcane1" x="1587" y="2" width="72" height="44"/>
+    <SubTexture name="sugarcane2" x="1497" y="93" width="72" height="47"/>
+    <SubTexture name="sugarcane3" x="814" y="100" width="68" height="58"/>
+    <SubTexture name="sugarcane4" x="1272" y="93" width="72" height="77" frameX="-2" frameY="0" frameWidth="74" frameHeight="77"/>
+    <SubTexture name="sugarcane_shop" x="839" y="2" width="108" height="95" frameX="-21" frameY="-33" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="tomato1" x="78" y="111" width="70" height="59"/>
+    <SubTexture name="tomato2" x="302" y="109" width="69" height="58"/>
+    <SubTexture name="tomato3" x="884" y="99" width="70" height="56"/>
+    <SubTexture name="tomato4" x="1114" y="97" width="73" height="53"/>
+    <SubTexture name="tomato_shop" x="1050" y="2" width="95" height="93" frameX="-28" frameY="-31" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="wheat1" x="1801" y="2" width="66" height="39"/>
+    <SubTexture name="wheat2" x="1731" y="2" width="68" height="40"/>
+    <SubTexture name="wheat3" x="1651" y="48" width="74" height="42"/>
+    <SubTexture name="wheat4" x="2" y="111" width="74" height="59"/>
+    <SubTexture name="wheat_shop" x="2" y="2" width="99" height="107" frameX="-28" frameY="-22" frameWidth="150" frameHeight="150"/>
 </TextureAtlas>

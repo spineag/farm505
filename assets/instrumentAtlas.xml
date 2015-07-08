@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:7625abf556086c190419ece04a3cec96:886ac39038ee2c36a0229b93ba596b91:03f1473310dcd35edcfd34e4677b78d6$ -->
+<!-- $TexturePacker:SmartUpdate:3e982cb4a42085cd96ad3871ed7a62ce:e07ac2837286f21367d2ee33ebf5d365:03f1473310dcd35edcfd34e4677b78d6$ -->
 <TextureAtlas imagePath="instrumentAtlas.png">
-    <SubTexture name="Axe" x="506" y="2" width="108" height="101" frameX="-21" frameY="-28" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="Bolt" x="557" y="105" width="98" height="107" frameX="-27" frameY="-23" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="Duct_Tape" x="285" y="113" width="99" height="108" frameX="-26" frameY="-25" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="Dynamite" x="616" y="2" width="100" height="101" frameX="-27" frameY="-23" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="LandDeed" x="2" y="2" width="153" height="154" frameX="-26" frameY="-26" frameWidth="200" frameHeight="200"/>
-    <SubTexture name="Mallet" x="157" y="2" width="126" height="174" frameX="-41" frameY="-19" frameWidth="200" frameHeight="200"/>
-    <SubTexture name="MarkerStake" x="386" y="113" width="78" height="122" frameX="-41" frameY="-15" frameWidth="150" frameHeight="144"/>
-    <SubTexture name="Nail" x="466" y="108" width="89" height="116" frameX="-28" frameY="-25" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="Plank" x="145" y="178" width="122" height="75" frameX="-16" frameY="-44" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="Saw" x="285" y="2" width="111" height="109" frameX="-21" frameY="-23" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="Screw" x="398" y="2" width="106" height="104" frameX="-23" frameY="-26" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="Shovel" x="718" y="2" width="77" height="114" frameX="-37" frameY="-21" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="TNT" x="657" y="118" width="99" height="92" frameX="-27" frameY="-35" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="Wood_Panel" x="2" y="158" width="141" height="85" frameX="-6" frameY="-39" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="axe" x="567" y="2" width="94" height="84"/>
+    <SubTexture name="cutter" x="103" y="2" width="106" height="104"/>
+    <SubTexture name="duct_tape" x="2" y="2" width="99" height="108"/>
+    <SubTexture name="dynamite" x="478" y="2" width="87" height="88" frameX="0" frameY="0" frameWidth="87" frameHeight="97"/>
+    <SubTexture name="nail" x="211" y="2" width="98" height="99"/>
+    <SubTexture name="paint" x="663" y="2" width="59" height="72"/>
+    <SubTexture name="plank" x="882" y="2" width="122" height="65" frameX="0" frameY="0" frameWidth="122" frameHeight="66"/>
+    <SubTexture name="saw" x="380" y="2" width="96" height="95" frameX="0" frameY="0" frameWidth="96" frameHeight="97"/>
+    <SubTexture name="shovel" x="311" y="2" width="67" height="99"/>
+    <SubTexture name="tin_sheet" x="724" y="2" width="77" height="71"/>
+    <SubTexture name="tnt_barrel" x="803" y="2" width="77" height="68" frameX="0" frameY="0" frameWidth="77" frameHeight="70"/>
 </TextureAtlas>
