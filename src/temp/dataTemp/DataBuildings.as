@@ -214,9 +214,7 @@ public class DataBuildings {
         obj.cost = 10;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = 1;
-        obj.arrayResources = [];
         obj.skipBuildIt = 1;
-        obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
 //
         obj = {};
@@ -463,7 +461,7 @@ public class DataBuildings {
 //        32
         obj = {};
         obj.id = 25;
-        obj.name = "Яблуня";
+        obj.name = "Яблоня";
         obj.width = 1;
         obj.height = 1;
         obj.posX = 1;
@@ -846,7 +844,7 @@ public class DataBuildings {
         obj = {};
         obj.id = 41;
         obj.name = "Малина";
-        obj.width = 1;
+        obj.width = 2;
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;
@@ -879,7 +877,7 @@ public class DataBuildings {
         obj = {};
         obj.id = 42;
         obj.name = "Черника";
-        obj.width = 1;
+        obj.width = 2;
         obj.height = 1;
         obj.posX = 1;
         obj.posY = 1;

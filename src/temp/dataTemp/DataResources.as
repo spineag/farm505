@@ -124,7 +124,7 @@ public class DataResources {
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
-        obj.blockByLevel = 22;
+        obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
         obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
@@ -138,7 +138,7 @@ public class DataResources {
         obj.costMax = 403;
         obj.costMin = 1;
         obj.priceHard = 12;
-        obj.blockByLevel = 22;
+        obj.blockByLevel = 1;
         obj.buildType = BuildType.INSTRUMENT;
         obj.placeBuild = BuildType.PLACE_SKLAD;
         objectResources[obj.id ] = obj;
