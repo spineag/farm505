@@ -16,6 +16,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.MCScaler;
 
 public class CouponePanel {
     private var _source:CSprite;
@@ -45,15 +46,19 @@ public class CouponePanel {
         _contClipRect.addChild(_contCoupone);
         _imCoupone = new Image(g.interfaceAtlas.getTexture("buy_coupons"));
         _imGreen = new Image(g.interfaceAtlas.getTexture("green_coupone"));
+        MCScaler.scale(_imGreen,25,25);
         _imGreen.x = 70;
         _imGreen.y += 5;
         _imBlue = new Image(g.interfaceAtlas.getTexture("blue_coupone"));
+        MCScaler.scale(_imBlue,25,25);
         _imBlue.x = 95;
         _imBlue.y += 5;
         _imRed = new Image(g.interfaceAtlas.getTexture("red_coupone"));
+        MCScaler.scale(_imRed,25,25);
         _imRed.x = 120;
         _imRed.y += 5;
         _imYellow = new Image(g.interfaceAtlas.getTexture("yellow_coupone"));
+        MCScaler.scale(_imYellow,25,25);
         _imYellow.x = 145;
         _imYellow.y += 5;
 
@@ -96,7 +101,7 @@ public class CouponePanel {
         _txtBlue.text = String(g.user.blueCouponCount);
         _txtRed.text = String(g.user.redCouponCount);
         _txtYellow.text = String(g.user.yellowCouponCount);
-        g.hint.showIt("kypon","lol");
+        g.hint.showIt("kypon","не юзается");
        _contClipRect.clipRect = new Rectangle(15,0,400,400);
 
         var tween:Tween = new Tween(_contCoupone, 0.2);
