@@ -28,7 +28,7 @@ public class AmbarProgress {
     }
 
     public function setProgress(a:Number):void {
-        _arrow.x = _minX + a/(_maxX - _minX);
+        _arrow.x = int(_minX + a*(_maxX - _minX));
     }
 }
 }
