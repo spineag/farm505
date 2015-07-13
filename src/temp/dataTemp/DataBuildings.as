@@ -229,6 +229,13 @@ public class DataBuildings {
         obj.url = "buildAtlas";
         obj.image = "ambar";
         obj.buildType = BuildType.AMBAR;
+        obj.startCountResources = 50;
+        obj.deltaCountResources = 25;
+        obj.upInstrumentId1 = 1;
+        obj.upInstrumentId2 = 3;
+        obj.upInstrumentId3 = 5;
+        obj.startCountInstrumets = 1;
+        obj.deltaCountAfterUpgrade = 1;
         objectBuilding[obj.id ] = obj;
 //
         obj = {};
@@ -243,6 +250,14 @@ public class DataBuildings {
         obj.url = "buildAtlas";
         obj.image = "sklad";
         obj.buildType = BuildType.SKLAD;
+        obj.startCountResources = 50;
+        obj.deltaCountResources = 25;
+        obj.upInstrumentId1 = 8;
+        obj.upInstrumentId2 = 9;
+        obj.upInstrumentId3 = 124;
+        obj.startCountInstrumets = 1;
+        obj.deltaCountAfterUpgrade = 1;
+        objectBuilding[obj.id ] = obj;
         objectBuilding[obj.id ] = obj;
 //        14
         obj = {};

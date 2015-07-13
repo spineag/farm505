@@ -62,6 +62,16 @@ public class CraftItem {
     }
 
     private function flyIt():void {
+        if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount) {
+            // вивести повідомлення
+            return;
+        }
+
+        if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad >= g.user.skladMaxCount) {
+            // вивести повідомлення
+            return;
+        }
+
         if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
             g.craftPanel.showIt(_resourceItem.placeBuild);
 

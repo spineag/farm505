@@ -61,6 +61,24 @@ public class UserInventory {
         return arr;
     }
 
+    public function get currentCountInAmbar():int {
+        var count:int = 0;
+        var arr:Array = getResourcesForAmbar();
+        for (var i:int = 0; i < arr.length; i++) {
+            count += arr[i].count;
+        }
+        return count;
+    }
+
+    public function get currentCountInSklad():int {
+        var count:int = 0;
+        var arr:Array = getResourcesForSklad();
+        for (var i:int = 0; i < arr.length; i++) {
+            count += arr[i].count;
+        }
+        return count;
+    }
+
     public function addMoney(typeCurrency:int, count:int):void {
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:

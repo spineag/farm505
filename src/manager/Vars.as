@@ -212,7 +212,13 @@ public class Vars {
 
     private function temporaryFillUserInventory():void {
         var k:int;
-        var i:int = 1000;
+        var i:int = 50;
+
+        user.ambarLevel = 1;
+        user.ambarMaxCount = dataBuilding[12].startCountResources;
+        user.skladLevel = 1;
+        user.skladMaxCount = dataBuilding[13].startCountResources;
+
         while (i>0) {
             k = int(Math.random()*129) + 1;
             if (dataResource.objectResources[k]) {
