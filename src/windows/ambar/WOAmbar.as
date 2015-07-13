@@ -170,7 +170,16 @@ public class WOAmbar extends Window {
     }
 
     private function onUpdate():void {
-
+        var needCountForUpdate:int = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * g.user.ambarLevel;
+        g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId1, - needCountForUpdate);
+        g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId2, - needCountForUpdate);
+        g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId3, - needCountForUpdate);
+        g.user.ambarLevel++;
+        g.user.ambarMaxCount += g.dataBuilding.objectBuilding[12].deltaCountResources;
+        _item1.updateIt();
+        _item2.updateIt();
+        _item3.updateIt();
+        updateMakeUpdateBtn();
     }
 }
 }
