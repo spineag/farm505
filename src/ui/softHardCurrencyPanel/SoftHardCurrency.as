@@ -72,7 +72,7 @@ public class SoftHardCurrency {
     }
 
     public function checkHard():void {
-
+        _txtHard.text =  String(g.user.hardCurrency);
     }
 }
 }
