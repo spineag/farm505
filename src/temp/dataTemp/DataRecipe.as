@@ -327,7 +327,7 @@ public class DataRecipe {
         obj.idResource = 52;
         obj.numberCreate = 1;
         obj.ingridientsId = [16, 26, 31];
-        obj.ingridientsCount = [40, 1, 2];
+        obj.ingridientsCount = [4, 1, 2];
         obj.buildingId = 7;
         obj.priceSkipHard = 1;
         obj.blockByLevel = 1;
@@ -371,7 +371,7 @@ public class DataRecipe {
         obj.idResource = 56;
         obj.numberCreate = 1;
         obj.ingridientsId = [15];
-        obj.ingridientsCount = [123, 122];
+        obj.ingridientsCount = [3];
         obj.buildingId = 8;
         obj.priceSkipHard = 1;
         obj.blockByLevel = 1;
