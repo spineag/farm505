@@ -214,10 +214,10 @@ public class Vars {
         var k:int;
         var i:int = 50;
 
-        user.ambarLevel = 1;
-        user.ambarMaxCount = dataBuilding[12].startCountResources;
-        user.skladLevel = 1;
-        user.skladMaxCount = dataBuilding[13].startCountResources;
+        (user as User).ambarLevel = 1;
+        (user as User).ambarMaxCount = dataBuilding.objectBuilding[12].startCountResources;
+        (user as User).skladLevel = 1;
+        (user as User).skladMaxCount = dataBuilding.objectBuilding[13].startCountResources;
 
         while (i>0) {
             k = int(Math.random()*129) + 1;

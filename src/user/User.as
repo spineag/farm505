@@ -29,6 +29,10 @@ public class User {
     public function User() {
         level = 1;
         xp = 0;
+        ambarLevel = 1;
+        skladLevel = 1;
+        ambarMaxCount = 50;
+        skladMaxCount = 50;
         softCurrencyCount = 10;
         hardCurrency = 50;
         yellowCouponCount = 10;
