@@ -26,6 +26,8 @@ public class WOItemFabrica {
         source.pivotX = source.width/2;
         source.pivotY = source.height/2;
         source.endClickCallback = onClick;
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
         source.alpha = .5;
     }
 
@@ -62,6 +64,15 @@ public class WOItemFabrica {
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataRecipe]);
         }
+        g.fabricHint.clearIt();
+    }
+
+    private function onHover():void {
+        g.fabricHint.showIt(_dataRecipe);
+    }
+
+    private function onOut():void {
+        g.fabricHint.clearIt();
     }
 }
 }

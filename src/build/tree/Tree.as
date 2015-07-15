@@ -42,6 +42,8 @@ public class Tree extends AreaObject{
     private var _resourceItem:ResourceItem;
     private var _timeToEndState:int;
     private var _arrCrafted:Array;
+    private var _isOnHover:Boolean;
+    private var _count:int;
 
     public function Tree(_data:Object) {
         super(_data);
@@ -200,10 +202,17 @@ public class Tree extends AreaObject{
 
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+        _isOnHover = true;
+        _count = 20;
+        if(_state == GROW1 || _state == GROW2 || _state == GROW3){
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+        }
     }
 
     private function onOut():void {
         _source.filter = null;
+        _isOnHover = false;
+        g.gameDispatcher.addEnterFrame(countEnterFrame);
     }
 
     private function onClick():void {
@@ -297,6 +306,20 @@ public class Tree extends AreaObject{
                     _state = FULL_DEAD;
             }
             setBuildImage();
+        }
+    }
+
+    private function countEnterFrame():void {
+        _count--;
+        if(_count <=0){
+            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+            if (_isOnHover == true) {
+                    g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.buildTime, _dataBuild.priceSkipHard, _dataBuild.name);
+            }
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.timerHint.hideIt();
+            }
         }
     }
 }

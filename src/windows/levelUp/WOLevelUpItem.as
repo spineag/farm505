@@ -50,8 +50,8 @@ public class WOLevelUpItem {
         _imageBg.width = _imageBg.height = 95;
 //        _imageBg.pivotX = _imageBg.width/2;
 //        _imageBg.pivotY = _imageBg.height/2;
-        _imageBg.x =50- _imageBg.width/2;
-        _imageBg.y = 50- _imageBg.height/2;
+        _imageBg.x = 50 - _imageBg.width/2;
+        _imageBg.y = 50 - _imageBg.height/2;
         MCScaler.scale(_image,80,80);
 //        _image.pivotX = _image.width/2;
 //        _image.pivotY = _image.height/2;
