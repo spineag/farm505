@@ -42,6 +42,7 @@ public class CouponePanel {
         _contClipRect = new Sprite();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
+        _source.endClickCallback = onClick;
         _source.addChild(_contClipRect);
         _contClipRect.addChild(_contCoupone);
         _imCoupone = new Image(g.interfaceAtlas.getTexture("buy_coupons"));
@@ -123,6 +124,10 @@ public class CouponePanel {
         g.starling.juggler.add(tween);
 
         g.hint.hideIt();
+    }
+
+    private function onClick():void {
+        g.woBuyCoupone.showItWO();
     }
 
     public function getPoint():Point {
