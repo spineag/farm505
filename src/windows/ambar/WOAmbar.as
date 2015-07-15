@@ -4,11 +4,15 @@
 package windows.ambar {
 
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
 import ui.scrolled.DefaultVerticalScrollSprite;
+
+import utils.CButton;
+import utils.CSprite;
 
 import windows.Window;
 
@@ -16,6 +20,16 @@ public class WOAmbar extends Window {
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _arrCells:Array;
     private var _titleTxt:TextField;
+    private var _progress:AmbarProgress;
+    private var _btnUpdate:CButton;
+    private var _btnBack:CButton;
+    private var _txtCount:TextField;
+    private var _updateSprite:Sprite;
+    private var _item1:UpdateItem;
+    private var _item2:UpdateItem;
+    private var _item3:UpdateItem;
+    private var _btnMakeUpdate:CSprite;
+    private var _txtMakeUpdate:TextField;
 
     public function WOAmbar() {
         super();
@@ -41,6 +55,53 @@ public class WOAmbar extends Window {
         _titleTxt.x = 189 - _woWidth/2;
         _titleTxt.y = 5 - _woHeight/2;
         _source.addChild(_titleTxt);
+
+        _progress = new AmbarProgress();
+        _progress.source.x = 0;
+        _progress.source.y = 220;
+        _source.addChild(_progress.source);
+
+        _btnUpdate = new CButton(g.interfaceAtlas.getTexture('btn2'), 'Увеличить');
+        _btnUpdate.x = 50;
+        _btnUpdate.y = 153;
+        _source.addChild(_btnUpdate);
+        _btnUpdate.addEventListener(Event.TRIGGERED, onBtnUpdate);
+
+        _btnBack = new CButton(g.interfaceAtlas.getTexture('btn2'), 'Вернуться');
+        _btnBack.x = 50;
+        _btnBack.y = 153;
+        _source.addChild(_btnBack);
+        _btnBack.addEventListener(Event.TRIGGERED, onBtnBack);
+
+        _txtCount = new TextField(200, 40, '', "Arial", 16, Color.BLACK);
+        _txtCount.x = -205;
+        _txtCount.y = 150;
+        _source.addChild(_txtCount);
+
+        _updateSprite = new Sprite();
+        _item1 = new UpdateItem(g.dataBuilding.objectBuilding[12].upInstrumentId1);
+        _item2 = new UpdateItem(g.dataBuilding.objectBuilding[12].upInstrumentId2);
+        _item3 = new UpdateItem(g.dataBuilding.objectBuilding[12].upInstrumentId3);
+        _item1.onBuyCallback = updateMakeUpdateBtn;
+        _item2.onBuyCallback = updateMakeUpdateBtn;
+        _item3.onBuyCallback = updateMakeUpdateBtn;
+        _item2.source.x = 110;
+        _item3.source.x = 220;
+        _updateSprite.addChild(_item1.source);
+        _updateSprite.addChild(_item2.source);
+        _updateSprite.addChild(_item3.source);
+        _updateSprite.x = - _updateSprite.width/2 - 10;
+        _updateSprite.y = - 150;
+        _source.addChild(_updateSprite);
+
+        _btnMakeUpdate = new CSprite();
+        var m:Image = new Image(g.interfaceAtlas.getTexture('btn3'));
+        _btnMakeUpdate.addChild(m);
+        _txtMakeUpdate = new TextField(m.width, m.height, '', "Arial", 18, Color.WHITE);
+        _btnMakeUpdate.addChild(_txtMakeUpdate);
+        _btnMakeUpdate.x = 70;
+        _btnMakeUpdate.y = 220;
+        _updateSprite.addChild(_btnMakeUpdate);
     }
 
     private function onClickExit(e:Event):void {
@@ -50,6 +111,13 @@ public class WOAmbar extends Window {
     }
 
     override public function showIt():void {
+        var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
+        _txtCount.text = st;
+        _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
+        _btnBack.visible = false;
+        _btnUpdate.visible = true;
+        _updateSprite.visible = false;
+        _scrollSprite.source.visible = true;
         fillItems();
         super.showIt();
     }
@@ -70,6 +138,51 @@ public class WOAmbar extends Window {
             _arrCells[i].clearIt();
         }
         _arrCells.length = 0;
+    }
+
+    private function onBtnUpdate(e:Event):void {
+        _btnBack.visible = true;
+        _btnUpdate.visible = false;
+        _scrollSprite.source.visible = false;
+        _updateSprite.visible = true;
+        _item1.updateIt();
+        _item2.updateIt();
+        _item3.updateIt();
+        updateMakeUpdateBtn();
+    }
+
+    private function onBtnBack(e:Event):void {
+        _btnBack.visible = false;
+        _btnUpdate.visible = true;
+        _scrollSprite.source.visible = true;
+        _updateSprite.visible = false;
+    }
+
+    private function updateMakeUpdateBtn():void {
+        _txtMakeUpdate.text = 'Улучшить до ' + String(g.user.ambarMaxCount + g.dataBuilding.objectBuilding[12].deltaCountResources) + ' кг.';
+        if (_item1.isFull && _item2.isFull && _item3.isFull) {
+            _btnMakeUpdate.endClickCallback = onUpdate;
+            _btnMakeUpdate.alpha = 1;
+        } else {
+            _btnMakeUpdate.endClickCallback = null;
+            _btnMakeUpdate.alpha = .5;
+        }
+    }
+
+    private function onUpdate():void {
+        var needCountForUpdate:int = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * g.user.ambarLevel;
+        g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId1, - needCountForUpdate);
+        g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId2, - needCountForUpdate);
+        g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId3, - needCountForUpdate);
+        g.user.ambarLevel++;
+        g.user.ambarMaxCount += g.dataBuilding.objectBuilding[12].deltaCountResources;
+        var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
+        _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
+        _txtCount.text = st;
+        _item1.updateIt();
+        _item2.updateIt();
+        _item3.updateIt();
+        updateMakeUpdateBtn();
     }
 }
 }

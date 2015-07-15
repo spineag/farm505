@@ -250,6 +250,9 @@
             <filename>xp_progres_part.png</filename>
             <filename>xp_progres.png</filename>
             <filename>yellow_coupone.png</filename>
+            <filename>btn3.png</filename>
+            <filename>btn4.png</filename>
+            <filename>galo4ka.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

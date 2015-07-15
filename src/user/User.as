@@ -3,9 +3,6 @@
  */
 package user {
 
-import data.BuildType;
-import data.DataMoney;
-
 import manager.Vars;
 
 public class User {
@@ -15,6 +12,8 @@ public class User {
     public var secondName:String;
     public var ambarMaxCount:int;
     public var skladMaxCount:int;
+    public var ambarLevel:int;
+    public var skladLevel:int;
     public var softCurrencyCount:int;
     public var hardCurrency:int;
     public var yellowCouponCount:int;
@@ -30,6 +29,8 @@ public class User {
     public function User() {
         level = 1;
         xp = 0;
+        ambarLevel = 1;
+        skladLevel = 1;
         ambarMaxCount = 50;
         skladMaxCount = 50;
         softCurrencyCount = 10;
