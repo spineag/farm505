@@ -26,6 +26,8 @@ public class EmbedAssets {
     public static const ResourceTexture:Class;
     [Embed(source="../../assets/treeAtlas.png")]
     public static const TreeTexture:Class;
+    [Embed(source="../../assets/preloaderAtlas.png")]
+    public static const PreloaderTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
@@ -42,6 +44,8 @@ public class EmbedAssets {
     public static const ResourceTextureXML:Class;
     [Embed(source="../../assets/treeAtlas.xml", mimeType="application/octet-stream")]
     public static const TreeTextureXML:Class;
+    [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
+    public static const PreloaderTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -77,6 +81,10 @@ public class EmbedAssets {
         texture = Texture.fromBitmap(new TreeTexture());
         xml= XML(new TreeTextureXML());
         g.treeAtlas = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new PreloaderTexture());
+        xml= XML(new PreloaderTextureXML());
+        g.preloaderAtlas = new TextureAtlas(texture, xml);
     }
 }
 }

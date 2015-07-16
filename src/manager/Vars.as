@@ -89,6 +89,7 @@ public class Vars {
     public var instrumentAtlas:TextureAtlas;
     public var resourceAtlas:TextureAtlas;
     public var treeAtlas:TextureAtlas;
+    public var preloaderAtlas:TextureAtlas;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
