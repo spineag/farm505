@@ -23,6 +23,12 @@ import map.TownArea;
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
 
+import preloader.StartPreloader;
+
+import server.DirectServer;
+
+import server.Server;
+
 import starling.core.Starling;
 import starling.display.Stage;
 import starling.textures.TextureAtlas;
@@ -129,6 +135,13 @@ public class Vars {
     public var woBuyCoupone:WOBuyCoupone;
     public var woNoResources:WONoResources;
 
+    public var server:Server;
+    public var directServer:DirectServer;
+    public var useHttps:Boolean;
+    private var startPreloader:StartPreloader;
+    private var useDataFromServer:Boolean;
+    public var dataPath:DataPath;
+
     public static function getInstance():Vars {
         if (!_instance) {
             _instance = new Vars(new SingletonEnforcer());
@@ -148,16 +161,41 @@ public class Vars {
     }
 
     private function initVariables():void {
-        user = new User();
-        userInventory = new UserInventory();
-        gameDispatcher = new FarmDispatcher(mainStage);
-        cont = new Containers();
-        matrixGrid = new MatrixGrid();
+        useDataFromServer = true;
+        useHttps = true;
+        server = new Server();
+        directServer = new DirectServer();
+        startPreloader = new StartPreloader();
+        dataPath = new DataPath();
+
         dataBuilding = new DataBuildings();
         dataRecipe = new DataRecipe();
         dataResource = new DataResources();
         dataAnimal = new DataAnimal();
         dataLevel = new DataLevel();
+        dataBuilding.fillDataBuilding();
+        dataRecipe.fillDataRecipe();
+        dataResource.fillDataResources();
+        dataAnimal.fillDataAnimal();
+
+        if (useDataFromServer) {
+            directServer.getDataLevel(onDataLevel);
+        } else {
+            dataLevel.fillDataLevels();
+            initVariables2();
+        }
+    }
+
+    private function onDataLevel():void {
+        initVariables2();
+    }
+
+    private function initVariables2():void {
+        user = new User();
+        userInventory = new UserInventory();
+        gameDispatcher = new FarmDispatcher(mainStage);
+        cont = new Containers();
+        matrixGrid = new MatrixGrid();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
         timerHint = new TimerHint();

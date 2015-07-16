@@ -10,11 +10,9 @@ public class DataBuildings {
 
     public function DataBuildings() {
         objectBuilding={};
-
-        fillDataBuilding();
     }
 
-    private function fillDataBuilding():void {
+    public function fillDataBuilding():void {
         var obj:Object;
 //        1
         obj = {};

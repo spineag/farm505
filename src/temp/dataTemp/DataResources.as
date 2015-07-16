@@ -10,12 +10,10 @@ public class DataResources {
 
     public function DataResources(){
         objectResources={};
-        fillDataResources();
     }
-    private function fillDataResources():void {
-        var obj:Object;
 
-                                    //   ---------------------------  INSTRUMENTS  ----------------------------------
+    public function fillDataResources():void {
+        var obj:Object;
 //        1
         obj = {};
         obj.id = 1;

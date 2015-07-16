@@ -7,6 +7,7 @@ import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
 import flash.events.UncaughtErrorEvent;
+import flash.system.Security;
 import flash.utils.clearTimeout;
 import flash.utils.setTimeout;
 
@@ -28,6 +29,8 @@ public class MainStartWebStarling extends Sprite{
     public function MainStartWebStarling() {
         loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfo_uncaughtError);
 
+        Security.allowDomain('*');
+        Security.allowInsecureDomain("*");
         stage.scaleMode = StageScaleMode.NO_SCALE;
         stage.align = StageAlign.TOP_LEFT;
         stage.addEventListener(flash.events.Event.RESIZE, onStageResize);

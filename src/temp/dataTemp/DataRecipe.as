@@ -8,10 +8,9 @@ public class DataRecipe {
 
     public function DataRecipe() {
         objectRecipe={};
-        fillDataRecipe();
     }
 
-    private function fillDataRecipe():void {
+    public function fillDataRecipe():void {
         var obj:Object;
 //        1
         obj = {};

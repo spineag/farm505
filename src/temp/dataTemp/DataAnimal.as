@@ -9,11 +9,9 @@ public class DataAnimal {
 
     public function DataAnimal() {
         objectAnimal = {};
-
-        fillDataAnimal();
     }
 
-    private function fillDataAnimal():void {
+    public function fillDataAnimal():void {
         var obj:Object;
 
         obj = {};
