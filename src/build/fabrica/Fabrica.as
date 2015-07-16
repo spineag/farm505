@@ -96,15 +96,15 @@ public class Fabrica extends AreaObject {
         var obj:Object;
         var texture:Texture;
         for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
-            obj = g.dataResource.objectResources[dataRecipe.ingridientsId[i]];
+            obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
             if (obj.buildType == BuildType.PLANT) {
-                texture = g.plantAtlas.getTexture(g.dataResource.objectResources[dataRecipe.ingridientsId[i]].imageShop);
+                texture = g.plantAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
             } else if (obj.buildType == BuildType.RESOURCE) {
-                texture = g.resourceAtlas.getTexture(g.dataResource.objectResources[dataRecipe.ingridientsId[i]].imageShop);
+                texture = g.resourceAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
             } else if (obj.buildType == BuildType.INSTRUMENT) {
-                texture = g.instrumentAtlas.getTexture(g.dataResource.objectResources[dataRecipe.ingridientsId[i]].imageShop);
+                texture = g.instrumentAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
             }
-            new RawItem(p, texture, dataRecipe.ingridientsCount[i], i*.1);
+            new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i*.1);
         }
     }
 

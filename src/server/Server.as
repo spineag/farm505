@@ -39,7 +39,7 @@ public class Server extends EventDispatcher {
 
     protected var g:Vars = Vars.getInstance();
 
-    public function BirdsServer() {
+    public function Server() {
         _countSendRequest = 0;
         _queue = [];
         _nc = new NetConnection();

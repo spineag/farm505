@@ -137,9 +137,9 @@ public class UserInventory {
     public function checkRecipe(_data:Object):Boolean {
         var count:int = 0;
         for (var i:int = 0; i < _data.ingridientsId.length; i++) {
-            count =  g.userInventory.getCountResourceById(_data.ingridientsId[i]);
-            if (count < _data.ingridientsCount[i]) {
-                g.woNoResources.showItMenu(_data,_data.ingridientsCount[i] - count);
+            count =  g.userInventory.getCountResourceById(int(_data.ingridientsId[i]));
+            if (count < int(_data.ingridientsCount[i])) {
+                g.woNoResources.showItMenu(_data, int(_data.ingridientsCount[i]) - count);
                 return false;
             }
         }

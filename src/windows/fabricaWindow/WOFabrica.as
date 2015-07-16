@@ -69,7 +69,7 @@ public class WOFabrica extends Window {
     private function onItemClick(dataRecipe:Object):void {
         if(!g.userInventory.checkRecipe(dataRecipe)) return;
         for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
-               g.userInventory.addResource(dataRecipe.ingridientsId[i],-dataRecipe.ingridientsCount[i]);
+               g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
         }
         if (_list.isFull) return;
         var resource:ResourceItem = new ResourceItem();

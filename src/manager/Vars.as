@@ -163,7 +163,7 @@ public class Vars {
     private function initVariables():void {
         useDataFromServer = true;
         useHttps = true;
-        server = new Server();
+        //server = new Server();
         directServer = new DirectServer();
         startPreloader = new StartPreloader();
         dataPath = new DataPath();
@@ -174,19 +174,27 @@ public class Vars {
         dataAnimal = new DataAnimal();
         dataLevel = new DataLevel();
         dataBuilding.fillDataBuilding();
-        dataRecipe.fillDataRecipe();
         dataResource.fillDataResources();
-        dataAnimal.fillDataAnimal();
 
         if (useDataFromServer) {
             directServer.getDataLevel(onDataLevel);
         } else {
             dataLevel.fillDataLevels();
+            dataAnimal.fillDataAnimal();
+            dataRecipe.fillDataRecipe();
             initVariables2();
         }
     }
 
     private function onDataLevel():void {
+        directServer.getDataAnimal(onDataAnimal);
+    }
+
+    private function onDataAnimal():void {
+        directServer.getDataRecipe(onDataRecipe);
+    }
+
+    private function onDataRecipe():void {
         initVariables2();
     }
 

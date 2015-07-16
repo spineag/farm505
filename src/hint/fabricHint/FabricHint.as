@@ -101,7 +101,7 @@ public class FabricHint {
     private function createList(data:Object):void {
         var im:FabricHintItem;
         for (var i:int = 0; i < data.ingridientsId.length; i++) {
-            im = new FabricHintItem(data.ingridientsId[i],data.ingridientsCount[i]);
+            im = new FabricHintItem(int(data.ingridientsId[i]), int(data.ingridientsCount[i]));
             im.source.x = int (i * 45);
             _arrCells.push(im);
             _contImage.addChild(im.source);
