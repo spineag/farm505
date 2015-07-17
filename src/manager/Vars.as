@@ -95,7 +95,7 @@ public class Vars {
     public var instrumentAtlas:TextureAtlas;
     public var resourceAtlas:TextureAtlas;
     public var treeAtlas:TextureAtlas;
-    public var preloaderAtlas:TextureAtlas;
+//    public var preloaderAtlas:TextureAtlas;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
@@ -138,7 +138,7 @@ public class Vars {
     public var server:Server;
     public var directServer:DirectServer;
     public var useHttps:Boolean;
-    private var startPreloader:StartPreloader;
+    public var startPreloader:StartPreloader;
     private var useDataFromServer:Boolean;
     public var dataPath:DataPath;
 
@@ -165,7 +165,6 @@ public class Vars {
         useHttps = true;
         //server = new Server();
         directServer = new DirectServer();
-        startPreloader = new StartPreloader();
         dataPath = new DataPath();
 
         dataBuilding = new DataBuildings();
@@ -176,6 +175,7 @@ public class Vars {
 
         if (useDataFromServer) {
             directServer.getDataLevel(onDataLevel);
+            startPreloader.setProgress(90);
         } else {
             dataLevel.fillDataLevels();
             dataAnimal.fillDataAnimal();
@@ -188,18 +188,22 @@ public class Vars {
 
     private function onDataLevel():void {
         directServer.getDataAnimal(onDataAnimal);
+        startPreloader.setProgress(92);
     }
 
     private function onDataAnimal():void {
         directServer.getDataRecipe(onDataRecipe);
+        startPreloader.setProgress(94);
     }
 
     private function onDataRecipe():void {
         directServer.getDataResource(onDataResource);
+        startPreloader.setProgress(96);
     }
 
      private function onDataResource():void {
         directServer.getDataBuilding(onDataBuilding);
+         startPreloader.setProgress(98);
     }
 
     private function onDataBuilding():void {
@@ -207,10 +211,13 @@ public class Vars {
     }
 
     private function initVariables2():void {
+        startPreloader.setProgress(100);
+        startPreloader.hideIt();
+        startPreloader = null;
+
         user = new User();
         userInventory = new UserInventory();
         gameDispatcher = new FarmDispatcher(mainStage);
-        cont = new Containers();
         matrixGrid = new MatrixGrid();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();

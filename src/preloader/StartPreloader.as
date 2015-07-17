@@ -8,8 +8,15 @@ import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.textures.Texture;
+import starling.textures.TextureAtlas;
 
 public class StartPreloader {
+    [Embed(source="../../assets/preloaderAtlas.png")]
+    public static const PreloaderTexture:Class;
+    [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
+    public static const PreloaderTextureXML:Class;
+
     private var _source:Sprite;
     private var _bg:Image;
     private var _preloaderSprite:Sprite;
@@ -19,16 +26,24 @@ public class StartPreloader {
     private var g:Vars = Vars.getInstance();
 
     public function StartPreloader() {
+        var texture:Texture = Texture.fromBitmap(new PreloaderTexture());
+        var xml:XML = XML(new PreloaderTextureXML());
+        var preloaderAtlas:TextureAtlas = new TextureAtlas(texture, xml);
+
         _source = new Sprite();
-        _bg = new Image(g.preloaderAtlas.getTexture('preloader'));
+        _bg = new Image(preloaderAtlas.getTexture('preloader'));
         _source.addChild(_bg);
         _preloaderSprite = new Sprite();
-        _preloaderBG = new Image(g.preloaderAtlas.getTexture('preloader_bg'));
-        _preloaderLine = new Image(g.preloaderAtlas.getTexture('preloader_line'));
+        _preloaderBG = new Image(preloaderAtlas.getTexture('preloader_bg'));
+        _preloaderLine = new Image(preloaderAtlas.getTexture('preloader_line'));
         _preloaderSprite.addChild(_preloaderBG);
         _preloaderSprite.clipRect = new Rectangle(0, 0, _preloaderSprite.width, _preloaderSprite.height);
         _preloaderLine.x = -_preloaderLine.width;
         _preloaderSprite.addChild(_preloaderLine);
+        _preloaderSprite.x = _source.width/2 - _preloaderBG.width/2;
+        _preloaderSprite.y = 600;
+        _source.addChild(_preloaderSprite);
+        setProgress(0);
     }
 
     public function showIt():void {
@@ -41,6 +56,9 @@ public class StartPreloader {
 
     public function hideIt():void {
         g.cont.popupCont.removeChild(_source);
+        while (_source.numChildren) {
+            _source.removeChildAt(0);
+        }
         _bg.dispose();
         _preloaderBG.dispose();
         _preloaderLine.dispose();

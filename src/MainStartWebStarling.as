@@ -11,7 +11,12 @@ import flash.system.Security;
 import flash.utils.clearTimeout;
 import flash.utils.setTimeout;
 
+import manager.Containers;
+
 import manager.Vars;
+
+import preloader.StartPreloader;
+
 import starling.core.Starling;
 import starling.events.Event;
 
@@ -57,7 +62,7 @@ public class MainStartWebStarling extends Sprite{
             stage.removeEventListener(flash.events.Event.RESIZE, onStageResize);
             if (!stageReady) {
                 star = new Starling(MainStarling, stage);
-                star.showStats = true;
+                star.showStats = false;
                 g.mainStage = star.stage;
                 g.starling = star;
                 star.addEventListener(starling.events.Event.ROOT_CREATED, onRootCreated);
@@ -71,14 +76,17 @@ public class MainStartWebStarling extends Sprite{
 
         game = star.root as MainStarling;
         game.addEventListener(MainStarling.LOADED, onLoaded);
-        game.start();
         star.start();
-        // add preloader
+
+        g.cont = new Containers();
+        g.startPreloader = new StartPreloader();
+        g.startPreloader.showIt();
+
+        game.start();
     }
 
     private function onLoaded(event : starling.events.Event):void {
         game.removeEventListener(MainStarling.LOADED, onLoaded);
-        // remove preloader
     }
 
 //    private function onStageDeactivate(e:Event):void {

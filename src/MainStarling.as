@@ -24,8 +24,11 @@ public class MainStarling extends Sprite {
         sAssets.verbose = true;
         sAssets.enqueue(EmbedAssets);
 
-        //addChild(progress);
+        var max:int = 89;
+        var cur:int;
         sAssets.loadQueue(function (ratio:Number):void {
+            cur = int(max * ratio);
+            g.startPreloader.setProgress(cur);
             if (ratio == 1.0){
                 dispatchEventWith(MainStarling.LOADED);
                 initGame();
