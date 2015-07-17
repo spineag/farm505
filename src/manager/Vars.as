@@ -173,8 +173,6 @@ public class Vars {
         dataResource = new DataResources();
         dataAnimal = new DataAnimal();
         dataLevel = new DataLevel();
-        dataBuilding.fillDataBuilding();
-        dataResource.fillDataResources();
 
         if (useDataFromServer) {
             directServer.getDataLevel(onDataLevel);
@@ -182,6 +180,8 @@ public class Vars {
             dataLevel.fillDataLevels();
             dataAnimal.fillDataAnimal();
             dataRecipe.fillDataRecipe();
+            dataBuilding.fillDataBuilding();
+            dataResource.fillDataResources();
             initVariables2();
         }
     }
@@ -195,6 +195,14 @@ public class Vars {
     }
 
     private function onDataRecipe():void {
+        directServer.getDataResource(onDataResource);
+    }
+
+     private function onDataResource():void {
+        directServer.getDataBuilding(onDataBuilding);
+    }
+
+    private function onDataBuilding():void {
         initVariables2();
     }
 
