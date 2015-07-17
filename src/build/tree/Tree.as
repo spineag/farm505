@@ -193,6 +193,8 @@ public class Tree extends AreaObject{
                     _arrCrafted.push(item);
                 }
                 break;
+            default:
+                Cc.error('tree state is WRONG');
         }
 
         _build.addChild(im);
