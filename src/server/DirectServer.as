@@ -294,22 +294,21 @@ public class DirectServer {
                 if (d.message[i].image_m_growed) obj.imageGrowedMiddle = d.message[i].image_m_growed;
                 if (d.message[i].image_b) obj.imageGrowBig = d.message[i].image_b;
                 if (d.message[i].image_b_flower) obj.imageGrowBigFlower = d.message[i].image_b_flower;
-                if (d.message[i].image_b_growed) obj.imageGrowedBig = d.message[i].image_b_growed;
+                if (d.message[i].image_b_growed) {
+                    obj.imageGrowedBig = d.message[i].image_b_growed;
+                    obj.image = obj.imageGrowedBig;
+                }
                 if (d.message[i].image_dead) obj.imageDead = d.message[i].image_dead;
                 if (d.message[i].inner_position_s) {
-                    obj.innerPositionsGrow1 = String(d.message[i].inner_positions_s).split('&');
+                    obj.innerPositionsGrow1 = String(d.message[i].inner_position_s).split('&');
                     for (k = 0; k < obj.innerPositionsGrow1.length; k++) obj.innerPositionsGrow1[k] = int(obj.innerPositionsGrow1[k]);
                 }
                 if (d.message[i].inner_position_m) {
-                    obj.innerPositionsGrow2 = String(d.message[i].inner_positions_m).split('&');
+                    obj.innerPositionsGrow2 = String(d.message[i].inner_position_m).split('&');
                     for (k = 0; k < obj.innerPositionsGrow2.length; k++) obj.innerPositionsGrow2[k] = int(obj.innerPositionsGrow2[k]);
                 }
                 if (d.message[i].inner_position_b) {
-                    obj.innerPositionsGrow3 = String(d.message[i].inner_positions_b).split('&');
-                    for (k = 0; k < obj.innerPositionsGrow3.length; k++) obj.innerPositionsGrow3[k] = int(obj.innerPositionsGrow3[k]);
-                }
-                if (d.message[i].inner_position_b) {
-                    obj.innerPositionsGrow3 = String(d.message[i].inner_positions_b).split('&');
+                    obj.innerPositionsGrow3 = String(d.message[i].inner_position_b).split('&');
                     for (k = 0; k < obj.innerPositionsGrow3.length; k++) obj.innerPositionsGrow3[k] = int(obj.innerPositionsGrow3[k]);
                 }
                 obj.innerPositionsDead = [obj.innerX, obj.innerY];
