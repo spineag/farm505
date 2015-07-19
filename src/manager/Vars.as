@@ -281,7 +281,7 @@ public class Vars {
 
     private function temporaryFillUserInventory():void {
         var k:int;
-        var i:int = 50;
+        var i:int = 150;
 
         (user as User).ambarLevel = 1;
         (user as User).ambarMaxCount = dataBuilding.objectBuilding[12].startCountResources;
