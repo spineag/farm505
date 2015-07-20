@@ -33,7 +33,7 @@ public class User {
         skladLevel = 1;
         ambarMaxCount = 50;
         skladMaxCount = 50;
-        softCurrencyCount = 10;
+        softCurrencyCount = 10000;
         hardCurrency = 50;
         yellowCouponCount = 10;
         redCouponCount = 10;

@@ -69,7 +69,6 @@ public class ResourceItem {
     public function get priceHard():int { return _priceHard}
     public function get priceSkipHard():int { return _priceSkipHard}
     public function get blockByLevel():int { return _blockByLevel}
-    public function get buildTime():int { return _blockByLevel}
     public function get buildType():int { return _buildType}
 }
 }

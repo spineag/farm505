@@ -4,6 +4,9 @@
 package build.fabrica {
 import build.AreaObject;
 
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
+
 import data.BuildType;
 
 import flash.geom.Point;
@@ -28,10 +31,13 @@ public class Fabrica extends AreaObject {
     private var _arrRecipes:Array;  // массив всех рецептов, которые можно изготовить на этой фабрике
     private var _arrList:Array; // массив заказанных для изготовления ресурсов
     private var _maxListCount:int = 3;
+    private var _tween:TweenMax;
+    private var _isAnim:Boolean;
 
     public function Fabrica(_data:Object) {
         super(_data);
 
+        _isAnim = false;
         _arrRecipes = [];
         _arrList = [];
         _source.hoverCallback = onHover;
@@ -90,6 +96,7 @@ public class Fabrica extends AreaObject {
         _arrList.push(resourceItem);
         if (_arrList.length == 1) {
             g.gameDispatcher.addToTimer(render);
+            startTempAnimation();
         }
         var p:Point = new Point(source.x, source.y);
         p = source.parent.localToGlobal(p);
@@ -115,6 +122,7 @@ public class Fabrica extends AreaObject {
             _arrList.shift();
             if (!_arrList.length) {
                 g.gameDispatcher.removeFromTimer(render);
+                stopTempAnimation();
             }
         }
     }
@@ -128,6 +136,32 @@ public class Fabrica extends AreaObject {
             }
         }
         var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources);
+    }
+
+    private function startTempAnimation():void {
+        _isAnim = true;
+        anim1();
+    }
+
+    private function anim1():void {
+        if (_isAnim) {
+            _tween = new TweenMax(_build, .5, {scaleX:.95, scaleY:1.05, ease:Linear.easeOut, onComplete: anim2});
+        }
+    }
+
+    private function anim2():void {
+        if (_isAnim) {
+            _tween = new TweenMax(_build, .5, {scaleX:1.05, scaleY:.95, ease:Linear.easeOut, onComplete: anim1});
+        }
+    }
+
+    private function stopTempAnimation():void {
+        _isAnim = false;
+        if (_tween) {
+            TweenMax.killTweensOf(_build);
+        }
+        _build.scaleX = _build.scaleY = 1;
+        _tween = null;
     }
 
 }

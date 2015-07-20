@@ -193,6 +193,8 @@ public class Tree extends AreaObject{
                     _arrCrafted.push(item);
                 }
                 break;
+            default:
+                Cc.error('tree state is WRONG');
         }
 
         _build.addChild(im);
@@ -204,7 +206,7 @@ public class Tree extends AreaObject{
         _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
         _isOnHover = true;
         _count = 20;
-        if(_state == GROW1 || _state == GROW2 || _state == GROW3){
+        if(_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3){
             g.gameDispatcher.addEnterFrame(countEnterFrame);
         }
     }
@@ -236,7 +238,7 @@ public class Tree extends AreaObject{
     }
 
     private function startGrow():void {
-        _timeToEndState = int(_resourceItem.leftTime + .5);
+        _timeToEndState = int(_resourceItem.leftTime/2 + .5);
         g.gameDispatcher.addToTimer(render);
     }
 
@@ -314,7 +316,11 @@ public class Tree extends AreaObject{
         if(_count <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
-                    g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.buildTime, _dataBuild.priceSkipHard, _dataBuild.name);
+                var time:int = _timeToEndState;
+                if (_state == GROW1 || _state == GROW2 || _state == GROW3) {
+                    time += int(_resourceItem.leftTime/2 + .5);
+                }
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, time, _dataBuild.priceSkipHard, _dataBuild.name);
             }
             if (_isOnHover == false) {
                 _source.filter = null;
