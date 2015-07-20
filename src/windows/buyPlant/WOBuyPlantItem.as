@@ -15,7 +15,7 @@ import utils.CSprite;
 
 import utils.MCScaler;
 
-public class WOItem {
+public class WOBuyPlantItem {
     public var source:CSprite;
     private var _bg:Image;
     private var _icon:Image;
@@ -25,7 +25,7 @@ public class WOItem {
 
     private var g:Vars = Vars.getInstance();
 
-    public function WOItem() {
+    public function WOBuyPlantItem() {
         source = new CSprite();
         _bg = new Image(g.interfaceAtlas.getTexture('tempItemBG'));
         MCScaler.scale(_bg, 100, 100);

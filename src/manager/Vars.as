@@ -61,6 +61,7 @@ import windows.Window;
 import windows.ambar.WOAmbar;
 import windows.ambar.WOSklad;
 import windows.buyCoupone.WOBuyCoupone;
+import windows.buyCurrency.WOBuyCurrency;
 
 import windows.buyPlant.WOBuyPlant;
 import windows.fabricaWindow.WOFabrica;
@@ -134,6 +135,7 @@ public class Vars {
     public var woLevelUp:WOLevelUp;
     public var woBuyCoupone:WOBuyCoupone;
     public var woNoResources:WONoResources;
+    public var woBuyCurrency:WOBuyCurrency;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -161,7 +163,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = true;
+        useDataFromServer = false;
         useHttps = true;
         //server = new Server();
         directServer = new DirectServer();
@@ -261,6 +263,7 @@ public class Vars {
         woShop = new WOShop();
         woLevelUp = new WOLevelUp();
         woBuyCoupone = new WOBuyCoupone();
+        woBuyCurrency = new WOBuyCurrency();
 
         managerDropResources = new ManagerDropBonusResource();
 
