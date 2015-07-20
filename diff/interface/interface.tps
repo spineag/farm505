@@ -253,6 +253,7 @@
             <filename>btn3.png</filename>
             <filename>btn4.png</filename>
             <filename>galo4ka.png</filename>
+            <filename>hintSidePixels2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

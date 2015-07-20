@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:7df3e379f1c76b5bf0320e0ff2e91bc8:52a5fa606dc29d5a33a0dd45a90dc4fa:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:c7cb986bdaf88791048a0b3d38511292:441a427405076dd73e23222c55ae8dbf:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png">
     <SubTexture name="add_friend" x="787" y="699" width="88" height="88"/>
     <SubTexture name="ambar_plawka" x="2" y="538" width="396" height="58"/>
@@ -27,8 +27,9 @@
     <SubTexture name="green_coupone" x="801" y="910" width="44" height="55"/>
     <SubTexture name="hard_board" x="697" y="833" width="143" height="47"/>
     <SubTexture name="help_icon" x="898" y="440" width="37" height="37"/>
-    <SubTexture name="hintMiddle" x="508" y="848" width="1" height="1"/>
+    <SubTexture name="hintMiddle" x="501" y="547" width="1" height="1"/>
     <SubTexture name="hintSidePixels" x="501" y="538" width="1" height="7"/>
+    <SubTexture name="hintSidePixels2" x="508" y="848" width="7" height="1"/>
     <SubTexture name="hintTopLeftPart" x="687" y="833" width="8" height="7"/>
     <SubTexture name="hint_circle" x="828" y="882" width="26" height="26"/>
     <SubTexture name="hint_wild" x="729" y="576" width="114" height="121"/>
