@@ -9,7 +9,7 @@ public class User {
     public var userId:String; // в базе
     public var userSocialId:String; // в соцсети
     public var name:String;
-    public var secondName:String;
+    public var lastName:String;
     public var ambarMaxCount:int;
     public var skladMaxCount:int;
     public var ambarLevel:int;
@@ -22,6 +22,8 @@ public class User {
     public var greenCouponCount:int;
     public var xp:int;
     public var level:int;
+    public var photo:String;
+    public var sex:String;
 
     public var imageMenu:String;
 
