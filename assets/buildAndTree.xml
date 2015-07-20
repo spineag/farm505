@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:59b6f91654b247d747ab929dfe867b1c:8a0c733fc171d9f2f226cf3044490c06:84c7e14bbf4b99ac5fd17545225ccbea$ -->
+<!-- $TexturePacker:SmartUpdate:7e1f1f04f6fda32842c1289cc830248b:768960f9e4588562a193981edc640f40:84c7e14bbf4b99ac5fd17545225ccbea$ -->
 <TextureAtlas imagePath="buildAndTree.png">
     <SubTexture name="ambar" x="374" y="2" width="58" height="103"/>
     <SubTexture name="bakery" x="846" y="2" width="102" height="90"/>
@@ -34,16 +34,19 @@
     <SubTexture name="jam_machine" x="1452" y="168" width="66" height="78"/>
     <SubTexture name="jeweler" x="765" y="2" width="79" height="91"/>
     <SubTexture name="juice_press" x="1514" y="82" width="65" height="76"/>
+    <SubTexture name="lenta" x="217" y="108" width="23" height="16"/>
     <SubTexture name="loom" x="1318" y="86" width="88" height="82"/>
     <SubTexture name="moped" x="559" y="202" width="42" height="50"/>
     <SubTexture name="pie_oven" x="582" y="98" width="121" height="93"/>
     <SubTexture name="pig" x="802" y="191" width="76" height="56" frameX="0" frameY="0" frameWidth="76" frameHeight="57"/>
     <SubTexture name="pizza_maker" x="1186" y="177" width="91" height="76"/>
+    <SubTexture name="ridge" x="306" y="213" width="81" height="41"/>
     <SubTexture name="sauce_maker" x="1463" y="2" width="81" height="78"/>
     <SubTexture name="sheep" x="1520" y="160" width="77" height="74"/>
     <SubTexture name="sklad" x="396" y="107" width="106" height="100"/>
     <SubTexture name="smelter" x="434" y="2" width="92" height="99"/>
     <SubTexture name="smoke_house" x="988" y="93" width="112" height="89"/>
+    <SubTexture name="stolb" x="210" y="108" width="5" height="23"/>
     <SubTexture name="sugar_mill" x="721" y="191" width="79" height="62"/>
     <SubTexture name="train" x="1279" y="175" width="108" height="79"/>
     <SubTexture name="wild1" x="1598" y="76" width="79" height="55"/>

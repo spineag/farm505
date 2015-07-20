@@ -218,6 +218,9 @@
             <filename>buildings/wild</filename>
             <filename>buildings/yogurt_machine.png</filename>
             <filename>buildings/zakaz.png</filename>
+            <filename>buildings/ridge.png</filename>
+            <filename>stolb.png</filename>
+            <filename>lenta.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
