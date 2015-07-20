@@ -2,6 +2,8 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
+import flash.geom.Point;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -68,7 +70,9 @@ public class WOItemFabrica {
     }
 
     private function onHover():void {
-        g.fabricHint.showIt(_dataRecipe);
+        var point:Point = new Point(0, 0);
+        var pointGlobal:Point = source.localToGlobal(point);
+        g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
     }
 
     private function onOut():void {
