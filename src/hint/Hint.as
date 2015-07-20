@@ -2,6 +2,10 @@
  * Created by user on 6/11/15.
  */
 package hint {
+import com.greensock.easing.Bounce;
+
+import flash.geom.Rectangle;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -28,20 +32,20 @@ public class Hint {
     private var _cornerRightDown:Image;
     private var _cornerRightUp:Image;
     private var _hintMiddle:Image;
+    private var rectangle:Rectangle;
 
     private var g:Vars = Vars.getInstance();
 
     public function Hint() {
         source = new Sprite();
         _contHint = new Sprite();
-
         _isShow = false;
         _txtHintOne = new TextField(70,50,"","Arial",14,Color.BLACK);
 
          _plankUp = new Image(g.interfaceAtlas.getTexture("hintSidePixels"));
          _plankDown = new Image(g.interfaceAtlas.getTexture("hintSidePixels"));
-         _plankRight = new Image(g.interfaceAtlas.getTexture("hintSidePixels"));
-         _plankLeft = new Image(g.interfaceAtlas.getTexture("hintSidePixels"));
+         _plankRight = new Image(g.interfaceAtlas.getTexture("hintSidePixels2"));
+         _plankLeft = new Image(g.interfaceAtlas.getTexture("hintSidePixels2"));
          _cornerLeftUp = new Image(g.interfaceAtlas.getTexture("hintTopLeftPart"));
          _cornerLeftDown = new Image(g.interfaceAtlas.getTexture("hintTopLeftPart"));
          _cornerRightDown = new Image(g.interfaceAtlas.getTexture("hintTopLeftPart"));
@@ -53,7 +57,9 @@ public class Hint {
         _cornerRightDown.scaleX *= -1;
         _cornerLeftDown.scaleY *= -1;
         _plankDown.scaleY *= -1;
-        _plankLeft.scaleY *= -1;
+        _plankLeft.scaleX *= -1;
+//        _plankRight.rotation = Math.PI / 2;
+//        _plankLeft.rotation = Math.PI / 2;
 
         _contHint.addChild(_plankUp);
         _contHint.addChild(_plankDown);
@@ -70,49 +76,57 @@ public class Hint {
     }
 
     public function showIt(name:String, number:String):void {
+        rectangle = _txtHintOne.textBounds;
+        createHint();
         _txtHintOne.text = name;
-        _hintMiddle.height = _txtHintOne.textBounds.height;
-        _hintMiddle.width = _txtHintOne.textBounds.width;
-        _plankUp.width = _txtHintOne.textBounds.width;
-        _plankDown.width = _txtHintOne.textBounds.width;
-        _plankRight.width = _txtHintOne.textBounds.height - _plankRight.width;
-        _plankLeft.width = _txtHintOne.textBounds.height - _plankLeft.width;
-        _plankRight.rotation = Math.PI / 2;
-        _plankLeft.rotation = Math.PI / 2;
+        _hintMiddle.height = rectangle.height;
+        _hintMiddle.width = rectangle.width;
+        _plankUp.width = rectangle.width;
+        _plankDown.width = rectangle.width;
+        _plankRight.height = int(rectangle.height);//rectangle.height - _plankRight.width
+        _plankLeft.height = int(rectangle.height);
+
         if(_isShow) return;
         _isShow = true;
-        createHint();
         g.cont.hintCont.addChild(source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
     }
 
     private function createHint():void {
-        _hintMiddle.x = _txtHintOne.textBounds.x;
-        _hintMiddle.y = _txtHintOne.textBounds.y;
 
-        _plankUp.x = _txtHintOne.textBounds.x;
-        _plankUp.y = _txtHintOne.textBounds.y - _plankUp.height;
+        _hintMiddle.x = rectangle.x;
+        _hintMiddle.y = rectangle.y;
 
-        _plankDown.x = _txtHintOne.textBounds.x;
-        _plankDown.y = _txtHintOne.textBounds.y + _txtHintOne.textBounds.height + _plankDown.height;
+        _plankUp.x = rectangle.x;
+        _plankUp.y = rectangle.y - _plankUp.height;
 
-        _plankRight.x = _txtHintOne.textBounds.x + _txtHintOne.textBounds.width + _plankRight.width;
-        _plankRight.y = _txtHintOne.textBounds.y + _plankRight.height - _txtHintOne.textBounds.height;
+        _plankDown.x = rectangle.x;
+        _plankDown.y = rectangle.y + rectangle.height + _plankDown.height;
+        if (_txtHintOne.text.length >= 9){
+            _plankRight.x = rectangle.x + rectangle.width;
+            _plankRight.y = rectangle.height - _plankRight.height + _cornerLeftUp.height;
 
-        _plankLeft.x = _txtHintOne.textBounds.x - _plankLeft.width;
-        _plankLeft.y = _txtHintOne.textBounds.y + _plankLeft.height - _txtHintOne.textBounds.height + 5;
+            _plankLeft.x = rectangle.x;
+            _plankLeft.y = rectangle.height - _plankRight.height + _cornerLeftUp.height;
+        }else if (_txtHintOne.text.length <= 8){
+            _plankRight.x = rectangle.x + rectangle.width;
+            _plankRight.y = rectangle.height;
 
-        _cornerLeftUp.x = _txtHintOne.textBounds.x - _cornerLeftUp.width;
-        _cornerLeftUp.y = _txtHintOne.textBounds.y - _cornerLeftUp.height;
+            _plankLeft.x = rectangle.x;
+            _plankLeft.y = rectangle.height;
+        }
 
-        _cornerLeftDown.x = _txtHintOne.textBounds.x - _cornerLeftDown.width;
-        _cornerLeftDown.y = _txtHintOne.textBounds.y + _txtHintOne.textBounds.height + _cornerLeftDown.height;
+        _cornerLeftUp.x = rectangle.x - _cornerLeftUp.width;
+        _cornerLeftUp.y = rectangle.y - _cornerLeftUp.height;
 
-        _cornerRightDown.x = _txtHintOne.textBounds.x + _txtHintOne.textBounds.width + _cornerRightDown.width;
-        _cornerRightDown.y = _txtHintOne.textBounds.y + _txtHintOne.textBounds.height + _cornerRightDown.height;
+        _cornerLeftDown.x = rectangle.x - _cornerLeftDown.width;
+        _cornerLeftDown.y = rectangle.y + rectangle.height + _cornerLeftDown.height;
 
-        _cornerRightUp.x = _txtHintOne.textBounds.x + _txtHintOne.textBounds.width + _cornerRightUp.width;
-        _cornerRightUp.y = _txtHintOne.textBounds.y - _cornerRightUp.height;
+        _cornerRightDown.x = rectangle.x + rectangle.width + _cornerRightDown.width;
+        _cornerRightDown.y = rectangle.y + rectangle.height + _cornerRightDown.height;
+
+        _cornerRightUp.x = rectangle.x + rectangle.width + _cornerRightUp.width;
+        _cornerRightUp.y = rectangle.y - _cornerRightUp.height;
     }
 
     private function onEnterFrame():void {
