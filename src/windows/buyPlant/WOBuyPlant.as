@@ -36,10 +36,10 @@ public class WOBuyPlant extends Window {
     }
 
     private function createItems():void {
-        var item:WOItem;
+        var item:WOBuyPlantItem;
         _arrItems = [];
         for (var i:int = 0; i < 15; i++) {
-            item = new WOItem();
+            item = new WOBuyPlantItem();
             item.source.x = -220 + i%5 * 110;
             if (i > 9) {
                 item.source.y = 120;

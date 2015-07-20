@@ -12,8 +12,12 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 public class SoftHardCurrency {
     private var _source:Sprite;
+    private var _contSoft:CSprite;
+    private var _contHard:CSprite;
     private var _txtSoft:TextField;
     private var _txtHard:TextField;
     private var _imageSoft:Image;
@@ -22,25 +26,30 @@ public class SoftHardCurrency {
 
     public function SoftHardCurrency() {
         _source = new Sprite();
+        _contSoft = new CSprite();
+        _contHard = new CSprite();
+        _contSoft.endClickCallback = onClickSoft;
+        _contHard.endClickCallback = onClickHard;
         g.cont.interfaceCont.addChild(_source);
-        _txtSoft = new TextField(100,100,"","Arial",18,Color.WHITE);
-        _txtSoft.x = 20;
-        _txtSoft.y = -17;
-        _txtHard = new TextField(100,100,"","Arial",18,Color.WHITE);
-        _txtHard.x = 20;
-        _txtHard.y = 35;
         _imageSoft = new Image(g.interfaceAtlas.getTexture("soft_board"));
         _imageSoft.x = 5;
         _imageHard = new Image(g.interfaceAtlas.getTexture("hard_board"));
         _imageHard.x = 5;
         _imageHard.y = 60;
-        _source.addChild(_imageSoft);
-        _source.addChild(_imageHard);
+        _txtSoft = new TextField(100,100,"","Arial",18,Color.WHITE);
+        _txtSoft.x = 90 - _txtSoft.width/2;
+        _txtSoft.y = -17;
+        _txtHard = new TextField(100,100,"","Arial",18,Color.WHITE);
+        _txtHard.x = 85 - _txtHard.width/2;
+        _txtHard.y = 35;
+        _contSoft.addChild(_imageSoft);
+        _contHard.addChild(_imageHard);
         _txtSoft.text = String(g.user.softCurrencyCount);
         _txtHard.text = String(g.user.hardCurrency);
-        _source.addChild(_txtSoft);
-        _source.addChild(_txtHard);
-
+        _contSoft.addChild(_txtSoft);
+        _contHard.addChild(_txtHard);
+        _source.addChild(_contHard);
+        _source.addChild(_contSoft);
     }
 
     public function checkSoft():void {
@@ -73,6 +82,18 @@ public class SoftHardCurrency {
 
     public function checkHard():void {
         _txtHard.text =  String(g.user.hardCurrency);
+    }
+
+    private function onClickSoft():void {
+        g.woBuyCurrency.showItMenu();
+        g.woBuyCurrency._contSoft.visible = true;
+        g.woBuyCurrency._contHard.visible = false;
+    }
+
+    private function onClickHard():void {
+        g.woBuyCurrency.showItMenu();
+        g.woBuyCurrency._contHard.visible = true;
+        g.woBuyCurrency._contSoft.visible = false;
     }
 }
 }

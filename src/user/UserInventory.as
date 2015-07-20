@@ -130,7 +130,7 @@ public class UserInventory {
 //        if(greenCouponCount < ) {
 //            bol = false
 //        }
-        if (!bol) g.woNoResources.showItMenu(_data, count);
+        if (!bol) g.woNoResources. showItMoney(_data, count);
         return bol;
     }
 
