@@ -68,11 +68,11 @@ public class FabricHint {
         _source.addChild(_txtTime);
         _source.addChild(_imageClock);
         _source.addChild(_contImage);
-        _source.x = 300;
-        _source.y = 300;
+//        _source.x = 300;
+//        _source.y = 300;
     }
 
-    public function showIt(data:Object):void {
+    public function showIt(data:Object, sX:int, sY:int):void {
         if (data) {
             _txtName.text = String(g.dataResource.objectResources[data.idResource].name);
             _txtTime.text = String(g.dataResource.objectResources[data.idResource].buildTime);
@@ -84,6 +84,8 @@ public class FabricHint {
             _imageItem.y = 160;
             MCScaler.scale(_imageItem, 40,40);
             _source.addChild(_imageItem);
+            _source.x = sX - 50;
+            _source.y = sY + 100;
             g.cont.hintCont.addChild(_source);
         }
     }
