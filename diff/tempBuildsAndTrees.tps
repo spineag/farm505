@@ -188,27 +188,25 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>tree1.png</filename>
-            <filename>tree2.png</filename>
-            <filename>tree3.png</filename>
-            <filename>tree4.png</filename>
-            <filename>tree5.png</filename>
-            <filename>ridge.png</filename>
-            <filename>stolb.png</filename>
-            <filename>lenta.png</filename>
-            <filename>buildings/wild</filename>
             <filename>buildings/ambar.png</filename>
             <filename>buildings/bakery.png</filename>
+            <filename>buildings/bazar.png</filename>
             <filename>buildings/bbq_grill.png</filename>
+            <filename>buildings/cave_active.PNG</filename>
+            <filename>buildings/cave.png</filename>
             <filename>buildings/confectionery.png</filename>
+            <filename>buildings/daily_bonus.png</filename>
             <filename>buildings/dairy.png</filename>
+            <filename>buildings/farm</filename>
             <filename>buildings/feed_mill.png</filename>
             <filename>buildings/fryer.png</filename>
+            <filename>buildings/gazeta.png</filename>
             <filename>buildings/ice_cream_maker.png</filename>
             <filename>buildings/jam_machine.png</filename>
             <filename>buildings/jeweler.png</filename>
             <filename>buildings/juice_press.png</filename>
             <filename>buildings/loom.png</filename>
+            <filename>buildings/moped.png</filename>
             <filename>buildings/pie_oven.png</filename>
             <filename>buildings/pizza_maker.png</filename>
             <filename>buildings/sauce_maker.png</filename>
@@ -216,25 +214,10 @@
             <filename>buildings/smelter.png</filename>
             <filename>buildings/smoke_house.png</filename>
             <filename>buildings/sugar_mill.png</filename>
+            <filename>buildings/train.png</filename>
+            <filename>buildings/wild</filename>
             <filename>buildings/yogurt_machine.png</filename>
-            <filename>buildings/farm/bee.png</filename>
-            <filename>buildings/farm/chicken.png</filename>
-            <filename>buildings/farm/cow.png</filename>
-            <filename>buildings/farm/farm_bee_house.png</filename>
-            <filename>buildings/farm/farm_bee.png</filename>
-            <filename>buildings/farm/farm_chicken_house.png</filename>
-            <filename>buildings/farm/farm_chicken.png</filename>
-            <filename>buildings/farm/farm_cow_house.png</filename>
-            <filename>buildings/farm/farm_cow.png</filename>
-            <filename>buildings/farm/farm_goat_house.png</filename>
-            <filename>buildings/farm/farm_goat.png</filename>
-            <filename>buildings/farm/farm_pig_house.png</filename>
-            <filename>buildings/farm/farm_pig.png</filename>
-            <filename>buildings/farm/farm_sheep_house.png</filename>
-            <filename>buildings/farm/farm_sheep.png</filename>
-            <filename>buildings/farm/goat.png</filename>
-            <filename>buildings/farm/pig.png</filename>
-            <filename>buildings/farm/sheep.png</filename>
+            <filename>buildings/zakaz.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
