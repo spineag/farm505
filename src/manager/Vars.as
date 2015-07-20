@@ -29,6 +29,12 @@ import server.DirectServer;
 
 import server.Server;
 
+import social.SocialNetwork;
+
+import social.SocialNetworkEvent;
+
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 import starling.display.Stage;
 import starling.textures.TextureAtlas;
@@ -83,7 +89,10 @@ public class Vars {
     public var userInventory:UserInventory;
     public var managerDropResources:ManagerDropBonusResource;
 
-    public var isDebug:Boolean = true;
+    public var socialNetwork:SocialNetwork;
+    public var flashVars:Object;
+    public var socialNetworkID:int;
+    public var isDebug:Boolean = false;
     public var showMapEditor:Boolean = true;
     public var mapEditor:MapEditorInterface;
     public var editorButtons:EditorButtonInterface;
@@ -164,7 +173,6 @@ public class Vars {
 
     private function initVariables():void {
         useDataFromServer = false;
-        useHttps = true;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
@@ -175,6 +183,29 @@ public class Vars {
         dataAnimal = new DataAnimal();
         dataLevel = new DataLevel();
 
+        user = new User();
+        userInventory = new UserInventory();
+        gameDispatcher = new FarmDispatcher(mainStage);
+
+        socialNetwork = new SocialNetwork(flashVars);
+        socialNetworkID = SocialNetworkSwitch.SN_VK;
+        SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+        socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+        socialNetwork.init();
+    }
+
+    private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
+        socialNetwork.removeEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+        socialNetwork.addEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
+        socialNetwork.getProfile(socialNetwork.currentUID);
+    }
+
+    private function authoriseUser(e:SocialNetworkEvent = null):void {
+        socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
+        getGameData();
+    }
+
+    private function getGameData():void {
         if (useDataFromServer) {
             directServer.getDataLevel(onDataLevel);
             startPreloader.setProgress(90);
@@ -203,9 +234,9 @@ public class Vars {
         startPreloader.setProgress(96);
     }
 
-     private function onDataResource():void {
+    private function onDataResource():void {
         directServer.getDataBuilding(onDataBuilding);
-         startPreloader.setProgress(98);
+        startPreloader.setProgress(98);
     }
 
     private function onDataBuilding():void {
@@ -217,9 +248,6 @@ public class Vars {
         startPreloader.hideIt();
         startPreloader = null;
 
-        user = new User();
-        userInventory = new UserInventory();
-        gameDispatcher = new FarmDispatcher(mainStage);
         matrixGrid = new MatrixGrid();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();

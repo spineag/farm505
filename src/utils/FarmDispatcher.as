@@ -5,6 +5,8 @@ package utils {
 import flash.events.TimerEvent;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
+import flash.utils.getQualifiedClassName;
+import flash.utils.getTimer;
 
 import starling.display.Stage;
 import starling.events.Event;
@@ -56,6 +58,7 @@ public class FarmDispatcher {
         for (var i:int = 0; i < _timerListeners.length; i++) {
             (_timerListeners[i] as Function).apply();
         }
+        timerTimerWithParamsHandler(e);
     }
 
     private function hasListener(listener:Function, listeners:Vector.<Function>):Boolean {
@@ -68,6 +71,35 @@ public class FarmDispatcher {
         index = listeners.indexOf(listener);
         if (index + 1) {
             listeners.splice(index, 1);
+        }
+    }
+
+    public function addToTimerWithParams(listener:Function, delay:uint = 1000, loop:uint = int.MAX_VALUE, ...params):void {
+        var key:String = getQualifiedClassName(listener) + "-" + getTimer();
+        _timerListenersWithParams[key] = {callback:listener, delay:delay, cDelay:0, loop:loop, cLoop: 0, params:params};
+    }
+
+    public function removeFromTimerWithParams(key:String):void {
+        if (_timerListenersWithParams[key]) {
+            _timerListenersWithParams[key] = null;
+            delete _timerListenersWithParams[key];
+        }
+    }
+
+    private function timerTimerWithParamsHandler(e:TimerEvent):void {
+        for (var key:String in _timerListenersWithParams) {
+            var cObject:Object = _timerListenersWithParams[key];
+            cObject.cDelay += 1000;
+            if (cObject.delay <= cObject.cDelay) {
+                cObject.cDelay = 0;
+                if (cObject.callback != null) {
+                    (cObject.callback as Function).apply(null, cObject.params);
+                    ++cObject.cLoop;
+                    if (cObject.loop <= cObject.cLoop) {
+                        removeFromTimerWithParams(key);
+                    }
+                }
+            }
         }
     }
 }
