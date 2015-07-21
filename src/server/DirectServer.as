@@ -373,7 +373,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
-            g.user.userId = String(d.message.id);
+            g.user.userId = int(d.message.id);
             if (callback != null) {
                 callback.apply();
             }
@@ -382,44 +382,55 @@ public class DirectServer {
         }
     }
 
-//    public function getUserInfo(callback:Function):void {
-//        var loader:URLLoader = new URLLoader();
-//        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_INFO);
-//        var variables:URLVariables = new URLVariables();
-//
-//        Cc.ch('server', 'getUserInfo', 1);
-////        variables = addDefault(variables);
-//        variables.idSocial = g.user.userSocialId;
-//        variables.name = g.user.name;
-//        variables.lastName = g.user.lastName;
-//        request.data = variables;
-//        request.method = URLRequestMethod.POST;
-//        loader.addEventListener(Event.COMPLETE, onCompleteAuthUser);
-//        function onCompleteAuthUser(e:Event):void { completeAuthUser(e.target.data, callback); }
-//        try {
-//            loader.load(request);
-//        } catch (error:Error) {
-//            Cc.error('authUser error:' + error.errorID);
-//        }
-//    }
-//
-//    private function completeAuthUser(response:String, callback:Function = null):void {
-//        var d:Object;
-//        try {
-//            d = JSON.parse(response);
-//        } catch (e:Error) {
-//            Cc.error('authUser: wrong JSON:' + String(response));
-//            return;
-//        }
-//
-//        if (d.id == 0) {
-//            g.user.userId = String(d.message.id);
-//            if (callback != null) {
-//                callback.apply();
-//            }
-//        } else {
-//            Cc.error('authUser: id: ' + d.id + '  with message: ' + d.message);
-//        }
-//    }
+    public function getUserInfo(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_INFO);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserInfo', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUserInfo);
+        function onCompleteUserInfo(e:Event):void { completeUserInfo(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('userInfo error:' + error.errorID);
+        }
+    }
+
+    private function completeUserInfo(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('userInfo: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            var ob:Object = d.message;
+            g.user.ambarLevel = int(ob.ambar_level);
+            g.user.skladLevel = int(ob.sklad_level);
+            g.user.ambarMaxCount = int(ob.ambar_max);
+            g.user.skladMaxCount = int(ob.sklad_max);
+            g.user.hardCurrency = int(ob.hard_count);
+            g.user.softCurrencyCount = int(ob.hard_count);
+            g.user.redCouponCount = int(ob.red_count);
+            g.user.yellowCouponCount = int(ob.yellow_count);
+            g.user.blueCouponCount = int(ob.blue_count);
+            g.user.greenCouponCount = int(ob.green_count);
+            g.user.globalXP = int(ob.xp);
+            g.user.isTester = Boolean(int(ob.is_tester));
+
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

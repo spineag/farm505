@@ -209,6 +209,10 @@ public class Vars {
     }
 
     private function onAuthUser():void {
+        directServer.getUserInfo(onUserInfo);
+    }
+
+    private function onUserInfo():void {
         getGameData();
     }
 
@@ -255,6 +259,7 @@ public class Vars {
         startPreloader.hideIt();
         startPreloader = null;
 
+        (user as User).checkUserLevel();
         matrixGrid = new MatrixGrid();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
