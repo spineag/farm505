@@ -3,6 +3,9 @@
  */
 package build.tree {
 import build.AreaObject;
+
+import flash.geom.Point;
+
 import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
@@ -215,6 +218,7 @@ public class Tree extends AreaObject{
         _source.filter = null;
         _isOnHover = false;
         g.gameDispatcher.addEnterFrame(countEnterFrame);
+        g.gameDispatcher.addEnterFrame(countEnterFrameDead);
     }
 
     private function onClick():void {
@@ -231,7 +235,10 @@ public class Tree extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-
+            if (_state == DEAD){
+//                g.gameDispatcher.addEnterFrame(countEnterFrameDead);
+                g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name)
+            }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
@@ -328,5 +335,19 @@ public class Tree extends AreaObject{
             }
         }
     }
+    private function countEnterFrameDead():void {
+        _count--;
+        if (_count <= 0) {
+            g.gameDispatcher.removeEnterFrame(countEnterFrameDead);
+            if (_isOnHover == true) {
+                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name)
+            }
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.treeHint.hideIt();
+            }
+        }
+    }
 }
 }
+
