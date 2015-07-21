@@ -283,8 +283,10 @@ public class DirectServer {
 
                 if (d.message[i].currency) obj.currency = int(d.message[i].currency);
                 if (d.message[i].cost) obj.cost = int(d.message[i].cost);
-                if (d.message[i].block_by_level) obj.blockByLevel = String(d.message[i].block_by_level).split('&');
-                for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
+                if (d.message[i].block_by_level) {
+                    obj.blockByLevel = String(d.message[i].block_by_level).split('&');
+                    for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
+                }
                 if (d.message[i].cost_skip) obj.priceSkipHard = d.message[i].cost_skip;
                 if (d.message[i].build_time) obj.buildTime = d.message[i].build_time;
                 if (d.message[i].image_s) obj.imageGrowSmall = d.message[i].image_s;
@@ -339,5 +341,85 @@ public class DirectServer {
             Cc.error('getDataBuilding: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function authUser(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_START);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'authUser', 1);
+//        variables = addDefault(variables);
+        variables.idSocial = g.user.userSocialId;
+        variables.name = g.user.name;
+        variables.lastName = g.user.lastName;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAuthUser);
+        function onCompleteAuthUser(e:Event):void { completeAuthUser(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('authUser error:' + error.errorID);
+        }
+    }
+
+    private function completeAuthUser(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('authUser: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            g.user.userId = String(d.message.id);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('authUser: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+//    public function getUserInfo(callback:Function):void {
+//        var loader:URLLoader = new URLLoader();
+//        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_INFO);
+//        var variables:URLVariables = new URLVariables();
+//
+//        Cc.ch('server', 'getUserInfo', 1);
+////        variables = addDefault(variables);
+//        variables.idSocial = g.user.userSocialId;
+//        variables.name = g.user.name;
+//        variables.lastName = g.user.lastName;
+//        request.data = variables;
+//        request.method = URLRequestMethod.POST;
+//        loader.addEventListener(Event.COMPLETE, onCompleteAuthUser);
+//        function onCompleteAuthUser(e:Event):void { completeAuthUser(e.target.data, callback); }
+//        try {
+//            loader.load(request);
+//        } catch (error:Error) {
+//            Cc.error('authUser error:' + error.errorID);
+//        }
+//    }
+//
+//    private function completeAuthUser(response:String, callback:Function = null):void {
+//        var d:Object;
+//        try {
+//            d = JSON.parse(response);
+//        } catch (e:Error) {
+//            Cc.error('authUser: wrong JSON:' + String(response));
+//            return;
+//        }
+//
+//        if (d.id == 0) {
+//            g.user.userId = String(d.message.id);
+//            if (callback != null) {
+//                callback.apply();
+//            }
+//        } else {
+//            Cc.error('authUser: id: ' + d.id + '  with message: ' + d.message);
+//        }
+//    }
 }
 }

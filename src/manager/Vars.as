@@ -172,7 +172,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = false;
+        useDataFromServer = true;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
@@ -202,6 +202,10 @@ public class Vars {
 
     private function authoriseUser(e:SocialNetworkEvent = null):void {
         socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
+        directServer.authUser(onAuthUser);
+    }
+
+    private function onAuthUser():void {
         getGameData();
     }
 
