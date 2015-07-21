@@ -28,7 +28,7 @@ public class Wild extends AreaObject{
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         _isOnHover = true;
         var f:Function = function():void{
-            if (_isOnHover)  g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10, _dataBuild.craftIdResource);
+            if (_isOnHover)  g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10, _dataBuild.removeByResourceId);
             g.gameDispatcher.removeFromTimer(f);
         };
         g.gameDispatcher.addToTimer(f);

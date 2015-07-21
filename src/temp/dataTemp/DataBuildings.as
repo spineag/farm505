@@ -500,6 +500,7 @@ public class DataBuildings {
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 15;
+        obj.removeByResourceId =7;
         obj.countCraftResource = [2, 3, 4];
         obj.skipBuildIt = 1;
         obj.buildTime = 20;
@@ -533,6 +534,7 @@ public class DataBuildings {
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 16;
+        obj.removeByResourceId = 7;
         obj.countCraftResource = [2, 3, 4];
         obj.skipBuildIt = 2;
         obj.buildTime = 15000;
@@ -566,6 +568,7 @@ public class DataBuildings {
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 20;
+        obj.removeByResourceId = 7;
         obj.countCraftResource = [2, 3, 4];
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
@@ -599,6 +602,7 @@ public class DataBuildings {
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = 1;
         obj.craftIdResource = 119;
+        obj.removeByResourceId = 7;
         obj.countCraftResource = [2, 3, 4];
         obj.skipBuildIt = [1];
         obj.buildTime = 10000;
@@ -632,6 +636,7 @@ public class DataBuildings {
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = 1;
         obj.craftIdResource = 120;
+        obj.removeByResourceId = 7;
         obj.countCraftResource = [2, 3, 4];
         obj.skipBuildIt = [1];
         obj.buildTime = 10000;
@@ -649,7 +654,7 @@ public class DataBuildings {
         obj.url = "buildAtlas";
         obj.image = "wild1";
         obj.buildType = BuildType.WILD;
-        obj.craftIdResource = 12;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        obj.removeByResourceId = 7;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
         objectBuilding[obj.id ] = obj;
 //
         obj = {};
@@ -664,7 +669,7 @@ public class DataBuildings {
         obj.url = "buildAtlas";
         obj.image = "wild2";
         obj.buildType = BuildType.WILD;
-        obj.craftIdResource = 10;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        obj.removeByResourceId = 7;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
         objectBuilding[obj.id ] = obj;
 //
         obj = {};
@@ -679,7 +684,7 @@ public class DataBuildings {
         obj.url = "buildAtlas";
         obj.image = "wild3";
         obj.buildType = BuildType.WILD;
-        obj.craftIdResource = 4;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        obj.removeByResourceId = 7;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
         objectBuilding[obj.id ] = obj;
 //
         obj = {};
@@ -694,7 +699,7 @@ public class DataBuildings {
         obj.url = "buildAtlas";
         obj.image = "wild4";
         obj.buildType = BuildType.WILD;
-        obj.craftIdResource = 2;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        obj.removeByResourceId = 7;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
         objectBuilding[obj.id ] = obj;
 //
         obj = {};
@@ -709,7 +714,7 @@ public class DataBuildings {
         obj.url = "buildAtlas";
         obj.image = "wild5";
         obj.buildType = BuildType.WILD;
-        obj.craftIdResource = 13;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        obj.removeByResourceId = 7;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
         objectBuilding[obj.id ] = obj;
 //
         obj = {};
@@ -724,7 +729,7 @@ public class DataBuildings {
         obj.url = "buildAtlas";
         obj.image = "wild6";
         obj.buildType = BuildType.WILD;
-        obj.craftIdResource = 2;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
+        obj.removeByResourceId = 7;     // для wild это ресурс означает инструмент, которым будет убираться сам этот wild
         objectBuilding[obj.id ] = obj;
 //
         obj = {};
@@ -849,6 +854,7 @@ public class DataBuildings {
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 121;
+        obj.removeByResourceId = 7;
         obj.countCraftResource = [2, 3, 4];
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
@@ -882,6 +888,7 @@ public class DataBuildings {
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 122;
+        obj.removeByResourceId = 2;
         obj.countCraftResource = [2, 3, 4];
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
@@ -915,6 +922,7 @@ public class DataBuildings {
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 123;
+        obj.removeByResourceId = 2;
         obj.countCraftResource = [2, 3, 4];
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;

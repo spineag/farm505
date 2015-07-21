@@ -19,7 +19,7 @@ public class WildHint {
     private var _circle:Image;
     private var _bg:Image;
     private var _iconResource:Image;
-    private var _countTxt:TextField;
+    private var _txtCount:TextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -32,6 +32,7 @@ public class WildHint {
         _source.pivotX = _source.width/2;
         _source.pivotY = _source.height;
         _circle = new Image(g.interfaceAtlas.getTexture('hint_circle'));
+        _txtCount = new TextField(50,50,"","Arial",12,Color.BLACK);
         _circle.x = 70;
         _circle.y = 10;
         _source.addChild(_circle);
@@ -47,9 +48,12 @@ public class WildHint {
        if (_isShowed) return;
         _isShowed = true;
         _iconResource = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
+        _txtCount.text = String(g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId));
+        _txtCount.x = 58;
         MCScaler.scale(_iconResource, 60, 60);
         _iconResource.x = _source.width/2 - _iconResource.width/2;
         _iconResource.y = 18;
+        _source.addChild(_txtCount);
         _source.addChild(_iconResource);
         _source.x = x;
         _source.y = y;
