@@ -590,7 +590,7 @@ public class DirectServer {
         try {
             d = JSON.parse(response);
             for (var i:int = 0; i < d.message.length; i++) {
-                g.userInventory.addResource(int(d.message[i].resource_id), int(d.message[i].count));
+                g.userInventory.addResource(int(d.message[i].resource_id), int(d.message[i].count), false);
             }
         } catch (e:Error) {
             Cc.error('GetUserResource: wrong JSON:' + String(response));
@@ -603,6 +603,51 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserResource: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function addUserResource(resourceId:int, count:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_RESOURCE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserResource', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.resourceId = resourceId;
+        variables.count = count;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserResource);
+        function onCompleteAddUserResource(e:Event):void { completeAddUserResource(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserResource error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserResource(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserResource: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('addUserResource: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
         }
     }
 }

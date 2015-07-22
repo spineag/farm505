@@ -21,10 +21,14 @@ public class UserInventory {
          else return 0;
     }
 
-    public function addResource(id:int, count:int):void {
+    public function addResource(id:int, count:int, needSendToServer:Boolean = true):void {
+        if (count == 0) return;
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
         _inventoryResource[id] += count;
         if (_inventoryResource[id] == 0) delete(_inventoryResource[id]);
+        if (needSendToServer) {
+            g.directServer.addUserResource(id, count, null);
+        }
     }
 
     public function getResourcesForAmbar():Array {

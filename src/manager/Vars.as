@@ -341,7 +341,7 @@ public class Vars {
             k = int(Math.random()*129) + 1;
             if (dataResource.objectResources[k].placeBuild != BuildType.PLACE_AMBAR) {
                 if (dataResource.objectResources[k]) {
-                    userInventory.addResource(k, 1);
+                    userInventory.addResource(k, 1, false);
                 }
             }
             i--;
