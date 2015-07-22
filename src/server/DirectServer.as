@@ -480,7 +480,7 @@ public class DirectServer {
 
     public function addUserXP(count:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_XP);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_XP);
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserXP', 1);
@@ -524,7 +524,7 @@ public class DirectServer {
 
     public function updateUserLevel(callback:Function):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_LEVEL);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_LEVEL);
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserLevel', 1);
@@ -563,6 +563,46 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [false]);
             }
+        }
+    }
+
+    public function getUserResource(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_RESOURCE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserResource', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserResource);
+        function onCompleteGetUserResource(e:Event):void { completeGetUserResource(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserResource error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserResource(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+            for (var i:int = 0; i < d.message.length; i++) {
+                g.userInventory.addResource(int(d.message[i].resource_id), int(d.message[i].count));
+            }
+        } catch (e:Error) {
+            Cc.error('GetUserResource: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('GetUserResource: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

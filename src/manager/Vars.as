@@ -6,6 +6,8 @@ import build.WorldObject;
 
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import hint.FlyMessage;
 
 import hint.TreeHint;
@@ -216,6 +218,10 @@ public class Vars {
     }
 
     private function onUserInfo():void {
+        directServer.getUserResource(onUserResource);
+    }
+
+    private function onUserResource():void {
         getGameData();
     }
 
@@ -333,8 +339,10 @@ public class Vars {
 
         while (i>0) {
             k = int(Math.random()*129) + 1;
-            if (dataResource.objectResources[k]) {
-                userInventory.addResource(k, 1);
+            if (dataResource.objectResources[k].placeBuild != BuildType.PLACE_AMBAR) {
+                if (dataResource.objectResources[k]) {
+                    userInventory.addResource(k, 1);
+                }
             }
             i--;
         }
