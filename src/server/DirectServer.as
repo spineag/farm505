@@ -477,5 +477,49 @@ public class DirectServer {
             }
         }
     }
+
+    public function addUserXP(count:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_XP);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserXP', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.count = count;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserXP);
+        function onCompleteAddUserXP(e:Event):void { completeAddUserXP(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserXP error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserXP(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserXP: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('addUserXP: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
 }
 }

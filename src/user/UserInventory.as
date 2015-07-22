@@ -107,7 +107,7 @@ public class UserInventory {
             g.directServer.addUserMoney(typeCurrency, count, onAddUserMoney);
     }
 
-    private function onAddUserMoney(isGood:Boolean = true):void {
+    private function onAddUserMoney(b:Boolean = true):void {
 
     }
 

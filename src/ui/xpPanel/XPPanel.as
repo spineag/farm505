@@ -58,9 +58,9 @@ public class XPPanel {
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
     }
 
-    public function addXP(number:int):void{
-        g.user.xp += number;
-        g.user.globalXP += number;
+    public function addXP(count:int):void{
+        g.user.xp += count;
+        g.user.globalXP += count;
         if (g.user.xp >= _maxXP){
             g.user.xp -= _maxXP;
             g.user.level++;
@@ -69,6 +69,12 @@ public class XPPanel {
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
         }
         checkXP();
+        if (count)
+            g.directServer.addUserXP(count, onAddUserXP);
+    }
+
+    private function onAddUserXP(b:Boolean = true):void {
+
     }
 
     private function checkXP():void{
