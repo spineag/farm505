@@ -25,7 +25,7 @@ public class WOLevelUpItem {
         source = new Sprite();
         _txt = new TextField(source.width, source.height, st, "Arial", 20, Color.BLACK);
         if (ob.buildType == BuildType.FARM){
-            _image = new Image(g.tempBuildAtlas.getTexture(ob.imageShop));
+            _image = new Image(g.tempBuildAtlas.getTexture(ob.image));
             _imagePlus = new Image(g.tempBuildAtlas.getTexture(ob.imageHouse));
             _imagePlus.x = ob.innerHouseX;
             _imagePlus.y = ob.innerHouseY;

@@ -145,13 +145,13 @@ public class Fabrica extends AreaObject {
 
     private function anim1():void {
         if (_isAnim) {
-            _tween = new TweenMax(_build, .5, {scaleX:.95, scaleY:1.05, ease:Linear.easeOut, onComplete: anim2});
+            _tween = new TweenMax(_build, .5, {scaleX:.97, scaleY:1.03, ease:Linear.easeOut, onComplete: anim2});
         }
     }
 
     private function anim2():void {
         if (_isAnim) {
-            _tween = new TweenMax(_build, .5, {scaleX:1.05, scaleY:.95, ease:Linear.easeOut, onComplete: anim1});
+            _tween = new TweenMax(_build, .5, {scaleX:1.03, scaleY:.97, ease:Linear.easeOut, onComplete: anim1});
         }
     }
 

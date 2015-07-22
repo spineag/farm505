@@ -56,26 +56,27 @@ public class XPPanel {
         _source.addChild(_XPPanel);
         _source.addChild(_txtLevel);
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
+        checkXP();
     }
 
     public function addXP(count:int):void{
         g.user.xp += count;
         g.user.globalXP += count;
+        if (count)
+            g.directServer.addUserXP(count, onAddUserXP);
         if (g.user.xp >= _maxXP){
             g.user.xp -= _maxXP;
             g.user.level++;
             _txtLevel.text = String(g.user.level);
             g.woLevelUp.showLevelUp();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
+            g.directServer.updateUserLevel(onUpdateUserLevel);
         }
         checkXP();
-        if (count)
-            g.directServer.addUserXP(count, onAddUserXP);
     }
 
-    private function onAddUserXP(b:Boolean = true):void {
-
-    }
+    private function onAddUserXP(b:Boolean = true):void {}
+    private function onUpdateUserLevel(b:Boolean = true):void {}
 
     private function checkXP():void{
         _XPProgres.width = (g.user.xp * _maxWidth) / _maxXP;

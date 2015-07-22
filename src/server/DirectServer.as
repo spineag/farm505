@@ -521,5 +521,49 @@ public class DirectServer {
             }
         }
     }
+
+    public function updateUserLevel(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_LEVEL);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserLevel', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.level = g.user.level;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserLevel);
+        function onCompleteUpdateUserLevel(e:Event):void { completeUpdateUserLevel(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserLevel error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserLevel(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserLevel: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
 }
 }
