@@ -417,7 +417,7 @@ public class DirectServer {
             g.user.ambarMaxCount = int(ob.ambar_max);
             g.user.skladMaxCount = int(ob.sklad_max);
             g.user.hardCurrency = int(ob.hard_count);
-            g.user.softCurrencyCount = int(ob.hard_count);
+            g.user.softCurrencyCount = int(ob.soft_count);
             g.user.redCouponCount = int(ob.red_count);
             g.user.yellowCouponCount = int(ob.yellow_count);
             g.user.blueCouponCount = int(ob.blue_count);
@@ -430,6 +430,51 @@ public class DirectServer {
             }
         } else {
             Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function addUserMoney(type:int, count:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_MONEY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserMoney', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.type = type;
+        variables.count = count;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserMoney);
+        function onCompleteAddUserMoney(e:Event):void { completeAddUserMoney(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserMoney error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserMoney(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserMoney: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('addUserMoney: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
         }
     }
 }
