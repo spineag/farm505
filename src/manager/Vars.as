@@ -178,7 +178,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = false;
+        useDataFromServer = true;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
@@ -208,6 +208,14 @@ public class Vars {
 
     private function authoriseUser(e:SocialNetworkEvent = null):void {
         socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
+        directServer.authUser(onAuthUser);
+    }
+
+    private function onAuthUser():void {
+        directServer.getUserInfo(onUserInfo);
+    }
+
+    private function onUserInfo():void {
         getGameData();
     }
 
@@ -254,6 +262,7 @@ public class Vars {
         startPreloader.hideIt();
         startPreloader = null;
 
+        (user as User).checkUserLevel();
         matrixGrid = new MatrixGrid();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();

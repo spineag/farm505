@@ -60,6 +60,7 @@ public class XPPanel {
 
     public function addXP(number:int):void{
         g.user.xp += number;
+        g.user.globalXP += number;
         if (g.user.xp >= _maxXP){
             g.user.xp -= _maxXP;
             g.user.level++;

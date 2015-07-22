@@ -283,8 +283,10 @@ public class DirectServer {
 
                 if (d.message[i].currency) obj.currency = int(d.message[i].currency);
                 if (d.message[i].cost) obj.cost = int(d.message[i].cost);
-                if (d.message[i].block_by_level) obj.blockByLevel = String(d.message[i].block_by_level).split('&');
-                for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
+                if (d.message[i].block_by_level) {
+                    obj.blockByLevel = String(d.message[i].block_by_level).split('&');
+                    for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
+                }
                 if (d.message[i].cost_skip) obj.priceSkipHard = d.message[i].cost_skip;
                 if (d.message[i].build_time) obj.buildTime = d.message[i].build_time;
                 if (d.message[i].image_s) obj.imageGrowSmall = d.message[i].image_s;
@@ -337,6 +339,142 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataBuilding: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function authUser(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_START);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'authUser', 1);
+//        variables = addDefault(variables);
+        variables.idSocial = g.user.userSocialId;
+        variables.name = g.user.name;
+        variables.lastName = g.user.lastName;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAuthUser);
+        function onCompleteAuthUser(e:Event):void { completeAuthUser(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('authUser error:' + error.errorID);
+        }
+    }
+
+    private function completeAuthUser(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('authUser: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            g.user.userId = int(d.message.id);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('authUser: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getUserInfo(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_INFO);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserInfo', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUserInfo);
+        function onCompleteUserInfo(e:Event):void { completeUserInfo(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('userInfo error:' + error.errorID);
+        }
+    }
+
+    private function completeUserInfo(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('userInfo: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            var ob:Object = d.message;
+            g.user.ambarLevel = int(ob.ambar_level);
+            g.user.skladLevel = int(ob.sklad_level);
+            g.user.ambarMaxCount = int(ob.ambar_max);
+            g.user.skladMaxCount = int(ob.sklad_max);
+            g.user.hardCurrency = int(ob.hard_count);
+            g.user.softCurrencyCount = int(ob.soft_count);
+            g.user.redCouponCount = int(ob.red_count);
+            g.user.yellowCouponCount = int(ob.yellow_count);
+            g.user.blueCouponCount = int(ob.blue_count);
+            g.user.greenCouponCount = int(ob.green_count);
+            g.user.globalXP = int(ob.xp);
+            g.user.isTester = Boolean(int(ob.is_tester));
+
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function addUserMoney(type:int, count:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_MONEY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserMoney', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.type = type;
+        variables.count = count;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserMoney);
+        function onCompleteAddUserMoney(e:Event):void { completeAddUserMoney(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserMoney error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserMoney(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserMoney: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('addUserMoney: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
         }
     }
 }

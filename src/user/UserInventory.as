@@ -102,7 +102,15 @@ public class UserInventory {
                 g.user.greenCouponCount += count;
                 break;
         }
+
+        if (count)
+            g.directServer.addUserMoney(typeCurrency, count, onAddUserMoney);
     }
+
+    private function onAddUserMoney(isGood:Boolean = true):void {
+
+    }
+
     public function checkMoney(_data:Object):Boolean {
         var count:int;
         var bol:Boolean = true;

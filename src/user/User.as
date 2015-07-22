@@ -6,7 +6,7 @@ package user {
 import manager.Vars;
 
 public class User {
-    public var userId:String; // в базе
+    public var userId:int; // в базе
     public var userSocialId:String; // в соцсети
     public var name:String;
     public var lastName:String;
@@ -20,27 +20,30 @@ public class User {
     public var redCouponCount:int;
     public var blueCouponCount:int;
     public var greenCouponCount:int;
-    public var xp:int;
-    public var level:int;
+    public var xp:int = 0;
+    public var globalXP:int;
+    public var level:int = 1;
     public var photo:String;
-    public var sex:String;
-
-    public var imageMenu:String;
+    public var sex:String = 'm';
+    public var isTester:Boolean;
 
     private var g:Vars = Vars.getInstance();
-    public function User() {
-        level = 1;
-        xp = 0;
-        ambarLevel = 1;
-        skladLevel = 1;
-        ambarMaxCount = 50;
-        skladMaxCount = 50;
-        softCurrencyCount = 10000;
-        hardCurrency = 50;
-        yellowCouponCount = 10;
-        redCouponCount = 10;
-        blueCouponCount = 10;
-        greenCouponCount = 10;
+
+    public function User() { }
+
+    public function checkUserLevel():void {
+        var levels:Object = g.dataLevel.objectLevels;
+        var txp:int = 0;
+        for (var st:String in levels) {
+            if (txp + levels[st].xp > globalXP) {
+                xp = globalXP - txp;
+                level = int(levels[st].id) - 1;
+                return;
+            } else {
+                level = levels[st].id;
+                txp += levels[st].xp;
+            }
+        }
     }
 
 }
