@@ -1,7 +1,7 @@
 /**
  * Created by user on 6/17/15.
  */
-package windows.ambar {
+package windows.market {
 
 import manager.Vars;
 
@@ -16,7 +16,7 @@ import utils.CSprite;
 
 import utils.MCScaler;
 
-public class AmbarCell {
+public class MarketCell {
     public var source:CSprite;
 
     private var _info:Object; // id & count
@@ -26,11 +26,9 @@ public class AmbarCell {
     private var g:Vars = Vars.getInstance();
     private var _clickCallback:Function;
 
-    public function AmbarCell(info:Object) {
+    public function MarketCell(info:Object) {
         _clickCallback = null;
         source = new CSprite();
-        source.hoverCallback = onHover;
-        source.outCallback = onOut;
         source.endClickCallback = onClick;
         var quad:Quad = new Quad(99, 99, Color.BLACK);
         quad.alpha = .1 + Math.random()*.3;
@@ -65,14 +63,6 @@ public class AmbarCell {
         source = null;
         _image = null;
         _countTxt = null;
-    }
-
-    private function onHover():void {
-        g.resourceHint.showIt(_data.id,"",source.x,source.y,source);
-    }
-
-    private function onOut():void {
-        g.resourceHint.hideIt();
     }
 
     public function set clickCallback(f:Function):void {

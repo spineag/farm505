@@ -79,6 +79,7 @@ import windows.buyCurrency.WOBuyCurrency;
 import windows.buyPlant.WOBuyPlant;
 import windows.fabricaWindow.WOFabrica;
 import windows.levelUp.WOLevelUp;
+import windows.market.WOMarket;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
 import windows.shop.WOShop;
@@ -157,6 +158,7 @@ public class Vars {
     public var woNoResources:WONoResources;
     public var woBuyCurrency:WOBuyCurrency;
     public var woOrder:WOOrder;
+    public var woMarket:WOMarket;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -291,8 +293,6 @@ public class Vars {
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
 
-        woNoResources = new WONoResources();
-
         continueInitGame();
     }
 
@@ -312,6 +312,7 @@ public class Vars {
             deactivatedAreaManager = new DeactivatedAreaManager();
         }
 
+        woNoResources = new WONoResources();
         woBuyPlant = new WOBuyPlant();
         woFabrica = new WOFabrica();
         woAmbar = new WOAmbar();
@@ -321,6 +322,7 @@ public class Vars {
         woBuyCoupone = new WOBuyCoupone();
         woBuyCurrency = new WOBuyCurrency();
         woOrder = new WOOrder();
+        woMarket = new WOMarket();
 
         managerDropResources = new ManagerDropBonusResource();
 

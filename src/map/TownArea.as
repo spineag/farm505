@@ -9,6 +9,7 @@ import build.decor.DecorFence;
 import build.decor.DecorPostFence;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
+import build.market.Market;
 import build.orders.Order;
 import build.ridge.Ridge;
 import build.testBuild.TestBuild;
@@ -165,7 +166,9 @@ public class TownArea extends Sprite {
             case BuildType.ORDER:
                 build = new Order(_data);
                 break;
-            //case и так далее проходимся по всем классам
+            case BuildType.MARKET:
+                build = new Market(_data);
+                break;
         }
 
         if (!build) {
