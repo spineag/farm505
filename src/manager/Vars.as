@@ -79,6 +79,7 @@ import windows.buyPlant.WOBuyPlant;
 import windows.fabricaWindow.WOFabrica;
 import windows.levelUp.WOLevelUp;
 import windows.noResources.WONoResources;
+import windows.orderWindow.WOOrder;
 import windows.shop.WOShop;
 
 public class Vars {
@@ -153,6 +154,7 @@ public class Vars {
     public var woBuyCoupone:WOBuyCoupone;
     public var woNoResources:WONoResources;
     public var woBuyCurrency:WOBuyCurrency;
+    public var woOrder:WOOrder;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -315,6 +317,7 @@ public class Vars {
         woLevelUp = new WOLevelUp();
         woBuyCoupone = new WOBuyCoupone();
         woBuyCurrency = new WOBuyCurrency();
+        woOrder = new WOOrder();
 
         managerDropResources = new ManagerDropBonusResource();
 

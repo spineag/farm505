@@ -394,6 +394,21 @@ public class DataBuildings {
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
 
+        obj = {};
+        obj.id = 43;
+        obj.name = "Стол заказов";
+        obj.width = 1;
+        obj.height = 2;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -27;
+        obj.innerY = -38;
+        obj.url = "buildAtlas";
+        obj.image = "zakaz";
+        obj.buildType = BuildType.ORDER;
+        obj.blockByLevel = [3];
+        objectBuilding[obj.id ] = obj;
+
                                         // -------------------------- DECOR -----------------------
 
 //        21

@@ -222,7 +222,7 @@ public class MapEditorInterface {
 
         for(var id:String in obj) {
             if (obj[id].buildType == BuildType.FABRICA || obj[id].buildType == BuildType.TEST || obj[id].buildType == BuildType.FARM
-                    || obj[id].buildType == BuildType.RIDGE || obj[id].buildType == BuildType.AMBAR || obj[id].buildType == BuildType.SKLAD) {
+                    || obj[id].buildType == BuildType.RIDGE || obj[id].buildType == BuildType.AMBAR || obj[id].buildType == BuildType.SKLAD || obj[id].buildType == BuildType.ORDER) {
                 item = new MapEditorInterfaceItem(obj[id], TYPE_BUILDING);
                 item.source.y = 20;
                 item.source.x = i * 80;

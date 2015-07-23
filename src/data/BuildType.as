@@ -26,5 +26,6 @@ public class BuildType {
     public static const PET:int = 17;
     public static const PET_HOUSE:int = 18;
     public static const ANIMAL:int = 19;
+    public static const ORDER:int = 20;
 }
 }
