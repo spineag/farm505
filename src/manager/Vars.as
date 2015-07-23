@@ -158,7 +158,7 @@ public class Vars {
     public var directServer:DirectServer;
     public var useHttps:Boolean;
     public var startPreloader:StartPreloader;
-    private var useDataFromServer:Boolean;
+    public var useDataFromServer:Boolean;
     public var dataPath:DataPath;
 
     public static function getInstance():Vars {
@@ -180,7 +180,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = true;
+        useDataFromServer = false;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
@@ -195,11 +195,20 @@ public class Vars {
         userInventory = new UserInventory();
         gameDispatcher = new FarmDispatcher(mainStage);
 
-        socialNetwork = new SocialNetwork(flashVars);
-        socialNetworkID = SocialNetworkSwitch.SN_VK;
-        SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-        socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-        socialNetwork.init();
+        if (useDataFromServer) {
+            socialNetwork = new SocialNetwork(flashVars);
+            socialNetworkID = SocialNetworkSwitch.SN_VK;
+            SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+            socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+            socialNetwork.init();
+        } else {
+            dataLevel.fillDataLevels();
+            dataAnimal.fillDataAnimal();
+            dataRecipe.fillDataRecipe();
+            dataBuilding.fillDataBuilding();
+            dataResource.fillDataResources();
+            initVariables2();
+        }
     }
 
     private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
@@ -226,17 +235,8 @@ public class Vars {
     }
 
     private function getGameData():void {
-        if (useDataFromServer) {
-            directServer.getDataLevel(onDataLevel);
-            startPreloader.setProgress(90);
-        } else {
-            dataLevel.fillDataLevels();
-            dataAnimal.fillDataAnimal();
-            dataRecipe.fillDataRecipe();
-            dataBuilding.fillDataBuilding();
-            dataResource.fillDataResources();
-            initVariables2();
-        }
+        directServer.getDataLevel(onDataLevel);
+        startPreloader.setProgress(90);
     }
 
     private function onDataLevel():void {
@@ -318,7 +318,7 @@ public class Vars {
 
         managerDropResources = new ManagerDropBonusResource();
 
-        temporaryFillUserInventory();
+        if (!useDataFromServer) temporaryFillUserInventory();
 
         Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
         Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
@@ -339,10 +339,8 @@ public class Vars {
 
         while (i>0) {
             k = int(Math.random()*129) + 1;
-            if (dataResource.objectResources[k].placeBuild != BuildType.PLACE_AMBAR) {
-                if (dataResource.objectResources[k]) {
-                    userInventory.addResource(k, 1, false);
-                }
+            if (dataResource.objectResources[k]) {
+                userInventory.addResource(k, 1, false);
             }
             i--;
         }

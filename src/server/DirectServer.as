@@ -20,6 +20,8 @@ public class DirectServer {
     private var g:Vars = Vars.getInstance();
 
     public function makeTest():void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_TEST);
         Cc.ch('server', 'start makeTest', 1);
@@ -41,6 +43,8 @@ public class DirectServer {
     }
 
     public function getDataLevel(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_LEVEL);
 //        var variables:URLVariables = new URLVariables();
@@ -85,6 +89,8 @@ public class DirectServer {
     }
 
     public function getDataAnimal(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_ANIMAL);
 
@@ -136,6 +142,8 @@ public class DirectServer {
     }
 
     public function getDataRecipe(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_RECIPE);
 
@@ -182,6 +190,8 @@ public class DirectServer {
     }
 
     public function getDataResource(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_RESOURCE);
 
@@ -243,6 +253,8 @@ public class DirectServer {
     }
 
     public function getDataBuilding(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_BUILDING);
 
@@ -343,6 +355,8 @@ public class DirectServer {
     }
 
     public function authUser(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_START);
         var variables:URLVariables = new URLVariables();
@@ -383,6 +397,8 @@ public class DirectServer {
     }
 
     public function getUserInfo(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_INFO);
         var variables:URLVariables = new URLVariables();
@@ -434,6 +450,8 @@ public class DirectServer {
     }
 
     public function addUserMoney(type:int, count:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_MONEY);
         var variables:URLVariables = new URLVariables();
@@ -479,6 +497,8 @@ public class DirectServer {
     }
 
     public function addUserXP(count:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_XP);
         var variables:URLVariables = new URLVariables();
@@ -523,6 +543,8 @@ public class DirectServer {
     }
 
     public function updateUserLevel(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_LEVEL);
         var variables:URLVariables = new URLVariables();
@@ -567,6 +589,8 @@ public class DirectServer {
     }
 
     public function getUserResource(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_RESOURCE);
         var variables:URLVariables = new URLVariables();
@@ -607,6 +631,8 @@ public class DirectServer {
     }
 
     public function addUserResource(resourceId:int, count:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_RESOURCE);
         var variables:URLVariables = new URLVariables();

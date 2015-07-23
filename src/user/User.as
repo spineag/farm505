@@ -29,7 +29,24 @@ public class User {
 
     private var g:Vars = Vars.getInstance();
 
-    public function User() { }
+    public function User() {
+        if (!g.useDataFromServer) {
+            ambarLevel = 1;
+            skladLevel = 1;
+            ambarMaxCount = 50;
+            skladMaxCount = 50;
+            softCurrencyCount = 1000;
+            hardCurrency = 100;
+            yellowCouponCount = 10;
+            redCouponCount = 5;
+            greenCouponCount = 7;
+            blueCouponCount = 8;
+            xp = 173;
+            level = 1;
+            globalXP = 173;
+            isTester = true;
+        }
+    }
 
     public function checkUserLevel():void {
         var levels:Object = g.dataLevel.objectLevels;
