@@ -33,6 +33,8 @@ public class WOBuyPlantItem {
         source.pivotX = source.width/2;
         source.pivotY = source.height/2;
         source.endClickCallback = onClick;
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
         source.alpha = .5;
         _txtNumber = new TextField(40,30,"","Arial", 18,Color.BLACK);
         _txtNumber.x = 50;
@@ -63,6 +65,14 @@ public class WOBuyPlantItem {
             _clickCallback.apply(null, [_data]);
         }
     }
+    private function onHover():void {
+        if(_data) g.resourceHint.showIt(_data.id,"",source.x -50, source.y -40,source);
+
+    }
+
+    private function onOut():void {
+       if (_data) g.resourceHint.hideIt();
+    }
 
     public function unfillIt():void {
         if (_icon) {
@@ -74,5 +84,7 @@ public class WOBuyPlantItem {
         _txtNumber.text = '';
         source.alpha = .5;
     }
+
+
 }
 }

@@ -12,10 +12,13 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 import utils.MCScaler;
 
 public class AmbarCell {
-    public var source:Sprite;
+    public var source:CSprite;
+
     private var _info:Object; // id & count
     private var _data:Object;
     private var _image:Image;
@@ -23,8 +26,9 @@ public class AmbarCell {
     private var g:Vars = Vars.getInstance();
 
     public function AmbarCell(info:Object) {
-        source = new Sprite();
-        source.touchable = false;
+        source = new CSprite();
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
         var quad:Quad = new Quad(99, 99, Color.BLACK);
         quad.alpha = .1 + Math.random()*.3;
         source.addChild(quad);
@@ -58,6 +62,14 @@ public class AmbarCell {
         source = null;
         _image = null;
         _countTxt = null;
+    }
+
+    private function onHover():void {
+        g.resourceHint.showIt(_data.id,"",source.x,source.y,source);
+    }
+
+    private function onOut():void {
+        g.resourceHint.hideIt();
     }
 }
 }

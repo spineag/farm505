@@ -9,6 +9,7 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 
 import hint.FlyMessage;
+import hint.ResourceHint;
 
 import hint.TreeHint;
 
@@ -137,6 +138,7 @@ public class Vars {
     public var mouseHint:MouseHint;
     public var fabricHint:FabricHint;
     public var treeHint:TreeHint;
+    public var resourceHint:ResourceHint;
     public var flyMessage:FlyMessage;
     public var xpPanel:XPPanel;
     public var softHardCurrency:SoftHardCurrency;
@@ -281,6 +283,7 @@ public class Vars {
         mouseHint = new MouseHint();
         fabricHint = new FabricHint();
         treeHint = new TreeHint();
+        resourceHint = new ResourceHint();
         flyMessage = new FlyMessage();
         xpPanel = new XPPanel();
         couponePanel = new CouponePanel();
