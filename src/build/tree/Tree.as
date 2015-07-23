@@ -237,7 +237,7 @@ public class Tree extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_state == DEAD){
 //                g.gameDispatcher.addEnterFrame(countEnterFrameDead);
-                g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name)
+                g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -340,7 +340,7 @@ public class Tree extends AreaObject{
         if (_count <= 0) {
             g.gameDispatcher.removeEnterFrame(countEnterFrameDead);
             if (_isOnHover == true) {
-                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name)
+                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this)
             }
             if (_isOnHover == false) {
                 _source.filter = null;
