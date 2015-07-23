@@ -409,6 +409,21 @@ public class DataBuildings {
         obj.blockByLevel = [3];
         objectBuilding[obj.id ] = obj;
 
+        obj = {};
+        obj.id = 44;
+        obj.name = "Базар";
+        obj.width = 2;
+        obj.height = 2;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -39;
+        obj.innerY = -61;
+        obj.url = "buildAtlas";
+        obj.image = "bazar";
+        obj.buildType = BuildType.MARKET;
+        obj.blockByLevel = [5];
+        objectBuilding[obj.id ] = obj;
+
                                         // -------------------------- DECOR -----------------------
 
 //        21
