@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:7e1f1f04f6fda32842c1289cc830248b:768960f9e4588562a193981edc640f40:84c7e14bbf4b99ac5fd17545225ccbea$ -->
+<!-- $TexturePacker:SmartUpdate:85928b37084c5f6e3eb4ef55197cd8f8:1da03781f7aef39eacc83286974c42c7:84c7e14bbf4b99ac5fd17545225ccbea$ -->
 <TextureAtlas imagePath="buildAndTree.png">
     <SubTexture name="ambar" x="374" y="2" width="58" height="103"/>
     <SubTexture name="bakery" x="846" y="2" width="102" height="90"/>
     <SubTexture name="bazar" x="504" y="103" width="76" height="97"/>
     <SubTexture name="bbq_grill" x="1408" y="86" width="104" height="80"/>
     <SubTexture name="bee" x="705" y="97" width="116" height="92"/>
-    <SubTexture name="cave" x="306" y="108" width="88" height="103"/>
-    <SubTexture name="cave_active" x="2" y="141" width="88" height="110"/>
+    <SubTexture name="cave" x="306" y="108" width="88" height="103" frameX="0" frameY="-6" frameWidth="89" frameHeight="110"/>
+    <SubTexture name="cave_active" x="2" y="141" width="88" height="110" frameX="-1" frameY="0" frameWidth="89" frameHeight="110"/>
     <SubTexture name="chicken" x="1546" y="2" width="50" height="76"/>
     <SubTexture name="confectionery" x="950" y="2" width="119" height="89"/>
     <SubTexture name="cow" x="1242" y="89" width="74" height="84"/>

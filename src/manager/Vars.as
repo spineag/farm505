@@ -77,6 +77,7 @@ import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
 
 import windows.buyPlant.WOBuyPlant;
+import windows.cave.WOCave;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.fabricaWindow.WOFabrica;
 import windows.levelUp.WOLevelUp;
@@ -160,6 +161,7 @@ public class Vars {
     public var woBuyCurrency:WOBuyCurrency;
     public var woOrder:WOOrder;
     public var woMarket:WOMarket;
+    public var woCave:WOCave;
     public var woDailyBonus:WODailyBonus;
 
     public var server:Server;
@@ -294,6 +296,7 @@ public class Vars {
         softHardCurrency = new SoftHardCurrency();
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
+        woCave = new WOCave();
 
         continueInitGame();
     }

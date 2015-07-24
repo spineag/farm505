@@ -4,6 +4,7 @@ import build.AreaObject;
 import build.WorldObject;
 import build.ambar.Ambar;
 import build.ambar.Sklad;
+import build.cave.Cave;
 import build.dailyBonus.DailyBonus;
 import build.decor.Decor;
 import build.decor.DecorFence;
@@ -169,6 +170,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.MARKET:
                 build = new Market(_data);
+                break;
+            case BuildType.CAVE:
+                build = new Cave(_data);
                 break;
             case BuildType.DAILY_BONUS:
                 build = new DailyBonus(_data);
