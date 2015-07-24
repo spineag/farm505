@@ -224,7 +224,7 @@ public class MapEditorInterface {
             if (obj[id].buildType == BuildType.FABRICA || obj[id].buildType == BuildType.TEST || obj[id].buildType == BuildType.FARM
                     || obj[id].buildType == BuildType.RIDGE || obj[id].buildType == BuildType.AMBAR || obj[id].buildType == BuildType.SKLAD
                     || obj[id].buildType == BuildType.ORDER || obj[id].buildType == BuildType.MARKET || obj[id].buildType == BuildType.CAVE
-                    || obj[id].buildType == BuildType.DAILY_BONUS || obj[id].buildType == BuildType.SHOP) {
+                    || obj[id].buildType == BuildType.DAILY_BONUS || obj[id].buildType == BuildType.SHOP || obj[id].buildType == BuildType.TRAIN) {
                 item = new MapEditorInterfaceItem(obj[id], TYPE_BUILDING);
                 item.source.y = 20;
                 item.source.x = i * 80;

@@ -31,5 +31,6 @@ public class BuildType {
     public static const DAILY_BONUS:int = 22;
     public static const SHOP:int = 23;
     public static const CAVE:int = 24;
+    public static const TRAIN:int = 26;
 }
 }

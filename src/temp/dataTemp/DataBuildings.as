@@ -475,6 +475,22 @@ public class DataBuildings {
         obj.blockByLevel = [3];
         objectBuilding[obj.id ] = obj;
 
+        obj = {};
+        obj.id = 49;
+        obj.name = "Космический шатл";
+        obj.width = 2;
+        obj.height = 4;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.cost = 200;
+        obj.innerX = -72;
+        obj.innerY = -22;
+        obj.url = "buildAtlas";
+        obj.image = "train";
+        obj.buildType = BuildType.TRAIN;
+        obj.blockByLevel = [3, 1, 3, 5];
+        objectBuilding[obj.id ] = obj;
+
                                         // -------------------------- DECOR -----------------------
 
 //        21

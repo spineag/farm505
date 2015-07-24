@@ -16,6 +16,7 @@ import build.orders.Order;
 import build.ridge.Ridge;
 import build.shop.Shop;
 import build.testBuild.TestBuild;
+import build.train.Train;
 import build.tree.Tree;
 import build.wild.Wild;
 
@@ -180,6 +181,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.SHOP:
                 build = new Shop(_data);
+                break;
+            case BuildType.TRAIN:
+                build = new Train(_data);
                 break;
         }
 

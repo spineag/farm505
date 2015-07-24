@@ -85,6 +85,7 @@ import windows.market.WOMarket;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
 import windows.shop.WOShop;
+import windows.train.WOTrain;
 
 public class Vars {
     private static var _instance:Vars;
@@ -163,6 +164,7 @@ public class Vars {
     public var woMarket:WOMarket;
     public var woCave:WOCave;
     public var woDailyBonus:WODailyBonus;
+    public var woTrain:WOTrain;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -297,6 +299,7 @@ public class Vars {
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
         woCave = new WOCave();
+        woTrain = new WOTrain();
 
         continueInitGame();
     }
