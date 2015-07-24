@@ -14,6 +14,7 @@ import build.farm.Farm;
 import build.market.Market;
 import build.orders.Order;
 import build.ridge.Ridge;
+import build.shop.Shop;
 import build.testBuild.TestBuild;
 import build.tree.Tree;
 import build.wild.Wild;
@@ -176,6 +177,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.DAILY_BONUS:
                 build = new DailyBonus(_data);
+                break;
+            case BuildType.SHOP:
+                build = new Shop(_data);
                 break;
         }
 
