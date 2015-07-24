@@ -77,6 +77,7 @@ import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
 
 import windows.buyPlant.WOBuyPlant;
+import windows.dailyBonusWindow.WODailyBonus;
 import windows.fabricaWindow.WOFabrica;
 import windows.levelUp.WOLevelUp;
 import windows.market.WOMarket;
@@ -159,6 +160,7 @@ public class Vars {
     public var woBuyCurrency:WOBuyCurrency;
     public var woOrder:WOOrder;
     public var woMarket:WOMarket;
+    public var woDailyBonus:WODailyBonus;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -323,6 +325,7 @@ public class Vars {
         woBuyCurrency = new WOBuyCurrency();
         woOrder = new WOOrder();
         woMarket = new WOMarket();
+        woDailyBonus = new WODailyBonus();
 
         managerDropResources = new ManagerDropBonusResource();
 

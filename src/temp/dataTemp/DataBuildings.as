@@ -424,6 +424,21 @@ public class DataBuildings {
         obj.blockByLevel = [5];
         objectBuilding[obj.id ] = obj;
 
+        obj = {};
+        obj.id = 45;
+        obj.name = "Ежедневный бонус";
+        obj.width = 1;
+        obj.height = 2;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -35;
+        obj.innerY = -52;
+        obj.url = "buildAtlas";
+        obj.image = "daily_bonus";
+        obj.buildType = BuildType.DAILY_BONUS;
+        obj.blockByLevel = [5];
+        objectBuilding[obj.id ] = obj;
+
                                         // -------------------------- DECOR -----------------------
 
 //        21
