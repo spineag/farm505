@@ -424,6 +424,26 @@ public class DataBuildings {
         obj.blockByLevel = [5];
         objectBuilding[obj.id ] = obj;
 
+        obj = {};
+        obj.id = 45;
+        obj.name = "Пещера";
+        obj.width = 2;
+        obj.height = 2;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.cost = 200;
+        obj.innerX = -40;
+        obj.innerY = -70;
+        obj.url = "buildAtlas";
+        obj.image = "cave";
+        obj.imageActive = "cave_active";
+        obj.idResource = [126, 127, 128, 129];                 // что дает
+        obj.idResourceRaw = [4, 6, 125];                       // что загружает
+        obj.variaty = [.6, .4, .3];
+        obj.buildType = BuildType.CAVE;
+        obj.blockByLevel = [3];
+        objectBuilding[obj.id ] = obj;
+
                                         // -------------------------- DECOR -----------------------
 
 //        21

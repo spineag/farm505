@@ -28,5 +28,6 @@ public class BuildType {
     public static const ANIMAL:int = 19;
     public static const ORDER:int = 20;
     public static const MARKET:int = 21;
+    public static const CAVE:int = 22;
 }
 }
