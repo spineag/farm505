@@ -440,7 +440,7 @@ public class DataBuildings {
         objectBuilding[obj.id ] = obj;
 
         obj = {};
-        obj.id = 45;
+        obj.id = 47;
         obj.name = "Пещера";
         obj.width = 2;
         obj.height = 2;
