@@ -4,10 +4,20 @@
 package windows.train {
 import build.train.Train;
 
+import data.DataMoney;
+
+import flash.geom.Point;
+
+import resourceItem.DropItem;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import temp.DropResourceVariaty;
+
+import ui.xpPanel.XPStar;
 
 import utils.CSprite;
 
@@ -90,9 +100,11 @@ public class WOTrain extends Window {
         for (var i:int = 0; i<_arrItems.length; i++) {
             _arrItems[i].setAlpha();
         }
-        if (_arrItems[k].isResourceLoaded) _btn1.visible = false;
-         else {
-            _arrItems[k].canBeFull() ? _btn1.visible = true : _btn1.visible = false;
+        trace(_arrItems[k].isResourceLoaded);
+        if (_arrItems[k].isResourceLoaded) {
+            _btn1.visible = false;
+        } else {
+            _arrItems[k].canFull() ? _btn1.visible = true : _btn1.visible = false;
         }
     }
 
@@ -109,7 +121,7 @@ public class WOTrain extends Window {
     private function checkBtn():void {
         _btn.endClickCallback = null;
         for (var i:int = 0; i<_arrItems.length; i++) {
-            if (!_arrItems[i].isResourceLoaded()) {
+            if (!_arrItems[i].isResourceLoaded) {
                 _btn.alpha = .5;
                 return;
             }
@@ -119,6 +131,15 @@ public class WOTrain extends Window {
     }
 
     private function fullTrain():void {
+        var p:Point = new Point(_btn.width/2, _btn.height/2);
+        p = _btn.localToGlobal(p);
+        new XPStar(p.x, p.y, 500);
+        var prise:Object = {};
+        prise.id = DataMoney.SOFT_CURRENCY;
+        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
+        prise.count = 500;
+        new DropItem(p.x, p.y, prise);
+
         hideIt();
         (_build as Train).fullTrain();
     }

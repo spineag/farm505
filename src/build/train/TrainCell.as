@@ -41,7 +41,7 @@ public class TrainCell {
         g.userInventory.addResource(_dataResource.id, -_count);
         var p:Point = new Point(im.x + im.width/2, im.y + im.height/2);
         p = im.parent.localToGlobal(p);
-
+        _isFull = true;
     }
 }
 }
