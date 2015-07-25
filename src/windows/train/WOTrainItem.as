@@ -2,7 +2,7 @@
  * Created by user on 7/24/15.
  */
 package windows.train {
-import build.train.TrainLogicCell;
+import build.train.TrainCell;
 
 import data.BuildType;
 
@@ -18,7 +18,7 @@ import utils.MCScaler;
 public class WOTrainItem {
     public var source:CSprite;
     private var _im:Image;
-    private var _info:TrainLogicCell;
+    private var _info:TrainCell;
     private var _txt:TextField;
     private var _index:int;
     private var _f:Function;
@@ -45,7 +45,7 @@ public class WOTrainItem {
         _galo4ka.visible = false;
     }
 
-    public function fillIt(t:TrainLogicCell, i:int):void {
+    public function fillIt(t:TrainCell, i:int):void {
         _index = i;
         source.alpha = .7;
         _info = t;

@@ -352,7 +352,7 @@ public class Vars {
 
     private function temporaryFillUserInventory():void {
         var k:int;
-        var i:int = 50;
+        var i:int = 150;
 
         while (i>0) {
             k = int(Math.random()*129) + 1;

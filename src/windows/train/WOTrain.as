@@ -46,8 +46,8 @@ public class WOTrain extends Window {
         _btn1.addChild(im);
         _btn1.x = 150;
         _btn1.y = -15;
-        var txt:TextField = new TextField(80,50,"Загрузить","Arial",16,Color.BLACK);
-        _btn1.addChild(txt);
+        var txt1:TextField = new TextField(80,50,"Загрузить","Arial",16,Color.BLACK);
+        _btn1.addChild(txt1);
         _source.addChild(_btn1);
         _btn1.visible = false;
         _btn1.endClickCallback = onResourceLoad;
@@ -90,7 +90,10 @@ public class WOTrain extends Window {
         for (var i:int = 0; i<_arrItems.length; i++) {
             _arrItems[i].setAlpha();
         }
-        _arrItems[k].isResourceLoaded ? _btn1.visible = false : _btn1.visible = true;
+        if (_arrItems[k].isResourceLoaded) _btn1.visible = false;
+         else {
+            _arrItems[k].canBeFull() ? _btn1.visible = true : _btn1.visible = false;
+        }
     }
 
     private function onResourceLoad():void {
@@ -104,9 +107,11 @@ public class WOTrain extends Window {
     }
 
     private function checkBtn():void {
+        _btn.endClickCallback = null;
         for (var i:int = 0; i<_arrItems.length; i++) {
-            if (!_arrItems[_activeItemIndex].isResourceLoaded()) {
+            if (!_arrItems[i].isResourceLoaded()) {
                 _btn.alpha = .5;
+                return;
             }
         }
         _btn.alpha = 1;
@@ -120,7 +125,7 @@ public class WOTrain extends Window {
 
     private function clearItems():void {
         for (var i:int = 0; i<_arrItems.length; i++) {
-            _arrItems[_activeItemIndex].clearIt();
+            _arrItems[i].clearIt();
         }
     }
 }

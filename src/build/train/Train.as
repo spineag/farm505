@@ -60,7 +60,9 @@ public class Train extends AreaObject{
     }
 
     private function fillList():void {
-        var i,k,n:int;
+        var i:int;
+        var k:int;
+        var n:int;
         var arr:Array = [];
         var obj:Object = g.dataResource.objectResources;
         for(var s:String in obj) {
@@ -80,7 +82,7 @@ public class Train extends AreaObject{
         for (i=0; i<3; i++) {
             obj = arr[int(Math.random()*arr.length)];
             for (n=0; n<k; n++) {
-                list.push(new TrainLogicCell(obj, int(Math.random()*5) + 2));
+                list.push(new TrainCell(obj, int(Math.random()*5) + 2));
             }
         }
     }

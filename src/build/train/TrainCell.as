@@ -8,14 +8,14 @@ import manager.Vars;
 
 import starling.display.Image;
 
-public class TrainLogicCell {
+public class TrainCell {
     private var _dataResource:Object;
     private var _count:int;
     private var _isFull:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
-    public function TrainLogicCell(d:Object, c:int) {
+    public function TrainCell(d:Object, c:int) {
         _dataResource = d;
         _count = c;
         _isFull = false;
