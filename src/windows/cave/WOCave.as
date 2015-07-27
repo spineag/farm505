@@ -20,7 +20,7 @@ public class WOCave extends Window {
 
     public function fillIt(arrIds:Array, f:Function):void {
         createItems(arrIds.length);
-        var f1:Function = function(id:int){
+        var f1:Function = function(id:int):void {
             hideIt();
             if (f != null) {
                 f.apply(null, [id]);

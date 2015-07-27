@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:85928b37084c5f6e3eb4ef55197cd8f8:1da03781f7aef39eacc83286974c42c7:84c7e14bbf4b99ac5fd17545225ccbea$ -->
+<!-- $TexturePacker:SmartUpdate:674a7c258f715bc7bdd4da67f746c27a:be4d4ebdc43c1b897cecd45bf97396bf:84c7e14bbf4b99ac5fd17545225ccbea$ -->
 <TextureAtlas imagePath="buildAndTree.png">
     <SubTexture name="ambar" x="374" y="2" width="58" height="103"/>
     <SubTexture name="bakery" x="846" y="2" width="102" height="90"/>
@@ -27,7 +27,7 @@
     <SubTexture name="farm_sheep" x="1302" y="2" width="159" height="82"/>
     <SubTexture name="farm_sheep_house" x="444" y="209" width="48" height="43" frameX="0" frameY="-3" frameWidth="48" frameHeight="46"/>
     <SubTexture name="feed_mill" x="1071" y="2" width="62" height="89"/>
-    <SubTexture name="fryer" x="1598" y="2" width="85" height="72"/>
+    <SubTexture name="fryer" x="1581" y="80" width="85" height="72"/>
     <SubTexture name="gazeta" x="1144" y="177" width="40" height="77"/>
     <SubTexture name="goat" x="698" y="2" width="65" height="93"/>
     <SubTexture name="ice_cream_maker" x="1140" y="90" width="100" height="85"/>
@@ -43,18 +43,19 @@
     <SubTexture name="ridge" x="306" y="213" width="81" height="41"/>
     <SubTexture name="sauce_maker" x="1463" y="2" width="81" height="78"/>
     <SubTexture name="sheep" x="1520" y="160" width="77" height="74"/>
+    <SubTexture name="shop" x="1598" y="2" width="72" height="72"/>
     <SubTexture name="sklad" x="396" y="107" width="106" height="100"/>
     <SubTexture name="smelter" x="434" y="2" width="92" height="99"/>
     <SubTexture name="smoke_house" x="988" y="93" width="112" height="89"/>
     <SubTexture name="stolb" x="210" y="108" width="5" height="23"/>
     <SubTexture name="sugar_mill" x="721" y="191" width="79" height="62"/>
     <SubTexture name="train" x="1279" y="175" width="108" height="79"/>
-    <SubTexture name="wild1" x="1598" y="76" width="79" height="55"/>
+    <SubTexture name="wild1" x="1599" y="154" width="79" height="55"/>
     <SubTexture name="wild2" x="1135" y="2" width="71" height="86"/>
-    <SubTexture name="wild3" x="1599" y="133" width="54" height="53"/>
+    <SubTexture name="wild3" x="1672" y="2" width="54" height="53"/>
     <SubTexture name="wild4" x="1102" y="93" width="36" height="88"/>
     <SubTexture name="wild5" x="603" y="193" width="64" height="58"/>
     <SubTexture name="wild6" x="1093" y="184" width="49" height="65"/>
     <SubTexture name="yogurt_machine" x="1024" y="184" width="67" height="66"/>
-    <SubTexture name="zakaz" x="1599" y="188" width="37" height="64"/>
+    <SubTexture name="zakaz" x="1672" y="57" width="37" height="64"/>
 </TextureAtlas>

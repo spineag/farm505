@@ -23,17 +23,17 @@ public class XPStar {
 
     private var _source:Sprite;
     private var _image:Image;
-    private var _resourceItem:ResourceItem;
+    private var _xp:int;
     private var _txtStar:TextField;
 
     private var g:Vars = Vars.getInstance();
 
-    public function XPStar(_x:int, _y:int,resourceItem:ResourceItem) {
+    public function XPStar(_x:int, _y:int,xp:int) {
         _source = new Sprite();
         _txtStar = new TextField(50,50," ","Arial",18,Color.WHITE);
         _txtStar.y = 25;
         _image = new Image(g.interfaceAtlas.getTexture("star"));
-        _resourceItem = resourceItem;
+        _xp = xp;
         g.cont.animationsResourceCont.addChild(_source);
         MCScaler.scale(_image, 50, 50);
         _source.addChild(_image);
@@ -49,7 +49,7 @@ public class XPStar {
     public function flyItStar():void {
         var endX:int = g.stageWidth - 200;
         var endY:int = 50;
-        _txtStar.text = String(_resourceItem.craftXP);
+        _txtStar.text = String(_xp);
 
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
@@ -57,7 +57,7 @@ public class XPStar {
                 _source.removeChildAt(0);
             }
             _source = null;
-            g.xpPanel.addXP(_resourceItem.craftXP);
+            g.xpPanel.addXP(_xp);
         };
         var tempX:int;
         _source.x < endX ? tempX = _source.x + 70 : tempX = _source.x - 70;

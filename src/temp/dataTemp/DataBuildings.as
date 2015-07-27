@@ -440,6 +440,22 @@ public class DataBuildings {
         objectBuilding[obj.id ] = obj;
 
         obj = {};
+        obj.id = 46;
+        obj.name = "Магазин";
+        obj.width = 2;
+        obj.height = 2;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.cost = 200;
+        obj.innerX = -35;
+        obj.innerY = -37;
+        obj.url = "buildAtlas";
+        obj.image = "shop";
+        obj.buildType = BuildType.SHOP;
+        obj.blockByLevel = [3];
+        objectBuilding[obj.id ] = obj;
+
+        obj = {};
         obj.id = 47;
         obj.name = "Пещера";
         obj.width = 2;
@@ -457,6 +473,22 @@ public class DataBuildings {
         obj.variaty = [.6, .4, .3];
         obj.buildType = BuildType.CAVE;
         obj.blockByLevel = [3];
+        objectBuilding[obj.id ] = obj;
+
+        obj = {};
+        obj.id = 49;
+        obj.name = "Космический шатл";
+        obj.width = 2;
+        obj.height = 4;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.cost = 200;
+        obj.innerX = -72;
+        obj.innerY = -22;
+        obj.url = "buildAtlas";
+        obj.image = "train";
+        obj.buildType = BuildType.TRAIN;
+        obj.blockByLevel = [3, 1, 3, 5];
         objectBuilding[obj.id ] = obj;
 
         obj = {};

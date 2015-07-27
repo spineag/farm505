@@ -43,7 +43,7 @@ public class User {
             blueCouponCount = 8;
             xp = 173;
             level = 1;
-            globalXP = 173;
+            globalXP = 1735;
             isTester = true;
         }
     }
