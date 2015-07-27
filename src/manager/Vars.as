@@ -84,6 +84,7 @@ import windows.levelUp.WOLevelUp;
 import windows.market.WOMarket;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
+import windows.paperWindow.WOPaper;
 import windows.shop.WOShop;
 
 public class Vars {
@@ -163,6 +164,7 @@ public class Vars {
     public var woMarket:WOMarket;
     public var woCave:WOCave;
     public var woDailyBonus:WODailyBonus;
+    public var woPaper:WOPaper;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -329,6 +331,7 @@ public class Vars {
         woOrder = new WOOrder();
         woMarket = new WOMarket();
         woDailyBonus = new WODailyBonus();
+        woPaper = new WOPaper();
 
         managerDropResources = new ManagerDropBonusResource();
 

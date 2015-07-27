@@ -32,15 +32,12 @@ public class WODailyBonus extends Window{
         _btnExit.x += 150;
         _btnExit.y -= 150;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-
         _contBtn = new CSprite();
         _contImage = new CSprite();
         _contImage.y = -50;
         _source.addChild(_contBtn);
         _source.addChild(_contImage);
-
         _contBtn.endClickCallback = onClick;
-
         _imageHard = new Image(g.interfaceAtlas.getTexture("diamont"));
         MCScaler.scale(_imageHard,25,25);
         _imageHard.x = 30;
@@ -63,9 +60,9 @@ public class WODailyBonus extends Window{
         if (_txtBtn.text == "Забрать"){
             while (_contImage.numChildren) {
                 _contImage.removeChildAt(0);
-                _txtBtn.text = String("Купить за " + hard) ;
-                _contBtn.addChild(_imageHard);
             }
+            _txtBtn.text = String("Купить за " + hard) ;
+            _contBtn.addChild(_imageHard);
         } else if (_txtBtn.text == String("Купить за " + hard)){
             _contBtn.removeChild(_imageHard);
             _imageHard.visible = true;
@@ -73,7 +70,6 @@ public class WODailyBonus extends Window{
             _txtBtn.text = "Забрать";
             g.userInventory.addMoney(1,-hard);
         }
-
     }
 
     public function showItMenu():void {
@@ -94,7 +90,7 @@ public class WODailyBonus extends Window{
         var id:String;
         var r:int;
         var arr:Array;
-        var om:WODailyBonusItem;
+        var im:WODailyBonusItem;
         arr = [];
         obj = g.dataResource.objectResources;
         for (id in obj) {
@@ -103,8 +99,8 @@ public class WODailyBonus extends Window{
             }
         }
         r = int(1+Math.random()*arr.length);
-        om = new WODailyBonusItem(obj[r]);
-        _contImage.addChild(om.source);
+        im = new WODailyBonusItem(obj[r]);
+        _contImage.addChild(im.source);
     }
 }
 }

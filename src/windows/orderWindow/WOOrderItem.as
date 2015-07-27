@@ -21,7 +21,6 @@ public class WOOrderItem {
     private var _txtXp:TextField;
     private var _txtCount:TextField;
 
-
     private var g:Vars = Vars.getInstance();
     public function WOOrderItem(ob:Object) {
         source = new Sprite();
