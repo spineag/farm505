@@ -60,6 +60,7 @@ import temp.MapEditorInterface;
 import ui.bottomInterface.MainBottomPanel;
 import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
+import ui.optionPanel.OptionPanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
 
 import ui.xpPanel.XPPanel;
@@ -150,6 +151,7 @@ public class Vars {
     public var couponePanel:CouponePanel;
     public var bottomPanel:MainBottomPanel;
     public var craftPanel:CraftPanel;
+    public var optionPanel:OptionPanel;
 
     public var currentOpenedWindow:Window;
     public var woBuyPlant:WOBuyPlant;
@@ -300,6 +302,7 @@ public class Vars {
         softHardCurrency = new SoftHardCurrency();
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
+        optionPanel = new OptionPanel();
         woCave = new WOCave();
         woTrain = new WOTrain();
 

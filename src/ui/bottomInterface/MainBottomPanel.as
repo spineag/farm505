@@ -18,7 +18,7 @@ public class MainBottomPanel {
     private var _friendsBtn:CSprite;
     private var _toolsBtn:CSprite;
     private var _optionBtn:CSprite;
-
+    private var b:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -29,13 +29,12 @@ public class MainBottomPanel {
         _bg.x = 837;
         _bg.y = 4;
         _source.addChild(_bg);
-
+        b = true;
         fillBtns();
     }
 
     private function fillBtns():void {
         var im:Image;
-
         _shopBtn = new CSprite();
         im = new Image(g.interfaceAtlas.getTexture('shop_icon'));
         _shopBtn.addChild(im);
@@ -85,6 +84,14 @@ public class MainBottomPanel {
             case 'tools':
                 break;
             case 'option':
+                    if (b == true){
+                        g.optionPanel.fillBtns();
+                        b = false;
+                    } else if (b == false){
+                        g.optionPanel.onOut();
+                        b = true;
+                    }
+
                 break;
             case 'friends':
                 break;
