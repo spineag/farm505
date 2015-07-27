@@ -148,7 +148,7 @@ public class MapEditorInterface {
         fillIt();
         fillHouses();
         fillTrees();
-        fillDecors();
+//        fillDecors();
     }
 
     private function fillIt():void {
@@ -221,8 +221,7 @@ public class MapEditorInterface {
         var i:int = 0;
 
         for(var id:String in obj) {
-            if (obj[id].buildType == BuildType.FABRICA || obj[id].buildType == BuildType.TEST || obj[id].buildType == BuildType.FARM
-                    || obj[id].buildType == BuildType.RIDGE || obj[id].buildType == BuildType.AMBAR || obj[id].buildType == BuildType.SKLAD
+            if (obj[id].buildType == BuildType.TEST  || obj[id].buildType == BuildType.AMBAR || obj[id].buildType == BuildType.SKLAD
                     || obj[id].buildType == BuildType.ORDER || obj[id].buildType == BuildType.MARKET || obj[id].buildType == BuildType.CAVE || obj[id].buildType == BuildType.DAILY_BONUS
                     || obj[id].buildType == BuildType.PAPER) {
                 item = new MapEditorInterfaceItem(obj[id], TYPE_BUILDING);
@@ -240,7 +239,7 @@ public class MapEditorInterface {
         var i:int = 0;
 
         for (var id:String in obj) {
-            if (obj[id].buildType == BuildType.TREE || obj[id].buildType == BuildType.WILD) {
+            if (obj[id].buildType == BuildType.WILD) {
                 item = new MapEditorInterfaceItem(obj[id], TYPE_TREE);
                 item.source.y = 20;
                 item.source.x = i * 80;
@@ -250,22 +249,22 @@ public class MapEditorInterface {
         }
     }
 
-    private function fillDecors():void {
-        var obj:Object = g.dataBuilding.objectBuilding;
-        var item:MapEditorInterfaceItem;
-        var i:int = 0;
-
-        for (var id:String in obj) {
-            if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_FULL_FENСE
-                    || obj[id].buildType == BuildType.DECOR_POST_FENCE) {
-                item = new MapEditorInterfaceItem(obj[id], TYPE_DECOR);
-                item.source.y = 20;
-                item.source.x = i * 80;
-                _contDecors.addChild(item.source);
-                i++;
-            }
-        }
-    }
+//    private function fillDecors():void {
+//        var obj:Object = g.dataBuilding.objectBuilding;
+//        var item:MapEditorInterfaceItem;
+//        var i:int = 0;
+//
+//        for (var id:String in obj) {
+//            if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_FULL_FENСE
+//                    || obj[id].buildType == BuildType.DECOR_POST_FENCE) {
+//                item = new MapEditorInterfaceItem(obj[id], TYPE_DECOR);
+//                item.source.y = 20;
+//                item.source.x = i * 80;
+//                _contDecors.addChild(item.source);
+//                i++;
+//            }
+//        }
+//    }
 
     private function scroleType(delta:int):void{
         var cont:Sprite;
