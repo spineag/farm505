@@ -13,6 +13,7 @@ import utils.Point3D;
 import utils.CSprite;
 
 public class WorldObject {
+    protected var _dataBuild:Object;
     public var posX:int = 0;
     public var posY:int = 0;
     protected var _sizeX:int;
@@ -22,13 +23,14 @@ public class WorldObject {
     protected var _craftSprite:Sprite;
     protected var _depth:Number = 0;
     protected var _rect:Rectangle;
+    protected var _dbBuildingId:int = 0;
 
     protected static var g:Vars = Vars.getInstance();
 
     public function WorldObject() {
     }
 
-        public function get sizeX():uint {
+    public function get sizeX():uint {
         return 0;
     }
 
@@ -46,6 +48,18 @@ public class WorldObject {
 
     public function get depth():Number {
         return _depth;
+    }
+
+    public function get dataBuild():Object{
+        return _dataBuild;
+    }
+
+    public function get dbBuildingId():int{
+        return _dbBuildingId;
+    }
+
+    public function set dbBuildingId(a:int):void{
+        _dbBuildingId = a;
     }
 
     public function updateDepth():void {

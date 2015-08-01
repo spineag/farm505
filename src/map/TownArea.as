@@ -201,7 +201,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number):void {
+    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNew:Boolean = true):void {
         if (!_cont.contains(worldObject.source)) {
             worldObject.source.x = _x;
             worldObject.source.y = _y;
@@ -217,11 +217,17 @@ public class TownArea extends Sprite {
             } else {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
+            if (isNew) {
+                if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Tree)
+                    g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
+            }
         }
 
         // временно полная сортировка, далее нужно будет дописать "умную"
         zSort();
     }
+
+    private function onAddNewBuilding():void { }
 
     public function deleteBuild(worldObject:WorldObject):void{
         if(_cont.contains(worldObject.source)){
@@ -253,7 +259,7 @@ public class TownArea extends Sprite {
 
     private function afterMove(_x:Number, _y:Number):void {
 //        createNewBuild((g.selectedBuild as AreaObject).dataBuild, _x, _y);
-        pasteBuild(g.selectedBuild, _x, _y);
+        pasteBuild(g.selectedBuild, _x, _y, false);
         g.selectedBuild = null;
     }
 

@@ -2,6 +2,9 @@
  * Created by user on 7/16/15.
  */
 package server {
+import build.WorldObject;
+import build.WorldObject;
+
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
@@ -671,6 +674,56 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserResource: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function addUserBuilding(wObject:WorldObject, callback:Function):void {
+        // лучшепердавать worldObject, чтобы вернуть ему
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_BUILDING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserBuilding', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buildingId = wObject.dataBuild.id;
+        variables.posX = wObject.posX;
+        variables.posY = wObject.posY;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserBuilding);
+        function onCompleteAddUserBuilding(e:Event):void { completeAddUserBuilding(e.target.data, wObject, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserBuilding error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserBuilding(response:String, wObject:WorldObject, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserBuilding: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+                wObject.dbBuildingId = d.message[0].buildingId;
+            }
+        } else {
+            Cc.error('addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
