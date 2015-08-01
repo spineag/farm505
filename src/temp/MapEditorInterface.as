@@ -125,7 +125,7 @@ public class MapEditorInterface {
         var BM2:BitmapData = new BitmapData(50, 20, true, 0x00000000);
         BM2.draw(shape);
         var Tx2:Texture = Texture.fromBitmapData(BM2,false, false);
-        _treeBtn = new CButton(Tx2,"Tree");
+        _treeBtn = new CButton(Tx2,"Wild");
         _treeBtn.x = 50;
         _allTable.addChild(_treeBtn);
 
@@ -222,8 +222,9 @@ public class MapEditorInterface {
 
         for(var id:String in obj) {
             if (obj[id].buildType == BuildType.TEST  || obj[id].buildType == BuildType.AMBAR || obj[id].buildType == BuildType.SKLAD
-                    || obj[id].buildType == BuildType.ORDER || obj[id].buildType == BuildType.MARKET || obj[id].buildType == BuildType.CAVE || obj[id].buildType == BuildType.DAILY_BONUS
-                    || obj[id].buildType == BuildType.PAPER) {
+                    || obj[id].buildType == BuildType.ORDER || obj[id].buildType == BuildType.MARKET || obj[id].buildType == BuildType.CAVE
+                    || obj[id].buildType == BuildType.DAILY_BONUS || obj[id].buildType == BuildType.PAPER || obj[id].buildType == BuildType.TRAIN
+                    || obj[id].buildType == BuildType.SHOP) {
                 item = new MapEditorInterfaceItem(obj[id], TYPE_BUILDING);
                 item.source.y = 20;
                 item.source.x = i * 80;

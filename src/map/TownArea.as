@@ -227,7 +227,7 @@ public class TownArea extends Sprite {
         zSort();
     }
 
-    private function onAddNewBuilding():void { }
+    private function onAddNewBuilding(value:Boolean):void { }
 
     public function deleteBuild(worldObject:WorldObject):void{
         if(_cont.contains(worldObject.source)){

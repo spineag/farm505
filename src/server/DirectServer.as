@@ -681,7 +681,6 @@ public class DirectServer {
     }
 
     public function addUserBuilding(wObject:WorldObject, callback:Function):void {
-        // лучшепердавать worldObject, чтобы вернуть ему
         if (!g.useDataFromServer) return;
 
         var loader:URLLoader = new URLLoader();
