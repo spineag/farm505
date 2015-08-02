@@ -239,23 +239,15 @@ public class Vars {
     }
 
     private function onAuthUser():void {
-        directServer.getUserInfo(onUserInfo);
-    }
-
-    private function onUserInfo():void {
-        directServer.getUserResource(onUserResource);
-    }
-
-    private function onUserResource():void {
-        getGameData();
-    }
-
-    private function getGameData():void {
         directServer.getDataLevel(onDataLevel);
-        startPreloader.setProgress(90);
     }
 
     private function onDataLevel():void {
+        directServer.getUserInfo(onUserInfo);
+        startPreloader.setProgress(90);
+    }
+
+    private function onUserInfo():void {
         directServer.getDataAnimal(onDataAnimal);
         startPreloader.setProgress(92);
     }
@@ -276,6 +268,14 @@ public class Vars {
     }
 
     private function onDataBuilding():void {
+        directServer.getUserResource(onUserResource);
+    }
+
+    private function onUserResource():void {
+        directServer.getUserBuilding(onUserBuilding);
+    }
+
+    private function onUserBuilding():void {
         initVariables2();
     }
 

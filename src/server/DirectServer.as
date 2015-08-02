@@ -741,5 +741,47 @@ public class DirectServer {
             }
         }
     }
+
+    public function getUserBuilding(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_BUILDING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserBuilding', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserBuilding);
+        function onCompleteGetUserBuilding(e:Event):void { completeGetUserBuilding(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserBuilding error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserBuilding(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+            for (var i:int = 0; i < d.message.length; i++) {
+                //g.userInventory.addResource(int(d.message[i].resource_id), int(d.message[i].count), false);
+            }
+        } catch (e:Error) {
+            Cc.error('GetUserBuilding: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }
