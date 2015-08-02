@@ -403,7 +403,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
-            g.user.userId = int(d.message.id);
+            g.user.userId = int(d.message);
             if (callback != null) {
                 callback.apply();
             }
