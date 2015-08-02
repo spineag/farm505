@@ -476,6 +476,21 @@ public class DataBuildings {
         objectBuilding[obj.id ] = obj;
 
         obj = {};
+        obj.id = 48;
+        obj.name = "Газета";
+        obj.width = 2;
+        obj.height = 1;
+        obj.posX = 1;
+        obj.posY = 1;
+        obj.innerX = -9;
+        obj.innerY = -55;
+        obj.url = "buildAtlas";
+        obj.image = "gazeta";
+        obj.buildType = BuildType.PAPER;
+        obj.blockByLevel = [5];
+        objectBuilding[obj.id ] = obj;
+
+        obj = {};
         obj.id = 49;
         obj.name = "Космический шатл";
         obj.width = 2;
@@ -491,20 +506,6 @@ public class DataBuildings {
         obj.blockByLevel = [3, 1, 3, 5];
         objectBuilding[obj.id ] = obj;
 
-        obj = {};
-        obj.id = 48;
-        obj.name = "Газета";
-        obj.width = 2;
-        obj.height = 1;
-        obj.posX = 1;
-        obj.posY = 1;
-        obj.innerX = -9;
-        obj.innerY = -55;
-        obj.url = "buildAtlas";
-        obj.image = "gazeta";
-        obj.buildType = BuildType.PAPER;
-        obj.blockByLevel = [5];
-        objectBuilding[obj.id ] = obj;
                                         // -------------------------- DECOR -----------------------
 
 //        21

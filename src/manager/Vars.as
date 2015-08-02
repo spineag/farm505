@@ -196,7 +196,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = false;
+        useDataFromServer = true;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();

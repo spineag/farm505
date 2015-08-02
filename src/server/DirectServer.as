@@ -346,6 +346,19 @@ public class DirectServer {
                 if (d.message[i].inner_house_x) obj.innerHouseX = int(d.message[i].inner_house_x);
                 if (d.message[i].inner_house_y) obj.innerHouseY = int(d.message[i].inner_house_y);
                 if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
+                if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
+                if (d.message[i].resource_id) {
+                    obj.idResource = String(d.message[i].resource_id).split('&');
+                    for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
+                }
+                if (d.message[i].raw_resource_id) {
+                    obj.idResourceRaw = String(d.message[i].raw_resource_id).split('&');
+                    for (k = 0; k < obj.idResourceRaw.length; k++) obj.idResourceRaw[k] = int(obj.idResourceRaw[k]);
+                }
+                if (d.message[i].variaty) {
+                    obj.variaty = String(d.message[i].variaty).split('&');
+                    for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
+                }
 
                 g.dataBuilding.objectBuilding[obj.id] = obj;
             }
