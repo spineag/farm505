@@ -10,6 +10,7 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 
 import flash.events.Event;
+import flash.geom.Point;
 
 import flash.net.URLLoader;
 import flash.net.URLRequest;
@@ -765,22 +766,84 @@ public class DirectServer {
 
     private function completeGetUserBuilding(response:String, callback:Function = null):void {
         var d:Object;
+        var ob:Object;
+        var dbId:int;
+        var dataBuild:Object;
         try {
             d = JSON.parse(response);
-            for (var i:int = 0; i < d.message.length; i++) {
-                //g.userInventory.addResource(int(d.message[i].resource_id), int(d.message[i].count), false);
-            }
         } catch (e:Error) {
             Cc.error('GetUserBuilding: wrong JSON:' + String(response));
             return;
         }
 
         if (d.id == 0) {
+            for (var i:int = 0; i < d.message.length; i++) {
+                d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
+                dataBuild = g.dataBuilding.objectBuilding[int(d.message[i].building_id)];
+                if (int(d.message[i].in_inventory)) {
+
+                } else {
+                    if (d.message[i].date_start_build) {
+                        ob = {};
+                        ob.dateStartBuild = int(d.message[i].date_start_build);
+                        ob.isOpen = int(d.message[i].is_open);
+                        g.user.userBuildingData[int(d.message[i].building_id)] = ob;
+                    }
+                    var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
+                    g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
+                }
+            }
             if (callback != null) {
                 callback.apply();
             }
         } else {
             Cc.error('GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function startBuildMapBuilding(buildId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_START_BUILD_MAP_BUILDING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'startBuildMapBuilding', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buildingId = buildId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteStartBuildMapBuilding);
+        function onCompleteStartBuildMapBuilding(e:Event):void { completeStartBuildMapBuilding(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('startBuildMapBuilding error:' + error.errorID);
+        }
+    }
+
+    private function completeStartBuildMapBuilding(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('startBuildMapBuilding: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
         }
     }
 }
