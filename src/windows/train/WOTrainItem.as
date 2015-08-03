@@ -117,7 +117,6 @@ public class WOTrainItem {
         _txt.text = '';
         _index = -1;
         source.removeChild(_im);
-        _im.dispose();
         _im = null;
         source.alpha = .25;
         source.endClickCallback = null;

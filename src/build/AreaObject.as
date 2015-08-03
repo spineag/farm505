@@ -14,7 +14,6 @@ import starling.display.Sprite;
 import utils.CSprite;
 
 public class AreaObject extends WorldObject {
-    protected var _dataBuild:Object;
     protected var _flip:Boolean;
     protected var _defaultScale:Number;
 
@@ -81,9 +80,6 @@ public class AreaObject extends WorldObject {
 
     override public function get sizeX():uint {
         return _flip ? _sizeY : _sizeX;
-    }
-    public function get dataBuild():Object{
-        return _dataBuild;
     }
 
     override public function get sizeY():uint {

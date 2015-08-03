@@ -2,6 +2,9 @@
  * Created by user on 7/16/15.
  */
 package server {
+import build.WorldObject;
+import build.WorldObject;
+
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
@@ -343,6 +346,19 @@ public class DirectServer {
                 if (d.message[i].inner_house_x) obj.innerHouseX = int(d.message[i].inner_house_x);
                 if (d.message[i].inner_house_y) obj.innerHouseY = int(d.message[i].inner_house_y);
                 if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
+                if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
+                if (d.message[i].resource_id) {
+                    obj.idResource = String(d.message[i].resource_id).split('&');
+                    for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
+                }
+                if (d.message[i].raw_resource_id) {
+                    obj.idResourceRaw = String(d.message[i].raw_resource_id).split('&');
+                    for (k = 0; k < obj.idResourceRaw.length; k++) obj.idResourceRaw[k] = int(obj.idResourceRaw[k]);
+                }
+                if (d.message[i].variaty) {
+                    obj.variaty = String(d.message[i].variaty).split('&');
+                    for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
+                }
 
                 g.dataBuilding.objectBuilding[obj.id] = obj;
             }
@@ -387,7 +403,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
-            g.user.userId = int(d.message.id);
+            g.user.userId = int(d.message);
             if (callback != null) {
                 callback.apply();
             }
@@ -674,6 +690,97 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [false]);
             }
+        }
+    }
+
+    public function addUserBuilding(wObject:WorldObject, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_BUILDING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserBuilding', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buildingId = wObject.dataBuild.id;
+        variables.posX = wObject.posX;
+        variables.posY = wObject.posY;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserBuilding);
+        function onCompleteAddUserBuilding(e:Event):void { completeAddUserBuilding(e.target.data, wObject, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserBuilding error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserBuilding(response:String, wObject:WorldObject, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserBuilding: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+                wObject.dbBuildingId = d.message[0].buildingId;
+            }
+        } else {
+            Cc.error('addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function getUserBuilding(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_BUILDING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserBuilding', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserBuilding);
+        function onCompleteGetUserBuilding(e:Event):void { completeGetUserBuilding(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserBuilding error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserBuilding(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+            for (var i:int = 0; i < d.message.length; i++) {
+                //g.userInventory.addResource(int(d.message[i].resource_id), int(d.message[i].count), false);
+            }
+        } catch (e:Error) {
+            Cc.error('GetUserBuilding: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

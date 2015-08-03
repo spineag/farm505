@@ -13,7 +13,7 @@ import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 public class Paper extends AreaObject{
-    public function Paper(data) {
+    public function Paper(data:Object) {
         super (data);
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
