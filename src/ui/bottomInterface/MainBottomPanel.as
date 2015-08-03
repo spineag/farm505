@@ -94,6 +94,13 @@ public class MainBottomPanel {
 
                 break;
             case 'friends':
+                if (b == true){
+                    g.friendPanel.showIt();
+                    b = false;
+                } else if (b == false){
+                    g.friendPanel.hideIt();
+                    b = true;
+                }
                 break;
         }
     }
