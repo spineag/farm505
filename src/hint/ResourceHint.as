@@ -45,7 +45,6 @@ public class ResourceHint {
         _source.addChild(_txtText);
         _source.addChild(_txtTime);
         _source.addChild(_imageClock);
-
     }
 
     public function showIt(_data:int, text:String,sX:int,sY:int,source:Sprite):void {
@@ -53,6 +52,8 @@ public class ResourceHint {
             start = source.parent.localToGlobal(start);
             _source.x = start.x - 25;
             _source.y = start.y - 60;
+            _imageClock.visible = true;
+            _txtTime.visible = true;
             if (g.dataResource.objectResources[_data].buildType == BuildType.INSTRUMENT) {
                 _imageClock.visible = false;
                 _txtTime.visible = false;

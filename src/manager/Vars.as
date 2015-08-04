@@ -282,7 +282,7 @@ public class Vars {
     }
 
     private function onUserBuilding():void {
-//        user.friendAppUser();
+        (user as User).friendAppUser();
         initVariables2();
     }
 

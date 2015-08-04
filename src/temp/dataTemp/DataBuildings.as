@@ -29,7 +29,7 @@ public class DataBuildings {
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
         obj.currency = DataMoney.SOFT_CURRENCY;
-        obj.blockByLevel = [1];
+        obj.blockByLevel = [2];
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
 //        2
@@ -47,7 +47,7 @@ public class DataBuildings {
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
         obj.currency = DataMoney.SOFT_CURRENCY;
-        obj.blockByLevel = [1];
+        obj.blockByLevel = [6];
         obj.buildTime = 15000;
         objectBuilding[obj.id ] = obj;
 //         3
@@ -83,7 +83,7 @@ public class DataBuildings {
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
         obj.currency = DataMoney.SOFT_CURRENCY;
-        obj.blockByLevel = [1];
+        obj.blockByLevel = [3];
         obj.arrayResources = [];
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
@@ -103,7 +103,7 @@ public class DataBuildings {
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
         obj.currency = DataMoney.SOFT_CURRENCY;
-        obj.blockByLevel = [1];
+        obj.blockByLevel = [2];
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
 //         6
@@ -121,7 +121,7 @@ public class DataBuildings {
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
         obj.currency = DataMoney.SOFT_CURRENCY;
-        obj.blockByLevel = [1];
+        obj.blockByLevel = [3];
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
 //
@@ -139,7 +139,7 @@ public class DataBuildings {
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
         obj.currency = DataMoney.SOFT_CURRENCY;
-        obj.blockByLevel = [1];
+        obj.blockByLevel = [4];
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
 //
@@ -157,7 +157,7 @@ public class DataBuildings {
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
         obj.currency = DataMoney.SOFT_CURRENCY;
-        obj.blockByLevel = [1];
+        obj.blockByLevel = [4];
         obj.buildTime = 10000;
         objectBuilding[obj.id ] = obj;
 //

@@ -27,8 +27,7 @@ public class User {
     public var sex:String = 'm';
     public var isTester:Boolean;
     public var userBuildingData:Object;
-//    private var _clickCallback:Function;
-
+    public var arry:Array;
     private var g:Vars = Vars.getInstance();
 
     public function User() {
@@ -49,6 +48,7 @@ public class User {
             isTester = true;
         }
         userBuildingData = {};
+        arry = [];
     }
 
     public function checkUserLevel():void {
@@ -67,18 +67,7 @@ public class User {
     }
 
     public function friendAppUser():void {
-//        var _arrCells:Array;
-//        _arrCells = [];
-//        g.socialNetwork.getAppUsers
+        g.socialNetwork.getAppUsers;
     }
-
-//    public function set clickCallback(f:Function):void {
-//        _clickCallback = f;
-//    }
-//    private function start():void {
-//        if (_clickCallback != null) {
-//            _clickCallback.apply(null);
-//        }
-//    }
 }
 }
