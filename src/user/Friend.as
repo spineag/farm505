@@ -1,7 +1,7 @@
 /**
  * Created by user on 7/30/15.
  */
-package social.vk {
+package user {
 public class Friend {
     public var socialId:String;
     public var name:String;

@@ -26,6 +26,7 @@ public class User {
     public var photo:String;
     public var sex:String = 'm';
     public var isTester:Boolean;
+//    private var _clickCallback:Function;
 
     private var g:Vars = Vars.getInstance();
 
@@ -63,5 +64,19 @@ public class User {
         }
     }
 
+    public function friendAppUser():void {
+//        var _arrCells:Array;
+//        _arrCells = [];
+//        g.socialNetwork.getAppUsers
+    }
+
+//    public function set clickCallback(f:Function):void {
+//        _clickCallback = f;
+//    }
+//    private function start():void {
+//        if (_clickCallback != null) {
+//            _clickCallback.apply(null);
+//        }
+//    }
 }
 }
