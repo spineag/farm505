@@ -213,6 +213,10 @@ public class Vars {
         userInventory = new UserInventory();
         gameDispatcher = new FarmDispatcher(mainStage);
 
+        matrixGrid = new MatrixGrid();
+        matrixGrid.createMatrix();
+        townArea = new TownArea();
+
         if (useDataFromServer) {
             socialNetwork = new SocialNetwork(flashVars);
             socialNetworkID = SocialNetworkSwitch.SN_VK;
@@ -288,7 +292,6 @@ public class Vars {
         startPreloader = null;
 
         (user as User).checkUserLevel();
-        matrixGrid = new MatrixGrid();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
         timerHint = new TimerHint();
@@ -314,8 +317,7 @@ public class Vars {
     }
 
     private function continueInitGame():void {
-        matrixGrid.createMatrix();
-        townArea = new TownArea();
+
         toolsModifier.setTownArray();
 
         background = new BackgroundArea();

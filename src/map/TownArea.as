@@ -132,7 +132,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function createNewBuild(_data:Object, _x:Number, _y:Number):void {
+    public function createNewBuild(_data:Object, _x:Number, _y:Number, isFromServer:Boolean = false, dbId:int = 0):void {
         var build:WorldObject;
         var isFlip:Boolean = false;
 
@@ -195,13 +195,14 @@ public class TownArea extends Sprite {
             Cc.error('TownArea:: BUILD is null');
             return;
         }
-        pasteBuild(build, _x, _y);
+        (build as WorldObject).dbBuildingId = dbId;
+        pasteBuild(build, _x, _y, !isFromServer);
         if (isFlip && !(build is DecorPostFence)) {
             (build as AreaObject).releaseFlip();
         }
     }
 
-    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNew:Boolean = true):void {
+    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true):void {
         if (!_cont.contains(worldObject.source)) {
             worldObject.source.x = _x;
             worldObject.source.y = _y;
@@ -217,7 +218,7 @@ public class TownArea extends Sprite {
             } else {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
-            if (isNew) {
+            if (isNewAtMap) {
                 if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Tree)
                     g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
             }

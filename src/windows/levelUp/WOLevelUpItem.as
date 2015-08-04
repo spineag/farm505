@@ -48,17 +48,15 @@ public class WOLevelUpItem {
         }
         _imageBg = new Image(g.interfaceAtlas.getTexture("hint_circle"));
         _imageBg.width = _imageBg.height = 95;
-//        _imageBg.pivotX = _imageBg.width/2;
-//        _imageBg.pivotY = _imageBg.height/2;
         _imageBg.x = 50 - _imageBg.width/2;
         _imageBg.y = 50 - _imageBg.height/2;
-        MCScaler.scale(_image,80,80);
-//        _image.pivotX = _image.width/2;
-//        _image.pivotY = _image.height/2;
-        _image.x = 50 - _image.width/2;
-        _image.y = 50 - _image.height/2;
         source.addChild(_imageBg);
-        if (_image) source.addChild(_image);
+        if (_image) {
+            MCScaler.scale(_image, 80, 80);
+            _image.x = 50 - _image.width / 2;
+            _image.y = 50 - _image.height / 2;
+            source.addChild(_image);
+        }
         if (_imagePlus) source.addChild(_imagePlus);
         source.addChild(_txt);
     }

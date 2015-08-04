@@ -23,7 +23,7 @@ public class WorldObject {
     protected var _craftSprite:Sprite;
     protected var _depth:Number = 0;
     protected var _rect:Rectangle;
-    protected var _dbBuildingId:int = 0;
+    protected var _dbBuildingId:int = 0;   // id в таблице user_building
 
     protected static var g:Vars = Vars.getInstance();
 

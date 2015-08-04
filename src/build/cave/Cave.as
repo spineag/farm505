@@ -51,7 +51,9 @@ public class Cave extends AreaObject{
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
 
-        g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
+        if (g.user.userBuildingData[_dataBuild.id] && g.user.userBuildingData[_dataBuild.id].isOpen) {
+            onBuy(false);
+        }
     }
 
     private function onHover():void {
@@ -78,6 +80,7 @@ public class Cave extends AreaObject{
                 _woBuy.showItWithParams(_dataBuild, onBuy);
                 g.hint.hideIt();
             } else {
+                if (!g.woCave.isWindowFill) g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
                 g.woCave.showIt();
                 g.hint.hideIt();
             }
@@ -86,9 +89,10 @@ public class Cave extends AreaObject{
         }
     }
 
-    private function onBuy():void {
-        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _dataBuild.cost);
+    private function onBuy(isNewBuy:Boolean = true):void {
+        if (isNewBuy) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _dataBuild.cost);
         _state = ACTIVE;
+        g.directServer.startBuildMapBuilding(_dataBuild.id, onStartMapBuildingResponse);
 
         while (_build.numChildren) {
             _build.removeChildAt(0);
@@ -98,6 +102,8 @@ public class Cave extends AreaObject{
         im.y = _dataBuild.innerY;
         _build.addChild(im);
     }
+
+    private function onStartMapBuildingResponse(value:Boolean):void {}
 
     private function onItemClick(id:int):void {
         var v:Number = _dataBuild.variaty[_dataBuild.idResourceRaw.indexOf(id)];

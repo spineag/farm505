@@ -26,6 +26,7 @@ public class User {
     public var photo:String;
     public var sex:String = 'm';
     public var isTester:Boolean;
+    public var userBuildingData:Object;
 //    private var _clickCallback:Function;
 
     private var g:Vars = Vars.getInstance();
@@ -47,6 +48,7 @@ public class User {
             globalXP = 1735;
             isTester = true;
         }
+        userBuildingData = {};
     }
 
     public function checkUserLevel():void {
