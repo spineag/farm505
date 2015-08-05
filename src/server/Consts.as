@@ -16,9 +16,12 @@ public class Consts {
     public static var INQ_UPDATE_USER_LEVEL:String = 'updateUserLevel.php';
     public static var INQ_GET_USER_RESOURCE:String = 'getUserResource.php';
     public static var INQ_GET_USER_BUILDING:String = 'getUserBuilding.php';
+    public static var INQ_GET_USER_FABRICA_RECIPE:String = 'getUserFabricaRecipe.php';
     public static var INQ_ADD_USER_RESOURCE:String = 'addUserResource.php';
     public static var INQ_ADD_USER_BUILDING:String = 'addUserBuilding.php';
     public static var INQ_START_BUILD_BUILDING:String = 'startBuildBuilding.php';
     public static var INQ_OPEN_BUILDED_BUILDING:String = 'finishBuildBuilding.php';
+    public static var INQ_ADD_FABRICA_RECIPE:String = 'addFabricaRecipe.php';
+    public static var INQ_CRAFT_FABRICA_RECIPE:String = 'craftRecipeOnFabrica.php';
 }
 }

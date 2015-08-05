@@ -140,8 +140,21 @@ public class Fabrica extends AreaObject {
         }
     }
 
-    private function callbackOnChooseRecipe(resourceItem:ResourceItem, dataRecipe:Object):void {
-        _arrList.push(resourceItem);
+    public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object, isFromServer:Boolean = false, deltaTime:int = 0):void {
+        var i:int;
+        if (g.user.userBuildingData && !isFromServer) {
+            var delay:int = 0;
+            for (i=0; i<_arrList.length; i++) {
+                delay += _arrList[i].buildTime;
+            }
+            var f1:Function = function(t:String):void {
+                resItem.idFromServer = t;
+            };
+            g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
+        }
+        _arrList.push(resItem);
+        resItem.leftTime -= deltaTime;
+        resItem.currentRecipeID = dataRecipe.id;
         if (_arrList.length == 1) {
             g.gameDispatcher.addToTimer(render);
             startTempAnimation();
@@ -150,7 +163,7 @@ public class Fabrica extends AreaObject {
         p = source.parent.localToGlobal(p);
         var obj:Object;
         var texture:Texture;
-        for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+        for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
             obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
             if (obj.buildType == BuildType.PLANT) {
                 texture = g.plantAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
@@ -175,7 +188,7 @@ public class Fabrica extends AreaObject {
         }
     }
 
-    private function craftResource(item:ResourceItem):void {
+    public function craftResource(item:ResourceItem):void {
         var countResources:int = 1;
         for(var id:String in g.dataRecipe.objectRecipe) {
             if (g.dataRecipe.objectRecipe[id].buildingId == _dataBuild.id &&
@@ -183,7 +196,10 @@ public class Fabrica extends AreaObject {
                 countResources = g.dataRecipe.objectRecipe[id].numberCreate;
             }
         }
-        var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources);
+        var f1:Function = function():void {
+            g.managerFabricaRecipe.onCraft(item);
+        };
+        var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, f1);
     }
 
     private function startTempAnimation():void {

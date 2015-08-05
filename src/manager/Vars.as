@@ -112,6 +112,7 @@ public class Vars {
     public var mapEditor:MapEditorInterface;
     public var editorButtons:EditorButtonInterface;
     public var deactivatedAreaManager:DeactivatedAreaManager;
+    public var managerFabricaRecipe:ManagerFabricaRecipe;
 
     public var mapAtlas:TextureAtlas;
     public var tempBuildAtlas:TextureAtlas;
@@ -198,7 +199,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = false;
+        useDataFromServer = true;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
@@ -282,6 +283,10 @@ public class Vars {
     }
 
     private function onUserBuilding():void {
+        directServer.getUserFabricaRecipe(onUserFabricaRecipe);
+    }
+
+    private function onUserFabricaRecipe():void {
         (user as User).friendAppUser();
         initVariables2();
     }

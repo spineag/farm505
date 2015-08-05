@@ -20,7 +20,11 @@ import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
 import flash.system.Worker;
 
+import manager.ManagerFabricaRecipe;
+
 import manager.Vars;
+
+import resourceItem.ResourceItem;
 
 public class DirectServer {
     private var g:Vars = Vars.getInstance();
@@ -895,6 +899,144 @@ public class DirectServer {
             }
         } else {
             Cc.error('openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function addFabricaRecipe(recipeId:int, dbId:int, delay:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_FABRICA_RECIPE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addFabricaRecipe', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.recipeId = recipeId;
+        variables.dbId = dbId;
+        variables.delay = delay;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddFabricaRecipe);
+        function onCompleteAddFabricaRecipe(e:Event):void { completeAddFabricaRecipe(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addFabricaRecipe error:' + error.errorID);
+        }
+    }
+
+    private function completeAddFabricaRecipe(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addFabricaRecipe: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else {
+            Cc.error('addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function getUserFabricaRecipe(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_FABRICA_RECIPE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserFabricaRecipe', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserFabricaRecipe);
+        function onCompleteGetUserFabricaRecipe(e:Event):void { completeGetUserFabricaRecipe(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserFabricaRecipe error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserFabricaRecipe(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('GetUserFabricaRecipe: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            (d.message as Array).sortOn('delay', Array.NUMERIC);
+            g.managerFabricaRecipe = new ManagerFabricaRecipe();
+            for (var i:int = 0; i < d.message.length; i++) {
+                g.managerFabricaRecipe.addRecipe(d.message[i]);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('GetUserFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function craftFabricaRecipe(dbId:String, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_FABRICA_RECIPE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'craftFabricaRecipe', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteCraftFabricaRecipe);
+        function onCompleteCraftFabricaRecipe(e:Event):void { completeCraftFabricaRecipe(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('craftFabricaRecipe error:' + error.errorID);
+        }
+    }
+
+    private function completeCraftFabricaRecipe(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('craftFabricaRecipe: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }

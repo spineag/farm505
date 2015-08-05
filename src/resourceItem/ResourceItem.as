@@ -27,8 +27,9 @@ public class ResourceItem {
     public var imageHarvested:String; // иконка собраного растения, которое летит в изображение склада
     public var innerPositions:Array;
     public var leftTime:int;
-    public var recipeId:int;
+    public var currentRecipeID:int;
     public var placeBuild:int;
+    public var idFromServer:String; // в табличке user_recipe_fabrica
 
     public function ResourceItem() {}
 
@@ -45,7 +46,7 @@ public class ResourceItem {
         dataResource.priceHard ? _priceHard = dataResource.priceHard : _priceHard = 10000;
         dataResource.priceSkipHard ? _priceSkipHard = dataResource.priceSkipHard : _priceSkipHard = 10000;
         dataResource.blockByLevel ? _blockByLevel = dataResource.blockByLevel : _blockByLevel = 1;
-        dataResource.buildTime ? _buildTime = dataResource.buildTime : _buildTime = 30;
+        dataResource.buildTime ? _buildTime = int(dataResource.buildTime) : _buildTime = 30;
         dataResource.builType ? _buildType = dataResource.buildType : _buildType = BuildType.TEST;
         dataResource.craftXP ? craftXP = dataResource.craftXP : craftXP = 1;
         dataResource.image1 ? image1 = dataResource.image1 : image1 = '';
@@ -56,7 +57,7 @@ public class ResourceItem {
         dataResource.innerPositions ? innerPositions = dataResource.innerPositions : innerPositions = [];
         dataResource.placeBuild ? placeBuild = dataResource.placeBuild : BuildType.PLACE_NONE;
         leftTime = _buildTime;
-        recipeId = 0;
+        currentRecipeID= 0;
     }
 
     public function get resourceID():int { return _id}
@@ -70,5 +71,6 @@ public class ResourceItem {
     public function get priceSkipHard():int { return _priceSkipHard}
     public function get blockByLevel():int { return _blockByLevel}
     public function get buildType():int { return _buildType}
+    public function get buildTime():int { return _buildTime}
 }
 }
