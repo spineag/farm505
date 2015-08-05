@@ -135,6 +135,21 @@ public class TownArea extends Sprite {
     public function createNewBuild(_data:Object, _x:Number, _y:Number, isFromServer:Boolean = false, dbId:int = 0):void {
         var build:WorldObject;
         var isFlip:Boolean = false;
+        var ob:Object = {};
+
+        if (!isFromServer && _data.buildType == BuildType.FABRICA) {    // что означает, что через магазин купили и поставили новое здание
+            if (g.useDataFromServer) {
+                ob.dbId = -1;
+                ob.timeBuildBuilding = 0;
+                ob.isOpen = 0;
+                g.user.userBuildingData[_data.id] = ob;
+            } else {
+                ob.dbId = int(Math.random() * 1000);
+                ob.dateStartBuild = new Date().getTime();
+                ob.isOpen = 0;
+                g.user.userBuildingData[_data.id] = ob;
+            }
+        }
 
         if (_data.isFlip) isFlip = true;
         switch (_data.buildType) {
@@ -228,7 +243,9 @@ public class TownArea extends Sprite {
         zSort();
     }
 
-    private function onAddNewBuilding(value:Boolean):void { }
+    private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
+        g.directServer.startBuildBuilding(wObject, null);
+    }
 
     public function deleteBuild(worldObject:WorldObject):void{
         if(_cont.contains(worldObject.source)){

@@ -9,6 +9,7 @@ import build.AreaObject;
 public class DecorFence extends AreaObject {
     public function DecorFence(_data:Object) {
         super(_data);
+        createBuild();
 
 //        _source.hoverCallback = onHover;
 //        _source.endClickCallback = onClick;

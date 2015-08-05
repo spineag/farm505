@@ -17,6 +17,7 @@ public class Order extends AreaObject{
 
     public function Order (data:Object) {
         super (data);
+        createBuild();
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;

@@ -15,6 +15,7 @@ import starling.utils.Color;
 public class Paper extends AreaObject{
     public function Paper(data:Object) {
         super (data);
+        createBuild();
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;

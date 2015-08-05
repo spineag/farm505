@@ -33,16 +33,44 @@ import windows.cave.WOBuyCave;
 
 
 public class Cave extends AreaObject{
-    private static const UNACTIVE:int = 1;
-    private static const ACTIVE:int = 2;
-
     private var _woBuy:WOBuyCave;
-    private var _state:int;
 
     public function Cave(data:Object) {
         super (data);
+
+        if (g.user.userBuildingData[_dataBuild.id]) {
+            if (g.user.userBuildingData[_dataBuild.id].isOpen) {
+                _stateBuild = STATE_ACTIVE;
+                var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
+                im.x = _dataBuild.innerX;
+                im.y = _dataBuild.innerY;
+                _build.addChild(im);
+                _defaultScale = _build.scaleX;
+                _rect = _build.getBounds(_build);
+                _sizeX = _dataBuild.width;
+                _sizeY = _dataBuild.height;
+                (_build as Sprite).alpha = 1;
+                if (_flip) _build.scaleX = -_defaultScale;
+                _source.addChild(_build);                                           // уже построенно и открыто
+            } else {
+                _leftBuildTime = g.user.userBuildingData[_dataBuild.id].timeBuildBuilding;  // сколько времени уже строится
+                _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                    _stateBuild = STATE_WAIT_ACTIVATE;
+                    createBuild();
+                } else {  // еще строится
+                    _stateBuild = STATE_BUILD;
+                    createBuild();
+                    g.gameDispatcher.addToTimer(renderBuildProgress);
+                }
+            }
+        } else {
+            _stateBuild = STATE_UNACTIVE;
+        }
+
+        checkCaveState();
+
         _woBuy = new WOBuyCave();
-        _state = UNACTIVE;
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
@@ -51,8 +79,56 @@ public class Cave extends AreaObject{
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
 
-        if (g.user.userBuildingData[_dataBuild.id] && g.user.userBuildingData[_dataBuild.id].isOpen) {
-            onBuy(false);
+        if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            addTempGiftIcon();
+        } else if (_stateBuild == STATE_BUILD) {
+            addTempBuildIcon();
+        }
+    }
+
+    private function checkCaveState():void {
+        if (g.user.userBuildingData[_dataBuild.id]) {
+            if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
+                _stateBuild = STATE_ACTIVE;
+                var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
+                im.x = _dataBuild.innerX;
+                im.y = _dataBuild.innerY;
+                _build.addChild(im);
+                _defaultScale = _build.scaleX;
+                _rect = _build.getBounds(_build);
+                _sizeX = _dataBuild.width;
+                _sizeY = _dataBuild.height;
+                (_build as Sprite).alpha = 1;
+                if (_flip) _build.scaleX = -_defaultScale;
+                _source.addChild(_build);
+            } else {
+                var time:Number = new Date().getTime();
+                _leftBuildTime = time - Number(g.user.userBuildingData[_dataBuild.id].dateStartBuild);  // сколько времени уже строится
+                _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                    _stateBuild = STATE_WAIT_ACTIVATE;
+                    createBuild();
+                    addTempGiftIcon();
+                } else {  // еще строится
+                    _stateBuild = STATE_BUILD;
+                    createBuild();
+                    addTempBuildIcon();
+                    g.gameDispatcher.addToTimer(renderBuildCaveProgress);
+                }
+            }
+        } else {
+            _stateBuild = STATE_UNACTIVE;
+            createBuild();
+        }
+    }
+
+    protected function renderBuildCaveProgress():void {
+        _leftBuildTime--;
+        if (_leftBuildTime <= 0) {
+            g.gameDispatcher.removeFromTimer(renderBuildProgress);
+            clearCraftSprite();
+            addTempGiftIcon();
+            _stateBuild = STATE_WAIT_ACTIVATE;
         }
     }
 
@@ -67,43 +143,65 @@ public class Cave extends AreaObject{
     }
 
     private function onClick():void {
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-        } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-        } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
-        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            _source.filter = null;
-            if (_state == UNACTIVE) {
-                _woBuy.showItWithParams(_dataBuild, onBuy);
-                g.hint.hideIt();
-            } else {
+        if (_stateBuild == STATE_ACTIVE) {
+            if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+            } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+            } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+            } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
+            } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+            } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                _source.filter = null;
                 if (!g.woCave.isWindowFill) g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
                 g.woCave.showIt();
                 g.hint.hideIt();
+            } else {
+                Cc.error('Cave:: unknown g.toolsModifier.modifierType')
             }
-        } else {
-            Cc.error('Cave:: unknown g.toolsModifier.modifierType')
+        } else if (_stateBuild == STATE_UNACTIVE) {
+            _source.filter = null;
+            _woBuy.showItWithParams(_dataBuild, onBuy);
+            g.hint.hideIt();
+        } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            if (g.useDataFromServer) {
+                g.directServer.openBuildedBuilding(this, onOpenBuilded);
+            }
+            _stateBuild = STATE_ACTIVE;
+            _source.filter = null;
+            clearCraftSprite();
+            while (_build.numChildren) {
+                _build.removeChildAt(0);
+            }
+            while (_source.numChildren) {
+                _source.removeChildAt(0);
+            }
+            var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
+            im.x = _dataBuild.innerX;
+            im.y = _dataBuild.innerY;
+            _build.addChild(im);
+            _defaultScale = _build.scaleX;
+            _rect = _build.getBounds(_build);
+            _sizeX = _dataBuild.width;
+            _sizeY = _dataBuild.height;
+            (_build as Sprite).alpha = 1;
+            if (_flip) _build.scaleX = -_defaultScale;
+            _source.addChild(_build);
         }
     }
 
-    private function onBuy(isNewBuy:Boolean = true):void {
-        if (isNewBuy) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _dataBuild.cost);
-        _state = ACTIVE;
-        g.directServer.startBuildMapBuilding(_dataBuild.id, onStartMapBuildingResponse);
+    private function onOpenBuilded(value:Boolean):void { }
 
-        while (_build.numChildren) {
-            _build.removeChildAt(0);
-        }
-        var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
-        im.x = _dataBuild.innerX;
-        im.y = _dataBuild.innerY;
-        _build.addChild(im);
+    private function onBuy():void {
+        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _dataBuild.cost);
+        _stateBuild = STATE_BUILD;
+        _dbBuildingId = 0;
+        g.directServer.startBuildBuilding(this, onStartBuildingResponse);
+        addTempBuildIcon();
+        g.gameDispatcher.addToTimer(renderBuildCaveProgress);
     }
 
-    private function onStartMapBuildingResponse(value:Boolean):void {}
+    private function onStartBuildingResponse(value:Boolean):void {}
 
     private function onItemClick(id:int):void {
         var v:Number = _dataBuild.variaty[_dataBuild.idResourceRaw.indexOf(id)];

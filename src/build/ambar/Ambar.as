@@ -18,6 +18,7 @@ public class Ambar extends AreaObject{
 
     public function Ambar(_data:Object) {
         super(_data);
+        createBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

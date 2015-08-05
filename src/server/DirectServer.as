@@ -4,6 +4,7 @@
 package server {
 import build.WorldObject;
 import build.WorldObject;
+import build.WorldObject;
 
 import com.junkbyte.console.Cc;
 
@@ -17,6 +18,7 @@ import flash.net.URLRequest;
 import flash.net.URLRequestHeader;
 import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
+import flash.system.Worker;
 
 import manager.Vars;
 
@@ -295,6 +297,7 @@ public class DirectServer {
                 obj.name = d.message[i].name;
                 obj.url = d.message[i].url;
                 obj.image = d.message[i].image;
+                obj.xpForBuild = int(d.message[i].xp_for_build);
                 obj.buildType = int(d.message[i].build_type);
 
                 if (d.message[i].currency) obj.currency = int(d.message[i].currency);
@@ -731,9 +734,11 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            wObject.dbBuildingId = int(d.message);
+            if (g.user.userBuildingData[wObject.dataBuild.id])
+                g.user.userBuildingData[wObject.dataBuild.id].dbId = int(d.message);
             if (callback != null) {
-                callback.apply(null, [true]);
-                wObject.dbBuildingId = d.message[0].buildingId;
+                callback.apply(null, [true, wObject]);
             }
         } else {
             Cc.error('addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
@@ -783,9 +788,10 @@ public class DirectServer {
                 if (int(d.message[i].in_inventory)) {
 
                 } else {
-                    if (d.message[i].date_start_build) {
+                    if (d.message[i].time_build_building) {
                         ob = {};
-                        ob.dateStartBuild = int(d.message[i].date_start_build);
+                        ob.dbId = dbId;
+                        ob.timeBuildBuilding = Number(d.message[i].time_build_building);
                         ob.isOpen = int(d.message[i].is_open);
                         g.user.userBuildingData[int(d.message[i].building_id)] = ob;
                     }
@@ -801,21 +807,22 @@ public class DirectServer {
         }
     }
 
-    public function startBuildMapBuilding(buildId:int, callback:Function):void {
+    public function startBuildBuilding(wObject:WorldObject, callback:Function):void {
         if (!g.useDataFromServer) return;
 
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_START_BUILD_MAP_BUILDING);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_START_BUILD_BUILDING);
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'startBuildMapBuilding', 1);
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.buildingId = buildId;
+        variables.buildingId = wObject.dataBuild.id;
+        variables.dbId = wObject.dbBuildingId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteStartBuildMapBuilding);
-        function onCompleteStartBuildMapBuilding(e:Event):void { completeStartBuildMapBuilding(e.target.data, callback); }
+        function onCompleteStartBuildMapBuilding(e:Event):void { completeStartBuildMapBuilding(e.target.data, wObject, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -823,7 +830,7 @@ public class DirectServer {
         }
     }
 
-    private function completeStartBuildMapBuilding(response:String, callback:Function = null):void {
+    private function completeStartBuildMapBuilding(response:String, wObject:WorldObject, callback:Function = null):void {
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -841,6 +848,53 @@ public class DirectServer {
             }
         } else {
             Cc.error('startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function openBuildedBuilding(wObject:WorldObject, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_OPEN_BUILDED_BUILDING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'openBuildMapBuilding', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buildingId = wObject.dataBuild.id;
+        variables.dbId = wObject.dbBuildingId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteOpenBuildMapBuilding);
+        function onCompleteOpenBuildMapBuilding(e:Event):void { completeOpenBuildMapBuilding(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('openBuildMapBuilding error:' + error.errorID);
+        }
+    }
+
+    private function completeOpenBuildMapBuilding(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('openBuildMapBuilding: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }

@@ -62,7 +62,7 @@ public class XPPanel {
     public function addXP(count:int):void{
         g.user.xp += count;
         g.user.globalXP += count;
-        if (count)
+        if (count && g.useDataFromServer)
             g.directServer.addUserXP(count, onAddUserXP);
         if (g.user.xp >= _maxXP){
             g.user.xp -= _maxXP;
@@ -70,7 +70,7 @@ public class XPPanel {
             _txtLevel.text = String(g.user.level);
             g.woLevelUp.showLevelUp();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
-            g.directServer.updateUserLevel(onUpdateUserLevel);
+            if (g.useDataFromServer) g.directServer.updateUserLevel(onUpdateUserLevel);
         }
         checkXP();
     }

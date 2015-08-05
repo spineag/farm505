@@ -14,6 +14,7 @@ import starling.utils.Color;
 public class Decor extends AreaObject{
     public function Decor(_data:Object) {
         super(_data);
+        createBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

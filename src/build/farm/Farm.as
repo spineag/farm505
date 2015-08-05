@@ -6,6 +6,8 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
 import flash.media.SoundChannel;
 
 import map.TownArea;
@@ -18,6 +20,8 @@ import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
+import ui.xpPanel.XPStar;
+
 import utils.CSprite;
 
 public class Farm extends AreaObject{
@@ -27,6 +31,7 @@ public class Farm extends AreaObject{
 
     public function Farm(_data:Object) {
         super(_data);
+        createBuild();
 
         _dataBuild.isFlip = _flip;
         _source.endClickCallback = onClick;
@@ -46,6 +51,12 @@ public class Farm extends AreaObject{
 
         _arrAnimals = [];
         setDataAnimal();
+
+        if (_dataBuild.xpForBuild) {
+            var start:Point = new Point(int(_source.x), int(_source.y));
+            start = _source.parent.localToGlobal(start);
+            new XPStar(start.x, start.y, _dataBuild.xpForBuild);
+        }
     }
 
     private function onHoverHouse():void {

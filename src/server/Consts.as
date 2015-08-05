@@ -18,6 +18,7 @@ public class Consts {
     public static var INQ_GET_USER_BUILDING:String = 'getUserBuilding.php';
     public static var INQ_ADD_USER_RESOURCE:String = 'addUserResource.php';
     public static var INQ_ADD_USER_BUILDING:String = 'addUserBuilding.php';
-    public static var INQ_START_BUILD_MAP_BUILDING:String = 'startBuildMapBuilding.php';
+    public static var INQ_START_BUILD_BUILDING:String = 'startBuildBuilding.php';
+    public static var INQ_OPEN_BUILDED_BUILDING:String = 'finishBuildBuilding.php';
 }
 }

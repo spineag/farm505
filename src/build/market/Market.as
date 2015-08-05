@@ -15,6 +15,7 @@ public class Market extends AreaObject{
 
     public function Market(_data:Object) {
         super(_data);
+        createBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

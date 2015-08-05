@@ -17,6 +17,7 @@ public class Train extends AreaObject{
 
     public function Train(_data:Object) {
         super(_data);
+        createBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

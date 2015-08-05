@@ -15,6 +15,7 @@ public class Shop extends AreaObject{
 
     public function Shop(_data:Object) {
         super(_data);
+        createBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

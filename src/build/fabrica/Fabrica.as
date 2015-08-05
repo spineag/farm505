@@ -27,15 +27,21 @@ import starling.filters.BlurFilter;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import ui.xpPanel.XPStar;
+
 public class Fabrica extends AreaObject {
     private var _arrRecipes:Array;  // массив всех рецептов, которые можно изготовить на этой фабрике
     private var _arrList:Array; // массив заказанных для изготовления ресурсов
     private var _maxListCount:int = 3;
     private var _tween:TweenMax;
     private var _isAnim:Boolean;
+    private var _isOnHover:Boolean;
+    private var _count:int;
 
     public function Fabrica(_data:Object) {
         super(_data);
+        _craftSprite = new Sprite();
+        checkBuildState();
 
         _isAnim = false;
         _arrRecipes = [];
@@ -45,43 +51,85 @@ public class Fabrica extends AreaObject {
         _source.outCallback = onOut;
         _dataBuild.isFlip = _flip;
 
-        _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         fillRecipes();
     }
 
     private function onHover():void {
+        _isOnHover = true;
+        _count = 20;
         _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
-        g.hint.showIt(_dataBuild.name, "0");
+        if (_stateBuild == STATE_ACTIVE) {
+            g.hint.showIt(_dataBuild.name, "0");
+        } else if (_stateBuild == STATE_BUILD) {
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+        }
+    }
+
+    private function countEnterFrame():void {
+        _count--;
+        if(_count <=0){
+            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+            if (_isOnHover == true) {
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _leftBuildTime, _dataBuild.cost, _dataBuild.name);
+            }
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.timerHint.hideIt();
+            }
+        }
     }
 
     private function onOut():void {
+        _isOnHover = false;
         _source.filter = null;
-        g.hint.hideIt();
+        if (_stateBuild == STATE_BUILD) {
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+        } else {
+            g.hint.hideIt();
+        }
     }
 
     private function onClick():void {
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
-        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            g.townArea.deleteBuild(this);
-        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            releaseFlip();
-        } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+        if (_stateBuild == STATE_ACTIVE) {
+            if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+                g.townArea.moveBuild(this);
+            } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+                g.townArea.deleteBuild(this);
+            } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+                releaseFlip();
+            } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
 
-        } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
-            // ничего не делаем вообще
-        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            g.woFabrica.showItWithParams(_arrRecipes, _arrList, _maxListCount, callbackOnChooseRecipe);
+            } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
+                // ничего не делаем вообще
+            } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+            } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                g.woFabrica.showItWithParams(_arrRecipes, _arrList, _maxListCount, callbackOnChooseRecipe);
+                _source.filter = null;
+                g.hint.hideIt();
+            } else {
+                Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+            }
+        } else if (_stateBuild == STATE_BUILD) {
+
+        } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            _stateBuild = STATE_ACTIVE;
+            g.user.userBuildingData[_dataBuild.id].isOpen = 1;
+            if (g.useDataFromServer) {
+                g.directServer.openBuildedBuilding(this, onOpenBuilded);
+            }
+            clearCraftSprite();
             _source.filter = null;
-            g.hint.hideIt();
-        } else {
-            Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+            if (_dataBuild.xpForBuild) {
+                var start:Point = new Point(int(_source.x), int(_source.y));
+                start = _source.parent.localToGlobal(start);
+                new XPStar(start.x, start.y, _dataBuild.xpForBuild);
+            }
         }
-
     }
+
+    private function onOpenBuilded(value:Boolean):void { }
 
     private function fillRecipes():void {
         var obj:Object = g.dataRecipe.objectRecipe;

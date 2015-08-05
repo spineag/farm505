@@ -1,21 +1,14 @@
 package build {
-import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
 
-import flash.geom.Rectangle;
-
-import starling.display.DisplayObject;
-
 import starling.display.Image;
-
 import starling.display.Sprite;
 
 import utils.CSprite;
 
 public class AreaObject extends WorldObject {
-    protected var _flip:Boolean;
-    protected var _defaultScale:Number;
+    protected var _leftBuildTime:int;                   // сколько осталось времени до окончания постройки здания
 
     public function AreaObject(dataBuild:Object) {
         _source = new CSprite();
@@ -24,13 +17,34 @@ public class AreaObject extends WorldObject {
         _flip = false;
         _sizeX = 0;
         _sizeY = 0;
+    }
 
-        createBuild();
+    protected function checkBuildState():void {
+        if (g.user.userBuildingData[_dataBuild.id]) {
+            if (g.user.userBuildingData[_dataBuild.id].isOpen) {
+                _stateBuild = STATE_ACTIVE;
+                createBuild();                                           // уже построенно и открыто
+            } else {
+                _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
+                _leftBuildTime = int(_dataBuild.buildTime) - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                    _stateBuild = STATE_WAIT_ACTIVATE;
+                    createBuild();
+                    addTempGiftIcon();
+                } else {  // еще строится
+                    _stateBuild = STATE_BUILD;
+                    createBuild();
+                    addTempBuildIcon();
+                    g.gameDispatcher.addToTimer(renderBuildProgress);
+                }
+            }
+        } else {
+            _stateBuild = STATE_ACTIVE;
+            createBuild();
+        }
     }
 
     public function createBuild():void {
-        if (this is Tree) return;
-
         var im:Image;
         if (_build) {
             if (_source.contains(_build)) {
@@ -56,90 +70,47 @@ public class AreaObject extends WorldObject {
         _sizeY = _dataBuild.height;
 
         (_build as Sprite).alpha = 1;
-        if (_flip) {
-            _build.scaleX = -_defaultScale;
-        }
+        if (_flip) _build.scaleX = -_defaultScale;
 
         _source.addChild(_build);
     }
 
-    public function createArrow(seconds:uint = 10000):void {
-    }
-
-    override public function set enabled(value:Boolean):void {
-//        if (_build) {
-//            if (_handler && _handler.icon) {
-//                _handler.icon.source.mouseEnabled = value;
-//            }
-//            (_build as Sprite).mouseEnabled = value;
-//        }
-    }
-
-    public function removeArrow():void {
-    }
-
-    override public function get sizeX():uint {
-        return _flip ? _sizeY : _sizeX;
-    }
-
-    override public function get sizeY():uint {
-        return _flip ? _sizeX : _sizeY;
-    }
-
-//    public function set flip(value:Boolean):void {
-//        _flip = value;
-//        if (_flip) {
-//            _build.scaleX = -_defaultScale;
-//        } else {
-//            _build.scaleX = _defaultScale;
-//        }
-//    }
-
-    public function get flip():Boolean {
-        return _flip;
-    }
-
-    public function releaseFlip():void {
-        if (_sizeX == _sizeY) {
-            _flip = !_flip;
-            _flip ? _source.scaleX = -_defaultScale : _source.scaleX = _defaultScale;
-            _dataBuild.isFlip = _flip;
-            return;
-        }
-
-        if (_flip) {
-            g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
-            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY)) {
-                _flip = false;
-                _source.scaleX = _defaultScale;
-                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
-            } else {
-                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
-            }
+    protected function addTempGiftIcon():void {
+        if (_craftSprite) {
+            var im:Image = new Image(g.interfaceAtlas.getTexture('temp_gift_icon'));
+            im.x = -im.width/2;
+            im.y = -10;
+            _craftSprite.addChild(im);
         } else {
-            g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
-            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
-                _flip = true;
-                _source.scaleX = -_defaultScale;
-                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
-            } else {
-                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
-            }
+            Cc.error('_craftSprite == null  :(')
         }
-        _dataBuild.isFlip = _flip;
     }
 
+    protected function addTempBuildIcon():void {
+        if (_craftSprite) {
+            var im:Image = new Image(g.interfaceAtlas.getTexture('work_icon'));
+            im.x = -im.width/2;
+            im.y = -10;
+            _craftSprite.addChild(im);
+        } else {
+            Cc.error('_craftSprite == null  :(')
+        }
+    }
 
-//    private function renderArrow():void {
-//        if ((getTimer() - _arrow['time']) < _secondsArrow) {
-//            return;
-//        }
-//        g.area.areaDispatcher.removeEnterFrame(renderArrow);
-//        TweenLite.to(_arrow, 0.25, {alpha: 0, onComplete: removeArrow, ease: Linear.easeNone});
-//    }
-//
-//    private function completeArrow():void {
-//        g.area.areaDispatcher.addEnterFrame(renderArrow);
-//    }
+    protected function clearCraftSprite():void {
+        if (_craftSprite) {
+            while (_craftSprite.numChildren) _craftSprite.removeChildAt(0);
+        }
+    }
+
+    protected function renderBuildProgress():void {
+        _leftBuildTime--;
+        if (_leftBuildTime <= 0) {
+            g.gameDispatcher.removeFromTimer(renderBuildProgress);
+            clearCraftSprite();
+            addTempGiftIcon();
+            _stateBuild = STATE_WAIT_ACTIVATE;
+        }
+    }
 }
 }

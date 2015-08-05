@@ -21,6 +21,8 @@ import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
+import ui.xpPanel.XPStar;
+
 import utils.MCScaler;
 
 public class Tree extends AreaObject{
@@ -65,6 +67,12 @@ public class Tree extends AreaObject{
         _state = GROW1;
         setBuildImage();
         startGrow();
+
+        if (_dataBuild.xpForBuild) {
+            var start:Point = new Point(int(_source.x), int(_source.y));
+            start = _source.parent.localToGlobal(start);
+            new XPStar(start.x, start.y, _dataBuild.xpForBuild);
+        }
     }
 
     private function createTreeBuild():void {

@@ -15,6 +15,7 @@ import starling.utils.Color;
 public class DailyBonus extends AreaObject{
     public function DailyBonus(data:Object) {
         super (data);
+        createBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

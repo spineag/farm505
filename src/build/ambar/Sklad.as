@@ -18,6 +18,7 @@ public class Sklad extends AreaObject{
 
     public function Sklad(_data:Object) {
         super(_data);
+        createBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

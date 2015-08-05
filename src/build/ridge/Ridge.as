@@ -50,6 +50,7 @@ public class Ridge extends AreaObject{
 
     public function Ridge(_data:Object) {
         super(_data);
+        createBuild();
         _stateRidge = EMPTY;
 
         _source.hoverCallback = onHover;

@@ -13,7 +13,14 @@ import utils.Point3D;
 import utils.CSprite;
 
 public class WorldObject {
+    public static var STATE_UNACTIVE:int = 1;       // только для стандартных зданий
+    public static var STATE_BUILD:int = 2;          // состояние стройки
+    public static var STATE_WAIT_ACTIVATE:int = 3;  // построенное, но еще не открытое
+    public static var STATE_ACTIVE:int = 4;         // активное состояние, после стройки
+
     protected var _dataBuild:Object;
+    protected var _flip:Boolean;
+    protected var _defaultScale:Number;
     public var posX:int = 0;
     public var posY:int = 0;
     protected var _sizeX:int;
@@ -24,6 +31,7 @@ public class WorldObject {
     protected var _depth:Number = 0;
     protected var _rect:Rectangle;
     protected var _dbBuildingId:int = 0;   // id в таблице user_building
+    protected var _stateBuild:int;  // состояние постройки (активное, в процесе стройки..)
 
     protected static var g:Vars = Vars.getInstance();
 
@@ -31,11 +39,11 @@ public class WorldObject {
     }
 
     public function get sizeX():uint {
-        return 0;
+        return _flip ? _sizeY : _sizeX;
     }
 
     public function get sizeY():uint {
-        return 0;
+        return _flip ? _sizeX : _sizeY;
     }
 
     public function get source():Sprite {
@@ -60,6 +68,14 @@ public class WorldObject {
 
     public function set dbBuildingId(a:int):void{
         _dbBuildingId = a;
+    }
+
+    public function get stateBuild():int{
+        return _stateBuild;
+    }
+
+    public function set stateBuild(a:int):void{
+        _stateBuild = a;
     }
 
     public function updateDepth():void {
@@ -95,8 +111,40 @@ public class WorldObject {
 //        }
     }
 
-    public function set enabled(value:Boolean):void {
+    public function set enabled(value:Boolean):void { }
 
+    public function get flip():Boolean {
+        return _flip;
+    }
+
+    public function releaseFlip():void {
+        if (_sizeX == _sizeY) {
+            _flip = !_flip;
+            _flip ? _source.scaleX = -_defaultScale : _source.scaleX = _defaultScale;
+            _dataBuild.isFlip = _flip;
+            return;
+        }
+
+        if (_flip) {
+            g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
+            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY)) {
+                _flip = false;
+                _source.scaleX = _defaultScale;
+                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+            } else {
+                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+            }
+        } else {
+            g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
+            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
+                _flip = true;
+                _source.scaleX = -_defaultScale;
+                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+            } else {
+                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+            }
+        }
+        _dataBuild.isFlip = _flip;
     }
 }
 }

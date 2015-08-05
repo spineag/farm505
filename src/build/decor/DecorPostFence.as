@@ -21,6 +21,7 @@ public class DecorPostFence extends AreaObject{
 
     public function DecorPostFence(_data:Object) {
         super(_data);
+        createBuild();
 
 //        _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

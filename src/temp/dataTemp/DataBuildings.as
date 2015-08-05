@@ -28,6 +28,7 @@ public class DataBuildings {
         obj.image = "bakery";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -46,6 +47,7 @@ public class DataBuildings {
         obj.image = "sugar_mill";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 15000;
@@ -64,6 +66,7 @@ public class DataBuildings {
         obj.image = "feed_mill";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -82,6 +85,7 @@ public class DataBuildings {
         obj.image = "confectionery";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.arrayResources = [];
@@ -102,6 +106,7 @@ public class DataBuildings {
         obj.image = "bbq_grill";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -120,9 +125,10 @@ public class DataBuildings {
         obj.image = "dairy";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
-        obj.buildTime = 10000;
+        obj.buildTime = 10;
         objectBuilding[obj.id ] = obj;
 //
         obj = {};
@@ -138,6 +144,7 @@ public class DataBuildings {
         obj.image = "pie_oven";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -156,6 +163,7 @@ public class DataBuildings {
         obj.image = "juice_press";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -174,6 +182,7 @@ public class DataBuildings {
         obj.image = "loom";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -192,6 +201,7 @@ public class DataBuildings {
         obj.image = "pizza_maker";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -274,6 +284,7 @@ public class DataBuildings {
         obj.imageHouse = "farm_chicken_house";
         obj.buildType = BuildType.FARM;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.skipBuildIt = 1;
@@ -297,6 +308,7 @@ public class DataBuildings {
         obj.imageHouse = "farm_cow_house";
         obj.buildType = BuildType.FARM;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.skipBuildIt = 1;
@@ -317,6 +329,7 @@ public class DataBuildings {
         obj.image = "smelter";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -335,6 +348,7 @@ public class DataBuildings {
         obj.image = "jeweler";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -353,6 +367,7 @@ public class DataBuildings {
         obj.image = "fryer";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -371,6 +386,7 @@ public class DataBuildings {
         obj.image = "ice_cream_maker";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -389,6 +405,7 @@ public class DataBuildings {
         obj.image = "jam_machine";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -463,6 +480,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.cost = 200;
+        obj.xpForBuild = 100;
         obj.innerX = -40;
         obj.innerY = -70;
         obj.url = "buildAtlas";
@@ -498,6 +516,7 @@ public class DataBuildings {
         obj.posX = 1;
         obj.posY = 1;
         obj.cost = 200;
+        obj.xpForBuild = 100;
         obj.innerX = -72;
         obj.innerY = -22;
         obj.url = "buildAtlas";
@@ -540,6 +559,7 @@ public class DataBuildings {
         obj.image = "smoke_house";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -558,6 +578,7 @@ public class DataBuildings {
         obj.image = "sauce_maker";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -576,6 +597,7 @@ public class DataBuildings {
         obj.image = "yogurt_machine";
         obj.buildType = BuildType.FABRICA;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.buildTime = 10000;
@@ -609,6 +631,7 @@ public class DataBuildings {
         obj.innerPositionsDead = [-19, -43];
         obj.buildType = BuildType.TREE;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 15;
@@ -643,6 +666,7 @@ public class DataBuildings {
         obj.innerPositionsDead = [-18, -40];
         obj.buildType = BuildType.TREE;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 16;
@@ -677,6 +701,7 @@ public class DataBuildings {
         obj.innerPositionsDead = [-19, -40];
         obj.buildType = BuildType.TREE;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 20;
@@ -711,6 +736,7 @@ public class DataBuildings {
         obj.innerPositionsDead = [-22, -40];
         obj.buildType = BuildType.TREE;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = 1;
         obj.craftIdResource = 119;
@@ -745,6 +771,7 @@ public class DataBuildings {
         obj.innerPositionsDead = [-19, -40];
         obj.buildType = BuildType.TREE;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = 1;
         obj.craftIdResource = 120;
@@ -860,6 +887,7 @@ public class DataBuildings {
         obj.imageHouse = "farm_pig_house";
         obj.buildType = BuildType.FARM;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.skipBuildIt = 1;
@@ -883,6 +911,7 @@ public class DataBuildings {
         obj.imageHouse = "farm_sheep_house";
         obj.buildType = BuildType.FARM;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.skipBuildIt = 1;
@@ -906,6 +935,7 @@ public class DataBuildings {
         obj.imageHouse = "farm_goat_house";
         obj.buildType = BuildType.FARM;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.skipBuildIt = 1;
@@ -929,6 +959,7 @@ public class DataBuildings {
         obj.imageHouse = "farm_bee_house";
         obj.buildType = BuildType.FARM;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.skipBuildIt = 1;
@@ -963,6 +994,7 @@ public class DataBuildings {
         obj.innerPositionsDead = [-18, -40];
         obj.buildType = BuildType.TREE;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 121;
@@ -997,6 +1029,7 @@ public class DataBuildings {
         obj.innerPositionsDead = [-15, -8];
         obj.buildType = BuildType.TREE;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 122;
@@ -1031,6 +1064,7 @@ public class DataBuildings {
         obj.innerPositionsDead = [-15, -8];
         obj.buildType = BuildType.TREE;
         obj.cost = 10;
+        obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 123;

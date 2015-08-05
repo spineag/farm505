@@ -16,6 +16,7 @@ public class Wild extends AreaObject{
 
     public function Wild(_data:Object) {
         super(_data);
+        createBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

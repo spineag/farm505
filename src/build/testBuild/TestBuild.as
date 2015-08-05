@@ -18,6 +18,7 @@ public class TestBuild extends AreaObject{
 
     public function TestBuild(_data:Object) {
         super(_data);
+        createBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
