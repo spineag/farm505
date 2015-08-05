@@ -28,7 +28,6 @@ public class WONoResources extends Window {
     private var _txtPanel:TextField;
     private var _txtCount:TextField;
 
-
     private var _imageItem:Image;
     private var _imageHard:Image;
     private var _imageBtn:Image;
@@ -132,20 +131,6 @@ public class WONoResources extends Window {
         for (i=0; i<_arrCells.length; i++) {
             _arrCells[i].source.x = int(i * 55);
         }
-//        switch (_arrCells.length) {
-//            case 1:
-//                _contImage.x = -100;
-//                break;
-//            case 2:
-//                _contImage.x = -150;
-//                break;
-//            case 3:
-//                _contImage.x = -60;
-//                break;
-//            case 4:
-//                _contImage.x = -500;
-//                break;
-//        }
 
             if (_data.priceHard) _txtHardCost.text = String(_data.priceHard * count);
             _txtHardCost.text = "2";

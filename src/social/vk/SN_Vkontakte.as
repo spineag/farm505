@@ -22,6 +22,8 @@ import manager.Vars;
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
 
+import user.Friend;
+
 
 public class SN_Vkontakte extends SocialNetwork {
     private static const MASK_ADD_LEFT_MENU:int = 256;
@@ -257,6 +259,12 @@ public class SN_Vkontakte extends SocialNetwork {
 
     private function getAppUsersHandler(e:Object):void {
         _appFriends = e as Array;
+        var f:Friend;
+        for (var i=0; i < _appFriends.length; i++) {
+            f = new Friend();
+            f.name = _appFriends[i].name;
+            g.user.arry.push(f)
+        }
         super.getAppUsersSuccess(e);
     }
 

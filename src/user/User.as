@@ -27,7 +27,7 @@ public class User {
     public var sex:String = 'm';
     public var isTester:Boolean;
     public var userBuildingData:Object;
-
+    public var arry:Array;
     private var g:Vars = Vars.getInstance();
 
     public function User() {
@@ -48,6 +48,7 @@ public class User {
             isTester = true;
         }
         userBuildingData = {};
+        arry = [];
     }
 
     public function checkUserLevel():void {
@@ -65,5 +66,8 @@ public class User {
         }
     }
 
+    public function friendAppUser():void {
+        g.socialNetwork.getAppUsers;
+    }
 }
 }

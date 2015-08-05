@@ -198,7 +198,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = true;
+        useDataFromServer = false;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
@@ -282,6 +282,7 @@ public class Vars {
     }
 
     private function onUserBuilding():void {
+        (user as User).friendAppUser();
         initVariables2();
     }
 
