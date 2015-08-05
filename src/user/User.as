@@ -67,7 +67,7 @@ public class User {
     }
 
     public function friendAppUser():void {
-        g.socialNetwork.getAppUsers;
+        g.socialNetwork.getAppUsers();
     }
 }
 }

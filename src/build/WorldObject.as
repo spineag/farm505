@@ -78,6 +78,8 @@ public class WorldObject {
         _stateBuild = a;
     }
 
+    public function addXP():void {}
+
     public function updateDepth():void {
         var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
 

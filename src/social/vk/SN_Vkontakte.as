@@ -260,7 +260,7 @@ public class SN_Vkontakte extends SocialNetwork {
     private function getAppUsersHandler(e:Object):void {
         _appFriends = e as Array;
         var f:Friend;
-        for (var i=0; i < _appFriends.length; i++) {
+        for (var i:int=0; i < _appFriends.length; i++) {
             f = new Friend();
             f.name = _appFriends[i].name;
             g.user.arry.push(f)

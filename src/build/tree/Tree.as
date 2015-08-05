@@ -67,12 +67,6 @@ public class Tree extends AreaObject{
         _state = GROW1;
         setBuildImage();
         startGrow();
-
-        if (_dataBuild.xpForBuild) {
-            var start:Point = new Point(int(_source.x), int(_source.y));
-            start = _source.parent.localToGlobal(start);
-            new XPStar(start.x, start.y, _dataBuild.xpForBuild);
-        }
     }
 
     private function createTreeBuild():void {
@@ -343,6 +337,7 @@ public class Tree extends AreaObject{
             }
         }
     }
+
     private function countEnterFrameDead():void {
         _count--;
         if (_count <= 0) {
@@ -354,6 +349,14 @@ public class Tree extends AreaObject{
                 _source.filter = null;
                 g.treeHint.hideIt();
             }
+        }
+    }
+
+    override public function addXP():void {
+        if (_dataBuild.xpForBuild) {
+            var start:Point = new Point(int(_source.x), int(_source.y));
+            start = _source.parent.localToGlobal(start);
+            new XPStar(start.x, start.y, _dataBuild.xpForBuild);
         }
     }
 }

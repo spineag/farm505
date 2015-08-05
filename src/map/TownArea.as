@@ -236,6 +236,8 @@ public class TownArea extends Sprite {
             if (isNewAtMap) {
                 if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Tree)
                     g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
+                if (worldObject is Farm || worldObject is Tree)
+                    worldObject.addXP();
             }
         }
 

@@ -51,12 +51,6 @@ public class Farm extends AreaObject{
 
         _arrAnimals = [];
         setDataAnimal();
-
-        if (_dataBuild.xpForBuild) {
-            var start:Point = new Point(int(_source.x), int(_source.y));
-            start = _source.parent.localToGlobal(start);
-            new XPStar(start.x, start.y, _dataBuild.xpForBuild);
-        }
     }
 
     private function onHoverHouse():void {
@@ -139,6 +133,14 @@ public class Farm extends AreaObject{
 
     public function get isFull():Boolean {
         return _arrAnimals.length >= _dataBuild.maxAnimalsCount;
+    }
+
+    override public function addXP():void {
+        if (_dataBuild.xpForBuild) {
+            var start:Point = new Point(int(_source.x), int(_source.y));
+            start = _source.parent.localToGlobal(start);
+            new XPStar(start.x, start.y, _dataBuild.xpForBuild);
+        }
     }
 }
 }
