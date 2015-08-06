@@ -23,5 +23,8 @@ public class Consts {
     public static var INQ_OPEN_BUILDED_BUILDING:String = 'finishBuildBuilding.php';
     public static var INQ_ADD_FABRICA_RECIPE:String = 'addFabricaRecipe.php';
     public static var INQ_CRAFT_FABRICA_RECIPE:String = 'craftRecipeOnFabrica.php';
+    public static var INQ_CRAFT_PLANT_RIDGE:String = 'craftPlantOnRidge.php';
+    public static var INQ_RAW_PLANT_RIDGE:String = 'rawPlantOnRidge.php';
+    public static var INQ_GET_USER_PLANT_RIDGE:String = 'getUserPlantRidge.php';
 }
 }
