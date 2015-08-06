@@ -125,7 +125,7 @@ public class Farm extends AreaObject{
 
     public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
         var an:Animal = new Animal(_dataAnimal);
-        MCScaler.scale
+        MCScaler.scale(an.source, 50, 50);
         an.source.x = (1/2 - Math.random()) * _source.width/2;
         an.source.y = (1 - Math.random()/2) * _source.height/2;
         _source.addChild(an.source);
