@@ -39,6 +39,7 @@ public class ToolsModifier {
     private var _modifierType:int;
     private var _mouseIcon:Sprite;
     private var _mouseCont:Sprite;
+    public var contImage:Sprite;
 
     private var g:Vars = Vars.getInstance();
 
@@ -49,6 +50,7 @@ public class ToolsModifier {
         _callbackAfterMove = null;
         _modifierType = NONE;
         _mouseIcon = new Sprite();
+        contImage = new Sprite();
     }
 
     public function setTownArray():void {
@@ -109,6 +111,7 @@ public class ToolsModifier {
             _mouseIcon.removeChildAt(0);
         }
     }
+
     private function moveMouseIcon():void{
         _mouseCont.x = g.ownMouse.mouseX + 20;
         _mouseCont.y = g.ownMouse.mouseY + 10;
@@ -120,21 +123,20 @@ public class ToolsModifier {
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;
-        if (_activeBuildingData.url == "buildAtlas") {
+        if (_activeBuildingData.url == "treeAtlas"){
+            _spriteForMove.addChild(contImage);
+        } else if (_activeBuildingData.url == "buildAtlas") {
             im  = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
             im.x = _activeBuildingData.innerX;
             im.y = _activeBuildingData.innerY;
-        } else if (_activeBuildingData.url == "treeAtlas") {
-            im = new Image(g.treeAtlas.getTexture(_activeBuildingData.image));
-            im.x = _activeBuildingData.innerPositionsGrow3[0];
-            im.y = _activeBuildingData.innerPositionsGrow3[1];
+            _spriteForMove.addChild(im);
         } else {
             im  = new Image(g.mapAtlas.getTexture(_activeBuildingData.image));
             im.x = -im.width/2;
         }
 
         if (_activeBuildingData.isFlip) _spriteForMove.scaleX *= -1;
-        _spriteForMove.addChild(im);
+
         _spriteForMove.flatten();
         _spriteForMove.x = _mouse.mouseX - _cont.x;
         _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;

@@ -18,7 +18,6 @@ import flash.net.URLRequest;
 import flash.net.URLRequestHeader;
 import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
-import flash.system.Worker;
 
 import manager.ManagerFabricaRecipe;
 
