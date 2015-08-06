@@ -5,6 +5,7 @@ package server {
 import build.WorldObject;
 import build.WorldObject;
 import build.WorldObject;
+import build.farm.Animal;
 import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
@@ -19,6 +20,8 @@ import flash.net.URLRequest;
 import flash.net.URLRequestHeader;
 import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
+
+import manager.ManagerAnimal;
 
 import manager.ManagerFabricaRecipe;
 import manager.ManagerPlantRidge;
@@ -1351,6 +1354,187 @@ public class DirectServer {
             }
         } else {
             Cc.error('deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function addUserAnimal(an:Animal, farmDbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_ANIMAL);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserAnimal', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.farmDbId = farmDbId;
+        variables.animalId = an.animalData.id;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserAnimal);
+        function onCompleteAddUserAnimal(e:Event):void { completeAddUserAnimal(e.target.data, an, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserAnimal error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserAnimal(response:String, an:Animal, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserAnimal: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            an.animal_db_id = d.message;
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function rawUserAnimal(anDbId:String, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RAW_USER_ANIMAL);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'rawUserAnimal', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.anDbId = anDbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteRawUserAnimal);
+        function onCompleteRawUserAnimal(e:Event):void { completeRawUserAnimal(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('rawUserAnimal error:' + error.errorID);
+        }
+    }
+
+    private function completeRawUserAnimal(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('rawUserAnimal: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('rawUserTree: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function getUserAnimal(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_ANIMAL);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserAnimal', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserAnimal);
+        function onCompleteGetUserAnimal(e:Event):void { completeGetUserAnimal(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserAnimal error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserAnimal(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('GetUserAnimal: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            g.managerAnimal = new ManagerAnimal();
+            for (var i:int = 0; i < d.message.length; i++) {
+                g.managerAnimal.addAnimal(d.message[i]);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('GetUserAnimal: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function craftUserAnimal(animalDbId:String, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_USER_ANIMAL);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'craftUserAnimal', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.animalDbId = animalDbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteCraftUserAnimal);
+        function onCompleteCraftUserAnimal(e:Event):void { completeCraftUserAnimal(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('craftUserAnimal error:' + error.errorID);
+        }
+    }
+
+    private function completeCraftUserAnimal(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('craftUserAnimal: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            g.managerAnimal = new ManagerAnimal();
+            for (var i:int = 0; i < d.message.length; i++) {
+                g.managerAnimal.addAnimal(d.message[i]);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('craftUserAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

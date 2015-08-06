@@ -84,6 +84,7 @@ public class WONoResources extends Window {
         _contImage.removeChild(_txtCount);
         _arrCells.length = 0;
     }
+
     public function showItMoney(data:Object, count:int):void {
         createListMoney(data,count);
         showIt();
@@ -132,9 +133,9 @@ public class WONoResources extends Window {
             _arrCells[i].source.x = int(i * 55);
         }
 
-            if (_data.priceHard) _txtHardCost.text = String(_data.priceHard * count);
-            _txtHardCost.text = "2";
-            _contBtn.addChild(_txtHardCost);
+        if (_data.priceHard) _txtHardCost.text = String(_data.priceHard * count);
+        _txtHardCost.text = "2";
+        _contBtn.addChild(_txtHardCost);
     }
 
     private function onClick():void {

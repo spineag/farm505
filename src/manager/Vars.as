@@ -115,6 +115,7 @@ public class Vars {
     public var managerFabricaRecipe:ManagerFabricaRecipe;
     public var managerPlantRidge:ManagerPlantRidge;
     public var managerTree:ManagerTree;
+    public var managerAnimal:ManagerAnimal;
 
     public var mapAtlas:TextureAtlas;
     public var tempBuildAtlas:TextureAtlas;
@@ -201,7 +202,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = false;
+        useDataFromServer = true;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
@@ -297,6 +298,10 @@ public class Vars {
     }
 
     private function onUserTree():void {
+        directServer.getUserAnimal(onUserAnimal);
+    }
+
+    private function onUserAnimal():void {
         (user as User).friendAppUser();
         initVariables2();
     }

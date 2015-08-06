@@ -23,6 +23,7 @@ import starling.utils.Color;
 import ui.xpPanel.XPStar;
 
 import utils.CSprite;
+import utils.MCScaler;
 
 public class Farm extends AreaObject{
     private var _house:CSprite;
@@ -122,12 +123,18 @@ public class Farm extends AreaObject{
         if (!isFull) addAnimal();
     }
 
-    public function addAnimal():void {
-        var animal:Animal = new Animal(_dataAnimal);
-        animal.source.x = (1/2 - Math.random()) * _source.width/2;
-        animal.source.y = (1 - Math.random()/2) * _source.height/2;
-        _source.addChild(animal.source);
-        _arrAnimals.push(animal);
+    public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
+        var an:Animal = new Animal(_dataAnimal);
+        MCScaler.scale
+        an.source.x = (1/2 - Math.random()) * _source.width/2;
+        an.source.y = (1 - Math.random()/2) * _source.height/2;
+        _source.addChild(an.source);
+        _arrAnimals.push(an);
+        if (!isFromServer) {
+            g.directServer.addUserAnimal(an, _dbBuildingId, null);
+        } else {
+            an.fillItFromServer(ob);
+        }
 //        checkAnimalsZindex();
     }
 

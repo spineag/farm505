@@ -30,6 +30,7 @@ public class Animal {
     private var _state:int;
     private var _frameCounter:int;
     private var _isOnHover:Boolean;
+    public var animal_db_id:String;  // id в табличке user_animal
 
     private var g:Vars = Vars.getInstance();
 
@@ -53,6 +54,22 @@ public class Animal {
         source.endClickCallback = onClick;
     }
 
+    public function fillItFromServer(ob:Object):void {
+        animal_db_id = ob.id;
+        if (int(ob.time_work) > 0) {
+            if (int(ob.time_work) > _data.timeCraft) {
+                craftResource();
+                _state = CRAFT;
+            } else {
+                _timeToEnd = _data.timeCraft - int(ob.time_work);
+                _state = WORKED;
+                g.gameDispatcher.addToTimer(render);
+            }
+        } else {
+            _state = EMPTY;
+        }
+    }
+
     public function render():void {
         _timeToEnd--;
         if (_timeToEnd <=0) {
@@ -70,6 +87,7 @@ public class Animal {
 
     private function onCraft():void {
         _state = EMPTY;
+        if (g.useDataFromServer) g.directServer.craftUserAnimal(animal_db_id, null);
     }
 
     private function onClick():void {
@@ -86,6 +104,7 @@ public class Animal {
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
             var rawItem:RawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+            if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
         }
     }
 
@@ -120,6 +139,10 @@ public class Animal {
                 g.timerHint.hideIt();
             }
         }
+    }
+
+    public function get animalData():Object {
+        return _data;
     }
 }
 }

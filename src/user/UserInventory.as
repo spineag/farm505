@@ -164,6 +164,7 @@ public class UserInventory {
                 g.woNoResources.showItMenu(_data, countResource - count);
                 return false;
             }
+            return true;
         }
         count = g.userInventory.getCountResourceById(_data.id);
         if (count < countResource) {
