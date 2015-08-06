@@ -441,6 +441,110 @@ public class Tree extends AreaObject{
         g.townArea.deleteBuild(this);
         g.directServer.deleteUserTree(tree_db_id, _dbBuildingId, null);
     }
+
+    public function treeImage():void {
+    var im:Image;
+    var im2:Image;
+    switch (_state) {
+        case GROW1:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmall));
+            im.x = _dataBuild.innerPositionsGrow1[0];
+            im.y = _dataBuild.innerPositionsGrow1[1];
+            g.toolsModifier.contImage.addChild(im);
+            break;
+        case GROW_FLOWER1:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmall));
+            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmallFlower));
+            im.x = _dataBuild.innerPositionsGrow1[0];
+            im.y = _dataBuild.innerPositionsGrow1[1];
+            im2.x = _dataBuild.innerPositionsGrow1[2];
+            im2.y = _dataBuild.innerPositionsGrow1[3];
+            g.toolsModifier.contImage.addChild(im);
+            g.toolsModifier.contImage.addChild(im2);
+            break;
+        case GROWED1:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmall));
+            im.x = _dataBuild.innerPositionsGrow1[0];
+            im.y = _dataBuild.innerPositionsGrow1[1];
+            g.toolsModifier.contImage.addChild(im);
+            break;
+        case GROW2:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddle));
+            im.x = _dataBuild.innerPositionsGrow2[0];
+            im.y = _dataBuild.innerPositionsGrow2[1];
+            g.toolsModifier.contImage.addChild(im);
+            break;
+        case GROW_FLOWER2:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddle));
+            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddleFlower));
+            im.x = _dataBuild.innerPositionsGrow2[0];
+            im.y = _dataBuild.innerPositionsGrow2[1];
+            im2.x = _dataBuild.innerPositionsGrow2[2];
+            im2.y = _dataBuild.innerPositionsGrow2[3];
+            g.toolsModifier.contImage.addChild(im);
+            g.toolsModifier.contImage.addChild(im2);
+            break;
+        case GROWED2:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddle));
+            im.x = _dataBuild.innerPositionsGrow2[0];
+            im.y = _dataBuild.innerPositionsGrow2[1];
+            g.toolsModifier.contImage.addChild(im);
+            break;
+        case GROW3:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+            im.x = _dataBuild.innerPositionsGrow3[0];
+            im.y = _dataBuild.innerPositionsGrow3[1];
+            g.toolsModifier.contImage.addChild(im);
+            break;
+        case GROW_FLOWER3:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBigFlower));
+            im.x = _dataBuild.innerPositionsGrow3[0];
+            im.y = _dataBuild.innerPositionsGrow3[1];
+            im2.x = _dataBuild.innerPositionsGrow3[2];
+            im2.y = _dataBuild.innerPositionsGrow3[3];
+            g.toolsModifier.contImage.addChild(im);
+            g.toolsModifier.contImage.addChild(im2);
+            break;
+        case GROWED3:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+            im.x = _dataBuild.innerPositionsGrow3[0];
+            im.y = _dataBuild.innerPositionsGrow3[1];
+            g.toolsModifier.contImage.addChild(im);
+            break;
+        case DEAD:
+        case FULL_DEAD:
+        case ASK_FIX:
+        case FIXED:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageDead));
+            im.x = _dataBuild.innerPositionsDead[0];
+            im.y = _dataBuild.innerPositionsDead[1];
+            g.toolsModifier.contImage.addChild(im);
+        case GROW_FIXED:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+            im.x = _dataBuild.innerPositionsGrow3[0];
+            im.y = _dataBuild.innerPositionsGrow3[1];
+            g.toolsModifier.contImage.addChild(im);
+            break;
+        case GROW_FIXED_FLOWER:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBigFlower));
+            im.x = _dataBuild.innerPositionsGrow3[0];
+            im.y = _dataBuild.innerPositionsGrow3[1];
+            im2.x = _dataBuild.innerPositionsGrow3[2];
+            im2.y = _dataBuild.innerPositionsGrow3[3];
+            g.toolsModifier.contImage.addChild(im);
+            g.toolsModifier.contImage.addChild(im2);
+            break;
+        case GROWED_FIXED:
+            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+            im.x = _dataBuild.innerPositionsGrow3[0];
+            im.y = _dataBuild.innerPositionsGrow3[1];
+            g.toolsModifier.contImage.addChild(im);
+            break;
+        default:
+        }
+    }
 }
 }
 
