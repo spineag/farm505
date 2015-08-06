@@ -21,6 +21,7 @@ import flash.net.URLVariables;
 import flash.system.Worker;
 
 import manager.ManagerFabricaRecipe;
+import manager.ManagerPlantRidge;
 
 import manager.Vars;
 
@@ -1037,6 +1038,142 @@ public class DirectServer {
             }
         } else {
             Cc.error('craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function rawPlantOnRidge(plantId:int, dbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RAW_PLANT_RIDGE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'rawPlantOnRidge', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.plantId = plantId;
+        variables.dbId = dbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteRawPlantOnRidge);
+        function onCompleteRawPlantOnRidge(e:Event):void { completeRawPlantOnRidge(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('rawPlantOnRidge error:' + error.errorID);
+        }
+    }
+
+    private function completeRawPlantOnRidge(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('rawPlantOnRidge: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else {
+            Cc.error('rawPlantOnRidge: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function getUserPlantRidge(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_PLANT_RIDGE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserPlantRidge', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserPlantRidge);
+        function onCompleteGetUserPlantRidge(e:Event):void { completeGetUserPlantRidge(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserPlantRidge error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserPlantRidge(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('GetUserPlantRidge: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            g.managerPlantRidge = new ManagerPlantRidge();
+            for (var i:int = 0; i < d.message.length; i++) {
+                g.managerPlantRidge.addPlant(d.message[i]);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('GetUserPlantRidge: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function craftPlantRidge(dbId:String, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_PLANT_RIDGE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'craftPlantRidge', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteCraftPlantRidge);
+        function onCompleteCraftPlantRidge(e:Event):void { completeCraftPlantRidge(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('craftPlantRidge error:' + error.errorID);
+        }
+    }
+
+    private function completeCraftPlantRidge(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('craftPlantRidge: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('craftPlantRidge: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }

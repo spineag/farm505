@@ -172,7 +172,7 @@ public class Fabrica extends AreaObject {
             } else if (obj.buildType == BuildType.INSTRUMENT) {
                 texture = g.instrumentAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
             }
-            new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i*.1);
+            if (!isFromServer) new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i*.1);
         }
     }
 
@@ -197,7 +197,7 @@ public class Fabrica extends AreaObject {
             }
         }
         var f1:Function = function():void {
-            g.managerFabricaRecipe.onCraft(item);
+            if (g.useDataFromServer) g.managerFabricaRecipe.onCraft(item);
         };
         var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, f1);
     }

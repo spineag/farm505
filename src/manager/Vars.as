@@ -113,6 +113,7 @@ public class Vars {
     public var editorButtons:EditorButtonInterface;
     public var deactivatedAreaManager:DeactivatedAreaManager;
     public var managerFabricaRecipe:ManagerFabricaRecipe;
+    public var managerPlantRidge:ManagerPlantRidge;
 
     public var mapAtlas:TextureAtlas;
     public var tempBuildAtlas:TextureAtlas;
@@ -287,6 +288,10 @@ public class Vars {
     }
 
     private function onUserFabricaRecipe():void {
+        directServer.getUserPlantRidge(onUserPlantRidge);
+    }
+
+    private function onUserPlantRidge():void {
         (user as User).friendAppUser();
         initVariables2();
     }

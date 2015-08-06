@@ -96,10 +96,14 @@ public class Ridge extends AreaObject{
             } else if (_stateRidge == GROWED) {
                 _stateRidge = EMPTY;
                 _plant.checkStateRidge();
-                _plant = null;
                 _resourceItem = new ResourceItem();
                 _resourceItem.fillIt(_dataPlant);
-                var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2);
+                var f1:Function = function():void {
+                    if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
+                    _plant = null;
+                };
+                var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2, f1);
+//
                 g.mouseHint.hideHintMouse();
             }
         } else {
@@ -113,19 +117,32 @@ public class Ridge extends AreaObject{
         g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.mouseHint.hideHintMouse();
         g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-
-
     }
 
-    public function fillPlant(data:Object):void {
-        if (!g.userInventory.checkResource(data,1)) return;
+    public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
+        if (!isFromServer && !g.userInventory.checkResource(data,1)) return;
         g.userInventory.addResource(data.id,-1);
         _stateRidge = GROW1;
         _dataPlant = data;
         _plant = new PlantOnRidge(this, _dataPlant);
-        var p:Point = new Point(_source.x, _source.y);
-        p = _source.parent.localToGlobal(p);
-        var rawItem:RawItem = new RawItem(p, g.plantAtlas.getTexture(_dataPlant.imageShop), 1, 0);
+        if (timeWork < _dataPlant.buildTime) {
+            _plant.checkTimeGrowing(timeWork);
+            _plant.activateRender();
+            _plant.checkStateRidge(false);
+        } else {
+            _stateRidge = GROWED;
+            _plant.checkStateRidge();
+        }
+
+        if (!isFromServer) {
+            var f1:Function = function(s:String):void {
+                _plant.idFromServer = s;
+            };
+            g.directServer.rawPlantOnRidge(_dataPlant.id, _dbBuildingId, f1);
+            var p:Point = new Point(_source.x, _source.y);
+            p = _source.parent.localToGlobal(p);
+            var rawItem:RawItem = new RawItem(p, g.plantAtlas.getTexture(_dataPlant.imageShop), 1, 0);
+        }
     }
 
     public function get stateRidge():int {
@@ -167,6 +184,10 @@ public class Ridge extends AreaObject{
              g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             }
         }
+    }
+
+    public function get plant():PlantOnRidge {
+        return _plant;
     }
 }
 }
