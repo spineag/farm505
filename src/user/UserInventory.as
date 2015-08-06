@@ -26,7 +26,7 @@ public class UserInventory {
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
         _inventoryResource[id] += count;
         if (_inventoryResource[id] == 0) delete(_inventoryResource[id]);
-        if (needSendToServer) {
+        if (needSendToServer && g.useDataFromServer) {
             g.directServer.addUserResource(id, count, null);
         }
     }

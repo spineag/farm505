@@ -18,6 +18,9 @@ public class Consts {
     public static var INQ_GET_USER_BUILDING:String = 'getUserBuilding.php';
     public static var INQ_GET_USER_FABRICA_RECIPE:String = 'getUserFabricaRecipe.php';
     public static var INQ_ADD_USER_RESOURCE:String = 'addUserResource.php';
+    public static var INQ_ADD_USER_TREE:String = 'addUserTree.php';
+    public static var INQ_GET_USER_TREE:String = 'getUserTree.php';
+    public static var INQ_UPDATE_USER_TREE_STATE:String = 'updateUserTreeState.php';
     public static var INQ_ADD_USER_BUILDING:String = 'addUserBuilding.php';
     public static var INQ_START_BUILD_BUILDING:String = 'startBuildBuilding.php';
     public static var INQ_OPEN_BUILDED_BUILDING:String = 'finishBuildBuilding.php';
@@ -26,5 +29,6 @@ public class Consts {
     public static var INQ_CRAFT_PLANT_RIDGE:String = 'craftPlantOnRidge.php';
     public static var INQ_RAW_PLANT_RIDGE:String = 'rawPlantOnRidge.php';
     public static var INQ_GET_USER_PLANT_RIDGE:String = 'getUserPlantRidge.php';
+    public static var INQ_DELETE_USER_TREE:String = 'deleteUserTree.php';
 }
 }

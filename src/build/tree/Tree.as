@@ -27,21 +27,21 @@ import utils.MCScaler;
 
 public class Tree extends AreaObject{
     private const GROW1:int = 1;
-    private const GROW_FLOWER1:int = 100;
-    private const GROWED1:int = 2;
-    private const GROW2:int = 3;
-    private const GROW_FLOWER2:int = 101;
-    private const GROWED2:int = 4;
-    private const GROW3:int = 5;
-    private const GROW_FLOWER3:int = 102;
-    private const GROWED3:int = 6;
-    private const DEAD:int = 9;
-    private const ASK_FIX:int = 10;
-    private const FIXED:int = 11;
-    private const GROW_FIXED:int = 12;
-    private const GROWED_FIXED:int = 13;
-    private const GROW_FIXED_FLOWER:int = 103;
-    private const FULL_DEAD:int = 14;
+    private const GROW_FLOWER1:int = 2;
+    private const GROWED1:int = 3;
+    private const GROW2:int = 4;
+    private const GROW_FLOWER2:int = 5;
+    private const GROWED2:int = 6;
+    private const GROW3:int = 7;
+    private const GROW_FLOWER3:int = 8;
+    private const GROWED3:int = 9;
+    private const DEAD:int = 10;
+    private const ASK_FIX:int = 11;
+    private const FIXED:int = 12;
+    private const GROW_FIXED:int = 13;
+    private const GROWED_FIXED:int = 14;
+    private const GROW_FIXED_FLOWER:int = 15;
+    private const FULL_DEAD:int = 16;
 
     private var _state:int;
     private var _resourceItem:ResourceItem;
@@ -49,6 +49,7 @@ public class Tree extends AreaObject{
     private var _arrCrafted:Array;
     private var _isOnHover:Boolean;
     private var _count:int;
+    public var tree_db_id:String;    // id в табличке user_tree
 
     public function Tree(_data:Object) {
         super(_data);
@@ -64,9 +65,63 @@ public class Tree extends AreaObject{
         _source.addChild(_craftSprite);
         _resourceItem = new ResourceItem();
         _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
+    }
+
+    public function releaseNewTree():void {
         _state = GROW1;
         setBuildImage();
         startGrow();
+    }
+
+    public function releaseTreeFromServer(ob:Object):void {
+        tree_db_id = ob.id;
+        ob.time_work = int(ob.time_work);
+        switch (int(ob.state)) {
+            case GROW1:
+                if (ob.time_work > _resourceItem.buildTime) {
+                    _state = GROWED1;
+                    _timeToEndState = 0;
+                } else if (ob.time_work <int(_resourceItem.buildTime/2 + .5)) {
+                    _state = GROW1;
+                    _timeToEndState = int(_resourceItem.buildTime/2 + .5) - ob.time_work;
+                } else {
+                    _state = GROW_FLOWER1;
+                    _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                }
+                break;
+            case GROW2:
+                if (ob.time_work > _resourceItem.buildTime) {
+                    _state = GROWED2;
+                    _timeToEndState = 0;
+                } else if (ob.time_work <int(_resourceItem.buildTime/2 + .5)) {
+                    _state = GROW2;
+                    _timeToEndState = int(_resourceItem.buildTime/2 + .5) - ob.time_work;
+                } else {
+                    _state = GROW_FLOWER2;
+                    _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                }
+                break;
+            case GROW3:
+                if (ob.time_work > _resourceItem.buildTime) {
+                    _state = GROWED3;
+                    _timeToEndState = 0;
+                } else if (ob.time_work <int(_resourceItem.buildTime/2 + .5)) {
+                    _state = GROW3;
+                    _timeToEndState = int(_resourceItem.buildTime/2 + .5) - ob.time_work;
+                } else {
+                    _state = GROW_FLOWER3;
+                    _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                }
+                break;
+            default:
+                _state = FULL_DEAD;
+                break;
+        }
+        setBuildImage();
+        if (_state == GROW1 || _state == GROW_FLOWER1 || _state == GROW2 || _state == GROW_FLOWER2
+                || _state == GROW3 || _state == GROW_FLOWER3) {
+            g.gameDispatcher.addToTimer(render);
+        }
     }
 
     private function createTreeBuild():void {
@@ -168,12 +223,25 @@ public class Tree extends AreaObject{
                 }
                 break;
             case DEAD:
+                im = new Image(g.treeAtlas.getTexture(_dataBuild.imageDead));
+                im.x = _dataBuild.innerPositionsDead[0];
+                im.y = _dataBuild.innerPositionsDead[1];
+                break;
             case FULL_DEAD:
+                im = new Image(g.treeAtlas.getTexture(_dataBuild.imageDead));
+                im.x = _dataBuild.innerPositionsDead[0];
+                im.y = _dataBuild.innerPositionsDead[1];
+                break;
             case ASK_FIX:
+                im = new Image(g.treeAtlas.getTexture(_dataBuild.imageDead));
+                im.x = _dataBuild.innerPositionsDead[0];
+                im.y = _dataBuild.innerPositionsDead[1];
+                break;
             case FIXED:
                 im = new Image(g.treeAtlas.getTexture(_dataBuild.imageDead));
                 im.x = _dataBuild.innerPositionsDead[0];
                 im.y = _dataBuild.innerPositionsDead[1];
+                break;
             case GROW_FIXED:
                 im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
                 im.x = _dataBuild.innerPositionsGrow3[0];
@@ -213,6 +281,8 @@ public class Tree extends AreaObject{
         _count = 20;
         if(_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3){
             g.gameDispatcher.addEnterFrame(countEnterFrame);
+        } else if (_state == FULL_DEAD) {
+            g.gameDispatcher.addEnterFrame(countEnterFrameDead);
         }
     }
 
@@ -247,7 +317,7 @@ public class Tree extends AreaObject{
     }
 
     private function startGrow():void {
-        _timeToEndState = int(_resourceItem.leftTime/2 + .5);
+        _timeToEndState = int(_resourceItem.buildTime/2 + .5);
         g.gameDispatcher.addToTimer(render);
     }
 
@@ -257,7 +327,7 @@ public class Tree extends AreaObject{
             switch (_state) {
                 case GROW1:
                     _state = GROW_FLOWER1;
-                    _timeToEndState = int(_resourceItem.leftTime + .5);
+                    _timeToEndState = int(_resourceItem.buildTime + .5);
                     break;
                 case GROW_FLOWER1:
                     _state = GROWED1;
@@ -265,7 +335,7 @@ public class Tree extends AreaObject{
                     break;
                 case GROW2:
                     _state = GROW_FLOWER2;
-                    _timeToEndState = int(_resourceItem.leftTime + .5);
+                    _timeToEndState = int(_resourceItem.buildTime + .5);
                     break;
                 case GROW_FLOWER2:
                     _state = GROWED2;
@@ -273,7 +343,7 @@ public class Tree extends AreaObject{
                     break;
                 case GROW3:
                     _state = GROW_FLOWER3;
-                    _timeToEndState = int(_resourceItem.leftTime + .5);
+                    _timeToEndState = int(_resourceItem.buildTime + .5);
                     break;
                 case GROW_FLOWER3:
                     _state = GROWED3;
@@ -281,7 +351,7 @@ public class Tree extends AreaObject{
                     break;
                 case GROW_FIXED:
                     _state = GROW_FIXED_FLOWER;
-                    _timeToEndState = int(_resourceItem.leftTime + .5);
+                    _timeToEndState = int(_resourceItem.buildTime + .5);
                     break;
                 case GROW_FIXED_FLOWER:
                     _state = GROWED_FIXED;
@@ -305,16 +375,21 @@ public class Tree extends AreaObject{
                 case GROWED1:
                     _state = GROW2;
                     startGrow();
+                    g.managerTree.updateTreeState(tree_db_id, _state);
                     break;
                 case GROWED2:
                     _state = GROW3;
                     startGrow();
+                    g.managerTree.updateTreeState(tree_db_id, _state);
                     break;
                 case GROWED3:
-                    _state = DEAD;
+                    //_state = DEAD;
+                    _state = FULL_DEAD; // временно, потом добавить поливание
+                    g.managerTree.updateTreeState(tree_db_id, _state);
                     break;
                 case GROWED_FIXED:
                     _state = FULL_DEAD;
+                    g.managerTree.updateTreeState(tree_db_id, _state);
             }
             setBuildImage();
         }
@@ -327,7 +402,7 @@ public class Tree extends AreaObject{
             if (_isOnHover == true) {
                 var time:int = _timeToEndState;
                 if (_state == GROW1 || _state == GROW2 || _state == GROW3) {
-                    time += int(_resourceItem.leftTime/2 + .5);
+                    time += int(_resourceItem.buildTime/2 + .5);
                 }
                 g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, time, _dataBuild.priceSkipHard, _dataBuild.name);
             }
@@ -343,7 +418,8 @@ public class Tree extends AreaObject{
         if (_count <= 0) {
             g.gameDispatcher.removeEnterFrame(countEnterFrameDead);
             if (_isOnHover == true) {
-                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this)
+                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
+                    g.treeHint.onDelete = deleteTree;
             }
             if (_isOnHover == false) {
                 _source.filter = null;
@@ -358,6 +434,12 @@ public class Tree extends AreaObject{
             start = _source.parent.localToGlobal(start);
             new XPStar(start.x, start.y, _dataBuild.xpForBuild);
         }
+    }
+
+    private function deleteTree():void {
+        g.userInventory.addResource(g.dataResource.objectResources[_dataBuild.removeByResourceId].id, -1);
+        g.townArea.deleteBuild(this);
+        g.directServer.deleteUserTree(tree_db_id, _dbBuildingId, null);
     }
 }
 }

@@ -114,6 +114,7 @@ public class Vars {
     public var deactivatedAreaManager:DeactivatedAreaManager;
     public var managerFabricaRecipe:ManagerFabricaRecipe;
     public var managerPlantRidge:ManagerPlantRidge;
+    public var managerTree:ManagerTree;
 
     public var mapAtlas:TextureAtlas;
     public var tempBuildAtlas:TextureAtlas;
@@ -292,6 +293,10 @@ public class Vars {
     }
 
     private function onUserPlantRidge():void {
+        directServer.getUserTree(onUserTree);
+    }
+
+    private function onUserTree():void {
         (user as User).friendAppUser();
         initVariables2();
     }

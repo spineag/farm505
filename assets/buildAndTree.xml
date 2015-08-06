@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:674a7c258f715bc7bdd4da67f746c27a:be4d4ebdc43c1b897cecd45bf97396bf:84c7e14bbf4b99ac5fd17545225ccbea$ -->
+<!-- $TexturePacker:SmartUpdate:dfec339532be005c16051076f4e4227a:be4d4ebdc43c1b897cecd45bf97396bf:84c7e14bbf4b99ac5fd17545225ccbea$ -->
 <TextureAtlas imagePath="buildAndTree.png">
     <SubTexture name="ambar" x="374" y="2" width="58" height="103"/>
     <SubTexture name="bakery" x="846" y="2" width="102" height="90"/>

@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/tree/treeAtlas.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/tree/treeAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -145,7 +145,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../assets/buildAndTree.xml</filename>
+                <filename>../../assets/treeAtlas.xml</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -188,53 +188,62 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../tree1.png</filename>
-            <filename>../tree2.png</filename>
-            <filename>../tree3.png</filename>
-            <filename>../tree4.png</filename>
-            <filename>../tree5.png</filename>
-            <filename>../ridge.png</filename>
-            <filename>../stolb.png</filename>
-            <filename>../lenta.png</filename>
-            <filename>../buildings/wild</filename>
-            <filename>../buildings/ambar.png</filename>
-            <filename>../buildings/bakery.png</filename>
-            <filename>../buildings/bbq_grill.png</filename>
-            <filename>../buildings/confectionery.png</filename>
-            <filename>../buildings/dairy.png</filename>
-            <filename>../buildings/feed_mill.png</filename>
-            <filename>../buildings/fryer.png</filename>
-            <filename>../buildings/ice_cream_maker.png</filename>
-            <filename>../buildings/jam_machine.png</filename>
-            <filename>../buildings/jeweler.png</filename>
-            <filename>../buildings/juice_press.png</filename>
-            <filename>../buildings/loom.png</filename>
-            <filename>../buildings/pie_oven.png</filename>
-            <filename>../buildings/pizza_maker.png</filename>
-            <filename>../buildings/sauce_maker.png</filename>
-            <filename>../buildings/sklad.png</filename>
-            <filename>../buildings/smelter.png</filename>
-            <filename>../buildings/smoke_house.png</filename>
-            <filename>../buildings/sugar_mill.png</filename>
-            <filename>../buildings/yogurt_machine.png</filename>
-            <filename>../buildings/farm/bee.png</filename>
-            <filename>../buildings/farm/chicken.png</filename>
-            <filename>../buildings/farm/cow.png</filename>
-            <filename>../buildings/farm/farm_bee_house.png</filename>
-            <filename>../buildings/farm/farm_bee.png</filename>
-            <filename>../buildings/farm/farm_chicken_house.png</filename>
-            <filename>../buildings/farm/farm_chicken.png</filename>
-            <filename>../buildings/farm/farm_cow_house.png</filename>
-            <filename>../buildings/farm/farm_cow.png</filename>
-            <filename>../buildings/farm/farm_goat_house.png</filename>
-            <filename>../buildings/farm/farm_goat.png</filename>
-            <filename>../buildings/farm/farm_pig_house.png</filename>
-            <filename>../buildings/farm/farm_pig.png</filename>
-            <filename>../buildings/farm/farm_sheep_house.png</filename>
-            <filename>../buildings/farm/farm_sheep.png</filename>
-            <filename>../buildings/farm/goat.png</filename>
-            <filename>../buildings/farm/pig.png</filename>
-            <filename>../buildings/farm/sheep.png</filename>
+            <filename>apple_dead.png</filename>
+            <filename>apple_grow_big_flower.png</filename>
+            <filename>apple_grow_big.png</filename>
+            <filename>apple_grow_middle_flower.png</filename>
+            <filename>apple_grow_middle.png</filename>
+            <filename>apple_grow_small_flower.png</filename>
+            <filename>apple_grow_small.png</filename>
+            <filename>blueberry_dead.png</filename>
+            <filename>blueberry_grow_big_flower.png</filename>
+            <filename>blueberry_grow_big.png</filename>
+            <filename>blueberry_grow_middle_flower.png</filename>
+            <filename>blueberry_grow_middle.png</filename>
+            <filename>blueberry_grow_small_flower.png</filename>
+            <filename>blueberry_grow_small.png</filename>
+            <filename>cacao_dead.png</filename>
+            <filename>cacao_grow_big_flower.png</filename>
+            <filename>cacao_grow_big.png</filename>
+            <filename>cacao_grow_middle_flower.png</filename>
+            <filename>cacao_grow_middle.png</filename>
+            <filename>cacao_grow_small_flower.png</filename>
+            <filename>cacao_grow_small.png</filename>
+            <filename>cherry_dead.png</filename>
+            <filename>cherry_grow_big_flower.png</filename>
+            <filename>cherry_grow_big.png</filename>
+            <filename>cherry_grow_middle_flower.png</filename>
+            <filename>cherry_grow_middle.png</filename>
+            <filename>cherry_grow_small_flower.png</filename>
+            <filename>cherry_grow_small.png</filename>
+            <filename>lemon_dead.png</filename>
+            <filename>lemon_grow_big_flower.png</filename>
+            <filename>lemon_grow_big.png</filename>
+            <filename>lemon_grow_middle_flower.png</filename>
+            <filename>lemon_grow_middle.png</filename>
+            <filename>lemon_grow_small_flower.png</filename>
+            <filename>lemon_grow_small.png</filename>
+            <filename>olive_dead.png</filename>
+            <filename>olive_grow_big_flower.png</filename>
+            <filename>olive_grow_big.png</filename>
+            <filename>olive_grow_middle_flower.png</filename>
+            <filename>olive_grow_middle.png</filename>
+            <filename>olive_grow_small_flower.png</filename>
+            <filename>olive_grow_small.png</filename>
+            <filename>orange_dead.png</filename>
+            <filename>orange_grow_big_flower.png</filename>
+            <filename>orange_grow_big.png</filename>
+            <filename>orange_grow_middle_flower.png</filename>
+            <filename>orange_grow_middle.png</filename>
+            <filename>orange_grow_small_flower.png</filename>
+            <filename>orange_grow_small.png</filename>
+            <filename>raspberry_dead.png</filename>
+            <filename>raspberry_grow_big_flower.png</filename>
+            <filename>raspberry_grow_big.png</filename>
+            <filename>raspberry_grow_middle_flower.png</filename>
+            <filename>raspberry_grow_middle.png</filename>
+            <filename>raspberry_grow_small_flower.png</filename>
+            <filename>raspberry_grow_small.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

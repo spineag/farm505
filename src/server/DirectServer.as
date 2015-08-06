@@ -5,6 +5,7 @@ package server {
 import build.WorldObject;
 import build.WorldObject;
 import build.WorldObject;
+import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
 
@@ -22,6 +23,7 @@ import flash.system.Worker;
 
 import manager.ManagerFabricaRecipe;
 import manager.ManagerPlantRidge;
+import manager.ManagerTree;
 
 import manager.Vars;
 
@@ -344,6 +346,7 @@ public class DirectServer {
                     obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
                     for (k = 0; k < obj.countCraftResource.length; k++) obj.countCraftResource[k] = int(obj.countCraftResource[k]);
                 }
+                if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
                 if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
                 if (d.message[i].delta_count_resources) obj.startCountResources = int(d.message[i].delta_count_resources);
                 if (d.message[i].start_count_instruments) obj.startCountInstrumets = int(d.message[i].start_count_instruments);
@@ -1177,6 +1180,178 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [false]);
             }
+        }
+    }
+
+    public function addUserTree(wObject:WorldObject, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_TREE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserTree', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = wObject.dbBuildingId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserTree);
+        function onCompleteAddUserTree(e:Event):void { completeAddUserTree(e.target.data, wObject, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserTree error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserTree(response:String, wObject:WorldObject, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserTree: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            (wObject as Tree).tree_db_id = d.message;
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function getUserTree(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TREE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserTree', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserTree);
+        function onCompleteGetUserTree(e:Event):void { completeGetUserTree(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserTree error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserTree(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('GetUserTree: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            g.managerTree = new ManagerTree();
+            for (var i:int = 0; i < d.message.length; i++) {
+                g.managerTree.addTree(d.message[i]);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('GetUserTree: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserTreeState(treeDbId:String, state:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TREE_STATE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserTreeState', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.id = treeDbId;
+        variables.state = state;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTreeState);
+        function onCompleteUpdateUserTreeState(e:Event):void { completeUpdateUserTreeState(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserTreeState error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserTreeState(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserTreeState: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserTreeState: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function deleteUserTree(treeDbId:String, dbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_TREE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'deleteUserTree', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        variables.treeDbId = treeDbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserTree);
+        function onCompleteDeleteUserTree(e:Event):void { completeDeleteUserTree(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('deleteUserTree error:' + error.errorID);
+        }
+    }
+
+    private function completeDeleteUserTree(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('deleteUserTree: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }
