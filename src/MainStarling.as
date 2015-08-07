@@ -24,7 +24,7 @@ public class MainStarling extends Sprite {
         sAssets.verbose = true;
         sAssets.enqueue(EmbedAssets);
 
-        var max:int = 89;
+        var max:int = 86;
         var cur:int;
         sAssets.loadQueue(function (ratio:Number):void {
             cur = int(max * ratio);

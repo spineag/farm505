@@ -248,59 +248,67 @@ public class Vars {
     }
 
     private function onAuthUser():void {
+        startPreloader.setProgress(87);
         directServer.getDataLevel(onDataLevel);
     }
 
     private function onDataLevel():void {
         directServer.getUserInfo(onUserInfo);
-        startPreloader.setProgress(90);
+        startPreloader.setProgress(88);
     }
 
     private function onUserInfo():void {
         directServer.getDataAnimal(onDataAnimal);
-        startPreloader.setProgress(92);
+        startPreloader.setProgress(89);
     }
 
     private function onDataAnimal():void {
         directServer.getDataRecipe(onDataRecipe);
-        startPreloader.setProgress(94);
+        startPreloader.setProgress(90);
     }
 
     private function onDataRecipe():void {
         directServer.getDataResource(onDataResource);
-        startPreloader.setProgress(96);
+        startPreloader.setProgress(91);
     }
 
     private function onDataResource():void {
         directServer.getDataBuilding(onDataBuilding);
-        startPreloader.setProgress(98);
+        startPreloader.setProgress(92);
     }
 
     private function onDataBuilding():void {
+        startPreloader.setProgress(93);
         directServer.getUserResource(onUserResource);
     }
 
     private function onUserResource():void {
+        startPreloader.setProgress(94);
         directServer.getUserBuilding(onUserBuilding);
     }
 
     private function onUserBuilding():void {
+        startPreloader.setProgress(95);
         directServer.getUserFabricaRecipe(onUserFabricaRecipe);
     }
 
     private function onUserFabricaRecipe():void {
+        startPreloader.setProgress(96);
         directServer.getUserPlantRidge(onUserPlantRidge);
     }
 
     private function onUserPlantRidge():void {
+        startPreloader.setProgress(97);
         directServer.getUserTree(onUserTree);
     }
 
     private function onUserTree():void {
+        startPreloader.setProgress(98);
         directServer.getUserAnimal(onUserAnimal);
     }
 
     private function onUserAnimal():void {
+        startPreloader.setProgress(99);
         (user as User).friendAppUser();
         initVariables2();
     }
