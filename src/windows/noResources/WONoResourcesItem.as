@@ -48,7 +48,6 @@ public class WONoResourcesItem {
         _image.y = 50 - _image.height/2;
         if(_image) source.addChild(_image);
         source.addChild(_txtCount);
-        trace("daaaa");
     }
 }
 }
