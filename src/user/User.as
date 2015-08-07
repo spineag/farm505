@@ -3,6 +3,8 @@
  */
 package user {
 
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 public class User {
@@ -28,7 +30,7 @@ public class User {
     public var isTester:Boolean;
     public var isMegaTester:Boolean;
     public var userBuildingData:Object;
-    public var arry:Array;
+    public var arrFriends:Array;
     private var g:Vars = Vars.getInstance();
 
     public function User() {
@@ -49,7 +51,7 @@ public class User {
             isTester = true;
         }
         userBuildingData = {};
-        arry = [];
+        arrFriends = [];
     }
 
     public function checkUserLevel():void {
@@ -69,6 +71,24 @@ public class User {
 
     public function friendAppUser():void {
         g.socialNetwork.getAppUsers();
+    }
+
+    public function addFriendInfo(ob:Object):void {
+        var f:Friend;
+        var i:int;
+        for (i=0; i<arrFriends.length; i++) {
+            if (arrFriends[i].socialId == ob.uid) {
+                f = arrFriends[i];
+                break;
+            }
+        }
+        if (!f) {
+            Cc.error('User:: error with friend: ' + ob.uid);
+            return;
+        }
+        f.name = ob.first_name;
+        f.lastName = ob.last_name;
+        f.photo = ob.photo_100;
     }
 }
 }

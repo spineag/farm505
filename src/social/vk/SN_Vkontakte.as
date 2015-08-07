@@ -145,7 +145,7 @@ public class SN_Vkontakte extends SocialNetwork {
     private var friendsNoApp:Array;
     private var friendsApp:Array;
     private var _timerRender:uint = 0;
-    private const COUNT_PER_ONCE_IN_GAME:int = 100;
+    private const COUNT_PER_ONCE_IN_GAME:int = 400;
 
     // friends in App
     override public function getFriendsByIDs(friends:Array):void {
@@ -173,26 +173,20 @@ public class SN_Vkontakte extends SocialNetwork {
         var arr:Array = [];
 
         for (var i:int = 0; i < ids.length; i++) {
-            arr.push(ids[i].uid);
+            arr.push(ids[i]);
         }
         _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getFriendsByIdsHandler, onError);
     }
 
     private function getFriendsByIdsHandler(e:Array):void {
-        var buffer:Object;
-        var bufferIds:Array = [];
-
         for (var i:int = 0; i < e.length; i++) {
-            buffer = e[i];
-            buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : buffer.photo_100;
-            bufferIds.push(buffer);
-            setFriendInfo(buffer.uid, buffer.first_name, buffer.last_name, buffer.photo_100);
+           g.user.addFriendInfo(e[i]);
         }
 
         if (friendsApp.length) {
             getFriendsByIDs(friendsApp);
         } else {
-            super.getFriendsByIDsSuccess(bufferIds);
+            super.getFriendsByIDsSuccess(e);
         }
     }
 
@@ -259,13 +253,14 @@ public class SN_Vkontakte extends SocialNetwork {
 
     private function getAppUsersHandler(e:Object):void {
         _appFriends = e as Array;
-//        var f:Friend;
-//        for (var i:int=0; i < _appFriends.length; i++) {
-//            f = new Friend();
-//            f.name = _appFriends[i].name;
-//            g.user.arry.push(f)
-//        }
+        var f:Friend;
+        for (var i:int=0; i<_appFriends.length; i++) {
+            f = new Friend();
+            f.socialId = _appFriends[i];
+            g.user.arrFriends.push(f);
+        }
         super.getAppUsersSuccess(e);
+        this.getFriendsByIDs(_appFriends);
     }
 
     override public function getUsersOnline():void {
