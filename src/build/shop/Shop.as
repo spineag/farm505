@@ -43,6 +43,7 @@ public class Shop extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             g.woShop.showIt();
+            g.hint.hideIt();
         } else {
             Cc.error('Shop:: unknown g.toolsModifier.modifierType')
         }

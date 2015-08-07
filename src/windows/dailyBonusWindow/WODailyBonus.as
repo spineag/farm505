@@ -64,6 +64,12 @@ public class WODailyBonus extends Window{
             _txtBtn.text = String("Купить за " + hard) ;
             _contBtn.addChild(_imageHard);
         } else if (_txtBtn.text == String("Купить за " + hard)){
+            if (int(_txtBtn.text) >= g.user.hardCurrency){
+                g.woBuyCurrency.showItMenu();
+                g.woBuyCurrency._contHard.visible = true;
+                g.woBuyCurrency._contSoft.visible = false;
+                return;
+            }
             _contBtn.removeChild(_imageHard);
             _imageHard.visible = true;
             createList();

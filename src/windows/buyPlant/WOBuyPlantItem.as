@@ -64,6 +64,7 @@ public class WOBuyPlantItem {
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_data]);
         }
+        g.resourceHint.hideIt();
     }
     private function onHover():void {
         if(_data) g.resourceHint.showIt(_data.id,"",source.x -50, source.y -40,source);

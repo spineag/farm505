@@ -91,10 +91,8 @@ public class Animal {
     }
 
     private function onClick():void {
-        var count:int;
         if (_state == EMPTY) {
             if(!g.userInventory.checkResource(_data , 1)) return;
-//            count = g.userInventory.getCountResourceById(_data.idResourceRaw);
             g.userInventory.addResource(_data.idResourceRaw, -1);
             // проверка есть ли хавка
             // анимация полета хавки для animal, и далее:

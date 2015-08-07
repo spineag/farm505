@@ -165,6 +165,7 @@ public class UserInventory {
                 return false;
             }
             return true;
+            trace("Myyyyy");
         }
         count = g.userInventory.getCountResourceById(_data.id);
         if (count < countResource) {

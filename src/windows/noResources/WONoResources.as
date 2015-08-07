@@ -115,10 +115,11 @@ public class WONoResources extends Window {
         var i:int;
 
         if(_data.buildType == BuildType.ANIMAL) {
-            countRes = g.userInventory.getCountResourceById(_data.idResourceRaw);
-            if (countRes < count) {
-                g.woNoResources.showItMenu(_data, count - countRes);
-            }
+            im = new WONoResourcesItem(_data.idResourceRaw,1);
+            _contImage.addChild(im.source);
+            _txtHardCost.text = "2";
+            _contBtn.addChild(_txtHardCost);
+            return;
         }
 
         for (i=0; i < _data.ingridientsId.length; i++) {
