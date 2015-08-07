@@ -53,7 +53,6 @@ public class MapEditorInterface {
         _mouseCoordinates = new IsometricMouseCoordinates();
         g.cont.interfaceContMapEditor.addChild(_mouseCoordinates.source);
 
-
         setEditorButtons();
 
         _contBuildings = new Sprite();
@@ -384,6 +383,10 @@ public class MapEditorInterface {
                 _activeBtn.source.y = -20;
                 break;
         }
+    }
+
+    public function get mouseCoordinates():IsometricMouseCoordinates {
+        return _mouseCoordinates;
     }
 }
 }

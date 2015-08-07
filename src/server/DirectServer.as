@@ -469,6 +469,15 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
+            if (ob.is_tester && int(ob.is_tester) > 0) {
+                g.user.isTester = true;
+                if (int(ob.is_tester) > 1) {
+                    g.user.isMegaTester = true;
+                }
+            } else {
+                g.user.isMegaTester = false;
+                g.user.isTester = false;
+            }
             g.user.isTester = Boolean(int(ob.is_tester));
 
             if (callback != null) {

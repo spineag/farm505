@@ -26,6 +26,7 @@ public class User {
     public var photo:String;
     public var sex:String = 'm';
     public var isTester:Boolean;
+    public var isMegaTester:Boolean;
     public var userBuildingData:Object;
     public var arry:Array;
     private var g:Vars = Vars.getInstance();

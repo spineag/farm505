@@ -108,7 +108,6 @@ public class Vars {
     public var flashVars:Object;
     public var socialNetworkID:int;
     public var isDebug:Boolean = false;
-    public var showMapEditor:Boolean = true;
     public var mapEditor:MapEditorInterface;
     public var editorButtons:EditorButtonInterface;
     public var deactivatedAreaManager:DeactivatedAreaManager;
@@ -344,11 +343,11 @@ public class Vars {
 
         cont.moveCenterToXY(0, realGameHeight/2 + matrixGrid.offsetY, true);
 
-        if(showMapEditor) {
+        if((user as User).isMegaTester) {
             mapEditor = new MapEditorInterface();
             editorButtons = new EditorButtonInterface();
-            matrixGrid.drawDebugGrid();
             deactivatedAreaManager = new DeactivatedAreaManager();
+            cont.interfaceContMapEditor.visible = false;
         }
 
         woNoResources = new WONoResources();
@@ -369,15 +368,21 @@ public class Vars {
 
         if (!useDataFromServer) temporaryFillUserInventory();
 
-        Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
-        Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
+        if ((user as User).isMegaTester) {
+            Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
+            Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
+        }
     }
 
     private function openMapEditorInterface():void {
+        matrixGrid.drawDebugGrid();
+        mapEditor.mouseCoordinates.startIt();
         cont.interfaceContMapEditor.visible = true;
     }
 
     private function closeMapEditorInterface():void {
+        matrixGrid.deleteDebugGrid();
+        mapEditor.mouseCoordinates.stopIt();
         cont.interfaceContMapEditor.visible = false;
         toolsModifier.modifierType = ToolsModifier.NONE;
     }
