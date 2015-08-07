@@ -30,6 +30,8 @@ public class TreeHint {
     private var _txtName:TextField;
     private var _worldObject:WorldObject;
     private var _data:Object;
+    private var _deleteCallback:Function;
+
     private var g:Vars = Vars.getInstance();
 
     public function TreeHint() {
@@ -103,8 +105,14 @@ public class TreeHint {
 
     private function onClick():void {
         onOut();
-        g.userInventory.addResource(g.dataResource.objectResources[_data.removeByResourceId].id, -1);
-        g.townArea.deleteBuild(_worldObject);
+        if (_deleteCallback != null) {
+            _deleteCallback.apply();
+            _deleteCallback = null;
+        }
+    }
+
+    public function set onDelete(f:Function):void {
+        _deleteCallback = f;
     }
 }
 }

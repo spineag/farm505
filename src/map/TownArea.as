@@ -170,6 +170,7 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.TREE:
                 build = new Tree(_data);
+                if (!isFromServer) (build as Tree).releaseNewTree();
                 break;
             case BuildType.WILD:
                 build = new Wild(_data);
@@ -234,10 +235,12 @@ public class TownArea extends Sprite {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
             if (isNewAtMap) {
-                if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Tree)
+                if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge)
                     g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
                 if (worldObject is Farm || worldObject is Tree)
                     worldObject.addXP();
+                if (worldObject is Tree)
+                    g.directServer.addUserBuilding(worldObject, onAddNewTree);
             }
         }
 
@@ -247,6 +250,11 @@ public class TownArea extends Sprite {
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
         g.directServer.startBuildBuilding(wObject, null);
+    }
+
+    private function onAddNewTree(value:Boolean, wObject:WorldObject):void {
+        //g.directServer.startBuildBuilding(wObject, null);
+        g.directServer.addUserTree(wObject, null);
     }
 
     public function deleteBuild(worldObject:WorldObject):void{

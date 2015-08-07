@@ -26,7 +26,7 @@ public class UserInventory {
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
         _inventoryResource[id] += count;
         if (_inventoryResource[id] == 0) delete(_inventoryResource[id]);
-        if (needSendToServer) {
+        if (needSendToServer && g.useDataFromServer) {
             g.directServer.addUserResource(id, count, null);
         }
     }
@@ -164,6 +164,7 @@ public class UserInventory {
                 g.woNoResources.showItMenu(_data, countResource - count);
                 return false;
             }
+            return true;
         }
         count = g.userInventory.getCountResourceById(_data.id);
         if (count < countResource) {
