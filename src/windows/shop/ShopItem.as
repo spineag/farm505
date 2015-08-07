@@ -63,7 +63,7 @@ public class ShopItem {
 
     private function onClick():void {
         if (!g.userInventory.checkMoney(_data)) return;
-        if (g.user.level <= _data.blockByLevel) {
+        if (g.user.level < _data.blockByLevel) {
             g.flyMessage.showIt(source,"откроется на "+ String(_data.blockByLevel) + " уровне");
             return;
         }
