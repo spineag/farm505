@@ -173,13 +173,12 @@ public class OptionPanel {
             case 'fullscreen':
                 if (_boolean == true) {
                     Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN;
-                    var playerWidth:int = Starling.current.nativeStage.stageWidth;
-                    var playerHeight:int = Starling.current.nativeStage.stageHeight;
-                    Starling.current.viewPort = new Rectangle(0, 0,playerWidth,playerHeight);
+                    Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
 
                     _boolean = false;
                 } else {
                     Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
+                    Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
                     _boolean = true;
                 }
                 break;
@@ -201,9 +200,7 @@ public class OptionPanel {
     {
         if (event.keyCode==27) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
-            var playerWidth:int = Starling.current.nativeStage.stageWidth;
-            var playerHeight:int = Starling.current.nativeStage.stageHeight;
-            Starling.current.viewPort = new Rectangle(0, 0,playerWidth,playerHeight);
+            Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
             _boolean = true;
         }    }
 }
