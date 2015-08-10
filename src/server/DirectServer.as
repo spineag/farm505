@@ -1647,7 +1647,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserTrainState(state:int, callback:Function):void {
+    public function updateUserTrainState(state:int, train_db_id:String, callback:Function):void {
         if (!g.useDataFromServer) return;
 
         var loader:URLLoader = new URLLoader();
@@ -1658,6 +1658,7 @@ public class DirectServer {
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.state = state;
+        variables.id = train_db_id;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTrainState);
@@ -1687,6 +1688,138 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserTrainState: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply();
+            }
+        }
+    }
+
+    public function getTrainPack(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TRAIN_PACK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getTrainPack', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetTrainPack);
+        function onCompleteGetTrainPack(e:Event):void { completeGetTrainPack(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getTrainPack error:' + error.errorID);
+        }
+    }
+
+    private function completeGetTrainPack(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getTrainPack: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+            return;
+        } else {
+            Cc.error('getTrainPack: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function releaseUserTrainPack(train_db_id:String, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RELEASE_USER_TRAIN_PACK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'releaseUserTrainPack', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.id = train_db_id;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteReleaseUserTrainPack);
+        function onCompleteReleaseUserTrainPack(e:Event):void { completeReleaseUserTrainPack(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('releaseUserTrainPack error:' + error.errorID);
+        }
+    }
+
+    private function completeReleaseUserTrainPack(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('releaseUserTrainPack: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('releaseUserTrainPack: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply();
+            }
+        }
+    }
+
+    public function updateUserTrainPackItems(train_item_db_id:String, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TRAIN_PACK_ITEM);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserTrainPackItems ', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.id = train_item_db_id;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTrainPackItems);
+        function onCompleteUpdateUserTrainPackItems(e:Event):void { completeUpdateUserTrainPackItems(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserTrainPackItems error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserTrainPackItems(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserTrainPackItems: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserTrainPackItems: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply();
             }

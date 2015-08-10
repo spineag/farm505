@@ -12,11 +12,15 @@ import map.TownArea;
 
 import mouse.ToolsModifier;
 
+import resourceItem.DropItem;
+
 import starling.display.Image;
 import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
+
+import temp.DropResourceVariaty;
 
 import ui.xpPanel.XPStar;
 
@@ -29,6 +33,7 @@ public class Train extends AreaObject{
     private var list:Array;
     private var _woBuy:WOBuyCave;
     private var _counter:int;
+    private var _dataPack:Object;
     private var _train_db_id:String; // id для поезда юзера в табличке user_train
     private var TIME_READY:int = 1200; // время, которое ожидает поезд для загрузки продуктов
     private var TIME_WAIT:int = 600;  // время, на которое уезжает поезд
@@ -36,17 +41,20 @@ public class Train extends AreaObject{
     public function Train(_data:Object) {
         super(_data);
 
+       checkTrainState();
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
-       checkTrainState();
+        if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            addTempGiftIcon();
+        } else if (_stateBuild == STATE_BUILD) {
+            addTempBuildIcon();
+        }
 
         _woBuy = new WOBuyCave();
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
         _dataBuild.isFlip = _flip;
-
-        fillList();
     }
 
     public function fillFromServer(ob:Object):void {
@@ -55,22 +63,28 @@ public class Train extends AreaObject{
         if (_stateBuild == STATE_WAIT_BACK) {
             if (int(ob.time_work) > TIME_WAIT) {
                 _stateBuild = STATE_READY;
+                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                 _counter = TIME_READY;
                 arriveTrain();
             } else {
                 _counter = TIME_WAIT - int(ob.time_work);
             }
+            renderTrainWork();
         } else if (_stateBuild == STATE_READY) {
             if (int(ob.time_work) > TIME_READY) {
                 _stateBuild = STATE_WAIT_BACK;
+                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                 _counter = TIME_WAIT;
                 leaveTrain();
             } else {
                 _counter = TIME_READY - int(ob.time_work);
             }
+            renderTrainWork();
         } else {
             Cc.error('Train:: wrong state');
+            return;
         }
+        g.directServer.getTrainPack(fillList);
     }
 
     private function arriveTrain():void {
@@ -78,7 +92,7 @@ public class Train extends AreaObject{
     }
 
     private function leaveTrain():void {
-        _source.alpha = .5;
+        _source.alpha = .3;
     }
 
     private function checkTrainState():void {
@@ -93,11 +107,9 @@ public class Train extends AreaObject{
                 if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                     _stateBuild = STATE_WAIT_ACTIVATE;
                     createBrokenTrain();
-                    addTempGiftIcon();
                 } else {  // еще строится
                     _stateBuild = STATE_BUILD;
                     createBrokenTrain();
-                    addTempBuildIcon();
                     g.gameDispatcher.addToTimer(renderBuildTrainProgress);
                 }
             }
@@ -170,9 +182,11 @@ public class Train extends AreaObject{
                 start = _source.parent.localToGlobal(start);
                 new XPStar(start.x, start.y, _dataBuild.xpForBuild);
             }
-            _stateBuild = STATE_ACTIVE;
+            //_stateBuild = STATE_ACTIVE;
             _stateBuild = STATE_READY;
-            //renderLeftTime();
+            g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+            _counter = TIME_READY;
+            renderTrainWork();
             _source.filter = null;
             clearCraftSprite();
             while (_build.numChildren) {
@@ -207,38 +221,59 @@ public class Train extends AreaObject{
         g.hint.hideIt();
     }
 
-    private function fillList():void {
-        var i:int;
-        var k:int;
-        var n:int;
-        var arr:Array = [];
-        var obj:Object = g.dataResource.objectResources;
-        for(var s:String in obj) {
-            if (obj[s].buildType == BuildType.RESOURCE || obj[s].buildType == BuildType.PLANT)
-                arr.push(obj[s]);
-        }
-
-        if (_dataBuild.blockByLevel[3] <= g.user.level) {
-            k = 3;
-        } else if (_dataBuild.blockByLevel[2] <= g.user.level) {
-            k = 2;
-        } else {
-            k = 1;
-        }
+    private function fillList(ob:Object):void {
+        _dataPack = ob;
 
         list = [];
-        for (i=0; i<3; i++) {
-            obj = arr[int(Math.random()*arr.length)];
-            for (n=0; n<k; n++) {
-                list.push(new TrainCell(obj, int(Math.random()*5) + 2));
-            }
+        for (var i:int=0; i<_dataPack.items.length; i++) {
+            list.push(new TrainCell(_dataPack.items[i]));
         }
     }
 
-    public function fullTrain():void {
-        fillList();
-        g.woTrain.showItWithParams(list, this);
+    public function fullTrain(p:Point):void {
+        //fillList(_dataPack);
+        //g.woTrain.showItWithParams(list, this);
         onOut();
+        g.directServer.releaseUserTrainPack(_train_db_id, onReleasePack);
+
+        new XPStar(p.x, p.y, _dataPack.count_xp);
+        var prise:Object = {};
+        prise.id = DataMoney.SOFT_CURRENCY;
+        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
+        prise.count = _dataPack.count_money;
+        new DropItem(p.x, p.y, prise);
+    }
+
+    private function onReleasePack():void {
+        _stateBuild = STATE_WAIT_BACK;
+        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+        _counter = TIME_WAIT;
+        leaveTrain();
+        list = [];
+        g.directServer.getUserTrain(null);
+    }
+
+    private function renderTrainWork():void {
+        g.gameDispatcher.addToTimer(render);
+    }
+
+    private function render():void {
+        _counter--;
+        if (_counter <= 0) {
+            if (_stateBuild == STATE_READY) {
+                _stateBuild = STATE_WAIT_BACK;
+                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+                _counter = TIME_WAIT;
+                leaveTrain();
+            } else if (_stateBuild == STATE_WAIT_BACK) {
+                _stateBuild = STATE_READY;
+                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+                _counter = TIME_READY;
+                arriveTrain();
+            } else {
+                Cc.error('renderTrainWork:: wrong _stateBuild');
+            }
+        }
     }
 
 }

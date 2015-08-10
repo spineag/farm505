@@ -100,7 +100,6 @@ public class WOTrain extends Window {
         for (var i:int = 0; i<_arrItems.length; i++) {
             _arrItems[i].setAlpha();
         }
-        trace(_arrItems[k].isResourceLoaded);
         if (_arrItems[k].isResourceLoaded) {
             _btn1.visible = false;
         } else {
@@ -133,15 +132,9 @@ public class WOTrain extends Window {
     private function fullTrain():void {
         var p:Point = new Point(_btn.width/2, _btn.height/2);
         p = _btn.localToGlobal(p);
-        new XPStar(p.x, p.y, 500);
-        var prise:Object = {};
-        prise.id = DataMoney.SOFT_CURRENCY;
-        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
-        prise.count = 500;
-        new DropItem(p.x, p.y, prise);
-
+        clearItems();
         hideIt();
-        (_build as Train).fullTrain();
+        (_build as Train).fullTrain(p);
     }
 
     private function clearItems():void {

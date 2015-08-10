@@ -2,23 +2,37 @@
  * Created by user on 7/24/15.
  */
 package build.train {
+import data.DataMoney;
+
 import flash.geom.Point;
 
 import manager.Vars;
 
+import resourceItem.DropItem;
+
 import starling.display.Image;
+
+import temp.DropResourceVariaty;
+
+import ui.xpPanel.XPStar;
 
 public class TrainCell {
     private var _dataResource:Object;
     private var _count:int;
     private var _isFull:Boolean;
+    private var item_db_id:String;
+    private var countXP:int;
+    private var countMoney:int;
 
     private var g:Vars = Vars.getInstance();
 
-    public function TrainCell(d:Object, c:int) {
-        _dataResource = d;
-        _count = c;
-        _isFull = false;
+    public function TrainCell(d:Object) {
+        _dataResource = g.dataResource.objectResources[int(d.resource_id)];
+        _count = int(d.count_resource);
+        _isFull = d.is_full == '1';
+        item_db_id = d.id;
+        countXP = int(d.count_xp);
+        countMoney = int(d.count_money);
     }
 
     public function canBeFull():Boolean {
@@ -41,7 +55,14 @@ public class TrainCell {
         g.userInventory.addResource(_dataResource.id, -_count);
         var p:Point = new Point(im.x + im.width/2, im.y + im.height/2);
         p = im.parent.localToGlobal(p);
+        new XPStar(p.x, p.y, countXP);
+        var prise:Object = {};
+        prise.id = DataMoney.SOFT_CURRENCY;
+        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
+        prise.count = countMoney;
+        new DropItem(p.x, p.y, prise);
         _isFull = true;
+        g.directServer.updateUserTrainPackItems(item_db_id, null);
     }
 }
 }

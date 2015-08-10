@@ -196,12 +196,13 @@ public class OptionPanel {
                 break;
         }
     }
-    function reportKeyDown(event:KeyboardEvent):void
-    {
-        if (event.keyCode==27) {
+
+    private function reportKeyDown(event:KeyboardEvent):void  {
+        if (event.keyCode == 27) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
             Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
             _boolean = true;
-        }    }
+        }
+    }
 }
 }

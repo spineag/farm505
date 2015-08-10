@@ -523,7 +523,7 @@ public class DataBuildings {
         obj.url = "buildAtlas";
         obj.image = "train";
         obj.buildType = BuildType.TRAIN;
-        obj.blockByLevel = [3, 1, 3, 5];
+        obj.blockByLevel = [1, 3, 5];
         objectBuilding[obj.id ] = obj;
 
                                         // -------------------------- DECOR -----------------------
