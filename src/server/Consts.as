@@ -34,5 +34,8 @@ public class Consts {
     public static var INQ_RAW_PLANT_RIDGE:String = 'rawPlantOnRidge.php';
     public static var INQ_GET_USER_PLANT_RIDGE:String = 'getUserPlantRidge.php';
     public static var INQ_DELETE_USER_TREE:String = 'deleteUserTree.php';
+    public static var INQ_ADD_USER_TRAIN:String = 'addUserTrain.php';
+    public static var INQ_GET_USER_TRAIN:String = 'getUserTrain.php';
+    public static var INQ_UPDATE_USER_TRAIN_STATE:String = 'updateUserTrainState.php';
 }
 }

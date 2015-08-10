@@ -145,6 +145,9 @@ public class WONoResources extends Window {
             _contImage.removeChildAt(0);
         }
         _arrCells.length = 0;
+        if (int(_txtHardCost.text) < g.user.hardCurrency){
+            g.userInventory.addMoney(1,-2);
+        }
     }
 }
 }

@@ -201,7 +201,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = true;
+        useDataFromServer = false;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
@@ -308,6 +308,10 @@ public class Vars {
     }
 
     private function onUserAnimal():void {
+        directServer.getUserTrain(onUserTrain);
+    }
+
+    private function onUserTrain():void {
         startPreloader.setProgress(99);
         (user as User).friendAppUser();
         initVariables2();

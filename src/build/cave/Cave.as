@@ -29,6 +29,8 @@ import starling.filters.BlurFilter;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import ui.xpPanel.XPStar;
+
 import windows.cave.WOBuyCave;
 
 
@@ -37,36 +39,6 @@ public class Cave extends AreaObject{
 
     public function Cave(data:Object) {
         super (data);
-
-        if (g.user.userBuildingData[_dataBuild.id]) {
-            if (g.user.userBuildingData[_dataBuild.id].isOpen) {
-                _stateBuild = STATE_ACTIVE;
-                var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
-                im.x = _dataBuild.innerX;
-                im.y = _dataBuild.innerY;
-                _build.addChild(im);
-                _defaultScale = _build.scaleX;
-                _rect = _build.getBounds(_build);
-                _sizeX = _dataBuild.width;
-                _sizeY = _dataBuild.height;
-                (_build as Sprite).alpha = 1;
-                if (_flip) _build.scaleX = -_defaultScale;
-                _source.addChild(_build);                                           // уже построенно и открыто
-            } else {
-                _leftBuildTime = g.user.userBuildingData[_dataBuild.id].timeBuildBuilding;  // сколько времени уже строится
-                _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
-                if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
-                    _stateBuild = STATE_WAIT_ACTIVATE;
-                    createBuild();
-                } else {  // еще строится
-                    _stateBuild = STATE_BUILD;
-                    createBuild();
-                    g.gameDispatcher.addToTimer(renderBuildProgress);
-                }
-            }
-        } else {
-            _stateBuild = STATE_UNACTIVE;
-        }
 
         checkCaveState();
 
@@ -161,11 +133,16 @@ public class Cave extends AreaObject{
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             _source.filter = null;
-            _woBuy.showItWithParams(_dataBuild, onBuy);
+            _woBuy.showItWithParams(_dataBuild, "Откройте пещеру", onBuy);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (g.useDataFromServer) {
                 g.directServer.openBuildedBuilding(this, onOpenBuilded);
+            }
+            if (_dataBuild.xpForBuild) {
+                var start:Point = new Point(int(_source.x), int(_source.y));
+                start = _source.parent.localToGlobal(start);
+                new XPStar(start.x, start.y, _dataBuild.xpForBuild);
             }
             _stateBuild = STATE_ACTIVE;
             _source.filter = null;
