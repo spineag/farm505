@@ -31,7 +31,7 @@ public class DataBuildings {
         obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [2];
-        obj.buildTime = 10000;
+        obj.buildTime = 3;
         objectBuilding[obj.id ] = obj;
 //        2
         obj = {};
@@ -50,7 +50,7 @@ public class DataBuildings {
         obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [6];
-        obj.buildTime = 15000;
+        obj.buildTime = 3;
         objectBuilding[obj.id ] = obj;
 //         3
         obj = {};
@@ -69,7 +69,7 @@ public class DataBuildings {
         obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
-        obj.buildTime = 10000;
+        obj.buildTime = 3;
         objectBuilding[obj.id ] = obj;
 //         4
         obj = {};
@@ -90,7 +90,7 @@ public class DataBuildings {
         obj.blockByLevel = [3];
         obj.arrayResources = [];
         obj.skipBuildIt = 1;
-        obj.buildTime = 10000;
+        obj.buildTime = 3;
         objectBuilding[obj.id ] = obj;
 //         5
         obj = {};
