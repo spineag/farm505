@@ -222,6 +222,7 @@
             <filename>stolb.png</filename>
             <filename>lenta.png</filename>
             <filename>buildings/shop.png</filename>
+            <filename>buildings/train_broken.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
