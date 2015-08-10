@@ -6,6 +6,7 @@ import build.WorldObject;
 import build.WorldObject;
 import build.WorldObject;
 import build.farm.Animal;
+import build.train.Train;
 import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
@@ -1544,6 +1545,151 @@ public class DirectServer {
             }
         } else {
             Cc.error('craftUserAnimal: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function addUserTrain(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_TRAIN);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserTrain', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserTrain);
+        function onCompleteAddUserTrain(e:Event):void { completeAddUserTrain(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserTrain error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserTrain(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserTrain: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [0]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else {
+            Cc.error('addUserTrain: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [0]);
+            }
+        }
+    }
+
+    public function getUserTrain(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var tr:Train;
+        for (var i:int=0; i<g.townArea.cityObjects.length; i++) {
+            if (g.townArea.cityObjects[i] is Train) {
+                tr = g.townArea.cityObjects[i];
+                break;
+            }
+        }
+        if (!tr ||tr.stateBuild < 4) {
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TRAIN);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserTrain', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserTrain);
+        function onCompleteGetUserTrain(e:Event):void { completeGetUserTrain(e.target.data, tr, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserTrain error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserTrain(response:String, tr:Train, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('GetUserTrain: wrong JSON:' + String(response));
+        }
+
+        if (d.id == 0) {
+            tr.fillFromServer(d.message);
+        } else {
+            Cc.error('GetUserTrain: id: ' + d.id + '  with message: ' + d.message);
+        }
+
+        if (callback != null) {
+            callback.apply();
+        }
+    }
+
+    public function updateUserTrainState(state:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TRAIN_STATE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserTrainState', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.state = state;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTrainState);
+        function onCompleteUpdateUserTrainState(e:Event):void { completeUpdateUserTrainState(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserTrainState error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserTrainState(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserTrainState: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserTrainState: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply();
+            }
         }
     }
 }

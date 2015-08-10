@@ -308,6 +308,10 @@ public class Vars {
     }
 
     private function onUserAnimal():void {
+        directServer.getUserTrain(onUserTrain);
+    }
+
+    private function onUserTrain():void {
         startPreloader.setProgress(99);
         (user as User).friendAppUser();
         initVariables2();

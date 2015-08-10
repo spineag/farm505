@@ -38,7 +38,7 @@ public class WOBuyCave extends Window {
         _source.addChild(btn);
         btn.endClickCallback = onClickBuy;
 
-        txt = new TextField(300, 30, "Купите пещеру", "Arial", 18, Color.WHITE);
+        txt = new TextField(300, 30, '', "Arial", 18, Color.WHITE);
         txt.x = -150;
         txt.y = -20;
         _source.addChild(txt);
@@ -48,8 +48,9 @@ public class WOBuyCave extends Window {
         hideIt();
     }
 
-    public function showItWithParams(_data:Object, f:Function):void {
+    public function showItWithParams(_data:Object, _t:String, f:Function):void {
         priceTxt.text = String(_data.cost);
+       txt.text = _t;
         _callback = f;
         showIt();
     }
