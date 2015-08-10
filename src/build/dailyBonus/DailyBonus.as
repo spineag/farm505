@@ -36,6 +36,7 @@ public class DailyBonus extends AreaObject{
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+            g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
