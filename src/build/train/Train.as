@@ -69,21 +69,30 @@ public class Train extends AreaObject{
             } else {
                 _counter = TIME_WAIT - int(ob.time_work);
             }
+            g.directServer.getTrainPack(fillList);
             renderTrainWork();
         } else if (_stateBuild == STATE_READY) {
             if (int(ob.time_work) > TIME_READY) {
                 _stateBuild = STATE_WAIT_BACK;
-                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
                 _counter = TIME_WAIT;
                 leaveTrain();
             } else {
                 _counter = TIME_READY - int(ob.time_work);
             }
+            g.directServer.getTrainPack(fillList);
             renderTrainWork();
         } else {
             Cc.error('Train:: wrong state');
             return;
         }
+    }
+
+    private function onNewStateWait():void {
+        g.directServer.releaseUserTrainPack(_train_db_id, onResetPack);
+    }
+
+    private function onResetPack():void {
         g.directServer.getTrainPack(fillList);
     }
 
@@ -164,7 +173,7 @@ public class Train extends AreaObject{
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                g.woTrain.showItWithParams(list, this);
+                g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
                 onOut();
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -265,11 +274,13 @@ public class Train extends AreaObject{
                 g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                 _counter = TIME_WAIT;
                 leaveTrain();
+                g.woTrain.onClickExit();
             } else if (_stateBuild == STATE_WAIT_BACK) {
                 _stateBuild = STATE_READY;
                 g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                 _counter = TIME_READY;
                 arriveTrain();
+                g.woTrain.onClickExit();
             } else {
                 Cc.error('renderTrainWork:: wrong _stateBuild');
             }
