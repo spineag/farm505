@@ -27,8 +27,11 @@ public class WOTrain extends Window {
     private var _arrItems:Array;
     private var _btn:CSprite;
     private var _btn1:CSprite;
-    private var _activeItemIndex:int;
+    private var _activeItemIndex: int;
     private var _build:Train;
+    private var _txt:TextField;
+    private var _txtCounter:TextField;
+    private var _counter:int;
 
     public function WOTrain() {
         super ();
@@ -61,14 +64,27 @@ public class WOTrain extends Window {
         _source.addChild(_btn1);
         _btn1.visible = false;
         _btn1.endClickCallback = onResourceLoad;
+
+        _txt = new TextField(150, 40, '', "Arial", 16, Color.BLACK)
+        _txt.x = 90;
+        _txt.y = -130;
+        _source.addChild(_txt);
+        _txtCounter = new TextField(150, 40, '', "Arial", 16, Color.BLACK)
+        _txtCounter.x = 90;
+        _txtCounter.y = -100;
+        _source.addChild(_txtCounter);
     }
 
-    private function onClickExit(e:Event):void {
+    public function onClickExit(e:Event=null):void {
+        _txt.text = '';
+        _counter = 0;
+        _txtCounter.text = '';
+        g.gameDispatcher.removeFromTimer(checkCounter);
         hideIt();
         clearItems();
     }
 
-    public function showItWithParams(list:Array, b:Train):void {
+    public function showItWithParams(list:Array, b:Train, state:int, counter:int):void {
         _build = b;
         for (var i:int = 0; i<list.length; i++) {
             _arrItems[i].fillIt(list[i], i);
@@ -76,6 +92,19 @@ public class WOTrain extends Window {
         }
         showIt();
         checkBtn();
+        if (state == Train.STATE_READY) {
+            _txt.text = 'До отправления';
+        } else {
+            _txt.text = 'До прибытия';
+        }
+        _counter = counter;
+        _txtCounter.text = String(_counter);
+        g.gameDispatcher.addToTimer(checkCounter);
+    }
+
+    private function checkCounter():void {
+        _counter--;
+        _txtCounter.text = String(_counter);
     }
 
     private function addItems():void {
@@ -113,7 +142,6 @@ public class WOTrain extends Window {
         if (_arrItems[_activeItemIndex].canFull) {
             _arrItems[_activeItemIndex].fullIt();
         }
-
         checkBtn();
     }
 
@@ -132,9 +160,8 @@ public class WOTrain extends Window {
     private function fullTrain():void {
         var p:Point = new Point(_btn.width/2, _btn.height/2);
         p = _btn.localToGlobal(p);
-        clearItems();
-        hideIt();
         (_build as Train).fullTrain(p);
+        onClickExit();
     }
 
     private function clearItems():void {
