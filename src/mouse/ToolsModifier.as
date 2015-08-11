@@ -14,6 +14,7 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
+import starling.filters.ColorMatrixFilter;
 import starling.utils.Color;
 
 import temp.MapEditorInterface;
@@ -32,6 +33,7 @@ public class ToolsModifier {
 
     private var _activeBuildingData:Object;
     private var _spriteForMove:Sprite;
+    private var _moveGrid:BuildMoveGrid;
     private var _cont:Sprite;
     private var _callbackAfterMove:Function;
     private var _mouse:OwnMouse;
@@ -137,7 +139,7 @@ public class ToolsModifier {
 
         if (_activeBuildingData.isFlip) _spriteForMove.scaleX *= -1;
 
-        _spriteForMove.flatten();
+//        _spriteForMove.flatten();
         _spriteForMove.x = _mouse.mouseX - _cont.x;
         _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
         _cont.addChild(_spriteForMove);
@@ -146,6 +148,7 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
 
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
+        _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuildingData.width, _activeBuildingData.height);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
     }
 
@@ -157,26 +160,42 @@ public class ToolsModifier {
 
     public function onTouchEnded():void {
         if (!_spriteForMove) return;
+        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
+        if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) return;
+
+        spriteForMoveIndexX = 0;
+        spriteForMoveIndexY = 0;
         if (_callbackAfterMove != null) {
             _callbackAfterMove.apply(null, [_spriteForMove.x, _spriteForMove.y])
         }
         _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
         _cont.removeChild(_spriteForMove);
-        _spriteForMove.unflatten();
+//        _spriteForMove.unflatten();
         while (_spriteForMove.numChildren) {
             _spriteForMove.removeChildAt(0);
         }
         _spriteForMove = null;
     }
 
+    private var spriteForMoveIndexX:int = 0;
+    private var spriteForMoveIndexY:int = 0;
     private function moveIt():void {
         _spriteForMove.x = _mouse.mouseX - _cont.x;
         _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
-
-        checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height) ? _spriteForMove.alpha = 1 : _spriteForMove.alpha = .4;
+        if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {  // проверяем поменялась ли позиция и нужно обновить
+            spriteForMoveIndexX = point.x;
+            spriteForMoveIndexY = point.y;
+            if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) {
+                var filter:ColorMatrixFilter = new ColorMatrixFilter();
+                filter.tint(Color.RED, 1);
+                _spriteForMove.filter = filter;
+            } else {
+                _spriteForMove.filter = null;
+            }
+        }
     }
 
     private function onEnterFrame():void {
