@@ -29,7 +29,8 @@ public class BackgroundTile {
         }
 
         if (!_isInGame) _graphicsSource.visible = false;
-        _graphicsSource.alpha = .2;
+//        _graphicsSource.alpha = .2;
+        _graphicsSource.visible = false;
 
     }
 

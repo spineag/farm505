@@ -256,6 +256,10 @@
             <filename>hintSidePixels2.png</filename>
             <filename>work_icon.png</filename>
             <filename>temp_gift_icon.png</filename>
+            <filename>empty_green_tail.png</filename>
+            <filename>empty_red_tail.png</filename>
+            <filename>green_tail.png</filename>
+            <filename>red_tail.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

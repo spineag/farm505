@@ -119,25 +119,25 @@ public class ToolsModifier {
         _mouseCont.y = g.ownMouse.mouseY + 10;
     }
 
+    private var imForMove:Image;
     public function startMove(buildingData:Object, callback:Function = null):void {
-        var im:Image;
-
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;
         if (_activeBuildingData.url == "treeAtlas"){
             _spriteForMove.addChild(contImage);
         } else if (_activeBuildingData.url == "buildAtlas") {
-            im  = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
-            im.x = _activeBuildingData.innerX;
-            im.y = _activeBuildingData.innerY;
-            _spriteForMove.addChild(im);
+            imForMove  = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
+            imForMove.x = _activeBuildingData.innerX;
+            imForMove.y = _activeBuildingData.innerY;
+            _spriteForMove.addChild(imForMove);
         } else {
-            im  = new Image(g.mapAtlas.getTexture(_activeBuildingData.image));
-            im.x = -im.width/2;
+            imForMove  = new Image(g.mapAtlas.getTexture(_activeBuildingData.image));
+            imForMove.x = -imForMove.width/2;
         }
 
-        if (_activeBuildingData.isFlip) _spriteForMove.scaleX *= -1;
+//        if (_activeBuildingData.isFlip) _spriteForMove.scaleX *= -1;
+        if (_activeBuildingData.isFlip) imForMove.scaleX *= -1;
 
 //        _spriteForMove.flatten();
         _spriteForMove.x = _mouse.mouseX - _cont.x;
@@ -175,6 +175,10 @@ public class ToolsModifier {
         while (_spriteForMove.numChildren) {
             _spriteForMove.removeChildAt(0);
         }
+        _moveGrid.clearIt();
+        _moveGrid = null;
+        imForMove.dispose();
+        imForMove = null;
         _spriteForMove = null;
     }
 
@@ -185,15 +189,16 @@ public class ToolsModifier {
         _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
-        if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {  // проверяем поменялась ли позиция и нужно обновить
+        if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             spriteForMoveIndexX = point.x;
             spriteForMoveIndexY = point.y;
-            if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) {
+            _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
+            if (_moveGrid.isFree) {
+                imForMove.filter = null;
+            } else {
                 var filter:ColorMatrixFilter = new ColorMatrixFilter();
                 filter.tint(Color.RED, 1);
-                _spriteForMove.filter = filter;
-            } else {
-                _spriteForMove.filter = null;
+                imForMove.filter = filter;
             }
         }
     }
