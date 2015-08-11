@@ -61,5 +61,14 @@ public class BuildMoveGridTile {
     public function get type():int {
         return _type;
     }
+
+    public function clearIt():void {
+        while (source.numChildren) source.removeChildAt(0);
+        imGreen.dispose();
+        imRed.dispose();
+        source = null;
+        imGreen = null;
+        imRed = null;
+    }
 }
 }

@@ -54,7 +54,17 @@ public class BuildMoveGrid {
     }
 
     public function clearIt():void {
-
+        _parent.removeChild(_source);
+        while (_source.numChildren) _source.removeChildAt(0);
+        for (var i:int = 0; i < W + 4; i++) {
+            for (var j:int = 0; j < H + 4; j++) {
+//                _source.removeChild(_matrix[i][j].source);
+                _matrix[i][j].clearIt();
+            }
+        }
+        _matrix = [];
+        _parent = null;
+        _townMatrix = null;
     }
 
     public function get isFree():Boolean {
