@@ -175,6 +175,7 @@ public class Train extends AreaObject{
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
                 g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
                 onOut();
+                _source.filter = null;
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }

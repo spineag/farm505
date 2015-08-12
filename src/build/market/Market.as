@@ -45,6 +45,7 @@ public class Market extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             g.woMarket.showIt();
             onOut();
+            _source.filter = null;
         } else {
             Cc.error('Market:: unknown g.toolsModifier.modifierType')
         }

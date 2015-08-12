@@ -29,12 +29,15 @@ public class OptionPanel {
     private var _contMusic:CSprite;
     private var _contSound:CSprite;
     private var _boolean:Boolean;
+    private var _arrCells:Array;
 
     private var g:Vars = Vars.getInstance();
 
     public function OptionPanel() {
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
         _boolean = true;
+        _arrCells = [];
+        _arrCells = [.25, .5, 75, 1, 1.25, 1.5, 2];
     }
 
     public function fillBtns():void {
@@ -183,8 +186,18 @@ public class OptionPanel {
                 }
                 break;
             case 'scale_plus':
+                var i:int;
+                i = _arrCells.indexOf(g.cont.gameCont.scaleX);
+                if (i >= _arrCells.length-1) return;
+                i++;
+                g.cont.gameCont.scaleX = g.cont.gameCont.scaleY = _arrCells[i];
                 break;
             case 'scale_minus':
+                var i:int;
+                i = _arrCells.indexOf(g.cont.gameCont.scaleX);
+                if (i <= 0 ) return;
+                i--;
+                g.cont.gameCont.scaleX = g.cont.gameCont.scaleY = _arrCells[i];
                 break;
             case 'screenshot':
                 break;

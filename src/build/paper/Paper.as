@@ -45,6 +45,7 @@ public class Paper extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             g.woPaper.showItMenu();
             g.hint.hideIt();
+            _source.filter = null;
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }

@@ -62,11 +62,11 @@ public class ShopItem {
     }
 
     private function onClick():void {
-        if (!g.userInventory.checkMoney(_data)) return;
         if (g.user.level < _data.blockByLevel) {
             g.flyMessage.showIt(source,"откроется на "+ String(_data.blockByLevel) + " уровне");
             return;
         }
+        if (!g.userInventory.checkMoney(_data)) return;
         g.userInventory.addMoney(_data.currency, -_data.cost);
         if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.hideIt();
