@@ -175,6 +175,7 @@ public class Cave extends AreaObject{
         _dbBuildingId = 0;
         g.directServer.startBuildBuilding(this, onStartBuildingResponse);
         addTempBuildIcon();
+        _leftBuildTime = _dataBuild.buildTime;
         g.gameDispatcher.addToTimer(renderBuildCaveProgress);
     }
 

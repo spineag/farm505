@@ -1825,5 +1825,33 @@ public class DirectServer {
             }
         }
     }
+
+    public function deleteUser(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'deleteUser', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteDeleteUser);
+        function onCompleteDeleteUser(e:Event):void { completeDeleteUser(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('deleteUser error:' + error.errorID);
+        }
+    }
+
+    private function completeDeleteUser(response:String, callback:Function = null):void {
+        if (callback != null) {
+            callback.apply();
+        }
+        Cc.error('deleteUser responce:' + response);
+    }
 }
 }
