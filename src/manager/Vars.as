@@ -87,6 +87,7 @@ import windows.market.WOMarket;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPaper;
+import windows.reloadPage.WOReloadPage;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
 
@@ -383,6 +384,16 @@ public class Vars {
         if ((user as User).isMegaTester) {
             Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
             Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
+        }
+
+        if ((user as User).isTester) {
+            var f1:Function = function():void {
+                directServer.deleteUser(f2);
+            };
+            var f2:Function = function():void {
+                new WOReloadPage();
+            };
+            Cc.addSlashCommand("deleteUser", f1);
         }
     }
 

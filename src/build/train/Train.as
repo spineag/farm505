@@ -222,6 +222,7 @@ public class Train extends AreaObject{
         _dbBuildingId = 0;
         g.directServer.startBuildBuilding(this, null);
         addTempBuildIcon();
+        _leftBuildTime = _dataBuild.buildTime;
         g.gameDispatcher.addToTimer(renderBuildTrainProgress);
     }
 
