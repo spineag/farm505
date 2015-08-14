@@ -37,7 +37,7 @@ public class OptionPanel {
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
         _boolean = true;
         _arrCells = [];
-        _arrCells = [.25, .5, 75, 1, 1.25, 1.5, 2];
+        _arrCells = [.25, .5, .75, 1, 1.25, 1.5, 1.75];
     }
 
     public function fillBtns():void {
