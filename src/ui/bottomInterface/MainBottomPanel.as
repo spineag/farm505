@@ -82,15 +82,22 @@ public class MainBottomPanel {
                     g.woShop.showIt();
                 break;
             case 'tools':
+                if (b == true){
+                    g.toolsPanel.showIt();
+                    b = false;
+                } else if (b == false){
+                    g.toolsPanel.hideIt();
+                    b = true;
+                }
                 break;
             case 'option':
-                    if (b == true){
+                 if (b == true){
                         g.optionPanel.fillBtns();
                         b = false;
-                    } else if (b == false){
+                 } else if (b == false){
                         g.optionPanel.onOut();
                         b = true;
-                    }
+                 }
 
                 break;
             case 'friends':

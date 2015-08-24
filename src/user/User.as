@@ -47,7 +47,7 @@ public class User {
             blueCouponCount = 8;
             xp = 173;
             level = 1;
-            globalXP = 1735;
+            globalXP = 0;
             isTester = true;
         }
         userBuildingData = {};

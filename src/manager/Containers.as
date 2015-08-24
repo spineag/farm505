@@ -89,6 +89,7 @@ public class Containers {
     private function onGameContTouch(te:TouchEvent):void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE && te.getTouch(gameCont, TouchPhase.ENDED)) {
             // нужно еще проверять не драгается ли поляна, если да - то не заходить в этот if
+            if (_startDragPointCont.x != _startDragPointCont.x) return;
             g.toolsModifier.onTouchEnded();
             return;
         }
@@ -132,7 +133,6 @@ public class Containers {
             gameCont.x =  g.realGameWidth/2 - MatrixGrid.DIAGONAL/2;
         if (gameCont.x < -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth)
             gameCont.x =  -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth;
-
     }
 
     public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в загальній системі gameCont
@@ -154,9 +154,6 @@ public class Containers {
             };
             g.starling.juggler.add(tween);
         }
-
-
     }
-
 }
 }

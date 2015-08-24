@@ -92,6 +92,7 @@ public class Animal {
 
     private function onClick():void {
         if (_state == EMPTY) {
+            source.filter = null;
             if(!g.userInventory.checkResource(_data , 1)) return;
             g.userInventory.addResource(_data.idResourceRaw, -1);
             // проверка есть ли хавка

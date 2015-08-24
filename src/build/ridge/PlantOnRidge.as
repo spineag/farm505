@@ -7,6 +7,8 @@ import manager.Vars;
 import starling.display.Image;
 
 import starling.display.Sprite;
+import starling.text.TextField;
+import starling.utils.Color;
 
 public class PlantOnRidge {
     private var _source:Sprite;

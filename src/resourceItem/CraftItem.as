@@ -118,6 +118,7 @@ public class CraftItem {
         var v:Number = 250;
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
         new XPStar(_source.x,_source.y,_resourceItem.craftXP);
+        _txtNumber.text = "2";
     }
 
 

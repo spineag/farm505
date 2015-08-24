@@ -17,7 +17,6 @@ public class WOLevelUpItem {
     public var source:Sprite;
     private var _txt:TextField;
     private var _image:Image;
-    private var _imagePlus:Image;
     private var _imageBg:Image;
     private var g:Vars = Vars.getInstance();
 
@@ -26,9 +25,6 @@ public class WOLevelUpItem {
         _txt = new TextField(source.width, source.height, st, "Arial", 20, Color.BLACK);
         if (ob.buildType == BuildType.FARM){
             _image = new Image(g.tempBuildAtlas.getTexture(ob.image));
-            _imagePlus = new Image(g.tempBuildAtlas.getTexture(ob.imageHouse));
-            _imagePlus.x = ob.innerHouseX;
-            _imagePlus.y = ob.innerHouseY;
         }else if (ob.buildType == BuildType.FABRICA || ob.buildType == BuildType.RIDGE || ob.buildType == BuildType.DECOR) {
             _image = new Image(g.tempBuildAtlas.getTexture(ob.image));
         }else if (ob.buildType == BuildType.TREE) {
@@ -57,7 +53,6 @@ public class WOLevelUpItem {
             _image.y = 50 - _image.height / 2;
             source.addChild(_image);
         }
-        if (_imagePlus) source.addChild(_imagePlus);
         source.addChild(_txt);
     }
 }

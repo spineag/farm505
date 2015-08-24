@@ -65,8 +65,8 @@ public class Ridge extends AreaObject{
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         _isOnHover = true;
-        _count = 20;
-        _countMouse =10;
+        _count = 10;
+        _countMouse = 5;
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.gameDispatcher.addEnterFrame(countEnterFrame);
 
@@ -76,7 +76,7 @@ public class Ridge extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-
+            g.townArea.moveBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
@@ -94,6 +94,13 @@ public class Ridge extends AreaObject{
                 _source.filter = null;
                 g.woBuyPlant.showItWithParams(this);
             } else if (_stateRidge == GROWED) {
+                if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount - 1) {
+                    _isOnHover = false;
+                    g.mouseHint.hideHintMouse();
+                    g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+                    g.woAmbarFilled.showAmbarFilled();
+                    return;
+                }
                 _stateRidge = EMPTY;
                 _plant.checkStateRidge();
                 _resourceItem = new ResourceItem();

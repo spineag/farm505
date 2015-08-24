@@ -170,7 +170,7 @@ public class Cave extends AreaObject{
     private function onOpenBuilded(value:Boolean):void { }
 
     private function onBuy():void {
-        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _dataBuild.cost);
+        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;
         g.directServer.startBuildBuilding(this, onStartBuildingResponse);

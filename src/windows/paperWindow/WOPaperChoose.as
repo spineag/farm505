@@ -17,6 +17,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.Window;
+import windows.ambar.AmbarProgress;
 
 public class WOPaperChoose extends Window{
     public var source:Sprite;
@@ -32,6 +33,7 @@ public class WOPaperChoose extends Window{
     private var _txtSale:TextField;
 
     private var _data:Object;
+    private var _progress:AmbarProgress;
 
     public function WOPaperChoose(ob:Object) {
         super();
@@ -98,10 +100,20 @@ public class WOPaperChoose extends Window{
     }
 
     private function onClick():void {
+        if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount) {
+            g.flyMessage.showIt(source,"Амбар заполнен");
+            return;
+        }
         if(_txtSale.text == "продано") return;
         _txtSale.text = "продано";
         g.userInventory.addResource(_data.id,int(_txtCount.text));
         g.userInventory.addMoney(2,-int(_txtCost.text));
+        _progress = new AmbarProgress();
+        if (_data.BuildType == BuildType.PLACE_AMBAR) {
+            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
+        } else {
+            _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
+        }
     }
 }
 }

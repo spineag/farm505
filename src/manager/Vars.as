@@ -63,6 +63,7 @@ import ui.craftPanel.CraftPanel;
 import ui.friendPanel.FriendPanel;
 import ui.optionPanel.OptionPanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
+import ui.toolsPanel.ToolsPanel;
 
 import ui.xpPanel.XPPanel;
 
@@ -75,6 +76,7 @@ import windows.Window;
 
 import windows.ambar.WOAmbar;
 import windows.ambar.WOSklad;
+import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
 
@@ -158,6 +160,7 @@ public class Vars {
     public var craftPanel:CraftPanel;
     public var optionPanel:OptionPanel;
     public var friendPanel:FriendPanel;
+    public var toolsPanel:ToolsPanel;
 
     public var currentOpenedWindow:Window;
     public var woBuyPlant:WOBuyPlant;
@@ -175,6 +178,7 @@ public class Vars {
     public var woDailyBonus:WODailyBonus;
     public var woPaper:WOPaper;
     public var woTrain:WOTrain;
+    public var woAmbarFilled:WOAmbarFilled;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -342,6 +346,7 @@ public class Vars {
         craftPanel = new CraftPanel();
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
+        toolsPanel = new ToolsPanel();
         woCave = new WOCave();
         woTrain = new WOTrain();
 
@@ -376,6 +381,7 @@ public class Vars {
         woMarket = new WOMarket();
         woDailyBonus = new WODailyBonus();
         woPaper = new WOPaper();
+        woAmbarFilled = new WOAmbarFilled();
 
         managerDropResources = new ManagerDropBonusResource();
 

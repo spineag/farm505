@@ -287,7 +287,7 @@ public class DataBuildings {
         obj.cost = 10;
         obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
-        obj.blockByLevel = [1];
+        obj.blockByLevel = [3];
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
         obj.maxAnimalsCount = 5;
@@ -311,7 +311,7 @@ public class DataBuildings {
         obj.cost = 10;
         obj.xpForBuild = 100;
         obj.currency = DataMoney.SOFT_CURRENCY;
-        obj.blockByLevel = [1];
+        obj.blockByLevel = [3];
         obj.skipBuildIt = 1;
         obj.buildTime = 10000;
         obj.maxAnimalsCount = 5;
