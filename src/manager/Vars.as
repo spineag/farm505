@@ -33,6 +33,7 @@ import mouse.ToolsModifier;
 import preloader.StartPreloader;
 
 import server.DirectServer;
+import server.NodeServer;
 
 import server.Server;
 
@@ -202,7 +203,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        useDataFromServer = false;
+        useDataFromServer = true;
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
@@ -395,6 +396,8 @@ public class Vars {
             };
             Cc.addSlashCommand("deleteUser", f1);
         }
+
+//        NodeServer.makeTest();
     }
 
     private function openMapEditorInterface():void {
