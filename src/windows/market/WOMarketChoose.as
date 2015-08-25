@@ -76,7 +76,9 @@ public class WOMarketChoose extends Window {
         _scrollSprite.resetAll();
         hideIt();
         if (_callback != null) {
-            _callback.apply(null, [a]);
+            var count:int = g.userInventory.getCountResourceById(a);
+            count = int(count/2 + .5);
+            _callback.apply(null, [a, count]);
             _callback = null;
         }
     }

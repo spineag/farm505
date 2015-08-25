@@ -41,5 +41,6 @@ public class Consts {
     public static var INQ_RELEASE_USER_TRAIN_PACK:String = 'releaseUserTrainPack.php';
     public static var INQ_UPDATE_USER_TRAIN_PACK_ITEM:String = 'updateUserTrainPackItem.php';
     public static var INQ_DELETE_USER:String = 'deleteUser.php';
+    public static var INQ_ADD_USER_MARKET_ITEM:String = 'addUserMarketItem.php';
 }
 }
