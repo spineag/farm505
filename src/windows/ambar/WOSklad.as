@@ -112,7 +112,7 @@ public class WOSklad extends Window {
     override public function showIt():void {
         var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
         _txtCount.text = st;
-        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
+        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
         _btnBack.visible = false;
         _btnUpdate.visible = true;
         _updateSprite.visible = false;
@@ -177,7 +177,7 @@ public class WOSklad extends Window {
         g.user.skladMaxCount += g.dataBuilding.objectBuilding[12].deltaCountResources;
         var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
         _txtCount.text = st;
-        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
+        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
         _item1.updateIt();
         _item2.updateIt();
         _item3.updateIt();

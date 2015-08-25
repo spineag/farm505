@@ -85,6 +85,7 @@ import windows.buyPlant.WOBuyPlant;
 import windows.cave.WOCave;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.fabricaWindow.WOFabrica;
+import windows.lastResource.WOLastResource;
 import windows.levelUp.WOLevelUp;
 import windows.market.WOMarket;
 import windows.noResources.WONoResources;
@@ -180,6 +181,7 @@ public class Vars {
     public var woPaper:WOPaper;
     public var woTrain:WOTrain;
     public var woAmbarFilled:WOAmbarFilled;
+    public var woLastResource:WOLastResource;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -383,6 +385,7 @@ public class Vars {
         woDailyBonus = new WODailyBonus();
         woPaper = new WOPaper();
         woAmbarFilled = new WOAmbarFilled();
+        woLastResource = new WOLastResource();
 
         managerDropResources = new ManagerDropBonusResource();
 

@@ -27,8 +27,20 @@ public class AmbarProgress {
         source.pivotY = source.height/2;
     }
 
-    public function setProgress(a:Number):void {
-        _arrow.x = int(_minX + a*(_maxX - _minX));
+    public function setProgress(a:Number, isAmbar:Boolean):void {
+        if (isAmbar) {
+            if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount){
+                _arrow.x = _maxX - _minX;
+                return;
+            }
+            _arrow.x = int(_minX + a*(_maxX - _minX));
+        } else {
+            if (g.userInventory.currentCountInSklad >= g.user.skladMaxCount){
+                _arrow.x = _maxX - _minX;
+                return;
+            }
+            _arrow.x = int(_minX + a*(_maxX - _minX));
+        }
     }
 }
 }

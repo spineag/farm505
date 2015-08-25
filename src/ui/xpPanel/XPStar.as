@@ -46,7 +46,7 @@ public class XPStar {
 
     }
 
-    public function flyItStar():void {
+    private function flyItStar():void {
         var endX:int = g.stageWidth - 200;
         var endY:int = 50;
         _txtStar.text = String(_xp);

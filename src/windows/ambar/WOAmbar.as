@@ -113,7 +113,7 @@ public class WOAmbar extends Window {
     override public function showIt():void {
         var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
         _txtCount.text = st;
-        _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
+        _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount,true);
         _btnBack.visible = false;
         _btnUpdate.visible = true;
         _updateSprite.visible = false;
@@ -177,11 +177,7 @@ public class WOAmbar extends Window {
         g.user.ambarLevel++;
         g.user.ambarMaxCount += g.dataBuilding.objectBuilding[12].deltaCountResources;
         var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
-        if (g.userInventory.currentCountInAmbar == g.user.ambarMaxCount){
-            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
-        } else {
-            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
-        }
+        _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount,true);
         _txtCount.text = st;
         _item1.updateIt();
         _item2.updateIt();

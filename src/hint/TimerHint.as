@@ -71,10 +71,11 @@ public class TimerHint {
     public function hideIt():void {
         _isShow = false;
         if (_isOnHover) return;
+        g.gameDispatcher.removeFromTimer(onTimer);
+        _txtTimer.text = "0";
         if (g.cont.hintCont.contains(source)) {
             g.cont.hintCont.removeChild(source);
         }
-        g.gameDispatcher.removeFromTimer(onTimer);
     }
 
     private function onTimer():void {

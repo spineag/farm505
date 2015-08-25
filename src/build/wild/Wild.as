@@ -27,8 +27,6 @@ public class Wild extends AreaObject{
 
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
-        _isOnHover = true;
-            if (_isOnHover)  g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10, _dataBuild.removeByResourceId);
     }
 
     private function onOut():void {
@@ -52,7 +50,7 @@ public class Wild extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             _isOnHover = true;
-            if (_isOnHover)  g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10, _dataBuild.removeByResourceId);
+            if (_isOnHover)  g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10,_dataBuild.removeByResourceId);
         } else {
             Cc.error('Wild:: unknown g.toolsModifier.modifierType')
         }

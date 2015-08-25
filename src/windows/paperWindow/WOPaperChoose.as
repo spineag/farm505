@@ -6,6 +6,9 @@ import data.BuildType;
 
 import manager.Vars;
 
+import resourceItem.CraftItem;
+import resourceItem.ResourceItem;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -34,6 +37,7 @@ public class WOPaperChoose extends Window{
 
     private var _data:Object;
     private var _progress:AmbarProgress;
+    private var _resourceItem:ResourceItem;
 
     public function WOPaperChoose(ob:Object) {
         super();
@@ -108,12 +112,16 @@ public class WOPaperChoose extends Window{
         _txtSale.text = "продано";
         g.userInventory.addResource(_data.id,int(_txtCount.text));
         g.userInventory.addMoney(2,-int(_txtCost.text));
-        _progress = new AmbarProgress();
-        if (_data.BuildType == BuildType.PLACE_AMBAR) {
-            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
-        } else {
-            _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
-        }
+        _resourceItem = new ResourceItem();
+        _resourceItem.fillIt(_data);
+        var item:CraftItem = new CraftItem(0,0,_resourceItem,source,1);
+//        _progress = new AmbarProgress();
+//        if (_data.BuildType == BuildType.PLACE_AMBAR) {
+//            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount,true);
+//        } else {
+//            _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
+//        }
+//        source.addChild(_progress.source);
     }
 }
 }
