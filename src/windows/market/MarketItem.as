@@ -54,7 +54,7 @@ public class MarketItem {
         source.endClickCallback = onClick;
     }
 
-    private function fillIt(data:Object):void {
+    private function fillIt(data:Object, count:int):void {
         isFill = 1;
         _data = data;
         if (_data) {
@@ -70,8 +70,9 @@ public class MarketItem {
             _im.y = 50 - _im.height/2;
             source.addChild(_im);
         }
-        _countResource = g.userInventory.getCountResourceById(_data.id);
-        _countResource = int(_countResource/2 + .5);
+//        _countResource = g.userInventory.getCountResourceById(_data.id);
+//        _countResource = int(_countResource/2 + .5);
+        _countResource = count;
         g.userInventory.addResource(_data.id, -_countResource);
         _countTxt.text = String(_countResource);
         _countMoney = _countResource * _data.costMax;
@@ -105,22 +106,24 @@ public class MarketItem {
     }
 
     private var counter:int;
-    private function onChoose(a:int):void {
+    private function onChoose(a:int, count:int, inPapper:Boolean = true):void {
         g.woMarket.showIt();
         if (a > 0) {
-            fillIt(g.dataResource.objectResources[a]);
-            counter = 3;
-            g.gameDispatcher.addToTimer(timer);
+            fillIt(g.dataResource.objectResources[a], count);
+//            counter = 3;
+//            g.gameDispatcher.addToTimer(timer);
+            var cost:int = count*g.dataResource.objectResources[a].costMax;
+            g.directServer.addUserMarketItem(a, count, inPapper, cost, null);
         }
     }
 
-    private function timer():void {
-        counter--;
-        if (counter <= 0) {
-            g.gameDispatcher.removeFromTimer(timer);
-            releaseBuy();
-        }
-    }
+//    private function timer():void {
+//        counter--;
+//        if (counter <= 0) {
+//            g.gameDispatcher.removeFromTimer(timer);
+//            releaseBuy();
+//        }
+//    }
 
     private function releaseBuy():void {
         if (_im && source.contains(_im)) {

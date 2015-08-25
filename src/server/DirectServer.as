@@ -1853,5 +1853,37 @@ public class DirectServer {
         }
         Cc.error('deleteUser responce:' + response);
     }
+
+    public function addUserMarketItem(id:int, count:int, inPapper:Boolean, cost:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_MARKET_ITEM);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserMarketItem', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.resourceId = id;
+        variables.count = count;
+        variables.cost = cost;
+        variables.inPapper = inPapper ? 1 : 0;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserMarketItem);
+        function onCompleteAddUserMarketItem(e:Event):void { completeAddUserMarketItem(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserMarketItem error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserMarketItem(response:String, callback:Function = null):void {
+        if (callback != null) {
+            callback.apply();
+        }
+        Cc.error('addUserMarketItem responce:' + response);
+    }
 }
 }
