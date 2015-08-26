@@ -48,7 +48,6 @@ public class WOLastResource extends Window{
             showIt();
             fillBtn();
             trace("ok");
-
     }
 
     private function fillBtn():void {
