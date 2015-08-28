@@ -32,7 +32,7 @@ public class FlyMessage {
         _source.y = start.y;
         _source.addChild(_txtMessage);
         g.cont.hintCont.addChild(_source);
-        var tween:Tween = new Tween(_source, 1);
+        var tween:Tween = new Tween(_source, 0.5);
         tween.moveTo(_source.x,_source.y - 50);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);

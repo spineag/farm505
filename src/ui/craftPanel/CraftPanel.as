@@ -82,10 +82,10 @@ public class CraftPanel {
 
         if (place == BuildType.PLACE_AMBAR) {
             _ambarImage.visible = true;
-            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
+            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount,true);
         } else {
             _skladImage.visible = true;
-            _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
+            _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
         }
     }
 
@@ -94,9 +94,9 @@ public class CraftPanel {
         _counter = 40;
         g.gameDispatcher.addEnterFrame(onEnterFrame);
         if (item.placeBuild == BuildType.PLACE_AMBAR) {
-            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
+            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount,true);
         } else {
-            _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
+            _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
         }
         while (_resourceSprite.numChildren) {
             _resourceSprite.removeChildAt(0);

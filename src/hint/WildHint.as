@@ -36,7 +36,7 @@ public class WildHint {
         _circle.x = 70;
         _circle.y = 10;
         _source.addChild(_circle);
-        var quad:Quad = new Quad(_source.width, _source.height, Color.WHITE ,false);
+        var quad:Quad = new Quad(_source.width, _source.height + _source.height/2, Color.WHITE ,false);
         quad.alpha = 0;
         _source.addChildAt(quad,0);
 
