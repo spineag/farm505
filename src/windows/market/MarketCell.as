@@ -19,6 +19,7 @@ import utils.MCScaler;
 public class MarketCell {
     public var source:CSprite;
 
+    private var _ramka:Quad;
     private var _info:Object; // id & count
     private var _data:Object;
     private var _image:Image;
@@ -30,8 +31,14 @@ public class MarketCell {
         _clickCallback = null;
         source = new CSprite();
         source.endClickCallback = onClick;
-        var quad:Quad = new Quad(99, 99, Color.BLACK);
-        quad.alpha = .1 + Math.random()*.3;
+        _ramka = new Quad(98, 98, Color.RED);
+        _ramka.x = 1;
+        _ramka.y = 1;
+        source.addChild(_ramka);
+        _ramka.visible =false;
+        var quad:Quad = new Quad(94, 94, Color.WHITE);
+        quad.x = 3;
+        quad.y = 3;
         source.addChild(quad);
 
         _info = info;
@@ -73,6 +80,11 @@ public class MarketCell {
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_info.id]);
         }
+        activateIt(true);
+    }
+
+    public function activateIt(a:Boolean):void {
+        _ramka.visible = a;
     }
 }
 }

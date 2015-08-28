@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/interface/interface.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -260,6 +260,9 @@
             <filename>empty_red_tail.png</filename>
             <filename>green_tail.png</filename>
             <filename>red_tail.png</filename>
+            <filename>minus.png</filename>
+            <filename>btn100500.png</filename>
+            <filename>plawka7.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

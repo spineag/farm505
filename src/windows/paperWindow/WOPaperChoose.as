@@ -20,7 +20,6 @@ import windows.Window;
 import windows.ambar.AmbarProgress;
 
 public class WOPaperChoose extends Window{
-    public var source:Sprite;
     private var _contImage:CSprite;
 
     private var _imageBg:Image;
@@ -38,7 +37,6 @@ public class WOPaperChoose extends Window{
     public function WOPaperChoose(ob:Object) {
         super();
         _data = ob;
-        source = new Sprite();
         _contImage = new CSprite();
         _contImage.endClickCallback = onClick;
         createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));

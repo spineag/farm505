@@ -3,19 +3,14 @@
  */
 package server {
 import build.WorldObject;
-import build.WorldObject;
-import build.WorldObject;
 import build.farm.Animal;
 import build.train.Train;
 import build.tree.Tree;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 
 import flash.events.Event;
 import flash.geom.Point;
-
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 import flash.net.URLRequestHeader;
@@ -23,14 +18,11 @@ import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
 
 import manager.ManagerAnimal;
-
 import manager.ManagerFabricaRecipe;
 import manager.ManagerPlantRidge;
 import manager.ManagerTree;
-
 import manager.Vars;
 
-import resourceItem.ResourceItem;
 
 public class DirectServer {
     private var g:Vars = Vars.getInstance();
@@ -1880,10 +1872,63 @@ public class DirectServer {
     }
 
     private function completeAddUserMarketItem(response:String, callback:Function = null):void {
-        if (callback != null) {
-            callback.apply();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserMarketItem: wrong JSON:' + String(response));
+            return;
         }
-        Cc.error('addUserMarketItem responce:' + response);
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+            return;
+        } else {
+            Cc.error('addUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getUserMarketItem(socialId:String, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_MARKET_ITEM);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserMarketItem', 1);
+//        variables = addDefault(variables);
+        variables.userSocialId = socialId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserMarketItem);
+        function onCompleteGetUserMarketItem(e:Event):void { completeGetUserMarketItem(e.target.data, socialId, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserMarketItem error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserMarketItem(response:String, socialId:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserMarketItem: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            g.user.fillSomeoneMarketItems(d.message, socialId);
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        } else {
+            Cc.error('getUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
+        }
     }
 }
 }

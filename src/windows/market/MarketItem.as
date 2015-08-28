@@ -25,12 +25,14 @@ public class MarketItem {
     private var _bg:Image;
     private var _costTxt:TextField;
     private var _countTxt:TextField;
-    private var isFill:int;
+    private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная
     private var _callback:Function;
     private var _data:Object;
+    private var _dataFromServer:Object;
     private var _countResource:int;
     private var _countMoney:int;
     private var _im:Image;
+    private var _isUser:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
@@ -70,8 +72,6 @@ public class MarketItem {
             _im.y = 50 - _im.height/2;
             source.addChild(_im);
         }
-//        _countResource = g.userInventory.getCountResourceById(_data.id);
-//        _countResource = int(_countResource/2 + .5);
         _countResource = count;
         g.userInventory.addResource(_data.id, -_countResource);
         _countTxt.text = String(_countResource);
@@ -80,13 +80,20 @@ public class MarketItem {
     }
 
     public function clearIt():void {
-        while (source.numChildren) {
-            source.removeChildAt(0);
+        while (source.numChildren > 3) {
+            source.removeChildAt(3);
         }
     }
 
     private function onClick():void {
-        if (isFill == 1) return;
+        if (isFill == 1) {
+            if (_isUser) {
+                //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
+                return;
+            } else {
+
+            }
+        }
         if (isFill == 0) {
             g.woMarket.hideIt();
             g.woMarket.marketChoose.callback = onChoose;
@@ -106,15 +113,28 @@ public class MarketItem {
     }
 
     private var counter:int;
-    private function onChoose(a:int, count:int, inPapper:Boolean = true):void {
+    private function onChoose(a:int, count:int = 0, cost:int = 0, inPapper:Boolean = false):void {
         g.woMarket.showIt();
         if (a > 0) {
             fillIt(g.dataResource.objectResources[a], count);
 //            counter = 3;
 //            g.gameDispatcher.addToTimer(timer);
-            var cost:int = count*g.dataResource.objectResources[a].costMax;
-            g.directServer.addUserMarketItem(a, count, inPapper, cost, null);
+            g.directServer.addUserMarketItem(a, count, inPapper, cost, onAddToServer);
         }
+    }
+
+    private function onAddToServer(ob:Object):void {
+        var obj = {};
+        obj.id = int(ob.id);
+        obj.buyerId = ob.buyer_id;
+        obj.cost = int(ob.cost);
+        obj.inPapper = Boolean(ob.in_papper);
+        obj.resourceCount = int(ob.resource_count);
+        obj.resourceId = int(ob.resource_id);
+        obj.timeSold = ob.time_sold;
+        obj.timeStart = ob.time_start;
+        _dataFromServer = obj;
+        g.user.marketItems.push(obj);
     }
 
 //    private function timer():void {
@@ -165,6 +185,26 @@ public class MarketItem {
             _countResource = 0;
         };
         new TweenMax(s, 1, {x:eP.x, y:eP.y, ease:Linear.easeOut ,onComplete: f1});
+    }
+
+    public function unFillIt():void {
+        clearIt();
+        isFill = 0;
+        _countMoney = 0;
+        _countResource = 0;
+        _costTxt.text = '';
+        _countTxt.text = '';
+        _data = null;
+    }
+
+    public function fillFromServer(obj:Object, isUser:Boolean):void {
+        _isUser = isUser;
+        _dataFromServer = obj;
+        fillIt(g.dataResource.objectResources[_dataFromServer.resourceId], _dataFromServer.resourceCount);
+    }
+
+    public function set isUser(value:Boolean):void {
+        _isUser = value;
     }
 
 }

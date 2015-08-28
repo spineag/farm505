@@ -7,11 +7,8 @@ import com.junkbyte.console.Cc;
 
 import manager.Vars;
 
-public class User {
+public class User extends Someone {
     public var userId:int; // в базе
-    public var userSocialId:String; // в соцсети
-    public var name:String;
-    public var lastName:String;
     public var ambarMaxCount:int;
     public var skladMaxCount:int;
     public var ambarLevel:int;
@@ -25,7 +22,6 @@ public class User {
     public var xp:int = 0;
     public var globalXP:int;
     public var level:int = 1;
-    public var photo:String;
     public var sex:String = 'm';
     public var isTester:Boolean;
     public var isMegaTester:Boolean;
@@ -77,7 +73,7 @@ public class User {
         var f:Friend;
         var i:int;
         for (i=0; i<arrFriends.length; i++) {
-            if (arrFriends[i].socialId == ob.uid) {
+            if (arrFriends[i].userSocialId == ob.uid) {
                 f = arrFriends[i];
                 break;
             }
@@ -89,6 +85,40 @@ public class User {
         f.name = ob.first_name;
         f.lastName = ob.last_name;
         f.photo = ob.photo_100;
+    }
+
+    public function fillSomeoneMarketItems(arr:Array, socId:String):void {
+        var p:Someone;
+        var i:int;
+        var obj:Object;
+        if (socId == userSocialId) {
+            p = this;
+        } else {
+            for (i=0; i<arrFriends.length; i++) {
+                if (arrFriends[i].userSocialId == socId) {
+                    p = arrFriends[i];
+                    break;
+                }
+            }
+        }
+        if (!p) {
+            Cc.error('Wrong socId at fillSomeoneMarketItems at User');
+            return;
+        } else {
+            p.marketItems = [];
+            for (i=0; i<arr.length; i++) {
+                obj = {};
+                obj.id = int(arr[i].id);
+                obj.buyerId = arr[i].buyer_id;
+                obj.cost = int(arr[i].cost);
+                obj.inPapper = Boolean(arr[i].in_papper);
+                obj.resourceCount = int(arr[i].resource_count);
+                obj.resourceId = int(arr[i].resource_id);
+                obj.timeSold = arr[i].time_sold;
+                obj.timeStart = arr[i].time_start;
+                p.marketItems.push(obj);
+            }
+        }
     }
 }
 }

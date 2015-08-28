@@ -65,5 +65,9 @@ public class Window {
         q.pivotY = h/2;
         _source.addChild(q);
     }
+
+    public function get source():Sprite {
+        return _source;
+    }
 }
 }
