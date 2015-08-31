@@ -98,7 +98,7 @@ public class Ridge extends AreaObject{
                     _isOnHover = false;
                     g.mouseHint.hideHintMouse();
                     g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-                    g.woAmbarFilled.showAmbarFilled();
+                    g.woAmbarFilled.showAmbarFilled(true);
                     return;
                 }
                 _stateRidge = EMPTY;

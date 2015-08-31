@@ -26,7 +26,6 @@ public class WOPaperChoose extends Window{
     public var source:Sprite;
     private var _contImage:CSprite;
 
-    private var _imageBg:Image;
     private var _imageItemBg:Image;
     private var _imageItem:Image;
     private var _imageCoin:Image;
@@ -45,6 +44,10 @@ public class WOPaperChoose extends Window{
         source = new Sprite();
         _contImage = new CSprite();
         _contImage.endClickCallback = onClick;
+        _bg = new Image(g.interfaceAtlas.getTexture("wo_ambar"));
+        _bg.pivotX = _bg.width/2;
+        _bg.pivotY = _bg.height/2;
+        _source.addChild(_bg);
         createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
         _btnExit.x = 240;
         _btnExit.y = -210;
@@ -61,34 +64,32 @@ public class WOPaperChoose extends Window{
             }
         }
         MCScaler.scale(_imageItem,50,50);
-        _imageItem.x = 60;
-        _imageItem.y = 100;
-        _imageBg = new Image(g.interfaceAtlas.getTexture("wo_ambar"));
+        _imageItem.x = -170;
+        _imageItem.y = -180;
         _imageItemBg = new Image(g.interfaceAtlas.getTexture("tempItemBG"));
-        _imageItemBg.x = 30;
-        _imageItemBg.y = 80;
+        _imageItemBg.x = -200;
+        _imageItemBg.y = -200;
         _imageCoin = new Image(g.interfaceAtlas.getTexture("coin"));
-        _imageCoin.x = 60;
-        _imageCoin.y = 150;
+        _imageCoin.x = -180;
+        _imageCoin.y = -130;
         MCScaler.scale(_imageCoin,25,25);
         _txtCost = new TextField(50,50,"100","Arial",14,Color.BLACK);
-        _txtCost.x = 75;
-        _txtCost.y = 140;
+        _txtCost.x = -170;
+        _txtCost.y = -140;
         _txtSale = new TextField(60,50,"","Arial",14,Color.BLACK);
-        _txtSale.x = 40;
-        _txtSale.y = 90;
+        _txtSale.x = -180;
+        _txtSale.y = -200;
         _txtCount = new TextField(50,50,"5","Arial",14,Color.BLACK);
-        _txtCount.x = 60;
-        _txtCount.y = 120;
+        _txtCount.x = -150;
+        _txtCount.y = -160;
 
-        source.addChild(_imageBg);
         _contImage.addChild(_imageItemBg);
         _contImage.addChild(_imageItem);
         _contImage.addChild(_imageCoin);
         _contImage.addChild(_txtCost);
         _contImage.addChild(_txtCount);
         _contImage.addChild(_txtSale);
-        source.addChild(_contImage);
+        _source.addChild(_contImage);
         source.x = g.stageWidth/2;
         source.y = g.stageHeight/2;
         source.x = 250;
@@ -97,21 +98,31 @@ public class WOPaperChoose extends Window{
 
     private function onClickExit():void {
         hideIt();
-        while (source.numChildren) {
-            source.removeChildAt(0);
+        while (_source.numChildren) {
+            _source.removeChildAt(0);
         }
     }
 
     private function onClick():void {
         g.userInventory.addResource(_data.id,int(_txtCount.text));
-        if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount) {
-            g.userInventory.addResource(_data.id,-int(_txtCount.text));
-            g.flyMessage.showIt(source,"Амбар заполнен");
+        if (_data.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount ) {
+            g.userInventory.addResource(_data.id, -int(_txtCount.text));
+            g.woAmbarFilled.showAmbarFilled(true);
             return;
         }
-        if(_txtSale.text == "продано") return;
+
+        if (_data.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad >= g.user.skladMaxCount) {
+                g.userInventory.addResource(_data.id,-int(_txtCount.text));
+                g.woAmbarFilled.showAmbarFilled(false);
+            return;
+        }
+
+        if (_txtSale.text == "продано") return;
         _txtSale.text = "продано";
-        g.userInventory.addResource(_data.id,int(_txtCount.text));
+        if (int(_txtCost.text) > g.user.softCurrencyCount) {
+            g.woNoResources.showItMoney(_data,int(_txtCost.text) - g.user.softCurrencyCount);
+            return;
+        }
         g.userInventory.addMoney(2,-int(_txtCost.text));
         _resourceItem = new ResourceItem();
         _resourceItem.fillIt(_data);
