@@ -88,10 +88,10 @@ public class WOPaperChoose extends Window{
         _contImage.addChild(_txtCount);
         _contImage.addChild(_txtSale);
         _source.addChild(_contImage);
-        source.x = g.stageWidth/2;
-        source.y = g.stageHeight/2;
-        source.x = 250;
-        source.y = 50;
+//        source.x = g.stageWidth/2;
+//        source.y = g.stageHeight/2;
+//        source.x = 250;
+//        source.y = 50;
     }
 
     private function onClickExit():void {
