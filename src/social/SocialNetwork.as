@@ -141,7 +141,7 @@ public class SocialNetwork extends EventDispatcher {
         Cc.ch('social', "SocialNetwork:: request to get info about friends of current user completed successfully");
         Cc.ch("info", "SocialNetwork:: got " + _appFriends.length + " app friends", 18);
         //_friendsIDs = _paramsFriends.concat();
-        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_APP_USERS, false, false, _paramsFriends));
+        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_APP_USERS, false, false));
     }
 
     public function getUsersOnline():void {

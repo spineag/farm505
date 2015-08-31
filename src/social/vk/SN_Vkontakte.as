@@ -10,11 +10,6 @@ import flash.display.Bitmap;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.external.ExternalInterface;
-import flash.net.URLLoader;
-import flash.net.URLRequest;
-import flash.net.URLRequestMethod;
-import flash.net.URLVariables;
-import flash.utils.ByteArray;
 import flash.utils.getTimer;
 
 import manager.Vars;
@@ -256,7 +251,7 @@ public class SN_Vkontakte extends SocialNetwork {
         var f:Friend;
         for (var i:int=0; i<_appFriends.length; i++) {
             f = new Friend();
-            f.socialId = _appFriends[i];
+            f.userSocialId = _appFriends[i];
             g.user.arrFriends.push(f);
         }
         super.getAppUsersSuccess(e);

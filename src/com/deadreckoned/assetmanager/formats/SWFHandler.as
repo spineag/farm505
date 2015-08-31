@@ -43,20 +43,19 @@ import flash.system.LoaderContext;
 import flash.system.SecurityDomain;
 import flash.utils.ByteArray;
 
-//import LevelEditor.manage.Objects;
-//import game.manager.Variables;
-//import mobile.managers.Vars;
+import manager.Vars;
+
 
 /**
  * The SWFHandler handles the loading of Flash SWF files. The data loaded by SWFHandler is returned as a <code>DisplayObject</code>.
  */
 public class SWFHandler extends EventDispatcher implements IFormatHandler {
     protected var _loader:Loader;
-
     protected var _uri:String;
     protected var _loaded:Boolean;
     private var _repeated:Boolean = false;
     private var _defaultContext:LoaderContext;
+    protected var g:Vars = Vars.getInstance();
 
 
     /**
@@ -122,8 +121,6 @@ public class SWFHandler extends EventDispatcher implements IFormatHandler {
      * @inheritDoc
      */
     public function load(uri:String, context:* = null):void {
-        var g:*;
-
 //        if (AppSwitcher.CURRENT_APP == AppSwitcher.APP_HO_GAME) {
 //            g = Variables.getInstance();
 //        } else if (AppSwitcher.CURRENT_APP == AppSwitcher.APP_LEVEL_EDITOR) {
@@ -133,8 +130,6 @@ public class SWFHandler extends EventDispatcher implements IFormatHandler {
 //        } else {
 //            Cc.error('SWFHanlder:: unknown AppSwitcher.CURRENT_APP');
 //        }
-        g = AppSwitcher.g;
-
         _loaded = false;
         if (!g.isDebug) {
             _defaultContext.securityDomain = SecurityDomain.currentDomain;

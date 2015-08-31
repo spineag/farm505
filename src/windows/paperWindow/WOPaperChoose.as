@@ -23,7 +23,6 @@ import windows.Window;
 import windows.ambar.AmbarProgress;
 
 public class WOPaperChoose extends Window{
-    public var source:Sprite;
     private var _contImage:CSprite;
 
     private var _imageItemBg:Image;
@@ -41,7 +40,6 @@ public class WOPaperChoose extends Window{
     public function WOPaperChoose(ob:Object) {
         super();
         _data = ob;
-        source = new Sprite();
         _contImage = new CSprite();
         _contImage.endClickCallback = onClick;
         _bg = new Image(g.interfaceAtlas.getTexture("wo_ambar"));

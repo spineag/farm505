@@ -120,6 +120,8 @@ public class Vars {
     public var managerPlantRidge:ManagerPlantRidge;
     public var managerTree:ManagerTree;
     public var managerAnimal:ManagerAnimal;
+    public var load:LoaderManager;
+    public var pBitmaps:Object;
 
     public var mapAtlas:TextureAtlas;
     public var tempBuildAtlas:TextureAtlas;
@@ -213,6 +215,8 @@ public class Vars {
         //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
+        pBitmaps = {};
+        load = LoaderManager.getInstance();
 
         dataBuilding = new DataBuildings();
         dataRecipe = new DataRecipe();
@@ -321,7 +325,7 @@ public class Vars {
 
     private function onUserTrain():void {
         startPreloader.setProgress(99);
-        //(user as User).friendAppUser();
+        (user as User).friendAppUser();
         initVariables2();
     }
 
