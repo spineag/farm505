@@ -91,7 +91,7 @@ public class MarketCell {
             }
       //  }
         if (g.userInventory.getCountResourceById(_data.id))
-        g.woLastResource.showItMenu(_data.id);
+//        g.woLastResource.showItMenu(_data.id);
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_info.id]);
         }
