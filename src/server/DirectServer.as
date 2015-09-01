@@ -1930,5 +1930,87 @@ public class DirectServer {
             Cc.error('getUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function buyFromMarket(itemId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_BUY_FROM_MARKET);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'buyFromMarket', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.itemId = itemId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteBuyFromMarket);
+        function onCompleteBuyFromMarket(e:Event):void { completeBuyFromMarket(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('buyFromMarket error:' + error.errorID);
+        }
+    }
+
+    private function completeBuyFromMarket(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('buyFromMarket: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        } else {
+            Cc.error('buyFromMarket: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function deleteUserMarketItem(itemId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_MARKET_ITEM);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'deleteUserMarketItem', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.itemId = itemId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserMarketItem);
+        function onCompleteDeleteUserMarketItem(e:Event):void { completeDeleteUserMarketItem(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('deleteUserMarketItem error:' + error.errorID);
+        }
+    }
+
+    private function completeDeleteUserMarketItem(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('deleteUserMarketItem: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        } else {
+            Cc.error('deleteUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

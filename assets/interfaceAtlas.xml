@@ -1,80 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:85062df3300a8191e2a7af42f674a02a:3911af674e8a74ef9135be1349bf8c60:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:cc3963fc90c01bd4561e9a4bd42632a2:8442885c44863e1375a5b8b345684a85:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png">
-    <SubTexture name="add_friend" x="776" y="760" width="88" height="88"/>
-    <SubTexture name="ambar_plawka" x="336" y="845" width="396" height="58"/>
-    <SubTexture name="ambar_plawka_arrow" x="334" y="675" width="21" height="36" frameX="0" frameY="-2" frameWidth="21" frameHeight="38"/>
-    <SubTexture name="arrow_small" x="935" y="995" width="26" height="19"/>
-    <SubTexture name="blue_coupone" x="288" y="675" width="44" height="55"/>
+    <SubTexture name="add_friend" x="889" y="658" width="88" height="88"/>
+    <SubTexture name="ambar_plawka" x="2" y="538" width="396" height="58"/>
+    <SubTexture name="ambar_plawka_arrow" x="994" y="484" width="21" height="36" frameX="0" frameY="-2" frameWidth="21" frameHeight="38"/>
+    <SubTexture name="arrow_small" x="994" y="463" width="26" height="19"/>
+    <SubTexture name="blue_coupone" x="950" y="529" width="44" height="55"/>
     <SubTexture name="board_shop_part" x="504" y="2" width="392" height="572"/>
-    <SubTexture name="btn1" x="117" y="850" width="217" height="51"/>
-    <SubTexture name="btn100500" x="669" y="712" width="105" height="103"/>
-    <SubTexture name="btn2" x="288" y="767" width="134" height="28"/>
-    <SubTexture name="btn3" x="163" y="798" width="187" height="45"/>
-    <SubTexture name="btn4" x="531" y="701" width="89" height="62"/>
-    <SubTexture name="btn_exit" x="933" y="501" width="31" height="31"/>
-    <SubTexture name="btn_exit_click" x="933" y="534" width="31" height="31"/>
-    <SubTexture name="btn_exit_hover" x="933" y="567" width="31" height="31"/>
-    <SubTexture name="buy_coupons" x="898" y="2" width="66" height="65" frameX="0" frameY="0" frameWidth="67" frameHeight="65"/>
-    <SubTexture name="clock_icon" x="891" y="586" width="40" height="44"/>
-    <SubTexture name="coin" x="898" y="208" width="53" height="57" frameX="0" frameY="-1" frameWidth="53" frameHeight="58"/>
-    <SubTexture name="diamont" x="898" y="440" width="58" height="59"/>
-    <SubTexture name="empty_green_tail" x="363" y="705" width="42" height="22"/>
-    <SubTexture name="empty_red_tail" x="407" y="705" width="42" height="22"/>
-    <SubTexture name="friend_frame" x="866" y="772" width="98" height="89"/>
-    <SubTexture name="friends_icon" x="776" y="712" width="41" height="46"/>
-    <SubTexture name="friends_plawka" x="2" y="907" width="725" height="112"/>
-    <SubTexture name="friends_tab" x="357" y="677" width="129" height="26"/>
-    <SubTexture name="galo4ka" x="898" y="380" width="48" height="56"/>
-    <SubTexture name="green_coupone" x="117" y="793" width="44" height="55"/>
-    <SubTexture name="green_tail" x="451" y="705" width="42" height="22"/>
-    <SubTexture name="hard_board" x="451" y="767" width="143" height="47"/>
-    <SubTexture name="help_icon" x="908" y="863" width="37" height="37"/>
-    <SubTexture name="hintMiddle" x="961" y="492" width="1" height="1"/>
-    <SubTexture name="hintSidePixels" x="958" y="492" width="1" height="7"/>
-    <SubTexture name="hintSidePixels2" x="948" y="389" width="7" height="1"/>
-    <SubTexture name="hintTopLeftPart" x="948" y="380" width="8" height="7"/>
-    <SubTexture name="hint_circle" x="495" y="701" width="26" height="26"/>
-    <SubTexture name="hint_wild" x="172" y="675" width="114" height="121"/>
-    <SubTexture name="interface_bg" x="358" y="538" width="140" height="137"/>
-    <SubTexture name="korzina_icon" x="864" y="863" width="42" height="36"/>
-    <SubTexture name="kowolka_icon" x="829" y="850" width="33" height="35"/>
-    <SubTexture name="minus" x="334" y="713" width="27" height="10"/>
-    <SubTexture name="mouse_circle" x="898" y="138" width="58" height="68"/>
-    <SubTexture name="option_anim" x="404" y="797" width="45" height="44"/>
-    <SubTexture name="option_fullscreen" x="821" y="668" width="45" height="43"/>
-    <SubTexture name="option_icon" x="933" y="600" width="31" height="31"/>
-    <SubTexture name="option_music" x="622" y="712" width="45" height="44"/>
-    <SubTexture name="option_scale_minus" x="821" y="576" width="45" height="44"/>
-    <SubTexture name="option_scale_plus" x="821" y="622" width="45" height="44"/>
-    <SubTexture name="option_screenshot" x="868" y="632" width="45" height="44"/>
-    <SubTexture name="option_sound" x="915" y="633" width="45" height="43"/>
-    <SubTexture name="plawka7" x="773" y="850" width="54" height="31"/>
-    <SubTexture name="plus" x="935" y="965" width="28" height="28"/>
-    <SubTexture name="popup" x="172" y="538" width="184" height="135"/>
-    <SubTexture name="popup_farm" x="634" y="576" width="185" height="134"/>
-    <SubTexture name="red_coupone" x="889" y="965" width="44" height="55"/>
-    <SubTexture name="red_tail" x="488" y="677" width="42" height="22"/>
-    <SubTexture name="sciccors_icon" x="819" y="713" width="39" height="40"/>
-    <SubTexture name="scroll_box" x="868" y="576" width="21" height="35"/>
-    <SubTexture name="scroll_line" x="958" y="138" width="6" height="300"/>
-    <SubTexture name="serp_icon" x="734" y="817" width="37" height="39"/>
-    <SubTexture name="shop_arrow" x="898" y="501" width="33" height="83"/>
-    <SubTexture name="shop_icon" x="868" y="678" width="94" height="92"/>
-    <SubTexture name="shop_item" x="2" y="538" width="168" height="253"/>
-    <SubTexture name="shop_plawka" x="288" y="732" width="241" height="33"/>
-    <SubTexture name="shop_tab" x="500" y="600" width="132" height="74"/>
-    <SubTexture name="soft_board" x="729" y="965" width="158" height="54"/>
-    <SubTexture name="star" x="898" y="324" width="53" height="54"/>
-    <SubTexture name="tempItemBG" x="2" y="793" width="113" height="112"/>
-    <SubTexture name="temp_gift_icon" x="898" y="69" width="64" height="67"/>
-    <SubTexture name="tools_icon" x="352" y="797" width="50" height="43"/>
-    <SubTexture name="vedro_icon" x="734" y="858" width="36" height="39"/>
+    <SubTexture name="btn1" x="172" y="909" width="217" height="51"/>
+    <SubTexture name="btn100500" x="906" y="239" width="105" height="103"/>
+    <SubTexture name="btn2" x="391" y="924" width="134" height="28"/>
+    <SubTexture name="btn3" x="729" y="576" width="187" height="45"/>
+    <SubTexture name="btn4" x="593" y="900" width="89" height="62"/>
+    <SubTexture name="btn_exit" x="684" y="897" width="31" height="31"/>
+    <SubTexture name="btn_exit_click" x="823" y="871" width="31" height="31"/>
+    <SubTexture name="btn_exit_hover" x="952" y="908" width="31" height="31"/>
+    <SubTexture name="buy_coupons" x="722" y="742" width="66" height="65" frameX="0" frameY="0" frameWidth="67" frameHeight="65"/>
+    <SubTexture name="clock_icon" x="979" y="692" width="40" height="44"/>
+    <SubTexture name="coin" x="782" y="812" width="53" height="57" frameX="0" frameY="-1" frameWidth="53" frameHeight="58"/>
+    <SubTexture name="diamont" x="722" y="809" width="58" height="59"/>
+    <SubTexture name="empty_green_tail" x="717" y="903" width="42" height="22"/>
+    <SubTexture name="empty_red_tail" x="976" y="884" width="42" height="22"/>
+    <SubTexture name="friend_frame" x="898" y="344" width="98" height="89"/>
+    <SubTexture name="friends_icon" x="979" y="644" width="41" height="46"/>
+    <SubTexture name="friends_plawka" x="2" y="598" width="725" height="112"/>
+    <SubTexture name="friends_tab" x="722" y="714" width="129" height="26"/>
+    <SubTexture name="galo4ka" x="972" y="586" width="48" height="56"/>
+    <SubTexture name="green_coupone" x="961" y="748" width="44" height="55"/>
+    <SubTexture name="green_tail" x="883" y="862" width="42" height="22"/>
+    <SubTexture name="hard_board" x="527" y="851" width="143" height="47"/>
+    <SubTexture name="help_icon" x="684" y="930" width="37" height="37"/>
+    <SubTexture name="hintMiddle" x="947" y="583" width="1" height="1"/>
+    <SubTexture name="hintSidePixels" x="947" y="574" width="1" height="7"/>
+    <SubTexture name="hintSidePixels2" x="527" y="848" width="7" height="1"/>
+    <SubTexture name="hintTopLeftPart" x="761" y="903" width="8" height="7"/>
+    <SubTexture name="hint_circle" x="994" y="435" width="26" height="26"/>
+    <SubTexture name="hint_wild" x="906" y="2" width="114" height="121"/>
+    <SubTexture name="in_papper" x="775" y="871" width="46" height="39"/>
+    <SubTexture name="interface_bg" x="545" y="712" width="140" height="137"/>
+    <SubTexture name="korzina_icon" x="976" y="846" width="42" height="36"/>
+    <SubTexture name="kowolka_icon" x="687" y="797" width="33" height="35"/>
+    <SubTexture name="minus" x="918" y="574" width="27" height="10"/>
+    <SubTexture name="mouse_circle" x="790" y="742" width="58" height="68"/>
+    <SubTexture name="option_anim" x="672" y="851" width="45" height="44"/>
+    <SubTexture name="option_fullscreen" x="929" y="851" width="45" height="43"/>
+    <SubTexture name="option_icon" x="985" y="908" width="31" height="31"/>
+    <SubTexture name="option_music" x="764" y="912" width="45" height="44"/>
+    <SubTexture name="option_scale_minus" x="929" y="805" width="45" height="44"/>
+    <SubTexture name="option_scale_plus" x="811" y="912" width="45" height="44"/>
+    <SubTexture name="option_screenshot" x="858" y="908" width="45" height="44"/>
+    <SubTexture name="option_sound" x="905" y="896" width="45" height="43"/>
+    <SubTexture name="plawka7" x="719" y="870" width="54" height="31"/>
+    <SubTexture name="plawka_sold" x="400" y="538" width="64" height="50"/>
+    <SubTexture name="plus" x="941" y="586" width="28" height="28"/>
+    <SubTexture name="popup" x="172" y="712" width="184" height="135"/>
+    <SubTexture name="popup_farm" x="358" y="712" width="185" height="134"/>
+    <SubTexture name="red_coupone" x="837" y="812" width="44" height="55"/>
+    <SubTexture name="red_tail" x="905" y="941" width="42" height="22"/>
+    <SubTexture name="refresh_icon" x="853" y="714" width="32" height="32"/>
+    <SubTexture name="sciccors_icon" x="723" y="927" width="39" height="40"/>
+    <SubTexture name="scroll_box" x="918" y="586" width="21" height="35"/>
+    <SubTexture name="scroll_line" x="898" y="2" width="6" height="300"/>
+    <SubTexture name="serp_icon" x="976" y="805" width="37" height="39"/>
+    <SubTexture name="shop_arrow" x="687" y="712" width="33" height="83"/>
+    <SubTexture name="shop_icon" x="898" y="435" width="94" height="92"/>
+    <SubTexture name="shop_item" x="2" y="712" width="168" height="253"/>
+    <SubTexture name="shop_plawka" x="729" y="623" width="241" height="33"/>
+    <SubTexture name="shop_tab" x="393" y="848" width="132" height="74"/>
+    <SubTexture name="soft_board" x="729" y="658" width="158" height="54"/>
+    <SubTexture name="star" x="906" y="748" width="53" height="54"/>
+    <SubTexture name="tempItemBG" x="906" y="125" width="113" height="112"/>
+    <SubTexture name="temp_gift_icon" x="527" y="900" width="64" height="67"/>
+    <SubTexture name="tools_icon" x="898" y="529" width="50" height="43"/>
+    <SubTexture name="vedro_icon" x="466" y="538" width="36" height="39"/>
     <SubTexture name="wo_ambar" x="2" y="2" width="500" height="534"/>
-    <SubTexture name="work_icon" x="898" y="267" width="54" height="55" frameX="-1" frameY="-3" frameWidth="55" frameHeight="58"/>
-    <SubTexture name="xp_progres" x="729" y="905" width="219" height="58"/>
-    <SubTexture name="xp_progres_part" x="958" y="440" width="4" height="24"/>
-    <SubTexture name="xp_progres_part_end" x="958" y="466" width="4" height="24"/>
-    <SubTexture name="yellow_coupone" x="596" y="765" width="44" height="55"/>
+    <SubTexture name="work_icon" x="850" y="748" width="54" height="55" frameX="-1" frameY="-3" frameWidth="55" frameHeight="58"/>
+    <SubTexture name="xp_progres" x="172" y="849" width="219" height="58"/>
+    <SubTexture name="xp_progres_part" x="898" y="304" width="4" height="24"/>
+    <SubTexture name="xp_progres_part_end" x="1013" y="239" width="4" height="24"/>
+    <SubTexture name="yellow_coupone" x="883" y="805" width="44" height="55"/>
 </TextureAtlas>

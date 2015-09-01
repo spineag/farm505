@@ -263,6 +263,9 @@
             <filename>minus.png</filename>
             <filename>btn100500.png</filename>
             <filename>plawka7.png</filename>
+            <filename>in_papper.png</filename>
+            <filename>plawka_sold.png</filename>
+            <filename>refresh_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

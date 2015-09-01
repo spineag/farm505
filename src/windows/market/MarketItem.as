@@ -6,11 +6,13 @@ package windows.market {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 
+import data.BuildType;
 import data.DataMoney;
 
 import flash.geom.Point;
-
 import manager.Vars;
+import resourceItem.ResourceItem;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -31,8 +33,10 @@ public class MarketItem {
     private var _dataFromServer:Object;
     private var _countResource:int;
     private var _countMoney:int;
-    private var _im:Image;
+    private var _inPapper:Image;
+    private var _plawkaSold:Image;
     private var _isUser:Boolean;
+    private var _imageCont:Sprite;
 
     private var g:Vars = Vars.getInstance();
 
@@ -52,63 +56,115 @@ public class MarketItem {
         _countTxt.y = 7;
         source.addChild(_countTxt);
 
+        _imageCont = new Sprite();
+        source.addChild(_imageCont);
+
+        _inPapper = new Image(g.interfaceAtlas.getTexture('in_papper'));
+        _inPapper.x = -5;
+        _inPapper.y = -5;
+        source.addChild(_inPapper);
+        _inPapper.visible = false;
+
+        _plawkaSold = new Image(g.interfaceAtlas.getTexture('plawka_sold'));
+        _plawkaSold.x = _bg.width/2 - _plawkaSold.width/2;
+        source.addChild(_plawkaSold);
+        _plawkaSold.visible = false;
+
         isFill = 0;
         source.endClickCallback = onClick;
     }
 
-    private function fillIt(data:Object, count:int):void {
+    private function fillIt(data:Object, count:int, isFromServer:Boolean = false):void {
+        var im:Image;
         isFill = 1;
         _data = data;
         if (_data) {
             if (_data.url == 'resourceAtlas') {
-                _im = new Image(g.resourceAtlas.getTexture(_data.imageShop));
+                im = new Image(g.resourceAtlas.getTexture(_data.imageShop));
             } else if (_data.url == 'plantAtlas') {
-                _im = new Image(g.plantAtlas.getTexture(_data.imageShop));
+                im = new Image(g.plantAtlas.getTexture(_data.imageShop));
             } else if (_data.url == 'instrumentAtlas') {
-                _im = new Image(g.instrumentAtlas.getTexture(_data.imageShop));
+                im = new Image(g.instrumentAtlas.getTexture(_data.imageShop));
             }
-            MCScaler.scale(_im, 80, 80);
-            _im.x = 80 - _im.width/2;
-            _im.y = 50 - _im.height/2;
-            source.addChild(_im);
+            MCScaler.scale(im, 80, 80);
+            im.x = 80 - im.width/2;
+            im.y = 50 - im.height/2;
+            _imageCont.addChild(im);
         }
         _countResource = count;
-        g.userInventory.addResource(_data.id, -_countResource);
+        if (!isFromServer) g.userInventory.addResource(_data.id, -_countResource);
         _countTxt.text = String(_countResource);
         _countMoney = _countResource * _data.costMax;
         _costTxt.text = String(_countMoney);
     }
 
-    public function clearIt():void {
-        while (source.numChildren > 3) {
-            source.removeChildAt(3);
+    public function clearImageCont():void {
+        while (_imageCont.numChildren) {
+            _imageCont.removeChildAt(0);
         }
     }
 
     private function onClick():void {
+        var i:int;
         if (isFill == 1) {
             if (_isUser) {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
-                return;
+
             } else {
-
+                if (g.user.softCurrencyCount < _dataFromServer.cost) {
+                    g.flyMessage.showIt(source, "Недостаточно денег");
+                    return;
+                }
+                var d:Object = g.dataResource.objectResources[_dataFromServer.resourceId];
+                if (d.placeBuild = BuildType.PLACE_AMBAR) {
+                    if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount >= g.user.ambarMaxCount) {
+                        g.flyMessage.showIt(source, "Амбар заполнен");
+                        return;
+                    }
+                } else if (d.placeBuild = BuildType.PLACE_SKLAD) {
+                    if (g.userInventory.currentCountInSklad + _dataFromServer.resourceCount >= g.user.skladMaxCount) {
+                        g.flyMessage.showIt(source, "Склад заполнен");
+                        return;
+                    }
+                }
+                clearImageCont();
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
+                showFlyResource(d, _dataFromServer.resourceCount);
+                _inPapper.visible = false;
+                showCoinImage();
+                _plawkaSold.visible = true;
+                g.directServer.buyFromMarket(_dataFromServer.id, null);
+                isFill = 2;
+                for (var j:int; j< g.user.arrFriends.length; j++) {
+                    for (i = 0; i < g.user.arrFriends[j].marketItems.length; i++) {
+                        if (g.user.arrFriends[j].marketItems[i].id == _dataFromServer.id) {
+                            g.user.arrFriends[j].marketItems.marketItems[i].buyerId = g.user.userId;
+                            g.user.arrFriends[j].marketItems.marketItems[i].inaPapper = false;
+                            g.user.arrFriends[j].marketItems.marketItems[i].buyerSocailId = g.user.userSocialId;
+                            return;
+                        }
+                    }
+                }
             }
-        }
-        if (isFill == 0) {
-            g.woMarket.hideIt();
-            g.woMarket.marketChoose.callback = onChoose;
-            g.woMarket.marketChoose.showIt();
+        } else if (isFill == 0) {
+            if (_isUser) {
+                g.woMarket.hideIt();
+                g.woMarket.marketChoose.callback = onChoose;
+                g.woMarket.marketChoose.showIt();
+            }
         } else {
-            if (_im && source.contains(_im)) {
-                source.removeChild(_im);
-                _im.dispose();
-                _im = null;
-            }
-            _costTxt.text = '';
-            _countTxt.text = '';
-            isFill = 0;
+            if (_isUser) {
+                g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
+                for (i=0; i<g.user.marketItems.length; i++) {
+                    if (g.user.marketItems[i].id == _dataFromServer.id) {
+                        g.user.marketItems.splice(i, 1);
+                        break;
+                    }
+                }
+                animCoin();
+                unFillIt();
 
-            animCoin();
+            }
         }
     }
 
@@ -117,8 +173,7 @@ public class MarketItem {
         g.woMarket.showIt();
         if (a > 0) {
             fillIt(g.dataResource.objectResources[a], count);
-//            counter = 3;
-//            g.gameDispatcher.addToTimer(timer);
+            _inPapper.visible = inPapper;
             g.directServer.addUserMarketItem(a, count, inPapper, cost, onAddToServer);
         }
     }
@@ -137,27 +192,19 @@ public class MarketItem {
         g.user.marketItems.push(obj);
     }
 
-//    private function timer():void {
-//        counter--;
-//        if (counter <= 0) {
-//            g.gameDispatcher.removeFromTimer(timer);
-//            releaseBuy();
+//    private function showCoin():void {
+//        if (_im && source.contains(_im)) {
+//            source.removeChild(_im);
+//            _im.dispose();
+//            _im = null;
 //        }
+//        _im = new Image(g.interfaceAtlas.getTexture('coin'));
+//        _im.x = 80 - _im.width/2;
+//        _im.y = 50 - _im.height/2;
+//        source.addChild(_im);
+//        source.addChild(_im);
+//        isFill = 2;
 //    }
-
-    private function releaseBuy():void {
-        if (_im && source.contains(_im)) {
-            source.removeChild(_im);
-            _im.dispose();
-            _im = null;
-        }
-        _im = new Image(g.interfaceAtlas.getTexture('coin'));
-        _im.x = 80 - _im.width/2;
-        _im.y = 50 - _im.height/2;
-        source.addChild(_im);
-        source.addChild(_im);
-        isFill = 2;
-    }
 
     public function set callbackFill(f:Function):void {
         _callback = f;
@@ -188,24 +235,74 @@ public class MarketItem {
     }
 
     public function unFillIt():void {
-        clearIt();
+        clearImageCont();
         isFill = 0;
         _countMoney = 0;
         _countResource = 0;
         _costTxt.text = '';
         _countTxt.text = '';
         _data = null;
+        _inPapper.visible = false;
+        _plawkaSold.visible = false;
     }
 
     public function fillFromServer(obj:Object, isUser:Boolean):void {
         _isUser = isUser;
         _dataFromServer = obj;
-        fillIt(g.dataResource.objectResources[_dataFromServer.resourceId], _dataFromServer.resourceCount);
+        _inPapper.visible = _dataFromServer.inPapper;
+        if (_dataFromServer.buyerId != '0') {
+            _plawkaSold.visible = true;
+            isFill = 2;
+            showCoinImage();
+        } else {
+            isFill = 1;
+            fillIt(g.dataResource.objectResources[_dataFromServer.resourceId], _dataFromServer.resourceCount, true);
+        }
     }
 
     public function set isUser(value:Boolean):void {
         _isUser = value;
     }
 
+    private function showFlyResource(d:Object, count:int):void {
+        var im:Image;
+        if (d.url == 'plantAtlas') {
+            im = new Image(g.plantAtlas.getTexture(d.imageShop));
+        } else if (d.utr == 'instrumentAtlas') {
+            im = new Image(g.instrumentAtlas.getTexture(d.imageShop));
+        } else {
+            im = new Image(g.resourceAtlas.getTexture(d.imageShop));
+        }
+
+        MCScaler.scale(im, 50, 50);
+        var p:Point = new Point(_bg.width/2, _bg.height/2);
+        p = source.localToGlobal(p);
+        im.pivotX = im.width/2;
+        im.pivotY = im.height/2;
+        im.x = p.x;
+        im.y = p.y;
+        g.cont.animationsResourceCont.addChild(im);
+        g.craftPanel.showIt(d.placeBuild);
+        p = g.craftPanel.pointXY();
+        var f1:Function = function():void {
+            g.cont.animationsResourceCont.removeChild(im);
+            im.dispose();
+            g.userInventory.addResource(d.id, count);
+            var item:ResourceItem = new ResourceItem();
+            item.fillIt(d);
+            g.craftPanel.afterFly(item);
+        };
+        new TweenMax(im, .5, {x:p.x, y:p.y, ease:Linear.easeOut ,onComplete: f1});
+    }
+
+    private function showCoinImage():void {
+        var im:Image = new Image(g.interfaceAtlas.getTexture('coin'));
+        MCScaler.scale(im, 80, 80);
+        im.pivotX = im.width/2;
+        im.pivotY = im.height/2;
+        im.x = _bg.width/2;
+        im.y = _bg.height/2;
+        _imageCont.addChild(im);
+    }
 }
 }

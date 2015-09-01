@@ -2,10 +2,13 @@
  * Created by user on 7/23/15.
  */
 package windows.market {
+import starling.display.Image;
 import starling.events.Event;
 import starling.utils.Color;
 
 import user.Someone;
+
+import utils.CSprite;
 
 import windows.Window;
 
@@ -14,6 +17,7 @@ public class WOMarket  extends Window {
     private var _friendsPanel:MarketFriendsPanel;
     private var _arrItems:Array;
     private var _curUser:Someone;
+    private var _btnRefresh:CSprite;
 
     public function WOMarket() {
         super ();
@@ -25,6 +29,13 @@ public class WOMarket  extends Window {
         marketChoose = new WOMarketChoose();
         addItems();
         _friendsPanel = new MarketFriendsPanel(this);
+        _btnRefresh = new CSprite();
+        var ref:Image = new Image(g.interfaceAtlas.getTexture('refresh_icon'));
+        _btnRefresh.addChild(ref);
+        _btnRefresh.x = -320;
+        _btnRefresh.y = 155;
+        _source.addChild(_btnRefresh);
+        _btnRefresh.endClickCallback = makeRefresh;
     }
     private function onClickExit(e:Event):void {
         hideIt();
@@ -83,6 +94,13 @@ public class WOMarket  extends Window {
 
     public function get curUser():Someone {
         return _curUser;
+    }
+
+    private function makeRefresh():void {
+        for (var i:int=0; i< _arrItems.length; i++) {
+            _arrItems[i].unFillIt();
+        }
+        g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
     }
 
 }

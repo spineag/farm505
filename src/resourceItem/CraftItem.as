@@ -62,15 +62,13 @@ public class CraftItem {
     }
 
     private function flyIt():void {
-        if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount) {
+        if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + _count >= g.user.ambarMaxCount) {
             g.flyMessage.showIt(_source,"Амбар заполнен");
-            // вивести повідомлення
             return;
         }
 
-        if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad >= g.user.skladMaxCount) {
+        if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + _count >= g.user.skladMaxCount) {
             g.flyMessage.showIt(_source,"Склад заполнен");
-            // вивести повідомлення
             return;
         }
 
