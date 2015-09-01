@@ -67,7 +67,6 @@ public class ShopItem {
             return;
         }
         if (!g.userInventory.checkMoney(_data)) return;
-        g.userInventory.addMoney(_data.currency, -_data.cost);
         if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.hideIt();
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
@@ -88,6 +87,7 @@ public class ShopItem {
     private function afterMove(_x:Number, _y:Number):void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.townArea.createNewBuild(_data, _x, _y);
+        g.userInventory.addMoney(_data.currency, -_data.cost);
     }
 
 

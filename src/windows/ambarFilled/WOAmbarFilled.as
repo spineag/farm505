@@ -32,7 +32,7 @@ public class WOAmbarFilled extends Window{
         _contBtn = new CSprite();
         _contBtn.endClickCallback = onClick;
         _imageBtn = new Image(g.interfaceAtlas.getTexture("btn2"));
-        _txtBtn = new TextField(150,50,"УВЕЛИЧЕТЬ АМБАР","Arial",12,Color.BLACK);
+        _txtBtn = new TextField(150,50,"","Arial",12,Color.BLACK);
         _txtBtn.y = -10;
         _txtBtn.x = -10;
         _contBtn.addChild(_imageBtn);
@@ -44,7 +44,7 @@ public class WOAmbarFilled extends Window{
         _imageAmbar.x = -198;
         _imageAmbar.y = -100;
         _imageAmbarArrow = new Image(g.interfaceAtlas.getTexture("ambar_plawka_arrow"));
-        _txtAmbarFilled = new TextField(100,50,"АМБАР ЗАПОЛНЕН","Arial",14,Color.BLACK);
+        _txtAmbarFilled = new TextField(100,50,"","Arial",14,Color.BLACK);
         _txtAmbarFilled.x = -50;
         _txtAmbarFilled.y = -150;
         _txtCount = new TextField(200,50,"","Arial",14,Color.BLACK);
@@ -53,7 +53,6 @@ public class WOAmbarFilled extends Window{
         _source.addChild(_txtCount);
         _source.addChild(_imageAmbar);
         _source.addChild(_imageAmbarArrow);
-
     }
 
     private function onClickExit(e:Event):void {
@@ -65,18 +64,36 @@ public class WOAmbarFilled extends Window{
         g.woAmbar.showIt();
     }
 
-    public function showAmbarFilled():void {
-        _imageAmbarArrow.x = _imageAmbar.x;
-        _imageAmbarArrow.y = _imageAmbar.y;
-        showIt();
-        var tween:Tween = new Tween(_imageAmbarArrow, 0.5);
-        tween.moveTo(_imageAmbar.width - 200 - _imageAmbarArrow.width, _imageAmbar.y);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
+    public function showAmbarFilled(isAmbar:Boolean):void {
+        var tween:Tween;
+        if (isAmbar == true){
+            _imageAmbarArrow.x = _imageAmbar.x;
+            _imageAmbarArrow.y = _imageAmbar.y;
+            showIt();
+            tween= new Tween(_imageAmbarArrow, 0.5);
+            tween.moveTo(_imageAmbar.width - 200 - _imageAmbarArrow.width, _imageAmbar.y);
+            tween.onComplete = function ():void {
+                g.starling.juggler.remove(tween);
+            };
+            g.starling.juggler.add(tween);
+            _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount) + "КГ.";
+            _txtAmbarFilled.text = "АМБАР ЗАПОЛНЕН";
+            _txtBtn.text = "Увеличть Амбар";
+        } else if(isAmbar == false) {
+            _imageAmbarArrow.x = _imageAmbar.x;
+            _imageAmbarArrow.y = _imageAmbar.y;
+            showIt();
+            tween = new Tween(_imageAmbarArrow, 0.5);
+            tween.moveTo(_imageAmbar.width - 200 - _imageAmbarArrow.width, _imageAmbar.y);
+            tween.onComplete = function ():void {
+                g.starling.juggler.remove(tween);
+            };
+            g.starling.juggler.add(tween);
+            _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount) + "КГ.";
+            _txtAmbarFilled.text = "СКЛАД ЗАПОЛНЕН";
+            _txtBtn.text = "Увеличть Склад";
+        }
 
-        };
-        g.starling.juggler.add(tween);
-        _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount) + "КГ.";
     }
 }
 }

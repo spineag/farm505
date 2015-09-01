@@ -3,6 +3,8 @@
  */
 package windows.market {
 
+import data.BuildType;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -77,8 +79,19 @@ public class MarketCell {
     }
 
     private function onClick():void {
+       // if (_info.buildType == BuildType.PLANT) {
+//            var count:int;
+//            count = g.userInventory.getCountResourceById(_data.id);
+//            if ((count - 1) == 0) {
+//                g.woLastResource.showItMenu(_data);
+//                trace("count");
+//            }
+            if (_clickCallback != null) {
+                _clickCallback.apply(null, [_info.id]);
+            }
+      //  }
         if (g.userInventory.getCountResourceById(_data.id))
-        g.woLastResource.showItMenu(_data.id);
+//        g.woLastResource.showItMenu(_data.id);
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_info.id]);
         }

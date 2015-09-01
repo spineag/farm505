@@ -2,6 +2,8 @@
  * Created by user on 8/25/15.
  */
 package windows.lastResource {
+import build.ridge.Ridge;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.filters.BlurFilter;
@@ -19,6 +21,8 @@ public class WOLastResource extends Window{
     private var _imageItem:Image;
     private var _txtHeader:TextField;
     private var _txtText:TextField;
+    private var _data:Object;
+
     public function WOLastResource() {
         super();
         createTempBG(300, 300, Color.GRAY);
@@ -37,17 +41,19 @@ public class WOLastResource extends Window{
 
     private function onClickExit():void {
         hideIt();
+        _source.removeChild(_imageItem);
     }
 
-    public function showItMenu(ob:int):void {
-            _imageItem = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[ob].imageShop));
+    public function showItMenu(ob:Object):void {
+        trace("shekel");
+        _data = ob;
+            _imageItem = new Image(g.plantAtlas.getTexture(ob.imageShop));
             _imageItem.x = -25;
             _imageItem.y = -50;
             MCScaler.scale(_imageItem,70,70);
             _source.addChild(_imageItem);
             showIt();
             fillBtn();
-            trace("ok");
     }
 
     private function fillBtn():void {
@@ -78,12 +84,14 @@ public class WOLastResource extends Window{
         _contBtnNo.endClickCallback = function():void {onClick('no')};
     }
 
-
     private function onClick(reason:String):void {
         switch (reason) {
             case 'yes':
+                    g.managerPlantRidge.addPlant(_data);
+                    onClickExit();
                 break;
             case 'no':
+                onClickExit();
                 break;
         }
     }

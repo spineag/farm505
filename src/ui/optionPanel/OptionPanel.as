@@ -186,11 +186,12 @@ public class OptionPanel {
                 }
                 break;
             case 'scale_plus':
-                var i:int;
-                i = _arrCells.indexOf(g.cont.gameCont.scaleX);
-                if (i >= _arrCells.length-1) return;
-                i++;
-                g.cont.gameCont.scaleX = g.cont.gameCont.scaleY = _arrCells[i];
+                    g.cont.gameCont.y = g.matrixGrid.offsetY - g.cont.gameCont.y;
+//                var i:int;
+//                i = _arrCells.indexOf(g.cont.gameCont.scaleX);
+//                if (i >= _arrCells.length-1) return;
+//                i++;
+//                g.cont.gameCont.scaleX = g.cont.gameCont.scaleY = _arrCells[i];
                 break;
             case 'scale_minus':
                 var i:int;
