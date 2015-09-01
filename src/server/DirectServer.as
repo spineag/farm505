@@ -2012,5 +2012,48 @@ public class DirectServer {
             Cc.error('deleteUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function updateUserBuildPosition(dbId:int, pX:int, pY:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_BUILD_POSITION);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserBuildPosition', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        variables.posX = pX;
+        variables.posY = pY;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserBuildPosition);
+        function onCompleteUpdateUserBuildPosition(e:Event):void { completeUpdateUserBuildPosition(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserBuildPosition error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserBuildPosition(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserBuildPosition: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        } else {
+            Cc.error('updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

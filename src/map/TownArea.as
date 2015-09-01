@@ -218,7 +218,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true):void {
+    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
         if (!_cont.contains(worldObject.source)) {
             worldObject.source.x = _x;
             worldObject.source.y = _y;
@@ -241,6 +241,10 @@ public class TownArea extends Sprite {
                     worldObject.addXP();
                 if (worldObject is Tree)
                     g.directServer.addUserBuilding(worldObject, onAddNewTree);
+            }
+
+            if (updateAfterMove) {
+                g.directServer.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
             }
         }
 
@@ -286,8 +290,7 @@ public class TownArea extends Sprite {
     }
 
     private function afterMove(_x:Number, _y:Number):void {
-//        createNewBuild((g.selectedBuild as AreaObject).dataBuild, _x, _y);
-        pasteBuild(g.selectedBuild, _x, _y, false);
+        pasteBuild(g.selectedBuild, _x, _y, false, true);
         g.selectedBuild = null;
     }
 
