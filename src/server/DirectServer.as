@@ -2055,5 +2055,45 @@ public class DirectServer {
             Cc.error('updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function getPaperItems(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_PAPER_ITEMS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getPaperItems', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetPaperItems);
+        function onCompleteGetPaperItems(e:Event):void { completeGetPaperItems(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getPaperItems error:' + error.errorID);
+        }
+    }
+
+    private function completeGetPaperItems(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getPaperItems: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            g.managerPaper.fillIt(d.message);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getPaperItems: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

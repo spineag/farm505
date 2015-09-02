@@ -46,5 +46,6 @@ public class Consts {
     public static var INQ_BUY_FROM_MARKET:String = 'buyFromMarket.php';
     public static var INQ_DELETE_USER_MARKET_ITEM:String = 'deleteUserMarketItem.php';
     public static var INQ_UPDATE_USER_BUILD_POSITION:String = 'updateUserBuildPosition.php';
+    public static var INQ_GET_PAPER_ITEMS:String = 'getPaperItems.php';
 }
 }

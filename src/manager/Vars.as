@@ -120,6 +120,7 @@ public class Vars {
     public var managerPlantRidge:ManagerPlantRidge;
     public var managerTree:ManagerTree;
     public var managerAnimal:ManagerAnimal;
+    public var managerPaper:ManagerPaper;
     public var load:LoaderManager;
     public var pBitmaps:Object;
 
@@ -392,6 +393,8 @@ public class Vars {
         woLastResource = new WOLastResource();
 
         managerDropResources = new ManagerDropBonusResource();
+        managerPaper = new ManagerPaper();
+        woPaper.updatePaperItems();
 
         if (!useDataFromServer) temporaryFillUserInventory();
 
