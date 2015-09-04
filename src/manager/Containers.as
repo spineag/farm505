@@ -89,7 +89,8 @@ public class Containers {
     private function onGameContTouch(te:TouchEvent):void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE && te.getTouch(gameCont, TouchPhase.ENDED)) {
             // нужно еще проверять не драгается ли поляна, если да - то не заходить в этот if
-            if (_startDragPointCont.x != _startDragPointCont.x) return;
+            if(_startDragPointCont)
+                if (_startDragPointCont.x != _startDragPointCont.x) return;
             g.toolsModifier.onTouchEnded();
             return;
         }

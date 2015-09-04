@@ -111,7 +111,7 @@ public class WOAmbar extends Window {
     }
 
     override public function showIt():void {
-        var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
+        var st:String = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
         _txtCount.text = st;
         _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount,true);
         _btnBack.visible = false;
@@ -176,13 +176,16 @@ public class WOAmbar extends Window {
         g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId3, - needCountForUpdate);
         g.user.ambarLevel++;
         g.user.ambarMaxCount += g.dataBuilding.objectBuilding[12].deltaCountResources;
-        var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
+        var st:String = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
         _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount,true);
         _txtCount.text = st;
         _item1.updateIt();
         _item2.updateIt();
         _item3.updateIt();
         updateMakeUpdateBtn();
+        if (g.useDataFromServer) g.directServer.updateUserAmbar(true, g.user.ambarLevel, g.user.ambarMaxCount, null);
+        unfillItems();
+        fillItems();
     }
 }
 }

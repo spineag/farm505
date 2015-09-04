@@ -127,6 +127,10 @@ public class Ridge extends AreaObject{
     }
 
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
+        if (_stateRidge != EMPTY) {
+            Cc.error('Try to plant already planted ridge');
+            return;
+        }
         if (!isFromServer && !g.userInventory.checkResource(data,1)) return;
         if (!isFromServer) g.userInventory.addResource(data.id, -1);
         _stateRidge = GROW1;

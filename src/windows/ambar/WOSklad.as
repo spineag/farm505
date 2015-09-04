@@ -78,9 +78,9 @@ public class WOSklad extends Window {
         _source.addChild(_txtCount);
 
         _updateSprite = new Sprite();
-        _item1 = new UpdateItem(g.dataBuilding.objectBuilding[12].upInstrumentId1);
-        _item2 = new UpdateItem(g.dataBuilding.objectBuilding[12].upInstrumentId2);
-        _item3 = new UpdateItem(g.dataBuilding.objectBuilding[12].upInstrumentId3);
+        _item1 = new UpdateItem(g.dataBuilding.objectBuilding[13].upInstrumentId1);
+        _item2 = new UpdateItem(g.dataBuilding.objectBuilding[13].upInstrumentId2);
+        _item3 = new UpdateItem(g.dataBuilding.objectBuilding[13].upInstrumentId3);
         _item1.onBuyCallback = updateMakeUpdateBtn;
         _item2.onBuyCallback = updateMakeUpdateBtn;
         _item3.onBuyCallback = updateMakeUpdateBtn;
@@ -110,7 +110,7 @@ public class WOSklad extends Window {
     }
 
     override public function showIt():void {
-        var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
+        var st:String = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
         _txtCount.text = st;
         _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
         _btnBack.visible = false;
@@ -158,7 +158,7 @@ public class WOSklad extends Window {
     }
 
     private function updateMakeUpdateBtn():void {
-        _txtMakeUpdate.text = 'Улучшить до ' + String(g.user.skladMaxCount + g.dataBuilding.objectBuilding[12].deltaCountResources) + ' кг.';
+        _txtMakeUpdate.text = 'Улучшить до ' + String(g.user.skladMaxCount + g.dataBuilding.objectBuilding[13].deltaCountResources) + ' кг.';
         if (_item1.isFull && _item2.isFull && _item3.isFull) {
             _btnMakeUpdate.endClickCallback = onUpdate;
             _btnMakeUpdate.alpha = 1;
@@ -169,19 +169,22 @@ public class WOSklad extends Window {
     }
 
     private function onUpdate():void {
-        var needCountForUpdate:int = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * g.user.skladLevel;
-        g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId1, - needCountForUpdate);
-        g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId2, - needCountForUpdate);
-        g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId3, - needCountForUpdate);
+        var needCountForUpdate:int = g.dataBuilding.objectBuilding[13].startCountInstrumets + g.dataBuilding.objectBuilding[13].deltaCountAfterUpgrade * g.user.skladLevel;
+        g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId1, - needCountForUpdate);
+        g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId2, - needCountForUpdate);
+        g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId3, - needCountForUpdate);
         g.user.skladLevel++;
-        g.user.skladMaxCount += g.dataBuilding.objectBuilding[12].deltaCountResources;
-        var st:String = 'ВМЕНЯЕМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
+        g.user.skladMaxCount += g.dataBuilding.objectBuilding[13].deltaCountResources;
+        var st:String = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
         _txtCount.text = st;
         _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
         _item1.updateIt();
         _item2.updateIt();
         _item3.updateIt();
         updateMakeUpdateBtn();
+        if (g.useDataFromServer) g.directServer.updateUserAmbar(false, g.user.ambarLevel, g.user.ambarMaxCount, null);
+        unfillItems();
+        fillItems();
     }
 }
 }

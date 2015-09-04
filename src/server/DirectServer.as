@@ -343,7 +343,7 @@ public class DirectServer {
                 }
                 if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
                 if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
-                if (d.message[i].delta_count_resources) obj.startCountResources = int(d.message[i].delta_count_resources);
+                if (d.message[i].delta_count_resources) obj.deltaCountResources = int(d.message[i].delta_count_resources);
                 if (d.message[i].start_count_instruments) obj.startCountInstrumets = int(d.message[i].start_count_instruments);
                 if (d.message[i].delta_count_instruments) obj.deltaCountAfterUpgrade = int(d.message[i].delta_count_instruments);
                 if (d.message[i].up_instrument_id_1) obj.upInstrumentId1 = int(d.message[i].up_instrument_id_1);
@@ -2093,6 +2093,48 @@ public class DirectServer {
             }
         } else {
             Cc.error('getPaperItems: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserAmbar(isAmbar:Boolean, newLevel:int, newMaxCount:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_AMBAR);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserAmbar', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        isAmbar ? variables.isAmbar = 1 : variables.isAmbar = 0;
+        variables.newLevel = newLevel;
+        variables.newMaxCount = newMaxCount;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserAmbar);
+        function onCompleteUpdateUserAmbar(e:Event):void { completeUpdateUserAmbar(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserAmbar error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserAmbar(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserAmbar: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }
