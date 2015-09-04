@@ -74,8 +74,7 @@ public class Cave extends AreaObject{
                 if (_flip) _build.scaleX = -_defaultScale;
                 _source.addChild(_build);
             } else {
-                var time:Number = new Date().getTime();
-                _leftBuildTime = time - Number(g.user.userBuildingData[_dataBuild.id].dateStartBuild);  // сколько времени уже строится
+                _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
                 _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
                 if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                     _stateBuild = STATE_WAIT_ACTIVATE;

@@ -309,7 +309,7 @@ public class DirectServer {
                     for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
                 }
                 if (d.message[i].cost_skip) obj.priceSkipHard = d.message[i].cost_skip;
-                if (d.message[i].build_time) obj.buildTime = d.message[i].build_time;
+                if (d.message[i].build_time) obj.buildTime = int(d.message[i].build_time);
                 if (d.message[i].image_s) obj.imageGrowSmall = d.message[i].image_s;
                 if (d.message[i].image_s_flower) obj.imageGrowSmallFlower = d.message[i].image_s_flower;
                 if (d.message[i].image_s_growed) obj.imageGrowedSmall = d.message[i].image_s_growed;

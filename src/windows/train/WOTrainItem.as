@@ -59,10 +59,13 @@ public class WOTrainItem {
         source.alpha = .7;
         _info = t;
         _txt.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
-        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT)
+        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT) {
             _im = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
-        else
+        } else if (g.dataResource.objectResources[_info.id].buildType == BuildType.RESOURCE) {
             _im = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
+        } else {
+            _im = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
+        }
         MCScaler.scale(_im, 50, 50);
         _im.x = 50 - _im.width/2;
         _im.y = 5;
