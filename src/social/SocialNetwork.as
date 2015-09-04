@@ -148,6 +148,8 @@ public class SocialNetwork extends EventDispatcher {
         _paramsFriends = [];
     }
 
+    public function getTempUsersInfoById(arr:Array, callback:Function):void { }
+
     protected function getUsersOnlineSuccess(e:Object):void {
         //dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_USERS_ONLINE, false, false, _paramsFriends));
 //        g.user.setOnlineFriends(_paramsFriends);

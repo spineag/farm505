@@ -21,6 +21,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import user.Someone;
+
 import utils.CSprite;
 
 import utils.MCScaler;
@@ -139,7 +141,9 @@ public class WOPaperItem {
     }
 
     private function onClickVisit():void {
-
+        g.woPaper.hideIt();
+        g.woMarket.addAdditionalUser(_data);
+        g.woMarket.showIt();
     }
 
     private function showFlyResource(d:Object, count:int):void {

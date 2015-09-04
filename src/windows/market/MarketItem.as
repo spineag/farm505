@@ -135,12 +135,14 @@ public class MarketItem {
                 _plawkaSold.visible = true;
                 g.directServer.buyFromMarket(_dataFromServer.id, null);
                 isFill = 2;
-                for (var j:int; j< g.user.arrFriends.length; j++) {
-                    for (i = 0; i < g.user.arrFriends[j].marketItems.length; i++) {
+                var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
+                for (var j:int; j< arr.length; j++) {
+                    if (!arr[j].marketItems) continue;
+                    for (i = 0; i < arr[j].marketItems.length; i++) {
                         if (g.user.arrFriends[j].marketItems[i].id == _dataFromServer.id) {
-                            g.user.arrFriends[j].marketItems.marketItems[i].buyerId = g.user.userId;
-                            g.user.arrFriends[j].marketItems.marketItems[i].inaPapper = false;
-                            g.user.arrFriends[j].marketItems.marketItems[i].buyerSocailId = g.user.userSocialId;
+                            g.user.arrFriends[j].marketItems[i].buyerId = g.user.userId;
+                            g.user.arrFriends[j].marketItems[i].inPapper = false;
+                            g.user.arrFriends[j].marketItems[i].buyerSocialId = g.user.userSocialId;
                             return;
                         }
                     }

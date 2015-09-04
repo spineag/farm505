@@ -236,6 +236,22 @@ public class SN_Vkontakte extends SocialNetwork {
         }
     }
 
+    override public function getTempUsersInfoById(arr:Array, callback:Function):void {
+        var f1:Function = function(e:Array):void {
+            var ar:Array = [];
+            var buffer:Object;
+            for (var i:int=0; i < e.length; i++) {
+                buffer = e[i];
+                buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : buffer.photo_100;
+                ar.push(buffer);
+            }
+            if (callback != null) {
+                callback.apply(null, [ar]);
+            }
+        };
+        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, f1, onError);
+    }
+
     override public function getPostsByIds(postIds:String):void {
         super.getPostsByIds(postIds);
         _apiConnection.api("wall.getById", {posts: postIds, extended: 0, v: 5.21}, getPostsByIdsHandler, onError);

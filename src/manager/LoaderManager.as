@@ -111,17 +111,17 @@ public class LoaderManager {
         }
     }
 
-    private function getCallback(key:String):void {
+    private function getCallback(url:String):void {
         var callbackObject:Object;
 
-        if (_callbacks[key] != undefined) {
-            while (_callbacks[key] && _callbacks[key].length) {
-                callbackObject = _callbacks[key].pop();
+        if (_callbacks[url] != undefined) {
+            while (_callbacks[url] && _callbacks[url].length) {
+                callbackObject = _callbacks[url].pop();
                 if (callbackObject.callback != null) {
-                    callbackObject.callback.apply(null, callbackObject.callbackParams);
+                    callbackObject.callback.apply(null, [g.pBitmaps[url].create() as Bitmap].concat(callbackObject.callbackParams));
                 }
             }
-            delete _callbacks[key];
+            delete _callbacks[url];
         }
     }
 

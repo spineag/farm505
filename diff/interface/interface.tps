@@ -266,6 +266,7 @@
             <filename>in_papper.png</filename>
             <filename>plawka_sold.png</filename>
             <filename>refresh_icon.png</filename>
+            <filename>tamp_ramka.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -128,7 +128,7 @@ public class Ridge extends AreaObject{
 
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
         if (!isFromServer && !g.userInventory.checkResource(data,1)) return;
-        g.userInventory.addResource(data.id,-1);
+        if (!isFromServer) g.userInventory.addResource(data.id, -1);
         _stateRidge = GROW1;
         _dataPlant = data;
         _plant = new PlantOnRidge(this, _dataPlant);

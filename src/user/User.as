@@ -27,6 +27,7 @@ public class User extends Someone {
     public var isMegaTester:Boolean;
     public var userBuildingData:Object;
     public var arrFriends:Array;
+    public var arrTempUsers:Array;
     private var g:Vars = Vars.getInstance();
 
     public function User() {
@@ -48,6 +49,7 @@ public class User extends Someone {
         }
         userBuildingData = {};
         arrFriends = [];
+        arrTempUsers = [];
     }
 
     public function checkUserLevel():void {
@@ -91,6 +93,27 @@ public class User extends Someone {
         var p:Someone;
         var i:int;
         var obj:Object;
+
+        p = getSomeoneBySocialId(socId);
+        p.marketItems = [];
+        for (i=0; i<arr.length; i++) {
+            obj = {};
+            obj.id = int(arr[i].id);
+            obj.buyerId = arr[i].buyer_id;
+            arr[i].buyer_social_id ? obj.buyerSocialId = arr[i].buyer_social_id : obj.buyerSocialId = '0';
+            obj.cost = int(arr[i].cost);
+            obj.inPapper = Boolean(arr[i].in_papper == '1');
+            obj.resourceCount = int(arr[i].resource_count);
+            obj.resourceId = int(arr[i].resource_id);
+            obj.timeSold = arr[i].time_sold;
+            obj.timeStart = arr[i].time_start;
+            p.marketItems.push(obj);
+        }
+    }
+
+    public function getSomeoneBySocialId(socId:String):Someone {
+        var p:Someone;
+        var i:int;
         if (socId == userSocialId) {
             p = this;
         } else {
@@ -101,25 +124,23 @@ public class User extends Someone {
                 }
             }
         }
+
         if (!p) {
-            Cc.error('Wrong socId at fillSomeoneMarketItems at User');
-            return;
-        } else {
-            p.marketItems = [];
-            for (i=0; i<arr.length; i++) {
-                obj = {};
-                obj.id = int(arr[i].id);
-                obj.buyerId = arr[i].buyer_id;
-                arr[i].buyer_social_id ? obj.buyerSocialId = arr[i].buyer_social_id : obj.buyerSocialId = '0';
-                obj.cost = int(arr[i].cost);
-                obj.inPapper = Boolean(arr[i].in_papper == '1');
-                obj.resourceCount = int(arr[i].resource_count);
-                obj.resourceId = int(arr[i].resource_id);
-                obj.timeSold = arr[i].time_sold;
-                obj.timeStart = arr[i].time_start;
-                p.marketItems.push(obj);
+            for (i=0; i<arrTempUsers.length; i++) {
+                if (arrTempUsers[i].userSocialId == socId) {
+                    p = arrTempUsers[i];
+                    break;
+                }
             }
         }
+
+        if (!p) {
+            p = new TempUser();
+            p.userSocialId = socId;
+            arrTempUsers.push(p);
+        }
+
+        return p;
     }
 }
 }

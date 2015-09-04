@@ -15,6 +15,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 
 import user.Someone;
+import user.TempUser;
 
 import utils.CSprite;
 
@@ -27,6 +28,7 @@ public class MarketFriendsPanel {
     private var _arrFriends:Array;
     private var _arrItems:Array;
     private var _shift:int = 0;
+    private var _additionalFriendItem:MarketFriendItem;
 
     private var g:Vars = Vars.getInstance();
 
@@ -59,6 +61,7 @@ public class MarketFriendsPanel {
         _btnDown.x = 275;
         _btnDown.y = 180;
         _wo.source.addChild(_btnDown);
+        _arrItems = [];
 
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
     }
@@ -66,7 +69,6 @@ public class MarketFriendsPanel {
     private function fillFriends(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         var item:MarketFriendItem;
-        _arrItems = [];
         _arrFriends = g.user.arrFriends.slice();
         _arrFriends.unshift(g.user);
         for (var i:int = 0; i < _arrFriends.length; i++) {
@@ -75,7 +77,6 @@ public class MarketFriendsPanel {
             _cont.addChild(item.source);
             _arrItems.push(item);
         }
-        _arrItems[0].activateIt(true);
 
         checkBtns();
         _btnDown.endClickCallback = function():void {moveCont(true)};
@@ -84,7 +85,7 @@ public class MarketFriendsPanel {
 
     private function moveCont(isTop:Boolean):void {
         if (isTop) {
-            if (_shift < _arrFriends.length - 3) {
+            if (_shift < _arrFriends.length - 3 + int(Boolean(_additionalFriendItem))) {
                 _shift++;
                 new TweenMax(_cont, .3, {y: _shift * (-110), ease:Linear.easeOut});
             }
@@ -105,7 +106,7 @@ public class MarketFriendsPanel {
             _btnUp.isTouchable = true;
             _btnUp.alpha = 1;
         }
-        if (_shift >= _arrFriends.length - 3) {
+        if (_shift >= _arrFriends.length - 3  + int(Boolean(_additionalFriendItem))) {
             _btnDown.isTouchable = false;
             _btnDown.alpha = .5;
         } else {
@@ -118,8 +119,59 @@ public class MarketFriendsPanel {
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].activateIt(false);
         }
+        if (_additionalFriendItem) _additionalFriendItem.activateIt(false);
         _wo.unFillItems();
         _wo.fillItemsByUser(_person);
+    }
+
+    public function addAdditionalUser(p:Someone):void {
+        var i:int;
+        for (i = 0; i < _arrItems.length; i++) {
+            _arrItems[i].activateIt(false);
+        }
+        if (p is TempUser) {
+            _additionalFriendItem = new MarketFriendItem(p, this);
+            _additionalFriendItem.source.y = 0;
+            _cont.addChild(_additionalFriendItem.source);
+            _additionalFriendItem.activateIt(true);
+            for (i = 0; i < _arrItems.length; i++) {
+                _arrItems[i].source.y = (i + 1) * 110;
+            }
+        } else {
+            _wo.unFillItems();
+            _wo.fillItemsByUser(p);
+            var index:int = _arrFriends.indexOf(p);
+            if (index > _arrFriends.length - 3) index = _arrFriends.length -3;
+            _shift = index;
+            _cont.y = _shift*(-110);
+        }
+    }
+
+    public function checkRemoveAdditionalUser():void {
+        if (_additionalFriendItem) {
+            _cont.removeChild(_additionalFriendItem.source);
+            _additionalFriendItem.clearIt();
+            _additionalFriendItem = null;
+            for (var i:int = 0; i < _arrItems.length; i++) {
+                _arrItems[i].source.y = i * 110;
+            }
+        }
+    }
+
+    public function activateUser(_curUser:Someone):void {
+        var i:int;
+        for (i = 0; i < _arrItems.length; i++) {
+            _arrItems[i].person == _curUser ? _arrItems[i].activateIt(true) : _arrItems[i].activateIt(false);
+        }
+        if (_additionalFriendItem) _additionalFriendItem.person == _curUser ? _additionalFriendItem.activateIt(true) : _additionalFriendItem.activateIt(false);
+    }
+
+    public function resetIt():void {
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _arrItems[i].activateIt(false);
+        }
+        _shift = 0;
+        _cont.y = 0;
     }
 }
 }

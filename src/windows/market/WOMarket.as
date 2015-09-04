@@ -39,13 +39,25 @@ public class WOMarket  extends Window {
     }
     private function onClickExit(e:Event):void {
         hideIt();
-//        clearIt();
     }
 
-    override public function showIt():void {
-        super.showIt();
-        _curUser = g.user;
+    override public function hideIt():void {
+        _friendsPanel.checkRemoveAdditionalUser();
+        unFillItems();
+        super.hideIt();
+    }
+
+    public function resetAll():void {
+        _friendsPanel.resetIt();
+    }
+
+    public function set curUser(p:Someone):void {
+        _curUser = p;
         fillItemsByUser(_curUser);
+    }
+
+    public function get curUser():Someone {
+        return _curUser;
     }
 
     private function addItems():void {
@@ -90,10 +102,7 @@ public class WOMarket  extends Window {
                 _arrItems[i].isUser = _curUser == g.user;
             }
         }
-    }
-
-    public function get curUser():Someone {
-        return _curUser;
+        _friendsPanel.activateUser(_curUser);
     }
 
     private function makeRefresh():void {
@@ -101,6 +110,11 @@ public class WOMarket  extends Window {
             _arrItems[i].unFillIt();
         }
         g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
+    }
+
+    public function addAdditionalUser(ob:Object):void {
+        curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
+        _friendsPanel.addAdditionalUser(_curUser);
     }
 
 }

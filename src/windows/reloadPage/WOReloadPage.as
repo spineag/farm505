@@ -13,7 +13,7 @@ public class WOReloadPage extends Window{
         createTempBG(300, 200, Color.GRAY);
         var txt:TextField = new TextField(300,100,"Перегрузите игру","Arial",30,Color.WHITE);
         txt.x = -150;
-        txt.x = -50;
+        txt.y = -50;
         _source.addChild(txt);
 
         showIt();

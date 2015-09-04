@@ -4,6 +4,7 @@
 package manager {
 public class ManagerPaper {
     private var _arr:Array;
+    private var g:Vars = Vars.getInstance();
 
     public function ManagerPaper() {
         _arr = [];
@@ -13,6 +14,7 @@ public class ManagerPaper {
         var ob:Object;
         _arr = [];
         for (var i:int=0; i<ar.length; i++) {
+            if (int(ar[i].user_id == g.user.userId)) continue;
             ob = {};
             ob.id = int(ar[i].id);
             ob.resourceId = int(ar[i].resource_id);
