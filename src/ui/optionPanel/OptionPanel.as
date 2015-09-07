@@ -174,15 +174,6 @@ public class OptionPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'fullscreen':
-                if (_boolean == true) {
-                    Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN;
-                    Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
-                    _boolean = false;
-                } else {
-                    Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
-                    Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
-                    _boolean = true;
-                }
                     try {
                         var func:Function = function(e:flash.events.Event) {
                             Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
