@@ -123,17 +123,18 @@ public class Containers {
     }
 
     public function dragGameCont(mouseP:Point):void {
+        var s:Number = g.cont.gameCont.scaleX;
         if (_startDragPointCont == null || _startDragPoint == null) return;
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
-        var oY:Number = g.matrixGrid.offsetY;
+        var oY:Number = g.matrixGrid.offsetY*s;
         if (gameCont.y > -oY) gameCont.y = -oY;
-        if (gameCont.y < -oY - g.realGameHeight + g.stageHeight)
-            gameCont.y = -oY - g.realGameHeight + g.stageHeight;
-        if (gameCont.x > g.realGameWidth/2 - MatrixGrid.DIAGONAL/2)
-            gameCont.x =  g.realGameWidth/2 - MatrixGrid.DIAGONAL/2;
-        if (gameCont.x < -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth)
-            gameCont.x =  -g.realGameWidth/2 - MatrixGrid.DIAGONAL/2 + g.stageWidth;
+        if (gameCont.y < -oY - g.realGameHeight*s + g.stageHeight)
+            gameCont.y = -oY - g.realGameHeight*s + g.stageHeight;
+        if (gameCont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
+            gameCont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
+        if (gameCont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + g.stageWidth)
+            gameCont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + g.stageWidth;
     }
 
     public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в загальній системі gameCont

@@ -7,9 +7,12 @@ import com.junkbyte.console.Cc;
 
 import flash.display.StageDisplayState;
 import flash.events.Event;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import manager.Vars;
+
+import map.MatrixGrid;
 
 import starling.animation.Tween;
 import starling.core.Starling;
@@ -172,6 +175,7 @@ public class OptionPanel {
     }
 
     private function onClick(reason:String):void {
+        var i:int;
         switch (reason) {
             case 'fullscreen':
                     try {
@@ -195,23 +199,16 @@ public class OptionPanel {
                     }
                 break;
             case 'scale_plus':
-                    // x <-
-                var i:int;
                 i = _arrCells.indexOf(g.cont.gameCont.scaleX);
                 if (i >= _arrCells.length-1) return;
                 i++;
-                g.cont.gameCont.scaleX = g.cont.gameCont.scaleY = _arrCells[i];
-                g.cont.gameCont.y -= g.matrixGrid.offsetY/2 + _arrCells[i];
-//              g.cont.gameCont.x -= _arrCells[i]/2;
+                makeScaling(_arrCells[i]);
                 break;
             case 'scale_minus':
-                    // x ->
                 i = _arrCells.indexOf(g.cont.gameCont.scaleX);
                 if (i <= 0 ) return;
                 i--;
-                g.cont.gameCont.scaleX = g.cont.gameCont.scaleY = _arrCells[i];
-                g.cont.gameCont.y += g.matrixGrid.offsetY/2 - _arrCells[i];
-//              g.cont.gameCont.x += _arrCells[i]/2;
+                makeScaling(_arrCells[i]);
                 break;
             case 'screenshot':
                 break;
@@ -236,6 +233,27 @@ public class OptionPanel {
         Starling.current.nativeStage.removeEventListener(flash.events.Event.RESIZE, onStageResize);
         Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
         Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+    }
+
+    private function makeScaling(s:Number):void {
+        var p:Point;
+        var cont:Sprite = g.cont.gameCont;
+        p = new Point();
+        p.x = g.stageWidth/2;
+        p.y = g.stageHeight/2;
+        p = cont.globalToLocal(p);
+        cont.scaleX = cont.scaleY = s;
+        p = cont.localToGlobal(p);
+        cont.x -= p.x - g.stageWidth/2;
+        cont.y -= p.y - g.stageHeight/2;
+        var oY:Number = g.matrixGrid.offsetY*s;
+        if (cont.y > -oY) cont.y = -oY;
+        if (cont.y < -oY - g.realGameHeight*s + g.stageHeight)
+            cont.y = -oY - g.realGameHeight*s + g.stageHeight;
+        if (cont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
+            cont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
+        if (cont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + g.stageWidth)
+            cont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + g.stageWidth;
     }
 }
 }
