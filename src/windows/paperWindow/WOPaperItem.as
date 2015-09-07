@@ -118,12 +118,12 @@ public class WOPaperItem {
             g.flyMessage.showIt(source, "Недостаточно денег");
             return;
         }
-        if (_dataResource.placeBuild = BuildType.PLACE_AMBAR) {
+        if (_dataResource.placeBuild == BuildType.PLACE_AMBAR) {
             if (g.userInventory.currentCountInAmbar + _data.resourceCount >= g.user.ambarMaxCount) {
                 g.flyMessage.showIt(source, "Амбар заполнен");
                 return;
             }
-        } else if (_dataResource.placeBuild = BuildType.PLACE_SKLAD) {
+        } else if (_dataResource.placeBuild == BuildType.PLACE_SKLAD) {
             if (g.userInventory.currentCountInSklad + _data.resourceCount >= g.user.skladMaxCount) {
                 g.flyMessage.showIt(source, "Склад заполнен");
                 return;

@@ -116,12 +116,12 @@ public class MarketItem {
                     return;
                 }
                 var d:Object = g.dataResource.objectResources[_dataFromServer.resourceId];
-                if (d.placeBuild = BuildType.PLACE_AMBAR) {
+                if (d.placeBuild == BuildType.PLACE_AMBAR) {
                     if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount >= g.user.ambarMaxCount) {
                         g.flyMessage.showIt(source, "Амбар заполнен");
                         return;
                     }
-                } else if (d.placeBuild = BuildType.PLACE_SKLAD) {
+                } else if (d.placeBuild == BuildType.PLACE_SKLAD) {
                     if (g.userInventory.currentCountInSklad + _dataFromServer.resourceCount >= g.user.skladMaxCount) {
                         g.flyMessage.showIt(source, "Склад заполнен");
                         return;
@@ -165,7 +165,6 @@ public class MarketItem {
                 }
                 animCoin();
                 unFillIt();
-
             }
         }
     }
@@ -181,7 +180,7 @@ public class MarketItem {
     }
 
     private function onAddToServer(ob:Object):void {
-        var obj = {};
+        var obj:Object = {};
         obj.id = int(ob.id);
         obj.buyerId = ob.buyer_id;
         obj.cost = int(ob.cost);
@@ -275,7 +274,6 @@ public class MarketItem {
         } else {
             im = new Image(g.resourceAtlas.getTexture(d.imageShop));
         }
-
         MCScaler.scale(im, 50, 50);
         var p:Point = new Point(_bg.width/2, _bg.height/2);
         p = source.localToGlobal(p);

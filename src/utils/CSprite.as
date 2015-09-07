@@ -10,6 +10,8 @@ import flash.geom.Rectangle;
 import flash.ui.Mouse;
 import flash.utils.ByteArray;
 
+import manager.Vars;
+
 import mouse.OwnMouse;
 
 import starling.display.Sprite;
@@ -29,6 +31,7 @@ public class CSprite extends Sprite {
     private var _bmd:BitmapData;
     private var _scale:Number;
 
+    private var g:Vars = Vars.getInstance();
     public function CSprite() {
         super();
 
@@ -36,6 +39,7 @@ public class CSprite extends Sprite {
         _needStrongCheckByteArray = false;
         _scale = 1;
         this.addEventListener(TouchEvent.TOUCH, onTouch);
+
     }
 
     private var b:Boolean;
@@ -56,6 +60,7 @@ public class CSprite extends Sprite {
 //        }
 
         if (te.getTouch(this, TouchPhase.MOVED)) {
+            g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
             if (_onMovedCallback != null) {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
             }

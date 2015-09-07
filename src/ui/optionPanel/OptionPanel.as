@@ -37,7 +37,7 @@ public class OptionPanel {
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
         _boolean = true;
         _arrCells = [];
-        _arrCells = [.25, .5, .75, 1, 1.25, 1.5, 1.75];
+        _arrCells = [.75, 1, 1.25, 1.5, 1.75];
     }
 
     public function fillBtns():void {
@@ -167,7 +167,6 @@ public class OptionPanel {
             g.starling.juggler.remove(tween);
         };
         g.starling.juggler.add(tween);
-
         _source.visible = false;
     }
 
@@ -177,7 +176,6 @@ public class OptionPanel {
                 if (_boolean == true) {
                     Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN;
                     Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
-
                     _boolean = false;
                 } else {
                     Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
@@ -186,19 +184,23 @@ public class OptionPanel {
                 }
                 break;
             case 'scale_plus':
-                    g.cont.gameCont.y = g.matrixGrid.offsetY - g.cont.gameCont.y;
-//                var i:int;
-//                i = _arrCells.indexOf(g.cont.gameCont.scaleX);
-//                if (i >= _arrCells.length-1) return;
-//                i++;
-//                g.cont.gameCont.scaleX = g.cont.gameCont.scaleY = _arrCells[i];
+                    // x <-
+                var i:int;
+                i = _arrCells.indexOf(g.cont.gameCont.scaleX);
+                if (i >= _arrCells.length-1) return;
+                i++;
+                g.cont.gameCont.scaleX = g.cont.gameCont.scaleY = _arrCells[i];
+                g.cont.gameCont.y -= g.matrixGrid.offsetY/2 + _arrCells[i];
+//              g.cont.gameCont.x -= _arrCells[i]/2;
                 break;
             case 'scale_minus':
-                var i:int;
+                    // x ->
                 i = _arrCells.indexOf(g.cont.gameCont.scaleX);
                 if (i <= 0 ) return;
                 i--;
                 g.cont.gameCont.scaleX = g.cont.gameCont.scaleY = _arrCells[i];
+                g.cont.gameCont.y += g.matrixGrid.offsetY/2 - _arrCells[i];
+//              g.cont.gameCont.x += _arrCells[i]/2;
                 break;
             case 'screenshot':
                 break;

@@ -122,7 +122,7 @@ public class Containers {
         }
     }
 
-    private function dragGameCont(mouseP:Point):void {
+    public function dragGameCont(mouseP:Point):void {
         if (_startDragPointCont == null || _startDragPoint == null) return;
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
