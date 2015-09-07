@@ -96,7 +96,7 @@ public class Cave extends AreaObject{
     protected function renderBuildCaveProgress():void {
         _leftBuildTime--;
         if (_leftBuildTime <= 0) {
-            g.gameDispatcher.removeFromTimer(renderBuildProgress);
+            g.gameDispatcher.removeFromTimer(renderBuildCaveProgress);
             clearCraftSprite();
             addTempGiftIcon();
             _stateBuild = STATE_WAIT_ACTIVATE;
