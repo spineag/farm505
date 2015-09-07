@@ -3,7 +3,10 @@
  */
 package ui.optionPanel {
 
+import com.junkbyte.console.Cc;
+
 import flash.display.StageDisplayState;
+import flash.events.Event;
 import flash.geom.Rectangle;
 
 import manager.Vars;
@@ -28,14 +31,11 @@ public class OptionPanel {
     private var _contAnim:CSprite;
     private var _contMusic:CSprite;
     private var _contSound:CSprite;
-    private var _boolean:Boolean;
     private var _arrCells:Array;
 
     private var g:Vars = Vars.getInstance();
 
     public function OptionPanel() {
-        Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
-        _boolean = true;
         _arrCells = [];
         _arrCells = [.75, 1, 1.25, 1.5, 1.75];
     }
@@ -55,10 +55,10 @@ public class OptionPanel {
             _contFullScreen.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
         };
         _contFullScreen.outCallback = function ():void {
-            _contFullScreen.filter = null
+            _contFullScreen.filter = null;
         };
-        _contFullScreen.endClickCallback = function ():void {
-            onClick('fullscreen')
+        _contFullScreen.startClickCallback = function ():void {
+            onClick('fullscreen');
         };
 
         _contScalePlus = new CSprite();
@@ -70,10 +70,10 @@ public class OptionPanel {
             _contScalePlus.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
         };
         _contScalePlus.outCallback = function ():void {
-            _contScalePlus.filter = null
+            _contScalePlus.filter = null;
         };
         _contScalePlus.endClickCallback = function ():void {
-            onClick('scale_plus')
+            onClick('scale_plus');
         };
 
         _contScaleMinus = new CSprite();
@@ -85,10 +85,10 @@ public class OptionPanel {
             _contScaleMinus.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
         };
         _contScaleMinus.outCallback = function ():void {
-            _contScaleMinus.filter = null
+            _contScaleMinus.filter = null;
         };
         _contScaleMinus.endClickCallback = function ():void {
-            onClick('scale_minus')
+            onClick('scale_minus');
         };
 
         _contScreenShot = new CSprite();
@@ -100,10 +100,10 @@ public class OptionPanel {
             _contScreenShot.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
         };
         _contScreenShot.outCallback = function ():void {
-            _contScreenShot.filter = null
+            _contScreenShot.filter = null;
         };
         _contScreenShot.endClickCallback = function ():void {
-            onClick('screenshot')
+            onClick('screenshot');
         };
 
         _contAnim = new CSprite();
@@ -115,10 +115,10 @@ public class OptionPanel {
             _contAnim.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
         };
         _contAnim.outCallback = function ():void {
-            _contAnim.filter = null
+            _contAnim.filter = null;
         };
         _contAnim.endClickCallback = function ():void {
-            onClick('anim')
+            onClick('anim');
         };
 
         _contMusic = new CSprite();
@@ -130,10 +130,10 @@ public class OptionPanel {
             _contMusic.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
         };
         _contMusic.outCallback = function ():void {
-            _contMusic.filter = null
+            _contMusic.filter = null;
         };
         _contMusic.endClickCallback = function ():void {
-            onClick('music')
+            onClick('music');
         };
 
         _contSound = new CSprite();
@@ -145,10 +145,10 @@ public class OptionPanel {
             _contSound.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
         };
         _contSound.outCallback = function ():void {
-            _contSound.filter = null
+            _contSound.filter = null;
         };
         _contSound.endClickCallback = function ():void {
-            onClick('sound')
+            onClick('sound');
         };
 
         var tween:Tween = new Tween(_source, 0.2);
@@ -167,6 +167,7 @@ public class OptionPanel {
             g.starling.juggler.remove(tween);
         };
         g.starling.juggler.add(tween);
+
         _source.visible = false;
     }
 
@@ -182,6 +183,25 @@ public class OptionPanel {
                     Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
                     _boolean = true;
                 }
+                    try {
+                        var func:Function = function(e:flash.events.Event) {
+                            Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
+                            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
+                                Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+                                Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
+                                Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+                                Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);
+                            } else {
+                                Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
+                                Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
+                                Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+                            }
+                            _contFullScreen.filter = null;
+                        };
+                        Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);
+                    } catch (e:Error) {
+                        Cc.ch('screen', 'Error:: Trouble with fullscreen: ' + e.message);
+                    }
                 break;
             case 'scale_plus':
                     // x <-
@@ -217,8 +237,14 @@ public class OptionPanel {
         if (event.keyCode == 27) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
             Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
-            _boolean = true;
+            Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
         }
+    }
+
+    private function onStageResize(e:flash.events.Event):void {
+        Starling.current.nativeStage.removeEventListener(flash.events.Event.RESIZE, onStageResize);
+        Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
+        Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
     }
 }
 }

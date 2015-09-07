@@ -82,6 +82,12 @@ public class Train extends AreaObject{
             }
             g.directServer.getTrainPack(fillList);
             renderTrainWork();
+        } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            // do nothing
+        } else if (_stateBuild == STATE_BUILD) {
+            // do nothing
+        } else if (_stateBuild == STATE_UNACTIVE) {
+            // do nothing
         } else {
             Cc.error('Train:: wrong state');
             return;
@@ -123,12 +129,12 @@ public class Train extends AreaObject{
             }
         } else {
             _stateBuild = STATE_UNACTIVE;
-            createBuild();
+            createBrokenTrain();
         }
     }
 
     private function createBrokenTrain():void {
-        var im:Image = new Image(g.tempBuildAtlas.getTexture('train'));
+        var im:Image = new Image(g.tempBuildAtlas.getTexture('train_broken'));
         im.x = _dataBuild.innerX;
         im.y = _dataBuild.innerY;
         _build.addChild(im);
@@ -144,7 +150,7 @@ public class Train extends AreaObject{
     protected function renderBuildTrainProgress():void {
         _leftBuildTime--;
         if (_leftBuildTime <= 0) {
-            g.gameDispatcher.removeFromTimer(renderBuildProgress);
+            g.gameDispatcher.removeFromTimer(renderBuildTrainProgress);
             clearCraftSprite();
             addTempGiftIcon();
             _stateBuild = STATE_WAIT_ACTIVATE;
@@ -192,7 +198,6 @@ public class Train extends AreaObject{
                 new XPStar(start.x, start.y, _dataBuild.xpForBuild);
             }
             _stateBuild = STATE_READY;
-            g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
             _counter = TIME_READY;
             renderTrainWork();
             _source.filter = null;
@@ -213,6 +218,7 @@ public class Train extends AreaObject{
 
     private function onAddUserTrain(s_id:String):void {
         _train_db_id = s_id;
+        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
     }
 
     private function onBuy():void {
