@@ -46,6 +46,7 @@ public class Farm extends AreaObject{
         _house.hoverCallback = onHoverHouse;
         _house.endClickCallback = onClickHouse;
         _house.outCallback = onOutHouse;
+        _source.releaseContDrag = true;
 
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);

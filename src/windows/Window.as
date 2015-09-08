@@ -31,6 +31,7 @@ public class Window {
     }
 
     public function showIt():void {
+        g.cont.addGameContListener(false);
         _source.x = Starling.current.nativeStage.stageWidth/2;
         _source.y = Starling.current.nativeStage.stageHeight/2;
         while (g.cont.windowsCont.numChildren) {
@@ -48,6 +49,7 @@ public class Window {
             g.cont.windowsCont.removeChildAt(0);
         }
         g.currentOpenedWindow = null;
+        g.cont.addGameContListener(true);
     }
 
     public function destroyedIt():void {

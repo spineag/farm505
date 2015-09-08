@@ -21,6 +21,7 @@ public class Wild extends AreaObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
+        _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
         _isOnHover = false;
     }

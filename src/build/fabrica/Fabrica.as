@@ -49,6 +49,7 @@ public class Fabrica extends AreaObject {
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
+        _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
 
         _source.addChild(_craftSprite);
@@ -114,7 +115,7 @@ public class Fabrica extends AreaObject {
         } else if (_stateBuild == STATE_BUILD) {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
                 g.townArea.moveBuild(this);
-            }0
+            }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             _stateBuild = STATE_ACTIVE;
             g.user.userBuildingData[_dataBuild.id].isOpen = 1;

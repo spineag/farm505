@@ -56,6 +56,7 @@ public class Ridge extends AreaObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
+        _source.releaseContDrag = true;
         _isOnHover = false;
 
         _craftSprite = new Sprite();
