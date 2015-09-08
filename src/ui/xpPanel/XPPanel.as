@@ -7,6 +7,8 @@ import build.WorldObject;
 
 import manager.Vars;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 
 import starling.display.Sprite;
@@ -33,7 +35,6 @@ public class XPPanel {
         g.cont.interfaceCont.addChild(_source);
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-//        _contXPProgres = new Sprite();
         _txtLevel = new TextField(50,50,"","Arial",18,Color.WHITE);
         _txtXP = new TextField(100,100,"","Arial",18,Color.WHITE);
         _XPProgres = new Image(g.interfaceAtlas.getTexture("xp_progres_part"));
@@ -57,6 +58,10 @@ public class XPPanel {
         _source.addChild(_txtLevel);
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
         checkXP();
+    }
+
+    public function onResize():void {
+        _source.x = Starling.current.nativeStage.stageWidth - g.stageWidth;
     }
 
     public function addXP(count:int):void{

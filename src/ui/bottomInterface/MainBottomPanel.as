@@ -4,6 +4,8 @@
 package ui.bottomInterface {
 import manager.Vars;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
@@ -91,11 +93,12 @@ public class MainBottomPanel {
                 }
                 break;
             case 'option':
+                 b = g.optionPanel.isShowed;
                  if (b == true){
-                        g.optionPanel.fillBtns();
+                        g.optionPanel.showIt();
                         b = false;
                  } else if (b == false){
-                        g.optionPanel.onOut();
+                        g.optionPanel.hideIt();
                         b = true;
                  }
 
@@ -110,6 +113,11 @@ public class MainBottomPanel {
                 }
                 break;
         }
+    }
+
+    public function onResize():void {
+        _source.x = Starling.current.nativeStage.stageWidth - g.stageWidth;
+        _source.y = Starling.current.nativeStage.stageHeight - 150;
     }
 
 }

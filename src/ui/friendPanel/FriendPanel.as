@@ -4,6 +4,8 @@
 package ui.friendPanel {
 import manager.Vars;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
@@ -31,6 +33,11 @@ public class FriendPanel {
         _source.addChild(_imageBg);
         _source.x = 115;
         _source.y = g.stageHeight - 120;
+    }
+
+    public function onResize():void {
+        _source.x = Starling.current.nativeStage.stageWidth - g.stageWidth + 115;
+        _source.y = Starling.current.nativeStage.stageHeight - 120;
     }
 
     public function showIt():void {

@@ -4,6 +4,8 @@
 package windows {
 import manager.Vars;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 import starling.display.Quad;
 
@@ -29,6 +31,8 @@ public class Window {
     }
 
     public function showIt():void {
+        _source.x = Starling.current.nativeStage.stageWidth/2;
+        _source.y = Starling.current.nativeStage.stageHeight/2;
         while (g.cont.windowsCont.numChildren) {
             g.cont.windowsCont.removeChildAt(0);
         }
