@@ -223,7 +223,11 @@ public class Train extends AreaObject{
 
     private function onAddUserTrain(s_id:String):void {
         _train_db_id = s_id;
-        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onUpdate);
+    }
+
+    private function onUpdate():void {
+        g.directServer.getTrainPack(fillList);
     }
 
     private function onBuy():void {

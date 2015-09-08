@@ -134,7 +134,7 @@ public class Cave extends AreaObject{
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
                 _source.filter = null;
-                if (!g.woCave.isWindowFill) g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
+                g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
                 g.woCave.showIt();
                 g.hint.hideIt();
             } else {
@@ -162,6 +162,7 @@ public class Cave extends AreaObject{
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
+            _source.addChild(_craftSprite);
             var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
             im.x = _dataBuild.innerX;
             im.y = _dataBuild.innerY;
@@ -191,6 +192,7 @@ public class Cave extends AreaObject{
     private function onStartBuildingResponse(value:Boolean):void {}
 
     private function onItemClick(id:int):void {
+        g.userInventory.addResource(id, -1);
         var v:Number = _dataBuild.variaty[_dataBuild.idResourceRaw.indexOf(id)];
         var c:int = 2 + int(Math.random()*3);
         var l1:Number = v;
