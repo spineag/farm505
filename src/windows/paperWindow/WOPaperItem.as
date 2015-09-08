@@ -119,13 +119,15 @@ public class WOPaperItem {
             return;
         }
         if (_dataResource.placeBuild == BuildType.PLACE_AMBAR) {
-            if (g.userInventory.currentCountInAmbar + _data.resourceCount >= g.user.ambarMaxCount) {
-                g.flyMessage.showIt(source, "Амбар заполнен");
+            if (g.userInventory.currentCountInAmbar + _data.resourceCount > g.user.ambarMaxCount) {
+//                g.flyMessage.showIt(source, "Амбар заполнен");
+                g.woAmbarFilled.showAmbarFilled(true);
                 return;
             }
         } else if (_dataResource.placeBuild == BuildType.PLACE_SKLAD) {
-            if (g.userInventory.currentCountInSklad + _data.resourceCount >= g.user.skladMaxCount) {
-                g.flyMessage.showIt(source, "Склад заполнен");
+            if (g.userInventory.currentCountInSklad + _data.resourceCount > g.user.skladMaxCount) {
+//                g.flyMessage.showIt(source, "Склад заполнен");
+                g.woAmbarFilled.showAmbarFilled(false);
                 return;
             }
         }

@@ -112,7 +112,9 @@ public class Fabrica extends AreaObject {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
         } else if (_stateBuild == STATE_BUILD) {
-
+            if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+                g.townArea.moveBuild(this);
+            }0
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             _stateBuild = STATE_ACTIVE;
             g.user.userBuildingData[_dataBuild.id].isOpen = 1;
