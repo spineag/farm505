@@ -6,6 +6,8 @@ import manager.Vars;
 
 import mouse.ToolsModifier;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 
 import starling.display.Sprite;
@@ -39,8 +41,13 @@ public class ToolsPanel {
         _source.addChild(_imageBg);
         _source.addChild(_imageTab);
         _source.addChild(_txt);
-        _source.x = g.stageWidth/2 - 50;
+        _source.x = g.stageWidth - 550;
         _source.y = g.stageHeight - 120;
+    }
+
+    public function onResize():void {
+        _source.x = Starling.current.nativeStage.stageHeight - 550;
+        _source.y = Starling.current.nativeStage.stageHeight - 120;
     }
 
     public function showIt():void {

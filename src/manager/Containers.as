@@ -9,6 +9,7 @@ import map.MatrixGrid;
 import mouse.ToolsModifier;
 
 import starling.animation.Tween;
+import starling.core.Starling;
 
 import starling.display.Sprite;
 import starling.events.TouchEvent;
@@ -129,12 +130,12 @@ public class Containers {
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
         var oY:Number = g.matrixGrid.offsetY*s;
         if (gameCont.y > -oY) gameCont.y = -oY;
-        if (gameCont.y < -oY - g.realGameHeight*s + g.stageHeight)
-            gameCont.y = -oY - g.realGameHeight*s + g.stageHeight;
+        if (gameCont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)
+            gameCont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
         if (gameCont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
             gameCont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
-        if (gameCont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + g.stageWidth)
-            gameCont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + g.stageWidth;
+        if (gameCont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
+            gameCont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
     }
 
     public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в загальній системі gameCont
@@ -142,8 +143,8 @@ public class Containers {
         var newX:int;
         var newY:int;
 
-        newX = -(_x - g.stageWidth/2); // - g.realGameWidth/2;
-        newY = -(_y - g.stageHeight/2);// - g.matrixGrid.offsetY;
+        newX = -(_x - Starling.current.nativeStage.stageWidth/2); // - g.realGameWidth/2;
+        newY = -(_y - Starling.current.nativeStage.stageHeight/2);// - g.matrixGrid.offsetY;
 //
         if (needQuick) {
             gameCont.x = newX;

@@ -10,6 +10,8 @@ import manager.Vars;
 
 import resourceItem.ResourceItem;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -68,6 +70,10 @@ public class CraftPanel {
         _skladImage.x = 300;
         _source.addChild(_skladImage);
         _skladImage.visible = false;
+    }
+
+    public function onResize():void {
+        _source.x = Starling.current.nativeStage.stageWidth/2;
     }
 
     public function showIt(place:int):void {

@@ -16,6 +16,7 @@ import map.MatrixGrid;
 
 import starling.animation.Tween;
 import starling.core.Starling;
+import starling.core.Starling;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -41,12 +42,13 @@ public class OptionPanel {
     public function OptionPanel() {
         _arrCells = [];
         _arrCells = [.75, 1, 1.25, 1.5, 1.75];
+        fillBtns();
     }
 
-    public function fillBtns():void {
+    private function fillBtns():void {
         _source = new Sprite();
         _source.x = g.stageWidth;
-        _source.y = 60;
+        _source.y = 100;
         g.cont.interfaceCont.addChild(_source);
         var im:Image;
 
@@ -153,9 +155,12 @@ public class OptionPanel {
         _contSound.endClickCallback = function ():void {
             onClick('sound');
         };
+    }
 
+    public function showIt():void {
+        _source.visible = true;
         var tween:Tween = new Tween(_source, 0.2);
-        tween.moveTo(g.stageWidth - 50, _source.y);
+        tween.moveTo(Starling.current.nativeStage.stageWidth - 50, _source.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
 
@@ -163,21 +168,25 @@ public class OptionPanel {
         g.starling.juggler.add(tween);
     }
 
-    public function onOut():void {
+    public function hideIt():void {
         var tween:Tween = new Tween(_source, 0.2);
-        tween.moveTo(_source.x, _source.y);
+        tween.moveTo(_source.x + 50, _source.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
+            _source.visible = false;
         };
         g.starling.juggler.add(tween);
+    }
 
-        _source.visible = false;
+    public function get isShowed():Boolean {
+        return _source.visible;
     }
 
     private function onClick(reason:String):void {
         var i:int;
         switch (reason) {
             case 'fullscreen':
+                    hideIt();
                     try {
                         var func:Function = function(e:flash.events.Event) {
                             Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
@@ -186,12 +195,17 @@ public class OptionPanel {
                                 Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
                                 Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
                                 Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);
+                                g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
+                                g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
                             } else {
                                 Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
                                 Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
                                 Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+                                g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
+                                g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
                             }
                             _contFullScreen.filter = null;
+                            makeResizeForGame();
                         };
                         Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);
                     } catch (e:Error) {
@@ -226,6 +240,9 @@ public class OptionPanel {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
             Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
             Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
+            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
+            makeResizeForGame();
         }
     }
 
@@ -233,6 +250,29 @@ public class OptionPanel {
         Starling.current.nativeStage.removeEventListener(flash.events.Event.RESIZE, onStageResize);
         Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
         Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+        g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
+        g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
+        makeResizeForGame();
+    }
+
+    private function makeResizeForGame():void {
+        var cont:Sprite = g.cont.gameCont;
+        var s:Number = cont.scaleX;
+        var oY:Number = g.matrixGrid.offsetY*s;
+        if (cont.y > -oY) cont.y = -oY;
+        if (cont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)
+            cont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
+        if (cont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
+            cont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
+        if (cont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
+            cont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
+        g.bottomPanel.onResize();
+        g.craftPanel.onResize();
+        g.friendPanel.onResize();
+        g.toolsPanel.onResize();
+        g.xpPanel.onResize();
+        _source.x = Starling.current.nativeStage.stageWidth;
+        _source.y = Starling.current.nativeStage.stageHeight - g.stageHeight + 100;
     }
 
     private function makeScaling(s:Number):void {
