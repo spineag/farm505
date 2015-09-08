@@ -20,7 +20,6 @@ public class MainBottomPanel {
     private var _friendsBtn:CSprite;
     private var _toolsBtn:CSprite;
     private var _optionBtn:CSprite;
-    private var b:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -31,7 +30,6 @@ public class MainBottomPanel {
         _bg.x = 837;
         _bg.y = 4;
         _source.addChild(_bg);
-        b = true;
         fillBtns();
     }
 
@@ -81,34 +79,32 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
+                    if (g.toolsPanel.isShowed) g.toolsPanel.hideIt();
+                    if (g.optionPanel.isShowed) g.optionPanel.hideIt();
+                    if (g.friendPanel.isShowed) g.friendPanel.hideIt();
                     g.woShop.showIt();
                 break;
             case 'tools':
-                if (b == true){
-                    g.toolsPanel.showIt();
-                    b = false;
-                } else if (b == false){
+                if (g.toolsPanel.isShowed) {
                     g.toolsPanel.hideIt();
-                    b = true;
+                } else {
+                    if (g.friendPanel.isShowed) g.friendPanel.hideIt();
+                    g.toolsPanel.showIt();
                 }
                 break;
             case 'option':
-                 if (b == true){
-                        g.optionPanel.showIt();
-                        b = false;
-                 } else if (b == false){
-                        g.optionPanel.hideIt();
-                        b = true;
+                 if (g.optionPanel.isShowed) {
+                     g.optionPanel.hideIt();
+                 } else {
+                     g.optionPanel.showIt();
                  }
-
                 break;
             case 'friends':
-                if (b == true){
-                    g.friendPanel.showIt();
-                    b = false;
-                } else if (b == false){
+                if (g.friendPanel.isShowed) {
                     g.friendPanel.hideIt();
-                    b = true;
+                } else {
+                    if (g.toolsPanel.isShowed) g.toolsPanel.hideIt();
+                    g.friendPanel.showIt();
                 }
                 break;
         }

@@ -26,6 +26,7 @@ public class FriendPanel {
     private var _txtLvl:TextField;
     private var _imageBg:Image;
 
+
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
         _source = new Sprite();
@@ -33,6 +34,9 @@ public class FriendPanel {
         _source.addChild(_imageBg);
         _source.x = 115;
         _source.y = g.stageHeight - 120;
+        g.cont.interfaceCont.addChild(_source);
+        createList();
+        _source.visible = false;
     }
 
     public function onResize():void {
@@ -41,12 +45,16 @@ public class FriendPanel {
     }
 
     public function showIt():void {
-    g.cont.interfaceCont.addChild(_source);
-        createList();
+//        updateList();
+        _source.visible = true;
     }
 
     public function hideIt():void {
-        g.cont.interfaceCont.removeChild(_source);
+        _source.visible = false;
+    }
+
+    public function get isShowed():Boolean {
+        return _source.visible;
     }
 
     private function createList():void {

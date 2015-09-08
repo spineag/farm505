@@ -180,6 +180,10 @@ public class OptionPanel {
         g.starling.juggler.add(tween);
     }
 
+    public function get isShowed():Boolean {
+        return _source.visible;
+    }
+
     private function onClick(reason:String):void {
         var i:int;
         switch (reason) {
@@ -286,12 +290,12 @@ public class OptionPanel {
         cont.y -= p.y - g.stageHeight/2;
         var oY:Number = g.matrixGrid.offsetY*s;
         if (cont.y > -oY) cont.y = -oY;
-        if (cont.y < -oY - g.realGameHeight*s + g.stageHeight)
-            cont.y = -oY - g.realGameHeight*s + g.stageHeight;
+        if (cont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)
+            cont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
         if (cont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
             cont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
-        if (cont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + g.stageWidth)
-            cont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + g.stageWidth;
+        if (cont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
+            cont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
     }
 }
 }
