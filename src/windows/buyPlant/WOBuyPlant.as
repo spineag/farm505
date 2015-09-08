@@ -4,6 +4,8 @@
 package windows.buyPlant {
 import build.ridge.Ridge;
 
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import starling.events.Event;
@@ -27,6 +29,11 @@ public class WOBuyPlant extends Window {
 
     private function onClickExit(e:Event):void {
         hideIt();
+    }
+
+    override public function hideIt():void {
+        _ridge = null;
+        super.hideIt();
     }
 
     public function showItWithParams(ridge:Ridge):void {
@@ -66,16 +73,11 @@ public class WOBuyPlant extends Window {
     }
 
     private function onClickItem(data:Object):void {
-        var count:int;
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].unfillIt();
         }
-        hideIt();
-//        if (!g.user.checkResource(data,1)) return;
         _ridge.fillPlant(data);
-//        g.userInventory.addResource(data.id,-1);
-//        count = g.userInventory.getCountResourceById();
-
+        hideIt();
     }
 }
 }

@@ -70,7 +70,7 @@ public class Ridge extends AreaObject{
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.gameDispatcher.addEnterFrame(countEnterFrame);
 
-        }
+        };
         g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
     }
 
@@ -110,6 +110,8 @@ public class Ridge extends AreaObject{
                     _plant = null;
                 };
                 var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2, f1);
+                item.flyIt();
+                onOut();
 //
                 g.mouseHint.hideHintMouse();
             }
@@ -131,9 +133,9 @@ public class Ridge extends AreaObject{
             Cc.error('Try to plant already planted ridge');
             return;
         }
+        _stateRidge = GROW1;
         if (!isFromServer && !g.userInventory.checkResource(data,1)) return;
         if (!isFromServer) g.userInventory.addResource(data.id, -1);
-        _stateRidge = GROW1;
         _dataPlant = data;
         _plant = new PlantOnRidge(this, _dataPlant);
         if (timeWork < _dataPlant.buildTime) {
