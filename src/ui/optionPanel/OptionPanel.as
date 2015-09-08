@@ -50,6 +50,7 @@ public class OptionPanel {
         _source.x = g.stageWidth;
         _source.y = 100;
         g.cont.interfaceCont.addChild(_source);
+        _source.visible = false;
         var im:Image;
 
         _contFullScreen = new CSprite();
@@ -160,7 +161,8 @@ public class OptionPanel {
     public function showIt():void {
         _source.visible = true;
         var tween:Tween = new Tween(_source, 0.2);
-        tween.moveTo(Starling.current.nativeStage.stageWidth - 50, _source.y);
+        _source.x = Starling.current.nativeStage.stageWidth;
+        tween.moveTo(_source.x - 50, _source.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
 
@@ -178,15 +180,10 @@ public class OptionPanel {
         g.starling.juggler.add(tween);
     }
 
-    public function get isShowed():Boolean {
-        return _source.visible;
-    }
-
     private function onClick(reason:String):void {
         var i:int;
         switch (reason) {
             case 'fullscreen':
-                    hideIt();
                     try {
                         var func:Function = function(e:flash.events.Event) {
                             Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
@@ -273,6 +270,7 @@ public class OptionPanel {
         g.xpPanel.onResize();
         _source.x = Starling.current.nativeStage.stageWidth;
         _source.y = Starling.current.nativeStage.stageHeight - g.stageHeight + 100;
+        if (_source.visible) _source.x -= 50;
     }
 
     private function makeScaling(s:Number):void {

@@ -93,7 +93,6 @@ public class MainBottomPanel {
                 }
                 break;
             case 'option':
-                 b = g.optionPanel.isShowed;
                  if (b == true){
                         g.optionPanel.showIt();
                         b = false;
