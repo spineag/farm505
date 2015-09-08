@@ -37,6 +37,8 @@ public class Train extends AreaObject{
     private var _train_db_id:String; // id для поезда юзера в табличке user_train
     private var TIME_READY:int = 1200; // время, которое ожидает поезд для загрузки продуктов
     private var TIME_WAIT:int = 600;  // время, на которое уезжает поезд
+    private var _isOnHover:Boolean;
+    private var _count:int;
 
     public function Train(_data:Object) {
         super(_data);
@@ -160,7 +162,10 @@ public class Train extends AreaObject{
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
         g.hint.showIt(_dataBuild.name, "0");
-
+        _isOnHover = true;
+        if (_stateBuild == STATE_BUILD) {
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+        }
     }
 
     private function onClick():void {
@@ -234,6 +239,11 @@ public class Train extends AreaObject{
     private function onOut():void {
         _source.filter = null;
         g.hint.hideIt();
+        _isOnHover = false;
+        if (_stateBuild == STATE_BUILD) {
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+        }
+
     }
 
     private function fillList(ob:Object):void {
@@ -289,6 +299,20 @@ public class Train extends AreaObject{
                 g.woTrain.onClickExit();
             } else {
                 Cc.error('renderTrainWork:: wrong _stateBuild');
+            }
+        }
+    }
+
+    private function countEnterFrame():void {
+        _count--;
+        if(_count <=0){
+            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+            if (_isOnHover == true) {
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _leftBuildTime, _dataBuild.cost, _dataBuild.name);
+            }
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.timerHint.hideIt();
             }
         }
     }
