@@ -36,6 +36,8 @@ import windows.cave.WOBuyCave;
 
 public class Cave extends AreaObject{
     private var _woBuy:WOBuyCave;
+    private var _isOnHover:Boolean;
+    private var _count:int;
 
     public function Cave(data:Object) {
         super (data);
@@ -104,13 +106,21 @@ public class Cave extends AreaObject{
     }
 
     private function onHover():void {
+        _isOnHover = true;
         _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
         g.hint.showIt(_dataBuild.name, "0");
+        if (_stateBuild == STATE_BUILD) {
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+        }
     }
 
     private function onOut():void {
+        _isOnHover = false;
         _source.filter = null;
         g.hint.hideIt();
+        if (_stateBuild == STATE_BUILD) {
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+        }
     }
 
     private function onClick():void {
@@ -209,6 +219,20 @@ public class Cave extends AreaObject{
                 item = new ResourceItem();
                 item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[3]]);
                 craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
+            }
+        }
+    }
+
+    private function countEnterFrame():void {
+        _count--;
+        if(_count <=0){
+            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+            if (_isOnHover == true) {
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _leftBuildTime, _dataBuild.cost, _dataBuild.name);
+            }
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.timerHint.hideIt();
             }
         }
     }
