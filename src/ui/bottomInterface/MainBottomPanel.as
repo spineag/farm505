@@ -20,6 +20,7 @@ public class MainBottomPanel {
     private var _friendsBtn:CSprite;
     private var _toolsBtn:CSprite;
     private var _optionBtn:CSprite;
+    private var _cancelBtn:CSprite;
     private var b:Boolean;
     private var g:Vars = Vars.getInstance();
 
@@ -46,6 +47,18 @@ public class MainBottomPanel {
         _shopBtn.hoverCallback = function():void { _shopBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1) };
         _shopBtn.outCallback = function():void { _shopBtn.filter = null };
         _shopBtn.endClickCallback = function():void {onClick('shop')};
+        _shopBtn.visible = true;
+
+        _cancelBtn = new CSprite();
+        im = new Image(g.mapAtlas.getTexture('Cancel'));
+        _cancelBtn.addChild(im);
+        _cancelBtn.x = 902;
+        _cancelBtn.y = 56;
+        _source.addChild(_cancelBtn);
+        _cancelBtn.hoverCallback = function():void { _cancelBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1) };
+        _cancelBtn.outCallback = function():void { _cancelBtn.filter = null };
+        _cancelBtn.endClickCallback = function():void {onClick('cancel')};
+        _cancelBtn.visible = false;
 
         _optionBtn = new CSprite();
         im = new Image(g.interfaceAtlas.getTexture('option_icon'));
@@ -82,6 +95,9 @@ public class MainBottomPanel {
         switch (reason) {
             case 'shop':
                     g.woShop.showIt();
+                break;
+            case 'cancel':
+//                g.woShop.showIt();
                 break;
             case 'tools':
                 if (b == true){

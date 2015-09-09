@@ -156,6 +156,7 @@ public class MarketItem {
             }
         } else {
             if (_isUser) {
+                g.userInventory.addMoney(2,_dataFromServer.cost);
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {
                     if (g.user.marketItems[i].id == _dataFromServer.id) {
@@ -225,7 +226,6 @@ public class MarketItem {
         g.cont.animationsResourceCont.addChild(s);
 
         var f1:Function = function():void {
-            g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _countMoney);
             g.cont.animationsResourceCont.removeChild(s);
             s.dispose();
             s = null;
