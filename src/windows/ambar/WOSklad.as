@@ -78,9 +78,9 @@ public class WOSklad extends Window {
         _source.addChild(_txtCount);
 
         _updateSprite = new Sprite();
-        _item1 = new UpdateItem(g.dataBuilding.objectBuilding[13].upInstrumentId1);
-        _item2 = new UpdateItem(g.dataBuilding.objectBuilding[13].upInstrumentId2);
-        _item3 = new UpdateItem(g.dataBuilding.objectBuilding[13].upInstrumentId3);
+        _item1 = new UpdateItem(g.dataBuilding.objectBuilding[13].upInstrumentId1, false);
+        _item2 = new UpdateItem(g.dataBuilding.objectBuilding[13].upInstrumentId2, false);
+        _item3 = new UpdateItem(g.dataBuilding.objectBuilding[13].upInstrumentId3, false);
         _item1.onBuyCallback = updateMakeUpdateBtn;
         _item2.onBuyCallback = updateMakeUpdateBtn;
         _item3.onBuyCallback = updateMakeUpdateBtn;
@@ -133,6 +133,7 @@ public class WOSklad extends Window {
     }
 
     private function unfillItems():void {
+        _scrollSprite.resetAll();
         for (var i:int = 0; i < _arrCells.length; i++) {
             _arrCells[i].clearIt();
         }
@@ -169,7 +170,7 @@ public class WOSklad extends Window {
     }
 
     private function onUpdate():void {
-        var needCountForUpdate:int = g.dataBuilding.objectBuilding[13].startCountInstrumets + g.dataBuilding.objectBuilding[13].deltaCountAfterUpgrade * g.user.skladLevel;
+        var needCountForUpdate:int = g.dataBuilding.objectBuilding[13].startCountInstrumets + g.dataBuilding.objectBuilding[13].deltaCountAfterUpgrade * (g.user.skladLevel-1);
         g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId1, - needCountForUpdate);
         g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId2, - needCountForUpdate);
         g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId3, - needCountForUpdate);
@@ -182,7 +183,7 @@ public class WOSklad extends Window {
         _item2.updateIt();
         _item3.updateIt();
         updateMakeUpdateBtn();
-        if (g.useDataFromServer) g.directServer.updateUserAmbar(false, g.user.ambarLevel, g.user.ambarMaxCount, null);
+        if (g.useDataFromServer) g.directServer.updateUserAmbar(2, g.user.skladLevel, g.user.skladMaxCount, null);
         unfillItems();
         fillItems();
     }

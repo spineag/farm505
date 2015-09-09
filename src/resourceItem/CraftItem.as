@@ -49,8 +49,14 @@ public class CraftItem {
         parent.addChild(_source);
         _source.endClickCallback = flyIt;
         _txtNumber = new TextField(50,50," ","Arial",18,Color.WHITE);
+        _txtNumber.x = 15;
         _txtNumber.y = 25;
         _source.addChild(_txtNumber);
+    }
+
+    public function removeDefaultCallbacks():void {
+        _source.endClickCallback = null;
+        _source.touchable = false;
     }
 
     public function set callback(f:Function):void {
@@ -86,10 +92,11 @@ public class CraftItem {
         }
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
-        _source.parent.removeChild(_source);
+        if (_source.parent && _source.parent.contains(_source)) _source.parent.removeChild(_source);
 
-        _image.width = 100;
-        _image.scaleY = _image.scaleX;
+//        _image.width = 100;
+        _image.scaleY = _image.scaleX = 1;
+        _source.scaleY = _source.scaleX = 1;
         MCScaler.scale(_image, 50, 50);
         var endPoint:Point = g.craftPanel.pointXY();
         _source.x = start.x;
@@ -116,7 +123,11 @@ public class CraftItem {
         var v:Number = 250;
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
         new XPStar(_source.x,_source.y,_resourceItem.craftXP);
-        _txtNumber.text = "2";
+        if (_count > 1) {
+            _txtNumber.text = String(_count);
+        } else {
+            _txtNumber.text = '';
+        }
     }
 
 

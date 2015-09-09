@@ -134,6 +134,7 @@ public class WOAmbar extends Window {
     }
 
     private function unfillItems():void {
+        _scrollSprite.resetAll();
         for (var i:int = 0; i < _arrCells.length; i++) {
             _arrCells[i].clearIt();
         }
@@ -170,7 +171,7 @@ public class WOAmbar extends Window {
     }
 
     private function onUpdate():void {
-        var needCountForUpdate:int = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * g.user.ambarLevel;
+        var needCountForUpdate:int = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * (g.user.ambarLevel-1);
         g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId1, - needCountForUpdate);
         g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId2, - needCountForUpdate);
         g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId3, - needCountForUpdate);
@@ -183,7 +184,7 @@ public class WOAmbar extends Window {
         _item2.updateIt();
         _item3.updateIt();
         updateMakeUpdateBtn();
-        if (g.useDataFromServer) g.directServer.updateUserAmbar(true, g.user.ambarLevel, g.user.ambarMaxCount, null);
+        if (g.useDataFromServer) g.directServer.updateUserAmbar(1, g.user.ambarLevel, g.user.ambarMaxCount, null);
         unfillItems();
         fillItems();
     }

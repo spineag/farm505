@@ -2096,7 +2096,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserAmbar(isAmbar:Boolean, newLevel:int, newMaxCount:int, callback:Function):void {
+    public function updateUserAmbar(isAmbar:int, newLevel:int, newMaxCount:int, callback:Function):void {
         if (!g.useDataFromServer) return;
 
         var loader:URLLoader = new URLLoader();
@@ -2106,7 +2106,7 @@ public class DirectServer {
         Cc.ch('server', 'updateUserAmbar', 1);
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
-        isAmbar ? variables.isAmbar = 1 : variables.isAmbar = 0;
+        variables.isAmbar = isAmbar;
         variables.newLevel = newLevel;
         variables.newMaxCount = newMaxCount;
         request.data = variables;
