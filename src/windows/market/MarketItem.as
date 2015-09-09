@@ -269,7 +269,7 @@ public class MarketItem {
         var im:Image;
         if (d.url == 'plantAtlas') {
             im = new Image(g.plantAtlas.getTexture(d.imageShop));
-        } else if (d.utr == 'instrumentAtlas') {
+        } else if (d.url == 'instrumentAtlas') {
             im = new Image(g.instrumentAtlas.getTexture(d.imageShop));
         } else {
             im = new Image(g.resourceAtlas.getTexture(d.imageShop));

@@ -35,6 +35,7 @@ public class WOPaper extends Window{
     }
 
     public function showItMenu():void {
+        fillItems();
         showIt();
     }
 

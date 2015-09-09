@@ -16,15 +16,11 @@ import manager.Vars;
 import resourceItem.ResourceItem;
 
 import starling.display.Image;
-import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import user.Someone;
-
 import utils.CSprite;
-
 import utils.MCScaler;
 
 public class WOPaperItem {
@@ -92,13 +88,10 @@ public class WOPaperItem {
         _dataResource = g.dataResource.objectResources[_data.resourceId];
         if (_dataResource.buildType == BuildType.INSTRUMENT) {
             _imageItem = new Image(g.instrumentAtlas.getTexture(_dataResource.imageShop));
-
-        } else if (_dataResource.buildType == BuildType.PLANT || _dataResource.buildType == BuildType.RESOURCE) {
-            if (_dataResource.url == "plantAtlas") {
-                _imageItem = new Image(g.plantAtlas.getTexture(_dataResource.imageShop));
-            } else {
-                _imageItem = new Image(g.resourceAtlas.getTexture(_dataResource.imageShop));
-            }
+        } else if (_dataResource.buildType == BuildType.PLANT) {
+            _imageItem = new Image(g.plantAtlas.getTexture(_dataResource.imageShop));
+        } else {
+            _imageItem = new Image(g.resourceAtlas.getTexture(_dataResource.imageShop));
         }
         MCScaler.scale(_imageItem,50,50);
         _imageItem.x = _bg.width/2 - _imageItem.width/2;
@@ -143,6 +136,7 @@ public class WOPaperItem {
     }
 
     private function onClickVisit():void {
+        if (!_data) return;
         g.woPaper.hideIt();
         g.woMarket.addAdditionalUser(_data);
         g.woMarket.showIt();
@@ -152,7 +146,7 @@ public class WOPaperItem {
         var im:Image;
         if (d.url == 'plantAtlas') {
             im = new Image(g.plantAtlas.getTexture(d.imageShop));
-        } else if (d.utr == 'instrumentAtlas') {
+        } else if (d.url == 'instrumentAtlas') {
             im = new Image(g.instrumentAtlas.getTexture(d.imageShop));
         } else {
             im = new Image(g.resourceAtlas.getTexture(d.imageShop));
