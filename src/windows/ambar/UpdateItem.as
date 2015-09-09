@@ -80,7 +80,7 @@ public class UpdateItem {
         var needCountForUpdate:int;
         var curCount:int = g.userInventory.getCountResourceById(_resourceId);
         if (_isAmbarItem) {
-            needCountForUpdate = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * g.user.ambarLevel;
+            needCountForUpdate = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * (g.user.ambarLevel-1);
             _txtCount.text = String(curCount) + '/' + String(needCountForUpdate);
             if (curCount >= needCountForUpdate) {
                 _imGalo4ka.visible = true;
@@ -92,7 +92,7 @@ public class UpdateItem {
                 _btnTxt.text = String(_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
             }
         } else {
-            needCountForUpdate = g.dataBuilding.objectBuilding[13].startCountInstrumets + g.dataBuilding.objectBuilding[13].deltaCountAfterUpgrade * g.user.skladLevel;
+            needCountForUpdate = g.dataBuilding.objectBuilding[13].startCountInstrumets + g.dataBuilding.objectBuilding[13].deltaCountAfterUpgrade * (g.user.skladLevel-1);
             _txtCount.text = String(curCount) + '/' + String(needCountForUpdate);
             if (curCount >= needCountForUpdate) {
                 _imGalo4ka.visible = true;
