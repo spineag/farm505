@@ -8,9 +8,11 @@ import starling.core.Starling;
 
 import starling.display.Image;
 import starling.display.Quad;
+import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.textures.Texture;
+import starling.utils.Color;
 
 import utils.CButton;
 
@@ -20,6 +22,7 @@ public class Window {
     protected var _bg:Image;
     protected var _woWidth:int;
     protected var _woHeight:int;
+    protected var _black:Quad;
     protected var g:Vars = Vars.getInstance();
 
     public function Window() {
@@ -31,9 +34,10 @@ public class Window {
     }
 
     public function showIt():void {
-        g.cont.addGameContListener(false);
+        createBlackBG();
         _source.x = Starling.current.nativeStage.stageWidth/2;
         _source.y = Starling.current.nativeStage.stageHeight/2;
+        g.cont.addGameContListener(false);
         while (g.cont.windowsCont.numChildren) {
             g.cont.windowsCont.removeChildAt(0);
         }
@@ -45,6 +49,7 @@ public class Window {
     }
 
     public function hideIt():void {
+        removeBlackBG();
         while (g.cont.windowsCont.numChildren) {
             g.cont.windowsCont.removeChildAt(0);
         }
@@ -74,6 +79,29 @@ public class Window {
 
     public function get source():Sprite {
         return _source;
+    }
+
+    public function onResize():void {
+        _source.x = Starling.current.nativeStage.stageWidth/2;
+        _source.y = Starling.current.nativeStage.stageHeight/2;
+        removeBlackBG();
+        createBlackBG();
+    }
+
+    private function createBlackBG():void {
+        _black = new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK);
+        _black.x = -Starling.current.nativeStage.stageWidth/2;
+        _black.y = -Starling.current.nativeStage.stageHeight/2;
+        _source.addChildAt(_black, 0);
+        _black.alpha = .3;
+    }
+
+    private function removeBlackBG():void {
+        if (_black) {
+            if (_source.contains(_black))_source.removeChild(_black);
+            _black.dispose();
+            _black = null;
+        }
     }
 }
 }

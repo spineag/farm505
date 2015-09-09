@@ -123,7 +123,14 @@ public class UpdateItem {
                 _buyCallback.apply();
             }
         } else {
-
+            if (_isAmbarItem) {
+                g.woAmbar.hideIt();
+            } else {
+                g.woSklad.hideIt();
+            }
+            g.woBuyCurrency.showItMenu();
+            g.woBuyCurrency._contSoft.visible = false;
+            g.woBuyCurrency._contHard.visible = true;
         }
     }
 }

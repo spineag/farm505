@@ -104,9 +104,13 @@ public class WOSklad extends Window {
     }
 
     private function onClickExit(e:Event):void {
+        hideIt();
+    }
+
+    override public function hideIt():void {
         unfillItems();
         _scrollSprite.resetAll();
-        hideIt();
+        super.hideIt();
     }
 
     override public function showIt():void {

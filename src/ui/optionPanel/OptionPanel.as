@@ -272,6 +272,7 @@ public class OptionPanel {
         g.friendPanel.onResize();
         g.toolsPanel.onResize();
         g.xpPanel.onResize();
+        if (g.currentOpenedWindow) g.currentOpenedWindow.onResize();
         _source.x = Starling.current.nativeStage.stageWidth;
         _source.y = Starling.current.nativeStage.stageHeight - g.stageHeight + 100;
         if (_source.visible) _source.x -= 50;
