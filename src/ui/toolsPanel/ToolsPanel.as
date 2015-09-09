@@ -145,6 +145,7 @@ public class ToolsPanel {
                 }
                 break;
             case 'cancel':
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
                 break;
         }
     }
