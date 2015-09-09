@@ -2,6 +2,8 @@
  * Created by user on 5/20/15.
  */
 package mouse {
+import build.tree.Tree;
+
 import flash.geom.Point;
 
 import manager.Vars;
@@ -107,7 +109,6 @@ public class ToolsModifier {
         g.gameDispatcher.addEnterFrame(moveMouseIcon);
      }
 
-    [Inline]
     private function clearCont():void{
         while (_mouseIcon.numChildren) {
             _mouseIcon.removeChildAt(0);
@@ -120,14 +121,49 @@ public class ToolsModifier {
     }
 
     private var imForMove:Image;
-    public function startMove(buildingData:Object, callback:Function = null):void {
+    public function startMove(buildingData:Object, callback:Function = null, treeState:int = 1):void {
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;
         if (_activeBuildingData.url == "treeAtlas"){
-            _spriteForMove.addChild(contImage);
+            switch (treeState) {
+                case Tree.GROW1:
+                case Tree.GROW_FLOWER1:
+                case Tree.GROWED1:
+                    imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageGrowSmall));
+                    imForMove.x = _activeBuildingData.innerPositionsGrow1[0];
+                    imForMove.y = _activeBuildingData.innerPositionsGrow1[1];
+                    break;
+                case Tree.GROW2:
+                case Tree.GROW_FLOWER2:
+                case Tree.GROWED2:
+                    imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageGrowMiddle));
+                    imForMove.x = _activeBuildingData.innerPositionsGrow2[0];
+                    imForMove.y = _activeBuildingData.innerPositionsGrow2[1];
+                    break;
+                case Tree.GROW3:
+                case Tree.GROW_FLOWER3:
+                case Tree.GROWED3:
+                case Tree.GROW_FIXED:
+                case Tree.GROWED_FIXED:
+                case Tree.GROW_FIXED_FLOWER:
+                    imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageGrowBig));
+                    imForMove.x = _activeBuildingData.innerPositionsGrow3[0];
+                    imForMove.y = _activeBuildingData.innerPositionsGrow3[1];
+                    break;
+                case Tree.DEAD:
+                case Tree.ASK_FIX:
+                case Tree.FIXED:
+                case Tree.FULL_DEAD:
+                    imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageDead));
+                    imForMove.x = _activeBuildingData.innerPositionsGrowDead[0];
+                    imForMove.y = _activeBuildingData.innerPositionsGrowDead[1];
+                    break;
+            }
+            _spriteForMove.addChild(imForMove);
+//            _spriteForMove.addChild(contImage);
         } else if (_activeBuildingData.url == "buildAtlas") {
-            imForMove  = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
+            imForMove = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
             imForMove.x = _activeBuildingData.innerX;
             imForMove.y = _activeBuildingData.innerY;
             _spriteForMove.addChild(imForMove);
@@ -177,7 +213,7 @@ public class ToolsModifier {
         }
         _moveGrid.clearIt();
         _moveGrid = null;
-        imForMove.dispose();
+        if (imForMove) imForMove.dispose();
         imForMove = null;
         _spriteForMove = null;
     }
@@ -194,7 +230,7 @@ public class ToolsModifier {
             spriteForMoveIndexY = point.y;
             _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
             if (_moveGrid.isFree) {
-                imForMove.filter = null;
+                if (imForMove) imForMove.filter = null;
             } else {
                 var filter:ColorMatrixFilter = new ColorMatrixFilter();
                 filter.tint(Color.RED, 1);

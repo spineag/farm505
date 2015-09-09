@@ -26,22 +26,22 @@ import ui.xpPanel.XPStar;
 import utils.MCScaler;
 
 public class Tree extends AreaObject{
-    private const GROW1:int = 1;
-    private const GROW_FLOWER1:int = 2;
-    private const GROWED1:int = 3;
-    private const GROW2:int = 4;
-    private const GROW_FLOWER2:int = 5;
-    private const GROWED2:int = 6;
-    private const GROW3:int = 7;
-    private const GROW_FLOWER3:int = 8;
-    private const GROWED3:int = 9;
-    private const DEAD:int = 10;
-    private const ASK_FIX:int = 11;
-    private const FIXED:int = 12;
-    private const GROW_FIXED:int = 13;
-    private const GROWED_FIXED:int = 14;
-    private const GROW_FIXED_FLOWER:int = 15;
-    private const FULL_DEAD:int = 16;
+    public static const GROW1:int = 1;
+    public static const GROW_FLOWER1:int = 2;
+    public static const GROWED1:int = 3;
+    public static const GROW2:int = 4;
+    public static const GROW_FLOWER2:int = 5;
+    public static const GROWED2:int = 6;
+    public static const GROW3:int = 7;
+    public static const GROW_FLOWER3:int = 8;
+    public static const GROWED3:int = 9;
+    public static const DEAD:int = 10;
+    public static const ASK_FIX:int = 11;
+    public static const FIXED:int = 12;
+    public static const GROW_FIXED:int = 13;
+    public static const GROWED_FIXED:int = 14;
+    public static const GROW_FIXED_FLOWER:int = 15;
+    public static const FULL_DEAD:int = 16;
 
     private var _state:int;
     private var _resourceItem:ResourceItem;
@@ -143,7 +143,6 @@ public class Tree extends AreaObject{
         var im2:Image;
         var i:int;
         var item:CraftItem;
-        var f:Function;
 
         while (_build.numChildren) { _build.removeChildAt(0); }
 
@@ -166,10 +165,10 @@ public class Tree extends AreaObject{
                 im.x = _dataBuild.innerPositionsGrow1[0];
                 im.y = _dataBuild.innerPositionsGrow1[1];
                 for (i=0; i < _dataBuild.countCraftResource[0]; i++) {
-                    item = new CraftItem(-5 + int(Math.random()*10), im.y - int(Math.random()*10), _resourceItem, _craftSprite, 1);
+                    item = new CraftItem(-3 + int(Math.random()*3), im.y + 7 - int(Math.random()*3), _resourceItem, _craftSprite, 1);
                     MCScaler.scale(item.source, 30, 30);
-                    f = function():void {onCraftItemClick(item)};
-                    item.callback = f;
+                    item.removeDefaultCallbacks();
+                    item.callback = function():void {onCraftItemClick(item)};
                     _arrCrafted.push(item);
                 }
                 break;
@@ -191,10 +190,10 @@ public class Tree extends AreaObject{
                 im.x = _dataBuild.innerPositionsGrow2[0];
                 im.y = _dataBuild.innerPositionsGrow2[1];
                 for (i=0; i < _dataBuild.countCraftResource[1]; i++) {
-                    item = new CraftItem(-5 + int(Math.random()*10), im.y - int(Math.random()*10), _resourceItem, _craftSprite, 1);
+                    item = new CraftItem(-3 + int(Math.random()*3), im.y + 7 - int(Math.random()*3), _resourceItem, _craftSprite, 1);
                     MCScaler.scale(item.source, 30, 30);
-                    f = function():void {onCraftItemClick(item)};
-                    item.callback = f;
+                    item.removeDefaultCallbacks();
+                    item.callback = function():void {onCraftItemClick(item)};
                     _arrCrafted.push(item);
                 }
                 break;
@@ -216,10 +215,10 @@ public class Tree extends AreaObject{
                 im.x = _dataBuild.innerPositionsGrow3[0];
                 im.y = _dataBuild.innerPositionsGrow3[1];
                 for (i=0; i < _dataBuild.countCraftResource[2]; i++) {
-                    item = new CraftItem(-5 + int(Math.random()*10), im.y - int(Math.random()*10), _resourceItem, _craftSprite, 1);
+                    item = new CraftItem(-3 + int(Math.random()*3), im.y + 7 - int(Math.random()*3), _resourceItem, _craftSprite, 1);
                     MCScaler.scale(item.source, 30, 30);
-                    f = function():void {onCraftItemClick(item)};
-                    item.callback = f;
+                    item.removeDefaultCallbacks();
+                    item.callback = function():void {onCraftItemClick(item)};
                     _arrCrafted.push(item);
                 }
                 break;
@@ -261,8 +260,9 @@ public class Tree extends AreaObject{
                 im.x = _dataBuild.innerPositionsGrow3[0];
                 im.y = _dataBuild.innerPositionsGrow3[1];
                 for (i=0; i < _dataBuild.countCraftResource[2]; i++) {
-                    item = new CraftItem(-5 + int(Math.random()*10), im.y - int(Math.random()*10), _resourceItem, _craftSprite, 1);
+                    item = new CraftItem(-3 + int(Math.random()*3), im.y + 7 - int(Math.random()*3), _resourceItem, _craftSprite, 1);
                     MCScaler.scale(item.source, 30, 30);
+                    item.removeDefaultCallbacks();
                     item.callback = function():void {onCraftItemClick(item)};
                     _arrCrafted.push(item);
                 }
@@ -296,7 +296,7 @@ public class Tree extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
+            g.townArea.moveBuild(this, _state);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -311,6 +311,10 @@ public class Tree extends AreaObject{
             if (_state == DEAD){
 //                g.gameDispatcher.addEnterFrame(countEnterFrameDead);
                 g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
+            } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
+                if (_arrCrafted.length) {
+                    _arrCrafted.shift().flyIt();
+                } else Cc.error('TREE:: state == GROWED*, but empty _arrCrafted');
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -364,12 +368,13 @@ public class Tree extends AreaObject{
     }
 
     private function onCraftItemClick(item:CraftItem):void {
-        if (item.source) {
-            item.source.scaleX = item.source.scaleY = 1;
-        }
-        if (_arrCrafted.indexOf(item)) {
-            _arrCrafted.splice(_arrCrafted.indexOf(item), 1);
-        }
+//        if (item.source) {
+//            item.source.scaleX = item.source.scaleY = 1;
+//        }
+//        _arrCrafted.splice(0, 1);
+        _source.filter = null;
+        _isOnHover = false;
+        g.treeHint.hideIt();
 
         if (!_arrCrafted.length) {
             switch (_state) {
@@ -443,109 +448,109 @@ public class Tree extends AreaObject{
         g.directServer.deleteUserTree(tree_db_id, _dbBuildingId, null);
     }
 
-    public function treeImage():void {
-    var im:Image;
-    var im2:Image;
-    switch (_state) {
-        case GROW1:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmall));
-            im.x = _dataBuild.innerPositionsGrow1[0];
-            im.y = _dataBuild.innerPositionsGrow1[1];
-            g.toolsModifier.contImage.addChild(im);
-            break;
-        case GROW_FLOWER1:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmall));
-            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmallFlower));
-            im.x = _dataBuild.innerPositionsGrow1[0];
-            im.y = _dataBuild.innerPositionsGrow1[1];
-            im2.x = _dataBuild.innerPositionsGrow1[2];
-            im2.y = _dataBuild.innerPositionsGrow1[3];
-            g.toolsModifier.contImage.addChild(im);
-            g.toolsModifier.contImage.addChild(im2);
-            break;
-        case GROWED1:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmall));
-            im.x = _dataBuild.innerPositionsGrow1[0];
-            im.y = _dataBuild.innerPositionsGrow1[1];
-            g.toolsModifier.contImage.addChild(im);
-            break;
-        case GROW2:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddle));
-            im.x = _dataBuild.innerPositionsGrow2[0];
-            im.y = _dataBuild.innerPositionsGrow2[1];
-            g.toolsModifier.contImage.addChild(im);
-            break;
-        case GROW_FLOWER2:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddle));
-            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddleFlower));
-            im.x = _dataBuild.innerPositionsGrow2[0];
-            im.y = _dataBuild.innerPositionsGrow2[1];
-            im2.x = _dataBuild.innerPositionsGrow2[2];
-            im2.y = _dataBuild.innerPositionsGrow2[3];
-            g.toolsModifier.contImage.addChild(im);
-            g.toolsModifier.contImage.addChild(im2);
-            break;
-        case GROWED2:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddle));
-            im.x = _dataBuild.innerPositionsGrow2[0];
-            im.y = _dataBuild.innerPositionsGrow2[1];
-            g.toolsModifier.contImage.addChild(im);
-            break;
-        case GROW3:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
-            im.x = _dataBuild.innerPositionsGrow3[0];
-            im.y = _dataBuild.innerPositionsGrow3[1];
-            g.toolsModifier.contImage.addChild(im);
-            break;
-        case GROW_FLOWER3:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
-            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBigFlower));
-            im.x = _dataBuild.innerPositionsGrow3[0];
-            im.y = _dataBuild.innerPositionsGrow3[1];
-            im2.x = _dataBuild.innerPositionsGrow3[2];
-            im2.y = _dataBuild.innerPositionsGrow3[3];
-            g.toolsModifier.contImage.addChild(im);
-            g.toolsModifier.contImage.addChild(im2);
-            break;
-        case GROWED3:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
-            im.x = _dataBuild.innerPositionsGrow3[0];
-            im.y = _dataBuild.innerPositionsGrow3[1];
-            g.toolsModifier.contImage.addChild(im);
-            break;
-        case DEAD:
-        case FULL_DEAD:
-        case ASK_FIX:
-        case FIXED:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageDead));
-            im.x = _dataBuild.innerPositionsDead[0];
-            im.y = _dataBuild.innerPositionsDead[1];
-            g.toolsModifier.contImage.addChild(im);
-        case GROW_FIXED:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
-            im.x = _dataBuild.innerPositionsGrow3[0];
-            im.y = _dataBuild.innerPositionsGrow3[1];
-            g.toolsModifier.contImage.addChild(im);
-            break;
-        case GROW_FIXED_FLOWER:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
-            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBigFlower));
-            im.x = _dataBuild.innerPositionsGrow3[0];
-            im.y = _dataBuild.innerPositionsGrow3[1];
-            im2.x = _dataBuild.innerPositionsGrow3[2];
-            im2.y = _dataBuild.innerPositionsGrow3[3];
-            g.toolsModifier.contImage.addChild(im);
-            g.toolsModifier.contImage.addChild(im2);
-            break;
-        case GROWED_FIXED:
-            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
-            im.x = _dataBuild.innerPositionsGrow3[0];
-            im.y = _dataBuild.innerPositionsGrow3[1];
-            g.toolsModifier.contImage.addChild(im);
-            break;
-        default:
-        }
-    }
+//    public function treeImage():void {
+//    var im:Image;
+//    var im2:Image;
+//    switch (_state) {
+//        case GROW1:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmall));
+//            im.x = _dataBuild.innerPositionsGrow1[0];
+//            im.y = _dataBuild.innerPositionsGrow1[1];
+//            g.toolsModifier.contImage.addChild(im);
+//            break;
+//        case GROW_FLOWER1:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmall));
+//            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmallFlower));
+//            im.x = _dataBuild.innerPositionsGrow1[0];
+//            im.y = _dataBuild.innerPositionsGrow1[1];
+//            im2.x = _dataBuild.innerPositionsGrow1[2];
+//            im2.y = _dataBuild.innerPositionsGrow1[3];
+//            g.toolsModifier.contImage.addChild(im);
+//            g.toolsModifier.contImage.addChild(im2);
+//            break;
+//        case GROWED1:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowSmall));
+//            im.x = _dataBuild.innerPositionsGrow1[0];
+//            im.y = _dataBuild.innerPositionsGrow1[1];
+//            g.toolsModifier.contImage.addChild(im);
+//            break;
+//        case GROW2:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddle));
+//            im.x = _dataBuild.innerPositionsGrow2[0];
+//            im.y = _dataBuild.innerPositionsGrow2[1];
+//            g.toolsModifier.contImage.addChild(im);
+//            break;
+//        case GROW_FLOWER2:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddle));
+//            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddleFlower));
+//            im.x = _dataBuild.innerPositionsGrow2[0];
+//            im.y = _dataBuild.innerPositionsGrow2[1];
+//            im2.x = _dataBuild.innerPositionsGrow2[2];
+//            im2.y = _dataBuild.innerPositionsGrow2[3];
+//            g.toolsModifier.contImage.addChild(im);
+//            g.toolsModifier.contImage.addChild(im2);
+//            break;
+//        case GROWED2:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowMiddle));
+//            im.x = _dataBuild.innerPositionsGrow2[0];
+//            im.y = _dataBuild.innerPositionsGrow2[1];
+//            g.toolsModifier.contImage.addChild(im);
+//            break;
+//        case GROW3:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+//            im.x = _dataBuild.innerPositionsGrow3[0];
+//            im.y = _dataBuild.innerPositionsGrow3[1];
+//            g.toolsModifier.contImage.addChild(im);
+//            break;
+//        case GROW_FLOWER3:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+//            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBigFlower));
+//            im.x = _dataBuild.innerPositionsGrow3[0];
+//            im.y = _dataBuild.innerPositionsGrow3[1];
+//            im2.x = _dataBuild.innerPositionsGrow3[2];
+//            im2.y = _dataBuild.innerPositionsGrow3[3];
+//            g.toolsModifier.contImage.addChild(im);
+//            g.toolsModifier.contImage.addChild(im2);
+//            break;
+//        case GROWED3:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+//            im.x = _dataBuild.innerPositionsGrow3[0];
+//            im.y = _dataBuild.innerPositionsGrow3[1];
+//            g.toolsModifier.contImage.addChild(im);
+//            break;
+//        case DEAD:
+//        case FULL_DEAD:
+//        case ASK_FIX:
+//        case FIXED:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageDead));
+//            im.x = _dataBuild.innerPositionsDead[0];
+//            im.y = _dataBuild.innerPositionsDead[1];
+//            g.toolsModifier.contImage.addChild(im);
+//        case GROW_FIXED:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+//            im.x = _dataBuild.innerPositionsGrow3[0];
+//            im.y = _dataBuild.innerPositionsGrow3[1];
+//            g.toolsModifier.contImage.addChild(im);
+//            break;
+//        case GROW_FIXED_FLOWER:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+//            im2 = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBigFlower));
+//            im.x = _dataBuild.innerPositionsGrow3[0];
+//            im.y = _dataBuild.innerPositionsGrow3[1];
+//            im2.x = _dataBuild.innerPositionsGrow3[2];
+//            im2.y = _dataBuild.innerPositionsGrow3[3];
+//            g.toolsModifier.contImage.addChild(im);
+//            g.toolsModifier.contImage.addChild(im2);
+//            break;
+//        case GROWED_FIXED:
+//            im = new Image(g.treeAtlas.getTexture(_dataBuild.imageGrowBig));
+//            im.x = _dataBuild.innerPositionsGrow3[0];
+//            im.y = _dataBuild.innerPositionsGrow3[1];
+//            g.toolsModifier.contImage.addChild(im);
+//            break;
+//        default:
+//        }
+//    }
 }
 }
 

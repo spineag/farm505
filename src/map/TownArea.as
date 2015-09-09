@@ -275,7 +275,7 @@ public class TownArea extends Sprite {
 
     }
 
-    public function moveBuild(worldObject:WorldObject):void{// не сохраняется флип при муве
+    public function moveBuild(worldObject:WorldObject, treeState:int = 1):void{// не сохраняется флип при муве
         if(_cont.contains(worldObject.source)) {
             g.selectedBuild = worldObject;
             _cont.removeChild(worldObject.source);
@@ -285,7 +285,7 @@ public class TownArea extends Sprite {
             } else {
                 unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
             }
-            g.toolsModifier.startMove((worldObject as AreaObject).dataBuild, afterMove);
+            g.toolsModifier.startMove((worldObject as AreaObject).dataBuild, afterMove, treeState);
         }
     }
 
