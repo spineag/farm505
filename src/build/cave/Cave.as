@@ -181,6 +181,12 @@ public class Cave extends AreaObject{
     private function onOpenBuilded(value:Boolean):void { }
 
     private function onBuy():void {
+        if (g.user.softCurrencyCount < _dataBuild.cost) {
+            g.flyMessage.showIt(_source, "Недостаточно денег");
+//            g.woNoResources.showItMoney(_dataBuild,_dataBuild.cost - g.user.softCurrencyCount);
+//            trace("kanaet");
+            return;
+        }
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;

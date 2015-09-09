@@ -153,6 +153,8 @@ public class MarketItem {
                 g.woMarket.hideIt();
                 g.woMarket.marketChoose.callback = onChoose;
                 g.woMarket.marketChoose.showIt();
+                //
+                g.woMarket.refreshMarket();
             }
         } else {
             if (_isUser) {
