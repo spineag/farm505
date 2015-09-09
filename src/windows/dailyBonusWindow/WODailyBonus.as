@@ -4,6 +4,10 @@
 package windows.dailyBonusWindow {
 import data.BuildType;
 
+import resourceItem.ResourceItem;
+
+import starling.animation.Tween;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -23,7 +27,7 @@ public class WODailyBonus extends Window{
     private var _txtItem:TextField;
     private var _imageBtn:Image;
     private var _txtBtn:TextField;
-
+    private var _data:Object;
     public function WODailyBonus() {
         super();
 
@@ -58,11 +62,9 @@ public class WODailyBonus extends Window{
         var hard:int;
         hard = 1;
         if (_txtBtn.text == "Забрать"){
-            while (_contImage.numChildren) {
-                _contImage.removeChildAt(0);
-            }
             _txtBtn.text = String("Купить за " + hard) ;
             _contBtn.addChild(_imageHard);
+            flyBonus();
         } else if (_txtBtn.text == String("Купить за " + hard)){
             if (int(_txtBtn.text) >= g.user.hardCurrency){
                 g.woBuyCurrency.showItMenu();
@@ -105,8 +107,27 @@ public class WODailyBonus extends Window{
             }
         }
         r = int(1+Math.random()*arr.length);
+        _data = obj[r];
         im = new WODailyBonusItem(obj[r]);
         _contImage.addChild(im.source);
+        _contImage.y = 0;
+        _contImage.x = 0;
+    }
+
+    private function flyBonus():void {
+        g.craftPanel.showIt(_data.placeBuild);
+        var tween:Tween = new Tween(_contImage, 1);
+        tween.moveTo(-170,-300 );
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+            var item:ResourceItem = new ResourceItem();
+            item.fillIt(_data);
+            g.craftPanel.afterFly(item);
+            while (_contImage.numChildren) {
+            _contImage.removeChildAt(0);
+        }
+        };
+        g.starling.juggler.add(tween);
     }
 }
 }

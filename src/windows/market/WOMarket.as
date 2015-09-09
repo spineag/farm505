@@ -112,6 +112,12 @@ public class WOMarket  extends Window {
         g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
     }
 
+    public function refreshMarket():void {
+        for (var i:int=0; i< _arrItems.length; i++) {
+            _arrItems[i].unFillIt();
+        }
+        g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
+    }
     public function addAdditionalUser(ob:Object):void {
         curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
         _friendsPanel.addAdditionalUser(_curUser);
