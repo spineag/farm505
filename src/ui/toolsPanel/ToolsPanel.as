@@ -43,20 +43,26 @@ public class ToolsPanel {
         _source.addChild(_txt);
         _source.x = g.stageWidth - 550;
         _source.y = g.stageHeight - 120;
+        g.cont.interfaceCont.addChild(_source);
+        _source.visible = false;
+        createList();
     }
 
     public function onResize():void {
-        _source.x = Starling.current.nativeStage.stageHeight - 550;
+        _source.x = Starling.current.nativeStage.stageWidth - 550;
         _source.y = Starling.current.nativeStage.stageHeight - 120;
     }
 
     public function showIt():void {
-        g.cont.interfaceCont.addChild(_source);
-        createList();
+        _source.visible  = true;
     }
 
     public function hideIt():void {
-        g.cont.interfaceCont.removeChild(_source);
+        _source.visible = false;
+    }
+
+    public function get isShowed():Boolean {
+        return _source.visible;
     }
 
     private function createList():void {

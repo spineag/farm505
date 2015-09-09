@@ -30,6 +30,7 @@ public class CSprite extends Sprite {
     private var _byteArray:ByteArray;
     private var _bmd:BitmapData;
     private var _scale:Number;
+    private var _useContDrag:Boolean = false;
 
     private var g:Vars = Vars.getInstance();
     public function CSprite() {
@@ -37,14 +38,21 @@ public class CSprite extends Sprite {
 
         _needStrongCheckHitTest = false;
         _needStrongCheckByteArray = false;
+        _useContDrag = false;
         _scale = 1;
         this.addEventListener(TouchEvent.TOUCH, onTouch);
 
     }
 
+    public function set releaseContDrag(value:Boolean):void {
+        _useContDrag = value;
+    }
+
     private var b:Boolean;
     private var p:Point;
     private function onTouch(te:TouchEvent):void {
+        te.stopImmediatePropagation();
+        te.stopPropagation();
         if (_needStrongCheckHitTest && te.getTouch(this, TouchPhase.ENDED)) {
             p = new Point(te.touches[0].globalX, te.touches[0].globalY);
             p = this.globalToLocal(p);
@@ -60,7 +68,7 @@ public class CSprite extends Sprite {
 //        }
 
         if (te.getTouch(this, TouchPhase.MOVED)) {
-            g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
+            if (_useContDrag) g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
             if (_onMovedCallback != null) {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
             }

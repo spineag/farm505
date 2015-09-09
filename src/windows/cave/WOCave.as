@@ -8,11 +8,9 @@ import windows.fabricaWindow.WOFabricaWorkList;
 
 public class WOCave extends Window {
     private var _arrItems:Array;
-    public var isWindowFill:Boolean;
 
     public function WOCave() {
         super();
-        isWindowFill = false;
         _woHeight = 200;
         _woWidth = 390;
         createTempBG(_woWidth, _woHeight, Color.GRAY);
@@ -20,8 +18,12 @@ public class WOCave extends Window {
         _btnExit.addEventListener(Event.TRIGGERED, hideIt);
     }
 
+    override public function hideIt():void {
+        clearItems();
+        super.hideIt();
+    }
+
     public function fillIt(arrIds:Array, f:Function):void {
-        isWindowFill = true;
         createItems(arrIds.length);
         var f1:Function = function(id:int):void {
             hideIt();
@@ -43,6 +45,14 @@ public class WOCave extends Window {
             _source.addChild(item.source);
             _arrItems.push(item);
         }
+    }
+
+    private function clearItems():void {
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _source.removeChild(_arrItems[i].source);
+            _arrItems[i].clearIt();
+        }
+        _arrItems.length = 0;
     }
 }
 }

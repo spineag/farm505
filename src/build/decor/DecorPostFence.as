@@ -25,6 +25,7 @@ public class DecorPostFence extends AreaObject{
 
 //        _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
+        _source.releaseContDrag = true;
 //        _source.outCallback = onOut;
     }
 

@@ -61,7 +61,7 @@ public class CraftItem {
         return _source;
     }
 
-    private function flyIt():void {
+    public function flyIt():void {
         if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + _count >= g.user.ambarMaxCount) {
             g.flyMessage.showIt(_source,"Амбар заполнен");
             return;
