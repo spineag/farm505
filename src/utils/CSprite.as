@@ -68,7 +68,11 @@ public class CSprite extends Sprite {
 //        }
 
         if (te.getTouch(this, TouchPhase.MOVED)) {
-            if (_useContDrag) g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
+            if (_useContDrag) {
+                g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
+                g.timerHint.hideIt();
+                g.mouseHint.hideHintMouse();
+            }
             if (_onMovedCallback != null) {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
             }
