@@ -65,14 +65,19 @@ public class Ridge extends AreaObject{
 
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
-        _isOnHover = true;
-        _count = 10;
-        _countMouse = 5;
+        if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
+            fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
+            checkFreeRidges();
+        } else {
+            if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
+            _isOnHover = true;
+            _count = 10;
+            _countMouse = 5;
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.gameDispatcher.addEnterFrame(countEnterFrame);
-
-        };
-        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+            }
+            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+        }
     }
 
     private function onClick():void {
@@ -81,7 +86,20 @@ public class Ridge extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
-
+            if (_stateRidge == EMPTY) {
+                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
+                    if (g.toolsModifier.plantId <= 0) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        return;
+                    }
+                    fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
+                    _source.filter = null;
+                    checkFreeRidges();
+                    return;
+                }
+            } else {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
@@ -93,7 +111,8 @@ public class Ridge extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == EMPTY) {
                 _source.filter = null;
-                g.woBuyPlant.showItWithParams(this);
+                g.mouseHint.hideHintMouse();
+                g.woBuyPlant.showItWithParams(this, onBuy);
             } else if (_stateRidge == GROWED) {
                 if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount - 1) {
                     _isOnHover = false;
@@ -121,11 +140,41 @@ public class Ridge extends AreaObject{
         }
     }
 
+    private function onBuy():void {
+        g.toolsModifier.plantId = _dataPlant.id;
+        g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
+        checkFreeRidges();
+    }
+
+    private function checkFreeRidges():void {
+        var arr:Array = g.townArea.cityObjects;
+        var b:Boolean = false;
+        var i:int;
+        for (i=0; i<arr.length; i++) {  // check if there are at least one EMPTY ridge
+            if (arr[i] is Ridge) {
+                if (arr[i].stateRidge == EMPTY) {
+                    b = true;
+                    break;
+                }
+            }
+        }
+
+        if (b) {
+            if (g.userInventory.getCountResourceById(g.toolsModifier.plantId) <= 0) b = false;  // cehak if there are at least one current resource for plant
+        }
+
+        if (!b) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+        }
+    }
+
+
     private function onOut():void {
         _source.filter = null;
         _isOnHover = false;
-        g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.mouseHint.hideHintMouse();
+        if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
+        g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
     }
 

@@ -16,6 +16,7 @@ import windows.Window;
 public class WOBuyPlant extends Window {
     private var _ridge:Ridge;
     private var _arrItems:Array;
+    private var _callback:Function;
 
     public function WOBuyPlant() {
         super();
@@ -36,8 +37,9 @@ public class WOBuyPlant extends Window {
         super.hideIt();
     }
 
-    public function showItWithParams(ridge:Ridge):void {
+    public function showItWithParams(ridge:Ridge, f:Function):void {
         _ridge = ridge;
+        _callback = f;
         fillItems();
         super.showIt();
     }
@@ -77,6 +79,10 @@ public class WOBuyPlant extends Window {
             _arrItems[i].unfillIt();
         }
         _ridge.fillPlant(data);
+        if (_callback != null) {
+            _callback.apply();
+            _callback = null;
+        }
         hideIt();
     }
 }
