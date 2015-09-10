@@ -173,7 +173,6 @@ public class WOLevelUp extends Window{
             if (g.user.level == obj[id].blockByLevel) {
                 if (obj.buildType == BuildType.TEST || obj.buildType == BuildType.AMBAR || obj.buildType == BuildType.SKLAD || obj.buildType == BuildType.WILD) continue;
                 arr.push(obj[id]);
-
             }
         }
 

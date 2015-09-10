@@ -23,9 +23,9 @@ public class WOLevelUpItem {
     public function WOLevelUpItem(ob:Object, st:String) {
         source = new Sprite();
         _txt = new TextField(source.width, source.height, st, "Arial", 20, Color.BLACK);
-        if (ob.buildType == BuildType.FARM){
+        if (ob.buildType == BuildType.FARM || ob.buildType == BuildType.TEST){
             _image = new Image(g.tempBuildAtlas.getTexture(ob.image));
-        }else if (ob.buildType == BuildType.FABRICA || ob.buildType == BuildType.RIDGE || ob.buildType == BuildType.DECOR) {
+        }else if (ob.buildType == BuildType.FABRICA || ob.buildType == BuildType.RIDGE) {
             _image = new Image(g.tempBuildAtlas.getTexture(ob.image));
         }else if (ob.buildType == BuildType.TREE) {
             _image = new Image(g.treeAtlas.getTexture(ob.imageGrowBig));
@@ -37,11 +37,19 @@ public class WOLevelUpItem {
                 _image = new Image(g.resourceAtlas.getTexture(ob.imageShop));
             }
         }else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
-                || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.PET_HOUSE) {
+                || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.PET_HOUSE || ob.buildType == BuildType.DECOR) {
             _image = new Image(g.tempBuildAtlas.getTexture(ob.imageShop));
         }else if (ob.buildType == BuildType.ANIMAL){
             _image = new Image(g.tempBuildAtlas.getTexture(ob.imageShop));
+        } else if (ob.buildType == BuildType.INSTRUMENT) {
+            _image = new Image(g.instrumentAtlas.getTexture(ob.imageShop));
+        } else if (ob.buildType == BuildType.PET) {
+
+        } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
+                || ob.buildType == BuildType.SHOP || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
+            _image = new Image(g.tempBuildAtlas.getTexture(ob.image));
         }
+
         _imageBg = new Image(g.interfaceAtlas.getTexture("hint_circle"));
         _imageBg.width = _imageBg.height = 95;
         _imageBg.x = 50 - _imageBg.width/2;
