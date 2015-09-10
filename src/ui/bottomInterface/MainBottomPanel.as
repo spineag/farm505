@@ -21,7 +21,6 @@ public class MainBottomPanel {
     private var _toolsBtn:CSprite;
     private var _optionBtn:CSprite;
     private var _cancelBtn:CSprite;
-    private var b:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -93,13 +92,15 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
+                    _shopBtn.filter = null
                     if (g.toolsPanel.isShowed) g.toolsPanel.hideIt();
                     if (g.optionPanel.isShowed) g.optionPanel.hideIt();
                     if (g.friendPanel.isShowed) g.friendPanel.hideIt();
                     g.woShop.showIt();
                 break;
             case 'cancel':
-//                g.woShop.showIt();
+                    _cancelBtn.visible = false;
+                    _shopBtn.visible = true;
                 break;
             case 'tools':
                 if (g.toolsPanel.isShowed) {
@@ -132,5 +133,16 @@ public class MainBottomPanel {
         _source.y = Starling.current.nativeStage.stageHeight - 150;
     }
 
+    public function cancelBoolean(b:Boolean):void {
+        if (b == true) {
+            _cancelBtn.visible = true;
+            _shopBtn.visible = false;
+        }
+
+        if (b == false) {
+            _cancelBtn.visible = false;
+            _shopBtn.visible = true;
+        }
+    }
 }
 }

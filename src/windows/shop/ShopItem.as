@@ -67,6 +67,7 @@ public class ShopItem {
             return;
         }
         if (!g.userInventory.checkMoney(_data)) return;
+        g.bottomPanel.cancelBoolean(true);
         if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.hideIt();
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
@@ -77,10 +78,12 @@ public class ShopItem {
             for (var i:int = 0; i < arr.length; i++) {
                 if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
                     (arr[i] as Farm).addAnimal();
+                    g.bottomPanel.cancelBoolean(false);
                     return;
                 }
             }
             trace('no such Farm :(');
+            g.bottomPanel.cancelBoolean(false);
         }
     }
 
@@ -88,6 +91,7 @@ public class ShopItem {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.townArea.createNewBuild(_data, _x, _y);
         g.userInventory.addMoney(_data.currency, -_data.cost);
+        g.bottomPanel.cancelBoolean(false);
     }
 
 
