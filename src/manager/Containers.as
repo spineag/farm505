@@ -123,11 +123,17 @@ public class Containers {
         }
     }
 
+    public function setDragPoints(p:Point):void {
+        _startDragPoint = p;
+        _startDragPointCont = new Point(gameCont.x, gameCont.y);
+    }
+
     public function dragGameCont(mouseP:Point):void {
         var s:Number = g.cont.gameCont.scaleX;
         if (_startDragPointCont == null || _startDragPoint == null) return;
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
+//        trace(gameCont.x + ' + ' + gameCont.y + ' | ' + mouseP.x + ' + ' + mouseP.y + '');
         var oY:Number = g.matrixGrid.offsetY*s;
         if (gameCont.y > -oY) gameCont.y = -oY;
         if (gameCont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)

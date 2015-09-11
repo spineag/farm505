@@ -13,6 +13,7 @@ import flash.utils.ByteArray;
 import manager.Vars;
 
 import mouse.OwnMouse;
+import mouse.ToolsModifier;
 
 import starling.display.Sprite;
 import starling.events.TouchEvent;
@@ -69,6 +70,7 @@ public class CSprite extends Sprite {
 
         if (te.getTouch(this, TouchPhase.MOVED)) {
             if (_useContDrag) {
+                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) return;
                 g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
                 g.timerHint.hideIt();
                 g.mouseHint.hideHintMouse();
@@ -81,6 +83,9 @@ public class CSprite extends Sprite {
             Mouse.cursor = OwnMouse.CLICK_CURSOR;
             if (_startClickCallback != null) {
                 _startClickCallback.apply();
+            }
+            if (_useContDrag) {
+                g.cont.setDragPoints(te.touches[0].getLocation(g.mainStage));
             }
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
             te.stopImmediatePropagation();

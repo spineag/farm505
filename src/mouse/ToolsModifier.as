@@ -27,8 +27,9 @@ public class ToolsModifier {
     public static var DELETE:int = 3;
     public static var INVENTORY:int = 4;
     public static var PLANT_SEED:int = 5;
-    public static var PLANT_TREES:int = 6;
-    public static var GRID_DEACTIVATED:int = 6;
+    public static var PLANT_SEED_ACTIVE:int = 6;
+    public static var PLANT_TREES:int = 7;
+    public static var GRID_DEACTIVATED:int = 8;
 
     private var _activeBuildingData:Object;
     private var _spriteForMove:Sprite;
@@ -75,6 +76,14 @@ public class ToolsModifier {
 
     public function get plantId():int {
         return _plantId;
+    }
+
+    public function set activatePlantState(value:Boolean):void {
+        if (value) {
+            _modifierType = PLANT_SEED_ACTIVE;
+        } else {
+            _modifierType = PLANT_SEED;
+        }
     }
 
     public function checkMouseIcon():void {

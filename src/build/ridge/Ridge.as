@@ -54,7 +54,8 @@ public class Ridge extends AreaObject{
         _stateRidge = EMPTY;
 
         _source.hoverCallback = onHover;
-        _source.endClickCallback = onClick;
+        _source.endClickCallback = onEndClick;
+        _source.startClickCallback = onStartClick;
         _source.outCallback = onOut;
         _source.releaseContDrag = true;
         _isOnHover = false;
@@ -65,7 +66,7 @@ public class Ridge extends AreaObject{
 
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
-        if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
+        if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             checkFreeRidges();
         } else {
@@ -80,26 +81,42 @@ public class Ridge extends AreaObject{
         }
     }
 
-    private function onClick():void {
+    private function onStartClick():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
+            if (g.toolsModifier.plantId <= 0) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                return;
+            }
+            g.toolsModifier.activatePlantState = true;
+            fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
+            _source.filter = null;
+            checkFreeRidges();
+        }
+    }
+
+    private function onEndClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             g.townArea.moveBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
-            if (_stateRidge == EMPTY) {
-                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
-                    if (g.toolsModifier.plantId <= 0) {
-                        g.toolsModifier.modifierType = ToolsModifier.NONE;
-                        return;
-                    }
-                    fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
-                    _source.filter = null;
-                    checkFreeRidges();
-                    return;
-                }
-            } else {
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
-            }
+        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
+            g.toolsModifier.activatePlantState = false;
+            checkFreeRidges();
+//            if (_stateRidge == EMPTY) {
+//                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+//                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+//                    if (g.toolsModifier.plantId <= 0) {
+//                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+//                        return;
+//                    }
+//                    fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
+//                    _source.filter = null;
+//                    checkFreeRidges();
+//                    return;
+//                }
+//            } else {
+//                g.toolsModifier.modifierType = ToolsModifier.NONE;
+//            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
