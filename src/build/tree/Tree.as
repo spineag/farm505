@@ -4,6 +4,8 @@
 package build.tree {
 import build.AreaObject;
 
+import data.BuildType;
+
 import flash.geom.Point;
 
 import resourceItem.CraftItem;
@@ -313,6 +315,10 @@ public class Tree extends AreaObject{
                 g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
             } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
+                    if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
+                        g.flyMessage.showIt(_source,"Амбар заполнен");
+                        return;
+                    }
                     _arrCrafted.shift().flyIt();
                 } else Cc.error('TREE:: state == GROWED*, but empty _arrCrafted');
             }

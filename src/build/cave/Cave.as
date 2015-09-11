@@ -38,6 +38,7 @@ public class Cave extends AreaObject{
     private var _woBuy:WOBuyCave;
     private var _isOnHover:Boolean;
     private var _count:int;
+    private var _arrCraftItems:Array;
 
     public function Cave(data:Object) {
         super (data);
@@ -53,6 +54,7 @@ public class Cave extends AreaObject{
 
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
+        _arrCraftItems = [];
 
         if (_stateBuild == STATE_WAIT_ACTIVATE) {
             addTempGiftIcon();
@@ -134,10 +136,18 @@ public class Cave extends AreaObject{
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                _source.filter = null;
-                g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
-                g.woCave.showIt();
-                g.hint.hideIt();
+                if (_arrCraftItems.length) {
+                    if (g.userInventory.currentCountInSklad + 1 >= g.user.skladMaxCount) {
+                        g.flyMessage.showIt(_source,"Склад заполнен");
+                        return;
+                    }
+                    _arrCraftItems.pop().flyIt();
+                } else {
+                    _source.filter = null;
+                    g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
+                    g.woCave.showIt();
+                    g.hint.hideIt();
+                }
             } else {
                 Cc.error('Cave:: unknown g.toolsModifier.modifierType')
             }
@@ -210,24 +220,33 @@ public class Cave extends AreaObject{
         var r:Number;
         var craftItem:CraftItem;
         var item:ResourceItem;
+        _arrCraftItems = [];
         for (var i:int = 0; i < c; i++) {
             r = Math.random();
             if (r < l1) {
                 item = new ResourceItem();
                 item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[0]]);
                 craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
+                craftItem.removeDefaultCallbacks();
+                _arrCraftItems.push(craftItem);
             } else if (r < l2) {
                 item = new ResourceItem();
                 item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[1]]);
                 craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
+                craftItem.removeDefaultCallbacks();
+                _arrCraftItems.push(craftItem);
             } else if (r < l3) {
                 item = new ResourceItem();
                 item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[2]]);
                 craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
+                craftItem.removeDefaultCallbacks();
+                _arrCraftItems.push(craftItem);
             } else {
                 item = new ResourceItem();
                 item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[3]]);
                 craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
+                craftItem.removeDefaultCallbacks();
+                _arrCraftItems.push(craftItem);
             }
         }
     }
