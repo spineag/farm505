@@ -163,7 +163,6 @@ public class Cave extends AreaObject{
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
-            _source.addChild(_craftSprite);
             var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
             im.x = _dataBuild.innerX;
             im.y = _dataBuild.innerY;
@@ -175,6 +174,7 @@ public class Cave extends AreaObject{
             (_build as Sprite).alpha = 1;
             if (_flip) _build.scaleX = -_defaultScale;
             _source.addChild(_build);
+            _source.addChild(_craftSprite);
         }
     }
 
