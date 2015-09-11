@@ -194,6 +194,7 @@ public class ToolsModifier {
 
         _cont.x = g.cont.gameCont.x;
         _cont.y = g.cont.gameCont.y;
+        _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
         _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuildingData.width, _activeBuildingData.height);
@@ -233,8 +234,8 @@ public class ToolsModifier {
     private var spriteForMoveIndexX:int = 0;
     private var spriteForMoveIndexY:int = 0;
     private function moveIt():void {
-        _spriteForMove.x = _mouse.mouseX - _cont.x;
-        _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
+        _spriteForMove.x = (_mouse.mouseX - _cont.x)/g.cont.gameCont.scaleX;
+        _spriteForMove.y = (_mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2)/g.cont.gameCont.scaleX;
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
         if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {  // ��������� ���������� �� ������� � ����� ��������
