@@ -190,9 +190,10 @@ public class Ridge extends AreaObject{
         _source.filter = null;
         _isOnHover = false;
         g.mouseHint.hideHintMouse();
-        if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
-        g.gameDispatcher.addEnterFrame(countEnterFrame);
-        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+        g.timerHint.hideIt();
+//        if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
+//        g.gameDispatcher.addEnterFrame(countEnterFrame);
+//        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
     }
 
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
@@ -255,8 +256,7 @@ public class Ridge extends AreaObject{
             if (_isOnHover == true) {
                 if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                     g.mouseHint.checkMouseHint(MouseHint.CLOCK);
-                }
-                if (_stateRidge == GROWED) {
+                } else if (_stateRidge == GROWED) {
                     g.mouseHint.checkMouseHint(MouseHint.SERP);
                 }
             }

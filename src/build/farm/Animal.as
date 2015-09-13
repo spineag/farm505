@@ -28,7 +28,8 @@ public class Animal {
     private var _craftSprite:Sprite;
     private var _timeToEnd:int;
     private var _state:int;
-    private var _frameCounter:int;
+    private var _frameCounterTimerHint:int;
+    private var _frameCounterMouseHint:int;
     private var _isOnHover:Boolean;
     public var animal_db_id:String;  // id в табличке user_animal
 
@@ -115,8 +116,11 @@ public class Animal {
         }
         _isOnHover = true;
         if (_state == WORKED) {
-            _frameCounter = 20;
+            _frameCounterTimerHint = 20;
             g.gameDispatcher.addEnterFrame(countEnterFrame);
+        } else if (_state == EMPTY) {
+            _frameCounterMouseHint = 20;
+            g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
         }
     }
 
@@ -124,11 +128,12 @@ public class Animal {
         source.filter = null;
         _isOnHover = false;
         g.gameDispatcher.addEnterFrame(countEnterFrame);
+        g.mouseHint.hideHintMouse();
     }
 
     private function countEnterFrame():void{
-        _frameCounter--;
-        if(_frameCounter <=0){
+        _frameCounterTimerHint--;
+        if(_frameCounterTimerHint <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
                 g.timerHint.showIt(g.cont.gameCont.x + source.parent.x + source.x, g.cont.gameCont.y + source.parent.y + source.y - source.height, _timeToEnd, _data.costForceCraft, _data.name);
@@ -136,6 +141,21 @@ public class Animal {
             if (_isOnHover == false) {
                 source.filter = null;
                 g.timerHint.hideIt();
+            }
+        }
+    }
+
+    private function countEnterFrameMouseHint():void {
+        _frameCounterMouseHint--;
+        if(_frameCounterMouseHint <= 0){
+            g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+            if (_isOnHover == true) {
+                if (_state == EMPTY) {
+                    g.mouseHint.checkMouseHint('animal', _data);
+                }
+            }
+            if(_isOnHover == false){
+                g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
             }
         }
     }

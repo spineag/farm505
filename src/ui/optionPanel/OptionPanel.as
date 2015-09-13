@@ -189,7 +189,7 @@ public class OptionPanel {
         switch (reason) {
             case 'fullscreen':
                     try {
-                        var func:Function = function(e:flash.events.Event) {
+                        var func:Function = function(e:flash.events.Event):void {
                             Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
                             if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
                                 Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
