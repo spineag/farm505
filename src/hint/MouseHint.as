@@ -52,7 +52,7 @@ public class MouseHint {
             _image.dispose();
             _image = null;
         }
-        if (g.cont.hintContUnder.contains(_source)) g.cont.hintCont.removeChild(_source);
+        if (g.cont.hintContUnder.contains(_source)) g.cont.hintContUnder.removeChild(_source);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
     }
 

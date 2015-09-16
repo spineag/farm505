@@ -83,7 +83,7 @@ public class Ridge extends AreaObject{
 
     private function onStartClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
-            if (g.toolsModifier.plantId <= 0) {
+            if (g.toolsModifier.plantId <= 0 || _stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
             }

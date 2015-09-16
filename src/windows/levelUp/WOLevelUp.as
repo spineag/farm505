@@ -109,6 +109,7 @@ public class WOLevelUp extends Window{
     }
 
     public function showLevelUp():void {
+        g.hideAllHints();
         showIt();
         _txtLevel.text = "Вы достигли " + g.user.level + " уровень";
         createList();

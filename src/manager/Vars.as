@@ -444,6 +444,17 @@ public class Vars {
             i--;
         }
     }
+
+    public function hideAllHints():void {
+        if (timerHint) timerHint.hideIt();
+        if (wildHint) wildHint.hideIt();
+        if (farmHint) farmHint.hideIt();
+        if (mouseHint) mouseHint.hideHintMouse();
+        if (fabricHint) fabricHint.clearIt();
+        if (treeHint) treeHint.hideIt();
+        if (resourceHint) resourceHint.hideIt();
+        if (hint) (hint as Hint).hideIt();
+    }
 }
 }
 

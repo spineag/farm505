@@ -119,6 +119,9 @@ public class UpdateItem {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
             g.userInventory.addResource(_resourceId, _countForBuy);
             updateIt();
+            if (!_isAmbarItem) {
+                g.woSklad.updateTxtCount();
+            }
             if (_buyCallback != null) {
                 _buyCallback.apply();
             }

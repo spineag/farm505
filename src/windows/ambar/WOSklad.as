@@ -165,7 +165,7 @@ public class WOSklad extends Window {
     private function updateMakeUpdateBtn():void {
         _txtMakeUpdate.text = 'Улучшить до ' + String(g.user.skladMaxCount + g.dataBuilding.objectBuilding[13].deltaCountResources) + ' кг.';
         if (_item1.isFull && _item2.isFull && _item3.isFull) {
-            _btnMakeUpdate.endClickCallback = onUpdate;
+            _btnMakeUpdate.endClickCallback = makeUpdate;
             _btnMakeUpdate.alpha = 1;
         } else {
             _btnMakeUpdate.endClickCallback = null;
@@ -173,15 +173,19 @@ public class WOSklad extends Window {
         }
     }
 
-    private function onUpdate():void {
+    public function updateTxtCount():void {
+        var st:String = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
+        _txtCount.text = st;
+    }
+
+    private function makeUpdate():void {
         var needCountForUpdate:int = g.dataBuilding.objectBuilding[13].startCountInstrumets + g.dataBuilding.objectBuilding[13].deltaCountAfterUpgrade * (g.user.skladLevel-1);
         g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId1, - needCountForUpdate);
         g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId2, - needCountForUpdate);
         g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId3, - needCountForUpdate);
         g.user.skladLevel++;
         g.user.skladMaxCount += g.dataBuilding.objectBuilding[13].deltaCountResources;
-        var st:String = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
-        _txtCount.text = st;
+        updateTxtCount();
         _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
         _item1.updateIt();
         _item2.updateIt();
