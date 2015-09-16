@@ -65,11 +65,11 @@ public class WOTrain extends Window {
         _btn1.visible = false;
         _btn1.endClickCallback = onResourceLoad;
 
-        _txt = new TextField(150, 40, '', "Arial", 16, Color.BLACK)
+        _txt = new TextField(150, 40, '', "Arial", 16, Color.BLACK);
         _txt.x = 90;
         _txt.y = -130;
         _source.addChild(_txt);
-        _txtCounter = new TextField(150, 40, '', "Arial", 16, Color.BLACK)
+        _txtCounter = new TextField(150, 40, '', "Arial", 16, Color.BLACK);
         _txtCounter.x = 90;
         _txtCounter.y = -100;
         _source.addChild(_txtCounter);
@@ -94,8 +94,10 @@ public class WOTrain extends Window {
         checkBtn();
         if (state == Train.STATE_READY) {
             _txt.text = 'До отправления';
+
         } else {
             _txt.text = 'До прибытия';
+            g.woTrainOrder.showItWO(list,counter);
         }
         _counter = counter;
         _txtCounter.text = String(_counter);

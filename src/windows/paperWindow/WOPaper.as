@@ -2,9 +2,12 @@
  * Created by user on 7/24/15.
  */
 package windows.paperWindow {
+import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Color;
+
+import user.Someone;
 
 import utils.CSprite;
 
@@ -14,6 +17,7 @@ public class WOPaper extends Window{
     private var _data:Object;
     private var _contImage:Sprite;
     private var _arrItems:Array;
+    private var _btnRefresh:CSprite;
 
     public function WOPaper() {
         createTempBG(570, 470, Color.GRAY);
@@ -23,7 +27,14 @@ public class WOPaper extends Window{
         _btnExit.y = -235;
         _contImage = new Sprite();
         _source.addChild(_contImage);
+        _btnRefresh = new CSprite();
+        var ref:Image = new Image(g.interfaceAtlas.getTexture('refresh_icon'));
+        _btnRefresh.addChild(ref);
+        _btnRefresh.x = -285;
+        _btnRefresh.y = 210;
+        _source.addChild(_btnRefresh);
         createItem();
+        _btnRefresh.endClickCallback = makeRefresh;
     }
 
     private function onClickExit():void {
@@ -67,6 +78,13 @@ public class WOPaper extends Window{
         for (var i:int=0; i<_arrItems.length; i++) {
             if (ar[i]) _arrItems[i].fillIt(ar[i]);
         }
+    }
+
+    private function makeRefresh():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].unFillIt();
+        }
+        g.directServer.getPaperItems(fillItems);
     }
 }
 }

@@ -74,7 +74,7 @@ public class MarketItem {
         source.endClickCallback = onClick;
     }
 
-    private function fillIt(data:Object, count:int, isFromServer:Boolean = false):void {
+    private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
         var im:Image;
         isFill = 1;
         _data = data;
@@ -92,10 +92,12 @@ public class MarketItem {
             _imageCont.addChild(im);
         }
         _countResource = count;
+        _countMoney = cost;
         if (!isFromServer) g.userInventory.addResource(_data.id, -_countResource);
         _countTxt.text = String(_countResource);
-        _countMoney = _countResource * _data.costMax;
-        _costTxt.text = String(_countMoney);
+//        _countMoney = _countResource * _data.cost;
+        _costTxt.text = String(cost);
+//        _costTxt.text = String(_dataFromServer.cost);
     }
 
     public function clearImageCont():void {
@@ -153,7 +155,6 @@ public class MarketItem {
                 g.woMarket.hideIt();
                 g.woMarket.marketChoose.callback = onChoose;
                 g.woMarket.marketChoose.showIt();
-                //
                 g.woMarket.refreshMarket();
             }
         } else {
@@ -176,7 +177,7 @@ public class MarketItem {
     private function onChoose(a:int, count:int = 0, cost:int = 0, inPapper:Boolean = false):void {
         g.woMarket.showIt();
         if (a > 0) {
-            fillIt(g.dataResource.objectResources[a], count);
+            fillIt(g.dataResource.objectResources[a],count, cost);
             _inPapper.visible = inPapper;
             g.directServer.addUserMarketItem(a, count, inPapper, cost, onAddToServer);
         }
@@ -259,7 +260,7 @@ public class MarketItem {
             showCoinImage();
         } else {
             isFill = 1;
-            fillIt(g.dataResource.objectResources[_dataFromServer.resourceId], _dataFromServer.resourceCount, true);
+            fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
         }
     }
 

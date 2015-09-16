@@ -46,7 +46,6 @@ public class WOPaperItem {
         _txtCost.touchable = false;
         _txtCost.x = 32;
         _txtCost.y = -12;
-
         _btnBuy = new CSprite();
         var im:Image = new Image(g.interfaceAtlas.getTexture('btn1'));
         im.width = _bg.width;
@@ -59,12 +58,10 @@ public class WOPaperItem {
         _txtCountResource = new TextField(50,50,"11111","Arial",14,Color.BLACK);
         _txtCountResource.x = 85;
         _txtCountResource.y = 55;
-        source.addChild(_bg);
-        source.addChild(_txtCountResource);
+
         _btnBuy.addChild(_txtCost);
         _btnBuy.addChild(_imageCoin);
         _btnBuy.y = _bg.height - 30;
-        source.addChild(_btnBuy);
         _btnBuy.endClickCallback = onClickBuy;
 
         _btnVisit = new CSprite();
@@ -77,11 +74,15 @@ public class WOPaperItem {
         t.touchable = false;
         _btnVisit.addChild(t);
         _btnVisit.y = -10;
-        source.addChild(_btnVisit);
         _btnVisit.endClickCallback = onClickVisit;
     }
 
     public function fillIt(ob:Object):void {
+        source.addChild(_bg);
+        source.addChild(_txtCountResource);
+        source.addChild(_btnBuy);
+        source.addChild(_btnVisit);
+
         _data = ob;
         _txtCost.text = String(_data.cost);
         _txtCountResource.text = String(_data.resourceCount);
@@ -101,6 +102,7 @@ public class WOPaperItem {
             _plawkaSold = new Image(g.interfaceAtlas.getTexture('plawka_sold'));
             _plawkaSold.x = _bg.width/2 - _plawkaSold.width/2;
             source.addChild(_plawkaSold);
+
         }
     }
 
@@ -186,6 +188,12 @@ public class WOPaperItem {
         }
         _txtCost.text = '';
         _txtCountResource.text = '';
+    }
+
+    public function unFillIt():void {
+        while (source.numChildren) {
+            source.removeChildAt(0);
+        }
     }
 }
 }

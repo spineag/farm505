@@ -119,7 +119,7 @@ public class Train extends AreaObject{
                 _stateBuild = STATE_ACTIVE;
                 createBuild();
             } else {
-                _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding)  // сколько времени уже строится
+                _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
                 _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
                 if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                     _stateBuild = STATE_WAIT_ACTIVATE;
@@ -232,7 +232,7 @@ public class Train extends AreaObject{
     }
 
     private function onBuy():void {
-        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _dataBuild.cost);
+        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;
         g.directServer.startBuildBuilding(this, null);
@@ -321,6 +321,5 @@ public class Train extends AreaObject{
             }
         }
     }
-
 }
 }
