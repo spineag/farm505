@@ -30,6 +30,7 @@ public class ToolsModifier {
     public static var PLANT_SEED_ACTIVE:int = 6;
     public static var PLANT_TREES:int = 7;
     public static var GRID_DEACTIVATED:int = 8;
+    public static var RIDGE:int = 9;
 
     private var _activeBuildingData:Object;
     private var _spriteForMove:Sprite;
@@ -121,6 +122,10 @@ public class ToolsModifier {
                 if (_plantId <= 0) return;
                 im = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_plantId].imageShop));
                 _mouseIcon.addChild(im);
+                break;
+            case ToolsModifier.RIDGE:
+                im = new Image(g.tempBuildAtlas.getTexture("ridge"));
+                    _mouseIcon.addChild(im);
                 break;
         }
         if (im) {

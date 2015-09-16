@@ -38,8 +38,8 @@ public class ShopItem {
             _im = new Image(g.treeAtlas.getTexture(_data.image));
         }
         MCScaler.scale(_im, 100, 100);
-        _im.x = 35    + 50 - _im.width/2;
-        _im.y = 30    + 50 - _im.height/2;
+        _im.x = 35 + 50 - _im.width/2;
+        _im.y = 30 + 50 - _im.height/2;
         source.addChild(_im);
 
         _nameTxt = new TextField(150, 70, String(_data.name), "Arial", 20, Color.BLACK);
@@ -63,11 +63,17 @@ public class ShopItem {
 
     private function onClick():void {
         if (g.user.level < _data.blockByLevel) {
-            g.flyMessage.showIt(source,"откроется на "+ String(_data.blockByLevel) + " уровне");
+            g.flyMessage.showIt(source,"откроется на " + String(_data.blockByLevel) + " уровне");
             return;
         }
         if (!g.userInventory.checkMoney(_data)) return;
         g.bottomPanel.cancelBoolean(true);
+        if (_data.buildType == BuildType.RIDGE) {
+                g.woShop.hideIt();
+                g.toolsModifier.modifierType = ToolsModifier.RIDGE;
+                g.toolsModifier.startMove(_data,afterMove);
+            return;
+        }
         if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.hideIt();
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
@@ -93,7 +99,5 @@ public class ShopItem {
         g.userInventory.addMoney(_data.currency, -_data.cost);
         g.bottomPanel.cancelBoolean(false);
     }
-
-
 }
 }
