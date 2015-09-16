@@ -94,6 +94,7 @@ import windows.paperWindow.WOPaper;
 import windows.reloadPage.WOReloadPage;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
+import windows.train.WOTrainOrder;
 
 public class Vars {
     private static var _instance:Vars;
@@ -185,6 +186,7 @@ public class Vars {
     public var woTrain:WOTrain;
     public var woAmbarFilled:WOAmbarFilled;
     public var woLastResource:WOLastResource;
+    public var woTrainOrder:WOTrainOrder;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -391,6 +393,7 @@ public class Vars {
         woPaper = new WOPaper();
         woAmbarFilled = new WOAmbarFilled();
         woLastResource = new WOLastResource();
+        woTrainOrder = new WOTrainOrder();
 
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
