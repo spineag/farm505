@@ -26,6 +26,7 @@ public class MouseHint {
     private var _image:Image;
     private var _imageCircle:Image;
     private var _txtCount:TextField;
+    private var _imageCont:Sprite;
 
     private var g:Vars = Vars.getInstance();
 
@@ -33,6 +34,8 @@ public class MouseHint {
         _source = new Sprite();
         _imageBg = new Image(g.interfaceAtlas.getTexture("mouse_circle"));
         _source.addChild(_imageBg);
+        _imageCont = new Sprite();
+        _source.addChild(_imageCont);
         _imageCircle = new Image(g.interfaceAtlas.getTexture("hint_circle"));
         _imageCircle.x = _source.width - 27;
         _imageCircle.y = _source.height - 23;
@@ -44,14 +47,15 @@ public class MouseHint {
     }
 
     public function hideHintMouse():void {
-        if (_image && _source.contains(_image)) {
-            _source.removeChild(_image);
+        while(_imageCont.numChildren) _imageCont.removeChildAt(0);
+        if (_image) {
             _image.dispose();
             _image = null;
         }
-        if (g.cont.hintCont.contains(_source)) g.cont.hintCont.removeChild(_source);
+        if (g.cont.hintContUnder.contains(_source)) g.cont.hintCont.removeChild(_source);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
     }
+
     private function onEnterFrame():void {
         _source.x = g.ownMouse.mouseX + 20;
         _source.y = g.ownMouse.mouseY + 20;
@@ -60,7 +64,7 @@ public class MouseHint {
     public function checkMouseHint(s:String, data:Object = null):void {
         _imageCircle.visible = false;
         _txtCount.text = '';
-        g.cont.hintCont.addChild(_source);
+        g.cont.hintContUnder.addChild(_source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
         onEnterFrame();
         switch (s) {
@@ -89,12 +93,12 @@ public class MouseHint {
                 _txtCount.text = String(g.userInventory.getCountResourceById(data.idResourceRaw));
                 _image = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
                 MCScaler.scale(_image, 50, 50);
-                _image.x = 4;
-                _image.y = 2;
+                _image.x = 3;
+                _image.y = 8;
                 break;
         }
 
-        _source.addChild(_image);
+        _imageCont.addChild(_image);
     }
 }
 }

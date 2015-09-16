@@ -236,7 +236,7 @@ public class ToolsModifier {
         }
 
         if (te.getTouch(_cont, TouchPhase.ENDED)) {
-            if (!_startDragPoint) return;
+//            if (!_startDragPoint) return;
             var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
             if (distance > 5) {
 

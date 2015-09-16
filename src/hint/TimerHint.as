@@ -65,7 +65,7 @@ public class TimerHint {
         _timer = timer;
         _txtTimer.text = String(_timer);
         _txtCost.text = String(cost);
-        g.cont.hintCont.addChild(source);
+        g.cont.hintContUnder.addChild(source);
         g.gameDispatcher.addToTimer(onTimer);
     }
 
@@ -73,8 +73,8 @@ public class TimerHint {
         _isShow = false;
         if (_isOnHover) return;
         g.gameDispatcher.removeFromTimer(onTimer);
-        if (g.cont.hintCont.contains(source)) {
-            g.cont.hintCont.removeChild(source);
+        if (g.cont.hintContUnder.contains(source)) {
+            g.cont.hintContUnder.removeChild(source);
         }
     }
 

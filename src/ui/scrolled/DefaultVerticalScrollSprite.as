@@ -56,7 +56,7 @@ public class DefaultVerticalScrollSprite {
         } else {
             _nextCellX += _cellW;
         }
-        _scroll.source.visible = _scrolledSprite.height > _height;
+        _scroll.source.visible = _scrolledSprite.height > _height + _cellH/2;
     }
 
     public function resetAll():void {

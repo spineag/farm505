@@ -121,6 +121,12 @@ public class WOMarketChoose extends Window {
         }
         var countRes:int = g.userInventory.getCountResourceById(a);
         var count:int = int(countRes/2 + .5);
+        if (countRes > 20) {
+            count = 10;
+            countRes = 10;
+        } else if (countRes > 10) {
+            countRes = 10;
+        }
         _countResourceBlock.maxValue = countRes;
         _countResourceBlock.minValue = 1;
         _countResourceBlock.count = count;
