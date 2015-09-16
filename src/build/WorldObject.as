@@ -46,7 +46,7 @@ public class WorldObject {
         return _flip ? _sizeX : _sizeY;
     }
 
-    public function get source():Sprite {
+    public function get source():CSprite {
         return _source;
     }
 

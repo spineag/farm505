@@ -205,14 +205,41 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
         _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
+        if (g.selectedBuild && g.selectedBuild.source && g.selectedBuild.source.isContDrag) {
+            _needMoveGameCont = true;
+        }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
         _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuildingData.width, _activeBuildingData.height);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
     }
 
+    private var _needMoveGameCont:Boolean = false;
+    private var _startDragPoint:Point;
     private function onTouch(te:TouchEvent):void {
+        if (_needMoveGameCont && te.getTouch(_cont, TouchPhase.BEGAN)) {
+            _startDragPoint = new Point();
+            _startDragPoint.x = g.cont.gameCont.x;
+            _startDragPoint.y = g.cont.gameCont.y;
+            g.cont.setDragPoints(te.touches[0].getLocation(g.mainStage));
+        }
+
+        if (_needMoveGameCont && te.getTouches(_cont, TouchPhase.MOVED)) {
+            if (!_startDragPoint) return;
+            _cont.x = g.cont.gameCont.x;
+            _cont.y = g.cont.gameCont.y;
+            g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
+        }
+
         if (te.getTouch(_cont, TouchPhase.ENDED)) {
-            onTouchEnded();
+            if (!_startDragPoint) return;
+            var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
+            if (distance > 5) {
+
+            } else {
+                _needMoveGameCont = false;
+                onTouchEnded();
+            }
+            _startDragPoint = null;
         }
     }
 
@@ -245,6 +272,7 @@ public class ToolsModifier {
     private function moveIt():void {
         _spriteForMove.x = (_mouse.mouseX - _cont.x)/g.cont.gameCont.scaleX;
         _spriteForMove.y = (_mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2)/g.cont.gameCont.scaleX;
+        if (_startDragPoint) return;
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
         if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {  // ��������� ���������� �� ������� � ����� ��������
