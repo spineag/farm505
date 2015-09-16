@@ -237,14 +237,18 @@ public class ToolsModifier {
 
         if (te.getTouch(_cont, TouchPhase.ENDED)) {
 //            if (!_startDragPoint) return;
-            var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
-            if (distance > 5) {
+            if (_startDragPoint) {
+                var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
+                if (distance > 5) {
 
+                } else {
+                    _needMoveGameCont = false;
+                    onTouchEnded();
+                }
+                _startDragPoint = null;
             } else {
-                _needMoveGameCont = false;
                 onTouchEnded();
             }
-            _startDragPoint = null;
         }
     }
 
