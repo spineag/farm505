@@ -87,15 +87,8 @@ public class Containers {
         }
     }
 
+    private var _isDragged:Boolean = false;
     private function onGameContTouch(te:TouchEvent):void {
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE && te.getTouch(gameCont, TouchPhase.ENDED)) {
-            // нужно еще проверять не драгается ли поляна, если да - то не заходить в этот if
-            if(_startDragPointCont)
-                if (_startDragPointCont.x != _startDragPointCont.x) return;
-            g.toolsModifier.onTouchEnded();
-            return;
-        }
-
         if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED && te.getTouch(gameCont, TouchPhase.ENDED)) {
             var p:Point = te.touches[0].getLocation(g.mainStage);
             p.x -= gameCont.x;
@@ -105,14 +98,24 @@ public class Containers {
             return;
         }
 
-        if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
-            // если садяться растение - то скинуть
-            // если деревья-то посадить его
-            // если передвижение - то поставить
-            return;
+        if (te.getTouch(gameCont, TouchPhase.ENDED)) {
+            if (g.toolsModifier.modifierType == ToolsModifier.MOVE && !_isDragged) {
+//                if(_startDragPointCont)
+//                    if (_startDragPointCont.x != _startDragPointCont.x) return;    // ?????
+                g.toolsModifier.onTouchEnded();
+                _isDragged = false;
+                return;
+            }
+            if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+                if (!_isDragged) g.toolsModifier.modifierType = ToolsModifier.NONE;
+                _isDragged = false;
+                return;
+            }
+            _isDragged = false;
         }
 
         if (te.getTouch(gameCont, TouchPhase.MOVED)) {
+            _isDragged = true;
             dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати перевірки на спосіб тачу
         } else if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
