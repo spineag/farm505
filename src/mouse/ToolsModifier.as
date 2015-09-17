@@ -16,6 +16,7 @@ import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.filters.ColorMatrixFilter;
+import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.MCScaler;
@@ -44,6 +45,7 @@ public class ToolsModifier {
     private var _mouseCont:Sprite;
     public var contImage:Sprite;
     private var _plantId:int;
+    private var _txtCount:TextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -56,6 +58,9 @@ public class ToolsModifier {
         _mouseIcon = new Sprite();
         contImage = new Sprite();
         _plantId = -1;
+        _txtCount = new TextField(50, 40,"","Arial",16,Color.RED);
+        _txtCount.x = 5;
+        _txtCount.y = 5;
     }
 
     public function setTownArray():void {
@@ -122,10 +127,12 @@ public class ToolsModifier {
                 if (_plantId <= 0) return;
                 im = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_plantId].imageShop));
                 _mouseIcon.addChild(im);
+                updateCountTxt();
+                if (!_mouseCont.contains(_txtCount)) _mouseCont.addChild(_txtCount);
                 break;
             case ToolsModifier.RIDGE:
                 im = new Image(g.tempBuildAtlas.getTexture("ridge"));
-                    _mouseIcon.addChild(im);
+                _mouseIcon.addChild(im);
                 break;
         }
         if (im) {
@@ -135,9 +142,20 @@ public class ToolsModifier {
         }
      }
 
+    public function updateCountTxt():void {
+        if (_plantId > 0) {
+            _txtCount.text = String(g.userInventory.getCountResourceById(plantId));
+        } else {
+            _txtCount.text = '';
+        }
+    }
+
     private function clearCont():void{
         while (_mouseIcon.numChildren) {
             _mouseIcon.removeChildAt(0);
+        }
+        if (_mouseCont.contains(_txtCount)) {
+            _mouseCont.removeChild(_txtCount);
         }
     }
 

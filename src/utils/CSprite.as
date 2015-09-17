@@ -75,7 +75,7 @@ public class CSprite extends Sprite {
         if (te.getTouch(this, TouchPhase.MOVED)) {
             if (_useContDrag) {
                 if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) return;
-                //g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
+                g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
                 g.timerHint.hideIt();
                 g.mouseHint.hideHintMouse();
             }

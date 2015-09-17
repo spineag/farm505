@@ -204,6 +204,7 @@ public class Ridge extends AreaObject{
         _stateRidge = GROW1;
         if (!isFromServer && !g.userInventory.checkResource(data,1)) return;
         if (!isFromServer) g.userInventory.addResource(data.id, -1);
+        if (!isFromServer) g.toolsModifier.updateCountTxt();
         _dataPlant = data;
         _plant = new PlantOnRidge(this, _dataPlant);
         if (timeWork < _dataPlant.buildTime) {
