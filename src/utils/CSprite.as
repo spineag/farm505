@@ -55,6 +55,7 @@ public class CSprite extends Sprite {
 
     private var b:Boolean;
     private var p:Point;
+    private var _startDragPoint:Point;
     private function onTouch(te:TouchEvent):void {
         te.stopImmediatePropagation();
         te.stopPropagation();
@@ -83,6 +84,11 @@ public class CSprite extends Sprite {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
             }
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
+            if (_useContDrag) {
+                _startDragPoint = new Point();
+                _startDragPoint.x = g.cont.gameCont.x;
+                _startDragPoint.y = g.cont.gameCont.y;
+            }
             te.stopImmediatePropagation();
             Mouse.cursor = OwnMouse.CLICK_CURSOR;
             if (_startClickCallback != null) {
@@ -108,6 +114,16 @@ public class CSprite extends Sprite {
             if (_outCallback != null) {
                 _outCallback.apply();
             }
+        }
+    }
+
+    public function get wasGameContMoved():Boolean {
+        if (_useContDrag && _startDragPoint) {
+            var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
+            _startDragPoint = null;
+            return distance > 5;
+        } else {
+            return false;
         }
     }
 

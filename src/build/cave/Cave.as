@@ -133,29 +133,33 @@ public class Cave extends AreaObject{
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
-            } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
+            } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES
+                    || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                if (_arrCraftItems.length) {
-                    if (g.userInventory.currentCountInSklad + 1 >= g.user.skladMaxCount) {
-                        g.flyMessage.showIt(_source,"Склад заполнен");
-                        return;
+                if (_source.wasGameContMoved) {
+                    if (_arrCraftItems.length) {
+                        if (g.userInventory.currentCountInSklad + 1 >= g.user.skladMaxCount) {
+                            g.flyMessage.showIt(_source, "Склад заполнен");
+                            return;
+                        }
+                        _arrCraftItems.pop().flyIt();
+                    } else {
+                        _source.filter = null;
+                        g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
+                        g.woCave.showIt();
+                        g.hint.hideIt();
                     }
-                    _arrCraftItems.pop().flyIt();
-                } else {
-                    _source.filter = null;
-                    g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
-                    g.woCave.showIt();
-                    g.hint.hideIt();
                 }
             } else {
                 Cc.error('Cave:: unknown g.toolsModifier.modifierType')
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             _source.filter = null;
-            _woBuy.showItWithParams(_dataBuild, "Откройте пещеру", onBuy);
+            if (!_source.wasGameContMoved) _woBuy.showItWithParams(_dataBuild, "Откройте пещеру", onBuy);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            if (_source.wasGameContMoved) return;
             if (g.useDataFromServer) {
                 g.directServer.openBuildedBuilding(this, onOpenBuilded);
             }

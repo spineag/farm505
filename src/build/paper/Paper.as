@@ -44,6 +44,7 @@ public class Paper extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            if (_source.wasGameContMoved) return;
             g.woPaper.showItMenu();
             g.hint.hideIt();
             _source.filter = null;

@@ -48,7 +48,7 @@ public class Sklad extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             _source.filter = null;
-            g.woSklad.showIt();
+            if (!_source.wasGameContMoved) g.woSklad.showIt();
             onOut();
         } else {
             Cc.error('Ambar:: unknown g.toolsModifier.modifierType')

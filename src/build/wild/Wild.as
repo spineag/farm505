@@ -51,6 +51,7 @@ public class Wild extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            if (_source.wasGameContMoved) return;
             if (_isOnHover)  g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10,_dataBuild.removeByResourceId);
         } else {
             Cc.error('Wild:: unknown g.toolsModifier.modifierType')

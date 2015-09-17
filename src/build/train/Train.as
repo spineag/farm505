@@ -184,6 +184,7 @@ public class Train extends AreaObject{
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                if (_source.wasGameContMoved) return;
                 g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
                 onOut();
                 _source.filter = null;
@@ -191,10 +192,12 @@ public class Train extends AreaObject{
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
+            if (_source.wasGameContMoved) return;
             _source.filter = null;
             _woBuy.showItWithParams(_dataBuild, "Откройте поезд", onBuy);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            if (_source.wasGameContMoved) return;
             if (g.useDataFromServer) {
                 g.directServer.openBuildedBuilding(this, onOpenTrain);
             }

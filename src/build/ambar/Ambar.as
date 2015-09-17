@@ -48,7 +48,7 @@ public class Ambar extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             _source.filter = null;
-            g.woAmbar.showIt();
+            if (!_source.wasGameContMoved) g.woAmbar.showIt();
             onOut();
         } else {
             Cc.error('Ambar:: unknown g.toolsModifier.modifierType')

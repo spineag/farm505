@@ -46,7 +46,7 @@ public class DailyBonus extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             _source.filter = null;
-            g.woDailyBonus.showItMenu();
+            if (!_source.wasGameContMoved) g.woDailyBonus.showItMenu();
             g.hint.hideIt();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
