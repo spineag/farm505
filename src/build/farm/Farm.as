@@ -49,6 +49,7 @@ public class Farm extends AreaObject{
         _source.releaseContDrag = true;
 
         _craftSprite = new Sprite();
+        _craftSprite.y = 80;
         _source.addChild(_craftSprite);
 
         _arrAnimals = [];
@@ -125,11 +126,11 @@ public class Farm extends AreaObject{
     }
 
     public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
-        var an:Animal = new Animal(_dataAnimal);
+        var an:Animal = new Animal(_dataAnimal, this);
         MCScaler.scale(an.source, 50, 50);
         an.source.x = (1/2 - Math.random()) * _source.width/2;
         an.source.y = (1 - Math.random()/2) * _source.height/2;
-        _source.addChild(an.source);
+        _source.addChildAt(an.source, _source.numChildren-2);
         _arrAnimals.push(an);
         if (!isFromServer) {
             g.directServer.addUserAnimal(an, _dbBuildingId, null);

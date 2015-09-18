@@ -11,6 +11,7 @@ import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
@@ -29,7 +30,7 @@ public class CraftItem {
 
     private var g:Vars = Vars.getInstance();
 
-    public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, count:int = 1, f:Function = null) {
+    public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, count:int = 1, f:Function = null, useHover:Boolean = false) {
         _count = count;
         _callback = f;
         _source = new CSprite();
@@ -48,14 +49,28 @@ public class CraftItem {
         _source.y = _y + int(Math.random()*30) - 15;
         parent.addChild(_source);
         _source.endClickCallback = flyIt;
+        if (useHover){
+            _source.hoverCallback = onHover;
+            _source.outCallback = onOut;
+        }
         _txtNumber = new TextField(50,50," ","Arial",18,Color.WHITE);
         _txtNumber.x = 15;
         _txtNumber.y = 25;
         _source.addChild(_txtNumber);
     }
 
+    private function onHover():void {
+        _source.filter = BlurFilter.createGlow(Color.BLUE, 10, 2, 1);
+    }
+
+    private function onOut():void {
+        _source.filter = null;
+    }
+
     public function removeDefaultCallbacks():void {
         _source.endClickCallback = null;
+        _source.hoverCallback = null;
+        _source.outCallback = null;
         _source.touchable = false;
     }
 
@@ -85,6 +100,7 @@ public class CraftItem {
             _callback.apply(null, []);
         }
         _source.endClickCallback = null;
+        _source.filter = null;
         for(var id:String in g.dataRecipe.objectRecipe) {
             if (g.dataRecipe.objectRecipe[id].idResource == _resourceItem.resourceID) {
                 _txtNumber.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
@@ -108,6 +124,7 @@ public class CraftItem {
 
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
+            removeDefaultCallbacks();
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }

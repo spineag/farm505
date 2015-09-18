@@ -80,6 +80,10 @@ public class WorldObject {
 
     public function addXP():void {}
 
+    public function get craftSprite():Sprite {
+        return _craftSprite;
+    }
+
     public function updateDepth():void {
         var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
 

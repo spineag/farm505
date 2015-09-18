@@ -25,17 +25,18 @@ public class Animal {
     public var source:CSprite;
     private var _image:Image;
     private var _data:Object;
-    private var _craftSprite:Sprite;
     private var _timeToEnd:int;
     private var _state:int;
     private var _frameCounterTimerHint:int;
     private var _frameCounterMouseHint:int;
     private var _isOnHover:Boolean;
+    private var _farm:Farm;
     public var animal_db_id:String;  // id в табличке user_animal
 
     private var g:Vars = Vars.getInstance();
 
-    public function Animal(data:Object) {
+    public function Animal(data:Object, farm:Farm) {
+        _farm = farm;
         source = new CSprite();
         _data = data;
         _isOnHover = false;
@@ -44,9 +45,6 @@ public class Animal {
         _image.pivotX = _image.width/2;
         _image.pivotY = _image.height;
         source.addChild(_image);
-
-        _craftSprite = new Sprite();
-        source.addChild(_craftSprite);
 
         _state = EMPTY;
 
@@ -83,7 +81,7 @@ public class Animal {
     private function craftResource():void {
         var rItem:ResourceItem = new ResourceItem();
         rItem.fillIt(g.dataResource.objectResources[_data.idResource]);
-        var item:CraftItem = new CraftItem(0, 0, rItem, _craftSprite, 1, onCraft);
+        var item:CraftItem = new CraftItem(0, 0, rItem, _farm.craftSprite, 1, onCraft, true);
     }
 
     private function onCraft():void {
