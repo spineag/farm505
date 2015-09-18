@@ -37,6 +37,8 @@ public class MarketItem {
     private var _plawkaSold:Image;
     private var _isUser:Boolean;
     private var _imageCont:Sprite;
+    private var _lockedSprite:Sprite;
+    private var _lockedTxt:TextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -72,6 +74,10 @@ public class MarketItem {
 
         isFill = 0;
         source.endClickCallback = onClick;
+
+        _lockedSprite = new Sprite();
+        var im:Image = new Image(g.interfaceAtlas.getTexture('shop_locked'));
+        _lockedSprite.addChild(im);
     }
 
     private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
