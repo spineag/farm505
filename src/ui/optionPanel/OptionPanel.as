@@ -3,6 +3,8 @@
  */
 package ui.optionPanel {
 
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
 import flash.display.StageDisplayState;
@@ -280,23 +282,31 @@ public class OptionPanel {
 
     private function makeScaling(s:Number):void {
         var p:Point;
+        var pNew:Point;
+        var oldScale:Number;
         var cont:Sprite = g.cont.gameCont;
         p = new Point();
         p.x = g.stageWidth/2;
         p.y = g.stageHeight/2;
+        oldScale = cont.scaleX;
         p = cont.globalToLocal(p);
         cont.scaleX = cont.scaleY = s;
         p = cont.localToGlobal(p);
-        cont.x -= p.x - g.stageWidth/2;
-        cont.y -= p.y - g.stageHeight/2;
+        pNew = new Point();
+//        cont.x -= p.x - g.stageWidth/2;
+//        cont.y -= p.y - g.stageHeight/2;
+        pNew.x = cont.x - p.x + g.stageWidth/2;
+        pNew.y = cont.y - p.y + g.stageHeight/2;
         var oY:Number = g.matrixGrid.offsetY*s;
-        if (cont.y > -oY) cont.y = -oY;
-        if (cont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)
-            cont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
-        if (cont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
-            cont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
-        if (cont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
-            cont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
+        if (pNew.y > -oY) pNew.y = -oY;
+        if (pNew.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)
+            pNew.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
+        if (pNew.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
+            pNew.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
+        if (pNew.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
+            pNew.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
+        cont.scaleX = cont.scaleY = oldScale;
+        new TweenMax(cont, .5, {x:pNew.x, y:pNew.y, scaleX:s, scaleY:s, ease:Linear.easeOut});
     }
 }
 }
