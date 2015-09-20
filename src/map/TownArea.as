@@ -65,6 +65,24 @@ public class TownArea extends Sprite {
         return _cityObjects;
     }
 
+    public function getCityObjectsByType(buildType:int):Array {
+        var ar:Array = [];
+        for (var i:int=0; i<_cityObjects.length; i++) {
+            if (_cityObjects[i].dataBuild.buildType == buildType)
+                ar.push(_cityObjects[i]);
+        }
+        return ar;
+    }
+
+    public function getCityObjectsById(id:int):Array {
+        var ar:Array = [];
+        for (var i:int=0; i<_cityObjects.length; i++) {
+            if (_cityObjects[i].dataBuild.id == id)
+                ar.push(_cityObjects[i]);
+        }
+        return ar;
+    }
+
     private function zSort():void{
         _cityObjects.sortOn("depth", Array.NUMERIC);
         for (var  i:int = 0; i < _cityObjects.length; i++) {

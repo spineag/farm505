@@ -151,5 +151,9 @@ public class Farm extends AreaObject{
             new XPStar(start.x, start.y, _dataBuild.xpForBuild);
         }
     }
+
+    public function get arrAnimals():Array {
+        return _arrAnimals;
+    }
 }
 }
