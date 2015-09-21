@@ -26,7 +26,8 @@ import utils.IsoUtils;
 import utils.Point3D;
 
 public class MatrixGrid {
-    public static const WIDTH_CELL:uint = 30;
+    public static const WIDTH_CELL:uint = 60;
+//    public static const WIDTH_CELL:uint = 30;
     public static const FACTOR:Number = WIDTH_CELL / Math.SQRT2;
     public static const DIAGONAL:Number = Math.sqrt(WIDTH_CELL * WIDTH_CELL + WIDTH_CELL * WIDTH_CELL);
 
@@ -52,11 +53,11 @@ public class MatrixGrid {
 
         _matrix = [];
 
-        var tempWidth:int = int(g.realGameWidth / DIAGONAL + .5);
-        var tempHeight:int = int(g.realGameHeight / (DIAGONAL / 2) + .5);
+        var tempWidth:int = int(g.realGameTilesWidth / DIAGONAL + .5);
+        var tempHeight:int = int(g.realGameTilesHeight / (DIAGONAL / 2) + .5);
         _matrixSize = tempWidth + tempHeight;
 
-        _offsetY = _matrixSize*FACTOR/2 - g.realGameHeight/2;  // 512
+        _offsetY = 0 //_matrixSize*FACTOR/2 - g.realGameTilesHeight/2;  // 512
 
         for (var i:int = 0; i < _matrixSize; i++) {
             _matrix.push([]);
@@ -70,8 +71,8 @@ public class MatrixGrid {
 
     private function isTileInGame(i:int, j:int):Boolean { // перевіряємо чи тайл попадає в ігрову зону, якщо ні - то його не використовуємо
         var p:Point = getXYFromIndex(new Point(i,j));
-        if (p.x < -g.realGameWidth/2 + DIAGONAL|| p.x > g.realGameWidth/2) return false;
-        if (p.y < _offsetY || p.y > g.realGameHeight + _offsetY - FACTOR) return false;
+        if (p.x < -g.realGameTilesWidth/2 + DIAGONAL|| p.x > g.realGameTilesWidth/2) return false;
+        if (p.y < _offsetY || p.y > g.realGameTilesHeight + _offsetY - FACTOR) return false;
         return true;
     }
 

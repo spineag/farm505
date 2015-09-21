@@ -43,7 +43,7 @@ public class OptionPanel {
 
     public function OptionPanel() {
         _arrCells = [];
-        _arrCells = [.75, 1, 1.25, 1.5, 1.75];
+        _arrCells = [.1, .75, 1, 1.25, 1.5, 1.75];
         fillBtns();
     }
 

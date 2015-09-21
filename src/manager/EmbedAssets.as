@@ -8,32 +8,32 @@ import starling.textures.TextureAtlas;
 
 public class EmbedAssets {
     // usual embed
-    [Embed(source="../../diff/valey.png")]
-    public static const Valey:Class;
-//    [Embed(source="../../diff/map/map_opt/map01.jpg")]
-//    public static const Map1:Class;
-//    [Embed(source="../../diff/map/map_opt/map02.jpg")]
-//    public static const Map2:Class;
-//    [Embed(source="../../diff/map/map_opt/map03.jpg")]
-//    public static const Map3:Class;
-//    [Embed(source="../../diff/map/map_opt/map04.jpg")]
-//    public static const Map4:Class;
-//    [Embed(source="../../diff/map/map_opt/map05.jpg")]
-//    public static const Map5:Class;
-//    [Embed(source="../../diff/map/map_opt/map06.jpg")]
-//    public static const Map6:Class;
-//    [Embed(source="../../diff/map/map_opt/map07.jpg")]
-//    public static const Map7:Class;
-//    [Embed(source="../../diff/map/map_opt/map08.jpg")]
-//    public static const Map8:Class;
-//    [Embed(source="../../diff/map/map_opt/map09.jpg")]
-//    public static const Map9:Class;
-//    [Embed(source="../../diff/map/map_opt/map10.jpg")]
-//    public static const Map10:Class;
-//    [Embed(source="../../diff/map/map_opt/map11.jpg")]
-//    public static const Map11:Class;
-//    [Embed(source="../../diff/map/map_opt/map12.jpg")]
-//    public static const Map12:Class;
+//    [Embed(source="../../diff/valey.png")]
+//    public static const Valey:Class;
+    [Embed(source="../../assets/map/map_opt/map01.jpg")]
+    public static const Map1:Class;
+    [Embed(source="../../assets/map/map_opt/map02.jpg")]
+    public static const Map2:Class;
+    [Embed(source="../../assets/map/map_opt/map03.jpg")]
+    public static const Map3:Class;
+    [Embed(source="../../assets/map/map_opt/map04.jpg")]
+    public static const Map4:Class;
+    [Embed(source="../../assets/map/map_opt/map05.jpg")]
+    public static const Map5:Class;
+    [Embed(source="../../assets/map/map_opt/map06.jpg")]
+    public static const Map6:Class;
+    [Embed(source="../../assets/map/map_opt/map07.jpg")]
+    public static const Map7:Class;
+    [Embed(source="../../assets/map/map_opt/map08.jpg")]
+    public static const Map8:Class;
+    [Embed(source="../../assets/map/map_opt/map09.jpg")]
+    public static const Map9:Class;
+    [Embed(source="../../assets/map/map_opt/map10.jpg")]
+    public static const Map10:Class;
+    [Embed(source="../../assets/map/map_opt/map11.jpg")]
+    public static const Map11:Class;
+    [Embed(source="../../assets/map/map_opt/map12.jpg")]
+    public static const Map12:Class;
 
     // Texture
     [Embed(source="../../assets/mapAtlas.png")]

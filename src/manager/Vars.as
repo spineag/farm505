@@ -103,8 +103,12 @@ public class Vars {
     public var mainStage:Stage;
     public var stageWidth:int = 1000;
     public var stageHeight:int = 640;
-    public var realGameWidth:int = 2048;
-    public var realGameHeight:int = 1500;
+//    public var realGameWidth:int = 2048;
+//    public var realGameHeight:int = 1500;
+    public var realGameWidth:int = 7600;
+    public var realGameHeight:int = 5000;
+    public var realGameTilesWidth:int = 6782;
+    public var realGameTilesHeight:int = 3400;
     public var gameDispatcher:FarmDispatcher;
     public var user:User;
     public var userInventory:UserInventory;
@@ -364,10 +368,11 @@ public class Vars {
     }
 
     private function continueInitGame():void {
-
         toolsModifier.setTownArray();
+        background = new BackgroundArea(afterCreateMapBackground);
+    }
 
-        background = new BackgroundArea();
+    private function afterCreateMapBackground():void {
 
         cont.moveCenterToXY(0, realGameHeight/2 + matrixGrid.offsetY, true);
 
