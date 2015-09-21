@@ -2,8 +2,14 @@ package build {
 
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
+import map.MatrixGrid;
+
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
+import starling.utils.Color;
 
 import utils.CSprite;
 
@@ -53,7 +59,7 @@ public class AreaObject extends WorldObject {
         }
 
         if (_dataBuild.url == "buildAtlas") {
-            im  = new Image(g.tempBuildAtlas.getTexture(_dataBuild.image));
+            im = new Image(g.tempBuildAtlas.getTexture(_dataBuild.image));
             im.x = _dataBuild.innerX;
             im.y = _dataBuild.innerY;
         } else if (_dataBuild.url == "treeAtlas") {
@@ -73,6 +79,28 @@ public class AreaObject extends WorldObject {
         if (_flip) _build.scaleX = -_defaultScale;
 
         _source.addChild(_build);
+
+        createIsoView();
+    }
+
+    protected function createIsoView():void {
+        var im:Image;
+        _isoView = new Sprite();
+        for (var i:int = 0; i < _dataBuild.width; i++) {
+            for (var j:int = 0; j < _dataBuild.height; j++) {
+                im = new Image(MatrixGrid.buildUnderTexture);
+                im.pivotX = im.width/2;
+                g.matrixGrid.setSpriteFromIndex(im, new Point(i, j));
+                _isoView.addChild(im);
+            }
+        }
+        _source.addChildAt(_isoView, 0);
+    }
+
+    protected function deleteIsoView():void {
+        while (_isoView.numChildren) _isoView.removeChildAt(0);
+        _source.removeChild(_isoView);
+        _isoView = null;
     }
 
     protected function addTempGiftIcon():void {

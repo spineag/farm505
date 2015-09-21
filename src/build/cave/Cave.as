@@ -44,6 +44,7 @@ public class Cave extends AreaObject{
         super (data);
 
         checkCaveState();
+        createIsoView();
 
         _woBuy = new WOBuyCave();
         _source.hoverCallback = onHover;

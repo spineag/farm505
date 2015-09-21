@@ -136,8 +136,9 @@ public class Tree extends AreaObject{
         if (_flip) {
             _build.scaleX = -_defaultScale;
         }
-
         _source.addChild(_build);
+
+        createIsoView();
     }
 
     private function setBuildImage():void {
