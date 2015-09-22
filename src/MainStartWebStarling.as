@@ -24,7 +24,7 @@ import starling.events.Event;
 
 import utils.ConsoleWrapper;
 
-[SWF (frameRate='30', backgroundColor='#000000', width = '1000', height = '640')]
+[SWF (frameRate='30', backgroundColor='#709e1d', width = '1000', height = '640')]
 
 public class MainStartWebStarling extends Sprite{
     private var star:Starling;
@@ -79,6 +79,11 @@ public class MainStartWebStarling extends Sprite{
         Cc.obj('social', g.flashVars, 'vars from vk: ', 1);
         g.isDebug = stage.loaderInfo.url.substr(0, 4).toLowerCase() == 'file';
         g.useHttps = g.isDebug ? false : (g.flashVars['protocol'] == 'https');
+        Cc.ch('info', 'isDebug = ' + g.isDebug);
+//        if (g.isDebug) {
+//            Cc.memoryMonitor = true;
+//            Cc.visible = true;
+//        }
 
         game = star.root as MainStarling;
         game.addEventListener(MainStarling.LOADED, onLoaded);

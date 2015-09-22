@@ -121,15 +121,6 @@ public class SWFHandler extends EventDispatcher implements IFormatHandler {
      * @inheritDoc
      */
     public function load(uri:String, context:* = null):void {
-//        if (AppSwitcher.CURRENT_APP == AppSwitcher.APP_HO_GAME) {
-//            g = Variables.getInstance();
-//        } else if (AppSwitcher.CURRENT_APP == AppSwitcher.APP_LEVEL_EDITOR) {
-//            g = Objects.getInstance();
-//        } else if (AppSwitcher.CURRENT_APP == AppSwitcher.APP_STARLING) {
-//            g = Vars.getInstance();
-//        } else {
-//            Cc.error('SWFHanlder:: unknown AppSwitcher.CURRENT_APP');
-//        }
         _loaded = false;
         if (!g.isDebug) {
             _defaultContext.securityDomain = SecurityDomain.currentDomain;

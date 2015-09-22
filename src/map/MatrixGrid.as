@@ -57,7 +57,7 @@ public class MatrixGrid {
         var tempHeight:int = int(g.realGameTilesHeight / (DIAGONAL / 2) + .5);
         _matrixSize = tempWidth + tempHeight;
 
-        _offsetY = 0 //_matrixSize*FACTOR/2 - g.realGameTilesHeight/2;  // 512
+        _offsetY = - g.realGameHeight/2; //_matrixSize*FACTOR/2 - g.realGameTilesHeight/2;
 
         for (var i:int = 0; i < _matrixSize; i++) {
             _matrix.push([]);

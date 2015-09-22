@@ -146,8 +146,8 @@ public class Containers {
             gameCont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
         if (gameCont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
             gameCont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
-        if (gameCont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
-            gameCont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
+        if (gameCont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL + Starling.current.nativeStage.stageWidth)
+            gameCont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL + Starling.current.nativeStage.stageWidth;
     }
 
     public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в загальній системі gameCont
