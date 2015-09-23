@@ -4,6 +4,8 @@
 package ui.bottomInterface {
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import starling.core.Starling;
 
 import starling.display.Image;
@@ -92,7 +94,7 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
-                    _shopBtn.filter = null
+                    _shopBtn.filter = null;
                     if (g.toolsPanel.isShowed) g.toolsPanel.hideIt();
                     if (g.optionPanel.isShowed) g.optionPanel.hideIt();
                     if (g.friendPanel.isShowed) g.friendPanel.hideIt();
@@ -101,6 +103,7 @@ public class MainBottomPanel {
             case 'cancel':
                     _cancelBtn.visible = false;
                     _shopBtn.visible = true;
+                    g.toolsModifier.cancelMove();
                 break;
             case 'tools':
                 if (g.toolsPanel.isShowed) {

@@ -271,10 +271,27 @@ public class TownArea extends Sprite {
         // временно полная сортировка, далее нужно будет дописать "умную"
         zSort();
 
-        if (isNewAtMap && worldObject is Ridge){
-            g.toolsModifier.startMove(g.dataBuilding.objectBuilding[11], afterMoveRidge);
-            g.bottomPanel.cancelBoolean(true);
-        }
+            if (isNewAtMap && worldObject is Ridge) {
+                g.bottomPanel.cancelBoolean(true);
+                var arr:Array;
+                var curCount:int;
+                var maxCount:int;
+                var maxCountAtCurrentLevel:int = 0;
+                arr = [];
+                arr = g.townArea.getCityObjectsById(g.dataBuilding.objectBuilding[11].id);
+                curCount = arr.length;
+                for (var i:int = 0; g.dataBuilding.objectBuilding[11].blockByLevel.length; i++) {
+                    if (g.dataBuilding.objectBuilding[11].blockByLevel[i] <= g.user.level) {
+                        maxCountAtCurrentLevel++;
+                    } else break;
+                }
+                maxCount = maxCountAtCurrentLevel * g.dataBuilding.objectBuilding[11].countUnblock;
+                if (curCount == maxCount) {
+                    return;
+                }
+                g.toolsModifier.startMove(g.dataBuilding.objectBuilding[11], afterMoveRidge);
+            }
+
     }
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
