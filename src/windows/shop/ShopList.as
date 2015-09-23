@@ -59,8 +59,6 @@ public class ShopList {
     }
 
     public function fillIt(arr:Array):void {
-        clearIt();
-
         var item:ShopItem;
         for (var i:int = 0; i < arr.length; i++) {
             item = new ShopItem(arr[i]);

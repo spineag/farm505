@@ -16,7 +16,7 @@ public class WOShop extends Window{
     private var _btnTab4:ShopTabBtn;
     private var _btnTab5:ShopTabBtn;
     private var _shopList:ShopList;
-
+    private var curentTab:int;
     public function WOShop() {
         super();
         _woHeight = 784;
@@ -28,6 +28,7 @@ public class WOShop extends Window{
         _btnExit.x = 370;
         _btnExit.y = -205;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
+        curentTab = 1;
     }
 
     private function createBG():void {
@@ -44,11 +45,17 @@ public class WOShop extends Window{
         _source.addChild(im);
     }
 
-    private function onClickExit(e:Event=null):void {
+    public function onClickExit(e:Event=null):void {
+        _shopList.clearIt();
         hideIt();
     }
 
-    private function createShopTabBtns():void {
+    override public function showIt():void{
+        super.showIt();
+        onTab(curentTab);
+    }
+
+    public function createShopTabBtns():void {
         var w:int;
 
         _btnTab1 = new ShopTabBtn('Двор', function():void {onTab(1)});
@@ -73,7 +80,6 @@ public class WOShop extends Window{
         _btnTab5.source.y = -190;
         _source.addChild(_btnTab5.source);
 
-        onTab(1);
     }
 
     private function onTab(a:int):void {
@@ -81,6 +87,7 @@ public class WOShop extends Window{
         var obj:Object;
         var id:String;
 
+        curentTab = a;
         _btnTab1.activateIt(false);
         _btnTab2.activateIt(false);
         _btnTab3.activateIt(false);
@@ -130,7 +137,7 @@ public class WOShop extends Window{
                 }
                 break;
         }
-
+        _shopList.clearIt();
         _shopList.fillIt(arr);
     }
 }

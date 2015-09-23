@@ -230,8 +230,8 @@ public class ShopItem {
             g.woShop.hideIt();
             g.toolsModifier.startMove(_data, afterMove);
             return;
-        } else if (_data.buildType != BuildType.ANIMAL) {
-            g.woShop.hideIt();
+        }   else if (_data.buildType != BuildType.ANIMAL) {
+            g.woShop.onClickExit();
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.toolsModifier.startMove(_data, afterMove);
         } else {

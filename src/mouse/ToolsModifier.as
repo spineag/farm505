@@ -51,7 +51,7 @@ public class ToolsModifier {
 
     public function ToolsModifier() {
         _mouseCont = g.cont.mouseCont;
-        _cont = g.cont.animationsContTop;
+        _cont = g.cont.animationsContBot;
         _mouse = g.ownMouse;
         _callbackAfterMove = null;
         _modifierType = NONE;
@@ -234,6 +234,20 @@ public class ToolsModifier {
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
         _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuildingData.width, _activeBuildingData.height);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
+    }
+
+    public function cancelMove():void {
+        g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        while (_spriteForMove.numChildren) {
+            _spriteForMove.removeChildAt(0);
+        }
+        _moveGrid.clearIt();
+        _moveGrid = null;
+        if (imForMove) imForMove.dispose();
+        imForMove = null;
+        _spriteForMove = null;
+        return;
     }
 
     private var _needMoveGameCont:Boolean = false;
