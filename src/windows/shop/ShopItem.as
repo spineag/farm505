@@ -64,6 +64,64 @@ public class ShopItem {
         _lockedSprite.y = 110;
         source.addChild(_lockedSprite);
 
+        checkState();
+    }
+
+    public function clearIt():void {
+        while (source.numChildren) {
+            source.removeChildAt(0);
+        }
+        if (_lockedSprite){
+            while (_lockedSprite.numChildren) {
+                _lockedSprite.removeChildAt(0);
+            }
+        }
+        _lockedSprite = null;
+        source = null;
+    }
+
+    private function onClick():void {
+//        if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
+//            g.flyMessage.showIt(source,"откроется на " + String(_data.blockByLevel) + " уровне");
+//            return;
+//        }
+        if (!g.userInventory.checkMoney(_data)) return;
+        g.bottomPanel.cancelBoolean(true);
+        if (_data.buildType == BuildType.RIDGE) {
+                g.woShop.hideIt();
+                g.toolsModifier.modifierType = ToolsModifier.RIDGE;
+                g.toolsModifier.startMove(_data,afterMove);
+            return;
+        }
+        if (_data.buildType != BuildType.ANIMAL) {
+            g.woShop.hideIt();
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            g.toolsModifier.startMove(_data, afterMove);
+        } else {
+            //додаємо на відповідну ферму
+            var arr:Array = g.townArea.cityObjects;
+            for (var i:int = 0; i < arr.length; i++) {
+                if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
+                    (arr[i] as Farm).addAnimal();
+                    g.bottomPanel.cancelBoolean(false);
+                    return;
+                }
+            }
+            trace('no such Farm :(');
+            g.bottomPanel.cancelBoolean(false);
+        }
+    }
+
+    private function afterMove(_x:Number, _y:Number):void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        g.townArea.createNewBuild(_data, _x, _y);
+        g.userInventory.addMoney(_data.currency, -_data.cost);
+        g.bottomPanel.cancelBoolean(false);
+
+        checkState();
+    }
+
+    private function checkState():void {
         var im:Image;
         var arr:Array;
         var i:int;
@@ -200,58 +258,6 @@ public class ShopItem {
         } else {
             _lockedSprite.visible = false;
         }
-    }
-
-    public function clearIt():void {
-        while (source.numChildren) {
-            source.removeChildAt(0);
-        }
-        if (_lockedSprite){
-            while (_lockedSprite.numChildren) {
-                _lockedSprite.removeChildAt(0);
-            }
-        }
-        _lockedSprite = null;
-        source = null;
-    }
-
-    private function onClick():void {
-        if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-            g.flyMessage.showIt(source,"откроется на " + String(_data.blockByLevel) + " уровне");
-            return;
-        }
-        if (!g.userInventory.checkMoney(_data)) return;
-        g.bottomPanel.cancelBoolean(true);
-        if (_data.buildType == BuildType.RIDGE) {
-                g.woShop.hideIt();
-                g.toolsModifier.modifierType = ToolsModifier.RIDGE;
-                g.toolsModifier.startMove(_data,afterMove);
-            return;
-        }
-        if (_data.buildType != BuildType.ANIMAL) {
-            g.woShop.hideIt();
-            g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.toolsModifier.startMove(_data, afterMove);
-        } else {
-            //додаємо на відповідну ферму
-            var arr:Array = g.townArea.cityObjects;
-            for (var i:int = 0; i < arr.length; i++) {
-                if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
-                    (arr[i] as Farm).addAnimal();
-                    g.bottomPanel.cancelBoolean(false);
-                    return;
-                }
-            }
-            trace('no such Farm :(');
-            g.bottomPanel.cancelBoolean(false);
-        }
-    }
-
-    private function afterMove(_x:Number, _y:Number):void {
-        g.toolsModifier.modifierType = ToolsModifier.NONE;
-        g.townArea.createNewBuild(_data, _x, _y);
-        g.userInventory.addMoney(_data.currency, -_data.cost);
-        g.bottomPanel.cancelBoolean(false);
     }
 }
 }
