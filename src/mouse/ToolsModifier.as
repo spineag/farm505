@@ -101,6 +101,7 @@ public class ToolsModifier {
                  _plantId = -1;
                  if(_mouseCont.contains(_mouseIcon)) _mouseCont.removeChild(_mouseIcon);
                  g.gameDispatcher.removeEnterFrame(moveMouseIcon);
+                 _mouseIcon.scaleX = _mouseIcon.scaleY = 1;
                  return;
              case ToolsModifier.MOVE:
                  im = new Image(g.mapAtlas.getTexture("Move"));
@@ -284,21 +285,18 @@ public class ToolsModifier {
     }
 
     public function onTouchEnded():void {
-        var x:int;
-        var y:int;
+        var x:Number;
+        var y:Number;
+        if (!_spriteForMove) return;
         x = _spriteForMove.x;
         y = _spriteForMove.y;
-        if (!_spriteForMove) return;
-        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
+        var point:Point = g.matrixGrid.getIndexFromXY(new Point(x, y));
         if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) return;
 
         spriteForMoveIndexX = 0;
         spriteForMoveIndexY = 0;
         _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
-//        if (_callbackAfterMove != null) {
-//            _callbackAfterMove.apply(null, [_spriteForMove.x, _spriteForMove.y])
-//        }
 
         _cont.removeChild(_spriteForMove);
 //        _spriteForMove.unflatten();

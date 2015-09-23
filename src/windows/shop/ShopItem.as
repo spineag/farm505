@@ -222,13 +222,12 @@ public class ShopItem {
     private function onClick():void {
         if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
             g.flyMessage.showIt(source,"откроется на " + String(_data.blockByLevel) + " уровне");
-            trace("kanaet");
             return;
         }
         if (!g.userInventory.checkMoney(_data)) return;
         g.bottomPanel.cancelBoolean(true);
         if (_data.buildType == BuildType.RIDGE) {
-            g.woShop.onClickExit();
+            g.woShop.hideIt();
             g.toolsModifier.startMove(_data, afterMove);
             return;
         }   else if (_data.buildType != BuildType.ANIMAL) {

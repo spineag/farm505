@@ -240,8 +240,8 @@ public class TownArea extends Sprite {
 
     public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
         if (!_cont.contains(worldObject.source)) {
-            worldObject.source.x = _x;
-            worldObject.source.y = _y;
+            worldObject.source.x = int(_x);
+            worldObject.source.y = int(_y);
             _cont.addChild(worldObject.source);
             var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
             worldObject.posX = point.x;

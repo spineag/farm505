@@ -6,6 +6,7 @@ import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
@@ -21,6 +22,7 @@ public class CountBlock {
     private var _max:int;
     private var _min:int;
     private var _callback:Function;
+    private var filter:ColorMatrixFilter;
 
     private var g:Vars = Vars.getInstance();
 
@@ -35,6 +37,8 @@ public class CountBlock {
         _btnPlus.endClickCallback = onEndPlus;
         _btnMinus.startClickCallback = onStartMinus;
         _btnMinus.endClickCallback = onEndMinus;
+        filter = new ColorMatrixFilter();
+        filter.adjustSaturation(-1);
     }
 
     public function set setWidth(a:int):void {
@@ -105,6 +109,7 @@ public class CountBlock {
                 _curCount = _max;
             }
             _txt.text = String(_curCount);
+            checkPlusBtn();
         }
     }
 
@@ -134,6 +139,23 @@ public class CountBlock {
                 _curCount = _min;
             }
             _txt.text = String(_curCount);
+            checkMinusBtn();
+        }
+    }
+
+    private function checkPlusBtn():void {
+        if (_curCount >= _max) {
+            _btnPlus.filter = filter;
+        } else {
+            _btnPlus.filter = null;
+        }
+    }
+
+    private function checkMinusBtn():void {
+        if (_curCount <= _min) {
+            _btnMinus.filter = filter;
+        } else {
+            _btnMinus.filter = null;
         }
     }
 }
