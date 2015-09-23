@@ -90,17 +90,29 @@ public class Containers {
         g.mainStage.addChild(mainCont);
 
         addGameContListener(true);
+//        addCancelTouch(true);
     }
 
     public function addGameContListener(value:Boolean):void {
         if (value) {
             if (gameCont.hasEventListener(TouchEvent.TOUCH)) return;
             gameCont.addEventListener(TouchEvent.TOUCH, onGameContTouch);
+
         } else {
             if (!gameCont.hasEventListener(TouchEvent.TOUCH)) return;
             gameCont.removeEventListener(TouchEvent.TOUCH, onGameContTouch);
         }
     }
+//
+//    public function addCancelTouch(value:Boolean):void {
+//        if (value) {
+//            if (gameCont.hasEventListener(TouchEvent.TOUCH)) return;
+//            gameCont.addEventListener(TouchEvent.TOUCH, onCancelTouch);
+//        } else {
+//            if (!gameCont.hasEventListener(TouchEvent.TOUCH)) return;
+//            gameCont.addEventListener(TouchEvent.TOUCH, onCancelTouch);
+//        }
+//    }
 
     private var _isDragged:Boolean = false;
     private function onGameContTouch(te:TouchEvent):void {
@@ -140,6 +152,12 @@ public class Containers {
             }
         }
     }
+
+//    private function onCancelTouch(te:TouchEvent):void {
+//        if (g.toolsModifier.modifierType == ToolsModifier.MOVE && te.getTouch(gameCont, TouchPhase.ENDED)){
+//            g.toolsModifier.modifierType = ToolsModifier.NONE;
+//        }
+//    }
 
     public function setDragPoints(p:Point):void {
         _startDragPoint = p;

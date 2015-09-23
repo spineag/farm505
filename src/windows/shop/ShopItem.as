@@ -223,12 +223,10 @@ public class ShopItem {
         if (!g.userInventory.checkMoney(_data)) return;
         g.bottomPanel.cancelBoolean(true);
         if (_data.buildType == BuildType.RIDGE) {
-                g.woShop.hideIt();
-                g.toolsModifier.modifierType = ToolsModifier.RIDGE;
-                g.toolsModifier.startMove(_data,afterMove);
+            g.woShop.hideIt();
+            g.toolsModifier.startMove(_data, afterMove);
             return;
-        }
-        if (_data.buildType != BuildType.ANIMAL) {
+        }   else if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.hideIt();
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.toolsModifier.startMove(_data, afterMove);

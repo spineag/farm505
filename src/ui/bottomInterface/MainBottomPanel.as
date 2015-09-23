@@ -20,7 +20,7 @@ public class MainBottomPanel {
     private var _friendsBtn:CSprite;
     private var _toolsBtn:CSprite;
     private var _optionBtn:CSprite;
-    private var _cancelBtn:CSprite;
+    public var _cancelBtn:CSprite;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -137,11 +137,14 @@ public class MainBottomPanel {
         if (b == true) {
             _cancelBtn.visible = true;
             _shopBtn.visible = false;
+//            g.cont.addCancelTouch(true);
         }
 
         if (b == false) {
             _cancelBtn.visible = false;
             _shopBtn.visible = true;
+//            g.cont.addCancelTouch(false);
+
         }
     }
 }
