@@ -12,6 +12,8 @@ import flash.events.Event;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import manager.Containers;
+
 import manager.Vars;
 
 import map.MatrixGrid;
@@ -43,7 +45,7 @@ public class OptionPanel {
 
     public function OptionPanel() {
         _arrCells = [];
-        _arrCells = [.75, 1, 1.25, 1.5, 1.75];
+        _arrCells = [.5, .75, 1, 1.25, 1.5, 1.75];
         fillBtns();
     }
 
@@ -298,13 +300,13 @@ public class OptionPanel {
         pNew.x = cont.x - p.x + g.stageWidth/2;
         pNew.y = cont.y - p.y + g.stageHeight/2;
         var oY:Number = g.matrixGrid.offsetY*s;
-        if (pNew.y > -oY) pNew.y = -oY;
-        if (pNew.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)
-            pNew.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
-        if (pNew.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
-            pNew.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
-        if (pNew.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
-            pNew.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
+        if (pNew.y > -oY + Containers.SHIFT_MAP_Y*s) pNew.y = -oY + Containers.SHIFT_MAP_Y*s;
+        if (pNew.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + Containers.SHIFT_MAP_Y*s)
+            pNew.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + Containers.SHIFT_MAP_Y*s;
+        if (pNew.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Containers.SHIFT_MAP_X*s)
+            pNew.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Containers.SHIFT_MAP_X*s;
+        if (pNew.x < -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s)
+            pNew.x =  -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s;
         cont.scaleX = cont.scaleY = oldScale;
         new TweenMax(cont, .5, {x:pNew.x, y:pNew.y, scaleX:s, scaleY:s, ease:Linear.easeOut});
     }

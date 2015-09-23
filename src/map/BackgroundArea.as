@@ -5,6 +5,8 @@ package map {
 import flash.display.Bitmap;
 import flash.geom.Point;
 
+import manager.Containers;
+
 import manager.EmbedAssets;
 import manager.Vars;
 
@@ -181,12 +183,12 @@ public class BackgroundArea {
         }
 
         _cont.addChild(_additionalCont);
-        _additionalCont.x = - g.realGameWidth/2 + MatrixGrid.DIAGONAL / 2;
-        _additionalCont.y = _cont.height / 2 - g.realGameHeight / 2;
+        _additionalCont.x = -g.realGameWidth/2 + MatrixGrid.DIAGONAL/2 - Containers.SHIFT_MAP_X;
+        _additionalCont.y = -g.matrixGrid.offsetY - Containers.SHIFT_MAP_Y;
         if (_callback != null) {
-                _callback.apply();
-                _callback = null;
-            }
+            _callback.apply();
+            _callback = null;
+        }
     }
 
     private function onLoadMap1(b:Bitmap):void {

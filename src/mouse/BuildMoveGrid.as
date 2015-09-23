@@ -87,6 +87,7 @@ public class BuildMoveGrid {
     }
 
     private function checkFreeGrid(posY:int, posX:int):Boolean {
+        if (!_townMatrix[posX] || !_townMatrix[posX][posY]) return false;
         var obj:Object = _townMatrix[posX][posY];
         if (!obj) return false;
         if (!obj.inGame) return false;

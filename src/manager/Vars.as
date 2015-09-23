@@ -374,7 +374,7 @@ public class Vars {
 
     private function afterCreateMapBackground():void {
 
-        cont.moveCenterToXY(0, realGameHeight/2 + matrixGrid.offsetY, true);
+        cont.moveCenterToXY(0, realGameTilesHeight/2, true);
 
         if((user as User).isMegaTester) {
             mapEditor = new MapEditorInterface();

@@ -24,7 +24,8 @@ import starling.events.Event;
 
 import utils.ConsoleWrapper;
 
-[SWF (frameRate='30', backgroundColor='#709e1d', width = '1000', height = '640')]
+//[SWF (frameRate='30', backgroundColor='#709e1d', width = '1000', height = '640')]
+[SWF (frameRate='30', backgroundColor='#000000', width = '1000', height = '640')]
 
 public class MainStartWebStarling extends Sprite{
     private var star:Starling;

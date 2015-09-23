@@ -16,6 +16,9 @@ import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 
 public class Containers {
+    public static const SHIFT_MAP_X:int = 70;
+    public static const SHIFT_MAP_Y:int = 227;
+
     public var mainCont:Sprite;
     public var backgroundCont:Sprite;
     public var gridDebugCont:Sprite;
@@ -57,6 +60,15 @@ public class Containers {
         hintGameCont = new Sprite();
         mouseCont = new Sprite();
         interfaceContMapEditor = new Sprite();
+
+//        gridDebugCont.x = SHIFT_MAP_X;
+//        gridDebugCont.y = SHIFT_MAP_Y;
+//        contentCont.x = SHIFT_MAP_X;
+//        contentCont.y = SHIFT_MAP_Y;
+//        animationsCont.x = SHIFT_MAP_X;
+//        animationsCont.y = SHIFT_MAP_Y;
+//        hintGameCont.x = SHIFT_MAP_X;
+//        hintGameCont.y = SHIFT_MAP_Y;
 
         mainCont.addChild(gameCont);
         gameCont.addChild(backgroundCont);
@@ -141,13 +153,13 @@ public class Containers {
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
 //        trace(gameCont.x + ' + ' + gameCont.y + ' | ' + mouseP.x + ' + ' + mouseP.y + '');
         var oY:Number = g.matrixGrid.offsetY*s;
-        if (gameCont.y > -oY) gameCont.y = -oY;
-        if (gameCont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)
-            gameCont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
-        if (gameCont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
-            gameCont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
-        if (gameCont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL + Starling.current.nativeStage.stageWidth)
-            gameCont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL + Starling.current.nativeStage.stageWidth;
+        if (gameCont.y > oY + SHIFT_MAP_Y*s) gameCont.y = oY + SHIFT_MAP_Y*s;
+        if (gameCont.y < -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s)
+            gameCont.y = -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s;
+        if (gameCont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s)
+            gameCont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
+        if (gameCont.x < -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*s)
+            gameCont.x = -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*s;
     }
 
     public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в загальній системі gameCont
