@@ -102,21 +102,6 @@ public class Ridge extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
             g.toolsModifier.activatePlantState = false;
             checkFreeRidges();
-//            if (_stateRidge == EMPTY) {
-//                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
-//                    g.toolsModifier.modifierType = ToolsModifier.NONE;
-//                    if (g.toolsModifier.plantId <= 0) {
-//                        g.toolsModifier.modifierType = ToolsModifier.NONE;
-//                        return;
-//                    }
-//                    fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
-//                    _source.filter = null;
-//                    checkFreeRidges();
-//                    return;
-//                }
-//            } else {
-//                g.toolsModifier.modifierType = ToolsModifier.NONE;
-//            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
