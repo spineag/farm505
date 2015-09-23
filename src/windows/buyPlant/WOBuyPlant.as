@@ -26,6 +26,7 @@ public class WOBuyPlant extends Window {
         createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         createItems();
+        callbackClickBG = hideIt;
     }
 
     private function onClickExit(e:Event):void {

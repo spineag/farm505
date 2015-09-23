@@ -73,9 +73,11 @@ public class WONoResources extends Window {
         _txtBuyBtn.x += 30;
         _txtBuyBtn.y += 50;
         _txtCount.y += 40;
+
+        callbackClickBG = onClickExit;
     }
 
-    private function onClickExit(e:Event):void {
+    private function onClickExit(e:Event=null):void {
         hideIt();
         while (_contImage.numChildren) {
             _contImage.removeChildAt(0);

@@ -19,9 +19,6 @@ public class WOOrder extends Window{
     private var _contItem:CSprite;
     private var _contBtn:CSprite;
     private var _contImage:Sprite;
-//    private var _imageXp:Image;
-//    private var _imageCoin:Image;
-//    private var _imageDelete:Image;
     private var _imageBtn:Image;
     private var _txtBtn:TextField;
     public function WOOrder() {
@@ -34,30 +31,17 @@ public class WOOrder extends Window{
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 250;
         _btnExit.y -= 200;
-//        _imageCoin = new Image(g.interfaceAtlas.getTexture("coin"));
-//        _imageCoin.y = -100;
-//        MCScaler.scale(_imageCoin,30,30);
-//        _imageXp = new Image(g.interfaceAtlas.getTexture("star"));
-//        _imageXp.x = 50;
-//        _imageXp.y = -100;
-//        MCScaler.scale(_imageXp,30,30);
-//        _imageDelete = new Image(g.interfaceAtlas.getTexture("vedro_icon"));
-//        _imageDelete.x = 100;
-//        _imageDelete.y = -100;
-//        MCScaler.scale(_imageDelete,30,30);
         _txtBtn = new TextField(100,100,"Оформить заказ","Arial",14,Color.BLACK);
         _imageBtn = new Image(g.interfaceAtlas.getTexture("btn4"));
         _imageBtn.x = 150;
         _imageBtn.y = 130;
-//        _source.addChild(_imageXp);
-//        _source.addChild(_imageDelete);
-//        _source.addChild(_imageCoin);
         _contBtn.endClickCallback = onClickBtn;
         _contItem.endClickCallback = onClickItem;
         _source.addChild(_contItem);
         _source.addChild(_contImage);
         _contBtn.addChild(_imageBtn);
         _source.addChild(_contBtn);
+        callbackClickBG = onClickExit;
     }
 
     public function showItMenu():void {
@@ -78,7 +62,7 @@ public class WOOrder extends Window{
         }
     }
 
-    private function onClickExit(e:Event):void {
+    private function onClickExit(e:Event=null):void {
         hideIt();
     }
 

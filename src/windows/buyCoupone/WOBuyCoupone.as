@@ -55,9 +55,9 @@ public class WOBuyCoupone extends Window{
         showIt();
     }
 
-    public function hideItWO():void {
-        hideIt();
-    }
+//    public function hideItWO():void {
+//        hideIt();
+//    }
 
     private function onClickExit(e:Event):void {
         hideIt();

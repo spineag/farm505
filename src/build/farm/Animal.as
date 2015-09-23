@@ -94,8 +94,6 @@ public class Animal {
             source.filter = null;
             if(!g.userInventory.checkResource(_data , 1)) return;
             g.userInventory.addResource(_data.idResourceRaw, -1);
-            // проверка есть ли хавка
-            // анимация полета хавки для animal, и далее:
             _timeToEnd = _data.timeCraft;
             g.gameDispatcher.addToTimer(render);
             _state = WORKED;

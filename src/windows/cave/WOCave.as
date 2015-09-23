@@ -16,6 +16,7 @@ public class WOCave extends Window {
         createTempBG(_woWidth, _woHeight, Color.GRAY);
         createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, hideIt);
+        callbackClickBG = hideIt;
     }
 
     override public function hideIt():void {

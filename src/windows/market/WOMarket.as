@@ -36,6 +36,7 @@ public class WOMarket  extends Window {
         _btnRefresh.y = 155;
         _source.addChild(_btnRefresh);
         _btnRefresh.endClickCallback = makeRefresh;
+        callbackClickBG = hideIt;
     }
     private function onClickExit(e:Event):void {
         hideIt();

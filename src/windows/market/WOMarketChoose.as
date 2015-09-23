@@ -71,13 +71,15 @@ public class WOMarketChoose extends Window {
         _checkBox.source.x = -150;
         _checkBox.source.y = 205;
         _source.addChild(_checkBox.source);
+
+        callbackClickBG = onClickExit;
     }
 
     public function set callback(f:Function):void {
         _callback = f;
     }
 
-    private function onClickExit(e:Event):void {
+    private function onClickExit(e:Event=null):void {
         _curResourceId = 0;
         unfillItems();
         _scrollSprite.resetAll();

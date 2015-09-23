@@ -46,9 +46,10 @@ public class WODailyBonus extends Window{
         MCScaler.scale(_imageHard,25,25);
         _imageHard.x = 30;
         _imageHard.y = 75;
+        callbackClickBG = onClickExit;
     }
 
-    private function onClickExit(e:Event):void {
+    private function onClickExit(e:Event=null):void {
         hideIt();
         while (_contBtn.numChildren) {
             _contBtn.removeChildAt(0);

@@ -55,7 +55,7 @@ public class WOLevelUp extends Window{
         _contClipRect.clipRect = new Rectangle(0,0,300,220);
         _contClipRect.x = -150;
         _contClipRect.y = -100;
-        _contBtn.endClickCallback = onClick;
+        _contBtn.endClickCallback = onClickExit;
         _txtCongratulations = new TextField(120,100,"Поздравляю","Arial",18,Color.WHITE);
         _txtLevel = new TextField(300,100,"","Arial",18,Color.WHITE);
         _txtContinue = new TextField(100,100,"Рассказать","Arial",18,Color.WHITE);
@@ -105,22 +105,16 @@ public class WOLevelUp extends Window{
         _imageHard.y = 238;
         _imageBtn.x = -100;
         _imageBtn.y = 225;
-
+        callbackClickBG = onClickExit;
     }
 
     public function showLevelUp():void {
-        g.hideAllHints();
         showIt();
         _txtLevel.text = "Вы достигли " + g.user.level + " уровень";
         createList();
     }
 
-    public function onClick():void {
-        hideIt();
-        clearIt();
-    }
-
-    private function onClickExit(e:Event):void {
+    private function onClickExit(e:Event=null):void {
         hideIt();
         clearIt();
     }
@@ -129,7 +123,6 @@ public class WOLevelUp extends Window{
         _shift -= 3;
         if (_shift < 0) _shift = 0;
         animList();
-
     }
 
     private function onRightClick():void {

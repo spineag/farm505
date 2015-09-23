@@ -101,6 +101,8 @@ public class WOSklad extends Window {
         _btnMakeUpdate.x = 70;
         _btnMakeUpdate.y = 220;
         _updateSprite.addChild(_btnMakeUpdate);
+
+        callbackClickBG = hideIt;
     }
 
     private function onClickExit(e:Event):void {

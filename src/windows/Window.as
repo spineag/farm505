@@ -11,6 +11,8 @@ import starling.display.Quad;
 import starling.display.Quad;
 
 import starling.display.Sprite;
+import starling.events.TouchEvent;
+import starling.events.TouchPhase;
 import starling.textures.Texture;
 import starling.utils.Color;
 
@@ -24,6 +26,7 @@ public class Window {
     protected var _woHeight:int;
     protected var _black:Quad;
     protected var g:Vars = Vars.getInstance();
+    protected var callbackClickBG:Function;
 
     public function Window() {
         _source = new Sprite();
@@ -34,6 +37,7 @@ public class Window {
     }
 
     public function showIt():void {
+        g.hideAllHints();
         createBlackBG();
         _source.x = Starling.current.nativeStage.stageWidth/2;
         _source.y = Starling.current.nativeStage.stageHeight/2;
@@ -94,13 +98,25 @@ public class Window {
         _black.y = -Starling.current.nativeStage.stageHeight/2;
         _source.addChildAt(_black, 0);
         _black.alpha = .3;
+        _black.addEventListener(TouchEvent.TOUCH, onBGTouch);
     }
 
     private function removeBlackBG():void {
         if (_black) {
+            _black.removeEventListener(TouchEvent.TOUCH, onBGTouch);
             if (_source.contains(_black))_source.removeChild(_black);
             _black.dispose();
             _black = null;
+        }
+    }
+
+    private function onBGTouch(te:TouchEvent):void {
+        if ( te.getTouch(_black, TouchPhase.ENDED)) {
+            if (callbackClickBG != null) {
+                callbackClickBG.apply();
+            } else {
+                hideIt();
+            }
         }
     }
 }

@@ -73,6 +73,8 @@ public class WOTrain extends Window {
         _txtCounter.x = 90;
         _txtCounter.y = -100;
         _source.addChild(_txtCounter);
+
+        callbackClickBG = onClickExit;
     }
 
     public function onClickExit(e:Event=null):void {

@@ -25,9 +25,10 @@ public class WOFabrica extends Window {
 
         _list = new WOFabricaWorkList(_source);
         createItems();
+        callbackClickBG = onClickExit;
     }
 
-    private function onClickExit(e:Event):void {
+    private function onClickExit(e:Event=null):void {
         unfillItems();
         _list.unfillIt();
         hideIt();

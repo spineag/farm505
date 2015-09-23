@@ -35,6 +35,7 @@ public class WOPaper extends Window{
         _source.addChild(_btnRefresh);
         createItem();
         _btnRefresh.endClickCallback = makeRefresh;
+        callbackClickBG = onClickExit;
     }
 
     private function onClickExit():void {

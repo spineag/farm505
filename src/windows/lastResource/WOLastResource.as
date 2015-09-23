@@ -37,6 +37,7 @@ public class WOLastResource extends Window{
         _txtText.x = -75;
         _source.addChild(_txtHeader);
         _source.addChild(_txtText);
+        callbackClickBG = onClickExit;
     }
 
     private function onClickExit():void {

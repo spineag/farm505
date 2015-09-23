@@ -44,7 +44,7 @@ public class WOShop extends Window{
         _source.addChild(im);
     }
 
-    private function onClickExit(e:Event):void {
+    private function onClickExit(e:Event=null):void {
         hideIt();
     }
 
