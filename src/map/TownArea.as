@@ -31,6 +31,8 @@ import flash.geom.Rectangle;
 
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import starling.display.Sprite;
 
 
@@ -268,6 +270,11 @@ public class TownArea extends Sprite {
 
         // временно полная сортировка, далее нужно будет дописать "умную"
         zSort();
+
+        if (isNewAtMap && worldObject is Ridge){
+            g.toolsModifier.startMove(g.dataBuilding.objectBuilding[11], afterMoveRidge);
+            g.bottomPanel.cancelBoolean(true);
+        }
     }
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
@@ -383,6 +390,17 @@ public class TownArea extends Sprite {
 //
 //        return path;
 //    }
+
+    private function afterMoveRidge(_x:Number, _y:Number):void {
+        if (!g.userInventory.checkMoney(g.dataBuilding.objectBuilding[11])) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            return;
+        }
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.townArea.createNewBuild(g.dataBuilding.objectBuilding[11], _x, _y);
+            g.userInventory.addMoney(g.dataBuilding.objectBuilding[11].currency, -g.dataBuilding.objectBuilding[11].cost);
+            g.bottomPanel.cancelBoolean(false);
+    }
 
 }
 }

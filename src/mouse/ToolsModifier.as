@@ -31,7 +31,7 @@ public class ToolsModifier {
     public static var PLANT_SEED_ACTIVE:int = 6;
     public static var PLANT_TREES:int = 7;
     public static var GRID_DEACTIVATED:int = 8;
-    public static var RIDGE:int = 9;
+    public static var ADD_NEW_RIDGE:int = 9;
 
     private var _activeBuildingData:Object;
     private var _spriteForMove:Sprite;
@@ -130,9 +130,8 @@ public class ToolsModifier {
                 updateCountTxt();
                 if (!_mouseCont.contains(_txtCount)) _mouseCont.addChild(_txtCount);
                 break;
-            case ToolsModifier.RIDGE:
-                im = new Image(g.tempBuildAtlas.getTexture("ridge"));
-                _mouseIcon.addChild(im);
+            case ToolsModifier.ADD_NEW_RIDGE:
+//                _modifierType = NONE;
                 break;
         }
         if (im) {
@@ -271,17 +270,22 @@ public class ToolsModifier {
     }
 
     public function onTouchEnded():void {
+        var x:int;
+        var y:int;
+        x = _spriteForMove.x;
+        y = _spriteForMove.y;
         if (!_spriteForMove) return;
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) return;
 
         spriteForMoveIndexX = 0;
         spriteForMoveIndexY = 0;
-        if (_callbackAfterMove != null) {
-            _callbackAfterMove.apply(null, [_spriteForMove.x, _spriteForMove.y])
-        }
         _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
+//        if (_callbackAfterMove != null) {
+//            _callbackAfterMove.apply(null, [_spriteForMove.x, _spriteForMove.y])
+//        }
+
         _cont.removeChild(_spriteForMove);
 //        _spriteForMove.unflatten();
         while (_spriteForMove.numChildren) {
@@ -292,6 +296,11 @@ public class ToolsModifier {
         if (imForMove) imForMove.dispose();
         imForMove = null;
         _spriteForMove = null;
+
+        if (_callbackAfterMove != null) {
+            _callbackAfterMove.apply(null, [x, y])
+        }
+
     }
 
     private var spriteForMoveIndexX:int = 0;
