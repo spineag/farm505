@@ -227,7 +227,7 @@ public class ShopItem {
         if (!g.userInventory.checkMoney(_data)) return;
         g.bottomPanel.cancelBoolean(true);
         if (_data.buildType == BuildType.RIDGE) {
-            g.woShop.hideIt();
+            g.woShop.onClickExit();
             g.toolsModifier.startMove(_data, afterMove);
             return;
         }   else if (_data.buildType != BuildType.ANIMAL) {
@@ -250,10 +250,12 @@ public class ShopItem {
     }
 
     private function afterMove(_x:Number, _y:Number):void {
+        if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA) {
+            g.bottomPanel.cancelBoolean(false);
+        }
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.townArea.createNewBuild(_data, _x, _y);
         g.userInventory.addMoney(_data.currency, -_data.cost);
-        g.bottomPanel.cancelBoolean(false);
     }
 }
 }

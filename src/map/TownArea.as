@@ -271,27 +271,28 @@ public class TownArea extends Sprite {
         // временно полная сортировка, далее нужно будет дописать "умную"
         zSort();
 
-            if (isNewAtMap && worldObject is Ridge) {
+            if (isNewAtMap && worldObject is Ridge || isNewAtMap && worldObject is Tree) {
                 g.bottomPanel.cancelBoolean(true);
                 var arr:Array;
                 var curCount:int;
                 var maxCount:int;
                 var maxCountAtCurrentLevel:int = 0;
                 arr = [];
-                arr = g.townArea.getCityObjectsById(g.dataBuilding.objectBuilding[11].id);
+                _dataObjects = worldObject.dataBuild;
+                arr = g.townArea.getCityObjectsById(_dataObjects.id);
                 curCount = arr.length;
-                for (var i:int = 0; g.dataBuilding.objectBuilding[11].blockByLevel.length; i++) {
-                    if (g.dataBuilding.objectBuilding[11].blockByLevel[i] <= g.user.level) {
+                for (var i:int = 0; _dataObjects.blockByLevel.length; i++) {
+                    if (_dataObjects.blockByLevel[i] <= g.user.level) {
                         maxCountAtCurrentLevel++;
                     } else break;
                 }
-                maxCount = maxCountAtCurrentLevel * g.dataBuilding.objectBuilding[11].countUnblock;
+                maxCount = maxCountAtCurrentLevel * _dataObjects.countUnblock;
                 if (curCount == maxCount) {
+                    g.bottomPanel.cancelBoolean(false);
                     return;
                 }
-                g.toolsModifier.startMove(g.dataBuilding.objectBuilding[11], afterMoveRidge);
+                g.toolsModifier.startMove(_dataObjects, afterMoveReturn);
             }
-
     }
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
@@ -408,15 +409,15 @@ public class TownArea extends Sprite {
 //        return path;
 //    }
 
-    private function afterMoveRidge(_x:Number, _y:Number):void {
-        if (!g.userInventory.checkMoney(g.dataBuilding.objectBuilding[11])) {
+    private function afterMoveReturn(_x:Number, _y:Number):void {
+        if (!g.userInventory.checkMoney(_dataObjects)) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.bottomPanel.cancelBoolean(false);
             return;
         }
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.townArea.createNewBuild(g.dataBuilding.objectBuilding[11], _x, _y);
-            g.userInventory.addMoney(g.dataBuilding.objectBuilding[11].currency, -g.dataBuilding.objectBuilding[11].cost);
-            g.bottomPanel.cancelBoolean(false);
+            g.townArea.createNewBuild(_dataObjects, _x, _y);
+            g.userInventory.addMoney(_dataObjects.currency, -_dataObjects.cost);
     }
 
 }
