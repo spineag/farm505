@@ -4,9 +4,15 @@
 package manager {
 import build.WorldObject;
 
+import manager.AStar;
+
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
+
+import heroes.HeroCat;
+
+import heroes.ManagerCats;
 
 import hint.FlyMessage;
 import hint.ResourceHint;
@@ -198,6 +204,10 @@ public class Vars {
     public var startPreloader:StartPreloader;
     public var useDataFromServer:Boolean;
     public var dataPath:DataPath;
+
+    public var managerCats:ManagerCats;
+    public var activeCat:HeroCat;
+    public var aStar:AStar;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -403,6 +413,10 @@ public class Vars {
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         woPaper.updatePaperItems();
+
+        managerCats = new ManagerCats();
+        managerCats.addAllHeroCats();
+        managerCats.setAllCatsToRandomPositions();
 
         if (!useDataFromServer) temporaryFillUserInventory();
 

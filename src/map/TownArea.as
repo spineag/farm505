@@ -29,6 +29,8 @@ import flash.geom.Point;
 
 import flash.geom.Rectangle;
 
+import heroes.BasicCat;
+
 import manager.Vars;
 
 import mouse.ToolsModifier;
@@ -107,6 +109,7 @@ public class TownArea extends Sprite {
                     _townMatrix[i][j].inGame = true;
                     _townMatrix[i][j].isBlocked = false;
                     _townMatrix[i][j].isFence = false;
+                    _townMatrix[i][j].isWall = false;
                 } else {
                     _townMatrix[i][j].inGame = false;
                 }
@@ -121,6 +124,8 @@ public class TownArea extends Sprite {
             for (var j:int = posX; j < (posX + sizeX); j++) {
                 _townMatrix[i][j].build = source;
                 _townMatrix[i][j].isFull = true;
+                if (i != posY && i != posY + sizeY - 1 && j != posX && j != posX + sizeX -1)
+                    _townMatrix[i][j].isWall = true;
             }
         }
     }
@@ -130,6 +135,7 @@ public class TownArea extends Sprite {
             for (var j:int = posX; j < (posX + sizeX); j++) {
                 _townMatrix[i][j].build = null;
                 _townMatrix[i][j].isFull = false;
+                _townMatrix[i][j].isWall = false;
             }
         }
     }
@@ -150,6 +156,16 @@ public class TownArea extends Sprite {
                 _townMatrix[i][j].isFence = false;
             }
         }
+    }
+
+    public function addHero(h:BasicCat):void {
+        _cityObjects.push(h);
+        var p:Point = g.matrixGrid.getXYFromIndex(new Point(h.posX, h.posY));
+        h.source.x = int(p.x);
+        h.source.y = int(p.y);
+        h.updateDepth();
+        _cont.addChild(h.source);
+        zSort();
     }
 
     public function createNewBuild(_data:Object, _x:Number, _y:Number, isFromServer:Boolean = false, dbId:int = 0):void {
@@ -271,27 +287,25 @@ public class TownArea extends Sprite {
         // временно полная сортировка, далее нужно будет дописать "умную"
         zSort();
 
-            if (isNewAtMap && worldObject is Ridge) {
-                g.bottomPanel.cancelBoolean(true);
-                var arr:Array;
-                var curCount:int;
-                var maxCount:int;
-                var maxCountAtCurrentLevel:int = 0;
-                arr = [];
-                arr = g.townArea.getCityObjectsById(g.dataBuilding.objectBuilding[11].id);
-                curCount = arr.length;
-                for (var i:int = 0; g.dataBuilding.objectBuilding[11].blockByLevel.length; i++) {
-                    if (g.dataBuilding.objectBuilding[11].blockByLevel[i] <= g.user.level) {
-                        maxCountAtCurrentLevel++;
-                    } else break;
-                }
-                maxCount = maxCountAtCurrentLevel * g.dataBuilding.objectBuilding[11].countUnblock;
-                if (curCount == maxCount) {
-                    return;
-                }
-                g.toolsModifier.startMove(g.dataBuilding.objectBuilding[11], afterMoveRidge);
+        if (isNewAtMap && worldObject is Ridge) {
+            g.bottomPanel.cancelBoolean(true);
+            var arr:Array;
+            var curCount:int;
+            var maxCount:int;
+            var maxCountAtCurrentLevel:int = 0;
+            arr = g.townArea.getCityObjectsById(g.dataBuilding.objectBuilding[11].id);
+            curCount = arr.length;
+            for (var i:int = 0; g.dataBuilding.objectBuilding[11].blockByLevel.length; i++) {
+                if (g.dataBuilding.objectBuilding[11].blockByLevel[i] <= g.user.level) {
+                    maxCountAtCurrentLevel++;
+                } else break;
             }
-
+            maxCount = maxCountAtCurrentLevel * g.dataBuilding.objectBuilding[11].countUnblock;
+            if (curCount == maxCount) {
+                return;
+            }
+            g.toolsModifier.startMove(g.dataBuilding.objectBuilding[11], afterMoveRidge);
+        }
     }
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
@@ -299,7 +313,6 @@ public class TownArea extends Sprite {
     }
 
     private function onAddNewTree(value:Boolean, wObject:WorldObject):void {
-        //g.directServer.startBuildBuilding(wObject, null);
         g.directServer.addUserTree(wObject, null);
     }
 

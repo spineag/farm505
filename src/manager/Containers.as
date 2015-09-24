@@ -106,16 +106,6 @@ public class Containers {
             gameCont.removeEventListener(TouchEvent.TOUCH, onGameContTouch);
         }
     }
-//
-//    public function addCancelTouch(value:Boolean):void {
-//        if (value) {
-//            if (gameCont.hasEventListener(TouchEvent.TOUCH)) return;
-//            gameCont.addEventListener(TouchEvent.TOUCH, onCancelTouch);
-//        } else {
-//            if (!gameCont.hasEventListener(TouchEvent.TOUCH)) return;
-//            gameCont.addEventListener(TouchEvent.TOUCH, onCancelTouch);
-//        }
-//    }
 
     private var _isDragged:Boolean = false;
     private function onGameContTouch(te:TouchEvent):void {
@@ -130,8 +120,6 @@ public class Containers {
 
         if (te.getTouch(gameCont, TouchPhase.ENDED)) {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE && !_isDragged) {
-//                if(_startDragPointCont)
-//                    if (_startDragPointCont.x != _startDragPointCont.x) return;    // ?????
                 g.toolsModifier.onTouchEnded();
                 _isDragged = false;
                 return;
@@ -140,6 +128,12 @@ public class Containers {
                 if (!_isDragged) g.toolsModifier.modifierType = ToolsModifier.NONE;
                 _isDragged = false;
                 return;
+            }
+            if (g.activeCat) {
+                var p:Point = te.touches[0].getLocation(g.mainStage);
+                p = gameCont.globalToLocal(p);
+                p = g.matrixGrid.getIndexFromXY(p);
+                g.managerCats.goCatToPoint(g.activeCat, p);
             }
             _isDragged = false;
         }
@@ -155,12 +149,6 @@ public class Containers {
             }
         }
     }
-
-//    private function onCancelTouch(te:TouchEvent):void {
-//        if (g.toolsModifier.modifierType == ToolsModifier.MOVE && te.getTouch(gameCont, TouchPhase.ENDED)){
-//            g.toolsModifier.modifierType = ToolsModifier.NONE;
-//        }
-//    }
 
     public function setDragPoints(p:Point):void {
         _startDragPoint = p;
