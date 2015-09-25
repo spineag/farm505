@@ -22,19 +22,11 @@ import build.tree.Tree;
 import build.wild.Wild;
 
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import flash.geom.Point;
-
-import flash.geom.Rectangle;
-
 import heroes.BasicCat;
-
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
 import starling.display.Sprite;
 
 
@@ -56,9 +48,6 @@ public class TownArea extends Sprite {
         _cont = g.cont.contentCont;
 
         setDefaultMatrix();
-
-//        _finder = new V_Finder();
-//        _hev = new V_HevristicToTarget();
     }
 
     public function get townMatrix():Array {

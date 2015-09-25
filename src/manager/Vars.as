@@ -417,6 +417,7 @@ public class Vars {
         managerCats = new ManagerCats();
         managerCats.addAllHeroCats();
         managerCats.setAllCatsToRandomPositions();
+        aStar = new AStar();
 
         if (!useDataFromServer) temporaryFillUserInventory();
 

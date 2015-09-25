@@ -60,5 +60,14 @@ public class BasicCat {
         return _source;
     }
 
+    public function walkAnimation():void {}
+    public function runAnimation():void {}
+    public function stopAnimation():void {}
+    public function idleAnimation():void {}
+
+    public function goWithPath(arr:Array):void {
+
+    }
+
 }
 }
