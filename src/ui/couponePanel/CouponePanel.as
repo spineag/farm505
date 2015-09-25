@@ -128,6 +128,7 @@ public class CouponePanel {
 
     private function onClick():void {
         g.woBuyCoupone.showItWO();
+        g.hint.hideIt();
     }
 
     public function getPoint():Point {

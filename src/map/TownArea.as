@@ -81,6 +81,7 @@ public class TownArea extends Sprite {
     public function getCityObjectsById(id:int):Array {
         var ar:Array = [];
         for (var i:int=0; i<_cityObjects.length; i++) {
+             if (_cityObjects[i] is BasicCat) continue;
             if (_cityObjects[i].dataBuild.id == id)
                 ar.push(_cityObjects[i]);
         }

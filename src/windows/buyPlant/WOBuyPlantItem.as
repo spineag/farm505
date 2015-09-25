@@ -61,6 +61,10 @@ public class WOBuyPlantItem {
     }
 
     private function onClick():void {
+        if (g.userInventory.getCountResourceById(_data.id) == 0) {
+            g.woNoResources.showItMenu(_data,1);
+            return;
+        }
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_data]);
         }

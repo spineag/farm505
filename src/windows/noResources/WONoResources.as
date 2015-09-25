@@ -116,8 +116,16 @@ public class WONoResources extends Window {
         var countRes:int = 0;
         var i:int;
 
-        if(_data.buildType == BuildType.ANIMAL) {
+        if (_data.buildType == BuildType.ANIMAL) {
             im = new WONoResourcesItem(_data.idResourceRaw,1);
+            _contImage.addChild(im.source);
+            _txtHardCost.text = "2";
+            _contBtn.addChild(_txtHardCost);
+            return;
+        }
+
+        if (_data.buildType == BuildType.PLANT){
+        im = new WONoResourcesItem(_data.id,1);
             _contImage.addChild(im.source);
             _txtHardCost.text = "2";
             _contBtn.addChild(_txtHardCost);

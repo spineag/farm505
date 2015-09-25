@@ -91,10 +91,12 @@ public class XPPanel {
     private function onHover():void {
         _txtXP.text = String(g.user.xp + "/" + _maxXP);
         _source.addChild(_txtXP);
+        g.hint.showIt("Ваш уровень:"+ String(g.user.level),"0");
     }
 
     private function onOut():void {
         _source.removeChild(_txtXP);
+        g.hint.hideIt();
     }
 
 }

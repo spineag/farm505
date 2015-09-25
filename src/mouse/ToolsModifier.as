@@ -200,8 +200,8 @@ public class ToolsModifier {
                 case Tree.FIXED:
                 case Tree.FULL_DEAD:
                     imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageDead));
-                    imForMove.x = _activeBuildingData.innerPositionsGrowDead[0];
-                    imForMove.y = _activeBuildingData.innerPositionsGrowDead[1];
+                    imForMove.x = _activeBuildingData.innerPositionsDead[0];
+                    imForMove.y = _activeBuildingData.innerPositionsDead[1];
                     break;
             }
             _spriteForMove.addChild(imForMove);
