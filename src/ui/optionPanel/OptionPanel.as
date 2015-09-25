@@ -62,7 +62,8 @@ public class OptionPanel {
         _contFullScreen.addChild(im);
         _source.addChild(_contFullScreen);
         _contFullScreen.hoverCallback = function ():void {
-            _contFullScreen.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
+            _contFullScreen.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("На весь экран","0");
         };
         _contFullScreen.outCallback = function ():void {
             _contFullScreen.filter = null;
@@ -77,7 +78,8 @@ public class OptionPanel {
         _contScalePlus.y = 50;
         _source.addChild(_contScalePlus);
         _contScalePlus.hoverCallback = function ():void {
-            _contScalePlus.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
+            _contScalePlus.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Приблизить","0");
         };
         _contScalePlus.outCallback = function ():void {
             _contScalePlus.filter = null;
@@ -92,10 +94,12 @@ public class OptionPanel {
         _contScaleMinus.y = 100;
         _source.addChild(_contScaleMinus);
         _contScaleMinus.hoverCallback = function ():void {
-            _contScaleMinus.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
+            _contScaleMinus.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Отдалить","0");
         };
         _contScaleMinus.outCallback = function ():void {
             _contScaleMinus.filter = null;
+            g.hint.hideIt();
         };
         _contScaleMinus.endClickCallback = function ():void {
             onClick('scale_minus');
@@ -107,10 +111,12 @@ public class OptionPanel {
         _contScreenShot.y = 150;
         _source.addChild(_contScreenShot);
         _contScreenShot.hoverCallback = function ():void {
-            _contScreenShot.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
+            _contScreenShot.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Сделать снимок","0");
         };
         _contScreenShot.outCallback = function ():void {
             _contScreenShot.filter = null;
+            g.hint.hideIt();
         };
         _contScreenShot.endClickCallback = function ():void {
             onClick('screenshot');
@@ -122,10 +128,12 @@ public class OptionPanel {
         _contAnim.y = 200;
         _source.addChild(_contAnim);
         _contAnim.hoverCallback = function ():void {
-            _contAnim.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
+            _contAnim.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Включить эфекты","0");
         };
         _contAnim.outCallback = function ():void {
             _contAnim.filter = null;
+            g.hint.hideIt();
         };
         _contAnim.endClickCallback = function ():void {
             onClick('anim');
@@ -137,10 +145,12 @@ public class OptionPanel {
         _contMusic.y = 250;
         _source.addChild(_contMusic);
         _contMusic.hoverCallback = function ():void {
-            _contMusic.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
+            _contMusic.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Включить музыку","0");
         };
         _contMusic.outCallback = function ():void {
             _contMusic.filter = null;
+            g.hint.hideIt();
         };
         _contMusic.endClickCallback = function ():void {
             onClick('music');
@@ -152,10 +162,12 @@ public class OptionPanel {
         _contSound.y = 300;
         _source.addChild(_contSound);
         _contSound.hoverCallback = function ():void {
-            _contSound.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1)
+            _contSound.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Включить звук","0");
         };
         _contSound.outCallback = function ():void {
             _contSound.filter = null;
+            g.hint.hideIt();
         };
         _contSound.endClickCallback = function ():void {
             onClick('sound');

@@ -75,6 +75,7 @@ public class WOTrain extends Window {
         _source.addChild(_txtCounter);
 
         callbackClickBG = onClickExit;
+        checkBtnFree();
     }
 
     public function onClickExit(e:Event=null):void {
@@ -146,6 +147,7 @@ public class WOTrain extends Window {
         if (_arrItems[_activeItemIndex].canFull) {
             _arrItems[_activeItemIndex].fullIt();
         }
+        _btn1.visible = false;
         checkBtn();
     }
 
@@ -154,6 +156,7 @@ public class WOTrain extends Window {
         for (var i:int = 0; i<_arrItems.length; i++) {
             if (!_arrItems[i].isResourceLoaded) {
                 _btn.alpha = .5;
+
                 return;
             }
         }
@@ -171,6 +174,16 @@ public class WOTrain extends Window {
     private function clearItems():void {
         for (var i:int = 0; i<_arrItems.length; i++) {
             _arrItems[i].clearIt();
+        }
+    }
+
+    public function checkBtnFree():void {
+        _btn.endClickCallback = null;
+        for (var i:int = 0; i<_arrItems.length; i++) {
+        if (_arrItems[i] == 0) {
+            _btn.alpha = 1;
+            _btn.endClickCallback = fullTrain;
+            }
         }
     }
 }

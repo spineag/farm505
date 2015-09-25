@@ -299,6 +299,9 @@ public class Tree extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            _isOnHover = false;
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+
             g.townArea.moveBuild(this, _state);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);

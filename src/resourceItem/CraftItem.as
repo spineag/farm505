@@ -83,8 +83,14 @@ public class CraftItem {
     }
 
     public function flyIt():void {
-        if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + _count >= g.user.ambarMaxCount) {
-            g.flyMessage.showIt(_source,"Амбар заполнен");
+        if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + _count > g.user.ambarMaxCount) {
+//            g.flyMessage.showIt(_source,"Амбар заполнен");
+            g.woAmbarFilled.showAmbarFilled(true);
+            while (_source.numChildren) {
+                _source.removeChildAt(0);
+            }
+            _source = null;
+
             return;
         }
 

@@ -29,7 +29,19 @@ public class SoftHardCurrency {
         _contSoft = new CSprite();
         _contHard = new CSprite();
         _contSoft.endClickCallback = onClickSoft;
+        _contSoft.hoverCallback = function ():void {
+            g.hint.showIt("Монеты","0");
+        };
+        _contSoft.outCallback = function ():void {
+            g.hint.hideIt();
+        };
         _contHard.endClickCallback = onClickHard;
+        _contHard.hoverCallback = function ():void {
+            g.hint.showIt("Изумруды","0");
+        };
+        _contHard.outCallback = function ():void {
+            g.hint.hideIt();
+        };
         g.cont.interfaceCont.addChild(_source);
         _imageSoft = new Image(g.interfaceAtlas.getTexture("soft_board"));
         _imageSoft.x = 5;

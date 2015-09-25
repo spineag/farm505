@@ -44,8 +44,12 @@ public class MainBottomPanel {
         _shopBtn.x = 902;
         _shopBtn.y = 56;
         _source.addChild(_shopBtn);
-        _shopBtn.hoverCallback = function():void { _shopBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1) };
-        _shopBtn.outCallback = function():void { _shopBtn.filter = null };
+        _shopBtn.hoverCallback = function():void { _shopBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Магазин","0");
+        };
+        _shopBtn.outCallback = function():void { _shopBtn.filter = null;
+            g.hint.hideIt();
+        };
         _shopBtn.endClickCallback = function():void {onClick('shop')};
         _shopBtn.visible = true;
 
@@ -55,8 +59,11 @@ public class MainBottomPanel {
         _cancelBtn.x = 902;
         _cancelBtn.y = 56;
         _source.addChild(_cancelBtn);
-        _cancelBtn.hoverCallback = function():void { _cancelBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1) };
-        _cancelBtn.outCallback = function():void { _cancelBtn.filter = null };
+        _cancelBtn.hoverCallback = function():void { _cancelBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Отменить","0");
+        };
+        _cancelBtn.outCallback = function():void { _cancelBtn.filter = null;
+            g.hint.hideIt();};
         _cancelBtn.endClickCallback = function():void {onClick('cancel')};
         _cancelBtn.visible = false;
 
@@ -66,8 +73,12 @@ public class MainBottomPanel {
         _optionBtn.x = 931;
         _optionBtn.y = 6;
         _source.addChild(_optionBtn);
-        _optionBtn.hoverCallback = function():void { _optionBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1) };
-        _optionBtn.outCallback = function():void { _optionBtn.filter = null };
+        _optionBtn.hoverCallback = function():void { _optionBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Настройки","0");
+        };
+        _optionBtn.outCallback = function():void { _optionBtn.filter = null;
+        g.hint.hideIt();
+        };
         _optionBtn.endClickCallback = function():void {onClick('option')};
 
         _toolsBtn = new CSprite();
@@ -76,8 +87,12 @@ public class MainBottomPanel {
         _toolsBtn.x = 836;
         _toolsBtn.y = 85;
         _source.addChild(_toolsBtn);
-        _toolsBtn.hoverCallback = function():void { _toolsBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1) };
-        _toolsBtn.outCallback = function():void { _toolsBtn.filter = null };
+        _toolsBtn.hoverCallback = function():void { _toolsBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Редактирование карты", "0");
+        };
+        _toolsBtn.outCallback = function():void { _toolsBtn.filter = null;
+            g.hint.hideIt();
+        };
         _toolsBtn.endClickCallback = function():void {onClick('tools')};
 
         _friendsBtn = new CSprite();
@@ -86,8 +101,12 @@ public class MainBottomPanel {
         _friendsBtn.x = 854;
         _friendsBtn.y = 17;
         _source.addChild(_friendsBtn);
-        _friendsBtn.hoverCallback = function():void { _friendsBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1) };
-        _friendsBtn.outCallback = function():void { _friendsBtn.filter = null };
+        _friendsBtn.hoverCallback = function():void { _friendsBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Мои друзья", "0");
+        };
+        _friendsBtn.outCallback = function():void { _friendsBtn.filter = null;
+            g.hint.hideIt();
+        };
         _friendsBtn.endClickCallback = function():void {onClick('friends')};
     }
 

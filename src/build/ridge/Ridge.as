@@ -116,26 +116,55 @@ public class Ridge extends AreaObject{
                 g.mouseHint.hideHintMouse();
                 g.woBuyPlant.showItWithParams(this, onBuy);
             } else if (_stateRidge == GROWED) {
-                if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount - 1) {
-                    _isOnHover = false;
-                    g.mouseHint.hideHintMouse();
-                    g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-                    g.woAmbarFilled.showAmbarFilled(true);
-                    return;
-                }
-                _stateRidge = EMPTY;
-                _plant.checkStateRidge();
-                _resourceItem = new ResourceItem();
-                _resourceItem.fillIt(_dataPlant);
-                var f1:Function = function():void {
-                    if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
-                    _plant = null;
-                };
-                var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2, f1);
-                item.flyIt();
-                onOut();
+//                if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
+//                    trace ("kanaet");
+//                    _isOnHover = false;
+//                    g.mouseHint.hideHintMouse();
+//                    g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+//                    g.woAmbarFilled.showAmbarFilled(true);
+//                    return;
+//                }
+                 if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
+                     _plant.checkStateRidge();
+                     _resourceItem = new ResourceItem();
+                     _resourceItem.fillIt(_dataPlant);
+                     var f1:Function = function():void {
+                         if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
+                         _plant = null;
+                     };
+                     var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2, f1);
+                     item.flyIt();
+                     onOut();
 //
-                g.mouseHint.hideHintMouse();
+                     g.mouseHint.hideHintMouse();
+                 } else {
+                     _stateRidge = EMPTY;
+                     _plant.checkStateRidge();
+                     _resourceItem = new ResourceItem();
+                     _resourceItem.fillIt(_dataPlant);
+                     var f1:Function = function():void {
+                         if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
+                         _plant = null;
+                     };
+                     var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2, f1);
+                     item.flyIt();
+                     onOut();
+//
+                     g.mouseHint.hideHintMouse();
+                 }
+//                _plant.checkStateRidge();
+//                _resourceItem = new ResourceItem();
+//                _resourceItem.fillIt(_dataPlant);
+//                var f1:Function = function():void {
+//                    if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
+//                    _plant = null;
+//                    trace("f1");
+//                };
+//                var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2, f1);
+//                item.flyIt();
+//                onOut();
+////
+//                g.mouseHint.hideHintMouse();
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -187,7 +216,6 @@ public class Ridge extends AreaObject{
             return;
         }
         _stateRidge = GROW1;
-        if (!isFromServer && !g.userInventory.checkResource(data,1)) return;
         if (!isFromServer) g.userInventory.addResource(data.id, -1);
         if (!isFromServer) g.toolsModifier.updateCountTxt();
         _dataPlant = data;
@@ -235,7 +263,7 @@ public class Ridge extends AreaObject{
         }
     }
 
-    private function countMouseEnterFrame():void {
+    public function countMouseEnterFrame():void {
         _countMouse--;
         if(_countMouse <= 0){
             g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
