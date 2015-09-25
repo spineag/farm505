@@ -46,7 +46,12 @@ public class ManagerCats {
     }
 
     public function goCatToPoint(cat:BasicCat, p:Point):void {
-
+        var f1:Function = function(arr:Array):void {
+            cat.walkAnimation();
+            cat.goWithPath(arr);
+        };
+        g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
     }
+
 }
 }
