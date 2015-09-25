@@ -1,10 +1,16 @@
 package manager {
+import com.junkbyte.console.Cc;
+
 import flash.geom.Point;
+
+import starling.display.Image;
+
+import utils.MCScaler;
 
 public class AStar {
     protected var g:Vars = Vars.getInstance();
     private var matrix:Array;
-    private var matrixXY:Array;
+//    private var matrixXY:Array;
     private var ln:int;
     private var startX:int;
     private var startY:int;
@@ -18,17 +24,17 @@ public class AStar {
     public function AStar() {
         matrix = g.townArea.townMatrix;
         ln = matrix.length;
-        matrixXY = [];
-        var p:Point = new Point();
-        for (var i:int=0; i<ln; i++) {
-            matrixXY[i] = [];
-            for (var j:int=0; j<ln; j++) {
-                p.x = i;
-                p.y = j;
-                p = g.matrixGrid.getXYFromIndex(p);
-                matrixXY[i][j] = {x:p.x, y:p.y};
-            }
-        }
+//        matrixXY = [];
+//        var p:Point = new Point();
+//        for (var i:int=0; i<ln; i++) {                    // for future optimisation
+//            matrixXY[i] = [];
+//            for (var j:int=0; j<ln; j++) {
+//                p.x = i;
+//                p.y = j;
+//                p = g.matrixGrid.getXYFromIndex(p);
+//                matrixXY[i][j] = {x:p.x, y:p.y};
+//            }
+//        }
     }
 
     public function getPath(sX:int, sY:int, eX:int, eY:int, f:Function):void {
@@ -41,7 +47,21 @@ public class AStar {
         closedList = [];
         path = [];
         openList[startX + " " + startY] = new AStarNode(startX, startY, 0, 0, null);
-        makeSearch();
+        showWallPoints();
+        try {
+            makeSearch();
+        } catch (e:Error) {
+            Cc.error('Error with makeSearch at AStar');
+            if (callback != null) {
+                callback.apply(null, [new Point(startX, startY)]);
+                callback = null;
+                path = [];
+                callback = null;
+                openList = [];
+                closedList = [];
+                startX = startY = endX = endY = 0;
+            }
+        }
     }
 
     private function makeSearch():void {
@@ -49,6 +69,7 @@ public class AStar {
         var lowF:int = 100000;
         var curF:int;
         var finished:Boolean = false;
+
 
         for each (var node in openList) {  // !!! bad way
             curF = node.g + node.h;
@@ -69,20 +90,35 @@ public class AStar {
         }
 
         //check each of the 8 adjacent squares
+        var col:int;
+        var row:int;
+        var g:int;
+        var h:int;
+        var node:AStarNode;
+        var j:int;
         for (var i:int = -1; i < 2; i++) {
-            for (var j:int = -1; j < 2; j++) {
-                var col:int = curNode.x + i;
-                var row:int = curNode.y + j;
+            for (j = -1; j < 2; j++) {
+                col = curNode.x + i;
+                row = curNode.y + j;
 
-                if ((col >= 0 && col <= ln) && (row >= 0 && row <= ln) && (i != 0 || j != 0)) {
-                    if (!matrix[row][col].isWall && closedList[col + " " + row] == null && openList[col + " " + row] == null) {
-                        var g:int = 10;
-                        if (i != 0 && j != 0) {
-                            g = 14;
+                if (matrix[row] && matrix[row][col]) {
+                    if (matrix[row][col].isWall) {
+                        closedList[col + " " + row] = 'wall';
+                    }
+                    if ((col >= 0 && col < ln) && (row >= 0 && row < ln) && (i != 0 || j != 0)) {
+                        if (closedList[col + " " + row] == null && openList[col + " " + row] == null) {
+                            g = 10;
+                            if (i != 0 && j != 0) {
+                                if (matrix[row][col].isFull) {
+                                    closedList[col + " " + row] = 'wall';
+                                    continue;
+                                }
+                                g = 14;
+                            }
+                            h = (Math.abs(col - endX)) + (Math.abs(row - endY)) * 10;
+                            node = new AStarNode(col, row, g, h, curNode);
+                            openList[col + " " + row] = node;
                         }
-                        var h:int = (Math.abs(col - endX)) + (Math.abs(row - endY)) * 10;
-                        var node:AStarNode = new AStarNode(col, row, g, h, curNode);
-                        openList[col + " " + row] = node;
                     }
                 }
             }
@@ -103,11 +139,39 @@ public class AStar {
             retracePath(node.parentNode);
         } else {
             if (callback != null) {
-                callback.apply(null, [path]);
+                var arr:Array = [];
+                var p:Point;
+                for (var i:int = 0; i<path.length; i++) {
+                    p = new Point(path[i].x, path[i].y);
+                    arr.push(p);
+                }
+                arr.reverse();
+                callback.apply(null, [arr]);
+                path = [];
                 callback = null;
                 openList = [];
                 closedList = [];
                 startX = startY = endX = endY = 0;
+            }
+        }
+    }
+
+    private function showWallPoints():void {
+        while (g.cont.animationsCont.numChildren) g.cont.animationsCont.removeChildAt(0);
+        var p:Point = new Point();
+        var im:Image;
+        for (var i:int = 0; i < ln; i++) {
+            for (var j:int = 0; j < ln; j++) {
+                if (matrix[i][j].isWall) {
+                    im = new Image(g.interfaceAtlas.getTexture('help_icon'));
+                    MCScaler.scale(im, 20, 20);
+                    p.x = j;
+                    p.y = i;
+                    p = g.matrixGrid.getXYFromIndex(p);
+                    im.x = p.x - 10;
+                    im.y = p.y - 10;
+                    g.cont.animationsCont.addChild(im);
+                }
             }
         }
     }

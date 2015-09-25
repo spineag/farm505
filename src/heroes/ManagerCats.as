@@ -21,10 +21,10 @@ public class ManagerCats {
         var i:int;
         var j:int;
         do {
-            i = int(Math.random()*_townMatrix.length) + 1;
-            j = int(Math.random()*_townMatrix[0].length) + 1;
+            i = int(Math.random()*_townMatrix.length);
+            j = int(Math.random()*_townMatrix[0].length);
         } while (_townMatrix[i][j].isWall);
-        return new Point(j, i);
+        return new Point(i, j);
     }
 
     public function addAllHeroCats():void {
@@ -47,7 +47,11 @@ public class ManagerCats {
 
     public function goCatToPoint(cat:BasicCat, p:Point):void {
         var f1:Function = function(arr:Array):void {
-            cat.walkAnimation();
+            if (arr.length > 3) {
+                cat.runAnimation();
+            } else {
+                cat.walkAnimation()
+            }
             cat.goWithPath(arr);
         };
         g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);

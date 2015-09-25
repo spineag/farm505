@@ -30,8 +30,8 @@ public class HeroCat extends BasicCat{
                 _catImage = new Image(g.catAtlas.getTexture('cat_woman'));
                 break;
         }
-        _catImage.x = _catImage.width/2;
-        _catImage.y = _catImage.height - 10;
+        _catImage.x = -_catImage.width/2;
+        _catImage.y = -_catImage.height + 2;
         _source.addChild(_catImage);
 
         _source.endClickCallback = onClick;
@@ -42,9 +42,10 @@ public class HeroCat extends BasicCat{
         activateIt();
     }
 
-    private function activateIt():void {
+    public function activateIt():void {
         _isActive = !_isActive;
         if (_isActive) {
+            if (g.activeCat) g.activeCat.activateIt();
             _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
             g.activeCat = this;
         } else {

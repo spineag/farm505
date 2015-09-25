@@ -61,6 +61,7 @@ public class TownArea extends Sprite {
     public function getCityObjectsByType(buildType:int):Array {
         var ar:Array = [];
         for (var i:int=0; i<_cityObjects.length; i++) {
+            if (_cityObjects[i] is BasicCat) continue;
             if (_cityObjects[i].dataBuild.buildType == buildType)
                 ar.push(_cityObjects[i]);
         }
@@ -70,13 +71,14 @@ public class TownArea extends Sprite {
     public function getCityObjectsById(id:int):Array {
         var ar:Array = [];
         for (var i:int=0; i<_cityObjects.length; i++) {
+            if (_cityObjects[i] is BasicCat) continue;
             if (_cityObjects[i].dataBuild.id == id)
                 ar.push(_cityObjects[i]);
         }
         return ar;
     }
 
-    private function zSort():void{
+    public function zSort():void{
         _cityObjects.sortOn("depth", Array.NUMERIC);
         for (var  i:int = 0; i < _cityObjects.length; i++) {
             _cont.setChildIndex(_cityObjects[i].source, i);
@@ -113,8 +115,10 @@ public class TownArea extends Sprite {
             for (var j:int = posX; j < (posX + sizeX); j++) {
                 _townMatrix[i][j].build = source;
                 _townMatrix[i][j].isFull = true;
-                if (i != posY && i != posY + sizeY - 1 && j != posX && j != posX + sizeX -1)
-                    _townMatrix[i][j].isWall = true;
+                if (sizeX > 1 && sizeY > 1) {
+                    if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
+                        _townMatrix[i][j].isWall = true;
+                }
             }
         }
     }
@@ -147,13 +151,13 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function addHero(h:BasicCat):void {
-        _cityObjects.push(h);
-        var p:Point = g.matrixGrid.getXYFromIndex(new Point(h.posX, h.posY));
-        h.source.x = int(p.x);
-        h.source.y = int(p.y);
-        h.updateDepth();
-        _cont.addChild(h.source);
+    public function addHero(c:BasicCat):void {
+        _cityObjects.push(c);
+        var p:Point = g.matrixGrid.getXYFromIndex(new Point(c.posX, c.posY));
+        c.source.x = int(p.x);
+        c.source.y = int(p.y);
+        c.updateDepth();
+        _cont.addChild(c.source);
         zSort();
     }
 

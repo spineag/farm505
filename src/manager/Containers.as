@@ -63,15 +63,6 @@ public class Containers {
         mouseCont = new Sprite();
         interfaceContMapEditor = new Sprite();
 
-//        gridDebugCont.x = SHIFT_MAP_X;
-//        gridDebugCont.y = SHIFT_MAP_Y;
-//        contentCont.x = SHIFT_MAP_X;
-//        contentCont.y = SHIFT_MAP_Y;
-//        animationsCont.x = SHIFT_MAP_X;
-//        animationsCont.y = SHIFT_MAP_Y;
-//        hintGameCont.x = SHIFT_MAP_X;
-//        hintGameCont.y = SHIFT_MAP_Y;
-
         mainCont.addChild(gameCont);
         gameCont.addChild(backgroundCont);
         gameCont.addChild(gridDebugCont);
@@ -93,7 +84,6 @@ public class Containers {
         g.mainStage.addChild(mainCont);
 
         addGameContListener(true);
-//        addCancelTouch(true);
     }
 
     public function addGameContListener(value:Boolean):void {
@@ -129,10 +119,10 @@ public class Containers {
                 _isDragged = false;
                 return;
             }
-            if (g.activeCat) {
+            if (!_isDragged && g.activeCat) {
                 var p:Point = te.touches[0].getLocation(g.mainStage);
-                p = gameCont.globalToLocal(p);
-                p = g.matrixGrid.getIndexFromXY(p);
+                p = contentCont.globalToLocal(p);
+                p = g.matrixGrid.getStrongIndexFromXY(p);
                 g.managerCats.goCatToPoint(g.activeCat, p);
             }
             _isDragged = false;
