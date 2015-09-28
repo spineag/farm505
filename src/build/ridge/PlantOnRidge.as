@@ -10,6 +10,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 public class PlantOnRidge {
     private var _source:Sprite;
     private var _ridge:Ridge;
@@ -23,7 +25,7 @@ public class PlantOnRidge {
         _ridge = ridge;
         _data = data;
         _source = new Sprite();
-        _ridge.source.addChild(_source);
+        _ridge.addChildPlant(_source);
 
         _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);
         _data.timeToStateGwoned = _data.buildTime -  _data.timeToGrow2 -  _data.timeToGrow3;

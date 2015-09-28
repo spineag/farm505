@@ -158,6 +158,10 @@ public class CSprite extends Sprite {
         }
     }
 
+    public function removeMainListener():void {
+        this.removeEventListener(TouchEvent.TOUCH, onTouch);
+    }
+
     // method via byteArray ------------------------------------------------------------------------
 //    public function createOwnHitAreaViaBitmap():void {
 //        if (!this.numChildren) {

@@ -41,27 +41,56 @@ public class Ridge extends AreaObject{
     private var _dataPlant:Object;
     private var _resourceItem:ResourceItem;
     private var _plant:PlantOnRidge;
+    private var _plantSprite:Sprite;
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
     private var _count:int;
     private var _countMouse:int;
-
-   // private var _openHint:Sprite;
+    private var _bgClicked:CSprite;
 
     public function Ridge(_data:Object) {
         super(_data);
-        createBuild();
+        createBuild(false);
         _stateRidge = EMPTY;
 
-        _source.hoverCallback = onHover;
-        _source.endClickCallback = onEndClick;
-        _source.startClickCallback = onStartClick;
-        _source.outCallback = onOut;
-        _source.releaseContDrag = true;
+//        _source.hoverCallback = onHover;
+//        _source.endClickCallback = onEndClick;
+//        _source.startClickCallback = onStartClick;
+//        _source.outCallback = onOut;
+//        _source.releaseContDrag = true;
+        _source.removeMainListener();
         _isOnHover = false;
 
-        _craftSprite = new Sprite();
-        _source.addChild(_craftSprite);
+//        _source.isTouchable = false;
+
+        _bgClicked = new CSprite();
+        var tempSprite:Sprite = new Sprite();
+        var q:Quad = new Quad(120, 120, Color.BLACK);
+        q.rotation = Math.PI / 4;
+        q.alpha = 0;
+        q.y = -45;
+        tempSprite.addChild(q);
+        q = new Quad(120, 120, Color.BLACK);
+        q.rotation = Math.PI / 4;
+        q.alpha = 0;
+        tempSprite.addChild(q);
+        tempSprite.scaleY = .5;
+        tempSprite.flatten();
+        _bgClicked.addChild(tempSprite);
+        _source.addChild(_bgClicked);
+
+        _bgClicked.hoverCallback = onHover;
+        _bgClicked.endClickCallback = onEndClick;
+        _bgClicked.startClickCallback = onStartClick;
+        _bgClicked.outCallback = onOut;
+        _bgClicked.releaseContDrag = true;
+
+        _plantSprite = new Sprite();
+        _bgClicked.addChild(_plantSprite);
+    }
+
+    public function addChildPlant(s:Sprite):void {
+        _plantSprite.addChild(s);
     }
 
     private function onHover():void {
@@ -116,27 +145,8 @@ public class Ridge extends AreaObject{
                 g.mouseHint.hideHintMouse();
                 g.woBuyPlant.showItWithParams(this, onBuy);
             } else if (_stateRidge == GROWED) {
-//                if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
-//                    trace ("kanaet");
-//                    _isOnHover = false;
-//                    g.mouseHint.hideHintMouse();
-//                    g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-//                    g.woAmbarFilled.showAmbarFilled(true);
-//                    return;
-//                }
                  if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
-                     _plant.checkStateRidge();
-                     _resourceItem = new ResourceItem();
-                     _resourceItem.fillIt(_dataPlant);
-                     var f1:Function = function():void {
-                         if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
-                         _plant = null;
-                     };
-                     var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2, f1);
-                     item.flyIt();
-                     onOut();
-//
-                     g.mouseHint.hideHintMouse();
+                      g.woAmbarFilled.showAmbarFilled(true);
                  } else {
                      _stateRidge = EMPTY;
                      _plant.checkStateRidge();
@@ -146,25 +156,12 @@ public class Ridge extends AreaObject{
                          if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
                          _plant = null;
                      };
-                     var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2, f1);
+                     var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
                      item.flyIt();
                      onOut();
-//
+
                      g.mouseHint.hideHintMouse();
                  }
-//                _plant.checkStateRidge();
-//                _resourceItem = new ResourceItem();
-//                _resourceItem.fillIt(_dataPlant);
-//                var f1:Function = function():void {
-//                    if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
-//                    _plant = null;
-//                    trace("f1");
-//                };
-//                var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 2, f1);
-//                item.flyIt();
-//                onOut();
-////
-//                g.mouseHint.hideHintMouse();
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')

@@ -50,7 +50,7 @@ public class AreaObject extends WorldObject {
         }
     }
 
-    public function createBuild():void {
+    public function createBuild(isImageClicked:Boolean = true):void {
         var im:Image;
         if (_build) {
             if (_source.contains(_build)) {
@@ -70,6 +70,7 @@ public class AreaObject extends WorldObject {
         }
 
         _build.addChild(im);
+        if (!isImageClicked) im.touchable = false;
         _defaultScale = _build.scaleX;
         _rect = _build.getBounds(_build);
         _sizeX = _dataBuild.width;
