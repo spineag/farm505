@@ -82,6 +82,10 @@ public class SocialNetwork extends EventDispatcher {
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_PROFILES));
     }
 
+    protected function getProfileErrorAtDebug(e:Object):void {
+        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_PROFILES));
+    }
+
     public function getFriends():void {
         Cc.ch('social', "SocialNetwork:: request to get info about friends of current user");
         _paramsFriends = [];

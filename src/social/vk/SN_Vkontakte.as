@@ -107,7 +107,12 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function getProfile(uid:String):void {
         super.getProfile(uid);
-        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100, bdate, sex, city, country", https: 1}, getProfileHandler, onError);
+        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100, bdate, sex, city, country", https: 1}, getProfileHandler, onErrorProfile);
+    }
+
+    public function onErrorProfile(e:Object):void {
+        Cc.obj('error', e, "API VK error:");
+        if (g.isDebug) super.getProfileErrorAtDebug(e);
     }
 
     private function getProfileHandler(e:Object):void {
