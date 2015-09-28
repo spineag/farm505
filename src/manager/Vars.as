@@ -3,6 +3,7 @@
  */
 package manager {
 import build.WorldObject;
+import build.farm.FarmGrid;
 
 import manager.AStar;
 
@@ -150,6 +151,7 @@ public class Vars {
 
     public var matrixGrid:MatrixGrid;
     public var townArea:TownArea;
+    public var farmGrid:FarmGrid;
 
     public var background:BackgroundArea;
 
@@ -248,6 +250,7 @@ public class Vars {
         matrixGrid = new MatrixGrid();
         matrixGrid.createMatrix();
         townArea = new TownArea();
+        farmGrid = new FarmGrid();
 
         if (useDataFromServer) {
             socialNetwork = new SocialNetwork(flashVars);

@@ -38,8 +38,6 @@ public class MatrixGrid {
     private var _matrixSize:int;
     private var _gridWhiteTexture:Texture;
     private var _gridRedTexture:Texture;
-//    private var _finder:V_Finder;
-//    private var _hev:V_HevristicToTarget;
 
     protected var g:Vars = Vars.getInstance();
 
@@ -49,16 +47,14 @@ public class MatrixGrid {
 
     public function createMatrix():void {
         _matrix = [];
-//        var tempWidth:int = int(g.realGameTilesWidth / DIAGONAL + .5);
-//        var tempHeight:int = int(g.realGameTilesHeight / (DIAGONAL / 2) + .5);
-        _matrixSize = 80; // tempWidth + tempHeight;
+        _matrixSize = 80;
 
-        _offsetY = g.realGameHeight/2 - g.realGameTilesHeight/2; //_matrixSize*FACTOR/2 - g.realGameTilesHeight/2;
+        _offsetY = g.realGameHeight/2 - g.realGameTilesHeight/2;
 
         for (var i:int = 0; i < _matrixSize; i++) {
             _matrix.push([]);
             for (var j:int = 0; j < _matrixSize; j++) {
-                _matrix[i][j] = {id: 0, sources: [], inGame: isTileInGame(i, j), findId: 0};
+                _matrix[i][j] = {id: 0, sources: [], inGame: true, findId: 0};
             }
         }
 

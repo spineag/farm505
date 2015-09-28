@@ -29,6 +29,7 @@ public class Farm extends AreaObject{
     private var _house:CSprite;
     private var _dataAnimal:Object;
     private var _arrAnimals:Array;
+    private var _contAnimals:Sprite;
 
     public function Farm(_data:Object) {
         super(_data);
@@ -48,12 +49,19 @@ public class Farm extends AreaObject{
         _house.outCallback = onOutHouse;
         _source.releaseContDrag = true;
 
+        _contAnimals = new Sprite();
+        source.addChild(_contAnimals);
+
         _craftSprite = new Sprite();
-        _craftSprite.y = 80;
+        _craftSprite.y = 160;
         _source.addChild(_craftSprite);
 
         _arrAnimals = [];
         setDataAnimal();
+
+        if (_dataAnimal.id != 6) {
+            g.gameDispatcher.addEnterFrame(sortAnimals);
+        }
     }
 
     private function onHoverHouse():void {
@@ -127,17 +135,21 @@ public class Farm extends AreaObject{
 
     public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
         var an:Animal = new Animal(_dataAnimal, this);
-        MCScaler.scale(an.source, 50, 50);
-        an.source.x = (1/2 - Math.random()) * _source.width/2;
-        an.source.y = (1 - Math.random()/2) * _source.height/2;
-        _source.addChildAt(an.source, _source.numChildren-2);
+        MCScaler.scale(an.source, 80, 80);
+        var p:Point = g.farmGrid.getRandomPoint();
+        an.source.x = p.x;
+        an.source.y = p.y;
+        _contAnimals.addChild(an.source);
         _arrAnimals.push(an);
         if (!isFromServer) {
             g.directServer.addUserAnimal(an, _dbBuildingId, null);
         } else {
             an.fillItFromServer(ob);
         }
-//        checkAnimalsZindex();
+        if (_dataAnimal.id != 6) {
+            an.addRenderAnimation();
+            sortAnimals();
+        }
     }
 
     public function get isFull():Boolean {
@@ -154,6 +166,20 @@ public class Farm extends AreaObject{
 
     public function get arrAnimals():Array {
         return _arrAnimals;
+    }
+
+    private var counter:int = 0;
+    private function sortAnimals():void {
+        counter--;
+        if (counter <= 0) {
+            if (_arrAnimals.length > 1) {
+                _arrAnimals.sortOn('depth', Array.NUMERIC);
+                for (var i:int = 0; i < _arrAnimals.length; i++) {
+                    _contAnimals.setChildIndex(_arrAnimals[i].source, i);
+                }
+            }
+            counter = 15;
+        }
     }
 }
 }

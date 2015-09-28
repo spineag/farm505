@@ -2,6 +2,9 @@
  * Created by user on 6/19/15.
  */
 package build.farm {
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
+
 import flash.geom.Point;
 
 import manager.Vars;
@@ -11,16 +14,17 @@ import resourceItem.RawItem;
 import resourceItem.ResourceItem;
 
 import starling.display.Image;
-import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.Point3D;
 
 public class Animal {
     public static var EMPTY:int = 1;
     public static var WORKED:int = 2;
     public static var CRAFT:int = 3;
+    private const WALK_SPEED:int = 20;
 
     public var source:CSprite;
     private var _image:Image;
@@ -31,6 +35,7 @@ public class Animal {
     private var _frameCounterMouseHint:int;
     private var _isOnHover:Boolean;
     private var _farm:Farm;
+    private var _defautScale:Number;
     public var animal_db_id:String;  // id в табличке user_animal
 
     private var g:Vars = Vars.getInstance();
@@ -47,6 +52,7 @@ public class Animal {
         source.addChild(_image);
 
         _state = EMPTY;
+        _defautScale = source.scaleX;
 
         source.hoverCallback = onHover;
         source.outCallback = onOut;
@@ -75,6 +81,7 @@ public class Animal {
             g.gameDispatcher.removeFromTimer(render);
             craftResource();
             _state = CRAFT;
+            addRenderAnimation();
         }
     }
 
@@ -86,6 +93,7 @@ public class Animal {
 
     private function onCraft():void {
         _state = EMPTY;
+        addRenderAnimation();
         if (g.useDataFromServer) g.directServer.craftUserAnimal(animal_db_id, null);
     }
 
@@ -101,6 +109,7 @@ public class Animal {
             p = source.parent.localToGlobal(p);
             var rawItem:RawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
             if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
+            addRenderAnimation();
         }
     }
 
@@ -158,6 +167,81 @@ public class Animal {
 
     public function get animalData():Object {
         return _data;
+    }
+
+    public function addRenderAnimation():void {
+        stopAnimation();
+        if (_state == EMPTY) {
+            waitForRawAnimation();
+        } else if (_state == CRAFT) {
+            waitForCraftAnimation();
+        } else {
+//            g.gameDispatcher.addToTimer(render);
+            chooseAnimation();
+        }
+    }
+
+    private function waitForCraftAnimation():void {
+        source.scaleX = source.scaleY = .5*_defautScale;
+    }
+
+    private function waitForRawAnimation():void {
+        var f1:Function = function():void {
+            new TweenMax(_image, .5, {scaleX:0.97*_defautScale, scaleY:1.03*_defautScale, ease:Linear.easeOut ,onComplete: f2});
+        };
+        var f2:Function = function():void {
+            new TweenMax(_image, .5, {scaleX:1.03*_defautScale, scaleY:0.97*_defautScale, ease:Linear.easeIn ,onComplete: f1});
+        };
+        f1();
+    }
+
+    private function chooseAnimation():void {
+        stopAnimation();
+        var i:int = int(Math.random()*3);
+        if (i > 0) {
+            walkAnimation();
+        } else {
+            countIdle = 3;
+            idleAnimation();
+        }
+    }
+
+    var countIdle:int;
+    private function idleAnimation():void {
+        var f1:Function = function():void {
+            new TweenMax(_image, .2, {y:0, ease:Linear.easeOut ,onComplete: f2});
+        };
+        var f2:Function = function():void {
+            countIdle--;
+            if (countIdle <= 0) {
+                chooseAnimation();
+                return;
+            }
+            new TweenMax(_image, .2, {y:-20, ease:Linear.easeIn ,onComplete: f1});
+        };
+        f2();
+    }
+
+    private function walkAnimation():void {
+        var p:Point = g.farmGrid.getRandomPoint();
+        var dist:int = Math.sqrt((source.x - p.x)*(source.x - p.x) + (source.y - p.y)*(source.y - p.y));
+        new TweenMax(source, dist/WALK_SPEED, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
+    }
+
+    private function stopAnimation():void {
+        TweenMax.killTweensOf(source);
+        TweenMax.killTweensOf(_image);
+        _image.y = 0;
+        countIdle = 0;
+        source.scaleX = source.scaleY = _defautScale;
+    }
+
+    public function get depth():Number {
+//        var point3d:Point3D = g.farmGrid.screenToIso(new Point(source.x, source.y));
+//        point3d.x += 7;
+//        point3d.z += 7;
+//        return point3d.x + point3d.z;
+        return source.y;
     }
 }
 }

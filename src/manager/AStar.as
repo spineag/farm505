@@ -47,7 +47,7 @@ public class AStar {
         closedList = [];
         path = [];
         openList[startX + " " + startY] = new AStarNode(startX, startY, 0, 0, null);
-        showWallPoints();
+//        showWallPoints();
         try {
             makeSearch();
         } catch (e:Error) {
