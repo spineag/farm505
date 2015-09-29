@@ -165,7 +165,7 @@ public class ToolsModifier {
     }
 
     private var imForMove:Image;
-    public function startMove(buildingData:Object, callback:Function = null, treeState:int = 1):void {
+    public function startMove(buildingData:Object, callback:Function = null, treeState:int = 1, isFromShop:Boolean = false):void {
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;
@@ -228,7 +228,7 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
         _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
-        if (g.selectedBuild && g.selectedBuild.source && g.selectedBuild.source.isContDrag) {
+        if (g.selectedBuild && g.selectedBuild.source && g.selectedBuild.source.isContDrag || isFromShop) {
             _needMoveGameCont = true;
         }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
@@ -254,6 +254,7 @@ public class ToolsModifier {
     private var _startDragPoint:Point;
     private function onTouch(te:TouchEvent):void {
         if (_needMoveGameCont && te.getTouch(_cont, TouchPhase.BEGAN)) {
+            g.gameDispatcher.removeEnterFrame(onEnterFrame);
             _startDragPoint = new Point();
             _startDragPoint.x = g.cont.gameCont.x;
             _startDragPoint.y = g.cont.gameCont.y;
@@ -268,11 +269,10 @@ public class ToolsModifier {
         }
 
         if (te.getTouch(_cont, TouchPhase.ENDED)) {
-//            if (!_startDragPoint) return;
             if (_startDragPoint) {
                 var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
                 if (distance > 5) {
-
+                    g.gameDispatcher.addEnterFrame(onEnterFrame);
                 } else {
                     _needMoveGameCont = false;
                     onTouchEnded();
@@ -288,9 +288,10 @@ public class ToolsModifier {
         var x:Number;
         var y:Number;
         if (!_spriteForMove) return;
+        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
+        g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
         x = _spriteForMove.x;
         y = _spriteForMove.y;
-        var point:Point = g.matrixGrid.getIndexFromXY(new Point(x, y));
         if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) return;
 
         spriteForMoveIndexX = 0;
@@ -323,7 +324,7 @@ public class ToolsModifier {
         if (_startDragPoint) return;
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
-        if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {  // ��������� ���������� �� ������� � ����� ��������
+        if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {
             spriteForMoveIndexX = point.x;
             spriteForMoveIndexY = point.y;
             _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);

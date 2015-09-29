@@ -233,7 +233,7 @@ public class ShopItem {
         }   else if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.onClickExit();
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.toolsModifier.startMove(_data, afterMove);
+            g.toolsModifier.startMove(_data, afterMove,1,true);
         } else {
             //додаємо на відповідну ферму
             var arr:Array = g.townArea.cityObjects;

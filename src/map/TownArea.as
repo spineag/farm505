@@ -240,6 +240,7 @@ public class TownArea extends Sprite {
             Cc.error('TownArea:: BUILD is null');
             return;
         }
+        g.selectedBuild = build;
         (build as WorldObject).dbBuildingId = dbId;
         pasteBuild(build, _x, _y, !isFromServer);
         if (isFlip && !(build is DecorPostFence)) {
