@@ -199,6 +199,7 @@ public class Vars {
     public var woAmbarFilled:WOAmbarFilled;
     public var woLastResource:WOLastResource;
     public var woTrainOrder:WOTrainOrder;
+    public var windowsPool:Array;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -374,6 +375,7 @@ public class Vars {
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
+        windowsPool = [];
         woCave = new WOCave();
         woTrain = new WOTrain();
 

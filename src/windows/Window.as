@@ -27,6 +27,7 @@ public class Window {
     protected var _black:Quad;
     protected var g:Vars = Vars.getInstance();
     protected var callbackClickBG:Function;
+    public var needAddToPool:Boolean = false;
 
     public function Window() {
         _source = new Sprite();
@@ -42,12 +43,18 @@ public class Window {
         _source.x = Starling.current.nativeStage.stageWidth/2;
         _source.y = Starling.current.nativeStage.stageHeight/2;
         g.cont.addGameContListener(false);
-        while (g.cont.windowsCont.numChildren) {
-            g.cont.windowsCont.removeChildAt(0);
-        }
         if (g.currentOpenedWindow) {
-            g.currentOpenedWindow.hideIt();
+//            while (g.cont.windowsCont.numChildren) {
+//                g.cont.windowsCont.removeChildAt(0);
+//            }
+            if (needAddToPool) {
+                g.windowsPool.push(this);
+                return;
+            } else {
+                g.currentOpenedWindow.hideIt();
+            }
         }
+
         g.cont.windowsCont.addChild(_source);
         g.currentOpenedWindow = this;
     }
@@ -59,6 +66,10 @@ public class Window {
         }
         g.currentOpenedWindow = null;
         g.cont.addGameContListener(true);
+
+        if (g.windowsPool.length) {
+            g.windowsPool.shift().showIt();
+        }
     }
 
     public function destroyedIt():void {

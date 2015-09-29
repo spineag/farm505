@@ -23,9 +23,12 @@ import manager.ManagerPlantRidge;
 import manager.ManagerTree;
 import manager.Vars;
 
+import windows.serverError.WOServerError;
+
 
 public class DirectServer {
     private var g:Vars = Vars.getInstance();
+    private var woError:WOServerError = new WOServerError();
 
     public function makeTest():void {
         if (!g.useDataFromServer) return;
@@ -68,6 +71,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataLevel error:' + error.errorID);
+            woError.showItParams('getDataLevel error:' + error.errorID);
         }
     }
 
@@ -77,6 +81,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('loadLevels: wrong JSON:' + String(response));
+            woError.showItParams('loadLevels: wrong JSON:' + String(response));
             return;
         }
 
@@ -93,6 +98,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('loadLevels: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('loadLevels: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -110,6 +116,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataAnimal error:' + error.errorID);
+            woError.showItParams('getDataAnimal error:' + error.errorID);
         }
     }
 
@@ -119,6 +126,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataAnimal: wrong JSON:' + String(response));
+            woError.showItParams('getDataAnimal: wrong JSON:' + String(response));
             return;
         }
 
@@ -146,6 +154,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataAnimal: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getDataAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -163,6 +172,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataRecipe error:' + error.errorID);
+            woError.showItParams('getDataRecipe error:' + error.errorID);
         }
     }
 
@@ -172,6 +182,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataRecipe: wrong JSON:' + String(response));
+            woError.showItParams('getDataRecipe: wrong JSON:' + String(response));
             return;
         }
 
@@ -194,6 +205,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataRecipe: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getDataRecipe: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -211,6 +223,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataResource error:' + error.errorID);
+            woError.showItParams('getDataResource error:' + error.errorID);
         }
     }
 
@@ -220,6 +233,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataResource: wrong JSON:' + String(response));
+            woError.showItParams('getDataResource: wrong JSON:' + String(response));
             return;
         }
 
@@ -257,6 +271,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataResource: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getDataResource: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -274,6 +289,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataBuilding error:' + error.errorID);
+            woError.showItParams('getDataBuilding error:' + error.errorID);
         }
     }
 
@@ -283,6 +299,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataBuilding: wrong JSON:' + String(response));
+            woError.showItParams('getDataBuilding: wrong JSON:' + String(response));
             return;
         }
 
@@ -375,6 +392,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataBuilding: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getDataBuilding: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -398,6 +416,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('authUser error:' + error.errorID);
+            woError.showItParams('authUser error:' + error.errorID);
         }
     }
 
@@ -417,6 +436,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('authUser: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('authUser: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -438,6 +458,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('userInfo error:' + error.errorID);
+            woError.showItParams('userInfo error:' + error.errorID);
         }
     }
 
@@ -447,6 +468,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('userInfo: wrong JSON:' + String(response));
+            woError.showItParams('userInfo: wrong JSON:' + String(response));
             return;
         }
 
@@ -479,6 +501,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('userInfo: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -502,6 +525,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserMoney error:' + error.errorID);
+            woError.showItParams('addUserMoney error:' + error.errorID);
         }
     }
 
@@ -511,6 +535,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserMoney: wrong JSON:' + String(response));
+            woError.showItParams('addUserMoney: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -523,6 +548,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserMoney: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addUserMoney: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -548,6 +574,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserXP error:' + error.errorID);
+            woError.showItParams('addUserXP error:' + error.errorID);
         }
     }
 
@@ -557,6 +584,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserXP: wrong JSON:' + String(response));
+            woError.showItParams('addUserXP: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -569,6 +597,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserXP: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addUserXP: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -594,6 +623,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserLevel error:' + error.errorID);
+            woError.showItParams('updateUserLevel error:' + error.errorID);
         }
     }
 
@@ -603,6 +633,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserLevel: wrong JSON:' + String(response));
+            woError.showItParams('updateUserLevel: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -615,6 +646,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -639,6 +671,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserResource error:' + error.errorID);
+            woError.showItParams('GetUserResource error:' + error.errorID);
         }
     }
 
@@ -651,6 +684,7 @@ public class DirectServer {
             }
         } catch (e:Error) {
             Cc.error('GetUserResource: wrong JSON:' + String(response));
+            woError.showItParams('GetUserResource: wrong JSON:' + String(response));
             return;
         }
 
@@ -660,6 +694,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserResource: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('GetUserResource: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -683,6 +718,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserResource error:' + error.errorID);
+            woError.showItParams('addUserResource error:' + error.errorID);
         }
     }
 
@@ -692,6 +728,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserResource: wrong JSON:' + String(response));
+            woError.showItParams('addUserResource: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -704,6 +741,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserResource: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addUserResource: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -731,6 +769,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserBuilding error:' + error.errorID);
+            woError.showItParams('addUserBuilding error:' + error.errorID);
         }
     }
 
@@ -740,6 +779,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserBuilding: wrong JSON:' + String(response));
+            woError.showItParams('addUserBuilding: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -755,6 +795,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -779,6 +820,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserBuilding error:' + error.errorID);
+            woError.showItParams('GetUserBuilding error:' + error.errorID);
         }
     }
 
@@ -817,6 +859,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -840,6 +883,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('startBuildMapBuilding error:' + error.errorID);
+            woError.showItParams('startBuildMapBuilding error:' + error.errorID);
         }
     }
 
@@ -849,6 +893,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('startBuildMapBuilding: wrong JSON:' + String(response));
+            woError.showItParams('startBuildMapBuilding: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -861,6 +906,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -887,6 +933,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('openBuildMapBuilding error:' + error.errorID);
+            woError.showItParams('openBuildMapBuilding error:' + error.errorID);
         }
     }
 
@@ -896,6 +943,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('openBuildMapBuilding: wrong JSON:' + String(response));
+            woError.showItParams('openBuildMapBuilding: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -908,6 +956,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -935,6 +984,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addFabricaRecipe error:' + error.errorID);
+            woError.showItParams('addFabricaRecipe error:' + error.errorID);
         }
     }
 
@@ -944,6 +994,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addFabricaRecipe: wrong JSON:' + String(response));
+            woError.showItParams('addFabricaRecipe: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -956,6 +1007,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -980,6 +1032,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserFabricaRecipe error:' + error.errorID);
+            woError.showItParams('GetUserFabricaRecipe error:' + error.errorID);
         }
     }
 
@@ -989,6 +1042,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserFabricaRecipe: wrong JSON:' + String(response));
+            woError.showItParams('GetUserFabricaRecipe: wrong JSON:' + String(response));
             return;
         }
 
@@ -1003,6 +1057,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('GetUserFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1025,6 +1080,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('craftFabricaRecipe error:' + error.errorID);
+            woError.showItParams('craftFabricaRecipe error:' + error.errorID);
         }
     }
 
@@ -1034,6 +1090,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('craftFabricaRecipe: wrong JSON:' + String(response));
+            woError.showItParams('craftFabricaRecipe: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1046,6 +1103,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1072,6 +1130,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('rawPlantOnRidge error:' + error.errorID);
+            woError.showItParams('rawPlantOnRidge error:' + error.errorID);
         }
     }
 
@@ -1081,6 +1140,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('rawPlantOnRidge: wrong JSON:' + String(response));
+            woError.showItParams('rawPlantOnRidge: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1093,6 +1153,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('rawPlantOnRidge: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('rawPlantOnRidge: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1117,6 +1178,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserPlantRidge error:' + error.errorID);
+            woError.showItParams('GetUserPlantRidge error:' + error.errorID);
         }
     }
 
@@ -1126,6 +1188,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserPlantRidge: wrong JSON:' + String(response));
+            woError.showItParams('GetUserPlantRidge: wrong JSON:' + String(response));
             return;
         }
 
@@ -1139,6 +1202,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserPlantRidge: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('GetUserPlantRidge: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1161,6 +1225,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('craftPlantRidge error:' + error.errorID);
+            woError.showItParams('craftPlantRidge error:' + error.errorID);
         }
     }
 
@@ -1170,6 +1235,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('craftPlantRidge: wrong JSON:' + String(response));
+            woError.showItParams('craftPlantRidge: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1182,6 +1248,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('craftPlantRidge: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('craftPlantRidge: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1207,6 +1274,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserTree error:' + error.errorID);
+            woError.showItParams('addUserTree error:' + error.errorID);
         }
     }
 
@@ -1216,6 +1284,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserTree: wrong JSON:' + String(response));
+            woError.showItParams('addUserTree: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1229,6 +1298,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addUserTree: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1253,6 +1323,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserTree error:' + error.errorID);
+            woError.showItParams('GetUserTree error:' + error.errorID);
         }
     }
 
@@ -1262,6 +1333,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserTree: wrong JSON:' + String(response));
+            woError.showItParams('GetUserTree: wrong JSON:' + String(response));
             return;
         }
 
@@ -1275,6 +1347,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserTree: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('GetUserTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1298,6 +1371,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserTreeState error:' + error.errorID);
+            woError.showItParams('updateUserTreeState error:' + error.errorID);
         }
     }
 
@@ -1307,6 +1381,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserTreeState: wrong JSON:' + String(response));
+            woError.showItParams('updateUserTreeState: wrong JSON:' + String(response));
             return;
         }
 
@@ -1316,6 +1391,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserTreeState: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateUserTreeState: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1339,6 +1415,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('deleteUserTree error:' + error.errorID);
+            woError.showItParams('deleteUserTree error:' + error.errorID);
         }
     }
 
@@ -1348,6 +1425,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('deleteUserTree: wrong JSON:' + String(response));
+            woError.showItParams('deleteUserTree: wrong JSON:' + String(response));
             return;
         }
 
@@ -1357,6 +1435,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1380,6 +1459,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserAnimal error:' + error.errorID);
+            woError.showItParams('addUserAnimal error:' + error.errorID);
         }
     }
 
@@ -1389,6 +1469,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserAnimal: wrong JSON:' + String(response));
+            woError.showItParams('addUserAnimal: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1402,6 +1483,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addUserTree: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1427,6 +1509,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('rawUserAnimal error:' + error.errorID);
+            woError.showItParams('rawUserAnimal error:' + error.errorID);
         }
     }
 
@@ -1436,6 +1519,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('rawUserAnimal: wrong JSON:' + String(response));
+            woError.showItParams('rawUserAnimal: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1448,6 +1532,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('rawUserTree: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('rawUserTree: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1472,6 +1557,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserAnimal error:' + error.errorID);
+            woError.showItParams('GetUserAnimal error:' + error.errorID);
         }
     }
 
@@ -1481,6 +1567,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserAnimal: wrong JSON:' + String(response));
+            woError.showItParams('GetUserAnimal: wrong JSON:' + String(response));
             return;
         }
 
@@ -1494,6 +1581,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserAnimal: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('GetUserAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1516,6 +1604,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('craftUserAnimal error:' + error.errorID);
+            woError.showItParams('craftUserAnimal error:' + error.errorID);
         }
     }
 
@@ -1525,6 +1614,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('craftUserAnimal: wrong JSON:' + String(response));
+            woError.showItParams('craftUserAnimal: wrong JSON:' + String(response));
             return;
         }
 
@@ -1538,6 +1628,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('craftUserAnimal: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('craftUserAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1559,6 +1650,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserTrain error:' + error.errorID);
+            woError.showItParams('addUserTrain error:' + error.errorID);
         }
     }
 
@@ -1568,6 +1660,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserTrain: wrong JSON:' + String(response));
+            woError.showItParams('addUserTrain: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [0]);
             }
@@ -1580,6 +1673,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserTrain: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addUserTrain: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [0]);
             }
@@ -1618,6 +1712,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getUserTrain error:' + error.errorID);
+            woError.showItParams('getUserTrain error:' + error.errorID);
         }
     }
 
@@ -1627,12 +1722,14 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserTrain: wrong JSON:' + String(response));
+            woError.showItParams('GetUserTrain: wrong JSON:' + String(response));
         }
 
         if (d.id == 0) {
             tr.fillFromServer(d.message);
         } else {
             Cc.error('GetUserTrain: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('GetUserTrain: id: ' + d.id + '  with message: ' + d.message);
         }
 
         if (callback != null) {
@@ -1660,6 +1757,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserTrainState error:' + error.errorID);
+            woError.showItParams('updateUserTrainState error:' + error.errorID);
         }
     }
 
@@ -1669,6 +1767,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserTrainState: wrong JSON:' + String(response));
+            woError.showItParams('updateUserTrainState: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -1681,6 +1780,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserTrainState: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateUserTrainState: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply();
             }
@@ -1705,6 +1805,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getTrainPack error:' + error.errorID);
+            woError.showItParams('getTrainPack error:' + error.errorID);
         }
     }
 
@@ -1714,6 +1815,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getTrainPack: wrong JSON:' + String(response));
+            woError.showItParams('getTrainPack: wrong JSON:' + String(response));
             return;
         }
 
@@ -1724,6 +1826,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('getTrainPack: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getTrainPack: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1746,6 +1849,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('releaseUserTrainPack error:' + error.errorID);
+            woError.showItParams('releaseUserTrainPack error:' + error.errorID);
         }
     }
 
@@ -1755,6 +1859,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('releaseUserTrainPack: wrong JSON:' + String(response));
+            woError.showItParams('releaseUserTrainPack: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -1767,6 +1872,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('releaseUserTrainPack: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('releaseUserTrainPack: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply();
             }
@@ -1792,6 +1898,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserTrainPackItems error:' + error.errorID);
+            woError.showItParams('updateUserTrainPackItems error:' + error.errorID);
         }
     }
 
@@ -1801,6 +1908,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserTrainPackItems: wrong JSON:' + String(response));
+            woError.showItParams('updateUserTrainPackItems: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -1813,6 +1921,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserTrainPackItems: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateUserTrainPackItems: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply();
             }
@@ -1837,6 +1946,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('deleteUser error:' + error.errorID);
+            woError.showItParams('deleteUser error:' + error.errorID);
         }
     }
 
@@ -1869,6 +1979,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserMarketItem error:' + error.errorID);
+            woError.showItParams('addUserMarketItem error:' + error.errorID);
         }
     }
 
@@ -1878,6 +1989,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserMarketItem: wrong JSON:' + String(response));
+            woError.showItParams('addUserMarketItem: wrong JSON:' + String(response));
             return;
         }
 
@@ -1888,6 +2000,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('addUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1909,6 +2022,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getUserMarketItem error:' + error.errorID);
+            woError.showItParams('getUserMarketItem error:' + error.errorID);
         }
     }
 
@@ -1918,6 +2032,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getUserMarketItem: wrong JSON:' + String(response));
+            woError.showItParams('getUserMarketItem: wrong JSON:' + String(response));
             return;
         }
 
@@ -1929,6 +2044,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('getUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1951,6 +2067,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('buyFromMarket error:' + error.errorID);
+            woError.showItParams('buyFromMarket error:' + error.errorID);
         }
     }
 
@@ -1960,6 +2077,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('buyFromMarket: wrong JSON:' + String(response));
+            woError.showItParams('buyFromMarket: wrong JSON:' + String(response));
             return;
         }
 
@@ -1970,6 +2088,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('buyFromMarket: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('buyFromMarket: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1992,6 +2111,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('deleteUserMarketItem error:' + error.errorID);
+            woError.showItParams('deleteUserMarketItem error:' + error.errorID);
         }
     }
 
@@ -2001,6 +2121,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('deleteUserMarketItem: wrong JSON:' + String(response));
+            woError.showItParams('deleteUserMarketItem: wrong JSON:' + String(response));
             return;
         }
 
@@ -2011,6 +2132,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('deleteUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('deleteUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2035,6 +2157,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserBuildPosition error:' + error.errorID);
+            woError.showItParams('updateUserBuildPosition error:' + error.errorID);
         }
     }
 
@@ -2044,6 +2167,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserBuildPosition: wrong JSON:' + String(response));
+            woError.showItParams('updateUserBuildPosition: wrong JSON:' + String(response));
             return;
         }
 
@@ -2051,9 +2175,9 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
-            return;
         } else {
             Cc.error('updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2075,6 +2199,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getPaperItems error:' + error.errorID);
+            woError.showItParams('getPaperItems error:' + error.errorID);
         }
     }
 
@@ -2084,6 +2209,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getPaperItems: wrong JSON:' + String(response));
+            woError.showItParams('getPaperItems: wrong JSON:' + String(response));
             return;
         }
 
@@ -2094,6 +2220,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getPaperItems: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getPaperItems: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2118,6 +2245,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserAmbar error:' + error.errorID);
+            woError.showItParams('updateUserAmbar error:' + error.errorID);
         }
     }
 
@@ -2127,6 +2255,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserAmbar: wrong JSON:' + String(response));
+            woError.showItParams('updateUserAmbar: wrong JSON:' + String(response));
             return;
         }
 
@@ -2136,6 +2265,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }
