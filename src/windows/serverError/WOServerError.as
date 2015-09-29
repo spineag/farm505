@@ -11,14 +11,14 @@ public class WOServerError extends Window{
     private var _txtError:TextField;
     public function WOServerError() {
         super();
-        createTempBG(300, 400, Color.GRAY);
-        var txt:TextField = new TextField(300,100,"Ошибка! Перегрузите игру","Arial",30,Color.WHITE);
-        txt.x = -150;
+        createTempBG(400, 400, Color.GRAY);
+        var txt:TextField = new TextField(400,100,"Ошибка! Перегрузите игру","Arial",30,Color.WHITE);
+        txt.x = -200;
         txt.y = -200;
         _source.addChild(txt);
-        _txtError = new TextField(300,300,"Ошибка! Перегрузите игру","Arial",20,Color.WHITE);
-        txt.x = -150;
-        txt.y = 50;
+        _txtError = new TextField(400,300,"","Arial",20,Color.WHITE);
+        _txtError.x = -200;
+        _txtError.y = -100;
         _source.addChild(_txtError);
     }
 
