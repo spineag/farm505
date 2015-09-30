@@ -1,4 +1,6 @@
 package manager {
+import build.lockedLand.LockedLand;
+
 import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
@@ -47,7 +49,7 @@ public class AStar {
         closedList = [];
         path = [];
         openList[startX + " " + startY] = new AStarNode(startX, startY, 0, 0, null);
-//        showWallPoints();
+        showWallPoints();
         try {
             makeSearch();
         } catch (e:Error) {
@@ -111,6 +113,12 @@ public class AStar {
                             if (i != 0 && j != 0) {
                                 if (matrix[row][col].isFull) {
                                     closedList[col + " " + row] = 'wall';
+                                    showWallPoint(col, row);
+                                    continue;
+                                }
+                                if (matrix[row][col].build is LockedLand) {
+                                    closedList[col + " " + row] = 'wall';
+                                    showWallPoint(col, row);
                                     continue;
                                 }
                                 g = 14;
@@ -174,6 +182,16 @@ public class AStar {
                 }
             }
         }
+    }
+
+    private function showWallPoint(_x:int, _y:int):void {
+        var p:Point = new Point(_x, _y);
+        var im:Image = new Image(g.interfaceAtlas.getTexture('help_icon'));
+        MCScaler.scale(im, 20, 20);
+        p = g.matrixGrid.getXYFromIndex(p);
+        im.x = p.x - 10;
+        im.y = p.y - 10;
+        g.cont.animationsCont.addChild(im);
     }
 
 }

@@ -123,7 +123,9 @@ public class Containers {
                 var p:Point = te.touches[0].getLocation(g.mainStage);
                 p = contentCont.globalToLocal(p);
                 p = g.matrixGrid.getStrongIndexFromXY(p);
-                g.managerCats.goCatToPoint(g.activeCat, p);
+                if (!(p.x == g.activeCat.posX && p.y == g.activeCat.posY)) {
+                    g.managerCats.goCatToPoint(g.activeCat, p);
+                }
             }
             _isDragged = false;
         }
