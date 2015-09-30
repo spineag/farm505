@@ -230,12 +230,14 @@ public class OptionPanel {
                     }
                 break;
             case 'scale_plus':
+                if (isAnimScaling) return;
                 i = _arrCells.indexOf(g.cont.gameCont.scaleX);
                 if (i >= _arrCells.length-1) return;
                 i++;
                 makeScaling(_arrCells[i]);
                 break;
             case 'scale_minus':
+                if (isAnimScaling) return;
                 i = _arrCells.indexOf(g.cont.gameCont.scaleX);
                 if (i <= 0 ) return;
                 i--;
@@ -294,6 +296,7 @@ public class OptionPanel {
         if (_source.visible) _source.x -= 50;
     }
 
+    private var isAnimScaling:Boolean = false;
     private function makeScaling(s:Number):void {
         var p:Point;
         var pNew:Point;
@@ -320,7 +323,11 @@ public class OptionPanel {
         if (pNew.x < -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s)
             pNew.x =  -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s;
         cont.scaleX = cont.scaleY = oldScale;
-        new TweenMax(cont, .5, {x:pNew.x, y:pNew.y, scaleX:s, scaleY:s, ease:Linear.easeOut});
+        isAnimScaling = true;
+//        var f1:Function = function():void {
+//            isAnimScaling = false;
+//        };
+        new TweenMax(cont, .5, {x:pNew.x, y:pNew.y, scaleX:s, scaleY:s, ease:Linear.easeOut, onComplete: function():void {isAnimScaling = false;}});
     }
 }
 }
