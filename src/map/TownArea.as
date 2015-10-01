@@ -11,6 +11,7 @@ import build.decor.DecorFence;
 import build.decor.DecorPostFence;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
+import build.lockedLand.LockedLand;
 import build.market.Market;
 import build.orders.Order;
 import build.paper.Paper;
@@ -233,6 +234,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.TRAIN:
                 build = new Train(_data);
+                break;
+            case BuildType.LOCKED_LAND:
+                build = new LockedLand(_data);
                 break;
         }
 
