@@ -35,11 +35,11 @@ public class AreaObject extends WorldObject {
                 _leftBuildTime = int(_dataBuild.buildTime) - _leftBuildTime;                                 // сколько времени еще до конца стройки
                 if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                     _stateBuild = STATE_WAIT_ACTIVATE;
-                    createBuild();
+//                    createBuild();
                     addTempGiftIcon();
                 } else {  // еще строится
                     _stateBuild = STATE_BUILD;
-                    createBuild();
+//                    createBuild();
                     addTempBuildIcon();
                     g.gameDispatcher.addToTimer(renderBuildProgress);
                 }
@@ -106,9 +106,12 @@ public class AreaObject extends WorldObject {
 
     protected function addTempGiftIcon():void {
         if (_craftSprite) {
-            var im:Image = new Image(g.interfaceAtlas.getTexture('temp_gift_icon'));
-            im.x = -im.width/2;
-            im.y = -10;
+//            var im:Image = new Image(g.interfaceAtlas.getTexture('temp_gift_icon'));
+//            im.x = -im.width/2;
+//            im.y = -10;
+            var im:Image = new Image(g.tempBuildAtlas.getTexture('done_building'));
+            im.x = -191;
+            im.y = -249;
             _craftSprite.addChild(im);
         } else {
             Cc.error('_craftSprite == null  :(')
@@ -117,9 +120,12 @@ public class AreaObject extends WorldObject {
 
     protected function addTempBuildIcon():void {
         if (_craftSprite) {
-            var im:Image = new Image(g.interfaceAtlas.getTexture('work_icon'));
-            im.x = -im.width/2;
-            im.y = -10;
+//            var im:Image = new Image(g.interfaceAtlas.getTexture('work_icon'));
+//            im.x = -im.width/2;
+//            im.y = -10;
+            var im:Image = new Image(g.tempBuildAtlas.getTexture('foundation'));
+            im.x = -262;
+            im.y = -274;
             _craftSprite.addChild(im);
         } else {
             Cc.error('_craftSprite == null  :(')

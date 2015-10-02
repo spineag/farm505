@@ -127,6 +127,7 @@ public class Fabrica extends AreaObject {
             }
             clearCraftSprite();
             _source.filter = null;
+            createBuild();
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
                 start = _source.parent.localToGlobal(start);
