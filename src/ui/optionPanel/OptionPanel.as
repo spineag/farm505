@@ -67,6 +67,7 @@ public class OptionPanel {
         };
         _contFullScreen.outCallback = function ():void {
             _contFullScreen.filter = null;
+            g.hint.hideIt();
         };
         _contFullScreen.startClickCallback = function ():void {
             onClick('fullscreen');
@@ -83,6 +84,7 @@ public class OptionPanel {
         };
         _contScalePlus.outCallback = function ():void {
             _contScalePlus.filter = null;
+            g.hint.hideIt();
         };
         _contScalePlus.endClickCallback = function ():void {
             onClick('scale_plus');
