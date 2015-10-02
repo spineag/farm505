@@ -5,28 +5,17 @@ package manager {
 import build.WorldObject;
 import build.farm.FarmGrid;
 
-import manager.AStar;
-
 import com.junkbyte.console.Cc;
 
-import data.BuildType;
-
 import heroes.HeroCat;
-
 import heroes.ManagerCats;
 
-import hint.FlyMessage;
 import hint.ResourceHint;
-
 import hint.TreeHint;
-
 import hint.fabricHint.FabricHint;
-
 import hint.FarmHint;
-
 import hint.Hint;
 import hint.MouseHint;
-
 import hint.TimerHint;
 import hint.WildHint;
 
@@ -41,13 +30,10 @@ import preloader.StartPreloader;
 
 import server.DirectServer;
 import server.NodeServer;
-
 import server.Server;
 
 import social.SocialNetwork;
-
 import social.SocialNetworkEvent;
-
 import social.SocialNetworkSwitch;
 
 import starling.core.Starling;
@@ -55,9 +41,7 @@ import starling.display.Stage;
 import starling.textures.TextureAtlas;
 
 import temp.dataTemp.DataAnimal;
-
 import temp.dataTemp.DataLevel;
-
 import temp.dataTemp.DataRecipe;
 import temp.dataTemp.DataResources;
 import temp.dataTemp.DataBuildings;
@@ -72,7 +56,6 @@ import ui.friendPanel.FriendPanel;
 import ui.optionPanel.OptionPanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
 import ui.toolsPanel.ToolsPanel;
-
 import ui.xpPanel.XPPanel;
 
 import user.User;
@@ -81,19 +64,18 @@ import user.UserInventory;
 import utils.FarmDispatcher;
 
 import windows.Window;
-
 import windows.ambar.WOAmbar;
 import windows.ambar.WOSklad;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
-
 import windows.buyPlant.WOBuyPlant;
 import windows.cave.WOCave;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.fabricaWindow.WOFabrica;
 import windows.lastResource.WOLastResource;
 import windows.levelUp.WOLevelUp;
+import windows.lockedLand.WOLockedLand;
 import windows.market.WOMarket;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
@@ -155,6 +137,7 @@ public class Vars {
 
     public var background:BackgroundArea;
 
+    public var allData:AllData;
     public var dataBuilding:DataBuildings;
     public var dataResource:DataResources;
     public var dataRecipe:DataRecipe;
@@ -170,7 +153,6 @@ public class Vars {
     public var fabricHint:FabricHint;
     public var treeHint:TreeHint;
     public var resourceHint:ResourceHint;
-    public var flyMessage:FlyMessage;
     public var xpPanel:XPPanel;
     public var softHardCurrency:SoftHardCurrency;
     public var couponePanel:CouponePanel;
@@ -199,6 +181,7 @@ public class Vars {
     public var woAmbarFilled:WOAmbarFilled;
     public var woLastResource:WOLastResource;
     public var woTrainOrder:WOTrainOrder;
+    public var woLockedLand:WOLockedLand;
     public var windowsPool:Array;
 
     public var server:Server;
@@ -238,6 +221,7 @@ public class Vars {
         pBitmaps = {};
         load = LoaderManager.getInstance();
 
+        allData = new AllData();
         dataBuilding = new DataBuildings();
         dataRecipe = new DataRecipe();
         dataResource = new DataResources();
@@ -306,6 +290,10 @@ public class Vars {
     }
 
     private function onDataResource():void {
+        directServer.getDataLockedLand(onDataLockedLand);
+    }
+
+    private function onDataLockedLand():void {
         directServer.getDataBuilding(onDataBuilding);
         startPreloader.setProgress(92);
     }
@@ -366,7 +354,6 @@ public class Vars {
         fabricHint = new FabricHint();
         treeHint = new TreeHint();
         resourceHint = new ResourceHint();
-        flyMessage = new FlyMessage();
         xpPanel = new XPPanel();
         couponePanel = new CouponePanel();
         softHardCurrency = new SoftHardCurrency();
@@ -414,6 +401,7 @@ public class Vars {
         woAmbarFilled = new WOAmbarFilled();
         woLastResource = new WOLastResource();
         woTrainOrder = new WOTrainOrder();
+        woLockedLand = new WOLockedLand();
 
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();

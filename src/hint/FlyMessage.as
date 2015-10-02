@@ -18,27 +18,24 @@ public class FlyMessage {
     private var _txtMessage:TextField;
     private var g:Vars = Vars.getInstance();
 
-    public function FlyMessage() {
+    public function FlyMessage(p:Point, text:String) {
         _source = new Sprite();
-    }
-
-    public function showIt(spr:Sprite, text:String):void {
-        _txtMessage = new TextField(200,30,"","Arial",18,Color.BLACK);
-        _txtMessage.x = -100;
+        _txtMessage = new TextField(300,30,"","Arial",16,Color.BLACK);
+        _txtMessage.x = -150;
         _txtMessage.text = text;
-        var start:Point = new Point(int(spr.x), int(spr.y));
-        start = spr.parent.localToGlobal(start);
-        _source.x = start.x;
-        _source.y = start.y;
+//        start = spr.parent.localToGlobal(start);
+        _source.x = p.x;
+        _source.y = p.y;
         _source.addChild(_txtMessage);
         g.cont.hintCont.addChild(_source);
-        var tween:Tween = new Tween(_source, 0.5);
-        tween.moveTo(_source.x,_source.y - 50);
+        var tween:Tween = new Tween(_source, 2);
+        tween.moveTo(_source.x,_source.y - 40);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
+            _source=null;
         };
         g.starling.juggler.add(tween);
 

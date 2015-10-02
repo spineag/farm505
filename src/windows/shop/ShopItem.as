@@ -6,6 +6,10 @@ import build.farm.Farm;
 
 import data.BuildType;
 
+import flash.geom.Point;
+
+import hint.FlyMessage;
+
 import manager.Vars;
 
 import mouse.ToolsModifier;
@@ -221,7 +225,9 @@ public class ShopItem {
 
     private function onClick():void {
         if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-            g.flyMessage.showIt(source,"откроется на " + String(_data.blockByLevel) + " уровне");
+            var p:Point = new Point(source.x, source.y);
+            p = source.parent.localToGlobal(p);
+            new FlyMessage(p,"откроется на " + String(_data.blockByLevel) + " уровне");
             return;
         }
         if (!g.userInventory.checkMoney(_data)) return;

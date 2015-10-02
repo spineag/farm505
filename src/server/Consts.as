@@ -48,5 +48,7 @@ public class Consts {
     public static var INQ_UPDATE_USER_BUILD_POSITION:String = 'updateUserBuildPosition.php';
     public static var INQ_GET_PAPER_ITEMS:String = 'getPaperItems.php';
     public static var INQ_UPDATE_USER_AMBAR:String = 'updateUserAmbar.php';
+    public static var INQ_DATA_LOCKED_LAND:String = 'getDataLockedLand.php';
+    public static var INQ_REMOVE_USER_LOCKED_LAND:String = 'removeUserLockedLand.php';
 }
 }

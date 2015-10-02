@@ -5,6 +5,13 @@ package build.lockedLand {
 import build.AreaObject;
 
 import com.junkbyte.console.Cc;
+
+import data.DataMoney;
+
+import flash.geom.Point;
+
+import hint.FlyMessage;
+
 import mouse.ToolsModifier;
 
 import starling.display.Quad;
@@ -14,8 +21,10 @@ import starling.utils.Color;
 
 
 public class LockedLand extends AreaObject {
+    private var _dataLand:Object;
     public function LockedLand(_data:Object) {
         super(_data);
+        _dataLand = g.allData.lockedLandData[_data.dbId];
         createBuild(false);
 
         _source.hoverCallback = onHover;
@@ -49,7 +58,16 @@ public class LockedLand extends AreaObject {
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-
+            if (g.user.level < _dataLand.blockByLevel) {
+                var p:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
+                p.y -= 50;
+                new FlyMessage(p,"Будет доступно на " + String(_dataLand.blockByLevel) + ' уровне');
+                return;
+            } else {
+                g.woLockedLand.showItWithParams(_dataLand, this);
+                _source.filter = null;
+                return;
+            }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
@@ -59,6 +77,17 @@ public class LockedLand extends AreaObject {
     private function onOut():void {
         _source.filter = null;
 //        g.hint.hideIt();
+    }
+
+    public function openIt():void {
+        if (_dataLand.currencyCount > 0) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataLand.currencyCount);
+        if (_dataLand.resourceCount > 0) g.userInventory.addResource(_dataLand.resourceId, _dataLand.resourceCount);
+        g.directServer.removeUserLockedLand(_dataLand.id);
+        while (_source.numChildren) {
+            _source.removeChildAt(0);
+        }
+        _dataLand = null;
+        g.townArea.deleteBuild(this);
     }
 
 }

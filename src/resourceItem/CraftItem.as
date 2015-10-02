@@ -7,6 +7,9 @@ import com.greensock.easing.Linear;
 
 import data.BuildType;
 import flash.geom.Point;
+
+import hint.FlyMessage;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -95,7 +98,9 @@ public class CraftItem {
         }
 
         if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + _count >= g.user.skladMaxCount) {
-            g.flyMessage.showIt(_source,"Склад заполнен");
+            var p:Point = new Point(_source.x, _source.y);
+            p = _source.parent.localToGlobal(p);
+            new FlyMessage(p,"Склад заполнен");
             return;
         }
 

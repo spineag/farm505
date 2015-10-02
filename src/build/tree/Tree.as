@@ -8,6 +8,8 @@ import data.BuildType;
 
 import flash.geom.Point;
 
+import hint.FlyMessage;
+
 import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
@@ -321,7 +323,9 @@ public class Tree extends AreaObject{
             } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
-                        g.flyMessage.showIt(_source,"Амбар заполнен");
+                        var p:Point = new Point(_source.x, _source.y);
+                        p = _source.parent.localToGlobal(p);
+                        new FlyMessage(p,"Амбар заполнен");
                         return;
                     }
                     _arrCrafted.shift().flyIt();

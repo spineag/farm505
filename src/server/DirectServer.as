@@ -851,6 +851,7 @@ public class DirectServer {
                         g.user.userBuildingData[int(d.message[i].building_id)] = ob;
                     }
                     var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
+                    dataBuild.dbId = dbId;
                     g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
                 }
             }
@@ -2266,6 +2267,101 @@ public class DirectServer {
         } else {
             Cc.error('updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getDataLockedLand(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_LOCKED_LAND);
+        var variables:URLVariables = new URLVariables();
+
+        variables.userId = g.user.userId;
+        request.data = variables;
+        Cc.ch('server', 'start getDataLockedLand', 1);
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetDataLockedLand);
+        function onCompleteGetDataLockedLand(e:Event):void { completeGetDataLockedLand(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataLockedLand error:' + error.errorID);
+            woError.showItParams('getDataLockedLand error:' + error.errorID);
+        }
+    }
+
+    private function completeGetDataLockedLand(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDataLockedLand: wrong JSON:' + String(response));
+            woError.showItParams('getDataLockedLand: wrong JSON:' + String(response));
+            return;
+        }
+
+        g.allData.lockedLandData = {};
+        if (d.id == 0) {
+            var obj:Object;
+            for (var i:int = 0; i < d.message.length; i++) {
+                obj = {};
+                obj.id = int(d.message[i].map_building_id);
+                obj.blockByLevel = int(d.message[i].block_by_level);
+                obj.resourceId = int(d.message[i].resource_id);
+                obj.resourceCount = int(d.message[i].resource_count);
+                obj.friendsCount = int(d.message[i].friends_count);
+                obj.currencyCount = int(d.message[i].currency_count);
+
+                g.allData.lockedLandData[obj.id] = obj;
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getDataLockedLand: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getDataLockedLand: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function removeUserLockedLand(id:int, callback:Function = null):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_REMOVE_USER_LOCKED_LAND);
+        var variables:URLVariables = new URLVariables();
+        variables.userId = g.user.userId;
+        variables.mapBuildingId = id;
+        request.data = variables;
+        Cc.ch('server', 'start removeUserLockedLand', 1);
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteRemoveUserLockedLand);
+        function onCompleteRemoveUserLockedLand(e:Event):void { completeRemoveUserLockedLand(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('removeUserLockedLand error:' + error.errorID);
+            woError.showItParams('removeUserLockedLand error:' + error.errorID);
+        }
+    }
+
+    private function completeRemoveUserLockedLand(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('removeUserLockedLand: wrong JSON:' + String(response));
+            woError.showItParams('removeUserLockedLand: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }
