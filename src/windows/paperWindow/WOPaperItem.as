@@ -10,6 +10,8 @@ import data.DataMoney;
 
 import flash.geom.Point;
 
+import hint.FlyMessage;
+
 
 import manager.Vars;
 
@@ -110,7 +112,9 @@ public class WOPaperItem {
         if (_data.isBuyed) return;
 
         if (g.user.softCurrencyCount < _data.cost) {
-            g.flyMessage.showIt(source, "Недостаточно денег");
+            var p:Point = new Point(source.x, source.y);
+            p = source.parent.localToGlobal(p);
+            new FlyMessage(p, "Недостаточно денег");
             return;
         }
         if (_dataResource.placeBuild == BuildType.PLACE_AMBAR) {

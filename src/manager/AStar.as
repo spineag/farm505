@@ -49,7 +49,7 @@ public class AStar {
         closedList = [];
         path = [];
         openList[startX + " " + startY] = new AStarNode(startX, startY, 0, 0, null);
-        showWallPoints();
+//        showWallPoints();
         try {
             makeSearch();
         } catch (e:Error) {
@@ -113,12 +113,12 @@ public class AStar {
                             if (i != 0 && j != 0) {
                                 if (matrix[row][col].isFull) {
                                     closedList[col + " " + row] = 'wall';
-                                    showWallPoint(col, row);
+//                                    showWallPoint(col, row);
                                     continue;
                                 }
                                 if (matrix[row][col].build is LockedLand) {
                                     closedList[col + " " + row] = 'wall';
-                                    showWallPoint(col, row);
+//                                    showWallPoint(col, row);
                                     continue;
                                 }
                                 g = 14;

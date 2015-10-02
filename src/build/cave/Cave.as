@@ -12,6 +12,8 @@ import data.DataMoney;
 
 import flash.geom.Point;
 
+import hint.FlyMessage;
+
 
 import mouse.ToolsModifier;
 
@@ -141,7 +143,9 @@ public class Cave extends AreaObject{
                 if (_source.wasGameContMoved) {
                     if (_arrCraftItems.length) {
                         if (g.userInventory.currentCountInSklad + 1 >= g.user.skladMaxCount) {
-                            g.flyMessage.showIt(_source, "Склад заполнен");
+                            var p:Point = new Point(_source.x, _source.y);
+                            p = _source.parent.localToGlobal(p);
+                            new FlyMessage(p, "Склад заполнен");
                             return;
                         }
                         _arrCraftItems.pop().flyIt();
@@ -197,9 +201,9 @@ public class Cave extends AreaObject{
 
     private function onBuy():void {
         if (g.user.softCurrencyCount < _dataBuild.cost) {
-            g.flyMessage.showIt(_source, "Недостаточно денег");
-//            g.woNoResources.showItMoney(_dataBuild,_dataBuild.cost - g.user.softCurrencyCount);
-//            trace("kanaet");
+            var p:Point = new Point(_source.x, _source.y);
+            p = _source.parent.localToGlobal(p);
+            new FlyMessage(p, "Недостаточно денег");
             return;
         }
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);

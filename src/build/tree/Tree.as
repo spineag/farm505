@@ -10,6 +10,8 @@ import flash.geom.Point;
 
 import hint.MouseHint;
 
+import hint.FlyMessage;
+
 import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
@@ -329,6 +331,9 @@ public class Tree extends AreaObject{
                     if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
 //                        g.flyMessage.showIt(_source,"Амбар заполнен");
                         g.woAmbarFilled.showAmbarFilled(true);
+                        var p:Point = new Point(_source.x, _source.y);
+                        p = _source.parent.localToGlobal(p);
+                        new FlyMessage(p,"Амбар заполнен");
                         return;
                     }
                     _arrCrafted.shift().flyIt();

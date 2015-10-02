@@ -10,6 +10,9 @@ import data.BuildType;
 import data.DataMoney;
 
 import flash.geom.Point;
+
+import hint.FlyMessage;
+
 import manager.Vars;
 import resourceItem.ResourceItem;
 
@@ -113,19 +116,26 @@ public class MarketItem {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
 
             } else {
+                var p:Point;
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
-                    g.flyMessage.showIt(source, "Недостаточно денег");
+                    p = new Point(source.x, source.y);
+                    p = source.parent.localToGlobal(p);
+                    new FlyMessage(p, "Недостаточно денег");
                     return;
                 }
                 var d:Object = g.dataResource.objectResources[_dataFromServer.resourceId];
                 if (d.placeBuild == BuildType.PLACE_AMBAR) {
                     if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount >= g.user.ambarMaxCount) {
-                        g.flyMessage.showIt(source, "Амбар заполнен");
+                        p = new Point(source.x, source.y);
+                        p = source.parent.localToGlobal(p);
+                        new FlyMessage(p, "Амбар заполнен");
                         return;
                     }
                 } else if (d.placeBuild == BuildType.PLACE_SKLAD) {
                     if (g.userInventory.currentCountInSklad + _dataFromServer.resourceCount >= g.user.skladMaxCount) {
-                        g.flyMessage.showIt(source, "Склад заполнен");
+                        p = new Point(source.x, source.y);
+                        p = source.parent.localToGlobal(p);
+                        new FlyMessage(p, "Склад заполнен");
                         return;
                     }
                 }
