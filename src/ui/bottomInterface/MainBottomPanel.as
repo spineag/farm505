@@ -113,6 +113,7 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
+                    if (_cancelBtn.visible == true) return;
                     _shopBtn.filter = null;
                     if (g.toolsPanel.isShowed) g.toolsPanel.hideIt();
                     if (g.optionPanel.isShowed) g.optionPanel.hideIt();
@@ -125,6 +126,7 @@ public class MainBottomPanel {
                     g.toolsModifier.cancelMove();
                 break;
             case 'tools':
+                if (_cancelBtn.visible == true) return;
                 if (g.toolsPanel.isShowed) {
                     g.toolsPanel.hideIt();
                 } else {
@@ -133,13 +135,15 @@ public class MainBottomPanel {
                 }
                 break;
             case 'option':
-                 if (g.optionPanel.isShowed) {
+                if (_cancelBtn.visible == true) return;
+                if (g.optionPanel.isShowed) {
                      g.optionPanel.hideIt();
                  } else {
                      g.optionPanel.showIt();
                  }
                 break;
             case 'friends':
+                if (_cancelBtn.visible == true) return;
                 if (g.friendPanel.isShowed) {
                     g.friendPanel.hideIt();
                 } else {

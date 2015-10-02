@@ -3,6 +3,7 @@
  */
 package windows.train {
 import build.train.Train;
+import build.train.TrainCell;
 
 import data.DataMoney;
 
@@ -32,6 +33,8 @@ public class WOTrain extends Window {
     private var _txt:TextField;
     private var _txtCounter:TextField;
     private var _counter:int;
+    private var _idFree:int;
+    private var _countFree:int;
 
     public function WOTrain() {
         super ();
@@ -62,8 +65,7 @@ public class WOTrain extends Window {
         var txt1:TextField = new TextField(80,50,"Загрузить","Arial",16,Color.BLACK);
         _btn1.addChild(txt1);
         _source.addChild(_btn1);
-        _btn1.visible = false;
-        _btn1.endClickCallback = onResourceLoad;
+        _btn1.alpha = .5;
 
         _txt = new TextField(150, 40, '', "Arial", 16, Color.BLACK);
         _txt.x = 90;
@@ -75,7 +77,6 @@ public class WOTrain extends Window {
         _source.addChild(_txtCounter);
 
         callbackClickBG = onClickExit;
-        checkBtnFree();
     }
 
     public function onClickExit(e:Event=null):void {
@@ -91,6 +92,7 @@ public class WOTrain extends Window {
         _build = b;
         for (var i:int = 0; i<list.length; i++) {
             _arrItems[i].fillIt(list[i], i);
+//            _int = list[i].id;
             _arrItems[i].clickCallback = onItemClick;
         }
         showIt();
@@ -135,9 +137,17 @@ public class WOTrain extends Window {
             _arrItems[i].setAlpha();
         }
         if (_arrItems[k].isResourceLoaded) {
-            _btn1.visible = false;
+            _btn1.alpha = .5;
         } else {
-            _arrItems[k].canFull() ? _btn1.visible = true : _btn1.visible = false;
+            if (_arrItems[k].canFull()) {
+                _btn1.alpha = 1;
+                _btn1.endClickCallback = onResourceLoad;
+            } else  {
+                _btn1.alpha = .5;
+                _btn1.endClickCallback = onResourceHard;
+               _idFree = _arrItems[k].idFree;
+               _countFree = _arrItems[k].countFree;
+            }
         }
     }
 
@@ -147,16 +157,26 @@ public class WOTrain extends Window {
         if (_arrItems[_activeItemIndex].canFull) {
             _arrItems[_activeItemIndex].fullIt();
         }
-        _btn1.visible = false;
+        _btn1.alpha = .5;
         checkBtn();
+    }
+
+    private function onResourceHard():void {
+        g.woNoResources.showItTrain(_idFree,_countFree - g.userInventory.getCountResourceById(_idFree));
     }
 
     private function checkBtn():void {
         _btn.endClickCallback = null;
         for (var i:int = 0; i<_arrItems.length; i++) {
+            if (_arrItems[i].canFull) {
+                _btn.alpha = 1;
+                _btn.endClickCallback = freeTrain;
+                return;
+            }
+        }
+        for (var i:int = 0; i<_arrItems.length; i++) {
             if (!_arrItems[i].isResourceLoaded) {
                 _btn.alpha = .5;
-
                 return;
             }
         }
@@ -177,14 +197,8 @@ public class WOTrain extends Window {
         }
     }
 
-    public function checkBtnFree():void {
-        _btn.endClickCallback = null;
-        for (var i:int = 0; i<_arrItems.length; i++) {
-        if (_arrItems[i] == 0) {
-            _btn.alpha = 1;
-            _btn.endClickCallback = fullTrain;
-            }
-        }
+    private function freeTrain():void {
+        onClickExit();
     }
 }
 }

@@ -85,6 +85,14 @@ public class WOTrainItem {
         if (_index >= 0) source.alpha = .7;
     }
 
+    public function get idFree():int {
+        return _info.id;
+    }
+
+    public function get countFree():int {
+        return _info.count;
+    }
+
     private function onClick():void {
         if (_f != null) {
             _f.apply(null, [_index]);

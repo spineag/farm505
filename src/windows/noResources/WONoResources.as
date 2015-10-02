@@ -97,6 +97,11 @@ public class WONoResources extends Window {
         showIt();
     }
 
+    public function showItTrain(data:int, count:int):void {
+        createListTrain(data,count);
+        showIt();
+    }
+
     private function createListMoney(_data:Object, count:int):void {
         if (_data.currency == DataMoney.HARD_CURRENCY){
             _imageItem = new Image(g.interfaceAtlas.getTexture("diamont"));
@@ -147,6 +152,16 @@ public class WONoResources extends Window {
         if (_data.priceHard) _txtHardCost.text = String(_data.priceHard * count);
         _txtHardCost.text = "2";
         _contBtn.addChild(_txtHardCost);
+    }
+
+    private function createListTrain(data:int,count:int):void {
+        var im:WONoResourcesItem;
+        im = new WONoResourcesItem(data,1);
+        _txtCount.text = String(count);
+        _contImage.addChild(im.source);
+        _txtHardCost.text = "2";
+        _contBtn.addChild(_txtHardCost);
+        _contImage.addChild(_txtCount);
     }
 
     private function onClick():void {

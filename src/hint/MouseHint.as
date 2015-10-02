@@ -62,6 +62,7 @@ public class MouseHint {
     }
 
     public function checkMouseHint(s:String, data:Object = null):void {
+        if (g.currentOpenedWindow == true) return;
         _imageCircle.visible = false;
         _txtCount.text = '';
         g.cont.hintContUnder.addChild(_source);

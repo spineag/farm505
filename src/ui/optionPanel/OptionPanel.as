@@ -71,6 +71,7 @@ public class OptionPanel {
         };
         _contFullScreen.startClickCallback = function ():void {
             onClick('fullscreen');
+            g.hint.hideIt();
         };
 
         _contScalePlus = new CSprite();

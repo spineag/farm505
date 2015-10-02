@@ -8,6 +8,8 @@ import data.BuildType;
 
 import flash.geom.Point;
 
+import hint.MouseHint;
+
 import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
@@ -288,6 +290,9 @@ public class Tree extends AreaObject{
         } else if (_state == FULL_DEAD) {
             g.gameDispatcher.addEnterFrame(countEnterFrameDead);
         }
+        if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
+            g.mouseHint.checkMouseHint(MouseHint.KORZINA);
+        }
     }
 
     private function onOut():void {
@@ -295,6 +300,7 @@ public class Tree extends AreaObject{
         _isOnHover = false;
         g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.gameDispatcher.addEnterFrame(countEnterFrameDead);
+        g.mouseHint.hideHintMouse();
     }
 
     private function onClick():void {
@@ -321,7 +327,8 @@ public class Tree extends AreaObject{
             } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
-                        g.flyMessage.showIt(_source,"Амбар заполнен");
+//                        g.flyMessage.showIt(_source,"Амбар заполнен");
+                        g.woAmbarFilled.showAmbarFilled(true);
                         return;
                     }
                     _arrCrafted.shift().flyIt();
@@ -436,6 +443,7 @@ public class Tree extends AreaObject{
             g.gameDispatcher.removeEnterFrame(countEnterFrameDead);
             if (_isOnHover == true) {
                     g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
+                    if (g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) return;
                     g.treeHint.onDelete = deleteTree;
             }
             if (_isOnHover == false) {
