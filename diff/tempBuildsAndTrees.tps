@@ -224,6 +224,8 @@
             <filename>buildings/train_broken.png</filename>
             <filename>buildings/ridge.png</filename>
             <filename>buildings/locked_land.png</filename>
+            <filename>buildings/foundation.png</filename>
+            <filename>buildings/done_building.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
