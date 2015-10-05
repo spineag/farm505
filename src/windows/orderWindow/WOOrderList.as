@@ -17,14 +17,18 @@ import utils.CSprite;
 import utils.MCScaler;
 
 public class WOOrderList {
-    public var source:Sprite;
+    public var source:CSprite;
     private var _contBtn:CSprite;
     private var _image:Image;
     private var _txtCount:TextField;
+    private var _data:Object;
 
     private var g:Vars = Vars.getInstance();
     public function WOOrderList(ob:Object) {
-        source = new Sprite();
+        _data = ob;
+        source = new CSprite();
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
         _contBtn = new CSprite();
         var q:Quad = new Quad(50, 50, Color.WHITE);
         q.pivotX = 0;
@@ -46,6 +50,14 @@ public class WOOrderList {
         source.addChild(_contBtn);
         source.x = 100;
         source.y = 60;
+    }
+
+    private function onHover():void {
+        g.resourceHint.showIt(_data.id,"",source.x,source.y,source);
+    }
+
+    private function onOut():void {
+        g.resourceHint.hideIt();
     }
 }
 }

@@ -33,13 +33,15 @@ public class ResourceHint {
         _imageClock = new Image(g.interfaceAtlas.getTexture("clock_icon"));
         MCScaler.scale(_imageClock,30,30);
         _imageClock.y = 30;
-        _txtName = new TextField(100,30,"","Arial",14,Color.BLACK);
+        _txtName = new TextField(150,30,"","Arial",13,Color.BLACK);
         _txtName.x = 25;
         _txtName.y = 5;
         _txtTime = new TextField(50,50,"","Arial",14,Color.BLACK);
         _txtTime.x = 30;
         _txtTime.y = 20;
-        _txtText = new TextField(100,100,"","Arial",14,Color.BLACK);
+        _txtText = new TextField(150,100,"","Arial",12,Color.BLACK);
+//        _txtText.x = -10;
+        _txtText.y = -20;
         _source.addChild(q);
         _source.addChild(_txtName);
         _source.addChild(_txtText);
@@ -48,25 +50,52 @@ public class ResourceHint {
     }
 
     public function showIt(_data:int, text:String,sX:int,sY:int,source:Sprite):void {
+            var obj:Object;
+            var id:String;
+
             var start:Point = new Point(int(sX), int(sY));
             start = source.parent.localToGlobal(start);
             _source.x = start.x - 25;
             _source.y = start.y - 60;
             _imageClock.visible = true;
             _txtTime.visible = true;
-            if (g.dataResource.objectResources[_data].buildType == BuildType.INSTRUMENT) {
-                _imageClock.visible = false;
-                _txtTime.visible = false;
+            obj = g.dataBuilding.objectBuilding;
+            for (id in obj) {
+                if (obj[id].craftIdResource == _data){
+                    _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
+                    _txtText.text = "Растет на: " + obj[id].name;
+                    _txtName.text = String(g.dataResource.objectResources[_data].name);
+                    g.cont.hintCont.addChild(_source);
+                    return;
+                }
             }
-            if (g.dataResource.objectResources[_data].buildType == BuildType.INSTRUMENT) {
-                _imageClock.visible = false;
-                _txtTime.visible = false;
-            }
-            _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
-            _txtText.text = text;
-            _txtName.text = String(g.dataResource.objectResources[_data].name);
 
-            g.cont.hintCont.addChild(_source);
+            if (g.dataResource.objectResources[_data].buildType == BuildType.INSTRUMENT) {
+                _imageClock.visible = false;
+                _txtTime.visible = false;
+                _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
+                _txtText.text = text;
+                _txtName.text = String(g.dataResource.objectResources[_data].name);
+                g.cont.hintCont.addChild(_source);
+            } else if (g.dataResource.objectResources[_data].buildType == BuildType.PLANT) {
+                _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
+                _txtText.text = "Растет на грядке";
+                _txtName.text = String(g.dataResource.objectResources[_data].name);
+                g.cont.hintCont.addChild(_source);
+                return;
+            }
+            obj = g.dataRecipe.objectRecipe;
+            for (id in obj) {
+                if (obj[id].idResource  == _data){
+                    _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
+                    _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[obj[id].buildingId].name;
+                    _txtName.text = String(g.dataResource.objectResources[_data].name);
+                    g.cont.hintCont.addChild(_source);
+                    return;
+                }
+            }
+
+
     }
 
     public function hideIt():void {

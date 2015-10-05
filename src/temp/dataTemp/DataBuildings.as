@@ -636,7 +636,7 @@ public class DataBuildings {
         obj.currency = DataMoney.SOFT_CURRENCY;
         obj.blockByLevel = [1];
         obj.craftIdResource = 15;
-        obj.removeByResourceId =7;
+        obj.removeByResourceId = 7;
         obj.countCraftResource = [2, 3, 4];
         obj.skipBuildIt = 1;
         obj.buildTime = 20;

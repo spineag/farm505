@@ -15,7 +15,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 public class WOTrainOrderItem {
-    public var source:Sprite;
+    public var source:CSprite;
     private var _im:Image;
     private var _index:int;
     private var _info:TrainCell;
@@ -24,7 +24,9 @@ public class WOTrainOrderItem {
     private var g:Vars = Vars.getInstance();
 
     public function WOTrainOrderItem() {
-        source = new Sprite();
+        source = new CSprite();
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
         var _bg:Image = new Image(g.interfaceAtlas.getTexture('shop_item'));
         MCScaler.scale(_bg, 80, 80);
         _bg.width = 100;
@@ -45,6 +47,14 @@ public class WOTrainOrderItem {
         _im.x = 50 - _im.width/2;
         _im.y = 5;
         source.addChild(_im);
+    }
+
+    private function onHover():void {
+        g.resourceHint.showIt(_info.id,"",source.x,source.y,source);
+    }
+
+    private function onOut():void {
+        g.resourceHint.hideIt();
     }
 }
 }

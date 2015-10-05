@@ -289,9 +289,10 @@ public class Tree extends AreaObject{
         _count = 20;
         if(_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3){
             g.gameDispatcher.addEnterFrame(countEnterFrame);
-        } else if (_state == FULL_DEAD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrameDead);
         }
+// else if (_state == FULL_DEAD) {
+//            g.gameDispatcher.addEnterFrame(countEnterFrameDead);
+//        }
         if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
             g.mouseHint.checkMouseHint(MouseHint.KORZINA);
         }
@@ -323,9 +324,10 @@ public class Tree extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
-            if (_state == DEAD){
-//                g.gameDispatcher.addEnterFrame(countEnterFrameDead);
-                g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
+            if (_state ==  FULL_DEAD){
+                _isOnHover = true;
+                g.gameDispatcher.addEnterFrame(countEnterFrameDead);
+//                g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
             } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
@@ -333,7 +335,7 @@ public class Tree extends AreaObject{
                         g.woAmbarFilled.showAmbarFilled(true);
                         var p:Point = new Point(_source.x, _source.y);
                         p = _source.parent.localToGlobal(p);
-                        new FlyMessage(p,"Амбар заполнен");
+//                        new FlyMessage(p,"Амбар заполнен");
                         return;
                     }
                     _arrCrafted.shift().flyIt();

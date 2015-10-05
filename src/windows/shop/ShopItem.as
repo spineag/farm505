@@ -233,6 +233,7 @@ public class ShopItem {
         if (!g.userInventory.checkMoney(_data)) return;
         g.bottomPanel.cancelBoolean(true);
         if (_data.buildType == BuildType.RIDGE) {
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.woShop.onClickExit();
             g.toolsModifier.startMove(_data, afterMove);
             return;
