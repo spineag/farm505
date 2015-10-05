@@ -162,10 +162,10 @@ public class MarketItem {
             }
         } else if (isFill == 0) {
             if (_isUser) {
+//                g.woMarket.refreshMarket();
                 g.woMarket.hideIt();
                 g.woMarket.marketChoose.callback = onChoose;
                 g.woMarket.marketChoose.showIt();
-                g.woMarket.refreshMarket();
             }
         } else {
             if (_isUser) {
@@ -190,6 +190,7 @@ public class MarketItem {
             fillIt(g.dataResource.objectResources[a],count, cost);
             _inPapper.visible = inPapper;
             g.directServer.addUserMarketItem(a, count, inPapper, cost, onAddToServer);
+            g.woMarket.refreshMarket();
         }
     }
 

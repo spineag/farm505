@@ -91,6 +91,7 @@ public class WOMarketChoose extends Window {
     }
 
     override public function showIt():void {
+//        g.woMarket.refreshMarket();
         fillItems();
         super.showIt();
     }
@@ -154,6 +155,7 @@ public class WOMarketChoose extends Window {
                 _callback.apply(null, [_curResourceId, _countResourceBlock.count, _countMoneyBlock.count, _checkBox.isChecked]);
                 _callback = null;
             }
+//            g.woMarket.refreshMarket();
             _countResourceBlock.count = 0;
             _countMoneyBlock.count = 0;
         }
