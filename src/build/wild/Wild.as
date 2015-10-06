@@ -34,6 +34,7 @@ public class Wild extends AreaObject{
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         _isOnHover = true;
+        g.wildHint.onDelete = wildDelete;
     }
 
     private function onOut():void {
@@ -62,6 +63,11 @@ public class Wild extends AreaObject{
             Cc.error('Wild:: unknown g.toolsModifier.modifierType')
         }
 
+    }
+
+    private function wildDelete():void {
+        g.userInventory.addResource(g.dataResource.objectResources[_dataBuild.removeByResourceId].id, 1);
+        g.townArea.deleteBuild(this);
     }
 
 

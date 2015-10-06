@@ -78,6 +78,7 @@ import windows.lastResource.WOLastResource;
 import windows.levelUp.WOLevelUp;
 import windows.lockedLand.WOLockedLand;
 import windows.market.WOMarket;
+import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPaper;
@@ -172,6 +173,7 @@ public class Vars {
     public var woLevelUp:WOLevelUp;
     public var woBuyCoupone:WOBuyCoupone;
     public var woNoResources:WONoResources;
+    public var woNoPlaces:WONoPlaces;
     public var woBuyCurrency:WOBuyCurrency;
     public var woOrder:WOOrder;
     public var woMarket:WOMarket;
@@ -388,6 +390,7 @@ public class Vars {
         }
 
         woNoResources = new WONoResources();
+        woNoPlaces = new WONoPlaces();
         woBuyPlant = new WOBuyPlant();
         woFabrica = new WOFabrica();
         woAmbar = new WOAmbar();

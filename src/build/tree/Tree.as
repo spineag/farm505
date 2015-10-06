@@ -301,6 +301,10 @@ public class Tree extends AreaObject{
         if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
             g.mouseHint.checkMouseHint(MouseHint.KORZINA);
         }
+
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+            g.mouseHint.hideHintMouse();
+        }
     }
 
     private function onOut():void {
@@ -449,8 +453,8 @@ public class Tree extends AreaObject{
     }
 
     private function countEnterFrameDead():void {
-        _count--;
-        if (_count <= 0) {
+//        _count--;
+//        if (_count <= 0) {
             g.gameDispatcher.removeEnterFrame(countEnterFrameDead);
             if (_isOnHover == true) {
                     g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
@@ -461,7 +465,7 @@ public class Tree extends AreaObject{
                 _source.filter = null;
                 g.treeHint.hideIt();
             }
-        }
+//        }
     }
 
     override public function addXP():void {

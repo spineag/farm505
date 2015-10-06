@@ -51,10 +51,36 @@ public class ResourceHint {
         _source.addChild(_imageClock);
     }
 
-    public function showIt(_data:int, text:String, sX:int, sY:int, source:Sprite):void {
-        var obj:Object;
-        var id:String;
+    public function showIt(_dataId:int, text:String,sX:int,sY:int,source:Sprite):void {
+            var obj:Object;
+            var id:String;
 
+            var start:Point = new Point(int(sX), int(sY));
+            start = source.parent.localToGlobal(start);
+            _source.x = start.x - 25;
+            _source.y = start.y - 60;
+            _imageClock.visible = true;
+            _txtTime.visible = true;
+            obj = g.dataBuilding.objectBuilding;
+            for (id in obj) {
+               if (obj[id].craftIdResource == _dataId){
+                    _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                    _txtText.text = "Растет на: " + obj[id].name;
+                    _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                    g.cont.hintCont.addChild(_source);
+                    return;
+                }
+            }
+            obj = g.dataAnimal.objectAnimal;
+            for (id in obj) {
+                if (obj[id].idResource == _dataId) {
+                    _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                    _txtText.text = "Место производства: " + obj[id].name;
+                    _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                    g.cont.hintCont.addChild(_source);
+                    return;
+                }
+            }
         if (!_data) {
             Cc.error('ResourceHint showIt:: empty _data');
             g.woGameError.showIt();
@@ -73,7 +99,18 @@ public class ResourceHint {
                 _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
                 _txtText.text = "Растет на: " + obj[id].name;
                 _txtName.text = String(g.dataResource.objectResources[_data].name);
+            if (g.dataResource.objectResources[_dataId].buildType == BuildType.INSTRUMENT) {
+                _imageClock.visible = false;
+                _txtTime.visible = false;
+                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                _txtText.text = text;
+                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                 g.cont.hintCont.addChild(_source);
+                return;
+            } else if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
+                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                _txtText.text = "Растет на грядке";
+                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                 return;
             }
         }
@@ -101,6 +138,20 @@ public class ResourceHint {
                 g.cont.hintCont.addChild(_source);
                 return;
             }
+            obj = g.dataRecipe.objectRecipe;
+            for (id in obj) {
+                if (obj[id].idResource  == _dataId){
+                    _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                    _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[obj[id].buildingId].name;
+                    _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                    g.cont.hintCont.addChild(_source);
+                    return;
+                }
+            }
+                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                _txtText.text = "Место производства: Пещера";
+                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                g.cont.hintCont.addChild(_source);
         }
     }
 

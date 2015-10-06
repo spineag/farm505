@@ -35,8 +35,8 @@ public class Train extends AreaObject{
     private var _counter:int;
     private var _dataPack:Object;
     private var _train_db_id:String; // id для поезда юзера в табличке user_train
-    private var TIME_READY:int = 60; // время, которое ожидает поезд для загрузки продуктов
-    private var TIME_WAIT:int = 60;  // время, на которое уезжает поезд
+    private var TIME_READY:int = 280; // время, которое ожидает поезд для загрузки продуктов
+    private var TIME_WAIT:int = 280;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _count:int;
 
@@ -252,6 +252,7 @@ public class Train extends AreaObject{
     }
 
     private function onBuy():void {
+        if (g.user.softCurrencyCount < _dataBuild.cost)
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;

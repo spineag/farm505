@@ -22,6 +22,8 @@ public class WildHint {
     private var _bg:Image;
     private var _iconResource:Image;
     private var _txtCount:TextField;
+    private var _deleteCallback:Function;
+    private var _id:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -42,12 +44,14 @@ public class WildHint {
         quad.alpha = 0;
         _source.addChildAt(quad,0);
 
+        _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
     }
 
     public function showIt(x:int,y:int, idResourceForRemoving:int):void {
        if (_isShowed) return;
+        _id = idResourceForRemoving;
         _isShowed = true;
         if (!g.dataResource.objectResources[idResourceForRemoving]) {
             Cc.error('WildHInt showIt:: no such g.dataResource.objectResources[idResourceForRemoving] for idResourceForRemoving: ' + idResourceForRemoving);
@@ -55,6 +59,8 @@ public class WildHint {
             return;
         }
         _txtCount.text = String(g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId));
+        _iconResource = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
+        _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _txtCount.x = 58;
         _iconResource = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         if (!_iconResource) {
@@ -90,5 +96,17 @@ public class WildHint {
         hideIt();
     }
 
+
+    private function onClick():void {
+        onOut();
+        if (_deleteCallback != null) {
+            _deleteCallback.apply();
+            _deleteCallback = null;
+        }
+    }
+
+    public function set onDelete(f:Function):void {
+        _deleteCallback = f;
+    }
 }
 }
