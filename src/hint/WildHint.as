@@ -20,6 +20,8 @@ public class WildHint {
     private var _bg:Image;
     private var _iconResource:Image;
     private var _txtCount:TextField;
+    private var _deleteCallback:Function;
+    private var _id:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -40,15 +42,17 @@ public class WildHint {
         quad.alpha = 0;
         _source.addChildAt(quad,0);
 
+        _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
     }
 
     public function showIt(x:int,y:int, idResourceForRemoving:int):void {
        if (_isShowed) return;
+        _id = idResourceForRemoving;
         _isShowed = true;
         _iconResource = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
-        _txtCount.text = String(g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId));
+        _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _txtCount.x = 58;
         MCScaler.scale(_iconResource, 60, 60);
         _iconResource.x = _source.width/2 - _iconResource.width/2;
@@ -78,5 +82,17 @@ public class WildHint {
         hideIt();
     }
 
+
+    private function onClick():void {
+        onOut();
+        if (_deleteCallback != null) {
+            _deleteCallback.apply();
+            _deleteCallback = null;
+        }
+    }
+
+    public function set onDelete(f:Function):void {
+        _deleteCallback = f;
+    }
 }
 }
