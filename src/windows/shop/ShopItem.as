@@ -233,13 +233,13 @@ public class ShopItem {
         if (!g.userInventory.checkMoney(_data)) return;
         g.bottomPanel.cancelBoolean(true);
         if (_data.buildType == BuildType.RIDGE) {
-            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+//            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.woShop.onClickExit();
             g.toolsModifier.startMove(_data, afterMove);
             return;
         }   else if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.onClickExit();
-            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+//            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.toolsModifier.startMove(_data, afterMove,1,true);
         } else {
             //додаємо на відповідну ферму

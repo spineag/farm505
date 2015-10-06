@@ -132,7 +132,7 @@ public class CraftItem {
         if (g.managerDropResources.checkDrop()) {
             g.managerDropResources.makeDrop(_source.x,_source.y);
         }
-
+        g.userInventory.addResource(_resourceItem.resourceID, _count);
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
             removeDefaultCallbacks();
@@ -140,7 +140,7 @@ public class CraftItem {
                 _source.removeChildAt(0);
             }
             _source = null;
-            g.userInventory.addResource(_resourceItem.resourceID, _count);
+//            g.userInventory.addResource(_resourceItem.resourceID, _count);
             if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
                 g.craftPanel.afterFly(_resourceItem);
         };

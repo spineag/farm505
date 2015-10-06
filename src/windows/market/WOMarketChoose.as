@@ -80,6 +80,8 @@ public class WOMarketChoose extends Window {
     }
 
     private function onClickExit(e:Event=null):void {
+        trace("exit");
+        g.woMarket.refreshMarket();
         _curResourceId = 0;
         unfillItems();
         _scrollSprite.resetAll();
