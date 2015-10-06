@@ -49,7 +49,7 @@ public class ResourceHint {
         _source.addChild(_imageClock);
     }
 
-    public function showIt(_data:int, text:String,sX:int,sY:int,source:Sprite):void {
+    public function showIt(_dataId:int, text:String,sX:int,sY:int,source:Sprite):void {
             var obj:Object;
             var id:String;
 
@@ -61,41 +61,54 @@ public class ResourceHint {
             _txtTime.visible = true;
             obj = g.dataBuilding.objectBuilding;
             for (id in obj) {
-                if (obj[id].craftIdResource == _data){
-                    _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
+               if (obj[id].craftIdResource == _dataId){
+                    _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
                     _txtText.text = "Растет на: " + obj[id].name;
-                    _txtName.text = String(g.dataResource.objectResources[_data].name);
+                    _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                    g.cont.hintCont.addChild(_source);
+                    return;
+                }
+            }
+            obj = g.dataAnimal.objectAnimal;
+            for (id in obj) {
+                if (obj[id].idResource == _dataId) {
+                    _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                    _txtText.text = "Место производства: " + obj[id].name;
+                    _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                     g.cont.hintCont.addChild(_source);
                     return;
                 }
             }
 
-            if (g.dataResource.objectResources[_data].buildType == BuildType.INSTRUMENT) {
+            if (g.dataResource.objectResources[_dataId].buildType == BuildType.INSTRUMENT) {
                 _imageClock.visible = false;
                 _txtTime.visible = false;
-                _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
+                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
                 _txtText.text = text;
-                _txtName.text = String(g.dataResource.objectResources[_data].name);
+                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                 g.cont.hintCont.addChild(_source);
-            } else if (g.dataResource.objectResources[_data].buildType == BuildType.PLANT) {
-                _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
+                return;
+            } else if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
+                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
                 _txtText.text = "Растет на грядке";
-                _txtName.text = String(g.dataResource.objectResources[_data].name);
+                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                 g.cont.hintCont.addChild(_source);
                 return;
             }
             obj = g.dataRecipe.objectRecipe;
             for (id in obj) {
-                if (obj[id].idResource  == _data){
-                    _txtTime.text = String(g.dataResource.objectResources[_data].buildTime);
+                if (obj[id].idResource  == _dataId){
+                    _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
                     _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[obj[id].buildingId].name;
-                    _txtName.text = String(g.dataResource.objectResources[_data].name);
+                    _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                     g.cont.hintCont.addChild(_source);
                     return;
                 }
             }
-
-
+                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                _txtText.text = "Место производства: Пещера";
+                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                g.cont.hintCont.addChild(_source);
     }
 
     public function hideIt():void {
