@@ -57,7 +57,7 @@ public class TimerHint {
         source.outCallback = outHover;
     }
 
-    public function showIt(x:int,y:int,timer:int, cost:int, name:String):void {
+    public function showIt(x:int, y:int, timer:int, cost:int, name:String):void {
         if(_isShow) return;
         _isShow = true;
         source.x = x;

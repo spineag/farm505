@@ -15,6 +15,11 @@ import starling.utils.Color;
 public class DailyBonus extends AreaObject{
     public function DailyBonus(data:Object) {
         super (data);
+        if (!data) {
+            Cc.error('no data for DailyBonus');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild();
 
         _source.hoverCallback = onHover;

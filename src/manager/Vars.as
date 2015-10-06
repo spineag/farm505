@@ -73,6 +73,7 @@ import windows.buyPlant.WOBuyPlant;
 import windows.cave.WOCave;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.fabricaWindow.WOFabrica;
+import windows.gameError.WOGameError;
 import windows.lastResource.WOLastResource;
 import windows.levelUp.WOLevelUp;
 import windows.lockedLand.WOLockedLand;
@@ -183,6 +184,7 @@ public class Vars {
     public var woTrainOrder:WOTrainOrder;
     public var woLockedLand:WOLockedLand;
     public var windowsPool:Array;
+    public var woGameError:WOGameError;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -402,6 +404,7 @@ public class Vars {
         woLastResource = new WOLastResource();
         woTrainOrder = new WOTrainOrder();
         woLockedLand = new WOLockedLand();
+        woGameError = new WOGameError();
 
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();

@@ -2,6 +2,8 @@
  * Created by user on 6/9/15.
  */
 package hint {
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -50,10 +52,21 @@ public class FarmHint {
     public function showIt(x:int, y:int, dataAnimal:Object, f:Function):void {
         hideIt();
 
+        if (!dataAnimal) {
+            Cc.error('FarmHint showIt:: empty dataAnimal');
+            g.woGameError.showIt();
+            return;
+        }
+
         _callback = f;
         source.x = x;
         source.y = y;
         _animal = new Image(g.tempBuildAtlas.getTexture(dataAnimal.image));
+        if (!_animal) {
+            Cc.error('FarmHint showIt: no such image ' + dataAnimal.image);
+            g.woGameError.showIt();
+            return;
+        }
         _animal.scaleX = _animal.scaleY = 2;
         MCScaler.scale(_animal, 50, 50);
         _animal.x = 20;

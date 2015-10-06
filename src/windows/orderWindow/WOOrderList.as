@@ -2,6 +2,8 @@
  * Created by user on 7/28/15.
  */
 package windows.orderWindow {
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import manager.Vars;
@@ -26,6 +28,11 @@ public class WOOrderList {
     private var g:Vars = Vars.getInstance();
     public function WOOrderList(ob:Object) {
         _data = ob;
+        if (!_data) {
+            Cc.error('WOOrderList:: empty _data');
+            g.woGameError.showIt();
+            return;
+        }
         source = new CSprite();
         source.hoverCallback = onHover;
         source.outCallback = onOut;
@@ -34,18 +41,22 @@ public class WOOrderList {
         q.pivotX = 0;
         q.pivotY = 0;
         if (ob.buildType == BuildType.PLANT || ob.buildType == BuildType.RESOURCE) {
-            if(ob.url == "plantAtlas")
-            {
+            if(ob.url == "plantAtlas") {
                 _image = new Image(g.plantAtlas.getTexture(ob.imageShop));
-            }else {
+            } else {
                 _image = new Image(g.resourceAtlas.getTexture(ob.imageShop));
             }
         }
         _txtCount = new TextField(50,50,"","Arial",12,Color.BLACK);
         _txtCount.text = String(g.userInventory.getCountResourceById(ob.id) +"/"+ "1");
         source.addChild(q);
-       if (_image) source.addChild(_image);
-        MCScaler.scale(_image,35,35);
+        if (_image) {
+            source.addChild(_image);
+            MCScaler.scale(_image, 35, 35);
+        } else {
+            Cc.error('WOOrderList:: no such image: ' + ob.imageShop);
+            g.woGameError.showIt();
+        }
         source.addChild(_txtCount);
         source.addChild(_contBtn);
         source.x = 100;

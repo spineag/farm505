@@ -40,6 +40,11 @@ public class Fabrica extends AreaObject {
 
     public function Fabrica(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('no data for Fabrica');
+            g.woGameError.showIt();
+            return;
+        }
         _craftSprite = new Sprite();
         checkBuildState();
 
@@ -139,11 +144,16 @@ public class Fabrica extends AreaObject {
     private function onOpenBuilded(value:Boolean):void { }
 
     private function fillRecipes():void {
+        try {
         var obj:Object = g.dataRecipe.objectRecipe;
         for(var id:String in obj) {
             if (obj[id].buildingId == _dataBuild.id) {
                 _arrRecipes.push(obj[id]);
             }
+        }
+        } catch (e:Error) {
+            Cc.error('fabrica recipe error: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
     }
 

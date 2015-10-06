@@ -18,6 +18,11 @@ public class Ambar extends AreaObject{
 
     public function Ambar(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('no data for Ambar');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild();
 
         _source.hoverCallback = onHover;

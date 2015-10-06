@@ -50,18 +50,16 @@ public class Ridge extends AreaObject{
 
     public function Ridge(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('no data for Ridge');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild(false);
         _stateRidge = EMPTY;
 
-//        _source.hoverCallback = onHover;
-//        _source.endClickCallback = onEndClick;
-//        _source.startClickCallback = onStartClick;
-//        _source.outCallback = onOut;
-//        _source.releaseContDrag = true;
         _source.removeMainListener();
         _isOnHover = false;
-
-//        _source.isTouchable = false;
 
         _bgClicked = new CSprite();
         var tempSprite:Sprite = new Sprite();
@@ -210,6 +208,11 @@ public class Ridge extends AreaObject{
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
         if (_stateRidge != EMPTY) {
             Cc.error('Try to plant already planted ridge');
+            return;
+        }
+        if (!data) {
+            Cc.error('no data for fillPlant at Ridge');
+            g.woGameError.showIt();
             return;
         }
         _stateRidge = GROW1;

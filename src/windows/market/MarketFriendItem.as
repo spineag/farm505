@@ -2,6 +2,8 @@
  * Created by user on 8/27/15.
  */
 package windows.market {
+import com.junkbyte.console.Cc;
+
 import flash.display.Bitmap;
 
 import manager.Vars;
@@ -28,6 +30,11 @@ public class MarketFriendItem {
 
     public function MarketFriendItem(f:Someone, p:MarketFriendsPanel) {
         _person = f;
+        if (!_person) {
+            Cc.error('MarketFriendItem:: person == null');
+            g.woGameError.showIt();
+            return;
+        }
         _panel = p;
         source = new CSprite();
         _ramka = new Image(g.interfaceAtlas.getTexture('tamp_ramka'));
@@ -58,6 +65,13 @@ public class MarketFriendItem {
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
+        if (!bitmap) {
+            bitmap = g.pBitmaps[person.photo].create() as Bitmap;
+        }
+        if (!bitmap) {
+            Cc.error('MarketFriendItem:: no photo for userId: ' + _person.userSocialId);
+            return;
+        }
         var tex:Texture = Texture.fromBitmap(bitmap);
         _ava = new Image(tex);
         MCScaler.scale(_ava, 98, 98);

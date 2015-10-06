@@ -4,6 +4,7 @@
 package resourceItem {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
 
 import data.BuildType;
 import flash.geom.Point;
@@ -38,12 +39,21 @@ public class CraftItem {
         _callback = f;
         _source = new CSprite();
         _resourceItem = resourceItem;
+        if (!_resourceItem) {
+            Cc.error('CraftItem:: resourceItem == null!');
+            g.woGameError.showIt();
+            return;
+        }
         if (_resourceItem.url == 'resourceAtlas') {
             _image = new Image(g.resourceAtlas.getTexture(_resourceItem.imageShop));
         } else if (_resourceItem.url == 'plantAtlas') {
             _image = new Image(g.plantAtlas.getTexture(_resourceItem.imageShop));
         }
-
+        if (!_image) {
+            Cc.error('CraftItem:: no such image: ' + _resourceItem.imageShop);
+            g.woGameError.showIt();
+            return;
+        }
         MCScaler.scale(_image, 50, 50);
         _source.addChild(_image);
         _source.pivotX = _source.width/2;
@@ -93,14 +103,14 @@ public class CraftItem {
                 _source.removeChildAt(0);
             }
             _source = null;
-
             return;
         }
 
         if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + _count >= g.user.skladMaxCount) {
             var p:Point = new Point(_source.x, _source.y);
             p = _source.parent.localToGlobal(p);
-            new FlyMessage(p,"Склад заполнен");
+            g.woAmbarFilled.showAmbarFilled(false);
+//            new FlyMessage(p,"Склад заполнен");
             return;
         }
 
@@ -121,7 +131,6 @@ public class CraftItem {
         start = _source.parent.localToGlobal(start);
         if (_source.parent && _source.parent.contains(_source)) _source.parent.removeChild(_source);
 
-//        _image.width = 100;
         _image.scaleY = _image.scaleX = 1;
         _source.scaleY = _source.scaleX = 1;
         MCScaler.scale(_image, 50, 50);

@@ -2,6 +2,8 @@
  * Created by user on 6/25/15.
  */
 package resourceItem {
+import com.junkbyte.console.Cc;
+
 import flash.geom.Point;
 
 import manager.Vars;
@@ -22,6 +24,11 @@ public class RawItem {
         var _source:Sprite = new Sprite();
         _source.touchable = false;
         var im:Image = new Image(texture);
+        if (!im) {
+            Cc.error('RawItem:: bad texture');
+            g.woGameError.showIt();
+            return;
+        }
         MCScaler.scale(im, 50, 50);
         _source.addChild(im);
         _source.pivotX = _source.width/2;

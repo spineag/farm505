@@ -2,6 +2,8 @@
  * Created by yusjanja on 11.08.2015.
  */
 package mouse {
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -45,6 +47,10 @@ public class BuildMoveGridTile {
                 source.alpha = .3;
                 break;
         }
+        if (!imGreen || !imRed) {
+            Cc.error('BuildMoveGridTile:: no image');
+        }
+
         imGreen.pivotX = imGreen.width/2;
         imRed.pivotX = imRed.width/2;
         imGreen.scaleX = imGreen.scaleY = 2;

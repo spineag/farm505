@@ -1,5 +1,7 @@
 package windows.cave {
 
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 import starling.display.Image;
 import starling.text.TextField;
@@ -32,6 +34,11 @@ public class CaveItem {
 
     public function fillData(ob:Object, f:Function):void {
         _data = ob;
+        if (_data) {
+            Cc.error('CaveItem fillData:: empty _data');
+            g.woGameError.showIt();
+            return;
+        }
         _clickCallback = f;
         source.alpha = 1;
         fillIcon(_data.imageShop);
@@ -43,6 +50,11 @@ public class CaveItem {
             _icon = null;
         }
         _icon = new Image(g.instrumentAtlas.getTexture(s));
+        if (!s) {
+            Cc.error('CaveItem fillIcon:: no such image: ' + s);
+            g.woGameError.showIt();
+            return;
+        }
         MCScaler.scale(_icon, 80, 80);
         _icon.x = _bg.width/2 - _icon.width/2;
         _icon.y = _bg.height/2 - _icon.height/2;

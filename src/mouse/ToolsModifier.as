@@ -4,6 +4,8 @@
 package mouse {
 import build.tree.Tree;
 
+import com.junkbyte.console.Cc;
+
 import flash.geom.Point;
 
 import manager.Vars;
@@ -105,15 +107,15 @@ public class ToolsModifier {
                  return;
              case ToolsModifier.MOVE:
                  im = new Image(g.mapAtlas.getTexture("Move"));
-                 _mouseIcon.addChild(im);
+                 if (im) _mouseIcon.addChild(im);
                  break;
              case ToolsModifier.FLIP:
                  im = new Image(g.mapAtlas.getTexture("Rotate"));
-                 _mouseIcon.addChild(im);
+                 if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.DELETE:
                  im = new Image(g.mapAtlas.getTexture("Cancel"));
-                 _mouseIcon.addChild(im);
+                 if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.GRID_DEACTIVATED:
                  var q:Quad = new Quad(100, 100, Color.RED);
@@ -127,7 +129,7 @@ public class ToolsModifier {
             case ToolsModifier.PLANT_SEED:
                 if (_plantId <= 0) return;
                 im = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_plantId].imageShop));
-                _mouseIcon.addChild(im);
+                if (im) _mouseIcon.addChild(im);
                 updateCountTxt();
                 if (!_mouseCont.contains(_txtCount)) _mouseCont.addChild(_txtCount);
                 break;
@@ -139,6 +141,9 @@ public class ToolsModifier {
             if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
             MCScaler.scale(_mouseIcon, 30, 30);
             g.gameDispatcher.addEnterFrame(moveMouseIcon);
+        } else {
+            Cc.error('ToolsModifier:: no image for modifierType: ' + g.toolsModifier.modifierType);
+            g.woGameError.showIt();
         }
      }
 
@@ -166,6 +171,11 @@ public class ToolsModifier {
 
     private var imForMove:Image;
     public function startMove(buildingData:Object, callback:Function = null, treeState:int = 1, isFromShop:Boolean = false):void {
+        if (!buildingData) {
+            Cc.error('ToolsModifier startMove:: empty buildingData');
+            g.woGameError.showIt();
+            return;
+        }
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;
@@ -175,15 +185,19 @@ public class ToolsModifier {
                 case Tree.GROW_FLOWER1:
                 case Tree.GROWED1:
                     imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageGrowSmall));
-                    imForMove.x = _activeBuildingData.innerPositionsGrow1[0];
-                    imForMove.y = _activeBuildingData.innerPositionsGrow1[1];
+                    if (imForMove) {
+                        imForMove.x = _activeBuildingData.innerPositionsGrow1[0];
+                        imForMove.y = _activeBuildingData.innerPositionsGrow1[1];
+                    }
                     break;
                 case Tree.GROW2:
                 case Tree.GROW_FLOWER2:
                 case Tree.GROWED2:
                     imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageGrowMiddle));
-                    imForMove.x = _activeBuildingData.innerPositionsGrow2[0];
-                    imForMove.y = _activeBuildingData.innerPositionsGrow2[1];
+                    if (imForMove) {
+                        imForMove.x = _activeBuildingData.innerPositionsGrow2[0];
+                        imForMove.y = _activeBuildingData.innerPositionsGrow2[1];
+                    }
                     break;
                 case Tree.GROW3:
                 case Tree.GROW_FLOWER3:
@@ -192,34 +206,54 @@ public class ToolsModifier {
                 case Tree.GROWED_FIXED:
                 case Tree.GROW_FIXED_FLOWER:
                     imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageGrowBig));
-                    imForMove.x = _activeBuildingData.innerPositionsGrow3[0];
-                    imForMove.y = _activeBuildingData.innerPositionsGrow3[1];
+                    if (imForMove) {
+                        imForMove.x = _activeBuildingData.innerPositionsGrow3[0];
+                        imForMove.y = _activeBuildingData.innerPositionsGrow3[1];
+                    }
                     break;
                 case Tree.DEAD:
                 case Tree.ASK_FIX:
                 case Tree.FIXED:
                 case Tree.FULL_DEAD:
                     imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageDead));
-                    imForMove.x = _activeBuildingData.innerPositionsDead[0];
-                    imForMove.y = _activeBuildingData.innerPositionsDead[1];
+                    if (imForMove) {
+                        imForMove.x = _activeBuildingData.innerPositionsDead[0];
+                        imForMove.y = _activeBuildingData.innerPositionsDead[1];
+                    }
                     break;
             }
-            _spriteForMove.addChild(imForMove);
-//            _spriteForMove.addChild(contImage);
+            if (imForMove) {
+                _spriteForMove.addChild(imForMove);
+            } else {
+                Cc.error('ToolsModifier startMove:: no image for tree type: ' + treeState);
+                g.woGameError.showIt();
+                return;
+            }
         } else if (_activeBuildingData.url == "buildAtlas") {
             imForMove = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
-            imForMove.x = _activeBuildingData.innerX;
-            imForMove.y = _activeBuildingData.innerY;
-            _spriteForMove.addChild(imForMove);
+            if (imForMove) {
+                imForMove.x = _activeBuildingData.innerX;
+                imForMove.y = _activeBuildingData.innerY;
+                _spriteForMove.addChild(imForMove);
+            } else {
+                Cc.error('ToolsModifier startMove:: no image for url=buildAtlas and _activeBuildingData.image: ' + _activeBuildingData.image);
+                g.woGameError.showIt();
+                return;
+            }
         } else {
             imForMove  = new Image(g.mapAtlas.getTexture(_activeBuildingData.image));
-            imForMove.x = -imForMove.width/2;
+            if (imForMove) {
+                imForMove.x = -imForMove.width/2;
+                _spriteForMove.addChild(imForMove);
+            } else {
+                Cc.error('ToolsModifier startMove:: no such image _activeBuildingData.image: ' + _activeBuildingData.image);
+                g.woGameError.showIt();
+                return;
+            }
         }
 
-//        if (_activeBuildingData.isFlip) _spriteForMove.scaleX *= -1;
         if (_activeBuildingData.isFlip) imForMove.scaleX *= -1;
 
-//        _spriteForMove.flatten();
         _spriteForMove.x = _mouse.mouseX - _cont.x;
         _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
         _cont.addChild(_spriteForMove);

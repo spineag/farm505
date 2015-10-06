@@ -15,6 +15,11 @@ import starling.utils.Color;
 public class Paper extends AreaObject{
     public function Paper(data:Object) {
         super (data);
+        if (!data) {
+            Cc.error('no data for Paper');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild();
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

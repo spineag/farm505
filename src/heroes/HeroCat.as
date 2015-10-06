@@ -3,6 +3,8 @@
  */
 package heroes {
 
+import com.junkbyte.console.Cc;
+
 import mouse.ToolsModifier;
 
 import starling.display.Image;
@@ -29,6 +31,11 @@ public class HeroCat extends BasicCat{
             case WOMAN:
                 _catImage = new Image(g.catAtlas.getTexture('cat_woman'));
                 break;
+        }
+        if (!_catImage) {
+            Cc.error('HeroCat no such image: for type: ' + type);
+            g.woGameError.showIt();
+            return;
         }
         _catImage.x = -_catImage.width/2;
         _catImage.y = -_catImage.height + 2;

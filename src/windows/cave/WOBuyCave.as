@@ -2,7 +2,7 @@
  * Created by user on 7/23/15.
  */
 package windows.cave {
-import data.DataMoney;
+import com.junkbyte.console.Cc;
 
 import starling.display.Image;
 import starling.events.Event;
@@ -49,6 +49,11 @@ public class WOBuyCave extends Window {
     }
 
     public function showItWithParams(_data:Object, _t:String, f:Function):void {
+        if (!_data) {
+            Cc.error('WOBuyCave showItWithParams: empty _data');
+            g.woGameError.showIt();
+            return;
+        }
         priceTxt.text = String(_data.cost);
        txt.text = _t;
         _callback = f;

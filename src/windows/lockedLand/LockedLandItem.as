@@ -2,6 +2,8 @@
  * Created by user on 10/1/15.
  */
 package windows.lockedLand {
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -51,12 +53,22 @@ public class LockedLandItem {
 
     public function fillWithResource(id:int, count:int):void {
         var icon:Image;
+        if (!g.dataResource.objectResources[id]) {
+            Cc.error('LockedLandItem fillWithResource:: g.dataResource.objectResources[id] == null for id: ' + id);
+            g.woGameError.showIt();
+            return;
+        }
         if (g.dataResource.objectResources[id].url == 'plantAtlas') {
             icon = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[id].imageShop));
         } else if (g.dataResource.objectResources[id].url == 'instrumentAtlas') {
             icon = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[id].imageShop));
         } else {
             icon = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[id].imageShop));
+        }
+        if (!icon) {
+            Cc.error('LockedLandItem fillWithResource:: no such image: ' + g.dataResource.objectResources[id].imageShop);
+            g.woGameError.showIt();
+            return;
         }
         MCScaler.scale(icon, 70, 70);
         icon.x = 10;

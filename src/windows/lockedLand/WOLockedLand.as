@@ -4,6 +4,8 @@
 package windows.lockedLand {
 import build.lockedLand.LockedLand;
 
+import com.junkbyte.console.Cc;
+
 import starling.events.Event;
 import starling.filters.ColorMatrixFilter;
 import starling.utils.Color;
@@ -46,6 +48,12 @@ public class WOLockedLand extends Window{
     public function showItWithParams(dataLand:Object, land:LockedLand):void {
         _dataLand = dataLand;
         _land = land;
+
+        if (!_dataLand || !_land) {
+            Cc.error('WOLockedLand showIt:: bad _dataLand or _land');
+            g.woGameError.showIt();
+            return;
+        }
 
         var item:LockedLandItem;
         if (_dataLand.friendsCount > 0) {

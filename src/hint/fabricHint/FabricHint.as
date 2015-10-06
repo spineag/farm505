@@ -3,6 +3,8 @@
  */
 package hint.fabricHint {
 
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -73,13 +75,18 @@ public class FabricHint {
     }
 
     public function showIt(data:Object, sX:int, sY:int):void {
-        if (data) {
+        if (data && g.dataResource.objectResources[data.idResource]) {
             _txtName.text = String(g.dataResource.objectResources[data.idResource].name);
             _txtTime.text = String(g.dataResource.objectResources[data.idResource].buildTime);
             _txtItem.text = String(g.userInventory.getCountResourceById(data.idResource));
             createList(data);
             _source.removeChild(_imageItem);
             _imageItem = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[data.idResource].imageShop));
+            if (!_imageItem) {
+                Cc.error('FabricHint showIt:: no such image: ' + g.dataResource.objectResources[data.idResource].imageShop);
+                g.woGameError.showIt();
+                return;
+            }
             _imageItem.x = 160;
             _imageItem.y = 160;
             MCScaler.scale(_imageItem, 40,40);
@@ -87,6 +94,8 @@ public class FabricHint {
             _source.x = sX - 50;
             _source.y = sY + 100;
             g.cont.hintCont.addChild(_source);
+        } else {
+            Cc.error('FabricHint showIt with empty data or g.dataResource.objectResources[data.idResource] = null');
         }
     }
 
@@ -101,6 +110,11 @@ public class FabricHint {
     }
 
     private function createList(data:Object):void {
+        if (!data) {
+            Cc.error('FabricHint createList:: empty data');
+            g.woGameError.showIt();
+            return;
+        }
         var im:FabricHintItem;
         for (var i:int = 0; i < data.ingridientsId.length; i++) {
             im = new FabricHintItem(int(data.ingridientsId[i]), int(data.ingridientsCount[i]));

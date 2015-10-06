@@ -54,6 +54,7 @@ public class AStar {
             makeSearch();
         } catch (e:Error) {
             Cc.error('Error with makeSearch at AStar');
+            g.woGameError.showIt();
             if (callback != null) {
                 callback.apply(null, [new Point(startX, startY)]);
                 callback = null;

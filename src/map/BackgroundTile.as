@@ -2,6 +2,8 @@
  * Created by user on 5/18/15.
  */
 package map {
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -28,9 +30,13 @@ public class BackgroundTile {
                 break;
         }
 
-        if (!_isInGame) _graphicsSource.visible = false;
+        if (_graphicsSource) {
+            if (!_isInGame) _graphicsSource.visible = false;
 //        _graphicsSource.alpha = .2;
-        _graphicsSource.visible = false;
+            _graphicsSource.visible = false;
+        } else {
+            Cc.error('BackgroundTile:: no _graphicsSource for type: ' + _type);
+        }
 
     }
 

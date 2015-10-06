@@ -2,6 +2,8 @@
  * Created by user on 7/23/15.
  */
 package windows.market {
+import com.junkbyte.console.Cc;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.utils.Color;
@@ -96,14 +98,19 @@ public class WOMarket  extends Window {
     }
 
     private function fillItems():void {
-        for (var i:int=0; i< _arrItems.length; i++) {
-            if (_curUser.marketItems[i]) {
-                _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser == g.user);
-            } else {
-                _arrItems[i].isUser = _curUser == g.user;
+        try {
+            for (var i:int = 0; i < _arrItems.length; i++) {
+                if (_curUser.marketItems[i]) {
+                    _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser == g.user);
+                } else {
+                    _arrItems[i].isUser = _curUser == g.user;
+                }
             }
+            _friendsPanel.activateUser(_curUser);
+        } catch (e:Error) {
+            Cc.error('WOMarket fillItems:: error: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
-        _friendsPanel.activateUser(_curUser);
     }
 
     private function makeRefresh():void {

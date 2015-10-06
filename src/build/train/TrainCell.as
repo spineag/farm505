@@ -2,6 +2,8 @@
  * Created by user on 7/24/15.
  */
 package build.train {
+import com.junkbyte.console.Cc;
+
 import data.DataMoney;
 
 import flash.geom.Point;
@@ -27,7 +29,17 @@ public class TrainCell {
     private var g:Vars = Vars.getInstance();
 
     public function TrainCell(d:Object) {
+        if (!d) {
+            Cc.error('no data for TrainCell');
+            g.woGameError.showIt();
+            return;
+        }
         _dataResource = g.dataResource.objectResources[int(d.resource_id)];
+        if (!_dataResource) {
+            Cc.error('TrainCell:: no _dataResource for id:' + d.resource_id);
+            g.woGameError.showIt();
+            return;
+        }
         _count = int(d.count_resource);
         _isFull = d.is_full == '1';
         item_db_id = d.id;

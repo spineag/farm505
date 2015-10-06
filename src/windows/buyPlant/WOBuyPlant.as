@@ -39,6 +39,11 @@ public class WOBuyPlant extends Window {
     }
 
     public function showItWithParams(ridge:Ridge, f:Function):void {
+        if (!ridge) {
+            Cc.error('WOBuyPlant showItWithParams: rige == null');
+            g.woGameError.showIt();
+            return;
+        }
         _ridge = ridge;
         _callback = f;
         fillItems();

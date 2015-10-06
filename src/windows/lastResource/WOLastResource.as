@@ -2,7 +2,8 @@
  * Created by user on 8/25/15.
  */
 package windows.lastResource {
-import build.ridge.Ridge;
+
+import com.junkbyte.console.Cc;
 
 import starling.display.Image;
 import starling.events.Event;
@@ -46,15 +47,24 @@ public class WOLastResource extends Window{
     }
 
     public function showItMenu(ob:Object):void {
-        trace("shekel");
         _data = ob;
-            _imageItem = new Image(g.plantAtlas.getTexture(ob.imageShop));
-            _imageItem.x = -25;
-            _imageItem.y = -50;
-            MCScaler.scale(_imageItem,70,70);
-            _source.addChild(_imageItem);
-            showIt();
-            fillBtn();
+        if (!_data) {
+            Cc.error('WOLastResource showItMenu:: empty _data');
+            g.woGameError.showIt();
+            return;
+        }
+        _imageItem = new Image(g.plantAtlas.getTexture(_data.imageShop));
+        if (!_data) {
+            Cc.error('WOLastResource showItMenu:: no such image: ' + _data.imageShop);
+            g.woGameError.showIt();
+            return;
+        }
+        _imageItem.x = -25;
+        _imageItem.y = -50;
+        MCScaler.scale(_imageItem,70,70);
+        _source.addChild(_imageItem);
+        showIt();
+        fillBtn();
     }
 
     private function fillBtn():void {

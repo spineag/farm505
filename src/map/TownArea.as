@@ -60,29 +60,44 @@ public class TownArea extends Sprite {
     }
 
     public function getCityObjectsByType(buildType:int):Array {
-        var ar:Array = [];
-        for (var i:int=0; i<_cityObjects.length; i++) {
-            if (_cityObjects[i] is BasicCat) continue;
-            if (_cityObjects[i].dataBuild.buildType == buildType)
-                ar.push(_cityObjects[i]);
+        try {
+            var ar:Array = [];
+            for (var i:int = 0; i < _cityObjects.length; i++) {
+                if (_cityObjects[i] is BasicCat) continue;
+                if (_cityObjects[i].dataBuild.buildType == buildType)
+                    ar.push(_cityObjects[i]);
+            }
+            return ar;
+        } catch (e:Error) {
+            Cc.error('TownArea getCityObjectsByType:: error id: ' + e.errorID + ' - ' + e.message + '    for type: ' + buildType);
+            g.woGameError.showIt();
         }
-        return ar;
     }
 
     public function getCityObjectsById(id:int):Array {
-        var ar:Array = [];
-        for (var i:int=0; i<_cityObjects.length; i++) {
-            if (_cityObjects[i] is BasicCat) continue;
-            if (_cityObjects[i].dataBuild.id == id)
-                ar.push(_cityObjects[i]);
+        try {
+            var ar:Array = [];
+            for (var i:int = 0; i < _cityObjects.length; i++) {
+                if (_cityObjects[i] is BasicCat) continue;
+                if (_cityObjects[i].dataBuild.id == id)
+                    ar.push(_cityObjects[i]);
+            }
+            return ar;
+        } catch (e:Error) {
+            Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
+            g.woGameError.showIt();
         }
-        return ar;
     }
 
     public function zSort():void{
-        _cityObjects.sortOn("depth", Array.NUMERIC);
-        for (var  i:int = 0; i < _cityObjects.length; i++) {
-            _cont.setChildIndex(_cityObjects[i].source, i);
+        try {
+            _cityObjects.sortOn("depth", Array.NUMERIC);
+            for (var i:int = 0; i < _cityObjects.length; i++) {
+                _cont.setChildIndex(_cityObjects[i].source, i);
+            }
+        } catch(e:Error) {
+            g.woGameError.showIt();
+            Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
         }
     }
 
@@ -167,6 +182,12 @@ public class TownArea extends Sprite {
         var isFlip:Boolean = false;
         var ob:Object = {};
 
+        if (!_data) {
+            Cc.error('TownArea createNewBuild:: _data == nul for building');
+            g.woGameError.showIt();
+            return;
+        }
+
         if (!isFromServer && _data.buildType == BuildType.FABRICA) {    // что означает, что через магазин купили и поставили новое здание
             if (g.useDataFromServer) {
                 ob.dbId = -1;
@@ -241,7 +262,8 @@ public class TownArea extends Sprite {
         }
 
         if (!build) {
-            Cc.error('TownArea:: BUILD is null');
+            Cc.error('TownArea:: BUILD is null for type: ' + _data.buildType);
+            g.woGameError.showIt();
             return;
         }
         g.selectedBuild = build;
@@ -253,6 +275,11 @@ public class TownArea extends Sprite {
     }
 
     public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
+        if (!worldObject) {
+            Cc.error('TownArea pasteBuild:: empty worldObject');
+            g.woGameError.showIt();
+            return;
+        }
         if (!_cont.contains(worldObject.source)) {
             worldObject.source.x = int(_x);
             worldObject.source.y = int(_y);
@@ -318,6 +345,11 @@ public class TownArea extends Sprite {
     }
 
     public function deleteBuild(worldObject:WorldObject):void{
+        if (!worldObject) {
+            Cc.error('TownArea deleteBuild:: empty worldObject');
+            g.woGameError.showIt();
+            return;
+        }
         if(_cont.contains(worldObject.source)){
             _cont.removeChild(worldObject.source);
             if (worldObject is DecorFence || worldObject is DecorPostFence) {
@@ -332,6 +364,11 @@ public class TownArea extends Sprite {
     }
 
     public function moveBuild(worldObject:WorldObject, treeState:int = 1):void{// не сохраняется флип при муве
+        if (!worldObject) {
+            Cc.error('TownArea moveBuild:: empty worldObject');
+            g.woGameError.showIt();
+            return;
+        }
         if(_cont.contains(worldObject.source)) {
             g.selectedBuild = worldObject;
             _cont.removeChild(worldObject.source);

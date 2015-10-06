@@ -2,6 +2,8 @@
  * Created by user on 7/13/15.
  */
 package hint.fabricHint {
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import manager.Vars;
@@ -10,8 +12,6 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
-import temp.dataTemp.DataResources;
 
 import utils.MCScaler;
 
@@ -27,6 +27,11 @@ public class FabricHintItem {
         _txtItem = new TextField(100,100,"","Arial",10,Color.BLACK);
         _txtItem.text = String(g.userInventory.getCountResourceById(g.dataResource.objectResources[obId].id) + "/" + obCount);
         source = new Sprite();
+        if (!g.dataResource.objectResources[obId]) {
+            Cc.error('FabricHintItem error: g.dataResource.objectResources[obId] = null');
+            g.woGameError.showIt();
+            return;
+        }
         if (g.dataResource.objectResources[obId].buildType == BuildType.PLANT || g.dataResource.objectResources[obId].buildType == BuildType.RESOURCE) {
             if (g.dataResource.objectResources[obId].url == "plantAtlas") {
                 _image = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[obId].imageShop));

@@ -15,6 +15,11 @@ public class Market extends AreaObject{
 
     public function Market(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('no data for Market');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild();
 
         _source.hoverCallback = onHover;

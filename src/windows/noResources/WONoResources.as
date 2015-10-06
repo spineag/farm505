@@ -4,6 +4,8 @@
 package windows.noResources {
 
 
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 import data.DataMoney;
 
@@ -103,12 +105,18 @@ public class WONoResources extends Window {
     }
 
     private function createListMoney(_data:Object, count:int):void {
+        if (!_data) {
+            Cc.error('WONoResource createListMoney:: empty _data');
+            g.woGameError.showIt();
+            return;
+        }
+
         if (_data.currency == DataMoney.HARD_CURRENCY){
             _imageItem = new Image(g.interfaceAtlas.getTexture("diamont"));
             _txtCount.text = String(count);
             _contImage.addChild(_imageItem);
             _contImage.addChild(_txtCount);
-        }else if (_data.currency == DataMoney.SOFT_CURRENCY){
+        } else if (_data.currency == DataMoney.SOFT_CURRENCY){
             _imageItem = new Image(g.interfaceAtlas.getTexture("coin"));
             _txtCount.text = String(count);
             _contImage.addChild(_imageItem);
@@ -121,32 +129,38 @@ public class WONoResources extends Window {
         var countRes:int = 0;
         var i:int;
 
+        if (!_data) {
+            Cc.error('WONoResource createList:: empty _data');
+            g.woGameError.showIt();
+            return;
+        }
+
         if (_data.buildType == BuildType.ANIMAL) {
             im = new WONoResourcesItem(_data.idResourceRaw,1);
             _contImage.addChild(im.source);
             _txtHardCost.text = "2";
             _contBtn.addChild(_txtHardCost);
             return;
-        }
-
-        if (_data.buildType == BuildType.PLANT){
-        im = new WONoResourcesItem(_data.id,1);
+        } else  if (_data.buildType == BuildType.PLANT){
+            im = new WONoResourcesItem(_data.id,1);
             _contImage.addChild(im.source);
             _txtHardCost.text = "2";
             _contBtn.addChild(_txtHardCost);
             return;
         }
 
-        for (i=0; i < _data.ingridientsId.length; i++) {
-            countRes =  g.userInventory.getCountResourceById(_data.ingridientsId[i]);
-            if (countRes < _data.ingridientsCount[i]) {
-                im = new WONoResourcesItem(_data.ingridientsId[i], _data.ingridientsCount[i] - countRes);
-                _arrCells.push(im);
-                _contImage.addChild(im.source);
+        if (_data.ingridientsId) {
+            for (i = 0; i < _data.ingridientsId.length; i++) {
+                countRes = g.userInventory.getCountResourceById(_data.ingridientsId[i]);
+                if (countRes < _data.ingridientsCount[i]) {
+                    im = new WONoResourcesItem(_data.ingridientsId[i], _data.ingridientsCount[i] - countRes);
+                    _arrCells.push(im);
+                    _contImage.addChild(im.source);
+                }
             }
-        }
-        for (i=0; i<_arrCells.length; i++) {
-            _arrCells[i].source.x = int(i * 55);
+            for (i = 0; i < _arrCells.length; i++) {
+                _arrCells[i].source.x = int(i * 55);
+            }
         }
 
         if (_data.priceHard) _txtHardCost.text = String(_data.priceHard * count);

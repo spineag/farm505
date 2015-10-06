@@ -2,6 +2,8 @@
  * Created by user on 6/2/15.
  */
 package windows.buyPlant {
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -44,6 +46,11 @@ public class WOBuyPlantItem {
 
     public function fillData(ob:Object, f:Function):void {
         _data = ob;
+        if (!_data) {
+            Cc.error('WOBuyPlantItem fillData:: empty _data');
+            g.woGameError.showIt();
+            return;
+        }
         _clickCallback = f;
         _txtNumber.text = String(g.userInventory.getCountResourceById(_data.id));
         fillIcon(_data.imageShop);
@@ -56,6 +63,11 @@ public class WOBuyPlantItem {
             _icon = null;
         }
         _icon = new Image(g.plantAtlas.getTexture(s));
+        if (!_icon) {
+            Cc.error('WOBuyPlantItem fillData:: no such image: ' + s);
+            g.woGameError.showIt();
+            return;
+        }
         MCScaler.scale(_icon, 100, 100);
         source.addChildAt(_icon, 1);
     }

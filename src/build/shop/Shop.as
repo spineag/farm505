@@ -15,6 +15,11 @@ public class Shop extends AreaObject{
 
     public function Shop(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('no data for Shop');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild();
 
         _source.hoverCallback = onHover;

@@ -3,6 +3,8 @@
  */
 package hint {
 
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -99,6 +101,9 @@ public class MouseHint {
                 break;
         }
 
+        if (!_image) {
+            Cc.error('MouseHint checkMouseHint:: no image for type: ' + s);
+        }
         _imageCont.addChild(_image);
     }
 }

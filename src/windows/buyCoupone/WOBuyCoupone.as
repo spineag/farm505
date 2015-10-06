@@ -36,16 +36,16 @@ public class WOBuyCoupone extends Window{
     }
 
     public function showItWO():void {
-        _Green = new WOBuyCouponeItem("green_coupone",g.user.greenCouponCount,15);
+        _Green = new WOBuyCouponeItem("green_coupone", g.user.greenCouponCount,15);
         _Green.source.x = -100;
         _Green.source.y = -20;
-        _Blue = new WOBuyCouponeItem("blue_coupone",g.user.blueCouponCount,15);
+        _Blue = new WOBuyCouponeItem("blue_coupone", g.user.blueCouponCount,15);
         _Blue.source.x = -30;
         _Blue.source.y = -20;
-        _Red = new WOBuyCouponeItem("red_coupone",g.user.redCouponCount,15);
+        _Red = new WOBuyCouponeItem("red_coupone", g.user.redCouponCount,15);
         _Red.source.x = 30;
         _Red.source.y = -20;
-        _Yellow = new WOBuyCouponeItem("yellow_coupone",g.user.yellowCouponCount,15);
+        _Yellow = new WOBuyCouponeItem("yellow_coupone", g.user.yellowCouponCount,15);
         _Yellow.source.x = 100;
         _Yellow.source.y = -20;
         _source.addChild(_Green.source);

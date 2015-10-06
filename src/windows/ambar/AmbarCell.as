@@ -3,6 +3,8 @@
  */
 package windows.ambar {
 
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -37,7 +39,17 @@ public class AmbarCell {
         source.addChild(quad);
 
         _info = info;
+        if (!_info) {
+            Cc.error('AmbarCell:: _info == null');
+            g.woGameError.showIt();
+            return;
+        }
         _data = g.dataResource.objectResources[_info.id];
+        if (!_data) {
+            Cc.error('AmbarCell:: _data == null');
+            g.woGameError.showIt();
+            return;
+        }
         if (_data) {
             if (_data.url == 'resourceAtlas') {
                 _image = new Image(g.resourceAtlas.getTexture(_data.imageShop));
@@ -45,6 +57,11 @@ public class AmbarCell {
                 _image = new Image(g.plantAtlas.getTexture(_data.imageShop));
             } else if (_data.url == 'instrumentAtlas') {
                 _image = new Image(g.instrumentAtlas.getTexture(_data.imageShop));
+            }
+            if (!_image) {
+                Cc.error('AmbarCell:: no such image: ' + _data.imageShop);
+                g.woGameError.showIt();
+                return;
             }
             MCScaler.scale(_image, 99, 99);
             _image.x = 50 - _image.width/2;
