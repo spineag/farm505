@@ -226,6 +226,8 @@
             <filename>buildings/locked_land.png</filename>
             <filename>buildings/foundation.png</filename>
             <filename>buildings/done_building.png</filename>
+            <filename>decor1.png</filename>
+            <filename>decor2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
