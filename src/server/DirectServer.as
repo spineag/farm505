@@ -321,6 +321,7 @@ public class DirectServer {
 
                 if (d.message[i].currency) obj.currency = int(d.message[i].currency);
                 if (d.message[i].cost) obj.cost = int(d.message[i].cost);
+                if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
                 if (d.message[i].block_by_level) {
                     obj.blockByLevel = String(d.message[i].block_by_level).split('&');
                     for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);

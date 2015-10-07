@@ -9,6 +9,7 @@ import build.dailyBonus.DailyBonus;
 import build.decor.Decor;
 import build.decor.DecorFence;
 import build.decor.DecorPostFence;
+import build.decor.DecorTail;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.lockedLand.LockedLand;
@@ -296,9 +297,9 @@ public class TownArea extends Sprite {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
             if (isNewAtMap) {
-                if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge)
+                if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
                     g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
-                if (worldObject is Farm || worldObject is Tree)
+                if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
                     worldObject.addXP();
                 if (worldObject is Tree)
                     g.directServer.addUserBuilding(worldObject, onAddNewTree);
@@ -312,28 +313,28 @@ public class TownArea extends Sprite {
         // временно полная сортировка, далее нужно будет дописать "умную"
         zSort();
 
-            if (isNewAtMap && worldObject is Ridge || isNewAtMap && worldObject is Tree) {
-                g.bottomPanel.cancelBoolean(true);
-                var arr:Array;
-                var curCount:int;
-                var maxCount:int;
-                var maxCountAtCurrentLevel:int = 0;
-                arr = [];
-                _dataObjects = worldObject.dataBuild;
-                arr = g.townArea.getCityObjectsById(_dataObjects.id);
-                curCount = arr.length;
-                for (var i:int = 0; _dataObjects.blockByLevel.length; i++) {
-                    if (_dataObjects.blockByLevel[i] <= g.user.level) {
-                        maxCountAtCurrentLevel++;
-                    } else break;
-                }
-                maxCount = maxCountAtCurrentLevel * _dataObjects.countUnblock;
-                if (curCount == maxCount) {
-                    g.bottomPanel.cancelBoolean(false);
-                    return;
-                }
-                g.toolsModifier.startMove(_dataObjects, afterMoveReturn);
+        if (isNewAtMap && worldObject is Ridge || isNewAtMap && worldObject is Tree) {
+            g.bottomPanel.cancelBoolean(true);
+            var arr:Array;
+            var curCount:int;
+            var maxCount:int;
+            var maxCountAtCurrentLevel:int = 0;
+            arr = [];
+            _dataObjects = worldObject.dataBuild;
+            arr = g.townArea.getCityObjectsById(_dataObjects.id);
+            curCount = arr.length;
+            for (var i:int = 0; _dataObjects.blockByLevel.length; i++) {
+                if (_dataObjects.blockByLevel[i] <= g.user.level) {
+                    maxCountAtCurrentLevel++;
+                } else break;
             }
+            maxCount = maxCountAtCurrentLevel * _dataObjects.countUnblock;
+            if (curCount == maxCount) {
+                g.bottomPanel.cancelBoolean(false);
+                return;
+            }
+            g.toolsModifier.startMove(_dataObjects, afterMoveReturn);
+        }
     }
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {

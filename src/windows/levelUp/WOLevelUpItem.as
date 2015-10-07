@@ -50,7 +50,7 @@ public class WOLevelUpItem {
             }
         } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
                 || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.PET_HOUSE || ob.buildType == BuildType.DECOR) {
-            st = ob.imageShop;
+            st = ob.image;
             _image = new Image(g.tempBuildAtlas.getTexture(st));
         } else if (ob.buildType == BuildType.ANIMAL){
             st = ob.imageShop;

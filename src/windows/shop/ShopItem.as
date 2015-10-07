@@ -7,6 +7,7 @@ import build.farm.Farm;
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
+import data.DataMoney;
 
 import flash.geom.Point;
 
@@ -33,6 +34,7 @@ public class ShopItem {
     private var _data:Object;
     private var _lockedSprite:Sprite;
     private var _lockedTxt:TextField;
+    private var _countCost:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -66,7 +68,8 @@ public class ShopItem {
         _nameTxt.y = 140;
         source.addChild(_nameTxt);
 
-        _countTxt = new TextField(122, 30, String(_data.cost), "Arial", 16, Color.WHITE);
+        _countCost = _data.cost;
+        _countTxt = new TextField(122, 30, String(_countCost), "Arial", 16, Color.WHITE);
         _countTxt.x = 22;
         _countTxt.y = 220;
         source.addChild(_countTxt);
@@ -91,7 +94,7 @@ public class ShopItem {
         var maxCount:int;
         var curCount:int;
         var maxCountAtCurrentLevel:int = 0;
-        if (_data.buildType == BuildType.FABRICA) {
+        if (_data.buildType == BuildType.FABRICA || _data.buildType == BuildType.FARM) {
             if (_data.blockByLevel) {
                 arr = g.townArea.getCityObjectsById(_data.id);
                 if (_data.blockByLevel[0] > g.user.level) {
@@ -120,33 +123,16 @@ public class ShopItem {
                     }
                 }
             }
-        } else if (_data.buildType == BuildType.FARM) {
+        } else if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (_data.blockByLevel) {
                 arr = g.townArea.getCityObjectsById(_data.id);
                 if (_data.blockByLevel[0] > g.user.level) {
                     im = new Image(g.interfaceAtlas.getTexture('shop_locked'));
                     st = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 } else {
-                    if (_data.blockByLevel.length == 1) {
-                        if (arr.length == 0) {
-                            st = '0/1';
-                        } else {
-                            im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
-                            st = '1/1';
-                        }
-                    } else {
-                        for (i = 0; _data.blockByLevel.length; i++) {
-                            if (_data.blockByLevel[i] <= g.user.level) {
-                                maxCountAtCurrentLevel++;
-                            } else break;
-                        }
-                        if (maxCountAtCurrentLevel == arr.length) {
-                            im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
-                            st = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
-                        } else {
-                            st = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
-                        }
-                    }
+                    st = '';
+                    _countCost = arr.length * _data.deltaCost + _data.cost;
+                    _countTxt.text = String(_countCost);
                 }
             }
         } else if (_data.buildType == BuildType.ANIMAL) {
@@ -236,20 +222,28 @@ public class ShopItem {
     }
 
     private function onClick():void {
+        _countCost = _data.cost;
         if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
             new FlyMessage(p,"откроется на " + String(_data.blockByLevel) + " уровне");
             return;
         }
-        if (!g.userInventory.checkMoney(_data)) return;
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+            if (_data.currency == DataMoney.SOFT_CURRENCY) {
+                if (!g.userInventory.checkSoftMoneyCount(_countCost)) return;
+            } else {
+                if (!g.userInventory.checkHardMoneyCount(_countCost)) return;
+            }
+        } else {
+            if (!g.userInventory.checkMoney(_data)) return;
+        }
         g.bottomPanel.cancelBoolean(true);
         if (_data.buildType == BuildType.RIDGE) {
 //            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.woShop.onClickExit();
             g.toolsModifier.startMove(_data, afterMove);
-            return;
-        }   else if (_data.buildType != BuildType.ANIMAL) {
+        } else if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.onClickExit();
 //            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.toolsModifier.startMove(_data, afterMove,1,true);
@@ -269,12 +263,13 @@ public class ShopItem {
     }
 
     private function afterMove(_x:Number, _y:Number):void {
-        if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA) {
+        if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA
+                || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             g.bottomPanel.cancelBoolean(false);
         }
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.townArea.createNewBuild(_data, _x, _y);
-        g.userInventory.addMoney(_data.currency, -_data.cost);
+        g.userInventory.addMoney(_data.currency, -_countCost);
     }
 }
 }

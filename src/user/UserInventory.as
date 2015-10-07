@@ -146,6 +146,28 @@ public class UserInventory {
         return bol;
     }
 
+    public function checkSoftMoneyCount(c:int):Boolean {
+        if (g.user.softCurrencyCount < c) {
+            var ob:Object = new Object();
+            ob.currency = DataMoney.SOFT_CURRENCY;
+            ob.cost = c;
+            g.woNoResources.showItMoney(ob, c - g.user.softCurrencyCount);
+            return false;
+        }
+        return true;
+    }
+
+    public function checkHardMoneyCount(c:int):Boolean {
+        if (g.user.hardCurrency < c) {
+            var ob:Object = new Object();
+            ob.currency = DataMoney.HARD_CURRENCY;
+            ob.cost = c;
+            g.woNoResources.showItMoney(ob, c - g.user.hardCurrency);
+            return false;
+        }
+        return true;
+    }
+
     public function checkRecipe(_data:Object):Boolean {
         var count:int = 0;
         if (!_data || !_data.ingridientsId) {
