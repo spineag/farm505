@@ -60,33 +60,33 @@ public class TownArea extends Sprite {
     }
 
     public function getCityObjectsByType(buildType:int):Array {
+        var ar:Array = [];
         try {
-            var ar:Array = [];
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 if (_cityObjects[i] is BasicCat) continue;
                 if (_cityObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityObjects[i]);
             }
-            return ar;
         } catch (e:Error) {
             Cc.error('TownArea getCityObjectsByType:: error id: ' + e.errorID + ' - ' + e.message + '    for type: ' + buildType);
             g.woGameError.showIt();
         }
+        return ar;
     }
 
     public function getCityObjectsById(id:int):Array {
+        var ar:Array = [];
         try {
-            var ar:Array = [];
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 if (_cityObjects[i] is BasicCat) continue;
                 if (_cityObjects[i].dataBuild.id == id)
                     ar.push(_cityObjects[i]);
             }
-            return ar;
         } catch (e:Error) {
             Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
             g.woGameError.showIt();
         }
+    return ar;
     }
 
     public function zSort():void{

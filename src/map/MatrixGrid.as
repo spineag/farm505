@@ -4,25 +4,17 @@
 package map {
 import build.WorldObject;
 
-import flash.display.Bitmap;
 import flash.display.BitmapData;
-import flash.display.Stage3D;
-import flash.geom.Matrix;
 import flash.geom.Point;
 
 import manager.Vars;
 
-import pathFinder.V_GrafGrid;
-
 import starling.display.DisplayObject;
 import starling.display.Image;
-
-import starling.display.Sprite;
 import starling.textures.Texture;
 import starling.utils.Color;
 
 import utils.IsoUtils;
-
 import utils.Point3D;
 
 public class MatrixGrid {
@@ -32,7 +24,6 @@ public class MatrixGrid {
     public static const DIAGONAL:Number = Math.sqrt(WIDTH_CELL * WIDTH_CELL + WIDTH_CELL * WIDTH_CELL);
 
     private var _offsetY:int = 0;
-    private var _graf:V_GrafGrid;
 
     private var _matrix:Array;
     private var _matrixSize:int;
@@ -42,7 +33,6 @@ public class MatrixGrid {
     protected var g:Vars = Vars.getInstance();
 
     public function MatrixGrid() {
-        _graf = new V_GrafGrid();
     }
 
     public function createMatrix():void {
@@ -57,8 +47,6 @@ public class MatrixGrid {
                 _matrix[i][j] = {id: 0, sources: [], inGame: true, findId: 0};
             }
         }
-
-        _graf.buildGraf(_matrix);
     }
 
     private function isTileInGame(i:int, j:int):Boolean { // перевіряємо чи тайл попадає в ігрову зону, якщо ні - то його не використовуємо
