@@ -19,6 +19,7 @@ import utils.MCScaler;
 public class TimerHint {
     public var source:CSprite;
     private var _contBtn:CSprite;
+    private var _txtName:TextField;
     private var _txtTimer:TextField;
     private var _timer:int;
     private var _textureHint:Image;
@@ -36,12 +37,16 @@ public class TimerHint {
         _isOnHover = false;
         _isShow = false;
         _txtCost = new TextField(50,50,"","Arial",12,Color.BLACK);
-        _txtTimer = new TextField(50,30," ","Arial",18,Color.BLACK);
+        _txtTimer = new TextField(50,30,"","Arial",18,Color.BLACK);
+        _txtName = new TextField(100,50,"","Arial",18,Color.WHITE);
+        _txtName.x = 40;
+        _txtName.y = -30;
         _textureHint = new Image(g.interfaceAtlas.getTexture("popup"));
         _imageBtn = new Image(g.interfaceAtlas.getTexture("btn4"));
         _contBtn.addChild(_imageBtn);
         _contBtn.addChild(_txtCost);
         MCScaler.scale(_imageBtn,60,60);
+        source.addChild(_txtName);
         source.addChild(_textureHint);
         source.pivotX = source.width/2;
         source.pivotY = source.height;
@@ -65,6 +70,7 @@ public class TimerHint {
         _timer = timer;
         _txtTimer.text = String(_timer);
         _txtCost.text = String(cost);
+        _txtName.text = name;
         g.cont.hintContUnder.addChild(source);
         g.gameDispatcher.addToTimer(onTimer);
     }

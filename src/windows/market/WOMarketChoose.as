@@ -2,6 +2,7 @@ package windows.market {
 
 import starling.display.Image;
 import starling.events.Event;
+import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
@@ -20,6 +21,7 @@ public class WOMarketChoose extends Window {
     private var _countMoneyBlock:CountBlock;
     private var _curResourceId:int;
     private var _checkBox:MarketCheckBox;
+    private var filter:ColorMatrixFilter;
 
     public function WOMarketChoose() {
         super();
@@ -33,6 +35,9 @@ public class WOMarketChoose extends Window {
         _btnExit.x -= 28;
         _btnExit.y += 40;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
+
+        filter = new ColorMatrixFilter();
+        filter.adjustSaturation(-1);
 
         _arrCells = [];
         _scrollSprite = new DefaultVerticalScrollSprite(395, 297, 99, 99);
@@ -65,6 +70,7 @@ public class WOMarketChoose extends Window {
         _btnSell.x = 170;
         _btnSell.y = 140;
         _source.addChild(_btnSell);
+        _btnSell.filter = filter;
         _btnSell.endClickCallback = onClickBtnSell;
 
         _checkBox = new MarketCheckBox();
@@ -80,8 +86,12 @@ public class WOMarketChoose extends Window {
     }
 
     private function onClickExit(e:Event=null):void {
-        trace("exit");
         g.woMarket.refreshMarket();
+        _btnSell.filter = filter;
+        _countResourceBlock.btnFilter();
+        _countMoneyBlock.btnFilter();
+        _countResourceBlock.count = 0;
+        _countMoneyBlock.count = 0;
         _curResourceId = 0;
         unfillItems();
         _scrollSprite.resetAll();
@@ -121,6 +131,9 @@ public class WOMarketChoose extends Window {
 
     private function onCellClick(a:int):void {
         _curResourceId = a;
+        _btnSell.filter = null;
+        _countResourceBlock.btnNull();
+        _countMoneyBlock.btnNull();
         for (var i:int = 0; i < _arrCells.length; i++) {
             _arrCells[i].activateIt(false);
         }
@@ -138,11 +151,24 @@ public class WOMarketChoose extends Window {
         _countResourceBlock.onChangeCallback = onChangeResourceCount;
         _countMoneyBlock.maxValue = count * g.dataResource.objectResources[_curResourceId].costMax;
         _countMoneyBlock.minValue = 1;
-        _countMoneyBlock.count = count * g.dataResource.objectResources[_curResourceId].costMin;
+        _countMoneyBlock.count = g.dataResource.objectResources[_curResourceId].costMax / 3;
+        if ( _countMoneyBlock.count <= 0){
+            _countMoneyBlock.count = 1;
+        }
     }
 
     private function onChangeResourceCount(onPlus:Boolean):void {
+        if (_countResourceBlock.count == 10) {
+//            _countMoneyBlock._btnPlus.filter = filter;
+            return;
+        }
+        _countMoneyBlock.btnNull();
         _countMoneyBlock.maxValue = _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costMax;
+        if (onPlus) {
+        if (_countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3 > g.dataResource.objectResources[_curResourceId].costMax) return;
+        _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3;
+
+        }
 //        if (onPlus) {   // дописать автоувеличение/уменьшение
 //            _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMin;
 //        }

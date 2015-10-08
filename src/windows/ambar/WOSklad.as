@@ -153,6 +153,18 @@ public class WOSklad extends Window {
         _arrCells.length = 0;
     }
 
+    public function showUpdate():void {
+        showIt();
+        _btnBack.visible = true;
+        _btnUpdate.visible = false;
+        _scrollSprite.source.visible = false;
+        _updateSprite.visible = true;
+        _item1.updateIt();
+        _item2.updateIt();
+        _item3.updateIt();
+        updateMakeUpdateBtn();
+    }
+
     private function onBtnUpdate(e:Event):void {
         _btnBack.visible = true;
         _btnUpdate.visible = false;
