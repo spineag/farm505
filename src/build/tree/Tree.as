@@ -278,6 +278,11 @@ public class Tree extends AreaObject{
                 Cc.error('tree state is WRONG');
         }
 
+        if (!im) {
+            Cc.error('Tree setBuildImage:: no such image state = ' + _state  + ' for _dataBuild.id: ' + _dataBuild.id);
+            g.woGameError.showIt();
+            return;
+        }
         _build.addChild(im);
         if (im2) _build.addChild(im2);
         _rect = _build.getBounds(_build);
@@ -335,7 +340,6 @@ public class Tree extends AreaObject{
             } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
-//                        g.flyMessage.showIt(_source,"Амбар заполнен");
                         g.woAmbarFilled.showAmbarFilled(true);
                         var p:Point = new Point(_source.x, _source.y);
                         p = _source.parent.localToGlobal(p);

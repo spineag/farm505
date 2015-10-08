@@ -2,6 +2,8 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
+import com.junkbyte.console.Cc;
+
 import resourceItem.ResourceItem;
 
 import starling.events.Event;
@@ -59,12 +61,17 @@ public class WOFabrica extends Window {
     }
 
     private function fillItems(arrAllRecipes:Array, arrList:Array, maxCount:int):void {
-        unfillItems();
-        if (arrAllRecipes.length > 10) arrAllRecipes.length = 10; // временно, пока не сделана нормальная прокрутка
-        for (var i:int = 0; i < arrAllRecipes.length; i++) {
-            _arrItems[i].fillData(arrAllRecipes[i], onItemClick);
+        try {
+            unfillItems();
+            if (arrAllRecipes.length > 10) arrAllRecipes.length = 10; // временно, пока не сделана нормальная прокрутка
+            for (var i:int = 0; i < arrAllRecipes.length; i++) {
+                _arrItems[i].fillData(arrAllRecipes[i], onItemClick);
+            }
+            _list.fillIt(arrList, maxCount);
+        } catch (e:Error) {
+            Cc.error('WOFabrica fillItems error: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
-        _list.fillIt(arrList, maxCount);
     }
 
     private function onItemClick(dataRecipe:Object):void {

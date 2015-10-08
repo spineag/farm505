@@ -3,6 +3,8 @@
  */
 package windows.market {
 
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import manager.Vars;
@@ -44,6 +46,11 @@ public class MarketCell {
         source.addChild(quad);
 
         _info = info;
+        if (!_info) {
+            Cc.error('MarketCell:: _info == null');
+            g.woGameError.showIt();
+            return;
+        }
         _data = g.dataResource.objectResources[_info.id];
         if (_data) {
             if (_data.url == 'resourceAtlas') {
@@ -53,10 +60,19 @@ public class MarketCell {
             } else if (_data.url == 'instrumentAtlas') {
                 _image = new Image(g.instrumentAtlas.getTexture(_data.imageShop));
             }
+            if (!_image) {
+                Cc.error('MarketCell:: no such image: ' + _data.imageShop);
+                g.woGameError.showIt();
+                return;
+            }
             MCScaler.scale(_image, 99, 99);
             _image.x = 50 - _image.width/2;
             _image.y = 50 - _image.height/2;
             source.addChild(_image);
+        } else {
+            Cc.error('MarketCell:: _data == null');
+            g.woGameError.showIt();
+            return;
         }
 
         _countTxt = new TextField(30,20,String(_info.count),"Arial",16,Color.BLACK);

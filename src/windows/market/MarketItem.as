@@ -5,14 +5,12 @@ package windows.market {
 
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
 
 import data.BuildType;
 import data.DataMoney;
-
 import flash.geom.Point;
-
 import hint.FlyMessage;
-
 import manager.Vars;
 import resourceItem.ResourceItem;
 
@@ -89,10 +87,19 @@ public class MarketItem {
             } else if (_data.url == 'instrumentAtlas') {
                 im = new Image(g.instrumentAtlas.getTexture(_data.imageShop));
             }
+            if (!im) {
+                Cc.error('MarketItem fillIt:: no such image: ' + _data.imageShop);
+                g.woGameError.showIt();
+                return;
+            }
             MCScaler.scale(im, 80, 80);
             im.x = 80 - im.width/2;
             im.y = 50 - im.height/2;
             _imageCont.addChild(im);
+        } else {
+            Cc.error('MarketItem fillIt:: empty _data');
+            g.woGameError.showIt();
+            return;
         }
         _countResource = count;
         _countMoney = cost;
@@ -208,20 +215,6 @@ public class MarketItem {
         g.user.marketItems.push(obj);
     }
 
-//    private function showCoin():void {
-//        if (_im && source.contains(_im)) {
-//            source.removeChild(_im);
-//            _im.dispose();
-//            _im = null;
-//        }
-//        _im = new Image(g.interfaceAtlas.getTexture('coin'));
-//        _im.x = 80 - _im.width/2;
-//        _im.y = 50 - _im.height/2;
-//        source.addChild(_im);
-//        source.addChild(_im);
-//        isFill = 2;
-//    }
-
     public function set callbackFill(f:Function):void {
         _callback = f;
     }
@@ -281,12 +274,22 @@ public class MarketItem {
 
     private function showFlyResource(d:Object, count:int):void {
         var im:Image;
+        if (!d) {
+            Cc.error('MarketItem showFlyResource:: empty data');
+            g.woGameError.showIt();
+            return;
+        }
         if (d.url == 'plantAtlas') {
             im = new Image(g.plantAtlas.getTexture(d.imageShop));
         } else if (d.url == 'instrumentAtlas') {
             im = new Image(g.instrumentAtlas.getTexture(d.imageShop));
         } else {
             im = new Image(g.resourceAtlas.getTexture(d.imageShop));
+        }
+        if (!im) {
+            Cc.error('MarketItem showFlyResource:: no such image: ' + d.imageShop);
+            g.woGameError.showIt();
+            return;
         }
         MCScaler.scale(im, 50, 50);
         var p:Point = new Point(_bg.width/2, _bg.height/2);

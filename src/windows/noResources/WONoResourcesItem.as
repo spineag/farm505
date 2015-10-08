@@ -2,6 +2,8 @@
  * Created by user on 7/16/15.
  */
 package windows.noResources {
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import manager.Vars;
@@ -20,28 +22,52 @@ public class WONoResourcesItem {
 
     private var g:Vars = Vars.getInstance();
 
-    public function WONoResourcesItem(ob:int, count:int) {
+    public function WONoResourcesItem(id:int, count:int) {
         source = new Sprite();
-        if (g.dataResource.objectResources[ob].buildType == BuildType.FARM){
-            _image = new Image(g.tempBuildAtlas.getTexture(g.dataResource.objectResources[ob].imageShop));
-        }else if (g.dataResource.objectResources[ob].buildType == BuildType.FABRICA || g.dataResource.objectResources[ob].buildType == BuildType.RIDGE ||g.dataResource.objectResources[ob].buildType == BuildType.DECOR) {
-            _image = new Image(g.tempBuildAtlas.getTexture(g.dataResource.objectResources[ob].imageShop));
-        }else if (g.dataResource.objectResources[ob].buildType == BuildType.TREE) {
-            _image = new Image(g.treeAtlas.getTexture(g.dataResource.objectResources[ob].imageGrowBig));
-        }else if (g.dataResource.objectResources[ob].buildType == BuildType.PLANT || g.dataResource.objectResources[ob].buildType == BuildType.RESOURCE) {
-            if(g.dataResource.objectResources[ob].url == "plantAtlas")
-            {
-                _image = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[ob].imageShop));
+        var ob:Object = g.dataResource.objectResources[id];
+        if (!ob) {
+            Cc.error('WONoResourcesItem:: g.dataResource.objectResources[id] = null  for id = ' + id);
+            g.woGameError.showIt();
+            return;
+        }
+        var st:String;
+        if (ob.buildType == BuildType.FARM || ob.buildType == BuildType.TEST){
+            st = ob.image;
+            _image = new Image(g.tempBuildAtlas.getTexture(st));
+        } else if (ob.buildType == BuildType.FABRICA || ob.buildType == BuildType.RIDGE) {
+            st = ob.image;
+            _image = new Image(g.tempBuildAtlas.getTexture(st));
+        } else if (ob.buildType == BuildType.TREE) {
+            st = ob.imageGrowBig;
+            _image = new Image(g.treeAtlas.getTexture(st));
+        } else if (ob.buildType == BuildType.PLANT || ob.buildType == BuildType.RESOURCE) {
+            st = ob.imageShop;
+            if(ob.url == "plantAtlas") {
+                _image = new Image(g.plantAtlas.getTexture(st));
             }else {
-                _image = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[ob].imageShop));
+                _image = new Image(g.resourceAtlas.getTexture(st));
             }
-        }else if (g.dataResource.objectResources[ob].buildType == BuildType.DECOR_FULL_FENСE || g.dataResource.objectResources[ob].buildType == BuildType.DECOR_POST_FENCE
-                || g.dataResource.objectResources[ob].buildType == BuildType.DECOR_TAIL || g.dataResource.objectResources[ob].buildType == BuildType.PET_HOUSE) {
-            _image = new Image(g.tempBuildAtlas.getTexture(g.dataResource.objectResources[ob].imageShop));
-        }else if (g.dataResource.objectResources[ob].buildType == BuildType.ANIMAL) {
-            _image = new Image(g.tempBuildAtlas.getTexture(g.dataResource.objectResources[ob].imageShop));
+        } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
+                || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.PET_HOUSE || ob.buildType == BuildType.DECOR) {
+            st = ob.imageShop;
+            _image = new Image(g.tempBuildAtlas.getTexture(st));
+        } else if (ob.buildType == BuildType.ANIMAL){
+            st = ob.imageShop;
+            _image = new Image(g.tempBuildAtlas.getTexture(st));
+        } else if (ob.buildType == BuildType.INSTRUMENT) {
+            st = ob.imageShop;
+            _image = new Image(g.instrumentAtlas.getTexture(st));
+        } else if (ob.buildType == BuildType.PET) {
+
+        } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
+                || ob.buildType == BuildType.SHOP || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
+            st = ob.image;
+            _image = new Image(g.tempBuildAtlas.getTexture(st));
         }
         _txtCount = new TextField(50,50,String(count),"Arial",12,Color.WHITE);
+        if (!_image) {
+            Cc.error('WONoResourcesItem:: no such image ' + st);
+        }
         MCScaler.scale(_image,50,50);
         _txtCount.y = 25;
         _image.x = 50 - _image.width/2;

@@ -4,6 +4,7 @@
 package build.farm {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
@@ -18,7 +19,6 @@ import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 import utils.CSprite;
-import utils.Point3D;
 
 public class Animal {
     public static var EMPTY:int = 1;
@@ -41,15 +41,26 @@ public class Animal {
     private var g:Vars = Vars.getInstance();
 
     public function Animal(data:Object, farm:Farm) {
+        if (!data) {
+            Cc.error('no data for Animal');
+            g.woGameError.showIt();
+            return;
+        }
         _farm = farm;
         source = new CSprite();
         _data = data;
         _isOnHover = false;
 
-        _image = new Image(g.tempBuildAtlas.getTexture(_data.image));
-        _image.pivotX = _image.width/2;
-        _image.pivotY = _image.height;
-        source.addChild(_image);
+        try {
+            _image = new Image(g.tempBuildAtlas.getTexture(_data.image));
+            _image.pivotX = _image.width / 2;
+            _image.pivotY = _image.height;
+            source.addChild(_image);
+        } catch (e:Error) {
+            Cc.error('no image for Animal: ' + _data.image);
+            g.woGameError.showIt();
+            return;
+        }
 
         _state = EMPTY;
         _defautScale = source.scaleX;

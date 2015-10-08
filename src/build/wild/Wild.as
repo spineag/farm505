@@ -16,6 +16,11 @@ public class Wild extends AreaObject{
 
     public function Wild(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('Wild:: no data');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild();
 
         _source.hoverCallback = onHover;

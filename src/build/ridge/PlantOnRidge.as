@@ -2,6 +2,8 @@
  * Created by user on 6/2/15.
  */
 package build.ridge {
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -22,6 +24,11 @@ public class PlantOnRidge {
     private var g:Vars = Vars.getInstance();
 
     public function PlantOnRidge(ridge:Ridge, data:Object) {
+        if (!data) {
+            Cc.error('no data for PlantOnRidge');
+            g.woGameError.showIt();
+            return;
+        }
         _ridge = ridge;
         _data = data;
         _source = new Sprite();
@@ -65,10 +72,15 @@ public class PlantOnRidge {
         while (_source.numChildren) {
             _source.removeChildAt(0);
         }
-        var im:Image = new Image(g.plantAtlas.getTexture(st));
-        im.x = _x;
-        im.y = _y;
-        _source.addChild(im);
+        try {
+            var im:Image = new Image(g.plantAtlas.getTexture(st));
+            im.x = _x;
+            im.y = _y;
+            _source.addChild(im);
+        } catch(e:Error) {
+            Cc.error('PlantOnRidge:: no such image: ' + st);
+            g.woGameError.showIt();
+        }
     }
 
     public function render():void {

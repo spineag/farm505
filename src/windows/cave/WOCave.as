@@ -1,10 +1,11 @@
 
 package windows.cave {
 
+import com.junkbyte.console.Cc;
+
 import starling.events.Event;
 import starling.utils.Color;
 import windows.Window;
-import windows.fabricaWindow.WOFabricaWorkList;
 
 public class WOCave extends Window {
     private var _arrItems:Array;
@@ -25,15 +26,20 @@ public class WOCave extends Window {
     }
 
     public function fillIt(arrIds:Array, f:Function):void {
-        createItems(arrIds.length);
-        var f1:Function = function(id:int):void {
-            hideIt();
-            if (f != null) {
-                f.apply(null, [id]);
+        try {
+            createItems(arrIds.length);
+            var f1:Function = function (id:int):void {
+                hideIt();
+                if (f != null) {
+                    f.apply(null, [id]);
+                }
+            };
+            for (var i:int = 0; i < arrIds.length; i++) {
+                _arrItems[i].fillData(g.dataResource.objectResources[arrIds[i]], f1);
             }
-        };
-        for (var i:int = 0; i < arrIds.length; i++) {
-            _arrItems[i].fillData(g.dataResource.objectResources[arrIds[i]], f1);
+        } catch(e:Error) {
+            Cc.error('WOCave fillIt error: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
     }
 

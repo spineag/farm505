@@ -33,6 +33,11 @@ public class Farm extends AreaObject{
 
     public function Farm(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('no data for Farm');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild();
 
         _dataBuild.isFlip = _flip;
@@ -121,11 +126,16 @@ public class Farm extends AreaObject{
     }
 
     private function setDataAnimal():void {
-        for (var id:String in g.dataAnimal.objectAnimal) {
-            if (g.dataAnimal.objectAnimal[id].buildId == _dataBuild.id) {
-                _dataAnimal = g.dataAnimal.objectAnimal[id];
-                break;
+        try {
+            for (var id:String in g.dataAnimal.objectAnimal) {
+                if (g.dataAnimal.objectAnimal[id].buildId == _dataBuild.id) {
+                    _dataAnimal = g.dataAnimal.objectAnimal[id];
+                    break;
+                }
             }
+        } catch (e:Error) {
+            Cc.error('farm setDataAnimalError: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
     }
 
@@ -134,21 +144,26 @@ public class Farm extends AreaObject{
     }
 
     public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
-        var an:Animal = new Animal(_dataAnimal, this);
-        MCScaler.scale(an.source, 80, 80);
-        var p:Point = g.farmGrid.getRandomPoint();
-        an.source.x = p.x;
-        an.source.y = p.y;
-        _contAnimals.addChild(an.source);
-        _arrAnimals.push(an);
-        if (!isFromServer) {
-            g.directServer.addUserAnimal(an, _dbBuildingId, null);
-        } else {
-            an.fillItFromServer(ob);
-        }
-        if (_dataAnimal.id != 6) {
-            an.addRenderAnimation();
-            sortAnimals();
+        try {
+            var an:Animal = new Animal(_dataAnimal, this);
+            MCScaler.scale(an.source, 80, 80);
+            var p:Point = g.farmGrid.getRandomPoint();
+            an.source.x = p.x;
+            an.source.y = p.y;
+            _contAnimals.addChild(an.source);
+            _arrAnimals.push(an);
+            if (!isFromServer) {
+                g.directServer.addUserAnimal(an, _dbBuildingId, null);
+            } else {
+                an.fillItFromServer(ob);
+            }
+            if (_dataAnimal.id != 6) {
+                an.addRenderAnimation();
+                sortAnimals();
+            }
+        } catch (e:Error) {
+            Cc.error('farm addAnimal: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
     }
 

@@ -4,6 +4,8 @@
 package windows.train {
 import build.train.TrainCell;
 
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import manager.Vars;
@@ -36,12 +38,22 @@ public class WOTrainOrderItem {
     public function fillIt(t:TrainCell, i:int):void {
         _index = i;
         _info = t;
+        if (!t || !g.dataResource.objectResources[_info.id]) {
+            Cc.error('WOTrainOrderItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
+            g.woGameError.showIt();
+            return;
+        }
         if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT) {
             _im = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
         } else if (g.dataResource.objectResources[_info.id].buildType == BuildType.RESOURCE) {
             _im = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
         } else {
             _im = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
+        }
+        if (!_im) {
+            Cc.error('WOTrainOrderItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
+            g.woGameError.showIt();
+            return;
         }
         MCScaler.scale(_im, 50, 50);
         _im.x = 50 - _im.width/2;

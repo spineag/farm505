@@ -5,6 +5,7 @@ package resourceItem {
 
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
 
 import data.BuildType;
 
@@ -29,9 +30,13 @@ public class DropItem {
 
     public function DropItem(_x:int, _y:int, prise:Object) {
         var endPoint:Point;
+        if (!prise) {
+            Cc.error('DropItem:: prise == null');
+            g.woGameError.showIt();
+            return;
+        }
 
         _source = new Sprite();
-
         if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
             _image = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[prise.id].imageShop));
              endPoint = g.craftPanel.pointXY();
@@ -60,6 +65,11 @@ public class DropItem {
                     _image = new Image(g.interfaceAtlas.getTexture('yellow_coupone'));
                     break;
             }
+        }
+        if (!_image) {
+            Cc.error('DropItem:: no image for type: ' + prise.id);
+            g.woGameError.showIt();
+            return;
         }
         MCScaler.scale(_image, 50, 50);
         _source.addChild(_image);

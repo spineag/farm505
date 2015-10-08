@@ -2,6 +2,8 @@
  * Created by user on 6/17/15.
  */
 package windows.ambar {
+import com.junkbyte.console.Cc;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -129,12 +131,17 @@ public class WOSklad extends Window {
 
     private function fillItems():void {
         var cell:AmbarCell;
-        var arr:Array = g.userInventory.getResourcesForSklad();
-        arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
-        for (var i:int = 0; i < arr.length; i++) {
-            cell = new AmbarCell(arr[i]);
-            _arrCells.push(cell);
-            _scrollSprite.addNewCell(cell.source);
+        try {
+            var arr:Array = g.userInventory.getResourcesForSklad();
+            arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
+            for (var i:int = 0; i < arr.length; i++) {
+                cell = new AmbarCell(arr[i]);
+                _arrCells.push(cell);
+                _scrollSprite.addNewCell(cell.source);
+            }
+        } catch(e:Error) {
+            Cc.error('WOSklad fillItems:: error ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
     }
 

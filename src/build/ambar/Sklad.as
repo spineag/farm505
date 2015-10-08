@@ -18,6 +18,11 @@ public class Sklad extends AreaObject{
 
     public function Sklad(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('no data for Sklad');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild();
 
         _source.hoverCallback = onHover;

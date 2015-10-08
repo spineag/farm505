@@ -2,6 +2,8 @@
  * Created by user on 6/11/15.
  */
 package hint {
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -51,9 +53,21 @@ public class WildHint {
        if (_isShowed) return;
         _id = idResourceForRemoving;
         _isShowed = true;
+        if (!g.dataResource.objectResources[idResourceForRemoving]) {
+            Cc.error('WildHInt showIt:: no such g.dataResource.objectResources[idResourceForRemoving] for idResourceForRemoving: ' + idResourceForRemoving);
+            g.woGameError.showIt();
+            return;
+        }
+        _txtCount.text = String(g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId));
         _iconResource = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _txtCount.x = 58;
+        _iconResource = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
+        if (!_iconResource) {
+            Cc.error('WildHint showIt:: no such image: ' + g.dataResource.objectResources[idResourceForRemoving].imageShop);
+            g.woGameError.showIt();
+            return;
+        }
         MCScaler.scale(_iconResource, 60, 60);
         _iconResource.x = _source.width/2 - _iconResource.width/2;
         _iconResource.y = 18;

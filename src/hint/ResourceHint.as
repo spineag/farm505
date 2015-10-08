@@ -2,6 +2,8 @@
  * Created by user on 7/23/15.
  */
 package hint {
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import flash.geom.Point;
@@ -49,48 +51,64 @@ public class ResourceHint {
         _source.addChild(_imageClock);
     }
 
-    public function showIt(_dataId:int, text:String,sX:int,sY:int,source:Sprite):void {
-            var obj:Object;
-            var id:String;
+    public function showIt(_dataId:int, text:String, sX:int, sY:int, source:Sprite):void {
+        var obj:Object;
+        var id:String;
 
-            var start:Point = new Point(int(sX), int(sY));
-            start = source.parent.localToGlobal(start);
-            _source.x = start.x - 25;
-            _source.y = start.y - 60;
-            _imageClock.visible = true;
-            _txtTime.visible = true;
-            obj = g.dataBuilding.objectBuilding;
-            for (id in obj) {
-               if (obj[id].craftIdResource == _dataId){
+        if (!g.dataResource.objectResources[_dataId]) {
+            Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
+            g.woGameError.showIt();
+            return;
+        }
+
+        var start:Point = new Point(int(sX), int(sY));
+        start = source.parent.localToGlobal(start);
+        _source.x = start.x - 25;
+        _source.y = start.y - 60;
+        _imageClock.visible = true;
+        _txtTime.visible = true;
+        obj = g.dataBuilding.objectBuilding;
+        for (id in obj) {
+            if (_dataId == obj[id].craftIdResource) {
+                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                _txtText.text = "Растет на: " + obj[id].name;
+                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                if (g.dataResource.objectResources[_dataId].buildType == BuildType.INSTRUMENT) {
+                    _imageClock.visible = false;
+                    _txtTime.visible = false;
                     _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
-                    _txtText.text = "Растет на: " + obj[id].name;
+                    _txtText.text = text;
                     _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                     g.cont.hintCont.addChild(_source);
                     return;
-                }
-            }
-            obj = g.dataAnimal.objectAnimal;
-            for (id in obj) {
-                if (obj[id].idResource == _dataId) {
+                } else if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
                     _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
-                    _txtText.text = "Место производства: " + obj[id].name;
+                    _txtText.text = "Растет на грядке";
                     _txtName.text = String(g.dataResource.objectResources[_dataId].name);
-                    g.cont.hintCont.addChild(_source);
                     return;
                 }
             }
 
-            if (g.dataResource.objectResources[_dataId].buildType == BuildType.INSTRUMENT) {
+            if (BuildType.INSTRUMENT == g.dataResource.objectResources[_dataId].buildType) {
                 _imageClock.visible = false;
                 _txtTime.visible = false;
                 _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
                 _txtText.text = text;
                 _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                 g.cont.hintCont.addChild(_source);
-                return;
-            } else if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
+            } else if (BuildType.PLANT == g.dataResource.objectResources[_dataId].buildType) {
                 _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
                 _txtText.text = "Растет на грядке";
+                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                g.cont.hintCont.addChild(_source);
+                return;
+            }
+        }
+        obj = g.dataRecipe.objectRecipe;
+        for (id in obj) {
+            if (_dataId == obj[id].idResource){
+                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+                _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[obj[id].buildingId].name;
                 _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                 g.cont.hintCont.addChild(_source);
                 return;
@@ -109,6 +127,7 @@ public class ResourceHint {
                 _txtText.text = "Место производства: Пещера";
                 _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                 g.cont.hintCont.addChild(_source);
+        }
     }
 
     public function hideIt():void {

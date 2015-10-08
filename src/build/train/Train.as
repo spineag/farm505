@@ -42,6 +42,11 @@ public class Train extends AreaObject{
 
     public function Train(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('no data for Train');
+            g.woGameError.showIt();
+            return;
+        }
 
        checkTrainState();
         _craftSprite = new Sprite();
@@ -114,30 +119,40 @@ public class Train extends AreaObject{
     }
 
     private function checkTrainState():void {
-        if (g.user.userBuildingData[_dataBuild.id]) {
-            if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
-                _stateBuild = STATE_ACTIVE;
-                createBuild();
-            } else {
-                _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
-                _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
-                if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
-                    _stateBuild = STATE_WAIT_ACTIVATE;
-                    createBrokenTrain();
-                } else {  // еще строится
-                    _stateBuild = STATE_BUILD;
-                    createBrokenTrain();
-                    g.gameDispatcher.addToTimer(renderBuildTrainProgress);
+        try {
+            if (g.user.userBuildingData[_dataBuild.id]) {
+                if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
+                    _stateBuild = STATE_ACTIVE;
+                    createBuild();
+                } else {
+                    _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
+                    _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                    if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                        _stateBuild = STATE_WAIT_ACTIVATE;
+                        createBrokenTrain();
+                    } else {  // еще строится
+                        _stateBuild = STATE_BUILD;
+                        createBrokenTrain();
+                        g.gameDispatcher.addToTimer(renderBuildTrainProgress);
+                    }
                 }
+            } else {
+                _stateBuild = STATE_UNACTIVE;
+                createBrokenTrain();
             }
-        } else {
-            _stateBuild = STATE_UNACTIVE;
-            createBrokenTrain();
+        } catch (e:Error) {
+            Cc.error('checkTrainState:: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
     }
 
     private function createBrokenTrain():void {
         var im:Image = new Image(g.tempBuildAtlas.getTexture('train_broken'));
+        if (!im) {
+            Cc.error('no image "train_broken"');
+            g.woGameError.showIt();
+            return;
+        }
         im.x = _dataBuild.innerX;
         im.y = _dataBuild.innerY;
         _build.addChild(im);

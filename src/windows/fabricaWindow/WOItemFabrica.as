@@ -2,6 +2,8 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
+import com.junkbyte.console.Cc;
+
 import flash.geom.Point;
 
 import manager.Vars;
@@ -35,6 +37,11 @@ public class WOItemFabrica {
 
     public function fillData(ob:Object, f:Function):void {
         _dataRecipe = ob;
+        if (!_dataRecipe || !g.dataResource.objectResources[_dataRecipe.idResource]) {
+            Cc.error('WOItemFabrica:: empty _dataRecipe or g.dataResource.objectResources[_dataRecipe.idResource] == null');
+            g.woGameError.showIt();
+            return;
+        }
         _clickCallback = f;
         source.alpha = 1;
         fillIcon(g.dataResource.objectResources[_dataRecipe.idResource].imageShop);
@@ -46,6 +53,11 @@ public class WOItemFabrica {
             _icon = null;
         }
         _icon = new Image(g.resourceAtlas.getTexture(s));
+        if (!_icon) {
+            Cc.error('WOItemFabrica fillIcon:: no such image: ' + s);
+            g.woGameError.showIt();
+            return;
+        }
         MCScaler.scale(_icon, 80, 80);
         _icon.x = _bg.width/2 - _icon.width/2;
         _icon.y = _bg.height/2 - _icon.height/2;

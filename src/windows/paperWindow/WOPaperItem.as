@@ -4,6 +4,7 @@
 package windows.paperWindow {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
 
 import data.BuildType;
 import data.DataMoney;
@@ -86,6 +87,11 @@ public class WOPaperItem {
         source.addChild(_btnVisit);
 
         _data = ob;
+        if (!_data) {
+            Cc.error('WOPaperItem fillIt:: empty _data');
+            g.woGameError.showIt();
+            return;
+        }
         _txtCost.text = String(_data.cost);
         _txtCountResource.text = String(_data.resourceCount);
         _dataResource = g.dataResource.objectResources[_data.resourceId];
@@ -95,6 +101,11 @@ public class WOPaperItem {
             _imageItem = new Image(g.plantAtlas.getTexture(_dataResource.imageShop));
         } else {
             _imageItem = new Image(g.resourceAtlas.getTexture(_dataResource.imageShop));
+        }
+        if (!_imageItem) {
+            Cc.error('WOPaperItem fillIt:: no such image: ' + _dataResource.imageShop);
+            g.woGameError.showIt();
+            return;
         }
         MCScaler.scale(_imageItem,50,50);
         _imageItem.x = _bg.width/2 - _imageItem.width/2;
@@ -150,6 +161,11 @@ public class WOPaperItem {
 
     private function showFlyResource(d:Object, count:int):void {
         var im:Image;
+        if (!d) {
+            Cc.error('WOPaperItem fillIt:: empty _data');
+            g.woGameError.showIt();
+            return;
+        }
         if (d.url == 'plantAtlas') {
             im = new Image(g.plantAtlas.getTexture(d.imageShop));
         } else if (d.url == 'instrumentAtlas') {
@@ -157,7 +173,11 @@ public class WOPaperItem {
         } else {
             im = new Image(g.resourceAtlas.getTexture(d.imageShop));
         }
-
+        if (!im) {
+            Cc.error('WOPaperItem fillIt:: no such image: ' + d.imageShop);
+            g.woGameError.showIt();
+            return;
+        }
         MCScaler.scale(im, 50, 50);
         var p:Point = new Point(_bg.width/2, _bg.height/2);
         p = source.localToGlobal(p);

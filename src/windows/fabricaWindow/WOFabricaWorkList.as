@@ -2,6 +2,8 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
+import com.junkbyte.console.Cc;
+
 import resourceItem.ResourceItem;
 import manager.Vars;
 
@@ -52,11 +54,16 @@ public class WOFabricaWorkList {
     }
 
     public function fillIt(arrCurList:Array, maxCount:int):void {
-        _maxCount = maxCount;
-        destroyItems();
-        createItems();
-        for (var i:int = 0; i < arrCurList.length; i++) {
-            addResource(arrCurList[i]);
+        try {
+            _maxCount = maxCount;
+            destroyItems();
+            createItems();
+            for (var i:int = 0; i < arrCurList.length; i++) {
+                addResource(arrCurList[i]);
+            }
+        } catch (e:Error) {
+            Cc.error('WOFabricaWorkList fillit error: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
     }
 

@@ -3,6 +3,8 @@
  */
 package windows.fabricaWindow {
 
+import com.junkbyte.console.Cc;
+
 import resourceItem.ResourceItem;
 import manager.Vars;
 
@@ -40,6 +42,11 @@ public class WOFabricaWorkListItem {
 
     public function fillData(resource:ResourceItem, f:Function):void {
         _resource = resource;
+        if (!_resource) {
+            Cc.error('WOFabricaWorkListItem fillData:: _resource == null');
+            g.woGameError.showIt();
+            return;
+        }
         _clickCallback = f;
         source.alpha = 1;
         fillIcon(_resource.imageShop);
@@ -61,7 +68,12 @@ public class WOFabricaWorkListItem {
                 else _txtNumberCreate.text = "";
             }
         }
-        source.addChild(_icon);
+        if (_icon)  {
+            source.addChild(_icon);
+        } else {
+            Cc.error('WOFabricaWorkListItem fillIcon: no such image: ' + s);
+            g.woGameError.showIt();
+        }
         source.addChild(_txtNumberCreate);
     }
 

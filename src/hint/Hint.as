@@ -93,7 +93,6 @@ public class Hint {
     }
 
     private function createHint():void {
-
         _hintMiddle.x = rectangle.x;
         _hintMiddle.y = rectangle.y;
 
@@ -108,7 +107,7 @@ public class Hint {
 
             _plankLeft.x = rectangle.x;
             _plankLeft.y = rectangle.height - _plankRight.height + _cornerLeftUp.height;
-        }else if (_txtHintOne.text.length <= 8){
+        } else if (_txtHintOne.text.length <= 8){
             _plankRight.x = rectangle.x + rectangle.width;
             _plankRight.y = rectangle.height;
 

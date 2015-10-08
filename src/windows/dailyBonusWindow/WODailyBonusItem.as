@@ -2,6 +2,8 @@
  * Created by user on 7/24/15.
  */
 package windows.dailyBonusWindow {
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import manager.Vars;
@@ -20,6 +22,11 @@ public class WODailyBonusItem {
 
     private var g:Vars = Vars.getInstance();
     public function WODailyBonusItem(obj:Object) {
+        if (!obj) {
+            Cc.error('WODailyBonusItem:: empty data');
+            g.woGameError.showIt();
+            return;
+        }
         source = new Sprite();
         _txtItem = new TextField(50,50,"","Arial",12,Color.WHITE);
         if (obj.buildType == BuildType.INSTRUMENT) {
@@ -31,6 +38,11 @@ public class WODailyBonusItem {
             } else {
                 _imageItem = new Image(g.resourceAtlas.getTexture(obj.imageShop));
             }
+        }
+        if (!_imageItem) {
+            Cc.error('WODailyBonusItem:: no such image: ' + obj.imageShop);
+            g.woGameError.showIt();
+            return;
         }
         g.userInventory.addResource(obj.id,1);
         MCScaler.scale(_imageItem, 50,50);

@@ -5,6 +5,8 @@ package hint {
 import build.WorldObject;
 import build.WorldObject;
 
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -69,7 +71,17 @@ public class TreeHint {
         _contDelete.endClickCallback = onClick;
     }
 
-    public function showIt(data:Object,x:int,y:int, name:String,worldobject:WorldObject):void {
+    public function showIt(data:Object, x:int, y:int, name:String, worldobject:WorldObject):void {
+        if (!data || !worldobject) {
+            Cc.error('TreeHint show it:: empty data or worldObject');
+            g.woGameError.showIt();
+            return;
+        }
+        if (!g.dataResource.objectResources[data.removeByResourceId]) {
+            Cc.error('TreeHint show it:: g.dataResource.objectResources[data.removeByResourceId] = null');
+            g.woGameError.showIt();
+            return;
+        }
         _worldObject = worldobject;
         _data = data;
         if (_isShowed) return;
@@ -77,6 +89,11 @@ public class TreeHint {
         _source.x = x;
         _source.y = y;
         _imageItem = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[data.removeByResourceId].imageShop));
+        if (!_imageItem) {
+            Cc.error('TreeHint showIt:: no such image: ' + g.dataResource.objectResources[data.removeByResourceId].imageShop);
+            g.woGameError.showIt();
+            return;
+        }
         MCScaler.scale(_imageItem,60,60);
         _imageItem.x = 95;
         _imageItem.y = 20;

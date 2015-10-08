@@ -24,7 +24,17 @@ public class LockedLand extends AreaObject {
     private var _dataLand:Object;
     public function LockedLand(_data:Object) {
         super(_data);
+        if (!_data) {
+            Cc.error('no data for LockedLand');
+            g.woGameError.showIt();
+            return;
+        }
         _dataLand = g.allData.lockedLandData[_data.dbId];
+        if (!_dataLand) {
+            Cc.error('no dataLand for LockedLand _data.dbId: ' + _data.dbId);
+            g.woGameError.showIt();
+            return;
+        }
         createBuild(false);
 
         _source.hoverCallback = onHover;

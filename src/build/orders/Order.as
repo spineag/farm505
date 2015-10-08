@@ -17,6 +17,11 @@ public class Order extends AreaObject{
 
     public function Order (data:Object) {
         super (data);
+        if (!data) {
+            Cc.error('no data for Order');
+            g.woGameError.showIt();
+            return;
+        }
         createBuild();
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

@@ -26,27 +26,32 @@ public class AreaObject extends WorldObject {
     }
 
     protected function checkBuildState():void {
-        if (g.user.userBuildingData[_dataBuild.id]) {
-            if (g.user.userBuildingData[_dataBuild.id].isOpen) {
-                _stateBuild = STATE_ACTIVE;
-                createBuild();                                           // уже построенно и открыто
-            } else {
-                _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
-                _leftBuildTime = int(_dataBuild.buildTime) - _leftBuildTime;                                 // сколько времени еще до конца стройки
-                if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
-                    _stateBuild = STATE_WAIT_ACTIVATE;
+        try {
+            if (g.user.userBuildingData[_dataBuild.id]) {
+                if (g.user.userBuildingData[_dataBuild.id].isOpen) {
+                    _stateBuild = STATE_ACTIVE;
+                    createBuild();                                           // уже построенно и открыто
+                } else {
+                    _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
+                    _leftBuildTime = int(_dataBuild.buildTime) - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                    if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                        _stateBuild = STATE_WAIT_ACTIVATE;
 //                    createBuild();
-                    addTempGiftIcon();
-                } else {  // еще строится
-                    _stateBuild = STATE_BUILD;
+                        addTempGiftIcon();
+                    } else {  // еще строится
+                        _stateBuild = STATE_BUILD;
 //                    createBuild();
-                    addTempBuildIcon();
-                    g.gameDispatcher.addToTimer(renderBuildProgress);
+                        addTempBuildIcon();
+                        g.gameDispatcher.addToTimer(renderBuildProgress);
+                    }
                 }
+            } else {
+                _stateBuild = STATE_ACTIVE;
+                createBuild();
             }
-        } else {
-            _stateBuild = STATE_ACTIVE;
-            createBuild();
+        } catch (e:Error) {
+            Cc.error('AreaObject checkBuildstate:: error: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
     }
 
@@ -69,6 +74,11 @@ public class AreaObject extends WorldObject {
             im.x = -im.width/2;
         }
 
+        if (!im) {
+            Cc.error('AreaObject:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
+            g.woGameError.showIt();
+            return;
+        }
         _build.addChild(im);
         if (!isImageClicked) im.touchable = false;
         _defaultScale = _build.scaleX;
@@ -87,15 +97,20 @@ public class AreaObject extends WorldObject {
     protected function createIsoView():void {
         var im:Image;
         _isoView = new Sprite();
-        for (var i:int = 0; i < _dataBuild.width; i++) {
-            for (var j:int = 0; j < _dataBuild.height; j++) {
-                im = new Image(MatrixGrid.buildUnderTexture);
-                im.pivotX = im.width/2;
-                g.matrixGrid.setSpriteFromIndex(im, new Point(i, j));
-                _isoView.addChild(im);
+        try {
+            for (var i:int = 0; i < _dataBuild.width; i++) {
+                for (var j:int = 0; j < _dataBuild.height; j++) {
+                    im = new Image(MatrixGrid.buildUnderTexture);
+                    im.pivotX = im.width/2;
+                    g.matrixGrid.setSpriteFromIndex(im, new Point(i, j));
+                    _isoView.addChild(im);
+                }
             }
+            _source.addChildAt(_isoView, 0);
+        } catch (e:Error) {
+            Cc.error('AreaObject createIsoView error id: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
         }
-        _source.addChildAt(_isoView, 0);
     }
 
     protected function deleteIsoView():void {
@@ -110,6 +125,10 @@ public class AreaObject extends WorldObject {
 //            im.x = -im.width/2;
 //            im.y = -10;
             var im:Image = new Image(g.tempBuildAtlas.getTexture('done_building'));
+            if (!im) {
+                Cc.error('AreaObject:: no image "done_building"');
+                g.woGameError.showIt();
+            }
             im.x = -191;
             im.y = -249;
             _craftSprite.addChild(im);
@@ -124,6 +143,9 @@ public class AreaObject extends WorldObject {
 //            im.x = -im.width/2;
 //            im.y = -10;
             var im:Image = new Image(g.tempBuildAtlas.getTexture('foundation'));
+            if (!im) {
+                Cc.error('AreaObject:: no image "foundation"');
+            }
             im.x = -262;
             im.y = -274;
             _craftSprite.addChild(im);

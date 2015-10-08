@@ -2,6 +2,8 @@
  * Created by user on 6/12/15.
  */
 package user {
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 import data.DataMoney;
 
@@ -26,7 +28,7 @@ public class UserInventory {
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
         _inventoryResource[id] += count;
         if (_inventoryResource[id] == 0) delete(_inventoryResource[id]);
-        if (needSendToServer && g.useDataFromServer) {
+        if (needSendToServer) {
             g.directServer.addUserResource(id, count, null);
         }
     }
@@ -140,12 +142,39 @@ public class UserInventory {
 //        if(greenCouponCount < ) {
 //            bol = false
 //        }
-        if (!bol) g.woNoResources. showItMoney(_data, count);
+        if (!bol) g.woNoResources.showItMoney(_data, count);
         return bol;
+    }
+
+    public function checkSoftMoneyCount(c:int):Boolean {
+        if (g.user.softCurrencyCount < c) {
+            var ob:Object = new Object();
+            ob.currency = DataMoney.SOFT_CURRENCY;
+            ob.cost = c;
+            g.woNoResources.showItMoney(ob, c - g.user.softCurrencyCount);
+            return false;
+        }
+        return true;
+    }
+
+    public function checkHardMoneyCount(c:int):Boolean {
+        if (g.user.hardCurrency < c) {
+            var ob:Object = new Object();
+            ob.currency = DataMoney.HARD_CURRENCY;
+            ob.cost = c;
+            g.woNoResources.showItMoney(ob, c - g.user.hardCurrency);
+            return false;
+        }
+        return true;
     }
 
     public function checkRecipe(_data:Object):Boolean {
         var count:int = 0;
+        if (!_data || !_data.ingridientsId) {
+            Cc.error('UserInventory checkRecipe:: bad _data');
+            g.woGameError.showIt();
+            return false;
+        }
         for (var i:int = 0; i < _data.ingridientsId.length; i++) {
             count =  g.userInventory.getCountResourceById(int(_data.ingridientsId[i]));
             if (count < int(_data.ingridientsCount[i])) {
@@ -158,6 +187,11 @@ public class UserInventory {
 
     public function checkResource(_data:Object, countResource:int):Boolean {
         var count:int;
+        if (!_data || !_data.idResourceRaw) {
+            Cc.error('UserInventory checkResource:: bad _data');
+            g.woGameError.showIt();
+            return false;
+        }
         if(_data.buildType == BuildType.ANIMAL){
             count = g.userInventory.getCountResourceById(_data.idResourceRaw);
             if (count < countResource) {
