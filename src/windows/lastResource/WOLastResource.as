@@ -46,7 +46,6 @@ public class WOLastResource extends Window{
     }
 
     public function showItMenu(ob:Object):void {
-        trace("shekel");
         _data = ob;
             _imageItem = new Image(g.plantAtlas.getTexture(ob.imageShop));
             _imageItem.x = -25;

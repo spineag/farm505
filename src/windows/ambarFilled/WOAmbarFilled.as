@@ -21,6 +21,7 @@ public class WOAmbarFilled extends Window{
     private var _txtBtn:TextField;
     private var _txtAmbarFilled:TextField;
     private var _txtCount:TextField;
+    private var _bol:Boolean;
 
     public function WOAmbarFilled() {
         super ();
@@ -61,11 +62,17 @@ public class WOAmbarFilled extends Window{
 
     private function onClick():void {
         hideIt();
-        g.woAmbar.showIt();
+        if (_bol == true) {
+            g.woAmbar.showUpdate();
+        } else {
+            g.woSklad.showUpdate();
+        }
+
     }
 
     public function showAmbarFilled(isAmbar:Boolean):void {
         var tween:Tween;
+        _bol = isAmbar;
         if (isAmbar == true){
             _imageAmbarArrow.x = _imageAmbar.x;
             _imageAmbarArrow.y = _imageAmbar.y;

@@ -14,8 +14,8 @@ import utils.CButton;
 
 public class CountBlock {
     public var source:Sprite;
-    private var _btnMinus:CButton;
-    private var _btnPlus:CButton;
+    public var _btnMinus:CButton;
+    public var _btnPlus:CButton;
     private var _plawkaBg:Image;
     private var _txt:TextField;
     private var _curCount:int;
@@ -39,6 +39,17 @@ public class CountBlock {
         _btnMinus.endClickCallback = onEndMinus;
         filter = new ColorMatrixFilter();
         filter.adjustSaturation(-1);
+        btnFilter();
+    }
+
+    public function btnNull():void {
+        _btnMinus.filter = null;
+        _btnPlus.filter = null;
+    }
+
+    public function btnFilter():void {
+        _btnMinus.filter = filter;
+        _btnPlus.filter = filter;
     }
 
     public function set setWidth(a:int):void {
@@ -90,6 +101,7 @@ public class CountBlock {
     }
 
     private function onEndPlus():void {
+        _btnMinus.filter = null;
         g.gameDispatcher.removeEnterFrame(plusRender);
         if (timer <= 15 && _curCount < _max) {
             _curCount++;
@@ -120,6 +132,7 @@ public class CountBlock {
     }
 
     private function onEndMinus():void {
+        _btnPlus.filter = null;
         g.gameDispatcher.removeEnterFrame(minusRender);
         if (timer <= 15 && _curCount > _min) {
             _curCount--;
