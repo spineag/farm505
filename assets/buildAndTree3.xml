@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:81de616597acfe8b28836db4ec949e5d:ed44cdbb01931133248ef07e132cd4c3:84c7e14bbf4b99ac5fd17545225ccbea$ -->
+<!-- $TexturePacker:SmartUpdate:b4942825ad378d4c363362e4372e5569:2a3ba669a91c72b8341efc045ff36259:84c7e14bbf4b99ac5fd17545225ccbea$ -->
 <TextureAtlas imagePath="buildAndTree.png">
     <SubTexture name="ambar" x="788" y="1057" width="248" height="488"/>
     <SubTexture name="bakery" x="1113" y="1955" width="102" height="90"/>
@@ -54,6 +54,9 @@
     <SubTexture name="smoke_house" x="253" y="1259" width="112" height="89"/>
     <SubTexture name="stolb" x="1193" y="20" width="5" height="23"/>
     <SubTexture name="sugar_mill" x="697" y="1327" width="79" height="62"/>
+    <SubTexture name="tail1" x="802" y="1991" width="86" height="43"/>
+    <SubTexture name="tail2" x="714" y="1991" width="86" height="44"/>
+    <SubTexture name="tail3" x="627" y="1991" width="85" height="46"/>
     <SubTexture name="train" x="1113" y="1793" width="108" height="79"/>
     <SubTexture name="train_broken" x="1113" y="1874" width="108" height="79"/>
     <SubTexture name="wild1" x="697" y="1391" width="79" height="55"/>

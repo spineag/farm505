@@ -29,9 +29,9 @@ public class DecorTail extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
+            g.townArea.moveTailBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            g.townArea.deleteBuild(this);
+            g.townArea.deleteTailBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {

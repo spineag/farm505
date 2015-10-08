@@ -22,6 +22,7 @@ public class Containers {
     public var mainCont:Sprite;
     public var backgroundCont:Sprite;
     public var gridDebugCont:Sprite;
+    public var tailCont:Sprite;
     public var contentCont:Sprite;
     public var cloudsCont:Sprite;
     public var animationsCont:Sprite;
@@ -49,6 +50,7 @@ public class Containers {
         backgroundCont = new Sprite();
         gridDebugCont = new Sprite();
         contentCont = new Sprite();
+        tailCont = new Sprite();
         animationsCont = new Sprite();
         cloudsCont = new Sprite();
         interfaceCont = new Sprite();
@@ -66,6 +68,7 @@ public class Containers {
         mainCont.addChild(gameCont);
         gameCont.addChild(backgroundCont);
         gameCont.addChild(gridDebugCont);
+        gameCont.addChild(tailCont);
         gameCont.addChild(contentCont);
         gameCont.addChild(animationsCont);
         gameCont.addChild(cloudsCont);

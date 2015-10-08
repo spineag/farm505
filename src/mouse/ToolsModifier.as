@@ -6,6 +6,8 @@ import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import flash.geom.Point;
 
 import manager.Vars;
@@ -48,6 +50,7 @@ public class ToolsModifier {
     public var contImage:Sprite;
     private var _plantId:int;
     private var _txtCount:TextField;
+    private var filter:ColorMatrixFilter;
 
     private var g:Vars = Vars.getInstance();
 
@@ -63,6 +66,9 @@ public class ToolsModifier {
         _txtCount = new TextField(50, 40,"","Arial",16,Color.RED);
         _txtCount.x = 5;
         _txtCount.y = 5;
+
+        filter = new ColorMatrixFilter();
+        filter.tint(Color.RED, 1);
     }
 
     public function setTownArray():void {
@@ -270,6 +276,44 @@ public class ToolsModifier {
         g.gameDispatcher.addEnterFrame(onEnterFrame);
     }
 
+    public function startMoveTail(buildingData:Object, callback:Function = null, isFromShop:Boolean = false):void {
+        if (!buildingData) {
+            Cc.error('ToolsModifier startMoveTail:: empty buildingData');
+            g.woGameError.showIt();
+            return;
+        }
+        _spriteForMove = new Sprite();
+        _callbackAfterMove = callback;
+        _activeBuildingData = buildingData;
+        imForMove = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
+        if (imForMove) {
+            imForMove.x = _activeBuildingData.innerX;
+            imForMove.y = _activeBuildingData.innerY;
+            _spriteForMove.addChild(imForMove);
+        } else {
+            Cc.error('ToolsModifier startMove:: no image for url=buildAtlas and _activeBuildingData.image: ' + _activeBuildingData.image);
+            g.woGameError.showIt();
+            return;
+        }
+
+        if (_activeBuildingData.isFlip) imForMove.scaleX *= -1;
+
+        _spriteForMove.x = _mouse.mouseX - _cont.x;
+        _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
+        _cont.addChild(_spriteForMove);
+
+        _cont.x = g.cont.gameCont.x;
+        _cont.y = g.cont.gameCont.y;
+        _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
+
+        if (g.selectedBuild && g.selectedBuild.source && g.selectedBuild.source.isContDrag || isFromShop) {
+            _needMoveGameCont = true;
+        }
+        _cont.addEventListener(TouchEvent.TOUCH, onTouch);
+        _moveGrid = null;
+        g.gameDispatcher.addEnterFrame(onEnterFrame);
+    }
+
     public function cancelMove():void {
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -338,8 +382,10 @@ public class ToolsModifier {
         while (_spriteForMove.numChildren) {
             _spriteForMove.removeChildAt(0);
         }
-        _moveGrid.clearIt();
-        _moveGrid = null;
+        if (_moveGrid) {
+            _moveGrid.clearIt();
+            _moveGrid = null;
+        }
         if (imForMove) imForMove.dispose();
         imForMove = null;
         _spriteForMove = null;
@@ -361,13 +407,19 @@ public class ToolsModifier {
         if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {
             spriteForMoveIndexX = point.x;
             spriteForMoveIndexY = point.y;
-            _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
-            if (_moveGrid.isFree) {
-                if (imForMove) imForMove.filter = null;
+            if (_activeBuildingData.buildType == BuildType.DECOR_TAIL) {
+                if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
+                    imForMove.filter = filter;
+                } else {
+                    imForMove.filter = null;
+                }
             } else {
-                var filter:ColorMatrixFilter = new ColorMatrixFilter();
-                filter.tint(Color.RED, 1);
-                imForMove.filter = filter;
+                _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
+                if (_moveGrid.isFree) {
+                    imForMove.filter = null;
+                } else {
+                    imForMove.filter = filter;
+                }
             }
         }
     }

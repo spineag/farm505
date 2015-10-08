@@ -228,6 +228,9 @@
             <filename>buildings/done_building.png</filename>
             <filename>decor1.png</filename>
             <filename>decor2.png</filename>
+            <filename>tail1.png</filename>
+            <filename>tail2.png</filename>
+            <filename>tail3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

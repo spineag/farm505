@@ -34,20 +34,26 @@ import starling.display.Sprite;
 
 public class TownArea extends Sprite {
     private var _cityObjects:Array;
+    private var _cityTailObjects:Array;
     private var _dataPreloaders:Object;
     private var _dataObjects:Object;
     private var _enabled:Boolean = true;
     private var _cont:Sprite;
+    private var _contTail:Sprite;
     private var _townMatrix:Array;
+    private var _townTailMatrix:Array;
 
     protected var g:Vars = Vars.getInstance();
 
     public function TownArea() {
         _cityObjects = [];
+        _cityTailObjects = [];
         _townMatrix = [];
+        _townTailMatrix = [];
         _dataPreloaders = {};
         _dataObjects = {};
         _cont = g.cont.contentCont;
+        _contTail = g.cont.tailCont;
 
         setDefaultMatrix();
     }
@@ -56,8 +62,16 @@ public class TownArea extends Sprite {
         return _townMatrix;
     }
 
+    public function get townTailMatrix():Array {
+        return _townTailMatrix;
+    }
+
     public function get cityObjects():Array {
         return _cityObjects;
+    }
+
+    public function get cityTailObjects():Array {
+        return _cityTailObjects;
     }
 
     public function getCityObjectsByType(buildType:int):Array {
@@ -87,7 +101,21 @@ public class TownArea extends Sprite {
             Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
             g.woGameError.showIt();
         }
-    return ar;
+        return ar;
+    }
+
+    public function getCityTailObjectsById(id:int):Array {
+        var ar:Array = [];
+        try {
+            for (var i:int = 0; i < _cityTailObjects.length; i++) {
+                if (_cityTailObjects[i].dataBuild.id == id)
+                    ar.push(_cityTailObjects[i]);
+            }
+        } catch (e:Error) {
+            Cc.error('TownArea getCityTailObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
+            g.woGameError.showIt();
+        }
+        return ar;
     }
 
     public function zSort():void{
@@ -108,8 +136,10 @@ public class TownArea extends Sprite {
 
         for (var i:int = 0; i < ln; i++) {
             _townMatrix.push([]);
+            _townTailMatrix.push([]);
             for (var j:int = 0; j < ln; j++) {
                 _townMatrix[i][j] = {};
+                _townTailMatrix[i][j] = {build: null};
                 if (arr[i][j].inGame) {
                     _townMatrix[i][j].build = null;
                     _townMatrix[i][j].buildFence = null;
@@ -148,6 +178,14 @@ public class TownArea extends Sprite {
                 _townMatrix[i][j].isWall = false;
             }
         }
+    }
+
+    public function fillTailMatrix(posX:int, posY:int, source:DecorTail):void {
+         _townTailMatrix[posY][posX].build = source;
+    }
+
+    public function unFillTailMatrix(posX:int, posY:int):void {
+        _townTailMatrix[posY][posX].build = null;
     }
 
     public function fillMatrixWithFence(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
@@ -260,6 +298,9 @@ public class TownArea extends Sprite {
             case BuildType.LOCKED_LAND:
                 build = new LockedLand(_data);
                 break;
+            case BuildType.DECOR_TAIL:
+                build = new DecorTail(_data);
+                break;
         }
 
         if (!build) {
@@ -269,7 +310,11 @@ public class TownArea extends Sprite {
         }
         g.selectedBuild = build;
         (build as WorldObject).dbBuildingId = dbId;
-        pasteBuild(build, _x, _y, !isFromServer);
+        if (_data.buildType == BuildType.DECOR_TAIL) {
+            pasteTailBuild(build as DecorTail, _x, _y, !isFromServer);
+        } else {
+            pasteBuild(build, _x, _y, !isFromServer);
+        }
         if (isFlip && !(build is DecorPostFence)) {
             (build as AreaObject).releaseFlip();
         }
@@ -337,6 +382,32 @@ public class TownArea extends Sprite {
         }
     }
 
+    public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
+        if (!tail) {
+            Cc.error('TownArea pasteTailBuild:: empty tail');
+            g.woGameError.showIt();
+            return;
+        }
+        if (!_contTail.contains(tail.source)) {
+            tail.source.x = int(_x);
+            tail.source.y = int(_y);
+            _contTail.addChild(tail.source);
+            var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+            tail.posX = point.x;
+            tail.posY = point.y;
+            _cityTailObjects.push(tail);
+            fillTailMatrix(tail.posX, tail.posY, tail);
+            if (isNewAtMap) {
+                g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
+                tail.addXP();
+            }
+
+            if (updateAfterMove) {
+                g.directServer.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
+            }
+        }
+    }
+
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
         g.directServer.startBuildBuilding(wObject, null);
     }
@@ -360,6 +431,19 @@ public class TownArea extends Sprite {
                 unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
             }
             _cityObjects.splice(_cityObjects.indexOf(worldObject), 1);
+        }
+    }
+
+    public function deleteTailBuild(tail:DecorTail):void{
+        if (!tail) {
+            Cc.error('TownArea deleteTailBuild:: empty tail');
+            g.woGameError.showIt();
+            return;
+        }
+        if(_contTail.contains(tail.source)){
+            _cont.removeChild(tail.source);
+            unFillTailMatrix(tail.posX, tail.posY);
+            _cityTailObjects.splice(_cityTailObjects.indexOf(tail), 1);
         }
 
     }
@@ -385,6 +469,25 @@ public class TownArea extends Sprite {
 
     private function afterMove(_x:Number, _y:Number):void {
         pasteBuild(g.selectedBuild, _x, _y, false, true);
+        g.selectedBuild = null;
+    }
+
+    public function moveTailBuild(tail:DecorTail):void{// не сохраняется флип при муве
+        if (!tail) {
+            Cc.error('TownArea moveTailBuild:: empty tail');
+            g.woGameError.showIt();
+            return;
+        }
+        if(_contTail.contains(tail.source)) {
+            g.selectedBuild = tail;
+            _contTail.removeChild(tail.source);
+            unFillTailMatrix(tail.posX, tail.posY);
+            g.toolsModifier.startMoveTail((tail as AreaObject).dataBuild, afterMoveTail);
+        }
+    }
+
+    private function afterMoveTail(_x:Number, _y:Number):void {
+        pasteTailBuild(g.selectedBuild as DecorTail, _x, _y, false, true);
         g.selectedBuild = null;
     }
 

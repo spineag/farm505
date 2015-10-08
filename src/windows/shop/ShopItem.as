@@ -48,20 +48,25 @@ public class ShopItem {
         source = new CSprite();
         _bg = new Image(g.interfaceAtlas.getTexture('shop_item'));
         source.addChild(_bg);
-        if (_data.url == "buildAtlas") {
-            _im  = new Image(g.tempBuildAtlas.getTexture(_data.image));
-        } else if (_data.url == "treeAtlas") {
-            _im = new Image(g.treeAtlas.getTexture(_data.image));
-        }
-        if (!_im) {
-            Cc.error('ShopItem:: no such image: ' + _data.image);
+        if (_data.image) {
+            if (_data.url == "buildAtlas") {
+                _im = new Image(g.tempBuildAtlas.getTexture(_data.image));
+            } else if (_data.url == "treeAtlas") {
+                _im = new Image(g.treeAtlas.getTexture(_data.image));
+            }
+            if (!_im) {
+                Cc.error('ShopItem:: no such image: ' + _data.image);
+                g.woGameError.showIt();
+                return;
+            }
+            MCScaler.scale(_im, 100, 100);
+            _im.x = 35 + 50 - _im.width / 2;
+            _im.y = 30 + 50 - _im.height / 2;
+            source.addChild(_im);
+        } else {
+            Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
             g.woGameError.showIt();
-            return;
         }
-        MCScaler.scale(_im, 100, 100);
-        _im.x = 35 + 50 - _im.width/2;
-        _im.y = 30 + 50 - _im.height/2;
-        source.addChild(_im);
 
         _nameTxt = new TextField(150, 70, String(_data.name), "Arial", 20, Color.BLACK);
         _nameTxt.x = 7;
@@ -125,7 +130,11 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (_data.blockByLevel) {
-                arr = g.townArea.getCityObjectsById(_data.id);
+                if (_data.buildType == BuildType.DECOR_TAIL) {
+                    arr = g.townArea.getCityTailObjectsById(_data.id);
+                } else {
+                    arr = g.townArea.getCityObjectsById(_data.id);
+                }
                 if (_data.blockByLevel[0] > g.user.level) {
                     im = new Image(g.interfaceAtlas.getTexture('shop_locked'));
                     st = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
@@ -243,6 +252,9 @@ public class ShopItem {
 //            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.woShop.onClickExit();
             g.toolsModifier.startMove(_data, afterMove);
+        } else if (_data.buildType == BuildType.DECOR_TAIL) {
+            g.woShop.onClickExit();
+            g.toolsModifier.startMoveTail(_data, afterMove, true);
         } else if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.onClickExit();
 //            g.toolsModifier.modifierType = ToolsModifier.MOVE;
