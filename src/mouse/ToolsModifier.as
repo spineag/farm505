@@ -123,6 +123,10 @@ public class ToolsModifier {
                  im = new Image(g.mapAtlas.getTexture("Cancel"));
                  if (im) _mouseIcon.addChild(im);
                 break;
+             case ToolsModifier.INVENTORY:
+                 im = new Image(g.mapAtlas.getTexture("Storage"));
+                 if (im) _mouseIcon.addChild(im);
+                break;
              case ToolsModifier.GRID_DEACTIVATED:
                  var q:Quad = new Quad(100, 100, Color.RED);
                  q.rotation = Math.PI/4;
@@ -148,8 +152,10 @@ public class ToolsModifier {
             MCScaler.scale(_mouseIcon, 30, 30);
             g.gameDispatcher.addEnterFrame(moveMouseIcon);
         } else {
-            Cc.error('ToolsModifier:: no image for modifierType: ' + g.toolsModifier.modifierType);
-            g.woGameError.showIt();
+            if (g.toolsModifier.modifierType != ToolsModifier.ADD_NEW_RIDGE) {
+                Cc.error('ToolsModifier:: no image for modifierType: ' + g.toolsModifier.modifierType);
+                g.woGameError.showIt();
+            }
         }
      }
 
@@ -176,7 +182,7 @@ public class ToolsModifier {
     }
 
     private var imForMove:Image;
-    public function startMove(buildingData:Object, callback:Function = null, treeState:int = 1, isFromShop:Boolean = false):void {
+    public function  startMove(buildingData:Object, callback:Function = null, treeState:int = 1, isFromShop:Boolean = false):void {
         if (!buildingData) {
             Cc.error('ToolsModifier startMove:: empty buildingData');
             g.woGameError.showIt();

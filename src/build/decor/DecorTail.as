@@ -35,7 +35,10 @@ public class DecorTail extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-
+            g.directServer.addToInventory(_dbBuildingId, null);
+            g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
+            g.townArea.deleteTailBuild(this);
+            g.toolsPanel.updateRepositoryBox();
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             // ничего не делаем вообще
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {

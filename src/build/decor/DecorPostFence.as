@@ -68,7 +68,10 @@ public class DecorPostFence extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             // ничего не делаем
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-
+            g.directServer.addToInventory(_dbBuildingId, null);
+            g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
+            g.townArea.deleteBuild(this);
+            g.toolsPanel.updateRepositoryBox();
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             // ничего не делаем
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {

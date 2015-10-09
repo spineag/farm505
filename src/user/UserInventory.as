@@ -11,11 +11,36 @@ import manager.Vars;
 
 public class UserInventory {
     private var _inventoryResource:Object;
+    private var _decorInventory:Object;
 
     private var g:Vars = Vars.getInstance();
 
     public function UserInventory() {
         _inventoryResource = new Object();
+        _decorInventory = new Object();
+    }
+
+    public function get decorInventory():Object {
+        return _decorInventory;
+    }
+
+    public function addToDecorInventory(id:int, dbId:int):void {
+        if (_decorInventory[id]) {
+            _decorInventory[id].count++;
+            _decorInventory[id].ids.push(dbId);
+        } else {
+            _decorInventory[id] = {count: 1, ids:[dbId]};
+        }
+    }
+
+    public function removeFromDecorInventory(id:int):int {
+        var dbId:int = 0;
+        if (_decorInventory[id]) {
+            _decorInventory[id].count--;
+            dbId = _decorInventory[id].ids.pop();
+            if (_decorInventory[id].count <= 0) delete _decorInventory[id];
+        }
+        return dbId;
     }
 
     public function getCountResourceById(id:int):int {

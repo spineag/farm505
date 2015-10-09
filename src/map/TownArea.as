@@ -441,7 +441,7 @@ public class TownArea extends Sprite {
             return;
         }
         if(_contTail.contains(tail.source)){
-            _cont.removeChild(tail.source);
+            _contTail.removeChild(tail.source);
             unFillTailMatrix(tail.posX, tail.posY);
             _cityTailObjects.splice(_cityTailObjects.indexOf(tail), 1);
         }

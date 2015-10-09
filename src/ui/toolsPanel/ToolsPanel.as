@@ -27,6 +27,8 @@ public class ToolsPanel {
     private var _imageBg:Image;
     private var _imageTab:Image;
     private var _txt:TextField;
+    private var _repositoryBox:RepositoryBox;
+
     private var g:Vars = Vars.getInstance();
     public function ToolsPanel() {
         _source = new Sprite();
@@ -45,7 +47,16 @@ public class ToolsPanel {
         _source.y = g.stageHeight - 120;
         g.cont.interfaceCont.addChild(_source);
         _source.visible = false;
+        _repositoryBox = new RepositoryBox();
+        _repositoryBox.source.y = 6;
+        _repositoryBox.source.x = -310;
+        _source.addChildAt(_repositoryBox.source, 0);
+        _repositoryBox.visible = false;
         createList();
+    }
+
+    public function updateRepositoryBox():void {
+        _repositoryBox.visible = true;
     }
 
     public function onResize():void {
@@ -58,6 +69,7 @@ public class ToolsPanel {
     }
 
     public function hideIt():void {
+        _repositoryBox.visible = false;
         _source.visible = false;
     }
 
@@ -70,9 +82,7 @@ public class ToolsPanel {
         var txt:TextField;
 
         _contRepository = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('plus'));
-        im.x = 30;
-        im.y = 30;
+        im = new Image(g.mapAtlas.getTexture('Storage'));
         txt = new TextField(100,50,"На хранение","Arial",12,Color.BLACK);
         txt.x = -10;
         txt.y = 50;
@@ -129,19 +139,29 @@ public class ToolsPanel {
     }
 
     private function onClick(reason:String):void {
+        _repositoryBox.source.visible = false;
         switch (reason) {
             case 'repository':
+                if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
+                    if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        _repositoryBox.visible = false;
+                    } else {
+                        g.toolsModifier.modifierType = ToolsModifier.INVENTORY;
+                        _repositoryBox.visible = true;
+                    }
+                }
                 break;
             case 'move':
                     if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                         g.toolsModifier.modifierType == ToolsModifier.MOVE
-                                ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
+                          ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
                     }
                 break;
             case 'flip':
                 if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                     g.toolsModifier.modifierType == ToolsModifier.FLIP
-                            ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.FLIP;
+                      ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.FLIP;
                 }
                 break;
             case 'cancel':

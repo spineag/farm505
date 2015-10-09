@@ -50,5 +50,7 @@ public class Consts {
     public static var INQ_UPDATE_USER_AMBAR:String = 'updateUserAmbar.php';
     public static var INQ_DATA_LOCKED_LAND:String = 'getDataLockedLand.php';
     public static var INQ_REMOVE_USER_LOCKED_LAND:String = 'removeUserLockedLand.php';
+    public static var INQ_ADD_TO_INVENTORY:String = 'addToInventory.php';
+    public static var INQ_REMOVE_FROM_INVENTORY:String = 'removeFromInventory.php';
 }
 }

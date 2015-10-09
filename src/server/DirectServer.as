@@ -842,7 +842,7 @@ public class DirectServer {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
                 dataBuild = g.dataBuilding.objectBuilding[int(d.message[i].building_id)];
                 if (int(d.message[i].in_inventory)) {
-
+                    g.userInventory.addToDecorInventory(dataBuild.id, dbId);
                 } else {
                     if (d.message[i].time_build_building) {
                         ob = {};
@@ -2363,6 +2363,90 @@ public class DirectServer {
         } else {
             Cc.error('removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function addToInventory(dbId:int, callback:Function = null):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_TO_INVENTORY);
+        var variables:URLVariables = new URLVariables();
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        request.data = variables;
+        Cc.ch('server', 'start addToInventory', 1);
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddToInventory);
+        function onCompleteAddToInventory(e:Event):void { completeAddToInventory(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addToInventory error:' + error.errorID);
+            woError.showItParams('addToInventory error:' + error.errorID);
+        }
+    }
+
+    private function completeAddToInventory(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addToInventory: wrong JSON:' + String(response));
+            woError.showItParams('addToInventory: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('addToInventory: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addToInventory: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function removeFromInventory(dbId:int, posX:int, posY:int, callback:Function = null):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_REMOVE_FROM_INVENTORY);
+        var variables:URLVariables = new URLVariables();
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        variables.posX = posX;
+        variables.posY = posY;
+        request.data = variables;
+        Cc.ch('server', 'start removeFromInventory', 1);
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteRemoveFromInventory);
+        function onCompleteRemoveFromInventory(e:Event):void { completeRemoveFromInventory(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('removeFromInventory error:' + error.errorID);
+            woError.showItParams('removeFromInventory error:' + error.errorID);
+        }
+    }
+
+    private function completeRemoveFromInventory(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('removeFromInventory: wrong JSON:' + String(response));
+            woError.showItParams('removeFromInventory: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('removeFromInventory: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('removeFromInventory: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }
