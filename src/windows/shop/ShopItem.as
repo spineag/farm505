@@ -10,11 +10,8 @@ import data.BuildType;
 import data.DataMoney;
 
 import flash.geom.Point;
-
 import hint.FlyMessage;
-
 import manager.Vars;
-
 import mouse.ToolsModifier;
 
 import starling.display.Image;
@@ -35,6 +32,9 @@ public class ShopItem {
     private var _lockedSprite:Sprite;
     private var _lockedTxt:TextField;
     private var _countCost:int;
+    private var _state:int;
+    private const STATE_FROM_INVENTORY:int = 1;
+    private const STATE_BUY:int = 2;
 
     private var g:Vars = Vars.getInstance();
 
@@ -68,6 +68,7 @@ public class ShopItem {
             g.woGameError.showIt();
         }
 
+
         _nameTxt = new TextField(150, 70, String(_data.name), "Arial", 20, Color.BLACK);
         _nameTxt.x = 7;
         _nameTxt.y = 140;
@@ -79,6 +80,15 @@ public class ShopItem {
         _countTxt.y = 220;
         source.addChild(_countTxt);
         source.endClickCallback = onClick;
+
+        if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE)
+                && g.userInventory.decorInventory[_data.id]) {
+            _state = STATE_FROM_INVENTORY;
+            _countCost = 0;
+            _countTxt.text = 'Активировать';
+        } else {
+            _state = STATE_BUY;
+        }
 
         _lockedSprite = new Sprite();
 
@@ -128,7 +138,7 @@ public class ShopItem {
                     }
                 }
             }
-        } else if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        } else if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (_data.blockByLevel) {
                 if (_data.buildType == BuildType.DECOR_TAIL) {
                     arr = g.townArea.getCityTailObjectsById(_data.id);
@@ -140,8 +150,13 @@ public class ShopItem {
                     st = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 } else {
                     st = '';
-                    _countCost = arr.length * _data.deltaCost + _data.cost;
-                    _countTxt.text = String(_countCost);
+                    if (_state == STATE_FROM_INVENTORY) {
+                        _countCost = 0;
+                        _countTxt.text = 'Активировать';
+                    } else {
+                        _countCost = arr.length * _data.deltaCost + _data.cost;
+                        _countTxt.text = String(_countCost);
+                    }
                 }
             }
         } else if (_data.buildType == BuildType.ANIMAL) {
@@ -248,17 +263,26 @@ public class ShopItem {
             if (!g.userInventory.checkMoney(_data)) return;
         }
         g.bottomPanel.cancelBoolean(true);
+
         if (_data.buildType == BuildType.RIDGE) {
 //            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.woShop.onClickExit();
             g.toolsModifier.startMove(_data, afterMove);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
             g.woShop.onClickExit();
-            g.toolsModifier.startMoveTail(_data, afterMove, true);
+            if (_state == STATE_FROM_INVENTORY) {
+                g.toolsModifier.startMoveTail(_data, afterMoveFromInventory, true);
+            } else {
+                g.toolsModifier.startMoveTail(_data, afterMove, true);
+            }
         } else if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.onClickExit();
 //            g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.toolsModifier.startMove(_data, afterMove,1,true);
+            if (_state == STATE_FROM_INVENTORY) {
+                g.toolsModifier.startMove(_data, afterMoveFromInventory, 1, true);
+            } else {
+                g.toolsModifier.startMove(_data, afterMove, 1, true);
+            }
         } else {
             //додаємо на відповідну ферму
             var arr:Array = g.townArea.cityObjects;
@@ -282,6 +306,14 @@ public class ShopItem {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.townArea.createNewBuild(_data, _x, _y);
         g.userInventory.addMoney(_data.currency, -_countCost);
+    }
+
+    private function afterMoveFromInventory(_x:Number, _y:Number):void {
+        g.bottomPanel.cancelBoolean(false);
+        var dbId:int = g.userInventory.removeFromDecorInventory(_data.id);
+        g.townArea.createNewBuild(_data, _x, _y, true, dbId);
+        var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+        g.directServer.removeFromInventory(dbId, p.x, p.y, null);
     }
 }
 }
