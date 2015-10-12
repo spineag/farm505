@@ -188,21 +188,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>corn_shop.png</filename>
-            <filename>corn1.png</filename>
-            <filename>corn2.png</filename>
-            <filename>corn3.png</filename>
-            <filename>corn4.png</filename>
-            <filename>cotton_shop.png</filename>
-            <filename>cotton1.png</filename>
-            <filename>cotton2.png</filename>
-            <filename>cotton3.png</filename>
-            <filename>cotton4.png</filename>
-            <filename>sugarcane_shop.png</filename>
-            <filename>sugarcane1.png</filename>
-            <filename>sugarcane2.png</filename>
-            <filename>sugarcane3.png</filename>
-            <filename>sugarcane4.png</filename>
             <filename>crops/cabbage</filename>
             <filename>crops/carrot</filename>
             <filename>crops/pepper</filename>
@@ -213,6 +198,9 @@
             <filename>crops/wheat</filename>
             <filename>crops/clover</filename>
             <filename>crops/grape</filename>
+            <filename>crops/corn</filename>
+            <filename>crops/cotton</filename>
+            <filename>crops/sugarcane</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
