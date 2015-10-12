@@ -18,7 +18,7 @@ public class EmbedAssets {
     public static const InterfaceTexture:Class;
     [Embed(source="../../assets/instrumentAtlas.png")]
     public static const InstrumentTexture:Class;
-    [Embed(source="../../assets/resourceAtlas.png")]
+    [Embed(source="../../assets/resourceAtlas2.png")]
     public static const ResourceTexture:Class;
     [Embed(source="../../assets/treeAtlas2.png")]
     public static const TreeTexture:Class;
@@ -36,7 +36,7 @@ public class EmbedAssets {
     public static const InterfaceTextureXML:Class;
     [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
     public static const InstrumentTextureXML:Class;
-    [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/resourceAtlas2.xml", mimeType="application/octet-stream")]
     public static const ResourceTextureXML:Class;
     [Embed(source="../../assets/treeAtlas2.xml", mimeType="application/octet-stream")]
     public static const TreeTextureXML:Class;
