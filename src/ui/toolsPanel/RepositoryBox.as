@@ -65,11 +65,11 @@ public class RepositoryBox {
     }
 
     private function showItems():void {
-        var item:RepoItem;
+        var item:RepositoryItem;
         var i:int = 0;
         var ob:Object = g.userInventory.decorInventory;
         for(var id:String in ob) {
-            item = new RepoItem();
+            item = new RepositoryItem();
             item.fillIt(g.dataBuilding.objectBuilding[id], ob[id].count, this);
             item.source.x = i*90;
             _cont.addChild(item.source);
@@ -78,7 +78,7 @@ public class RepositoryBox {
         }
         if (i < 3) {
             for (i; i<3; i++) {
-                item = new RepoItem();
+                item = new RepositoryItem();
                 item.source.x = i*90;
                 _cont.addChild(item.source);
                 _arrItems.push(item);
