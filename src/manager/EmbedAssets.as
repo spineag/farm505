@@ -10,7 +10,7 @@ public class EmbedAssets {
     // Texture
     [Embed(source="../../assets/mapAtlas.png")]
     public static const MapTexture:Class;
-    [Embed(source="../../assets/buildAndTree3.png")]
+    [Embed(source="../../assets/buildAndTree.png")]
     public static const BuildTexture:Class;
     [Embed(source="../../assets/plants2.png")]
     public static const PlantTexture:Class;
@@ -28,7 +28,7 @@ public class EmbedAssets {
     // XML
     [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
     public static const MapTextureXML:Class;
-    [Embed(source="../../assets/buildAndTree3.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/buildAndTree.xml", mimeType="application/octet-stream")]
     public static const BuildTextureXML:Class;
     [Embed(source="../../assets/plants2.xml", mimeType="application/octet-stream")]
     public static const PlantTextureXML:Class;
