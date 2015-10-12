@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:4bc15d78ed32248c48e6bb1766fe0bfa:4c5bc7b0d428e66ab4a7e57a98edcbcc:8593a241d3fdf28dd952d6b09da30192$ -->
+<TextureAtlas imagePath="treeAtlas.png">
+    <SubTexture name="apple_dead" x="442" y="605" width="38" height="54"/>
+    <SubTexture name="apple_grow_big" x="428" y="1253" width="43" height="57"/>
+    <SubTexture name="apple_grow_big_flower" x="442" y="694" width="37" height="32"/>
+    <SubTexture name="apple_grow_middle" x="445" y="277" width="35" height="49"/>
+    <SubTexture name="apple_grow_middle_flower" x="412" y="823" width="27" height="24"/>
+    <SubTexture name="apple_grow_small" x="412" y="753" width="28" height="41"/>
+    <SubTexture name="apple_grow_small_flower" x="404" y="889" width="22" height="20"/>
+    <SubTexture name="blueberry_dead" x="277" y="601" width="163" height="150"/>
+    <SubTexture name="blueberry_grow_big" x="277" y="447" width="166" height="152"/>
+    <SubTexture name="blueberry_grow_big_flower" x="277" y="753" width="133" height="103"/>
+    <SubTexture name="blueberry_grow_middle" x="277" y="858" width="125" height="109"/>
+    <SubTexture name="blueberry_grow_middle_flower" x="277" y="969" width="113" height="90"/>
+    <SubTexture name="blueberry_grow_small" x="277" y="1061" width="107" height="93"/>
+    <SubTexture name="blueberry_grow_small_flower" x="277" y="1156" width="102" height="80" frameX="0" frameY="-1" frameWidth="102" frameHeight="81"/>
+    <SubTexture name="cacao_dead" x="442" y="728" width="36" height="52"/>
+    <SubTexture name="cacao_grow_big" x="381" y="1234" width="45" height="60"/>
+    <SubTexture name="cacao_grow_big_flower" x="445" y="539" width="34" height="22"/>
+    <SubTexture name="cacao_grow_middle" x="438" y="1147" width="40" height="49"/>
+    <SubTexture name="cacao_grow_middle_flower" x="445" y="563" width="30" height="19"/>
+    <SubTexture name="cacao_grow_small" x="445" y="452" width="34" height="42" frameX="0" frameY="-1" frameWidth="34" frameHeight="43"/>
+    <SubTexture name="cacao_grow_small_flower" x="412" y="849" width="25" height="16"/>
+    <SubTexture name="cherry_dead" x="2" y="2" width="273" height="588" frameX="-16" frameY="-18" frameWidth="302" frameHeight="611"/>
+    <SubTexture name="cherry_grow_big" x="2" y="592" width="273" height="550" frameX="0" frameY="-1" frameWidth="273" frameHeight="551"/>
+    <SubTexture name="cherry_grow_big_flower" x="2" y="1531" width="238" height="391"/>
+    <SubTexture name="cherry_grow_middle" x="2" y="1144" width="273" height="385" frameX="0" frameY="-3" frameWidth="273" frameHeight="388"/>
+    <SubTexture name="cherry_grow_middle_flower" x="242" y="1531" width="238" height="234"/>
+    <SubTexture name="cherry_grow_small" x="277" y="2" width="201" height="273" frameX="0" frameY="-13" frameWidth="201" frameHeight="286"/>
+    <SubTexture name="cherry_grow_small_flower" x="277" y="277" width="166" height="168"/>
+    <SubTexture name="lemon_dead" x="442" y="782" width="36" height="52"/>
+    <SubTexture name="lemon_grow_big" x="381" y="1234" width="45" height="60"/>
+    <SubTexture name="lemon_grow_big_flower" x="445" y="539" width="34" height="22"/>
+    <SubTexture name="lemon_grow_middle" x="438" y="1147" width="40" height="49"/>
+    <SubTexture name="lemon_grow_middle_flower" x="445" y="563" width="30" height="19"/>
+    <SubTexture name="lemon_grow_small" x="445" y="452" width="34" height="42" frameX="0" frameY="-1" frameWidth="34" frameHeight="43"/>
+    <SubTexture name="lemon_grow_small_flower" x="412" y="849" width="25" height="16"/>
+    <SubTexture name="olive_dead" x="432" y="1198" width="48" height="53"/>
+    <SubTexture name="olive_grow_big" x="404" y="963" width="61" height="63"/>
+    <SubTexture name="olive_grow_big_flower" x="445" y="399" width="35" height="27" frameX="0" frameY="-2" frameWidth="35" frameHeight="29"/>
+    <SubTexture name="olive_grow_middle" x="386" y="1091" width="56" height="54"/>
+    <SubTexture name="olive_grow_middle_flower" x="412" y="796" width="28" height="25"/>
+    <SubTexture name="olive_grow_small" x="445" y="328" width="35" height="39"/>
+    <SubTexture name="olive_grow_small_flower" x="404" y="911" width="21" height="16"/>
+    <SubTexture name="orange_dead" x="442" y="728" width="36" height="52"/>
+    <SubTexture name="orange_grow_big" x="392" y="1028" width="61" height="61"/>
+    <SubTexture name="orange_grow_big_flower" x="439" y="858" width="41" height="27"/>
+    <SubTexture name="orange_grow_middle" x="381" y="1182" width="49" height="50"/>
+    <SubTexture name="orange_grow_middle_flower" x="445" y="428" width="35" height="22"/>
+    <SubTexture name="orange_grow_small" x="445" y="496" width="34" height="41"/>
+    <SubTexture name="orange_grow_small_flower" x="445" y="584" width="29" height="19"/>
+    <SubTexture name="raspberry_dead" x="429" y="887" width="51" height="31"/>
+    <SubTexture name="raspberry_grow_big" x="427" y="920" width="52" height="41"/>
+    <SubTexture name="raspberry_grow_big_flower" x="445" y="369" width="35" height="28"/>
+    <SubTexture name="raspberry_grow_middle" x="386" y="1147" width="50" height="33"/>
+    <SubTexture name="raspberry_grow_middle_flower" x="441" y="836" width="39" height="20"/>
+    <SubTexture name="raspberry_grow_small" x="442" y="661" width="38" height="31"/>
+    <SubTexture name="raspberry_grow_small_flower" x="404" y="867" width="23" height="20"/>
+</TextureAtlas>
