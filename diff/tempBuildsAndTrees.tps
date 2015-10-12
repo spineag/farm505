@@ -200,7 +200,6 @@
             <filename>buildings/farm</filename>
             <filename>buildings/feed_mill.png</filename>
             <filename>buildings/fryer.png</filename>
-            <filename>buildings/gazeta.png</filename>
             <filename>buildings/ice_cream_maker.png</filename>
             <filename>buildings/jam_machine.png</filename>
             <filename>buildings/jeweler.png</filename>
@@ -231,6 +230,7 @@
             <filename>tail1.png</filename>
             <filename>tail2.png</filename>
             <filename>tail3.png</filename>
+            <filename>buildings/paper.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

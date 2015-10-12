@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:91376f9a7a00277a156e1fb3f93a974d:c71f2abffc2458cd475d04856b8429df:84c7e14bbf4b99ac5fd17545225ccbea$ -->
+<TextureAtlas imagePath="buildAndTree.png">
+    <SubTexture name="ambar" x="516" y="839" width="248" height="488"/>
+    <SubTexture name="bakery" x="865" y="1223" width="420" height="324" frameX="-5" frameY="0" frameWidth="428" frameHeight="334"/>
+    <SubTexture name="bazar" x="1639" y="2" width="338" height="404" frameX="0" frameY="-2" frameWidth="345" frameHeight="406"/>
+    <SubTexture name="bbq_grill" x="865" y="1549" width="420" height="237" frameX="-5" frameY="-5" frameWidth="431" frameHeight="250"/>
+    <SubTexture name="bee" x="1634" y="1041" width="116" height="92"/>
+    <SubTexture name="cave" x="766" y="1223" width="88" height="103" frameX="0" frameY="-6" frameWidth="89" frameHeight="110"/>
+    <SubTexture name="cave_active" x="1848" y="1199" width="88" height="110" frameX="-1" frameY="0" frameWidth="89" frameHeight="110"/>
+    <SubTexture name="chicken" x="1868" y="1648" width="50" height="76"/>
+    <SubTexture name="confectionery" x="1709" y="1648" width="119" height="89"/>
+    <SubTexture name="cow" x="1964" y="1049" width="74" height="84"/>
+    <SubTexture name="daily_bonus" x="1878" y="1369" width="61" height="82"/>
+    <SubTexture name="dairy" x="1640" y="408" width="406" height="333"/>
+    <SubTexture name="decor1" x="1808" y="932" width="157" height="103"/>
+    <SubTexture name="decor2" x="1979" y="2" width="52" height="158"/>
+    <SubTexture name="done_building" x="481" y="1329" width="382" height="458" frameX="-1" frameY="0" frameWidth="383" frameHeight="458"/>
+    <SubTexture name="farm_bee" x="1495" y="1616" width="212" height="105"/>
+    <SubTexture name="farm_bee_house" x="1941" y="1384" width="70" height="67"/>
+    <SubTexture name="farm_chicken" x="1640" y="743" width="323" height="187"/>
+    <SubTexture name="farm_chicken_house" x="1965" y="1453" width="53" height="51"/>
+    <SubTexture name="farm_cow" x="1287" y="1616" width="206" height="137"/>
+    <SubTexture name="farm_cow_house" x="1873" y="1501" width="70" height="67"/>
+    <SubTexture name="farm_goat" x="1708" y="1376" width="168" height="94"/>
+    <SubTexture name="farm_goat_house" x="1937" y="1570" width="50" height="58"/>
+    <SubTexture name="farm_pig" x="1708" y="1472" width="163" height="90"/>
+    <SubTexture name="farm_pig_house" x="1920" y="1715" width="46" height="44"/>
+    <SubTexture name="farm_sheep" x="1709" y="1564" width="159" height="82"/>
+    <SubTexture name="farm_sheep_house" x="1868" y="1726" width="48" height="43" frameX="0" frameY="-3" frameWidth="48" frameHeight="46"/>
+    <SubTexture name="feed_mill" x="1287" y="1398" width="419" height="216"/>
+    <SubTexture name="foundation" x="2" y="839" width="512" height="482"/>
+    <SubTexture name="fryer" x="1941" y="1310" width="85" height="72"/>
+    <SubTexture name="goat" x="1979" y="230" width="65" height="93"/>
+    <SubTexture name="ice_cream_maker" x="1752" y="1041" width="100" height="85"/>
+    <SubTexture name="jam_machine" x="1979" y="325" width="66" height="78"/>
+    <SubTexture name="jeweler" x="1965" y="823" width="79" height="91"/>
+    <SubTexture name="juice_press" x="1870" y="1570" width="65" height="76"/>
+    <SubTexture name="lenta" x="1937" y="1630" width="23" height="16"/>
+    <SubTexture name="locked_land" x="788" y="2" width="849" height="418" frameX="0" frameY="-4" frameWidth="849" frameHeight="425"/>
+    <SubTexture name="loom" x="1287" y="1135" width="418" height="261"/>
+    <SubTexture name="moped" x="1989" y="1621" width="42" height="50"/>
+    <SubTexture name="paper" x="1707" y="1135" width="139" height="239"/>
+    <SubTexture name="pie_oven" x="1212" y="422" width="426" height="399"/>
+    <SubTexture name="pig" x="1848" y="1311" width="76" height="56" frameX="0" frameY="0" frameWidth="76" frameHeight="57"/>
+    <SubTexture name="pizza_maker" x="766" y="849" width="422" height="372" frameX="-5" frameY="-1" frameWidth="430" frameHeight="377"/>
+    <SubTexture name="ridge" x="1634" y="932" width="172" height="107"/>
+    <SubTexture name="sauce_maker" x="1965" y="743" width="81" height="78"/>
+    <SubTexture name="sheep" x="1967" y="973" width="77" height="74"/>
+    <SubTexture name="shop" x="1964" y="1135" width="72" height="72"/>
+    <SubTexture name="sklad" x="2" y="1323" width="477" height="442" frameX="-1" frameY="-1" frameWidth="481" frameHeight="443"/>
+    <SubTexture name="smelter" x="1938" y="1209" width="92" height="99"/>
+    <SubTexture name="smoke_house" x="1212" y="823" width="420" height="310" frameX="-6" frameY="-4" frameWidth="432" frameHeight="323"/>
+    <SubTexture name="stolb" x="1190" y="849" width="5" height="23"/>
+    <SubTexture name="sugar_mill" x="788" y="422" width="422" height="425"/>
+    <SubTexture name="tail1" x="1495" y="1723" width="86" height="43"/>
+    <SubTexture name="tail2" x="1583" y="1723" width="86" height="44"/>
+    <SubTexture name="tail3" x="1878" y="1453" width="85" height="46"/>
+    <SubTexture name="train" x="1854" y="1037" width="108" height="79"/>
+    <SubTexture name="train_broken" x="1854" y="1118" width="108" height="79"/>
+    <SubTexture name="wild1" x="1967" y="916" width="79" height="55"/>
+    <SubTexture name="wild2" x="1190" y="1135" width="71" height="86"/>
+    <SubTexture name="wild3" x="1989" y="1566" width="54" height="53"/>
+    <SubTexture name="wild4" x="1830" y="1648" width="36" height="88"/>
+    <SubTexture name="wild5" x="1945" y="1506" width="64" height="58"/>
+    <SubTexture name="wild6" x="1920" y="1648" width="49" height="65"/>
+    <SubTexture name="yogurt_machine" x="1979" y="162" width="67" height="66"/>
+    <SubTexture name="zakaz" x="2" y="2" width="784" height="835"/>
+</TextureAtlas>
