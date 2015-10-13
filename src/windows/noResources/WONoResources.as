@@ -110,6 +110,13 @@ public class WONoResources extends Window {
             g.woGameError.showIt();
             return;
         }
+        if(!_data.currency) {
+            _imageItem = new Image(g.interfaceAtlas.getTexture("coin"));
+            _txtCount.text = String(count);
+            _contImage.addChild(_imageItem);
+            _contImage.addChild(_txtCount);
+            return;
+        }
 
         if (_data.currency == DataMoney.HARD_CURRENCY){
             _imageItem = new Image(g.interfaceAtlas.getTexture("diamont"));

@@ -29,6 +29,7 @@ public class FabricHint {
     private var _source:Sprite;
     private var _arrCells:Array;
     private var _contImage:Sprite;
+    private var _data:Object;
 
     private var g:Vars = Vars.getInstance();
 
@@ -75,11 +76,12 @@ public class FabricHint {
     }
 
     public function showIt(data:Object, sX:int, sY:int):void {
+        _data = data;
         if (data && g.dataResource.objectResources[data.idResource]) {
             _txtName.text = String(g.dataResource.objectResources[data.idResource].name);
             _txtTime.text = String(g.dataResource.objectResources[data.idResource].buildTime);
             _txtItem.text = String(g.userInventory.getCountResourceById(data.idResource));
-            createList(data);
+            createList();
             _source.removeChild(_imageItem);
             _imageItem = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[data.idResource].imageShop));
             if (!_imageItem) {
@@ -109,20 +111,20 @@ public class FabricHint {
         _arrCells.length = 0;
     }
 
-    private function createList(data:Object):void {
-        if (!data) {
+    private function createList():void {
+        if (!_data) {
             Cc.error('FabricHint createList:: empty data');
             g.woGameError.showIt();
             return;
         }
         var im:FabricHintItem;
-        for (var i:int = 0; i < data.ingridientsId.length; i++) {
-            im = new FabricHintItem(int(data.ingridientsId[i]), int(data.ingridientsCount[i]));
+        for (var i:int = 0; i < _data.ingridientsId.length; i++) {
+            im = new FabricHintItem(int(_data.ingridientsId[i]), int(_data.ingridientsCount[i]));
             im.source.x = int (i * 45);
             _arrCells.push(im);
             _contImage.addChild(im.source);
             _contImage.y = 50;
-            switch (data.ingridientsId.length) {
+            switch (_data.ingridientsId.length) {
                 case 1:
                     _contImage.x = 50;
                     break;

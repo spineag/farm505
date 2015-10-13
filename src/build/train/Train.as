@@ -252,7 +252,10 @@ public class Train extends AreaObject{
     }
 
     private function onBuy():void {
-        if (g.user.softCurrencyCount < _dataBuild.cost)
+        if (g.user.softCurrencyCount < _dataBuild.cost) {
+            g.woNoResources.showItMoney(_dataBuild,_dataBuild.cost - g.user.softCurrencyCount);
+            return;
+        }
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;
