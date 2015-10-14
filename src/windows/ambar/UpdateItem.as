@@ -17,7 +17,8 @@ import utils.CSprite;
 import utils.MCScaler;
 
 public class UpdateItem {
-    public var source:Sprite;
+    public var source:CSprite;
+    private var _contImage:CSprite;
     private var _resourceId:int;
     private var _im:Image;
     private var _btn:CSprite;
@@ -33,7 +34,9 @@ public class UpdateItem {
     public function UpdateItem(id:int, isAmbar:Boolean = true) {
         _resourceId = id;
         _isAmbarItem = isAmbar;
-        source = new Sprite();
+        source = new CSprite();
+//        _contImage = new CSprite();
+//        source.addChild(_contImage);
         var quad:Quad = new Quad(100, 100, Color.GRAY);
         quad.alpha = .2;
         source.addChild(quad);
@@ -42,6 +45,8 @@ public class UpdateItem {
         _im.x = 50 - _im.width/2;
         _im.y = 50 - _im.height/2;
         source.addChild(_im);
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
 
         _txtCount = new TextField(50, 20, '', "Arial", 14, Color.BLACK);
         _txtCount.x = 60;
@@ -135,6 +140,14 @@ public class UpdateItem {
             g.woBuyCurrency._contSoft.visible = false;
             g.woBuyCurrency._contHard.visible = true;
         }
+    }
+
+    private function onHover():void {
+        g.resourceHint.showIt(_resourceId,"",source.x,source.y,source);
+    }
+
+    private function onOut():void {
+        g.resourceHint.hideIt();
     }
 }
 }
