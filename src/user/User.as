@@ -25,7 +25,7 @@ public class User extends Someone {
     public var sex:String = 'm';
     public var isTester:Boolean;
     public var isMegaTester:Boolean;
-    public var userBuildingData:Object;
+    public var userBuildingData:Object; // info about building in build progress
     public var arrFriends:Array;
     public var arrTempUsers:Array;     // users that not your friends, but you interact with them
     public var neighbor:NeighborBot;

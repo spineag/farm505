@@ -270,6 +270,8 @@
             <filename>shop_locked.png</filename>
             <filename>shop_limit.png</filename>
             <filename>neighbor.png</filename>
+            <filename>planet.png</filename>
+            <filename>door.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

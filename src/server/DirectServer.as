@@ -854,6 +854,17 @@ public class DirectServer {
                     var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
                     dataBuild.dbId = dbId;
                     g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
+
+                    ob = {};
+                    ob.dataBuild = dataBuild;
+                    ob.posX = int(d.message[i].pos_x);
+                    ob.posY = int(d.message[i].pos_y);
+                    ob.dbId = dbId;
+                    if (d.message[i].time_build_building) {
+                        ob.isBuilded = true;
+                        ob.isOpen = Boolean(int(d.message[i].is_open));
+                    }
+                    g.user.someoneCityObjects.push(ob);
                 }
             }
             if (callback != null) {

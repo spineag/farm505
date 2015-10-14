@@ -5,16 +5,15 @@ package windows.market {
 import com.junkbyte.console.Cc;
 
 import flash.display.Bitmap;
-
 import manager.Vars;
 
 import starling.display.Image;
+import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
 import user.NeighborBot;
-
 import user.Someone;
 
 import utils.CSprite;
@@ -27,6 +26,7 @@ public class MarketFriendItem {
     private var _txt:TextField;
     private var _ramka:Image;
     private var _panel:MarketFriendsPanel;
+    private var _planet:CSprite;
 
     private var g:Vars = Vars.getInstance();
 
@@ -56,6 +56,24 @@ public class MarketFriendItem {
         _ramka.visible = false;
         source.addChild(_txt);
         source.endClickCallback = chooseThis;
+
+        _planet = new CSprite();
+        var im:Image = new Image(g.interfaceAtlas.getTexture('planet'));
+        im.x = -im.width/2;
+        im.y = -im.height/2;
+        _planet.addChild(im);
+        _planet.x = 85;
+        _planet.y = 15;
+        source.addChild(_planet);
+        var filter:ColorMatrixFilter = new ColorMatrixFilter();
+        filter.tint(Color.WHITE, 1);
+        _planet.hoverCallback = function():void {_planet.filter = filter};
+        _planet.outCallback = function():void {_planet.filter = null};
+        _planet.endClickCallback = visitPerson;
+    }
+
+    private function visitPerson():void {
+
     }
 
     public function get person():Someone {
@@ -101,6 +119,10 @@ public class MarketFriendItem {
     }
 
     public function clearIt():void {
+        _planet.hoverCallback = null;
+        _planet.outCallback = null;
+        _planet.endClickCallback = null;
+        _planet.touchable = false;
         while (source.numChildren) source.removeChildAt(0);
         source.endClickCallback = null;
         source.touchable = false;
@@ -108,6 +130,7 @@ public class MarketFriendItem {
         _person = null;
         _ava = null;
         _txt = null;
+        _planet = null;
         source = null;
     }
 

@@ -8,8 +8,10 @@ public class Someone {
     public var lastName:String;
     public var photo:String;
     public var marketItems:Array;
+    public var someOneCityObjects:Array;
 
     public function Someone() {
+        someOneCityObjects = [];
     }
 }
 }
