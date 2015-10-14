@@ -12,6 +12,7 @@ import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Quad;
+import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
@@ -30,7 +31,8 @@ public class RepositoryItem {
     public function RepositoryItem() {
         source = new CSprite();
         var q:Quad = new Quad(90, 90, Color.OLIVE);
-        q.alpha = .2 + Math.random()*.8;
+        q.alpha = .2 *.8;
+        q.filter = BlurFilter.createGlow(Color.BLACK, 3, 5, 5);
         source.addChild(q);
     }
 
@@ -46,7 +48,7 @@ public class RepositoryItem {
         var im:Image = new Image(g.tempBuildAtlas.getTexture(_data.image));
         MCScaler.scale(im, 90, 90);
         im.x = 45 - im.width/2;
-        im.y = 45 - im.y/2;
+        im.y = 45 - im.height/2;
         source.addChild(im);
 
         _txtCount = new TextField(30, 30, String(_count),"Arial", 18, Color.WHITE);

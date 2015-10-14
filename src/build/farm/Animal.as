@@ -135,7 +135,7 @@ public class Animal {
             _frameCounterTimerHint = 20;
             g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_state == EMPTY) {
-            _frameCounterMouseHint = 20;
+            _frameCounterMouseHint = 2;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
         }
     }

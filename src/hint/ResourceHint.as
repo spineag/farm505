@@ -36,8 +36,8 @@ public class ResourceHint {
         MCScaler.scale(_imageClock,30,30);
         _imageClock.y = 30;
         _txtName = new TextField(150,30,"","Arial",13,Color.BLACK);
-        _txtName.x = 25;
-        _txtName.y = 5;
+        _txtName.x = 10;
+        _txtName.y = -5;
         _txtTime = new TextField(50,50,"","Arial",14,Color.BLACK);
         _txtTime.x = 30;
         _txtTime.y = 20;
@@ -81,7 +81,8 @@ public class ResourceHint {
                     _txtName.text = String(g.dataResource.objectResources[_dataId].name);
                     g.cont.hintCont.addChild(_source);
                     return;
-                } else if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
+                }
+                else if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
                     _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
                     _txtText.text = "Растет на грядке";
                     _txtName.text = String(g.dataResource.objectResources[_dataId].name);
@@ -89,20 +90,20 @@ public class ResourceHint {
                 }
             }
 
-            if (BuildType.INSTRUMENT == g.dataResource.objectResources[_dataId].buildType) {
-                _imageClock.visible = false;
-                _txtTime.visible = false;
-                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
-                _txtText.text = text;
-                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
-                g.cont.hintCont.addChild(_source);
-            } else if (BuildType.PLANT == g.dataResource.objectResources[_dataId].buildType) {
-                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
-                _txtText.text = "Растет на грядке";
-                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
-                g.cont.hintCont.addChild(_source);
-                return;
-            }
+//            if (BuildType.INSTRUMENT == g.dataResource.objectResources[_dataId].buildType) {
+//                _imageClock.visible = false;
+//                _txtTime.visible = false;
+//                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+//                _txtText.text = text;
+//                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+//                g.cont.hintCont.addChild(_source);
+//            } else if (BuildType.PLANT == g.dataResource.objectResources[_dataId].buildType) {
+//                _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+//                _txtText.text = "Растет на грядке";
+//                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+//                g.cont.hintCont.addChild(_source);
+//                return;
+//            }
         }
         obj = g.dataRecipe.objectRecipe;
         for (id in obj) {
@@ -113,16 +114,16 @@ public class ResourceHint {
                 g.cont.hintCont.addChild(_source);
                 return;
             }
-            obj = g.dataRecipe.objectRecipe;
-            for (id in obj) {
-                if (obj[id].idResource  == _dataId){
-                    _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
-                    _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[obj[id].buildingId].name;
-                    _txtName.text = String(g.dataResource.objectResources[_dataId].name);
-                    g.cont.hintCont.addChild(_source);
-                    return;
-                }
-            }
+//            obj = g.dataRecipe.objectRecipe;
+//            for (id in obj) {
+//                if (obj[id].idResource  == _dataId){
+//                    _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
+//                    _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[obj[id].buildingId].name;
+//                    _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+//                    g.cont.hintCont.addChild(_source);
+//                    return;
+//                }
+//            }
                 _txtTime.text = String(g.dataResource.objectResources[_dataId].buildTime);
                 _txtText.text = "Место производства: Пещера";
                 _txtName.text = String(g.dataResource.objectResources[_dataId].name);
