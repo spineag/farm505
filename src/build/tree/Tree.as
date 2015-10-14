@@ -453,19 +453,20 @@ public class Tree extends AreaObject{
     }
 
     private function countEnterFrameDead():void {
-//        _count--;
-//        if (_count <= 0) {
+        _count--;
+
             g.gameDispatcher.removeEnterFrame(countEnterFrameDead);
             if (_isOnHover == true) {
                     g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
                     if (g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) return;
                     g.treeHint.onDelete = deleteTree;
             }
+        if (_count <= 0) {
             if (_isOnHover == false) {
                 _source.filter = null;
                 g.treeHint.hideIt();
             }
-//        }
+        }
     }
 
     override public function addXP():void {

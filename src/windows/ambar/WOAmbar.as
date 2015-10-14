@@ -95,6 +95,8 @@ public class WOAmbar extends Window {
         _updateSprite.x = - _updateSprite.width/2 - 10;
         _updateSprite.y = - 150;
         _source.addChild(_updateSprite);
+//        _updateSprite.hoverCallback = onHover;
+//        _updateSprite.outCallback = onOut;
 
         _btnMakeUpdate = new CSprite();
         var m:Image = new Image(g.interfaceAtlas.getTexture('btn3'));
@@ -214,5 +216,14 @@ public class WOAmbar extends Window {
         unfillItems();
         fillItems();
     }
+
+//    private function onHover():void {
+//        trace("loh");
+//        g.resourceHint.showIt(g.dataBuilding.objectBuilding[12].upInstrumentId1,"",_source.x,_source.y,_source);
+//    }
+//
+//    private function onOut():void {
+//        g.resourceHint.hideIt();
+//    }
 }
 }
