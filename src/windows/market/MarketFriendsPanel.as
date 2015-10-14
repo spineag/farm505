@@ -70,6 +70,7 @@ public class MarketFriendsPanel {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         var item:MarketFriendItem;
         _arrFriends = g.user.arrFriends.slice();
+        _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
         for (var i:int = 0; i < _arrFriends.length; i++) {
             item = new MarketFriendItem(_arrFriends[i], this);

@@ -19,6 +19,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import user.Someone;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -38,6 +40,7 @@ public class MarketItem {
     private var _plawkaSold:Image;
     private var _isUser:Boolean;
     private var _imageCont:Sprite;
+    private var _person:Someone;
 
     private var g:Vars = Vars.getInstance();
 
@@ -152,20 +155,25 @@ public class MarketItem {
                 _inPapper.visible = false;
                 showCoinImage();
                 _plawkaSold.visible = true;
-                g.directServer.buyFromMarket(_dataFromServer.id, null);
-                isFill = 2;
-                var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
-                for (var j:int; j< arr.length; j++) {
-                    if (!arr[j].marketItems) continue;
-                    for (i = 0; i < arr[j].marketItems.length; i++) {
-                        if (g.user.arrFriends[j].marketItems[i].id == _dataFromServer.id) {
-                            g.user.arrFriends[j].marketItems[i].buyerId = g.user.userId;
-                            g.user.arrFriends[j].marketItems[i].inPapper = false;
-                            g.user.arrFriends[j].marketItems[i].buyerSocialId = g.user.userSocialId;
-                            return;
+                if (_person == g.user.neighbor) {
+                    g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
+                    _dataFromServer.resourceId = -1;
+                } else {
+                    g.directServer.buyFromMarket(_dataFromServer.id, null);
+                    var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
+                    for (var j:int; j< arr.length; j++) {
+                        if (!arr[j].marketItems) continue;
+                        for (i = 0; i < arr[j].marketItems.length; i++) {
+                            if (g.user.arrFriends[j].marketItems[i].id == _dataFromServer.id) {
+                                g.user.arrFriends[j].marketItems[i].buyerId = g.user.userId;
+                                g.user.arrFriends[j].marketItems[i].inPapper = false;
+                                g.user.arrFriends[j].marketItems[i].buyerSocialId = g.user.userSocialId;
+                                return;
+                            }
                         }
                     }
                 }
+                isFill = 2;
             }
         } else if (isFill == 0) {
             if (_isUser) {
@@ -254,8 +262,9 @@ public class MarketItem {
         _plawkaSold.visible = false;
     }
 
-    public function fillFromServer(obj:Object, isUser:Boolean):void {
-        _isUser = isUser;
+    public function fillFromServer(obj:Object, p:Someone):void {
+        _person = p;
+        _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
         _inPapper.visible = _dataFromServer.inPapper;
         if (_dataFromServer.buyerId != '0') {

@@ -2449,5 +2449,93 @@ public class DirectServer {
             woError.showItParams('removeFromInventory: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function getUserNeighborMarket(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_NEIGHBOR_MARKET);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserNeighborMarket', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserNeighborMarket);
+        function onCompleteGetUserNeighborMarket(e:Event):void { completeGetUserNeighborMarket(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserMarketItem error:' + error.errorID);
+            woError.showItParams('getUserMarketItem error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserNeighborMarket(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserNeighborMarket: wrong JSON:' + String(response));
+            woError.showItParams('getUserNeighborMarket: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            g.user.fillNeighborMarketItems(d.message);
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        } else {
+            Cc.error('getUserNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getUserNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function buyFromNeighborMarket(itemId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_BUY_FROM_NEIGHBOR_MARKET);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'buyFromNeighborMarket', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.itemId = itemId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteBuyFromNeighborMarket);
+        function onCompleteBuyFromNeighborMarket(e:Event):void { completeBuyFromNeighborMarket(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('buyFromNeighborMarket error:' + error.errorID);
+            woError.showItParams('buyFromNeighborMarket error:' + error.errorID);
+        }
+    }
+
+    private function completeBuyFromNeighborMarket(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('buyFromNeighborMarket: wrong JSON:' + String(response));
+            woError.showItParams('buyFromNeighborMarket: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        } else {
+            Cc.error('buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

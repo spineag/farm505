@@ -174,7 +174,7 @@ public class WOTrain extends Window {
                 return;
             }
         }
-        for (var i:int = 0; i<_arrItems.length; i++) {
+        for (i = 0; i<_arrItems.length; i++) {
             if (!_arrItems[i].isResourceLoaded) {
                 _btn.alpha = .5;
                 return;

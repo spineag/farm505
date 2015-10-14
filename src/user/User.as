@@ -27,7 +27,9 @@ public class User extends Someone {
     public var isMegaTester:Boolean;
     public var userBuildingData:Object;
     public var arrFriends:Array;
-    public var arrTempUsers:Array;
+    public var arrTempUsers:Array;     // users that not your friends, but you interact with them
+    public var neighbor:NeighborBot;
+
     private var g:Vars = Vars.getInstance();
 
     public function User() {
@@ -50,6 +52,8 @@ public class User extends Someone {
         userBuildingData = {};
         arrFriends = [];
         arrTempUsers = [];
+
+        neighbor = new NeighborBot();
     }
 
     public function checkUserLevel():void {
@@ -108,6 +112,32 @@ public class User extends Someone {
             obj.timeSold = arr[i].time_sold;
             obj.timeStart = arr[i].time_start;
             p.marketItems.push(obj);
+        }
+    }
+
+    public function fillNeighborMarketItems(ob:Object):void {
+        var i:int;
+        var obj:Object;
+
+        neighbor.marketItems = [];
+        for (i=0; i < 6; i++) {
+            obj = {};
+            obj.id = i+1;
+            obj.cost = 1;
+            obj.inPapper = false;
+            obj.resourceCount = 1;
+            obj.buyerId = '0';
+            switch (i) {
+                case 0: obj.resourceId = int(ob.resource_id1); break;
+                case 1: obj.resourceId = int(ob.resource_id2); break;
+                case 2: obj.resourceId = int(ob.resource_id3); break;
+                case 3: obj.resourceId = int(ob.resource_id4); break;
+                case 4: obj.resourceId = int(ob.resource_id5); break;
+                case 5: obj.resourceId = int(ob.resource_id6); break;
+            }
+            obj.timeSold = 0;
+            obj.timeStart = 0;
+            neighbor.marketItems.push(obj);
         }
     }
 

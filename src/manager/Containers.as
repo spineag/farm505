@@ -102,8 +102,9 @@ public class Containers {
 
     private var _isDragged:Boolean = false;
     private function onGameContTouch(te:TouchEvent):void {
+        var p:Point;
         if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED && te.getTouch(gameCont, TouchPhase.ENDED)) {
-            var p:Point = te.touches[0].getLocation(g.mainStage);
+            p = te.touches[0].getLocation(g.mainStage);
             p.x -= gameCont.x;
             p.y -= gameCont.y;
             p = g.matrixGrid.getStrongIndexFromXY(p);
@@ -123,7 +124,7 @@ public class Containers {
                 return;
             }
             if (!_isDragged && g.activeCat) {
-                var p:Point = te.touches[0].getLocation(g.mainStage);
+                p = te.touches[0].getLocation(g.mainStage);
                 p = contentCont.globalToLocal(p);
                 p = g.matrixGrid.getStrongIndexFromXY(p);
                 if (!(p.x == g.activeCat.posX && p.y == g.activeCat.posY)) {
