@@ -269,6 +269,7 @@
             <filename>tamp_ramka.png</filename>
             <filename>shop_locked.png</filename>
             <filename>shop_limit.png</filename>
+            <filename>neighbor.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

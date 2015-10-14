@@ -72,9 +72,9 @@ public class AStar {
         var lowF:int = 100000;
         var curF:int;
         var finished:Boolean = false;
+        var node:AStarNode;
 
-
-        for each (var node in openList) {  // !!! bad way
+        for each (node in openList) {  // !!! bad way
             curF = node.g + node.h;
             if (lowF > curF) {
                 lowF = curF;
@@ -97,7 +97,6 @@ public class AStar {
         var row:int;
         var g:int;
         var h:int;
-        var node:AStarNode;
         var j:int;
         for (var i:int = -1; i < 2; i++) {
             for (j = -1; j < 2; j++) {

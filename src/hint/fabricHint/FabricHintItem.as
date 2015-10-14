@@ -44,10 +44,15 @@ public class FabricHintItem {
         _imageBg.x = 50 - _imageBg.width/2;
         _imageBg.y = 50 - _imageBg.height/2;
         source.addChild(_imageBg);
-        if (_image) source.addChild(_image);
-        MCScaler.scale(_image, 30,30);
-        _image.x = 50 - _image.width/2;
-        _image.y = 50 - _image.height/2;
+        if (_image) {
+            source.addChild(_image);
+            MCScaler.scale(_image, 30, 30);
+            _image.x = 50 - _image.width / 2;
+            _image.y = 50 - _image.height / 2;
+        } else {
+            Cc.error('no such image: ' + g.dataResource.objectResources[obId].imageShop + ' for id: ' +  obId);
+            g.woGameError.showIt();
+        }
         _txtItem.y = 25;
         source.addChild(_txtItem);
     }

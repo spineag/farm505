@@ -217,7 +217,7 @@ public class Animal {
         }
     }
 
-    var countIdle:int;
+    private var countIdle:int;
     private function idleAnimation():void {
         var f1:Function = function():void {
             new TweenMax(_image, .2, {y:0, ease:Linear.easeOut ,onComplete: f2});

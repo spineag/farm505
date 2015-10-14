@@ -13,6 +13,8 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import user.NeighborBot;
+
 import user.Someone;
 
 import utils.CSprite;
@@ -39,10 +41,14 @@ public class MarketFriendItem {
         source = new CSprite();
         _ramka = new Image(g.interfaceAtlas.getTexture('tamp_ramka'));
         source.addChild(_ramka);
-        if (_person.photo) {
-            g.load.loadImage(_person.photo, onLoadPhoto);
+        if (_person is NeighborBot) {
+            photoFromTexture(g.interfaceAtlas.getTexture('neighbor'));
         } else {
-            g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
+            if (_person.photo) {
+                g.load.loadImage(_person.photo, onLoadPhoto);
+            } else {
+                g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
+            }
         }
         _txt = new TextField(100, 30, 'loading...', "Arial", 16, Color.RED);
         _txt.y = 70;
@@ -72,7 +78,10 @@ public class MarketFriendItem {
             Cc.error('MarketFriendItem:: no photo for userId: ' + _person.userSocialId);
             return;
         }
-        var tex:Texture = Texture.fromBitmap(bitmap);
+        photoFromTexture(Texture.fromBitmap(bitmap));
+    }
+
+    private function photoFromTexture(tex:Texture):void {
         _ava = new Image(tex);
         MCScaler.scale(_ava, 98, 98);
         _ava.x = 1;

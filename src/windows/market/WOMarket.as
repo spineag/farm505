@@ -8,6 +8,8 @@ import starling.display.Image;
 import starling.events.Event;
 import starling.utils.Color;
 
+import user.NeighborBot;
+
 import user.Someone;
 
 import utils.CSprite;
@@ -87,7 +89,11 @@ public class WOMarket  extends Window {
         if (p.marketItems) {
             fillItems();
         } else {
-            g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
+            if (p is NeighborBot) {
+                g.directServer.getUserNeighborMarket(fillItems);
+            } else {
+                g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
+            }
         }
     }
 
@@ -101,7 +107,8 @@ public class WOMarket  extends Window {
         try {
             for (var i:int = 0; i < _arrItems.length; i++) {
                 if (_curUser.marketItems[i]) {
-                    _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser == g.user);
+                    if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
+                    _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser);
                 } else {
                     _arrItems[i].isUser = _curUser == g.user;
                 }
@@ -126,6 +133,7 @@ public class WOMarket  extends Window {
         }
         g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
     }
+
     public function addAdditionalUser(ob:Object):void {
         curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
         _friendsPanel.addAdditionalUser(_curUser);
