@@ -127,7 +127,7 @@ public class MainBottomPanel {
                 break;
             case 'tools':
                 if (_cancelBtn.visible == true) return;
-                if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+                if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsPanel.hideIt();
                     return;

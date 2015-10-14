@@ -106,7 +106,7 @@ public class CraftItem {
             return;
         }
 
-        if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + _count >= g.user.skladMaxCount) {
+        if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + _count > g.user.skladMaxCount) {
             var p:Point = new Point(_source.x, _source.y);
             p = _source.parent.localToGlobal(p);
             g.woAmbarFilled.showAmbarFilled(false);

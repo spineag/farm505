@@ -66,7 +66,8 @@ public class Wild extends AreaObject{
     }
 
     private function wildDelete():void {
-        g.userInventory.addResource(g.dataResource.objectResources[_dataBuild.removeByResourceId].id, 1);
+        if (g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) return;
+        g.userInventory.addResource(g.dataResource.objectResources[_dataBuild.removeByResourceId].id, -1);
         g.townArea.deleteBuild(this);
     }
 

@@ -151,23 +151,24 @@ public class WOMarketChoose extends Window {
         _countResourceBlock.onChangeCallback = onChangeResourceCount;
         _countMoneyBlock.maxValue = count * g.dataResource.objectResources[_curResourceId].costMax;
         _countMoneyBlock.minValue = 1;
-        _countMoneyBlock.count = g.dataResource.objectResources[_curResourceId].costMax / 3;
+        _countMoneyBlock.count =  count * g.dataResource.objectResources[_curResourceId].costMax / 3;
         if ( _countMoneyBlock.count <= 0){
             _countMoneyBlock.count = 1;
         }
     }
 
     private function onChangeResourceCount(onPlus:Boolean):void {
-        if (_countResourceBlock.count == 10) {
-//            _countMoneyBlock._btnPlus.filter = filter;
-            return;
-        }
+        if (_countResourceBlock.count == 10) return;
+        if (_countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId)) return;
         _countMoneyBlock.btnNull();
         _countMoneyBlock.maxValue = _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costMax;
         if (onPlus) {
-        if (_countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3 > g.dataResource.objectResources[_curResourceId].costMax) return;
+//        if (_countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3 > g.dataResource.objectResources[_curResourceId].costMax) return;
         _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3;
 
+        } else {
+            if (_countResourceBlock.count == 1) return;
+                _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1;
         }
 //        if (onPlus) {   // дописать автоувеличение/уменьшение
 //            _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMin;
