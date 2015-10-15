@@ -25,6 +25,21 @@ public class AreaObject extends WorldObject {
         _sizeY = 0;
     }
 
+    override public function clearIt():void {
+        if (_isoView) {
+            while (_isoView.numChildren) _isoView.removeChildAt(0);
+            _isoView = null;
+        }
+        while (_craftSprite.numChildren) _craftSprite.removeChildAt(0);
+        while (_build.numChildren) _build.removeChildAt(0);
+        while (_source.numChildren) _source.removeChildAt(0);
+        _dataBuild = null;
+        _build = null;
+        _source = null;
+        _rect = null;
+        super.clearIt();
+    }
+
     protected function checkBuildState():void {
         try {
             if (g.user.userBuildingData[_dataBuild.id]) {

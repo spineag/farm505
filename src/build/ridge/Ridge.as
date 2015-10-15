@@ -283,5 +283,16 @@ public class Ridge extends AreaObject{
     public function get plant():PlantOnRidge {
         return _plant;
     }
+
+    override public function clearIt():void {
+        _bgClicked.touchable = false;
+        while (_bgClicked.numChildren) _bgClicked.removeChildAt(0);
+        while (_plantSprite.numChildren) _plantSprite.removeChildAt(0);
+        _plant.clearIt();
+        _plant = null;
+        onOut();
+        _source.touchable = false;
+        super.clearIt();
+    }
 }
 }

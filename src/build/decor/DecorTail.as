@@ -55,5 +55,11 @@ public class DecorTail extends AreaObject{
         _source.filter = null;
     }
 
+    override public function clearIt():void {
+        onOut();
+        _source.touchable = false;
+        super.clearIt();
+    }
+
 }
 }

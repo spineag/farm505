@@ -56,7 +56,12 @@ public class Paper extends AreaObject{
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
+    }
 
+    override public function clearIt():void {
+        onOut();
+        _source.touchable = false;
+        super.clearIt();
     }
 }
 }

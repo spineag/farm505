@@ -55,5 +55,11 @@ public class Decor extends AreaObject{
         _source.filter = null;
     }
 
+    override public function clearIt():void {
+        onOut();
+        _source.touchable = false;
+        super.clearIt();
+    }
+
 }
 }

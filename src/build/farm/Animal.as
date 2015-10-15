@@ -254,5 +254,18 @@ public class Animal {
 //        return point3d.x + point3d.z;
         return source.y;
     }
+
+    public function clearIt():void {
+        _farm = null;
+        g.mouseHint.hideHintMouse();
+        source.filter = null;
+        TweenMax.killTweensOf(source);
+        g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+        g.gameDispatcher.removeEnterFrame(countEnterFrame);
+        _data = null;
+        while (source.numChildren) source.removeChildAt(0);
+        _image.dispose();
+        source = null;
+    }
 }
 }

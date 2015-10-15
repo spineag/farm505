@@ -66,5 +66,11 @@ public class Sklad extends AreaObject{
         g.hint.hideIt();
     }
 
+    override public function clearIt():void {
+        onOut();
+        _source.touchable = false;
+        super.clearIt();
+    }
+
 }
 }

@@ -94,29 +94,7 @@ public class WorldObject {
         _depth = point3d.x + point3d.z;
     }
 
-    public function remove():void {
-
-    }
-
-    public function drawGrid():void {
-//        var i:int;
-//        var point:Point;
-//
-//        _source.graphics.clear();
-//        _source.graphics.lineStyle(1, 0x0000FF);
-//        for (i = 0; i <= sizeY; i++) {
-//            point = g.matrixGrid.getXYFromIndex(new Point(0, i));
-//            _source.graphics.moveTo(point.x, point.y);
-//            point = g.matrixGrid.getXYFromIndex(new Point(sizeX, i));
-//            _source.graphics.lineTo(point.x, point.y);
-//        }
-//        for (i = 0; i <= sizeX; i++) {
-//            point = g.matrixGrid.getXYFromIndex(new Point(i, 0));
-//            _source.graphics.moveTo(point.x, point.y);
-//            point = g.matrixGrid.getXYFromIndex(new Point(i, sizeY));
-//            _source.graphics.lineTo(point.x, point.y);
-//        }
-    }
+    public function clearIt():void { }
 
     public function set enabled(value:Boolean):void { }
 

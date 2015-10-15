@@ -100,5 +100,11 @@ public class LockedLand extends AreaObject {
         g.townArea.deleteBuild(this);
     }
 
+    override public function clearIt():void {
+        onOut();
+        _source.touchable = false;
+        _dataLand = null;
+        super.clearIt();
+    }
 }
 }

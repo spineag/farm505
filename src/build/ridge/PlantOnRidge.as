@@ -125,5 +125,13 @@ public class PlantOnRidge {
             _ridge.stateRidge = Ridge.GROW2;
         }
     }
+
+    public function clearIt():void {
+        _ridge = null;
+        _data = null;
+        g.gameDispatcher.removeFromTimer(render);
+        while (_source.numChildren) _source.removeChildAt(0);
+        _source = null;
+    }
 }
 }

@@ -196,5 +196,20 @@ public class Farm extends AreaObject{
             counter = 15;
         }
     }
+
+    override public function clearIt():void {
+        _source.touchable = false;
+        _house.touchable = false;
+        while (_house.numChildren) _house.removeChildAt(0);
+        while (_contAnimals.numChildren) _contAnimals.removeChildAt(0);
+        for (var i:int=0; i<_arrAnimals.length; i++) {
+            _arrAnimals[i].clearIt();
+        }
+        _house = null;
+        _contAnimals = null;
+        _dataAnimal = null;
+        _arrAnimals.length = 0;
+        super.clearIt();
+    }
 }
 }

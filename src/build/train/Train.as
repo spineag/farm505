@@ -345,5 +345,16 @@ public class Train extends AreaObject{
             }
         }
     }
+
+    override public function clearIt():void {
+        onOut();
+        _source.touchable = false;
+        g.gameDispatcher.removeEnterFrame(countEnterFrame);
+        g.gameDispatcher.removeFromTimer(render);
+        g.gameDispatcher.removeFromTimer(renderBuildTrainProgress);
+        _dataPack = null;
+        list.length = 0;
+        super.clearIt();
+    }
 }
 }

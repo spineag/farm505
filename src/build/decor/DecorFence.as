@@ -17,5 +17,10 @@ public class DecorFence extends AreaObject {
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
     }
+
+    override public function clearIt():void {
+        _source.touchable = false;
+        super.clearIt();
+    }
 }
 }

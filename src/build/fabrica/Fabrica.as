@@ -245,5 +245,16 @@ public class Fabrica extends AreaObject {
         _tween = null;
     }
 
+    override public function clearIt():void {
+        onOut();
+        stopTempAnimation();
+        g.gameDispatcher.removeEnterFrame(countEnterFrame);
+        g.gameDispatcher.removeFromTimer(render);
+        _source.touchable = false;
+        _arrList.length = 0;
+        _arrRecipes.length = 0;
+        super.clearIt();
+    }
+
 }
 }

@@ -70,6 +70,14 @@ public class Cave extends AreaObject{
         }
     }
 
+    override public function clearIt():void {
+        onOut();
+        g.gameDispatcher.removeFromTimer(renderBuildCaveProgress);
+        _source.touchable = false;
+        _arrCraftItems = [];
+        super.clearIt();
+    }
+
     private function checkCaveState():void {
         try {
             if (g.user.userBuildingData[_dataBuild.id]) {

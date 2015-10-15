@@ -57,5 +57,11 @@ public class DailyBonus extends AreaObject{
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
     }
+
+    override public function clearIt():void {
+        onOut();
+        _source.touchable = false;
+        super.clearIt();
+    }
 }
 }

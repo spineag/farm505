@@ -23,10 +23,8 @@ public class DecorPostFence extends AreaObject{
         super(_data);
         createBuild();
 
-//        _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.releaseContDrag = true;
-//        _source.outCallback = onOut;
     }
 
     public function addLeftLenta():void {
@@ -51,13 +49,17 @@ public class DecorPostFence extends AreaObject{
     }
 
     public function removeLeftLenta():void {
-        _source.removeChild(_leftLenta);
-        _leftLenta = null;
+        if (_leftLenta) {
+            _source.removeChild(_leftLenta);
+            _leftLenta = null;
+        }
     }
 
     public function removeRightLenta():void {
-        _source.removeChild(_rightLenta);
-        _rightLenta = null;
+        if (_rightLenta) {
+            _source.removeChild(_rightLenta);
+            _rightLenta = null;
+        }
     }
 
     private function onClick():void {
@@ -81,6 +83,13 @@ public class DecorPostFence extends AreaObject{
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
+    }
+
+    override public function clearIt():void {
+        removeLeftLenta();
+        removeRightLenta();
+        _source.touchable = false;
+        super.clearIt();
     }
 }
 }

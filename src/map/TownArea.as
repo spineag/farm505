@@ -422,6 +422,7 @@ public class TownArea extends Sprite {
             g.woGameError.showIt();
             return;
         }
+        worldObject.clearIt();
         if(_cont.contains(worldObject.source)){
             _cont.removeChild(worldObject.source);
             if (worldObject is DecorFence || worldObject is DecorPostFence) {
@@ -440,6 +441,7 @@ public class TownArea extends Sprite {
             g.woGameError.showIt();
             return;
         }
+        tail.clearIt();
         if(_contTail.contains(tail.source)){
             _contTail.removeChild(tail.source);
             unFillTailMatrix(tail.posX, tail.posY);
@@ -528,41 +530,6 @@ public class TownArea extends Sprite {
         d.removeRightLenta();
     }
 
-//    public function findPath(startPosX:int, startPosY:int, endPosX:int, endPosY:int, type:int = 0):Array {
-//        var path:Array;
-//        var isFindPath:Boolean;
-//        var node1:V_GridNode = new V_GridNode();
-//        var node2:V_GridNode = new V_GridNode();
-//
-//        node1.i = startPosY + offsetY;
-//        node1.j = startPosX;
-//        node2.i = endPosY + offsetY;
-//        node2.j = endPosX;
-//
-//        _finder.refresh();
-//        _finder.addHevristic(_hev);
-//        _finder.setGraf(_graf);
-//        if (type == 0) {
-//            _graf.calbackCondition = condition1;
-//        } else {
-//            _graf.calbackCondition = condition2;
-//        }
-//        isFindPath = _finder.find(_graf.getNode(node2.i, node2.j, node2.i, node2.j), _graf.getNode(node1.i, node1.j, node1.i, node1.j));
-//        if (isFindPath) {
-//            path = _finder.getPath();
-//            //clearGrid();
-//            for (var i:int = 0; i < path.length; i++) {
-//                var node:V_GridNode = path[i];
-//                var point:Point = new Point(node.j, node.i - offsetY);
-////					drawGrid(point.x, point.y, 1, 1, 0xff0000);
-//                point = getXYFromIndex(point);
-//                path[i] = point;
-//            }
-//        }
-//
-//        return path;
-//    }
-
     private function afterMoveReturn(_x:Number, _y:Number):void {
         if (!g.userInventory.checkMoney(_dataObjects)) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -572,6 +539,10 @@ public class TownArea extends Sprite {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.townArea.createNewBuild(_dataObjects, _x, _y);
             g.userInventory.addMoney(_dataObjects.currency, -_dataObjects.cost);
+    }
+
+    private function removeAllBuildingsFromTown():void {
+
     }
 
 }
