@@ -114,6 +114,10 @@ public class MainBottomPanel {
         switch (reason) {
             case 'shop':
                     if (_cancelBtn.visible == true) return;
+                if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.toolsPanel.hideIt();
+                }
                     _shopBtn.filter = null;
                     if (g.toolsPanel.isShowed) g.toolsPanel.hideIt();
                     if (g.optionPanel.isShowed) g.optionPanel.hideIt();
@@ -149,6 +153,10 @@ public class MainBottomPanel {
                 break;
             case 'friends':
                 if (_cancelBtn.visible == true) return;
+                if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.toolsPanel.hideIt();
+                }
                 if (g.friendPanel.isShowed) {
                     g.friendPanel.hideIt();
                 } else {

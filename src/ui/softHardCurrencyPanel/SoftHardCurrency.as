@@ -6,6 +6,8 @@ import flash.geom.Point;
 
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import starling.display.Image;
 import starling.display.Sprite;
 
@@ -97,12 +99,18 @@ public class SoftHardCurrency {
     }
 
     private function onClickSoft():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+        }
         g.woBuyCurrency.showItMenu();
         g.woBuyCurrency._contSoft.visible = true;
         g.woBuyCurrency._contHard.visible = false;
     }
 
     private function onClickHard():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+        }
         g.woBuyCurrency.showItMenu();
         g.woBuyCurrency._contHard.visible = true;
         g.woBuyCurrency._contSoft.visible = false;

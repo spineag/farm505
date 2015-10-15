@@ -7,6 +7,8 @@ import flash.geom.Rectangle;
 
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import starling.animation.Tween;
 
 import starling.display.Image;
@@ -127,6 +129,16 @@ public class CouponePanel {
     }
 
     private function onClick():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+        }
+        var tween:Tween = new Tween(_contCoupone, 0.2);
+        tween.moveTo(-100,0);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+            _contCoupone.visible = false;
+        };
+        g.starling.juggler.add(tween);
         g.woBuyCoupone.showItWO();
         g.hint.hideIt();
     }
