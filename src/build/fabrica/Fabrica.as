@@ -99,9 +99,9 @@ public class Fabrica extends AreaObject {
     private function onClick():void {
         if (_stateBuild == STATE_ACTIVE) {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+                g.townArea.moveBuild(this);
                 _isOnHover = false;
                 g.gameDispatcher.addEnterFrame(countEnterFrame);
-                g.townArea.moveBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
                 g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
