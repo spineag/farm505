@@ -2,6 +2,7 @@
  * Created by user on 5/20/15.
  */
 package mouse {
+import build.WorldObject;
 import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
@@ -252,6 +253,12 @@ public class ToolsModifier {
                 g.woGameError.showIt();
                 return;
             }
+            if (g.selectedBuild.stateBuild == WorldObject.STATE_BUILD) {
+                imForMove = new Image(g.tempBuildAtlas.getTexture("foundation"));
+                imForMove.x = -262;
+                imForMove.y = -274;
+                _spriteForMove.addChild(imForMove);
+            }
         } else {
             imForMove  = new Image(g.mapAtlas.getTexture(_activeBuildingData.image));
             if (imForMove) {
@@ -376,7 +383,10 @@ public class ToolsModifier {
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
         x = _spriteForMove.x;
         y = _spriteForMove.y;
-        if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) return;
+        if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) {
+            g.gameDispatcher.addEnterFrame(onEnterFrame);
+            return;
+        }
 
         spriteForMoveIndexX = 0;
         spriteForMoveIndexY = 0;
@@ -392,6 +402,7 @@ public class ToolsModifier {
             _moveGrid.clearIt();
             _moveGrid = null;
         }
+
         if (imForMove) imForMove.dispose();
         imForMove = null;
         _spriteForMove = null;
@@ -425,6 +436,7 @@ public class ToolsModifier {
                     imForMove.filter = null;
                 } else {
                     imForMove.filter = filter;
+
                 }
             }
         }

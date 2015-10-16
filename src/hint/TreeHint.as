@@ -53,7 +53,9 @@ public class TreeHint {
         _txtItem = new TextField(50,50,"","Arial",14,Color.BLACK);
         _txtItem.x = 133;
         _txtItem.y = 8;
-        _txtName = new TextField(50,50,"","Arial",14,Color.BLACK);
+        _txtName = new TextField(100,50,"","Arial",18,Color.BLACK);
+        _txtName.x = 40;
+        _txtName.y = -30;
 
         _source.addChild(_imageBg);
         _source.addChild(_imageHelp);
@@ -82,6 +84,16 @@ public class TreeHint {
             g.woGameError.showIt();
             return;
         }
+        var obj:Object;
+        var id:String;
+        obj = g.dataBuilding.objectBuilding;
+        for (id in obj) {
+            if (obj[id].innerPositionsDead > data.innerPositionsDead) {
+                _txtName.text = "Засохшее дерево";
+            } else {
+                _txtName.text = "Засохший куст";
+            }
+        }
         _worldObject = worldobject;
         _data = data;
         if (_isShowed) return;
@@ -108,6 +120,7 @@ public class TreeHint {
         _isShowed = false;
         if (g.cont.hintCont.contains(_source)) {
             g.cont.hintCont.removeChild(_source);
+            _contDelete.removeChild(_imageItem);
         }
     }
 
