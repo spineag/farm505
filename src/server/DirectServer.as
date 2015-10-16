@@ -4,6 +4,7 @@
 package server {
 import build.WorldObject;
 import build.farm.Animal;
+import build.ridge.Ridge;
 import build.train.Train;
 import build.tree.Tree;
 import com.junkbyte.console.Cc;
@@ -22,6 +23,8 @@ import manager.ManagerFabricaRecipe;
 import manager.ManagerPlantRidge;
 import manager.ManagerTree;
 import manager.Vars;
+
+import user.Someone;
 
 import windows.serverError.WOServerError;
 
@@ -838,6 +841,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            g.user.userDataCity.objects = new Array();
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
                 dataBuild = g.dataBuilding.objectBuilding[int(d.message[i].building_id)];
@@ -856,7 +860,7 @@ public class DirectServer {
                     g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
 
                     ob = {};
-                    ob.dataBuild = dataBuild;
+                    ob.buildId = dataBuild.id;
                     ob.posX = int(d.message[i].pos_x);
                     ob.posY = int(d.message[i].pos_y);
                     ob.dbId = dbId;
@@ -864,7 +868,7 @@ public class DirectServer {
                         ob.isBuilded = true;
                         ob.isOpen = Boolean(int(d.message[i].is_open));
                     }
-                    g.user.someoneCityObjects.push(ob);
+                    g.user.userDataCity.objects.push(ob);
                 }
             }
             if (callback != null) {
@@ -1206,9 +1210,25 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            var ob:Object;
+            var time:int;
+            var timeWork:int;
+
+            g.user.userDataCity.plants = [];
             g.managerPlantRidge = new ManagerPlantRidge();
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerPlantRidge.addPlant(d.message[i]);
+
+                ob = {};
+                ob.plantId = int(d.message[i].plant_id);
+                ob.dbId = int(d.message[i].user_db_building_id);
+                time = g.dataResource.objectResources[ob.plantId].buildTime;
+                timeWork = int(d.message[i].time_work);
+                if (timeWork > time) ob.state = Ridge.GROWED;
+                else if (timeWork > 2/3*time) ob.state = Ridge.GROW3;
+                else if (timeWork > time/3) ob.state = Ridge.GROW2;
+                else ob.state = Ridge.GROW1;
+                g.user.userDataCity.plants.push(ob);
             }
             if (callback != null) {
                 callback.apply();
@@ -1351,9 +1371,16 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            var ob:Object;
+            g.user.userDataCity.treesInfo = [];
             g.managerTree = new ManagerTree();
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerTree.addTree(d.message[i]);
+
+                ob = {};
+                ob.dbId = int(d.message[i].user_db_building_id);
+                ob.time_work = int(ob.time_work);
+                g.user.userDataCity.treesInfo.push(ob);
             }
             if (callback != null) {
                 callback.apply();
@@ -1585,9 +1612,17 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            var ob:Object;
+            g.user.userDataCity.animalsInfo = [];
             g.managerAnimal = new ManagerAnimal();
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerAnimal.addAnimal(d.message[i]);
+
+                ob = {};
+                ob.animalId = int(d.message[i].animal_id);
+                ob.timeWork = int(d.message[i].time_work);
+                ob.dbId = int(d.message[i].user_db_building_id);
+                g.user.userDataCity.animalsInfo.push(ob);
             }
             if (callback != null) {
                 callback.apply();
@@ -2546,6 +2581,91 @@ public class DirectServer {
         } else {
             Cc.error('buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getAllCityData(p:Someone, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_ALL_CITY_DATA);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getAllCityData', 1);
+//        variables = addDefault(variables);
+        variables.userSocialId = p.userSocialId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetAllCityData);
+        function onCompleteGetAllCityData(e:Event):void { completeGetAllCityData(e.target.data, p, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getAllCityData error:' + error.errorID);
+            woError.showItParams('getAllCityData error:' + error.errorID);
+        }
+    }
+
+    private function completeGetAllCityData(response:String, p:Someone, callback:Function = null):void {
+        var d:Object;
+        var ob:Object;
+        var timeWork:int;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getAllCityData: wrong JSON:' + String(response));
+            woError.showItParams('getAllCityData: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            p.userDataCity.objects = new Array();
+            for (var i:int = 0; i < d.message['building'].length; i++) {
+                ob = {};
+                ob.buildId = g.dataBuilding.objectBuilding[int(d.message['building'][i].building_id)].id;
+                ob.posX = int(d.message['building'][i].pos_x);
+                ob.posY = int(d.message['building'][i].pos_y);
+                ob.dbId = int(d.message['building'][i].id);
+                if (d.message['building'][i].time_build_building) {
+                    ob.isBuilded = true;
+                    ob.isOpen = Boolean(int(d.message['building'][i].is_open));
+                }
+                p.userDataCity.objects.push(ob);
+            }
+            p.userDataCity.plants = new Array();
+            for (i = 0; i < d.message['plant'].length; i++) {
+                ob = {};
+                ob.plantId = int(d.message['plant'][i].plant_id);
+                ob.dbId = int(d.message['plant'][i].user_db_building_id);
+                timeWork = int(d.message['plant'][i].time_work);
+                if (timeWork > g.dataResource.objectResources[ob.plantId].buildTime) ob.state = Ridge.GROWED;
+                else if (timeWork > 2/3 * g.dataResource.objectResources[ob.plantId].buildTime) ob.state = Ridge.GROW3;
+                else if (timeWork > g.dataResource.objectResources[ob.plantId].buildTime/3) ob.state = Ridge.GROW2;
+                else ob.state = Ridge.GROW1;
+                p.userDataCity.plants.push(ob);
+            }
+            p.userDataCity.treesInfo = new Array();
+            for (i=0; i<d.message['tree'].length; i++) {
+                ob = {};
+                ob.dbId = int(d.message['tree'][i].user_db_building_id);
+                ob.time_work = int(d.message['tree'][i].time_work);
+                p.userDataCity.treesInfo.push(ob);
+            }
+            p.userDataCity.animalsInfo = new Array();
+            for (i=0; i<d.message['animal'].length; i++) {
+                ob = {};
+                ob.animalId = int(d.message['animal'][i].animal_id);
+                ob.timeWork = int(d.message['animal'][i].time_work);
+                ob.dbId = int(d.message['animal'][i].user_db_building_id);
+                p.userDataCity.animalsInfo.push(ob);
+            }
+            if (callback != null) {
+                callback.apply(null, [p]);
+            }
+            return;
+        } else {
+            Cc.error('getAllCityData: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getAllCityData: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

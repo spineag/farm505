@@ -105,6 +105,7 @@ public class Vars {
     public var userInventory:UserInventory;
     public var managerDropResources:ManagerDropBonusResource;
 
+    public var isAway:Boolean = false;
     public var socialNetwork:SocialNetwork;
     public var flashVars:Object;
     public var socialNetworkID:int;

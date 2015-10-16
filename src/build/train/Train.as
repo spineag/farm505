@@ -57,10 +57,12 @@ public class Train extends AreaObject{
             addTempBuildIcon();
         }
 
-        _woBuy = new WOBuyCave();
-        _source.hoverCallback = onHover;
-        _source.endClickCallback = onClick;
-        _source.outCallback = onOut;
+        if (!g.isAway) {
+            _woBuy = new WOBuyCave();
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+        }
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
     }
@@ -120,25 +122,29 @@ public class Train extends AreaObject{
 
     private function checkTrainState():void {
         try {
-            if (g.user.userBuildingData[_dataBuild.id]) {
-                if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
-                    _stateBuild = STATE_ACTIVE;
-                    createBuild();
-                } else {
-                    _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
-                    _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
-                    if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
-                        _stateBuild = STATE_WAIT_ACTIVATE;
-                        createBrokenTrain();
-                    } else {  // еще строится
-                        _stateBuild = STATE_BUILD;
-                        createBrokenTrain();
-                        g.gameDispatcher.addToTimer(renderBuildTrainProgress);
-                    }
-                }
+            if (g.isAway) {
+                createBuild();
             } else {
-                _stateBuild = STATE_UNACTIVE;
-                createBrokenTrain();
+                if (g.user.userBuildingData[_dataBuild.id]) {
+                    if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
+                        _stateBuild = STATE_ACTIVE;
+                        createBuild();
+                    } else {
+                        _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
+                        _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                        if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                            _stateBuild = STATE_WAIT_ACTIVATE;
+                            createBrokenTrain();
+                        } else {  // еще строится
+                            _stateBuild = STATE_BUILD;
+                            createBrokenTrain();
+                            g.gameDispatcher.addToTimer(renderBuildTrainProgress);
+                        }
+                    }
+                } else {
+                    _stateBuild = STATE_UNACTIVE;
+                    createBrokenTrain();
+                }
             }
         } catch (e:Error) {
             Cc.error('checkTrainState:: ' + e.errorID + ' - ' + e.message);
@@ -353,7 +359,7 @@ public class Train extends AreaObject{
         g.gameDispatcher.removeFromTimer(render);
         g.gameDispatcher.removeFromTimer(renderBuildTrainProgress);
         _dataPack = null;
-        list.length = 0;
+        if (list) list.length = 0;
         super.clearIt();
     }
 }

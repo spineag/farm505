@@ -23,7 +23,9 @@ public class DecorPostFence extends AreaObject{
         super(_data);
         createBuild();
 
-        _source.endClickCallback = onClick;
+        if (!g.isAway) {
+            _source.endClickCallback = onClick;
+        }
         _source.releaseContDrag = true;
     }
 

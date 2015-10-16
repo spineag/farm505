@@ -50,18 +50,19 @@ public class Cave extends AreaObject{
             return;
         }
         checkCaveState();
-        createIsoView();
+//        createIsoView();
 
-        _woBuy = new WOBuyCave();
-        _source.hoverCallback = onHover;
-        _source.endClickCallback = onClick;
-        _source.outCallback = onOut;
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
-
-        _craftSprite = new Sprite();
-        _source.addChild(_craftSprite);
-        _arrCraftItems = [];
+        if (!g.isAway) {
+            _woBuy = new WOBuyCave();
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+            _craftSprite = new Sprite();
+            _source.addChild(_craftSprite);
+            _arrCraftItems = [];
+        }
 
         if (_stateBuild == STATE_WAIT_ACTIVATE) {
             addTempGiftIcon();
@@ -80,42 +81,46 @@ public class Cave extends AreaObject{
 
     private function checkCaveState():void {
         try {
-            if (g.user.userBuildingData[_dataBuild.id]) {
-                if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
-                    _stateBuild = STATE_ACTIVE;
-                    var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
-                    if (!im) {
-                        Cc.error('no active cave image:' + _dataBuild.imageActive);
-                        g.woGameError.showIt();
-                        return;
-                    }
-                    im.x = _dataBuild.innerX;
-                    im.y = _dataBuild.innerY;
-                    _build.addChild(im);
-                    _defaultScale = _build.scaleX;
-                    _rect = _build.getBounds(_build);
-                    _sizeX = _dataBuild.width;
-                    _sizeY = _dataBuild.height;
-                    (_build as Sprite).alpha = 1;
-                    if (_flip) _build.scaleX = -_defaultScale;
-                    _source.addChild(_build);
-                } else {
-                    _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
-                    _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
-                    if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
-                        _stateBuild = STATE_WAIT_ACTIVATE;
-                        createBuild();
-                        addTempGiftIcon();
-                    } else {  // еще строится
-                        _stateBuild = STATE_BUILD;
-                        createBuild();
-                        addTempBuildIcon();
-                        g.gameDispatcher.addToTimer(renderBuildCaveProgress);
-                    }
-                }
-            } else {
-                _stateBuild = STATE_UNACTIVE;
+            if (g.isAway) {
                 createBuild();
+            } else {
+                if (g.user.userBuildingData[_dataBuild.id]) {
+                    if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
+                        _stateBuild = STATE_ACTIVE;
+                        var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
+                        if (!im) {
+                            Cc.error('no active cave image:' + _dataBuild.imageActive);
+                            g.woGameError.showIt();
+                            return;
+                        }
+                        im.x = _dataBuild.innerX;
+                        im.y = _dataBuild.innerY;
+                        _build.addChild(im);
+                        _defaultScale = _build.scaleX;
+                        _rect = _build.getBounds(_build);
+                        _sizeX = _dataBuild.width;
+                        _sizeY = _dataBuild.height;
+                        (_build as Sprite).alpha = 1;
+                        if (_flip) _build.scaleX = -_defaultScale;
+                        _source.addChild(_build);
+                    } else {
+                        _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
+                        _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                        if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                            _stateBuild = STATE_WAIT_ACTIVATE;
+                            createBuild();
+                            addTempGiftIcon();
+                        } else {  // еще строится
+                            _stateBuild = STATE_BUILD;
+                            createBuild();
+                            addTempBuildIcon();
+                            g.gameDispatcher.addToTimer(renderBuildCaveProgress);
+                        }
+                    }
+                } else {
+                    _stateBuild = STATE_UNACTIVE;
+                    createBuild();
+                }
             }
         } catch (e:Error) {
             Cc.error('cave error: ' + e.errorID + ' - ' + e.message);
@@ -144,7 +149,7 @@ public class Cave extends AreaObject{
 
     private function onOut():void {
         _isOnHover = false;
-        _source.filter = null;
+        if (_source) _source.filter = null;
         g.hint.hideIt();
         if (_stateBuild == STATE_BUILD) {
             g.gameDispatcher.addEnterFrame(countEnterFrame);

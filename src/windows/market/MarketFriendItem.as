@@ -73,7 +73,8 @@ public class MarketFriendItem {
     }
 
     private function visitPerson():void {
-
+        g.townArea.goAway(_person);
+        g.woMarket.hideIt();
     }
 
     public function get person():Someone {
