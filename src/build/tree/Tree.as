@@ -62,16 +62,20 @@ public class Tree extends AreaObject{
         _arrCrafted = [];
         createTreeBuild();
 
-        _source.hoverCallback = onHover;
-        _source.endClickCallback = onClick;
-        _source.outCallback = onOut;
+        if (!g.isAway) {
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+        }
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
 
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
-        _resourceItem = new ResourceItem();
-        _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
+        if (!g.isAway) {
+            _resourceItem = new ResourceItem();
+            _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
+        }
     }
 
     public function releaseNewTree():void {

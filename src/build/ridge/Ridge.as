@@ -77,10 +77,12 @@ public class Ridge extends AreaObject{
         _bgClicked.addChild(tempSprite);
         _source.addChild(_bgClicked);
 
-        _bgClicked.hoverCallback = onHover;
-        _bgClicked.endClickCallback = onEndClick;
-        _bgClicked.startClickCallback = onStartClick;
-        _bgClicked.outCallback = onOut;
+        if (!g.isAway) {
+            _bgClicked.hoverCallback = onHover;
+            _bgClicked.endClickCallback = onEndClick;
+            _bgClicked.startClickCallback = onStartClick;
+            _bgClicked.outCallback = onOut;
+        }
         _bgClicked.releaseContDrag = true;
 
         _plantSprite = new Sprite();
@@ -288,7 +290,7 @@ public class Ridge extends AreaObject{
         _bgClicked.touchable = false;
         while (_bgClicked.numChildren) _bgClicked.removeChildAt(0);
         while (_plantSprite.numChildren) _plantSprite.removeChildAt(0);
-        _plant.clearIt();
+        if (_plant) _plant.clearIt();
         _plant = null;
         onOut();
         _source.touchable = false;

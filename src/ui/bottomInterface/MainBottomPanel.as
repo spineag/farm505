@@ -22,7 +22,8 @@ public class MainBottomPanel {
     private var _friendsBtn:CSprite;
     private var _toolsBtn:CSprite;
     private var _optionBtn:CSprite;
-    public var _cancelBtn:CSprite;
+    private var _cancelBtn:CSprite;
+    private var _doorBtn:CSprite;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -66,6 +67,20 @@ public class MainBottomPanel {
             g.hint.hideIt();};
         _cancelBtn.endClickCallback = function():void {onClick('cancel')};
         _cancelBtn.visible = false;
+
+        _doorBtn = new CSprite();
+        im = new Image(g.interfaceAtlas.getTexture('door'));
+        _doorBtn.addChild(im);
+        _doorBtn.x = 915;
+        _doorBtn.y = 45;
+        _source.addChild(_doorBtn);
+        _doorBtn.hoverCallback = function():void { _doorBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            g.hint.showIt("Домой","0");
+        };
+        _doorBtn.outCallback = function():void { _doorBtn.filter = null;
+            g.hint.hideIt();};
+        _doorBtn.endClickCallback = function():void {onClick('door')};
+        _doorBtn.visible = false;
 
         _optionBtn = new CSprite();
         im = new Image(g.interfaceAtlas.getTexture('option_icon'));
@@ -164,6 +179,9 @@ public class MainBottomPanel {
                     g.friendPanel.showIt();
                 }
                 break;
+            case 'door':
+                if (g.isAway) g.townArea.backHome();
+                break;
         }
     }
 
@@ -173,18 +191,13 @@ public class MainBottomPanel {
     }
 
     public function cancelBoolean(b:Boolean):void {
-        if (b == true) {
-            _cancelBtn.visible = true;
-            _shopBtn.visible = false;
-//            g.cont.addCancelTouch(true);
-        }
+        _cancelBtn.visible = b;
+        _shopBtn.visible = !b;
+    }
 
-        if (b == false) {
-            _cancelBtn.visible = false;
-            _shopBtn.visible = true;
-//            g.cont.addCancelTouch(false);
-
-        }
+    public function doorBoolean(b:Boolean):void {
+        _doorBtn.visible = b;
+        _shopBtn.visible = !b;
     }
 }
 }

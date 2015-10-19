@@ -49,9 +49,11 @@ public class Farm extends AreaObject{
         _house.x = _dataBuild.innerHouseX;
         _house.y = _dataBuild.innerHouseY;
         _source.addChild(_house);
-        _house.hoverCallback = onHoverHouse;
-        _house.endClickCallback = onClickHouse;
-        _house.outCallback = onOutHouse;
+        if (!g.isAway) {
+            _house.hoverCallback = onHoverHouse;
+            _house.endClickCallback = onClickHouse;
+            _house.outCallback = onOutHouse;
+        }
         _source.releaseContDrag = true;
 
         _contAnimals = new Sprite();
@@ -62,10 +64,11 @@ public class Farm extends AreaObject{
         _source.addChild(_craftSprite);
 
         _arrAnimals = [];
-        setDataAnimal();
-
-        if (_dataAnimal.id != 6) {
-            g.gameDispatcher.addEnterFrame(sortAnimals);
+        if (!g.isAway) {
+            setDataAnimal();
+            if (_dataAnimal.id != 6) {
+                g.gameDispatcher.addEnterFrame(sortAnimals);
+            }
         }
     }
 

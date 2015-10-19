@@ -94,8 +94,6 @@ public class WorldObject {
         _depth = point3d.x + point3d.z;
     }
 
-    public function clearIt():void { }
-
     public function set enabled(value:Boolean):void { }
 
     public function get flip():Boolean {

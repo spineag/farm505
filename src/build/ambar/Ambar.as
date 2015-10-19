@@ -25,9 +25,11 @@ public class Ambar extends AreaObject{
         }
         createBuild();
 
-        _source.hoverCallback = onHover;
-        _source.endClickCallback = onClick;
-        _source.outCallback = onOut;
+        if (!g.isAway) {
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+        }
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
     }

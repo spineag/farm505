@@ -31,10 +31,14 @@ import manager.Vars;
 import mouse.ToolsModifier;
 import starling.display.Sprite;
 
+import user.Someone;
+
 
 public class TownArea extends Sprite {
     private var _cityObjects:Array;
     private var _cityTailObjects:Array;
+    private var _cityAwayObjects:Array;
+    private var _cityAwayTailObjects:Array;
     private var _dataPreloaders:Object;
     private var _dataObjects:Object;
     private var _enabled:Boolean = true;
@@ -47,7 +51,9 @@ public class TownArea extends Sprite {
 
     public function TownArea() {
         _cityObjects = [];
+        _cityAwayObjects = [];
         _cityTailObjects = [];
+        _cityAwayTailObjects = [];
         _townMatrix = [];
         _townTailMatrix = [];
         _dataPreloaders = {};
@@ -422,7 +428,7 @@ public class TownArea extends Sprite {
             g.woGameError.showIt();
             return;
         }
-        worldObject.clearIt();
+        (worldObject as AreaObject).clearIt();
         if(_cont.contains(worldObject.source)){
             _cont.removeChild(worldObject.source);
             if (worldObject is DecorFence || worldObject is DecorPostFence) {
@@ -447,7 +453,6 @@ public class TownArea extends Sprite {
             unFillTailMatrix(tail.posX, tail.posY);
             _cityTailObjects.splice(_cityTailObjects.indexOf(tail), 1);
         }
-
     }
 
     public function moveBuild(worldObject:WorldObject, treeState:int = 1):void{// не сохраняется флип при муве
@@ -542,8 +547,200 @@ public class TownArea extends Sprite {
     }
 
     private function removeAllBuildingsFromTown():void {
-
+        while (_cont.numChildren) _cont.removeChildAt(0);
+        while (_contTail.numChildren) _contTail.removeChildAt(0);
+        for (var i:int=0; i<_cityObjects.length; i++) {
+            _cityObjects.clearIt();
+        }
+        for (i=0; i<_cityTailObjects.length; i++) {
+            _cityTailObjects.clearIt();
+        }
+        _cityObjects.length = 0;
+        _cityTailObjects.length = 0;
     }
 
+    public function goAway(person:Someone):void {
+        if (person == g.user.neighbor) {
+
+        } else {
+            if (person.userDataCity.objects) {
+                setAwayCity(person);
+            } else {
+                g.directServer.getAllCityData(person, setAwayCity);
+            }
+        }
+    }
+
+    private function setAwayCity(p:Someone):void {
+        for (var i:int = 0; i < _cityObjects.length; i++) {
+            _cont.removeChild(_cityObjects[i].source);
+        }
+        for (i = 0; i < _cityTailObjects.length; i++) {
+            _contTail.removeChild(_cityTailObjects[i].source);
+        }
+        if (g.isAway) {
+            clearAwayCity();
+        }
+        g.isAway = true;
+        g.bottomPanel.doorBoolean(true);
+        for (i=0; i<p.userDataCity.objects.length; i++) {
+            createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY);
+        }
+        zAwaySort();
+    }
+
+    public function createAwayNewBuild(_data:Object, posX:int, posY:int):void {
+        var build:WorldObject;
+
+        if (!_data) {
+            Cc.error('TownArea createAwayNewBuild:: _data == nul for building');
+            g.woGameError.showIt();
+            return;
+        }
+
+//        if (_data.isFlip) isFlip = true;
+        switch (_data.buildType) {
+            case BuildType.RIDGE:
+                build = new Ridge(_data);
+                break;
+            case BuildType.DECOR_POST_FENCE:
+                build = new DecorPostFence(_data);
+                break;
+            case BuildType.DECOR:
+                build = new Decor(_data);
+                break;
+            case BuildType.FABRICA:
+                build = new Fabrica(_data);
+                break;
+            case BuildType.TREE:
+                build = new Tree(_data);
+                break;
+            case BuildType.WILD:
+                build = new Wild(_data);
+                break;
+            case BuildType.AMBAR:
+                build = new Ambar(_data);
+                break;
+            case BuildType.SKLAD:
+                build = new Sklad(_data);
+                break;
+            case BuildType.FARM:
+                build = new Farm(_data);
+                break;
+            case BuildType.ORDER:
+                build = new Order(_data);
+                break;
+            case BuildType.MARKET:
+                build = new Market(_data);
+                break;
+            case BuildType.CAVE:
+                build = new Cave(_data);
+                break;
+            case BuildType.DAILY_BONUS:
+                build = new DailyBonus(_data);
+                break;
+            case BuildType.PAPER:
+                build = new Paper(_data);
+                break;
+            case BuildType.SHOP:
+                build = new Shop(_data);
+                break;
+            case BuildType.TRAIN:
+                build = new Train(_data);
+                break;
+            case BuildType.LOCKED_LAND:
+                build = new LockedLand(_data);
+                break;
+            case BuildType.DECOR_TAIL:
+                build = new DecorTail(_data);
+                break;
+        }
+
+        if (!build) {
+            Cc.error('TownArea:: BUILD is null for type: ' + _data.buildType);
+            g.woGameError.showIt();
+            return;
+        }
+        if (_data.buildType == BuildType.DECOR_TAIL) {
+            pasteAwayTailBuild(build as DecorTail, posX, posY);
+        } else {
+            pasteAwayBuild(build, posX, posY);
+        }
+    }
+
+    public function pasteAwayBuild(worldObject:WorldObject, posX:Number, posY:Number):void {
+        if (!worldObject) {
+            Cc.error('TownArea pasteAwayBuild:: empty worldObject');
+            g.woGameError.showIt();
+            return;
+        }
+        if (!_cont.contains(worldObject.source)) {
+            worldObject.posX = posX;
+            worldObject.posY = posY;
+            var point:Point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
+            worldObject.source.x = int(point.x);
+            worldObject.source.y = int(point.y);
+            _cont.addChild(worldObject.source);
+
+            _cityAwayObjects.push(worldObject);
+            worldObject.updateDepth();
+        }
+    }
+
+    public function pasteAwayTailBuild(tail:DecorTail, posX:Number, posY:Number):void {
+        if (!tail) {
+            Cc.error('TownArea pasteAWayTailBuild:: empty tail');
+            g.woGameError.showIt();
+            return;
+        }
+        if (!_contTail.contains(tail.source)) {
+            tail.posX = posX;
+            tail.posY = posY;
+            var point:Point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
+            tail.source.x = int(point.x);
+            tail.source.y = int(point.y);
+            _cont.addChild(tail.source);
+
+            _cityAwayTailObjects.push(tail);
+//            tail.updateDepth();
+        }
+    }
+
+    private function zAwaySort():void {
+        try {
+            _cityAwayObjects.sortOn("depth", Array.NUMERIC);
+            for (var i:int = 0; i < _cityAwayObjects.length; i++) {
+                _cont.setChildIndex(_cityAwayObjects[i].source, i);
+            }
+        } catch(e:Error) {
+            g.woGameError.showIt();
+            Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
+        }
+    }
+
+    public function backHome():void {
+        clearAwayCity();
+        g.isAway = false;
+        g.bottomPanel.doorBoolean(false);
+        for (var i:int = 0; i < _cityObjects.length; i++) {
+            _cont.addChild(_cityObjects[i].source);
+        }
+        for (i = 0; i < _cityTailObjects.length; i++) {
+            _contTail.addChild(_cityTailObjects[i].source);
+        }
+    }
+
+    private function clearAwayCity():void {
+        for (var i:int = 0; i < _cityAwayObjects.length; i++) {
+            _cont.removeChild(_cityAwayObjects[i].source);
+            (_cityAwayObjects[i] as AreaObject).clearIt();
+        }
+        for (i = 0; i < _cityAwayTailObjects.length; i++) {
+            _contTail.removeChild(_cityAwayTailObjects[i].source);
+            _cityAwayTailObjects[i].clearIt();
+        }
+        _cityAwayObjects = [];
+        _cityAwayTailObjects = [];
+    }
 }
 }
