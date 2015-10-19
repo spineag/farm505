@@ -18,6 +18,7 @@ public class WOBuyCave extends Window {
     private var txt:TextField;
     private var priceTxt:TextField;
     private var _callback:Function;
+    private var _dataObject:Object;
 
     public function WOBuyCave() {
         super();
@@ -54,6 +55,7 @@ public class WOBuyCave extends Window {
             g.woGameError.showIt();
             return;
         }
+        _dataObject = _data;
         priceTxt.text = String(_data.cost);
        txt.text = _t;
         _callback = f;
@@ -61,6 +63,10 @@ public class WOBuyCave extends Window {
     }
 
     private function onClickBuy():void {
+        if (g.user.softCurrencyCount < _dataObject.cost) {
+            g.woNoResources.showItTrain(_dataObject,_dataObject.cost - g.user.softCurrencyCount);
+            return;
+        }
         if (_callback != null) {
             _callback.apply();
         }
