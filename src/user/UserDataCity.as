@@ -7,6 +7,7 @@ public class UserDataCity {
     public var animalsInfo:Array;
     public var objects:Array;
     public var plants:Array;
+    public var recipes:Array;
 
     public function UserDataCity() {
 

@@ -29,6 +29,9 @@ import flash.geom.Point;
 import heroes.BasicCat;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import resourceItem.ResourceItem;
+
 import starling.display.Sprite;
 
 import user.Someone;
@@ -597,6 +600,9 @@ public class TownArea extends Sprite {
         for (i=0; i<p.userDataCity.animalsInfo.length; i++) {
             fillAwayAnimal(p.userDataCity.animalsInfo[i]);
         }
+        for (i=0; i<p.userDataCity.recipes.length; i++) {
+            fillAwayRecipe(p.userDataCity.recipes[i]);
+        }
         zAwaySort();
     }
 
@@ -779,6 +785,23 @@ public class TownArea extends Sprite {
             (b as Farm).addAnimal(true, ob);
         } else {
             Cc.error('TownArea fillAwayAnimal:: no such Farm with dbId: ' + ob.dbId);
+        }
+    }
+
+    private function fillAwayRecipe(ob:Object):void {
+        var b:WorldObject = getAwayBuildingByDbId(ob.dbId);
+        if (b && b is Fabrica) {
+            var resItem:ResourceItem = new ResourceItem();
+            resItem.fillIt(g.dataResource.objectResources[g.dataRecipe.objectRecipe[ob.recipeId].idResource]);
+            if (int(ob.delay) > int(ob.timeWork)) {
+                // do nothing because the recipe is waiting for start
+            } else if (ob.delay + resItem.buildTime <= ob.timeWork) {
+                (b as Fabrica).craftResource(resItem);
+            } else {
+                (b as Fabrica).awayImitationOfWork();
+            }
+        } else {
+            Cc.error('TownArea fillAwayRecipe:: no such Fabrica with dbId: ' + ob.dbId);
         }
     }
 

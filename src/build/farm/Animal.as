@@ -65,9 +65,11 @@ public class Animal {
         _state = EMPTY;
         _defautScale = source.scaleX;
 
-        source.hoverCallback = onHover;
-        source.outCallback = onOut;
-        source.endClickCallback = onClick;
+        if (!g.isAway) {
+            source.hoverCallback = onHover;
+            source.outCallback = onOut;
+            source.endClickCallback = onClick;
+        }
     }
 
     public function fillItFromServer(ob:Object):void {

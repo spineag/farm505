@@ -48,6 +48,7 @@ public class Fabrica extends AreaObject {
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         checkBuildState();
+        _source.setChildIndex(_craftSprite, _source.numChildren-1);
 
         _isAnim = false;
         _arrRecipes = [];
@@ -220,8 +221,13 @@ public class Fabrica extends AreaObject {
         var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, f1);
     }
 
+    public function awayImitationOfWork():void {
+        startTempAnimation();
+    }
+
     private function startTempAnimation():void {
         _isAnim = true;
+        TweenMax.killTweensOf(_build);
         anim1();
     }
 

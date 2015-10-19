@@ -2661,6 +2661,15 @@ public class DirectServer {
                 ob.dbId = int(d.message['animal'][i].user_db_building_id);
                 p.userDataCity.animalsInfo.push(ob);
             }
+            p.userDataCity.recipes = new Array();
+            for (i=0; i<d.message['recipe'].length; i++) {
+                ob = {};
+                ob.recipeId = int(d.message['recipe'][i].recipe_id);
+                ob.timeWork = int(d.message['recipe'][i].time_work);
+                ob.delay = int(d.message['recipe'][i].delay);
+                ob.dbId = int(d.message['recipe'][i].user_db_building_id);
+                p.userDataCity.recipes.push(ob);
+            }
             if (callback != null) {
                 callback.apply(null, [p]);
             }
