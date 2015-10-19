@@ -36,7 +36,7 @@ public class ManagerCats {
     }
 
     public function addAllHeroCats():void {
-        for (var i:int=0; i<4; i++) {
+        for (var i:int=0; i<g.user.countCats; i++) {
             addHeroCat(int(Math.random()*2) + 1);
         }
     }

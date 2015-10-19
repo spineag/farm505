@@ -146,6 +146,7 @@ public class Vars {
     public var dataRecipe:DataRecipe;
     public var dataAnimal:DataAnimal;
     public var dataLevel:DataLevel;
+    public var dataCats:Array;
     public var selectedBuild:WorldObject;
 
     public var timerHint:TimerHint;
@@ -295,6 +296,10 @@ public class Vars {
     }
 
     private function onDataResource():void {
+        directServer.getDataCats(onDataCats);
+    }
+
+    private function onDataCats():void {
         directServer.getDataLockedLand(onDataLockedLand);
     }
 
