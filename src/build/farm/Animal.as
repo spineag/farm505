@@ -71,7 +71,8 @@ public class Animal {
     }
 
     public function fillItFromServer(ob:Object):void {
-        animal_db_id = ob.id;
+        if (ob.id) animal_db_id = ob.id;
+            else animal_db_id = '0';
         if (int(ob.time_work) > 0) {
             if (int(ob.time_work) > _data.timeCraft) {
                 craftResource();
@@ -79,7 +80,7 @@ public class Animal {
             } else {
                 _timeToEnd = _data.timeCraft - int(ob.time_work);
                 _state = WORKED;
-                g.gameDispatcher.addToTimer(render);
+                if (!g.isAway) g.gameDispatcher.addToTimer(render);
             }
         } else {
             _state = EMPTY;

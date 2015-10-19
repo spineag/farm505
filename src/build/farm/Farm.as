@@ -64,8 +64,9 @@ public class Farm extends AreaObject{
         _source.addChild(_craftSprite);
 
         _arrAnimals = [];
+
+        setDataAnimal();
         if (!g.isAway) {
-            setDataAnimal();
             if (_dataAnimal.id != 6) {
                 g.gameDispatcher.addEnterFrame(sortAnimals);
             }

@@ -45,6 +45,8 @@ public class Fabrica extends AreaObject {
             g.woGameError.showIt();
             return;
         }
+        _craftSprite = new Sprite();
+        _source.addChild(_craftSprite);
         checkBuildState();
 
         _isAnim = false;
@@ -56,10 +58,8 @@ public class Fabrica extends AreaObject {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-            fillRecipes();
         }
-        _craftSprite = new Sprite();
-        _source.addChild(_craftSprite);
+        fillRecipes();
     }
 
     private function onHover():void {
