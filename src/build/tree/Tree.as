@@ -72,10 +72,10 @@ public class Tree extends AreaObject{
 
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
-        if (!g.isAway) {
+//        if (!g.isAway) {
             _resourceItem = new ResourceItem();
             _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
-        }
+//        }
     }
 
     public function releaseNewTree():void {
@@ -129,9 +129,11 @@ public class Tree extends AreaObject{
                 break;
         }
         setBuildImage();
-        if (_state == GROW1 || _state == GROW_FLOWER1 || _state == GROW2 || _state == GROW_FLOWER2
-                || _state == GROW3 || _state == GROW_FLOWER3) {
-            g.gameDispatcher.addToTimer(render);
+        if (!g.isAway) {
+            if (_state == GROW1 || _state == GROW_FLOWER1 || _state == GROW2 || _state == GROW_FLOWER2
+                    || _state == GROW3 || _state == GROW_FLOWER3) {
+                g.gameDispatcher.addToTimer(render);
+            }
         }
     }
 

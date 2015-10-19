@@ -584,12 +584,15 @@ public class TownArea extends Sprite {
         g.isAway = true;
         g.bottomPanel.doorBoolean(true);
         for (i=0; i<p.userDataCity.objects.length; i++) {
-            createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY);
+            createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, p.userDataCity.objects[i].dbId);
+        }
+        for (i=0; i<p.userDataCity.treesInfo.length; i++) {
+            fillAwayTree(p.userDataCity.treesInfo[i]);
         }
         zAwaySort();
     }
 
-    public function createAwayNewBuild(_data:Object, posX:int, posY:int):void {
+    public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int):void {
         var build:WorldObject;
 
         if (!_data) {
@@ -661,6 +664,7 @@ public class TownArea extends Sprite {
             g.woGameError.showIt();
             return;
         }
+        (build as WorldObject).dbBuildingId = dbId;
         if (_data.buildType == BuildType.DECOR_TAIL) {
             pasteAwayTailBuild(build as DecorTail, posX, posY);
         } else {
@@ -741,6 +745,23 @@ public class TownArea extends Sprite {
         }
         _cityAwayObjects = [];
         _cityAwayTailObjects = [];
+    }
+
+    private function fillAwayTree(ob:Object):void {
+        var b:WorldObject = getAwayBuildingByDbId(ob.dbId);
+        if (b && b is Tree) {
+            (b as Tree).releaseTreeFromServer(ob);
+        } else {
+            Cc.error('TownArea fillAwayTree:: no such Tree with dbId: ' + ob.dbId);
+        }
+    }
+
+    private function getAwayBuildingByDbId(dbId:int):WorldObject {
+        for (var i:int=0; i<_cityAwayObjects.length; i++) {
+            if (_cityAwayObjects[i].dbBuildingId == dbId)
+            return _cityAwayObjects[i];
+        }
+        return null;
     }
 }
 }

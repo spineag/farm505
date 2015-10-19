@@ -2648,6 +2648,7 @@ public class DirectServer {
             for (i=0; i<d.message['tree'].length; i++) {
                 ob = {};
                 ob.dbId = int(d.message['tree'][i].user_db_building_id);
+                ob.state = int(d.message['tree'][i].state);
                 ob.time_work = int(d.message['tree'][i].time_work);
                 p.userDataCity.treesInfo.push(ob);
             }
