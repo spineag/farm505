@@ -2637,11 +2637,12 @@ public class DirectServer {
                 ob = {};
                 ob.plantId = int(d.message['plant'][i].plant_id);
                 ob.dbId = int(d.message['plant'][i].user_db_building_id);
-                timeWork = int(d.message['plant'][i].time_work);
-                if (timeWork > g.dataResource.objectResources[ob.plantId].buildTime) ob.state = Ridge.GROWED;
-                else if (timeWork > 2/3 * g.dataResource.objectResources[ob.plantId].buildTime) ob.state = Ridge.GROW3;
-                else if (timeWork > g.dataResource.objectResources[ob.plantId].buildTime/3) ob.state = Ridge.GROW2;
-                else ob.state = Ridge.GROW1;
+                ob.timeWork = int(d.message['plant'][i].time_work);
+//                timeWork = int(d.message['plant'][i].time_work);
+//                if (timeWork > g.dataResource.objectResources[ob.plantId].buildTime) ob.state = Ridge.GROWED;
+//                else if (timeWork > 2/3 * g.dataResource.objectResources[ob.plantId].buildTime) ob.state = Ridge.GROW3;
+//                else if (timeWork > g.dataResource.objectResources[ob.plantId].buildTime/3) ob.state = Ridge.GROW2;
+//                else ob.state = Ridge.GROW1;
                 p.userDataCity.plants.push(ob);
             }
             p.userDataCity.treesInfo = new Array();

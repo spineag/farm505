@@ -332,33 +332,35 @@ public class TownArea extends Sprite {
             g.woGameError.showIt();
             return;
         }
-        if (!_cont.contains(worldObject.source)) {
-            worldObject.source.x = int(_x);
-            worldObject.source.y = int(_y);
-            _cont.addChild(worldObject.source);
-            var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
-            worldObject.posX = point.x;
-            worldObject.posY = point.y;
-            _cityObjects.push(worldObject);
-            worldObject.updateDepth();
-            if (worldObject is DecorFence || worldObject is DecorPostFence) {
-                fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-                if (worldObject is DecorPostFence) addFenceLenta(worldObject as DecorPostFence);
-            } else {
-                fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-            }
-            if (isNewAtMap) {
-                if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
-                    g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
-                if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
-                    worldObject.addXP();
-                if (worldObject is Tree)
-                    g.directServer.addUserBuilding(worldObject, onAddNewTree);
-            }
 
-            if (updateAfterMove) {
-                g.directServer.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
-            }
+        if (_cont.contains(worldObject.source)) {
+            _cont.removeChild(worldObject.source);
+        }
+        worldObject.source.x = int(_x);
+        worldObject.source.y = int(_y);
+        _cont.addChild(worldObject.source);
+        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+        worldObject.posX = point.x;
+        worldObject.posY = point.y;
+        _cityObjects.push(worldObject);
+        worldObject.updateDepth();
+        if (worldObject is DecorFence || worldObject is DecorPostFence) {
+            fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+            if (worldObject is DecorPostFence) addFenceLenta(worldObject as DecorPostFence);
+        } else {
+            fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+        }
+        if (isNewAtMap) {
+            if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
+                g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
+            if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
+                worldObject.addXP();
+            if (worldObject is Tree)
+                g.directServer.addUserBuilding(worldObject, onAddNewTree);
+        }
+
+        if (updateAfterMove) {
+            g.directServer.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
         }
 
         // временно полная сортировка, далее нужно будет дописать "умную"
@@ -589,6 +591,12 @@ public class TownArea extends Sprite {
         for (i=0; i<p.userDataCity.treesInfo.length; i++) {
             fillAwayTree(p.userDataCity.treesInfo[i]);
         }
+        for (i=0; i<p.userDataCity.plants.length; i++) {
+            fillAwayPlant(p.userDataCity.plants[i]);
+        }
+        for (i=0; i<p.userDataCity.animalsInfo.length; i++) {
+            fillAwayAnimal(p.userDataCity.animalsInfo[i]);
+        }
         zAwaySort();
     }
 
@@ -753,6 +761,24 @@ public class TownArea extends Sprite {
             (b as Tree).releaseTreeFromServer(ob);
         } else {
             Cc.error('TownArea fillAwayTree:: no such Tree with dbId: ' + ob.dbId);
+        }
+    }
+
+    private function fillAwayPlant(ob:Object):void {
+        var b:WorldObject = getAwayBuildingByDbId(ob.dbId);
+        if (b && b is Ridge) {
+            (b as Ridge).fillPlant(g.dataResource.objectResources[ob.plantId], true, ob.timeWork);
+        } else {
+            Cc.error('TownArea fillAwayRidge:: no such Ridge with dbId: ' + ob.dbId);
+        }
+    }
+
+    private function fillAwayAnimal(ob:Object):void {
+        var b:WorldObject = getAwayBuildingByDbId(ob.dbId);
+        if (b && b is Farm) {
+            (b as Farm).addAnimal(true, ob);
+        } else {
+            Cc.error('TownArea fillAwayAnimal:: no such Farm with dbId: ' + ob.dbId);
         }
     }
 
