@@ -278,6 +278,53 @@ public class DirectServer {
         }
     }
 
+    public function getDataCats(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_CATS);
+
+        Cc.ch('server', 'start getDataCats', 1);
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteCats);
+        function onCompleteCats(e:Event):void { completeCats(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataCats error:' + error.errorID);
+            woError.showItParams('getDataCats error:' + error.errorID);
+        }
+    }
+
+    private function completeCats(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDataCats: wrong JSON:' + String(response));
+            woError.showItParams('getDataCats: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            var obj:Object;
+            g.dataCats = new Array();
+            for (var i:int = 0; i<d.message.length; i++) {
+                obj = {};
+                obj.id = int(d.message[i].id);
+                obj.blockByLevel = int(d.message[i].block_by_level);
+                obj.price = int(d.message[i].cost);
+                g.dataCats.push(obj);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getDataResource: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getDataResource: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
     public function getDataBuilding(callback:Function):void {
         if (!g.useDataFromServer) return;
 
@@ -489,6 +536,7 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
+            g.user.countCats = int(ob.count_cats);
             if (ob.is_tester && int(ob.is_tester) > 0) {
                 g.user.isTester = true;
                 if (int(ob.is_tester) > 1) {
