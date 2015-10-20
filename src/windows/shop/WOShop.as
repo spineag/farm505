@@ -105,6 +105,8 @@ public class WOShop extends Window{
                 break;
             case 2: _btnTab2.activateIt(true);
                 obj = g.dataAnimal.objectAnimal;
+                var ob:Object = new Object();
+//                ob.name =
                 for (id in obj) {
                     //if (obj[id].buildType == BuildType.ANIMAL) {
                         arr.push(obj[id]);
