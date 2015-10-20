@@ -109,7 +109,7 @@ public class ShopItem {
         var maxCount:int;
         var curCount:int;
         var maxCountAtCurrentLevel:int = 0;
-        if (_data.buildType == BuildType.FABRICA || _data.buildType == BuildType.FARM) {
+        if (_data.buildType == BuildType.FABRICA ){//|| _data.buildType == BuildType.FARM) {
             if (_data.blockByLevel) {
                 arr = g.townArea.getCityObjectsById(_data.id);
                 if (_data.blockByLevel[0] > g.user.level) {
@@ -136,6 +136,24 @@ public class ShopItem {
                             st = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
                         }
                     }
+                }
+            }
+        } else if (_data.buildType == BuildType.FARM) {
+            if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
+                im = new Image(g.interfaceAtlas.getTexture('shop_locked'));
+                st = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+            } else {
+                arr = g.townArea.getCityObjectsById(_data.id);
+                for (i = 0; _data.blockByLevel.length; i++) {
+                    if (_data.blockByLevel[i] <= g.user.level) {
+                        maxCountAtCurrentLevel++;
+                    } else break;
+                }
+                if (maxCountAtCurrentLevel == arr.length) {
+                    im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                    st = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
+                } else {
+                    st = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
                 }
             }
         } else if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
@@ -279,9 +297,9 @@ public class ShopItem {
             g.woShop.onClickExit();
 //            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if (_state == STATE_FROM_INVENTORY) {
-                g.toolsModifier.startMove(_data, afterMoveFromInventory, 1, true);
+                g.toolsModifier.startMove(_data, afterMoveFromInventory, 1, 1, true);
             } else {
-                g.toolsModifier.startMove(_data, afterMove, 1, true);
+                g.toolsModifier.startMove(_data, afterMove, 1, 1, true);
             }
         } else {
             //додаємо на відповідну ферму

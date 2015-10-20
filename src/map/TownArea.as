@@ -460,7 +460,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function moveBuild(worldObject:WorldObject, treeState:int = 1):void{// не сохраняется флип при муве
+    public function moveBuild(worldObject:WorldObject, treeState:int = 1,ridgeState:int = 1):void{// не сохраняется флип при муве
         if (!worldObject) {
             Cc.error('TownArea moveBuild:: empty worldObject');
             g.woGameError.showIt();
@@ -475,7 +475,7 @@ public class TownArea extends Sprite {
             } else {
                 unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
             }
-            g.toolsModifier.startMove((worldObject as AreaObject).dataBuild, afterMove, treeState);
+            g.toolsModifier.startMove((worldObject as AreaObject).dataBuild, afterMove, treeState,ridgeState);
         }
     }
 

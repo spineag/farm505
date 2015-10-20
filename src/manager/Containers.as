@@ -152,6 +152,7 @@ public class Containers {
     }
 
     public function dragGameCont(mouseP:Point):void {
+        g.hideAllHints();
         var s:Number = g.cont.gameCont.scaleX;
         if (_startDragPointCont == null || _startDragPoint == null) return;
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;

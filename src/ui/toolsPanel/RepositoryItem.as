@@ -68,7 +68,7 @@ public class RepositoryItem {
         if (_data.buildType == BuildType.DECOR_TAIL) {
             g.toolsModifier.startMoveTail(_data, afterMove, true);
         } else {
-            g.toolsModifier.startMove(_data, afterMove, 1, true);
+            g.toolsModifier.startMove(_data, afterMove, 1, 1,true);
         }
     }
 
