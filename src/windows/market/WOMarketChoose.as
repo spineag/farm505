@@ -22,6 +22,8 @@ public class WOMarketChoose extends Window {
     private var _curResourceId:int;
     private var _checkBox:MarketCheckBox;
     private var filter:ColorMatrixFilter;
+    private var booleanPlus:Boolean;
+    private var booleanMinus:Boolean;
 
     public function WOMarketChoose() {
         super();
@@ -35,7 +37,8 @@ public class WOMarketChoose extends Window {
         _btnExit.x -= 28;
         _btnExit.y += 40;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-
+        booleanPlus = true;
+        booleanMinus = true;
         filter = new ColorMatrixFilter();
         filter.adjustSaturation(-1);
 
@@ -152,27 +155,73 @@ public class WOMarketChoose extends Window {
         _countMoneyBlock.maxValue = count * g.dataResource.objectResources[_curResourceId].costMax;
         _countMoneyBlock.minValue = 1;
         _countMoneyBlock.count =  count * g.dataResource.objectResources[_curResourceId].costMax / 3;
+        if (countRes == 1) {
+            _countResourceBlock._btnMinus.filter = filter;
+            _countResourceBlock._btnPlus.filter = filter;
+        } else if (_countResourceBlock.count == 10) {
+            _countResourceBlock._btnPlus.filter = filter;
+        }
         if ( _countMoneyBlock.count <= 0){
             _countMoneyBlock.count = 1;
         }
     }
 
     private function onChangeResourceCount(onPlus:Boolean):void {
-        if (_countResourceBlock.count == 10) return;
-        if (_countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId)) return;
-        _countMoneyBlock.btnNull();
+        var countRes:int = g.userInventory.getCountResourceById(_curResourceId);
         _countMoneyBlock.maxValue = _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costMax;
-        if (onPlus) {
-//        if (_countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3 > g.dataResource.objectResources[_curResourceId].costMax) return;
-        _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3;
 
+//        var count:Boolean;
+        _countMoneyBlock.btnNull();
+        if (onPlus) {
+            booleanMinus = true;
+            _countMoneyBlock._btnPlus.filter = null;
+            if (countRes == 1) {
+                _countResourceBlock._btnMinus.filter = filter;
+                _countResourceBlock._btnPlus.filter = filter;
+                return;
+            }
+            if (booleanPlus == false) return; else {
+                if (_countResourceBlock.count == 10 || _countResourceBlock.count == countRes) {
+                    booleanPlus = false;
+                    _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3;
+                    _countResourceBlock._btnPlus.filter = filter;
+                    return;
+                } else _countResourceBlock._btnPlus.filter = null;
+            }
+            booleanPlus = true;
+            _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3;
         } else {
-            if (_countResourceBlock.count == 1) return;
-                _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1;
+            booleanPlus = true;
+            if (_countMoneyBlock.count == _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costMax) {
+                _countMoneyBlock._btnPlus.filter = filter;
+                return;
+            }
+            if (countRes == 1) {
+                _countResourceBlock._btnMinus.filter = filter;
+                _countResourceBlock._btnPlus.filter = filter;
+                return;
+            }
+            if (booleanMinus == false) return; else {
+                if (_countResourceBlock.count == 1) {
+                    booleanMinus = false;
+                    if (_countMoneyBlock.count == 1 || 0 >= _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1) {
+                        _countMoneyBlock.count = 1;
+                        _countResourceBlock._btnMinus.filter = filter;
+                        return;
+                    }
+                    _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1;
+                    _countResourceBlock._btnMinus.filter = filter;
+                    return;
+                } else _countResourceBlock._btnMinus.filter = null;
+            }
+            if (_countMoneyBlock.count == 1 || 0 >= _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1) {
+                _countMoneyBlock.count = 1;
+                return;
+            }
+            booleanMinus = true;
+            _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1;
         }
-//        if (onPlus) {   // дописать автоувеличение/уменьшение
-//            _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMin;
-//        }
+
     }
 
     private function onClickBtnSell():void {

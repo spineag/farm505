@@ -93,7 +93,7 @@ public class LockedLand extends AreaObject {
 
     public function openIt():void {
         if (_dataLand.currencyCount > 0) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataLand.currencyCount);
-        if (_dataLand.resourceCount > 0) g.userInventory.addResource(_dataLand.resourceId, _dataLand.resourceCount);
+        if (_dataLand.resourceCount > 0) g.userInventory.addResource(_dataLand.resourceId, -_dataLand.resourceCount);
         g.directServer.removeUserLockedLand(_dataLand.id);
         while (_source.numChildren) {
             _source.removeChildAt(0);
