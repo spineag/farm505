@@ -125,7 +125,10 @@ public class Ridge extends AreaObject{
 
     private function onEndClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
+            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
+                g.toolsModifier.ridgeId = _dataPlant.id;
+            }
+            g.townArea.moveBuild(this,1,_stateRidge);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {

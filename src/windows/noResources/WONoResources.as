@@ -176,10 +176,9 @@ public class WONoResources extends Window {
     }
 
     private function createListTrain(id:int,count:int):void {
-        var im:WONoResourcesItem;
-        im = new WONoResourcesItem(id,1);
+        _imageItem = new Image(g.interfaceAtlas.getTexture("coin"));
         _txtCount.text = String(count);
-        _contImage.addChild(im.source);
+        _contImage.addChild(_imageItem);
         _txtHardCost.text = "2";
         _contBtn.addChild(_txtHardCost);
         _contImage.addChild(_txtCount);

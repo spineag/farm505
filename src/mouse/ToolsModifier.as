@@ -3,6 +3,7 @@
  */
 package mouse {
 import build.WorldObject;
+import build.ridge.Ridge;
 import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
@@ -50,6 +51,7 @@ public class ToolsModifier {
     private var _mouseCont:Sprite;
     public var contImage:Sprite;
     private var _plantId:int;
+    private var _ridgeId:int;
     private var _txtCount:TextField;
     private var filter:ColorMatrixFilter;
 
@@ -91,6 +93,10 @@ public class ToolsModifier {
 
     public function get plantId():int {
         return _plantId;
+    }
+
+    public function set ridgeId(a:int):void {
+        _ridgeId = a;
     }
 
     public function set activatePlantState(value:Boolean):void {
@@ -183,7 +189,7 @@ public class ToolsModifier {
     }
 
     private var imForMove:Image;
-    public function  startMove(buildingData:Object, callback:Function = null, treeState:int = 1, isFromShop:Boolean = false):void {
+    public function  startMove(buildingData:Object, callback:Function = null, treeState:int = 1, ridgeState:int = 1, isFromShop:Boolean = false):void {
         if (!buildingData) {
             Cc.error('ToolsModifier startMove:: empty buildingData');
             g.woGameError.showIt();
@@ -241,6 +247,58 @@ public class ToolsModifier {
                 Cc.error('ToolsModifier startMove:: no image for tree type: ' + treeState);
                 g.woGameError.showIt();
                 return;
+            }
+        } else if (_activeBuildingData.buildType == BuildType.RIDGE) {
+            var im:Image;
+
+            imForMove = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
+            if (imForMove) {
+                imForMove.x = _activeBuildingData.innerX;
+                imForMove.y = _activeBuildingData.innerY;
+                _spriteForMove.addChild(imForMove);
+            } else {
+                Cc.error('ToolsModifier startMove:: no image for BuildType: ' + _activeBuildingData.image);
+                g.woGameError.showIt();
+                return;
+            }
+            if (ridgeState == Ridge.GROW1 || ridgeState == Ridge.GROW2 || ridgeState == Ridge.GROW3 || ridgeState == Ridge.GROWED ) {
+                switch (ridgeState) {
+                    case Ridge.GROW1:
+                        imForMove = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_ridgeId].image1));
+                        if (imForMove) {
+                            imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[0];
+                            imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[1];
+                        }
+                        break;
+                    case Ridge.GROW2:
+                        imForMove = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_ridgeId].image2));
+                        if (imForMove) {
+                            imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[2];
+                            imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[3];
+                        }
+                        break;
+                    case Ridge.GROW3:
+                        imForMove = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_ridgeId].image3));
+                        if (imForMove) {
+                            imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[4];
+                            imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[5];
+                        }
+                        break;
+                    case Ridge.GROWED:
+                        imForMove = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_ridgeId].image4));
+                        if (imForMove) {
+                            imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[6];
+                            imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[7];
+                        }
+                        break;
+                }
+                if (imForMove) {
+                    _spriteForMove.addChild(imForMove);
+                } else {
+                    Cc.error('ToolsModifier startMove:: no image for ridge type: ' + ridgeState);
+                    g.woGameError.showIt();
+                    return;
+                }
             }
         } else if (_activeBuildingData.url == "buildAtlas") {
             imForMove = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));

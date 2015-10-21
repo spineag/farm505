@@ -298,16 +298,14 @@ public class Tree extends AreaObject{
         _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
         _isOnHover = true;
         _count = 20;
-        if(_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3){
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
-        }
-// else if (_state == FULL_DEAD) {
-//            g.gameDispatcher.addEnterFrame(countEnterFrameDead);
-//        }
         if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
             g.mouseHint.checkMouseHint(MouseHint.KORZINA);
         }
-
+        if(_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3){
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+        } else if (_state == FULL_DEAD) {
+            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+        }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             g.mouseHint.hideHintMouse();
         }
@@ -317,8 +315,10 @@ public class Tree extends AreaObject{
         _source.filter = null;
         _isOnHover = false;
         g.gameDispatcher.addEnterFrame(countEnterFrame);
-        g.gameDispatcher.addEnterFrame(countEnterFrameDead);
+        g.treeHint.hideIt();
         g.mouseHint.hideHintMouse();
+        if (!_isOnHover) g.treeHint.hideIt();
+
     }
 
     private function onClick():void {
@@ -340,9 +340,12 @@ public class Tree extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
             if (_state ==  FULL_DEAD){
-                _isOnHover = true;
-                g.gameDispatcher.addEnterFrame(countEnterFrameDead);
-//                g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
+//                _isOnHover = true;
+                if (_isOnHover == true) {
+                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
+                    if (g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) return;
+                    g.treeHint.onDelete = deleteTree;
+                }
             } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
@@ -458,23 +461,6 @@ public class Tree extends AreaObject{
         }
     }
 
-    private function countEnterFrameDead():void {
-        _count--;
-        if (_count <= 0) {
-
-            g.gameDispatcher.removeEnterFrame(countEnterFrameDead);
-            if (_isOnHover == true) {
-                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
-                    if (g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) return;
-                    g.treeHint.onDelete = deleteTree;
-            }
-            if (_isOnHover == false) {
-                    _source.filter = null;
-                g.treeHint.hideIt();
-            }
-        }
-    }
-
     override public function addXP():void {
         if (_dataBuild.xpForBuild) {
             var start:Point = new Point(int(_source.x), int(_source.y));
@@ -491,7 +477,6 @@ public class Tree extends AreaObject{
 
     override public function clearIt():void {
         onOut();
-        g.gameDispatcher.removeEnterFrame(countEnterFrameDead);
         g.gameDispatcher.removeEnterFrame(countEnterFrame);
         g.gameDispatcher.removeFromTimer(render);
         _resourceItem = null;
