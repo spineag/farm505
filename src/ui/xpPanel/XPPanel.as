@@ -76,6 +76,7 @@ public class XPPanel {
             g.woLevelUp.showLevelUp();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
             if (g.useDataFromServer) g.directServer.updateUserLevel(onUpdateUserLevel);
+            g.managerCats.calculateMaxCountCats();
         }
         checkXP();
     }

@@ -9,6 +9,7 @@ import build.train.Train;
 import build.tree.Tree;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.DataMoney;
 
 import flash.events.Event;
 import flash.geom.Point;
@@ -312,10 +313,12 @@ public class DirectServer {
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
                 obj.id = int(d.message[i].id);
-                obj.blockByLevel = int(d.message[i].block_by_level);
-                obj.price = int(d.message[i].cost);
+                obj.blockByLevel = [int(d.message[i].block_by_level)];
+                obj.cost = int(d.message[i].cost);
+                obj.currency == DataMoney.SOFT_CURRENCY
                 g.dataCats.push(obj);
             }
+            g.dataCats.sortOn('blockByLevel', Array.NUMERIC);
             if (callback != null) {
                 callback.apply();
             }
@@ -2725,6 +2728,49 @@ public class DirectServer {
         } else {
             Cc.error('getAllCityData: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('getAllCityData: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function buyHeroCat(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_BUY_HERO_CAT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'buyHeroCat', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteBuyHeroCat);
+        function onCompleteBuyHeroCat(e:Event):void { completeBuyHeroCat(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('buyFromHeroCat error:' + error.errorID);
+            woError.showItParams('buyHeroCat error:' + error.errorID);
+        }
+    }
+
+    private function completeBuyHeroCat(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('buyHeroCat: wrong JSON:' + String(response));
+            woError.showItParams('buyHeroCat: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        } else {
+            Cc.error('buyHeroCat: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('buyHeroCat: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

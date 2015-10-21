@@ -11,6 +11,8 @@ import data.BuildType;
 
 import flash.geom.Point;
 
+import heroes.HeroCat;
+
 import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
@@ -36,6 +38,7 @@ public class Fabrica extends AreaObject {
     private var _tween:TweenMax;
     private var _isAnim:Boolean;
     private var _isOnHover:Boolean;
+    private var _heroCat:HeroCat;
     private var _count:int;
 
     public function Fabrica(_data:Object) {
@@ -160,6 +163,31 @@ public class Fabrica extends AreaObject {
     }
 
     public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object, isFromServer:Boolean = false, deltaTime:int = 0):void {
+        if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
+
+        if (!_arrList.length && !_heroCat) {
+            g.woNoFreeCats.showIt();
+            return;
+        }
+        for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+            g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
+        }
+
+        _heroCat.isFree = false;
+        if (isFromServer) {
+            _heroCat.setPosition(new Point(posX, posY));
+            _heroCat.updatePosition();
+            onHeroAnimation(resItem, dataRecipe, isFromServer, deltaTime);
+        } else {
+            if (_arrList.length) {
+                onHeroAnimation(resItem, dataRecipe, isFromServer, deltaTime);
+            } else {
+                g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation, resItem, dataRecipe, isFromServer, deltaTime);
+            }
+        }
+    }
+
+    private function onHeroAnimation(resItem:ResourceItem, dataRecipe:Object, isFromServer:Boolean = false, deltaTime:int = 0):void {
         var i:int;
         if (g.user.userBuildingData && !isFromServer) {
             var delay:int = 0;
@@ -171,6 +199,7 @@ public class Fabrica extends AreaObject {
             };
             g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
         }
+        _heroCat.visible = false;
         _arrList.push(resItem);
         resItem.leftTime -= deltaTime;
         resItem.currentRecipeID = dataRecipe.id;
@@ -198,8 +227,7 @@ public class Fabrica extends AreaObject {
     private function render():void {
         _arrList[0].leftTime--;
         if (_arrList[0].leftTime <= 0) {
-            craftResource(_arrList[0]);
-            _arrList.shift();
+            craftResource(_arrList.shift());
             if (!_arrList.length) {
                 g.gameDispatcher.removeFromTimer(render);
                 stopTempAnimation();
@@ -219,6 +247,12 @@ public class Fabrica extends AreaObject {
             if (g.useDataFromServer) g.managerFabricaRecipe.onCraft(item);
         };
         var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, f1);
+        if (!_arrList.length && _heroCat) {
+            _heroCat.visible = true;
+            _heroCat.isFree = true;
+            g.managerCats.goCatToPoint(_heroCat, g.managerCats.getRandomFreeCell());
+            _heroCat = null;
+        }
     }
 
     public function awayImitationOfWork():void {

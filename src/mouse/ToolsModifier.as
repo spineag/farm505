@@ -330,8 +330,10 @@ public class ToolsModifier {
     public function cancelMove():void {
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        while (_spriteForMove.numChildren) {
-            _spriteForMove.removeChildAt(0);
+        if (_spriteForMove) {
+            while (_spriteForMove.numChildren) {
+                _spriteForMove.removeChildAt(0);
+            }
         }
         _moveGrid.clearIt();
         _moveGrid = null;

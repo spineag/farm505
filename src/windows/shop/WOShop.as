@@ -55,6 +55,10 @@ public class WOShop extends Window{
         onTab(curentTab);
     }
 
+    public function activateTab(a:int):void {
+        curentTab = a;
+    }
+
     public function createShopTabBtns():void {
         var w:int;
 
@@ -105,8 +109,7 @@ public class WOShop extends Window{
                 break;
             case 2: _btnTab2.activateIt(true);
                 obj = g.dataAnimal.objectAnimal;
-                var ob:Object = new Object();
-//                ob.name =
+                arr.push(g.managerCats.catInfo);
                 for (id in obj) {
                     //if (obj[id].buildType == BuildType.ANIMAL) {
                         arr.push(obj[id]);

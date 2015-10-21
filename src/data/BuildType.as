@@ -34,5 +34,6 @@ public class BuildType {
     public static const PAPER:int = 25;
     public static const TRAIN:int = 26;
     public static const LOCKED_LAND:int = 27;
+    public static const CAT:int = 28;
 }
 }

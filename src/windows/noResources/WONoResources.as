@@ -99,8 +99,8 @@ public class WONoResources extends Window {
         showIt();
     }
 
-    public function showItTrain(data:int, count:int):void {
-        createListTrain(data,count);
+    public function showItTrain(id:int, count:int):void {
+        createListTrain(id,count);
         showIt();
     }
 
@@ -175,9 +175,9 @@ public class WONoResources extends Window {
         _contBtn.addChild(_txtHardCost);
     }
 
-    private function createListTrain(data:int,count:int):void {
+    private function createListTrain(id:int,count:int):void {
         var im:WONoResourcesItem;
-        im = new WONoResourcesItem(data,1);
+        im = new WONoResourcesItem(id,1);
         _txtCount.text = String(count);
         _contImage.addChild(im.source);
         _txtHardCost.text = "2";
