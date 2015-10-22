@@ -91,5 +91,16 @@ public class CButton extends Button{
                 this.removeEventListener(TouchEvent.TOUCH, onTouch);
         }
     }
+
+    public function deleteIt():void {
+        this.removeEventListener(TouchEvent.TOUCH, onTouch);
+        _endClickCallback = null;
+        _hoverCallback = null;
+        _startClickCallback = null;
+        _outCallback = null;
+        this.dispose();
+        _upState = null;
+        _hoverState = null;
+    }
 }
 }

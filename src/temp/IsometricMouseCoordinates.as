@@ -18,18 +18,14 @@ import starling.utils.Color;
 public class IsometricMouseCoordinates {
 
     public var source:Sprite;
-    private var _iconEditor:Sprite;
     private var _textPosX:TextField;
     private var _textPosY:TextField;
     private var _mousePosX:TextField;
     private var _mousePosY:TextField;
-
-
     private var g:Vars = Vars.getInstance();
 
     public function IsometricMouseCoordinates() {
         source = new Sprite();
-        _iconEditor = new Sprite();
         _textPosX = new TextField(30, 20, "IsoX: ", "Arial", 10, Color.BLACK);
         _textPosY = new TextField(30, 20, "IsoY: ", "Arial", 10, Color.BLACK);
         _mousePosX = new TextField(30, 20, " ", "Arial", 10, Color.BLACK);
@@ -67,6 +63,17 @@ public class IsometricMouseCoordinates {
 
     public function stopIt():void {
         g.gameDispatcher.removeEnterFrame(mapIndex);
+    }
+
+    public function deleteIt():void {
+        while (source.numChildren) source.removeChildAt(0);
+        _textPosX.dispose();
+        _textPosY.dispose();
+        _mousePosX.dispose();
+        _mousePosY.dispose();
+        source = null;
+        _point = null;
+        _cont = null;
     }
 }
 }

@@ -67,6 +67,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onHover():void {
+        if (g.isActiveMapEditor) return;
         _isOnHover = true;
         _count = 20;
         _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
@@ -92,6 +93,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onOut():void {
+        if (g.isActiveMapEditor) return;
         _isOnHover = false;
         _source.filter = null;
         if (_stateBuild == STATE_BUILD) {
@@ -102,6 +104,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onClick():void {
+        if (g.isActiveMapEditor) return;
         if (_stateBuild == STATE_ACTIVE) {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
                 g.townArea.moveBuild(this);

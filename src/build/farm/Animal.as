@@ -112,6 +112,7 @@ public class Animal {
     }
 
     private function onClick():void {
+        if (g.isActiveMapEditor) return;
         if (_state == EMPTY) {
             source.filter = null;
             if(!g.userInventory.checkResource(_data , 1)) return;
@@ -128,6 +129,7 @@ public class Animal {
     }
 
     private function onHover():void {
+        if (g.isActiveMapEditor) return;
         if (_state == EMPTY) {
             source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
         } else {
@@ -144,6 +146,7 @@ public class Animal {
     }
 
     private function onOut():void {
+        if (g.isActiveMapEditor) return;
         source.filter = null;
         _isOnHover = false;
         g.gameDispatcher.addEnterFrame(countEnterFrame);

@@ -65,6 +65,7 @@ public class DecorPostFence extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             g.townArea.moveBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
