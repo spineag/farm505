@@ -311,7 +311,7 @@ public class ToolsModifier {
                 g.woGameError.showIt();
                 return;
             }
-            if (g.selectedBuild.stateBuild == WorldObject.STATE_BUILD) {
+            if (g.selectedBuild && g.selectedBuild.stateBuild == WorldObject.STATE_BUILD) {
                 imForMove = new Image(g.tempBuildAtlas.getTexture("foundation"));
                 imForMove.x = -262;
                 imForMove.y = -274;

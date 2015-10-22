@@ -4,7 +4,7 @@
 package user {
 public class NeighborBot extends Someone{
     public function NeighborBot() {
-        userSocialId = '666';
+        userSocialId = '1';
         name = 'Сосед';
         lastName = 'Любимый';
         photo = 'neighbor';

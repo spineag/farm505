@@ -582,15 +582,15 @@ public class TownArea extends Sprite {
     }
 
     public function goAway(person:Someone):void {
-        if (person == g.user.neighbor) {
-
-        } else {
+//        if (person == g.user.neighbor) {
+//
+//        } else {
             if (person.userDataCity.objects) {
                 setAwayCity(person);
             } else {
                 g.directServer.getAllCityData(person, setAwayCity);
             }
-        }
+//        }
     }
 
     private function setAwayCity(p:Someone):void {
