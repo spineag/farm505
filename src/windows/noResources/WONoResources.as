@@ -181,6 +181,7 @@ public class WONoResources extends Window {
         _txtHardCost.text = "2";
         _contBtn.addChild(_txtHardCost);
         _contImage.addChild(_txtCount);
+        _contImage.addChild(_imageItem);
     }
 
     private function onClick():void {
