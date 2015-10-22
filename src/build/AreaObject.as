@@ -83,7 +83,7 @@ public class AreaObject extends WorldObject {
             im.y = _dataBuild.innerY;
         } else if (_dataBuild.url == "treeAtlas") {
             Cc.error('TREE in createBuild in AreaObject!');
-        } else {
+        } else if (_dataBuild.url ) {
             im  = new Image(g.mapAtlas.getTexture(_dataBuild.image));
             im.x = -im.width/2;
         }

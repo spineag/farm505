@@ -24,6 +24,8 @@ public class EmbedAssets {
     public static const TreeTexture:Class;
     [Embed(source="../../assets/cats.png")]
     public static const CatTexture:Class;
+    [Embed(source="../../assets/wildAtlas.png")]
+    public static const WildTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
@@ -42,6 +44,8 @@ public class EmbedAssets {
     public static const TreeTextureXML:Class;
     [Embed(source="../../assets/cats.xml", mimeType="application/octet-stream")]
     public static const CatTextureXML:Class;
+    [Embed(source="../../assets/wildAtlas.xml", mimeType="application/octet-stream")]
+    public static const WildTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -81,6 +85,10 @@ public class EmbedAssets {
         texture = Texture.fromBitmap(new CatTexture());
         xml= XML(new CatTextureXML());
         g.catAtlas = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new WildTexture());
+        xml= XML(new WildTextureXML());
+        g.wildAtlas = new TextureAtlas(texture, xml);
     }
 }
 }

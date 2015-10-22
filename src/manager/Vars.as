@@ -130,6 +130,7 @@ public class Vars {
     public var resourceAtlas:TextureAtlas;
     public var treeAtlas:TextureAtlas;
     public var catAtlas:TextureAtlas;
+    public var wildAtlas:TextureAtlas;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;

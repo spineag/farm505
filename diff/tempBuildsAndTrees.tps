@@ -214,7 +214,6 @@
             <filename>buildings/smoke_house.png</filename>
             <filename>buildings/sugar_mill.png</filename>
             <filename>buildings/train.png</filename>
-            <filename>buildings/wild</filename>
             <filename>buildings/yogurt_machine.png</filename>
             <filename>buildings/zakaz.png</filename>
             <filename>stolb.png</filename>
