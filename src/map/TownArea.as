@@ -131,7 +131,9 @@ public class TownArea extends Sprite {
         try {
             _cityObjects.sortOn("depth", Array.NUMERIC);
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                _cont.setChildIndex(_cityObjects[i].source, i);
+                if (_cont.contains(_cityObjects[i].source)) {
+                    _cont.setChildIndex(_cityObjects[i].source, i);
+                }
             }
         } catch(e:Error) {
             g.woGameError.showIt();
@@ -217,12 +219,27 @@ public class TownArea extends Sprite {
 
     public function addHero(c:BasicCat):void {
         _cityObjects.push(c);
+        addHeroSourceOnMap(c);
+    }
+
+    public function addHeroSourceOnMap(c:BasicCat):void {
         var p:Point = g.matrixGrid.getXYFromIndex(new Point(c.posX, c.posY));
         c.source.x = int(p.x);
         c.source.y = int(p.y);
         c.updateDepth();
-        _cont.addChild(c.source);
+        if (!_cont.contains(c.source))
+            _cont.addChild(c.source);
         zSort();
+    }
+
+    public function removeHero(c:BasicCat):void {
+        if (_cityObjects.indexOf(c) > -1) _cityObjects.slice(_cityObjects.indexOf(c), 1);
+        removeHeroSourceFromMap(c);
+    }
+
+    public function removeHeroSourceFromMap(c:BasicCat):void {
+        if (_cont.contains(c.source))
+            _cont.removeChild(c.source);
     }
 
     public function createNewBuild(_data:Object, _x:Number, _y:Number, isFromServer:Boolean = false, dbId:int = 0):void {
@@ -565,15 +582,15 @@ public class TownArea extends Sprite {
     }
 
     public function goAway(person:Someone):void {
-        if (person == g.user.neighbor) {
-
-        } else {
+//        if (person == g.user.neighbor) {
+//
+//        } else {
             if (person.userDataCity.objects) {
                 setAwayCity(person);
             } else {
                 g.directServer.getAllCityData(person, setAwayCity);
             }
-        }
+//        }
     }
 
     private function setAwayCity(p:Someone):void {

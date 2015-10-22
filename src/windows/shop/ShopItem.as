@@ -48,11 +48,35 @@ public class ShopItem {
         source = new CSprite();
         _bg = new Image(g.interfaceAtlas.getTexture('shop_item'));
         source.addChild(_bg);
+
+        _nameTxt = new TextField(150, 70, '', "Arial", 20, Color.BLACK);
+        _nameTxt.x = 7;
+        _nameTxt.y = 140;
+        source.addChild(_nameTxt);
+        _countTxt = new TextField(122, 30, '', "Arial", 16, Color.WHITE);
+        _countTxt.x = 22;
+        _countTxt.y = 220;
+        source.addChild(_countTxt);
+        source.endClickCallback = onClick;
+
+        _lockedSprite = new Sprite();
+        _lockedTxt = new TextField(170, 70, '', "Arial", 16, Color.BLACK);
+        _lockedTxt.y = -110;
+        _lockedSprite.addChild(_lockedTxt);
+        _lockedSprite.y = 110;
+        source.addChild(_lockedSprite);
+
+        setInfo();
+    }
+
+    private function setInfo():void {
         if (_data.image) {
             if (_data.url == "buildAtlas") {
                 _im = new Image(g.tempBuildAtlas.getTexture(_data.image));
             } else if (_data.url == "treeAtlas") {
                 _im = new Image(g.treeAtlas.getTexture(_data.image));
+            } else if (_data.url == 'catAtlas') {
+                _im = new Image(g.catAtlas.getTexture(_data.image));
             }
             if (!_im) {
                 Cc.error('ShopItem:: no such image: ' + _data.image);
@@ -62,24 +86,21 @@ public class ShopItem {
             MCScaler.scale(_im, 100, 100);
             _im.x = 35 + 50 - _im.width / 2;
             _im.y = 30 + 50 - _im.height / 2;
-            source.addChild(_im);
+            source.addChildAt(_im, 1);
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
             g.woGameError.showIt();
         }
 
+        _nameTxt.text = String(_data.name);
 
-        _nameTxt = new TextField(150, 70, String(_data.name), "Arial", 20, Color.BLACK);
-        _nameTxt.x = 7;
-        _nameTxt.y = 140;
-        source.addChild(_nameTxt);
-
-        _countCost = _data.cost;
-        _countTxt = new TextField(122, 30, String(_countCost), "Arial", 16, Color.WHITE);
-        _countTxt.x = 22;
-        _countTxt.y = 220;
-        source.addChild(_countTxt);
-        source.endClickCallback = onClick;
+        if (_data.buildType == BuildType.CAT) {
+            _countCost = g.dataCats[g.managerCats.curCountCats].cost;
+            _data.cost = _countCost;
+        } else {
+            _countCost = _data.cost;
+        }
+        _countTxt.text = String(_countCost);
 
         if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE)
                 && g.userInventory.decorInventory[_data.id]) {
@@ -89,14 +110,6 @@ public class ShopItem {
         } else {
             _state = STATE_BUY;
         }
-
-        _lockedSprite = new Sprite();
-
-        _lockedTxt = new TextField(170, 70, '', "Arial", 16, Color.BLACK);
-        _lockedTxt.y = -110;
-        _lockedSprite.addChild(_lockedTxt);
-        _lockedSprite.y = 110;
-        source.addChild(_lockedSprite);
 
         checkState();
     }
@@ -237,6 +250,15 @@ public class ShopItem {
                     st = String(curCount) + '/' + String(maxCount);
                 }
             }
+        } else if (_data.buildType == BuildType.CAT) {
+            curCount = g.managerCats.curCountCats;
+            maxCount = g.managerCats.maxCountCats;
+            if (curCount == maxCount) {
+                im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                st = String(maxCount) + '/' + String(maxCount);
+            } else {
+                st = String(curCount) + '/' + String(maxCount);
+            }
         }
 
         if (st != '') {
@@ -264,7 +286,12 @@ public class ShopItem {
     }
 
     private function onClick():void {
-        _countCost = _data.cost;
+        if (_data.buildType == BuildType.CAT) {
+            _countCost = g.dataCats[g.managerCats.curCountCats].cost;
+            _data.cost = _countCost;
+        } else {
+            _countCost = _data.cost;
+        }
         if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
@@ -293,6 +320,10 @@ public class ShopItem {
             } else {
                 g.toolsModifier.startMoveTail(_data, afterMove, true);
             }
+        } else if (_data.buildType == BuildType.CAT) {
+            g.bottomPanel.cancelBoolean(false);
+            g.managerCats.onBuyCatFromShop();
+            updateItem();
         } else if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.onClickExit();
 //            g.toolsModifier.modifierType = ToolsModifier.MOVE;
@@ -332,6 +363,28 @@ public class ShopItem {
         g.townArea.createNewBuild(_data, _x, _y, true, dbId);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
+    }
+
+    private function updateItem():void {
+        var curCount:int;
+        var maxCount:int;
+        var im:Image;
+
+        if (_data.buildType == BuildType.CAT) {
+            curCount = g.managerCats.curCountCats;
+            maxCount = g.managerCats.maxCountCats;
+            if (curCount == maxCount) {
+                im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                _lockedTxt.text = String(maxCount) + '/' + String(maxCount);
+            } else {
+                _lockedTxt.text = String(curCount) + '/' + String(maxCount);
+            }
+        }
+
+        if (im) {
+            _lockedSprite.addChildAt(im, 0);
+            source.endClickCallback = null;
+        }
     }
 }
 }

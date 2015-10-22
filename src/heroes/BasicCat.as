@@ -24,7 +24,7 @@ public class BasicCat {
     protected var _depth:Number;
     protected var _source:CSprite;
     protected var _speedWalk:int = 4;
-    protected var _speedRun:int = 7;
+    protected var _speedRun:int = 10;
     protected var _curSpeed:int;
     protected var _currentPath:Array;
     protected var _callbackOnWalking:Function;
@@ -39,8 +39,19 @@ public class BasicCat {
         _posY = p.y;
     }
 
+    public function updatePosition():void {
+        var p:Point = new Point(_posX, _posY);
+        p = g.matrixGrid.getXYFromIndex(p);
+        _source.x = p.x;
+        _source.y = p.y;
+    }
+
     public function addToMap():void {
         g.townArea.addHero(this);
+    }
+
+    public function removeFromMap():void {
+        g.townArea.removeHero(this);
     }
 
     public function get depth():Number {
@@ -66,6 +77,14 @@ public class BasicCat {
         return _source;
     }
 
+    public function set visible(value:Boolean):void {
+        if (value) {
+            g.townArea.addHeroSourceOnMap(this);
+        } else {
+            g.townArea.removeHeroSourceFromMap(this);
+        }
+    }
+
     public function walkAnimation():void {
         _curSpeed = _speedWalk;
     }
@@ -77,9 +96,10 @@ public class BasicCat {
     }
     public function idleAnimation():void {}
 
-    public function goWithPath(arr:Array):void {
+    public function goWithPath(arr:Array, f:Function):void {
         _currentPath = arr;
         if (_currentPath.length) {
+            _callbackOnWalking = f;
             _currentPath.shift(); // first element is that point, where we are now
             gotoPoint(_currentPath.shift());
         }

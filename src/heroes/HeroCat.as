@@ -61,5 +61,13 @@ public class HeroCat extends BasicCat{
         }
     }
 
+    public function get isFree():Boolean {
+        return _isFree;
+    }
+
+    public function set isFree(value:Boolean):void {
+        _isFree = value;
+    }
+
 }
 }

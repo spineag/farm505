@@ -78,6 +78,7 @@ import windows.lastResource.WOLastResource;
 import windows.levelUp.WOLevelUp;
 import windows.lockedLand.WOLockedLand;
 import windows.market.WOMarket;
+import windows.noFreeCats.WONoFreeCats;
 import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
@@ -189,6 +190,7 @@ public class Vars {
     public var woLockedLand:WOLockedLand;
     public var windowsPool:Array;
     public var woGameError:WOGameError;
+    public var woNoFreeCats:WONoFreeCats;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -243,6 +245,8 @@ public class Vars {
         townArea = new TownArea();
         farmGrid = new FarmGrid();
 
+        managerCats = new ManagerCats();
+
         if (useDataFromServer) {
             socialNetwork = new SocialNetwork(flashVars);
             socialNetworkID = SocialNetworkSwitch.SN_VK;
@@ -281,6 +285,7 @@ public class Vars {
     }
 
     private function onUserInfo():void {
+        managerCats.addAllHeroCats();
         directServer.getDataAnimal(onDataAnimal);
         startPreloader.setProgress(89);
     }
@@ -414,14 +419,14 @@ public class Vars {
         woTrainOrder = new WOTrainOrder();
         woLockedLand = new WOLockedLand();
         woGameError = new WOGameError();
+        woNoFreeCats = new WONoFreeCats();
 
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         woPaper.updatePaperItems();
 
-        managerCats = new ManagerCats();
-        managerCats.addAllHeroCats();
         managerCats.setAllCatsToRandomPositions();
+        managerCats.calculateMaxCountCats();
         aStar = new AStar();
 
         if (!useDataFromServer) temporaryFillUserInventory();

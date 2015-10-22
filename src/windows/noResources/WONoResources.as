@@ -99,8 +99,8 @@ public class WONoResources extends Window {
         showIt();
     }
 
-    public function showItTrain(data:int, count:int):void {
-        createListTrain(data,count);
+    public function showItTrain(id:int, count:int):void {
+        createListTrain(id,count);
         showIt();
     }
 
@@ -175,9 +175,10 @@ public class WONoResources extends Window {
         _contBtn.addChild(_txtHardCost);
     }
 
-    private function createListTrain(data:Object,count:int):void {
+    private function createListTrain(id:int,count:int):void {
         _imageItem = new Image(g.interfaceAtlas.getTexture("coin"));
         _txtCount.text = String(count);
+        _contImage.addChild(_imageItem);
         _txtHardCost.text = "2";
         _contBtn.addChild(_txtHardCost);
         _contImage.addChild(_txtCount);

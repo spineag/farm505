@@ -80,9 +80,9 @@ public class WOFabrica extends Window {
             return;
         }
         if(!g.userInventory.checkRecipe(dataRecipe)) return;
-        for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
-               g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
-        }
+//        for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+//               g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
+//        }
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);
         _list.addResource(resource);
