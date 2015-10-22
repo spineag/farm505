@@ -39,6 +39,8 @@ public class MapEditorInterfaceItem {
             _image = new Image(g.tempBuildAtlas.getTexture(_data.image));
         } else if (_data.url == "treeAtlas") {
             _image = new Image(g.treeAtlas.getTexture(_data.image));
+        } else if (_data.url == 'wildAtlas') {
+            _image = new Image(g.wildAtlas.getTexture(_data.image));
         } else {
             _image = new Image(g.mapAtlas.getTexture(_data.image));
         }
