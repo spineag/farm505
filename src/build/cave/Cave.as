@@ -167,7 +167,7 @@ public class Cave extends AreaObject{
                     || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                if (_source.wasGameContMoved) {
+                if (!_source.wasGameContMoved) {
                     if (_arrCraftItems.length) {
                         if (g.userInventory.currentCountInSklad + 1 >= g.user.skladMaxCount) {
                             var p:Point = new Point(_source.x, _source.y);

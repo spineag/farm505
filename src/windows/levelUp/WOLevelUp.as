@@ -36,7 +36,6 @@ public class WOLevelUp extends Window{
     private var _rightArrow:CSprite;
     private var _shift:int;
 
-
     public function WOLevelUp() {
         super ();
         var im:Image;

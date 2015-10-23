@@ -171,6 +171,10 @@ public class MarketFriendsPanel {
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].activateIt(false);
         }
+        _btnDown.isTouchable = true;
+        _btnDown.alpha = 1;
+        _btnUp.isTouchable = false;
+        _btnUp.alpha = .5;
         _shift = 0;
         _cont.y = 0;
     }

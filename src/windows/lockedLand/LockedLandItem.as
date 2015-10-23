@@ -12,16 +12,21 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 import utils.MCScaler;
 
 public class LockedLandItem {
     public var source:Sprite;
     private var _isGood:Boolean;
-
+    private var _contBtn:CSprite;
     private var g:Vars = Vars.getInstance();
+    private var _id:int;
+    private var _count:int;
 
     public function LockedLandItem() {
         source = new Sprite();
+        _contBtn = new CSprite();
         var bg:Quad = new Quad(390, 100, Color.WHITE);
         source.addChild(bg);
     }
@@ -32,7 +37,7 @@ public class LockedLandItem {
         icon.x = 10;
         icon.y = 10;
         source.addChild(icon);
-        if (g.user.softCurrencyCount > count) {
+        if (g.user.softCurrencyCount >= count) {
             var gal:Image = new Image(g.interfaceAtlas.getTexture('galo4ka'));
             MCScaler.scale(gal, 50, 50);
             gal.x = 315;
@@ -74,7 +79,7 @@ public class LockedLandItem {
         icon.x = 10;
         icon.y = 10;
         source.addChild(icon);
-        if (g.userInventory.getCountResourceById(id) > count) {
+        if (g.userInventory.getCountResourceById(id) >= count) {
             var gal:Image = new Image(g.interfaceAtlas.getTexture('galo4ka'));
             MCScaler.scale(gal, 50, 50);
             gal.x = 315;
@@ -82,10 +87,21 @@ public class LockedLandItem {
             source.addChild(gal);
             _isGood = true;
         } else {
+            _count = count - g.userInventory.getCountResourceById(id);
+            _id = id;
             var txt:TextField = new TextField(70, 40, String(g.userInventory.getCountResourceById(id)) + ' / ' + String(count), "Arial", 30, Color.BLACK);
+            var txtBtn:TextField = new TextField(70, 40, "купить за: " + String((count - g.userInventory.getCountResourceById(id)) * g.dataResource.objectResources[id].priceHard), "Arial", 14, Color.BLACK);
+            var im:Image = new Image(g.interfaceAtlas.getTexture("btn2"));
+            im.width = im.width/2;
             txt.x = 310;
             txt.y = 15;
             source.addChild(txt);
+            source.addChild(_contBtn);
+            _contBtn.addChild(im);
+            _contBtn.addChild(txtBtn);
+            _contBtn.x = source.width - _contBtn.width;
+            _contBtn.y = source.height - _contBtn.height;
+            _contBtn.endClickCallback = buyItem;
             _isGood = false;
         }
         var txtDescription:TextField = new TextField(250, 100, 'Необходимо ' +  String(count) + ' ресурсов', "Arial", 20, Color.BLACK);
@@ -108,9 +124,17 @@ public class LockedLandItem {
             _isGood = true;
         } else {
             var txt:TextField = new TextField(70, 40, String(0) + ' / ' + String(count), "Arial", 30, Color.BLACK);
+            var txtBtn:TextField = new TextField(70, 40, "Пригласить", "Arial", 14, Color.BLACK);
+            var im:Image = new Image(g.interfaceAtlas.getTexture("btn2"));
+            im.width = im.width/2;
             txt.x = 310;
             txt.y = 15;
             source.addChild(txt);
+            source.addChild(_contBtn);
+            _contBtn.addChild(im);
+            _contBtn.addChild(txtBtn);
+            _contBtn.x = source.width - _contBtn.width;
+            _contBtn.y = source.height - _contBtn.height;
             _isGood = false;
         }
         var txtDescription:TextField = new TextField(250, 100, 'Необходимо у ' +  String(count) + ' друзей попросить помощи', "Arial", 20, Color.BLACK);
@@ -127,5 +151,11 @@ public class LockedLandItem {
     public function get isGood():Boolean {
         return _isGood;
     }
+
+    private function buyItem():void {
+        g.woBuyForHardCurrency.showItWO(_id,_count);
+    }
+
+
 }
 }

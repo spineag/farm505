@@ -69,6 +69,7 @@ import windows.ambar.WOSklad;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
+import windows.buyForHardCurrency.WOBuyForHardCurrency;
 import windows.buyPlant.WOBuyPlant;
 import windows.cave.WOCave;
 import windows.dailyBonusWindow.WODailyBonus;
@@ -192,6 +193,7 @@ public class Vars {
     public var windowsPool:Array;
     public var woGameError:WOGameError;
     public var woNoFreeCats:WONoFreeCats;
+    public var woBuyForHardCurrency:WOBuyForHardCurrency;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -421,6 +423,7 @@ public class Vars {
         woLockedLand = new WOLockedLand();
         woGameError = new WOGameError();
         woNoFreeCats = new WONoFreeCats();
+        woBuyForHardCurrency = new WOBuyForHardCurrency();
 
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
