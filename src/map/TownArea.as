@@ -44,7 +44,6 @@ public class TownArea extends Sprite {
     private var _cityAwayTailObjects:Array;
     private var _dataPreloaders:Object;
     private var _dataObjects:Object;
-    private var _enabled:Boolean = true;
     private var _cont:Sprite;
     private var _contTail:Sprite;
     private var _townMatrix:Array;
@@ -171,6 +170,10 @@ public class TownArea extends Sprite {
 
         for (var i:int = posY; i < (posY + sizeY); i++) {
             for (var j:int = posX; j < (posX + sizeX); j++) {
+                if (_townMatrix[i][j].build && _townMatrix[i][j].build is LockedLand && source is Wild) {
+//                    (source as Wild).setLockedLand(_townMatrix[i][j].build as LockedLand);
+                    continue;
+                }
                 _townMatrix[i][j].build = source;
                 _townMatrix[i][j].isFull = true;
                 if (sizeX > 1 && sizeY > 1) {
@@ -377,13 +380,23 @@ public class TownArea extends Sprite {
                 worldObject.addXP();
             if (worldObject is Tree)
                 g.directServer.addUserBuilding(worldObject, onAddNewTree);
-            if (g.isActiveMapEditor && worldObject is Wild) {
+            if (worldObject is Wild && g.isActiveMapEditor)
+                g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+        }
 
+        if (worldObject is Wild) {
+            if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
+                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild);
+                (worldObject as Wild).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
             }
         }
 
         if (updateAfterMove) {
-            g.directServer.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
+            if (worldObject is Wild) {
+                if (g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+            } else {
+                g.directServer.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
+            }
         }
 
         // временно полная сортировка, далее нужно будет дописать "умную"
@@ -456,14 +469,14 @@ public class TownArea extends Sprite {
         (worldObject as AreaObject).clearIt();
         if(_cont.contains(worldObject.source)){
             _cont.removeChild(worldObject.source);
-            if (worldObject is DecorFence || worldObject is DecorPostFence) {
-                if (worldObject is DecorPostFence) removeFenceLenta(worldObject as DecorPostFence);
-                unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
-            } else {
-                unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
-            }
-            _cityObjects.splice(_cityObjects.indexOf(worldObject), 1);
         }
+        if (worldObject is DecorFence || worldObject is DecorPostFence) {
+            if (worldObject is DecorPostFence) removeFenceLenta(worldObject as DecorPostFence);
+            unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+        } else {
+            unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+        }
+        if (_cityObjects.indexOf(worldObject) > -1) _cityObjects.splice(_cityObjects.indexOf(worldObject), 1);
     }
 
     public function deleteTailBuild(tail:DecorTail):void{

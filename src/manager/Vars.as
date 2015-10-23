@@ -352,6 +352,10 @@ public class Vars {
     }
 
     private function onUserTrain():void {
+        directServer.getUserWild(onUserWild);
+    }
+
+    private function onUserWild():void {
         startPreloader.setProgress(99);
         (user as User).friendAppUser();
         initVariables2();
@@ -459,11 +463,11 @@ public class Vars {
     }
 
     private function closeMapEditorInterface():void {
+        isActiveMapEditor = false;
         matrixGrid.deleteDebugGrid();
         mapEditor.deleteIt();
         cont.interfaceContMapEditor.visible = false;
         toolsModifier.modifierType = ToolsModifier.NONE;
-        isActiveMapEditor = false;
     }
 
     private function temporaryFillUserInventory():void {

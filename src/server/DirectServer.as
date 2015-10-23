@@ -3,6 +3,7 @@
  */
 package server {
 import build.WorldObject;
+import build.WorldObject;
 import build.farm.Animal;
 import build.ridge.Ridge;
 import build.train.Train;
@@ -2771,6 +2772,216 @@ public class DirectServer {
         } else {
             Cc.error('buyHeroCat: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('buyHeroCat: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function ME_addWild(posX:int, posY:int, w:WorldObject, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_ADD_WILD);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'ME_addWild', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.posX = posX;
+        variables.posY = posY;
+        variables.wildId = w.dataBuild.id;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteME_addWild);
+        function onCompleteME_addWild(e:Event):void { completeME_addWild(e.target.data, w, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('ME_addWild error:' + error.errorID);
+            woError.showItParams('ME_addWild error:' + error.errorID);
+        }
+    }
+
+    private function completeME_addWild(response:String, w:WorldObject, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('ME_addWild: wrong JSON:' + String(response));
+            woError.showItParams('ME_addWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            w.dbBuildingId = int(d.message);
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else {
+            Cc.error('ME_addWild: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('ME_addWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function ME_removeWild(dbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_REMOVE_WILD);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'ME_removeWild', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteME_removeWild);
+        function onCompleteME_removeWild(e:Event):void { completeME_removeWild(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('ME_removeWild error:' + error.errorID);
+            woError.showItParams('ME_removeWild error:' + error.errorID);
+        }
+    }
+
+    private function completeME_removeWild(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('ME_removeWild: wrong JSON:' + String(response));
+            woError.showItParams('ME_removeWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else {
+            Cc.error('ME_removeWild: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('ME_removeWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function ME_moveWild(posX:int, posY:int, dbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_MOVE_WILD);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'ME_moveWild', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.posX = posX;
+        variables.posY = posY;
+        variables.dbId = dbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteME_moveWild);
+        function onCompleteME_moveWild(e:Event):void { completeME_moveWild(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('ME_moveWild error:' + error.errorID);
+            woError.showItParams('ME_moveWild error:' + error.errorID);
+        }
+    }
+
+    private function completeME_moveWild(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('ME_moveWild: wrong JSON:' + String(response));
+            woError.showItParams('ME_moveWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else {
+            Cc.error('ME_moveWild: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('ME_moveWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function getUserWild(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_WILD);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserWild', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserWild);
+        function onCompleteGetUserWild(e:Event):void { completeGetUserWild(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserWild error:' + error.errorID);
+            woError.showItParams('GetUserWild error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserWild(response:String, callback:Function = null):void {
+        var d:Object;
+        var ob:Object;
+        var dbId:int;
+        var dataBuild:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('GetUserWild: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            for (var i:int = 0; i < d.message.length; i++) {
+                d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
+                dataBuild = g.dataBuilding.objectBuilding[int(d.message[i].building_id)];
+                var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
+                dataBuild.dbId = dbId;
+                g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
+
+                ob = {};
+                ob.buildId = dataBuild.id;
+                ob.posX = int(d.message[i].pos_x);
+                ob.posY = int(d.message[i].pos_y);
+                ob.dbId = dbId;
+                g.user.userDataCity.objects.push(ob);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('GetUserWild: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('GetUserWild: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

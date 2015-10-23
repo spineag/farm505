@@ -57,5 +57,9 @@ public class Consts {
     public static var INQ_REMOVE_FROM_INVENTORY:String = 'removeFromInventory.php';
     public static var INQ_GET_ALL_CITY_DATA:String = 'getAllCityData.php';
     public static var INQ_BUY_HERO_CAT:String = 'buyHeroCat.php';
+    public static var INQ_ME_ADD_WILD:String = 'ME_addWild.php';
+    public static var INQ_ME_REMOVE_WILD:String = 'ME_removeWild.php';
+    public static var INQ_ME_MOVE_WILD:String = 'ME_moveWild.php';
+    public static var INQ_GET_USER_WILD:String = 'getUserWild.php';
 }
 }

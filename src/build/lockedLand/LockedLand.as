@@ -3,6 +3,7 @@
  */
 package build.lockedLand {
 import build.AreaObject;
+import build.wild.Wild;
 
 import com.junkbyte.console.Cc;
 
@@ -17,11 +18,15 @@ import mouse.ToolsModifier;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
+import starling.filters.ColorMatrixFilter;
 import starling.utils.Color;
 
 
 public class LockedLand extends AreaObject {
     private var _dataLand:Object;
+    private var _arrWilds:Array;
+    private var _filter:ColorMatrixFilter;
+
     public function LockedLand(_data:Object) {
         super(_data);
         if (!_data) {
@@ -54,14 +59,32 @@ public class LockedLand extends AreaObject {
         tempSprite.scaleY = .5;
         tempSprite.flatten();
         _source.addChildAt(tempSprite, 0);
+
+        _arrWilds = [];
+
+        _filter = new ColorMatrixFilter();
+        _filter.tint(Color.YELLOW, .5);
+    }
+
+    override public function get depth():Number {
+        return _depth - 1000;
+    }
+
+    public function addWild(w:Wild):void {
+        _arrWilds.push(w);
     }
 
     private function onHover():void {
-        _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
-//        g.hint.showIt(_dataBuild.name, "0");
+        if (g.isActiveMapEditor) return;
+//        _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+        _source.filter = _filter;
+        for (var i:int=0; i<_arrWilds.length; i++) {
+            _arrWilds[i].setFilter(_filter);
+        }
     }
 
     private function onClick():void {
+        if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -87,19 +110,23 @@ public class LockedLand extends AreaObject {
     }
 
     private function onOut():void {
+        if (g.isActiveMapEditor) return;
         _source.filter = null;
-//        g.hint.hideIt();
+        for (var i:int=0; i<_arrWilds.length; i++) {
+            _arrWilds[i].setFilter(null);
+        }
     }
 
     public function openIt():void {
         if (_dataLand.currencyCount > 0) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataLand.currencyCount);
         if (_dataLand.resourceCount > 0) g.userInventory.addResource(_dataLand.resourceId, -_dataLand.resourceCount);
         g.directServer.removeUserLockedLand(_dataLand.id);
-        while (_source.numChildren) {
-            _source.removeChildAt(0);
-        }
         _dataLand = null;
         g.townArea.deleteBuild(this);
+        for (var i:int=0; i<_arrWilds.length; i++) {
+            (_arrWilds[i] as Wild).addItToMatrix();
+        }
+        _arrWilds.length = 0;
     }
 
     override public function clearIt():void {

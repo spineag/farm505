@@ -5,6 +5,7 @@ package mouse {
 import build.WorldObject;
 import build.ridge.Ridge;
 import build.tree.Tree;
+import build.wild.Wild;
 
 import com.junkbyte.console.Cc;
 
@@ -454,9 +455,11 @@ public class ToolsModifier {
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
         x = _spriteForMove.x;
         y = _spriteForMove.y;
-        if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) {
-            g.gameDispatcher.addEnterFrame(onEnterFrame);
-            return;
+        if (!g.isActiveMapEditor) {
+            if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) {
+                g.gameDispatcher.addEnterFrame(onEnterFrame);
+                return;
+            }
         }
 
         spriteForMoveIndexX = 0;
@@ -481,7 +484,6 @@ public class ToolsModifier {
         if (_callbackAfterMove != null) {
             _callbackAfterMove.apply(null, [x, y])
         }
-
     }
 
     private var spriteForMoveIndexX:int = 0;
@@ -502,6 +504,7 @@ public class ToolsModifier {
                     imForMove.filter = null;
                 }
             } else {
+                if (g.isActiveMapEditor && _activeBuildingData.buildType == BuildType.WILD) return;
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
                 if (_moveGrid.isFree) {
                     imForMove.filter = null;
