@@ -295,6 +295,7 @@ public class Tree extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.isActiveMapEditor) return;
         _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
         _isOnHover = true;
         _count = 20;
@@ -312,6 +313,7 @@ public class Tree extends AreaObject{
     }
 
     private function onOut():void {
+        if (g.isActiveMapEditor) return;
         _source.filter = null;
         _isOnHover = false;
         g.gameDispatcher.addEnterFrame(countEnterFrame);
@@ -322,6 +324,7 @@ public class Tree extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             _isOnHover = false;
             g.gameDispatcher.addEnterFrame(countEnterFrame);

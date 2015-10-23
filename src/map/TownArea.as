@@ -377,6 +377,9 @@ public class TownArea extends Sprite {
                 worldObject.addXP();
             if (worldObject is Tree)
                 g.directServer.addUserBuilding(worldObject, onAddNewTree);
+            if (g.isActiveMapEditor && worldObject is Wild) {
+
+            }
         }
 
         if (updateAfterMove) {

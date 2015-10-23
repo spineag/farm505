@@ -24,10 +24,12 @@ public class DecorTail extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.isActiveMapEditor) return;
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
     }
 
     private function onClick():void {
+        if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             g.townArea.moveTailBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -52,6 +54,7 @@ public class DecorTail extends AreaObject{
     }
 
     private function onOut():void {
+        if (g.isActiveMapEditor) return;
         _source.filter = null;
     }
 

@@ -20,28 +20,16 @@ import starling.utils.Color;
 import utils.CButton;
 
 public class MapEditorInterface {
-    public static const TYPE_BUILDING:String = 'building';
-    public static const TYPE_TREE:String = 'tree';
-    public static const TYPE_DECOR:String = 'decor';
-
-    private var _type:String;
-
     private var _allTable:Sprite;
     private var _contBuildings:Sprite;
-    private var _contTrees:Sprite;
-    private var _contDecors:Sprite;
-    private var _bg:Quad;
-    private var _arrowBg:Quad;
     private var _leftArrow:CButton;
     private var _rightArrow:CButton;
-    private var _houseBtn:CButton;
-    private var _treeBtn:CButton;
-    private var _decorBtn:CButton;
     private var _moveBtn:EditorButtonInterface;
     private var _rotateBtn:EditorButtonInterface;
     private var _cancelBtn:EditorButtonInterface;
     private var _activeBtn:EditorButtonInterface;
     private var _mouseCoordinates:IsometricMouseCoordinates;
+    private var _arrWilds:Array;
 
     private var g:Vars = Vars.getInstance();
 
@@ -58,14 +46,14 @@ public class MapEditorInterface {
         _contBuildings = new Sprite();
         _allTable.addChild(_contBuildings);
 
-        _bg = new Quad(g.stageWidth, 80, Color.GRAY);
-        _bg.y = 20;
-        _allTable.addChild(_bg);
+        var bg:Quad = new Quad(g.stageWidth, 80, Color.GRAY);
+        bg.y = 20;
+        _allTable.addChild(bg);
 
-        _arrowBg = new Quad(50, 20, Color.BLUE);
-        _arrowBg.x = g.stageWidth - 50;
-        _arrowBg.y = 0;
-        _allTable.addChild(_arrowBg);
+        bg = new Quad(50, 20, Color.BLUE);
+        bg.x = g.stageWidth - 50;
+        bg.y = 0;
+        _allTable.addChild(bg);
 
         var shape:Shape = new Shape();
         shape.graphics.beginFill(0xffffff);
@@ -97,113 +85,18 @@ public class MapEditorInterface {
         _rightArrow.y = 0;
         _allTable.addChild(_rightArrow);
 
-        //button1
-        shape.graphics.clear();
-        shape.graphics.beginFill(0xffffff);
-        shape.graphics.moveTo(0,0);
-        shape.graphics.lineTo(50,0);
-        shape.graphics.lineTo(50,20);
-        shape.graphics.lineTo(0,20);
-        shape.graphics.lineTo(0,0);
-        shape.graphics.endFill();
-        var BM1:BitmapData = new BitmapData(50, 20, true, 0x00000000);
-        BM1.draw(shape);
-        var Tx1:Texture = Texture.fromBitmapData(BM1,false, false);
-        _houseBtn = new CButton(Tx1,"Building");
-        _allTable.addChild(_houseBtn);
-
-        //Button2
-        shape.graphics.clear();
-        shape.graphics.beginFill(0xDC143C);
-        shape.graphics.moveTo(0,0);
-        shape.graphics.lineTo(50,0);
-        shape.graphics.lineTo(50,20);
-        shape.graphics.lineTo(0,20);
-        shape.graphics.lineTo(0,0);
-        shape.graphics.endFill();
-        var BM2:BitmapData = new BitmapData(50, 20, true, 0x00000000);
-        BM2.draw(shape);
-        var Tx2:Texture = Texture.fromBitmapData(BM2,false, false);
-        _treeBtn = new CButton(Tx2,"Wild");
-        _treeBtn.x = 50;
-        _allTable.addChild(_treeBtn);
-
-        //Button3
-        shape.graphics.clear();
-        shape.graphics.beginFill(0xFFFF00);
-        shape.graphics.moveTo(0,0);
-        shape.graphics.lineTo(50,0);
-        shape.graphics.lineTo(50,20);
-        shape.graphics.lineTo(0,20);
-        shape.graphics.lineTo(0,0);
-        shape.graphics.endFill();
-        var BM3:BitmapData = new BitmapData(50, 20, true, 0x00000000);
-        BM3.draw(shape);
-        var Tx3:Texture = Texture.fromBitmapData(BM3,false, false);
-        _decorBtn = new CButton(Tx3,"Decor");
-        _decorBtn.x = 100;
-        _allTable.addChild(_decorBtn);
-
-        fillIt();
-        fillHouses();
-        fillTrees();
-//        fillDecors();
-    }
-
-    private function fillIt():void {
         _contBuildings = new Sprite();
-        _contTrees = new Sprite();
-        _contDecors = new Sprite();
         _allTable.addChild(_contBuildings);
-        _allTable.addChild(_contTrees);
-        _allTable.addChild(_contDecors);
-
-        _type = TYPE_BUILDING;
-
-        checkType();
-
-        _houseBtn.addEventListener(Event.TRIGGERED,onTriggered);
-        _treeBtn.addEventListener(Event.TRIGGERED,onTriggered);
-        _decorBtn.addEventListener(Event.TRIGGERED,onTriggered);
         _leftArrow.addEventListener(Event.TRIGGERED,onTriggered);
         _rightArrow.addEventListener(Event.TRIGGERED,onTriggered);
-    }
 
-    private function checkType():void {
-        _houseBtn.y = 0;
-        _treeBtn.y = 0;
-        _decorBtn.y = 0;
-        _contBuildings.visible = false;
-        _contTrees.visible = false;
-        _contDecors.visible = false;
+        fillWilds();
 
-        switch (_type) {
-            case TYPE_BUILDING:
-                _houseBtn.y = -7;
-                _contBuildings.visible = true;
-                break;
-            case TYPE_TREE:
-                _treeBtn.y = -7;
-                _contTrees.visible = true;
-                break;
-            case TYPE_DECOR:
-                _decorBtn.y = -7;
-                _contDecors.visible = true;
-                break;
-        }
+        _mouseCoordinates.startIt();
     }
 
     private function onTriggered(e:Event):void{
         switch (e.target) {
-            case _houseBtn:
-                _type = TYPE_BUILDING;
-                break;
-            case _treeBtn:
-                _type = TYPE_TREE;
-                break;
-            case _decorBtn:
-                _type = TYPE_DECOR;
-                break;
             case _leftArrow:
                 scroleType(-500);
                 break;
@@ -211,85 +104,35 @@ public class MapEditorInterface {
                 scroleType(500);
                 break;
         }
-        checkType();
     }
 
-    private function fillHouses():void{
+    private function fillWilds():void{
         var obj:Object = g.dataBuilding.objectBuilding;
         var item:MapEditorInterfaceItem;
         var i:int = 0;
 
+        _arrWilds = [];
         for(var id:String in obj) {
-            if (obj[id].buildType == BuildType.TEST  || obj[id].buildType == BuildType.AMBAR || obj[id].buildType == BuildType.SKLAD
-                    || obj[id].buildType == BuildType.ORDER || obj[id].buildType == BuildType.MARKET || obj[id].buildType == BuildType.CAVE
-                    || obj[id].buildType == BuildType.DAILY_BONUS || obj[id].buildType == BuildType.PAPER || obj[id].buildType == BuildType.TRAIN
-                    || obj[id].buildType == BuildType.SHOP) {
-                item = new MapEditorInterfaceItem(obj[id], TYPE_BUILDING);
+            if (obj[id].buildType == BuildType.WILD) {
+                item = new MapEditorInterfaceItem(obj[id]);
                 item.source.y = 20;
                 item.source.x = i * 80;
                 _contBuildings.addChild(item.source);
+                _arrWilds.push(item);
                 i++;
             }
         }
     }
-
-    private function fillTrees():void {
-        var obj:Object = g.dataBuilding.objectBuilding;
-        var item:MapEditorInterfaceItem;
-        var i:int = 0;
-
-        for (var id:String in obj) {
-            if (obj[id].buildType == BuildType.WILD) {
-                item = new MapEditorInterfaceItem(obj[id], TYPE_TREE);
-                item.source.y = 20;
-                item.source.x = i * 80;
-                _contTrees.addChild(item.source);
-                i++;
-            }
-        }
-    }
-
-//    private function fillDecors():void {
-//        var obj:Object = g.dataBuilding.objectBuilding;
-//        var item:MapEditorInterfaceItem;
-//        var i:int = 0;
-//
-//        for (var id:String in obj) {
-//            if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_FULL_FENСE
-//                    || obj[id].buildType == BuildType.DECOR_POST_FENCE) {
-//                item = new MapEditorInterfaceItem(obj[id], TYPE_DECOR);
-//                item.source.y = 20;
-//                item.source.x = i * 80;
-//                _contDecors.addChild(item.source);
-//                i++;
-//            }
-//        }
-//    }
 
     private function scroleType(delta:int):void{
-        var cont:Sprite;
-        var endX:int;
+        var endX:int = -_contBuildings.width + g.stageWidth;
+        var newX:int = _contBuildings.x + delta;
 
-        switch (_type){
-            case TYPE_BUILDING:
-                cont = _contBuildings;
-                    endX = -_contBuildings.width + g.stageWidth;
-                break;
-            case TYPE_TREE:
-                cont = _contTrees;
-                endX = -_contTrees.width + g.stageWidth;
-                break;
-            case TYPE_DECOR:
-                cont = _contDecors;
-                endX = -_contDecors.width + g.stageWidth;
-                break;
-        }
-        var newX:int = cont.x + delta;
         if(newX > 0) newX = 0;
         if(newX < endX) newX = endX - 20;
 
-        var tween:Tween = new Tween(cont, 1);
-        tween.moveTo(newX, cont.y);
+        var tween:Tween = new Tween(_contBuildings, 1);
+        tween.moveTo(newX, _contBuildings.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
@@ -320,7 +163,6 @@ public class MapEditorInterface {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
 
         checkTypeEditor();
-
 
         var f1:Function = function ():void {
             if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
@@ -385,8 +227,24 @@ public class MapEditorInterface {
         }
     }
 
-    public function get mouseCoordinates():IsometricMouseCoordinates {
-        return _mouseCoordinates;
+    public function deleteIt():void {
+        g.cont.interfaceContMapEditor.removeChild(_allTable);
+        g.cont.interfaceContMapEditor.removeChild(_mouseCoordinates.source);
+        while (_contBuildings.numChildren) _contBuildings.removeChildAt(0);
+        while (_allTable.numChildren) _allTable.removeChildAt(0);
+        for (var i:int=0; i<_arrWilds.length; i++) {
+            _arrWilds[i].deleteIt();
+        }
+        _arrWilds.length = 0;
+        _arrWilds = null;
+        _mouseCoordinates.stopIt();
+        _mouseCoordinates.deleteIt();
+        _leftArrow.deleteIt();
+        _rightArrow.deleteIt();
+        _activeBtn.deleteIt();
+        _cancelBtn.deleteIt();
+        _moveBtn.deleteIt();
+        _rotateBtn.deleteIt();
     }
 }
 }

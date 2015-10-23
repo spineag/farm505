@@ -26,10 +26,12 @@ public class Decor extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.isActiveMapEditor) return;
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
     }
 
     private function onClick():void {
+        if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             g.townArea.moveBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -54,6 +56,7 @@ public class Decor extends AreaObject{
     }
 
     private function onOut():void {
+        if (g.isActiveMapEditor) return;
         _source.filter = null;
     }
 

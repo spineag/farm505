@@ -28,7 +28,6 @@ public class CSprite extends Sprite {
     private var _onMovedCallback:Function;
     private var _needStrongCheckHitTest:Boolean;
     private var _needStrongCheckByteArray:Boolean;
-    private var _byteArray:ByteArray;
     private var _bmd:BitmapData;
     private var _scale:Number;
     private var _useContDrag:Boolean = false;
@@ -42,7 +41,6 @@ public class CSprite extends Sprite {
         _useContDrag = false;
         _scale = 1;
         this.addEventListener(TouchEvent.TOUCH, onTouch);
-
     }
 
     public function set releaseContDrag(value:Boolean):void {
@@ -199,6 +197,18 @@ public class CSprite extends Sprite {
 //        if (Color.getAlpha(color) > 1) {
         if (color) return true;
             else return false;
+    }
+
+    public function deleteIt():void {
+        if (this.hasEventListener(TouchEvent.TOUCH)) removeEventListener(TouchEvent.TOUCH, onTouch);
+        while (this.numChildren) this.removeChildAt(0);
+        _endClickCallback = null;
+        _startClickCallback = null;
+        _hoverCallback = null;
+        _outCallback = null;
+        _onMovedCallback = null;
+        _needStrongCheckHitTest = null;
+        _bmd.dispose();
     }
 }
 }

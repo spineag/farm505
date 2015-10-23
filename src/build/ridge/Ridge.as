@@ -94,6 +94,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.isActiveMapEditor) return;
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
@@ -111,6 +112,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onStartClick():void {
+        if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
             if (g.toolsModifier.plantId <= 0 || _stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -124,6 +126,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onEndClick():void {
+        if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
                 g.toolsModifier.ridgeId = _dataPlant.id;
@@ -201,6 +204,7 @@ public class Ridge extends AreaObject{
 
 
     private function onOut():void {
+        if (g.isActiveMapEditor) return;
         _source.filter = null;
         _isOnHover = false;
         g.mouseHint.hideHintMouse();

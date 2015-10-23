@@ -21,12 +21,10 @@ public class MapEditorInterfaceItem {
     private var _txt:TextField;
     private var _image:Image;
     private var _data:Object;
-
     private var g:Vars = Vars.getInstance();
 
-    public function MapEditorInterfaceItem(ob:Object, type:String) {
+    public function MapEditorInterfaceItem(ob:Object) {
         _data = ob;
-        _data.type = type;
         source = new CSprite();
        _txt = new TextField(100, 10, _data.name, "Arial", 12, 0xffffff);
         _txt.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
@@ -60,12 +58,19 @@ public class MapEditorInterfaceItem {
         // это условие только для включенного режима передвижения, нужно добавить и на остальные
         g.toolsModifier.modifierType = ToolsModifier.MOVE;
         g.toolsModifier.startMove(_data, afterMove);
-
     }
 
     private function afterMove(_x:Number, _y:Number):void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.townArea.createNewBuild(_data, _x, _y);
+    }
+
+    public function deleteIt():void {
+        _data = null;
+        source.endClickCallback = null;
+        source.deleteIt();
+        _txt.dispose();
+        _image.dispose();
     }
 }
 }

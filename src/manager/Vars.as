@@ -108,6 +108,7 @@ public class Vars {
     public var managerDropResources:ManagerDropBonusResource;
 
     public var isAway:Boolean = false;
+    public var isActiveMapEditor:Boolean = false;
     public var socialNetwork:SocialNetwork;
     public var flashVars:Object;
     public var socialNetworkID:int;
@@ -396,13 +397,6 @@ public class Vars {
 
         cont.moveCenterToXY(0, realGameTilesHeight/2, true);
 
-        if((user as User).isMegaTester) {
-            mapEditor = new MapEditorInterface();
-            editorButtons = new EditorButtonInterface();
-            deactivatedAreaManager = new DeactivatedAreaManager();
-            cont.interfaceContMapEditor.visible = false;
-        }
-
         woNoResources = new WONoResources();
         woNoPlaces = new WONoPlaces();
         woBuyPlant = new WOBuyPlant();
@@ -454,16 +448,22 @@ public class Vars {
     }
 
     private function openMapEditorInterface():void {
-        matrixGrid.drawDebugGrid();
-        mapEditor.mouseCoordinates.startIt();
-        cont.interfaceContMapEditor.visible = true;
+        if((user as User).isMegaTester) {
+            mapEditor = new MapEditorInterface();
+            editorButtons = new EditorButtonInterface();
+            deactivatedAreaManager = new DeactivatedAreaManager();
+            cont.interfaceContMapEditor.visible = true;
+            matrixGrid.drawDebugGrid();
+            isActiveMapEditor = true;
+        }
     }
 
     private function closeMapEditorInterface():void {
         matrixGrid.deleteDebugGrid();
-        mapEditor.mouseCoordinates.stopIt();
+        mapEditor.deleteIt();
         cont.interfaceContMapEditor.visible = false;
         toolsModifier.modifierType = ToolsModifier.NONE;
+        isActiveMapEditor = false;
     }
 
     private function temporaryFillUserInventory():void {

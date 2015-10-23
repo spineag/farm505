@@ -317,6 +317,17 @@ public class ToolsModifier {
                 imForMove.y = -274;
                 _spriteForMove.addChild(imForMove);
             }
+        } else if (_activeBuildingData.url == 'wildAtlas') {
+            imForMove = new Image(g.wildAtlas.getTexture(_activeBuildingData.image));
+            if (imForMove) {
+                imForMove.x = _activeBuildingData.innerX;
+                imForMove.y = _activeBuildingData.innerY;
+                _spriteForMove.addChild(imForMove);
+            } else {
+                Cc.error('ToolsModifier startMove:: no image for url=wildAtlas and _activeBuildingData.image: ' + _activeBuildingData.image);
+                g.woGameError.showIt();
+                return;
+            }
         } else {
             imForMove  = new Image(g.mapAtlas.getTexture(_activeBuildingData.image));
             if (imForMove) {

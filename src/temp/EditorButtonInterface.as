@@ -31,7 +31,6 @@ public class EditorButtonInterface {
     }
 
     public function setIconButton(s:String):void {
-
         if (s == "Active") {
             var q:Quad = new Quad(MatrixGrid.WIDTH_CELL, MatrixGrid.WIDTH_CELL, Color.RED);
             q.rotation = Math.PI/4;
@@ -47,6 +46,14 @@ public class EditorButtonInterface {
         MCScaler.scale(_iconEditor, 30, 30);
         source.addChild(_iconEditor);
         source.flatten();
+    }
+
+    public function deleteIt():void {
+        while (_iconEditor.numChildren) _iconEditor.removeChildAt(0);
+        while (source.numChildren) source.removeChildAt(0);
+        source.deleteIt();
+        _iconEditor = null;
+        source = null;
     }
 }
 }
