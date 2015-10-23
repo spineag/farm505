@@ -2927,6 +2927,56 @@ public class DirectServer {
         }
     }
 
+    public function ME_flipWild(dbId:int, isFlip:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_FLIP_WILD);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'ME_flipWild', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        variables.isFlip = isFlip;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteME_flipWild);
+        function onCompleteME_flipWild(e:Event):void { completeME_flipWild(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('ME_flipWild error:' + error.errorID);
+            woError.showItParams('ME_flipWild error:' + error.errorID);
+        }
+    }
+
+    private function completeME_flipWild(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('ME_flipWild: wrong JSON:' + String(response));
+            woError.showItParams('ME_flipWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else {
+            Cc.error('ME_flipWild: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('ME_flipWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
     public function getUserWild(callback:Function):void {
         if (!g.useDataFromServer) return;
 

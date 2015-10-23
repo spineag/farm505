@@ -63,7 +63,8 @@ public class Wild extends AreaObject{
                 g.townArea.deleteBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            //releaseFlip();
+            releaseFlip();
+            g.directServer.ME_flipWild(_dbBuildingId, Boolean(_dataBuild.isFlip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
