@@ -3036,5 +3036,55 @@ public class DirectServer {
             woError.showItParams('GetUserWild: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function userBuildingFlip(dbId:int, isFlip:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_BUILDING_FLIP);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'userBuildingFlip', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        variables.isFlip = isFlip;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUserBuildingFlip);
+        function onCompleteUserBuildingFlip(e:Event):void { completeUserBuildingFlip(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('userBuildingFlip error:' + error.errorID);
+            woError.showItParams('userBuildingFlip error:' + error.errorID);
+        }
+    }
+
+    private function completeUserBuildingFlip(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('userBuildingFlip: wrong JSON:' + String(response));
+            woError.showItParams('userBuildingFlip: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else {
+            Cc.error('userBuildingFlip: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('userBuildingFlip: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
 }
 }

@@ -248,6 +248,8 @@ public class Vars {
         matrixGrid.createMatrix();
         townArea = new TownArea();
         farmGrid = new FarmGrid();
+
+        ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
         toolsModifier.setTownArray();
 
@@ -369,7 +371,6 @@ public class Vars {
         startPreloader = null;
 
         (user as User).checkUserLevel();
-        ownMouse = new OwnMouse();
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();

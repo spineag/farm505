@@ -128,6 +128,8 @@ public class WorldObject {
             }
         }
         _dataBuild.isFlip = _flip;
+
+//        g.directServer.userBuildingFlip();
     }
 }
 }
