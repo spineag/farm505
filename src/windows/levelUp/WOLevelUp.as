@@ -126,7 +126,7 @@ public class WOLevelUp extends Window{
 
     private function onRightClick():void {
         _shift += 3;
-        if (_shift > int(_arrCells.length/2+.5) -3) _shift = int(_arrCells.length/2+.5) -3 ;
+        if (_shift > int(_arrCells.length/2+.5) -3) _shift = int(_arrCells.length/2+.5) - 3 ;
         animList();
     }
 

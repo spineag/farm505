@@ -122,7 +122,8 @@ public class Animal {
             _state = WORKED;
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
-            var rawItem:RawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+            if (g.dataResource.objectResources[_data.idResourceRaw].url == "plantAtlas") var rawItem:RawItem = new RawItem(p, g.plantAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+            else  var rawItem:RawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
             if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
             addRenderAnimation();
         }

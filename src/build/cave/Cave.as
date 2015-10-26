@@ -177,6 +177,7 @@ public class Cave extends AreaObject{
                         }
                         _arrCraftItems.pop().flyIt();
                     } else {
+
                         _source.filter = null;
                         g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
                         g.woCave.showIt();
@@ -233,6 +234,7 @@ public class Cave extends AreaObject{
             new FlyMessage(p, "Недостаточно денег");
             return;
         }
+        g.hint.hideIt();
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;
