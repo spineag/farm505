@@ -11,6 +11,8 @@ import starling.filters.BlurFilter;
 import starling.filters.ColorMatrixFilter;
 import starling.utils.Color;
 
+import ui.xpPanel.XPStar;
+
 public class Wild extends AreaObject{
     private var _isOnHover:Boolean;
     private var _curLockedLand:LockedLand;
@@ -44,7 +46,6 @@ public class Wild extends AreaObject{
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         _isOnHover = true;
-        g.wildHint.onDelete = wildDelete;
     }
 
     private function onOut():void {
@@ -63,17 +64,20 @@ public class Wild extends AreaObject{
                 g.townArea.deleteBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            releaseFlip();
-            g.directServer.ME_flipWild(_dbBuildingId, int(_dataBuild.isFlip), null);
+            if (g.isActiveMapEditor) {
+                releaseFlip();
+                g.directServer.ME_flipWild(_dbBuildingId, int(_dataBuild.isFlip), null);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
-            // ничего не делаем вообще
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
-            if (_isOnHover)  g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10,_dataBuild.removeByResourceId);
+            if (_isOnHover)  {
+                g.wildHint.onDelete = wildDelete;
+                g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10, _dataBuild.removeByResourceId);
+            }
         } else {
             Cc.error('Wild:: unknown g.toolsModifier.modifierType')
         }
@@ -82,6 +86,14 @@ public class Wild extends AreaObject{
     private function wildDelete():void {
         if (g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) return;
         g.userInventory.addResource(g.dataResource.objectResources[_dataBuild.removeByResourceId].id, -1);
+        if (_dataBuild.xp) new XPStar(_source.x, _source.y, _dataBuild.xp);
+        for (var i:int=0; i< g.user.userDataCity.objects.length; i++) {
+            if (g.user.userDataCity.objects[i].dbId == _dbBuildingId) {
+                g.user.userDataCity.objects.splice(i, 1);
+                break;
+            }
+        }
+        g.directServer.deleteUserWild(_dbBuildingId, null);
         g.townArea.deleteBuild(this);
     }
 

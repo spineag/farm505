@@ -63,5 +63,6 @@ public class Consts {
     public static var INQ_ME_FLIP_WILD:String = 'ME_flipWild.php';
     public static var INQ_GET_USER_WILD:String = 'getUserWild.php';
     public static var INQ_USER_BUILDING_FLIP:String = 'flipUserBuilding.php';
+    public static var INQ_DELETE_USER_WILD:String = 'deleteUserWild.php';
 }
 }

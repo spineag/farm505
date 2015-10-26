@@ -346,6 +346,7 @@ public class TownArea extends Sprite {
         }
         if (isFlip && !(build is DecorPostFence)) {
             (build as AreaObject).releaseFlip();
+            if (!isFromServer) g.directServer.userBuildingFlip(dbId, int(isFlip), null);
         }
     }
 
@@ -622,7 +623,7 @@ public class TownArea extends Sprite {
         g.isAway = true;
         g.bottomPanel.doorBoolean(true);
         for (i=0; i<p.userDataCity.objects.length; i++) {
-            createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, p.userDataCity.objects[i].dbId);
+            createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, p.userDataCity.objects[i].dbId, p.userDataCity.objects[i].isFlip);
         }
         for (i=0; i<p.userDataCity.treesInfo.length; i++) {
             fillAwayTree(p.userDataCity.treesInfo[i]);
@@ -639,8 +640,9 @@ public class TownArea extends Sprite {
         zAwaySort();
     }
 
-    public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int):void {
+    public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
         var build:WorldObject;
+        var isFlip:Boolean;
 
         if (!_data) {
             Cc.error('TownArea createAwayNewBuild:: _data == nul for building');
@@ -648,7 +650,7 @@ public class TownArea extends Sprite {
             return;
         }
 
-//        if (_data.isFlip) isFlip = true;
+        isFlip = Boolean(flip);
         switch (_data.buildType) {
             case BuildType.RIDGE:
                 build = new Ridge(_data);
@@ -716,6 +718,10 @@ public class TownArea extends Sprite {
             pasteAwayTailBuild(build as DecorTail, posX, posY);
         } else {
             pasteAwayBuild(build, posX, posY);
+        }
+
+        if (isFlip && !(build is DecorPostFence)) {
+            (build as AreaObject).releaseFlip();
         }
     }
 

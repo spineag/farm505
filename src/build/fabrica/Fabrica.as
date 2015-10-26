@@ -114,6 +114,7 @@ public class Fabrica extends AreaObject {
                 g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
                 releaseFlip();
+                g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
 
             } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {

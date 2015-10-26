@@ -909,12 +909,14 @@ public class DirectServer {
                     }
                     var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
                     dataBuild.dbId = dbId;
+                    dataBuild.isFlip = int(d.message[i].is_flip);
                     g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
 
                     ob = {};
                     ob.buildId = dataBuild.id;
                     ob.posX = int(d.message[i].pos_x);
                     ob.posY = int(d.message[i].pos_y);
+                    ob.isFlip = int(d.message[i].is_flip);
                     ob.dbId = dbId;
                     if (d.message[i].time_build_building) {
                         ob.isBuilded = true;
@@ -2678,6 +2680,7 @@ public class DirectServer {
                 ob.posX = int(d.message['building'][i].pos_x);
                 ob.posY = int(d.message['building'][i].pos_y);
                 ob.dbId = int(d.message['building'][i].id);
+                ob.isFlip = int(d.message['building'][i].is_flip);
                 if (d.message['building'][i].time_build_building) {
                     ob.isBuilded = true;
                     ob.isOpen = Boolean(int(d.message['building'][i].is_open));
@@ -2690,11 +2693,6 @@ public class DirectServer {
                 ob.plantId = int(d.message['plant'][i].plant_id);
                 ob.dbId = int(d.message['plant'][i].user_db_building_id);
                 ob.timeWork = int(d.message['plant'][i].time_work);
-//                timeWork = int(d.message['plant'][i].time_work);
-//                if (timeWork > g.dataResource.objectResources[ob.plantId].buildTime) ob.state = Ridge.GROWED;
-//                else if (timeWork > 2/3 * g.dataResource.objectResources[ob.plantId].buildTime) ob.state = Ridge.GROW3;
-//                else if (timeWork > g.dataResource.objectResources[ob.plantId].buildTime/3) ob.state = Ridge.GROW2;
-//                else ob.state = Ridge.GROW1;
                 p.userDataCity.plants.push(ob);
             }
             p.userDataCity.treesInfo = new Array();
@@ -2721,6 +2719,15 @@ public class DirectServer {
                 ob.delay = int(d.message['recipe'][i].delay);
                 ob.dbId = int(d.message['recipe'][i].user_db_building_id);
                 p.userDataCity.recipes.push(ob);
+            }
+            for (i = 0; i < d.message['wild'].length; i++) {
+                ob = {};
+                ob.buildId = g.dataBuilding.objectBuilding[int(d.message['wild'][i].building_id)].id;
+                ob.posX = int(d.message['wild'][i].pos_x);
+                ob.posY = int(d.message['wild'][i].pos_y);
+                ob.dbId = int(d.message['wild'][i].id);
+                ob.isFlip = int(d.message['wild'][i].is_flip);
+                p.userDataCity.objects.push(ob);
             }
             if (callback != null) {
                 callback.apply(null, [p]);
@@ -3081,6 +3088,55 @@ public class DirectServer {
         } else {
             Cc.error('userBuildingFlip: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('userBuildingFlip: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function deleteUserWild(dbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_WILD);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'deleteUserWild', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserWild);
+        function onCompleteDeleteUserWild(e:Event):void { completeDeleteUserWild(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('deleteUserWild error:' + error.errorID);
+            woError.showItParams('deleteUserWild error:' + error.errorID);
+        }
+    }
+
+    private function completeDeleteUserWild(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('deleteUserWildp: wrong JSON:' + String(response));
+            woError.showItParams('deleteUserWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else {
+            Cc.error('deleteUserWild: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('deleteUserWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
