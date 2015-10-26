@@ -64,7 +64,9 @@ public class MarketFriendItem {
         _planet.addChild(im);
         _planet.x = 85;
         _planet.y = 15;
-        source.addChild(_planet);
+        if (_person.userSocialId == g.user.userSocialId) source.removeChild(_planet);
+        else source.addChild(_planet);
+
         var filter:ColorMatrixFilter = new ColorMatrixFilter();
         filter.tint(Color.WHITE, 1);
         _planet.hoverCallback = function():void {_planet.filter = filter};

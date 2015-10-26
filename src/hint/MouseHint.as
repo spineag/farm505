@@ -94,7 +94,8 @@ public class MouseHint {
             case 'animal':
                 _imageCircle.visible = true;
                 _txtCount.text = String(g.userInventory.getCountResourceById(data.idResourceRaw));
-                _image = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
+                if (g.dataResource.objectResources[data.idResourceRaw].url == "plantAtlas") _image = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
+                else _image = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
                 MCScaler.scale(_image, 50, 50);
                 _image.x = 3;
                 _image.y = 8;

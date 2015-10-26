@@ -34,7 +34,7 @@ public class CaveItem {
 
     public function fillData(ob:Object, f:Function):void {
         _data = ob;
-        if (_data) {
+        if (!_data) {
             Cc.error('CaveItem fillData:: empty _data');
             g.woGameError.showIt();
             return;
