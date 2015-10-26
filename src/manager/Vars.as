@@ -248,6 +248,8 @@ public class Vars {
         matrixGrid.createMatrix();
         townArea = new TownArea();
         farmGrid = new FarmGrid();
+        toolsModifier = new ToolsModifier();
+        toolsModifier.setTownArray();
 
         managerCats = new ManagerCats();
 
@@ -368,7 +370,6 @@ public class Vars {
 
         (user as User).checkUserLevel();
         ownMouse = new OwnMouse();
-        toolsModifier = new ToolsModifier();
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();
@@ -386,14 +387,11 @@ public class Vars {
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
         windowsPool = [];
-        woCave = new WOCave();
-        woTrain = new WOTrain();
 
         continueInitGame();
     }
 
     private function continueInitGame():void {
-        toolsModifier.setTownArray();
         background = new BackgroundArea(afterCreateMapBackground);
     }
 
@@ -401,6 +399,8 @@ public class Vars {
 
         cont.moveCenterToXY(0, realGameTilesHeight/2, true);
 
+        woCave = new WOCave();
+        woTrain = new WOTrain();
         woNoResources = new WONoResources();
         woNoPlaces = new WONoPlaces();
         woBuyPlant = new WOBuyPlant();
