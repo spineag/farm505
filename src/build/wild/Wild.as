@@ -64,7 +64,7 @@ public class Wild extends AreaObject{
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
-            g.directServer.ME_flipWild(_dbBuildingId, Boolean(_dataBuild.isFlip), null);
+            g.directServer.ME_flipWild(_dbBuildingId, int(_dataBuild.isFlip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
 
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {

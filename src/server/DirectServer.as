@@ -3017,12 +3017,14 @@ public class DirectServer {
                 dataBuild = g.dataBuilding.objectBuilding[int(d.message[i].building_id)];
                 var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
                 dataBuild.dbId = dbId;
+                dataBuild.isFlip = int(d.message[i].is_flip);
                 g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
 
                 ob = {};
                 ob.buildId = dataBuild.id;
                 ob.posX = int(d.message[i].pos_x);
                 ob.posY = int(d.message[i].pos_y);
+                ob.isFlip = int(d.message[i].is_flip);
                 ob.dbId = dbId;
                 g.user.userDataCity.objects.push(ob);
             }
