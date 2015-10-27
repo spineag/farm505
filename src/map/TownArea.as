@@ -363,16 +363,23 @@ public class TownArea extends Sprite {
         worldObject.source.x = int(_x);
         worldObject.source.y = int(_y);
         _cont.addChild(worldObject.source);
-        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
-        worldObject.posX = point.x;
-        worldObject.posY = point.y;
+        if (worldObject.useIsometricOnly) {
+            var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+            worldObject.posX = point.x;
+            worldObject.posY = point.y;
+        } else {
+            worldObject.posX = _x;
+            worldObject.posY = _y;
+        }
         _cityObjects.push(worldObject);
         worldObject.updateDepth();
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
             fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             if (worldObject is DecorPostFence) addFenceLenta(worldObject as DecorPostFence);
         } else {
-            fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+            if (worldObject.useIsometricOnly) {
+                fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+            }
         }
         if (isNewAtMap) {
             if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
@@ -512,7 +519,9 @@ public class TownArea extends Sprite {
                 if (worldObject is DecorPostFence) removeFenceLenta(worldObject as DecorPostFence);
                 unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
             } else {
-                unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+                if (g.selectedBuild.useIsometricOnly) {
+                    unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+                }
             }
             g.toolsModifier.startMove((worldObject as AreaObject).dataBuild, afterMove, treeState,ridgeState);
         }

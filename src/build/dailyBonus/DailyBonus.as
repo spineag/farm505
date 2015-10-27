@@ -15,6 +15,7 @@ import starling.utils.Color;
 public class DailyBonus extends AreaObject{
     public function DailyBonus(data:Object) {
         super (data);
+        useIsometricOnly = false;
         if (!data) {
             Cc.error('no data for DailyBonus');
             g.woGameError.showIt();

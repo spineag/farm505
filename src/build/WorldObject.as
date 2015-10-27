@@ -23,6 +23,7 @@ public class WorldObject {
     protected var _defaultScale:Number;
     public var posX:int = 0;
     public var posY:int = 0;
+    public var useIsometricOnly:Boolean = true;
     protected var _sizeX:int;
     protected var _sizeY:int;
     protected var _source:CSprite;

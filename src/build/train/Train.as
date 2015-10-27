@@ -42,6 +42,7 @@ public class Train extends AreaObject{
 
     public function Train(_data:Object) {
         super(_data);
+        useIsometricOnly = false;
         if (!_data) {
             Cc.error('no data for Train');
             g.woGameError.showIt();

@@ -907,9 +907,16 @@ public class DirectServer {
                         ob.isOpen = int(d.message[i].is_open);
                         g.user.userBuildingData[int(d.message[i].building_id)] = ob;
                     }
-                    var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
                     dataBuild.dbId = dbId;
                     dataBuild.isFlip = int(d.message[i].is_flip);
+                    var p:Point = new Point(int(d.message[i].pos_x), int(d.message[i].pos_y));
+                    if (dataBuild.buildType == BuildType.CAVE || dataBuild.buildType == BuildType.MARKET || dataBuild.buildType == BuildType.SHOP ||
+                            dataBuild.buildType == BuildType.PAPER || dataBuild.buildType == BuildType.DAILY_BONUS || dataBuild.buildType == BuildType.TRAIN) {
+                        //do nothing, use usual x and y from server
+                    } else {
+                        // in another case we get isometric coordinates from server
+                        p = g.matrixGrid.getXYFromIndex(p);
+                    }
                     g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
 
                     ob = {};

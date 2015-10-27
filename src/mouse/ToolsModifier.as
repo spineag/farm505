@@ -250,8 +250,6 @@ public class ToolsModifier {
                 return;
             }
         } else if (_activeBuildingData.buildType == BuildType.RIDGE) {
-            var im:Image;
-
             imForMove = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
             if (imForMove) {
                 imForMove.x = _activeBuildingData.innerX;
@@ -450,12 +448,16 @@ public class ToolsModifier {
     public function onTouchEnded():void {
         var x:Number;
         var y:Number;
+        var point:Point;
+
         if (!_spriteForMove) return;
-        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
-        g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
+        if (g.selectedBuild.useIsometricOnly) {
+            point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
+            g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
+        }
         x = _spriteForMove.x;
         y = _spriteForMove.y;
-        if (!g.isActiveMapEditor) {
+        if (!g.isActiveMapEditor && g.selectedBuild.useIsometricOnly) {
             if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) {
                 g.gameDispatcher.addEnterFrame(onEnterFrame);
                 return;
@@ -492,6 +494,8 @@ public class ToolsModifier {
         _spriteForMove.x = (_mouse.mouseX - _cont.x)/g.cont.gameCont.scaleX;
         _spriteForMove.y = (_mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2)/g.cont.gameCont.scaleX;
         if (_startDragPoint) return;
+        if (!g.selectedBuild.useIsometricOnly) return;
+
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
         if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {

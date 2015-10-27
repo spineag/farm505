@@ -15,6 +15,7 @@ import starling.utils.Color;
 public class Paper extends AreaObject{
     public function Paper(data:Object) {
         super (data);
+        useIsometricOnly = false;
         if (!data) {
             Cc.error('no data for Paper');
             g.woGameError.showIt();
