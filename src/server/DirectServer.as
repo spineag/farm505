@@ -3142,5 +3142,56 @@ public class DirectServer {
             }
         }
     }
+
+    public function ME_moveMapBuilding(id:int, posX:int, posY:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_MOVE_MAP_BUILDING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'ME_moveMapBuilding', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buildId = id;
+        variables.posX = posX;
+        variables.posY = posY;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteME_moveMapBuilding);
+        function onCompleteME_moveMapBuilding(e:Event):void { completeME_moveMapBuilding(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('ME_moveMapBuilding error:' + error.errorID);
+            woError.showItParams('ME_moveMapBuilding error:' + error.errorID);
+        }
+    }
+
+    private function completeME_moveMapBuilding(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('ME_moveMapBuilding: wrong JSON:' + String(response));
+            woError.showItParams('ME_moveMapBuilding: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else {
+            Cc.error('ME_moveMapBuilding: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('ME_moveMapBuilding: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
 }
 }

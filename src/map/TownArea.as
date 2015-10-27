@@ -393,8 +393,13 @@ public class TownArea extends Sprite {
         }
 
         if (updateAfterMove) {
-            if (worldObject is Wild) {
-                if (g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+            if (g.isActiveMapEditor) {
+                if (worldObject is Wild) {
+                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                } else if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Shop || worldObject is Market ||
+                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus) {
+                        g.directServer.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
+                }
             } else {
                 g.directServer.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
             }

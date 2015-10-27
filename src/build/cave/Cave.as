@@ -159,6 +159,9 @@ public class Cave extends AreaObject{
     private function onClick():void {
         if (_stateBuild == STATE_ACTIVE) {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+                if (g.isActiveMapEditor) {
+                    g.townArea.moveBuild(this);
+                }
             } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {

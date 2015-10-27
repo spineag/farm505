@@ -38,7 +38,9 @@ public class Market extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
+            if (g.isActiveMapEditor) {
+                g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             onOut();
             g.townArea.deleteBuild(this);

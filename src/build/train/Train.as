@@ -193,13 +193,17 @@ public class Train extends AreaObject{
     }
 
     private function onClick():void {
-        if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_READY || _stateBuild == STATE_WAIT_BACK) {
-            if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            if (g.isActiveMapEditor) {
                 g.townArea.moveBuild(this);
-            } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-                g.townArea.deleteBuild(this);
+            }
+            return;
+        }
+        if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_READY || _stateBuild == STATE_WAIT_BACK) {
+            if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+//                g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-                releaseFlip();
+//                releaseFlip();
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
 
             } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
