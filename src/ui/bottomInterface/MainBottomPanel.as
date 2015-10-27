@@ -146,6 +146,7 @@ public class MainBottomPanel {
                     g.toolsModifier.cancelMove();
                 break;
             case 'tools':
+                if (g.isAway) return;
                 if (_cancelBtn.visible == true) return;
                 if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -160,7 +161,6 @@ public class MainBottomPanel {
                 }
                 break;
             case 'option':
-                if (g.isAway) return;
                 if (_cancelBtn.visible == true) return;
                 if (g.optionPanel.isShowed) {
                      g.optionPanel.hideIt();
@@ -200,6 +200,11 @@ public class MainBottomPanel {
     public function doorBoolean(b:Boolean):void {
         _doorBtn.visible = b;
         _shopBtn.visible = !b;
+    }
+
+    public function hideAll():void {
+        if (g.toolsPanel.isShowed) g.toolsPanel.hideIt();
+        if (g.friendPanel.isShowed) g.friendPanel.hideIt();
     }
 }
 }
