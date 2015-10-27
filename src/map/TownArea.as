@@ -472,7 +472,6 @@ public class TownArea extends Sprite {
             g.woGameError.showIt();
             return;
         }
-        (worldObject as AreaObject).clearIt();
         if(_cont.contains(worldObject.source)){
             _cont.removeChild(worldObject.source);
         }
@@ -483,6 +482,7 @@ public class TownArea extends Sprite {
             unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
         }
         if (_cityObjects.indexOf(worldObject) > -1) _cityObjects.splice(_cityObjects.indexOf(worldObject), 1);
+        (worldObject as AreaObject).clearIt();
     }
 
     public function deleteTailBuild(tail:DecorTail):void{

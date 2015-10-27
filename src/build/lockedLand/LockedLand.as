@@ -143,8 +143,8 @@ public class LockedLand extends AreaObject {
         if (_dataLand.currencyCount > 0) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataLand.currencyCount);
         if (_dataLand.resourceCount > 0) g.userInventory.addResource(_dataLand.resourceId, -_dataLand.resourceCount);
         g.directServer.removeUserLockedLand(_dataLand.id);
-        _dataLand = null;
         g.townArea.deleteBuild(this);
+        _dataLand = null;
         for (var i:int=0; i<_arrWilds.length; i++) {
             (_arrWilds[i] as Wild).addItToMatrix();
         }

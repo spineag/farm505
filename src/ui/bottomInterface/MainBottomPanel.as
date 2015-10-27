@@ -128,6 +128,7 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
+                    if (g.isAway) return;
                     if (_cancelBtn.visible == true) return;
                 if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -159,6 +160,7 @@ public class MainBottomPanel {
                 }
                 break;
             case 'option':
+                if (g.isAway) return;
                 if (_cancelBtn.visible == true) return;
                 if (g.optionPanel.isShowed) {
                      g.optionPanel.hideIt();
