@@ -15,6 +15,8 @@ import hint.FlyMessage;
 
 import mouse.ToolsModifier;
 
+import starling.display.Image;
+
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
@@ -40,7 +42,7 @@ public class LockedLand extends AreaObject {
             g.woGameError.showIt();
             return;
         }
-        createBuild(false);
+        createLockedLandBuild();
 
         if (!g.isAway) {
             _source.hoverCallback = onHover;
@@ -48,13 +50,11 @@ public class LockedLand extends AreaObject {
             _source.outCallback = onOut;
         }
         _source.releaseContDrag = true;
-        deleteIsoView();
 
         var tempSprite:Sprite = new Sprite();
         var q:Quad = new Quad(60*_dataBuild.width, 60*_dataBuild.width, Color.BLACK);
         q.rotation = Math.PI / 4;
         q.alpha = 0;
-        q.y = -45;
         tempSprite.addChild(q);
         tempSprite.scaleY = .5;
         tempSprite.flatten();
@@ -64,6 +64,28 @@ public class LockedLand extends AreaObject {
 
         _filter = new ColorMatrixFilter();
         _filter.tint(Color.YELLOW, .5);
+    }
+
+    public function createLockedLandBuild():void {
+        var im:Image;
+        var p:Point = new Point();
+        for (var i:int=0; i<10; i++) {
+            for (var j:int=0; j<10; j++) {
+                p.x = i;
+                p.y = j;
+                p = g.matrixGrid.getXYFromIndex(p);
+                im = new Image(g.tempBuildAtlas.getTexture(_dataBuild.image));
+                im.x = p.x + _dataBuild.innerX;
+                im.y = p.y + _dataBuild.innerY;
+                _build.addChild(im);
+            }
+        }
+
+        _build.flatten();
+        _build.touchable = false;
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        _source.addChild(_build);
     }
 
     override public function get depth():Number {
