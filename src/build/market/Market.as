@@ -15,6 +15,7 @@ public class Market extends AreaObject{
 
     public function Market(_data:Object) {
         super(_data);
+        useIsometricOnly = false;
         if (!_data) {
             Cc.error('no data for Market');
             g.woGameError.showIt();
@@ -38,7 +39,9 @@ public class Market extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
+            if (g.isActiveMapEditor) {
+                g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             onOut();
             g.townArea.deleteBuild(this);

@@ -15,6 +15,7 @@ public class Shop extends AreaObject{
 
     public function Shop(_data:Object) {
         super(_data);
+        useIsometricOnly = false;
         if (!_data) {
             Cc.error('no data for Shop');
             g.woGameError.showIt();
@@ -38,7 +39,9 @@ public class Shop extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
+            if (g.isActiveMapEditor) {
+                g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {

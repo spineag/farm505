@@ -15,6 +15,7 @@ import starling.utils.Color;
 public class Paper extends AreaObject{
     public function Paper(data:Object) {
         super (data);
+        useIsometricOnly = false;
         if (!data) {
             Cc.error('no data for Paper');
             g.woGameError.showIt();
@@ -42,6 +43,9 @@ public class Paper extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            if (g.isActiveMapEditor) {
+                g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {

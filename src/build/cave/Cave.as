@@ -44,6 +44,7 @@ public class Cave extends AreaObject{
 
     public function Cave(data:Object) {
         super (data);
+        useIsometricOnly = false;
         if (!data) {
             Cc.error('no data for Cave');
             g.woGameError.showIt();
@@ -157,9 +158,14 @@ public class Cave extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            if (g.isActiveMapEditor) {
+                g.townArea.moveBuild(this);
+            }
+            return;
+        }
         if (_stateBuild == STATE_ACTIVE) {
-            if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+             if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {

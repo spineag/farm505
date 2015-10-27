@@ -907,9 +907,16 @@ public class DirectServer {
                         ob.isOpen = int(d.message[i].is_open);
                         g.user.userBuildingData[int(d.message[i].building_id)] = ob;
                     }
-                    var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
                     dataBuild.dbId = dbId;
                     dataBuild.isFlip = int(d.message[i].is_flip);
+                    var p:Point = new Point(int(d.message[i].pos_x), int(d.message[i].pos_y));
+                    if (dataBuild.buildType == BuildType.CAVE || dataBuild.buildType == BuildType.MARKET || dataBuild.buildType == BuildType.SHOP ||
+                            dataBuild.buildType == BuildType.PAPER || dataBuild.buildType == BuildType.DAILY_BONUS || dataBuild.buildType == BuildType.TRAIN) {
+                        //do nothing, use usual x and y from server
+                    } else {
+                        // in another case we get isometric coordinates from server
+                        p = g.matrixGrid.getXYFromIndex(p);
+                    }
                     g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
 
                     ob = {};
@@ -2116,6 +2123,7 @@ public class DirectServer {
         Cc.ch('server', 'getUserMarketItem', 1);
 //        variables = addDefault(variables);
         variables.userSocialId = socialId;
+        variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserMarketItem);
@@ -3137,6 +3145,57 @@ public class DirectServer {
         } else {
             Cc.error('deleteUserWild: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('deleteUserWild: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function ME_moveMapBuilding(id:int, posX:int, posY:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_MOVE_MAP_BUILDING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'ME_moveMapBuilding', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buildId = id;
+        variables.posX = posX;
+        variables.posY = posY;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteME_moveMapBuilding);
+        function onCompleteME_moveMapBuilding(e:Event):void { completeME_moveMapBuilding(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('ME_moveMapBuilding error:' + error.errorID);
+            woError.showItParams('ME_moveMapBuilding error:' + error.errorID);
+        }
+    }
+
+    private function completeME_moveMapBuilding(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('ME_moveMapBuilding: wrong JSON:' + String(response));
+            woError.showItParams('ME_moveMapBuilding: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else {
+            Cc.error('ME_moveMapBuilding: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('ME_moveMapBuilding: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
