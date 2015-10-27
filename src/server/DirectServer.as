@@ -2116,6 +2116,7 @@ public class DirectServer {
         Cc.ch('server', 'getUserMarketItem', 1);
 //        variables = addDefault(variables);
         variables.userSocialId = socialId;
+        variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserMarketItem);
