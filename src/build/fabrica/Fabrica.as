@@ -176,7 +176,7 @@ public class Fabrica extends AreaObject {
         for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
             g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
         }
-
+        g.catPanel.checkCatMinus();
         _heroCat.isFree = false;
         if (isFromServer) {
             _heroCat.setPosition(new Point(posX, posY));

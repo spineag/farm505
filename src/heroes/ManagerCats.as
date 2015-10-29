@@ -17,6 +17,7 @@ public class ManagerCats {
     private var _catsArray:Array;
     private var _catInfo:Object;
     private var _maxCountCats:int;
+    private var _cat:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -117,6 +118,7 @@ public class ManagerCats {
         cat.addToMap();
         g.user.countCats++;
         g.directServer.buyHeroCat(null);
+        g.catPanel.checkCat();
     }
 
     public function getFreeCat():HeroCat {
@@ -125,6 +127,12 @@ public class ManagerCats {
         }
         return null;
     }
-
+    public function get freeCat():int {
+        var j:int;
+        for (var i:int=0; i<_catsArray.length; i++) {
+            if (_catsArray[i].isFree) j= i;
+        }
+        return j+1;
+    }
 }
 }

@@ -76,7 +76,7 @@ public class Wild extends AreaObject{
             if (_source.wasGameContMoved) return;
             if (_isOnHover)  {
                 g.wildHint.onDelete = wildDelete;
-                g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10, _dataBuild.removeByResourceId);
+                g.wildHint.showIt(_source.x, _source.y + _dataBuild.innerY + 10, _dataBuild.removeByResourceId,_dataBuild.name);
             }
         } else {
             Cc.error('Wild:: unknown g.toolsModifier.modifierType')

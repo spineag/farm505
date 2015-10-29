@@ -22,6 +22,7 @@ public class WildHint {
     private var _bg:Image;
     private var _iconResource:Image;
     private var _txtCount:TextField;
+    private var _txtName:TextField;
     private var _deleteCallback:Function;
     private var _id:int;
 
@@ -37,19 +38,22 @@ public class WildHint {
         _source.pivotY = _source.height;
         _circle = new Image(g.interfaceAtlas.getTexture('hint_circle'));
         _txtCount = new TextField(50,50,"","Arial",12,Color.BLACK);
+        _txtName = new TextField(100,50,"","Arial",18,Color.WHITE);
+        _txtName.x = 20;
+        _txtName.y = -30;
         _circle.x = 70;
         _circle.y = 10;
         _source.addChild(_circle);
         var quad:Quad = new Quad(_source.width, _source.height + _source.height/2, Color.WHITE ,false);
         quad.alpha = 0;
         _source.addChildAt(quad,0);
-
+        _source.addChild(_txtName);
         _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
     }
 
-    public function showIt(x:int,y:int, idResourceForRemoving:int):void {
+    public function showIt(x:int,y:int, idResourceForRemoving:int, name:String):void {
        if (_isShowed) return;
         _id = idResourceForRemoving;
         _isShowed = true;
@@ -58,6 +62,7 @@ public class WildHint {
             g.woGameError.showIt();
             return;
         }
+        _txtName.text = name;
         _txtCount.text = String(g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId));
         _iconResource = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));

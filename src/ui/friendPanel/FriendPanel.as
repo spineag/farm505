@@ -2,7 +2,11 @@
  * Created by user on 7/29/15.
  */
 package ui.friendPanel {
+import flash.geom.Rectangle;
+
 import manager.Vars;
+
+import social.SocialNetworkEvent;
 
 import starling.core.Starling;
 
@@ -12,31 +16,65 @@ import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import user.Someone;
+import user.TempUser;
+
 import utils.CSprite;
 
 public class FriendPanel {
     private var _source:Sprite;
-    private var _contArrowRight:CSprite;
-    private var _contArrowLeft:CSprite;
-    private var _contMyFriend:CSprite;
-    private var _contMyNeighbors:CSprite;
-    private var _contHelping:CSprite;
-    private var _contNeedHelp:CSprite;
-    private var _contAddFriend:CSprite;
-    private var _txtLvl:TextField;
+    private var _contRectangle:Sprite;
+    private var _cont:Sprite;
+    private var _contNewFriend:CSprite;
+    private var _contLeftArrow:CSprite;
+    private var _contRightArrow:CSprite;
+    private var _imageneFriend:Image;
+    private var _imageLeftArrow:Image;
+    private var _imageRightArrow:Image;
     private var _imageBg:Image;
-
+    private var _arrFriends:Array;
+    private var _arrItems:Array;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
         _source = new Sprite();
+        _contNewFriend = new CSprite();
+        _contLeftArrow = new CSprite();
+        _contRightArrow = new CSprite();
+        _contRectangle = new Sprite();
+        _cont = new Sprite();
+        _cont.x = 115;
+        _cont.y = 5;
+        _contRectangle.clipRect = new Rectangle(0, 0, 100, 320);
+        _arrFriends = [];
+        _arrItems = [];
         _imageBg = new Image(g.interfaceAtlas.getTexture("friends_plawka"));
-        _source.addChild(_imageBg);
+        _imageneFriend = new Image(g.interfaceAtlas.getTexture("add_friend"));
+        _contNewFriend.addChild(_imageneFriend);
+        _imageLeftArrow = new Image(g.interfaceAtlas.getTexture("arrow_small"));
+        _imageLeftArrow.y = _imageBg.height - 30;
+        _imageLeftArrow.x =  100;
+        _imageLeftArrow.scaleX *= -1;
+        _contLeftArrow.addChild(_imageLeftArrow);
+        _imageRightArrow = new Image(g.interfaceAtlas.getTexture("arrow_small"));
+        _imageRightArrow.y = _imageBg.height - 30;
+        _imageRightArrow.x = _imageBg.width - 30;
+        _contRightArrow.addChild(_imageRightArrow);
         _source.x = 115;
         _source.y = g.stageHeight - 120;
         g.cont.interfaceCont.addChild(_source);
-        createList();
         _source.visible = false;
+        _source.addChild(_imageBg);
+        _source.addChild(_cont);
+        _source.addChild(_contNewFriend);
+        _source.addChild(_contLeftArrow);
+        _source.addChild(_contRightArrow);
+
+        _contNewFriend.endClickCallback = newFriend;
+        _contLeftArrow.endClickCallback = leftArrow;
+        _contRightArrow.endClickCallback = rightArrow;
+            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, addAdditionalUser);
+
     }
 
     public function onResize():void {
@@ -45,7 +83,6 @@ public class FriendPanel {
     }
 
     public function showIt():void {
-//        updateList();
         _source.visible = true;
     }
 
@@ -57,113 +94,35 @@ public class FriendPanel {
         return _source.visible;
     }
 
-    private function createList():void {
-        var im:Image;
-        var txt:TextField;
-        var item:FriendItem;
-        item = new FriendItem();
-        _source.addChild(item.source);
-        _contMyFriend = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('friends_tab'));
-        txt = new TextField(100,50,"Мои друзья","Arial",12,Color.BLACK);
-        txt.y = -10;
-        _contMyFriend.addChild(im);
-        _contMyFriend.addChild(txt);
-        _contMyFriend.x = 90;
-        _contMyFriend.y = -20;
-        _source.addChild(_contMyFriend);
-        _contMyFriend.hoverCallback = function():void { _contMyFriend.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contMyFriend.outCallback = function():void { _contMyFriend.filter = null };
-        _contMyFriend.endClickCallback = function():void {onClick('myFriend')};
+    private function newFriend():void {}
+    private function leftArrow():void {
 
-        _contMyNeighbors = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('friends_tab'));
-        txt = new TextField(100,50,"Мои соседи","Arial",12,Color.BLACK);
-        txt.y = -10;
-        _contMyNeighbors.addChild(im);
-        _contMyNeighbors.addChild(txt);
-        _contMyNeighbors.x = 220;
-        _contMyNeighbors.y = -20;
-        _source.addChild(_contMyNeighbors);
-        _contMyNeighbors.hoverCallback = function():void { _contMyNeighbors.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contMyNeighbors.outCallback = function():void { _contMyNeighbors.filter = null };
-        _contMyNeighbors.endClickCallback = function():void {onClick('myNeighbors')};
+    }
+    private function rightArrow():void {
 
-        _contHelping = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('friends_tab'));
-        txt = new TextField(100,50,"Помогли","Arial",12,Color.BLACK);
-        txt.y = -10;
-        _contHelping.addChild(im);
-        _contHelping.addChild(txt);
-        _contHelping.x = 350;
-        _contHelping.y = -20;
-        _source.addChild(_contHelping);
-        _contHelping.hoverCallback = function():void { _contHelping.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contHelping.outCallback = function():void { _contHelping.filter = null };
-        _contHelping.endClickCallback = function():void {onClick('helping')};
-
-        _contNeedHelp = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('friends_tab'));
-        txt = new TextField(100,50,"Нужна помощь","Arial",12,Color.BLACK);
-        txt.y = -10;
-        _contNeedHelp.addChild(im);
-        _contNeedHelp.addChild(txt);
-        _contNeedHelp.x = 480;
-        _contNeedHelp.y = -20;
-        _source.addChild(_contNeedHelp);
-        _contNeedHelp.hoverCallback = function():void { _contNeedHelp.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contNeedHelp.outCallback = function():void { _contNeedHelp.filter = null };
-        _contNeedHelp.endClickCallback = function():void {onClick('needHelp')};
-
-        _contAddFriend = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("add_friend"));
-        im.x = 10;
-        im.y = 10;
-        _contAddFriend.addChild(im);
-        _source.addChild(_contAddFriend);
-        _contAddFriend.hoverCallback = function():void { _contAddFriend.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contAddFriend.outCallback = function():void { _contAddFriend.filter = null };
-        _contAddFriend.endClickCallback = function():void {onClick('addFriend')};
-
-        _contArrowRight = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("arrow_small"));
-        im.x = _imageBg.width - 30;
-        im.y = _imageBg.height - 30;
-        _contArrowRight.addChild(im);
-        _source.addChild(_contArrowRight);
-        _contArrowRight.hoverCallback = function():void { _contArrowRight.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contArrowRight.outCallback = function():void { _contArrowRight.filter = null };
-        _contArrowRight.endClickCallback = function():void {onClick('arrowRight')};
-
-        _contArrowLeft = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("arrow_small"));
-        im.x = 125;
-        im.y = _imageBg.height - 30;
-        im.scaleX *= -1;
-        _contArrowLeft.addChild(im);
-        _source.addChild(_contArrowLeft);
-        _contArrowLeft.hoverCallback = function():void { _contArrowLeft.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contArrowLeft.outCallback = function():void { _contArrowLeft.filter = null };
-        _contArrowLeft.endClickCallback = function():void {onClick('arrowLeft')};
     }
 
-    private function onClick(reason:String):void {
-        switch (reason) {
-            case 'myFriend':
-                break;
-            case 'myNeighbors':
-                break;
-            case 'helping':
-                break;
-            case 'needHelp':
-                break;
-            case 'addFriend':
-                break;
-            case 'arrowRight':
-                break;
-            case 'arrowLeft':
-                break;
+
+    public function addAdditionalUser(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, addAdditionalUser);
+        var item:FriendItem;
+        var arrItems:Array;
+        _arrFriends = g.user.arrFriends.slice();
+        _arrFriends.unshift(g.user.neighbor);
+        _arrFriends.unshift(g.user);
+//        arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
+//        for (var i:int = 0; i < arr.length; i++) {
+//            cell = new AmbarCell(arr[i]);
+//            _arrCells.push(cell);
+//            _scrollSprite.addNewCell(cell.source);
+//        }
+
+        for (var i:int = 0; i < _arrFriends.length; i++) {
+            item = new FriendItem(_arrFriends[i]);
+            item.source.x = i*110;
+            _cont.addChild(item.source);
         }
+//        _arrFriends.sortOn("level", Array.DESCENDING | Array.NUMERIC);
     }
 
 }
