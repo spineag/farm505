@@ -189,6 +189,7 @@ public class Fabrica extends AreaObject {
         }
 
         _heroCat.isFree = false;
+        g.catPanel.checkCatMinus();
         _arrList.push(resItem);
         resItem.leftTime -= deltaTime;
         resItem.currentRecipeID = dataRecipe.id;

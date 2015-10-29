@@ -50,6 +50,7 @@ import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
 import ui.bottomInterface.MainBottomPanel;
+import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
 import ui.friendPanel.FriendPanel;
@@ -171,6 +172,7 @@ public class Vars {
     public var optionPanel:OptionPanel;
     public var friendPanel:FriendPanel;
     public var toolsPanel:ToolsPanel;
+    public var catPanel:CatPanel;
 
     public var currentOpenedWindow:Window;
     public var woBuyPlant:WOBuyPlant;
@@ -390,6 +392,7 @@ public class Vars {
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
+        catPanel = new CatPanel();
         windowsPool = [];
 
         continueInitGame();
