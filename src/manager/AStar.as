@@ -82,7 +82,10 @@ public class AStar {
             }
         }
 
-        if (curNode == null) {return;}
+        if (curNode == null) {
+            Cc.error('AStar makeSearch:: curNode == null');
+            return;
+        }
 
         delete openList[curNode.x + " " + curNode.y];
         closedList[curNode.x + " " + curNode.y] = curNode;
@@ -103,19 +106,22 @@ public class AStar {
                 col = curNode.x + i;
                 row = curNode.y + j;
 
+//                showVisitedPoint(col, row);
                 if (matrix[row] && matrix[row][col]) {
                     if (matrix[row][col].isWall) {
                         closedList[col + " " + row] = 'wall';
+//                        showWallPoint(col, row);
+                        continue;
                     }
                     if ((col >= 0 && col < ln) && (row >= 0 && row < ln) && (i != 0 || j != 0)) {
                         if (closedList[col + " " + row] == null && openList[col + " " + row] == null) {
                             g = 10;
                             if (i != 0 && j != 0) {
-                                if (matrix[row][col].isFull) {
-                                    closedList[col + " " + row] = 'wall';
+//                                if (matrix[row][col].isFull) {
+//                                    closedList[col + " " + row] = 'wall';
 //                                    showWallPoint(col, row);
-                                    continue;
-                                }
+//                                    continue;
+//                                }
                                 if (matrix[row][col].build is LockedLand) {
                                     closedList[col + " " + row] = 'wall';
 //                                    showWallPoint(col, row);
@@ -185,6 +191,16 @@ public class AStar {
     }
 
     private function showWallPoint(_x:int, _y:int):void {
+        var p:Point = new Point(_x, _y);
+        var im:Image = new Image(g.interfaceAtlas.getTexture('help_icon'));
+        MCScaler.scale(im, 20, 20);
+        p = g.matrixGrid.getXYFromIndex(p);
+        im.x = p.x - 10;
+        im.y = p.y - 10;
+        g.cont.animationsCont.addChild(im);
+    }
+
+    private function showVisitedPoint(_x:int, _y:int):void {
         var p:Point = new Point(_x, _y);
         var im:Image = new Image(g.interfaceAtlas.getTexture('help_icon'));
         MCScaler.scale(im, 20, 20);

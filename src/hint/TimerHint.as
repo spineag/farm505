@@ -3,7 +3,12 @@
  */
 package hint {
 
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
+
 import manager.Vars;
+
+import starling.core.Starling;
 
 
 import starling.display.Image;
@@ -27,6 +32,7 @@ public class TimerHint {
     private var _txtCost:TextField;
     private var _isOnHover:Boolean;
     private var _isShow:Boolean;
+    private var _needMoveCenter:Boolean = false;
     private var g:Vars = Vars.getInstance();
 
     public function TimerHint() {
@@ -62,6 +68,10 @@ public class TimerHint {
         source.outCallback = outHover;
     }
 
+    public function set needMoveCenter(v:Boolean):void {
+        _needMoveCenter = v;
+    }
+
     public function showIt(x:int, y:int, timer:int, cost:int, name:String):void {
 //        var s:Number = g.cont.gameCont.scaleX;
 //        var oY:Number = g.matrixGrid.offsetY*s;
@@ -75,6 +85,23 @@ public class TimerHint {
         _txtName.text = name;
         g.cont.hintContUnder.addChild(source);
         g.gameDispatcher.addToTimer(onTimer);
+
+        if (_needMoveCenter) {
+            if (source.y < source.height + 50 || source.x < source.width / 2 + 50 || source.x > Starling.current.nativeStage.stageWidth - source.width / 2 - 50) {
+                var dY:int = 0;
+                if (source.y < source.height + 50)
+                    dY = source.height + 50 - source.y;
+                var dX:int = 0;
+                if (source.x < source.width / 2 + 50) {
+                    dX = source.width / 2 + 50 - source.x;
+                } else if (source.x > Starling.current.nativeStage.stageWidth - source.width / 2 - 50) {
+                    dX = Starling.current.nativeStage.stageWidth - source.width / 2 - 50 - source.x;
+                }
+                g.cont.deltaMoveGameCont(dX, dY, .5);
+                new TweenMax(source, .5, {x: source.x + dX, y: source.y + dY, ease: Linear.easeOut});
+            }
+            _needMoveCenter = false;
+        }
     }
 
     public function hideIt():void {

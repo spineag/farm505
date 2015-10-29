@@ -80,6 +80,7 @@ import windows.levelUp.WOLevelUp;
 import windows.lockedLand.WOLockedLand;
 import windows.market.WOMarket;
 import windows.noFreeCats.WONoFreeCats;
+import windows.noFreeCats.WOWaitFreeCats;
 import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
@@ -94,6 +95,7 @@ public class Vars {
 
     public var starling:Starling;
     public var mainStage:Stage;
+    public var currentGameScale:Number = 1;
     public var stageWidth:int = 1000;
     public var stageHeight:int = 640;
 //    public var realGameWidth:int = 2048;
@@ -194,6 +196,7 @@ public class Vars {
     public var windowsPool:Array;
     public var woGameError:WOGameError;
     public var woNoFreeCats:WONoFreeCats;
+    public var woWaitFreeCats:WOWaitFreeCats;
     public var woBuyForHardCurrency:WOBuyForHardCurrency;
 
     public var server:Server;
@@ -422,15 +425,16 @@ public class Vars {
         woLockedLand = new WOLockedLand();
         woGameError = new WOGameError();
         woNoFreeCats = new WONoFreeCats();
+        woWaitFreeCats = new WOWaitFreeCats();
         woBuyForHardCurrency = new WOBuyForHardCurrency();
 
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         woPaper.updatePaperItems();
 
-        managerCats.setAllCatsToRandomPositions();
         managerCats.calculateMaxCountCats();
         aStar = new AStar();
+        managerCats.setAllCatsToRandomPositions();
 
         if (!useDataFromServer) temporaryFillUserInventory();
 

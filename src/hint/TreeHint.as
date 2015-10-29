@@ -5,9 +5,15 @@ package hint {
 import build.WorldObject;
 import build.WorldObject;
 
+import com.greensock.TweenMax;
+
+import com.greensock.easing.Linear;
+
 import com.junkbyte.console.Cc;
 
 import manager.Vars;
+
+import starling.core.Starling;
 
 import starling.display.Image;
 import starling.display.Quad;
@@ -113,6 +119,20 @@ public class TreeHint {
         _contDelete.addChild(_imageItem);
         _source.addChild(_txtItem);
         g.cont.hintCont.addChild(_source);
+
+        if (_source.y < _source.height + 50 || _source.x < _source.width/2 + 50 || _source.x > Starling.current.nativeStage.stageWidth -_source.width/2 - 50) {
+            var dY:int = 0;
+            if (_source.y < _source.height + 50)
+                dY = _source.height + 50 - _source.y;
+            var dX:int = 0;
+            if (_source.x < _source.width/2 + 50) {
+                dX = _source.width/2 + 50 - _source.x;
+            } else if (_source.x > Starling.current.nativeStage.stageWidth -_source.width/2 - 50) {
+                dX = Starling.current.nativeStage.stageWidth -_source.width/2 - 50 - _source.x;
+            }
+            g.cont.deltaMoveGameCont(dX, dY, .5);
+            new TweenMax(_source, .5, {x:_source.x + dX, y:_source.y + dY, ease:Linear.easeOut});
+        }
     }
 
     public function hideIt():void {

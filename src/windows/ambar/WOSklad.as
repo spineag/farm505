@@ -216,5 +216,12 @@ public class WOSklad extends Window {
         unfillItems();
         fillItems();
     }
+
+    public function smallUpdate():void {
+        updateTxtCount();
+        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
+        unfillItems();
+        fillItems();
+    }
 }
 }

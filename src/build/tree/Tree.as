@@ -72,10 +72,8 @@ public class Tree extends AreaObject{
 
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
-//        if (!g.isAway) {
-            _resourceItem = new ResourceItem();
-            _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
-//        }
+        _resourceItem = new ResourceItem();
+        _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
     }
 
     public function releaseNewTree():void {
@@ -328,7 +326,6 @@ public class Tree extends AreaObject{
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             _isOnHover = false;
             g.gameDispatcher.addEnterFrame(countEnterFrame);
-
             g.townArea.moveBuild(this, _state);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
@@ -345,9 +342,10 @@ public class Tree extends AreaObject{
             if (_state ==  FULL_DEAD){
 //                _isOnHover = true;
                 if (_isOnHover == true) {
-                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, _dataBuild.name,this);
-                    if (g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) return;
-                    g.treeHint.onDelete = deleteTree;
+                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, _dataBuild.name,this);
+                    if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
+                        g.treeHint.onDelete = deleteTree;
+                    }
                 }
             } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
@@ -455,7 +453,7 @@ public class Tree extends AreaObject{
                 if (_state == GROW1 || _state == GROW2 || _state == GROW3) {
                     time += int(_resourceItem.buildTime/2 + .5);
                 }
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y - _source.height, time, _dataBuild.priceSkipHard, _dataBuild.name);
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name);
             }
             if (_isOnHover == false) {
                 _source.filter = null;

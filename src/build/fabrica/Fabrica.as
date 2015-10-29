@@ -23,6 +23,8 @@ import resourceItem.ResourceItem;
 
 import mouse.ToolsModifier;
 
+import starling.core.Starling;
+
 import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
@@ -40,6 +42,7 @@ public class Fabrica extends AreaObject {
     private var _isOnHover:Boolean;
     private var _heroCat:HeroCat;
     private var _count:int;
+    private var _arrCrafted:Array;
 
     public function Fabrica(_data:Object) {
         super(_data);
@@ -56,6 +59,7 @@ public class Fabrica extends AreaObject {
         _isAnim = false;
         _arrRecipes = [];
         _arrList = [];
+        _arrCrafted = [];
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
         if (!g.isAway) {
@@ -83,7 +87,8 @@ public class Fabrica extends AreaObject {
         if(_count <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _leftBuildTime, _dataBuild.cost, _dataBuild.name);
+                g.timerHint.needMoveCenter = true;
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.cost, _dataBuild.name);
             }
             if (_isOnHover == false) {
                 _source.filter = null;
@@ -123,9 +128,14 @@ public class Fabrica extends AreaObject {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
                 if (_source.wasGameContMoved) return;
-                g.woFabrica.showItWithParams(_arrRecipes, _arrList, _maxListCount, callbackOnChooseRecipe);
-                _source.filter = null;
-                g.hint.hideIt();
+                if (_arrCrafted.length) {
+                    (_arrCrafted.pop() as CraftItem).flyIt();
+                } else {
+                    g.cont.moveCenterToXY(_source.x, _source.y);
+                    g.woFabrica.showItWithParams(_arrRecipes, _arrList, _maxListCount, callbackOnChooseRecipe);
+                    _source.filter = null;
+                    g.hint.hideIt();
+                }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
@@ -170,62 +180,71 @@ public class Fabrica extends AreaObject {
         if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
 
         if (!_arrList.length && !_heroCat) {
-            g.woNoFreeCats.showIt();
+            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
+                g.woWaitFreeCats.showIt();
+            } else {
+                g.woNoFreeCats.showIt();
+            }
             return;
-        }
-        for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
-            g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
         }
 
         _heroCat.isFree = false;
-        if (isFromServer) {
-            _heroCat.setPosition(new Point(posX, posY));
-            _heroCat.updatePosition();
-            onHeroAnimation(resItem, dataRecipe, isFromServer, deltaTime);
-        } else {
-            if (_arrList.length) {
-                onHeroAnimation(resItem, dataRecipe, isFromServer, deltaTime);
-            } else {
-                g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation, resItem, dataRecipe, isFromServer, deltaTime);
-            }
-        }
-    }
-
-    private function onHeroAnimation(resItem:ResourceItem, dataRecipe:Object, isFromServer:Boolean = false, deltaTime:int = 0):void {
-        var i:int;
-        if (g.user.userBuildingData && !isFromServer) {
-            var delay:int = 0;
-            for (i=0; i<_arrList.length; i++) {
-                delay += _arrList[i].buildTime;
-            }
-            var f1:Function = function(t:String):void {
-                resItem.idFromServer = t;
-            };
-            g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
-        }
-        _heroCat.visible = false;
         _arrList.push(resItem);
         resItem.leftTime -= deltaTime;
         resItem.currentRecipeID = dataRecipe.id;
         if (_arrList.length == 1) {
             g.gameDispatcher.addToTimer(render);
-            startTempAnimation();
         }
-        var p:Point = new Point(source.x, source.y);
-        p = source.parent.localToGlobal(p);
-        var obj:Object;
-        var texture:Texture;
-        for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
-            obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
-            if (obj.buildType == BuildType.PLANT) {
-                texture = g.plantAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
-            } else if (obj.buildType == BuildType.RESOURCE) {
-                texture = g.resourceAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
-            } else if (obj.buildType == BuildType.INSTRUMENT) {
-                texture = g.instrumentAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
+
+        if (isFromServer) {
+            _heroCat.setPosition(new Point(posX, posY));
+            _heroCat.updatePosition();
+            onHeroAnimation();
+        } else {
+            var i:int;
+            if (_arrList.length > 1) {
+                onHeroAnimation();
+            } else {
+                g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
             }
-            if (!isFromServer) new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i*.1);
+
+            // send to server
+            if (g.user.userBuildingData) {
+                var delay:int = 0;
+                for (i=0; i<_arrList.length; i++) {
+                    delay += _arrList[i].buildTime;
+                }
+            }
+            var f1:Function = function(t:String):void {
+                resItem.idFromServer = t;
+                for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+                    g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
+                }
+            };
+            g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
+
+            // animation of uploading resources to fabrica
+            var p:Point = new Point(source.x, source.y);
+            p = source.parent.localToGlobal(p);
+            var obj:Object;
+            var texture:Texture;
+            for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
+                obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
+                if (obj.buildType == BuildType.PLANT) {
+                    texture = g.plantAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
+                } else if (obj.buildType == BuildType.RESOURCE) {
+                    texture = g.resourceAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
+                } else if (obj.buildType == BuildType.INSTRUMENT) {
+                    texture = g.instrumentAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
+                }
+                new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i * .1);
+            }
         }
+    }
+
+    private function onHeroAnimation():void {
+        _heroCat.visible = false;
+        startTempAnimation();
     }
 
     private function render():void {
@@ -251,6 +270,8 @@ public class Fabrica extends AreaObject {
             if (g.useDataFromServer) g.managerFabricaRecipe.onCraft(item);
         };
         var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, f1);
+        _arrCrafted.push(craftItem);
+        craftItem.removeDefaultCallbacks();
         if (!_arrList.length && _heroCat) {
             _heroCat.visible = true;
             _heroCat.isFree = true;

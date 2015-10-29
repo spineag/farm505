@@ -125,7 +125,7 @@ public class UpdateItem {
             g.userInventory.addResource(_resourceId, _countForBuy);
             updateIt();
             if (!_isAmbarItem) {
-                g.woSklad.updateTxtCount();
+                g.woSklad.smallUpdate();
             }
             if (_buyCallback != null) {
                 _buyCallback.apply();

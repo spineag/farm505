@@ -166,26 +166,5 @@ public class CraftItem {
             _txtNumber.text = '';
         }
     }
-
-
-
-
-// as EXAMPLE
-//    private function tweenStarling( obj:Image ):void {
-//        var tw:Tween = new Tween(obj, 1+(Math.random()*3), Transitions.EASE_OUT );
-//        tw.moveTo( Math.random() * 480 , Math.random() * 762);
-//        tw.onComplete = tweenStarling;
-//        tw.onCompleteArgs = [obj];
-//        Starling.current.juggler.add(tw);
-//    }
-//
-//    private function tweenGreenSock( obj:Image ):void {
-//        var tw:TweenLite = new TweenLite(obj, 1 + (Math.random() * 3) , {
-//            x:Math.random() * 480 ,
-//            y: Math.random() * 762 ,
-//            onComplete:tweenGreenSock ,
-//            onCompleteParams:[obj]
-//        } );
-//    }
 }
 }

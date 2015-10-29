@@ -2,6 +2,9 @@
  * Created by user on 5/14/15.
  */
 package manager {
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
+
 import flash.geom.Point;
 
 import map.MatrixGrid;
@@ -153,7 +156,7 @@ public class Containers {
 
     public function dragGameCont(mouseP:Point):void {
         g.hideAllHints();
-        var s:Number = g.cont.gameCont.scaleX;
+        var s:Number = gameCont.scaleX;
         if (_startDragPointCont == null || _startDragPoint == null) return;
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
@@ -172,21 +175,44 @@ public class Containers {
         //переміщаємо ігрову область так, щоб вказана точка була по центру екрана
         var newX:int;
         var newY:int;
+        var s:Number = gameCont.scaleX;
+        var oY:Number = g.matrixGrid.offsetY*s;
+        newX = -(_x*s - Starling.current.nativeStage.stageWidth/2);
+        newY = -(_y*s - Starling.current.nativeStage.stageHeight/2);
+        if (newY > oY + SHIFT_MAP_Y*s) gameCont.y = oY + SHIFT_MAP_Y*s;
+        if (newY < -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s)
+            newY = -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s;
+        if (newX > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s)
+            newX =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
+        if (newX < -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*s)
+            newX = -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*s;
 
-        newX = -(_x - Starling.current.nativeStage.stageWidth/2); // - g.realGameWidth/2;
-        newY = -(_y - Starling.current.nativeStage.stageHeight/2);// - g.matrixGrid.offsetY;
-//
         if (needQuick) {
             gameCont.x = newX;
             gameCont.y = newY;
         } else {
-            var tween:Tween = new Tween(gameCont, 1);
-            tween.moveTo(newX, newY);
-            tween.onComplete = function ():void {
-                g.starling.juggler.remove(tween);
-            };
-            g.starling.juggler.add(tween);
+            new TweenMax(gameCont, .5, {x:newX, y:newY, ease:Linear.easeOut});
+//            var tween:Tween = new Tween(gameCont, .5);
+//            tween.moveTo(newX, newY);
+//            tween.onComplete = function ():void {
+//                g.starling.juggler.remove(tween);
+//            };
+//            g.starling.juggler.add(tween);
         }
+    }
+
+    public function deltaMoveGameCont(deltaX:int, deltaY:int, time:Number = .5):void {
+        var oY:Number = g.matrixGrid.offsetY*g.cont.gameCont.scaleX;
+        var nX:int = gameCont.x + deltaX;
+        var nY:int = gameCont.y + deltaY;
+        if (nY > oY + SHIFT_MAP_Y*g.cont.gameCont.scaleX) nY = oY + SHIFT_MAP_Y*g.cont.gameCont.scaleX;
+        if (nY < -g.realGameTilesHeight*g.cont.gameCont.scaleX - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*g.cont.gameCont.scaleX)
+            nY = -g.realGameTilesHeight*g.cont.gameCont.scaleX - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*g.cont.gameCont.scaleX;
+        if (nX > g.cont.gameCont.scaleX*g.realGameWidth/2 - g.cont.gameCont.scaleX*MatrixGrid.DIAGONAL/2 + SHIFT_MAP_X*g.cont.gameCont.scaleX)
+            nX =  g.cont.gameCont.scaleX*g.realGameWidth/2 - g.cont.gameCont.scaleX*MatrixGrid.DIAGONAL/2 + SHIFT_MAP_X*g.cont.gameCont.scaleX;
+        if (nX < -g.cont.gameCont.scaleX*g.realGameWidth/2 + g.cont.gameCont.scaleX*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*g.cont.gameCont.scaleX)
+            nX = -g.cont.gameCont.scaleX*g.realGameWidth/2 + g.cont.gameCont.scaleX*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*g.cont.gameCont.scaleX;
+        new TweenMax(gameCont, time, {x:nX, y:nY, ease:Linear.easeOut});
     }
 }
 }

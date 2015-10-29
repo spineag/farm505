@@ -342,7 +342,7 @@ public class ShopItem {
                     return;
                 }
             }
-            trace('no such Farm :(');
+            Cc.error('ShopItem:: no such Farm :(');
             g.bottomPanel.cancelBoolean(false);
         }
     }

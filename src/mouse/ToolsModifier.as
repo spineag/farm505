@@ -3,6 +3,7 @@
  */
 package mouse {
 import build.WorldObject;
+import build.decor.DecorTail;
 import build.ridge.Ridge;
 import build.tree.Tree;
 import build.wild.Wild;
@@ -199,6 +200,7 @@ public class ToolsModifier {
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;
+
         if (_activeBuildingData.url == "treeAtlas"){
             switch (treeState) {
                 case Tree.GROW1:
@@ -349,7 +351,7 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
         _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
-        if (g.selectedBuild && g.selectedBuild.source && g.selectedBuild.source.isContDrag || isFromShop) {
+        if (g.selectedBuild && g.selectedBuild.source && g.selectedBuild.isContDrag || isFromShop) {
             _needMoveGameCont = true;
         }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
@@ -363,6 +365,10 @@ public class ToolsModifier {
             g.woGameError.showIt();
             return;
         }
+
+        g.cont.contentCont.alpha = .5;
+        g.cont.contentCont.touchable = false;
+
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;
@@ -450,14 +456,20 @@ public class ToolsModifier {
         var y:Number;
         var point:Point;
 
+        if (_activeBuildingData.buildType == BuildType.DECOR_TAIL) {
+            g.cont.contentCont.alpha = 1;
+            g.cont.contentCont.touchable = true;
+        }
+
+
         if (!_spriteForMove) return;
-        if (g.selectedBuild.useIsometricOnly) {
+        if (g.selectedBuild && g.selectedBuild.useIsometricOnly) {
             point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
             g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
         }
         x = _spriteForMove.x;
         y = _spriteForMove.y;
-        if (!g.isActiveMapEditor && g.selectedBuild.useIsometricOnly) {
+        if (!g.isActiveMapEditor && g.selectedBuild && g.selectedBuild.useIsometricOnly && !(g.selectedBuild is DecorTail)) {
             if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) {
                 g.gameDispatcher.addEnterFrame(onEnterFrame);
                 return;
@@ -494,7 +506,7 @@ public class ToolsModifier {
         _spriteForMove.x = (_mouse.mouseX - _cont.x)/g.cont.gameCont.scaleX;
         _spriteForMove.y = (_mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2)/g.cont.gameCont.scaleX;
         if (_startDragPoint) return;
-        if (!g.selectedBuild.useIsometricOnly) return;
+        if (g.selectedBuild && !g.selectedBuild.useIsometricOnly) return;
 
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);

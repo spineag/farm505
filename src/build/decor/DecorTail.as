@@ -31,6 +31,7 @@ public class DecorTail extends AreaObject{
     private function onClick():void {
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            _source.filter = null;
             g.townArea.moveTailBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteTailBuild(this);

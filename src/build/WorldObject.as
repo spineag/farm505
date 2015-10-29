@@ -130,5 +130,9 @@ public class WorldObject {
         }
         _dataBuild.isFlip = _flip;
     }
+
+    public function isContDrag():Boolean {
+        return _source.isContDrag;
+    }
 }
 }

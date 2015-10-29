@@ -73,6 +73,7 @@ public class Wild extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            if (g.isAway) return;
             if (_source.wasGameContMoved) return;
             if (_isOnHover)  {
                 g.wildHint.onDelete = wildDelete;

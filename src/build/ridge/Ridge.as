@@ -89,6 +89,10 @@ public class Ridge extends AreaObject{
         _bgClicked.addChild(_plantSprite);
     }
 
+    override public function isContDrag():Boolean {
+        return _bgClicked.isContDrag;
+    }
+
     public function addChildPlant(s:Sprite):void {
         _plantSprite.addChild(s);
     }
@@ -263,7 +267,7 @@ public class Ridge extends AreaObject{
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
                 if (_plant)
-                    g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
+                    g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
             }
             if (_isOnHover == false) {
                 _source.filter = null;

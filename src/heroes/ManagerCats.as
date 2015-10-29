@@ -83,8 +83,10 @@ public class ManagerCats {
 
     public function setAllCatsToRandomPositions():void {
         for (var i:int=0; i<_catsArray.length; i++) {
-            _catsArray[i].setPosition(getRandomFreeCell());
-            _catsArray[i].addToMap();
+            if ((_catsArray[i] as HeroCat).isFree) {
+                _catsArray[i].setPosition(getRandomFreeCell());
+                _catsArray[i].addToMap();
+            }
         }
     }
 

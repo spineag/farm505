@@ -159,7 +159,7 @@ public class Animal {
         if(_frameCounterTimerHint <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
-                g.timerHint.showIt(g.cont.gameCont.x + source.parent.x + source.x, g.cont.gameCont.y + source.parent.y + source.y - source.height, _timeToEnd, _data.costForceCraft, _data.name);
+                g.timerHint.showIt(g.cont.gameCont.x + source.parent.x * g.currentGameScale + source.x * g.currentGameScale, g.cont.gameCont.y + (source.parent.y + source.y - source.height)*g.currentGameScale, _timeToEnd, _data.costForceCraft, _data.name);
             }
             if (_isOnHover == false) {
                 source.filter = null;
@@ -204,6 +204,7 @@ public class Animal {
     }
 
     private function waitForRawAnimation():void {
+        if (_data.id == 6) return;
         var f1:Function = function():void {
             new TweenMax(_image, .5, {scaleX:0.97*_defautScale, scaleY:1.03*_defautScale, ease:Linear.easeOut ,onComplete: f2});
         };
@@ -215,6 +216,7 @@ public class Animal {
 
     private function chooseAnimation():void {
         stopAnimation();
+        if (_data.id == 6) return;
         var i:int = int(Math.random()*3);
         if (i > 0) {
             walkAnimation();

@@ -14,8 +14,6 @@ import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 public class Ambar extends AreaObject{
-
-
     public function Ambar(_data:Object) {
         super(_data);
         if (!_data) {

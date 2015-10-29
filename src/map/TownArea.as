@@ -171,7 +171,6 @@ public class TownArea extends Sprite {
         for (var i:int = posY; i < (posY + sizeY); i++) {
             for (var j:int = posX; j < (posX + sizeX); j++) {
                 if (_townMatrix[i][j].build && _townMatrix[i][j].build is LockedLand && source is Wild) {
-//                    (source as Wild).setLockedLand(_townMatrix[i][j].build as LockedLand);
                     continue;
                 }
                 _townMatrix[i][j].build = source;
@@ -194,7 +193,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function fillTailMatrix(posX:int, posY:int, source:DecorTail):void {
+    public function fillTailMatrix(posX:int, posY:int, source:WorldObject):void {
          _townTailMatrix[posY][posX].build = source;
     }
 
@@ -371,7 +370,7 @@ public class TownArea extends Sprite {
             worldObject.posX = _x;
             worldObject.posY = _y;
         }
-        _cityObjects.push(worldObject);
+        if (!updateAfterMove) _cityObjects.push(worldObject);
         worldObject.updateDepth();
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
             fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
@@ -379,6 +378,13 @@ public class TownArea extends Sprite {
         } else {
             if (worldObject.useIsometricOnly) {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+            }
+            if (worldObject is Order) {
+                for (var i:int = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
+                    for (var j:int = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
+                        fillTailMatrix(j, i, worldObject);
+                    }
+                }
             }
         }
         if (isNewAtMap) {
@@ -415,13 +421,12 @@ public class TownArea extends Sprite {
         // временно полная сортировка, далее нужно будет дописать "умную"
         zSort();
 
-        if (isNewAtMap && worldObject is Ridge || isNewAtMap && worldObject is Tree) {
+        if (isNewAtMap && (worldObject is Ridge || worldObject is Tree)) {
             g.bottomPanel.cancelBoolean(true);
             var arr:Array;
             var curCount:int;
             var maxCount:int;
             var maxCountAtCurrentLevel:int = 0;
-            arr = [];
             _dataObjects = worldObject.dataBuild;
             arr = g.townArea.getCityObjectsById(_dataObjects.id);
             curCount = arr.length;
@@ -453,7 +458,7 @@ public class TownArea extends Sprite {
             tail.posX = point.x;
             tail.posY = point.y;
             _cityTailObjects.push(tail);
-            fillTailMatrix(tail.posX, tail.posY, tail);
+            fillTailMatrix(tail.posX, tail.posY, tail as WorldObject);
             if (isNewAtMap) {
                 g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
                 tail.addXP();
@@ -506,7 +511,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function moveBuild(worldObject:WorldObject, treeState:int = 1,ridgeState:int = 1):void{// не сохраняется флип при муве
+    public function moveBuild(worldObject:WorldObject, treeState:int = 1,ridgeState:int = 1):void{
         if (!worldObject) {
             Cc.error('TownArea moveBuild:: empty worldObject');
             g.woGameError.showIt();
@@ -745,17 +750,24 @@ public class TownArea extends Sprite {
             g.woGameError.showIt();
             return;
         }
-        if (!_cont.contains(worldObject.source)) {
-            worldObject.posX = posX;
-            worldObject.posY = posY;
+
+        worldObject.posX = posX;
+        worldObject.posY = posY;
+
+        if (worldObject.useIsometricOnly) {
             var point:Point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
             worldObject.source.x = int(point.x);
             worldObject.source.y = int(point.y);
-            _cont.addChild(worldObject.source);
-
-            _cityAwayObjects.push(worldObject);
-            worldObject.updateDepth();
+        } else {
+            worldObject.source.x = posX;
+            worldObject.source.y = posY;
         }
+
+        if (!_cont.contains(worldObject.source)) {
+            _cont.addChild(worldObject.source);
+        }
+        _cityAwayObjects.push(worldObject);
+        worldObject.updateDepth();
     }
 
     public function pasteAwayTailBuild(tail:DecorTail, posX:Number, posY:Number):void {

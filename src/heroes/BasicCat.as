@@ -23,7 +23,7 @@ public class BasicCat {
     protected var _posY:int;
     protected var _depth:Number;
     protected var _source:CSprite;
-    protected var _speedWalk:int = 4;
+    protected var _speedWalk:int = 6;
     protected var _speedRun:int = 10;
     protected var _curSpeed:int;
     protected var _currentPath:Array;

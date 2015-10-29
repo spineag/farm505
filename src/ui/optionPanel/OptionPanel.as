@@ -331,6 +331,7 @@ public class OptionPanel {
 //            isAnimScaling = false;
 //        };
         new TweenMax(cont, .5, {x:pNew.x, y:pNew.y, scaleX:s, scaleY:s, ease:Linear.easeOut, onComplete: function():void {isAnimScaling = false;}});
+        g.currentGameScale = s;
     }
 }
 }

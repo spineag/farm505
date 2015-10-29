@@ -300,7 +300,7 @@ public class Cave extends AreaObject{
         if(_count <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x, g.cont.gameCont.y + _source.y, _leftBuildTime, _dataBuild.cost, _dataBuild.name);
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.cost, _dataBuild.name);
             }
             if (_isOnHover == false) {
                 _source.filter = null;

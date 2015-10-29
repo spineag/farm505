@@ -14,8 +14,6 @@ import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 public class Sklad extends AreaObject{
-
-
     public function Sklad(_data:Object) {
         super(_data);
         if (!_data) {
