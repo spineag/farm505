@@ -98,7 +98,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onHover():void {
-        if (g.isActiveMapEditor) return;
+        if (g.isActiveMapEditor || g.isAway) return;
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
@@ -116,7 +116,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onStartClick():void {
-        if (g.isActiveMapEditor) return;
+        if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
             if (g.toolsModifier.plantId <= 0 || _stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -130,7 +130,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onEndClick():void {
-        if (g.isActiveMapEditor) return;
+        if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
                 g.toolsModifier.ridgeId = _dataPlant.id;
@@ -208,7 +208,7 @@ public class Ridge extends AreaObject{
 
 
     private function onOut():void {
-        if (g.isActiveMapEditor) return;
+        if (g.isActiveMapEditor || g.isAway) return;
         _source.filter = null;
         _isOnHover = false;
         g.mouseHint.hideHintMouse();
@@ -228,6 +228,7 @@ public class Ridge extends AreaObject{
             g.woGameError.showIt();
             return;
         }
+
         _stateRidge = GROW1;
         if (!isFromServer) g.userInventory.addResource(data.id, -1);
         if (!isFromServer) g.toolsModifier.updateCountTxt();
@@ -235,7 +236,10 @@ public class Ridge extends AreaObject{
         _plant = new PlantOnRidge(this, _dataPlant);
         if (timeWork < _dataPlant.buildTime) {
             _plant.checkTimeGrowing(timeWork);
-            _plant.activateRender();
+            if (!g.isAway) {
+                _plant.activateRender();
+                g.managerPlantRidge.addCatForPlant(_dataPlant.id, this);
+            }
             _plant.checkStateRidge(false);
         } else {
             _stateRidge = GROWED;
@@ -259,6 +263,9 @@ public class Ridge extends AreaObject{
 
     public function set stateRidge(a:int):void {
         _stateRidge = a;
+        if (_stateRidge == GROWED) {
+            g.managerPlantRidge.removeCatFromRidge(_dataPlant.id, this);
+        }
     }
 
     private function countEnterFrame():void {

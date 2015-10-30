@@ -29,6 +29,7 @@ public class BasicCat {
     protected var _currentPath:Array;
     protected var _callbackOnWalking:Function;
     protected var g:Vars = Vars.getInstance();
+    public var isOnMap:Boolean = false;
 
     public function BasicCat() {
 
@@ -47,10 +48,12 @@ public class BasicCat {
     }
 
     public function addToMap():void {
+        isOnMap = true;
         g.townArea.addHero(this);
     }
 
     public function removeFromMap():void {
+        isOnMap = false;
         g.townArea.removeHero(this);
     }
 

@@ -26,7 +26,7 @@ public class WOWaitFreeCats extends Window{
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 150;
         _btnExit.y -= 150;
-        _txtText = new TextField(300,200,"Свободных работников нет, подождите пока окончания другого производства","Arial",18,Color.BLACK);
+        _txtText = new TextField(300,200,"Свободных работников нет, подождите до окончания другого производства","Arial",18,Color.BLACK);
         _txtText.x = -150;
         _txtText.y = -100;
         _imageBtn = new Image(g.interfaceAtlas.getTexture("btn3"));

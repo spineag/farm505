@@ -51,7 +51,7 @@ public class Window {
                 g.windowsPool.push(this);
                 return;
             } else {
-                g.currentOpenedWindow.hideIt();
+                if (g.currentOpenedWindow) g.currentOpenedWindow.hideIt();
             }
         }
 

@@ -5,17 +5,23 @@ package manager {
 import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
+import heroes.HeroCat;
+
 public class ManagerPlantRidge {
-    private var arrRidge:Array; // список всех грядок юзера
+    private var _arrRidge:Array; // список всех грядок юзера
+    private var _catsForPlant:Object; // _catsForPlant['id plant'] = { cat: HeroCat, ridges: array(ridge1, ridge2..) };
 
     private var g:Vars = Vars.getInstance();
 
     public function ManagerPlantRidge() {
         var arr:Array = g.townArea.cityObjects;
-        arrRidge = [];
+        _arrRidge = [];
+        _catsForPlant = [];
         for (var i:int = 0; i < arr.length; i++) {
             if (arr[i] is Ridge) {
-                arrRidge.push(arr[i]);
+                _arrRidge.push(arr[i]);
             }
         }
     }
@@ -23,9 +29,9 @@ public class ManagerPlantRidge {
     public function addPlant(ob:Object):void {
         var curRidge:Ridge;
         var i:int;
-        for (i=0; i<arrRidge.length; i++) {
-            if (arrRidge[i].dbBuildingId == int(ob.user_db_building_id)) {
-                curRidge = arrRidge[i];
+        for (i=0; i<_arrRidge.length; i++) {
+            if (_arrRidge[i].dbBuildingId == int(ob.user_db_building_id)) {
+                curRidge = _arrRidge[i];
                 break;
             }
         }
@@ -39,6 +45,54 @@ public class ManagerPlantRidge {
 
     public function onCraft(plantIdFromServer:String):void {
         g.directServer.craftPlantRidge(plantIdFromServer, null);
+    }
+
+    public function checkIsCat(plantId:int):Boolean {
+        if (_catsForPlant[plantId]) return true;
+        if (g.managerCats.countFreeCats > 0) return true;
+        return false;
+    }
+
+    public function addCatForPlant(plantId:int, ridge:Ridge):void {
+        if (_catsForPlant[plantId]) {
+            _catsForPlant[plantId].ridges.push(ridge);
+        } else {
+            var cat:HeroCat = g.managerCats.getFreeCat();
+            if (cat) {
+                cat.isFree = false;
+                if (cat.isOnMap) {
+                    g.managerCats.goCatToPoint(cat, new Point(0, 0));
+                } else {
+                    cat.setPosition(new Point(0,0));
+                    cat.addToMap();
+                }
+                _catsForPlant[plantId] = {cat: cat, ridges:[ridge]};
+            } else {
+                Cc.error('ManagerPlantRidge addCatForPlant:: cat = null');
+                g.woGameError.showIt();
+            }
+        }
+    }
+
+    public function removeCatFromRidge(plantId:int, ridge:Ridge):void {
+        if (_catsForPlant[plantId]) {
+            if (_catsForPlant[plantId].ridges.length) {
+                if (_catsForPlant[plantId].ridges.indexOf(ridge) > -1) {
+                    _catsForPlant[plantId].ridges.splice(_catsForPlant[plantId].ridges.indexOf(ridge), 1);
+                    if (!_catsForPlant[plantId].ridges.length) {
+                        (_catsForPlant[plantId].cat as HeroCat).isFree = true;
+                        g.managerCats.goCatToPoint(_catsForPlant[plantId].cat as HeroCat, g.managerCats.getRandomFreeCell());
+                        delete _catsForPlant[plantId];
+                    }
+                } else {
+                    Cc.error('ManagerPlantRidge removeCatFromRidge:: _catsForPlant[plantId].ridges.indexOf(ridge) = -1 for plantId: ' + plantId);
+                }
+            } else {
+                Cc.error('ManagerPlantRidge removeCatFromRidge:: _catsForPlant[plantId].ridges.length = 0 for plantId: ' + plantId);
+            }
+        } else {
+            Cc.error('ManagerPlantRidge removeCatFromRidge:: _catsForPlant[plantId] = null for plantId: ' + plantId);
+        }
     }
 }
 }

@@ -125,7 +125,7 @@ public class ManagerCats {
 
     public function getFreeCat():HeroCat {
         for (var i:int=0; i<_catsArray.length; i++) {
-            if (_catsArray[i].isFree) return _catsArray[i];
+            if ((_catsArray[i] as HeroCat).isFree) return _catsArray[i];
         }
         return null;
     }
@@ -133,7 +133,7 @@ public class ManagerCats {
     public function get countFreeCats():int {
         var j:int = 0;
         for (var i:int=0; i<_catsArray.length; i++) {
-            if (_catsArray[i].isFree) ++j;
+            if ((_catsArray[i] as HeroCat).isFree) ++j;
         }
         return j;
     }

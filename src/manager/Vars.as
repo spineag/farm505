@@ -249,6 +249,9 @@ public class Vars {
         userInventory = new UserInventory();
         gameDispatcher = new FarmDispatcher(mainStage);
 
+        windowsPool = [];
+        woGameError = new WOGameError();
+
         matrixGrid = new MatrixGrid();
         matrixGrid.createMatrix();
         townArea = new TownArea();
@@ -319,6 +322,7 @@ public class Vars {
     }
 
     private function onDataCats():void {
+        aStar = new AStar();
         managerCats.calculateMaxCountCats();
         catPanel.checkCat();
         directServer.getDataLockedLand(onDataLockedLand);
@@ -374,6 +378,8 @@ public class Vars {
     }
 
     private function initVariables2():void {
+        managerCats.setAllCatsToRandomPositions();
+
         startPreloader.setProgress(100);
         startPreloader.hideIt();
         startPreloader = null;
@@ -395,7 +401,6 @@ public class Vars {
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
-        windowsPool = [];
 
         continueInitGame();
     }
@@ -428,7 +433,6 @@ public class Vars {
         woLastResource = new WOLastResource();
         woTrainOrder = new WOTrainOrder();
         woLockedLand = new WOLockedLand();
-        woGameError = new WOGameError();
         woNoFreeCats = new WONoFreeCats();
         woWaitFreeCats = new WOWaitFreeCats();
         woBuyForHardCurrency = new WOBuyForHardCurrency();
@@ -436,9 +440,6 @@ public class Vars {
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         woPaper.updatePaperItems();
-
-        aStar = new AStar();
-        managerCats.setAllCatsToRandomPositions();
 
         if (!useDataFromServer) temporaryFillUserInventory();
 

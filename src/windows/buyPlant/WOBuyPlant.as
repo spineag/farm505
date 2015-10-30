@@ -80,16 +80,25 @@ public class WOBuyPlant extends Window {
         }
     }
 
-    private function onClickItem(data:Object):void {
+    private function onClickItem(d:Object):void {
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].unfillIt();
         }
-        _ridge.fillPlant(data);
-        if (_callback != null) {
-            _callback.apply();
-            _callback = null;
+        if (g.managerPlantRidge.checkIsCat(d.id)) {
+            _ridge.fillPlant(d);
+            if (_callback != null) {
+                _callback.apply();
+                _callback = null;
+            }
+            hideIt();
+        } else {
+            hideIt();
+            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
+                g.woWaitFreeCats.showIt();
+            } else {
+                g.woNoFreeCats.showIt();
+            }
         }
-        hideIt();
     }
 }
 }
