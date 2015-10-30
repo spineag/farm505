@@ -409,7 +409,7 @@ public class ToolsModifier {
                 _spriteForMove.removeChildAt(0);
             }
         }
-        _moveGrid.clearIt();
+        if (_moveGrid) _moveGrid.clearIt();
         _moveGrid = null;
         if (imForMove) imForMove.dispose();
         imForMove = null;

@@ -67,6 +67,7 @@ public class HeroCat extends BasicCat{
 
     public function set isFree(value:Boolean):void {
         _isFree = value;
+        g.catPanel.checkCat();
     }
 
 }

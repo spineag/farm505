@@ -21,14 +21,13 @@ public class CatPanel {
 
     private var g:Vars = Vars.getInstance();
     public function CatPanel() {
-        var cat:HeroCat = g.managerCats.getFreeCat();
         _source = new Sprite();
         _source.x = 5;
         _source.y = 200;
         _imageBg = new Image(g.interfaceAtlas.getTexture("plawka7"));
         _imageCat = new Image(g.interfaceAtlas.getTexture("neighbor"));
         MCScaler.scale(_imageCat,30,30);
-        _txtCount = new TextField(50,50,String(g.managerCats.freeCat + "/" + g.managerCats.curCountCats),"Arial",14,Color.BLACK);
+        _txtCount = new TextField(50,50,'',"Arial",14,Color.BLACK);
         _txtCount.x = 15;
         _txtCount.y = -5;
         _source.addChild(_imageBg);
@@ -38,12 +37,7 @@ public class CatPanel {
     }
 
     public function checkCat():void {
-        _txtCount.text = String(g.managerCats.freeCat + "/" + g.managerCats.curCountCats);
-    }
-
-    public function checkCatMinus():void {
-        _txtCount.text = String(g.managerCats.freeCat - 1 + "/" + g.managerCats.curCountCats);
-
+        _txtCount.text = String(g.managerCats.countFreeCats + "/" + g.managerCats.curCountCats);
     }
 }
 }

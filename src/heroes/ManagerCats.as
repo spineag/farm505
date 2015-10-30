@@ -129,12 +129,13 @@ public class ManagerCats {
         }
         return null;
     }
-    public function get freeCat():int {
-        var j:int;
+
+    public function get countFreeCats():int {
+        var j:int = 0;
         for (var i:int=0; i<_catsArray.length; i++) {
-            if (_catsArray[i].isFree) j= i;
+            if (_catsArray[i].isFree) ++j;
         }
-        return j+1;
+        return j;
     }
 }
 }

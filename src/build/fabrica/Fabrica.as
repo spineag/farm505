@@ -189,7 +189,6 @@ public class Fabrica extends AreaObject {
         }
 
         _heroCat.isFree = false;
-        g.catPanel.checkCatMinus();
         _arrList.push(resItem);
         resItem.leftTime -= deltaTime;
         resItem.currentRecipeID = dataRecipe.id;
@@ -244,8 +243,8 @@ public class Fabrica extends AreaObject {
     }
 
     private function onHeroAnimation():void {
-        _heroCat.visible = false;
         startTempAnimation();
+        _heroCat.visible = false;
     }
 
     private function render():void {

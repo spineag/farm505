@@ -259,6 +259,7 @@ public class Vars {
         toolsModifier.setTownArray();
 
         managerCats = new ManagerCats();
+        catPanel = new CatPanel();
 
         if (useDataFromServer) {
             socialNetwork = new SocialNetwork(flashVars);
@@ -318,6 +319,8 @@ public class Vars {
     }
 
     private function onDataCats():void {
+        managerCats.calculateMaxCountCats();
+        catPanel.checkCat();
         directServer.getDataLockedLand(onDataLockedLand);
     }
 
@@ -392,7 +395,6 @@ public class Vars {
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
-        catPanel = new CatPanel();
         windowsPool = [];
 
         continueInitGame();
@@ -435,7 +437,6 @@ public class Vars {
         managerPaper = new ManagerPaper();
         woPaper.updatePaperItems();
 
-        managerCats.calculateMaxCountCats();
         aStar = new AStar();
         managerCats.setAllCatsToRandomPositions();
 
