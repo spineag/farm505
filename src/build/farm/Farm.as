@@ -5,23 +5,16 @@ package build.farm {
 import build.AreaObject;
 
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
-import flash.media.SoundChannel;
-
-import map.TownArea;
-
+import heroes.FarmCat;
 import mouse.ToolsModifier;
 
 import starling.display.Image;
 import starling.display.Sprite;
-
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
-
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -30,6 +23,7 @@ public class Farm extends AreaObject{
     private var _dataAnimal:Object;
     private var _arrAnimals:Array;
     private var _contAnimals:Sprite;
+    private var _farmCat:FarmCat;
 
     public function Farm(_data:Object) {
         super(_data);
@@ -214,6 +208,25 @@ public class Farm extends AreaObject{
         _dataAnimal = null;
         _arrAnimals.length = 0;
         super.clearIt();
+    }
+
+    public function startAnimateCat():void {
+
+    }
+
+    public function stopAnimateCat():void {
+
+    }
+
+    public function readyAnimal(an:Animal):void {
+        var countNotWorkedAnimals:int = 0;
+        for (var i:int=0; i<_arrAnimals.length; i++) {
+            if ((_arrAnimals[i] as Animal).state != Animal.WORKED) ++countNotWorkedAnimals;
+        }
+        if (countNotWorkedAnimals == _arrAnimals.length) {
+            stopAnimateCat();
+            g.managerAnimal.freeFarmCat(_dbBuildingId);
+        }
     }
 }
 }
