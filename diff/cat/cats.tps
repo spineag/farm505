@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/cat/cats.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/cat/cats.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -190,6 +190,7 @@
         <array>
             <filename>cat_man.png</filename>
             <filename>cat_woman.png</filename>
+            <filename>cat_farm.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

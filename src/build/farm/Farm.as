@@ -182,13 +182,16 @@ public class Farm extends AreaObject{
     }
 
     private var counter:int = 0;
+    private var arr:Array;
     private function sortAnimals():void {
         counter--;
         if (counter <= 0) {
-            if (_arrAnimals.length > 1) {
-                _arrAnimals.sortOn('depth', Array.NUMERIC);
-                for (var i:int = 0; i < _arrAnimals.length; i++) {
-                    _contAnimals.setChildIndex(_arrAnimals[i].source, i);
+            arr = _arrAnimals;
+            if (_farmCat) arr.push(_farmCat);
+            if (arr.length > 1) {
+                arr.sortOn('depth', Array.NUMERIC);
+                for (var i:int = 0; i < arr.length; i++) {
+                    _contAnimals.setChildIndex(arr[i].source, i);
                 }
             }
             counter = 15;
@@ -200,6 +203,7 @@ public class Farm extends AreaObject{
         _house.touchable = false;
         while (_house.numChildren) _house.removeChildAt(0);
         while (_contAnimals.numChildren) _contAnimals.removeChildAt(0);
+        g.gameDispatcher.removeEnterFrame(sortAnimals);
         for (var i:int=0; i<_arrAnimals.length; i++) {
             _arrAnimals[i].clearIt();
         }
@@ -210,14 +214,6 @@ public class Farm extends AreaObject{
         super.clearIt();
     }
 
-    public function startAnimateCat():void {
-
-    }
-
-    public function stopAnimateCat():void {
-
-    }
-
     public function readyAnimal(an:Animal):void {
         var countNotWorkedAnimals:int = 0;
         for (var i:int=0; i<_arrAnimals.length; i++) {
@@ -226,6 +222,25 @@ public class Farm extends AreaObject{
         if (countNotWorkedAnimals == _arrAnimals.length) {
             stopAnimateCat();
             g.managerAnimal.freeFarmCat(_dbBuildingId);
+        }
+    }
+
+    public function startAnimateCat():void {
+        if (!_farmCat && !g.isAway) {
+            _farmCat = new FarmCat();
+            var p:Point = g.farmGrid.getZeroPoint();
+            _farmCat.source.x = p.x;
+            _farmCat.source.y = p.y;
+            _contAnimals.addChild(_farmCat.source);
+            _farmCat.startFarmAnimation();
+        }
+    }
+
+    public function stopAnimateCat():void {
+        if (_farmCat && !g.isAway) {
+            _farmCat.clearIt();
+            if (_contAnimals.contains(_farmCat.source)) _contAnimals.removeChild(_farmCat.source);
+            _farmCat = null;
         }
     }
 }

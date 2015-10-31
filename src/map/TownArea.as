@@ -228,7 +228,7 @@ public class TownArea extends Sprite {
         var p:Point = g.matrixGrid.getXYFromIndex(new Point(c.posX, c.posY));
         c.source.x = int(p.x);
         c.source.y = int(p.y);
-        c.updateDepth();
+//        c.updateDepth();
         if (!_cont.contains(c.source))
             _cont.addChild(c.source);
         zSort();
