@@ -430,7 +430,7 @@ public class TownArea extends Sprite {
             _dataObjects = worldObject.dataBuild;
             arr = g.townArea.getCityObjectsById(_dataObjects.id);
             curCount = arr.length;
-            for (var i:int = 0; _dataObjects.blockByLevel.length; i++) {
+            for (i = 0; _dataObjects.blockByLevel.length; i++) {
                 if (_dataObjects.blockByLevel[i] <= g.user.level) {
                     maxCountAtCurrentLevel++;
                 } else break;

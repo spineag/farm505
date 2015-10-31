@@ -125,6 +125,7 @@ public class Animal {
             source.filter = null;
             if(!g.userInventory.checkResource(_data , 1)) return;
             if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
+                var rawItem:RawItem;
                 g.userInventory.addResource(_data.idResourceRaw, -1);
                 _timeToEnd = _data.timeCraft;
                 g.gameDispatcher.addToTimer(render);
@@ -132,8 +133,12 @@ public class Animal {
                 g.managerAnimal.addCatToFarm(_farm);
                 var p:Point = new Point(source.x, source.y);
                 p = source.parent.localToGlobal(p);
-                if (g.dataResource.objectResources[_data.idResourceRaw].url == "plantAtlas") var rawItem:RawItem = new RawItem(p, g.plantAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
-                else  var rawItem:RawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+                if (g.dataResource.objectResources[_data.idResourceRaw].url == "plantAtlas") {
+                    rawItem = new RawItem(p, g.plantAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+                }
+                else {
+                    rawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+                }
                 if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
                 addRenderAnimation();
             } else {

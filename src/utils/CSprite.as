@@ -207,7 +207,6 @@ public class CSprite extends Sprite {
         _hoverCallback = null;
         _outCallback = null;
         _onMovedCallback = null;
-        _needStrongCheckHitTest = null;
         _bmd.dispose();
     }
 }
