@@ -232,7 +232,7 @@ public class Fabrica extends AreaObject {
             var texture:Texture;
             for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
                 obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
-                texture = g.allData.atlas[obj.url].getTexture(g.dataResource.objectResources[obj.imageShop]);
+                texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
                 new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i * .1);
             }
         }
