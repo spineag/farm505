@@ -72,6 +72,10 @@ public class Animal {
         }
     }
 
+    public function get state():int {
+        return _state;
+    }
+
     public function fillItFromServer(ob:Object):void {
         if (ob.id) animal_db_id = ob.id;
             else animal_db_id = '0';
@@ -82,7 +86,10 @@ public class Animal {
             } else {
                 _timeToEnd = _data.timeCraft - int(ob.time_work);
                 _state = WORKED;
-                if (!g.isAway) g.gameDispatcher.addToTimer(render);
+                if (!g.isAway) {
+                    g.managerAnimal.addCatToFarm(_farm);
+                    g.gameDispatcher.addToTimer(render);
+                }
             }
         } else {
             _state = EMPTY;
@@ -95,6 +102,7 @@ public class Animal {
             g.gameDispatcher.removeFromTimer(render);
             craftResource();
             _state = CRAFT;
+            _farm.readyAnimal(this);
             addRenderAnimation();
         }
     }
@@ -116,16 +124,30 @@ public class Animal {
         if (_state == EMPTY) {
             source.filter = null;
             if(!g.userInventory.checkResource(_data , 1)) return;
-            g.userInventory.addResource(_data.idResourceRaw, -1);
-            _timeToEnd = _data.timeCraft;
-            g.gameDispatcher.addToTimer(render);
-            _state = WORKED;
-            var p:Point = new Point(source.x, source.y);
-            p = source.parent.localToGlobal(p);
-            if (g.dataResource.objectResources[_data.idResourceRaw].url == "plantAtlas") var rawItem:RawItem = new RawItem(p, g.plantAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
-            else  var rawItem:RawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
-            if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
-            addRenderAnimation();
+            if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
+                var rawItem:RawItem;
+                g.userInventory.addResource(_data.idResourceRaw, -1);
+                _timeToEnd = _data.timeCraft;
+                g.gameDispatcher.addToTimer(render);
+                _state = WORKED;
+                g.managerAnimal.addCatToFarm(_farm);
+                var p:Point = new Point(source.x, source.y);
+                p = source.parent.localToGlobal(p);
+                if (g.dataResource.objectResources[_data.idResourceRaw].url == "plantAtlas") {
+                    rawItem = new RawItem(p, g.plantAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+                }
+                else {
+                    rawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+                }
+                if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
+                addRenderAnimation();
+            } else {
+                if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
+                    g.woWaitFreeCats.showIt();
+                } else {
+                    g.woNoFreeCats.showIt();
+                }
+            }
         }
     }
 

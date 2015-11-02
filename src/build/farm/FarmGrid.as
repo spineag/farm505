@@ -8,7 +8,7 @@ import utils.Point3D;
 
 public class FarmGrid {
     private var _matrix:Array;
-    private const FACTOR:Number = 14;
+    private const FACTOR:Number = 30;
 //    private const WIDTH_CELL:uint = FACTOR*Math.SQRT2;
     private const Y_CORRECT:Number = Math.cos(-Math.PI / 6) * Math.SQRT2;
 
@@ -22,6 +22,10 @@ public class FarmGrid {
             }
         }
     }
+
+     public function getZeroPoint():Point {
+         return _matrix[0][0];
+     }
 
     public function getRandomPoint():Point {
         var i:int = int(Math.random()*10);

@@ -213,9 +213,6 @@ public class Ridge extends AreaObject{
         _isOnHover = false;
         g.mouseHint.hideHintMouse();
         g.timerHint.hideIt();
-//        if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
-//        g.gameDispatcher.addEnterFrame(countEnterFrame);
-//        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
     }
 
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
