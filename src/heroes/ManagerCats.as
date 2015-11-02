@@ -94,6 +94,8 @@ public class ManagerCats {
     public function goCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
         try {
             var f2:Function = function ():void {
+                cat.flipIt(false);
+                cat.showFront(true);
                 if (callback != null) {
                     callback.apply(null, callbackParams);
                 }

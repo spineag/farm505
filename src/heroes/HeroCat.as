@@ -17,6 +17,7 @@ import utils.CSprite;
 
 public class HeroCat extends BasicCat{
     private var _catImage:Image;
+    private var _catBackImage:Image;
     private var _isFree:Boolean;
     private var _isActive:Boolean;
 
@@ -29,12 +30,14 @@ public class HeroCat extends BasicCat{
         switch (type) {
             case MAN:
                 _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
+                _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man_back'));
                 break;
             case WOMAN:
                 _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman'));
+                _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman_back'));
                 break;
         }
-        if (!_catImage) {
+        if (!_catImage || !_catBackImage) {
             Cc.error('HeroCat no such image: for type: ' + type);
             g.woGameError.showIt();
             return;
@@ -42,8 +45,21 @@ public class HeroCat extends BasicCat{
         _catImage.x = -_catImage.width/2;
         _catImage.y = -_catImage.height + 2;
         _source.addChild(_catImage);
+        _catBackImage.x = -_catBackImage.width/2;
+        _catBackImage.y = -_catBackImage.height + 2;
+        _source.addChild(_catBackImage);
+        showFront(true);
 
         _source.endClickCallback = onClick;
+    }
+
+    override public function showFront(v:Boolean):void {
+        _catImage.visible = v;
+        _catBackImage.visible = !v;
+    }
+
+    override public function flipIt(v:Boolean):void {
+        v ? _source.scaleX = -1*_scaleDefault : _source.scaleX = 1*_scaleDefault;
     }
 
     private function onClick():void {

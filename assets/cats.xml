@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:6139d5eb90c40a9eaad3e096988ca04e:887a27542f57556c7d087f3b0842443f:9d2ed941b6d0d48f9ba0009a78fe9f11$ -->
+<!-- $TexturePacker:SmartUpdate:bb6221729d42e31edcf3106b2f6dca59:44493c49833a1c9b4a4537c6c1657c0e:9d2ed941b6d0d48f9ba0009a78fe9f11$ -->
 <TextureAtlas imagePath="cats.png">
     <SubTexture name="cat_farm" x="2" y="2" width="84" height="152"/>
-    <SubTexture name="cat_man" x="2" y="316" width="75" height="158"/>
+    <SubTexture name="cat_man" x="2" y="475" width="75" height="158"/>
+    <SubTexture name="cat_man_back" x="2" y="635" width="75" height="157" frameX="0" frameY="0" frameWidth="75" frameHeight="158"/>
     <SubTexture name="cat_woman" x="2" y="156" width="78" height="158"/>
+    <SubTexture name="cat_woman_back" x="2" y="316" width="76" height="157" frameX="0" frameY="-1" frameWidth="76" frameHeight="158"/>
 </TextureAtlas>

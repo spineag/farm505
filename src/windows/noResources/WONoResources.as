@@ -255,7 +255,6 @@ public class WONoResources extends Window {
     }
 
     private function clearIt():void {
-        _count = null;
         _dataResource = null;
         while (_contImage.numChildren) {
             _contImage.removeChildAt(0);
