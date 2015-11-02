@@ -300,12 +300,20 @@ public class ShopItem {
         }
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (_data.currency == DataMoney.SOFT_CURRENCY) {
-                if (!g.userInventory.checkSoftMoneyCount(_countCost)) return;
+                if (g.user.softCurrencyCount < _countCost){
+                    g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);
+                    return;
+                }
             } else {
-                if (!g.userInventory.checkHardMoneyCount(_countCost)) return;
+                if (g.user.hardCurrency < _countCost) {
+                    g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);
+                    return;}
             }
         } else {
-            if (!g.userInventory.checkMoney(_data)) return;
+            if (g.user.softCurrencyCount < _countCost){
+                g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);
+                return;
+            }
         }
         g.bottomPanel.cancelBoolean(true);
 

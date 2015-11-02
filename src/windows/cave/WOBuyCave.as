@@ -64,7 +64,7 @@ public class WOBuyCave extends Window {
 
     private function onClickBuy():void {
         if (g.user.softCurrencyCount < _dataObject.cost) {
-            g.woNoResources.showItTrain(_dataObject.id,_dataObject.cost - g.user.softCurrencyCount);
+            g.woNoResources.showItTrain(_dataObject.id,_dataObject.cost - g.user.softCurrencyCount,onClickBuy);
             return;
         }
         if (_callback != null) {

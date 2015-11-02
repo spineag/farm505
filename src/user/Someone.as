@@ -6,6 +6,7 @@ public class Someone {
     public var userSocialId:String;
     public var name:String;
     public var lastName:String;
+    public var level:int;
     public var photo:String;
     public var marketItems:Array;
     public var userDataCity:UserDataCity;
