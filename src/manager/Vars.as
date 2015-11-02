@@ -149,7 +149,7 @@ public class Vars {
     public var timerHint:TimerHint;
     public var wildHint:WildHint;
     public var hint:Hint;
-    public var farmHint:FarmHint;
+//    public var farmHint:FarmHint;
     public var mouseHint:MouseHint;
     public var fabricHint:FabricHint;
     public var treeHint:TreeHint;
@@ -377,7 +377,7 @@ public class Vars {
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();
-        farmHint = new FarmHint();
+//        farmHint = new FarmHint();
         mouseHint = new MouseHint();
         fabricHint = new FabricHint();
         treeHint = new TreeHint();
@@ -485,7 +485,7 @@ public class Vars {
     public function hideAllHints():void {
         if (timerHint) timerHint.hideIt();
         if (wildHint) wildHint.hideIt();
-        if (farmHint) farmHint.hideIt();
+//        if (farmHint) farmHint.hideIt();
         if (mouseHint) mouseHint.hideHintMouse();
         if (fabricHint) fabricHint.clearIt();
         if (treeHint) treeHint.hideIt();
