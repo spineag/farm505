@@ -45,7 +45,7 @@ public class FriendPanel {
         _cont = new Sprite();
         _cont.x = 115;
         _cont.y = 5;
-        _contRectangle.clipRect = new Rectangle(0, 0, 100, 320);
+        _contRectangle.clipRect = new Rectangle(115, g.stageHeight - 120, 100, 500);
         _arrFriends = [];
         _arrItems = [];
         _imageBg = new Image(g.interfaceAtlas.getTexture("friends_plawka"));
@@ -65,7 +65,9 @@ public class FriendPanel {
         g.cont.interfaceCont.addChild(_source);
         _source.visible = false;
         _source.addChild(_imageBg);
-        _source.addChild(_cont);
+//        _source.addChild(_contRectangle);
+//        _contRectangle.addChild(_cont);
+        _source.addChild(_cont)
         _source.addChild(_contNewFriend);
         _source.addChild(_contLeftArrow);
         _source.addChild(_contRightArrow);
@@ -107,22 +109,17 @@ public class FriendPanel {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, addAdditionalUser);
         var item:FriendItem;
         var arrItems:Array;
+        arrItems = [];
         _arrFriends = g.user.arrFriends.slice();
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
-//        arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
-//        for (var i:int = 0; i < arr.length; i++) {
-//            cell = new AmbarCell(arr[i]);
-//            _arrCells.push(cell);
-//            _scrollSprite.addNewCell(cell.source);
-//        }
-
+        _arrFriends.sortOn("level", Array.DESCENDING | Array.NUMERIC);
         for (var i:int = 0; i < _arrFriends.length; i++) {
             item = new FriendItem(_arrFriends[i]);
+            arrItems.push(item);
             item.source.x = i*110;
             _cont.addChild(item.source);
         }
-//        _arrFriends.sortOn("level", Array.DESCENDING | Array.NUMERIC);
     }
 
 }

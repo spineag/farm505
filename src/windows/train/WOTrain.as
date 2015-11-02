@@ -162,7 +162,7 @@ public class WOTrain extends Window {
     }
 
     private function onResourceHard():void {
-        g.woNoResources.showItTrain(_idFree,_countFree - g.userInventory.getCountResourceById(_idFree));
+        g.woNoResources.showItTrain(_idFree,_countFree - g.userInventory.getCountResourceById(_idFree),onResourceHard);
     }
 
     private function checkBtn():void {

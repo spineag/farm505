@@ -140,75 +140,58 @@ public class UserInventory {
 
     private function onAddUserMoney(b:Boolean = true):void { }
 
-    public function checkMoney(_data:Object):Boolean {
-        var count:int;
-        var bol:Boolean = true;
-        if (_data.currency == DataMoney.SOFT_CURRENCY) {
-            if (g.user.softCurrencyCount < _data.cost) {
-                count = _data.cost - g.user.softCurrencyCount;
-                bol = false;
-            }
-        }
-        if (_data.currency == DataMoney.HARD_CURRENCY) {
-            if (g.user.hardCurrency < _data.cost) {
-                count = _data.cost - g.user.hardCurrency;
-                bol = false;
-            }
-        }
-//        if(yellowCouponCount < ) {
-//            bol = false
+//    public function checkMoney(_data:Object):Boolean {
+//        var count:int;
+//        var bol:Boolean = true;
+//        if (_data.currency == DataMoney.SOFT_CURRENCY) {
+//            if (g.user.softCurrencyCount < _data.cost) {
+//                count = _data.cost - g.user.softCurrencyCount;
+//                bol = false;
+//            }
 //        }
-//        if(redCouponCount < ) {
-//            bol = false
+//        if (_data.currency == DataMoney.HARD_CURRENCY) {
+//            if (g.user.hardCurrency < _data.cost) {
+//                count = _data.cost - g.user.hardCurrency;
+//                bol = false;
+//            }
 //        }
-//        if(blueCouponCount < ) {
-//            bol = false
+////        if(yellowCouponCount < ) {
+////            bol = false
+////        }
+////        if(redCouponCount < ) {
+////            bol = false
+////        }
+////        if(blueCouponCount < ) {
+////            bol = false
+////        }
+////        if(greenCouponCount < ) {
+////            bol = false
+////        }
+//        if (!bol) g.woNoResources.showItMoney(_data, count);
+//        return bol;
+//    }
+//
+//    public function checkSoftMoneyCount(c:int):Boolean {
+//        if (g.user.softCurrencyCount < c) {
+//            var ob:Object = new Object();
+//            ob.currency = DataMoney.SOFT_CURRENCY;
+//            ob.cost = c;
+//            g.woNoResources.showItMoney(ob, c - g.user.softCurrencyCount);
+//            return false;
 //        }
-//        if(greenCouponCount < ) {
-//            bol = false
+//        return true;
+//    }
+//
+//    public function checkHardMoneyCount(c:int):Boolean {
+//        if (g.user.hardCurrency < c) {
+//            var ob:Object = new Object();
+//            ob.currency = DataMoney.HARD_CURRENCY;
+//            ob.cost = c;
+//            g.woNoResources.showItMoney(ob, c - g.user.hardCurrency);
+//            return false;
 //        }
-        if (!bol) g.woNoResources.showItMoney(_data, count);
-        return bol;
-    }
-
-    public function checkSoftMoneyCount(c:int):Boolean {
-        if (g.user.softCurrencyCount < c) {
-            var ob:Object = new Object();
-            ob.currency = DataMoney.SOFT_CURRENCY;
-            ob.cost = c;
-            g.woNoResources.showItMoney(ob, c - g.user.softCurrencyCount);
-            return false;
-        }
-        return true;
-    }
-
-    public function checkHardMoneyCount(c:int):Boolean {
-        if (g.user.hardCurrency < c) {
-            var ob:Object = new Object();
-            ob.currency = DataMoney.HARD_CURRENCY;
-            ob.cost = c;
-            g.woNoResources.showItMoney(ob, c - g.user.hardCurrency);
-            return false;
-        }
-        return true;
-    }
-
-    public function checkRecipe(_data:Object):Boolean {
-        var count:int = 0;
-        if (!_data || !_data.ingridientsId) {
-            Cc.error('UserInventory checkRecipe:: bad _data');
-            g.woGameError.showIt();
-            return false;
-        }
-        for (var i:int = 0; i < _data.ingridientsId.length; i++) {
-            count =  g.userInventory.getCountResourceById(int(_data.ingridientsId[i]));
-            if (count < int(_data.ingridientsCount[i])) {
-                g.woNoResources.showItMenu(_data, int(_data.ingridientsCount[i]) - count);
-                return false;
-            }
-        }
-        return true;
-    }
+//        return true;
+//    }
 
     public function checkResource(_data:Object, countResource:int):Boolean {
         var count:int;

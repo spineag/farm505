@@ -55,9 +55,10 @@ public class FriendItem {
         source.addChild(_imageLvl);
 
         _txtLvl = new TextField(100, 30, '', "Arial", 16, Color.BLACK);
-        _txtLvl.text = String(Math.round(Math.random()*20));
-        _txtLvl.y = 65;
-        _txtLvl.x = -45;
+//        level = Math.round(Math.random()*20);
+        _txtLvl.text = String(g.user.level);
+        _txtLvl.y = 70;
+        _txtLvl.x = -40;
         source.addChild(_txtLvl);
         if (_person is NeighborBot) {
             photoFromTexture(g.interfaceAtlas.getTexture('neighbor'));

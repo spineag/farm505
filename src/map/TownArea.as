@@ -594,7 +594,7 @@ public class TownArea extends Sprite {
     }
 
     private function afterMoveReturn(_x:Number, _y:Number):void {
-        if (!g.userInventory.checkMoney(_dataObjects)) {
+        if (g.user.softCurrencyCount < _dataObjects.cost) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.bottomPanel.cancelBoolean(false);
             return;

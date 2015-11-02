@@ -79,7 +79,19 @@ public class WOFabrica extends Window {
             g.woNoPlaces.showItMenu();
             return;
         }
-        if(!g.userInventory.checkRecipe(dataRecipe)) return;
+//        if(!g.userInventory.checkRecipe(dataRecipe)) return;
+            var count:int = 0;
+            if (!dataRecipe || !dataRecipe.ingridientsId) {
+                Cc.error('UserInventory checkRecipe:: bad _data');
+                g.woGameError.showIt();
+            }
+            for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+                count =  g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
+                if (count < int(dataRecipe.ingridientsCount[i])) {
+                    g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count,onItemClick);
+                    return;
+                }
+            }
 
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);
