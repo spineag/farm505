@@ -61,10 +61,11 @@ public class ManagerPlantRidge {
             if (cat) {
                 cat.isFree = false;
                 if (cat.isOnMap) {
-                    g.managerCats.goCatToPoint(cat, new Point(0, 0));
+                    g.managerCats.goCatToPoint(cat, new Point(ridge.posX, ridge.posY), onArrivedCat, cat, plantId);
                 } else {
-                    cat.setPosition(new Point(0,0));
+                    cat.setPosition(new Point(ridge.posX,ridge.posY));
                     cat.addToMap();
+                    onArrivedCat(cat, plantId);
                 }
                 _catsForPlant[plantId] = {cat: cat, ridges:[ridge]};
             } else {
@@ -80,9 +81,7 @@ public class ManagerPlantRidge {
                 if (_catsForPlant[plantId].ridges.indexOf(ridge) > -1) {
                     _catsForPlant[plantId].ridges.splice(_catsForPlant[plantId].ridges.indexOf(ridge), 1);
                     if (!_catsForPlant[plantId].ridges.length) {
-                        (_catsForPlant[plantId].cat as HeroCat).isFree = true;
-                        g.managerCats.goCatToPoint(_catsForPlant[plantId].cat as HeroCat, g.managerCats.getRandomFreeCell());
-                        delete _catsForPlant[plantId];
+                        removeCatFromPlant(plantId, _catsForPlant[plantId].cat as HeroCat);
                     }
                 } else {
                     Cc.error('ManagerPlantRidge removeCatFromRidge:: _catsForPlant[plantId].ridges.indexOf(ridge) = -1 for plantId: ' + plantId);
@@ -94,5 +93,29 @@ public class ManagerPlantRidge {
             Cc.error('ManagerPlantRidge removeCatFromRidge:: _catsForPlant[plantId] = null for plantId: ' + plantId);
         }
     }
+
+    private function removeCatFromPlant(plantId:int, cat:HeroCat):void {
+        cat.isFree = true;
+        g.managerCats.goCatToPoint(cat, g.managerCats.getRandomFreeCell());
+        delete _catsForPlant[plantId];
+    }
+
+    private function onArrivedCat(cat:HeroCat, plantId:int):void {
+        var onFinishWork:Function = function ():void {
+            if (_catsForPlant[plantId] && _catsForPlant[plantId].ridges && _catsForPlant[plantId].ridges.length) {
+                var randomRidge:Ridge = _catsForPlant[plantId].ridges[int(_catsForPlant[plantId].ridges.length * Math.random())];
+                if (randomRidge.posX == cat.posX && randomRidge.posY == cat.posY) {
+                    onArrivedCat(cat, plantId);
+                } else {
+                    g.managerCats.goCatToPoint(cat, new Point(randomRidge.posX, randomRidge.posY), onArrivedCat, cat, plantId);
+                }
+            } else {
+                removeCatFromPlant(plantId, cat);
+            }
+        };
+
+        cat.workWithPlant(onFinishWork);
+    }
+
 }
 }

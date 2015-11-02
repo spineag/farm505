@@ -58,15 +58,16 @@ public class BasicCat {
     }
 
     public function get depth():Number {
-        return _source.y;
+        updateDepth();
+        return _depth;
     }
 
-//    public function updateDepth():void {
-//        var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
-//        point3d.x += MatrixGrid.FACTOR/2;
-//        point3d.z += MatrixGrid.FACTOR/2;
-//        _depth = point3d.x + point3d.z;
-//    }
+    public function updateDepth():void {
+        var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
+        point3d.x += MatrixGrid.FACTOR/2;
+        point3d.z += MatrixGrid.FACTOR/2;
+        _depth = point3d.x + point3d.z;
+    }
 
     public function get posX():int {
         return _posX;
@@ -115,7 +116,6 @@ public class BasicCat {
         var f1:Function = function():void {
             _posX = p.x;
             _posY = p.y;
-//            updateDepth();
             g.townArea.zSort();
             if (_currentPath.length) {
                 gotoPoint(_currentPath.shift());

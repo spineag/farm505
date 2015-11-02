@@ -45,7 +45,7 @@ public class ManagerCats {
             do {
                 i = int(Math.random() * _townMatrix.length);
                 j = int(Math.random() * _townMatrix[0].length);
-            } while (_townMatrix[i][j].isWall);
+            } while (_townMatrix[i][j].isFull);
             return new Point(i, j);
         } catch (e:Error) {
             Cc.error('ManagerCats getRandomFreeCell: ' + e.errorID + ' - ' + e.message);

@@ -3,6 +3,8 @@
  */
 package heroes {
 
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
 import mouse.ToolsModifier;
@@ -50,6 +52,7 @@ public class HeroCat extends BasicCat{
     }
 
     public function activateIt():void {
+        if (!_isFree) return;
         _isActive = !_isActive;
         if (_isActive) {
             if (g.activeCat) g.activeCat.activateIt();
@@ -68,6 +71,27 @@ public class HeroCat extends BasicCat{
     public function set isFree(value:Boolean):void {
         _isFree = value;
         g.catPanel.checkCat();
+    }
+
+    private var countWorkPlant:int;
+    public function workWithPlant(f:Function):void {
+        var s:Number = _source.scaleX;
+        countWorkPlant = 10;
+        var f1:Function = function():void {
+            new TweenMax(_catImage, .5, {scaleX:0.97*s, scaleY:1.03*s, ease:Linear.easeOut ,onComplete: f2});
+        };
+        var f2:Function = function():void {
+            countWorkPlant--;
+            if (countWorkPlant <= 0) {
+                _catImage.scaleX = _catImage.scaleY = s;
+                if (f != null) {
+                    f.apply(null, [this]);
+                }
+                return;
+            }
+            new TweenMax(_catImage, .5, {scaleX:1.03*s, scaleY:0.97*s, ease:Linear.easeIn ,onComplete: f1});
+        };
+        f2();
     }
 
 }

@@ -18,6 +18,7 @@ public class FarmCat extends BasicCat{
     public function FarmCat() {
         super();
 
+        _speedWalk = 20;
         _source = new CSprite();
         _catImage = new Image(g.catAtlas.getTexture('cat_farm'));
         if (!_catImage) {
