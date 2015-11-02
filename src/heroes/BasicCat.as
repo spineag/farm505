@@ -116,6 +116,7 @@ public class BasicCat {
         var f1:Function = function():void {
             _posX = p.x;
             _posY = p.y;
+            if (_posX)
             g.townArea.zSort();
             if (_currentPath.length) {
                 gotoPoint(_currentPath.shift());
