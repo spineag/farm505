@@ -46,7 +46,7 @@ public class MarketItem {
 
     public function MarketItem() {
         source = new CSprite();
-        _bg = new Image(g.interfaceAtlas.getTexture('shop_item'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
         _bg.scaleY = .5;
         source.addChild(_bg);
 
@@ -63,13 +63,13 @@ public class MarketItem {
         _imageCont = new Sprite();
         source.addChild(_imageCont);
 
-        _inPapper = new Image(g.interfaceAtlas.getTexture('in_papper'));
+        _inPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('in_papper'));
         _inPapper.x = -5;
         _inPapper.y = -5;
         source.addChild(_inPapper);
         _inPapper.visible = false;
 
-        _plawkaSold = new Image(g.interfaceAtlas.getTexture('plawka_sold'));
+        _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka_sold'));
         _plawkaSold.x = _bg.width/2 - _plawkaSold.width/2;
         source.addChild(_plawkaSold);
         _plawkaSold.visible = false;
@@ -83,13 +83,7 @@ public class MarketItem {
         isFill = 1;
         _data = data;
         if (_data) {
-            if (_data.url == 'resourceAtlas') {
-                im = new Image(g.resourceAtlas.getTexture(_data.imageShop));
-            } else if (_data.url == 'plantAtlas') {
-                im = new Image(g.plantAtlas.getTexture(_data.imageShop));
-            } else if (_data.url == 'instrumentAtlas') {
-                im = new Image(g.instrumentAtlas.getTexture(_data.imageShop));
-            }
+            im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
             if (!im) {
                 Cc.error('MarketItem fillIt:: no such image: ' + _data.imageShop);
                 g.woGameError.showIt();
@@ -230,7 +224,7 @@ public class MarketItem {
     private function animCoin():void {
         var eP:Point = g.softHardCurrency.getSoftCurrencyPoint();
         var s:Sprite = new Sprite();
-        s.addChild(new Image(g.interfaceAtlas.getTexture('coin')));
+        s.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('coin')));
         MCScaler.scale(s, 50, 50);
         s.pivotX = s.width / 2;
         s.pivotY = s.height / 2;
@@ -288,13 +282,7 @@ public class MarketItem {
             g.woGameError.showIt();
             return;
         }
-        if (d.url == 'plantAtlas') {
-            im = new Image(g.plantAtlas.getTexture(d.imageShop));
-        } else if (d.url == 'instrumentAtlas') {
-            im = new Image(g.instrumentAtlas.getTexture(d.imageShop));
-        } else {
-            im = new Image(g.resourceAtlas.getTexture(d.imageShop));
-        }
+        im = new Image(g.allData.atlas[d.url].getTexture(d.imageShop));
         if (!im) {
             Cc.error('MarketItem showFlyResource:: no such image: ' + d.imageShop);
             g.woGameError.showIt();
@@ -322,7 +310,7 @@ public class MarketItem {
     }
 
     private function showCoinImage():void {
-        var im:Image = new Image(g.interfaceAtlas.getTexture('coin'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coin'));
         MCScaler.scale(im, 80, 80);
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;

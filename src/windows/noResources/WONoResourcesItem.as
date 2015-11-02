@@ -33,36 +33,32 @@ public class WONoResourcesItem {
         var st:String;
         if (ob.buildType == BuildType.FARM || ob.buildType == BuildType.TEST){
             st = ob.image;
-            _image = new Image(g.tempBuildAtlas.getTexture(st));
+            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.FABRICA || ob.buildType == BuildType.RIDGE) {
             st = ob.image;
-            _image = new Image(g.tempBuildAtlas.getTexture(st));
+            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.TREE) {
             st = ob.imageGrowBig;
-            _image = new Image(g.treeAtlas.getTexture(st));
+            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.PLANT || ob.buildType == BuildType.RESOURCE) {
             st = ob.imageShop;
-            if(ob.url == "plantAtlas") {
-                _image = new Image(g.plantAtlas.getTexture(st));
-            }else {
-                _image = new Image(g.resourceAtlas.getTexture(st));
-            }
+            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
                 || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.PET_HOUSE || ob.buildType == BuildType.DECOR) {
             st = ob.imageShop;
-            _image = new Image(g.tempBuildAtlas.getTexture(st));
+            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.ANIMAL){
             st = ob.imageShop;
-            _image = new Image(g.tempBuildAtlas.getTexture(st));
+            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.INSTRUMENT) {
             st = ob.imageShop;
-            _image = new Image(g.instrumentAtlas.getTexture(st));
+            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.PET) {
 
         } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
                 || ob.buildType == BuildType.SHOP || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
             st = ob.image;
-            _image = new Image(g.tempBuildAtlas.getTexture(st));
+            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         }
         _txtCount = new TextField(50,50,String(count),"Arial",12,Color.WHITE);
         if (!_image) {

@@ -28,7 +28,7 @@ public class FarmHint {
     public function FarmHint() {
         _isOnHover = false;
         source = new CSprite();
-        _textureHint = new Image(g.interfaceAtlas.getTexture("popup_farm"));
+        _textureHint = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup_farm"));
         source.addChild(_textureHint);
         source.pivotX = source.width/2;
         source.pivotY = source.height;
@@ -61,7 +61,7 @@ public class FarmHint {
         _callback = f;
         source.x = x;
         source.y = y;
-        _animal = new Image(g.tempBuildAtlas.getTexture(dataAnimal.image));
+        _animal = new Image(g.allData.atlas[dataAnimal.url].getTexture(dataAnimal.image));
         if (!_animal) {
             Cc.error('FarmHint showIt: no such image ' + dataAnimal.image);
             g.woGameError.showIt();

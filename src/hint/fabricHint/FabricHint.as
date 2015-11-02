@@ -40,7 +40,7 @@ public class FabricHint {
         var q:Quad = new Quad(200, 200, Color.AQUA);
         q.pivotX = 0;
         q.pivotY = 0;
-        _imageClock = new Image(g.interfaceAtlas.getTexture("clock_icon"));
+        _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock_icon"));
         MCScaler.scale(_imageClock,30,30);
         _imageClock.x = 10;
         _imageClock.y = q.height - 35;
@@ -83,7 +83,7 @@ public class FabricHint {
             _txtItem.text = String(g.userInventory.getCountResourceById(data.idResource));
             createList();
             _source.removeChild(_imageItem);
-            _imageItem = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[data.idResource].imageShop));
+            _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[data.idResource].url].getTexture(g.dataResource.objectResources[data.idResource].imageShop));
             if (!_imageItem) {
                 Cc.error('FabricHint showIt:: no such image: ' + g.dataResource.objectResources[data.idResource].imageShop);
                 g.woGameError.showIt();

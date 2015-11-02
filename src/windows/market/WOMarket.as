@@ -26,7 +26,7 @@ public class WOMarket  extends Window {
     public function WOMarket() {
         super ();
         createTempBG(660, 390, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x = 330;
         _btnExit.y = -195;
@@ -34,7 +34,7 @@ public class WOMarket  extends Window {
         addItems();
         _friendsPanel = new MarketFriendsPanel(this);
         _btnRefresh = new CSprite();
-        var ref:Image = new Image(g.interfaceAtlas.getTexture('refresh_icon'));
+        var ref:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
         _btnRefresh.addChild(ref);
         _btnRefresh.x = -320;
         _btnRefresh.y = 155;

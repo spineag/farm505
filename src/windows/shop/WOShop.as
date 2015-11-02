@@ -24,7 +24,7 @@ public class WOShop extends Window{
         createBG();
         _shopList = new ShopList(_source);
         createShopTabBtns();
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.x = 370;
         _btnExit.y = -205;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
@@ -34,11 +34,11 @@ public class WOShop extends Window{
     private function createBG():void {
         var im:Image;
 
-        im = new Image(g.interfaceAtlas.getTexture('board_shop_part'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('board_shop_part'));
         im.x = -im.width;
         im.y = -im.height/2;
         _source.addChild(im);
-        im = new Image(g.interfaceAtlas.getTexture('board_shop_part'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('board_shop_part'));
         im.scaleX = -1;
         im.x = im.width;
         im.y = -im.height/2;

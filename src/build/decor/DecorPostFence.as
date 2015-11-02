@@ -32,7 +32,7 @@ public class DecorPostFence extends AreaObject{
     public function addLeftLenta():void {
         if (_leftLenta) return;
         _leftLenta = new Sprite();
-        var im:Image = new Image(g.tempBuildAtlas.getTexture('lenta'));
+        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture('lenta'));
         im.x = -22;
         im.y = -17;
         _leftLenta.addChild(im);
@@ -42,7 +42,7 @@ public class DecorPostFence extends AreaObject{
     public function addRightLenta():void {
         if (_rightLenta) return;
         _rightLenta = new Sprite();
-        var im:Image = new Image(g.tempBuildAtlas.getTexture('lenta'));
+        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture('lenta'));
         im.x = -22;
         im.y = -17;
         _rightLenta.addChild(im);

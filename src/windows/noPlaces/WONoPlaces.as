@@ -24,7 +24,7 @@ public class WONoPlaces extends Window{
     public function WONoPlaces() {
         super();
         createTempBG(500, 500, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 250;
         _btnExit.y -= 250;
@@ -36,11 +36,11 @@ public class WONoPlaces extends Window{
         _txtText = new TextField(100,100,"Недостаточна места","Arial",14,Color.BLACK);
         _txtText.x = -50;
         _txtText.y = - 200;
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn3"));
-        _imageHard = new Image(g.interfaceAtlas.getTexture("diamont"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn3"));
+        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
         MCScaler.scale(_imageHard,35,35);
         _imageHard.x = 10;
-        _imageBg = new Image(g.interfaceAtlas.getTexture("tempItemBG"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("tempItemBG"));
         _imageBg.x = -50;
         _imageBg.y = -100;
         _txtCost = new TextField(50,50,"6","Arial",14,Color.BLACK);

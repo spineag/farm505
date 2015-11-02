@@ -39,10 +39,10 @@ public class MarketFriendItem {
         }
         _panel = p;
         source = new CSprite();
-        _ramka = new Image(g.interfaceAtlas.getTexture('tamp_ramka'));
+        _ramka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tamp_ramka'));
         source.addChild(_ramka);
         if (_person is NeighborBot) {
-            photoFromTexture(g.interfaceAtlas.getTexture('neighbor'));
+            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
             if (_person.photo) {
                 g.load.loadImage(_person.photo, onLoadPhoto);
@@ -58,7 +58,7 @@ public class MarketFriendItem {
         source.endClickCallback = chooseThis;
 
         _planet = new CSprite();
-        var im:Image = new Image(g.interfaceAtlas.getTexture('planet'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('planet'));
         im.x = -im.width/2;
         im.y = -im.height/2;
         _planet.addChild(im);

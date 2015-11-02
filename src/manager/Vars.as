@@ -127,16 +127,6 @@ public class Vars {
     public var load:LoaderManager;
     public var pBitmaps:Object;
 
-    public var mapAtlas:TextureAtlas;
-    public var tempBuildAtlas:TextureAtlas;
-    public var plantAtlas:TextureAtlas;
-    public var interfaceAtlas:TextureAtlas;
-    public var instrumentAtlas:TextureAtlas;
-    public var resourceAtlas:TextureAtlas;
-    public var treeAtlas:TextureAtlas;
-    public var catAtlas:TextureAtlas;
-    public var wildAtlas:TextureAtlas;
-
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -238,7 +228,6 @@ public class Vars {
         pBitmaps = {};
         load = LoaderManager.getInstance();
 
-        allData = new AllData();
         dataBuilding = new DataBuildings();
         dataRecipe = new DataRecipe();
         dataResource = new DataResources();

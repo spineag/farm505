@@ -28,10 +28,10 @@ public class HeroCat extends BasicCat{
         _source = new CSprite();
         switch (type) {
             case MAN:
-                _catImage = new Image(g.catAtlas.getTexture('cat_man'));
+                _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
                 break;
             case WOMAN:
-                _catImage = new Image(g.catAtlas.getTexture('cat_woman'));
+                _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman'));
                 break;
         }
         if (!_catImage) {

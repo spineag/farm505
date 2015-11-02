@@ -34,11 +34,11 @@ public class MouseHint {
 
     public function MouseHint() {
         _source = new Sprite();
-        _imageBg = new Image(g.interfaceAtlas.getTexture("mouse_circle"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("mouse_circle"));
         _source.addChild(_imageBg);
         _imageCont = new Sprite();
         _source.addChild(_imageCont);
-        _imageCircle = new Image(g.interfaceAtlas.getTexture("hint_circle"));
+        _imageCircle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_circle"));
         _imageCircle.x = _source.width - 27;
         _imageCircle.y = _source.height - 23;
         _source.addChild(_imageCircle);
@@ -72,30 +72,29 @@ public class MouseHint {
         onEnterFrame();
         switch (s) {
             case SERP:
-                _image = new Image(g.interfaceAtlas.getTexture(SERP));
+                _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(SERP));
                 _image.x = 10;
                 _image.y = 15;
                 break;
             case CLOCK:
-                _image = new Image(g.interfaceAtlas.getTexture(CLOCK));
+                _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(CLOCK));
                 _image.x = 10;
                 _image.y = 15;
                 break;
             case VEDRO:
-                _image = new Image(g.interfaceAtlas.getTexture(VEDRO));
+                _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(VEDRO));
                 _image.x = 10;
                 _image.y = 15;
                 break;
             case KORZINA:
-                _image = new Image(g.interfaceAtlas.getTexture(KORZINA));
+                _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(KORZINA));
                 _image.x = 10;
                 _image.y = 15;
                 break;
             case 'animal':
                 _imageCircle.visible = true;
                 _txtCount.text = String(g.userInventory.getCountResourceById(data.idResourceRaw));
-                if (g.dataResource.objectResources[data.idResourceRaw].url == "plantAtlas") _image = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
-                else _image = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
+                _image = new Image(g.allData.atlas[g.dataResource.objectResources[data.idResourceRaw].url].getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
                 MCScaler.scale(_image, 50, 50);
                 _image.x = 3;
                 _image.y = 8;

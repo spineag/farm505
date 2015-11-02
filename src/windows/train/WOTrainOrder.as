@@ -31,15 +31,15 @@ public class WOTrainOrder extends Window{
         super ();
         _arrItems = [];
         createTempBG(500, 320, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x = 250;
         _btnExit.y = -160;
         _contBtn = new CSprite();
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn2"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
         _imageBtn.width = 150;
         _imageBtn.height = 50;
-        _imageHard = new Image(g.interfaceAtlas.getTexture("diamont"));
+        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
         _imageHard.y = 10;
         MCScaler.scale(_imageHard,25,25);
         _txtBtn = new TextField(100,50,"Вернуть корабль сейчас","Arial",12,Color.BLACK);

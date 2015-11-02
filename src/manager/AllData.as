@@ -4,8 +4,10 @@
 package manager {
 public class AllData {
     public var lockedLandData:Object;
+    public var atlas:Object;
 
     public function AllData() {
+        atlas = [];
     }
 }
 }

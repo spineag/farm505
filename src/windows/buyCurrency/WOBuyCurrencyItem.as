@@ -42,13 +42,13 @@ public class WOBuyCurrencyItem {
         _txtCost = new TextField(50,50,cost,"Arial",12,Color.BLACK);
         _txtCost.x = 25;
         _txtCost.y = 70;
-        _image = new Image(g.interfaceAtlas.getTexture(currency));
+        _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(currency));
         _image.x = 50 - _image.width/2;
         _image.y = 50 - _image.height/2;
-        _imageBg = new Image(g.interfaceAtlas.getTexture("tempItemBG"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("tempItemBG"));
         _imageBg.x = 50 - _imageBg.width/2;
         _imageBg.y = 50 - _imageBg.height/2;
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn4"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn4"));
         MCScaler.scale(_imageBtn,60,50);
         _imageBtn.x = 25;
         _imageBtn.y = 80;

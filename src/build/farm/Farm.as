@@ -38,7 +38,7 @@ public class Farm extends AreaObject{
         _source.endClickCallback = onClick;
 
         _house = new CSprite();
-        var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageHouse));
+        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageHouse));
         _house.addChild(im);
         _house.x = _dataBuild.innerHouseX;
         _house.y = _dataBuild.innerHouseY;

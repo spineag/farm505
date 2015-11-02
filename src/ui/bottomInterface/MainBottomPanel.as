@@ -30,7 +30,7 @@ public class MainBottomPanel {
         _source = new Sprite();
         _source.y = 490;
         g.cont.interfaceCont.addChild(_source);
-        _bg = new Image(g.interfaceAtlas.getTexture('interface_bg'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('interface_bg'));
         _bg.x = 837;
         _bg.y = 4;
         _source.addChild(_bg);
@@ -40,7 +40,7 @@ public class MainBottomPanel {
     private function fillBtns():void {
         var im:Image;
         _shopBtn = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('shop_icon'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_icon'));
         _shopBtn.addChild(im);
         _shopBtn.x = 902;
         _shopBtn.y = 56;
@@ -55,7 +55,7 @@ public class MainBottomPanel {
         _shopBtn.visible = true;
 
         _cancelBtn = new CSprite();
-        im = new Image(g.mapAtlas.getTexture('Cancel'));
+        im = new Image(g.allData.atlas['mapAtlas'].getTexture('Cancel'));
         _cancelBtn.addChild(im);
         _cancelBtn.x = 902;
         _cancelBtn.y = 56;
@@ -69,7 +69,7 @@ public class MainBottomPanel {
         _cancelBtn.visible = false;
 
         _doorBtn = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('door'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('door'));
         _doorBtn.addChild(im);
         _doorBtn.x = 915;
         _doorBtn.y = 45;
@@ -83,7 +83,7 @@ public class MainBottomPanel {
         _doorBtn.visible = false;
 
         _optionBtn = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('option_icon'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('option_icon'));
         _optionBtn.addChild(im);
         _optionBtn.x = 931;
         _optionBtn.y = 6;
@@ -97,7 +97,7 @@ public class MainBottomPanel {
         _optionBtn.endClickCallback = function():void {onClick('option')};
 
         _toolsBtn = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('tools_icon'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_icon'));
         _toolsBtn.addChild(im);
         _toolsBtn.x = 836;
         _toolsBtn.y = 85;
@@ -111,7 +111,7 @@ public class MainBottomPanel {
         _toolsBtn.endClickCallback = function():void {onClick('tools')};
 
         _friendsBtn = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('friends_icon'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_icon'));
         _friendsBtn.addChild(im);
         _friendsBtn.x = 854;
         _friendsBtn.y = 17;

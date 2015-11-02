@@ -17,7 +17,7 @@ public class WOGameError extends Window{
         txt.x = -100;
         txt.y = -50;
         _source.addChild(txt);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.x = 100;
         _btnExit.y = -50;
         _btnExit.addEventListener(Event.TRIGGERED, hideIt);

@@ -29,10 +29,10 @@ public class CountBlock {
     public function CountBlock() {
         _curCount = 0;
         source = new Sprite();
-        _btnMinus = new CButton(g.interfaceAtlas.getTexture('minus'), '', g.interfaceAtlas.getTexture('minus'));
-        _btnPlus = new CButton(g.interfaceAtlas.getTexture('plus'), '', g.interfaceAtlas.getTexture('plus'));
+        _btnMinus = new CButton(g.allData.atlas['interfaceAtlas'].getTexture('minus'), '', g.allData.atlas['interfaceAtlas'].getTexture('minus'));
+        _btnPlus = new CButton(g.allData.atlas['interfaceAtlas'].getTexture('plus'), '', g.allData.atlas['interfaceAtlas'].getTexture('plus'));
         _txt = new TextField(50, 30, '0', "Arial", 16, Color.BLACK);
-        _plawkaBg = new Image(g.interfaceAtlas.getTexture('plawka7'));
+        _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         _btnPlus.startClickCallback = onStartPlus;
         _btnPlus.endClickCallback = onEndPlus;
         _btnMinus.startClickCallback = onStartMinus;

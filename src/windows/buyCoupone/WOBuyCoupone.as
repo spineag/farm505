@@ -27,7 +27,7 @@ public class WOBuyCoupone extends Window{
         _txtCollectCoupone.x = -200;
         _txtCollectCoupone.y = -120;
         createTempBG(400, 300, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 200;
         _btnExit.y -= 150;

@@ -40,13 +40,13 @@ public class WOTrain extends Window {
         super ();
         _activeItemIndex = -1;
         createTempBG(500, 320, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x = 250;
         _btnExit.y = -160;
         _arrItems = [];
         addItems();
-        var im:Image = new Image(g.interfaceAtlas.getTexture('btn4'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
         _btn = new CSprite();
         _btn.addChild(im);
         _btn.x = 140;
@@ -55,7 +55,7 @@ public class WOTrain extends Window {
         _btn.addChild(txt);
         _source.addChild(_btn);
         _btn.alpha = .5;
-        im = new Image(g.interfaceAtlas.getTexture('btn4'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
         im.scaleX = .9;
         im.scaleY = .7;
         _btn1 = new CSprite();

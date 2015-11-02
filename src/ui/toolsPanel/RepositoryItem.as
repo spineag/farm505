@@ -45,7 +45,7 @@ public class RepositoryItem {
         _data = data;
         _count = count;
         _box = box;
-        var im:Image = new Image(g.tempBuildAtlas.getTexture(_data.image));
+        var im:Image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
         MCScaler.scale(im, 90, 90);
         im.x = 45 - im.width/2;
         im.y = 45 - im.height/2;

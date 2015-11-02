@@ -43,18 +43,18 @@ public class WOPaperItem {
     private var g:Vars = Vars.getInstance();
     public function WOPaperItem() {
         source = new Sprite();
-        _bg = new Image(g.interfaceAtlas.getTexture('shop_item'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
         _bg.scaleY = .5;
         _txtCost = new TextField(50,50,"000","Arial",18,Color.BLACK);
         _txtCost.touchable = false;
         _txtCost.x = 32;
         _txtCost.y = -12;
         _btnBuy = new CSprite();
-        var im:Image = new Image(g.interfaceAtlas.getTexture('btn1'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn1'));
         im.width = _bg.width;
         im.height = 30;
         _btnBuy.addChild(im);
-        _imageCoin = new Image(g.interfaceAtlas.getTexture("coin"));
+        _imageCoin = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
         _imageCoin.x = 115;
         _imageCoin.y = 3;
         MCScaler.scale(_imageCoin,25,25);
@@ -68,7 +68,7 @@ public class WOPaperItem {
         _btnBuy.endClickCallback = onClickBuy;
 
         _btnVisit = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('btn3'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn3'));
         im.width = _bg.width;
         im.height = 20;
         _btnVisit.addChild(im);
@@ -95,13 +95,7 @@ public class WOPaperItem {
         _txtCost.text = String(_data.cost);
         _txtCountResource.text = String(_data.resourceCount);
         _dataResource = g.dataResource.objectResources[_data.resourceId];
-        if (_dataResource.buildType == BuildType.INSTRUMENT) {
-            _imageItem = new Image(g.instrumentAtlas.getTexture(_dataResource.imageShop));
-        } else if (_dataResource.buildType == BuildType.PLANT) {
-            _imageItem = new Image(g.plantAtlas.getTexture(_dataResource.imageShop));
-        } else {
-            _imageItem = new Image(g.resourceAtlas.getTexture(_dataResource.imageShop));
-        }
+        _imageItem = new Image(g.allData.atlas[_dataResource.url].getTexture(_dataResource.imageShop));
         if (!_imageItem) {
             Cc.error('WOPaperItem fillIt:: no such image: ' + _dataResource.imageShop);
             g.woGameError.showIt();
@@ -112,7 +106,7 @@ public class WOPaperItem {
         _imageItem.y = _bg.height/2 - _imageItem.height/2 - 15;
         source.addChild(_imageItem);
         if (_data.isBuyed) {
-            _plawkaSold = new Image(g.interfaceAtlas.getTexture('plawka_sold'));
+            _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka_sold'));
             _plawkaSold.x = _bg.width/2 - _plawkaSold.width/2;
             source.addChild(_plawkaSold);
 
@@ -146,7 +140,7 @@ public class WOPaperItem {
         showFlyResource(_dataResource, _data.resourceCount);
         g.directServer.buyFromMarket(_data.id, null);
         _txtCost.text= '';
-        _plawkaSold = new Image(g.interfaceAtlas.getTexture('plawka_sold'));
+        _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka_sold'));
         _plawkaSold.x = 10;
         _plawkaSold.y = 20;
         source.addChild(_plawkaSold);
@@ -166,13 +160,7 @@ public class WOPaperItem {
             g.woGameError.showIt();
             return;
         }
-        if (d.url == 'plantAtlas') {
-            im = new Image(g.plantAtlas.getTexture(d.imageShop));
-        } else if (d.url == 'instrumentAtlas') {
-            im = new Image(g.instrumentAtlas.getTexture(d.imageShop));
-        } else {
-            im = new Image(g.resourceAtlas.getTexture(d.imageShop));
-        }
+        im = new Image(g.allData.atlas[d.url].getTexture(d.imageShop));
         if (!im) {
             Cc.error('WOPaperItem fillIt:: no such image: ' + d.imageShop);
             g.woGameError.showIt();

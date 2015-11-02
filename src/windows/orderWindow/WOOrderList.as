@@ -40,13 +40,7 @@ public class WOOrderList {
         var q:Quad = new Quad(50, 50, Color.WHITE);
         q.pivotX = 0;
         q.pivotY = 0;
-        if (ob.buildType == BuildType.PLANT || ob.buildType == BuildType.RESOURCE) {
-            if(ob.url == "plantAtlas") {
-                _image = new Image(g.plantAtlas.getTexture(ob.imageShop));
-            } else {
-                _image = new Image(g.resourceAtlas.getTexture(ob.imageShop));
-            }
-        }
+        _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
         _txtCount = new TextField(50,50,"","Arial",12,Color.BLACK);
         _txtCount.text = String(g.userInventory.getCountResourceById(ob.id) +"/"+ "1");
         source.addChild(q);

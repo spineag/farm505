@@ -232,13 +232,7 @@ public class Fabrica extends AreaObject {
             var texture:Texture;
             for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
                 obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
-                if (obj.buildType == BuildType.PLANT) {
-                    texture = g.plantAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
-                } else if (obj.buildType == BuildType.RESOURCE) {
-                    texture = g.resourceAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
-                } else if (obj.buildType == BuildType.INSTRUMENT) {
-                    texture = g.instrumentAtlas.getTexture(g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])].imageShop);
-                }
+                texture = g.allData.atlas[obj.url].getTexture(g.dataResource.objectResources[obj.imageShop]);
                 new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i * .1);
             }
         }

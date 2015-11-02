@@ -40,7 +40,7 @@ public class UpdateItem {
         var quad:Quad = new Quad(100, 100, Color.GRAY);
         quad.alpha = .2;
         source.addChild(quad);
-        _im = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[_resourceId].imageShop));
+        _im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[_resourceId].imageShop));
         MCScaler.scale(_im, 80, 80);
         _im.x = 50 - _im.width/2;
         _im.y = 50 - _im.height/2;
@@ -57,7 +57,7 @@ public class UpdateItem {
         _btn.y = 120;
         source.addChild(_btn);
         _btn.endClickCallback = onBuy;
-        var imBG:Image = new Image(g.interfaceAtlas.getTexture('btn4'));
+        var imBG:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
         imBG.x = 50 - imBG.width/2;
         _btn.addChild(imBG);
         var _txt:TextField = new TextField(100, 20, 'Купить', "Arial", 16, Color.BLACK);
@@ -69,13 +69,13 @@ public class UpdateItem {
         _btnTxt.y = 28;
         _btn.addChild(_btnTxt);
 
-        var dmnt:Image = new Image(g.interfaceAtlas.getTexture('diamont'));
+        var dmnt:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('diamont'));
         MCScaler.scale(dmnt, 25, 25);
         dmnt.x = 57;
         dmnt.y = 25;
         _btn.addChild(dmnt);
 
-        _imGalo4ka = new Image(g.interfaceAtlas.getTexture('galo4ka'));
+        _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('galo4ka'));
         _imGalo4ka.x = 50 - _imGalo4ka.width/2;
         _imGalo4ka.y = 120;
         source.addChild(_imGalo4ka);

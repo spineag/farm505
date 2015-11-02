@@ -40,7 +40,7 @@ public class WOLevelUp extends Window{
         super ();
         var im:Image;
         createTempBG(500, 500, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 250;
         _btnExit.y -= 250;
@@ -59,12 +59,12 @@ public class WOLevelUp extends Window{
         _txtLevel = new TextField(300,100,"","Arial",18,Color.WHITE);
         _txtContinue = new TextField(100,100,"Рассказать","Arial",18,Color.WHITE);
         _txtHard = new TextField(50,50,"+1","Arial",18,Color.WHITE);
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn1"));
-        _imageHard = new Image(g.interfaceAtlas.getTexture("diamont"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn1"));
+        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
         MCScaler.scale(_imageHard,25,25);
 
         _leftArrow = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
         im.scaleX = -1;
         im.x = im.width;
         _leftArrow.addChild(im);
@@ -75,7 +75,7 @@ public class WOLevelUp extends Window{
 
 
         _rightArrow = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
         _rightArrow.addChild(im);
         _rightArrow.x = 180;
         _rightArrow.y = -50;

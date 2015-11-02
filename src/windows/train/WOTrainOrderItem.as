@@ -29,7 +29,7 @@ public class WOTrainOrderItem {
         source = new CSprite();
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        var _bg:Image = new Image(g.interfaceAtlas.getTexture('shop_item'));
+        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
         MCScaler.scale(_bg, 80, 80);
         _bg.width = 100;
         source.addChild(_bg);
@@ -43,13 +43,7 @@ public class WOTrainOrderItem {
             g.woGameError.showIt();
             return;
         }
-        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT) {
-            _im = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
-        } else if (g.dataResource.objectResources[_info.id].buildType == BuildType.RESOURCE) {
-            _im = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
-        } else {
-            _im = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
-        }
+        _im = new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
         if (!_im) {
             Cc.error('WOTrainOrderItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
             g.woGameError.showIt();

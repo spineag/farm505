@@ -74,7 +74,7 @@ public class LockedLand extends AreaObject {
                 p.x = i;
                 p.y = j;
                 p = g.matrixGrid.getXYFromIndex(p);
-                im = new Image(g.tempBuildAtlas.getTexture(_dataBuild.image));
+                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
                 im.x = p.x + _dataBuild.innerX;
                 im.y = p.y + _dataBuild.innerY;
                 _build.addChild(im);

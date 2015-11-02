@@ -32,7 +32,7 @@ public class WOFabricaWorkListItem {
         _txtNumberCreate = new TextField(30,30,"","Arial", 18,Color.BLACK);
         _txtNumberCreate.y = 10;
         source = new CSprite();
-        _bg = new Image(g.interfaceAtlas.getTexture('tempItemBG'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tempItemBG'));
         MCScaler.scale(_bg, 100, 100);
         source.addChild(_bg);
         source.pivotX = source.width/2;
@@ -57,7 +57,7 @@ public class WOFabricaWorkListItem {
             source.removeChild(_icon);
             _icon = null;
         }
-        _icon = new Image(g.resourceAtlas.getTexture(s));
+        _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
         MCScaler.scale(_icon, 100, 100);
         for(var id:String in g.dataRecipe.objectRecipe){
             if(g.dataRecipe.objectRecipe[id].idResource == _resource.resourceID){

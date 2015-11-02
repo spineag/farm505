@@ -44,12 +44,12 @@ public class FriendItem {
             return;
         }
         source = new CSprite();
-        _ramka = new Image(g.interfaceAtlas.getTexture("friend_frame"));
+        _ramka = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friend_frame"));
         _ramka.x = 120;
         _ramka.y = 10;
         source.addChild(_ramka);
 
-        _imageLvl = new Image(g.interfaceAtlas.getTexture("star"));
+        _imageLvl = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         _imageLvl.y = 70;
         MCScaler.scale(_imageLvl,25,25);
         source.addChild(_imageLvl);
@@ -61,7 +61,7 @@ public class FriendItem {
         _txtLvl.x = -40;
         source.addChild(_txtLvl);
         if (_person is NeighborBot) {
-            photoFromTexture(g.interfaceAtlas.getTexture('neighbor'));
+            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
             if (_person.photo) {
                 g.load.loadImage(_person.photo, onLoadPhoto);
@@ -76,7 +76,7 @@ public class FriendItem {
         source.addChild(_txt);
 
         _planet = new CSprite();
-        var im:Image = new Image(g.interfaceAtlas.getTexture('planet'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('planet'));
         im.x = -im.width/2;
         im.y = -im.height/2;
         _planet.addChild(im);

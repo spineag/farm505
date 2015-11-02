@@ -32,11 +32,11 @@ public class WildHint {
         _source = new CSprite();
         _isShowed = false;
         _isOnHover = false;
-        _bg = new Image(g.interfaceAtlas.getTexture('hint_wild'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_wild'));
         _source.addChild(_bg);
         _source.pivotX = _source.width/2;
         _source.pivotY = _source.height;
-        _circle = new Image(g.interfaceAtlas.getTexture('hint_circle'));
+        _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_circle'));
         _txtCount = new TextField(50,50,"","Arial",12,Color.BLACK);
         _txtName = new TextField(100,50,"","Arial",18,Color.WHITE);
         _txtName.x = 20;
@@ -64,10 +64,10 @@ public class WildHint {
         }
         _txtName.text = name;
         _txtCount.text = String(g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId));
-        _iconResource = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
+        _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _txtCount.x = 58;
-        _iconResource = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
+        _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         if (!_iconResource) {
             Cc.error('WildHint showIt:: no such image: ' + g.dataResource.objectResources[idResourceForRemoving].imageShop);
             g.woGameError.showIt();

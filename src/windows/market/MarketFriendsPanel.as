@@ -41,7 +41,7 @@ public class MarketFriendsPanel {
         _wo.source.addChild(_source);
         _cont = new Sprite();
         _source.addChild(_cont);
-        var im:Image = new Image(g.interfaceAtlas.getTexture('shop_arrow'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
         im.scaleX = im.scaleY = .7;
@@ -51,7 +51,7 @@ public class MarketFriendsPanel {
         _btnUp.x = 275;
         _btnUp.y = -180;
         _wo.source.addChild(_btnUp);
-        im = new Image(g.interfaceAtlas.getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
         im.scaleX = im.scaleY = .7;

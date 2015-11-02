@@ -24,7 +24,7 @@ public class WOBuyCurrency extends Window{
     private var _txtHard:TextField;
     public function WOBuyCurrency() {
         createTempBG(500,400 , Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 250;
         _btnExit.y -= 200;
@@ -38,10 +38,10 @@ public class WOBuyCurrency extends Window{
         _txtHard = new TextField(100,50,"Изумруды","Arial",18,Color.BLACK);
         _txtHard.x = -150;
         _txtHard.y = -200;
-        _imageBtnSoft = new Image(g.interfaceAtlas.getTexture("shop_tab"));
+        _imageBtnSoft = new Image(g.allData.atlas['interfaceAtlas'].getTexture("shop_tab"));
         _imageBtnSoft.x = 50;
         _imageBtnSoft.y = -200;
-        _imageBtnHard = new Image(g.interfaceAtlas.getTexture("shop_tab"));
+        _imageBtnHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("shop_tab"));
         _imageBtnHard.x = -150;
         _imageBtnHard.y = -200;
         _contBtnSoft.endClickCallback = onClickSoft;

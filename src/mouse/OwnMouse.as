@@ -62,7 +62,7 @@ public class OwnMouse {
 
     private function makeCursorImages(st:String):Vector.<BitmapData> {
         var cursorData:Vector.<BitmapData> = new Vector.<BitmapData>();
-        var texture:Texture = g.mapAtlas.getTexture(st);
+        var texture:Texture = g.allData.atlas['mapAtlas'].getTexture(st);
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(new Image(texture));
         cursorData.push(bitMap.bitmapData);
 

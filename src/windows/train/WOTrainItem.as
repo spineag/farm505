@@ -40,7 +40,7 @@ public class WOTrainItem {
     public function WOTrainItem() {
         _index = -1;
         source = new CSprite();
-        var _bg:Image = new Image(g.interfaceAtlas.getTexture('shop_item'));
+        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
         MCScaler.scale(_bg, 80, 80);
         _bg.width = 100;
         source.addChild(_bg);
@@ -48,7 +48,7 @@ public class WOTrainItem {
         _txt = new TextField(100,30,"","Arial",16,Color.BLACK);
         _txt.y = 50;
         source.addChild(_txt);
-        _galo4ka = new Image(g.interfaceAtlas.getTexture('galo4ka'));
+        _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('galo4ka'));
         MCScaler.scale(_galo4ka, 30, 30);
         _galo4ka.x = 65;
         _galo4ka.y = 40;
@@ -67,13 +67,7 @@ public class WOTrainItem {
         }
 
         _txt.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
-        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT) {
-            _im = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
-        } else if (g.dataResource.objectResources[_info.id].buildType == BuildType.RESOURCE) {
-            _im = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
-        } else {
-            _im = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[_info.id].imageShop));
-        }
+        _im = new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
         if (!_im) {
             Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
             g.woGameError.showIt();

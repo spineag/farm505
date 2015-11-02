@@ -32,7 +32,7 @@ public class XPStar {
         _source = new Sprite();
         _txtStar = new TextField(50,50," ","Arial",18,Color.WHITE);
         _txtStar.y = 25;
-        _image = new Image(g.interfaceAtlas.getTexture("star"));
+        _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         _xp = xp;
         g.cont.animationsResourceCont.addChild(_source);
         MCScaler.scale(_image, 50, 50);

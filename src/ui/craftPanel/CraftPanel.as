@@ -55,7 +55,7 @@ public class CraftPanel {
         _resourceSprite = new Sprite();
         _source.addChild(_resourceSprite);
 
-        _ambarImage = new Image(g.tempBuildAtlas.getTexture('ambar'));
+        _ambarImage = new Image(g.allData.atlas['buildAtlas'].getTexture('ambar'));
         MCScaler.scale(_ambarImage, 70, 70);
         _ambarImage.pivotX = _ambarImage.width/2;
         _ambarImage.pivotY = _ambarImage.height/2;
@@ -63,7 +63,7 @@ public class CraftPanel {
         _source.addChild(_ambarImage);
         _ambarImage.visible = false;
 
-        _skladImage = new Image(g.tempBuildAtlas.getTexture('sklad'));
+        _skladImage = new Image(g.allData.atlas['buildAtlas'].getTexture('sklad'));
         MCScaler.scale(_skladImage, 70, 70);
         _skladImage.pivotX = _skladImage.width/2;
         _skladImage.pivotY = _skladImage.height/2;
@@ -108,13 +108,7 @@ public class CraftPanel {
             _resourceSprite.removeChildAt(0);
         }
         var im:Image;
-        if (item.url == "instrumentAtlas") {
-            im = new Image(g.instrumentAtlas.getTexture(item.imageShop));
-        } else if (item.url == "resourceAtlas") {
-            im = new Image(g.resourceAtlas.getTexture(item.imageShop));
-        } else if (item.url == "plantAtlas") {
-            im = new Image(g.plantAtlas.getTexture(item.imageShop));
-        }
+        im = new Image(g.allData.atlas[item.url].getTexture(item.imageShop));
         MCScaler.scale(im, 50, 50);
         im.x = -im.width/2;
         im.y = -im.height/2;

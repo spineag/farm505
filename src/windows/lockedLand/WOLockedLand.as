@@ -24,13 +24,13 @@ public class WOLockedLand extends Window{
     public function WOLockedLand() {
         super();
         createTempBG(400, 500, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 200;
         _btnExit.y -= 250;
         _arrItems = [];
 
-        _btnOpen = new CButton(g.interfaceAtlas.getTexture('btn2'), 'Открыть');
+        _btnOpen = new CButton(g.allData.atlas['interfaceAtlas'].getTexture('btn2'), 'Открыть');
         _btnOpen.x = 50;
         _btnOpen.y = -230;
         _source.addChild(_btnOpen);

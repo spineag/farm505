@@ -26,12 +26,12 @@ public class WOBuyForHardCurrency extends Window{
     public function WOBuyForHardCurrency() {
         super();
         createTempBG(400, 300, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 200;
         _btnExit.y -= 150;
-        _imageYes = new Image(g.interfaceAtlas.getTexture("btn2"));
-        _imageNo = new Image(g.interfaceAtlas.getTexture("btn2"));
+        _imageYes = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
+        _imageNo = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
         _txtYes = new TextField(50,50,"Да","Arial",14,Color.BLACK);
         _txtYes.y = -20;
         _txtNo = new TextField(50,50,"Нет","Arial",14,Color.BLACK);
@@ -63,7 +63,7 @@ public class WOBuyForHardCurrency extends Window{
         _id = id;
         _count = count;
         _txtCost= new TextField(250,50,"Подтвердить покупку за " + String(count * g.dataResource.objectResources[id].priceHard) +" ?","Arial",14,Color.BLACK);
-        var im:Image = new Image(g.interfaceAtlas.getTexture("diamont"));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
         MCScaler.scale(im,25,25);
         _source.addChild(_txtCost);
         _source.addChild(im);

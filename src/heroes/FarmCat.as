@@ -20,7 +20,7 @@ public class FarmCat extends BasicCat{
 
         _speedWalk = 20;
         _source = new CSprite();
-        _catImage = new Image(g.catAtlas.getTexture('cat_farm'));
+        _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_farm'));
         if (!_catImage) {
             Cc.error('FarmCat: no such image cat_farm');
             g.woGameError.showIt();
