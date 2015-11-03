@@ -206,7 +206,7 @@ public class ToolsModifier {
                 case Tree.GROW1:
                 case Tree.GROW_FLOWER1:
                 case Tree.GROWED1:
-                    imForMove = new Image(g.allData.atlas['treeAtlas'].getTexture(_activeBuildingData.imageGrowSmall));
+                    imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.imageGrowSmall));
                     if (imForMove) {
                         imForMove.x = _activeBuildingData.innerPositionsGrow1[0];
                         imForMove.y = _activeBuildingData.innerPositionsGrow1[1];
@@ -252,7 +252,7 @@ public class ToolsModifier {
                 return;
             }
         } else if (_activeBuildingData.buildType == BuildType.RIDGE) {
-            imForMove = new Image(g.allData.atlas['buildAtlas'].getTexture(_activeBuildingData.image));
+            imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
             if (imForMove) {
                 imForMove.x = _activeBuildingData.innerX;
                 imForMove.y = _activeBuildingData.innerY;
@@ -301,8 +301,8 @@ public class ToolsModifier {
                     return;
                 }
             }
-        } else if (_activeBuildingData.url == "buildAtlas") {
-            imForMove = new Image(g.allData.atlas['buildAtlas'].getTexture(_activeBuildingData.image));
+        } else if (_activeBuildingData.url == "buildAtlas" || _activeBuildingData.url == "farmAtlas" || _activeBuildingData.url == "decorAtlas") {
+            imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
             if (imForMove) {
                 imForMove.x = _activeBuildingData.innerX;
                 imForMove.y = _activeBuildingData.innerY;
@@ -319,7 +319,7 @@ public class ToolsModifier {
                 _spriteForMove.addChild(imForMove);
             }
         } else if (_activeBuildingData.url == 'wildAtlas') {
-            imForMove = new Image(g.allData.atlas['wildAtlas'].getTexture(_activeBuildingData.image));
+            imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
             if (imForMove) {
                 imForMove.x = _activeBuildingData.innerX;
                 imForMove.y = _activeBuildingData.innerY;
@@ -330,7 +330,7 @@ public class ToolsModifier {
                 return;
             }
         } else if (_activeBuildingData.url == 'mapAtlas') {
-            imForMove  = new Image(g.allData.atlas['mapAtlas'].getTexture(_activeBuildingData.image));
+            imForMove  = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
             if (imForMove) {
                 imForMove.x = -imForMove.width/2;
                 _spriteForMove.addChild(imForMove);
@@ -376,7 +376,7 @@ public class ToolsModifier {
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;
-        imForMove = new Image(g.allData.atlas['buildAtlas'].getTexture(_activeBuildingData.image));
+        imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
         if (imForMove) {
             imForMove.x = _activeBuildingData.innerX;
             imForMove.y = _activeBuildingData.innerY;

@@ -115,6 +115,12 @@ public class LockedLand extends AreaObject {
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            if (!checkIsFree()) {
+                var p0:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
+                p0.y -= 50;
+                new FlyMessage(p0,"Откройте соседние территории");
+                return;
+            }
             if (g.user.level < _dataLand.blockByLevel) {
                 var p:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
                 p.y -= 50;
@@ -156,6 +162,68 @@ public class LockedLand extends AreaObject {
         _source.touchable = false;
         _dataLand = null;
         super.clearIt();
+    }
+
+    private function checkIsFree():Boolean {
+        var count:int = 0;
+        var m:Array = g.townArea.townMatrix;
+        if (m[posY-1] && m[posY-1][posX]) {
+            if (m[posY-1][posX].build) {
+                if (m[posY-1][posX].build is LockedLand) {
+                    count++;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            count++;
+        }
+
+        if (m[posY][posX-1]) {
+            if (m[posY][posX-1].build) {
+                if (m[posY][posX-1].build is LockedLand) {
+                    count++
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            count++;
+        }
+
+        if (m[posY][posX+_sizeX]) {
+            if (m[posY][posX+_sizeX].build) {
+                if (m[posY][posX+_sizeX].build is LockedLand) {
+                    count++
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            count++;
+        }
+
+        if (m[posY+_sizeY] && m[posY+_sizeY][posX]) {
+            if (m[posY+_sizeY][posX].build) {
+                if (m[posY+_sizeY][posX].build is LockedLand) {
+                    count++;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            count++;
+        }
+
+        return count != 4;
     }
 }
 }

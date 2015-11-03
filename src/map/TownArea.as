@@ -379,7 +379,7 @@ public class TownArea extends Sprite {
             if (worldObject.useIsometricOnly) {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
-            if (worldObject is Order) {
+            if (worldObject is Order || worldObject is Wild) {
                 for (var i:int = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
                     for (var j:int = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
                         fillTailMatrix(j, i, worldObject);
