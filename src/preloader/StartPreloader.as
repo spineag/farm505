@@ -12,9 +12,9 @@ import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
 public class StartPreloader {
-    [Embed(source="../../assets/preloaderAtlas.png")]
+    [Embed(source="../../assets/preloaderAtlas3.png")]
     public static const PreloaderTexture:Class;
-    [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/preloaderAtlas3.xml", mimeType="application/octet-stream")]
     public static const PreloaderTextureXML:Class;
 
     private var _source:Sprite;
