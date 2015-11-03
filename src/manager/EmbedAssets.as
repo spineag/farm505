@@ -8,51 +8,51 @@ import starling.textures.TextureAtlas;
 
 public class EmbedAssets {
     // Texture
-    [Embed(source="../../assets/mapAtlas.png")]
+    [Embed(source="../../assets/mapAtlas3.png")]
     public static const MapTexture:Class;
-    [Embed(source="../../assets/buildAtlas2.png")]
+    [Embed(source="../../assets/buildAtlas3.png")]
     public static const BuildTexture:Class;
-    [Embed(source="../../assets/plants2.png")]
+    [Embed(source="../../assets/plants3.png")]
     public static const PlantTexture:Class;
-    [Embed(source="../../assets/interfaceAtlas.png")]
+    [Embed(source="../../assets/interfaceAtlas3.png")]
     public static const InterfaceTexture:Class;
-    [Embed(source="../../assets/instrumentAtlas.png")]
+    [Embed(source="../../assets/instrumentAtlas3.png")]
     public static const InstrumentTexture:Class;
-    [Embed(source="../../assets/resourceAtlas2.png")]
+    [Embed(source="../../assets/resourceAtlas3.png")]
     public static const ResourceTexture:Class;
-    [Embed(source="../../assets/treeAtlas2.png")]
+    [Embed(source="../../assets/treeAtlas3.png")]
     public static const TreeTexture:Class;
-    [Embed(source="../../assets/cats.png")]
+    [Embed(source="../../assets/cats3.png")]
     public static const CatTexture:Class;
-    [Embed(source="../../assets/wildAtlas.png")]
+    [Embed(source="../../assets/wildAtlas3.png")]
     public static const WildTexture:Class;
-    [Embed(source="../../assets/farmAtlas.png")]
+    [Embed(source="../../assets/farmAtlas3.png")]
     public static const FarmTexture:Class;
-    [Embed(source="../../assets/decorAtlas.png")]
+    [Embed(source="../../assets/decorAtlas3.png")]
     public static const DecorTexture:Class;
 
     // XML
-    [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/mapAtlas3.xml", mimeType="application/octet-stream")]
     public static const MapTextureXML:Class;
-    [Embed(source="../../assets/buildAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/buildAtlas3.xml", mimeType="application/octet-stream")]
     public static const BuildTextureXML:Class;
-    [Embed(source="../../assets/plants2.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/plants3.xml", mimeType="application/octet-stream")]
     public static const PlantTextureXML:Class;
-    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/interfaceAtlas3.xml", mimeType="application/octet-stream")]
     public static const InterfaceTextureXML:Class;
-    [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/instrumentAtlas3.xml", mimeType="application/octet-stream")]
     public static const InstrumentTextureXML:Class;
-    [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/resourceAtlas3.xml", mimeType="application/octet-stream")]
     public static const ResourceTextureXML:Class;
-    [Embed(source="../../assets/treeAtlas2.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/treeAtlas3.xml", mimeType="application/octet-stream")]
     public static const TreeTextureXML:Class;
-    [Embed(source="../../assets/cats.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/cats3.xml", mimeType="application/octet-stream")]
     public static const CatTextureXML:Class;
-    [Embed(source="../../assets/wildAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/wildAtlas3.xml", mimeType="application/octet-stream")]
     public static const WildTextureXML:Class;
-    [Embed(source="../../assets/farmAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/farmAtlas3.xml", mimeType="application/octet-stream")]
     public static const FarmTextureXML:Class;
-    [Embed(source="../../assets/decorAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/decorAtlas3.xml", mimeType="application/octet-stream")]
     public static const DecorTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();

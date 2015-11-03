@@ -22,5 +22,9 @@ public class WOGameError extends Window{
         _btnExit.y = -50;
         _btnExit.addEventListener(Event.TRIGGERED, hideIt);
     }
+
+    override public function showIt():void {
+        super.showIt();
+    }
 }
 }
