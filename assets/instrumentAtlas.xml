@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:3e982cb4a42085cd96ad3871ed7a62ce:e07ac2837286f21367d2ee33ebf5d365:03f1473310dcd35edcfd34e4677b78d6$ -->
+<!-- $TexturePacker:SmartUpdate:f6b0b3ff8cb4dc6f7b4db9cb6c75e177:82efbc3a40d1019936935e69ecbdfbfc:03f1473310dcd35edcfd34e4677b78d6$ -->
 <TextureAtlas imagePath="instrumentAtlas.png">
-    <SubTexture name="axe" x="567" y="2" width="94" height="84"/>
-    <SubTexture name="cutter" x="103" y="2" width="106" height="104"/>
-    <SubTexture name="duct_tape" x="2" y="2" width="99" height="108"/>
-    <SubTexture name="dynamite" x="478" y="2" width="87" height="88" frameX="0" frameY="0" frameWidth="87" frameHeight="97"/>
-    <SubTexture name="nail" x="211" y="2" width="98" height="99"/>
-    <SubTexture name="paint" x="663" y="2" width="59" height="72"/>
-    <SubTexture name="plank" x="882" y="2" width="122" height="65" frameX="0" frameY="0" frameWidth="122" frameHeight="66"/>
-    <SubTexture name="saw" x="380" y="2" width="96" height="95" frameX="0" frameY="0" frameWidth="96" frameHeight="97"/>
-    <SubTexture name="shovel" x="311" y="2" width="67" height="99"/>
-    <SubTexture name="tin_sheet" x="724" y="2" width="77" height="71"/>
-    <SubTexture name="tnt_barrel" x="803" y="2" width="77" height="68" frameX="0" frameY="0" frameWidth="77" frameHeight="70"/>
+    <SubTexture name="Axe" x="81" y="2" width="94" height="92" frameX="-5" frameY="-7" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="bobbin" x="778" y="2" width="56" height="80" frameX="-22" frameY="-8" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="clothes_button" x="836" y="2" width="76" height="78" frameX="-12" frameY="-11" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="himble" x="360" y="2" width="80" height="92" frameX="-12" frameY="0" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="jackhammer" x="534" y="2" width="84" height="90" frameX="-8" frameY="-9" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="pickaxe" x="2" y="2" width="77" height="93" frameX="-11" frameY="-7" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="pin" x="177" y="2" width="90" height="92" frameX="-7" frameY="-3" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="ribbon" x="269" y="2" width="89" height="92" frameX="-7" frameY="-5" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="safety_pin" x="708" y="2" width="68" height="88" frameX="-13" frameY="-10" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="saw" x="442" y="2" width="90" height="91" frameX="-4" frameY="-5" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="shovel" x="620" y="2" width="86" height="89" frameX="-8" frameY="-4" frameWidth="100" frameHeight="100"/>
 </TextureAtlas>

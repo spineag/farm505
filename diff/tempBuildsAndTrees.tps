@@ -145,7 +145,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../assets/buildAndTree.xml</filename>
+                <filename>../assets/buildAtlas.xml</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -197,7 +197,6 @@
             <filename>buildings/confectionery.png</filename>
             <filename>buildings/daily_bonus.png</filename>
             <filename>buildings/dairy.png</filename>
-            <filename>buildings/farm</filename>
             <filename>buildings/feed_mill.png</filename>
             <filename>buildings/fryer.png</filename>
             <filename>buildings/ice_cream_maker.png</filename>
@@ -205,7 +204,6 @@
             <filename>buildings/jeweler.png</filename>
             <filename>buildings/juice_press.png</filename>
             <filename>buildings/loom.png</filename>
-            <filename>buildings/moped.png</filename>
             <filename>buildings/pie_oven.png</filename>
             <filename>buildings/pizza_maker.png</filename>
             <filename>buildings/sauce_maker.png</filename>
@@ -216,19 +214,11 @@
             <filename>buildings/train.png</filename>
             <filename>buildings/yogurt_machine.png</filename>
             <filename>buildings/zakaz.png</filename>
-            <filename>stolb.png</filename>
-            <filename>lenta.png</filename>
-            <filename>buildings/shop.png</filename>
             <filename>buildings/train_broken.png</filename>
             <filename>buildings/ridge.png</filename>
             <filename>buildings/locked_land.png</filename>
             <filename>buildings/foundation.png</filename>
             <filename>buildings/done_building.png</filename>
-            <filename>decor1.png</filename>
-            <filename>decor2.png</filename>
-            <filename>tail1.png</filename>
-            <filename>tail2.png</filename>
-            <filename>tail3.png</filename>
             <filename>buildings/paper.png</filename>
         </array>
         <key>ignoreFileList</key>

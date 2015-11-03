@@ -10,7 +10,7 @@ public class EmbedAssets {
     // Texture
     [Embed(source="../../assets/mapAtlas.png")]
     public static const MapTexture:Class;
-    [Embed(source="../../assets/buildAndTree.png")]
+    [Embed(source="../../assets/buildAtlas2.png")]
     public static const BuildTexture:Class;
     [Embed(source="../../assets/plants2.png")]
     public static const PlantTexture:Class;
@@ -26,11 +26,15 @@ public class EmbedAssets {
     public static const CatTexture:Class;
     [Embed(source="../../assets/wildAtlas.png")]
     public static const WildTexture:Class;
+    [Embed(source="../../assets/farmAtlas.png")]
+    public static const FarmTexture:Class;
+    [Embed(source="../../assets/decorAtlas.png")]
+    public static const DecorTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas.xml", mimeType="application/octet-stream")]
     public static const MapTextureXML:Class;
-    [Embed(source="../../assets/buildAndTree.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/buildAtlas.xml", mimeType="application/octet-stream")]
     public static const BuildTextureXML:Class;
     [Embed(source="../../assets/plants2.xml", mimeType="application/octet-stream")]
     public static const PlantTextureXML:Class;
@@ -38,7 +42,7 @@ public class EmbedAssets {
     public static const InterfaceTextureXML:Class;
     [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
     public static const InstrumentTextureXML:Class;
-    [Embed(source="../../assets/resourceAtlas2.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
     public static const ResourceTextureXML:Class;
     [Embed(source="../../assets/treeAtlas2.xml", mimeType="application/octet-stream")]
     public static const TreeTextureXML:Class;
@@ -46,6 +50,10 @@ public class EmbedAssets {
     public static const CatTextureXML:Class;
     [Embed(source="../../assets/wildAtlas.xml", mimeType="application/octet-stream")]
     public static const WildTextureXML:Class;
+    [Embed(source="../../assets/farmAtlas.xml", mimeType="application/octet-stream")]
+    public static const FarmTextureXML:Class;
+    [Embed(source="../../assets/decorAtlas.xml", mimeType="application/octet-stream")]
+    public static const DecorTextureXML:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -91,6 +99,14 @@ public class EmbedAssets {
         texture = Texture.fromBitmap(new WildTexture());
         xml= XML(new WildTextureXML());
         g.allData.atlas['wildAtlas'] = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new FarmTexture());
+        xml= XML(new FarmTextureXML());
+        g.allData.atlas['farmAtlas'] = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new DecorTexture());
+        xml= XML(new DecorTextureXML());
+        g.allData.atlas['decorAtlas'] = new TextureAtlas(texture, xml);
     }
 }
 }

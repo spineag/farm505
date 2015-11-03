@@ -48,7 +48,7 @@ public class TreeHint {
         _isShowed = false;
         _isOnHover = false;
         _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup"));
-        _imageHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("help_icon"));
+        _imageHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("watering_can"));
         _imageHelp.width = _imageHelp.height = 40;
         _imageHelp.x = 30;
         _imageHelp.y = 30;

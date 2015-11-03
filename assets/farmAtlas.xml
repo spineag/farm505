@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:f16ea42c1d4ed66ff88199720396cdd4:be4fc7f48c558628c32b6cb0ce7ee3f2:be598583fb5193bc69c6356aad498d4a$ -->
+<TextureAtlas imagePath="farmAtlas.png">
+    <SubTexture name="beehive" x="1496" y="855" width="153" height="168" frameX="0" frameY="0" frameWidth="161" frameHeight="168"/>
+    <SubTexture name="chicken" x="1924" y="855" width="84" height="92" frameX="-8" frameY="0" frameWidth="101" frameHeight="104"/>
+    <SubTexture name="cow" x="1318" y="855" width="176" height="170"/>
+    <SubTexture name="farm_bee" x="1346" y="2" width="668" height="345" frameX="-6" frameY="-7" frameWidth="683" frameHeight="359"/>
+    <SubTexture name="farm_chicken" x="2" y="420" width="668" height="413" frameX="-3" frameY="0" frameWidth="677" frameHeight="417"/>
+    <SubTexture name="farm_chicken2" x="2" y="835" width="656" height="251" frameX="-11" frameY="0" frameWidth="677" frameHeight="251"/>
+    <SubTexture name="farm_cow" x="672" y="420" width="668" height="413" frameX="-3" frameY="0" frameWidth="677" frameHeight="417"/>
+    <SubTexture name="farm_cow2" x="660" y="835" width="656" height="251" frameX="-11" frameY="0" frameWidth="677" frameHeight="251"/>
+    <SubTexture name="farm_goat" x="1754" y="998" width="168" height="94"/>
+    <SubTexture name="farm_pig" x="676" y="2" width="668" height="413" frameX="-3" frameY="0" frameWidth="677" frameHeight="417"/>
+    <SubTexture name="farm_pig2" x="1346" y="349" width="656" height="251" frameX="-11" frameY="0" frameWidth="677" frameHeight="251"/>
+    <SubTexture name="farm_sheep" x="2" y="2" width="672" height="416" frameX="-1" frameY="0" frameWidth="677" frameHeight="417"/>
+    <SubTexture name="farm_sheep2" x="1342" y="602" width="656" height="251" frameX="-11" frameY="0" frameWidth="677" frameHeight="251"/>
+    <SubTexture name="goat" x="1924" y="949" width="65" height="93"/>
+    <SubTexture name="pig" x="1651" y="855" width="163" height="141"/>
+    <SubTexture name="sheep" x="1651" y="998" width="101" height="103"/>
+</TextureAtlas>
