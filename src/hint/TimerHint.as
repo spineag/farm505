@@ -33,6 +33,7 @@ public class TimerHint {
     private var _isOnHover:Boolean;
     private var _isShow:Boolean;
     private var _needMoveCenter:Boolean = false;
+    private var _callbackSkip:Function;
     private var g:Vars = Vars.getInstance();
 
     public function TimerHint() {
@@ -72,9 +73,10 @@ public class TimerHint {
         _needMoveCenter = v;
     }
 
-    public function showIt(x:int, y:int, timer:int, cost:int, name:String):void {
+    public function showIt(x:int, y:int, timer:int, cost:int, name:String,f:Function):void {
 //        var s:Number = g.cont.gameCont.scaleX;
 //        var oY:Number = g.matrixGrid.offsetY*s;
+        _callbackSkip = f;
         if(_isShow) return;
         _isShow = true;
         source.x = x;
@@ -132,6 +134,9 @@ public class TimerHint {
 
     private function onClickBtn():void {
         if (g.user.hardCurrency <= 0)return;
+        if (_callbackSkip != null) {
+            _callbackSkip.apply(null);
+        }
         g.userInventory.addMoney(1,-int(_txtCost.text));
         _isOnHover = false;
         hideIt();

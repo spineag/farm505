@@ -90,7 +90,7 @@ public class Fabrica extends AreaObject {
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
                 g.timerHint.needMoveCenter = true;
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.cost, _dataBuild.name);
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, 5, _dataBuild.name,callbackSkip);
             }
             if (_isOnHover == false) {
                 _source.filter = null;
@@ -322,6 +322,13 @@ public class Fabrica extends AreaObject {
         _arrList.length = 0;
         _arrRecipes.length = 0;
         super.clearIt();
+    }
+
+    private function callbackSkip():void {
+        _stateBuild = STATE_WAIT_ACTIVATE;
+        clearCraftSprite();
+//        createBuild();
+        addTempGiftIcon();
     }
 
 }

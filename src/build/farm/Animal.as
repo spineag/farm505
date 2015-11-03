@@ -172,7 +172,7 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         source.filter = null;
         _isOnHover = false;
-        g.gameDispatcher.addEnterFrame(countEnterFrame);
+        g.timerHint.hideIt();
         g.mouseHint.hideHintMouse();
     }
 
@@ -181,11 +181,7 @@ public class Animal {
         if(_frameCounterTimerHint <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
-                g.timerHint.showIt(g.cont.gameCont.x + source.parent.x * g.currentGameScale + source.x * g.currentGameScale, g.cont.gameCont.y + (source.parent.y + source.y - source.height)*g.currentGameScale, _timeToEnd, _data.costForceCraft, _data.name);
-            }
-            if (_isOnHover == false) {
-                source.filter = null;
-                g.timerHint.hideIt();
+                g.timerHint.showIt(g.cont.gameCont.x + source.parent.x * g.currentGameScale + source.x * g.currentGameScale, g.cont.gameCont.y + (source.parent.y + source.y - source.height)*g.currentGameScale, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip);
             }
         }
     }
@@ -297,6 +293,10 @@ public class Animal {
         while (source.numChildren) source.removeChildAt(0);
         _image.dispose();
         source = null;
+    }
+
+    private function callbackSkip():void {
+
     }
 }
 }

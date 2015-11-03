@@ -153,7 +153,7 @@ public class Cave extends AreaObject{
         if (_source) _source.filter = null;
         g.hint.hideIt();
         if (_stateBuild == STATE_BUILD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
+            g.timerHint.hideIt();
         }
     }
 
@@ -300,13 +300,16 @@ public class Cave extends AreaObject{
         if(_count <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.cost, _dataBuild.name);
-            }
-            if (_isOnHover == false) {
-                _source.filter = null;
-                g.timerHint.hideIt();
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.cost, _dataBuild.name,callbackSkip);
             }
         }
+    }
+
+    private function callbackSkip():void {
+        _stateBuild = STATE_WAIT_ACTIVATE;
+        clearCraftSprite();
+        addTempGiftIcon();
+        createBuild();
     }
 
 }

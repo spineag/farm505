@@ -17,6 +17,7 @@ public class WOFabrica extends Window {
     private var _arrItems:Array;
     private var _callbackOnClick:Function;
 
+
     public function WOFabrica() {
         super();
         _woHeight = 400;

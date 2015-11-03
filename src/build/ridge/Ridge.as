@@ -212,7 +212,9 @@ public class Ridge extends AreaObject{
         _source.filter = null;
         _isOnHover = false;
         g.mouseHint.hideHintMouse();
-        g.timerHint.hideIt();
+//        g.timerHint.hideIt();
+        g.gameDispatcher.addEnterFrame(countEnterFrame);
+
     }
 
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
@@ -271,7 +273,7 @@ public class Ridge extends AreaObject{
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
                 if (_plant)
-                    g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name);
+                    g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip);
             }
             if (_isOnHover == false) {
                 _source.filter = null;
@@ -292,6 +294,8 @@ public class Ridge extends AreaObject{
                 }
             }
             if(_isOnHover == false){
+                _source.filter = null;
+                g.timerHint.hideIt();
              g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             }
         }
@@ -310,6 +314,12 @@ public class Ridge extends AreaObject{
         onOut();
         _source.touchable = false;
         super.clearIt();
+    }
+
+    private function callbackSkip():void {
+        _stateRidge = GROWED;
+        g.managerPlantRidge.removeCatFromRidge(_dataPlant.id, this);
+        _plant.checkStateRidge();
     }
 }
 }
