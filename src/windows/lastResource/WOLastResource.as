@@ -27,7 +27,7 @@ public class WOLastResource extends Window{
     public function WOLastResource() {
         super();
         createTempBG(300, 300, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.x = 150;
         _btnExit.y -= 150;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
@@ -53,7 +53,7 @@ public class WOLastResource extends Window{
             g.woGameError.showIt();
             return;
         }
-        _imageItem = new Image(g.plantAtlas.getTexture(_data.imageShop));
+        _imageItem = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
         if (!_data) {
             Cc.error('WOLastResource showItMenu:: no such image: ' + _data.imageShop);
             g.woGameError.showIt();
@@ -71,7 +71,7 @@ public class WOLastResource extends Window{
         var im:Image;
         var txt:TextField;
         _contBtnYes = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('btn4'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
         txt = new TextField(50,50,"ДА","Arial",12,Color.BLACK);
         _contBtnYes.addChild(im);
         _contBtnYes.addChild(txt);
@@ -83,7 +83,7 @@ public class WOLastResource extends Window{
         _contBtnYes.endClickCallback = function():void {onClick('yes')};
 
         _contBtnNo = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('btn4'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
         txt = new TextField(50,50,"НЕТ","Arial",12,Color.BLACK);
         _contBtnNo.addChild(im);
         _contBtnNo.addChild(txt);

@@ -33,15 +33,7 @@ public class MapEditorInterfaceItem {
         _txt.x = 45 - _txt.width/2;
         _txt.y = 5;
         source.addChild(_txt);
-        if (_data.url == "buildAtlas") {
-            _image = new Image(g.tempBuildAtlas.getTexture(_data.image));
-        } else if (_data.url == "treeAtlas") {
-            _image = new Image(g.treeAtlas.getTexture(_data.image));
-        } else if (_data.url == 'wildAtlas') {
-            _image = new Image(g.wildAtlas.getTexture(_data.image));
-        } else {
-            _image = new Image(g.mapAtlas.getTexture(_data.image));
-        }
+        _image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
         _image.pivotX = _image.width /2;
         _image.pivotY = _image.height /2;
         MCScaler.scale(_image, 50, 50);

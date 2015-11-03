@@ -19,7 +19,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 public class Farm extends AreaObject{
-    private var _house:CSprite;
+//    private var _house:CSprite;
     private var _dataAnimal:Object;
     private var _arrAnimals:Array;
     private var _contAnimals:Sprite;
@@ -37,17 +37,17 @@ public class Farm extends AreaObject{
         _dataBuild.isFlip = _flip;
         _source.endClickCallback = onClick;
 
-        _house = new CSprite();
-        var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageHouse));
-        _house.addChild(im);
-        _house.x = _dataBuild.innerHouseX;
-        _house.y = _dataBuild.innerHouseY;
-        _source.addChild(_house);
-        if (!g.isAway) {
-            _house.hoverCallback = onHoverHouse;
-            _house.endClickCallback = onClickHouse;
-            _house.outCallback = onOutHouse;
-        }
+//        _house = new CSprite();
+//        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageHouse));
+//        _house.addChild(im);
+//        _house.x = _dataBuild.innerHouseX;
+//        _house.y = _dataBuild.innerHouseY;
+//        _source.addChild(_house);
+//        if (!g.isAway) {
+//            _house.hoverCallback = onHoverHouse;
+//            _house.endClickCallback = onClickHouse;
+//            _house.outCallback = onOutHouse;
+//        }
         _source.releaseContDrag = true;
 
         _contAnimals = new Sprite();
@@ -67,32 +67,32 @@ public class Farm extends AreaObject{
         }
     }
 
-    private function onHoverHouse():void {
-        _house.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
-    }
+//    private function onHoverHouse():void {
+//        _house.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+//    }
 
-    private function onClickHouse():void {
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
-        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            g.townArea.deleteBuild(this);
-        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            releaseFlip();
-        } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-            // ничего не делаем
-        } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
-            // ничего не делаем вообще
-        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            if (!isFull) {
-                g.farmHint.showIt(_source.x, _source.y + _dataBuild.innerHouseY + 15, _dataAnimal, onHintClick);
-                _house.filter = null;
-            }
-        } else {
-            Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
-        }
-    }
+//    private function onClickHouse():void {
+//        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+//            g.townArea.moveBuild(this);
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+//            g.townArea.deleteBuild(this);
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+//            releaseFlip();
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+//            // ничего не делаем
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
+//            // ничего не делаем вообще
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
+//            g.toolsModifier.modifierType = ToolsModifier.NONE;
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+//            if (!isFull) {
+//                g.farmHint.showIt(_source.x, _source.y + _dataBuild.innerHouseY + 15, _dataAnimal, onHintClick);
+//                _house.filter = null;
+//            }
+//        } else {
+//            Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+//        }
+//    }
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
@@ -114,14 +114,14 @@ public class Farm extends AreaObject{
         }
     }
 
-    private function onOutHouse():void {
-        _house.filter = null;
-        var f:Function = function():void {
-            g.farmHint.hideIt();
-            g.gameDispatcher.removeFromTimer(f);
-        };
-        g.gameDispatcher.addToTimer(f);
-    }
+//    private function onOutHouse():void {
+//        _house.filter = null;
+//        var f:Function = function():void {
+//            g.farmHint.hideIt();
+//            g.gameDispatcher.removeFromTimer(f);
+//        };
+//        g.gameDispatcher.addToTimer(f);
+//    }
 
     private function setDataAnimal():void {
         try {
@@ -137,9 +137,9 @@ public class Farm extends AreaObject{
         }
     }
 
-    private function onHintClick():void {
-        if (!isFull) addAnimal();
-    }
+//    private function onHintClick():void {
+//        if (!isFull) addAnimal();
+//    }
 
     public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
         try {
@@ -200,14 +200,14 @@ public class Farm extends AreaObject{
 
     override public function clearIt():void {
         _source.touchable = false;
-        _house.touchable = false;
-        while (_house.numChildren) _house.removeChildAt(0);
+//        _house.touchable = false;
+//        while (_house.numChildren) _house.removeChildAt(0);
         while (_contAnimals.numChildren) _contAnimals.removeChildAt(0);
         g.gameDispatcher.removeEnterFrame(sortAnimals);
         for (var i:int=0; i<_arrAnimals.length; i++) {
             _arrAnimals[i].clearIt();
         }
-        _house = null;
+//        _house = null;
         _contAnimals = null;
         _dataAnimal = null;
         _arrAnimals.length = 0;

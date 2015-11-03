@@ -28,15 +28,15 @@ public class WOOrderItem {
     public function WOOrderItem() {
         source = new Sprite();
         _contItem = new CSprite();
-        _imageCoin = new Image(g.interfaceAtlas.getTexture("coin"));
+        _imageCoin = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
         MCScaler.scale(_imageCoin,25,25);
         _imageCoin.x = 70;
         _imageCoin.y = 60;
-        _imageXp = new Image(g.interfaceAtlas.getTexture("star"));
+        _imageXp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         MCScaler.scale(_imageXp,25,25);
         _imageXp.x = 50;
         _imageXp.y = 40;
-        _imageBg = new Image(g.interfaceAtlas.getTexture("tempItemBG"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("tempItemBG"));
         _txtCost = new TextField(50,50,"","Arial",14,Color.BLACK);
         _txtCount = new TextField(50,50,"","Arial",14,Color.BLACK);
         source.addChild(_imageBg);

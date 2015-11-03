@@ -177,7 +177,7 @@ public class AStar {
         for (var i:int = 0; i < ln; i++) {
             for (var j:int = 0; j < ln; j++) {
                 if (matrix[i][j].isWall) {
-                    im = new Image(g.interfaceAtlas.getTexture('help_icon'));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('help_icon'));
                     MCScaler.scale(im, 20, 20);
                     p.x = j;
                     p.y = i;
@@ -192,7 +192,7 @@ public class AStar {
 
     private function showWallPoint(_x:int, _y:int):void {
         var p:Point = new Point(_x, _y);
-        var im:Image = new Image(g.interfaceAtlas.getTexture('help_icon'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('help_icon'));
         MCScaler.scale(im, 20, 20);
         p = g.matrixGrid.getXYFromIndex(p);
         im.x = p.x - 10;
@@ -202,7 +202,7 @@ public class AStar {
 
     private function showVisitedPoint(_x:int, _y:int):void {
         var p:Point = new Point(_x, _y);
-        var im:Image = new Image(g.interfaceAtlas.getTexture('help_icon'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('help_icon'));
         MCScaler.scale(im, 20, 20);
         p = g.matrixGrid.getXYFromIndex(p);
         im.x = p.x - 10;

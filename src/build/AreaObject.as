@@ -77,20 +77,9 @@ public class AreaObject extends WorldObject {
             }
         }
 
-        if (_dataBuild.url == "buildAtlas") {
-            im = new Image(g.tempBuildAtlas.getTexture(_dataBuild.image));
-            im.x = _dataBuild.innerX;
-            im.y = _dataBuild.innerY;
-        } else if (_dataBuild.url == "treeAtlas") {
-            Cc.error('TREE in createBuild in AreaObject!');
-        } else if (_dataBuild.url == 'wildAtlas') {
-                im = new Image(g.wildAtlas.getTexture(_dataBuild.image));
-                im.x = _dataBuild.innerX;
-                im.y = _dataBuild.innerY;
-        } else {
-            im  = new Image(g.mapAtlas.getTexture(_dataBuild.image));
-            im.x = -im.width/2;
-        }
+        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
+        im.x = _dataBuild.innerX;
+        im.y = _dataBuild.innerY;
 
         if (!im) {
             Cc.error('AreaObject:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
@@ -139,10 +128,9 @@ public class AreaObject extends WorldObject {
 
     protected function addTempGiftIcon():void {
         if (_craftSprite) {
-//            var im:Image = new Image(g.interfaceAtlas.getTexture('temp_gift_icon'));
-//            im.x = -im.width/2;
-//            im.y = -10;
-            var im:Image = new Image(g.tempBuildAtlas.getTexture('done_building'));
+            var im:Image = new Image(g.allData.atlas['buildAtlas'].getTexture('done_building'));
+            im.x = -im.width/2;
+            im.y = -10;
             if (!im) {
                 Cc.error('AreaObject:: no image "done_building"');
                 g.woGameError.showIt();
@@ -157,10 +145,9 @@ public class AreaObject extends WorldObject {
 
     protected function addTempBuildIcon():void {
         if (_craftSprite) {
-//            var im:Image = new Image(g.interfaceAtlas.getTexture('work_icon'));
-//            im.x = -im.width/2;
-//            im.y = -10;
-            var im:Image = new Image(g.tempBuildAtlas.getTexture('foundation'));
+            var im:Image = new Image(g.allData.atlas['buildAtlas'].getTexture('foundation'));
+            im.x = -im.width/2;
+            im.y = -10;
             if (!im) {
                 Cc.error('AreaObject:: no image "foundation"');
             }

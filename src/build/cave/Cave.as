@@ -88,7 +88,7 @@ public class Cave extends AreaObject{
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
-                        var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
+                        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageActive));
                         if (!im) {
                             Cc.error('no active cave image:' + _dataBuild.imageActive);
                             g.woGameError.showIt();
@@ -216,7 +216,7 @@ public class Cave extends AreaObject{
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
-            var im:Image = new Image(g.tempBuildAtlas.getTexture(_dataBuild.imageActive));
+            var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageActive));
             im.x = _dataBuild.innerX;
             im.y = _dataBuild.innerY;
             _build.addChild(im);

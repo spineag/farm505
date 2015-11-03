@@ -48,8 +48,8 @@ public class TimerHint {
         _txtName = new TextField(100,50,"","Arial",18,Color.WHITE);
         _txtName.x = 40;
         _txtName.y = -30;
-        _textureHint = new Image(g.interfaceAtlas.getTexture("popup"));
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn4"));
+        _textureHint = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn4"));
         _contBtn.addChild(_imageBtn);
         _contBtn.addChild(_txtCost);
         MCScaler.scale(_imageBtn,60,60);

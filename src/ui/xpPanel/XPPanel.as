@@ -37,9 +37,9 @@ public class XPPanel {
         _source.outCallback = onOut;
         _txtLevel = new TextField(50,50,"","Arial",18,Color.WHITE);
         _txtXP = new TextField(100,100,"","Arial",18,Color.WHITE);
-        _XPProgres = new Image(g.interfaceAtlas.getTexture("xp_progres_part"));
-        _XPProgresEnd = new Image(g.interfaceAtlas.getTexture("xp_progres_part_end"));
-        _XPPanel = new Image(g.interfaceAtlas.getTexture("xp_progres"));
+        _XPProgres = new Image(g.allData.atlas['interfaceAtlas'].getTexture("xp_progres_part"));
+        _XPProgresEnd = new Image(g.allData.atlas['interfaceAtlas'].getTexture("xp_progres_part_end"));
+        _XPPanel = new Image(g.allData.atlas['interfaceAtlas'].getTexture("xp_progres"));
 
         _XPPanel.x = g.stageWidth - _XPPanel.width -10;
         _XPPanel.y = 5;

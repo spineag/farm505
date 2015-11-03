@@ -29,7 +29,7 @@ public class WOBuyPlantItem {
 
     public function WOBuyPlantItem() {
         source = new CSprite();
-        _bg = new Image(g.interfaceAtlas.getTexture('tempItemBG'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tempItemBG'));
         MCScaler.scale(_bg, 100, 100);
         source.addChild(_bg);
         source.pivotX = source.width/2;
@@ -62,7 +62,7 @@ public class WOBuyPlantItem {
             source.removeChild(_icon);
             _icon = null;
         }
-        _icon = new Image(g.plantAtlas.getTexture(s));
+        _icon = new Image(g.allData.atlas['plantAtlas'].getTexture(s));
         if (!_icon) {
             Cc.error('WOBuyPlantItem fillData:: no such image: ' + s);
             g.woGameError.showIt();

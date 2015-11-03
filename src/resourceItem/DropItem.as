@@ -38,31 +38,31 @@ public class DropItem {
 
         _source = new Sprite();
         if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
-            _image = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[prise.id].imageShop));
+            _image = new Image(g.allData.atlas[g.dataResource.objectResources[prise.id].url].getTexture(g.dataResource.objectResources[prise.id].imageShop));
              endPoint = g.craftPanel.pointXY();
              g.craftPanel.showIt(BuildType.PLACE_SKLAD);
         } else {
             endPoint = g.couponePanel.getPoint();
             switch (prise.id) {
                 case DataMoney.HARD_CURRENCY:
-                    _image = new Image(g.interfaceAtlas.getTexture('diamont'));
+                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('diamont'));
                     endPoint = g.softHardCurrency.getHardCurrencyPoint();
                     break;
                 case DataMoney.SOFT_CURRENCY:
-                    _image = new Image(g.interfaceAtlas.getTexture('coin'));
+                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coin'));
                     endPoint = g.softHardCurrency.getSoftCurrencyPoint();
                     break;
                 case DataMoney.BLUE_COUPONE:
-                    _image = new Image(g.interfaceAtlas.getTexture('blue_coupone'));
+                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
                     break;
                 case DataMoney.GREEN_COUPONE:
-                    _image = new Image(g.interfaceAtlas.getTexture('green_coupone'));
+                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone'));
                     break;
                 case DataMoney.RED_COUPONE:
-                    _image = new Image(g.interfaceAtlas.getTexture('red_coupone'));
+                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone'));
                     break;
                 case DataMoney.YELLOW_COUPONE:
-                    _image = new Image(g.interfaceAtlas.getTexture('yellow_coupone'));
+                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone'));
                     break;
             }
         }

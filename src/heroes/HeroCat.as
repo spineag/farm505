@@ -3,6 +3,8 @@
  */
 package heroes {
 
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
 import mouse.ToolsModifier;
@@ -15,6 +17,7 @@ import utils.CSprite;
 
 public class HeroCat extends BasicCat{
     private var _catImage:Image;
+    private var _catBackImage:Image;
     private var _isFree:Boolean;
     private var _isActive:Boolean;
 
@@ -26,13 +29,15 @@ public class HeroCat extends BasicCat{
         _source = new CSprite();
         switch (type) {
             case MAN:
-                _catImage = new Image(g.catAtlas.getTexture('cat_man'));
+                _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
+                _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man_back'));
                 break;
             case WOMAN:
-                _catImage = new Image(g.catAtlas.getTexture('cat_woman'));
+                _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman'));
+                _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman_back'));
                 break;
         }
-        if (!_catImage) {
+        if (!_catImage || !_catBackImage) {
             Cc.error('HeroCat no such image: for type: ' + type);
             g.woGameError.showIt();
             return;
@@ -40,8 +45,21 @@ public class HeroCat extends BasicCat{
         _catImage.x = -_catImage.width/2;
         _catImage.y = -_catImage.height + 2;
         _source.addChild(_catImage);
+        _catBackImage.x = -_catBackImage.width/2;
+        _catBackImage.y = -_catBackImage.height + 2;
+        _source.addChild(_catBackImage);
+        showFront(true);
 
         _source.endClickCallback = onClick;
+    }
+
+    override public function showFront(v:Boolean):void {
+        _catImage.visible = v;
+        _catBackImage.visible = !v;
+    }
+
+    override public function flipIt(v:Boolean):void {
+        v ? _source.scaleX = -1*_scaleDefault : _source.scaleX = 1*_scaleDefault;
     }
 
     private function onClick():void {
@@ -50,6 +68,7 @@ public class HeroCat extends BasicCat{
     }
 
     public function activateIt():void {
+        if (!_isFree) return;
         _isActive = !_isActive;
         if (_isActive) {
             if (g.activeCat) g.activeCat.activateIt();
@@ -68,6 +87,27 @@ public class HeroCat extends BasicCat{
     public function set isFree(value:Boolean):void {
         _isFree = value;
         g.catPanel.checkCat();
+    }
+
+    private var countWorkPlant:int;
+    public function workWithPlant(f:Function):void {
+        var s:Number = _source.scaleX;
+        countWorkPlant = 10;
+        var f1:Function = function():void {
+            new TweenMax(_catImage, .5, {scaleX:0.97*s, scaleY:1.03*s, ease:Linear.easeOut ,onComplete: f2});
+        };
+        var f2:Function = function():void {
+            countWorkPlant--;
+            if (countWorkPlant <= 0) {
+                _catImage.scaleX = _catImage.scaleY = s;
+                if (f != null) {
+                    f.apply(null, [this]);
+                }
+                return;
+            }
+            new TweenMax(_catImage, .5, {scaleX:1.03*s, scaleY:0.97*s, ease:Linear.easeIn ,onComplete: f1});
+        };
+        f2();
     }
 
 }

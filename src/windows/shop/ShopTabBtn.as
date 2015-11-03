@@ -18,7 +18,7 @@ public class ShopTabBtn {
 
     public function ShopTabBtn(st:String, f:Function) {
         source = new CSprite();
-        var im:Image = new Image(g.interfaceAtlas.getTexture('shop_tab'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_tab'));
         source.addChild(im);
         _txt = new TextField(source.width, source.height, st, "Arial", 20, Color.BLACK);
         source.addChild(_txt);

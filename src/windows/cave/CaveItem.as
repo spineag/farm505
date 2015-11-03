@@ -23,7 +23,7 @@ public class CaveItem {
 
     public function CaveItem() {
         source = new CSprite();
-        _bg = new Image(g.interfaceAtlas.getTexture('tempItemBG'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tempItemBG'));
         MCScaler.scale(_bg, 100, 100);
         source.addChild(_bg);
         source.pivotX = source.width/2;
@@ -49,7 +49,7 @@ public class CaveItem {
             source.removeChild(_icon);
             _icon = null;
         }
-        _icon = new Image(g.instrumentAtlas.getTexture(s));
+        _icon = new Image(g.allData.atlas['instrumentAtlas'].getTexture(s));
         if (!s) {
             Cc.error('CaveItem fillIcon:: no such image: ' + s);
             g.woGameError.showIt();

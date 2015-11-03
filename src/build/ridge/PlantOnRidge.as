@@ -73,7 +73,7 @@ public class PlantOnRidge {
             _source.removeChildAt(0);
         }
         try {
-            var im:Image = new Image(g.plantAtlas.getTexture(st));
+            var im:Image = new Image(g.allData.atlas['plantAtlas'].getTexture(st));
             im.x = _x;
             im.y = _y;
             _source.addChild(im);

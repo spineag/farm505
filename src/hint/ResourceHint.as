@@ -32,7 +32,7 @@ public class ResourceHint {
         var q:Quad = new Quad(150, 60, Color.OLIVE);
         q.pivotX = 0;
         q.pivotY = 0;
-        _imageClock = new Image(g.interfaceAtlas.getTexture("clock_icon"));
+        _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock_icon"));
         MCScaler.scale(_imageClock,30,30);
         _imageClock.y = 30;
         _txtName = new TextField(150,30,"","Arial",13,Color.BLACK);

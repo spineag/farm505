@@ -32,9 +32,9 @@ public class ToolsPanel {
     private var g:Vars = Vars.getInstance();
     public function ToolsPanel() {
         _source = new Sprite();
-        _imageBg = new Image(g.interfaceAtlas.getTexture("friends_plawka"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_plawka"));
         _imageBg.width = _imageBg.width/2;
-        _imageTab = new Image(g.interfaceAtlas.getTexture("friends_tab"));
+        _imageTab = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_tab"));
         _imageTab.x = 20;
         _imageTab.y = -20;
         _txt = new TextField(150,50,"Редактор карты","Arial",14,Color.BLACK);
@@ -82,7 +82,7 @@ public class ToolsPanel {
         var txt:TextField;
 
         _contRepository = new CSprite();
-        im = new Image(g.mapAtlas.getTexture('Storage'));
+        im = new Image(g.allData.atlas['mapAtlas'].getTexture('Storage'));
         txt = new TextField(100,50,"На хранение","Arial",12,Color.BLACK);
         txt.x = -10;
         txt.y = 50;
@@ -96,7 +96,7 @@ public class ToolsPanel {
         _contRepository.endClickCallback = function():void {onClick('repository')};
 
         _contMove = new CSprite();
-        im = new Image(g.mapAtlas.getTexture('Move'));
+        im = new Image(g.allData.atlas['mapAtlas'].getTexture('Move'));
         txt = new TextField(100,50,"Передвинуть","Arial",12,Color.BLACK);
         txt.x = -10;
         txt.y = 50;
@@ -110,7 +110,7 @@ public class ToolsPanel {
         _contMove.endClickCallback = function():void {onClick('move')};
 
         _contFlip = new CSprite();
-        im = new Image(g.mapAtlas.getTexture('Rotate'));
+        im = new Image(g.allData.atlas['mapAtlas'].getTexture('Rotate'));
         txt = new TextField(100,50,"Повернуть","Arial",12,Color.BLACK);
         txt.x = -10;
         txt.y = 50;
@@ -124,7 +124,7 @@ public class ToolsPanel {
         _contFlip.endClickCallback = function():void {onClick('flip')};
 
         _contCancel = new CSprite();
-        im = new Image(g.mapAtlas.getTexture('Cancel'));
+        im = new Image(g.allData.atlas['mapAtlas'].getTexture('Cancel'));
         txt = new TextField(100,50,"Отменить","Arial",12,Color.BLACK);
         txt.x = -10;
         txt.y = 50;

@@ -58,7 +58,7 @@ public class OptionPanel {
         var im:Image;
 
         _contFullScreen = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("option_fullscreen"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_fullscreen"));
         _contFullScreen.addChild(im);
         _source.addChild(_contFullScreen);
         _contFullScreen.hoverCallback = function ():void {
@@ -75,7 +75,7 @@ public class OptionPanel {
         };
 
         _contScalePlus = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("option_scale_plus"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_scale_plus"));
         _contScalePlus.addChild(im);
         _contScalePlus.y = 50;
         _source.addChild(_contScalePlus);
@@ -92,7 +92,7 @@ public class OptionPanel {
         };
 
         _contScaleMinus = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("option_scale_minus"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_scale_minus"));
         _contScaleMinus.addChild(im);
         _contScaleMinus.y = 100;
         _source.addChild(_contScaleMinus);
@@ -109,7 +109,7 @@ public class OptionPanel {
         };
 
         _contScreenShot = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("option_screenshot"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_screenshot"));
         _contScreenShot.addChild(im);
         _contScreenShot.y = 150;
         _source.addChild(_contScreenShot);
@@ -126,7 +126,7 @@ public class OptionPanel {
         };
 
         _contAnim = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("option_anim"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_anim"));
         _contAnim.addChild(im);
         _contAnim.y = 200;
         _source.addChild(_contAnim);
@@ -143,7 +143,7 @@ public class OptionPanel {
         };
 
         _contMusic = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("option_music"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_music"));
         _contMusic.addChild(im);
         _contMusic.y = 250;
         _source.addChild(_contMusic);
@@ -160,7 +160,7 @@ public class OptionPanel {
         };
 
         _contSound = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture("option_sound"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_sound"));
         _contSound.addChild(im);
         _contSound.y = 300;
         _source.addChild(_contSound);

@@ -4,6 +4,7 @@
 package heroes {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
@@ -28,6 +29,7 @@ public class BasicCat {
     protected var _curSpeed:int;
     protected var _currentPath:Array;
     protected var _callbackOnWalking:Function;
+    protected var _scaleDefault:Number = 1;
     protected var g:Vars = Vars.getInstance();
     public var isOnMap:Boolean = false;
 
@@ -58,15 +60,16 @@ public class BasicCat {
     }
 
     public function get depth():Number {
-        return _source.y;
+        updateDepth();
+        return _depth;
     }
 
-//    public function updateDepth():void {
-//        var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
-//        point3d.x += MatrixGrid.FACTOR/2;
-//        point3d.z += MatrixGrid.FACTOR/2;
-//        _depth = point3d.x + point3d.z;
-//    }
+    public function updateDepth():void {
+        var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
+        point3d.x += MatrixGrid.FACTOR/2;
+        point3d.z += MatrixGrid.FACTOR/2;
+        _depth = point3d.x + point3d.z;
+    }
 
     public function get posX():int {
         return _posX;
@@ -108,6 +111,9 @@ public class BasicCat {
         }
     }
 
+    public function showFront(v:Boolean):void {}
+    public function flipIt(v:Boolean):void {}
+
     protected function gotoPoint(p:Point):void {
         if (_curSpeed <= 0) return;
         var koef:Number = 1;
@@ -115,7 +121,6 @@ public class BasicCat {
         var f1:Function = function():void {
             _posX = p.x;
             _posY = p.y;
-//            updateDepth();
             g.townArea.zSort();
             if (_currentPath.length) {
                 gotoPoint(_currentPath.shift());
@@ -131,6 +136,44 @@ public class BasicCat {
             koef = 1.4;
         } else {
             koef = 1;
+        }
+        if (p.x == _posX + 1) {
+            if (p.y == _posY) {
+                showFront(true);
+                flipIt(true);
+            } else if (p.y == _posY - 1) {
+                showFront(true);
+                flipIt(true);
+            } else if (p.y == _posY + 1) {
+                showFront(true);
+                flipIt(false);
+            }
+        } else if (p.x == _posX) {
+            if (p.y == _posY) {
+                showFront(true);
+                flipIt(false);
+            } else if (p.y == _posY - 1) {
+                showFront(false);
+                flipIt(false);
+            } else if (p.y == _posY + 1) {
+                showFront(true);
+                flipIt(false);
+            }
+        } else if (p.x == _posX - 1) {
+            if (p.y == _posY) {
+                showFront(false);
+                flipIt(true);
+            } else if (p.y == _posY - 1) {
+                showFront(false);
+                flipIt(false);
+            } else if (p.y == _posY + 1) {
+                showFront(true);
+                flipIt(false);
+            }
+        } else {
+            showFront(true);
+            _source.scaleX = 1;
+            Cc.error('BasicCat gotoPoint:: wrong front-back logic');
         }
         new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1});
     }

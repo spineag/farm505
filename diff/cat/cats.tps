@@ -191,6 +191,8 @@
             <filename>cat_man.png</filename>
             <filename>cat_woman.png</filename>
             <filename>cat_farm.png</filename>
+            <filename>cat_woman_back.png</filename>
+            <filename>cat_man_back.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

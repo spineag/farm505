@@ -24,8 +24,8 @@ public class CatPanel {
         _source = new Sprite();
         _source.x = 5;
         _source.y = 200;
-        _imageBg = new Image(g.interfaceAtlas.getTexture("plawka7"));
-        _imageCat = new Image(g.interfaceAtlas.getTexture("neighbor"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("plawka7"));
+        _imageCat = new Image(g.allData.atlas['interfaceAtlas'].getTexture("neighbor"));
         MCScaler.scale(_imageCat,30,30);
         _txtCount = new TextField(50,50,'',"Arial",14,Color.BLACK);
         _txtCount.x = 15;

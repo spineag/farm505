@@ -22,14 +22,14 @@ public class WONoFreeCats extends Window{
     public function WONoFreeCats() {
         super();
         createTempBG(300, 300, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 150;
         _btnExit.y -= 150;
         _txtText = new TextField(300,100,"Нету сводобных котов","Arial",20,Color.BLACK);
         _txtText.x = -150;
         _txtText.y = -100;
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn3"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn3"));
         _contBtn = new CSprite();
         _contBtn.endClickCallback = onClick;
         _contBtn.addChild(_imageBtn);

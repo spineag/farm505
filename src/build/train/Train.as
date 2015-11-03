@@ -154,7 +154,7 @@ public class Train extends AreaObject{
     }
 
     private function createBrokenTrain():void {
-        var im:Image = new Image(g.tempBuildAtlas.getTexture('train_broken'));
+        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture('train_broken'));
         if (!im) {
             Cc.error('no image "train_broken"');
             g.woGameError.showIt();

@@ -45,7 +45,7 @@ public class ManagerCats {
             do {
                 i = int(Math.random() * _townMatrix.length);
                 j = int(Math.random() * _townMatrix[0].length);
-            } while (_townMatrix[i][j].isWall);
+            } while (_townMatrix[i][j].isFull);
             return new Point(i, j);
         } catch (e:Error) {
             Cc.error('ManagerCats getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
@@ -94,6 +94,8 @@ public class ManagerCats {
     public function goCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
         try {
             var f2:Function = function ():void {
+                cat.flipIt(false);
+                cat.showFront(true);
                 if (callback != null) {
                     callback.apply(null, callbackParams);
                 }

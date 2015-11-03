@@ -26,12 +26,12 @@ public class MarketCheckBox {
         _stateChecked = true;
         _txt = new TextField(250, 40, 'Добавить объявление в газету:', "Arial", 16, Color.BLACK);
         source.addChild(_txt);
-        var im:Image = new Image(g.interfaceAtlas.getTexture('plawka7'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         im.scaleY = .8;
         im.width = im.height;
         _bg = new CSprite();
         _bg.addChild(im);
-        _galo4ka = new Image(g.interfaceAtlas.getTexture('galo4ka'));
+        _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('galo4ka'));
         MCScaler.scale(_galo4ka, im.width + 3, im.width + 3);
         _galo4ka.x = 3;
         _galo4ka.y = -3;

@@ -47,12 +47,12 @@ public class TreeHint {
         _contDelete = new CSprite();
         _isShowed = false;
         _isOnHover = false;
-        _imageBg = new Image(g.interfaceAtlas.getTexture("popup"));
-        _imageHelp = new Image(g.interfaceAtlas.getTexture("help_icon"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup"));
+        _imageHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("help_icon"));
         _imageHelp.width = _imageHelp.height = 40;
         _imageHelp.x = 30;
         _imageHelp.y = 30;
-        _imageCircle = new Image(g.interfaceAtlas.getTexture("hint_circle"));
+        _imageCircle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_circle"));
         _imageCircle.x = 145;
         _imageCircle.y = 20;
 
@@ -106,7 +106,7 @@ public class TreeHint {
         _isShowed = true;
         _source.x = x;
         _source.y = y;
-        _imageItem = new Image(g.instrumentAtlas.getTexture(g.dataResource.objectResources[data.removeByResourceId].imageShop));
+        _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[data.removeByResourceId].imageShop));
         if (!_imageItem) {
             Cc.error('TreeHint showIt:: no such image: ' + g.dataResource.objectResources[data.removeByResourceId].imageShop);
             g.woGameError.showIt();

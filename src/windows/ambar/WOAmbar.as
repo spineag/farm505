@@ -37,11 +37,11 @@ public class WOAmbar extends Window {
         super();
         _woHeight = 500;
         _woWidth = 534;
-        _bg = new Image(g.interfaceAtlas.getTexture('wo_ambar'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wo_ambar'));
         _bg.pivotX = _bg.width/2;
         _bg.pivotY = _bg.height/2;
         _source.addChild(_bg);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.x -= 28;
         _btnExit.y += 40;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
@@ -51,7 +51,7 @@ public class WOAmbar extends Window {
         _scrollSprite.source.x = 40 - _woWidth/2;
         _scrollSprite.source.y = 79 - _woHeight/2;
         _source.addChild(_scrollSprite.source);
-        _scrollSprite.createScoll(440, 0, 300, g.interfaceAtlas.getTexture('scroll_line'), g.interfaceAtlas.getTexture('scroll_box'));
+        _scrollSprite.createScoll(440, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('scroll_line'), g.allData.atlas['interfaceAtlas'].getTexture('scroll_box'));
 
         _titleTxt = new TextField(150, 40, 'Амбар', "Arial", 30, Color.BLACK);
         _titleTxt.x = 189 - _woWidth/2;
@@ -63,13 +63,13 @@ public class WOAmbar extends Window {
         _progress.source.y = 220;
         _source.addChild(_progress.source);
 
-        _btnUpdate = new CButton(g.interfaceAtlas.getTexture('btn2'), 'Увеличить');
+        _btnUpdate = new CButton(g.allData.atlas['interfaceAtlas'].getTexture('btn2'), 'Увеличить');
         _btnUpdate.x = 50;
         _btnUpdate.y = 153;
         _source.addChild(_btnUpdate);
         _btnUpdate.addEventListener(Event.TRIGGERED, onBtnUpdate);
 
-        _btnBack = new CButton(g.interfaceAtlas.getTexture('btn2'), 'Вернуться');
+        _btnBack = new CButton(g.allData.atlas['interfaceAtlas'].getTexture('btn2'), 'Вернуться');
         _btnBack.x = 50;
         _btnBack.y = 153;
         _source.addChild(_btnBack);
@@ -99,7 +99,7 @@ public class WOAmbar extends Window {
 //        _updateSprite.outCallback = onOut;
 
         _btnMakeUpdate = new CSprite();
-        var m:Image = new Image(g.interfaceAtlas.getTexture('btn3'));
+        var m:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn3'));
         _btnMakeUpdate.addChild(m);
         _txtMakeUpdate = new TextField(m.width, m.height, '', "Arial", 18, Color.WHITE);
         _btnMakeUpdate.addChild(_txtMakeUpdate);

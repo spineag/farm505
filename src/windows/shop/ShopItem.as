@@ -46,7 +46,7 @@ public class ShopItem {
             return;
         }
         source = new CSprite();
-        _bg = new Image(g.interfaceAtlas.getTexture('shop_item'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
         source.addChild(_bg);
 
         _nameTxt = new TextField(150, 70, '', "Arial", 20, Color.BLACK);
@@ -71,13 +71,7 @@ public class ShopItem {
 
     private function setInfo():void {
         if (_data.image) {
-            if (_data.url == "buildAtlas") {
-                _im = new Image(g.tempBuildAtlas.getTexture(_data.image));
-            } else if (_data.url == "treeAtlas") {
-                _im = new Image(g.treeAtlas.getTexture(_data.image));
-            } else if (_data.url == 'catAtlas') {
-                _im = new Image(g.catAtlas.getTexture(_data.image));
-            }
+            _im = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
             if (!_im) {
                 Cc.error('ShopItem:: no such image: ' + _data.image);
                 g.woGameError.showIt();
@@ -126,14 +120,14 @@ public class ShopItem {
             if (_data.blockByLevel) {
                 arr = g.townArea.getCityObjectsById(_data.id);
                 if (_data.blockByLevel[0] > g.user.level) {
-                    im = new Image(g.interfaceAtlas.getTexture('shop_locked'));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_locked'));
                     st = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 } else {
                     if (_data.blockByLevel.length == 1) {
                         if (arr.length == 0) {
                             st = '0/1';
                         } else {
-                            im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                             st = '1/1';
                         }
                     } else {
@@ -143,7 +137,7 @@ public class ShopItem {
                             } else break;
                         }
                         if (maxCountAtCurrentLevel == arr.length) {
-                            im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                             st = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                         } else {
                             st = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
@@ -153,7 +147,7 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                im = new Image(g.interfaceAtlas.getTexture('shop_locked'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_locked'));
                 st = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
             } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
@@ -163,7 +157,7 @@ public class ShopItem {
                     } else break;
                 }
                 if (maxCountAtCurrentLevel == arr.length) {
-                    im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                     st = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                 } else {
                     st = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
@@ -177,7 +171,7 @@ public class ShopItem {
                     arr = g.townArea.getCityObjectsById(_data.id);
                 }
                 if (_data.blockByLevel[0] > g.user.level) {
-                    im = new Image(g.interfaceAtlas.getTexture('shop_locked'));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_locked'));
                     st = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 } else {
                     st = '';
@@ -194,7 +188,7 @@ public class ShopItem {
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
-                    im = new Image(g.interfaceAtlas.getTexture('shop_locked'));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_locked'));
                     st = 'Будет доступно на ' + String(dataFarm.blockByLevel[0]) + ' уровне';
                 } else {
                     arr = g.townArea.getCityObjectsById(dataFarm.id);
@@ -206,7 +200,7 @@ public class ShopItem {
                     if (maxCount == 0) {
                         st = 'Необходимо построить ' + String(dataFarm.name);
                     } else if (curCount == maxCount) {
-                        im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                         st = String(maxCount) + '/' + String(maxCount);
                     } else {
                         st = String(curCount) + '/' + String(maxCount);
@@ -215,7 +209,7 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.TREE) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                im = new Image(g.interfaceAtlas.getTexture('shop_locked'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_locked'));
                 st = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
             } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
@@ -227,7 +221,7 @@ public class ShopItem {
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount == maxCount) {
-                    im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                     st = String(maxCount) + '/' + String(maxCount);
                 } else {
                     st = String(curCount) + '/' + String(maxCount);
@@ -244,7 +238,7 @@ public class ShopItem {
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount == maxCount) {
-                    im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                     st = String(maxCount) + '/' + String(maxCount);
                 } else {
                     st = String(curCount) + '/' + String(maxCount);
@@ -254,7 +248,7 @@ public class ShopItem {
             curCount = g.managerCats.curCountCats;
             maxCount = g.managerCats.maxCountCats;
             if (curCount == maxCount) {
-                im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                 st = String(maxCount) + '/' + String(maxCount);
             } else {
                 st = String(curCount) + '/' + String(maxCount);
@@ -382,7 +376,7 @@ public class ShopItem {
             curCount = g.managerCats.curCountCats;
             maxCount = g.managerCats.maxCountCats;
             if (curCount == maxCount) {
-                im = new Image(g.interfaceAtlas.getTexture('shop_limit'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                 _lockedTxt.text = String(maxCount) + '/' + String(maxCount);
             } else {
                 _lockedTxt.text = String(curCount) + '/' + String(maxCount);

@@ -32,7 +32,7 @@ public class RepositoryBox {
         filter.adjustSaturation(-1);
         _arrItems = [];
         source = new Sprite();
-        var im:Image = new Image(g.interfaceAtlas.getTexture("friends_plawka"));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_plawka"));
         im.height = 100;
         im.width = 330;
         source.addChild(im);
@@ -45,14 +45,14 @@ public class RepositoryBox {
         _contRect.addChild(_cont);
 
         _leftBtn = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
         im.scaleX = im.scaleY = .5;
         im.x = im.width;
         im.y = im.height;
         im.rotation = Math.PI;
         _leftBtn.addChild(im);
         _rightBtn = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
         im.scaleX = im.scaleY = .5;
         _rightBtn.addChild(im);
 

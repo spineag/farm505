@@ -42,15 +42,15 @@ public class Hint {
         _isShow = false;
         _txtHintOne = new TextField(70,50,"","Arial",14,Color.BLACK);
 
-         _plankUp = new Image(g.interfaceAtlas.getTexture("hintSidePixels"));
-         _plankDown = new Image(g.interfaceAtlas.getTexture("hintSidePixels"));
-         _plankRight = new Image(g.interfaceAtlas.getTexture("hintSidePixels2"));
-         _plankLeft = new Image(g.interfaceAtlas.getTexture("hintSidePixels2"));
-         _cornerLeftUp = new Image(g.interfaceAtlas.getTexture("hintTopLeftPart"));
-         _cornerLeftDown = new Image(g.interfaceAtlas.getTexture("hintTopLeftPart"));
-         _cornerRightDown = new Image(g.interfaceAtlas.getTexture("hintTopLeftPart"));
-         _cornerRightUp = new Image(g.interfaceAtlas.getTexture("hintTopLeftPart"));
-         _hintMiddle = new Image(g.interfaceAtlas.getTexture("hintMiddle"));
+         _plankUp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hintSidePixels"));
+         _plankDown = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hintSidePixels"));
+         _plankRight = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hintSidePixels2"));
+         _plankLeft = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hintSidePixels2"));
+         _cornerLeftUp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hintTopLeftPart"));
+         _cornerLeftDown = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hintTopLeftPart"));
+         _cornerRightDown = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hintTopLeftPart"));
+         _cornerRightUp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hintTopLeftPart"));
+         _hintMiddle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hintMiddle"));
 
         _cornerRightUp.scaleX *= -1;
         _cornerRightDown.scaleY *= -1;

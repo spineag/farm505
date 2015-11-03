@@ -27,12 +27,12 @@ public class WOOrder extends Window{
         _contItem = new CSprite();
         _contBtn = new CSprite();
         createTempBG(500, 400, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 250;
         _btnExit.y -= 200;
         _txtBtn = new TextField(100,100,"Оформить заказ","Arial",14,Color.BLACK);
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn4"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn4"));
         _imageBtn.x = 150;
         _imageBtn.y = 130;
         _contBtn.endClickCallback = onClickBtn;

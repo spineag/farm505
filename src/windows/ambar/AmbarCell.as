@@ -51,13 +51,7 @@ public class AmbarCell {
             return;
         }
         if (_data) {
-            if (_data.url == 'resourceAtlas') {
-                _image = new Image(g.resourceAtlas.getTexture(_data.imageShop));
-            } else if (_data.url == 'plantAtlas') {
-                _image = new Image(g.plantAtlas.getTexture(_data.imageShop));
-            } else if (_data.url == 'instrumentAtlas') {
-                _image = new Image(g.instrumentAtlas.getTexture(_data.imageShop));
-            }
+            _image = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
             if (!_image) {
                 Cc.error('AmbarCell:: no such image: ' + _data.imageShop);
                 g.woGameError.showIt();

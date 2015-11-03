@@ -29,16 +29,7 @@ public class WODailyBonusItem {
         }
         source = new Sprite();
         _txtItem = new TextField(50,50,"","Arial",12,Color.WHITE);
-        if (obj.buildType == BuildType.INSTRUMENT) {
-            _imageItem = new Image(g.instrumentAtlas.getTexture(obj.imageShop));
-
-        } else if (obj.buildType == BuildType.PLANT || obj.buildType == BuildType.RESOURCE) {
-            if (obj.url == "plantAtlas") {
-                _imageItem = new Image(g.plantAtlas.getTexture(obj.imageShop));
-            } else {
-                _imageItem = new Image(g.resourceAtlas.getTexture(obj.imageShop));
-            }
-        }
+        _imageItem = new Image(g.allData.atlas[obj.url].getTexture(obj.imageShop));
         if (!_imageItem) {
             Cc.error('WODailyBonusItem:: no such image: ' + obj.imageShop);
             g.woGameError.showIt();

@@ -19,8 +19,8 @@ public class AmbarProgress {
     public function AmbarProgress() {
         source = new Sprite();
         source.touchable = false;
-        _bg = new Image(g.interfaceAtlas.getTexture('ambar_plawka'));
-        _arrow = new Image(g.interfaceAtlas.getTexture('ambar_plawka_arrow'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ambar_plawka'));
+        _arrow = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ambar_plawka_arrow'));
         source.addChild(_bg);
         source.addChild(_arrow);
         source.pivotX = source.width/2;

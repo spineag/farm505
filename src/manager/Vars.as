@@ -127,16 +127,6 @@ public class Vars {
     public var load:LoaderManager;
     public var pBitmaps:Object;
 
-    public var mapAtlas:TextureAtlas;
-    public var tempBuildAtlas:TextureAtlas;
-    public var plantAtlas:TextureAtlas;
-    public var interfaceAtlas:TextureAtlas;
-    public var instrumentAtlas:TextureAtlas;
-    public var resourceAtlas:TextureAtlas;
-    public var treeAtlas:TextureAtlas;
-    public var catAtlas:TextureAtlas;
-    public var wildAtlas:TextureAtlas;
-
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -159,7 +149,7 @@ public class Vars {
     public var timerHint:TimerHint;
     public var wildHint:WildHint;
     public var hint:Hint;
-    public var farmHint:FarmHint;
+//    public var farmHint:FarmHint;
     public var mouseHint:MouseHint;
     public var fabricHint:FabricHint;
     public var treeHint:TreeHint;
@@ -238,7 +228,6 @@ public class Vars {
         pBitmaps = {};
         load = LoaderManager.getInstance();
 
-        allData = new AllData();
         dataBuilding = new DataBuildings();
         dataRecipe = new DataRecipe();
         dataResource = new DataResources();
@@ -388,7 +377,7 @@ public class Vars {
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();
-        farmHint = new FarmHint();
+//        farmHint = new FarmHint();
         mouseHint = new MouseHint();
         fabricHint = new FabricHint();
         treeHint = new TreeHint();
@@ -496,7 +485,7 @@ public class Vars {
     public function hideAllHints():void {
         if (timerHint) timerHint.hideIt();
         if (wildHint) wildHint.hideIt();
-        if (farmHint) farmHint.hideIt();
+//        if (farmHint) farmHint.hideIt();
         if (mouseHint) mouseHint.hideHintMouse();
         if (fabricHint) fabricHint.clearIt();
         if (treeHint) treeHint.hideIt();

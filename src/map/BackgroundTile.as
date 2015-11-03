@@ -23,10 +23,10 @@ public class BackgroundTile {
 
         switch (_type) {
             case 1:
-               _graphicsSource = new Image(g.mapAtlas.getTexture("tile1"));
+                _graphicsSource = new Image(g.allData.atlas['mapAtlas'].getTexture('tile1'));
                 break;
             case 2:
-               _graphicsSource = new Image(g.mapAtlas.getTexture("tile2"));
+                _graphicsSource = new Image(g.allData.atlas['mapAtlas'].getTexture('tile2'));
                 break;
         }
 

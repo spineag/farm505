@@ -44,11 +44,7 @@ public class CraftItem {
             g.woGameError.showIt();
             return;
         }
-        if (_resourceItem.url == 'resourceAtlas') {
-            _image = new Image(g.resourceAtlas.getTexture(_resourceItem.imageShop));
-        } else if (_resourceItem.url == 'plantAtlas') {
-            _image = new Image(g.plantAtlas.getTexture(_resourceItem.imageShop));
-        }
+        _image = new Image(g.allData.atlas[_resourceItem.url].getTexture(_resourceItem.imageShop));
         if (!_image) {
             Cc.error('CraftItem:: no such image: ' + _resourceItem.imageShop);
             g.woGameError.showIt();

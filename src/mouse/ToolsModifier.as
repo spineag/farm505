@@ -121,19 +121,19 @@ public class ToolsModifier {
                  _mouseIcon.scaleX = _mouseIcon.scaleY = 1;
                  return;
              case ToolsModifier.MOVE:
-                 im = new Image(g.mapAtlas.getTexture("Move"));
+                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Move'));
                  if (im) _mouseIcon.addChild(im);
                  break;
              case ToolsModifier.FLIP:
-                 im = new Image(g.mapAtlas.getTexture("Rotate"));
+                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Rotate'));
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.DELETE:
-                 im = new Image(g.mapAtlas.getTexture("Cancel"));
+                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Cancel'));
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.INVENTORY:
-                 im = new Image(g.mapAtlas.getTexture("Storage"));
+                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Storage'));;
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.GRID_DEACTIVATED:
@@ -147,7 +147,7 @@ public class ToolsModifier {
                 break;
             case ToolsModifier.PLANT_SEED:
                 if (_plantId <= 0) return;
-                im = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_plantId].imageShop));
+                im = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_plantId].imageShop));
                 if (im) _mouseIcon.addChild(im);
                 updateCountTxt();
                 if (!_mouseCont.contains(_txtCount)) _mouseCont.addChild(_txtCount);
@@ -206,7 +206,7 @@ public class ToolsModifier {
                 case Tree.GROW1:
                 case Tree.GROW_FLOWER1:
                 case Tree.GROWED1:
-                    imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageGrowSmall));
+                    imForMove = new Image(g.allData.atlas['treeAtlas'].getTexture(_activeBuildingData.imageGrowSmall));
                     if (imForMove) {
                         imForMove.x = _activeBuildingData.innerPositionsGrow1[0];
                         imForMove.y = _activeBuildingData.innerPositionsGrow1[1];
@@ -215,7 +215,7 @@ public class ToolsModifier {
                 case Tree.GROW2:
                 case Tree.GROW_FLOWER2:
                 case Tree.GROWED2:
-                    imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageGrowMiddle));
+                    imForMove = new Image(g.allData.atlas['treeAtlas'].getTexture(_activeBuildingData.imageGrowMiddle));
                     if (imForMove) {
                         imForMove.x = _activeBuildingData.innerPositionsGrow2[0];
                         imForMove.y = _activeBuildingData.innerPositionsGrow2[1];
@@ -227,7 +227,7 @@ public class ToolsModifier {
                 case Tree.GROW_FIXED:
                 case Tree.GROWED_FIXED:
                 case Tree.GROW_FIXED_FLOWER:
-                    imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageGrowBig));
+                    imForMove = new Image(g.allData.atlas['treeAtlas'].getTexture(_activeBuildingData.imageGrowBig));
                     if (imForMove) {
                         imForMove.x = _activeBuildingData.innerPositionsGrow3[0];
                         imForMove.y = _activeBuildingData.innerPositionsGrow3[1];
@@ -237,7 +237,7 @@ public class ToolsModifier {
                 case Tree.ASK_FIX:
                 case Tree.FIXED:
                 case Tree.FULL_DEAD:
-                    imForMove = new Image(g.treeAtlas.getTexture(_activeBuildingData.imageDead));
+                    imForMove = new Image(g.allData.atlas['treeAtlas'].getTexture(_activeBuildingData.imageDead));
                     if (imForMove) {
                         imForMove.x = _activeBuildingData.innerPositionsDead[0];
                         imForMove.y = _activeBuildingData.innerPositionsDead[1];
@@ -252,7 +252,7 @@ public class ToolsModifier {
                 return;
             }
         } else if (_activeBuildingData.buildType == BuildType.RIDGE) {
-            imForMove = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
+            imForMove = new Image(g.allData.atlas['buildAtlas'].getTexture(_activeBuildingData.image));
             if (imForMove) {
                 imForMove.x = _activeBuildingData.innerX;
                 imForMove.y = _activeBuildingData.innerY;
@@ -265,28 +265,28 @@ public class ToolsModifier {
             if (ridgeState == Ridge.GROW1 || ridgeState == Ridge.GROW2 || ridgeState == Ridge.GROW3 || ridgeState == Ridge.GROWED ) {
                 switch (ridgeState) {
                     case Ridge.GROW1:
-                        imForMove = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_ridgeId].image1));
+                        imForMove = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_ridgeId].image1));
                         if (imForMove) {
                             imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[0];
                             imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[1];
                         }
                         break;
                     case Ridge.GROW2:
-                        imForMove = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_ridgeId].image2));
+                        imForMove = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_ridgeId].image2));
                         if (imForMove) {
                             imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[2];
                             imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[3];
                         }
                         break;
                     case Ridge.GROW3:
-                        imForMove = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_ridgeId].image3));
+                        imForMove = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_ridgeId].image3));
                         if (imForMove) {
                             imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[4];
                             imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[5];
                         }
                         break;
                     case Ridge.GROWED:
-                        imForMove = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[_ridgeId].image4));
+                        imForMove = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_ridgeId].image4));
                         if (imForMove) {
                             imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[6];
                             imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[7];
@@ -302,7 +302,7 @@ public class ToolsModifier {
                 }
             }
         } else if (_activeBuildingData.url == "buildAtlas") {
-            imForMove = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
+            imForMove = new Image(g.allData.atlas['buildAtlas'].getTexture(_activeBuildingData.image));
             if (imForMove) {
                 imForMove.x = _activeBuildingData.innerX;
                 imForMove.y = _activeBuildingData.innerY;
@@ -313,13 +313,13 @@ public class ToolsModifier {
                 return;
             }
             if (!isFromShop && g.selectedBuild && g.selectedBuild.stateBuild == WorldObject.STATE_BUILD) {
-                imForMove = new Image(g.tempBuildAtlas.getTexture("foundation"));
+                imForMove = new Image(g.allData.atlas['buildAtlas'].getTexture("foundation"));
                 imForMove.x = -262;
                 imForMove.y = -274;
                 _spriteForMove.addChild(imForMove);
             }
         } else if (_activeBuildingData.url == 'wildAtlas') {
-            imForMove = new Image(g.wildAtlas.getTexture(_activeBuildingData.image));
+            imForMove = new Image(g.allData.atlas['wildAtlas'].getTexture(_activeBuildingData.image));
             if (imForMove) {
                 imForMove.x = _activeBuildingData.innerX;
                 imForMove.y = _activeBuildingData.innerY;
@@ -329,8 +329,8 @@ public class ToolsModifier {
                 g.woGameError.showIt();
                 return;
             }
-        } else {
-            imForMove  = new Image(g.mapAtlas.getTexture(_activeBuildingData.image));
+        } else if (_activeBuildingData.url == 'mapAtlas') {
+            imForMove  = new Image(g.allData.atlas['mapAtlas'].getTexture(_activeBuildingData.image));
             if (imForMove) {
                 imForMove.x = -imForMove.width/2;
                 _spriteForMove.addChild(imForMove);
@@ -339,6 +339,10 @@ public class ToolsModifier {
                 g.woGameError.showIt();
                 return;
             }
+        } else {
+            Cc.error('ToolsModifier startMove:: no such image _activeBuildingData.image: ' + _activeBuildingData.image + ' for url: ' + _activeBuildingData.url);
+            g.woGameError.showIt();
+            return;
         }
 
         if (_activeBuildingData.isFlip) imForMove.scaleX *= -1;
@@ -372,7 +376,7 @@ public class ToolsModifier {
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
         _activeBuildingData = buildingData;
-        imForMove = new Image(g.tempBuildAtlas.getTexture(_activeBuildingData.image));
+        imForMove = new Image(g.allData.atlas['buildAtlas'].getTexture(_activeBuildingData.image));
         if (imForMove) {
             imForMove.x = _activeBuildingData.innerX;
             imForMove.y = _activeBuildingData.innerY;

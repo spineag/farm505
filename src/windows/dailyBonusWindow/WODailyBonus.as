@@ -32,7 +32,7 @@ public class WODailyBonus extends Window{
         super();
 
         createTempBG(300,300 , Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.x += 150;
         _btnExit.y -= 150;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
@@ -42,7 +42,7 @@ public class WODailyBonus extends Window{
         _source.addChild(_contBtn);
         _source.addChild(_contImage);
         _contBtn.endClickCallback = onClick;
-        _imageHard = new Image(g.interfaceAtlas.getTexture("diamont"));
+        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
         MCScaler.scale(_imageHard,25,25);
         _imageHard.x = 30;
         _imageHard.y = 75;
@@ -82,7 +82,7 @@ public class WODailyBonus extends Window{
     }
 
     public function showItMenu():void {
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn4"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn4"));
         _imageBtn.x = -30;
         _imageBtn.y = 60;
         _txtBtn = new TextField(50,50,"Забрать","Arial",12,Color.WHITE);

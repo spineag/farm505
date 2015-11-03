@@ -29,11 +29,11 @@ public class WOMarketChoose extends Window {
         super();
         _woHeight = 500;
         _woWidth = 534;
-        _bg = new Image(g.interfaceAtlas.getTexture('wo_ambar'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wo_ambar'));
         _bg.pivotX = _bg.width/2;
         _bg.pivotY = _bg.height/2;
         _source.addChild(_bg);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.x -= 28;
         _btnExit.y += 40;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
@@ -47,7 +47,7 @@ public class WOMarketChoose extends Window {
         _scrollSprite.source.x = 40 - _woWidth/2;
         _scrollSprite.source.y = 79 - _woHeight/2;
         _source.addChild(_scrollSprite.source);
-        _scrollSprite.createScoll(440, 0, 300, g.interfaceAtlas.getTexture('scroll_line'), g.interfaceAtlas.getTexture('scroll_box'));
+        _scrollSprite.createScoll(440, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('scroll_line'), g.allData.atlas['interfaceAtlas'].getTexture('scroll_box'));
 
         _countResourceBlock = new CountBlock();
         _countResourceBlock.setWidth = 50;
@@ -69,7 +69,7 @@ public class WOMarketChoose extends Window {
         t.y = 145;
         _source.addChild(t);
 
-        _btnSell = new CButton(g.interfaceAtlas.getTexture('btn100500'), '', g.interfaceAtlas.getTexture('btn100500'));
+        _btnSell = new CButton(g.allData.atlas['interfaceAtlas'].getTexture('btn100500'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn100500'));
         _btnSell.x = 170;
         _btnSell.y = 140;
         _source.addChild(_btnSell);

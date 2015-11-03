@@ -54,41 +54,43 @@ public class EmbedAssets {
     }
 
     private function createTexture():void {
+        g.allData = new AllData();
+
         var texture:Texture = Texture.fromBitmap(new MapTexture());
         var xml:XML = XML(new MapTextureXML());
-        g.mapAtlas = new TextureAtlas(texture, xml);
+        g.allData.atlas['mapAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new ResourceTexture());
         xml= XML(new ResourceTextureXML());
-        g.resourceAtlas = new TextureAtlas(texture, xml);
+        g.allData.atlas['resourceAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new BuildTexture());
         xml= XML(new BuildTextureXML());
-        g.tempBuildAtlas = new TextureAtlas(texture, xml);
+        g.allData.atlas['buildAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new PlantTexture());
         xml= XML(new PlantTextureXML());
-        g.plantAtlas = new TextureAtlas(texture, xml);
+        g.allData.atlas['plantAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new InterfaceTexture());
         xml= XML(new InterfaceTextureXML());
-        g.interfaceAtlas = new TextureAtlas(texture, xml);
+        g.allData.atlas['interfaceAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new InstrumentTexture());
         xml= XML(new InstrumentTextureXML());
-        g.instrumentAtlas = new TextureAtlas(texture, xml);
+        g.allData.atlas['instrumentAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new TreeTexture());
         xml= XML(new TreeTextureXML());
-        g.treeAtlas = new TextureAtlas(texture, xml);
+        g.allData.atlas['treeAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new CatTexture());
         xml= XML(new CatTextureXML());
-        g.catAtlas = new TextureAtlas(texture, xml);
+        g.allData.atlas['catAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new WildTexture());
         xml= XML(new WildTextureXML());
-        g.wildAtlas = new TextureAtlas(texture, xml);
+        g.allData.atlas['wildAtlas'] = new TextureAtlas(texture, xml);
     }
 }
 }

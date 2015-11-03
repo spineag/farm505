@@ -26,13 +26,13 @@ public class WOAmbarFilled extends Window{
     public function WOAmbarFilled() {
         super ();
         createTempBG(400, 300, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x += 200;
         _btnExit.y -= 150;
         _contBtn = new CSprite();
         _contBtn.endClickCallback = onClick;
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn2"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
         _txtBtn = new TextField(150,50,"","Arial",12,Color.BLACK);
         _txtBtn.y = -10;
         _txtBtn.x = -10;
@@ -41,10 +41,10 @@ public class WOAmbarFilled extends Window{
         _contBtn.x = -50;
         _contBtn.y = 100;
         _source.addChild(_contBtn);
-        _imageAmbar = new Image(g.interfaceAtlas.getTexture("ambar_plawka"));
+        _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("ambar_plawka"));
         _imageAmbar.x = -198;
         _imageAmbar.y = -100;
-        _imageAmbarArrow = new Image(g.interfaceAtlas.getTexture("ambar_plawka_arrow"));
+        _imageAmbarArrow = new Image(g.allData.atlas['interfaceAtlas'].getTexture("ambar_plawka_arrow"));
         _txtAmbarFilled = new TextField(100,50,"","Arial",14,Color.BLACK);
         _txtAmbarFilled.x = -50;
         _txtAmbarFilled.y = -150;

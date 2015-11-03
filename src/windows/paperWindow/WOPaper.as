@@ -21,14 +21,14 @@ public class WOPaper extends Window{
 
     public function WOPaper() {
         createTempBG(570, 470, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         _btnExit.x = 285;
         _btnExit.y = -235;
         _contImage = new Sprite();
         _source.addChild(_contImage);
         _btnRefresh = new CSprite();
-        var ref:Image = new Image(g.interfaceAtlas.getTexture('refresh_icon'));
+        var ref:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
         _btnRefresh.addChild(ref);
         _btnRefresh.x = -285;
         _btnRefresh.y = 210;

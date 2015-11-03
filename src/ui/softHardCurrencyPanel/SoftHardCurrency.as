@@ -45,9 +45,9 @@ public class SoftHardCurrency {
             g.hint.hideIt();
         };
         g.cont.interfaceCont.addChild(_source);
-        _imageSoft = new Image(g.interfaceAtlas.getTexture("soft_board"));
+        _imageSoft = new Image(g.allData.atlas['interfaceAtlas'].getTexture("soft_board"));
         _imageSoft.x = 5;
-        _imageHard = new Image(g.interfaceAtlas.getTexture("hard_board"));
+        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hard_board"));
         _imageHard.x = 5;
         _imageHard.y = 60;
         _txtSoft = new TextField(100,100,"","Arial",18,Color.WHITE);

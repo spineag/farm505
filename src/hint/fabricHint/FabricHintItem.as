@@ -33,13 +33,9 @@ public class FabricHintItem {
             return;
         }
         if (g.dataResource.objectResources[obId].buildType == BuildType.PLANT || g.dataResource.objectResources[obId].buildType == BuildType.RESOURCE) {
-            if (g.dataResource.objectResources[obId].url == "plantAtlas") {
-                _image = new Image(g.plantAtlas.getTexture(g.dataResource.objectResources[obId].imageShop));
-            } else {
-                _image = new Image(g.resourceAtlas.getTexture(g.dataResource.objectResources[obId].imageShop));
-            }
+            _image = new Image(g.allData.atlas[g.dataResource.objectResources[obId].url].getTexture(g.dataResource.objectResources[obId].imageShop));
         }
-        _imageBg = new Image(g.interfaceAtlas.getTexture("tempItemBG"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("tempItemBG"));
         _imageBg.width = _imageBg.height = 40;
         _imageBg.x = 50 - _imageBg.width/2;
         _imageBg.y = 50 - _imageBg.height/2;

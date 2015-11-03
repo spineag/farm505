@@ -52,7 +52,7 @@ public class Animal {
         _isOnHover = false;
 
         try {
-            _image = new Image(g.tempBuildAtlas.getTexture(_data.image));
+            _image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
             _image.pivotX = _image.width / 2;
             _image.pivotY = _image.height;
             source.addChild(_image);
@@ -133,12 +133,7 @@ public class Animal {
                 g.managerAnimal.addCatToFarm(_farm);
                 var p:Point = new Point(source.x, source.y);
                 p = source.parent.localToGlobal(p);
-                if (g.dataResource.objectResources[_data.idResourceRaw].url == "plantAtlas") {
-                    rawItem = new RawItem(p, g.plantAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
-                }
-                else {
-                    rawItem = new RawItem(p, g.resourceAtlas.getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
-                }
+                rawItem = new RawItem(p, g.allData.atlas[g.dataResource.objectResources[_data.idResourceRaw].url].getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
                 if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
                 addRenderAnimation();
             } else {

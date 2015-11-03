@@ -40,7 +40,7 @@ public class ShopList {
         var im:Image;
 
         _leftArrow = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
         im.scaleX = -1;
         im.x = im.width;
         _leftArrow.addChild(im);
@@ -50,7 +50,7 @@ public class ShopList {
         _leftArrow.endClickCallback = onLeftClick;
 
         _rightArrow = new CSprite();
-        im = new Image(g.interfaceAtlas.getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
         _rightArrow.addChild(im);
         _rightArrow.x = 360;
         _rightArrow.y = 39;

@@ -44,7 +44,7 @@ public class WONoResources extends Window {
         _contImage = new Sprite();
         _arrCells = [];
         createTempBG(400, 300, Color.GRAY);
-        createExitButton(g.interfaceAtlas.getTexture('btn_exit'), '', g.interfaceAtlas.getTexture('btn_exit_click'), g.interfaceAtlas.getTexture('btn_exit_hover'));
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.x += 200;
         _btnExit.y -= 150;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
@@ -52,8 +52,8 @@ public class WONoResources extends Window {
         _txtBuyBtn = new TextField(100, 100, "докупить ресурсы", "Arial", 14, Color.WHITE);
         _txtNoResource = new TextField(300, 100, "НЕДОСТАТОЧНО РЕСУРСОВ", "Arial", 18, Color.WHITE);
         _txtPanel = new TextField(350, 200, "Не хватает ингредиентов. Вы можете купить их за изумруды и начать производство немедленно.", "Arial", 18, Color.WHITE);
-        _imageBtn = new Image(g.interfaceAtlas.getTexture("btn1"));
-        _imageHard = new Image(g.interfaceAtlas.getTexture("diamont"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn1"));
+        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
         _txtCount = new TextField(50, 50, "", "Arial", 12, Color.WHITE);
         MCScaler.scale(_imageHard, 20, 20);
         _contBtn.addChild(_imageBtn);
@@ -122,7 +122,7 @@ public class WONoResources extends Window {
             return;
         }
         if (!currency) {
-            _imageItem = new Image(g.interfaceAtlas.getTexture("coin"));
+            _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
             _txtCount.text = String(_count);
             _contImage.addChild(_imageItem);
             _contImage.addChild(_txtCount);
@@ -130,12 +130,12 @@ public class WONoResources extends Window {
         }
 
         if (currency == DataMoney.HARD_CURRENCY) {
-            _imageItem = new Image(g.interfaceAtlas.getTexture("diamont"));
+            _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
             _txtCount.text = String(_count);
             _contImage.addChild(_imageItem);
             _contImage.addChild(_txtCount);
         } else if (currency == DataMoney.SOFT_CURRENCY) {
-            _imageItem = new Image(g.interfaceAtlas.getTexture("coin"));
+            _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
             _txtCount.text = String(_count);
             _contImage.addChild(_imageItem);
             _contImage.addChild(_txtCount);
@@ -187,7 +187,7 @@ public class WONoResources extends Window {
     }
 
     private function createListTrain(id:int, count:int):void {
-        _imageItem = new Image(g.interfaceAtlas.getTexture("coin"));
+        _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
         _txtCount.text = String(count);
         _contImage.addChild(_imageItem);
         _txtHardCost.text = "2";
@@ -255,7 +255,6 @@ public class WONoResources extends Window {
     }
 
     private function clearIt():void {
-        _count = null;
         _dataResource = null;
         while (_contImage.numChildren) {
             _contImage.removeChildAt(0);
