@@ -453,7 +453,7 @@ public class Tree extends AreaObject{
                 if (_state == GROW1 || _state == GROW2 || _state == GROW3) {
                     time += int(_resourceItem.buildTime/2 + .5);
                 }
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name);
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
             }
             if (_isOnHover == false) {
                 _source.filter = null;
@@ -484,6 +484,19 @@ public class Tree extends AreaObject{
         _arrCrafted.length = 0;
         _source.touchable = false;
         super.clearIt();
+    }
+
+    private function callbackSkip():void {
+        if (_state == GROW1 ||_state == GROW_FLOWER1){
+            _state = GROWED1;
+            setBuildImage();
+        } else if (_state == GROW2 || _state == GROW_FLOWER2) {
+            _state = GROWED2;
+            setBuildImage();
+        } else if (_state == GROW3 || _state == GROW_FLOWER3) {
+            _state = GROWED3;
+            setBuildImage();
+        }
     }
 }
 }
