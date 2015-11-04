@@ -147,6 +147,8 @@ public class DirectServer {
                 obj.url = d.message[i].url;
                 obj.image = d.message[i].image;
                 obj.cost = int(d.message[i].cost);
+                obj.cost2 = int(d.message[i].cost2);
+                obj.cost3 = int(d.message[i].cost3);
                 obj.timeCraft = int(d.message[i].time_craft);
                 obj.idResource = int(d.message[i].craft_resource_id);
                 obj.idResourceRaw = int(d.message[i].raw_resource_id);

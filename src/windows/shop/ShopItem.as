@@ -202,8 +202,18 @@ public class ShopItem {
                     } else if (curCount == maxCount) {
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                         st = String(maxCount) + '/' + String(maxCount);
+                        _countCost = 0;
+                        _countTxt.text = '';
                     } else {
                         st = String(curCount) + '/' + String(maxCount);
+                        if (curCount < dataFarm.maxAnimalsCount) {
+                            _countCost = _data.cost;
+                        } else if (curCount < 2*dataFarm.maxAnimalsCount) {
+                            _countCost = _data.cost2;
+                        } else {
+                            _countCost = _data.cost3;
+                        }
+                        _countTxt.text = String(_countCost);
                     }
                 }
             }
