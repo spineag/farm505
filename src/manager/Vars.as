@@ -400,6 +400,9 @@ public class Vars {
 
     private function afterCreateMapBackground():void {
 
+        if (currentGameScale != 1) {
+            optionPanel.makeScaling(currentGameScale, false, true);
+        }
         cont.moveCenterToXY(0, realGameTilesHeight/2, true);
 
         woCave = new WOCave();

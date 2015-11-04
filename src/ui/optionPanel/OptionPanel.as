@@ -44,8 +44,7 @@ public class OptionPanel {
     private var g:Vars = Vars.getInstance();
 
     public function OptionPanel() {
-        _arrCells = [];
-        _arrCells = [.25, .5, .75, 1, 1.25, 1.5, 1.75];
+        _arrCells = [.3, .5, 1, 1.25, 1.5];
         fillBtns();
     }
 
@@ -300,7 +299,7 @@ public class OptionPanel {
     }
 
     private var isAnimScaling:Boolean = false;
-    private function makeScaling(s:Number):void {
+    public function makeScaling(s:Number, sendToServer:Boolean = true, needQuick:Boolean = false):void {
         var p:Point;
         var pNew:Point;
         var oldScale:Number;
@@ -313,8 +312,6 @@ public class OptionPanel {
         cont.scaleX = cont.scaleY = s;
         p = cont.localToGlobal(p);
         pNew = new Point();
-//        cont.x -= p.x - g.stageWidth/2;
-//        cont.y -= p.y - g.stageHeight/2;
         pNew.x = cont.x - p.x + g.stageWidth/2;
         pNew.y = cont.y - p.y + g.stageHeight/2;
         var oY:Number = g.matrixGrid.offsetY*s;
@@ -326,12 +323,20 @@ public class OptionPanel {
         if (pNew.x < -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s)
             pNew.x =  -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s;
         cont.scaleX = cont.scaleY = oldScale;
-        isAnimScaling = true;
-//        var f1:Function = function():void {
-//            isAnimScaling = false;
-//        };
-        new TweenMax(cont, .5, {x:pNew.x, y:pNew.y, scaleX:s, scaleY:s, ease:Linear.easeOut, onComplete: function():void {isAnimScaling = false;}});
         g.currentGameScale = s;
+        if (needQuick) {
+            TweenMax.killTweensOf(cont);
+            cont.scaleX = cont.scaleY = s;
+            cont.x = pNew.x;
+            cont.y = pNew.y;
+            isAnimScaling = false;
+        } else {
+            isAnimScaling = true;
+            new TweenMax(cont, .5, {x: pNew.x, y: pNew.y, scaleX: s, scaleY: s, ease: Linear.easeOut, onComplete: function ():void {isAnimScaling = false;}});
+        }
+        if (sendToServer) {
+            g.directServer.saveUserGameScale(null);
+        }
     }
 }
 }
