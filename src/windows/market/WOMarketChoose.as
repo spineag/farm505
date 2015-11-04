@@ -154,7 +154,7 @@ public class WOMarketChoose extends Window {
         _countResourceBlock.onChangeCallback = onChangeResourceCount;
         _countMoneyBlock.maxValue = count * g.dataResource.objectResources[_curResourceId].costMax;
         _countMoneyBlock.minValue = 1;
-        _countMoneyBlock.count =  count * g.dataResource.objectResources[_curResourceId].costMax / 3;
+        _countMoneyBlock.count =  count * g.dataResource.objectResources[_curResourceId].costDefault;
         if (countRes == 1) {
             _countResourceBlock._btnMinus.filter = filter;
             _countResourceBlock._btnPlus.filter = filter;
@@ -183,13 +183,13 @@ public class WOMarketChoose extends Window {
             if (booleanPlus == false) return; else {
                 if (_countResourceBlock.count == 10 || _countResourceBlock.count == countRes) {
                     booleanPlus = false;
-                    _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3;
+                    _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costDefault;
                     _countResourceBlock._btnPlus.filter = filter;
                     return;
                 } else _countResourceBlock._btnPlus.filter = null;
             }
             booleanPlus = true;
-            _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costMax / 3;
+            _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costDefault;
         } else {
             booleanPlus = true;
             if (_countMoneyBlock.count == _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costMax) {
@@ -204,22 +204,22 @@ public class WOMarketChoose extends Window {
             if (booleanMinus == false) return; else {
                 if (_countResourceBlock.count == 1) {
                     booleanMinus = false;
-                    if (_countMoneyBlock.count == 1 || 0 >= _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1) {
+                    if (_countMoneyBlock.count == 1 || 0 >= _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costDefault) {
                         _countMoneyBlock.count = 1;
                         _countResourceBlock._btnMinus.filter = filter;
                         return;
                     }
-                    _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1;
+                    _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costDefault;
                     _countResourceBlock._btnMinus.filter = filter;
                     return;
                 } else _countResourceBlock._btnMinus.filter = null;
             }
-            if (_countMoneyBlock.count == 1 || 0 >= _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1) {
+            if (_countMoneyBlock.count == 1 || 0 >= _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costDefault) {
                 _countMoneyBlock.count = 1;
                 return;
             }
             booleanMinus = true;
-            _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costMax / 3 + 1;
+            _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costDefault;
         }
 
     }

@@ -253,6 +253,7 @@ public class DirectServer {
                 obj.url = d.message[i].url;
                 obj.imageShop = d.message[i].image_shop;
                 obj.currency = int(d.message[i].currency);
+                obj.costDefault = int(d.message[i].cost_default);
                 obj.costMax = int(d.message[i].cost_max);
                 obj.costMin = int(d.message[i].cost_min);
                 obj.buildType = int(d.message[i].resource_type);
