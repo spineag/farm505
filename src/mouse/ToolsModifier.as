@@ -81,8 +81,14 @@ public class ToolsModifier {
     }
 
     public function set modifierType(a:int):void {
+        if (_modifierType == PLANT_SEED || _modifierType == PLANT_SEED_ACTIVE) {
+            g.managerPlantRidge.lockAllFillRidge(false); // unlock all not empty ridges
+        }
         _modifierType = a;
         checkMouseIcon();
+        if (_modifierType == PLANT_SEED || _modifierType == PLANT_SEED_ACTIVE) {
+            g.managerPlantRidge.lockAllFillRidge(true);  // lock all not empty ridges
+        }
     }
 
     public function get modifierType():int {

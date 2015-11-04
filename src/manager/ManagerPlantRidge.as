@@ -3,11 +3,14 @@
  */
 package manager {
 import build.ridge.Ridge;
+import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
 import heroes.HeroCat;
+
+import mouse.ToolsModifier;
 
 public class ManagerPlantRidge {
     private var _arrRidge:Array; // список всех грядок юзера
@@ -115,6 +118,31 @@ public class ManagerPlantRidge {
         };
 
         cat.workWithPlant(onFinishWork);
+    }
+
+    public function lockAllFillRidge(value:Boolean):void {
+        for (var i:int=0; i<_arrRidge.length; i++) {
+            (_arrRidge[i] as Ridge).lockIt(value);
+        }
+    }
+
+    public function checkFreeRidges():void {
+        var b:Boolean = false;
+        var i:int;
+        for (i=0; i<_arrRidge.length; i++) {  // check if there are at least one EMPTY ridge
+            if (_arrRidge[i].stateRidge == Ridge.EMPTY) {
+                b = true;
+                break;
+            }
+        }
+
+        if (b) {
+            if (g.userInventory.getCountResourceById(g.toolsModifier.plantId) <= 0) b = false;  // cehak if there are at least one current resource for plant
+        }
+
+        if (!b) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+        }
     }
 
 }

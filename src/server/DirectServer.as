@@ -258,6 +258,9 @@ public class DirectServer {
                 obj.costDefault = int(d.message[i].cost_default);
                 obj.costMax = int(d.message[i].cost_max);
                 obj.costMin = int(d.message[i].cost_min);
+                obj.orderPrice = int(d.message[i].order_price);
+                obj.orderXP = int(d.message[i].order_xp);
+                obj.visitorPrice = int(d.message[i].visitor_price);
                 obj.buildType = int(d.message[i].resource_type);
                 obj.placeBuild = int(d.message[i].resource_place);
                 if (d.message[i].cost_skip) obj.priceSkipHard = d.message[i].cost_skip;

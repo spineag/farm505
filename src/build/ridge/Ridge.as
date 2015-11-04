@@ -102,7 +102,7 @@ public class Ridge extends AreaObject{
         _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
-            checkFreeRidges();
+            g.managerPlantRidge.checkFreeRidges();
         } else {
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
             _isOnHover = true;
@@ -125,7 +125,7 @@ public class Ridge extends AreaObject{
             g.toolsModifier.activatePlantState = true;
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             _source.filter = null;
-            checkFreeRidges();
+            g.managerPlantRidge.checkFreeRidges();
         }
     }
 
@@ -140,7 +140,7 @@ public class Ridge extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
             g.toolsModifier.activatePlantState = false;
-            checkFreeRidges();
+            g.managerPlantRidge.checkFreeRidges();
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
@@ -181,31 +181,8 @@ public class Ridge extends AreaObject{
     private function onBuy():void {
         g.toolsModifier.plantId = _dataPlant.id;
         g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
-        checkFreeRidges();
+        g.managerPlantRidge.checkFreeRidges();
     }
-
-    private function checkFreeRidges():void {
-        var arr:Array = g.townArea.cityObjects;
-        var b:Boolean = false;
-        var i:int;
-        for (i=0; i<arr.length; i++) {  // check if there are at least one EMPTY ridge
-            if (arr[i] is Ridge) {
-                if (arr[i].stateRidge == EMPTY) {
-                    b = true;
-                    break;
-                }
-            }
-        }
-
-        if (b) {
-            if (g.userInventory.getCountResourceById(g.toolsModifier.plantId) <= 0) b = false;  // cehak if there are at least one current resource for plant
-        }
-
-        if (!b) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-        }
-    }
-
 
     private function onOut():void {
         if (g.isActiveMapEditor || g.isAway) return;
@@ -320,6 +297,16 @@ public class Ridge extends AreaObject{
         _stateRidge = GROWED;
         g.managerPlantRidge.removeCatFromRidge(_dataPlant.id, this);
         _plant.checkStateRidge();
+    }
+
+    public function lockIt(v:Boolean):void {
+        if (v) {
+            if (_stateRidge != EMPTY) {
+                _bgClicked.isTouchable = false;
+            }
+        } else {
+            _bgClicked.isTouchable = true;
+        }
     }
 }
 }
