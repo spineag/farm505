@@ -43,6 +43,8 @@ public class Train extends AreaObject{
     public function Train(_data:Object) {
         super(_data);
         useIsometricOnly = false;
+        list = [];
+        _counter = 0;
         if (!_data) {
             Cc.error('no data for Train');
             g.woGameError.showIt();
@@ -60,48 +62,50 @@ public class Train extends AreaObject{
 
         if (!g.isAway) {
             _woBuy = new WOBuyCave();
+        }
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-        }
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
     }
 
     public function fillFromServer(ob:Object):void {
-        _train_db_id = ob.id;
-        _stateBuild = int(ob.state);
-        if (_stateBuild == STATE_WAIT_BACK) {
-            if (int(ob.time_work) > TIME_WAIT) {
-                _stateBuild = STATE_READY;
-                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
-                _counter = TIME_READY;
-                arriveTrain();
+        if (!g.isAway) {
+            _train_db_id = ob.id;
+            _stateBuild = int(ob.state);
+            if (_stateBuild == STATE_WAIT_BACK) {
+                if (int(ob.time_work) > TIME_WAIT) {
+                    _stateBuild = STATE_READY;
+                    g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+                    _counter = TIME_READY;
+                    arriveTrain();
+                } else {
+                    _counter = TIME_WAIT - int(ob.time_work);
+                }
+                g.directServer.getTrainPack(g.user.userSocialId, fillList);
+                renderTrainWork();
+            } else if (_stateBuild == STATE_READY) {
+                if (int(ob.time_work) > TIME_READY) {
+                    _stateBuild = STATE_WAIT_BACK;
+                    g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
+                    _counter = TIME_WAIT;
+                    leaveTrain();
+                } else {
+                    _counter = TIME_READY - int(ob.time_work);
+                }
+                g.directServer.getTrainPack(g.user.userSocialId, fillList);
+                renderTrainWork();
+            } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+                // do nothing
+            } else if (_stateBuild == STATE_BUILD) {
+                // do nothing
+            } else if (_stateBuild == STATE_UNACTIVE) {
+                // do nothing
             } else {
-                _counter = TIME_WAIT - int(ob.time_work);
+                Cc.error('Train:: wrong state');
+                return;
             }
-            g.directServer.getTrainPack(fillList);
-            renderTrainWork();
-        } else if (_stateBuild == STATE_READY) {
-            if (int(ob.time_work) > TIME_READY) {
-                _stateBuild = STATE_WAIT_BACK;
-                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
-                _counter = TIME_WAIT;
-                leaveTrain();
-            } else {
-                _counter = TIME_READY - int(ob.time_work);
-            }
-            g.directServer.getTrainPack(fillList);
-            renderTrainWork();
-        } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            // do nothing
-        } else if (_stateBuild == STATE_BUILD) {
-            // do nothing
-        } else if (_stateBuild == STATE_UNACTIVE) {
-            // do nothing
-        } else {
-            Cc.error('Train:: wrong state');
-            return;
         }
     }
 
@@ -110,7 +114,7 @@ public class Train extends AreaObject{
     }
 
     private function onResetPack():void {
-        g.directServer.getTrainPack(fillList);
+        g.directServer.getTrainPack(g.user.userSocialId, fillList);
     }
 
     private function arriveTrain():void {
@@ -124,7 +128,24 @@ public class Train extends AreaObject{
     private function checkTrainState():void {
         try {
             if (g.isAway) {
-                createBuild();
+                if (g.visitedUser) {
+                    var ar:Array = g.visitedUser.userDataCity.objects;
+                    for (var i:int=0; i<ar.length; i++) {
+                        if (_dataBuild.id == ar[i].buildId) {
+                            _stateBuild = ar[i].state;
+                            break;
+                        }
+                    }
+                    if (_stateBuild < 4) {
+                        createBrokenTrain();
+                    } else if (_stateBuild == STATE_WAIT_BACK) {
+                        arriveTrain();
+                    } else {
+                        createBuild();
+                    }
+                } else {
+                    createBrokenTrain();
+                }
             } else {
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
@@ -194,6 +215,23 @@ public class Train extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.isAway) {
+            if (_stateBuild == STATE_READY) {
+                if (list.length) {
+                    g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
+                    onOut();
+                } else {
+                    var f1:Function = function(ob:Object):void {
+                        fillList(ob);
+                        g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
+                        onOut();
+                    };
+                    g.directServer.getTrainPack(g.visitedUser.userSocialId, f1);
+                }
+            }
+            return;
+        }
+
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.isActiveMapEditor) {
                 g.townArea.moveBuild(this);
@@ -215,7 +253,6 @@ public class Train extends AreaObject{
                 if (_source.wasGameContMoved) return;
                 g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
                 onOut();
-                _source.filter = null;
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
@@ -259,7 +296,7 @@ public class Train extends AreaObject{
     }
 
     private function onUpdate():void {
-        g.directServer.getTrainPack(fillList);
+        g.directServer.getTrainPack(g.user.userSocialId, fillList);
     }
 
     private function onBuy():void {
@@ -280,7 +317,6 @@ public class Train extends AreaObject{
         if (_stateBuild == STATE_BUILD) {
             g.timerHint.hideIt();
         }
-
     }
 
     private function fillList(ob:Object):void {

@@ -92,21 +92,22 @@ public class WOTrain extends Window {
         _build = b;
         for (var i:int = 0; i<list.length; i++) {
             _arrItems[i].fillIt(list[i], i);
-//            _int = list[i].id;
             _arrItems[i].clickCallback = onItemClick;
         }
         showIt();
         checkBtn();
-        if (state == Train.STATE_READY) {
-            _txt.text = 'До отправления';
+        if (!g.isAway) {
+            if (state == Train.STATE_READY) {
+                _txt.text = 'До отправления';
 
-        } else {
-            _txt.text = 'До прибытия';
-            g.woTrainOrder.showItWO(list,counter);
+            } else {
+                _txt.text = 'До прибытия';
+                g.woTrainOrder.showItWO(list, counter);
+            }
+            _counter = counter;
+            _txtCounter.text = String(_counter);
+            g.gameDispatcher.addToTimer(checkCounter);
         }
-        _counter = counter;
-        _txtCounter.text = String(_counter);
-        g.gameDispatcher.addToTimer(checkCounter);
     }
 
     private function checkCounter():void {
@@ -166,6 +167,11 @@ public class WOTrain extends Window {
     }
 
     private function checkBtn():void {
+        if (g.isAway) {
+            _btn.visible = false;
+            return;
+        }
+        _btn.visible = true;
         _btn.endClickCallback = null;
         for (var i:int = 0; i<_arrItems.length; i++) {
             if (_arrItems[i].canFull) {

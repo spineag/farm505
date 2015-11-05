@@ -56,11 +56,15 @@ public class Farm extends AreaObject{
         }
 
         if (_dataAnimal.id != 6) {
-            _imageBottom = new Image(g.allData.atlas[_data.url].getTexture(_data.image + '2'));
-            _imageBottom.x = -338;
-            _imageBottom.y = 88;
-            _imageBottom.touchable = false;
-            _source.addChild(_imageBottom);
+            try {
+                _imageBottom = new Image(g.allData.atlas[_data.url].getTexture(_data.image + '2'));
+                _imageBottom.x = -338;
+                _imageBottom.y = 88;
+                _imageBottom.touchable = false;
+                _source.addChild(_imageBottom);
+            } catch (e:Error) {
+                Cc.error('Farm:: no image: ' + _data.image + '2');
+            }
         }
     }
 
