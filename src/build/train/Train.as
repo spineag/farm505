@@ -365,7 +365,6 @@ public class Train extends AreaObject{
         _stateBuild = STATE_WAIT_ACTIVATE;
         clearCraftSprite();
         addTempGiftIcon();
-        createBuild();
     }
 }
 }
