@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -272,6 +272,7 @@
             <filename>planet.png</filename>
             <filename>door.png</filename>
             <filename>watering_can.png</filename>
+            <filename>bg</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -23,6 +23,7 @@ import starling.utils.Color;
 public class WONoResources extends Window {
     private var _contBtn:CSprite;
     private var _contImage:Sprite;
+    private var _woBG:WindowBackground;
 
     private var _txtHardCost:TextField;
     private var _txtBuyBtn:TextField;
@@ -43,7 +44,9 @@ public class WONoResources extends Window {
         _contBtn = new CSprite();
         _contImage = new Sprite();
         _arrCells = [];
-        createTempBG(400, 300, Color.GRAY);
+//        createTempBG(400, 300, Color.GRAY);
+        _woBG = new WindowBackground(400, 300);
+        _source.addChild(_woBG);
         createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
         _btnExit.x += 200;
         _btnExit.y -= 150;
