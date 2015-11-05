@@ -618,15 +618,12 @@ public class TownArea extends Sprite {
     }
 
     public function goAway(person:Someone):void {
-//        if (person == g.user.neighbor) {
-//
-//        } else {
-            if (person.userDataCity.objects) {
-                setAwayCity(person);
-            } else {
-                g.directServer.getAllCityData(person, setAwayCity);
-            }
-//        }
+        g.visitedUser = person;
+        if (person.userDataCity.objects) {
+            setAwayCity(person);
+        } else {
+            g.directServer.getAllCityData(person, setAwayCity);
+        }
     }
 
     private function setAwayCity(p:Someone):void {
@@ -804,6 +801,7 @@ public class TownArea extends Sprite {
     public function backHome():void {
         clearAwayCity();
         g.isAway = false;
+        g.visitedUser = null;
         g.bottomPanel.doorBoolean(false);
         for (var i:int = 0; i < _cityObjects.length; i++) {
             _cont.addChild(_cityObjects[i].source);

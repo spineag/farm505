@@ -23,11 +23,11 @@ public class Market extends AreaObject{
         }
         createBuild();
 
-        if (!g.isAway) {
+//        if (!g.isAway) {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-        }
+//        }
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
     }
@@ -43,10 +43,14 @@ public class Market extends AreaObject{
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            onOut();
-            g.townArea.deleteBuild(this);
+            if (g.isActiveMapEditor) {
+                onOut();
+                g.townArea.deleteBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            releaseFlip();
+            if (g.isActiveMapEditor) {
+                releaseFlip();
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             // ничего не делаем
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
@@ -56,7 +60,11 @@ public class Market extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
             g.woMarket.resetAll();
-            g.woMarket.curUser = g.user;
+            if (g.isAway && g.visitedUser) {
+                g.woMarket.curUser = g.visitedUser;
+            } else {
+                g.woMarket.curUser = g.user;
+            }
             g.woMarket.showIt();
             onOut();
             _source.filter = null;

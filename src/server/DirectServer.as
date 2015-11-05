@@ -1905,7 +1905,7 @@ public class DirectServer {
         }
     }
 
-    public function getTrainPack(callback:Function):void {
+    public function getTrainPack(userSocialId:String, callback:Function):void {
         if (!g.useDataFromServer) return;
 
         var loader:URLLoader = new URLLoader();
@@ -1914,7 +1914,7 @@ public class DirectServer {
 
         Cc.ch('server', 'getTrainPack', 1);
 //        variables = addDefault(variables);
-        variables.userId = g.user.userId;
+        variables.userSocialId = userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetTrainPack);
@@ -2680,7 +2680,6 @@ public class DirectServer {
     private function completeGetAllCityData(response:String, p:Someone, callback:Function = null):void {
         var d:Object;
         var ob:Object;
-        var timeWork:int;
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
@@ -2701,6 +2700,9 @@ public class DirectServer {
                 if (d.message['building'][i].time_build_building) {
                     ob.isBuilded = true;
                     ob.isOpen = Boolean(int(d.message['building'][i].is_open));
+                }
+                if (d.message['building'][i].train_state) {
+                    ob.state = int(d.message['building'][i].train_state);
                 }
                 p.userDataCity.objects.push(ob);
             }

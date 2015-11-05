@@ -59,6 +59,8 @@ import ui.softHardCurrencyPanel.SoftHardCurrency;
 import ui.toolsPanel.ToolsPanel;
 import ui.xpPanel.XPPanel;
 
+import user.Someone;
+
 import user.User;
 import user.UserInventory;
 
@@ -111,6 +113,7 @@ public class Vars {
     public var managerDropResources:ManagerDropBonusResource;
 
     public var isAway:Boolean = false;
+    public var visitedUser:Someone;
     public var isActiveMapEditor:Boolean = false;
     public var socialNetwork:SocialNetwork;
     public var flashVars:Object;
