@@ -8,6 +8,8 @@ import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
+import hint.MouseHint;
+
 import manager.Vars;
 
 import resourceItem.CraftItem;
@@ -123,7 +125,10 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         if (_state == EMPTY) {
             source.filter = null;
-            if(!g.userInventory.checkResource(_data , 1)) return;
+            if(g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
+                g.woNoResources.showItMenu(_data,1,onClick);
+            return;
+            }
             if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
                 var rawItem:RawItem;
                 g.userInventory.addResource(_data.idResourceRaw, -1);
@@ -148,26 +153,31 @@ public class Animal {
 
     private function onHover():void {
         if (g.isActiveMapEditor) return;
+        _isOnHover = true;
         if (_state == EMPTY) {
             source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
-        } else {
-            source.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1);
-        }
-        _isOnHover = true;
-        if (_state == WORKED) {
-            _frameCounterTimerHint = 20;
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
-        } else if (_state == EMPTY) {
             _frameCounterMouseHint = 2;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
+        } else {
+            source.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1);
+            _frameCounterTimerHint = 5;
+            g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
         }
+
+//        if (_state == WORKED) {
+//
+//        } else if (_state == EMPTY) {
+//
+//        }
     }
 
     private function onOut():void {
         if (g.isActiveMapEditor) return;
         source.filter = null;
         _isOnHover = false;
-        g.timerHint.hideIt();
+//        g.timerHint.hideIt();
+        g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.mouseHint.hideHintMouse();
     }
 
@@ -176,7 +186,7 @@ public class Animal {
         if(_frameCounterTimerHint <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
-                g.timerHint.showIt(g.cont.gameCont.x + source.parent.x * g.currentGameScale + source.x * g.currentGameScale, g.cont.gameCont.y + (source.parent.y + source.y - source.height)*g.currentGameScale, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip);
+                g.timerHint.showIt(g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip);
             }
         }
     }
@@ -188,6 +198,10 @@ public class Animal {
             if (_isOnHover == true) {
                 if (_state == EMPTY) {
                     g.mouseHint.checkMouseHint('animal', _data);
+                }
+                if (_state == WORKED){
+                    g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
+
                 }
             }
             if(_isOnHover == false){
@@ -296,7 +310,10 @@ public class Animal {
     }
 
     private function callbackSkip():void {
+        g.managerAnimal.addCatToFarm(_farm);
 
+        _timeToEnd = 0;
+        render();
     }
 }
 }
