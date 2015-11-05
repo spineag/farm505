@@ -547,6 +547,9 @@ public class DirectServer {
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
             g.user.countCats = int(ob.count_cats);
+            if (ob.scale) {
+                g.currentGameScale = int(ob.scale)/100;
+            }
             if (ob.is_tester && int(ob.is_tester) > 0) {
                 g.user.isTester = true;
                 if (int(ob.is_tester) > 1) {
@@ -3205,6 +3208,49 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null);
             }
+        }
+    }
+
+    public function saveUserGameScale(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_GAME_SCALE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'saveUserGameScale', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.scale = g.currentGameScale*100;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteSaveUserGameScale);
+        function onCompleteSaveUserGameScale(e:Event):void { completeSaveUserGameScale(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('saveUserGameScale error:' + error.errorID);
+            woError.showItParams('saveUserGameScale error:' + error.errorID);
+        }
+    }
+
+    private function completeSaveUserGameScale(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('saveUserGameScale: wrong JSON:' + String(response));
+            woError.showItParams('saveUserGameScale: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('saveUserGameScale: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('saveUserGameScale: wrong JSON:' + String(response));
         }
     }
 }

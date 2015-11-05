@@ -32,6 +32,10 @@ public class FarmCat extends BasicCat{
         _source.addChild(_catImage);
     }
 
+    override public function get depth():Number {
+        return _source.y;
+    }
+
     public function startFarmAnimation():void {
         chooseFarmAnimation();
     }
@@ -66,6 +70,11 @@ public class FarmCat extends BasicCat{
     private function walkFarmAnimation():void {
         var p:Point = g.farmGrid.getRandomPoint();
         var dist:int = Math.sqrt((_source.x - p.x)*(_source.x - p.x) + (_source.y - p.y)*(_source.y - p.y));
+        if (p.x > source.x) {
+            source.scaleX = -_scaleDefault;
+        } else {
+            source.scaleX = _scaleDefault;
+        }
         new TweenMax(_source, dist/_speedWalk, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseFarmAnimation});
     }
 

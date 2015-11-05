@@ -272,6 +272,11 @@ public class Animal {
     private function walkAnimation():void {
         var p:Point = g.farmGrid.getRandomPoint();
         var dist:int = Math.sqrt((source.x - p.x)*(source.x - p.x) + (source.y - p.y)*(source.y - p.y));
+        if (p.x > source.x) {
+            source.scaleX = -_defautScale;
+        } else {
+            source.scaleX = _defautScale;
+        }
         new TweenMax(source, dist/WALK_SPEED, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
     }
 
