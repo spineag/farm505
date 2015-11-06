@@ -296,7 +296,8 @@ public class Ridge extends AreaObject{
     private function callbackSkip():void {
         _stateRidge = GROWED;
         g.managerPlantRidge.removeCatFromRidge(_dataPlant.id, this);
-        _plant.checkStateRidge();
+//        _plant.checkStateRidge();
+        _plant.render();
     }
 
     public function lockIt(v:Boolean):void {

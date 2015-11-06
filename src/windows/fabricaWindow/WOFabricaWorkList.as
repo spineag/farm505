@@ -99,5 +99,20 @@ public class WOFabricaWorkList {
         destroyItems();
 
     }
+
+    public function skipIt():void {
+        var i:int;
+        _arrItems[0].destroyTimer();
+        _arrItems[0].unfillIt();
+        onFinishTimer();
+
+//        _arrItems[0] = null;
+//        _arrRecipes[0] = null;
+//        if (_arrRecipes.length) {
+//            for (i = 0; i < _arrRecipes.length; i++) {
+//                _arrItems[i].fillData(_arrRecipes[i], null);
+//            }
+//        }
+    }
 }
 }

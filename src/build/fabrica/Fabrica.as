@@ -320,9 +320,10 @@ public class Fabrica extends AreaObject {
 
     private function callbackSkip():void {
         _stateBuild = STATE_WAIT_ACTIVATE;
-        clearCraftSprite();
 //        createBuild();
+        clearCraftSprite();
         addTempGiftIcon();
+//        checkBuildState();
     }
 
 }

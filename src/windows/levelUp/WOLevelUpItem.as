@@ -75,7 +75,7 @@ public class WOLevelUpItem {
         } else {
             Cc.error('WOLevelUpItem:: no such image: ' + st);
         }
-        source.addChild(_txt);
+//        source.addChild(_txt);
     }
 }
 }

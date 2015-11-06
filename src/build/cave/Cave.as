@@ -309,7 +309,7 @@ public class Cave extends AreaObject{
         _stateBuild = STATE_WAIT_ACTIVATE;
         clearCraftSprite();
         addTempGiftIcon();
-        createBuild();
+//        createBuild();
     }
 
 }
