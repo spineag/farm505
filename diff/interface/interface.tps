@@ -273,6 +273,7 @@
             <filename>door.png</filename>
             <filename>watering_can.png</filename>
             <filename>bg</filename>
+            <filename>carton</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

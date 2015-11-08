@@ -10,26 +10,38 @@ import starling.utils.Color;
 
 import utils.CSprite;
 
+import windows.CartonBackground;
+
 import windows.Window;
-import windows.buyCoupone.WOBuyCouponeItem;
+import windows.WindowBackground;
 
 public class WOBuyCurrency extends Window{
-    private var _contBtnSoft:CSprite;
-    private var _contBtnHard:CSprite;
+    private var _tabSoft:CSprite;
+    private var _tabHard:CSprite;
     private var _imageBtnSoft:Image;
     private var _imageBtnHard:Image;
     public var _contSoft:Sprite;
     public var _contHard:Sprite;
     private var _txtSoft:TextField;
     private var _txtHard:TextField;
+    private var _woBG:WindowBackground;
+    private var _cartonBG:CartonBackground;
+
     public function WOBuyCurrency() {
-        createTempBG(500,400 , Color.GRAY);
+        _woBG = new WindowBackground(700, 560);
+        _source.addChild(_woBG);
         createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
+        _btnExit.x += 350;
+        _btnExit.y -= 280;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 250;
-        _btnExit.y -= 200;
-        _contBtnSoft = new CSprite();
-        _contBtnHard = new CSprite();
+
+        createTabs();
+
+        _cartonBG = new CartonBackground(618, 398);
+        _cartonBG.x = -350 + 44;
+        _cartonBG.y = -280 + 114;
+        _source.addChild(_cartonBG);
+
         _contSoft = new Sprite();
         _contHard = new Sprite();
         _txtSoft = new TextField(100,50,"Монеты","Arial",18,Color.BLACK);
@@ -44,14 +56,22 @@ public class WOBuyCurrency extends Window{
         _imageBtnHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("shop_tab"));
         _imageBtnHard.x = -150;
         _imageBtnHard.y = -200;
-        _contBtnSoft.endClickCallback = onClickSoft;
-        _contBtnHard.endClickCallback = onClickHard;
-        _contBtnHard.addChild(_imageBtnHard);
-        _contBtnHard.addChild(_txtHard);
-        _contBtnSoft.addChild(_imageBtnSoft);
-        _contBtnSoft.addChild(_txtSoft);
-        _source.addChild(_contBtnHard);
-        _source.addChild(_contBtnSoft);
+//        _contBtnSoft.endClickCallback = onClickSoft;
+//        _contBtnHard.endClickCallback = onClickHard;
+//        _contBtnHard.addChild(_imageBtnHard);
+//        _contBtnHard.addChild(_txtHard);
+//        _contBtnSoft.addChild(_imageBtnSoft);
+//        _contBtnSoft.addChild(_txtSoft);
+//        _source.addChild(_contBtnHard);
+//        _source.addChild(_contBtnSoft);
+    }
+
+    private function createTabs():void {
+        _tabHard = new CSprite();
+        var carton:CartonBackground = new CartonBackground(255, 80);
+        _tabHard.addChild(carton);
+
+        _tabSoft = new CSprite();
     }
 
     private function onClickHard():void {
