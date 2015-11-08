@@ -9,6 +9,7 @@ import flash.geom.Point;
 import manager.Vars;
 
 import starling.display.Image;
+import starling.text.TextField;
 
 import utils.CSprite;
 import utils.MCScaler;

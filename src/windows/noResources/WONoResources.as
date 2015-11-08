@@ -107,7 +107,6 @@ public class WONoResources extends Window {
         showIt();
         _dataResource = data;
         _callbackBuy = f;
-        _contBtn.endClickCallback = onClickResource;
     }
 
     public function showItTrain(id:int, count:int, f:Function):void {
@@ -161,6 +160,7 @@ public class WONoResources extends Window {
             _contImage.addChild(im.source);
             _txtHardCost.text = "2";
             _contBtn.addChild(_txtHardCost);
+           _contBtn.endClickCallback = onClickAnimal;
             return;
         } else if (_data.buildType == BuildType.PLANT) {
             im = new WONoResourcesItem(_data.id, 1);
@@ -187,6 +187,8 @@ public class WONoResources extends Window {
         if (_data.priceHard) _txtHardCost.text = String(_data.priceHard * count);
         _txtHardCost.text = "2";
         _contBtn.addChild(_txtHardCost);
+        _contBtn.endClickCallback = onClickResource;
+
     }
 
     private function createListTrain(id:int, count:int):void {
@@ -265,6 +267,23 @@ public class WONoResources extends Window {
         _contImage.removeChild(_imageItem);
         _contImage.removeChild(_txtCount);
         _arrCells.length = 0;
+        hideIt();
+    }
+
+    private function onClickAnimal():void {
+        if (int(_txtHardCost.text) < g.user.hardCurrency) {
+            g.userInventory.addMoney(1, -int(_txtHardCost.text));
+        } else {  g.woBuyCurrency.showItMenu();
+            g.woBuyCurrency._contHard.visible = true;
+            g.woBuyCurrency._contSoft.visible = false;
+            return;
+        }
+        g.userInventory.addResource(_dataResource.idResourceRaw,1);
+
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null);
+        }
+        clearIt();
     }
 }
 }
