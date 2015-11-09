@@ -102,18 +102,14 @@ public class SoftHardCurrency {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         }
-        g.woBuyCurrency.showItMenu();
-        g.woBuyCurrency._contSoft.visible = true;
-        g.woBuyCurrency._contHard.visible = false;
+        g.woBuyCurrency.showItMenu(false);
     }
 
     private function onClickHard():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         }
-        g.woBuyCurrency.showItMenu();
-        g.woBuyCurrency._contHard.visible = true;
-        g.woBuyCurrency._contSoft.visible = false;
+        g.woBuyCurrency.showItMenu(true);
     }
 }
 }

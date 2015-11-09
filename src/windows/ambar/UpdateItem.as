@@ -136,9 +136,7 @@ public class UpdateItem {
             } else {
                 g.woSklad.hideIt();
             }
-            g.woBuyCurrency.showItMenu();
-            g.woBuyCurrency._contSoft.visible = false;
-            g.woBuyCurrency._contHard.visible = true;
+            g.woBuyCurrency.showItMenu(true);
         }
     }
 

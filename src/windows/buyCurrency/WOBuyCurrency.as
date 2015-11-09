@@ -2,13 +2,20 @@
  * Created by user on 7/17/15.
  */
 package windows.buyCurrency {
+import data.DataMoney;
+
+import flash.filters.GlowFilter;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
+import starling.filters.BlurFilter;
 import starling.text.TextField;
-import starling.utils.Color;
 
 import utils.CSprite;
+import utils.MCScaler;
+
+import windows.Birka;
 
 import windows.CartonBackground;
 
@@ -16,152 +23,184 @@ import windows.Window;
 import windows.WindowBackground;
 
 public class WOBuyCurrency extends Window{
-    private var _tabSoft:CSprite;
-    private var _tabHard:CSprite;
-    private var _imageBtnSoft:Image;
-    private var _imageBtnHard:Image;
-    public var _contSoft:Sprite;
-    public var _contHard:Sprite;
-    private var _txtSoft:TextField;
-    private var _txtHard:TextField;
+    private var _tabSoft:Sprite;
+    private var _cloneTabSoft:CSprite;
+    private var _tabHard:Sprite;
+    private var _cloneTabHard:CSprite;
+    private var _contSoft:Sprite;
+    private var _contHard:Sprite;
     private var _woBG:WindowBackground;
     private var _cartonBG:CartonBackground;
+    private var _contCarton:Sprite;
+//    private var filter:ColorMatrixFilter;
 
     public function WOBuyCurrency() {
+//        filter = new ColorMatrixFilter();
+//        filter.adjustSaturation(-.3);
+
         _woBG = new WindowBackground(700, 560);
         _source.addChild(_woBG);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
+        _contCarton = new Sprite();
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
         _btnExit.x += 350;
         _btnExit.y -= 280;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
 
         createTabs();
-
         _cartonBG = new CartonBackground(618, 398);
-        _cartonBG.x = -350 + 44;
+        _cartonBG.x = -350 + 42;
         _cartonBG.y = -280 + 114;
-        _source.addChild(_cartonBG);
+        _contCarton.addChild(_cartonBG);
+        _contCarton.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        _source.addChild(_contCarton);
+        createLists();
 
-        _contSoft = new Sprite();
-        _contHard = new Sprite();
-        _txtSoft = new TextField(100,50,"Монеты","Arial",18,Color.BLACK);
-        _txtSoft.x = 50;
-        _txtSoft.y = -200;
-        _txtHard = new TextField(100,50,"Изумруды","Arial",18,Color.BLACK);
-        _txtHard.x = -150;
-        _txtHard.y = -200;
-        _imageBtnSoft = new Image(g.allData.atlas['interfaceAtlas'].getTexture("shop_tab"));
-        _imageBtnSoft.x = 50;
-        _imageBtnSoft.y = -200;
-        _imageBtnHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("shop_tab"));
-        _imageBtnHard.x = -150;
-        _imageBtnHard.y = -200;
-//        _contBtnSoft.endClickCallback = onClickSoft;
-//        _contBtnHard.endClickCallback = onClickHard;
-//        _contBtnHard.addChild(_imageBtnHard);
-//        _contBtnHard.addChild(_txtHard);
-//        _contBtnSoft.addChild(_imageBtnSoft);
-//        _contBtnSoft.addChild(_txtSoft);
-//        _source.addChild(_contBtnHard);
-//        _source.addChild(_contBtnSoft);
+        new Birka('ОБМЕННИК', _source, 700, 560);
     }
 
     private function createTabs():void {
-        _tabHard = new CSprite();
+        _tabHard = new Sprite();
         var carton:CartonBackground = new CartonBackground(255, 80);
         _tabHard.addChild(carton);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
+        MCScaler.scale(im, 55, 55);
+        im.x = 27;
+        im.y = 9;
+        _tabHard.addChild(im);
+        var txt:TextField = new TextField(160, 67, "Рубины", "Arial", 24, 0xffffce);
+        txt.nativeFilters = [new GlowFilter(0xbd280d, 1, 6, 6, 9.0)];
+        txt.bold = true;
+        txt.x = 85;
+        _tabHard.addChild(txt);
+        _tabHard.x = -350 + 61;
+        _tabHard.y = -280 + 46;
+        _tabHard.flatten();
+        _contCarton.addChild(_tabHard);
 
-        _tabSoft = new CSprite();
+        _cloneTabHard = new CSprite();
+        carton = new CartonBackground(255, 80);
+        _cloneTabHard.addChild(carton);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
+        MCScaler.scale(im, 55, 55);
+        im.x = 27;
+        im.y = 9;
+        _cloneTabHard.addChild(im);
+        txt = new TextField(160, 67, "Рубины", "Arial", 24, 0xffffce);
+        txt.nativeFilters = [new GlowFilter(0xbd280d, 1, 6, 6, 9.0)];
+        txt.bold = true;
+        txt.x = 85;
+        _cloneTabHard.addChild(txt);
+        _cloneTabHard.x = -350 + 61;
+        _cloneTabHard.y = -280 + 49;
+        _cloneTabHard.flatten();
+        _cloneTabHard.endClickCallback = onClickHard;
+        _source.addChild(_cloneTabHard);
+
+        _tabSoft = new Sprite();
+        carton = new CartonBackground(255, 80);
+        _tabSoft.addChild(carton);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
+        MCScaler.scale(im, 55, 55);
+        im.x = 27;
+        im.y = 9;
+        _tabSoft.addChild(im);
+        txt = new TextField(160, 67, "Монеты", "Arial", 24, 0xffffce);
+        txt.nativeFilters = [new GlowFilter(0x976a16, 1, 6, 6, 9.0)];
+        txt.bold = true;
+        txt.x = 85;
+        _tabSoft.addChild(txt);
+        _tabSoft.x = -350 + 341;
+        _tabSoft.y = -280 + 46;
+        _tabSoft.flatten();
+        _contCarton.addChild(_tabSoft);
+
+        _cloneTabSoft = new CSprite();
+        carton = new CartonBackground(255, 80);
+        _cloneTabSoft.addChild(carton);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
+        MCScaler.scale(im, 55, 55);
+        im.x = 27;
+        im.y = 9;
+        _cloneTabSoft.addChild(im);
+        txt = new TextField(160, 67, "Монеты", "Arial", 24, 0xffffce);
+        txt.nativeFilters = [new GlowFilter(0x976a16, 1, 6, 6, 9.0)];
+        txt.bold = true;
+        txt.x = 85;
+        _cloneTabSoft.addChild(txt);
+        _cloneTabSoft.x = -350 + 341;
+        _cloneTabSoft.y = -280 + 49;
+        _cloneTabSoft.flatten();
+        _cloneTabSoft.endClickCallback = onClickSoft;
+        _source.addChild(_cloneTabSoft);
     }
 
     private function onClickHard():void {
         _contHard.visible = true;
         _contSoft.visible = false;
+        _tabHard.visible = true;
+        _cloneTabHard.visible = false;
+        _cloneTabHard.filter = null;
+        _tabSoft.visible = false;
+        _cloneTabSoft.visible = true;
+        _cloneTabSoft.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
     }
 
     private function onClickSoft():void {
         _contHard.visible = false;
         _contSoft.visible = true;
+        _tabHard.visible = false;
+        _cloneTabHard.visible = true;
+        _cloneTabHard.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        _tabSoft.visible = true;
+        _cloneTabSoft.visible = false;
+        _cloneTabSoft.filter = null;
     }
 
     private function onClickExit(e:Event):void {
         hideIt();
     }
 
-    public function showItMenu():void {
-        createSoftList();
-        createHardList();
+    public function showItMenu(showHard:Boolean):void {
+        if (showHard) {
+            onClickHard();
+        } else {
+            onClickSoft();
+        }
         showIt();
     }
 
-    private function createSoftList():void {
-        var item1:WOBuyCurrencyItem;
-        var item2:WOBuyCurrencyItem;
-        var item3:WOBuyCurrencyItem;
-        var item4:WOBuyCurrencyItem;
-        var item5:WOBuyCurrencyItem;
-        var item6:WOBuyCurrencyItem;
+    private function createLists():void {
+        var item:WOBuyCurrencyItem;
+        var arrAdd:Array;
+        var arrCost:Array;
 
-        item1 = new WOBuyCurrencyItem("coin","220","","1 голос");
-        item1.source.x = -200;
-        item1.source.y = -100;
-        item2 = new WOBuyCurrencyItem("coin","1100","выгода 20%","4 голоса");
-        item2.source.x = -50;
-        item2.source.y = -100;
-        item3 = new WOBuyCurrencyItem("coin","2500","выгода 25%","9 голосов");
-        item3.source.x = 100;
-        item3.source.y = -100;
-        item4 = new WOBuyCurrencyItem("coin","7000","выгода 30%","24 голосов");
-        item4.source.x = -200;
-        item4.source.y = 50;
-        item5 = new WOBuyCurrencyItem("coin","22000","выгода 40%","69 голосов");
-        item5.source.x = -50;
-        item5.source.y = 50;
-        item6 = new WOBuyCurrencyItem("coin","50000","выгода 50%","149 голосов");
-        item6.source.x = 100;
-        item6.source.y = 50;
-        _contSoft.addChild(item1.source);
-        _contSoft.addChild(item2.source);
-        _contSoft.addChild(item3.source);
-        _contSoft.addChild(item4.source);
-        _contSoft.addChild(item5.source);
-        _contSoft.addChild(item6.source);
+        _contSoft = new Sprite();
+        _contSoft.x = -350 + 45;
+        _contSoft.y = -280 + 113;
         _source.addChild(_contSoft);
-    }
-
-    private function createHardList():void {
-        var item1:WOBuyCurrencyItem;
-        var item2:WOBuyCurrencyItem;
-        var item3:WOBuyCurrencyItem;
-        var item4:WOBuyCurrencyItem;
-        var item5:WOBuyCurrencyItem;
-        var item6:WOBuyCurrencyItem;
-
-        item1 = new WOBuyCurrencyItem("diamont","15","","2 голоса");
-        item1.source.x = -200;
-        item1.source.y = -100;
-        item2 = new WOBuyCurrencyItem("diamont","45","выгода 20%","5 голосов");
-        item2.source.x = -50;
-        item2.source.y = -100;
-        item3 = new WOBuyCurrencyItem("diamont","95","выгода 25%","10 голосов");
-        item3.source.x = 100;
-        item3.source.y = -100;
-        item4 = new WOBuyCurrencyItem("diamont","185","выгода 30%","19 голосов");
-        item4.source.x = -200;
-        item4.source.y = 50;
-        item5 = new WOBuyCurrencyItem("diamont","515","выгода 40%","49 голосов");
-        item5.source.x = -50;
-        item5.source.y = 50;
-        item6 = new WOBuyCurrencyItem("diamont","1115","выгода 50%","99 голосов");
-        item6.source.x = 100;
-        item6.source.y = 50;
-        _contHard.addChild(item1.source);
-        _contHard.addChild(item2.source);
-        _contHard.addChild(item3.source);
-        _contHard.addChild(item4.source);
-        _contHard.addChild(item5.source);
-        _contHard.addChild(item6.source);
+        _contHard = new Sprite();
+        _contHard.x = -350 + 45;
+        _contHard.y = -280 + 113;
         _source.addChild(_contHard);
+
+        arrAdd = [220, 1100, 2500, 7000, 22000, 50000];
+        arrCost = [1, 4, 9, 24, 69, 149];
+        for (var i:int=0; i< arrAdd.length; i++) {
+            item = new WOBuyCurrencyItem(DataMoney.SOFT_CURRENCY,arrAdd[i],"",arrCost[i]);
+            item.source.x = 13;
+            item.source.y = 12 + i*64;
+            _contSoft.addChild(item.source);
+        }
+
+        arrAdd = [15, 45, 95, 185, 515, 1115];
+        arrCost = [2, 5, 10, 19, 49, 99];
+        for (i=0; i< arrAdd.length; i++) {
+            item = new WOBuyCurrencyItem(DataMoney.HARD_CURRENCY,arrAdd[i],"",arrCost[i]);
+            item.source.x = 13;
+            item.source.y = 12 + i*64;
+            _contHard.addChild(item.source);
+        }
     }
+
 }
 }

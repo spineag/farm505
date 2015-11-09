@@ -135,9 +135,7 @@ public class WOFabrica extends Window {
 
     public function onSkip():void {
         if (g.user.hardCurrency < int(_txtCount.text)) {
-            g.woBuyCurrency.showItMenu();
-            g.woBuyCurrency._contHard.visible = true;
-            g.woBuyCurrency._contSoft.visible = false;
+            g.woBuyCurrency.showItMenu(true);
             return;
         }
         g.userInventory.addMoney(1,-int(_txtCount.text));

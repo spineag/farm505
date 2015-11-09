@@ -206,9 +206,7 @@ public class WONoResources extends Window {
         var countRes:int = 0;
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
             g.userInventory.addMoney(1, -int(_txtHardCost.text));
-        } else {  g.woBuyCurrency.showItMenu();
-            g.woBuyCurrency._contHard.visible = true;
-            g.woBuyCurrency._contSoft.visible = false;
+        } else {  g.woBuyCurrency.showItMenu(true);
             return;
         }
 
@@ -230,9 +228,7 @@ public class WONoResources extends Window {
     private function onClickMoney():void {
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
             g.userInventory.addMoney(1, -int(_txtHardCost.text));
-        } else {  g.woBuyCurrency.showItMenu();
-            g.woBuyCurrency._contHard.visible = true;
-            g.woBuyCurrency._contSoft.visible = false;
+        } else {  g.woBuyCurrency.showItMenu(true);
             return;
         }
 
@@ -246,9 +242,7 @@ public class WONoResources extends Window {
     private function onClickTrain():void {
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
             g.userInventory.addMoney(1, -int(_txtHardCost.text));
-        } else {  g.woBuyCurrency.showItMenu();
-            g.woBuyCurrency._contHard.visible = true;
-            g.woBuyCurrency._contSoft.visible = false;
+        } else {  g.woBuyCurrency.showItMenu(true);
             return;
         }
 
@@ -273,9 +267,7 @@ public class WONoResources extends Window {
     private function onClickAnimal():void {
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
             g.userInventory.addMoney(1, -int(_txtHardCost.text));
-        } else {  g.woBuyCurrency.showItMenu();
-            g.woBuyCurrency._contHard.visible = true;
-            g.woBuyCurrency._contSoft.visible = false;
+        } else {  g.woBuyCurrency.showItMenu(true);
             return;
         }
         g.userInventory.addResource(_dataResource.idResourceRaw,1);

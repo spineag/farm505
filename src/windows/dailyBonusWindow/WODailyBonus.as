@@ -68,9 +68,7 @@ public class WODailyBonus extends Window{
             flyBonus();
         } else if (_txtBtn.text == String("Купить за " + hard)){
             if (int(_txtBtn.text) >= g.user.hardCurrency){
-                g.woBuyCurrency.showItMenu();
-                g.woBuyCurrency._contHard.visible = true;
-                g.woBuyCurrency._contSoft.visible = false;
+                g.woBuyCurrency.showItMenu(true);
                 return;
             }
             _contBtn.removeChild(_imageHard);
