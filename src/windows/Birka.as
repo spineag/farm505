@@ -19,7 +19,7 @@ public class Birka extends Sprite{
 
     public function Birka(text:String, woSource:Sprite, w:int, h:int) {
         _source = new Sprite();
-        var txt:TextField = new TextField(300, 70, text, "Arial", 24, 0x009eff);
+        var txt:TextField = new TextField(300, 70, text, g.allData.fonts['BloggerBold'], 24, 0x009eff);
         txt.hAlign =  HAlign.LEFT;
         txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 9.0)];
         txt.bold = true;
@@ -36,7 +36,7 @@ public class Birka extends Sprite{
         im.x = -im.width;
         _source.addChild(im);
 
-        var cCount:int = Math.ceil((curH - 80)/43);
+        var cCount:int = Math.ceil((curH - 80)/43) + 1;
         for (var i:int=0; i < cCount; i++) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_c'));
             im.x = -im.width;
@@ -44,12 +44,12 @@ public class Birka extends Sprite{
             _source.addChildAt(im, 0);
         }
 
-        catIm.x = -55;
+        catIm.x = -58;
         catIm.y = -60;
         _source.addChild(catIm);
         txt.rotation = -Math.PI/2;
         txt.y = -65;
-        txt.x = -70;
+        txt.x = -73;
         _source.addChild(txt);
 
         _source.touchable = false;

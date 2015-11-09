@@ -67,9 +67,8 @@ public class WOBuyCurrency extends Window{
         im.x = 27;
         im.y = 9;
         _tabHard.addChild(im);
-        var txt:TextField = new TextField(160, 67, "Рубины", "Arial", 24, 0xffffce);
+        var txt:TextField = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, 0xffffce);
         txt.nativeFilters = [new GlowFilter(0xbd280d, 1, 6, 6, 9.0)];
-        txt.bold = true;
         txt.x = 85;
         _tabHard.addChild(txt);
         _tabHard.x = -350 + 61;
@@ -85,9 +84,8 @@ public class WOBuyCurrency extends Window{
         im.x = 27;
         im.y = 9;
         _cloneTabHard.addChild(im);
-        txt = new TextField(160, 67, "Рубины", "Arial", 24, 0xffffce);
+        txt = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, 0xffffce);
         txt.nativeFilters = [new GlowFilter(0xbd280d, 1, 6, 6, 9.0)];
-        txt.bold = true;
         txt.x = 85;
         _cloneTabHard.addChild(txt);
         _cloneTabHard.x = -350 + 61;
@@ -104,9 +102,8 @@ public class WOBuyCurrency extends Window{
         im.x = 27;
         im.y = 9;
         _tabSoft.addChild(im);
-        txt = new TextField(160, 67, "Монеты", "Arial", 24, 0xffffce);
+        txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, 0xffffce);
         txt.nativeFilters = [new GlowFilter(0x976a16, 1, 6, 6, 9.0)];
-        txt.bold = true;
         txt.x = 85;
         _tabSoft.addChild(txt);
         _tabSoft.x = -350 + 341;
@@ -122,9 +119,8 @@ public class WOBuyCurrency extends Window{
         im.x = 27;
         im.y = 9;
         _cloneTabSoft.addChild(im);
-        txt = new TextField(160, 67, "Монеты", "Arial", 24, 0xffffce);
+        txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, 0xffffce);
         txt.nativeFilters = [new GlowFilter(0x976a16, 1, 6, 6, 9.0)];
-        txt.bold = true;
         txt.x = 85;
         _cloneTabSoft.addChild(txt);
         _cloneTabSoft.x = -350 + 341;

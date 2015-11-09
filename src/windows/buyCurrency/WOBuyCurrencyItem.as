@@ -53,9 +53,8 @@ public class WOBuyCurrencyItem {
         im.y = 9;
         source.addChild(im);
 
-        var txt:TextField = new TextField(135, 52, String(count), "Arial", 24, 0x0064b4);
+        var txt:TextField = new TextField(135, 52, String(count), g.allData.fonts['BloggerBold'], 24, 0x0064b4);
         txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
-        txt.bold = true;
         txt.x = 70;
         txt.y = 4;
         source.addChild(txt);
@@ -63,7 +62,7 @@ public class WOBuyCurrencyItem {
         var btn:CSprite = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_green'));
         btn.addChild(im);
-        txt = new TextField(btn.width, btn.height-5, String(cost) + ' голосов', "Arial", 18, Color.WHITE);
+        txt = new TextField(btn.width, btn.height-5, String(cost) + ' голосов', g.allData.fonts['BloggerRegular'], 18, Color.WHITE);
         txt.nativeFilters = [new GlowFilter(Color.BLACK, 1, 2, 2, 5.0)];
         btn.addChild(txt);
         btn.x = 453;

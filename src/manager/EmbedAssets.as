@@ -3,57 +3,72 @@
  */
 package manager {
 
+import flash.text.Font;
+
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
 public class EmbedAssets {
     // Texture
     [Embed(source="../../assets/mapAtlas3.png")]
-    public static const MapTexture:Class;
+    private const MapTexture:Class;
     [Embed(source="../../assets/buildAtlas3.png")]
-    public static const BuildTexture:Class;
+    private const BuildTexture:Class;
     [Embed(source="../../assets/plants3.png")]
-    public static const PlantTexture:Class;
+    private const PlantTexture:Class;
     [Embed(source="../../assets/interfaceAtlas2.png")]
-    public static const InterfaceTexture:Class;
+    private const InterfaceTexture:Class;
     [Embed(source="../../assets/instrumentAtlas3.png")]
-    public static const InstrumentTexture:Class;
+    private const InstrumentTexture:Class;
     [Embed(source="../../assets/resourceAtlas3.png")]
-    public static const ResourceTexture:Class;
+    private const ResourceTexture:Class;
     [Embed(source="../../assets/treeAtlas3.png")]
-    public static const TreeTexture:Class;
+    private const TreeTexture:Class;
     [Embed(source="../../assets/cats3.png")]
-    public static const CatTexture:Class;
+    private const CatTexture:Class;
     [Embed(source="../../assets/wildAtlas3.png")]
-    public static const WildTexture:Class;
+    private const WildTexture:Class;
     [Embed(source="../../assets/farmAtlas3.png")]
-    public static const FarmTexture:Class;
+    private const FarmTexture:Class;
     [Embed(source="../../assets/decorAtlas3.png")]
-    public static const DecorTexture:Class;
+    private const DecorTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas3.xml", mimeType="application/octet-stream")]
-    public static const MapTextureXML:Class;
+    private const MapTextureXML:Class;
     [Embed(source="../../assets/buildAtlas3.xml", mimeType="application/octet-stream")]
-    public static const BuildTextureXML:Class;
+    private const BuildTextureXML:Class;
     [Embed(source="../../assets/plants3.xml", mimeType="application/octet-stream")]
-    public static const PlantTextureXML:Class;
+    private const PlantTextureXML:Class;
     [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
-    public static const InterfaceTextureXML:Class;
+    private const InterfaceTextureXML:Class;
     [Embed(source="../../assets/instrumentAtlas3.xml", mimeType="application/octet-stream")]
-    public static const InstrumentTextureXML:Class;
+    private const InstrumentTextureXML:Class;
     [Embed(source="../../assets/resourceAtlas3.xml", mimeType="application/octet-stream")]
-    public static const ResourceTextureXML:Class;
+    private const ResourceTextureXML:Class;
     [Embed(source="../../assets/treeAtlas3.xml", mimeType="application/octet-stream")]
-    public static const TreeTextureXML:Class;
+    private const TreeTextureXML:Class;
     [Embed(source="../../assets/cats3.xml", mimeType="application/octet-stream")]
-    public static const CatTextureXML:Class;
+    private const CatTextureXML:Class;
     [Embed(source="../../assets/wildAtlas3.xml", mimeType="application/octet-stream")]
-    public static const WildTextureXML:Class;
+    private const WildTextureXML:Class;
     [Embed(source="../../assets/farmAtlas3.xml", mimeType="application/octet-stream")]
-    public static const FarmTextureXML:Class;
+    private const FarmTextureXML:Class;
     [Embed(source="../../assets/decorAtlas3.xml", mimeType="application/octet-stream")]
-    public static const DecorTextureXML:Class;
+    private const DecorTextureXML:Class;
+
+    [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
+    private const BloggerBold:Class;
+    [Embed(source="../../assets/fonts/BloggerSansItalic.otf", embedAsCFF="false", fontName="BloggerItalic")]
+    private const BloggerItalic:Class;
+    [Embed(source="../../assets/fonts/BloggerSansLightRegular.otf", embedAsCFF="false", fontName="BloggerLight")]
+    private const BloggerLight:Class;
+    [Embed(source="../../assets/fonts/BloggerSansMediumRegular.otf", embedAsCFF="false", fontName="BloggerMedium")]
+    private const BloggerMedium:Class;
+    [Embed(source="../../assets/fonts/BloggerSansRegular.otf", embedAsCFF="false", fontName="BloggerRegular")]
+    private const BloggerRegular:Class;
+    [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
+    private const HouschkaBold:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -107,6 +122,13 @@ public class EmbedAssets {
         texture = Texture.fromBitmap(new DecorTexture());
         xml= XML(new DecorTextureXML());
         g.allData.atlas['decorAtlas'] = new TextureAtlas(texture, xml);
+
+        g.allData.fonts['BloggerBold'] = (new BloggerBold() as Font).fontName;
+        g.allData.fonts['BloggerItalic'] = (new BloggerItalic() as Font).fontName;
+        g.allData.fonts['BloggerLight'] = (new BloggerLight() as Font).fontName;
+        g.allData.fonts['BloggerRegular'] = (new BloggerRegular() as Font).fontName;
+        g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
+        g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
     }
 }
 }
