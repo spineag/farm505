@@ -282,6 +282,7 @@
             <filename>bt_green.png</filename>
             <filename>coins.png</filename>
             <filename>rubins.png</filename>
+            <filename>production</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

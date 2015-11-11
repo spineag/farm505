@@ -36,7 +36,7 @@ import ui.xpPanel.XPStar;
 public class Fabrica extends AreaObject {
     private var _arrRecipes:Array;  // массив всех рецептов, которые можно изготовить на этой фабрике
     private var _arrList:Array; // массив заказанных для изготовления ресурсов
-    private var _maxListCount:int = 3;
+    private var _maxListCount:int = 9;
     private var _tween:TweenMax;
     private var _isAnim:Boolean;
     private var _isOnHover:Boolean;

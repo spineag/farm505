@@ -31,6 +31,7 @@ public class CSprite extends Sprite {
     private var _bmd:BitmapData;
     private var _scale:Number;
     private var _useContDrag:Boolean = false;
+    private var _params:*;
 
     private var g:Vars = Vars.getInstance();
     public function CSprite() {
@@ -99,7 +100,11 @@ public class CSprite extends Sprite {
             te.stopImmediatePropagation();
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
             if (_endClickCallback != null) {
-                _endClickCallback.apply();
+                if (_params) {
+                    _endClickCallback.apply(null, [_params]);
+                } else {
+                    _endClickCallback.apply();
+                }
             }
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
             te.stopImmediatePropagation();
@@ -123,6 +128,10 @@ public class CSprite extends Sprite {
         } else {
             return false;
         }
+    }
+
+    public function set endClickParams(a:*):void {
+        _params = a;
     }
 
     public function set endClickCallback(f:Function):void {
@@ -207,7 +216,7 @@ public class CSprite extends Sprite {
         _hoverCallback = null;
         _outCallback = null;
         _onMovedCallback = null;
-        _bmd.dispose();
+        if (_bmd) _bmd.dispose();
     }
 }
 }

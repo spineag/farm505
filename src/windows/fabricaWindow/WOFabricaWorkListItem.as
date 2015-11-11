@@ -5,6 +5,8 @@ package windows.fabricaWindow {
 
 import com.junkbyte.console.Cc;
 
+import flash.filters.GlowFilter;
+
 import resourceItem.ResourceItem;
 import manager.Vars;
 
@@ -17,6 +19,9 @@ import utils.CSprite;
 import utils.MCScaler;
 
 public class WOFabricaWorkListItem {
+    public static const BIG_CELL:String = 'big';
+    public static const SMALL_CELL:String = 'small';
+
     public var source:Sprite;
     private var _bg:Image;
     private var _icon:Image;
@@ -25,19 +30,60 @@ public class WOFabricaWorkListItem {
     private var _txtTimer:TextField;
     private var _timerFinishCallback:Function;
     private var _txtNumberCreate:TextField;
+    private var _type:String;
+    private var _timerBlock:Sprite;
+    private var _btnSkip:CSprite;
+    private var _txtSkip:TextField;
+    private var _proposeBtn:CSprite;
 
     private var g:Vars = Vars.getInstance();
 
-    public function WOFabricaWorkListItem() {
-        _txtNumberCreate = new TextField(30,30,"","Arial", 18,Color.BLACK);
-        _txtNumberCreate.y = 10;
+    public function WOFabricaWorkListItem(type:String = 'small') {
+        _type = type;
         source = new CSprite();
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tempItemBG'));
-        MCScaler.scale(_bg, 100, 100);
+        if (type == SMALL_CELL) {
+            _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
+            MCScaler.scale(_bg, 50, 50);
+            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerRegular'], 13,Color.BLACK);
+        } else {
+            _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
+            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerRegular'], 16,Color.BLACK);
+        }
         source.addChild(_bg);
-        source.pivotX = source.width/2;
-        source.pivotY = source.height/2;
-        source.alpha = .5;
+        if (type == SMALL_CELL) {
+            source.visible = false;
+        }
+
+        if (_type == BIG_CELL) {
+            _timerBlock = new Sprite();
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_clock'));
+            im.x = 13;
+            im.y = -20;
+            _timerBlock.addChild(im);
+            _txtTimer = new TextField(78, 33, 'blablabla', g.allData.fonts['BloggerRegular'], 18, Color.WHITE);
+            _txtTimer.x = 13;
+            _txtTimer.y = -20;
+            _timerBlock.addChild(_txtTimer);
+            source.addChild(_timerBlock);
+            _timerBlock.visible = false;
+
+            _btnSkip = new CSprite();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_green'));
+            _btnSkip.addChild(im);
+            _txtSkip = new TextField(100,35,"25",g.allData.fonts['BloggerBold'], 22, Color.WHITE);
+            _txtSkip.nativeFilters = [new GlowFilter(0x34780b, 1, 6, 6, 9.0)];
+            _txtSkip.y = 2;
+            _btnSkip.addChild(_txtSkip);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            MCScaler.scale(im, 30, 30);
+            im.x = 72;
+            im.y = 5;
+            _btnSkip.addChild(im);
+            _btnSkip.x = -15;
+            _btnSkip.y = 97;
+            source.addChild(_btnSkip);
+            _btnSkip.visible = false;
+        }
     }
 
     public function fillData(resource:ResourceItem, f:Function):void {
@@ -48,8 +94,8 @@ public class WOFabricaWorkListItem {
             return;
         }
         _clickCallback = f;
-        source.alpha = 1;
         fillIcon(_resource.imageShop);
+        source.visible = true;
     }
 
     private function fillIcon(s:String):void {
@@ -58,7 +104,15 @@ public class WOFabricaWorkListItem {
             _icon = null;
         }
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
-        MCScaler.scale(_icon, 100, 100);
+        if (_type == BIG_CELL) {
+            MCScaler.scale(_icon, 100, 100);
+            _icon.x = 53 - _icon.width/2;
+            _icon.y = 53 - _icon.height/2;
+        } else {
+            MCScaler.scale(_icon, 44, 44);
+            _icon.x = 23 - _icon.width/2;
+            _icon.y = 22 - _icon.height/2;
+        }
         for(var id:String in g.dataRecipe.objectRecipe){
             if(g.dataRecipe.objectRecipe[id].idResource == _resource.resourceID){
                 if(g.dataRecipe.objectRecipe[id].numberCreate > 1) {
@@ -68,11 +122,13 @@ public class WOFabricaWorkListItem {
                 else _txtNumberCreate.text = "";
             }
         }
-        if (_icon)  {
-            source.addChild(_icon);
+        source.addChild(_icon);
+        if (_type == BIG_CELL) {
+            _txtNumberCreate.x = 75;
+            _txtNumberCreate.y = 70;
         } else {
-            Cc.error('WOFabricaWorkListItem fillIcon: no such image: ' + s);
-            g.woGameError.showIt();
+            _txtNumberCreate.x = 27;
+            _txtNumberCreate.y = 25;
         }
         source.addChild(_txtNumberCreate);
     }
@@ -86,22 +142,32 @@ public class WOFabricaWorkListItem {
         }
         _resource = null;
         _clickCallback = null;
-        source.alpha = .5;
+        if (_type == SMALL_CELL) {
+            source.visible = false;
+            if (_proposeBtn) {
+                source.removeChild(_proposeBtn);
+                _proposeBtn.deleteIt();
+                _proposeBtn = null;
+            }
+        }
     }
 
     public function destroyTimer():void {
         g.gameDispatcher.removeFromTimer(render);
-        //_txtTimer.text = '';
         _timerFinishCallback = null;
-        source.removeChild(_txtTimer);
-        _txtTimer = null;
+        _txtTimer.text = '';
+        _timerBlock.visible = false;
     }
 
     public function activateTimer(f:Function):void {
-        _txtTimer = new TextField(source.width, 40, "","Arial", 18,Color.RED);
-        source.addChild(_txtTimer);
-        _timerFinishCallback = f;
-        g.gameDispatcher.addToTimer(render);
+        if (_type == BIG_CELL) {
+            _timerFinishCallback = f;
+            g.gameDispatcher.addToTimer(render);
+            _timerBlock.visible = true;
+            _btnSkip.visible = true;
+        } else {
+            Cc.error('WOFabricaWorkListItem activateTimer:: ');
+        }
     }
 
     private function render():void {
@@ -109,10 +175,27 @@ public class WOFabricaWorkListItem {
         if (_resource.leftTime <= 0) {
             g.gameDispatcher.removeFromTimer(render);
             _txtTimer.text = '';
+            _timerBlock.visible = false;
+            _btnSkip.visible = false;
             if (_timerFinishCallback != null) {
                 _timerFinishCallback.apply();
             }
         }
+    }
+
+    public function showBuyPropose(buyCount:int):void {
+        source.visible = true;
+        _proposeBtn = new CSprite();
+        var txt:TextField = new TextField(46,28,"+" + String(buyCount),g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        txt.nativeFilters = [new GlowFilter(0x1261ac, 1, 4, 4, 7.0)];
+        _proposeBtn.addChild(txt);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        MCScaler.scale(im, 20, 20);
+        im.x = 14;
+        im.y = 23;
+        _proposeBtn.addChild(im);
+        _proposeBtn.flatten();
+        source.addChild(_proposeBtn);
     }
 
 }

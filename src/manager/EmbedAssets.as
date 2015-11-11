@@ -16,7 +16,7 @@ public class EmbedAssets {
     private const BuildTexture:Class;
     [Embed(source="../../assets/plants3.png")]
     private const PlantTexture:Class;
-    [Embed(source="../../assets/interfaceAtlas2.png")]
+    [Embed(source="../../assets/interfaceAtlas.png")]
     private const InterfaceTexture:Class;
     [Embed(source="../../assets/instrumentAtlas3.png")]
     private const InstrumentTexture:Class;

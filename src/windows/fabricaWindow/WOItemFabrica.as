@@ -25,11 +25,10 @@ public class WOItemFabrica {
 
     public function WOItemFabrica() {
         source = new CSprite();
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tempItemBG'));
-        MCScaler.scale(_bg, 100, 100);
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
         source.addChild(_bg);
         source.pivotX = source.width/2;
-        source.pivotY = source.height/2;
+        source.pivotY = source.height;
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
