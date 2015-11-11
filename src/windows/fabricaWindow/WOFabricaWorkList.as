@@ -2,12 +2,13 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
+import build.fabrica.Fabrica;
+
 import com.junkbyte.console.Cc;
 
 import resourceItem.ResourceItem;
 import manager.Vars;
 
-import starling.display.Quad;
 import starling.display.Sprite;
 
 public class WOFabricaWorkList {
@@ -15,6 +16,7 @@ public class WOFabricaWorkList {
     private var _arrItems:Array;
     private var _arrRecipes:Array;
     private var _parent:Sprite;
+    private var _fabrica:Fabrica;
 
     private var g:Vars = Vars.getInstance();
 
@@ -41,14 +43,16 @@ public class WOFabricaWorkList {
         }
     }
 
-    public function fillIt(arrCurList:Array, maxCount:int):void {
+    public function fillIt(arrCurList:Array, fabrica:Fabrica):void {
         try {
             for (var i:int = 0; i < arrCurList.length; i++) {
                 addResource(arrCurList[i]);
             }
-            _maxCount = maxCount;
+            _fabrica = fabrica;
+            _maxCount = _fabrica.dataBuild.countCell;
             if (_maxCount < 9) {
-                (_arrItems[_maxCount] as WOFabricaWorkListItem).showBuyPropose(12);
+                var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+                (_arrItems[_maxCount] as WOFabricaWorkListItem).showBuyPropose(price, onBuyNewCell);
             }
             for (i=1; i<_maxCount; i++) {
                 _arrItems[i].source.visible = true;
@@ -59,12 +63,21 @@ public class WOFabricaWorkList {
         }
     }
 
+    private function onBuyNewCell():void {
+        _maxCount++;
+        _fabrica.dataBuild.countCell++;
+        if (_maxCount < 9) {
+            var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+            (_arrItems[_maxCount] as WOFabricaWorkListItem).showBuyPropose(price, onBuyNewCell);
+        }
+    }
+
     public function get isFull():Boolean {
         return _arrRecipes.length >= _maxCount;
     }
 
     public function addResource(resource:ResourceItem):void {
-        _arrItems[_arrRecipes.length].fillData(resource, null);
+        _arrItems[_arrRecipes.length].fillData(resource);
         _arrRecipes.push(resource);
         if (_arrRecipes.length == 1) {
             activateTimer();
@@ -91,12 +104,12 @@ public class WOFabricaWorkList {
     }
 
     public function unfillIt():void {
+        _arrRecipes.length = 0;
         if (_arrItems.length) _arrItems[0].destroyTimer();
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].unfillIt();
         }
-        _arrRecipes.length = 0;
-
+        _fabrica = null;
     }
 
     public function skipIt():void {

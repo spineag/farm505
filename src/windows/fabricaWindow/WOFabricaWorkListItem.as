@@ -26,7 +26,6 @@ public class WOFabricaWorkListItem {
     private var _bg:Image;
     private var _icon:Image;
     private var _resource:ResourceItem;
-    private var _clickCallback:Function;
     private var _txtTimer:TextField;
     private var _timerFinishCallback:Function;
     private var _txtNumberCreate:TextField;
@@ -86,14 +85,13 @@ public class WOFabricaWorkListItem {
         }
     }
 
-    public function fillData(resource:ResourceItem, f:Function):void {
+    public function fillData(resource:ResourceItem):void {
         _resource = resource;
         if (!_resource) {
             Cc.error('WOFabricaWorkListItem fillData:: _resource == null');
             g.woGameError.showIt();
             return;
         }
-        _clickCallback = f;
         fillIcon(_resource.imageShop);
         source.visible = true;
     }
@@ -141,7 +139,6 @@ public class WOFabricaWorkListItem {
             _icon = null;
         }
         _resource = null;
-        _clickCallback = null;
         if (_type == SMALL_CELL) {
             source.visible = false;
             if (_proposeBtn) {
@@ -183,7 +180,7 @@ public class WOFabricaWorkListItem {
         }
     }
 
-    public function showBuyPropose(buyCount:int):void {
+    public function showBuyPropose(buyCount:int, callback:Function):void {
         source.visible = true;
         _proposeBtn = new CSprite();
         var txt:TextField = new TextField(46,28,"+" + String(buyCount),g.allData.fonts['BloggerBold'], 16, Color.WHITE);
@@ -196,6 +193,14 @@ public class WOFabricaWorkListItem {
         _proposeBtn.addChild(im);
         _proposeBtn.flatten();
         source.addChild(_proposeBtn);
+        var f1:Function = function():void {
+            if (callback != null) {
+                callback.apply();
+            }
+            unfillIt();
+            source.visible = true;
+        };
+        _proposeBtn.endClickCallback = f1;
     }
 
 }

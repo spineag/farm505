@@ -379,6 +379,7 @@ public class DirectServer {
                 obj.xpForBuild = int(d.message[i].xp_for_build);
                 obj.buildType = int(d.message[i].build_type);
 
+                if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
                 if (d.message[i].currency) obj.currency = int(d.message[i].currency);
                 if (d.message[i].cost) obj.cost = int(d.message[i].cost);
                 if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
@@ -918,6 +919,7 @@ public class DirectServer {
                     }
                     dataBuild.dbId = dbId;
                     dataBuild.isFlip = int(d.message[i].is_flip);
+                    if (d.message[i].count_cell) dataBuild.countCell = int(d.message[i].count_cell);
                     var p:Point = new Point(int(d.message[i].pos_x), int(d.message[i].pos_y));
                     if (dataBuild.buildType == BuildType.CAVE || dataBuild.buildType == BuildType.MARKET || dataBuild.buildType == BuildType.SHOP ||
                             dataBuild.buildType == BuildType.PAPER || dataBuild.buildType == BuildType.DAILY_BONUS || dataBuild.buildType == BuildType.TRAIN) {

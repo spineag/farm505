@@ -2,9 +2,9 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
-import com.junkbyte.console.Cc;
+import build.fabrica.Fabrica;
 
-import data.DataMoney;
+import com.junkbyte.console.Cc;
 
 import flash.filters.GlowFilter;
 
@@ -12,16 +12,13 @@ import resourceItem.ResourceItem;
 
 import starling.display.Image;
 import starling.display.Sprite;
-
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
-import utils.MCScaler;
 
 import windows.Window;
-import windows.ambar.AmbarCell;
 
 public class WOFabrica extends Window {
     private var _list:WOFabricaWorkList;
@@ -32,31 +29,12 @@ public class WOFabrica extends Window {
     private var _arrShiftBtns:Array;
     private var _arrAllRecipes:Array;
     private var _bottomBG:Sprite;
-//    private var _contBtn:CSprite;
-//    private var _imageBtnSkip:Image;
-//    private var _imageHard:Image;
-//    private var _txtCount:TextField;
+    private var _fabrica:Fabrica;
 
     public function WOFabrica() {
         super();
-//        _contBtn = new CSprite();
-//        _contBtn.endClickCallback = onSkip;
         _woHeight = 455;
         _woWidth = 580;
-
-//        _imageBtnSkip = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
-//        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture('diamont'));
-//        _imageHard.x = 10;
-//        _imageHard.y = 10;
-//        MCScaler.scale(_imageHard,25,25);
-//        _txtCount = new TextField(50,50,"","Arial",14,Color.BLACK);
-//        _txtCount.x = 40;
-//        _txtCount.y = 10;
-//        _contBtn.addChild(_imageBtnSkip);
-//        _contBtn.addChild(_imageHard);
-//        _contBtn.addChild(_txtCount);
-//        _contBtn.x = -150;
-//        _contBtn.y = 150;
 
         createTopBG();
         createShiftBtns();
@@ -69,18 +47,20 @@ public class WOFabrica extends Window {
     private function onClickExit(e:Event=null):void {
         unfillFabricaItems();
         _list.unfillIt();
+        _fabrica = null;
+        _callbackOnClick = null;
+        _arrAllRecipes.length = 0;
         hideIt();
 //        _source.removeChild(_contBtn);
     }
 
-    public function showItWithParams(arrRecipes:Array, arrList:Array, maxCount:int, f:Function):void {
+    public function showItWithParams(arrRecipes:Array, arrList:Array, fabr:Fabrica, f:Function):void {
+        _fabrica = fabr;
         _callbackOnClick = f;
         _arrAllRecipes = arrRecipes;
         activateShiftBtn(1, false);
         fillFabricaItems();
-        _list.fillIt(arrList, maxCount);
-//        _txtCount.text = "5";
-//        if(arrList.length>0) _source.addChild(_contBtn);
+        _list.fillIt(arrList, _fabrica);
         super.showIt();
     }
 

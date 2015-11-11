@@ -36,7 +36,6 @@ import ui.xpPanel.XPStar;
 public class Fabrica extends AreaObject {
     private var _arrRecipes:Array;  // массив всех рецептов, которые можно изготовить на этой фабрике
     private var _arrList:Array; // массив заказанных для изготовления ресурсов
-    private var _maxListCount:int = 9;
     private var _tween:TweenMax;
     private var _isAnim:Boolean;
     private var _isOnHover:Boolean;
@@ -134,7 +133,7 @@ public class Fabrica extends AreaObject {
                     (_arrCrafted.pop() as CraftItem).flyIt();
                 } else {
                     g.cont.moveCenterToXY(_source.x, _source.y);
-                    g.woFabrica.showItWithParams(_arrRecipes, _arrList, _maxListCount, callbackOnChooseRecipe);
+                    g.woFabrica.showItWithParams(_arrRecipes, _arrList, this, callbackOnChooseRecipe);
                     _source.filter = null;
                     g.hint.hideIt();
                 }
