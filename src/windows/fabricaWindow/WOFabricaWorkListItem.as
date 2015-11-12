@@ -22,6 +22,7 @@ import starling.utils.Color;
 
 import utils.CSprite;
 import utils.MCScaler;
+import utils.TimeUtils;
 
 public class WOFabricaWorkListItem {
     public static const BIG_CELL:String = 'big';
@@ -178,7 +179,7 @@ public class WOFabricaWorkListItem {
     }
 
     private function render():void {
-        _txtTimer.text = String(_resource.leftTime);
+        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_resource.leftTime);
         if (_resource.leftTime <= 0) {
             g.gameDispatcher.removeFromTimer(render);
             _txtTimer.text = '';
