@@ -5,7 +5,12 @@ package windows.fabricaWindow {
 
 import com.junkbyte.console.Cc;
 
+import data.DataMoney;
+
 import flash.filters.GlowFilter;
+import flash.geom.Point;
+
+import resourceItem.RawItem;
 
 import resourceItem.ResourceItem;
 import manager.Vars;
@@ -199,6 +204,10 @@ public class WOFabricaWorkListItem {
             }
             unfillIt();
             source.visible = true;
+            var p:Point = new Point(source.width/2, source.height/2);
+            p = source.localToGlobal(p);
+            new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
         };
         _proposeBtn.endClickCallback = f1;
     }

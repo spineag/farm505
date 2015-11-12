@@ -42,7 +42,6 @@ public class WOBuyCurrencyItem {
         _bg.flatten();
         source.addChild(_bg);
 
-        var im:Image;
         if (currency == DataMoney.HARD_CURRENCY) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         } else {

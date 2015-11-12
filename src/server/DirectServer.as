@@ -3257,5 +3257,49 @@ public class DirectServer {
             woError.showItParams('saveUserGameScale: wrong JSON:' + String(response));
         }
     }
+
+    public function buyNewCellOnFabrica(dbId:int, count:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_CELL_FABRICA);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'buyNewCellOnFabrica', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = dbId;
+        variables.count = count;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteBuyNewCellOnFabrica);
+        function onCompleteBuyNewCellOnFabrica(e:Event):void { completeBuyNewCellOnFabrica(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('buyNewCellOnFabrica error:' + error.errorID);
+            woError.showItParams('buyNewCellOnFabrica error:' + error.errorID);
+        }
+    }
+
+    private function completeBuyNewCellOnFabrica(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('buyNewCellOnFabrica: wrong JSON:' + String(response));
+            woError.showItParams('buyNewCellOnFabrica: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

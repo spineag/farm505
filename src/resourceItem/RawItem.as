@@ -37,8 +37,8 @@ public class RawItem {
         _source.y = endPoint.y - 100;
         g.cont.animationsResourceCont.addChild(_source);
 
-        var _countTxt:TextField = new TextField(30, 30, '-' + String(count), "Arial", 20, Color.BLACK);
-        _countTxt.x = im.width - 15;
+        var _countTxt:TextField = new TextField(50, 30, '-' + String(count), "Arial", 20, Color.BLACK);
+        _countTxt.x = im.width - 30;
         _countTxt.y = im.height - 15;
         _source.addChild(_countTxt);
 

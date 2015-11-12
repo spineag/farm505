@@ -65,7 +65,7 @@ public class WOFabricaWorkList {
 
     private function onBuyNewCell():void {
         _maxCount++;
-        _fabrica.dataBuild.countCell++;
+        _fabrica.onBuyNewCell();
         if (_maxCount < 9) {
             var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
             (_arrItems[_maxCount] as WOFabricaWorkListItem).showBuyPropose(price, onBuyNewCell);

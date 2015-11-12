@@ -325,5 +325,10 @@ public class Fabrica extends AreaObject {
 //        checkBuildState();
     }
 
+    public function onBuyNewCell():void {
+        _dataBuild.countCell++;
+        g.directServer.buyNewCellOnFabrica(_dbBuildingId, _dataBuild.countCell, null);
+    }
+
 }
 }
