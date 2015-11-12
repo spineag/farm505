@@ -133,7 +133,7 @@ public class Fabrica extends AreaObject {
                     (_arrCrafted.pop() as CraftItem).flyIt();
                 } else {
                     g.cont.moveCenterToXY(_source.x, _source.y);
-                    g.woFabrica.showItWithParams(_arrRecipes, _arrList, this, callbackOnChooseRecipe);
+                    g.woFabrica.showItWithParams(_arrRecipes.slice(), _arrList.slice(), this, callbackOnChooseRecipe);
                     _source.filter = null;
                     g.hint.hideIt();
                 }
@@ -165,12 +165,13 @@ public class Fabrica extends AreaObject {
 
     private function fillRecipes():void {
         try {
-        var obj:Object = g.dataRecipe.objectRecipe;
-        for(var id:String in obj) {
-            if (obj[id].buildingId == _dataBuild.id) {
-                _arrRecipes.push(obj[id]);
+            var obj:Object = g.dataRecipe.objectRecipe;
+            for(var id:String in obj) {
+                if (obj[id].buildingId == _dataBuild.id) {
+                    _arrRecipes.push(obj[id]);
+                }
             }
-        }
+            _arrRecipes.sortOn('blockByLevel', Array.NUMERIC);
         } catch (e:Error) {
             Cc.error('fabrica recipe error: ' + e.errorID + ' - ' + e.message);
             g.woGameError.showIt();

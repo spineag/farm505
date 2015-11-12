@@ -43,7 +43,14 @@ public class WOItemFabrica {
             return;
         }
         _clickCallback = f;
-        source.alpha = 1;
+        if (_dataRecipe.blockByLevel == g.user.level + 1) {
+            source.alpha = .5;
+        } else if (_dataRecipe.blockByLevel <= g.user.level) {
+            source.alpha = 1;
+        } else {
+            source.alpha = 0;
+            Cc.error("Warning woItemFabrica filldata:: _dataRecipe.blockByLevel > g.user.level + 1");
+        }
         fillIcon(g.dataResource.objectResources[_dataRecipe.idResource].imageShop);
     }
 

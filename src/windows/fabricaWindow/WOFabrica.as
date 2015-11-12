@@ -93,7 +93,8 @@ public class WOFabrica extends Window {
             }
         }
         for (i=0; i<arr.length; i++) {
-            _arrFabricaItems[i].fillData(arr[i], onItemClick);
+            if (arr[i].blockByLevel + 1 <= g.user.level)
+             _arrFabricaItems[i].fillData(arr[i], onItemClick);
         }
     }
 

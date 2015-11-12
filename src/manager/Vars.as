@@ -300,16 +300,16 @@ public class Vars {
     }
 
     private function onDataAnimal():void {
-        directServer.getDataRecipe(onDataRecipe);
+        directServer.getDataResource(onDataResource);
         startPreloader.setProgress(90);
     }
 
-    private function onDataRecipe():void {
-        directServer.getDataResource(onDataResource);
+    private function onDataResource():void {
+        directServer.getDataRecipe(onDataRecipe);
         startPreloader.setProgress(91);
     }
 
-    private function onDataResource():void {
+    private function onDataRecipe():void {
         directServer.getDataCats(onDataCats);
     }
 
