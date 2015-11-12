@@ -39,6 +39,7 @@ public class WOFabricaWorkListItem {
     private var _btnSkip:CSprite;
     private var _txtSkip:TextField;
     private var _proposeBtn:CSprite;
+    private var _skipCallback:Function;
 
     private var g:Vars = Vars.getInstance();
 
@@ -87,11 +88,15 @@ public class WOFabricaWorkListItem {
             _btnSkip.y = 97;
             source.addChild(_btnSkip);
             _btnSkip.visible = false;
+            _btnSkip.endClickCallback = makeSkip;
         }
     }
 
     public function fillData(resource:ResourceItem):void {
         _resource = resource;
+        if (_type == BIG_CELL) {
+            _txtSkip.text = String(_resource.priceSkipHard);
+        }
         if (!_resource) {
             Cc.error('WOFabricaWorkListItem fillData:: _resource == null');
             g.woGameError.showIt();
@@ -199,17 +204,38 @@ public class WOFabricaWorkListItem {
         _proposeBtn.flatten();
         source.addChild(_proposeBtn);
         var f1:Function = function():void {
-            if (callback != null) {
-                callback.apply();
+            if (g.user.hardCurrency >= buyCount) {
+                if (callback != null) {
+                    callback.apply();
+                }
+                unfillIt();
+                source.visible = true;
+                var p:Point = new Point(source.width / 2, source.height / 2);
+                p = source.localToGlobal(p);
+                new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
+                g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
+            } else {
+                g.woBuyCurrency.showItMenu(true);
             }
-            unfillIt();
-            source.visible = true;
-            var p:Point = new Point(source.width/2, source.height/2);
-            p = source.localToGlobal(p);
-            new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
-            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
         };
         _proposeBtn.endClickCallback = f1;
+    }
+
+    private function makeSkip():void {
+        if (g.user.hardCurrency >= _resource.priceSkipHard) {
+            if (_skipCallback != null) {
+                g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_resource.priceSkipHard);
+                destroyTimer();
+                _skipCallback.apply();
+                _skipCallback = null;
+            }
+        } else {
+            g.woBuyCurrency.showItMenu(true);
+        }
+    }
+
+    public function set skipCallback(f:Function):void {
+        _skipCallback = f;
     }
 
 }

@@ -44,7 +44,7 @@ public class WOFabrica extends Window {
         _list = new WOFabricaWorkList(_source);
     }
 
-    private function onClickExit(e:Event=null):void {
+    public function onClickExit(e:Event=null):void {
         unfillFabricaItems();
         _list.unfillIt();
         _fabrica = null;

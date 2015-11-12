@@ -67,5 +67,6 @@ public class Consts {
     public static var INQ_DELETE_USER_WILD:String = 'deleteUserWild.php';
     public static var INQ_USER_GAME_SCALE:String = 'saveUserGameScale.php';
     public static var INQ_ADD_CELL_FABRICA:String = 'addCellUserFabrica.php';
+    public static var INQ_SKIP_RECIPE_FABRICA:String = 'skipRecipeOnFabrica.php';
 }
 }

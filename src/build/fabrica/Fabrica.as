@@ -211,10 +211,13 @@ public class Fabrica extends AreaObject {
 
             // send to server
             if (g.user.userBuildingData) {
-                var delay:int = 0;
-                for (i=0; i<_arrList.length; i++) {
-                    delay += _arrList[i].buildTime;
+                var delay:int = 0;  // delay before start make this new recipe
+                if (_arrList.length > 1) {
+                    for (i = 0; i < _arrList.length - 1; i++) {
+                        delay += _arrList[i].buildTime;
+                    }
                 }
+
             }
             var f1:Function = function(t:String):void {
                 resItem.idFromServer = t;
@@ -328,6 +331,13 @@ public class Fabrica extends AreaObject {
     public function onBuyNewCell():void {
         _dataBuild.countCell++;
         g.directServer.buyNewCellOnFabrica(_dbBuildingId, _dataBuild.countCell, null);
+    }
+
+    public function skipRecipe():void {
+        g.woFabrica.onClickExit();
+        g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
+        _arrList.shift();
+        g.woFabrica.showItWithParams(_arrRecipes, _arrList, this, callbackOnChooseRecipe);
     }
 
 }

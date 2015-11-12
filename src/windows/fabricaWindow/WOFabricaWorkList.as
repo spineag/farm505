@@ -72,6 +72,10 @@ public class WOFabricaWorkList {
         }
     }
 
+    private function onSkip():void {
+        _fabrica.skipRecipe();
+    }
+
     public function get isFull():Boolean {
         return _arrRecipes.length >= _maxCount;
     }
@@ -81,6 +85,7 @@ public class WOFabricaWorkList {
         _arrRecipes.push(resource);
         if (_arrRecipes.length == 1) {
             activateTimer();
+            _arrItems[0].skipCallback = onSkip;
         }
     }
 

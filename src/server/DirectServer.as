@@ -3301,5 +3301,50 @@ public class DirectServer {
             woError.showItParams('buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function skipRecipeOnFabrica(userRecipeDbId:String, leftTime:int, buildDbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_RECIPE_FABRICA);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'skipRecipeOnFabrica', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.recipeDbId = userRecipeDbId;
+        variables.leftTime = leftTime;
+        variables.buildDbId = buildDbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteSkipRecipeOnFabrica);
+        function onCompleteSkipRecipeOnFabrica(e:Event):void { completeSkipRecipeOnFabrica(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('skipRecipeOnFabrica error:' + error.errorID);
+            woError.showItParams('skipRecipeOnFabrica error:' + error.errorID);
+        }
+    }
+
+    private function completeSkipRecipeOnFabrica(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('skipRecipeOnFabrica: wrong JSON:' + String(response));
+            woError.showItParams('skipRecipeOnFabrica: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }
