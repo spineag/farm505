@@ -78,8 +78,8 @@ public class Window {
 
     protected function createExitButton(up:Texture, txt:String ='', click:Texture = null, hover:Texture = null):void {
         _btnExit = new CButton(up, txt, click, hover);
-        _btnExit.pivotX = _btnExit.width*3/4;
-        _btnExit.pivotY = _btnExit.height*1/4;
+        _btnExit.pivotX = _btnExit.width*7/6;
+        _btnExit.pivotY = -_btnExit.height*1/5;
         _source.addChild(_btnExit);
     }
 

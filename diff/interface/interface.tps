@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -192,32 +192,55 @@
             <filename>ambar_plawka_arrow.png</filename>
             <filename>ambar_plawka.png</filename>
             <filename>arrow_small.png</filename>
+            <filename>bg</filename>
+            <filename>birka_c.png</filename>
+            <filename>birka_cat.png</filename>
+            <filename>birka_d.png</filename>
+            <filename>birka_t.png</filename>
             <filename>blue_coupone.png</filename>
             <filename>board_shop_part.png</filename>
+            <filename>bt_blue.png</filename>
+            <filename>bt_close.png</filename>
+            <filename>bt_green.png</filename>
             <filename>btn_exit_click.png</filename>
             <filename>btn_exit_hover.png</filename>
             <filename>btn_exit.png</filename>
             <filename>btn1.png</filename>
             <filename>btn2.png</filename>
+            <filename>btn3.png</filename>
+            <filename>btn4.png</filename>
+            <filename>btn100500.png</filename>
             <filename>buy_coupons.png</filename>
+            <filename>carton</filename>
+            <filename>check.png</filename>
             <filename>clock_icon.png</filename>
             <filename>coin.png</filename>
+            <filename>coins.png</filename>
             <filename>diamont.png</filename>
+            <filename>door.png</filename>
+            <filename>empty_green_tail.png</filename>
+            <filename>empty_red_tail.png</filename>
             <filename>friend_frame.png</filename>
             <filename>friends_icon.png</filename>
             <filename>friends_plawka.png</filename>
             <filename>friends_tab.png</filename>
+            <filename>galo4ka.png</filename>
             <filename>green_coupone.png</filename>
+            <filename>green_tail.png</filename>
             <filename>hard_board.png</filename>
             <filename>hint_circle.png</filename>
             <filename>hint_wild.png</filename>
             <filename>hintMiddle.png</filename>
             <filename>hintSidePixels.png</filename>
+            <filename>hintSidePixels2.png</filename>
             <filename>hintTopLeftPart.png</filename>
+            <filename>in_papper.png</filename>
             <filename>interface_bg.png</filename>
             <filename>korzina_icon.png</filename>
             <filename>kowolka_icon.png</filename>
+            <filename>minus.png</filename>
             <filename>mouse_circle.png</filename>
+            <filename>neighbor.png</filename>
             <filename>option_anim.png</filename>
             <filename>option_fullscreen.png</filename>
             <filename>option_icon.png</filename>
@@ -226,63 +249,49 @@
             <filename>option_scale_plus.png</filename>
             <filename>option_screenshot.png</filename>
             <filename>option_sound.png</filename>
+            <filename>order_window_decline.png</filename>
+            <filename>order_window_left_top.png</filename>
+            <filename>order_window_left.png</filename>
+            <filename>order_window_paket.png</filename>
+            <filename>order_window_right_top.png</filename>
+            <filename>order_window_right.png</filename>
+            <filename>planet.png</filename>
+            <filename>plawka_sold.png</filename>
+            <filename>plawka7.png</filename>
             <filename>plus.png</filename>
             <filename>popup_farm.png</filename>
             <filename>popup.png</filename>
+            <filename>production</filename>
             <filename>red_coupone.png</filename>
+            <filename>red_tail.png</filename>
+            <filename>refresh_icon.png</filename>
+            <filename>rubins.png</filename>
             <filename>sciccors_icon.png</filename>
             <filename>scroll_box.png</filename>
             <filename>scroll_line.png</filename>
             <filename>serp_icon.png</filename>
+            <filename>shop</filename>
             <filename>shop_arrow.png</filename>
             <filename>shop_icon.png</filename>
             <filename>shop_item.png</filename>
+            <filename>shop_limit.png</filename>
+            <filename>shop_locked.png</filename>
             <filename>shop_plawka.png</filename>
             <filename>shop_tab.png</filename>
             <filename>soft_board.png</filename>
             <filename>star.png</filename>
+            <filename>tamp_ramka.png</filename>
+            <filename>temp_gift_icon.png</filename>
             <filename>tempItemBG.png</filename>
             <filename>tools_icon.png</filename>
             <filename>vedro_icon.png</filename>
+            <filename>watering_can.png</filename>
             <filename>wo_ambar.png</filename>
+            <filename>work_icon.png</filename>
             <filename>xp_progres_part_end.png</filename>
             <filename>xp_progres_part.png</filename>
             <filename>xp_progres.png</filename>
             <filename>yellow_coupone.png</filename>
-            <filename>btn3.png</filename>
-            <filename>btn4.png</filename>
-            <filename>galo4ka.png</filename>
-            <filename>hintSidePixels2.png</filename>
-            <filename>work_icon.png</filename>
-            <filename>temp_gift_icon.png</filename>
-            <filename>empty_green_tail.png</filename>
-            <filename>empty_red_tail.png</filename>
-            <filename>green_tail.png</filename>
-            <filename>red_tail.png</filename>
-            <filename>minus.png</filename>
-            <filename>btn100500.png</filename>
-            <filename>plawka7.png</filename>
-            <filename>in_papper.png</filename>
-            <filename>plawka_sold.png</filename>
-            <filename>refresh_icon.png</filename>
-            <filename>tamp_ramka.png</filename>
-            <filename>shop_locked.png</filename>
-            <filename>shop_limit.png</filename>
-            <filename>neighbor.png</filename>
-            <filename>planet.png</filename>
-            <filename>door.png</filename>
-            <filename>watering_can.png</filename>
-            <filename>bg</filename>
-            <filename>carton</filename>
-            <filename>birka_c.png</filename>
-            <filename>birka_cat.png</filename>
-            <filename>birka_d.png</filename>
-            <filename>birka_t.png</filename>
-            <filename>bt_close.png</filename>
-            <filename>bt_green.png</filename>
-            <filename>coins.png</filename>
-            <filename>rubins.png</filename>
-            <filename>production</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
