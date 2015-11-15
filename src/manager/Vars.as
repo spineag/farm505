@@ -129,6 +129,7 @@ public class Vars {
     public var managerPaper:ManagerPaper;
     public var load:LoaderManager;
     public var pBitmaps:Object;
+    public var managerOrder:ManagerOrder;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
@@ -453,7 +454,8 @@ public class Vars {
             Cc.addSlashCommand("deleteUser", f1);
         }
 
-//        NodeServer.makeTest();
+        managerOrder = new ManagerOrder();
+        managerOrder.checkOrders();
     }
 
     private function openMapEditorInterface():void {
