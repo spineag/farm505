@@ -365,6 +365,11 @@ public class Vars {
     }
 
     private function onUserWild():void {
+        managerOrder = new ManagerOrder();
+        directServer.getUserOrder(onUserOrder);
+    }
+
+    private function onUserOrder():void {
         startPreloader.setProgress(99);
         (user as User).friendAppUser();
         initVariables2();
@@ -454,7 +459,6 @@ public class Vars {
             Cc.addSlashCommand("deleteUser", f1);
         }
 
-        managerOrder = new ManagerOrder();
         managerOrder.checkOrders();
     }
 

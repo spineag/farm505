@@ -58,7 +58,7 @@ public class Order extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
             _source.filter = null;
-            g.woOrder.showItMenu();
+            g.woOrder.showIt();
             g.hint.hideIt();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')

@@ -2,9 +2,14 @@
  * Created by user on 7/22/15.
  */
 package windows.orderWindow {
+import data.DataMoney;
+
 import flash.filters.GlowFilter;
+import flash.geom.Point;
 
 import manager.Vars;
+
+import resourceItem.DropItem;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -12,6 +17,8 @@ import starling.events.Event;
 import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import ui.xpPanel.XPStar;
 
 import utils.CSprite;
 import utils.MCScaler;
@@ -32,6 +39,8 @@ public class WOOrder extends Window{
     private var _txtXP:TextField;
     private var _txtCoins:TextField;
     private var _txtName:TextField;
+    private var _arrOrders:Array;
+    private var _curOrder:Object;
 
     public function WOOrder() {
         super ();
@@ -51,13 +60,23 @@ public class WOOrder extends Window{
         new Birka('ЛАВКА', _source, 764, 570);
     }
 
-    public function showItMenu():void {
-//        fillList();
-        showIt();
+    override public function showIt():void {
+        _arrOrders = g.managerOrder.arrOrders;
+        fillList();
+        _arrItems[0].activateIt(true);
+        fillResourceItems(_arrOrders[0]);
+        super.showIt();
     }
 
 
     private function onClickExit(e:Event=null):void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].activateIt(false);
+        }
+        clearResourceItems();
+        for (var i:int=0; i<_arrOrders.length; i++) {
+            _arrItems[i].clearIt();
+        }
         hideIt();
     }
 
@@ -115,6 +134,7 @@ public class WOOrder extends Window{
         _btnDeleteOrder.x = -382 + 670;
         _btnDeleteOrder.y = -285 + 414;
         _source.addChild(_btnDeleteOrder);
+        _btnDeleteOrder.endClickCallback = deleteOrder;
     }
 
     private function createItems():void {
@@ -146,6 +166,36 @@ public class WOOrder extends Window{
         _btnCell.y = -285 + 480;
         _btnCell.flatten();
         _source.addChild(_btnCell);
+        _btnCell.endClickCallback = sellOrder;
+    }
+
+    private function sellOrder():void {
+        if (_curOrder) {
+            for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
+                if (!_arrResourceItems[i].isChecked()) return;
+            }
+            for (i=0; i<_curOrder.resourceIds.length; i++) {
+                g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
+            }
+            var p:Point = new Point(134, 147);
+            p = _source.localToGlobal(p);
+            new XPStar(p.x, p.y,_curOrder.xp);
+            p = new Point(186, 147);
+            var prise:Object = {};
+            prise.id = DataMoney.SOFT_CURRENCY;
+            prise.count = _curOrder.coins;
+            new DropItem(p.x, p.y, prise);
+            if (_curOrder.addCoupone) {
+                p.x = _btnCell.x + _btnCell.width*4/5;
+                p.y = _btnCell.y + _btnCell.height/2;
+                prise.id = int(Math.random()*4) + 3;
+                prise.count = 1;
+                new DropItem(p.x, p.y, prise);
+            }
+            g.managerOrder.sellOrder(_curOrder);
+            _curOrder = null;
+            updateIt();
+        }
     }
 
     private function createTopCats():void {
@@ -161,6 +211,58 @@ public class WOOrder extends Window{
         im.x = -382 + 373;
         im.y = -285 + 65;
         _source.addChild(im);
+    }
+
+    private function fillList():void {
+        for (var i:int=0; i<_arrOrders.length; i++) {
+            _arrItems[i].fillIt(_arrOrders[i], i, onItemClick);
+        }
+    }
+
+    private function onItemClick(pos:int):void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].activateIt(false);
+        }
+        _arrItems[pos].activateIt(true);
+        clearResourceItems();
+        fillResourceItems(_arrOrders[pos]);
+    }
+
+    private function clearResourceItems():void {
+        for (var i:int=0; i<_arrResourceItems.length; i++) {
+            _arrResourceItems[i].clearIt();
+        }
+        _txtName.text = '';
+        _txtXP.text = '';
+        _txtCoins.text = '';
+    }
+
+    private function fillResourceItems(order:Object):void {
+        _curOrder = order;
+        _txtName.text = _curOrder.catName + ' заказывает';
+        _txtXP.text = String(_curOrder.xp);
+        _txtCoins.text = String(_curOrder.coins);
+        for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
+            _arrResourceItems[i].fillIt(_curOrder.resourceIds[i], _curOrder.resourceCounts[i]);
+        }
+    }
+
+    private function deleteOrder():void {
+        if (_curOrder) {
+            g.managerOrder.deleteOrder(_curOrder);
+            _curOrder = null;
+            updateIt();
+        }
+    }
+
+    private function updateIt():void {
+        clearResourceItems();
+        for (var i:int=0; i<_arrOrders.length; i++) {
+            _arrItems[i].clearIt();
+        }
+        fillList();
+        _arrItems[0].activateIt(true);
+        fillResourceItems(_arrOrders[0]);
     }
 
 }

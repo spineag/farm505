@@ -23,16 +23,17 @@ import windows.CartonBackground;
 import windows.CartonBackgroundIn;
 
 public class WOOrderItem {
-    public var source:Sprite;
+    public var source:CSprite;
     private var _bgCarton:CartonBackground;
     private var _bgCartonIn:CartonBackgroundIn;
     private var _txtName:TextField;
     private var _txtXP:TextField;
     private var _txtCoins:TextField;
+    private var _order:Object;
 
     private var g:Vars = Vars.getInstance();
     public function WOOrderItem() {
-        source = new Sprite();
+        source = new CSprite();
         source.filter = BlurFilter.createDropShadow(0, 0.785, 0, 1, .5, 0.5);
         _bgCarton = new CartonBackground(112, 90);
         source.addChild(_bgCarton);
@@ -66,6 +67,40 @@ public class WOOrderItem {
         _txtCoins.x = 48;
         _txtCoins.y = 55;
         source.addChild(_txtCoins);
+
+        source.visible = false;
     }
+
+    public function activateIt(v:Boolean):void {
+        if (v) {
+            source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+        } else {
+            source.filter = null;
+        }
+    }
+
+    public function fillIt(order:Object, position:int, f:Function):void {
+        _order = order;
+        _txtName.text = _order.catName;
+        _txtXP.text = String(_order.xp);
+        _txtCoins.text = String(_order.coins);
+        source.visible = true;
+        var f1:Function = function():void {
+            if (f != null) {
+                f.apply(null, [position]);
+            }
+        };
+        source.endClickCallback = f1;
+    }
+
+    public function clearIt():void {
+        _order = null;
+        source.endClickCallback = null;
+        _txtCoins.text = '';
+        _txtName.text = '';
+        _txtCoins.text = '';
+        source.visible = false;
+    }
+
 }
 }

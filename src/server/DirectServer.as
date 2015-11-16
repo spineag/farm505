@@ -3348,5 +3348,141 @@ public class DirectServer {
             woError.showItParams('skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function addUserOrder(order:Object, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_ORDER);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserOrder', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.ids = order.resourceIds.join('&');
+        variables.counts = order.resourceCounts.join('&');
+        variables.xp = order.xp;
+        variables.coins = order.coins;
+        variables.addCoupone = int(order.addCoupone);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserOrder);
+        function onCompleteAddUserOrder(e:Event):void { completeAddUserOrder(e.target.data, order, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserOrder error:' + error.errorID);
+            woError.showItParams('addUserOrder error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserOrder(response:String, order:Object, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserOrder: wrong JSON:' + String(response));
+            woError.showItParams('addUserOrder: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            order.dbId = String(d.message);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('addUserOrder: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('addUserOrder: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getUserOrder(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_ORDER);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserOrder', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserOrder);
+        function onCompleteGetUserOrder(e:Event):void { completeGetUserOrder(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserOrder error:' + error.errorID);
+            woError.showItParams('GetUserOrder error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserOrder(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('GetUserOrder: wrong JSON:' + String(response));
+            woError.showItParams('GetUserOrder: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            for (var i:int = 0; i < d.message.length; i++) {
+                g.managerOrder.addFromServer(d.message[i]);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('GetUserFOrder: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('GetUserOrder: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function deleteUserOrder(orderDbId:String, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_ORDER);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'deleteUserOrder', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = orderDbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserOrder);
+        function onCompleteDeleteUserOrder(e:Event):void { completeDeleteUserOrder(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('deleteUserOrder error:' + error.errorID);
+            woError.showItParams('GetUserOrder error:' + error.errorID);
+        }
+    }
+
+    private function completeDeleteUserOrder(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('deleteUserOrder: wrong JSON:' + String(response));
+            woError.showItParams('deleteUserOrder: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('deleteUserOrder: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('deleteUserOrder: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

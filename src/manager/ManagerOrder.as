@@ -8,6 +8,7 @@ public class ManagerOrder {
     private var _arrOrders:Array;
     private var _curMaxCountOrders:int;
     private var _curMaxCountResoureAtOrder:int;
+    private var _arrNames:Array;
 
     private var g:Vars = Vars.getInstance();
 
@@ -30,6 +31,11 @@ public class ManagerOrder {
             {level: 15, count: 5}
         ];
         _arrOrders = [];
+        _arrNames = ['Жозефина', 'Катаракта', 'Мария', 'Педретто', 'Хуан Пискуан', 'Доздроперма', 'Всеволод', 'Мздюк', 'Варан'];
+    }
+
+    public function get arrOrders():Array {
+        return _arrOrders;
     }
 
     public function checkOrders():void {
@@ -37,6 +43,18 @@ public class ManagerOrder {
         if (_arrOrders.length < _curMaxCountOrders) {
             addNewOrders(_curMaxCountOrders - _arrOrders.length);
         }
+    }
+
+    public function addFromServer(ob:Object):void {
+        var order:Object = {};
+        order.dbId = ob.id;
+        order.resourceIds = ob.ids.split('&');
+        order.resourceCounts = ob.counts.split('&');
+        order.catName = _arrNames[int(Math.random()*_arrNames.length)];
+        order.coins = int(ob.coins);
+        order.xp = int(ob.xp);
+        order.addCoupone = ob.add_coupone == '1';
+        _arrOrders.push(order);
     }
 
     private function updateMaxCounts():void {
@@ -62,7 +80,6 @@ public class ManagerOrder {
     // 1 - usual resource fromFabrica
     // 2 - resources made from resources from cave
     // 3 - resource plants
-
     private function addNewOrders(n:int):void {
         var order:Object;
         var arrOrderType1:Array = new Array();
@@ -70,6 +87,7 @@ public class ManagerOrder {
         var arrOrderType3:Array = new Array();
         var arr:Array;
         var countResources:int;
+        var k:int;
 
         for(var id:String in g.dataResource.objectResources) {
             if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
@@ -97,14 +115,194 @@ public class ManagerOrder {
                         break;
                     case 2:
                         arr = arrOrderType2.slice();
-                        order.resourceId.push( arr.splice() );
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        arr.splice(k,1);
+                        order.resourceCounts.push(int(Math.random()*2) + 2);
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        order.resourceCounts.push(int(Math.random()*2) + 2);
+                        break;
+                    case 3:
+                        arr = arrOrderType2.slice();
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        arr.splice(k,1);
+                        order.resourceCounts.push(2);
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        arr.splice(k,1);
+                        order.resourceCounts.push(2);
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        order.resourceCounts.push(2);
+                        break;
                 }
             } else {
                 order.addCoupone = false;
+                countResources = int(Math.random()*_curMaxCountResoureAtOrder) + 1;
+                switch (countResources) {
+                    case 1:
+                        if (Math.random() < .6) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*3)+2 );
+                        } else {
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*18)+7 );
+                        }
+                        break;
+                    case 2:
+                        k = Math.random();
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                        } else if (Math.random() < .3) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*3)+2 );
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*14)+7 );
+                        } else {
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*16) + 7);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*16) + 7);
+                        }
+                        break;
+                    case 3:
+                        k = Math.random();
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                        } else if (Math.random() < .3) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*8)+5 );
+                        } else {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+2 );
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*8) + 5);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*8) + 5);
+                        }
+                        break;
+                    case 4:
+                        k = Math.random();
+                        if (k < .7) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                        } else {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*5)+3 );
+                        }
+                        break;
+                    case 5:
+                        arr = arrOrderType1.slice();
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        arr.splice(k,1);
+                        order.resourceCounts.push(1);
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        arr.splice(k,1);
+                        order.resourceCounts.push(1);
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        arr.splice(k,1);
+                        order.resourceCounts.push(1);
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        arr.splice(k,1);
+                        order.resourceCounts.push(1);
+                        k = int(Math.random()*arr.length);
+                        order.resourceIds.push(arr[k]);
+                        order.resourceCounts.push(1);
+                        break;
+                }
             }
+            order.catName = _arrNames[int(Math.random()*_arrNames.length)];
+            order.coins = 0;
+            order.xp = 0;
+            for (k=0; k<order.resourceIds.length; k++) {
+                order.coins += g.dataResource.objectResources[order.resourceIds[k]].orderPrice * order.resourceCounts[k];
+                order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
+            }
+            _arrOrders.push(order);
+            g.directServer.addUserOrder(order, null);
         }
+    }
 
+    public function deleteOrder(order:Object):void {
+        _arrOrders.splice(_arrOrders.indexOf(order), 1);
+        g.directServer.deleteUserOrder(order.dbId, null);
+        if (_arrOrders.length < _curMaxCountOrders) {
+            addNewOrders(_curMaxCountOrders - _arrOrders.length);
+        }
+    }
 
+    public function sellOrder(order:Object):void {
+        _arrOrders.splice(_arrOrders.indexOf(order), 1);
+        g.directServer.deleteUserOrder(order.dbId, null);
+        if (_arrOrders.length < _curMaxCountOrders) {
+            addNewOrders(_curMaxCountOrders - _arrOrders.length);
+        }
     }
 }
 }
