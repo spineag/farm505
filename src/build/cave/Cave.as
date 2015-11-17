@@ -307,9 +307,8 @@ public class Cave extends AreaObject{
 
     private function callbackSkip():void {
         _stateBuild = STATE_WAIT_ACTIVATE;
-        clearCraftSprite();
-        addTempGiftIcon();
-//        createBuild();
+        _leftBuildTime = 0;
+        renderBuildProgress();
     }
 
 }

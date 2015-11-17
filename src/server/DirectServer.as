@@ -19,6 +19,7 @@ import flash.net.URLRequest;
 import flash.net.URLRequestHeader;
 import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
+import flash.utils.getTimer;
 
 import manager.ManagerAnimal;
 import manager.ManagerFabricaRecipe;
@@ -3346,6 +3347,184 @@ public class DirectServer {
         } else {
             Cc.error('skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function skipTimeOnRidge(plantTime:int,buildDbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_RIDGE);
+        var variables:URLVariables = new URLVariables();
+        var time:Number = getTimer();
+
+        Cc.ch('server', 'skipTimeOnRidge', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.plantTime = time - plantTime;
+        variables.buildDbId = buildDbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteskipTimeOnRidge);
+        function onCompleteskipTimeOnRidge(e:Event):void { completeskipTimeOnRidge(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('skipTimeOnRidge error:' + error.errorID);
+            woError.showItParams('skipTimeOnRidge error:' + error.errorID);
+        }
+    }
+
+    private function completeskipTimeOnRidge(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('skipTimeOnRidge: wrong JSON:' + String(response));
+            woError.showItParams('skipTimeOnRidge: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('skipTimeOnRidge: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('skipTimeOnRidge: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function skipTimeOnTree(stateTree:int, buildDbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_TREE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'skipTimeOnTree', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.state = stateTree;
+        variables.id = buildDbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteSkipTimeOnTree);
+        function onCompleteSkipTimeOnTree(e:Event):void { completeSkipTimeOnTree(e.target.data,callback);}//e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('skipTimeOnTree error:' + error.errorID);
+            woError.showItParams('skipTimeOnTree error:' + error.errorID);
+        }
+    }
+
+    private function completeSkipTimeOnTree(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('skipTimeOnTree: wrong JSON:' + String(response));
+            woError.showItParams('skipTimeOnTree: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('skipTimeOnTree: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('skipTimeOnTree: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function skipTimeOnAnimal(timeToEnd:int,buildDbId:String, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_ANIMAL);
+        var variables:URLVariables = new URLVariables();
+        var time:Number = getTimer();
+        Cc.ch('server', 'skipTimeOnAnimal', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.animalDbId = int(buildDbId);
+        variables.timeToEnd = time - timeToEnd;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteskipTimeOnAnimal);
+        function onCompleteskipTimeOnAnimal(e:Event):void { completeskipTimeOnAnimal(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('skipTimeOnAnimal error:' + error.errorID);
+            woError.showItParams('skipTimeOnAnimal error:' + error.errorID);
+        }
+    }
+
+    private function completeskipTimeOnAnimal(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('skipTimeOnAnimal: wrong JSON:' + String(response));
+            woError.showItParams('skipTimeOnAnimal: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('skipTimeOnAnimal: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('skipTimeOnAnimal: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function skipTimeOnFabricBuild(leftTime:int, buildDbId:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_FABRIC_BUILD);
+        var variables:URLVariables = new URLVariables();
+        var time:Number = getTimer();
+
+        Cc.ch('server', 'skipTimeOnFabricBuild', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.leftTime = time - leftTime;
+        variables.buildDbId = buildDbId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteSkipTimeOnFabricBuild);
+        function onCompleteSkipTimeOnFabricBuild(e:Event):void { completeSkipTimeOnFabricBuild(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('skipTimeOnFabricBuild error:' + error.errorID);
+            woError.showItParams('skipTimeOnFabricBuild error:' + error.errorID);
+        }
+    }
+
+    private function completeSkipTimeOnFabricBuild(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('skipTimeOnFabricBuild: wrong JSON:' + String(response));
+            woError.showItParams('skipTimeOnFabricBuild: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('skipTimeOnFabricBuild: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('skipTimeOnFabricBuild: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

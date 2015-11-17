@@ -68,5 +68,9 @@ public class Consts {
     public static var INQ_USER_GAME_SCALE:String = 'saveUserGameScale.php';
     public static var INQ_ADD_CELL_FABRICA:String = 'addCellUserFabrica.php';
     public static var INQ_SKIP_RECIPE_FABRICA:String = 'skipRecipeOnFabrica.php';
+    public static var INQ_SKIP_TIME_RIDGE:String = 'skipTimeOnRidge.php';
+    public static var INQ_SKIP_TIME_TREE:String = 'skipTimeOnTree.php';
+    public static var INQ_SKIP_TIME_ANIMAL:String = 'skipTimeOnAnimal.php';
+    public static var INQ_SKIP_TIME_FABRIC_BUILD:String = 'skipTimeOnFabricBuild.php';
 }
 }
