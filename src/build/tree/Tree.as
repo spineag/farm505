@@ -490,12 +490,15 @@ public class Tree extends AreaObject{
         if (_state == GROW1 ||_state == GROW_FLOWER1){
             _state = GROWED1;
             setBuildImage();
+            g.directServer.skipTimeOnTree(GROWED1,_dbBuildingId,null)
         } else if (_state == GROW2 || _state == GROW_FLOWER2) {
             _state = GROWED2;
             setBuildImage();
+            g.directServer.skipTimeOnTree(GROWED2,_dbBuildingId,null)
         } else if (_state == GROW3 || _state == GROW_FLOWER3) {
             _state = GROWED3;
             setBuildImage();
+            g.directServer.skipTimeOnTree(GROWED3,_dbBuildingId,null)
         }
     }
 }

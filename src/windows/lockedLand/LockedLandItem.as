@@ -147,6 +147,7 @@ public class LockedLandItem {
     }
 
     private function buyItem():void {
+        g.woLockedLand.onClickExit();
         g.woBuyForHardCurrency.showItWO(_id,_count);
     }
 

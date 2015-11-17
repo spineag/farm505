@@ -3,12 +3,10 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
-import data.BuildType;
 import data.DataMoney;
 
 import flash.geom.Point;
 
-import map.TownArea;
 
 import mouse.ToolsModifier;
 
@@ -25,7 +23,6 @@ import temp.DropResourceVariaty;
 import ui.xpPanel.XPStar;
 
 import windows.cave.WOBuyCave;
-
 public class Train extends AreaObject{
     public static var STATE_WAIT_BACK:int = 5;   // поезд в данный момент где-то ездит с продуктамы
     public static var STATE_READY:int = 6;  //  поезд ожидает загрузки продуктов
@@ -399,8 +396,10 @@ public class Train extends AreaObject{
 
     private function callbackSkip():void {
         _stateBuild = STATE_WAIT_ACTIVATE;
-        clearCraftSprite();
-        addTempGiftIcon();
+//        clearCraftSprite();
+//        addTempGiftIcon();
+        _leftBuildTime = 0;
+        renderBuildProgress();
     }
 }
 }

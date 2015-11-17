@@ -331,10 +331,9 @@ public class Fabrica extends AreaObject {
 
     private function callbackSkip():void {
         _stateBuild = STATE_WAIT_ACTIVATE;
-//        createBuild();
-        clearCraftSprite();
-        addTempGiftIcon();
-//        checkBuildState();
+        g.directServer.skipTimeOnFabricBuild(_leftBuildTime,dbBuildingId,null);
+        _leftBuildTime = 0;
+        renderBuildProgress();
     }
 
     public function onBuyNewCell():void {

@@ -18,7 +18,7 @@ public class PlantOnRidge {
     private var _source:Sprite;
     private var _ridge:Ridge;
     private var _data:Object;
-    private var _timeToEndState:int;
+    public var _timeToEndState:int;
      public var idFromServer:String; // в табличке user_plant_ridge
 
     private var g:Vars = Vars.getInstance();

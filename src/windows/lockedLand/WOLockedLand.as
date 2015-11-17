@@ -38,7 +38,7 @@ public class WOLockedLand extends Window{
         filter.adjustSaturation(-1);
     }
 
-    private function onClickExit(e:Event=null):void {
+    public function onClickExit(e:Event=null):void {
         hideIt();
         clearIt();
         if (_btnOpen.hasEventListener(Event.TRIGGERED))
