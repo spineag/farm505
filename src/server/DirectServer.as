@@ -266,6 +266,7 @@ public class DirectServer {
                 obj.buildType = int(d.message[i].resource_type);
                 obj.placeBuild = int(d.message[i].resource_place);
                 obj.orderType = int(d.message[i].order_type);
+                obj.opys = d.message[i].descript;
                 if (d.message[i].cost_skip) obj.priceSkipHard = d.message[i].cost_skip;
                 if (d.message[i].build_time) obj.buildTime = d.message[i].build_time;
                 if (d.message[i].craft_xp) obj.craftXP = d.message[i].craft_xp;
