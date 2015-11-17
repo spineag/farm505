@@ -40,14 +40,7 @@ public class WOBuyPlant extends Window {
 //        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
 //        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
         callbackClickBG = hideIt;
-
         _arrAllPlants = [];
-        for (var id:String in g.dataResource.objectResources) {
-            if (g.dataResource.objectResources[id].buildType == BuildType.PLANT) {
-                _arrAllPlants.push(g.dataResource.objectResources[id]);
-            }
-        }
-        _arrAllPlants.sortOn('blockByLevel', Array.NUMERIC);
 
         _birka = new Birka('Огород', _source, 455, 580);
         _birka.flipIt();
@@ -75,9 +68,19 @@ public class WOBuyPlant extends Window {
         }
         _ridge = ridge;
         _callback = f;
+        updatePlantArray();
         activateShiftBtn(1, false);
         fillPlantItems();
         super.showIt();
+    }
+
+    private function updatePlantArray():void {
+        for (var id:String in g.dataResource.objectResources) {
+            if (g.dataResource.objectResources[id].buildType == BuildType.PLANT && g.dataResource.objectResources[id].blockByLevel <= g.user.level + 1) {
+                _arrAllPlants.push(g.dataResource.objectResources[id]);
+            }
+        }
+        _arrAllPlants.sortOn('blockByLevel', Array.NUMERIC);
     }
 
     private function fillPlantItems():void {
