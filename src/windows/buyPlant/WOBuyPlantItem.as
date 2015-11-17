@@ -9,6 +9,7 @@ import flash.geom.Point;
 import manager.Vars;
 
 import starling.display.Image;
+import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 import starling.utils.HAlign;
@@ -87,6 +88,7 @@ public class WOBuyPlantItem {
         }
         _dataPlant = null;
         _clickCallback = null;
+        source.filter = null;
         source.alpha = .5;
         _txtNumber.text = '';
     }
@@ -99,6 +101,7 @@ public class WOBuyPlantItem {
     }
 
     private function onHover():void {
+        source.filter = BlurFilter.createGlow(0x00ff01, 10, 2, 1);
         g.fabricHint.clearIt();
         var p:Point = new Point(0, 0);
         p = source.localToGlobal(p);
@@ -106,6 +109,7 @@ public class WOBuyPlantItem {
     }
 
     private function onOut():void {
+        source.filter = null;
         g.fabricHint.clearIt();
     }
 }
