@@ -18,6 +18,8 @@ import starling.utils.Color;
 
 import utils.CSprite;
 
+import windows.Birka;
+
 import windows.Window;
 
 public class WOFabrica extends Window {
@@ -30,6 +32,7 @@ public class WOFabrica extends Window {
     private var _arrAllRecipes:Array;
     private var _bottomBG:Sprite;
     private var _fabrica:Fabrica;
+    private var _birka:Birka;
 
     public function WOFabrica() {
         super();
@@ -42,6 +45,12 @@ public class WOFabrica extends Window {
         createBottomBG();
         callbackClickBG = onClickExit;
         _list = new WOFabricaWorkList(_source);
+
+        _birka = new Birka('Фабрика', _source, 455, 580);
+        _birka.flipIt();
+        _birka.source.rotation = Math.PI/2;
+        _birka.source.x = -100;
+        _birka.source.y = 257;
     }
 
     public function onClickExit(e:Event=null):void {
@@ -61,6 +70,7 @@ public class WOFabrica extends Window {
         activateShiftBtn(1, false);
         fillFabricaItems();
         _list.fillIt(arrList, _fabrica);
+        _birka.updateText(_fabrica.dataBuild.name);
         super.showIt();
     }
 
@@ -98,8 +108,14 @@ public class WOFabrica extends Window {
         }
     }
 
+    private function onBuyResource(dataRecipe:Object, obj:Object):void {
+        showItWithParams((obj.fabrica as Fabrica).arrRecipes, (obj.fabrica as Fabrica).arrList, obj.fabrica as Fabrica, obj.callback);
+        onItemClick(dataRecipe);
+    }
+
     private function onItemClick(dataRecipe:Object):void {
         if (_list.isFull){
+            onClickExit();
             g.woNoPlaces.showItMenu();
             return;
         }
@@ -112,7 +128,11 @@ public class WOFabrica extends Window {
             for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
                 count =  g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
                 if (count < int(dataRecipe.ingridientsCount[i])) {
-                    g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count,onItemClick);
+                    var obj:Object = {};
+                    obj.fabrica = _fabrica;
+                    obj.callback = _callbackOnClick;
+                    onClickExit();
+                    g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count,onBuyResource, obj);
                     return;
                 }
             }
@@ -125,15 +145,6 @@ public class WOFabrica extends Window {
             _callbackOnClick.apply(null, [resource, dataRecipe]);
         }
     }
-
-//    public function onSkip():void {
-//        if (g.user.hardCurrency < int(_txtCount.text)) {
-//            g.woBuyCurrency.showItMenu(true);
-//            return;
-//        }
-//        g.userInventory.addMoney(1,-int(_txtCount.text));
-//        _list.skipIt();
-//    }
 
     private function createTopBG():void {
         _topBG = new Sprite();
@@ -163,7 +174,7 @@ public class WOFabrica extends Window {
             s = new CSprite();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
             s.addChild(im);
-            txt = new TextField(32, 32, String(i), g.allData.fonts['BloggerBold'], 22,0x009bff);
+            txt = new TextField(32, 32, String(i+1), g.allData.fonts['BloggerBold'], 22,0x009bff);
             txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
             txt.y = 20;
             txt.x = 2;

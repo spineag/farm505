@@ -15,48 +15,79 @@ import starling.utils.HAlign;
 
 public class Birka extends Sprite{
     private var _source:Sprite;
+    private var _txt:TextField;
     private var g:Vars = Vars.getInstance();
+    private var _curH:int;
+    private var _bg:Sprite;
 
     public function Birka(text:String, woSource:Sprite, w:int, h:int) {
         _source = new Sprite();
-        var txt:TextField = new TextField(300, 70, text, g.allData.fonts['BloggerBold'], 24, 0x009eff);
-        txt.hAlign =  HAlign.LEFT;
-        txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 9.0)];
-        txt.bold = true;
-        var tW:int = int(txt.textBounds.width);
+        _txt = new TextField(300, 70, text, g.allData.fonts['BloggerBold'], 24, 0x009eff);
+        _txt.hAlign =  HAlign.LEFT;
+        _txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 9.0)];
+        _bg = new Sprite();
+
+        createAll();
+
+        _source.touchable = false;
+        _source.flatten();
+        _source.y = -h/2 + _curH/2 + 180;
+        _source.x = -w/2 + 14;
+        woSource.addChild(_source);
+    }
+
+    private function createAll():void {
+        var tW:int = int(_txt.textBounds.width);
         var catIm:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_cat'));
-        var curH:int = int(catIm.height) + tW + 50;
+        _curH = int(catIm.height) + tW + 50;
+        _source.addChild(_bg);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_d'));
         im.y = -im.height;
         im.x = -im.width;
-        _source.addChild(im);
+        _bg.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_t'));
-        im.y = -curH;
+        im.y = -_curH;
         im.x = -im.width;
-        _source.addChild(im);
+        _bg.addChild(im);
 
-        var cCount:int = Math.ceil((curH - 80)/43) + 1;
+        var cCount:int = Math.ceil((_curH - 80)/43) + 1;
         for (var i:int=0; i < cCount; i++) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_c'));
             im.x = -im.width;
-            im.y = -75 - i*(im.height - 2);
-            _source.addChildAt(im, 0);
+            if (i == cCount-1) {
+                im.y = -_curH + 30;
+            } else {
+                im.y = -75 - i * (im.height - 2);
+            }
+            _bg.addChildAt(im, 0);
         }
 
         catIm.x = -58;
         catIm.y = -60;
         _source.addChild(catIm);
-        txt.rotation = -Math.PI/2;
-        txt.y = -65;
-        txt.x = -73;
-        _source.addChild(txt);
+        _txt.rotation = -Math.PI/2;
+        _txt.y = -65;
+        _txt.x = -73;
+        _source.addChild(_txt);
+    }
 
-        _source.touchable = false;
+    public function get source():Sprite {
+        return _source;
+    }
+
+    public function updateText(st:String):void {
+        _txt.text = st;
+        _source.unflatten();
+        while (_bg.numChildren) _bg.removeChildAt(0);
+        while (_source.numChildren) _source.removeChildAt(0);
+        createAll();
         _source.flatten();
-        _source.y = -h/2 + curH/2 + 180;
-        _source.x = -w/2 + 14;
-        woSource.addChild(_source);
+    }
+
+    public function flipIt():void {
+        _bg.scaleX = -1;
+        _bg.x = -_bg.width;
     }
 }
 }

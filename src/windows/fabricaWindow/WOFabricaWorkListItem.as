@@ -66,7 +66,7 @@ public class WOFabricaWorkListItem {
             im.x = 13;
             im.y = -20;
             _timerBlock.addChild(im);
-            _txtTimer = new TextField(78, 33, 'blablabla', g.allData.fonts['BloggerRegular'], 18, Color.WHITE);
+            _txtTimer = new TextField(78, 33, '', g.allData.fonts['BloggerRegular'], 18, Color.WHITE);
             _txtTimer.x = 13;
             _txtTimer.y = -20;
             _timerBlock.addChild(_txtTimer);
@@ -192,34 +192,36 @@ public class WOFabricaWorkListItem {
     }
 
     public function showBuyPropose(buyCount:int, callback:Function):void {
-        source.visible = true;
-        _proposeBtn = new CSprite();
-        var txt:TextField = new TextField(46,28,"+" + String(buyCount),g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x1261ac, 1, 4, 4, 7.0)];
-        _proposeBtn.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-        MCScaler.scale(im, 20, 20);
-        im.x = 14;
-        im.y = 23;
-        _proposeBtn.addChild(im);
-        _proposeBtn.flatten();
-        source.addChild(_proposeBtn);
-        var f1:Function = function():void {
-            if (g.user.hardCurrency >= buyCount) {
-                if (callback != null) {
-                    callback.apply();
+        if (_type == SMALL_CELL) {
+            source.visible = true;
+            _proposeBtn = new CSprite();
+            var txt:TextField = new TextField(46, 28, "+" + String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+            txt.nativeFilters = [new GlowFilter(0x1261ac, 1, 4, 4, 7.0)];
+            _proposeBtn.addChild(txt);
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            MCScaler.scale(im, 20, 20);
+            im.x = 14;
+            im.y = 23;
+            _proposeBtn.addChild(im);
+            _proposeBtn.flatten();
+            source.addChild(_proposeBtn);
+            var f1:Function = function ():void {
+                if (g.user.hardCurrency >= buyCount) {
+                    if (callback != null) {
+                        callback.apply();
+                    }
+                    unfillIt();
+                    source.visible = true;
+                    var p:Point = new Point(source.width / 2, source.height / 2);
+                    p = source.localToGlobal(p);
+                    new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
+                    g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
+                } else {
+                    g.woBuyCurrency.showItMenu(true);
                 }
-                unfillIt();
-                source.visible = true;
-                var p:Point = new Point(source.width / 2, source.height / 2);
-                p = source.localToGlobal(p);
-                new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
-                g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
-            } else {
-                g.woBuyCurrency.showItMenu(true);
-            }
-        };
-        _proposeBtn.endClickCallback = f1;
+            };
+            _proposeBtn.endClickCallback = f1;
+        }
     }
 
     private function makeSkip():void {

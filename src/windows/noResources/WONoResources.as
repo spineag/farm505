@@ -38,6 +38,7 @@ public class WONoResources extends Window {
     private var _count:int;
     private var _dataResource:Object;
     private var _callbackBuy:Function;
+    private var _params:Object;
 
     public function WONoResources() {
         super();
@@ -102,9 +103,10 @@ public class WONoResources extends Window {
         showIt();
     }
 
-    public function showItMenu(data:Object, count:int, f:Function = null):void {
+    public function showItMenu(data:Object, count:int, f:Function = null, params:Object = null):void {
         createList(data, count);
         showIt();
+        _params = params;
         _dataResource = data;
         _callbackBuy = f;
     }
@@ -206,7 +208,8 @@ public class WONoResources extends Window {
         var countRes:int = 0;
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
             g.userInventory.addMoney(1, -int(_txtHardCost.text));
-        } else {  g.woBuyCurrency.showItMenu(true);
+        } else {
+            g.woBuyCurrency.showItMenu(true);
             return;
         }
 
@@ -219,13 +222,19 @@ public class WONoResources extends Window {
             }
 
             if (_callbackBuy != null) {
-                _callbackBuy.apply(null, [_dataResource]);
+                if (_params) {
+                    _callbackBuy.apply(null, [_dataResource, _params]);
+                    _params = null;
+                } else {
+                    _callbackBuy.apply(null, [_dataResource]);
+                }
             }
         }
         clearIt();
     }
 
     private function onClickMoney():void {
+        hideIt();
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
             g.userInventory.addMoney(1, -int(_txtHardCost.text));
         } else {  g.woBuyCurrency.showItMenu(true);
@@ -240,6 +249,7 @@ public class WONoResources extends Window {
     }
 
     private function onClickTrain():void {
+        hideIt();
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
             g.userInventory.addMoney(1, -int(_txtHardCost.text));
         } else {  g.woBuyCurrency.showItMenu(true);
@@ -261,7 +271,6 @@ public class WONoResources extends Window {
         _contImage.removeChild(_imageItem);
         _contImage.removeChild(_txtCount);
         _arrCells.length = 0;
-        hideIt();
     }
 
     private function onClickAnimal():void {

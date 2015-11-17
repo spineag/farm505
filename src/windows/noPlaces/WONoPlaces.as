@@ -50,9 +50,6 @@ public class WONoPlaces extends Window{
         _contBtn.addChild(_imageHard);
         _source.addChild(_imageBg);
         _source.addChild(_txtText);
-
-
-
     }
 
     private function onClickExit(e:Event=null):void {

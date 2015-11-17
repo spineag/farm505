@@ -161,6 +161,14 @@ public class Fabrica extends AreaObject {
         }
     }
 
+    public function get arrRecipes():Array {
+        return _arrRecipes;
+    }
+
+    public function get arrList():Array {
+        return _arrList;
+    }
+
     private function onOpenBuilded(value:Boolean):void { }
 
     private function fillRecipes():void {
