@@ -1,27 +1,26 @@
 /**
- * Created by user on 6/2/15.
+ * Created by user on 6/9/15.
  */
 package windows.buyPlant {
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
 import manager.Vars;
 
 import starling.display.Image;
-import starling.display.Quad;
-import starling.display.Sprite;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
+import starling.utils.HAlign;
 
 import utils.CSprite;
-
 import utils.MCScaler;
 
 public class WOBuyPlantItem {
     public var source:CSprite;
     private var _bg:Image;
     private var _icon:Image;
-    private var _data:Object;
+    private var _dataPlant:Object;
     private var _clickCallback:Function;
     private var _txtNumber:TextField;
 
@@ -29,32 +28,39 @@ public class WOBuyPlantItem {
 
     public function WOBuyPlantItem() {
         source = new CSprite();
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tempItemBG'));
-        MCScaler.scale(_bg, 100, 100);
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
         source.addChild(_bg);
         source.pivotX = source.width/2;
-        source.pivotY = source.height/2;
+        source.pivotY = source.height;
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         source.alpha = .5;
         _txtNumber = new TextField(40,30,"","Arial", 18,Color.BLACK);
-        _txtNumber.x = 50;
-        _txtNumber.y = 60;
+        _txtNumber.hAlign = HAlign.RIGHT;
+        _txtNumber.x = 52;
+        _txtNumber.y = 68;
         source.addChild(_txtNumber);
     }
 
     public function fillData(ob:Object, f:Function):void {
-        _data = ob;
-        if (!_data) {
-            Cc.error('WOBuyPlantItem fillData:: empty _data');
+        _dataPlant = ob;
+        if (!_dataPlant) {
+            Cc.error('WOBuyPlantItem:: empty _dataPlant');
             g.woGameError.showIt();
             return;
         }
         _clickCallback = f;
-        _txtNumber.text = String(g.userInventory.getCountResourceById(_data.id));
-        fillIcon(_data.imageShop);
-        source.alpha = 1;
+        if (_dataPlant.blockByLevel == g.user.level + 1) {
+            source.alpha = .5;
+        } else if (_dataPlant.blockByLevel <= g.user.level) {
+            source.alpha = 1;
+        } else {
+            source.alpha = 0;
+            Cc.error("Warning woBuyPlantItem filldata:: _dataPlant.blockByLevel > g.user.level + 1");
+        }
+        fillIcon(_dataPlant.imageShop);
+        _txtNumber.text = String(g.userInventory.getCountResourceById(_dataPlant.id));
     }
 
     private function fillIcon(s:String):void {
@@ -64,31 +70,14 @@ public class WOBuyPlantItem {
         }
         _icon = new Image(g.allData.atlas['plantAtlas'].getTexture(s));
         if (!_icon) {
-            Cc.error('WOBuyPlantItem fillData:: no such image: ' + s);
+            Cc.error('WOItemFabrica fillIcon:: no such image: ' + s);
             g.woGameError.showIt();
             return;
         }
-        MCScaler.scale(_icon, 100, 100);
-        source.addChildAt(_icon, 1);
-    }
-
-    private function onClick():void {
-        if (g.userInventory.getCountResourceById(_data.id) == 0) {
-            g.woNoResources.showItMenu(_data,1);
-            return;
-        }
-        if (_clickCallback != null) {
-            _clickCallback.apply(null, [_data]);
-        }
-        g.resourceHint.hideIt();
-    }
-    private function onHover():void {
-        if(_data) g.resourceHint.showIt(_data.id,"",source.x -50, source.y -40,source);
-
-    }
-
-    private function onOut():void {
-       if (_data) g.resourceHint.hideIt();
+        MCScaler.scale(_icon, 80, 80);
+        _icon.x = _bg.width/2 - _icon.width/2;
+        _icon.y = _bg.height/2 - _icon.height/2;
+        source.addChildAt(_icon,1);
     }
 
     public function unfillIt():void {
@@ -96,12 +85,28 @@ public class WOBuyPlantItem {
             source.removeChild(_icon);
             _icon = null;
         }
-        _data = null;
+        _dataPlant = null;
         _clickCallback = null;
-        _txtNumber.text = '';
         source.alpha = .5;
+        _txtNumber.text = '';
     }
 
+    private function onClick():void {
+        if (_clickCallback != null) {
+            _clickCallback.apply(null, [_dataPlant]);
+        }
+        g.fabricHint.clearIt();
+    }
 
+    private function onHover():void {
+        g.fabricHint.clearIt();
+        var p:Point = new Point(0, 0);
+        p = source.localToGlobal(p);
+        g.fabricHint.showIt(_dataPlant,p.x, p.y);
+    }
+
+    private function onOut():void {
+        g.fabricHint.clearIt();
+    }
 }
 }

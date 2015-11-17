@@ -151,7 +151,7 @@ public class WOFabrica extends Window {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_line_l'));
         _topBG.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_line_r'));
-        im.x = 580 - im.width;
+        im.x = _woWidth - im.width;
         _topBG.addChild(im);
         for (var i:int=0; i<10; i++) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_line_c'));
