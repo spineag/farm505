@@ -30,5 +30,9 @@ public class ManagerPaper {
     public function get arr():Array {
         return _arr;
     }
+
+    public function getPaperItems():void {
+        g.directServer.getPaperItems(null);
+    }
 }
 }

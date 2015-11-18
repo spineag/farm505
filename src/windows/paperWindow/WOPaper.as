@@ -14,78 +14,68 @@ import utils.CSprite;
 import windows.Window;
 
 public class WOPaper extends Window{
-    private var _data:Object;
-    private var _contImage:Sprite;
-    private var _arrItems:Array;
     private var _btnRefresh:CSprite;
+    private var _arrPaper:Array;
+    private var _leftPage:WOPaperPage;
+    private var _rightPage:WOPaperPage;
+    private var _shiftPages:int;
+    private var _maxPages:int;
 
     public function WOPaper() {
-        createTempBG(570, 470, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x = 285;
-        _btnExit.y = -235;
-        _contImage = new Sprite();
-        _source.addChild(_contImage);
+        _woWidth = 842;
+        _woHeight = 526;
+        _shiftPages = 1;
+
         _btnRefresh = new CSprite();
         var ref:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
         _btnRefresh.addChild(ref);
         _btnRefresh.x = -285;
         _btnRefresh.y = 210;
         _source.addChild(_btnRefresh);
-        createItem();
         _btnRefresh.endClickCallback = makeRefresh;
+
         callbackClickBG = onClickExit;
     }
 
     private function onClickExit():void {
         hideIt();
-//        while (_contImage.numChildren) {
-//            _contImage.removeChildAt(0);
-//        }
-        clearItems();
     }
 
     public function showItMenu():void {
-        fillItems();
+        _arrPaper = g.managerPaper.arr;
+        //temporary
+//            _arrPaper = _arrPaper.concat(_arrPaper);
+//            _arrPaper = _arrPaper.concat(_arrPaper);
+//            _arrPaper = _arrPaper.concat(_arrPaper);
+//            _arrPaper = _arrPaper.concat(_arrPaper);
+//            _arrPaper = _arrPaper.concat(_arrPaper);
+        // end fo temporary block
+        if (_arrPaper.length > 60) _arrPaper.length = 60;
+        _maxPages = Math.ceil(_arrPaper.length/6);
+        if (_maxPages <2) _maxPages = 2;
+
+        createPages();
         showIt();
     }
 
-    private function createItem():void {
-        var item:WOPaperItem;
-        _arrItems = [];
-        for (var i:int=0; i<9; i++) {
-            item = new WOPaperItem();
-            item.source.x = 180*(i%3) - 265;
-            item.source.y = int(i/3)*150 - 210;
-            _contImage.addChild(item.source);
-            _arrItems.push(item);
-        }
-    }
+    private function createPages():void {
+        _leftPage = new WOPaperPage(_shiftPages, _maxPages, WOPaperPage.LEFT_SIDE);
+        _rightPage = new WOPaperPage(_shiftPages + 1, _maxPages, WOPaperPage.RIGHT_SIDE);
+        _leftPage.source.x = -_woWidth/2;
+        _leftPage.source.y = -_woHeight/2;
+        _rightPage.source.x = 0;
+        _rightPage.source.y = -_woHeight/2;
+        _source.addChild(_leftPage.source);
+        _source.addChild(_rightPage.source);
 
-    public function updatePaperItems():void {
-        clearItems();
-        g.directServer.getPaperItems(fillItems);
-    }
-
-    private function clearItems():void {
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].clearIt();
-        }
-    }
-
-    private function fillItems():void {
-        var ar:Array = g.managerPaper.arr;
-        for (var i:int=0; i<_arrItems.length; i++) {
-            if (ar[i]) _arrItems[i].fillIt(ar[i]);
-        }
+        var arr:Array = _arrPaper.slice((_shiftPages - 1)*6, (_shiftPages - 1)*6 + 6);
+        _leftPage.fillItems(arr);
+        arr = _arrPaper.slice(_shiftPages*6, _shiftPages*6 + 6);
+        _rightPage.fillItems(arr);
     }
 
     private function makeRefresh():void {
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].unFillIt();
-        }
-        g.directServer.getPaperItems(fillItems);
+//        g.directServer.getPaperItems(fillItems);
     }
 }
 }

@@ -88,7 +88,7 @@ public class WindowBackground extends Sprite{
         }
 
         arr.length = 0;
-        touchable = false;
+//        touchable = false;
         flatten();
     }
 }

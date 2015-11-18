@@ -440,7 +440,7 @@ public class Vars {
 
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
-//        woPaper.updatePaperItems();
+        managerPaper.getPaperItems();
 
         if (!useDataFromServer) temporaryFillUserInventory();
 
