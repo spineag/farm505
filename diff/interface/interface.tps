@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/interface/interface.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -292,6 +292,8 @@
             <filename>xp_progres_part.png</filename>
             <filename>xp_progres.png</filename>
             <filename>yellow_coupone.png</filename>
+            <filename>friends_panel_ar.png</filename>
+            <filename>newspaper_p1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
