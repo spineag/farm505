@@ -40,6 +40,10 @@ public class OptionPanel {
     private var _contMusic:CSprite;
     private var _contSound:CSprite;
     private var _arrCells:Array;
+    private var _imScreenShot:Image;
+    private var _imAnim:Image;
+    private var _imMusic:Image;
+    private var _imSound:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -57,33 +61,45 @@ public class OptionPanel {
         var im:Image;
 
         _contFullScreen = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_fullscreen"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_fs_off"));
         _contFullScreen.addChild(im);
+        _contFullScreen.y = 115;
         _source.addChild(_contFullScreen);
         _contFullScreen.hoverCallback = function ():void {
-            _contFullScreen.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
             g.hint.showIt("На весь экран","0");
         };
         _contFullScreen.outCallback = function ():void {
-            _contFullScreen.filter = null;
             g.hint.hideIt();
         };
         _contFullScreen.startClickCallback = function ():void {
+            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
+                _contFullScreen.removeChild(im);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_fs"));
+                _contFullScreen.addChild(im);
+            } else {
+                _contFullScreen.removeChild(im);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_fs_off"));
+                _contFullScreen.addChild(im);
+            }
             onClick('fullscreen');
             g.hint.hideIt();
         };
 
         _contScalePlus = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_scale_plus"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in_off"));
         _contScalePlus.addChild(im);
-        _contScalePlus.y = 50;
+        _contScalePlus.y = 160;
         _source.addChild(_contScalePlus);
         _contScalePlus.hoverCallback = function ():void {
-            _contScalePlus.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            _contScalePlus.removeChild(im);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in"));
+            _contScalePlus.addChild(im);
             g.hint.showIt("Приблизить","0");
         };
         _contScalePlus.outCallback = function ():void {
-            _contScalePlus.filter = null;
+            _contScalePlus.removeChild(im);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in_off"));
+            _contScalePlus.addChild(im);
             g.hint.hideIt();
         };
         _contScalePlus.endClickCallback = function ():void {
@@ -91,16 +107,20 @@ public class OptionPanel {
         };
 
         _contScaleMinus = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_scale_minus"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out_off"));
         _contScaleMinus.addChild(im);
-        _contScaleMinus.y = 100;
+        _contScaleMinus.y = 205;
         _source.addChild(_contScaleMinus);
         _contScaleMinus.hoverCallback = function ():void {
-            _contScaleMinus.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            _contScaleMinus.removeChild(im);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out"));
+            _contScaleMinus.addChild(im);
             g.hint.showIt("Отдалить","0");
         };
         _contScaleMinus.outCallback = function ():void {
-            _contScaleMinus.filter = null;
+            _contScaleMinus.removeChild(im);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out_off"));
+            _contScaleMinus.addChild(im);
             g.hint.hideIt();
         };
         _contScaleMinus.endClickCallback = function ():void {
@@ -108,16 +128,14 @@ public class OptionPanel {
         };
 
         _contScreenShot = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_screenshot"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_screen"));
         _contScreenShot.addChild(im);
-        _contScreenShot.y = 150;
-        _source.addChild(_contScreenShot);
+        _contScreenShot.y = 149;
+//        _source.addChild(_contScreenShot);
         _contScreenShot.hoverCallback = function ():void {
-            _contScreenShot.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
             g.hint.showIt("Сделать снимок","0");
         };
         _contScreenShot.outCallback = function ():void {
-            _contScreenShot.filter = null;
             g.hint.hideIt();
         };
         _contScreenShot.endClickCallback = function ():void {
@@ -125,16 +143,14 @@ public class OptionPanel {
         };
 
         _contAnim = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_anim"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_a_off"));
         _contAnim.addChild(im);
-        _contAnim.y = 200;
-        _source.addChild(_contAnim);
+        _contAnim.y = 205;
+//        _source.addChild(_contAnim);
         _contAnim.hoverCallback = function ():void {
-            _contAnim.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
             g.hint.showIt("Включить эфекты","0");
         };
         _contAnim.outCallback = function ():void {
-            _contAnim.filter = null;
             g.hint.hideIt();
         };
         _contAnim.endClickCallback = function ():void {
@@ -142,16 +158,14 @@ public class OptionPanel {
         };
 
         _contMusic = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_music"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_off"));
         _contMusic.addChild(im);
         _contMusic.y = 250;
         _source.addChild(_contMusic);
         _contMusic.hoverCallback = function ():void {
-            _contMusic.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
             g.hint.showIt("Включить музыку","0");
         };
         _contMusic.outCallback = function ():void {
-            _contMusic.filter = null;
             g.hint.hideIt();
         };
         _contMusic.endClickCallback = function ():void {
@@ -159,16 +173,14 @@ public class OptionPanel {
         };
 
         _contSound = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("option_sound"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_off"));
         _contSound.addChild(im);
-        _contSound.y = 300;
+        _contSound.y = 295;
         _source.addChild(_contSound);
         _contSound.hoverCallback = function ():void {
-            _contSound.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
             g.hint.showIt("Включить звук","0");
         };
         _contSound.outCallback = function ():void {
-            _contSound.filter = null;
             g.hint.hideIt();
         };
         _contSound.endClickCallback = function ():void {

@@ -2,6 +2,9 @@
  * Created by user on 6/24/15.
  */
 package windows.shop {
+import data.BuildType;
+import data.BuildType;
+
 import flash.geom.Rectangle;
 
 import manager.Vars;
@@ -60,8 +63,36 @@ public class ShopList {
 
     public function fillIt(arr:Array):void {
         var item:ShopItem;
-        for (var i:int = 0; i < arr.length; i++) {
-            item = new ShopItem(arr[i]);
+        var arLocked:Array;
+        arLocked=[];
+        var ar:Array;
+        var ar2:Array;
+        ar2 = [];
+        ar =[];
+        for (var j:int = 0; j < arr.length; j++) {
+                arLocked = g.townArea.getCityObjectsById(arr[j].id);
+                if (arr[j].buildType == BuildType.FABRICA){
+                    if (arLocked.length == 1) {
+                        ar2.push(arr[j]);
+                    } else {
+                        ar.push(arr[j]);
+                    }
+                } else if (arr[j].buildType == BuildType.RIDGE || arr[j].buildType == BuildType.FARM || arr[j].buildType == BuildType.PET_HOUSE) {
+                    ar.push(arr[j]);
+                } else if (arr[j].buildType == BuildType.TREE){
+                    ar.push(arr[j]);
+                } else if (arr[j].buildType == BuildType.DECOR || arr[j].buildType == BuildType.DECOR_FULL_FENСE ||
+                    arr[j].buildType == BuildType.DECOR_POST_FENCE || arr[j].buildType == BuildType.DECOR_TAIL) {
+                    ar.push(arr[j]);
+                } else if (arr[j].buildType == BuildType.ANIMAL || arr[j].buildType == BuildType.CAT) {
+                    ar.push(arr[j]);
+                }
+        }
+
+        ar.sortOn("blockByLevel",Array.NUMERIC);
+        ar = ar.concat(ar2);
+        for (var i:int = 0; i < ar.length; i++) {
+            item = new ShopItem(ar[i]);
             item.source.x = 180*i;
             _itemsSprite.addChild(item.source);
             _arrItems.push(item);

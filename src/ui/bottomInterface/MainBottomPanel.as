@@ -83,15 +83,15 @@ public class MainBottomPanel {
         _doorBtn.visible = false;
 
         _optionBtn = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('option_icon'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('op_bt_opt'));
         _optionBtn.addChild(im);
-        _optionBtn.x = 931;
-        _optionBtn.y = 6;
+        _optionBtn.x = 950;
+        _optionBtn.y = -50;
         _source.addChild(_optionBtn);
-        _optionBtn.hoverCallback = function():void { _optionBtn.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+        _optionBtn.hoverCallback = function():void {
             g.hint.showIt("Настройки","0");
         };
-        _optionBtn.outCallback = function():void { _optionBtn.filter = null;
+        _optionBtn.outCallback = function():void {
         g.hint.hideIt();
         };
         _optionBtn.endClickCallback = function():void {onClick('option')};
@@ -158,6 +158,7 @@ public class MainBottomPanel {
                 } else {
                     if (g.friendPanel.isShowed) g.friendPanel.hideIt();
                     g.toolsPanel.showIt();
+                    g.optionPanel.showIt();
                 }
                 break;
             case 'option':
