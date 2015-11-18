@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:57d7aef9064a3c1a580718b8be279205:25792070fb97c710c6d412cd75144bb0:b31bb3fd388fd787e9b00954f0b80b18$ -->
+<TextureAtlas imagePath="resourceAtlas.png" width="2034" height="505">
+    <SubTexture name="Apple" x="2" y="215" width="154" height="190" frameX="-7" frameY="-6" frameWidth="169" frameHeight="200"/>
+    <SubTexture name="Hamburger" x="734" y="119" width="100" height="88" frameX="0" frameY="-9" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="apple_jam" x="941" y="2" width="90" height="112" frameX="-29" frameY="-25" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="apple_juice" x="84" y="407" width="74" height="96" frameX="-9" frameY="-4" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="apple_pie" x="154" y="2" width="300" height="150"/>
+    <SubTexture name="bacon" x="1068" y="404" width="98" height="92" frameX="0" frameY="-8" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="bacon_and_eggs" x="1318" y="107" width="100" height="89" frameX="0" frameY="-7" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="bacon_pizza" x="250" y="154" width="100" height="58"/>
+    <SubTexture name="baked_potato" x="1793" y="253" width="80" height="67" frameX="-10" frameY="-19" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="berry_juice" x="370" y="405" width="74" height="96" frameX="-9" frameY="-4" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="berry_pie" x="935" y="322" width="100" height="80" frameX="0" frameY="-14" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="berry_yogurt" x="1223" y="208" width="100" height="100"/>
+    <SubTexture name="blueberry" x="1088" y="114" width="99" height="92" frameX="0" frameY="-2" frameWidth="100" frameHeight="94"/>
+    <SubTexture name="blueberry_jam" x="1050" y="209" width="88" height="110" frameX="-30" frameY="-26" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="blueberry_muffin" x="884" y="404" width="80" height="93" frameX="-8" frameY="-7" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="bun2" x="1607" y="275" width="98" height="73" frameX="0" frameY="-14" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="butter2" x="154" y="154" width="94" height="59" frameX="-2" frameY="-25" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="cabbage_pie" x="1676" y="2" width="100" height="75" frameX="0" frameY="-12" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="cacao" x="1212" y="399" width="117" height="102" frameX="-15" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="caramel_apple" x="658" y="2" width="73" height="120" frameX="-40" frameY="-18" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="carrot_juice" x="520" y="404" width="74" height="96" frameX="-9" frameY="-4" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="cheese2" x="1733" y="184" width="83" height="67" frameX="-9" frameY="-19" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="cheeseburger" x="1455" y="297" width="99" height="89" frameX="0" frameY="-7" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="cherry2" x="446" y="404" width="72" height="99" frameX="0" frameY="-1" frameWidth="72" frameHeight="100"/>
+    <SubTexture name="cherry_jam" x="1033" y="2" width="89" height="110" frameX="-29" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cherry_popsicle" x="832" y="2" width="107" height="112" frameX="-22" frameY="-21" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="chicken_feed2" x="1756" y="421" width="84" height="68" frameX="-10" frameY="-19" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="chocolate" x="836" y="116" width="138" height="91" frameX="-6" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="chocolate_ice_cream" x="733" y="2" width="97" height="115" frameX="-29" frameY="-20" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cookie2" x="1682" y="421" width="72" height="69" frameX="-14" frameY="-17" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="copper_bar" x="731" y="325" width="100" height="77"/>
+    <SubTexture name="copper_ore" x="1928" y="420" width="83" height="60" frameX="-9" frameY="-20" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="corn_bread2" x="1818" y="184" width="96" height="65" frameX="-2" frameY="-17" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="corn_dog" x="451" y="213" width="200" height="122"/>
+    <SubTexture name="corn_syrup" x="1585" y="194" width="44" height="79" frameX="-28" frameY="-14" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="cotton_candy" x="2" y="2" width="150" height="211"/>
+    <SubTexture name="cotton_fabric" x="450" y="154" width="92" height="57" frameX="-4" frameY="-26" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="cow_feed2" x="1707" y="258" width="84" height="68" frameX="-10" frameY="-19" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="cream2" x="1624" y="104" width="97" height="78" frameX="-2" frameY="-22" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="croquete" x="158" y="356" width="100" height="47"/>
+    <SubTexture name="donut" x="1723" y="79" width="100" height="69" frameX="0" frameY="-3" frameWidth="100" frameHeight="74"/>
+    <SubTexture name="egg2" x="803" y="404" width="79" height="94" frameX="-13" frameY="-6" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="feta_pie" x="1928" y="127" width="100" height="55"/>
+    <SubTexture name="feta_pizza" x="833" y="325" width="100" height="77"/>
+    <SubTexture name="french_fries" x="1427" y="195" width="86" height="100"/>
+    <SubTexture name="goat_cheese" x="1870" y="322" width="65" height="62" frameX="-16" frameY="-23" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="goat_feed" x="362" y="340" width="80" height="63" frameX="-11" frameY="-22" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="goat_milk2" x="1189" y="114" width="42" height="92" frameX="-29" frameY="-5" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="gold_ore" x="1937" y="314" width="84" height="51" frameX="-10" frameY="-25" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="golden_bar" x="1778" y="2" width="100" height="69"/>
+    <SubTexture name="grape_juice" x="1609" y="2" width="65" height="100"/>
+    <SubTexture name="grape_pie" x="632" y="126" width="100" height="81" frameX="0" frameY="-14" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="grape_yogurt" x="1335" y="2" width="100" height="100"/>
+    <SubTexture name="gratin" x="1937" y="367" width="84" height="51" frameX="-8" frameY="-29" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="honey2" x="705" y="404" width="96" height="94" frameX="-3" frameY="-3" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="hot_dog" x="456" y="2" width="200" height="122"/>
+    <SubTexture name="iron_bar" x="1880" y="2" width="100" height="69"/>
+    <SubTexture name="iron_bracelet" x="1420" y="104" width="100" height="89"/>
+    <SubTexture name="iron_ore" x="352" y="154" width="96" height="57" frameX="-2" frameY="-22" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="jelly_beans" x="160" y="405" width="106" height="97" frameX="-24" frameY="-30" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="ketchup" x="1556" y="297" width="49" height="80" frameX="-14" frameY="-8" frameWidth="77" frameHeight="100"/>
+    <SubTexture name="lemon" x="938" y="209" width="110" height="110" frameX="-19" frameY="-24" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="lemon_cherry_juice" x="1515" y="195" width="68" height="100"/>
+    <SubTexture name="lemon_curd" x="353" y="213" width="96" height="125" frameX="-35" frameY="-25" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="lemon_pie" x="260" y="356" width="100" height="47"/>
+    <SubTexture name="mayonnaise" x="1140" y="208" width="81" height="106" frameX="-35" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="meat2" x="1037" y="321" width="82" height="81" frameX="-9" frameY="-10" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="meat_pie" x="1631" y="184" width="100" height="72" frameX="0" frameY="-14" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="milk2" x="1168" y="404" width="42" height="92" frameX="-29" frameY="-5" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="necklace" x="1325" y="198" width="100" height="100"/>
+    <SubTexture name="olive" x="596" y="404" width="107" height="94" frameX="-21" frameY="-33" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="olive_oil" x="269" y="214" width="82" height="131" frameX="-37" frameY="-10" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="omelette" x="1251" y="310" width="100" height="80" frameX="0" frameY="-8" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="orange" x="1433" y="391" width="79" height="100"/>
+    <SubTexture name="orange_juice" x="1514" y="388" width="64" height="100"/>
+    <SubTexture name="pancake2" x="1353" y="300" width="100" height="89" frameX="0" frameY="-9" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="pig_feed2" x="1784" y="328" width="84" height="68" frameX="-10" frameY="-19" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="pizza" x="1875" y="251" width="80" height="61" frameX="-10" frameY="-23" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="porkfry" x="1522" y="104" width="100" height="88"/>
+    <SubTexture name="powdered_sugar2" x="1121" y="321" width="63" height="81" frameX="-17" frameY="-11" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="raisin_bun" x="527" y="337" width="100" height="65" frameX="0" frameY="-21" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="raspberry" x="966" y="404" width="100" height="92"/>
+    <SubTexture name="raspberry_jam" x="1124" y="2" width="88" height="110" frameX="-30" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="raspberry_muffin" x="2" y="407" width="80" height="96" frameX="-8" frameY="-4" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="ring" x="629" y="337" width="100" height="65"/>
+    <SubTexture name="sausage" x="1825" y="73" width="201" height="52"/>
+    <SubTexture name="scarf" x="1437" y="2" width="100" height="100"/>
+    <SubTexture name="sheep_feed2" x="1842" y="398" width="84" height="68" frameX="-10" frameY="-19" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="silver_bar" x="1682" y="350" width="100" height="69"/>
+    <SubTexture name="silver_bracelet" x="1580" y="379" width="100" height="73"/>
+    <SubTexture name="silver_ore" x="444" y="340" width="81" height="62" frameX="-11" frameY="-20" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="smoked_meat" x="1825" y="127" width="100" height="52"/>
+    <SubTexture name="socks" x="544" y="126" width="86" height="83" frameX="-3" frameY="-10" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="spicy_pizza" x="1916" y="184" width="80" height="61" frameX="-10" frameY="-23" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="starter" x="158" y="215" width="109" height="139"/>
+    <SubTexture name="strawberry_ice_cream" x="653" y="209" width="96" height="114" frameX="-29" frameY="-22" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="strawberry_jam" x="848" y="209" width="88" height="111" frameX="-30" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="strawberry_yogurt" x="1331" y="392" width="100" height="100"/>
+    <SubTexture name="sugar2" x="1186" y="316" width="63" height="81" frameX="-17" frameY="-11" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="sweater" x="268" y="405" width="100" height="97" frameX="0" frameY="-3" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="toffee" x="976" y="116" width="110" height="91" frameX="-20" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="tomato_juice" x="1539" y="2" width="68" height="100"/>
+    <SubTexture name="vanilla_ice_cream" x="751" y="209" width="95" height="114" frameX="-29" frameY="-21" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="winter_hat" x="1233" y="107" width="83" height="91" frameX="-9" frameY="-8" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="wool" x="1214" y="2" width="119" height="103" frameX="-17" frameY="-23" frameWidth="150" frameHeight="150"/>
+</TextureAtlas>

@@ -19,6 +19,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import ui.xpPanel.XPStar;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -336,6 +338,7 @@ public class ShopItem {
             g.bottomPanel.cancelBoolean(false);
             g.managerCats.onBuyCatFromShop();
             updateItem();
+            g.userInventory.addMoney(_data.currency, -_data.cost);
         } else if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.onClickExit();
 //            g.toolsModifier.modifierType = ToolsModifier.MOVE;
@@ -361,8 +364,17 @@ public class ShopItem {
 
     private function afterMove(_x:Number, _y:Number):void {
         if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA
-                || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+                || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             g.bottomPanel.cancelBoolean(false);
+        }
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL ) {
+            var cont:Sprite = new Sprite();
+            cont.x = _x;
+            cont.y = _y;
+            g.cont.gameCont.addChild(cont);
+            var localPoint:Point = new Point( cont.x,cont.y);
+            localPoint = cont.parent.localToGlobal(localPoint);
+            new XPStar(localPoint.x, localPoint.y, _data.xpForBuild);
         }
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.townArea.createNewBuild(_data, _x, _y);
@@ -375,6 +387,7 @@ public class ShopItem {
         g.townArea.createNewBuild(_data, _x, _y, true, dbId);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
+        g.userInventory.addMoney(_data.currency, -_data.cost);
     }
 
     private function updateItem():void {
