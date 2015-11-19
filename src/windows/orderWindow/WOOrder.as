@@ -41,6 +41,7 @@ public class WOOrder extends Window{
     private var _txtName:TextField;
     private var _arrOrders:Array;
     private var _curOrder:Object;
+    private var position:int;
 
     public function WOOrder() {
         super ();
@@ -223,6 +224,7 @@ public class WOOrder extends Window{
         for (var i:int=0; i<_arrItems.length; i++) {
             _arrItems[i].activateIt(false);
         }
+        position = pos;
         _arrItems[pos].activateIt(true);
         clearResourceItems();
         fillResourceItems(_arrOrders[pos]);
@@ -250,6 +252,7 @@ public class WOOrder extends Window{
     private function deleteOrder():void {
         if (_curOrder) {
             g.managerOrder.deleteOrder(_curOrder);
+            _arrItems[position].activateIt(false);
             _curOrder = null;
             updateIt();
         }

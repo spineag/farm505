@@ -353,6 +353,8 @@ public class ShopItem {
             for (var i:int = 0; i < arr.length; i++) {
                 if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
                     (arr[i] as Farm).addAnimal();
+                    g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-_data.cost);
+                    checkState();
                     g.bottomPanel.cancelBoolean(false);
                     return;
                 }
@@ -367,7 +369,7 @@ public class ShopItem {
                 || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             g.bottomPanel.cancelBoolean(false);
         }
-        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL ) {
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             var cont:Sprite = new Sprite();
             cont.x = _x;
             cont.y = _y;

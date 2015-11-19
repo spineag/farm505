@@ -274,6 +274,7 @@ public class WONoResources extends Window {
     }
 
     private function onClickAnimal():void {
+        hideIt();
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
             g.userInventory.addMoney(1, -int(_txtHardCost.text));
         } else {  g.woBuyCurrency.showItMenu(true);

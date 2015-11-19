@@ -104,7 +104,7 @@ public class Animal {
             g.gameDispatcher.removeFromTimer(render);
             craftResource();
             _state = CRAFT;
-//            _farm.readyAnimal(this);
+            _farm.readyAnimal(this);
             addRenderAnimation();
         }
     }
@@ -310,7 +310,6 @@ public class Animal {
     }
 
     private function callbackSkip():void {
-        g.managerAnimal.addCatToFarm(_farm);
         g.directServer.skipTimeOnAnimal(_timeToEnd,animal_db_id,null);
         _timeToEnd = 0;
         render();
