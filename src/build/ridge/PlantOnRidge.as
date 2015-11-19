@@ -94,6 +94,11 @@ public class PlantOnRidge {
         }
     }
 
+    public function renderSkip():void {
+        checkStateRidge();
+        g.gameDispatcher.removeFromTimer(render);
+    }
+
     public function getTimeToGrowed():int {
         var n:int;
       switch  (_ridge.stateRidge) {
