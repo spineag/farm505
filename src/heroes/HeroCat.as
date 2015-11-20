@@ -12,10 +12,9 @@ import dragonBones.animation.WorldClock;
 
 import dragonBones.factories.StarlingFactory;
 
+
 import flash.events.Event;
-
 import manager.EmbedAssets;
-
 import mouse.ToolsModifier;
 
 import starling.display.Image;
@@ -44,17 +43,18 @@ public class HeroCat extends BasicCat{
         _catImage = new Sprite();
         switch (type) {
             case MAN:
-                factory = new StarlingFactory();
-                var f1:Function = function ():void {
-                    armature = factory.buildArmature("cat");
-                    armatureClip = armature.display as Sprite;
-                    _catImage.addChild(armatureClip);
-                    WorldClock.clock.add(armature);
-                    g.gameDispatcher.addEnterFrame(onEnterFrame);
-                };
-                factory.addEventListener(Event.COMPLETE, f1);
-                factory.parseData(new EmbedAssets.CatData());
-//                _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
+//                factory = new StarlingFactory();
+//                var f1:Function = function ():void {
+//                    armature = factory.buildArmature("cat");
+//                    armatureClip = armature.display as Sprite;
+//                    _catImage.addChild(armatureClip);
+//                    WorldClock.clock.add(armature);
+//                    g.gameDispatcher.addEnterFrame(onEnterFrame);
+//                };
+//                factory.addEventListener(Event.COMPLETE, f1);
+//                factory.parseData(new EmbedAssets.CatData());
+                var im:Image = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
+                _catImage.addChild(im);
                 _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man_back'));
                 break;
             case WOMAN:
