@@ -250,6 +250,8 @@ public class SN_Vkontakte extends SocialNetwork {
                 buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : buffer.photo_100;
                 ar.push(buffer);
             }
+
+            g.user.addTempUsersInfo(ar);
             if (callback != null) {
                 callback.apply(null, [ar]);
             }

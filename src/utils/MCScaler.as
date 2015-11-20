@@ -26,5 +26,28 @@ public class MCScaler {
         graphics.width = s * graphics.width;
         graphics.height = s * graphics.height;
     }
+
+    static public function scaleMin(graphics:DisplayObject, heightMin:int, widthMin:int):void {
+        var s:Number;
+
+        if (!graphics) {
+            Cc.error('MCScaler:: graphics == null');
+            Vars.getInstance().woGameError.showIt();
+            return;
+        }
+
+        if (graphics.height < 2 || graphics.width < 2) {
+            return;
+        }
+
+        if (graphics.width > graphics.height) {
+            s = heightMin/graphics.height;
+        } else {
+            s = widthMin/graphics.width;
+        }
+
+        graphics.width = s * graphics.width;
+        graphics.height = s * graphics.height;
+    }
 }
 }

@@ -2,6 +2,8 @@
  * Created by user on 11/18/15.
  */
 package windows.paperWindow {
+import flash.display.Bitmap;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -9,6 +11,8 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.HAlign;
+
+import utils.DrawToBitmap;
 
 import utils.MCScaler;
 
@@ -74,15 +78,25 @@ public class WOPaperPage {
     }
 
     public function fillItems(ar:Array):void {
-        clearItems();
         for (var i:int=0; i< ar.length; i++) {
             _arrItems[i].fillIt(ar[i]);
         }
     }
 
-    private function clearItems():void {
+    public function get getScreenshot():Bitmap {
+        var b:Bitmap = DrawToBitmap.drawToBitmap(source);
+        return b;
+    }
+
+    public function deleteIt():void {
         for (var i:int=0; i<6; i++) {
-            _arrItems[i].clearIt();
+            _arrItems[i].deleteIt();
+        }
+    }
+
+    public function updateAvatars():void {
+        for (var i:int=0; i< _arrItems.length; i++) {
+            _arrItems[i].updateAvatar();
         }
     }
 }

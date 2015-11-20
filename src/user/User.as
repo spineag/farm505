@@ -172,5 +172,16 @@ public class User extends Someone {
 
         return p;
     }
+
+    public function addTempUsersInfo(ar:Array):void {
+        for (var i:int=0; i<ar.length; i++) {
+            var p:Someone = getSomeoneBySocialId(ar[i].uid);
+            if (p is TempUser || p is Friend) {
+                p.name = ar[i].first_name;
+                p.lastName = ar[i].last_name;
+                p.photo = ar[i].photo_100;
+            }
+        }
+    }
 }
 }

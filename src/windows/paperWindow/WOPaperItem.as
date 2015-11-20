@@ -4,14 +4,19 @@
 package windows.paperWindow {
 import com.junkbyte.console.Cc;
 
+import flash.display.Bitmap;
+
 import flash.geom.Rectangle;
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
 import starling.utils.HAlign;
+
+import user.Someone;
 
 import utils.CSprite;
 import utils.MCScaler;
@@ -26,8 +31,10 @@ public class WOPaperItem {
     private var _bg:Sprite = new Sprite();
     private var _plawkaSold:Image;
     private var _ava:Sprite;
+    private var _userAvatar:Image;
     private var _txtUserName:TextField;
     private var _txtResourceName:TextField;
+    private var _p:Someone;
 
     private var g:Vars = Vars.getInstance();
     public function WOPaperItem(i:int) {
@@ -112,7 +119,13 @@ public class WOPaperItem {
         source.addChild(_txtUserName);
 
         source.visible = false;
-//        source.endClickCallback = onClickVisit;
+        source.endClickCallback = onClickVisit;
+    }
+
+    public function updateAvatar():void {
+        if (!_data) return;
+        _txtUserName.text = _p.name + ' ' + _p.lastName;
+        g.load.loadImage(_p.photo, onLoadPhoto);
     }
 
     public function fillIt(ob:Object):void {
@@ -127,7 +140,6 @@ public class WOPaperItem {
         _txtCountResource.text = String(_data.resourceCount) + ' шт.';
         _dataResource = g.dataResource.objectResources[_data.resourceId];
         _txtResourceName.text = _dataResource.name;
-        _txtUserName.text = ob.userSocialId;
         _imageItem = new Image(g.allData.atlas[_dataResource.url].getTexture(_dataResource.imageShop));
         if (!_imageItem) {
             Cc.error('WOPaperItem fillIt:: no such image: ' + _dataResource.imageShop);
@@ -142,8 +154,27 @@ public class WOPaperItem {
             _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka_sold'));
             _plawkaSold.x = _bg.width/2 - _plawkaSold.width/2;
             source.addChild(_plawkaSold);
-
         }
+        _p = g.user.getSomeoneBySocialId(ob.userSocialId);
+        if (_p.photo) {
+            _txtUserName.text = _p.name + ' ' + _p.lastName;
+            g.load.loadImage(_p.photo, onLoadPhoto);
+        } else {
+            _txtUserName.text = ob.userSocialId;
+        }
+    }
+
+    private function onLoadPhoto(bitmap:Bitmap):void {
+        if (!bitmap) {
+            bitmap = g.pBitmaps[_p.photo].create() as Bitmap;
+        }
+        if (!bitmap) {
+            Cc.error('WOPaperItem:: no photo for userId: ' + _p.userSocialId);
+            return;
+        }
+        _userAvatar = new Image(Texture.fromBitmap(bitmap));
+        MCScaler.scaleMin(_userAvatar, 46, 46);
+        _ava.addChild(_userAvatar);
     }
 
     private function onClickVisit():void {
@@ -153,7 +184,7 @@ public class WOPaperItem {
         g.woMarket.showIt();
     }
 
-    public function clearIt():void {
+    public function deleteIt():void {
         if (_plawkaSold) {
             if (source.contains(_plawkaSold)) source.removeChild(_plawkaSold);
             _plawkaSold.dispose();
@@ -169,6 +200,15 @@ public class WOPaperItem {
         _txtResourceName.text = '';
         _txtUserName.text = '';
         source.visible = false;
+        while (source.numChildren) source.removeChildAt(0);
+        _txtCost = null;
+        _txtCountResource = null;
+        _txtResourceName = null;
+        _txtUserName = null;
+        while (_ava.numChildren) _ava.removeChildAt(0);
+        _ava = null;
+        while (_bg.numChildren) _bg.removeChildAt(0);
+        _bg = null;
     }
 
 

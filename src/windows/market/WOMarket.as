@@ -135,7 +135,7 @@ public class WOMarket  extends Window {
     }
 
     public function addAdditionalUser(ob:Object):void {
-        curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
+        _curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
         _friendsPanel.addAdditionalUser(_curUser);
     }
 

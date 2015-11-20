@@ -60,11 +60,11 @@ public class Window {
     }
 
     public function hideIt():void {
-        removeBlackBG();
         while (g.cont.windowsCont.numChildren) {
             g.cont.windowsCont.removeChildAt(0);
         }
         g.currentOpenedWindow = null;
+        removeBlackBG();
         g.cont.addGameContListener(true);
 
         if (g.windowsPool.length) {
