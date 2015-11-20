@@ -7,19 +7,33 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+
+import dragonBones.factories.StarlingFactory;
+
+import flash.events.Event;
+
+import manager.EmbedAssets;
+
 import mouse.ToolsModifier;
 
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 import utils.CSprite;
 
 public class HeroCat extends BasicCat{
-    private var _catImage:Image;
+    private var _catImage:Sprite;
     private var _catBackImage:Image;
     private var _isFree:Boolean;
     private var _isActive:Boolean;
+
+    private var factory:StarlingFactory;
+    private var armature:Armature;
+    private var armatureClip:Sprite;
 
     public function HeroCat(type:int) {
         super();
@@ -27,13 +41,25 @@ public class HeroCat extends BasicCat{
         _isFree = true;
         _isActive = false;
         _source = new CSprite();
+        _catImage = new Sprite();
         switch (type) {
             case MAN:
-                _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
+                factory = new StarlingFactory();
+                var f1:Function = function ():void {
+                    armature = factory.buildArmature("cat");
+                    armatureClip = armature.display as Sprite;
+                    _catImage.addChild(armatureClip);
+                    WorldClock.clock.add(armature);
+                    g.gameDispatcher.addEnterFrame(onEnterFrame);
+                };
+                factory.addEventListener(Event.COMPLETE, f1);
+                factory.parseData(new EmbedAssets.CatData());
+//                _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
                 _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man_back'));
                 break;
             case WOMAN:
-                _catImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman'));
+                var im:Image = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman'));
+                _catImage.addChild(im);
                 _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman_back'));
                 break;
         }
@@ -51,6 +77,10 @@ public class HeroCat extends BasicCat{
         showFront(true);
 
         _source.endClickCallback = onClick;
+    }
+
+    private function onEnterFrame():void {
+        WorldClock.clock.advanceTime(-1);
     }
 
     override public function showFront(v:Boolean):void {
@@ -108,6 +138,19 @@ public class HeroCat extends BasicCat{
             new TweenMax(_catImage, .5, {scaleX:1.03*s, scaleY:0.97*s, ease:Linear.easeIn ,onComplete: f1});
         };
         f2();
+    }
+
+    override public function walkAnimation():void {
+        super.walkAnimation();
+    }
+    override public function runAnimation():void {
+        super.runAnimation();
+    }
+    override public function stopAnimation():void {
+        super.stopAnimation()
+    }
+    override public function idleAnimation():void {
+        super.idleAnimation();
     }
 
 }
