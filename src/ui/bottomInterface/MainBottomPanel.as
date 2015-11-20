@@ -144,6 +144,7 @@ public class MainBottomPanel {
                     _cancelBtn.visible = false;
                     _shopBtn.visible = true;
                     g.toolsModifier.cancelMove();
+                    g.cont.contentCont.alpha = 1;
                 break;
             case 'tools':
                 if (g.isAway) return;
@@ -158,7 +159,6 @@ public class MainBottomPanel {
                 } else {
                     if (g.friendPanel.isShowed) g.friendPanel.hideIt();
                     g.toolsPanel.showIt();
-                    g.optionPanel.showIt();
                 }
                 break;
             case 'option':
