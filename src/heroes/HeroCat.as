@@ -29,6 +29,7 @@ public class HeroCat extends BasicCat{
     private var _catBackImage:Image;
     private var _isFree:Boolean;
     private var _isActive:Boolean;
+    private var _type:int;
 
     private var factory:StarlingFactory;
     private var armature:Armature;
@@ -37,24 +38,25 @@ public class HeroCat extends BasicCat{
     public function HeroCat(type:int) {
         super();
 
+        _type = type;
         _isFree = true;
         _isActive = false;
         _source = new CSprite();
         _catImage = new Sprite();
         switch (type) {
             case MAN:
-//                factory = new StarlingFactory();
-//                var f1:Function = function ():void {
-//                    armature = factory.buildArmature("cat");
-//                    armatureClip = armature.display as Sprite;
-//                    _catImage.addChild(armatureClip);
-//                    WorldClock.clock.add(armature);
-//                    g.gameDispatcher.addEnterFrame(onEnterFrame);
-//                };
-//                factory.addEventListener(Event.COMPLETE, f1);
-//                factory.parseData(new EmbedAssets.CatData());
-                var im:Image = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
-                _catImage.addChild(im);
+                factory = new StarlingFactory();
+                var f1:Function = function ():void {
+                    armature = factory.buildArmature("cat");
+                    armatureClip = armature.display as Sprite;
+                    _catImage.addChild(armatureClip);
+                    WorldClock.clock.add(armature);
+                    g.gameDispatcher.addEnterFrame(onEnterFrame);
+                };
+                factory.addEventListener(Event.COMPLETE, f1);
+                factory.parseData(new EmbedAssets.CatData());
+//                var im:Image = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
+//                _catImage.addChild(im);
                 _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man_back'));
                 break;
             case WOMAN:
@@ -141,15 +143,19 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
+        if (_type == MAN) armature.animation.gotoAndPlay("walk");
         super.walkAnimation();
     }
     override public function runAnimation():void {
+        if (_type == MAN) armature.animation.gotoAndPlay("run");
         super.runAnimation();
     }
     override public function stopAnimation():void {
+        if (_type == MAN) armature.animation.gotoAndStop("idle", 0);
         super.stopAnimation()
     }
     override public function idleAnimation():void {
+        if (_type == MAN) armature.animation.gotoAndPlay("idle");
         super.idleAnimation();
     }
 

@@ -75,7 +75,7 @@ public class WOOrder extends Window{
             _arrItems[i].activateIt(false);
         }
         clearResourceItems();
-        for (var i:int=0; i<_arrOrders.length; i++) {
+        for (i=0; i<_arrOrders.length; i++) {
             _arrItems[i].clearIt();
         }
         hideIt();

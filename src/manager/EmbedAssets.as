@@ -70,7 +70,7 @@ public class EmbedAssets {
     [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
     private const HouschkaBold:Class;
 
-    [Embed(source = "../../assets/cat/texture.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/cat5.png", mimeType = "application/octet-stream")]
     public static const CatData:Class;
 
     private var g:Vars = Vars.getInstance();

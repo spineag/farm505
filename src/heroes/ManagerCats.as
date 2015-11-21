@@ -96,12 +96,13 @@ public class ManagerCats {
             var f2:Function = function ():void {
                 cat.flipIt(false);
                 cat.showFront(true);
+                cat.idleAnimation();
                 if (callback != null) {
                     callback.apply(null, callbackParams);
                 }
             };
             var f1:Function = function (arr:Array):void {
-                if (arr.length > 3) {
+                if (arr.length > 5) {
                     cat.runAnimation();
                 } else {
                     cat.walkAnimation()

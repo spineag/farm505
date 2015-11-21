@@ -17,7 +17,7 @@ public class DrawToBitmap {
 
         var support:RenderSupport = new RenderSupport();
         RenderSupport.clear();
-        support.setOrthographicProjection(0, 0, stageWidth, stageHeight);
+        support.setProjectionMatrix(0, 0, stageWidth, stageHeight);
         support.applyBlendMode(true);
 
         var stageBitmapData:BitmapData = new BitmapData(stageWidth, stageHeight, true, 0x0);
@@ -46,7 +46,7 @@ public class DrawToBitmap {
 
         rs.clear();
         rs.scaleMatrix(scl, scl);
-        rs.setOrthographicProjection(0, 0, stage.stageWidth, stage.stageHeight);
+        rs.setProjectionMatrix(0, 0, stage.stageWidth, stage.stageHeight);
         rs.translateMatrix(-rc.x, -rc.y); // move to 0,0
         disp.render(rs, 1.0);
         rs.finishQuadBatch();
