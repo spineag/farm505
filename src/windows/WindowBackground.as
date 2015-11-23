@@ -54,11 +54,13 @@ public class WindowBackground extends Sprite{
         if (countW*(im.width - delta) < w - arr[0].width - arr[2].width) countW++;
         for (i=0; i<countW; i++) {
             im = new Image(tex.getTexture('window_ct'));
-            im.x = arr[0].x + arr[0].width + i*(im.width - delta);
+            im.x = arr[0].x + arr[0].width + i * (im.width - delta);
+            if (i == countW-1 && im.x > arr[2].x - 50) im.x = arr[2].x - 50;
             im.y = -h/2;
             addChildAt(im, 0);
             im = new Image(tex.getTexture('window_cd'));
             im.x = arr[1].x + arr[1].width + i*(im.width - delta);
+            if (i == countW-1 && im.x > arr[3].x - 50) im.x = arr[3].x - 50;
             im.y = h/2 - im.height;
             addChildAt(im, 0);
         }
@@ -70,10 +72,12 @@ public class WindowBackground extends Sprite{
         for (i=0; i<countH; i++) {
             im = new Image(tex.getTexture('window_lc'));
             im.y = arr[0].y + arr[0].height + i*(im.height - delta);
+            if (i == countH-1 && im.y > arr[1].y - 50) im.y = arr[1].y - 50;
             im.x = -w/2;
             addChildAt(im, 0);
             im = new Image(tex.getTexture('window_rc'));
             im.y = arr[2].y + arr[2].height + i*(im.height - delta);
+            if (i == countH-1 && im.y > arr[3].y - 50) im.y = arr[3].y - 50;
             im.x = w/2 - im.width;
             addChildAt(im, 0);
         }
@@ -83,8 +87,10 @@ public class WindowBackground extends Sprite{
                 im = new Image(tex.getTexture('window_cc'));
                 im.x = arr[0].x + arr[0].width + i*(im.width - delta);
                 im.y = arr[0].y + arr[0].height + j*(im.height - delta);
+                if (j == countH-1 && im.y > arr[1].y - 50) im.y = arr[1].y - 50;
                 addChildAt(im, 0);
             }
+            if (i == countW-1 && im.x > arr[2].x - 50) im.x = arr[2].x - 50;
         }
 
         arr.length = 0;
