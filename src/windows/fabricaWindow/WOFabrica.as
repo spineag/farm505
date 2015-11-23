@@ -39,18 +39,8 @@ public class WOFabrica extends Window {
         _woHeight = 455;
         _woWidth = 580;
 
-        createTopBG();
-        createShiftBtns();
-        createFabricaItems();
-        createBottomBG();
+//        createShiftBtns();
         callbackClickBG = onClickExit;
-        _list = new WOFabricaWorkList(_source);
-
-        _birka = new Birka('Фабрика', _source, 455, 580);
-        _birka.flipIt();
-        _birka.source.rotation = Math.PI/2;
-        _birka.source.x = -100;
-        _birka.source.y = 257;
     }
 
     public function onClickExit(e:Event=null):void {
@@ -59,6 +49,9 @@ public class WOFabrica extends Window {
         _fabrica = null;
         _callbackOnClick = null;
         _arrAllRecipes.length = 0;
+        while (_source.numChildren) {
+            _source.removeChildAt(0);
+        }
         hideIt();
 //        _source.removeChild(_contBtn);
     }
@@ -67,7 +60,19 @@ public class WOFabrica extends Window {
         _fabrica = fabr;
         _callbackOnClick = f;
         _arrAllRecipes = arrRecipes;
+        createTopBG();
+        createShiftBtns();
         activateShiftBtn(1, false);
+        createFabricaItems();
+        createBottomBG();
+        _birka = new Birka('Фабрика', _source, 455, 580);
+        _birka.flipIt();
+        _birka.source.rotation = Math.PI/2;
+        _birka.source.x = -100;
+        _birka.source.y = 257;
+        _list = new WOFabricaWorkList(_source);
+
+
         fillFabricaItems();
         _list.fillIt(arrList, _fabrica);
         _birka.updateText(_fabrica.dataBuild.name);
@@ -168,25 +173,83 @@ public class WOFabrica extends Window {
         var s:CSprite;
         var im:Image;
         var txt:TextField;
-
         _arrShiftBtns = [];
-        for (var i:int=0; i<4; i++) {
-            s = new CSprite();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
-            s.addChild(im);
-            txt = new TextField(32, 32, String(i+1), g.allData.fonts['BloggerBold'], 22,0x009bff);
-            txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
-            txt.y = 20;
-            txt.x = 2;
-            s.addChild(txt);
-            s.flatten();
-            s.x = -_woWidth/2 + 220 + i*(42);
-            s.y = -_woHeight/2 + 117;
-            _source.addChildAt(s, 0);
-            _arrShiftBtns.push(s);
-            s.endClickParams = i+1;
-            s.endClickCallback = activateShiftBtn;
-        }
+                    var n:int = 0;
+
+                    for (var i:int = 0; i < _arrAllRecipes.length; i++) {
+                        if (_arrAllRecipes[i].blockByLevel <= g.user.level) n++;
+                    }
+                     if (n <= 5) {
+                        s = new CSprite();
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                        s.addChild(im);
+                        txt = new TextField(32, 32, String(1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
+                        txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                        txt.y = 20;
+                        txt.x = 2;
+                        s.addChild(txt);
+                        s.flatten();
+                        s.x = -_woWidth / 2 + 220 + 42;
+                        s.y = -_woHeight / 2 + 117;
+                        _source.addChildAt(s, 0);
+                        _arrShiftBtns.push(s);
+                        s.endClickParams = 1;
+                        s.endClickCallback = activateShiftBtn;
+                } else if ( n > 5 && n <= 10) {
+                    for (var i:int = 0; i < 2; i++) {
+                        s = new CSprite();
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                        s.addChild(im);
+                        txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
+                        txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                        txt.y = 20;
+                        txt.x = 2;
+                        s.addChild(txt);
+                        s.flatten();
+                        s.x = -_woWidth / 2 + 220 + i * (42);
+                        s.y = -_woHeight / 2 + 117;
+                        _source.addChildAt(s, 0);
+                        _arrShiftBtns.push(s);
+                        s.endClickParams = i + 1;
+                        s.endClickCallback = activateShiftBtn;
+                    }
+                } else if (n > 10 && n <= 15) {
+                    for (var i:int = 0; i < 3; i++) {
+                        s = new CSprite();
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                        s.addChild(im);
+                        txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
+                        txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                        txt.y = 20;
+                        txt.x = 2;
+                        s.addChild(txt);
+                        s.flatten();
+                        s.x = -_woWidth / 2 + 220 + i * (42);
+                        s.y = -_woHeight / 2 + 117;
+                        _source.addChildAt(s, 0);
+                        _arrShiftBtns.push(s);
+                        s.endClickParams = i + 1;
+                        s.endClickCallback = activateShiftBtn;
+                    }
+                } else if (n > 15 && n <= 20) {
+                    for (var i:int = 0; i < 4; i++) {
+                        s = new CSprite();
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                        s.addChild(im);
+                        txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
+                        txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                        txt.y = 20;
+                        txt.x = 2;
+                        s.addChild(txt);
+                        s.flatten();
+                        s.x = -_woWidth / 2 + 220 + i * (42);
+                        s.y = -_woHeight / 2 + 117;
+                        _source.addChildAt(s, 0);
+                        _arrShiftBtns.push(s);
+                        s.endClickParams = i + 1;
+                        s.endClickCallback = activateShiftBtn;
+                    }
+                }
     }
 
     private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {

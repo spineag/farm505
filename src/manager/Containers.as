@@ -75,7 +75,7 @@ public class Containers {
         gameCont.addChild(contentCont);
         gameCont.addChild(animationsCont);
         gameCont.addChild(cloudsCont);
-        gameCont.addChild(hintGameCont);
+        mainCont.addChild(hintGameCont);
         mainCont.addChild(animationsContBot);
         mainCont.addChild(interfaceCont);
         mainCont.addChild(interfaceContMapEditor);

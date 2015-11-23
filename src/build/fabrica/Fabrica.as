@@ -78,23 +78,6 @@ public class Fabrica extends AreaObject {
         _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
         if (_stateBuild == STATE_ACTIVE) {
             g.hint.showIt(_dataBuild.name, "0");
-        } else if (_stateBuild == STATE_BUILD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
-        }
-    }
-
-    private function countEnterFrame():void {
-        _count--;
-        if(_count <=0){
-            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            if (_isOnHover == true) {
-                g.timerHint.needMoveCenter = true;
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, 5, _dataBuild.name,callbackSkip);
-            }
-            if (_isOnHover == false) {
-                _source.filter = null;
-                g.timerHint.hideIt();
-            }
         }
     }
 
@@ -103,7 +86,7 @@ public class Fabrica extends AreaObject {
         _isOnHover = false;
         _source.filter = null;
         if (_stateBuild == STATE_BUILD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
+            g.timerHint.hideIt();
         } else {
             g.hint.hideIt();
         }
@@ -115,7 +98,7 @@ public class Fabrica extends AreaObject {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
                 g.townArea.moveBuild(this);
                 _isOnHover = false;
-                g.gameDispatcher.addEnterFrame(countEnterFrame);
+                g.timerHint.hideIt();
             } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
                 g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -141,6 +124,8 @@ public class Fabrica extends AreaObject {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
         } else if (_stateBuild == STATE_BUILD) {
+            g.timerHint.needMoveCenter = true;
+            g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, 5, _dataBuild.name, callbackSkip);
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
                 g.townArea.moveBuild(this);
             }
@@ -321,7 +306,6 @@ public class Fabrica extends AreaObject {
     override public function clearIt():void {
         onOut();
         stopTempAnimation();
-        g.gameDispatcher.removeEnterFrame(countEnterFrame);
         g.gameDispatcher.removeFromTimer(render);
         _source.touchable = false;
         _arrList.length = 0;
