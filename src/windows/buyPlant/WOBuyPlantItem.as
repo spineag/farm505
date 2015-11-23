@@ -24,6 +24,7 @@ public class WOBuyPlantItem {
     private var _dataPlant:Object;
     private var _clickCallback:Function;
     private var _txtNumber:TextField;
+    private var _countPlants:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -61,7 +62,8 @@ public class WOBuyPlantItem {
             Cc.error("Warning woBuyPlantItem filldata:: _dataPlant.blockByLevel > g.user.level + 1");
         }
         fillIcon(_dataPlant.imageShop);
-        _txtNumber.text = String(g.userInventory.getCountResourceById(_dataPlant.id));
+        _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
+        _txtNumber.text = String(_countPlants);
     }
 
     private function fillIcon(s:String):void {
@@ -86,6 +88,7 @@ public class WOBuyPlantItem {
             source.removeChild(_icon);
             _icon = null;
         }
+        _countPlants = 0;
         _dataPlant = null;
         _clickCallback = null;
         source.filter = null;
@@ -94,6 +97,7 @@ public class WOBuyPlantItem {
     }
 
     private function onClick():void {
+        if (_countPlants <= 0) return;
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataPlant]);
         }

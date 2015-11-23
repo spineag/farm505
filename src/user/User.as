@@ -63,12 +63,14 @@ public class User extends Someone {
             if (txp + levels[st].xp > globalXP) {
                 xp = globalXP - txp;
                 level = int(levels[st].id) - 1;
+                if (level <= 0) level = 1;
                 return;
             } else {
                 level = levels[st].id;
                 txp += levels[st].xp;
             }
         }
+        if (level <= 0) level = 1;
     }
 
     public function friendAppUser():void {

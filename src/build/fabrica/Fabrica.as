@@ -68,7 +68,7 @@ public class Fabrica extends AreaObject {
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
         }
-        fillRecipes();
+        updateRecipes();
     }
 
     private function onHover():void {
@@ -115,6 +115,7 @@ public class Fabrica extends AreaObject {
                 if (_arrCrafted.length) {
                     (_arrCrafted.pop() as CraftItem).flyIt();
                 } else {
+                    if (!_arrRecipes.length) updateRecipes();
                     g.cont.moveCenterToXY(_source.x, _source.y);
                     g.woFabrica.showItWithParams(_arrRecipes.slice(), _arrList.slice(), this, callbackOnChooseRecipe);
                     _source.filter = null;
@@ -156,7 +157,8 @@ public class Fabrica extends AreaObject {
 
     private function onOpenBuilded(value:Boolean):void { }
 
-    private function fillRecipes():void {
+    private function updateRecipes():void {
+        _arrRecipes.length = 0;
         try {
             var obj:Object = g.dataRecipe.objectRecipe;
             for(var id:String in obj) {

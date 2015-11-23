@@ -551,6 +551,7 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
+            g.user.level = int(ob.level);
             g.user.countCats = int(ob.count_cats);
             if (ob.scale) {
                 g.currentGameScale = int(ob.scale)/100;
@@ -564,7 +565,6 @@ public class DirectServer {
                 g.user.isMegaTester = false;
                 g.user.isTester = false;
             }
-            g.user.isTester = Boolean(int(ob.is_tester));
 
             if (callback != null) {
                 callback.apply();
