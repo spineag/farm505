@@ -133,7 +133,7 @@ public class TimerHint {
     }
 
     private function onClickBtn():void {
-        if (g.user.hardCurrency <= 0)return;
+        if (g.user.hardCurrency < int(_txtCost.text))return;
         if (_callbackSkip != null) {
             _callbackSkip.apply(null);
         }

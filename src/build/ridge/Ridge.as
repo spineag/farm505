@@ -108,9 +108,6 @@ public class Ridge extends AreaObject{
             _isOnHover = true;
             _count = 10;
             _countMouse = 5;
-            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                g.gameDispatcher.addEnterFrame(countEnterFrame);
-            }
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
@@ -150,6 +147,9 @@ public class Ridge extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip);
+            }
             if (_stateRidge == EMPTY) {
                 _source.filter = null;
                 g.mouseHint.hideHintMouse();
@@ -189,8 +189,7 @@ public class Ridge extends AreaObject{
         _source.filter = null;
         _isOnHover = false;
         g.mouseHint.hideHintMouse();
-//        g.timerHint.hideIt();
-        g.gameDispatcher.addEnterFrame(countEnterFrame);
+        g.timerHint.hideIt();
 
     }
 
@@ -241,21 +240,6 @@ public class Ridge extends AreaObject{
         _stateRidge = a;
         if (_stateRidge == GROWED) {
             g.managerPlantRidge.removeCatFromRidge(_dataPlant.id, this);
-        }
-    }
-
-    private function countEnterFrame():void {
-        _count--;
-        if(_count <=0){
-            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            if (_isOnHover == true) {
-                if (_plant)
-                    g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip);
-            }
-            if (_isOnHover == false) {
-                _source.filter = null;
-                g.timerHint.hideIt();
-            }
         }
     }
 
