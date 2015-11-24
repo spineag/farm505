@@ -68,7 +68,7 @@ public class Fabrica extends AreaObject {
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
         }
-        fillRecipes();
+        updateRecipes();
     }
 
     private function onHover():void {
@@ -78,23 +78,6 @@ public class Fabrica extends AreaObject {
         _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
         if (_stateBuild == STATE_ACTIVE) {
             g.hint.showIt(_dataBuild.name, "0");
-        } else if (_stateBuild == STATE_BUILD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
-        }
-    }
-
-    private function countEnterFrame():void {
-        _count--;
-        if(_count <=0){
-            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            if (_isOnHover == true) {
-                g.timerHint.needMoveCenter = true;
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, 5, _dataBuild.name,callbackSkip);
-            }
-            if (_isOnHover == false) {
-                _source.filter = null;
-                g.timerHint.hideIt();
-            }
         }
     }
 
@@ -103,7 +86,7 @@ public class Fabrica extends AreaObject {
         _isOnHover = false;
         _source.filter = null;
         if (_stateBuild == STATE_BUILD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
+            g.timerHint.hideIt();
         } else {
             g.hint.hideIt();
         }
@@ -115,7 +98,7 @@ public class Fabrica extends AreaObject {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
                 g.townArea.moveBuild(this);
                 _isOnHover = false;
-                g.gameDispatcher.addEnterFrame(countEnterFrame);
+                g.timerHint.hideIt();
             } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
                 g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -132,6 +115,7 @@ public class Fabrica extends AreaObject {
                 if (_arrCrafted.length) {
                     (_arrCrafted.pop() as CraftItem).flyIt();
                 } else {
+                    if (!_arrRecipes.length) updateRecipes();
                     g.cont.moveCenterToXY(_source.x, _source.y);
                     g.woFabrica.showItWithParams(_arrRecipes.slice(), _arrList.slice(), this, callbackOnChooseRecipe);
                     _source.filter = null;
@@ -141,6 +125,8 @@ public class Fabrica extends AreaObject {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
         } else if (_stateBuild == STATE_BUILD) {
+            g.timerHint.needMoveCenter = true;
+            g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, 5, _dataBuild.name, callbackSkip);
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
                 g.townArea.moveBuild(this);
             }
@@ -171,7 +157,8 @@ public class Fabrica extends AreaObject {
 
     private function onOpenBuilded(value:Boolean):void { }
 
-    private function fillRecipes():void {
+    private function updateRecipes():void {
+        _arrRecipes.length = 0;
         try {
             var obj:Object = g.dataRecipe.objectRecipe;
             for(var id:String in obj) {
@@ -321,7 +308,6 @@ public class Fabrica extends AreaObject {
     override public function clearIt():void {
         onOut();
         stopTempAnimation();
-        g.gameDispatcher.removeEnterFrame(countEnterFrame);
         g.gameDispatcher.removeFromTimer(render);
         _source.touchable = false;
         _arrList.length = 0;

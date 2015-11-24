@@ -23,12 +23,12 @@ import ui.xpPanel.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
 
-import windows.Birka;
+import windows.WOComponents.Birka;
 
-import windows.CartonBackground;
+import windows.WOComponents.CartonBackground;
 
 import windows.Window;
-import windows.WindowBackground;
+import windows.WOComponents.WindowBackground;
 
 public class WOOrder extends Window{
     private var _woBG:WindowBackground;

@@ -19,8 +19,8 @@ import utils.CSprite;
 
 import utils.MCScaler;
 
-import windows.CartonBackground;
-import windows.CartonBackgroundIn;
+import windows.WOComponents.CartonBackground;
+import windows.WOComponents.CartonBackgroundIn;
 
 public class WOOrderItem {
     public var source:CSprite;

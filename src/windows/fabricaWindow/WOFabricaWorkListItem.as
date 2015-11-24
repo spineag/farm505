@@ -28,7 +28,7 @@ public class WOFabricaWorkListItem {
     public static const BIG_CELL:String = 'big';
     public static const SMALL_CELL:String = 'small';
 
-    public var source:Sprite;
+    private var _source:Sprite;
     private var _bg:Image;
     private var _icon:Image;
     private var _resource:ResourceItem;
@@ -46,7 +46,7 @@ public class WOFabricaWorkListItem {
 
     public function WOFabricaWorkListItem(type:String = 'small') {
         _type = type;
-        source = new CSprite();
+        _source = new CSprite();
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
             MCScaler.scale(_bg, 50, 50);
@@ -55,9 +55,9 @@ public class WOFabricaWorkListItem {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
             _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerRegular'], 16,Color.BLACK);
         }
-        source.addChild(_bg);
+        _source.addChild(_bg);
         if (type == SMALL_CELL) {
-            source.visible = false;
+            _source.visible = false;
         }
 
         if (_type == BIG_CELL) {
@@ -70,7 +70,7 @@ public class WOFabricaWorkListItem {
             _txtTimer.x = 13;
             _txtTimer.y = -20;
             _timerBlock.addChild(_txtTimer);
-            source.addChild(_timerBlock);
+            _source.addChild(_timerBlock);
             _timerBlock.visible = false;
 
             _btnSkip = new CSprite();
@@ -87,10 +87,14 @@ public class WOFabricaWorkListItem {
             _btnSkip.addChild(im);
             _btnSkip.x = -15;
             _btnSkip.y = 97;
-            source.addChild(_btnSkip);
+            _source.addChild(_btnSkip);
             _btnSkip.visible = false;
             _btnSkip.endClickCallback = makeSkip;
         }
+    }
+
+    public function get source():Sprite {
+        return _source;
     }
 
     public function fillData(resource:ResourceItem):void {
@@ -104,12 +108,12 @@ public class WOFabricaWorkListItem {
             return;
         }
         fillIcon(_resource.imageShop);
-        source.visible = true;
+        _source.visible = true;
     }
 
     private function fillIcon(s:String):void {
         if (_icon) {
-            source.removeChild(_icon);
+            _source.removeChild(_icon);
             _icon = null;
         }
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
@@ -131,7 +135,7 @@ public class WOFabricaWorkListItem {
                 else _txtNumberCreate.text = "";
             }
         }
-        source.addChild(_icon);
+        _source.addChild(_icon);
         if (_type == BIG_CELL) {
             _txtNumberCreate.x = 75;
             _txtNumberCreate.y = 70;
@@ -139,21 +143,21 @@ public class WOFabricaWorkListItem {
             _txtNumberCreate.x = 27;
             _txtNumberCreate.y = 25;
         }
-        source.addChild(_txtNumberCreate);
+        _source.addChild(_txtNumberCreate);
     }
 
     public function unfillIt():void {
         if (_icon) {
             _txtNumberCreate.text = "";
-            source.removeChild(_txtNumberCreate);
-            source.removeChild(_icon);
+            _source.removeChild(_txtNumberCreate);
+            _source.removeChild(_icon);
             _icon = null;
         }
         _resource = null;
         if (_type == SMALL_CELL) {
-            source.visible = false;
+            _source.visible = false;
             if (_proposeBtn) {
-                source.removeChild(_proposeBtn);
+                _source.removeChild(_proposeBtn);
                 _proposeBtn.deleteIt();
                 _proposeBtn = null;
             }
@@ -193,7 +197,7 @@ public class WOFabricaWorkListItem {
 
     public function showBuyPropose(buyCount:int, callback:Function):void {
         if (_type == SMALL_CELL) {
-            source.visible = true;
+            _source.visible = true;
             _proposeBtn = new CSprite();
             var txt:TextField = new TextField(46, 28, "+" + String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
             txt.nativeFilters = [new GlowFilter(0x1261ac, 1, 4, 4, 7.0)];
@@ -204,24 +208,30 @@ public class WOFabricaWorkListItem {
             im.y = 23;
             _proposeBtn.addChild(im);
             _proposeBtn.flatten();
-            source.addChild(_proposeBtn);
+            _source.addChild(_proposeBtn);
             var f1:Function = function ():void {
                 if (g.user.hardCurrency >= buyCount) {
                     if (callback != null) {
                         callback.apply();
                     }
                     unfillIt();
-                    source.visible = true;
-                    var p:Point = new Point(source.width / 2, source.height / 2);
-                    p = source.localToGlobal(p);
+                    _source.visible = true;
+                    var p:Point = new Point(_source.width / 2, _source.height / 2);
+                    p = _source.localToGlobal(p);
                     new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
                     g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
                 } else {
+                    g.woFabrica.onClickExit();
                     g.woBuyCurrency.showItMenu(true);
                 }
             };
             _proposeBtn.endClickCallback = f1;
         }
+    }
+
+    public function removePropose():void {
+        unfillIt();
+        _source.visible = true;
     }
 
     private function makeSkip():void {

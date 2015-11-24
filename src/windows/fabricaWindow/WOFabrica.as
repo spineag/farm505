@@ -5,9 +5,7 @@ package windows.fabricaWindow {
 import build.fabrica.Fabrica;
 
 import com.junkbyte.console.Cc;
-
 import flash.filters.GlowFilter;
-
 import resourceItem.ResourceItem;
 
 import starling.display.Image;
@@ -17,9 +15,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
-
-import windows.Birka;
-
+import windows.WOComponents.Birka;
 import windows.Window;
 
 public class WOFabrica extends Window {
@@ -36,21 +32,19 @@ public class WOFabrica extends Window {
 
     public function WOFabrica() {
         super();
+        _arrShiftBtns = [];
         _woHeight = 455;
         _woWidth = 580;
-
-        createTopBG();
-        createShiftBtns();
-        createFabricaItems();
-        createBottomBG();
-        callbackClickBG = onClickExit;
-        _list = new WOFabricaWorkList(_source);
-
         _birka = new Birka('Фабрика', _source, 455, 580);
         _birka.flipIt();
         _birka.source.rotation = Math.PI/2;
         _birka.source.x = -100;
         _birka.source.y = 257;
+        callbackClickBG = onClickExit;
+        createTopBG();
+        createBottomBG();
+        createFabricaItems();
+        _list = new WOFabricaWorkList(_source);
     }
 
     public function onClickExit(e:Event=null):void {
@@ -59,14 +53,19 @@ public class WOFabrica extends Window {
         _fabrica = null;
         _callbackOnClick = null;
         _arrAllRecipes.length = 0;
+        for (var i:int=0; i<_arrShiftBtns.length; i++) {
+            _source.removeChild(_arrShiftBtns[i]);
+            _arrShiftBtns[i].deleteIt();
+        }
+        _arrShiftBtns.length = 0;
         hideIt();
-//        _source.removeChild(_contBtn);
     }
 
     public function showItWithParams(arrRecipes:Array, arrList:Array, fabr:Fabrica, f:Function):void {
         _fabrica = fabr;
         _callbackOnClick = f;
         _arrAllRecipes = arrRecipes;
+        createShiftBtns();
         activateShiftBtn(1, false);
         fillFabricaItems();
         _list.fillIt(arrList, _fabrica);
@@ -94,7 +93,6 @@ public class WOFabrica extends Window {
 
     private function fillFabricaItems():void {
         var arr:Array = [];
-        unfillFabricaItems();
         for (var i:int=0; i<5; i++) {
             if (_arrAllRecipes[_shift*5 + i]) {
                 arr.push(_arrAllRecipes[_shift*5 + i]);
@@ -103,7 +101,7 @@ public class WOFabrica extends Window {
             }
         }
         for (i=0; i<arr.length; i++) {
-            if (arr[i].blockByLevel + 1 <= g.user.level)
+            if (arr[i].blockByLevel - 1 <= g.user.level)
              _arrFabricaItems[i].fillData(arr[i], onItemClick);
         }
     }
@@ -115,11 +113,11 @@ public class WOFabrica extends Window {
 
     private function onItemClick(dataRecipe:Object):void {
         if (_list.isFull){
-            onClickExit();
-            g.woNoPlaces.showItMenu();
+            var price:int = _list.priceForNewCell;
+            hideIt();
+            g.woNoPlaces.showItWithParams(price, onBuyNewCellFromWO);
             return;
         }
-//        if(!g.userInventory.checkRecipe(dataRecipe)) return;
             var count:int = 0;
             if (!dataRecipe || !dataRecipe.ingridientsId) {
                 Cc.error('UserInventory checkRecipe:: bad _data');
@@ -140,10 +138,14 @@ public class WOFabrica extends Window {
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);
         _list.addResource(resource);
-//        _source.addChild(_contBtn);
         if (_callbackOnClick != null) {
             _callbackOnClick.apply(null, [resource, dataRecipe]);
         }
+    }
+
+    private function onBuyNewCellFromWO():void {
+        showIt();
+        _list.butNewCellFromWO();
     }
 
     private function createTopBG():void {
@@ -168,24 +170,82 @@ public class WOFabrica extends Window {
         var s:CSprite;
         var im:Image;
         var txt:TextField;
+        var n:int = 0;
+        var i:int;
 
-        _arrShiftBtns = [];
-        for (var i:int=0; i<4; i++) {
+        for (i = 0; i < _arrAllRecipes.length; i++) {
+            if (_arrAllRecipes[i].blockByLevel <= g.user.level) n++;
+        }
+        if (n <= 5) {
             s = new CSprite();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
             s.addChild(im);
-            txt = new TextField(32, 32, String(i+1), g.allData.fonts['BloggerBold'], 22,0x009bff);
+            txt = new TextField(32, 32, String(1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
             txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
             txt.y = 20;
             txt.x = 2;
             s.addChild(txt);
             s.flatten();
-            s.x = -_woWidth/2 + 220 + i*(42);
-            s.y = -_woHeight/2 + 117;
+            s.x = -_woWidth / 2 + 220 + 42;
+            s.y = -_woHeight / 2 + 117;
             _source.addChildAt(s, 0);
             _arrShiftBtns.push(s);
-            s.endClickParams = i+1;
+            s.endClickParams = 1;
             s.endClickCallback = activateShiftBtn;
+        } else if ( n > 5 && n <= 10) {
+            for (i= 0; i < 2; i++) {
+                s = new CSprite();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                s.addChild(im);
+                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
+                txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                txt.y = 20;
+                txt.x = 2;
+                s.addChild(txt);
+                s.flatten();
+                s.x = -_woWidth / 2 + 220 + i * (42);
+                s.y = -_woHeight / 2 + 117;
+                _source.addChildAt(s, 0);
+                _arrShiftBtns.push(s);
+                s.endClickParams = i + 1;
+                s.endClickCallback = activateShiftBtn;
+            }
+        } else if (n > 10 && n <= 15) {
+            for (i= 0; i < 3; i++) {
+                s = new CSprite();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                s.addChild(im);
+                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
+                txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                txt.y = 20;
+                txt.x = 2;
+                s.addChild(txt);
+                s.flatten();
+                s.x = -_woWidth / 2 + 220 + i * (42);
+                s.y = -_woHeight / 2 + 117;
+                _source.addChildAt(s, 0);
+                _arrShiftBtns.push(s);
+                s.endClickParams = i + 1;
+                s.endClickCallback = activateShiftBtn;
+            }
+        } else if (n > 15 && n <= 20) {
+            for (i= 0; i < 4; i++) {
+                s = new CSprite();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                s.addChild(im);
+                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
+                txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                txt.y = 20;
+                txt.x = 2;
+                s.addChild(txt);
+                s.flatten();
+                s.x = -_woWidth / 2 + 220 + i * (42);
+                s.y = -_woHeight / 2 + 117;
+                _source.addChildAt(s, 0);
+                _arrShiftBtns.push(s);
+                s.endClickParams = i + 1;
+                s.endClickCallback = activateShiftBtn;
+            }
         }
     }
 

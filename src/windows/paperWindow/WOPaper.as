@@ -17,6 +17,8 @@ import user.Someone;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WOComponents.WOButtonTexture;
+
 import windows.Window;
 
 public class WOPaper extends Window{
@@ -38,13 +40,13 @@ public class WOPaper extends Window{
         _shiftPages = 1;
 
         _btnRefresh = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_green'));
-        _btnRefresh.addChild(im);
+        var btnT:Sprite = new WOButtonTexture(130, 40, WOButtonTexture.GREEN);
+        _btnRefresh.addChild(btnT);
         var txt:TextField = new TextField(100, 40, "Обновить 1", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = [new GlowFilter(0x2d610d, 1, 3, 3, 5.0)];
         txt.x = 2;
         _btnRefresh.addChild(txt);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         MCScaler.scale(im, 25, 25);
         im.x = 100;
         im.y = 8;

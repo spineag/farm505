@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/interface/interface.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,8 +43,6 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>atfCompressData</key>
-        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -175,16 +173,14 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
+            <key>innerPadding</key>
+            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
-            <key>trimMargin</key>
-            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
-            <key>tracerTolerance</key>
-            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -193,8 +189,6 @@
         <key>fileList</key>
         <array>
             <filename>add_friend.png</filename>
-            <filename>ambar_plawka_arrow.png</filename>
-            <filename>ambar_plawka.png</filename>
             <filename>arrow_small.png</filename>
             <filename>bg</filename>
             <filename>birka_c.png</filename>
@@ -263,8 +257,6 @@
             <filename>refresh_icon.png</filename>
             <filename>rubins.png</filename>
             <filename>sciccors_icon.png</filename>
-            <filename>scroll_box.png</filename>
-            <filename>scroll_line.png</filename>
             <filename>serp_icon.png</filename>
             <filename>shop</filename>
             <filename>shop_arrow.png</filename>
@@ -282,7 +274,6 @@
             <filename>tools_icon.png</filename>
             <filename>vedro_icon.png</filename>
             <filename>watering_can.png</filename>
-            <filename>wo_ambar.png</filename>
             <filename>work_icon.png</filename>
             <filename>xp_progres_part_end.png</filename>
             <filename>xp_progres_part.png</filename>
@@ -304,6 +295,14 @@
             <filename>op_bt_z_in.png</filename>
             <filename>op_bt_z_out_off.png</filename>
             <filename>op_bt_z_out.png</filename>
+            <filename>buttons</filename>
+            <filename>storage_window_scr_c.png</filename>
+            <filename>storage_window_scr_line.png</filename>
+            <filename>roadside_shop_tabl.png</filename>
+            <filename>storage_window_prl_c.png</filename>
+            <filename>storage_window_prl_l.png</filename>
+            <filename>storage_window_prl_r.png</filename>
+            <filename>storage_window_pr.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -11,7 +11,7 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import ui.scrolled.DefaultVerticalScrollSprite;
+import windows.WOComponents.DefaultVerticalScrollSprite;
 
 import utils.CButton;
 import utils.CSprite;
@@ -37,7 +37,7 @@ public class WOAmbar extends Window {
         super();
         _woHeight = 500;
         _woWidth = 534;
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wo_ambar'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus'));
         _bg.pivotX = _bg.width/2;
         _bg.pivotY = _bg.height/2;
         _source.addChild(_bg);
@@ -51,7 +51,7 @@ public class WOAmbar extends Window {
         _scrollSprite.source.x = 40 - _woWidth/2;
         _scrollSprite.source.y = 79 - _woHeight/2;
         _source.addChild(_scrollSprite.source);
-        _scrollSprite.createScoll(440, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('scroll_line'), g.allData.atlas['interfaceAtlas'].getTexture('scroll_box'));
+        _scrollSprite.createScoll(440, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('plus'), g.allData.atlas['interfaceAtlas'].getTexture('plus'));
 
         _titleTxt = new TextField(150, 40, 'Амбар', "Arial", 30, Color.BLACK);
         _titleTxt.x = 189 - _woWidth/2;
@@ -123,7 +123,7 @@ public class WOAmbar extends Window {
     override public function showIt():void {
         var st:String = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
         _txtCount.text = st;
-        _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount,true);
+        _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
         _btnBack.visible = false;
         _btnUpdate.visible = true;
         _updateSprite.visible = false;
@@ -206,7 +206,7 @@ public class WOAmbar extends Window {
         g.user.ambarLevel++;
         g.user.ambarMaxCount += g.dataBuilding.objectBuilding[12].deltaCountResources;
         var st:String = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
-        _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount,true);
+        _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
         _txtCount.text = st;
         _item1.updateIt();
         _item2.updateIt();

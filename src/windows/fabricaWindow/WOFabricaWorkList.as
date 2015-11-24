@@ -13,6 +13,7 @@ import starling.display.Sprite;
 
 public class WOFabricaWorkList {
     private var _maxCount:int;
+    [ArrayElementType('windows.fabricaWindow.WOFabricaWorkListItem')]
     private var _arrItems:Array;
     private var _arrRecipes:Array;
     private var _parent:Sprite;
@@ -52,7 +53,7 @@ public class WOFabricaWorkList {
             _maxCount = _fabrica.dataBuild.countCell;
             if (_maxCount < 9) {
                 var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
-                (_arrItems[_maxCount] as WOFabricaWorkListItem).showBuyPropose(price, onBuyNewCell);
+                _arrItems[_maxCount].showBuyPropose(price, onBuyNewCell);
             }
             for (i=1; i<_maxCount; i++) {
                 _arrItems[i].source.visible = true;
@@ -63,11 +64,16 @@ public class WOFabricaWorkList {
         }
     }
 
+    public function butNewCellFromWO():void {
+        _arrItems[_maxCount].removePropose();
+        onBuyNewCell();
+    }
+
     private function onBuyNewCell():void {
         _maxCount++;
         _fabrica.onBuyNewCell();
         if (_maxCount < 9) {
-            var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+            var price:int = priceForNewCell;
             (_arrItems[_maxCount] as WOFabricaWorkListItem).showBuyPropose(price, onBuyNewCell);
         }
     }
@@ -78,6 +84,10 @@ public class WOFabricaWorkList {
 
     public function get isFull():Boolean {
         return _arrRecipes.length >= _maxCount;
+    }
+
+    public function get priceForNewCell():int {
+        return 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
     }
 
     public function addResource(resource:ResourceItem):void {
@@ -95,14 +105,13 @@ public class WOFabricaWorkList {
 
     private function onFinishTimer():void {
         var i:int;
-
         for (i=0; i<_arrItems.length; i++) {
             _arrItems[i].unfillIt();
         }
         _arrRecipes.shift();
         if (_arrRecipes.length) {
             for (i=0; i<_arrRecipes.length; i++) {
-                _arrItems[i].fillData(_arrRecipes[i], null);
+                _arrItems[i].fillData(_arrRecipes[i]);
             }
             activateTimer();
         }
@@ -118,7 +127,6 @@ public class WOFabricaWorkList {
     }
 
     public function skipIt():void {
-        var i:int;
         _arrItems[0].destroyTimer();
         _arrItems[0].unfillIt();
         onFinishTimer();

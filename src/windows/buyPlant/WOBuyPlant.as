@@ -16,7 +16,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
-import windows.Birka;
+import windows.WOComponents.Birka;
 import windows.Window;
 
 public class WOBuyPlant extends Window {
@@ -75,6 +75,7 @@ public class WOBuyPlant extends Window {
     }
 
     private function updatePlantArray():void {
+        _arrAllPlants.length = 0;
         for (var id:String in g.dataResource.objectResources) {
             if (g.dataResource.objectResources[id].buildType == BuildType.PLANT && g.dataResource.objectResources[id].blockByLevel <= g.user.level + 1) {
                 _arrAllPlants.push(g.dataResource.objectResources[id]);
