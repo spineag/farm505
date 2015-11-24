@@ -15,6 +15,7 @@ import starling.utils.Color;
 
 import utils.CSprite;
 import utils.MCScaler;
+import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WOComponents.WOButtonTexture;
 
@@ -29,6 +30,7 @@ public class UpdateItem {
     private var _isAmbarItem:Boolean;
     private var _buyCallback:Function;
     private var _countForBuy:int;
+    private var _resourceImage:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -39,8 +41,8 @@ public class UpdateItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
 
-        _txtCount = new TextField(50,20,'',g.allData.fonts['BloggerMedium'],14,0xf46809);
-        _txtCount.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 9.0)];
+        _txtCount = new TextField(50,20,'',g.allData.fonts['BloggerMedium'],14,Color.WHITE);
+        _txtCount.nativeFilters = [new GlowFilter(0x634a22, 1, 4, 4, 5)];
         _txtCount.x = 60;
         _txtCount.y = 80;
         source.addChild(_txtCount);
@@ -49,23 +51,19 @@ public class UpdateItem {
         _btn.y = 120;
         source.addChild(_btn);
         _btn.endClickCallback = onBuy;
-        var imBG:Sprite = new WOButtonTexture(100, 60, WOButtonTexture.BLUE);
+        var imBG:Sprite = new WOButtonTexture(100, 40, WOButtonTexture.GREEN);
         _btn.addChild(imBG);
-        var _txt:TextField = new TextField(100,20,'Купить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-        _txt.nativeFilters = [new GlowFilter(0x3a8013, 1, 6, 6, 9.0)];
-        _txt.y = 5;
-        _btn.addChild(_txt);
 
-        _btnTxt = new TextField(50,20,'Увеличить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-        _btnTxt.nativeFilters = [new GlowFilter(0x0356e2, 1, 6, 6, 9.0)];
-        _btnTxt.x = 20;
-        _btnTxt.y = 28;
+        _btnTxt = new TextField(50,20,'50',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        _btnTxt.nativeFilters = [new GlowFilter(0x3a8013, 1, 4, 4, 5)];
+        _btnTxt.x = 16;
+        _btnTxt.y = 10;
         _btn.addChild(_btnTxt);
 
         var dmnt:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-        MCScaler.scale(dmnt, 25, 25);
+        MCScaler.scale(dmnt, 30, 30);
         dmnt.x = 57;
-        dmnt.y = 25;
+        dmnt.y = 4;
         _btn.addChild(dmnt);
 
         _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
@@ -104,6 +102,16 @@ public class UpdateItem {
                 _btnTxt.text = String(_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
             }
         }
+        if (_resourceImage) {
+            source.removeChild(_resourceImage);
+            _resourceImage.dispose();
+            _resourceImage = null;
+        }
+        _resourceImage = new Image(g.allData.atlas[g.dataResource.objectResources[_resourceId].url].getTexture(g.dataResource.objectResources[_resourceId].imageShop));
+        MCScaler.scale(_resourceImage, 90, 90);
+        _resourceImage.x = 50 - _resourceImage.width/2;
+        _resourceImage.y = 50 - _resourceImage.height/2;
+        source.addChild(_resourceImage);
     }
 
     public function get isFull():Boolean {
@@ -119,18 +127,12 @@ public class UpdateItem {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
             g.userInventory.addResource(_resourceId, _countForBuy);
             updateIt(_resourceId, _isAmbarItem);
-            if (!_isAmbarItem) {
-                g.woSklad.smallUpdate();
-            }
+            g.woAmbars.smallUpdate();
             if (_buyCallback != null) {
                 _buyCallback.apply();
             }
         } else {
-            if (_isAmbarItem) {
-                g.woAmbar.hideIt();
-            } else {
-                g.woSklad.hideIt();
-            }
+            g.woAmbars.hideIt();
             g.woBuyCurrency.showItMenu(true);
         }
     }

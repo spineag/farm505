@@ -62,11 +62,11 @@ public class WOAmbarFilled extends Window{
 
     private function onClick():void {
         hideIt();
-        if (_bol == true) {
-            g.woAmbar.showUpdate();
-        } else {
-            g.woSklad.showUpdate();
-        }
+//        if (_bol == true) {        !!!!!!!!!!!
+//            g.woAmbar.showUpdate();
+//        } else {
+//            g.woSklad.showUpdate();
+//        }
 
     }
 

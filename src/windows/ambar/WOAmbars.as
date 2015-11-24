@@ -47,6 +47,7 @@ public class WOAmbars extends Window {
     private var _item1:UpdateItem;
     private var _item2:UpdateItem;
     private var _item3:UpdateItem;
+    private var _btnMakeUpdate:CSprite;
 
     public function WOAmbars() {
         _woWidth = 538;
@@ -104,6 +105,7 @@ public class WOAmbars extends Window {
            _type = AMBAR;
             updateItems();
             checkTypes();
+            updateItemsForUpdate();
         };
         _cloneTabAmbar.endClickCallback = fAmbar;
 
@@ -128,6 +130,7 @@ public class WOAmbars extends Window {
             _type = SKLAD;
             updateItems();
             checkTypes();
+            updateItemsForUpdate();
         };
         _cloneTabSklad.endClickCallback = fSklad;
 
@@ -215,25 +218,48 @@ public class WOAmbars extends Window {
         var txt:TextField = new TextField(90, 50, "Назад", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         txt.nativeFilters = [new GlowFilter(0x214e00, 1, 4, 4, 5)];
         txt.x = 18;
+        txt.y = -4;
         _btnBackFromUpdate.addChild(txt);
         _btnBackFromUpdate.x = -_woWidth/2 + 370;
         _btnBackFromUpdate.y = -_woHeight/2 + 489;
         _source.addChild(_btnBackFromUpdate);
         _btnBackFromUpdate.endClickCallback = showUsualState;
-        _btnBackFromUpdate.visible = false;
 
         _updateSprite = new Sprite();
         _item1 = new UpdateItem();
         _item2 = new UpdateItem();
         _item3 = new UpdateItem();
-        _item1.onBuyCallback = updateMakeUpdateBtn;
-        _item2.onBuyCallback = updateMakeUpdateBtn;
-        _item3.onBuyCallback = updateMakeUpdateBtn;
-        _item2.source.x = 110;
-        _item3.source.x = 220;
+        _item1.onBuyCallback = checkUpdateBtn;
+        _item2.onBuyCallback = checkUpdateBtn;
+        _item3.onBuyCallback = checkUpdateBtn;
+        _item1.source.x = 17;
+        _item2.source.x = 150;
+        _item3.source.x = 283;
+        _item1.source.y = 20;
+        _item2.source.y = 20;
+        _item3.source.y = 20;
         _updateSprite.addChild(_item1.source);
         _updateSprite.addChild(_item2.source);
         _updateSprite.addChild(_item3.source);
+        txt = new TextField(284,45,'Необходимые материалы',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        txt.nativeFilters = [new GlowFilter(0x634a22, 1, 4, 4, 5)];
+        txt.x = 59;
+        txt.y = -35;
+        _updateSprite.addChild(txt);
+
+        _btnMakeUpdate = new CSprite();
+        t = new WOButtonTexture(121, 40, WOButtonTexture.BLUE);
+        _btnMakeUpdate.addChild(t);
+        txt = new TextField(90, 50, "Увеличить", g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
+        txt.nativeFilters = [new GlowFilter(0x0356e2, 1, 4, 4, 5)];
+        txt.x = 17;
+        txt.y = -4;
+        _btnMakeUpdate.addChild(txt);
+        _btnMakeUpdate.x = 141;
+        _btnMakeUpdate.y = 190;
+        _updateSprite.addChild(_btnMakeUpdate);
+        _btnMakeUpdate.endClickCallback = onUpdate;
+
         _updateSprite.x = - _updateSprite.width/2 - 10;
         _updateSprite.y = - 150;
         _source.addChild(_updateSprite);
@@ -297,7 +323,7 @@ public class WOAmbars extends Window {
         _progress.showAmbarIcon(_type == AMBAR);
         switch (_type) {
             case AMBAR:
-                a = g.userInventory.currentCountInAmbar
+                a = g.userInventory.currentCountInAmbar;
                 _progress.setProgress(a/g.user.ambarMaxCount);
                 _txtCount.text = 'Вместимость: ' + String(a) + '/' + String(g.user.ambarMaxCount);
                 break;
@@ -313,6 +339,11 @@ public class WOAmbars extends Window {
         _scrollSprite.source.visible = false;
         _btnShowUpdate.visible = false;
         _updateSprite.visible = true;
+        _btnBackFromUpdate.visible = true;
+        updateItemsForUpdate();
+    }
+
+    private function updateItemsForUpdate():void {
         if (_type == AMBAR) {
             _item1.updateIt(g.dataBuilding.objectBuilding[12].upInstrumentId1, true);
             _item2.updateIt(g.dataBuilding.objectBuilding[12].upInstrumentId2, true);
@@ -322,21 +353,60 @@ public class WOAmbars extends Window {
             _item2.updateIt(g.dataBuilding.objectBuilding[13].upInstrumentId2, false);
             _item3.updateIt(g.dataBuilding.objectBuilding[13].upInstrumentId3, false);
         }
+        checkUpdateBtn();
     }
 
     private function showUsualState():void {
         _scrollSprite.source.visible = true;
         _btnShowUpdate.visible = true;
         _updateSprite.visible = false;
+        _btnBackFromUpdate.visible = false;
     }
 
-    private function updateMakeUpdateBtn():void {
+    private function checkUpdateBtn():void {
         if (_item1.isFull && _item2.isFull && _item3.isFull) {
-            _btnMakeUpdate.endClickCallback = onUpdate;
-            _btnMakeUpdate.alpha = 1;
+            _btnMakeUpdate.visible = true;
         } else {
-            _btnMakeUpdate.endClickCallback = null;
-            _btnMakeUpdate.alpha = .5;
+            _btnMakeUpdate.visible = false;
+        }
+    }
+
+    private function onUpdate():void {
+        var needCountForUpdate:int;
+        var st:String;
+        if (_type == AMBAR) {
+            needCountForUpdate = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * (g.user.ambarLevel - 1);
+            g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId1, -needCountForUpdate);
+            g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId2, -needCountForUpdate);
+            g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId3, -needCountForUpdate);
+            g.user.ambarLevel++;
+            g.user.ambarMaxCount += g.dataBuilding.objectBuilding[12].deltaCountResources;
+            st = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
+            _progress.setProgress(g.userInventory.currentCountInAmbar / g.user.ambarMaxCount);
+            g.directServer.updateUserAmbar(1, g.user.ambarLevel, g.user.ambarMaxCount, null);
+        } else {
+            needCountForUpdate = g.dataBuilding.objectBuilding[13].startCountInstrumets + g.dataBuilding.objectBuilding[13].deltaCountAfterUpgrade * (g.user.skladLevel - 1);
+            g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId1, -needCountForUpdate);
+            g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId2, -needCountForUpdate);
+            g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId3, -needCountForUpdate);
+            g.user.skladLevel++;
+            g.user.skladMaxCount += g.dataBuilding.objectBuilding[13].deltaCountResources;
+            st = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
+            _progress.setProgress(g.userInventory.currentCountInSklad / g.user.skladMaxCount);
+            g.directServer.updateUserAmbar(2, g.user.skladLevel, g.user.skladMaxCount, null);
+        }
+        _txtCount.text = st;
+        unfillItems();
+        fillItems();
+        checkUpdateBtn();
+    }
+
+    public function smallUpdate():void {
+        if (_type == SKLAD) {
+            _txtCount.text = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
+            _progress.setProgress(g.userInventory.currentCountInSklad / g.user.skladMaxCount);
+            unfillItems();
+            fillItems();
         }
     }
 }
