@@ -189,8 +189,6 @@
         <key>fileList</key>
         <array>
             <filename>add_friend.png</filename>
-            <filename>ambar_plawka_arrow.png</filename>
-            <filename>ambar_plawka.png</filename>
             <filename>arrow_small.png</filename>
             <filename>bg</filename>
             <filename>birka_c.png</filename>
@@ -259,8 +257,6 @@
             <filename>refresh_icon.png</filename>
             <filename>rubins.png</filename>
             <filename>sciccors_icon.png</filename>
-            <filename>scroll_box.png</filename>
-            <filename>scroll_line.png</filename>
             <filename>serp_icon.png</filename>
             <filename>shop</filename>
             <filename>shop_arrow.png</filename>
@@ -278,7 +274,6 @@
             <filename>tools_icon.png</filename>
             <filename>vedro_icon.png</filename>
             <filename>watering_can.png</filename>
-            <filename>wo_ambar.png</filename>
             <filename>work_icon.png</filename>
             <filename>xp_progres_part_end.png</filename>
             <filename>xp_progres_part.png</filename>
@@ -304,6 +299,10 @@
             <filename>storage_window_scr_c.png</filename>
             <filename>storage_window_scr_line.png</filename>
             <filename>roadside_shop_tabl.png</filename>
+            <filename>storage_window_prl_c.png</filename>
+            <filename>storage_window_prl_l.png</filename>
+            <filename>storage_window_prl_r.png</filename>
+            <filename>storage_window_pr.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

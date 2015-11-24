@@ -10,7 +10,7 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import ui.scrolled.DefaultVerticalScrollSprite;
+import windows.WOComponents.DefaultVerticalScrollSprite;
 
 import utils.CButton;
 import utils.CSprite;
@@ -36,7 +36,7 @@ public class WOSklad extends Window {
         super();
         _woHeight = 500;
         _woWidth = 534;
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wo_ambar'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus'));
         _bg.pivotX = _bg.width/2;
         _bg.pivotY = _bg.height/2;
         _source.addChild(_bg);
@@ -50,7 +50,7 @@ public class WOSklad extends Window {
         _scrollSprite.source.x = 40 - _woWidth/2;
         _scrollSprite.source.y = 79 - _woHeight/2;
         _source.addChild(_scrollSprite.source);
-        _scrollSprite.createScoll(440, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('scroll_line'), g.allData.atlas['interfaceAtlas'].getTexture('scroll_box'));
+        _scrollSprite.createScoll(440, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('plus'), g.allData.atlas['interfaceAtlas'].getTexture('plus'));
 
         _titleTxt = new TextField(150, 40, 'Склад', "Arial", 30, Color.BLACK);
         _titleTxt.x = 189 - _woWidth/2;
@@ -120,7 +120,7 @@ public class WOSklad extends Window {
     override public function showIt():void {
         var st:String = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
         _txtCount.text = st;
-        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
+        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
         _btnBack.visible = false;
         _btnUpdate.visible = true;
         _updateSprite.visible = false;
@@ -207,7 +207,7 @@ public class WOSklad extends Window {
         g.user.skladLevel++;
         g.user.skladMaxCount += g.dataBuilding.objectBuilding[13].deltaCountResources;
         updateTxtCount();
-        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
+        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
         _item1.updateIt();
         _item2.updateIt();
         _item3.updateIt();
@@ -219,7 +219,7 @@ public class WOSklad extends Window {
 
     public function smallUpdate():void {
         updateTxtCount();
-        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount,false);
+        _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
         unfillItems();
         fillItems();
     }

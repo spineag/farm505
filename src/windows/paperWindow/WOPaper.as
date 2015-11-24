@@ -17,7 +17,7 @@ import user.Someone;
 import utils.CSprite;
 import utils.MCScaler;
 
-import windows.WOButtonTexture;
+import windows.WOComponents.WOButtonTexture;
 
 import windows.Window;
 

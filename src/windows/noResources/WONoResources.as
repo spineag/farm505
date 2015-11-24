@@ -20,6 +20,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import windows.WOComponents.WindowBackground;
+
 public class WONoResources extends Window {
     private var _contBtn:CSprite;
     private var _contImage:Sprite;

@@ -14,7 +14,7 @@ import starling.utils.HAlign;
 
 import utils.MCScaler;
 
-import windows.CartonBackgroundIn;
+import windows.WOComponents.CartonBackgroundIn;
 
 public class WOOrderResourceItem {
     public var source:Sprite;

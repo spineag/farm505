@@ -68,6 +68,7 @@ import utils.FarmDispatcher;
 
 import windows.Window;
 import windows.ambar.WOAmbar;
+import windows.ambar.WOAmbars;
 import windows.ambar.WOSklad;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
@@ -172,6 +173,7 @@ public class Vars {
     public var woBuyPlant:WOBuyPlant;
     public var woFabrica:WOFabrica;
     public var woAmbar:WOAmbar;
+    public var woAmbars:WOAmbars;
     public var woSklad:WOSklad;
     public var woShop:WOShop;
     public var woLevelUp:WOLevelUp;
@@ -421,6 +423,7 @@ public class Vars {
         woBuyPlant = new WOBuyPlant();
         woFabrica = new WOFabrica();
         woAmbar = new WOAmbar();
+        woAmbars = new WOAmbars();
         woSklad = new WOSklad();
         woShop = new WOShop();
         woLevelUp = new WOLevelUp();
