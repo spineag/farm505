@@ -30,9 +30,9 @@ public class ShopList {
     public function ShopList(parent:Sprite) {
         _arrItems = [];
         _source = new Sprite();
-        _source.x = -353;
-        _source.y = -22;
-        _source.clipRect = new Rectangle(0, 0, 708, 253);
+        _source.x = 36;
+        _source.y = 23;
+        _source.clipRect = new Rectangle(0, 0, 601, 245);
         parent.addChild(_source);
         _itemsSprite = new Sprite();
         _source.addChild(_itemsSprite);
@@ -43,34 +43,32 @@ public class ShopList {
         var im:Image;
 
         _leftArrow = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.scaleX = -1;
         im.x = im.width;
         _leftArrow.addChild(im);
-        _leftArrow.x = -393;
-        _leftArrow.y = 39;
+        _leftArrow.x = 5;
+        _leftArrow.y = 94;
         parent.addChild(_leftArrow);
         _leftArrow.endClickCallback = onLeftClick;
 
         _rightArrow = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        im.scaleX = -1;
         _rightArrow.addChild(im);
-        _rightArrow.x = 360;
-        _rightArrow.y = 39;
+        _rightArrow.x = 661;
+        _rightArrow.y = 94;
         parent.addChild(_rightArrow);
         _rightArrow.endClickCallback = onRightClick;
     }
 
     public function fillIt(arr:Array):void {
-        var n:int;
         var item:ShopItem;
-        var arLocked:Array;
-        arLocked=[];
-        var ar:Array;
-        var ar2:Array;
+        var arLocked:Array = [];
+        var ar:Array = [];
+        var ar2:Array = [];
         var obj:Object;
-        ar2 = [];
-        ar =[];
+
         for (var j:int = 0; j < arr.length; j++) {
                 arLocked = g.townArea.getCityObjectsById(arr[j].id);
                 if (arr[j].buildType == BuildType.FABRICA){
@@ -95,12 +93,12 @@ public class ShopList {
                 }
         }
 
-            ar.sortOn("blockByLevel", Array.NUMERIC);
-            ar = ar.concat(ar2);
+        ar.sortOn("blockByLevel", Array.NUMERIC);
+        ar = ar.concat(ar2);
 
         for (var i:int = 0; i < ar.length; i++) {
             item = new ShopItem(ar[i]);
-            item.source.x = 180*i;
+            item.source.x = 153*i;
             _itemsSprite.addChild(item.source);
             _arrItems.push(item);
         }

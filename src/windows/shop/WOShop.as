@@ -5,7 +5,13 @@ package windows.shop {
 import data.BuildType;
 
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.events.Event;
+import starling.filters.BlurFilter;
+
+import windows.WOComponents.CartonBackground;
+
+import windows.WOComponents.WindowBackground;
 
 import windows.Window;
 
@@ -17,32 +23,33 @@ public class WOShop extends Window{
     private var _btnTab5:ShopTabBtn;
     private var _shopList:ShopList;
     private var curentTab:int;
+    private var _shopSprite:Sprite;
+    private var _contSprite:Sprite;
+    private var _woBG:WindowBackground;
+
     public function WOShop() {
         super();
-        _woHeight = 784;
-        _woWidth = 572;
-        createBG();
-        _shopList = new ShopList(_source);
-        createShopTabBtns();
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.x = 370;
-        _btnExit.y = -205;
+        _woWidth = 750;
+        _woHeight = 590;
+        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _source.addChild(_woBG);
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
+        _btnExit.x += _woWidth/2;
+        _btnExit.y -= _woHeight/2;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
+
+        _shopSprite = new Sprite();
+        _shopSprite.x = -_woWidth/2 + 41;
+        _shopSprite.y = -_woHeight/2 + 141;
+        _shopSprite.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        _source.addChild(_shopSprite);
+        _contSprite = new Sprite();
+        _contSprite.x = -_woWidth/2 + 41;
+        _contSprite.y = -_woHeight/2 + 141;
+        _source.addChild(_contSprite);
+        _shopList = new ShopList(_contSprite);
+        createShopTabBtns();
         curentTab = 1;
-    }
-
-    private function createBG():void {
-        var im:Image;
-
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('board_shop_part'));
-        im.x = -im.width;
-        im.y = -im.height/2;
-        _source.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('board_shop_part'));
-        im.scaleX = -1;
-        im.x = im.width;
-        im.y = -im.height/2;
-        _source.addChild(im);
     }
 
     public function onClickExit(e:Event=null):void {
@@ -60,30 +67,29 @@ public class WOShop extends Window{
     }
 
     public function createShopTabBtns():void {
-        var w:int;
+        var c:CartonBackground = new CartonBackground(666, 320);
+        _shopSprite.addChild(c);
 
-        _btnTab1 = new ShopTabBtn('Двор', function():void {onTab(1)});
-        w = _btnTab1.source.width;
-        _btnTab1.source.x = -2.5 * w - 10;
-        _btnTab1.source.y = -190;
-        _source.addChild(_btnTab1.source);
-        _btnTab2 = new ShopTabBtn('Животные', function():void {onTab(2)});
-        _btnTab2.source.x = -1.5 * w - 5;
-        _btnTab2.source.y = -190;
-        _source.addChild(_btnTab2.source);
-        _btnTab3 = new ShopTabBtn('Фабрики', function():void {onTab(3)});
-        _btnTab3.source.x = -.5 * w;
-        _btnTab3.source.y = -190;
-        _source.addChild(_btnTab3.source);
-        _btnTab4 = new ShopTabBtn('Растения', function():void {onTab(4)});
-        _btnTab4.source.x = .5 * w + 5;
-        _btnTab4.source.y = -190;
-        _source.addChild(_btnTab4.source);
-        _btnTab5 = new ShopTabBtn('Декор', function():void {onTab(5)});
-        _btnTab5.source.x = 1.5 * w + 10;
-        _btnTab5.source.y = -190;
-        _source.addChild(_btnTab5.source);
-
+        _btnTab1 = new ShopTabBtn(ShopTabBtn.VILLAGE, function():void {onTab(1)});
+        _btnTab1.setPosition(7, - 81, _shopSprite.x, _shopSprite.y);
+        _shopSprite.addChild(_btnTab1.source);
+        _source.addChildAt(_btnTab1.cloneSource, 2);
+        _btnTab2 = new ShopTabBtn(ShopTabBtn.ANIMAL, function():void {onTab(2)});
+        _btnTab2.setPosition(7 + 133, - 81, _shopSprite.x, _shopSprite.y);
+        _shopSprite.addChild(_btnTab2.source);
+        _source.addChildAt(_btnTab2.cloneSource, 2);
+        _btnTab3 = new ShopTabBtn(ShopTabBtn.FABRICA, function():void {onTab(3)});
+        _btnTab3.setPosition(7 + 133*2, - 81, _shopSprite.x, _shopSprite.y);
+        _shopSprite.addChild(_btnTab3.source);
+        _source.addChildAt(_btnTab3.cloneSource, 2);
+        _btnTab4 = new ShopTabBtn(ShopTabBtn.PLANT, function():void {onTab(4)});
+        _btnTab4.setPosition(7 + 133*3, - 81, _shopSprite.x, _shopSprite.y);
+        _shopSprite.addChild(_btnTab4.source);
+        _source.addChildAt(_btnTab4.cloneSource, 2);
+        _btnTab5 = new ShopTabBtn(ShopTabBtn.DECOR, function():void {onTab(5)});
+        _btnTab5.setPosition(7 + 133*4, - 81, _shopSprite.x, _shopSprite.y);
+        _shopSprite.addChild(_btnTab5.source);
+        _source.addChildAt(_btnTab5.cloneSource, 2);
     }
 
     private function onTab(a:int):void {
@@ -111,9 +117,7 @@ public class WOShop extends Window{
                 obj = g.dataAnimal.objectAnimal;
                 arr.push(g.managerCats.catInfo);
                 for (id in obj) {
-                    //if (obj[id].buildType == BuildType.ANIMAL) {
                         arr.push(obj[id]);
-                    //}
                 }
                 break;
             case 3: _btnTab3.activateIt(true);

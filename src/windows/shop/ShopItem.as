@@ -9,6 +9,8 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 
+import flash.filters.GlowFilter;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.Vars;
@@ -24,12 +26,13 @@ import ui.xpPanel.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WOButtonTexture;
+
 public class ShopItem {
     public var source:CSprite;
-    private var _bg:Image;
     private var _im:Image;
     private var _nameTxt:TextField;
-    private var _countTxt:TextField;
     private var _data:Object;
     private var _lockedSprite:Sprite;
     private var _lockedTxt:TextField;
@@ -37,6 +40,11 @@ public class ShopItem {
     private var _state:int;
     private const STATE_FROM_INVENTORY:int = 1;
     private const STATE_BUY:int = 2;
+    private var _btnBuyGreen:Sprite;
+    private var _btnBuyBlue:Sprite;
+    private var _btnActivationYellow:Sprite;
+    private var _txtBtnBuyBlue:TextField;
+    private var _txtBtnBuyGreen:TextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -48,17 +56,12 @@ public class ShopItem {
             return;
         }
         source = new CSprite();
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
-        source.addChild(_bg);
+        var bg:CartonBackgroundIn = new CartonBackgroundIn(145, 221);
+        source.addChild(bg);
 
-        _nameTxt = new TextField(150, 70, '', "Arial", 20, Color.BLACK);
-        _nameTxt.x = 7;
-        _nameTxt.y = 140;
+        _nameTxt = new TextField(145, 40, '', g.allData.fonts['BloggerBold'], 20, 0xfaf2c8);
+        _nameTxt.nativeFilters = [new GlowFilter(0x4b3600, 1, 6, 6, 5)];
         source.addChild(_nameTxt);
-        _countTxt = new TextField(122, 30, '', "Arial", 16, Color.WHITE);
-        _countTxt.x = 22;
-        _countTxt.y = 220;
-        source.addChild(_countTxt);
         source.endClickCallback = onClick;
 
         _lockedSprite = new Sprite();
@@ -68,7 +71,53 @@ public class ShopItem {
         _lockedSprite.y = 110;
         source.addChild(_lockedSprite);
 
+        createButtons();
         setInfo();
+    }
+
+    private function createButtons():void {
+        _btnBuyBlue = new Sprite();
+        var btn:WOButtonTexture = new WOButtonTexture(126, 41, WOButtonTexture.BLUE);
+        _btnBuyBlue.addChild(btn);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        MCScaler.scale(im, 35, 35);
+        im.x = 85;
+        im.y = 8;
+        _btnBuyBlue.addChild(im);
+        _txtBtnBuyBlue = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtBtnBuyBlue.nativeFilters = [new GlowFilter(0x033f89, 1, 6, 6, 5)];
+        _btnBuyBlue.addChild(_txtBtnBuyBlue);
+        _btnBuyBlue.x = 11;
+        _btnBuyBlue.y = 160;
+        source.addChild(_btnBuyBlue);
+        _btnBuyBlue.visible = false;
+
+        _btnBuyGreen = new Sprite();
+        btn = new WOButtonTexture(126, 41, WOButtonTexture.GREEN);
+        _btnBuyGreen.addChild(btn);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        MCScaler.scale(im, 35, 35);
+        im.x = 85;
+        im.y = 8;
+        _btnBuyGreen.addChild(im);
+        _txtBtnBuyGreen = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtBtnBuyGreen.nativeFilters = [new GlowFilter(0x3a8013, 1, 6, 6, 5)];
+        _btnBuyGreen.addChild(_txtBtnBuyGreen);
+        _btnBuyGreen.x = 11;
+        _btnBuyGreen.y = 160;
+        source.addChild(_btnBuyGreen);
+        _btnBuyGreen.visible = false;
+
+        _btnActivationYellow = new Sprite();
+        btn = new WOButtonTexture(126, 41, WOButtonTexture.YELLOW);
+        _btnActivationYellow.addChild(btn);
+        var txt:TextField = new TextField(125, 40, 'Активировать', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 6, 6, 5)];
+        _btnActivationYellow.addChild(txt);
+        _btnActivationYellow.x = 11;
+        _btnActivationYellow.y = 160;
+        source.addChild(_btnActivationYellow);
+        _btnActivationYellow.visible = false;
     }
 
     private function setInfo():void {
@@ -96,13 +145,13 @@ public class ShopItem {
         } else {
             _countCost = _data.cost;
         }
-        _countTxt.text = String(_countCost);
+//        _countTxt.text = String(_countCost);
 
         if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE)
                 && g.userInventory.decorInventory[_data.id]) {
             _state = STATE_FROM_INVENTORY;
             _countCost = 0;
-            _countTxt.text = 'Активировать';
+//            _countTxt.text = 'Активировать';
         } else {
             _state = STATE_BUY;
         }
@@ -179,10 +228,10 @@ public class ShopItem {
                     st = '';
                     if (_state == STATE_FROM_INVENTORY) {
                         _countCost = 0;
-                        _countTxt.text = 'Активировать';
+//                        _countTxt.text = 'Активировать';
                     } else {
                         _countCost = arr.length * _data.deltaCost + _data.cost;
-                        _countTxt.text = String(_countCost);
+//                        _countTxt.text = String(_countCost);
                     }
                 }
             }
@@ -205,7 +254,7 @@ public class ShopItem {
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_limit'));
                         st = String(maxCount) + '/' + String(maxCount);
                         _countCost = 0;
-                        _countTxt.text = '';
+//                        _countTxt.text = '';
                     } else {
                         st = String(curCount) + '/' + String(maxCount);
                         if (curCount < dataFarm.maxAnimalsCount) {
@@ -215,7 +264,7 @@ public class ShopItem {
                         } else {
                             _countCost = _data.cost3;
                         }
-                        _countTxt.text = String(_countCost);
+//                        _countTxt.text = String(_countCost);
                     }
                 }
             }
