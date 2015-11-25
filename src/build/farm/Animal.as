@@ -135,7 +135,7 @@ public class Animal {
                 _timeToEnd = _data.timeCraft;
                 g.gameDispatcher.addToTimer(render);
                 _state = WORKED;
-                g.managerAnimal.addCatToFarm(_farm);
+//                g.managerAnimal.addCatToFarm(_farm);
                 var p:Point = new Point(source.x, source.y);
                 p = source.parent.localToGlobal(p);
                 rawItem = new RawItem(p, g.allData.atlas[g.dataResource.objectResources[_data.idResourceRaw].url].getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);

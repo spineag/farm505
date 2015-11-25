@@ -62,11 +62,13 @@ public class ShopList {
     }
 
     public function fillIt(arr:Array):void {
+        var n:int;
         var item:ShopItem;
         var arLocked:Array;
         arLocked=[];
         var ar:Array;
         var ar2:Array;
+        var obj:Object;
         ar2 = [];
         ar =[];
         for (var j:int = 0; j < arr.length; j++) {
@@ -80,7 +82,11 @@ public class ShopList {
                 } else if (arr[j].buildType == BuildType.RIDGE || arr[j].buildType == BuildType.FARM || arr[j].buildType == BuildType.PET_HOUSE) {
                     ar.push(arr[j]);
                 } else if (arr[j].buildType == BuildType.TREE){
-                    ar.push(arr[j]);
+                    obj = {};
+                    obj = g.dataBuilding.objectBuilding[arr[j].id];
+                    obj.byLevel = arr[j].blockByLevel[0];
+                    ar2.push(obj);
+                    ar2.sortOn("byLevel", Array.NUMERIC);
                 } else if (arr[j].buildType == BuildType.DECOR || arr[j].buildType == BuildType.DECOR_FULL_FENСE ||
                     arr[j].buildType == BuildType.DECOR_POST_FENCE || arr[j].buildType == BuildType.DECOR_TAIL) {
                     ar.push(arr[j]);
@@ -89,8 +95,9 @@ public class ShopList {
                 }
         }
 
-        ar.sortOn("blockByLevel",Array.NUMERIC);
-        ar = ar.concat(ar2);
+            ar.sortOn("blockByLevel", Array.NUMERIC);
+            ar = ar.concat(ar2);
+
         for (var i:int = 0; i < ar.length; i++) {
             item = new ShopItem(ar[i]);
             item.source.x = 180*i;
