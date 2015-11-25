@@ -7,6 +7,8 @@ import build.farm.FarmGrid;
 
 import com.junkbyte.console.Cc;
 
+import dragonBones.animation.WorldClock;
+
 import heroes.HeroCat;
 import heroes.ManagerCats;
 
@@ -457,6 +459,11 @@ public class Vars {
         }
 
         managerOrder.checkOrders();
+        gameDispatcher.addEnterFrame(onEnterFrameGlobal);
+    }
+
+    private function onEnterFrameGlobal():void {
+        WorldClock.clock.advanceTime(-1);
     }
 
     private function openMapEditorInterface():void {

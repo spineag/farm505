@@ -9,9 +9,7 @@ import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-
 import dragonBones.factories.StarlingFactory;
-
 
 import flash.events.Event;
 import manager.EmbedAssets;
@@ -26,14 +24,16 @@ import utils.CSprite;
 
 public class HeroCat extends BasicCat{
     private var _catImage:Sprite;
-    private var _catBackImage:Image;
+    private var _catBackImage:Sprite;
     private var _isFree:Boolean;
     private var _isActive:Boolean;
     private var _type:int;
 
     private var factory:StarlingFactory;
     private var armature:Armature;
+    private var armatureBack:Armature;
     private var armatureClip:Sprite;
+    private var armatureClipBack:Sprite;
 
     public function HeroCat(type:int) {
         super();
@@ -43,26 +43,28 @@ public class HeroCat extends BasicCat{
         _isActive = false;
         _source = new CSprite();
         _catImage = new Sprite();
+        _catBackImage = new Sprite();
         switch (type) {
             case MAN:
                 factory = new StarlingFactory();
                 var f1:Function = function ():void {
                     armature = factory.buildArmature("cat");
+                    armatureBack = factory.buildArmature("cat_back");
                     armatureClip = armature.display as Sprite;
+                    armatureClipBack = armatureBack.display as Sprite;
                     _catImage.addChild(armatureClip);
+                    _catBackImage.addChild(armatureClipBack);
                     WorldClock.clock.add(armature);
-                    g.gameDispatcher.addEnterFrame(onEnterFrame);
+                    WorldClock.clock.add(armatureBack);
                 };
                 factory.addEventListener(Event.COMPLETE, f1);
                 factory.parseData(new EmbedAssets.CatData());
-//                var im:Image = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man'));
-//                _catImage.addChild(im);
-                _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_man_back'));
                 break;
             case WOMAN:
                 var im:Image = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman'));
                 _catImage.addChild(im);
-                _catBackImage = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman_back'));
+                im = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman_back'));
+                _catBackImage.addChild(im);
                 break;
         }
         if (!_catImage || !_catBackImage) {
@@ -79,10 +81,6 @@ public class HeroCat extends BasicCat{
         showFront(true);
 
         _source.endClickCallback = onClick;
-    }
-
-    private function onEnterFrame():void {
-        WorldClock.clock.advanceTime(-1);
     }
 
     override public function showFront(v:Boolean):void {
@@ -143,19 +141,31 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
-        if (_type == MAN) armature.animation.gotoAndPlay("walk");
+        if (_type == MAN) {
+            armature.animation.gotoAndPlay("walk");
+            armatureBack.animation.gotoAndPlay("walk");
+        }
         super.walkAnimation();
     }
     override public function runAnimation():void {
-        if (_type == MAN) armature.animation.gotoAndPlay("run");
+        if (_type == MAN) {
+            armature.animation.gotoAndPlay("run");
+            armatureBack.animation.gotoAndPlay("run");
+        }
         super.runAnimation();
     }
     override public function stopAnimation():void {
-        if (_type == MAN) armature.animation.gotoAndStop("idle", 0);
+        if (_type == MAN) {
+            armature.animation.gotoAndStop("idle", 0);
+            armatureBack.animation.gotoAndStop("idle", 0);
+        }
         super.stopAnimation()
     }
     override public function idleAnimation():void {
-        if (_type == MAN) armature.animation.gotoAndPlay("idle");
+        if (_type == MAN) {
+            armature.animation.gotoAndPlay("idle");
+            armatureBack.animation.gotoAndPlay("idle");
+        }
         super.idleAnimation();
     }
 
