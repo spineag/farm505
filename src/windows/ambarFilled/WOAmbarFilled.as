@@ -41,10 +41,10 @@ public class WOAmbarFilled extends Window{
         _contBtn.x = -50;
         _contBtn.y = 100;
         _source.addChild(_contBtn);
-        _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("ambar_plawka"));
+        _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("plus"));
         _imageAmbar.x = -198;
         _imageAmbar.y = -100;
-        _imageAmbarArrow = new Image(g.allData.atlas['interfaceAtlas'].getTexture("ambar_plawka_arrow"));
+        _imageAmbarArrow = new Image(g.allData.atlas['interfaceAtlas'].getTexture("plus"));
         _txtAmbarFilled = new TextField(100,50,"","Arial",14,Color.BLACK);
         _txtAmbarFilled.x = -50;
         _txtAmbarFilled.y = -150;
@@ -62,11 +62,11 @@ public class WOAmbarFilled extends Window{
 
     private function onClick():void {
         hideIt();
-        if (_bol == true) {
-            g.woAmbar.showUpdate();
-        } else {
-            g.woSklad.showUpdate();
-        }
+//        if (_bol == true) {        !!!!!!!!!!!
+//            g.woAmbar.showUpdate();
+//        } else {
+//            g.woSklad.showUpdate();
+//        }
 
     }
 

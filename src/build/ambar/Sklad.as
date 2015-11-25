@@ -13,6 +13,8 @@ import mouse.ToolsModifier;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
+import windows.ambar.WOAmbars;
+
 public class Sklad extends AreaObject{
     public function Sklad(_data:Object) {
         super(_data);
@@ -53,7 +55,7 @@ public class Sklad extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             _source.filter = null;
-            if (!_source.wasGameContMoved) g.woSklad.showIt();
+            if (!_source.wasGameContMoved) g.woAmbars.showItWithParams(WOAmbars.SKLAD);
             onOut();
         } else {
             Cc.error('Ambar:: unknown g.toolsModifier.modifierType')

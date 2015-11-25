@@ -4,23 +4,25 @@
 package windows.ambar {
 import data.DataMoney;
 
+import flash.filters.GlowFilter;
+
 import manager.Vars;
 
 import starling.display.Image;
-import starling.display.Quad;
 import starling.display.Sprite;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
 import utils.MCScaler;
+import utils.MCScaler;
+import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WOButtonTexture;
 
 public class UpdateItem {
     public var source:CSprite;
-    private var _contImage:CSprite;
     private var _resourceId:int;
-    private var _im:Image;
+    private var _bg:Sprite;
     private var _btn:CSprite;
     private var _btnTxt:TextField;
     private var _imGalo4ka:Image;
@@ -28,27 +30,19 @@ public class UpdateItem {
     private var _isAmbarItem:Boolean;
     private var _buyCallback:Function;
     private var _countForBuy:int;
+    private var _resourceImage:Image;
 
     private var g:Vars = Vars.getInstance();
 
-    public function UpdateItem(id:int, isAmbar:Boolean = true) {
-        _resourceId = id;
-        _isAmbarItem = isAmbar;
+    public function UpdateItem() {
         source = new CSprite();
-//        _contImage = new CSprite();
-//        source.addChild(_contImage);
-        var quad:Quad = new Quad(100, 100, Color.GRAY);
-        quad.alpha = .2;
-        source.addChild(quad);
-        _im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[_resourceId].imageShop));
-        MCScaler.scale(_im, 80, 80);
-        _im.x = 50 - _im.width/2;
-        _im.y = 50 - _im.height/2;
-        source.addChild(_im);
+        _bg = new CartonBackgroundIn(100, 100);
+        source.addChild(_bg);
         source.hoverCallback = onHover;
         source.outCallback = onOut;
 
-        _txtCount = new TextField(50, 20, '', "Arial", 14, Color.BLACK);
+        _txtCount = new TextField(50,20,'',g.allData.fonts['BloggerMedium'],14,Color.WHITE);
+        _txtCount.nativeFilters = [new GlowFilter(0x634a22, 1, 4, 4, 5)];
         _txtCount.x = 60;
         _txtCount.y = 80;
         source.addChild(_txtCount);
@@ -57,32 +51,31 @@ public class UpdateItem {
         _btn.y = 120;
         source.addChild(_btn);
         _btn.endClickCallback = onBuy;
-        var imBG:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
-        imBG.x = 50 - imBG.width/2;
+        var imBG:Sprite = new WOButtonTexture(100, 40, WOButtonTexture.GREEN);
         _btn.addChild(imBG);
-        var _txt:TextField = new TextField(100, 20, 'Купить', "Arial", 16, Color.BLACK);
-        _txt.y = 5;
-        _btn.addChild(_txt);
 
-        _btnTxt = new TextField(50, 20, '', "Arial", 16, Color.BLACK);
-        _btnTxt.x = 20;
-        _btnTxt.y = 28;
+        _btnTxt = new TextField(50,20,'50',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        _btnTxt.nativeFilters = [new GlowFilter(0x3a8013, 1, 4, 4, 5)];
+        _btnTxt.x = 16;
+        _btnTxt.y = 10;
         _btn.addChild(_btnTxt);
 
-        var dmnt:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('diamont'));
-        MCScaler.scale(dmnt, 25, 25);
+        var dmnt:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        MCScaler.scale(dmnt, 30, 30);
         dmnt.x = 57;
-        dmnt.y = 25;
+        dmnt.y = 4;
         _btn.addChild(dmnt);
 
-        _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('galo4ka'));
+        _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _imGalo4ka.x = 50 - _imGalo4ka.width/2;
         _imGalo4ka.y = 120;
         source.addChild(_imGalo4ka);
     }
 
-    public function updateIt():void {
+    public function updateIt(id:int, isAmbar:Boolean = true):void {
         var needCountForUpdate:int;
+        _resourceId = id;
+        _isAmbarItem = isAmbar;
         var curCount:int = g.userInventory.getCountResourceById(_resourceId);
         if (_isAmbarItem) {
             needCountForUpdate = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * (g.user.ambarLevel-1);
@@ -109,6 +102,16 @@ public class UpdateItem {
                 _btnTxt.text = String(_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
             }
         }
+        if (_resourceImage) {
+            source.removeChild(_resourceImage);
+            _resourceImage.dispose();
+            _resourceImage = null;
+        }
+        _resourceImage = new Image(g.allData.atlas[g.dataResource.objectResources[_resourceId].url].getTexture(g.dataResource.objectResources[_resourceId].imageShop));
+        MCScaler.scale(_resourceImage, 90, 90);
+        _resourceImage.x = 50 - _resourceImage.width/2;
+        _resourceImage.y = 50 - _resourceImage.height/2;
+        source.addChild(_resourceImage);
     }
 
     public function get isFull():Boolean {
@@ -123,19 +126,13 @@ public class UpdateItem {
         if (g.user.hardCurrency >= _countForBuy * g.dataResource.objectResources[_resourceId].priceHard) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
             g.userInventory.addResource(_resourceId, _countForBuy);
-            updateIt();
-            if (!_isAmbarItem) {
-                g.woSklad.smallUpdate();
-            }
+            updateIt(_resourceId, _isAmbarItem);
+            g.woAmbars.smallUpdate();
             if (_buyCallback != null) {
                 _buyCallback.apply();
             }
         } else {
-            if (_isAmbarItem) {
-                g.woAmbar.hideIt();
-            } else {
-                g.woSklad.hideIt();
-            }
+            g.woAmbars.hideIt();
             g.woBuyCurrency.showItMenu(true);
         }
     }

@@ -15,7 +15,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.Window;
-import windows.WindowBackground;
+import windows.WOComponents.WindowBackground;
 
 public class WONoPlaces extends Window{
 

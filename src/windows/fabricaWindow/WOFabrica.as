@@ -15,7 +15,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
-import windows.Birka;
+import windows.WOComponents.Birka;
 import windows.Window;
 
 public class WOFabrica extends Window {

@@ -5,18 +5,16 @@ package windows.ambar {
 
 import com.junkbyte.console.Cc;
 
+import flash.filters.GlowFilter;
+
 import manager.Vars;
-
 import starling.display.Image;
-import starling.display.Quad;
-
-import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CSprite;
-
 import utils.MCScaler;
+
+import windows.WOComponents.CartonBackgroundIn;
 
 public class AmbarCell {
     public var source:CSprite;
@@ -34,9 +32,8 @@ public class AmbarCell {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         source.endClickCallback = onClick;
-        var quad:Quad = new Quad(99, 99, Color.BLACK);
-        quad.alpha = .1 + Math.random()*.3;
-        source.addChild(quad);
+        var s:CartonBackgroundIn = new CartonBackgroundIn(100, 100);
+        source.addChild(s);
 
         _info = info;
         if (!_info) {
@@ -57,13 +54,14 @@ public class AmbarCell {
                 g.woGameError.showIt();
                 return;
             }
-            MCScaler.scale(_image, 99, 99);
+            MCScaler.scale(_image, 90, 90);
             _image.x = 50 - _image.width/2;
             _image.y = 50 - _image.height/2;
             source.addChild(_image);
         }
 
-        _countTxt = new TextField(30,20,String(_info.count),"Arial",16,Color.BLACK);
+        _countTxt = new TextField(30,20,String(_info.count),g.allData.fonts['BloggerMedium'],16,0xf46809);
+        _countTxt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 9.0)];
         _countTxt.x = 75;
         _countTxt.y = 77;
         source.addChild(_countTxt);
