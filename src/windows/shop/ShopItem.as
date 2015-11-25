@@ -137,21 +137,19 @@ public class ShopItem {
             g.woGameError.showIt();
         }
 
-        _nameTxt.text = String(_data.name);
-
         if (_data.buildType == BuildType.CAT) {
             _countCost = g.dataCats[g.managerCats.curCountCats].cost;
             _data.cost = _countCost;
         } else {
             _countCost = _data.cost;
         }
-//        _countTxt.text = String(_countCost);
 
         if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE)
                 && g.userInventory.decorInventory[_data.id]) {
             _state = STATE_FROM_INVENTORY;
             _countCost = 0;
-//            _countTxt.text = 'Активировать';
+            _nameTxt.text = String(_data.name);
+            _btnActivationYellow.visible = true;
         } else {
             _state = STATE_BUY;
         }
@@ -159,6 +157,7 @@ public class ShopItem {
         checkState();
     }
 
+//    _nameTxt.text = String(_data.name);
     private function checkState():void {
         var im:Image;
         var arr:Array;
