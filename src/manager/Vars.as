@@ -95,6 +95,7 @@ import windows.train.WOTrainOrder;
 
 public class Vars {
     private static var _instance:Vars;
+    public const HARD_IN_SOFT:int = 20; // 1 хард стоит 20 софт
 
     public var starling:Starling;
     public var mainStage:Stage;

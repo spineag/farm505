@@ -128,6 +128,8 @@ public class WONoResources extends Window {
         if (!currency) {
             _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
             _txtCount.text = String(_count);
+            _txtHardCost.text = String( int(_count / g.HARD_IN_SOFT + 0.5));
+            _contBtn.addChild(_txtHardCost);
             _contImage.addChild(_imageItem);
             _contImage.addChild(_txtCount);
             return;
@@ -136,11 +138,16 @@ public class WONoResources extends Window {
         if (currency == DataMoney.HARD_CURRENCY) {
             _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
             _txtCount.text = String(_count);
+            _txtHardCost.text = String(_count);
+            _contBtn.addChild(_txtHardCost);
             _contImage.addChild(_imageItem);
             _contImage.addChild(_txtCount);
         } else if (currency == DataMoney.SOFT_CURRENCY) {
             _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
             _txtCount.text = String(_count);
+            _txtHardCost.text = String(int( _count / g.HARD_IN_SOFT + 0.5));
+            if (int(_txtHardCost.text) <= 0) _txtHardCost.text ="1";
+            _contBtn.addChild(_txtHardCost);
             _contImage.addChild(_imageItem);
             _contImage.addChild(_txtCount);
         }
@@ -160,35 +167,39 @@ public class WONoResources extends Window {
         if (_data.buildType == BuildType.ANIMAL) {
             im = new WONoResourcesItem(_data.idResourceRaw, 1);
             _contImage.addChild(im.source);
-            _txtHardCost.text = "2";
+            _txtHardCost.text = String(int(g.dataResource.objectResources[_data.idResourceRaw].priceHard * count));
             _contBtn.addChild(_txtHardCost);
            _contBtn.endClickCallback = onClickAnimal;
             return;
         } else if (_data.buildType == BuildType.PLANT) {
             im = new WONoResourcesItem(_data.id, 1);
             _contImage.addChild(im.source);
-            _txtHardCost.text = "2";
+            _txtHardCost.text = String(int(g.dataResource.objectResources[_data.ingridientsId].priceHard * count));
             _contBtn.addChild(_txtHardCost);
             return;
         }
 
         if (_data.ingridientsId) {
+            var n:int;
+            var h:int;
             for (i = 0; i < _data.ingridientsId.length; i++) {
                 countRes = g.userInventory.getCountResourceById(_data.ingridientsId[i]);
                 if (countRes < _data.ingridientsCount[i]) {
                     im = new WONoResourcesItem(_data.ingridientsId[i], _data.ingridientsCount[i] - countRes);
+                    n = g.dataResource.objectResources[_data.ingridientsId[i]].priceHard * (_data.ingridientsCount[i] - countRes) + n;
                     _arrCells.push(im);
                     _contImage.addChild(im.source);
                 }
             }
+            _txtHardCost.text = String(n);
+
+            _contBtn.addChild(_txtHardCost);
             for (i = 0; i < _arrCells.length; i++) {
                 _arrCells[i].source.x = int(i * 55);
             }
         }
 
-        if (_data.priceHard) _txtHardCost.text = String(_data.priceHard * count);
-        _txtHardCost.text = "2";
-        _contBtn.addChild(_txtHardCost);
+//
         _contBtn.endClickCallback = onClickResource;
 
     }
@@ -197,7 +208,8 @@ public class WONoResources extends Window {
         _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
         _txtCount.text = String(count);
         _contImage.addChild(_imageItem);
-        _txtHardCost.text = "2";
+        _txtHardCost.text = String(int(count / g.HARD_IN_SOFT + 0.5));
+        if (int(_txtHardCost.text) <= 0) _txtHardCost.text ="1";
         _contBtn.addChild(_txtHardCost);
         _contImage.addChild(_txtCount);
         _contImage.addChild(_imageItem);
