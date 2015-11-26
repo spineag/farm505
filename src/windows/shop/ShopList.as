@@ -3,17 +3,14 @@
  */
 package windows.shop {
 import data.BuildType;
-import data.BuildType;
 
+import flash.filters.GlowFilter;
 import flash.geom.Rectangle;
-
 import manager.Vars;
-
 import starling.animation.Tween;
-
 import starling.display.Image;
-
 import starling.display.Sprite;
+import starling.text.TextField;
 
 import utils.CSprite;
 
@@ -24,19 +21,26 @@ public class ShopList {
     private var _shift:int;
     private var _source:Sprite;
     private var _itemsSprite:Sprite;
+    private var _txtPageNumber:TextField;
 
     private var g:Vars = Vars.getInstance();
 
     public function ShopList(parent:Sprite) {
         _arrItems = [];
         _source = new Sprite();
-        _source.x = 36;
+        _source.x = 32;
         _source.y = 23;
         _source.clipRect = new Rectangle(0, 0, 601, 245);
         parent.addChild(_source);
         _itemsSprite = new Sprite();
         _source.addChild(_itemsSprite);
         addArrows(parent);
+
+        _txtPageNumber = new TextField(100, 40, '657', g.allData.fonts['BloggerBold'], 18, 0xfaf2c8);
+        _txtPageNumber.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtPageNumber.x = 283;
+        _txtPageNumber.y = 268;
+        parent.addChild(_txtPageNumber);
     }
 
     private function addArrows(parent:Sprite):void {
@@ -44,10 +48,9 @@ public class ShopList {
 
         _leftArrow = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
-        im.scaleX = -1;
         im.x = im.width;
         _leftArrow.addChild(im);
-        _leftArrow.x = 5;
+        _leftArrow.x = -22;
         _leftArrow.y = 94;
         parent.addChild(_leftArrow);
         _leftArrow.endClickCallback = onLeftClick;
@@ -56,7 +59,7 @@ public class ShopList {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.scaleX = -1;
         _rightArrow.addChild(im);
-        _rightArrow.x = 661;
+        _rightArrow.x = 662;
         _rightArrow.y = 94;
         parent.addChild(_rightArrow);
         _rightArrow.endClickCallback = onRightClick;
@@ -104,6 +107,7 @@ public class ShopList {
         }
 
         checkArrows();
+        _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
     }
 
     public function clearIt():void {
@@ -149,12 +153,13 @@ public class ShopList {
 
     private function animList():void {
         var tween:Tween = new Tween(_itemsSprite, .5);
-        tween.moveTo(-_shift*180, _itemsSprite.y);
+        tween.moveTo(-_shift*153, _itemsSprite.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
         g.starling.juggler.add(tween);
         checkArrows();
+        _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
     }
 }
 }

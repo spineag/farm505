@@ -4,12 +4,23 @@
 package windows.shop {
 import data.BuildType;
 
+import flash.filters.GlowFilter;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.filters.BlurFilter;
+import starling.text.TextField;
+import starling.utils.Color;
+
+import utils.CSprite;
+
+import utils.MCScaler;
+
+import windows.WOComponents.Birka;
 
 import windows.WOComponents.CartonBackground;
+import windows.WOComponents.HorizontalPlawka;
 
 import windows.WOComponents.WindowBackground;
 
@@ -26,6 +37,12 @@ public class WOShop extends Window{
     private var _shopSprite:Sprite;
     private var _contSprite:Sprite;
     private var _woBG:WindowBackground;
+    private var _txtHardMoney:TextField;
+    private var _txtSoftMoney:TextField;
+    private var _txtBlueMoney:TextField;
+    private var _txtGreenMoney:TextField;
+    private var _txtYellowMoney:TextField;
+    private var _txtRedMoney:TextField;
 
     public function WOShop() {
         super();
@@ -50,6 +67,9 @@ public class WOShop extends Window{
         _shopList = new ShopList(_contSprite);
         createShopTabBtns();
         curentTab = 1;
+
+        createMoneyBlock();
+        new Birka('МАГАЗИН', _source, _woWidth, _woHeight);
     }
 
     public function onClickExit(e:Event=null):void {
@@ -59,6 +79,7 @@ public class WOShop extends Window{
 
     override public function showIt():void{
         super.showIt();
+        updateMoneyCounts();
         onTab(curentTab);
     }
 
@@ -148,6 +169,150 @@ public class WOShop extends Window{
         }
         _shopList.clearIt();
         _shopList.fillIt(arr);
+    }
+
+    private function createMoneyBlock():void {
+        var txt:TextField = new TextField(250, 40, 'Ваши сбережения:', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        txt.nativeFilters = [new GlowFilter(0x144b89, 1, 4, 4, 5)];
+        txt.x = -_woWidth/2 + 238;
+        txt.y = -_woHeight/2 + 461;
+        _source.addChild(txt);
+
+        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
+            g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 104);
+        pl.x = -_woWidth/2 + 63;
+        pl.y = -_woHeight/2 + 509;
+        _source.addChild(pl);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        MCScaler.scale(im, 46, 46);
+        im.x = -_woWidth/2 + 41;
+        im.y = -_woHeight/2 + 505;
+        _source.addChild(im);
+        var btn:CSprite = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+        MCScaler.scale(im, 38, 38);
+        btn.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+        MCScaler.scale(im, 24, 24);
+        im.x = im.y = 7;
+        btn.addChild(im);
+        btn.x = -_woWidth/2 + 144;
+        btn.y = -_woHeight/2 + 509;
+        _source.addChild(btn);
+        var f1:Function = function ():void {
+            onClickExit();
+            g.woBuyCurrency.showItMenu(true);
+        };
+        btn.endClickCallback = f1;
+
+        pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
+                g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 104);
+        pl.x = -_woWidth/2 + 218;
+        pl.y = -_woHeight/2 + 509;
+        _source.addChild(pl);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        MCScaler.scale(im, 48, 48);
+        im.x = -_woWidth/2 + 196;
+        im.y = -_woHeight/2 + 504;
+        _source.addChild(im);
+        btn = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+        MCScaler.scale(im, 38, 38);
+        btn.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+        MCScaler.scale(im, 24, 24);
+        im.x = im.y = 7;
+        btn.addChild(im);
+        btn.x = -_woWidth/2 + 300;
+        btn.y = -_woHeight/2 + 509;
+        _source.addChild(btn);
+        var f2:Function = function ():void {
+            onClickExit();
+            g.woBuyCurrency.showItMenu(false);
+        };
+        btn.endClickCallback = f2;
+
+        pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
+                g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 310);
+        pl.x = -_woWidth/2 + 380;
+        pl.y = -_woHeight/2 + 509;
+        _source.addChild(pl);
+        btn = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+        MCScaler.scale(im, 38, 38);
+        btn.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+        MCScaler.scale(im, 24, 24);
+        im.x = im.y = 7;
+        btn.addChild(im);
+        btn.x = -_woWidth/2 + 668;
+        btn.y = -_woHeight/2 + 509;
+        _source.addChild(btn);
+        var f3:Function = function ():void {
+            onClickExit();
+            g.woBuyCoupone.showItWO();
+        };
+        btn.endClickCallback = f3;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone'));
+        MCScaler.scale(im, 45, 45);
+        im.x = -_woWidth/2 + 364;
+        im.y = -_woHeight/2 + 505;
+        _source.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone'));
+        MCScaler.scale(im, 45, 45);
+        im.x = -_woWidth/2 + 439;
+        im.y = -_woHeight/2 + 505;
+        _source.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone'));
+        MCScaler.scale(im, 45, 45);
+        im.x = -_woWidth/2 + 514;
+        im.y = -_woHeight/2 + 505;
+        _source.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
+        MCScaler.scale(im, 45, 45);
+        im.x = -_woWidth/2 + 589;
+        im.y = -_woHeight/2 + 505;
+        _source.addChild(im);
+
+        _txtHardMoney = new TextField(63, 33, '88888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
+        _txtHardMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtHardMoney.x = -_woWidth/2 + 81;
+        _txtHardMoney.y = -_woHeight/2 + 512;
+        _source.addChild(_txtHardMoney);
+        _txtSoftMoney = new TextField(63, 33, '88888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
+        _txtSoftMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtSoftMoney.x = -_woWidth/2 + 239;
+        _txtSoftMoney.y = -_woHeight/2 + 512;
+        _source.addChild(_txtSoftMoney);
+        _txtRedMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
+        _txtRedMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtRedMoney.x = -_woWidth/2 + 400;
+        _txtRedMoney.y = -_woHeight/2 + 512;
+        _source.addChild(_txtRedMoney);
+        _txtYellowMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
+        _txtYellowMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtYellowMoney.x = -_woWidth/2 + 475;
+        _txtYellowMoney.y = -_woHeight/2 + 512;
+        _source.addChild(_txtYellowMoney);
+        _txtGreenMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
+        _txtGreenMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtGreenMoney.x = -_woWidth/2 + 550;
+        _txtGreenMoney.y = -_woHeight/2 + 512;
+        _source.addChild(_txtGreenMoney);
+        _txtBlueMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
+        _txtBlueMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtBlueMoney.x = -_woWidth/2 + 625;
+        _txtBlueMoney.y = -_woHeight/2 + 512;
+        _source.addChild(_txtBlueMoney);
+    }
+
+    public function updateMoneyCounts():void {
+        _txtHardMoney.text = String(g.user.hardCurrency);
+        _txtSoftMoney.text = String(g.user.softCurrencyCount);
+        _txtBlueMoney.text = String(g.user.blueCouponCount);
+        _txtGreenMoney.text = String(g.user.greenCouponCount);
+        _txtRedMoney.text = String(g.user.redCouponCount);
+        _txtYellowMoney.text = String(g.user.yellowCouponCount);
     }
 }
 }
