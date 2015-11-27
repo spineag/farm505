@@ -56,7 +56,7 @@ public class WOTrainOrderItem {
     }
 
     private function onHover():void {
-        g.resourceHint.showIt(_info.id,"",source.x,source.y,source);
+        g.resourceHint.showIt(_info.id,source.x,source.y,source);
     }
 
     private function onOut():void {
