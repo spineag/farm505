@@ -112,6 +112,21 @@ public class TownArea extends Sprite {
         return ar;
     }
 
+    public function getCityTreeById(id:int):Array {
+        var ar:Array = [];
+        try {
+            for (var i:int = 0; i < _cityObjects.length; i++) {
+                if (_cityObjects[i] is BasicCat) continue;
+                if (_cityObjects[i].dataBuild.id == id && _cityObjects[i].stateTree != Tree.FULL_DEAD)
+                    ar.push(_cityObjects[i]);
+            }
+        } catch (e:Error) {
+            Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
+            g.woGameError.showIt();
+        }
+        return ar;
+    }
+
     public function getCityTailObjectsById(id:int):Array {
         var ar:Array = [];
         try {

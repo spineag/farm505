@@ -138,7 +138,7 @@ public class UpdateItem {
     }
 
     private function onHover():void {
-        g.resourceHint.showIt(_resourceId,"",source.x,source.y,source);
+        g.resourceHint.showIt(_resourceId,source.x,source.y,source);
     }
 
     private function onOut():void {

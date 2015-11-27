@@ -51,7 +51,7 @@ public class ResourceHint {
         _source.addChild(_imageClock);
     }
 
-    public function showIt(_dataId:int, text:String, sX:int, sY:int, source:Sprite):void {
+    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite):void {
         var obj:Object;
         var id:String;
 

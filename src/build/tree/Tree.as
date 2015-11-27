@@ -299,11 +299,8 @@ public class Tree extends AreaObject{
         _count = 20;
         if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
             g.mouseHint.checkMouseHint(MouseHint.KORZINA);
-        }
-        if(_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3){
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
-        } else if (_state == FULL_DEAD) {
-            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+        } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3) {
+            g.mouseHint.checkMouseHint(MouseHint.CLOCK);
         }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             g.mouseHint.hideHintMouse();
@@ -314,7 +311,8 @@ public class Tree extends AreaObject{
         if (g.isActiveMapEditor) return;
         _source.filter = null;
         _isOnHover = false;
-        g.gameDispatcher.addEnterFrame(countEnterFrame);
+        g.timerHint.hideIt();
+//        g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.treeHint.hideIt();
         g.mouseHint.hideHintMouse();
         if (!_isOnHover) g.treeHint.hideIt();
@@ -325,7 +323,7 @@ public class Tree extends AreaObject{
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             _isOnHover = false;
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
+//            g.gameDispatcher.addEnterFrame(countEnterFrame);
             g.townArea.moveBuild(this, _state);
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
@@ -358,6 +356,12 @@ public class Tree extends AreaObject{
                     }
                     _arrCrafted.shift().flyIt();
                 } else Cc.error('TREE:: state == GROWED*, but empty _arrCrafted');
+            } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3){
+                var time:int = _timeToEndState;
+                if (_state == GROW1 || _state == GROW2 || _state == GROW3) {
+                    time += int(_resourceItem.buildTime/2 + .5);
+                }
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -444,24 +448,6 @@ public class Tree extends AreaObject{
         }
     }
 
-    private function countEnterFrame():void {
-        _count--;
-        if(_count <=0){
-            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            if (_isOnHover == true) {
-                var time:int = _timeToEndState;
-                if (_state == GROW1 || _state == GROW2 || _state == GROW3) {
-                    time += int(_resourceItem.buildTime/2 + .5);
-                }
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
-            }
-            if (_isOnHover == false) {
-                _source.filter = null;
-                g.timerHint.hideIt();
-            }
-        }
-    }
-
     override public function addXP():void {
         if (_dataBuild.xpForBuild) {
             var start:Point = new Point(int(_source.x), int(_source.y));
@@ -478,7 +464,6 @@ public class Tree extends AreaObject{
 
     override public function clearIt():void {
         onOut();
-        g.gameDispatcher.removeEnterFrame(countEnterFrame);
         g.gameDispatcher.removeFromTimer(render);
         _resourceItem = null;
         _arrCrafted.length = 0;
@@ -500,6 +485,10 @@ public class Tree extends AreaObject{
             setBuildImage();
             g.directServer.skipTimeOnTree(GROWED3,_dbBuildingId,null)
         }
+    }
+
+    public function get stateTree():int {
+        return _state;
     }
 }
 }

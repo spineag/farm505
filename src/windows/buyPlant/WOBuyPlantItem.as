@@ -106,15 +106,12 @@ public class WOBuyPlantItem {
 
     private function onHover():void {
         source.filter = BlurFilter.createGlow(0x00ff01, 10, 2, 1);
-        g.fabricHint.clearIt();
-        var p:Point = new Point(0, 0);
-        p = source.localToGlobal(p);
-        g.fabricHint.showIt(_dataPlant,p.x, p.y);
+        g.resourceHint.showIt(_dataPlant.id,source.x,source.y,source);
     }
 
     private function onOut():void {
         source.filter = null;
-        g.fabricHint.clearIt();
+        g.resourceHint.hideIt();
     }
 }
 }

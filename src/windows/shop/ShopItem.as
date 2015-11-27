@@ -3,6 +3,7 @@
  */
 package windows.shop {
 import build.farm.Farm;
+import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
 
@@ -297,7 +298,7 @@ public class ShopItem {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
             } else {
-                arr = g.townArea.getCityObjectsById(_data.id);
+                arr = g.townArea.getCityTreeById(_data.id);
                 curCount = arr.length;
                 for (i = 0; _data.blockByLevel.length; i++) {
                     if (_data.blockByLevel[i] <= g.user.level) {
@@ -368,8 +369,6 @@ public class ShopItem {
         if (_data.buildType == BuildType.CAT) {
             _countCost = g.dataCats[g.managerCats.curCountCats].cost;
             _data.cost = _countCost;
-        } else {
-            _countCost = _data.cost;
         }
         if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
             var p:Point = new Point(source.x, source.y);
