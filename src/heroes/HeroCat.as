@@ -8,6 +8,7 @@ import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
+import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.factories.StarlingFactory;
 
@@ -44,29 +45,24 @@ public class HeroCat extends BasicCat{
         _source = new CSprite();
         _catImage = new Sprite();
         _catBackImage = new Sprite();
-        switch (type) {
-            case MAN:
-                factory = new StarlingFactory();
-                var f1:Function = function ():void {
-                    armature = factory.buildArmature("cat");
-                    armatureBack = factory.buildArmature("cat_back");
-                    armatureClip = armature.display as Sprite;
-                    armatureClipBack = armatureBack.display as Sprite;
-                    _catImage.addChild(armatureClip);
-                    _catBackImage.addChild(armatureClipBack);
-                    WorldClock.clock.add(armature);
-                    WorldClock.clock.add(armatureBack);
-                };
-                factory.addEventListener(Event.COMPLETE, f1);
-                factory.parseData(new EmbedAssets.CatData());
-                break;
-            case WOMAN:
-                var im:Image = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman'));
-                _catImage.addChild(im);
-                im = new Image(g.allData.atlas['catAtlas'].getTexture('cat_woman_back'));
-                _catBackImage.addChild(im);
-                break;
-        }
+        factory = new StarlingFactory();
+        var f1:Function = function ():void {
+            armature = factory.buildArmature("cat");
+            armatureBack = factory.buildArmature("cat_back");
+            armatureClip = armature.display as Sprite;
+            armatureClipBack = armatureBack.display as Sprite;
+            _catImage.addChild(armatureClip);
+            _catBackImage.addChild(armatureClipBack);
+            WorldClock.clock.add(armature);
+            WorldClock.clock.add(armatureBack);
+
+            if (_type == WOMAN) {
+                releaseWoman();
+            }
+        };
+        factory.addEventListener(Event.COMPLETE, f1);
+        factory.parseData(new EmbedAssets.CatData());
+
         if (!_catImage || !_catBackImage) {
             Cc.error('HeroCat no such image: for type: ' + type);
             g.woGameError.showIt();
@@ -141,32 +137,53 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
-        if (_type == MAN) {
             armature.animation.gotoAndPlay("walk");
             armatureBack.animation.gotoAndPlay("walk");
-        }
         super.walkAnimation();
     }
     override public function runAnimation():void {
-        if (_type == MAN) {
             armature.animation.gotoAndPlay("run");
             armatureBack.animation.gotoAndPlay("run");
-        }
         super.runAnimation();
     }
     override public function stopAnimation():void {
-        if (_type == MAN) {
             armature.animation.gotoAndStop("idle", 0);
             armatureBack.animation.gotoAndStop("idle", 0);
-        }
         super.stopAnimation()
     }
     override public function idleAnimation():void {
-        if (_type == MAN) {
             armature.animation.gotoAndPlay("idle");
             armatureBack.animation.gotoAndPlay("idle");
-        }
         super.idleAnimation();
+    }
+
+    private function releaseWoman():void {
+        changeTexture("head", "heads/head_w");
+        changeTexture("head", "heads_b/head_w_b", false);
+        changeTexture("body", "bodys/body_w");
+        changeTexture("body", "bodys_b/body_w_b", false);
+        changeTexture("handLeft", "left_hand/handLeft_w");
+        changeTexture("handLeft", "left_hand_b/handLeft_w_b", false);
+        changeTexture("legLeft", "left_leg/legLeft_w");
+        changeTexture("legLeft", "left_leg_b/legLeft_w_b", false);
+        changeTexture("handRight", "right_hand/handRight_w");
+        changeTexture("handRight", "right_hand_n/handRight_w_b", false);
+        changeTexture("legRight", "right_leg/legRight_w");
+        changeTexture("legRight", "right_leg_b/legRight_w_b", false);
+        changeTexture("tail", "tails/tail_w");
+        changeTexture("tail11", "tails/tail_w", false);
+    }
+
+    private function changeTexture(oldName:String, newName:String, isFront:Boolean = true):void {
+        var im:Image = factory.getTextureDisplay(newName) as Image;
+        var b:Bone;
+        if (isFront) {
+            b = armature.getBone(oldName);
+        } else {
+            b = armatureBack.getBone(oldName);
+        }
+        b.display.dispose();
+        b.display = im;
     }
 
 }
