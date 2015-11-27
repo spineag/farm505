@@ -40,10 +40,10 @@ public class WOTrainItem {
     public function WOTrainItem() {
         _index = -1;
         source = new CSprite();
-        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
-        MCScaler.scale(_bg, 80, 80);
-        _bg.width = 100;
-        source.addChild(_bg);
+//        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
+//        MCScaler.scale(_bg, 80, 80);
+//        _bg.width = 100;
+//        source.addChild(_bg);
         source.alpha = .25;
         _txt = new TextField(100,30,"","Arial",16,Color.BLACK);
         _txt.y = 50;

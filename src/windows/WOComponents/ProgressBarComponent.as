@@ -50,9 +50,6 @@ public class ProgressBarComponent extends Sprite {
             im = new Image(_ct);
             im.x = i;
             _center.addChild(im);
-            im = new Image(_ct);
-            im.x = i;
-            _center.addChild(im);
         }
         _center.flatten();
     }

@@ -259,11 +259,6 @@
             <filename>serp_icon.png</filename>
             <filename>shop_arrow.png</filename>
             <filename>shop_icon.png</filename>
-            <filename>shop_item.png</filename>
-            <filename>shop_limit.png</filename>
-            <filename>shop_locked.png</filename>
-            <filename>shop_plawka.png</filename>
-            <filename>shop_tab.png</filename>
             <filename>soft_board.png</filename>
             <filename>star.png</filename>
             <filename>tamp_ramka.png</filename>
@@ -312,6 +307,7 @@
             <filename>shop_window_plants.png</filename>
             <filename>shop_window_tr.png</filename>
             <filename>shop</filename>
+            <filename>hint</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

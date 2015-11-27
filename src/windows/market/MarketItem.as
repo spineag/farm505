@@ -27,7 +27,7 @@ import utils.MCScaler;
 
 public class MarketItem {
     public var source:CSprite;
-    private var _bg:Image;
+//    private var _bg:Image;
     private var _costTxt:TextField;
     private var _countTxt:TextField;
     private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная
@@ -46,9 +46,9 @@ public class MarketItem {
 
     public function MarketItem() {
         source = new CSprite();
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
-        _bg.scaleY = .5;
-        source.addChild(_bg);
+//        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
+//        _bg.scaleY = .5;
+//        source.addChild(_bg);
 
         _costTxt = new TextField(122, 30, '', "Arial", 16, Color.YELLOW);
         _costTxt.x = 22;
@@ -69,8 +69,8 @@ public class MarketItem {
         source.addChild(_inPapper);
         _inPapper.visible = false;
 
-        _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka_sold'));
-        _plawkaSold.x = _bg.width/2 - _plawkaSold.width/2;
+        _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('roadside_shop_tabl'));
+        _plawkaSold.x = 0 - _plawkaSold.width/2;
         source.addChild(_plawkaSold);
         _plawkaSold.visible = false;
 
@@ -289,7 +289,8 @@ public class MarketItem {
             return;
         }
         MCScaler.scale(im, 50, 50);
-        var p:Point = new Point(_bg.width/2, _bg.height/2);
+//        var p:Point = new Point(_bg.width/2, _bg.height/2);
+        var p:Point = new Point(0, 0);
         p = source.localToGlobal(p);
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
@@ -314,8 +315,8 @@ public class MarketItem {
         MCScaler.scale(im, 80, 80);
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
-        im.x = _bg.width/2;
-        im.y = _bg.height/2;
+//        im.x = _bg.width/2;
+//        im.y = _bg.height/2;
         _imageCont.addChild(im);
     }
 }
