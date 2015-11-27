@@ -196,7 +196,6 @@
             <filename>birka_d.png</filename>
             <filename>birka_t.png</filename>
             <filename>blue_coupone.png</filename>
-            <filename>board_shop_part.png</filename>
             <filename>bt_blue.png</filename>
             <filename>bt_close.png</filename>
             <filename>bt_green.png</filename>
@@ -258,7 +257,6 @@
             <filename>rubins.png</filename>
             <filename>sciccors_icon.png</filename>
             <filename>serp_icon.png</filename>
-            <filename>shop</filename>
             <filename>shop_arrow.png</filename>
             <filename>shop_icon.png</filename>
             <filename>shop_item.png</filename>
@@ -303,6 +301,17 @@
             <filename>storage_window_prl_l.png</filename>
             <filename>storage_window_prl_r.png</filename>
             <filename>storage_window_pr.png</filename>
+            <filename>cross.png</filename>
+            <filename>plus_button.png</filename>
+            <filename>shop_window_animals.png</filename>
+            <filename>shop_window_court.png</filename>
+            <filename>shop_window_decor.png</filename>
+            <filename>shop_window_fabric.png</filename>
+            <filename>shop_window_limit.png</filename>
+            <filename>shop_window_lock.png</filename>
+            <filename>shop_window_plants.png</filename>
+            <filename>shop_window_tr.png</filename>
+            <filename>shop</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

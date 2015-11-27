@@ -3,17 +3,14 @@
  */
 package windows.shop {
 import data.BuildType;
-import data.BuildType;
 
+import flash.filters.GlowFilter;
 import flash.geom.Rectangle;
-
 import manager.Vars;
-
 import starling.animation.Tween;
-
 import starling.display.Image;
-
 import starling.display.Sprite;
+import starling.text.TextField;
 
 import utils.CSprite;
 
@@ -24,53 +21,57 @@ public class ShopList {
     private var _shift:int;
     private var _source:Sprite;
     private var _itemsSprite:Sprite;
+    private var _txtPageNumber:TextField;
 
     private var g:Vars = Vars.getInstance();
 
     public function ShopList(parent:Sprite) {
         _arrItems = [];
         _source = new Sprite();
-        _source.x = -353;
-        _source.y = -22;
-        _source.clipRect = new Rectangle(0, 0, 708, 253);
+        _source.x = 32;
+        _source.y = 23;
+        _source.clipRect = new Rectangle(0, 0, 601, 245);
         parent.addChild(_source);
         _itemsSprite = new Sprite();
         _source.addChild(_itemsSprite);
         addArrows(parent);
+
+        _txtPageNumber = new TextField(100, 40, '657', g.allData.fonts['BloggerBold'], 18, 0xfaf2c8);
+        _txtPageNumber.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtPageNumber.x = 283;
+        _txtPageNumber.y = 268;
+        parent.addChild(_txtPageNumber);
     }
 
     private function addArrows(parent:Sprite):void {
         var im:Image;
 
         _leftArrow = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
-        im.scaleX = -1;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.x = im.width;
         _leftArrow.addChild(im);
-        _leftArrow.x = -393;
-        _leftArrow.y = 39;
+        _leftArrow.x = -22;
+        _leftArrow.y = 94;
         parent.addChild(_leftArrow);
         _leftArrow.endClickCallback = onLeftClick;
 
         _rightArrow = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        im.scaleX = -1;
         _rightArrow.addChild(im);
-        _rightArrow.x = 360;
-        _rightArrow.y = 39;
+        _rightArrow.x = 662;
+        _rightArrow.y = 94;
         parent.addChild(_rightArrow);
         _rightArrow.endClickCallback = onRightClick;
     }
 
     public function fillIt(arr:Array):void {
-        var n:int;
         var item:ShopItem;
-        var arLocked:Array;
-        arLocked=[];
-        var ar:Array;
-        var ar2:Array;
+        var arLocked:Array = [];
+        var ar:Array = [];
+        var ar2:Array = [];
         var obj:Object;
-        ar2 = [];
-        ar =[];
+
         for (var j:int = 0; j < arr.length; j++) {
                 arLocked = g.townArea.getCityObjectsById(arr[j].id);
                 if (arr[j].buildType == BuildType.FABRICA){
@@ -95,17 +96,18 @@ public class ShopList {
                 }
         }
 
-            ar.sortOn("blockByLevel", Array.NUMERIC);
-            ar = ar.concat(ar2);
+        ar.sortOn("blockByLevel", Array.NUMERIC);
+        ar = ar.concat(ar2);
 
         for (var i:int = 0; i < ar.length; i++) {
             item = new ShopItem(ar[i]);
-            item.source.x = 180*i;
+            item.source.x = 153*i;
             _itemsSprite.addChild(item.source);
             _arrItems.push(item);
         }
 
         checkArrows();
+        _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
     }
 
     public function clearIt():void {
@@ -151,12 +153,13 @@ public class ShopList {
 
     private function animList():void {
         var tween:Tween = new Tween(_itemsSprite, .5);
-        tween.moveTo(-_shift*180, _itemsSprite.y);
+        tween.moveTo(-_shift*153, _itemsSprite.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
         g.starling.juggler.add(tween);
         checkArrows();
+        _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
     }
 }
 }

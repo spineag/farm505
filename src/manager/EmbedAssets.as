@@ -16,7 +16,7 @@ public class EmbedAssets {
     private const BuildTexture:Class;
     [Embed(source="../../assets/plants3.png")]
     private const PlantTexture:Class;
-    [Embed(source="../../assets/interfaceAtlas4.png")]
+    [Embed(source="../../assets/interfaceAtlas.png")]
     private const InterfaceTexture:Class;
     [Embed(source="../../assets/instrumentAtlas3.png")]
     private const InstrumentTexture:Class;
@@ -40,7 +40,7 @@ public class EmbedAssets {
     private const BuildTextureXML:Class;
     [Embed(source="../../assets/plants3.xml", mimeType="application/octet-stream")]
     private const PlantTextureXML:Class;
-    [Embed(source="../../assets/interfaceAtlas4.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
     private const InterfaceTextureXML:Class;
     [Embed(source="../../assets/instrumentAtlas3.xml", mimeType="application/octet-stream")]
     private const InstrumentTextureXML:Class;
@@ -70,7 +70,7 @@ public class EmbedAssets {
     [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
     private const HouschkaBold:Class;
 
-    [Embed(source = "../../assets/cat.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/cat4.png", mimeType = "application/octet-stream")]
     public static const CatData:Class;
 
     private var g:Vars = Vars.getInstance();
