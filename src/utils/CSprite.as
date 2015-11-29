@@ -37,6 +37,9 @@ public class CSprite extends Sprite {
     public function CSprite() {
         super();
 
+//        filter = new ColorMatrixFilter();
+//        filter.adjustSaturation(-1);
+
         _needStrongCheckHitTest = false;
         _needStrongCheckByteArray = false;
         _useContDrag = false;

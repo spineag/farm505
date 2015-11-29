@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -245,7 +245,6 @@
             <filename>order_window_right_top.png</filename>
             <filename>order_window_right.png</filename>
             <filename>planet.png</filename>
-            <filename>plawka_sold.png</filename>
             <filename>plawka7.png</filename>
             <filename>plus.png</filename>
             <filename>popup_farm.png</filename>
