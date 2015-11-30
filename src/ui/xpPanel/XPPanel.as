@@ -47,9 +47,9 @@ public class XPPanel {
         _txtLevel.x = -27;
         _txtLevel.y = -12;
         _source.addChild(_txtLevel);
-        _txtXPCount = new TextField(123, 30, '6784/247289', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtXPCount = new TextField(123, 30, '6784/247289', g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
         _txtXPCount.nativeFilters = [new GlowFilter(0x036ea1, 1, 4, 4, 5)];
-        _txtXPCount.x = 37;
+        _txtXPCount.x = 35;
         _txtXPCount.y = 2;
         _source.addChild(_txtXPCount);
 
@@ -59,7 +59,7 @@ public class XPPanel {
     }
 
     public function onResize():void {
-        _source.y = 20;
+        _source.y = 17;
         _source.x = Starling.current.nativeStage.stageWidth - 170;
     }
 

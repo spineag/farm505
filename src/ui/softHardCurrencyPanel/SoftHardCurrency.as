@@ -2,6 +2,7 @@
  * Created by user on 7/6/15.
  */
 package ui.softHardCurrencyPanel {
+import flash.filters.GlowFilter;
 import flash.geom.Point;
 
 import manager.Vars;
@@ -15,6 +16,9 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.MCScaler;
+
+import windows.WOComponents.HorizontalPlawka;
 
 public class SoftHardCurrency {
     private var _source:Sprite;
@@ -22,8 +26,6 @@ public class SoftHardCurrency {
     private var _contHard:CSprite;
     private var _txtSoft:TextField;
     private var _txtHard:TextField;
-    private var _imageSoft:Image;
-    private var _imageHard:Image;
     private var g:Vars = Vars.getInstance();
 
     public function SoftHardCurrency() {
@@ -44,58 +46,64 @@ public class SoftHardCurrency {
         _contHard.outCallback = function ():void {
             g.hint.hideIt();
         };
-        g.cont.interfaceCont.addChild(_source);
-        _imageSoft = new Image(g.allData.atlas['interfaceAtlas'].getTexture("soft_board"));
-        _imageSoft.x = 5;
-        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hard_board"));
-        _imageHard.x = 5;
-        _imageHard.y = 60;
-        _txtSoft = new TextField(100,100,"","Arial",18,Color.WHITE);
-        _txtSoft.x = 90 - _txtSoft.width/2;
-        _txtSoft.y = -17;
-        _txtHard = new TextField(100,100,"","Arial",18,Color.WHITE);
-        _txtHard.x = 85 - _txtHard.width/2;
-        _txtHard.y = 35;
-        _contSoft.addChild(_imageSoft);
-        _contHard.addChild(_imageHard);
-        _txtSoft.text = String(g.user.softCurrencyCount);
-        _txtHard.text = String(g.user.hardCurrency);
+        createPanel(true, _contSoft);
+        createPanel(false, _contHard);
+        _txtSoft =  new TextField(122, 38, '88888', g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
+        _txtSoft.nativeFilters = [new GlowFilter(0x4d3800, 1, 4, 4, 5)];
         _contSoft.addChild(_txtSoft);
+        _txtHard =  new TextField(122, 38, '88888', g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
+        _txtHard.nativeFilters = [new GlowFilter(0x4d3800, 1, 4, 4, 5)];
         _contHard.addChild(_txtHard);
-        _source.addChild(_contHard);
+
         _source.addChild(_contSoft);
+        _contHard.y = 56;
+        _source.addChild(_contHard);
+        _source.x = 35;
+        _source.y = 15;
+        g.cont.interfaceCont.addChild(_source);
+    }
+
+    private function createPanel(isSoft:Boolean, p:CSprite):void {
+        var im:Image;
+        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
+                g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 122);
+        p.addChild(pl);
+        if (isSoft) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        } else {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        }
+        MCScaler.scale(im, 50, 50);
+        im.x = -im.width/2;
+        im.y = -6;
+        p.addChild(im);
+        var btn:Sprite = new Sprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+        MCScaler.scale(im, 46, 46);
+        btn.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+        MCScaler.scale(im, 24, 24);
+        im.x = im.y = 11;
+        btn.addChild(im);
+        btn.x = 122 - btn.width/2;
+        btn.y = -3;
+        p.addChild(btn);
     }
 
     public function checkSoft():void {
        _txtSoft.text =  String(g.user.softCurrencyCount);
     }
-//
-//    public function addHard():void {
-//
-//    }
-//
-//    public function deleteHard():void {
-//
-//    }
-
-    public function getHardCurrencyPoint():Point {
-        var p:Point = new Point();
-        p.x = _imageHard.x + 20;
-        p.y = _imageHard.y + 10;
-        p = _source.localToGlobal(p);
-        return p;
-    }
-
-    public function getSoftCurrencyPoint():Point {
-        var p:Point = new Point();
-        p.x = _imageSoft.x + 20;
-        p.y = _imageSoft.y + 10;
-        p = _source.localToGlobal(p);
-        return p;
-    }
 
     public function checkHard():void {
         _txtHard.text =  String(g.user.hardCurrency);
+    }
+
+    public function getHardCurrencyPoint():Point {
+        return _contHard.localToGlobal(new Point(5, 5));
+    }
+
+    public function getSoftCurrencyPoint():Point {
+        return _contSoft.localToGlobal(new Point(5, 5));
     }
 
     private function onClickSoft():void {
