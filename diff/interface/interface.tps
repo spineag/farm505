@@ -307,6 +307,9 @@
             <filename>progress_bar_center.png</filename>
             <filename>progress_bar_left.png</filename>
             <filename>progress_bar_right.png</filename>
+            <filename>cat_shadow.png</filename>
+            <filename>circle.png</filename>
+            <filename>cat_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
