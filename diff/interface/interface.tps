@@ -267,9 +267,6 @@
             <filename>vedro_icon.png</filename>
             <filename>watering_can.png</filename>
             <filename>work_icon.png</filename>
-            <filename>xp_progres_part_end.png</filename>
-            <filename>xp_progres_part.png</filename>
-            <filename>xp_progres.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>friends_panel_ar.png</filename>
             <filename>newspaper_p1.png</filename>
@@ -307,6 +304,9 @@
             <filename>shop_window_tr.png</filename>
             <filename>shop</filename>
             <filename>hint</filename>
+            <filename>progress_bar_center.png</filename>
+            <filename>progress_bar_left.png</filename>
+            <filename>progress_bar_right.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
