@@ -2081,7 +2081,7 @@ public class DirectServer {
         Cc.error('deleteUser responce:' + response);
     }
 
-    public function addUserMarketItem(id:int, count:int, inPapper:Boolean, cost:int, callback:Function):void {
+    public function addUserMarketItem(id:int, count:int, inPapper:Boolean, cost:int, numberCell:int, callback:Function):void {
         if (!g.useDataFromServer) return;
 
         var loader:URLLoader = new URLLoader();
@@ -2094,6 +2094,7 @@ public class DirectServer {
         variables.resourceId = id;
         variables.count = count;
         variables.cost = cost;
+//        variables.numberCell = numberCell;
         variables.inPapper = inPapper ? 1 : 0;
         request.data = variables;
         request.method = URLRequestMethod.POST;
