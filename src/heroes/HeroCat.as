@@ -35,6 +35,7 @@ public class HeroCat extends BasicCat{
     private var armatureBack:Armature;
     private var armatureClip:Sprite;
     private var armatureClipBack:Sprite;
+    private var heroEyes:HeroEyesAnimation;
 
     public function HeroCat(type:int) {
         super();
@@ -55,10 +56,10 @@ public class HeroCat extends BasicCat{
             _catBackImage.addChild(armatureClipBack);
             WorldClock.clock.add(armature);
             WorldClock.clock.add(armatureBack);
-
             if (_type == WOMAN) {
                 releaseWoman();
             }
+            heroEyes = new HeroEyesAnimation(factory, armature);
         };
         factory.addEventListener(Event.COMPLETE, f1);
         factory.parseData(new EmbedAssets.CatData());
