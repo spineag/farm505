@@ -59,7 +59,8 @@ public class HeroCat extends BasicCat{
             if (_type == WOMAN) {
                 releaseWoman();
             }
-            heroEyes = new HeroEyesAnimation(factory, armature);
+            heroEyes = new HeroEyesAnimation(factory, armature, _type == WOMAN);
+            showFront(true);
         };
         factory.addEventListener(Event.COMPLETE, f1);
         factory.parseData(new EmbedAssets.CatData());
@@ -75,7 +76,6 @@ public class HeroCat extends BasicCat{
         _catBackImage.x = -_catBackImage.width/2;
         _catBackImage.y = -_catBackImage.height + 2;
         _source.addChild(_catBackImage);
-        showFront(true);
 
         _source.endClickCallback = onClick;
     }
@@ -83,6 +83,20 @@ public class HeroCat extends BasicCat{
     override public function showFront(v:Boolean):void {
         _catImage.visible = v;
         _catBackImage.visible = !v;
+        if (v) {
+            heroEyes.startAnimations();
+        } else {
+            heroEyes.stopAnimations();
+        }
+    }
+
+    override public function set visible(value:Boolean):void {
+        if (value) {
+            stopAnimation();
+        } else {
+//            idleAnimation();  - already has this after going away from fabrica via run or walk
+        }
+        super.visible = value;
     }
 
     override public function flipIt(v:Boolean):void {
@@ -138,23 +152,27 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
-            armature.animation.gotoAndPlay("walk");
-            armatureBack.animation.gotoAndPlay("walk");
+        heroEyes.startAnimations();
+        armature.animation.gotoAndPlay("walk");
+        armatureBack.animation.gotoAndPlay("walk");
         super.walkAnimation();
     }
     override public function runAnimation():void {
-            armature.animation.gotoAndPlay("run");
-            armatureBack.animation.gotoAndPlay("run");
+        heroEyes.startAnimations();
+        armature.animation.gotoAndPlay("run");
+        armatureBack.animation.gotoAndPlay("run");
         super.runAnimation();
     }
     override public function stopAnimation():void {
-            armature.animation.gotoAndStop("idle", 0);
-            armatureBack.animation.gotoAndStop("idle", 0);
+        heroEyes.stopAnimations();
+        armature.animation.gotoAndStop("idle", 0);
+        armatureBack.animation.gotoAndStop("idle", 0);
         super.stopAnimation()
     }
     override public function idleAnimation():void {
-            armature.animation.gotoAndPlay("idle");
-            armatureBack.animation.gotoAndPlay("idle");
+        heroEyes.startAnimations();
+        armature.animation.gotoAndPlay("idle");
+        armatureBack.animation.gotoAndPlay("idle");
         super.idleAnimation();
     }
 

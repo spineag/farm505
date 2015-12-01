@@ -459,6 +459,8 @@ public class Vars {
             Cc.addSlashCommand("deleteUser", f1);
         }
 
+        softHardCurrency.checkHard();
+        softHardCurrency.checkSoft();
         managerOrder.checkOrders();
         gameDispatcher.addEnterFrame(onEnterFrameGlobal);
     }
