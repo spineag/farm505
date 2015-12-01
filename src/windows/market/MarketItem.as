@@ -9,6 +9,8 @@ import com.junkbyte.console.Cc;
 
 import data.BuildType;
 import data.DataMoney;
+
+import flash.filters.GlowFilter;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.Vars;
@@ -23,6 +25,8 @@ import user.Someone;
 
 import utils.CSprite;
 import utils.MCScaler;
+
+import windows.WOComponents.CartonBackgroundIn;
 
 
 public class MarketItem {
@@ -46,16 +50,15 @@ public class MarketItem {
 
     public function MarketItem() {
         source = new CSprite();
-//        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
-//        _bg.scaleY = .5;
-//        source.addChild(_bg);
-
-        _costTxt = new TextField(122, 30, '', "Arial", 16, Color.YELLOW);
+        var bg:CartonBackgroundIn = new CartonBackgroundIn(109, 133);
+        source.addChild(bg);
+        _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 14, 0xfbf4cf);
+        _costTxt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
         _costTxt.x = 22;
         _costTxt.y = 103;
         source.addChild(_costTxt);
 
-        _countTxt = new TextField(30, 20, '', "Arial", 14, Color.BLACK);
+        _countTxt = new TextField(30, 20, '', g.allData.fonts['BloggerBold'], 14, 0xfbf4cf);
         _countTxt.x = 120;
         _countTxt.y = 7;
         source.addChild(_countTxt);
@@ -198,7 +201,7 @@ public class MarketItem {
         if (a > 0) {
             fillIt(g.dataResource.objectResources[a],count, cost);
             _inPapper.visible = inPapper;
-            g.directServer.addUserMarketItem(a, count, inPapper, cost, onAddToServer);
+            g.directServer.addUserMarketItem(a, count, inPapper, cost,0, onAddToServer);
             g.woMarket.refreshMarket();
         }
     }
@@ -288,7 +291,7 @@ public class MarketItem {
             g.woGameError.showIt();
             return;
         }
-        MCScaler.scale(im, 50, 50);
+        MCScaler.scale(im, 100, 100);
 //        var p:Point = new Point(_bg.width/2, _bg.height/2);
         var p:Point = new Point(0, 0);
         p = source.localToGlobal(p);

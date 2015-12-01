@@ -5,9 +5,13 @@ package windows.market {
 import com.junkbyte.console.Cc;
 
 import flash.display.Bitmap;
+import flash.filters.GlowFilter;
+
 import manager.Vars;
 
 import starling.display.Image;
+import starling.display.Sprite;
+import starling.filters.BlurFilter;
 import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
 import starling.textures.Texture;
@@ -19,18 +23,30 @@ import user.Someone;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WOComponents.CartonBackground;
+
 public class MarketFriendItem {
     private var _person:Someone;
     public var source:CSprite;
+    private var cont:Sprite;
     private var _ava:Image;
     private var _txt:TextField;
     private var _ramka:Image;
     private var _panel:MarketFriendsPanel;
     private var _planet:CSprite;
+    private var c:CartonBackground;
 
     private var g:Vars = Vars.getInstance();
 
     public function MarketFriendItem(f:Someone, p:MarketFriendsPanel) {
+        source = new CSprite();
+        cont = new Sprite();
+        source.x = -2;
+         c = new CartonBackground(110, 110);
+        c.x = -5;
+        c.y = -5;
+//        cont.addChild(c);
+        source.addChild(c);
         _person = f;
         if (!_person) {
             Cc.error('MarketFriendItem:: person == null');
@@ -38,9 +54,8 @@ public class MarketFriendItem {
             return;
         }
         _panel = p;
-        source = new CSprite();
-        _ramka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tamp_ramka'));
-        source.addChild(_ramka);
+//        _ramka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tamp_ramka'));
+//        source.addChild(_ramka);
         if (_person is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
@@ -50,10 +65,11 @@ public class MarketFriendItem {
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
             }
         }
-        _txt = new TextField(100, 30, 'loading...', "Arial", 16, Color.RED);
+        _txt = new TextField(100, 30, 'loading...', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
         _txt.y = 70;
         if (_person.name) _txt.text = _person.name;
-        _ramka.visible = false;
+//        _ramka.visible = false;
         source.addChild(_txt);
         source.endClickCallback = chooseThis;
 
@@ -107,11 +123,11 @@ public class MarketFriendItem {
         MCScaler.scale(_ava, 98, 98);
         _ava.x = 1;
         _ava.y = 1;
-        source.addChildAt(_ava, 0);
+        source.addChild(_ava);
     }
 
     public function activateIt(value:Boolean):void {
-        _ramka.visible = value;
+        c.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
     }
 
     private function chooseThis():void {
@@ -129,7 +145,7 @@ public class MarketFriendItem {
         while (source.numChildren) source.removeChildAt(0);
         source.endClickCallback = null;
         source.touchable = false;
-        _ramka = null;
+//        _ramka = null;
         _person = null;
         _ava = null;
         _txt = null;
