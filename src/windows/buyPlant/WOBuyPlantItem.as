@@ -105,6 +105,7 @@ public class WOBuyPlantItem {
     }
 
     private function onHover():void {
+        if (!_dataPlant) return;
         source.filter = BlurFilter.createGlow(0x00ff01, 10, 2, 1);
         if (_dataPlant) {
             g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source);
@@ -112,6 +113,7 @@ public class WOBuyPlantItem {
     }
 
     private function onOut():void {
+        if (!_dataPlant) return;
         source.filter = null;
         g.resourceHint.hideIt();
     }

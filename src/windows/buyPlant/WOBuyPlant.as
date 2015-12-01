@@ -95,7 +95,7 @@ public class WOBuyPlant extends Window {
             }
         }
         for (i=0; i<arr.length; i++) {
-            if (arr[i].blockByLevel + 1 <= g.user.level)
+            if (arr[i].blockByLevel <= g.user.level + 1)
                 _arrPlantItems[i].fillData(arr[i], onClickItem);
         }
     }

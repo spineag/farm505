@@ -59,7 +59,7 @@ public class WOLockedLand extends Window{
         var txt:TextField = new TextField(158,46,'Открыть участок',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         txt.nativeFilters = [new GlowFilter(0x0356e2, 1, 4, 4, 5)];
         _btnOpen.addChild(txt);
-        _btnOpen.x = -_woWidth/2 + 79;
+        _btnOpen.x = -_btnOpen.width/2;
         _btnOpen.y = -_woHeight/2 + 492;
         _source.addChild(_btnOpen);
 

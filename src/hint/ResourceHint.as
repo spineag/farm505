@@ -49,6 +49,7 @@ public class ResourceHint {
         _source.addChild(_txtText);
         _source.addChild(_txtTime);
         _source.addChild(_imageClock);
+        _source.touchable = false;
     }
 
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite):void {

@@ -84,9 +84,10 @@ public class XPPanel {
     private function onAddUserXP(b:Boolean = true):void {}
     private function onUpdateUserLevel(b:Boolean = true):void {}
 
-    private function checkXP():void{
+    public function checkXP():void{
         _bar.progress = ((g.user.xp)/_maxXP)*.9 + .1; // get 10% for better view
         _txtXPCount.text = String(g.user.xp) + ' / ' + String(_maxXP);
+        _txtLevel.text = String(g.user.level);
     }
 }
 }
