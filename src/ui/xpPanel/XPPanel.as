@@ -29,8 +29,8 @@ public class XPPanel {
     public function XPPanel() {
         _source = new CSprite();
         g.cont.interfaceCont.addChild(_source);
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
-                g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 163);
+        var pl:HorizontalPlawka = new HorizontalPlawka(null, g.allData.atlas['interfaceAtlas'].getTexture('xp_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 163);
         _source.addChild(pl);
         _bar = new ProgressBarComponent(g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_left'), g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_center'),
                 g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_right'), 145);
@@ -50,7 +50,7 @@ public class XPPanel {
         _txtXPCount = new TextField(123, 30, '6784/247289', g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
         _txtXPCount.nativeFilters = [new GlowFilter(0x036ea1, 1, 4, 4, 5)];
         _txtXPCount.x = 35;
-        _txtXPCount.y = 2;
+        _txtXPCount.y = 4;
         _source.addChild(_txtXPCount);
 
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;

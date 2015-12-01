@@ -9,16 +9,22 @@ import starling.textures.Texture;
 public class HorizontalPlawka extends Sprite{
 
     public function HorizontalPlawka(lt:Texture, ct:Texture, rt:Texture, w:int) {
-        var imL:Image = new Image(lt);
-        addChild(imL);
+        var lW:int;
+        if (lt) {
+            var iL:Image = new Image(lt);
+            addChild(iL);
+            lW = iL.width;
+        } else {
+            lW = 0;
+        }
         var imR:Image = new Image(rt);
         imR.x = w - imR.width;
         addChild(imR);
 
         var imC:Image = new Image(ct);
-        var k:int = Math.ceil((w - imL.width - imR.width)/imC.width);
+        var k:int = Math.ceil((w - lW - imR.width)/imC.width);
         for (var i:int=0; i<k-1; i++) {
-            imC.x = imL.width + i*imC.width;
+            imC.x = lW + i*imC.width;
             addChildAt(imC, 0);
             imC = new Image(ct);
         }
@@ -27,7 +33,7 @@ public class HorizontalPlawka extends Sprite{
         flatten();
         touchable = false;
         imC=null;
-        imL=null;
+        if (iL) iL=null;
         imR=null;
     }
 }

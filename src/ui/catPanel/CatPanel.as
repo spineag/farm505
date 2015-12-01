@@ -23,8 +23,8 @@ public class CatPanel {
     private var g:Vars = Vars.getInstance();
     public function CatPanel() {
         _source = new Sprite();
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
-                g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 105);
+        var pl:HorizontalPlawka = new HorizontalPlawka(null, g.allData.atlas['interfaceAtlas'].getTexture('xp_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 105);
         _source.addChild(pl);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('circle'));
         im.x = -im.width/2;
@@ -36,7 +36,7 @@ public class CatPanel {
         _source.addChild(im);
         _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtCount.nativeFilters = [new GlowFilter(0x4d3800, 1, 4, 4, 5)];
-        _txtCount.x = 29;
+        _txtCount.x = 26;
         _source.addChild(_txtCount);
         onResize();
         g.cont.interfaceCont.addChild(_source);
