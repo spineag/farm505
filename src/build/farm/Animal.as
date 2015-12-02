@@ -10,6 +10,8 @@ import flash.geom.Point;
 
 import hint.MouseHint;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import resourceItem.CraftItem;
@@ -155,11 +157,11 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
         if (_state == EMPTY) {
-            source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
+            source.filter = ManagerFilters.YELLOW_STROKE;
             _frameCounterMouseHint = 2;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
         } else {
-            source.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1);
+            source.filter = ManagerFilters.YELLOW_STROKE;
             _frameCounterTimerHint = 5;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
             g.gameDispatcher.addEnterFrame(countEnterFrame);

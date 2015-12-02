@@ -101,6 +101,8 @@ public class WOBuyPlantItem {
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataPlant]);
         }
+        source.filter = null;
+        g.resourceHint.hideIt();
         g.fabricHint.clearIt();
     }
 

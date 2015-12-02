@@ -7,6 +7,8 @@ import data.DataMoney;
 
 import flash.geom.Point;
 
+import manager.ManagerFilters;
+
 
 import mouse.ToolsModifier;
 
@@ -203,7 +205,7 @@ public class Train extends AreaObject{
     }
 
     private function onHover():void {
-        _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
+        _source.filter = ManagerFilters.RED_STROKE;
         g.hint.showIt(_dataBuild.name, "0");
         _isOnHover = true;
         if (_stateBuild == STATE_BUILD) {

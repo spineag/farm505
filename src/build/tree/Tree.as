@@ -12,6 +12,8 @@ import hint.MouseHint;
 
 import hint.FlyMessage;
 
+import manager.ManagerFilters;
+
 import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
@@ -294,7 +296,7 @@ public class Tree extends AreaObject{
 
     private function onHover():void {
         if (g.isActiveMapEditor) return;
-        _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+        _source.filter = ManagerFilters.YELLOW_STROKE;
         _isOnHover = true;
         _count = 20;
         if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {

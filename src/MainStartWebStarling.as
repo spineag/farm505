@@ -81,10 +81,6 @@ public class MainStartWebStarling extends Sprite{
         g.isDebug = stage.loaderInfo.url.substr(0, 4).toLowerCase() == 'file';
         g.useHttps = g.isDebug ? false : (g.flashVars['protocol'] == 'https');
         Cc.ch('info', 'isDebug = ' + g.isDebug);
-//        if (g.isDebug) {
-//            Cc.memoryMonitor = true;
-//            Cc.visible = true;
-//        }
 
         game = star.root as MainStarling;
         game.addEventListener(MainStarling.LOADED, onLoaded);

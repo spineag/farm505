@@ -6,6 +6,8 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import mouse.ToolsModifier;
 
 import starling.filters.BlurFilter;
@@ -27,7 +29,7 @@ public class Decor extends AreaObject{
 
     private function onHover():void {
         if (g.isActiveMapEditor) return;
-        _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
+        _source.filter = ManagerFilters.RED_STROKE;
     }
 
     private function onClick():void {

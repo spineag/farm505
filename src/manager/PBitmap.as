@@ -33,6 +33,17 @@ public class PBitmap {
         return buffer;
     }
 
+    public function deleteIt():void {
+        _content.bitmapData.dispose();
+        _content = null;
+        if (arr.length) {
+            for (var i:int=0; i<arr.length; i++) {
+                (arr[i] as Bitmap).bitmapData.dispose();
+            }
+        }
+        arr = [];
+    }
+
     public function remove(source:Bitmap):void {
         source.scaleX = source.scaleY = 1;
         arr.push(source);

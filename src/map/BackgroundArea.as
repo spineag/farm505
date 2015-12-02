@@ -112,10 +112,13 @@ public class BackgroundArea {
         }
 
         var t:Texture = Texture.fromBitmap(b);
+        b.bitmapData.dispose();
+        b = null;
         var bg:Image = new Image(t);
         bg.x = _x;
         bg.y = _y;
         _additionalCont.addChild(bg);
+        g.pBitmaps[url].deleteIt();
         delete g.pBitmaps[url];
     }
 }

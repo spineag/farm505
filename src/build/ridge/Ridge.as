@@ -13,6 +13,8 @@ import hint.MouseHint;
 
 import hint.TimerHint;
 
+import manager.ManagerFilters;
+
 import map.MatrixGrid;
 
 import mouse.ToolsModifier;
@@ -99,7 +101,7 @@ public class Ridge extends AreaObject{
 
     private function onHover():void {
         if (g.isActiveMapEditor || g.isAway) return;
-        _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
+        _source.filter = ManagerFilters.YELLOW_STROKE;
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             g.managerPlantRidge.checkFreeRidges();

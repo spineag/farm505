@@ -5,6 +5,9 @@ package build.wild {
 import build.AreaObject;
 import build.lockedLand.LockedLand;
 import com.junkbyte.console.Cc;
+
+import manager.ManagerFilters;
+
 import mouse.ToolsModifier;
 
 import starling.filters.BlurFilter;
@@ -44,7 +47,7 @@ public class Wild extends AreaObject{
     }
 
     private function onHover():void {
-        _source.filter = BlurFilter.createGlow(Color.GREEN, 10, 2, 1);
+        _source.filter = ManagerFilters.YELLOW_STROKE;
         _isOnHover = true;
     }
 

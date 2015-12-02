@@ -2,6 +2,7 @@
  * Created by user on 11/24/15.
  */
 package windows.WOComponents {
+import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
@@ -98,7 +99,7 @@ public class WOButtonTexture extends Sprite {
             }
         }
 
-        this.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        this.filter = ManagerFilters.SHADOW;
         arr.length = 0;
         flatten();
     }

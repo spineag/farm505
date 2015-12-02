@@ -6,6 +6,8 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import map.TownArea;
 
 import mouse.ToolsModifier;
@@ -35,7 +37,7 @@ public class Sklad extends AreaObject{
     }
 
     private function onHover():void {
-        _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
+        _source.filter = ManagerFilters.RED_STROKE;
         g.hint.showIt(_dataBuild.name, "0");
     }
 

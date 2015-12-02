@@ -14,6 +14,8 @@ import flash.geom.Point;
 
 import hint.FlyMessage;
 
+import manager.ManagerFilters;
+
 
 import mouse.ToolsModifier;
 
@@ -141,7 +143,7 @@ public class Cave extends AreaObject{
 
     private function onHover():void {
         _isOnHover = true;
-        _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
+        _source.filter = ManagerFilters.RED_STROKE;
         g.hint.showIt(_dataBuild.name, "0");
         if (_stateBuild == STATE_BUILD) {
             g.gameDispatcher.addEnterFrame(countEnterFrame);

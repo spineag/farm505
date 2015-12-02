@@ -22,20 +22,22 @@ public class StartPreloader {
     private var _preloaderSprite:Sprite;
     private var _preloaderBG:Image;
     private var _preloaderLine:Image;
+    private var _texture:Texture;
+    private var _preloaderAtlas:TextureAtlas;
 
     private var g:Vars = Vars.getInstance();
 
     public function StartPreloader() {
-        var texture:Texture = Texture.fromBitmap(new PreloaderTexture());
+        _texture = Texture.fromBitmap(new PreloaderTexture());
         var xml:XML = XML(new PreloaderTextureXML());
-        var preloaderAtlas:TextureAtlas = new TextureAtlas(texture, xml);
+        _preloaderAtlas = new TextureAtlas(_texture, xml);
 
         _source = new Sprite();
-        _bg = new Image(preloaderAtlas.getTexture('preloader'));
+        _bg = new Image(_preloaderAtlas.getTexture('preloader'));
         _source.addChild(_bg);
         _preloaderSprite = new Sprite();
-        _preloaderBG = new Image(preloaderAtlas.getTexture('preloader_bg'));
-        _preloaderLine = new Image(preloaderAtlas.getTexture('preloader_line'));
+        _preloaderBG = new Image(_preloaderAtlas.getTexture('preloader_bg'));
+        _preloaderLine = new Image(_preloaderAtlas.getTexture('preloader_line'));
         _preloaderSprite.addChild(_preloaderBG);
         _preloaderSprite.clipRect = new Rectangle(0, 0, _preloaderSprite.width, _preloaderSprite.height);
         _preloaderLine.x = -_preloaderLine.width;
@@ -59,6 +61,8 @@ public class StartPreloader {
         while (_source.numChildren) {
             _source.removeChildAt(0);
         }
+        _texture.dispose();
+        _preloaderAtlas.dispose();
         _bg.dispose();
         _preloaderBG.dispose();
         _preloaderLine.dispose();

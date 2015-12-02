@@ -13,6 +13,8 @@ import flash.geom.Point;
 
 import hint.FlyMessage;
 
+import manager.ManagerFilters;
+
 import mouse.ToolsModifier;
 
 import starling.display.Image;
@@ -98,7 +100,7 @@ public class LockedLand extends AreaObject {
 
     private function onHover():void {
         if (g.isActiveMapEditor) return;
-//        _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+        _source.filter = ManagerFilters.GREEN_STROKE;
         _source.filter = _filter;
         for (var i:int=0; i<_arrWilds.length; i++) {
             _arrWilds[i].setFilter(_filter);

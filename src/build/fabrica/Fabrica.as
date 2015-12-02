@@ -13,6 +13,8 @@ import flash.geom.Point;
 
 import heroes.HeroCat;
 
+import manager.ManagerFilters;
+
 import resourceItem.CraftItem;
 
 import com.junkbyte.console.Cc;
@@ -75,7 +77,7 @@ public class Fabrica extends AreaObject {
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
         _count = 20;
-        _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
+        _source.filter = ManagerFilters.RED_STROKE;
         if (_stateBuild == STATE_ACTIVE) {
             g.hint.showIt(_dataBuild.name, "0");
         }
