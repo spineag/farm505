@@ -2,6 +2,7 @@
  * Created by user on 6/24/15.
  */
 package ui.bottomInterface {
+import manager.ManagerFilters;
 import manager.Vars;
 
 import mouse.ToolsModifier;
@@ -13,6 +14,7 @@ import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
+import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
@@ -124,11 +126,16 @@ public class MainBottomPanel {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_home'));
         _doorBtn.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_home'));
-        im.x = 71;
-        im.y = 16;
+        im.x = 60;
+        im.y = 3;
         _doorBtn.addChild(im);
+        var txt:TextField = new TextField(267, 65, "Домой", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_ORANGE;
+//        txt.x = 30;
+//        txt.y = -23;
+        _doorBtn.addChild(txt);
         _doorBtn.flatten();
-        _doorBtn.x = 2;
+        _doorBtn.x = 0;
         _doorBtn.y = 9;
         _source.addChild(_doorBtn);
         _doorBtn.hoverCallback = function():void { g.hint.showIt("Домой","0") };

@@ -2,6 +2,8 @@
  * Created by user on 12/2/15.
  */
 package manager {
+import flash.filters.GlowFilter;
+
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
@@ -14,5 +16,7 @@ public class ManagerFilters {
     public static var SHADOW_TOP:BlurFilter = BlurFilter.createDropShadow(1, 0.285, 0, 1, 1.0, 0.5);
 
     public static var TEXT_BROWN:int = 0x593b02;
+
+    public static var TEXT_STROKE_ORANGE:Array = [new GlowFilter(0xd06d0a, 1, 4, 4, 5)];
 }
 }
