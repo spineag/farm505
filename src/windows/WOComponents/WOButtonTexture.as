@@ -7,7 +7,6 @@ import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
 import starling.textures.TextureAtlas;
 
 public class WOButtonTexture extends Sprite {

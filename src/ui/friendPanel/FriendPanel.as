@@ -1,8 +1,11 @@
-/**
- * Created by user on 7/29/15.
- */
 package ui.friendPanel {
+import com.greensock.TweenMax;
+import com.greensock.easing.Back;
+import com.greensock.easing.Linear;
+
 import flash.geom.Rectangle;
+
+import manager.ManagerFilters;
 
 import manager.Vars;
 
@@ -12,112 +15,141 @@ import starling.core.Starling;
 
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
-import starling.utils.Color;
-
-import user.Someone;
-import user.TempUser;
 
 import utils.CSprite;
 
+import windows.WOComponents.HorizontalPlawka;
+
 public class FriendPanel {
     private var _source:Sprite;
-    private var _contRectangle:Sprite;
+    private var _mask:Sprite;
     private var _cont:Sprite;
-    private var _contNewFriend:CSprite;
-    private var _contLeftArrow:CSprite;
-    private var _contRightArrow:CSprite;
-    private var _imageneFriend:Image;
-    private var _imageLeftArrow:Image;
-    private var _imageRightArrow:Image;
-    private var _imageBg:Image;
+    private var _leftArrow:CSprite;
+    private var _rightArrow:CSprite;
     private var _arrFriends:Array;
     private var _arrItems:Array;
+    private var _shift:int;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
         _source = new Sprite();
-        _contNewFriend = new CSprite();
-        _contLeftArrow = new CSprite();
-        _contRightArrow = new CSprite();
-        _contRectangle = new Sprite();
-        _cont = new Sprite();
-        _cont.x = 115;
-        _cont.y = 5;
-        _contRectangle.clipRect = new Rectangle(115, g.stageHeight - 120, 100, 500);
-        _arrFriends = [];
-        _arrItems = [];
-        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_plawka"));
-        _imageneFriend = new Image(g.allData.atlas['interfaceAtlas'].getTexture("add_friend"));
-        _contNewFriend.addChild(_imageneFriend);
-        _imageLeftArrow = new Image(g.allData.atlas['interfaceAtlas'].getTexture("arrow_small"));
-        _imageLeftArrow.y = _imageBg.height - 30;
-        _imageLeftArrow.x =  100;
-        _imageLeftArrow.scaleX *= -1;
-        _contLeftArrow.addChild(_imageLeftArrow);
-        _imageRightArrow = new Image(g.allData.atlas['interfaceAtlas'].getTexture("arrow_small"));
-        _imageRightArrow.y = _imageBg.height - 30;
-        _imageRightArrow.x = _imageBg.width - 30;
-        _contRightArrow.addChild(_imageRightArrow);
-        _source.x = 115;
-        _source.y = g.stageHeight - 120;
+        onResize();
         g.cont.interfaceCont.addChild(_source);
-        _source.visible = false;
-        _source.addChild(_imageBg);
-//        _source.addChild(_contRectangle);
-//        _contRectangle.addChild(_cont);
-        _source.addChild(_cont)
-        _source.addChild(_contNewFriend);
-        _source.addChild(_contLeftArrow);
-        _source.addChild(_contRightArrow);
+        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_left'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_right'), 465);
+        _source.addChild(pl);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
+        im.x = 20;
+        im.y = -23;
+        _source.addChild(im);
+        var txt:TextField = new TextField(106, 27, "Мои друзья", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
+        txt.x = 30;
+        txt.y = -23;
+        _source.addChild(txt);
 
-        _contNewFriend.endClickCallback = newFriend;
-        _contLeftArrow.endClickCallback = leftArrow;
-        _contRightArrow.endClickCallback = rightArrow;
-            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, addAdditionalUser);
+        _mask = new Sprite();
+        _mask.x = 105;
+        _mask.y = 7;
+        _cont = new Sprite();
+        _mask.clipRect = new flash.geom.Rectangle(0,0,328,90);
+        _mask.addChild(_cont);
+        _source.addChild(_mask);
 
+        createAddFriendBtn();
+        createArrows();
+        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
+
+    }
+
+    private function createAddFriendBtn():void {
+        var bt:CSprite = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_bt_add'));
+        bt.addChild(im);
+        bt.x = 13;
+        bt.y = 4;
+        _source.addChild(bt);
+//        bt.endClickCallback = inviteFriends();
     }
 
     public function onResize():void {
-        _source.x = Starling.current.nativeStage.stageWidth - g.stageWidth + 115;
-        _source.y = Starling.current.nativeStage.stageHeight - 120;
+        _source.x = Starling.current.nativeStage.stageWidth - 740;
+        if (_source.visible) {
+            _source.y = Starling.current.nativeStage.stageHeight - 89;
+        } else {
+            _source.y = Starling.current.nativeStage.stageHeight + 100;
+        }
     }
 
     public function showIt():void {
-        _source.visible = true;
+        _source.visible  = true;
+//        _source.x = Starling.current.nativeStage.stageWidth - 271;
+        TweenMax.killTweensOf(_source);
+        new TweenMax(_source, .5, {y:Starling.current.nativeStage.stageHeight - 89, ease:Back.easeOut, delay:.2});
     }
 
     public function hideIt():void {
-        _source.visible = false;
+        TweenMax.killTweensOf(_source);
+        new TweenMax(_source, .5, {y:Starling.current.nativeStage.stageHeight + 100, ease:Back.easeOut, onComplete: function():void {_source.visible = false}});
     }
 
-    public function get isShowed():Boolean {
-        return _source.visible;
+    private function createArrows():void {
+        _leftArrow = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        _leftArrow.addChild(im);
+        _leftArrow.x = 78;
+        _leftArrow.y = 15;
+        _source.addChild(_leftArrow);
+        _leftArrow.endClickCallback = leftArrow;
+
+        _rightArrow = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        im.scaleX = -1;
+        im.x = -im.width;
+        _rightArrow.addChild(im);
+        _rightArrow.x = 485;
+        _rightArrow.y = 15;
+        _source.addChild(_rightArrow);
+        _rightArrow.endClickCallback = rightArrow;
     }
 
-    private function newFriend():void {}
+    private var isAnimated:Boolean = false;
     private function leftArrow():void {
-
+        if (isAnimated) return;
+        if (_shift > 0) {
+            _shift -= 5;
+            if (_shift<0) _shift = 0;
+            isAnimated = true;
+            new TweenMax(_cont, .5, {x:-_shift*66, ease:Linear.easeNone ,onComplete: function():void {isAnimated = false}});
+        }
     }
+
     private function rightArrow():void {
-
+        if (isAnimated) return;
+        var l:int = _arrFriends.length;
+        if (_shift +1 < l) {
+            _shift += 5;
+            if (_shift > l-5) _shift = l-5;
+            isAnimated = true;
+            new TweenMax(_cont, .5, {x:-_shift*66, ease:Linear.easeNone ,onComplete: function():void {isAnimated = false}});
+        }
     }
 
-
-    public function addAdditionalUser(e:SocialNetworkEvent):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, addAdditionalUser);
+    public function onGettingInfo(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
         var item:FriendItem;
-        var arrItems:Array;
-        arrItems = [];
+        _arrItems = [];
+        _shift = 0;
         _arrFriends = g.user.arrFriends.slice();
+        trace('arrFriends length: ' + _arrFriends.length);
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
         _arrFriends.sortOn("level", Array.DESCENDING | Array.NUMERIC);
         for (var i:int = 0; i < _arrFriends.length; i++) {
             item = new FriendItem(_arrFriends[i]);
-            arrItems.push(item);
-            item.source.x = i*110;
+            _arrItems.push(item);
+            item.source.x = i*66;
+            item.source.y = -1;
             _cont.addChild(item.source);
         }
     }

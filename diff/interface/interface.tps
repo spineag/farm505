@@ -214,7 +214,6 @@
             <filename>coin.png</filename>
             <filename>coins.png</filename>
             <filename>diamont.png</filename>
-            <filename>door.png</filename>
             <filename>empty_green_tail.png</filename>
             <filename>empty_red_tail.png</filename>
             <filename>friend_frame.png</filename>
@@ -224,7 +223,6 @@
             <filename>galo4ka.png</filename>
             <filename>green_coupone.png</filename>
             <filename>green_tail.png</filename>
-            <filename>hard_board.png</filename>
             <filename>hint_circle.png</filename>
             <filename>hint_wild.png</filename>
             <filename>hintMiddle.png</filename>
@@ -232,7 +230,6 @@
             <filename>hintSidePixels2.png</filename>
             <filename>hintTopLeftPart.png</filename>
             <filename>in_papper.png</filename>
-            <filename>interface_bg.png</filename>
             <filename>korzina_icon.png</filename>
             <filename>kowolka_icon.png</filename>
             <filename>minus.png</filename>
@@ -257,8 +254,6 @@
             <filename>sciccors_icon.png</filename>
             <filename>serp_icon.png</filename>
             <filename>shop_arrow.png</filename>
-            <filename>shop_icon.png</filename>
-            <filename>soft_board.png</filename>
             <filename>star.png</filename>
             <filename>tamp_ramka.png</filename>
             <filename>temp_gift_icon.png</filename>
@@ -310,6 +305,7 @@
             <filename>circle.png</filename>
             <filename>cat_icon.png</filename>
             <filename>shop</filename>
+            <filename>ui</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

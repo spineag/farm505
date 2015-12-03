@@ -6,32 +6,25 @@ import com.junkbyte.console.Cc;
 
 import flash.display.Bitmap;
 
+import manager.ManagerFilters;
+
+
 import manager.Vars;
 
 import starling.display.Image;
-import starling.display.Sprite;
-import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
-
 import user.NeighborBot;
-
 import user.Someone;
-
 import utils.CSprite;
 import utils.MCScaler;
-
-import windows.market.MarketFriendsPanel;
 
 public class FriendItem {
     private var _person:Someone;
     public var source:CSprite;
     private var _ava:Image;
     private var _txt:TextField;
-    private var _ramka:Image;
-    private var _planet:CSprite;
-    private var _imageLvl:Image;
     private var _txtLvl:TextField;
 
     private var g:Vars = Vars.getInstance();
@@ -44,22 +37,21 @@ public class FriendItem {
             return;
         }
         source = new CSprite();
-        _ramka = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friend_frame"));
-        _ramka.x = 120;
-        _ramka.y = 10;
-        source.addChild(_ramka);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_panel_bt_fr"));
+        source.addChild(im);
 
-        _imageLvl = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
-        _imageLvl.y = 70;
-        MCScaler.scale(_imageLvl,25,25);
-        source.addChild(_imageLvl);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
+        MCScaler.scale(im,30,30);
+        im.x = 35;
+        im.y = 41;
+        source.addChild(im);
 
-        _txtLvl = new TextField(100, 30, '', "Arial", 16, Color.BLACK);
-//        level = Math.round(Math.random()*20);
+        _txtLvl = new TextField(27, 15, "55", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtLvl.text = String(g.user.level);
-        _txtLvl.y = 70;
-        _txtLvl.x = -40;
+        _txtLvl.x = 37;
+        _txtLvl.y = 50;
         source.addChild(_txtLvl);
+
         if (_person is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
@@ -69,27 +61,12 @@ public class FriendItem {
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
             }
         }
-        _txt = new TextField(100, 30, 'loading...', "Arial", 16, Color.RED);
-        _txt.y = 70;
+        _txt = new TextField(63, 30, "loading..", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
+        _txt.y = -5;
         if (_person.name) _txt.text = _person.name;
-        _ramka.visible = false;
         source.addChild(_txt);
 
-        _planet = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('planet'));
-        im.x = -im.width/2;
-        im.y = -im.height/2;
-        _planet.addChild(im);
-        _planet.x = 85;
-        _planet.y = 15;
-        if (_person.userSocialId == g.user.userSocialId) source.removeChild(_planet);
-        else source.addChild(_planet);
-
-        var filter:ColorMatrixFilter = new ColorMatrixFilter();
-        filter.tint(Color.WHITE, 1);
-        _planet.hoverCallback = function():void {_planet.filter = filter};
-        _planet.outCallback = function():void {_planet.filter = null};
-        _planet.endClickCallback = visitPerson;
+        source.endClickCallback = visitPerson;
     }
 
     private function visitPerson():void {
@@ -122,27 +99,21 @@ public class FriendItem {
 
     private function photoFromTexture(tex:Texture):void {
         _ava = new Image(tex);
-        MCScaler.scale(_ava, 98, 98);
-        _ava.x = 1;
-        _ava.y = 1;
+        MCScaler.scale(_ava, 50, 50);
+        _ava.x = 5;
+        _ava.y = 18;
         source.addChildAt(_ava, 0);
     }
 
 
     public function clearIt():void {
-        _planet.hoverCallback = null;
-        _planet.outCallback = null;
-        _planet.endClickCallback = null;
-        _planet.touchable = false;
         while (source.numChildren) source.removeChildAt(0);
         source.endClickCallback = null;
         source.touchable = false;
-        _ramka = null;
         _person = null;
+        _ava.dispose();
         _ava = null;
-        _imageLvl = null;
         _txt = null;
-        _planet = null;
         source = null;
     }
 }

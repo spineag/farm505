@@ -11,5 +11,8 @@ public class ManagerFilters {
     public static var YELLOW_STROKE:BlurFilter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
 
     public static var SHADOW:BlurFilter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+    public static var SHADOW_TOP:BlurFilter = BlurFilter.createDropShadow(1, 0.285, 0, 1, 1.0, 0.5);
+
+    public static var TEXT_BROWN:int = 0x593b02;
 }
 }

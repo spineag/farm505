@@ -2,57 +2,98 @@
  * Created by user on 8/14/15.
  */
 package ui.toolsPanel {
+
+import com.greensock.TweenMax;
+import com.greensock.easing.Back;
+import com.greensock.easing.Linear;
+
+import manager.ManagerFilters;
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
 import starling.core.Starling;
-
 import starling.display.Image;
-
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
-import starling.utils.Color;
-
 import utils.CSprite;
+import windows.WOComponents.HorizontalPlawka;
 
 public class ToolsPanel {
 
     private var _source:Sprite;
-    private var _contRepository:CSprite;
-    private var _contMove:CSprite;
-    private var _contFlip:CSprite;
-    private var _contCancel:CSprite;
-    private var _imageBg:Image;
-    private var _imageTab:Image;
-    private var _txt:TextField;
+    private var _repositoryBtn:CSprite;
+    private var _flipBtn:CSprite;
+    private var _moveBtn:CSprite;
     private var _repositoryBox:RepositoryBox;
-
     private var g:Vars = Vars.getInstance();
+
     public function ToolsPanel() {
         _source = new Sprite();
-        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_plawka"));
-        _imageBg.width = _imageBg.width/2;
-        _imageTab = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_tab"));
-        _imageTab.x = 20;
-        _imageTab.y = -20;
-        _txt = new TextField(150,50,"Редактор карты","Arial",14,Color.BLACK);
-        _txt.x = 10;
-        _txt.y = -30;
-        _source.addChild(_imageBg);
-        _source.addChild(_imageTab);
-        _source.addChild(_txt);
-        _source.x = g.stageWidth - 550;
-        _source.y = g.stageHeight - 120;
-        g.cont.interfaceCont.addChild(_source);
+        _source = new Sprite();
+        g.cont.interfaceCont.addChildAt(_source, 0);
+        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
+                g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 204);
+        _source.addChild(pl);
+//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
+//        im.x = 20;
+//        im.y = -23;
+//        _source.addChild(im);
+//        var txt:TextField = new TextField(106, 27, "Инструменты", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
+//        txt.x = 30;
+//        txt.y = -23;
+//        _source.addChild(txt);
+
+        createBtns();
         _source.visible = false;
-        _repositoryBox = new RepositoryBox();
-        _repositoryBox.source.y = 6;
-        _repositoryBox.source.x = -310;
-        _source.addChildAt(_repositoryBox.source, 0);
-        _repositoryBox.visible = false;
-        createList();
+        onResize();
+    }
+
+    private function createBtns():void {
+        var im:Image;
+
+        _repositoryBtn = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+        _repositoryBtn.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_inv'));
+        im.x = 4;
+        im.y = 2;
+        _repositoryBtn.addChild(im);
+        _repositoryBtn.flatten();
+        _repositoryBtn.x = 3;
+        _repositoryBtn.y = 8;
+        _source.addChild(_repositoryBtn);
+        _repositoryBtn.hoverCallback = function():void { g.hint.showIt("Инвентарь", "0"); };
+        _repositoryBtn.outCallback = function():void { g.hint.hideIt(); };
+        _repositoryBtn.endClickCallback = function():void {onClick('repository')};
+
+        _flipBtn = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+        _flipBtn.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_rotate'));
+        im.x = 4;
+        im.y = 4;
+        _flipBtn.addChild(im);
+        _flipBtn.flatten();
+        _flipBtn.x = 66;
+        _flipBtn.y = 8;
+        _source.addChild(_flipBtn);
+        _flipBtn.hoverCallback = function():void { g.hint.showIt("Повернуть","0"); };
+        _flipBtn.outCallback = function():void { g.hint.hideIt(); };
+        _flipBtn.endClickCallback = function():void {onClick('flip')};
+
+        _moveBtn = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+        _moveBtn.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_move'));
+        im.x = 5;
+        im.y = 3;
+        _moveBtn.addChild(im);
+        _moveBtn.flatten();
+        _moveBtn.x = 129;
+        _moveBtn.y = 8;
+        _source.addChild(_moveBtn);
+        _moveBtn.hoverCallback = function():void { g.hint.showIt("Переместить", "0"); };
+        _moveBtn.outCallback = function():void { g.hint.hideIt(); };
+        _moveBtn.endClickCallback = function():void {onClick('move')};
     }
 
     public function updateRepositoryBox():void {
@@ -60,86 +101,29 @@ public class ToolsPanel {
     }
 
     public function onResize():void {
-        _source.x = Starling.current.nativeStage.stageWidth - 550;
-        _source.y = Starling.current.nativeStage.stageHeight - 120;
+        if (_source.visible) {
+            _source.x = Starling.current.nativeStage.stageWidth - 480;
+        } else {
+            _source.x = Starling.current.nativeStage.stageWidth - 271;
+        }
+        _source.y = Starling.current.nativeStage.stageHeight - 83;
     }
 
     public function showIt():void {
+//        _repositoryBox.visible = false;
         _source.visible  = true;
+        TweenMax.killTweensOf(_source);
+        new TweenMax(_source, .5, {x:Starling.current.nativeStage.stageWidth - 480, ease:Back.easeOut, delay:.2});
     }
 
     public function hideIt():void {
-        _repositoryBox.visible = false;
-        _source.visible = false;
-    }
-
-    public function get isShowed():Boolean {
-        return _source.visible;
-    }
-
-    private function createList():void {
-        var im:Image;
-        var txt:TextField;
-
-        _contRepository = new CSprite();
-        im = new Image(g.allData.atlas['mapAtlas'].getTexture('Storage'));
-        txt = new TextField(100,50,"На хранение","Arial",12,Color.BLACK);
-        txt.x = -10;
-        txt.y = 50;
-        _contRepository.addChild(im);
-        _contRepository.addChild(txt);
-        _contRepository.x = 10;
-        _contRepository.y = 10;
-        _source.addChild(_contRepository);
-        _contRepository.hoverCallback = function():void { _contRepository.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contRepository.outCallback = function():void { _contRepository.filter = null };
-        _contRepository.endClickCallback = function():void {onClick('repository')};
-
-        _contMove = new CSprite();
-        im = new Image(g.allData.atlas['mapAtlas'].getTexture('Move'));
-        txt = new TextField(100,50,"Передвинуть","Arial",12,Color.BLACK);
-        txt.x = -10;
-        txt.y = 50;
-        _contMove.addChild(im);
-        _contMove.addChild(txt);
-        _contMove.x = 100;
-        _contMove.y = 10;
-        _source.addChild(_contMove);
-        _contMove.hoverCallback = function():void { _contMove.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contMove.outCallback = function():void { _contMove.filter = null };
-        _contMove.endClickCallback = function():void {onClick('move')};
-
-        _contFlip = new CSprite();
-        im = new Image(g.allData.atlas['mapAtlas'].getTexture('Rotate'));
-        txt = new TextField(100,50,"Повернуть","Arial",12,Color.BLACK);
-        txt.x = -10;
-        txt.y = 50;
-        _contFlip.addChild(im);
-        _contFlip.addChild(txt);
-        _contFlip.x = 190;
-        _contFlip.y = 10;
-        _source.addChild(_contFlip);
-        _contFlip.hoverCallback = function():void { _contFlip.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contFlip.outCallback = function():void { _contFlip.filter = null };
-        _contFlip.endClickCallback = function():void {onClick('flip')};
-
-        _contCancel = new CSprite();
-        im = new Image(g.allData.atlas['mapAtlas'].getTexture('Cancel'));
-        txt = new TextField(100,50,"Отменить","Arial",12,Color.BLACK);
-        txt.x = -10;
-        txt.y = 50;
-        _contCancel.addChild(im);
-        _contCancel.addChild(txt);
-        _contCancel.x = 280;
-        _contCancel.y = 10;
-        _source.addChild(_contCancel);
-        _contCancel.hoverCallback = function():void { _contCancel.filter = BlurFilter.createGlow(Color.WHITE, 10, 2, 1) };
-        _contCancel.outCallback = function():void { _contCancel.filter = null };
-        _contCancel.endClickCallback = function():void {onClick('cancel')};
+//        _repositoryBox.visible = false;
+        TweenMax.killTweensOf(_source);
+        new TweenMax(_source, .5, {x:Starling.current.nativeStage.stageWidth - 271, ease:Back.easeOut, onComplete: function():void {_source.visible = false}});
     }
 
     private function onClick(reason:String):void {
-        _repositoryBox.source.visible = false;
+//        _repositoryBox.source.visible = false;
         switch (reason) {
             case 'repository':
                 if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
@@ -163,9 +147,6 @@ public class ToolsPanel {
                     g.toolsModifier.modifierType == ToolsModifier.FLIP
                       ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.FLIP;
                 }
-                break;
-            case 'cancel':
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
                 break;
         }
     }
