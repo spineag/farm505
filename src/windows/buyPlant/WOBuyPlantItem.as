@@ -6,12 +6,12 @@ import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
-import starling.utils.Color;
 import starling.utils.HAlign;
 
 import utils.CSprite;
@@ -38,7 +38,7 @@ public class WOBuyPlantItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         source.alpha = .5;
-        _txtNumber = new TextField(40,30,"","Arial", 18,Color.BLACK);
+        _txtNumber = new TextField(40,30,'',g.allData.fonts['BloggerMedium'],18, ManagerFilters.TEXT_BROWN);
         _txtNumber.hAlign = HAlign.RIGHT;
         _txtNumber.x = 52;
         _txtNumber.y = 68;
@@ -108,7 +108,6 @@ public class WOBuyPlantItem {
 
     private function onHover():void {
         if (!_dataPlant) return;
-        source.filter = BlurFilter.createGlow(0x00ff01, 10, 2, 1);
         if (_dataPlant) {
             g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source);
         }
@@ -116,7 +115,6 @@ public class WOBuyPlantItem {
 
     private function onOut():void {
         if (!_dataPlant) return;
-        source.filter = null;
         g.resourceHint.hideIt();
     }
 }

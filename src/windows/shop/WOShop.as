@@ -6,6 +6,8 @@ import data.BuildType;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -58,7 +60,7 @@ public class WOShop extends Window{
         _shopSprite = new Sprite();
         _shopSprite.x = -_woWidth/2 + 41;
         _shopSprite.y = -_woHeight/2 + 141;
-        _shopSprite.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        _shopSprite.filter = ManagerFilters.SHADOW;
         _source.addChild(_shopSprite);
         _contSprite = new Sprite();
         _contSprite.x = -_woWidth/2 + 41;
@@ -173,7 +175,7 @@ public class WOShop extends Window{
 
     private function createMoneyBlock():void {
         var txt:TextField = new TextField(250, 40, 'Ваши сбережения:', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x144b89, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -_woWidth/2 + 238;
         txt.y = -_woHeight/2 + 461;
         _source.addChild(txt);
@@ -274,33 +276,33 @@ public class WOShop extends Window{
         im.y = -_woHeight/2 + 505;
         _source.addChild(im);
 
-        _txtHardMoney = new TextField(63, 33, '88888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
-        _txtHardMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtHardMoney = new TextField(63, 33, '88888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtHardMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtHardMoney.x = -_woWidth/2 + 81;
         _txtHardMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtHardMoney);
-        _txtSoftMoney = new TextField(63, 33, '88888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
-        _txtSoftMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtSoftMoney = new TextField(63, 33, '88888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtSoftMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtSoftMoney.x = -_woWidth/2 + 239;
         _txtSoftMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtSoftMoney);
-        _txtRedMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
-        _txtRedMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtRedMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtRedMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtRedMoney.x = -_woWidth/2 + 400;
         _txtRedMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtRedMoney);
-        _txtYellowMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
-        _txtYellowMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtYellowMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtYellowMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtYellowMoney.x = -_woWidth/2 + 475;
         _txtYellowMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtYellowMoney);
-        _txtGreenMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
-        _txtGreenMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtGreenMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtGreenMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtGreenMoney.x = -_woWidth/2 + 550;
         _txtGreenMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtGreenMoney);
-        _txtBlueMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, 0xfaf2c8);
-        _txtBlueMoney.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtBlueMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtBlueMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtBlueMoney.x = -_woWidth/2 + 625;
         _txtBlueMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtBlueMoney);

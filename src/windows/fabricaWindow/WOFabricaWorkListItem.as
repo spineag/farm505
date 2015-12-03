@@ -4,22 +4,16 @@
 package windows.fabricaWindow {
 
 import com.junkbyte.console.Cc;
-
 import data.DataMoney;
-
-import flash.filters.GlowFilter;
 import flash.geom.Point;
-
+import manager.ManagerFilters;
 import resourceItem.RawItem;
-
 import resourceItem.ResourceItem;
 import manager.Vars;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
@@ -50,10 +44,10 @@ public class WOFabricaWorkListItem {
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
             MCScaler.scale(_bg, 50, 50);
-            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerRegular'], 13,Color.BLACK);
+            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerRegular'], 13,ManagerFilters.TEXT_BROWN);
         } else {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
-            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerRegular'], 16,Color.BLACK);
+            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerRegular'], 16,ManagerFilters.TEXT_BROWN);
         }
         _source.addChild(_bg);
         if (type == SMALL_CELL) {
@@ -77,7 +71,7 @@ public class WOFabricaWorkListItem {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_green'));
             _btnSkip.addChild(im);
             _txtSkip = new TextField(100,35,"25",g.allData.fonts['BloggerBold'], 22, Color.WHITE);
-            _txtSkip.nativeFilters = [new GlowFilter(0x34780b, 1, 6, 6, 9.0)];
+            _txtSkip.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _txtSkip.y = 2;
             _btnSkip.addChild(_txtSkip);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
@@ -200,7 +194,7 @@ public class WOFabricaWorkListItem {
             _source.visible = true;
             _proposeBtn = new CSprite();
             var txt:TextField = new TextField(46, 28, "+" + String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-            txt.nativeFilters = [new GlowFilter(0x1261ac, 1, 4, 4, 7.0)];
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             _proposeBtn.addChild(txt);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             MCScaler.scale(im, 20, 20);

@@ -8,6 +8,8 @@ import com.junkbyte.console.Cc;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import starling.display.Image;
 
 import starling.display.Sprite;
@@ -57,7 +59,7 @@ public class WOLockedLand extends Window{
         var t:Sprite = new WOButtonTexture(158, 46, WOButtonTexture.BLUE);
         _btnOpen.addChild(t);
         var txt:TextField = new TextField(158,46,'Открыть участок',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x0356e2, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnOpen.addChild(txt);
         _btnOpen.x = -_btnOpen.width/2;
         _btnOpen.y = -_woHeight/2 + 492;
@@ -72,7 +74,7 @@ public class WOLockedLand extends Window{
         pl.y = -_woHeight/2 + 109;
         pl.addShadow();
         _source.addChild(pl);
-        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.fonts['BloggerMedium'],18,0x0866bb);
+        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.fonts['BloggerMedium'], 18, ManagerFilters.TEXT_BLUE);
         pl.inSprite.addChild(txt);
     }
 

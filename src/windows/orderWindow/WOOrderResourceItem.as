@@ -4,6 +4,8 @@
 package windows.orderWindow {
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -37,7 +39,7 @@ public class WOOrderResourceItem {
 
         _countTxt = new TextField(80, 40, "10/10", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _countTxt.hAlign = HAlign.RIGHT;
-        _countTxt.nativeFilters = [new GlowFilter(0x674b0e, 1, 3, 3, 5.0)];
+        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = 12;
         _countTxt.y = 60;
         source.addChild(_countTxt);

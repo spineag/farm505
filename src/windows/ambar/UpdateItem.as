@@ -6,6 +6,8 @@ import data.DataMoney;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -41,8 +43,8 @@ public class UpdateItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
 
-        _txtCount = new TextField(50,20,'',g.allData.fonts['BloggerMedium'],14,Color.WHITE);
-        _txtCount.nativeFilters = [new GlowFilter(0x634a22, 1, 4, 4, 5)];
+        _txtCount = new TextField(50,20,'',g.allData.fonts['BloggerMedium'],14, Color.WHITE);
+        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.x = 60;
         _txtCount.y = 80;
         source.addChild(_txtCount);
@@ -54,8 +56,8 @@ public class UpdateItem {
         var imBG:Sprite = new WOButtonTexture(100, 40, WOButtonTexture.GREEN);
         _btn.addChild(imBG);
 
-        _btnTxt = new TextField(50,20,'50',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
-        _btnTxt.nativeFilters = [new GlowFilter(0x3a8013, 1, 4, 4, 5)];
+        _btnTxt = new TextField(50,20,'50',g.allData.fonts['BloggerMedium'],18, Color.WHITE);
+        _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnTxt.x = 16;
         _btnTxt.y = 10;
         _btn.addChild(_btnTxt);

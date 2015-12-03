@@ -6,6 +6,8 @@ import data.DataMoney;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.text.TextField;
@@ -44,7 +46,7 @@ public class WONoPlaces extends Window{
         _source.addChild(_contBtn);
         _contBtn.endClickCallback = onClick;
         _txtText = new TextField(200,100,"Недостаточно места",g.allData.fonts['BloggerBold'],24,Color.WHITE);
-        _txtText.nativeFilters = [new GlowFilter(0x2d610d, 1, 3, 3, 5.0)];
+        _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtText.x = -100;
         _txtText.y = -150;
         _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("bt_green"));
@@ -56,7 +58,7 @@ public class WONoPlaces extends Window{
         _imageBg.x = -50;
         _imageBg.y = -50;
         _txtCost = new TextField(50,50,"","g.allData.fonts['BloggerBold']",24,Color.WHITE);
-        _txtCost.nativeFilters = [new GlowFilter(0x2d610d, 1, 3, 3, 5.0)];
+        _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtCost.x = 30;
         _contBtn.addChild(_imageBtn);
         _contBtn.addChild(_txtCost);

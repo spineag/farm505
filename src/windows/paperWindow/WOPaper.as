@@ -6,6 +6,8 @@ import data.DataMoney;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -43,7 +45,7 @@ public class WOPaper extends Window{
         var btnT:Sprite = new WOButtonTexture(130, 40, WOButtonTexture.GREEN);
         _btnRefresh.addChild(btnT);
         var txt:TextField = new TextField(100, 40, "Обновить 1", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x2d610d, 1, 3, 3, 5.0)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 2;
         _btnRefresh.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));

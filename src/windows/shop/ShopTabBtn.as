@@ -4,6 +4,8 @@
 package windows.shop {
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -33,14 +35,14 @@ public class ShopTabBtn {
         cloneSource = new CSprite();
         create(type, source, null);
         create(type, cloneSource, f);
-        cloneSource.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        cloneSource.filter = ManagerFilters.SHADOW;
     }
 
     private function create(type:int, parent:CSprite, callback:Function):void {
         var bg:CartonBackground = new CartonBackground(123, 100);
         parent.addChild(bg);
         var _txt:TextField = new TextField(123, 100, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
-        _txt.nativeFilters = [new GlowFilter(0x033f89, 1, 6, 6, 5.0)];
+        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txt.y = 10;
         parent.endClickCallback = callback;
 

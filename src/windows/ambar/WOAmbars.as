@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -92,13 +94,14 @@ public class WOAmbars extends Window {
         im.x = 12;
         im.y = 1;
         _cloneTabAmbar.addChild(im);
-        var txt:TextField = new TextField(90, 40, "Амбар", g.allData.fonts['BloggerBold'], 18, 0xfbfadc);
-        txt.nativeFilters = [new GlowFilter(0xaa8433, 1, 4, 4, 5)];
+        var txt:TextField = new TextField(90, 40, "Амбар", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 31;
         txt.y = 2;
         _cloneTabAmbar.addChild(txt);
         _cloneTabAmbar.x = -_woWidth/2 + 73;
         _cloneTabAmbar.y = -_woHeight/2 + 51;
+        _cloneTabAmbar.filter = ManagerFilters.SHADOW;
         _cloneTabAmbar.flatten();
         _source.addChild(_cloneTabAmbar);
         var fAmbar:Function = function():void {
@@ -117,13 +120,14 @@ public class WOAmbars extends Window {
         im.x = 12;
         im.y = 2;
         _cloneTabSklad.addChild(im);
-        txt = new TextField(90, 40, "Склад", g.allData.fonts['BloggerBold'], 18, 0xfbfadc);
-        txt.nativeFilters = [new GlowFilter(0xaa8433, 1, 4, 4, 5)];
+        txt = new TextField(90, 40, "Склад", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 34;
         txt.y = 2;
         _cloneTabSklad.addChild(txt);
         _cloneTabSklad.x = -_woWidth/2 + 202;
         _cloneTabSklad.y = -_woHeight/2 + 51;
+        _cloneTabSklad.filter = ManagerFilters.SHADOW;
         _cloneTabSklad.flatten();
         _source.addChild(_cloneTabSklad);
         var fSklad:Function = function():void {
@@ -137,7 +141,7 @@ public class WOAmbars extends Window {
         _cartonSprite = new Sprite();
         var carton:CartonBackground = new CartonBackground(454, 332);
         _cartonSprite.addChild(carton);
-        _cartonSprite.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        _cartonSprite.filter = ManagerFilters.SHADOW;
         _cartonSprite.x = -_woWidth/2 + 43;
         _cartonSprite.y = -_woHeight/2 + 96;
 
@@ -149,8 +153,8 @@ public class WOAmbars extends Window {
         im.x = 12;
         im.y = 1;
         _tabAmbar.addChild(im);
-        txt = new TextField(90, 40, "Амбар", g.allData.fonts['BloggerBold'], 18, 0xffffd2);
-        txt.nativeFilters = [new GlowFilter(0x805a0f, 1, 4, 4, 5)];
+        txt = new TextField(90, 40, "Амбар", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 31;
         txt.y = 2;
         _tabAmbar.addChild(txt);
@@ -167,8 +171,8 @@ public class WOAmbars extends Window {
         im.x = 10;
         im.y = 2;
         _tabSklad.addChild(im);
-        txt = new TextField(90, 40, "Склад", g.allData.fonts['BloggerBold'], 18, 0xffffd2);
-        txt.nativeFilters = [new GlowFilter(0x805a0f, 1, 4, 4, 5)];
+        txt = new TextField(90, 40, "Склад", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 34;
         txt.y = 2;
         _tabSklad.addChild(txt);
@@ -190,9 +194,9 @@ public class WOAmbars extends Window {
         _progress.source.y = -_woHeight/2 + 458;
         _source.addChild(_progress.source);
 
-        _txtCount = new TextField(250, 67, "Вместимость: 888/8888", g.allData.fonts['BloggerBold'], 18, 0xf46809);
+        _txtCount = new TextField(250, 67, "Вместимость: 888/8888", g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_ORANGE);
         _txtCount.hAlign = HAlign.LEFT;
-        _txtCount.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 9.0)];
+        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
         _txtCount.x = -_woWidth/2 + 47;
         _txtCount.y = -_woHeight/2 + 473;
         _source.addChild(_txtCount);
@@ -201,7 +205,7 @@ public class WOAmbars extends Window {
         var t:Sprite = new WOButtonTexture(121, 40, WOButtonTexture.GREEN);
         _btnShowUpdate.addChild(t);
         _txtBtnShowUpdate = new TextField(90, 50, "Увеличить склад", g.allData.fonts['BloggerMedium'], 14, Color.WHITE);
-        _txtBtnShowUpdate.nativeFilters = [new GlowFilter(0x214e00, 1, 4, 4, 5)];
+        _txtBtnShowUpdate.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtBtnShowUpdate.x = 18;
         _txtBtnShowUpdate.y = -5;
         _btnShowUpdate.addChild(_txtBtnShowUpdate);
@@ -216,7 +220,7 @@ public class WOAmbars extends Window {
         var t:Sprite = new WOButtonTexture(121, 40, WOButtonTexture.GREEN);
         _btnBackFromUpdate.addChild(t);
         var txt:TextField = new TextField(90, 50, "Назад", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x214e00, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 18;
         txt.y = -4;
         _btnBackFromUpdate.addChild(txt);
@@ -242,7 +246,7 @@ public class WOAmbars extends Window {
         _updateSprite.addChild(_item2.source);
         _updateSprite.addChild(_item3.source);
         txt = new TextField(284,45,'Необходимые материалы',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x634a22, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 59;
         txt.y = -35;
         _updateSprite.addChild(txt);
@@ -251,7 +255,7 @@ public class WOAmbars extends Window {
         t = new WOButtonTexture(121, 40, WOButtonTexture.BLUE);
         _btnMakeUpdate.addChild(t);
         txt = new TextField(90, 50, "Увеличить", g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x0356e2, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = 17;
         txt.y = -4;
         _btnMakeUpdate.addChild(txt);

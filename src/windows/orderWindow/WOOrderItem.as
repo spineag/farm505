@@ -6,6 +6,8 @@ import data.BuildType;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -43,7 +45,7 @@ public class WOOrderItem {
         source.addChild(_bgCartonIn);
 
         _txtName = new TextField(112, 20, "Васько", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txtName.nativeFilters = [new GlowFilter(0x674b0e, 1, 3, 3, 5.0)];
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_txtName);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
@@ -51,8 +53,8 @@ public class WOOrderItem {
         im.y = 24;
         MCScaler.scale(im, 30, 30);
         source.addChild(im);
-        _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, 0xc2f3ff);
-        _txtXP.nativeFilters = [new GlowFilter(0x0874a7, 1, 3, 3, 5.0)];
+        _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtXP.x = 48;
         _txtXP.y = 26;
         source.addChild(_txtXP);
@@ -62,8 +64,8 @@ public class WOOrderItem {
         im.y = 55;
         MCScaler.scale(im, 30, 30);
         source.addChild(im);
-        _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, 0xc2f3ff);
-        _txtCoins.nativeFilters = [new GlowFilter(0x0874a7, 1, 3, 3, 5.0)];
+        _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCoins.x = 48;
         _txtCoins.y = 55;
         source.addChild(_txtCoins);

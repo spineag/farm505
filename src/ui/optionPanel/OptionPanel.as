@@ -40,10 +40,6 @@ public class OptionPanel {
     private var _contMusic:CSprite;
     private var _contSound:CSprite;
     private var _arrCells:Array;
-    private var _imScreenShot:Image;
-    private var _imAnim:Image;
-    private var _imMusic:Image;
-    private var _imSound:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -55,7 +51,7 @@ public class OptionPanel {
     private function fillBtns():void {
         _source = new Sprite();
         _source.x = g.stageWidth;
-        _source.y = 100;
+        _source.y = 147;
         g.cont.interfaceCont.addChild(_source);
         _source.visible = false;
         var im:Image;
@@ -192,7 +188,7 @@ public class OptionPanel {
         _source.visible = true;
         var tween:Tween = new Tween(_source, 0.2);
         _source.x = Starling.current.nativeStage.stageWidth;
-        tween.moveTo(_source.x - 50, _source.y);
+        tween.moveTo(_source.x - 58, _source.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
 
@@ -202,7 +198,7 @@ public class OptionPanel {
 
     public function hideIt():void {
         var tween:Tween = new Tween(_source, 0.2);
-        tween.moveTo(_source.x + 50, _source.y);
+        tween.moveTo(_source.x + 58, _source.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
             _source.visible = false;

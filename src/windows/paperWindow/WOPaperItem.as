@@ -7,6 +7,8 @@ import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
 
 import flash.geom.Rectangle;
+
+import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
@@ -90,28 +92,28 @@ public class WOPaperItem {
         im.y = 60;
         source.addChild(im);
 
-        _txtCost = new TextField(84, 62, "1500", g.allData.fonts['BloggerBold'], 20, 0x00a8ff);
+        _txtCost = new TextField(84, 62, "1500", g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
         _txtCost.hAlign = HAlign.RIGHT;
         _txtCost.touchable = false;
         _txtCost.x = 53;
         _txtCost.y = 42;
         source.addChild(_txtCost);
 
-        _txtCountResource = new TextField(84, 62, "10 шт.", g.allData.fonts['BloggerMedium'], 14, 0x00a8ff);
+        _txtCountResource = new TextField(84, 62, "10 шт.", g.allData.fonts['BloggerMedium'], 14, ManagerFilters.TEXT_BLUE);
         _txtCountResource.hAlign = HAlign.RIGHT;
         _txtCountResource.touchable = false;
         _txtCountResource.x = 80;
         _txtCountResource.y = 70;
         source.addChild(_txtCountResource);
 
-        _txtResourceName = new TextField(200, 30, "Смаженый кабаньчик", g.allData.fonts['BloggerMedium'], 14, 0x00a8ff);
+        _txtResourceName = new TextField(200, 30, "Смаженый кабаньчик", g.allData.fonts['BloggerMedium'], 14, ManagerFilters.TEXT_BLUE);
         _txtResourceName.hAlign = HAlign.RIGHT;
         _txtResourceName.touchable = false;
         _txtResourceName.x = -38;
         _txtResourceName.y = 103;
         source.addChild(_txtResourceName);
 
-        _txtUserName = new TextField(84, 50, "Станислав Йованович", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtUserName = new TextField(84, 50, "Станислав Йованович", g.allData.fonts['BloggerBold'], 16, ManagerFilters.TEXT_BLUE);
         _txtUserName.hAlign = HAlign.LEFT;
         _txtUserName.touchable = false;
         _txtUserName.x = 56;

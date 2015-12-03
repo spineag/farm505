@@ -6,6 +6,9 @@ import build.fabrica.Fabrica;
 
 import com.junkbyte.console.Cc;
 import flash.filters.GlowFilter;
+
+import manager.ManagerFilters;
+
 import resourceItem.ResourceItem;
 
 import starling.display.Image;
@@ -180,8 +183,8 @@ public class WOFabrica extends Window {
             s = new CSprite();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
             s.addChild(im);
-            txt = new TextField(32, 32, String(1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
-            txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+            txt = new TextField(32, 32, String(1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
             txt.y = 20;
             txt.x = 2;
             s.addChild(txt);
@@ -197,8 +200,8 @@ public class WOFabrica extends Window {
                 s = new CSprite();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
                 s.addChild(im);
-                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
-                txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
+                txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
                 txt.y = 20;
                 txt.x = 2;
                 s.addChild(txt);
@@ -215,8 +218,8 @@ public class WOFabrica extends Window {
                 s = new CSprite();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
                 s.addChild(im);
-                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
-                txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
+                txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
                 txt.y = 20;
                 txt.x = 2;
                 s.addChild(txt);
@@ -233,8 +236,8 @@ public class WOFabrica extends Window {
                 s = new CSprite();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
                 s.addChild(im);
-                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, 0x009bff);
-                txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
+                txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
                 txt.y = 20;
                 txt.x = 2;
                 s.addChild(txt);

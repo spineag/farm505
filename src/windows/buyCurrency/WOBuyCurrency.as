@@ -6,11 +6,14 @@ import data.DataMoney;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.filters.BlurFilter;
 import starling.text.TextField;
+import starling.utils.Color;
 
 import utils.CSprite;
 import utils.MCScaler;
@@ -51,7 +54,7 @@ public class WOBuyCurrency extends Window{
         _cartonBG.x = -350 + 42;
         _cartonBG.y = -280 + 114;
         _contCarton.addChild(_cartonBG);
-        _contCarton.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        _contCarton.filter = ManagerFilters.SHADOW;
         _source.addChild(_contCarton);
         createLists();
 
@@ -67,8 +70,8 @@ public class WOBuyCurrency extends Window{
         im.x = 27;
         im.y = 9;
         _tabHard.addChild(im);
-        var txt:TextField = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, 0xffffce);
-        txt.nativeFilters = [new GlowFilter(0xbd280d, 1, 6, 6, 9.0)];
+        var txt:TextField = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
         _tabHard.addChild(txt);
         _tabHard.x = -350 + 61;
@@ -84,8 +87,8 @@ public class WOBuyCurrency extends Window{
         im.x = 27;
         im.y = 9;
         _cloneTabHard.addChild(im);
-        txt = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, 0xffffce);
-        txt.nativeFilters = [new GlowFilter(0xbd280d, 1, 6, 6, 9.0)];
+        txt = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
         _cloneTabHard.addChild(txt);
         _cloneTabHard.x = -350 + 61;
@@ -102,8 +105,8 @@ public class WOBuyCurrency extends Window{
         im.x = 27;
         im.y = 9;
         _tabSoft.addChild(im);
-        txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, 0xffffce);
-        txt.nativeFilters = [new GlowFilter(0x976a16, 1, 6, 6, 9.0)];
+        txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
         _tabSoft.addChild(txt);
         _tabSoft.x = -350 + 341;
@@ -119,8 +122,8 @@ public class WOBuyCurrency extends Window{
         im.x = 27;
         im.y = 9;
         _cloneTabSoft.addChild(im);
-        txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, 0xffffce);
-        txt.nativeFilters = [new GlowFilter(0x976a16, 1, 6, 6, 9.0)];
+        txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
         _cloneTabSoft.addChild(txt);
         _cloneTabSoft.x = -350 + 341;
@@ -138,7 +141,7 @@ public class WOBuyCurrency extends Window{
         _cloneTabHard.filter = null;
         _tabSoft.visible = false;
         _cloneTabSoft.visible = true;
-        _cloneTabSoft.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        _cloneTabSoft.filter = ManagerFilters.SHADOW;
     }
 
     private function onClickSoft():void {
@@ -146,7 +149,7 @@ public class WOBuyCurrency extends Window{
         _contSoft.visible = true;
         _tabHard.visible = false;
         _cloneTabHard.visible = true;
-        _cloneTabHard.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        _cloneTabHard.filter = ManagerFilters.SHADOW;
         _tabSoft.visible = true;
         _cloneTabSoft.visible = false;
         _cloneTabSoft.filter = null;

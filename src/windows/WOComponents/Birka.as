@@ -4,6 +4,8 @@
 package windows.WOComponents {
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -22,9 +24,9 @@ public class Birka extends Sprite{
 
     public function Birka(text:String, woSource:Sprite, w:int, h:int) {
         _source = new Sprite();
-        _txt = new TextField(300, 70, text, g.allData.fonts['BloggerBold'], 24, 0x009eff);
+        _txt = new TextField(300, 70, text, g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE);
         _txt.hAlign =  HAlign.LEFT;
-        _txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 9.0)];
+        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
         _bg = new Sprite();
 
         createAll();

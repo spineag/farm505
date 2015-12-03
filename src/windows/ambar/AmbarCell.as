@@ -4,13 +4,10 @@
 package windows.ambar {
 
 import com.junkbyte.console.Cc;
-
-import flash.filters.GlowFilter;
-
+import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.text.TextField;
-import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -60,8 +57,8 @@ public class AmbarCell {
             source.addChild(_image);
         }
 
-        _countTxt = new TextField(30,20,String(_info.count),g.allData.fonts['BloggerMedium'],16,0xf46809);
-        _countTxt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 9.0)];
+        _countTxt = new TextField(30,20,String(_info.count),g.allData.fonts['BloggerMedium'],16, ManagerFilters.TEXT_BROWN);
+        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
         _countTxt.x = 75;
         _countTxt.y = 77;
         source.addChild(_countTxt);

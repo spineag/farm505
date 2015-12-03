@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -37,10 +39,10 @@ public class LockedLandItem {
         icon.y = 12;
         source.addChild(icon);
         var txt:TextField = new TextField(150,40,String(count) + '/' + String(g.user.softCurrencyCount),g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x744d0c, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         source.addChild(txt);
-        txt = new TextField(200,60,'Приобрести разрешение на строительство',g.allData.fonts['BloggerMedium'],16,0x744d0c);
+        txt = new TextField(200,60,'Приобрести разрешение на строительство',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
         txt.x = 103;
         txt.y = 15;
         source.addChild(txt);
@@ -62,7 +64,7 @@ public class LockedLandItem {
 //            btn.addChild(icon);
 //            txt = new TextField(90,30,'Купить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
             txt = new TextField(112,30,'Купить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-            txt.nativeFilters = [new GlowFilter(0x0e6328, 1, 4, 4, 5)];
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             btn.addChild(txt);
             btn.x = 306;
             btn.y = 35;
@@ -93,10 +95,10 @@ public class LockedLandItem {
         icon.y = 34 - icon.height/2;
         source.addChild(icon);
         var txt:TextField = new TextField(150,40,String(count) + '/' + String(g.userInventory.getCountResourceById(id)),g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x744d0c, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         source.addChild(txt);
-        txt = new TextField(200,60,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name,g.allData.fonts['BloggerMedium'],16,0x744d0c);
+        txt = new TextField(200,60,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name,g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
         txt.x = 103;
         txt.y = 15;
         source.addChild(txt);
@@ -118,7 +120,7 @@ public class LockedLandItem {
 //            btn.addChild(icon);
 //            txt = new TextField(90,30,'Купить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
             txt = new TextField(112,30,'Купить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-            txt.nativeFilters = [new GlowFilter(0x0e6328, 1, 4, 4, 5)];
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             btn.addChild(txt);
             btn.x = 306;
             btn.y = 49;
@@ -128,7 +130,7 @@ public class LockedLandItem {
             s = new WOButtonTexture(112, 30, WOButtonTexture.YELLOW);
             btn.addChild(s);
             txt = new TextField(112,30,'Показать',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-            txt.nativeFilters = [new GlowFilter(0x84570e, 1, 4, 4, 5)];
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
             btn.addChild(txt);
             btn.x = 306;
             btn.y = 15;
@@ -145,10 +147,10 @@ public class LockedLandItem {
         icon.y = 34 - icon.height/2;
         source.addChild(icon);
         var txt:TextField = new TextField(150,40,String(count),g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x744d0c, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         source.addChild(txt);
-        txt = new TextField(200,60,'Попросите помощи у друзей',g.allData.fonts['BloggerMedium'],16,0x744d0c);
+        txt = new TextField(200,60,'Попросите помощи у друзей',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
         txt.x = 103;
         txt.y = 15;
         source.addChild(txt);
@@ -164,7 +166,7 @@ public class LockedLandItem {
             var s:Sprite = new WOButtonTexture(112, 30, WOButtonTexture.YELLOW);
             btn.addChild(s);
             txt = new TextField(112,30,'Пригласить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-            txt.nativeFilters = [new GlowFilter(0x84570e, 1, 4, 4, 5)];
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
             btn.addChild(txt);
             btn.x = 306;
             btn.y = 35;

@@ -7,6 +7,8 @@ import data.DataMoney;
 import flash.filters.GlowFilter;
 import flash.geom.Point;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import resourceItem.DropItem;
@@ -89,7 +91,7 @@ public class WOOrder extends Window{
         _source.addChild(bg);
 
         _txtName = new TextField(320, 35, "Самбука заказывает", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _txtName.nativeFilters = [new GlowFilter(0x674b0e, 1, 3, 3, 5.0)];
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.x = -382 + 407;
         _txtName.y = -285 + 175;
         _source.addChild(_txtName);
@@ -105,7 +107,7 @@ public class WOOrder extends Window{
         }
 
         var txt:TextField = new TextField(90, 30, "Награда:", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x674b0e, 1, 3, 3, 5.0)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = -382 + 411;
         txt.y = -285 + 418;
         _source.addChild(txt);
@@ -114,8 +116,8 @@ public class WOOrder extends Window{
         im.y = -285 + 417;
         MCScaler.scale(im, 30, 30);
         _source.addChild(im);
-        _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, 0xc2f3ff);
-        _txtXP.nativeFilters = [new GlowFilter(0x0874a7, 1, 3, 3, 5.0)];
+        _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtXP.x = -382 + 528;
         _txtXP.y = -285 + 418;
         _source.addChild(_txtXP);
@@ -124,8 +126,8 @@ public class WOOrder extends Window{
         im.y = -285 + 419;
         MCScaler.scale(im, 30, 30);
         _source.addChild(im);
-        _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, 0xc2f3ff);
-        _txtCoins.nativeFilters = [new GlowFilter(0x0874a7, 1, 3, 3, 5.0)];
+        _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCoins.x = -382 + 610;
         _txtCoins.y = -285 + 418;
         _source.addChild(_txtCoins);
@@ -161,7 +163,7 @@ public class WOOrder extends Window{
         _btnCell.addChild(im);
         var txt:TextField = new TextField(110, 60, "Оформить заказ", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.y = -9;
-        txt.nativeFilters = [new GlowFilter(0x325d16, 1, 3, 3, 5.0)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnCell.addChild(txt);
         _btnCell.x = -382 + 487;
         _btnCell.y = -285 + 480;

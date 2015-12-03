@@ -3,17 +3,15 @@
  */
 package windows.shop {
 import build.farm.Farm;
-import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
 import data.DataMoney;
 
-import flash.filters.GlowFilter;
-
 import flash.geom.Point;
 import hint.FlyMessage;
+import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
 
@@ -62,20 +60,20 @@ public class ShopItem {
         var bg:CartonBackgroundIn = new CartonBackgroundIn(145, 221);
         source.addChild(bg);
 
-        _nameTxt = new TextField(145, 60, '', g.allData.fonts['BloggerBold'], 18, 0xfaf2c8);
-        _nameTxt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _nameTxt = new TextField(145, 60, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _nameTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_nameTxt);
         source.endClickCallback = onClick;
 
         _lockedSprite = new Sprite();
-        _lockedTxt = new TextField(145, 70, '', g.allData.fonts['BloggerBold'], 18, 0xfaf2c8);
-        _nameTxt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _lockedTxt = new TextField(145, 70, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _nameTxt.nativeFilters = ManagerFilters.TEXT_STROKE_RED;
         _lockedSprite.addChild(_lockedTxt);
         _lockedSprite.y = 136;
         source.addChild(_lockedSprite);
 
-        _txtAvailable = new TextField(145, 80, '', g.allData.fonts['BloggerBold'], 16, 0xfaf2c8);
-        _txtAvailable.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtAvailable = new TextField(145, 80, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtAvailable.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtAvailable.y = 135;
         source.addChild(_txtAvailable);
 
@@ -84,7 +82,7 @@ public class ShopItem {
         im.x = -7;
         _shopLimitSprite.addChild(im);
         var txt:TextField = new TextField(145, 26, 'Достигнут лимит', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x8c0000, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 33;
         _shopLimitSprite.addChild(txt);
         _shopLimitSprite.y = 130;
@@ -105,7 +103,7 @@ public class ShopItem {
         im.y = 4;
         _btnBuyBlue.addChild(im);
         _txtBtnBuyBlue = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _txtBtnBuyBlue.nativeFilters = [new GlowFilter(0x033f89, 1, 6, 6, 5)];
+        _txtBtnBuyBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnBuyBlue.addChild(_txtBtnBuyBlue);
         _btnBuyBlue.x = 11;
         _btnBuyBlue.y = 160;
@@ -121,7 +119,7 @@ public class ShopItem {
         im.y = 4;
         _btnBuyGreen.addChild(im);
         _txtBtnBuyGreen = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txtBtnBuyGreen.nativeFilters = [new GlowFilter(0x3a8013, 1, 6, 6, 5)];
+        _txtBtnBuyGreen.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuyGreen.addChild(_txtBtnBuyGreen);
         _btnBuyGreen.x = 11;
         _btnBuyGreen.y = 160;
@@ -132,7 +130,7 @@ public class ShopItem {
         btn = new WOButtonTexture(126, 41, WOButtonTexture.YELLOW);
         _btnActivationYellow.addChild(btn);
         var txt:TextField = new TextField(125, 40, 'Активировать', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x6a4607, 1, 6, 6, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         _btnActivationYellow.addChild(txt);
         _btnActivationYellow.x = 11;
         _btnActivationYellow.y = 160;

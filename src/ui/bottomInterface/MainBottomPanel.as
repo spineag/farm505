@@ -135,7 +135,7 @@ public class MainBottomPanel {
 //        txt.y = -23;
         _doorBtn.addChild(txt);
         _doorBtn.flatten();
-        _doorBtn.x = 0;
+        _doorBtn.x = -2;
         _doorBtn.y = 9;
         _source.addChild(_doorBtn);
         _doorBtn.hoverCallback = function():void { g.hint.showIt("Домой","0") };

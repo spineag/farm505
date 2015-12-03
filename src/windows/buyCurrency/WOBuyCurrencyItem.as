@@ -6,6 +6,8 @@ import data.DataMoney;
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -52,8 +54,8 @@ public class WOBuyCurrencyItem {
         im.y = 9;
         source.addChild(im);
 
-        var txt:TextField = new TextField(135, 52, String(count), g.allData.fonts['BloggerBold'], 24, 0x0064b4);
-        txt.nativeFilters = [new GlowFilter(Color.WHITE, 1, 6, 6, 5.0)];
+        var txt:TextField = new TextField(135, 52, String(count), g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
         txt.x = 70;
         txt.y = 4;
         source.addChild(txt);
@@ -62,7 +64,7 @@ public class WOBuyCurrencyItem {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_green'));
         btn.addChild(im);
         txt = new TextField(btn.width, btn.height-5, String(cost) + ' голосов', g.allData.fonts['BloggerRegular'], 18, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(Color.BLACK, 1, 2, 2, 5.0)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         btn.addChild(txt);
         btn.x = 453;
         btn.y = 7;
