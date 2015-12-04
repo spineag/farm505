@@ -128,7 +128,7 @@ public class Animal {
         if (_state == EMPTY) {
             source.filter = null;
             if(g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
-                g.woNoResources.showItMenu(_data,1,onClick);
+                g.woNoResources.showItAnimal(_data,onClick);
             return;
             }
             if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {

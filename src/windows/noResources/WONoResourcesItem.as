@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 
 import data.BuildType;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -15,6 +17,9 @@ import starling.utils.Color;
 
 import utils.MCScaler;
 
+import windows.WOComponents.CartonBackground;
+import windows.WOComponents.CartonBackgroundIn;
+
 public class WONoResourcesItem {
     public var source:Sprite;
     private var _image:Image;
@@ -22,8 +27,17 @@ public class WONoResourcesItem {
 
     private var g:Vars = Vars.getInstance();
 
-    public function WONoResourcesItem(id:int, count:int) {
+    public function WONoResourcesItem() {
         source = new Sprite();
+        var bg:Sprite = new CartonBackground(66, 70);
+        source.addChild(bg);
+        bg = new CartonBackgroundIn(60, 64);
+        bg.x = 3;
+        bg.y = 3;
+        source.addChild(bg);
+    }
+
+    public function fillWithResource(id:int, count:int):void {
         var ob:Object = g.dataResource.objectResources[id];
         if (!ob) {
             Cc.error('WONoResourcesItem:: g.dataResource.objectResources[id] = null  for id = ' + id);
@@ -60,16 +74,37 @@ public class WONoResourcesItem {
             st = ob.image;
             _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         }
-        _txtCount = new TextField(50,50,String(count),"Arial",12,Color.WHITE);
+
         if (!_image) {
             Cc.error('WONoResourcesItem:: no such image ' + st);
+        } else {
+            MCScaler.scale(_image, 50, 50);
+            _image.x = 33 - _image.width / 2;
+            _image.y = 33 - _image.height / 2;
+            source.addChild(_image);
         }
-        MCScaler.scale(_image,50,50);
-        _txtCount.y = 25;
-        _image.x = 50 - _image.width/2;
-        _image.y = 50 - _image.height/2;
-        if(_image) source.addChild(_image);
+
+        _txtCount = new TextField(66, 20, String(count), g.allData.fonts['BloggerMedium'], 12, Color.WHITE);
+        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCount.y = 50;
         source.addChild(_txtCount);
+    }
+
+    public function fillWithMoney(count:int):void {
+        _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        MCScaler.scale(_image, 50, 50);
+        _image.x = 33 - _image.width / 2;
+        _image.y = 33 - _image.height / 2;
+        source.addChild(_image);
+
+        _txtCount = new TextField(66, 20, String(count), g.allData.fonts['BloggerMedium'], 12, Color.WHITE);
+        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCount.y = 50;
+        source.addChild(_txtCount);
+    }
+
+    public function deleteIt():void {
+
     }
 }
 }

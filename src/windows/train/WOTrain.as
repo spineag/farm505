@@ -145,7 +145,7 @@ public class WOTrain extends Window {
                 _btn1.endClickCallback = onResourceLoad;
             } else  {
                 _btn1.alpha = .5;
-                _btn1.endClickCallback = onResourceHard;
+                _btn1.endClickCallback = onClickBuy;
                _idFree = _arrItems[k].idFree;
                _countFree = _arrItems[k].countFree;
             }
@@ -162,8 +162,8 @@ public class WOTrain extends Window {
         checkBtn();
     }
 
-    private function onResourceHard():void {
-        g.woNoResources.showItTrain(_idFree,_countFree - g.userInventory.getCountResourceById(_idFree),onResourceHard);
+    private function onClickBuy():void {
+//        g.woNoResources.showItTrain(_idFree,_countFree - g.userInventory.getCountResourceById(_idFree),onClickBuy);   - need remake
     }
 
     private function checkBtn():void {

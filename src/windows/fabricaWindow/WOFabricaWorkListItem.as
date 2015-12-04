@@ -177,6 +177,7 @@ public class WOFabricaWorkListItem {
     }
 
     private function render():void {
+        if (!_resource) return;
         _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_resource.leftTime);
         if (_resource.leftTime <= 0) {
             g.gameDispatcher.removeFromTimer(render);
@@ -194,7 +195,7 @@ public class WOFabricaWorkListItem {
             _source.visible = true;
             _proposeBtn = new CSprite();
             var txt:TextField = new TextField(46, 28, "+" + String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _proposeBtn.addChild(txt);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             MCScaler.scale(im, 20, 20);

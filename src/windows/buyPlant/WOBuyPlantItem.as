@@ -98,6 +98,7 @@ public class WOBuyPlantItem {
 
     private function onClick():void {
         if (_countPlants <= 0) return;
+        if (source.alpha < .9) return;
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataPlant]);
         }

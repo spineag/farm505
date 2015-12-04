@@ -9,33 +9,28 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 
+import manager.ManagerFilters;
+
 import utils.CSprite;
 import utils.MCScaler;
 
 import windows.*;
 
 import starling.display.Image;
-import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import windows.WOComponents.WOButtonTexture;
+
 import windows.WOComponents.WindowBackground;
 
 public class WONoResources extends Window {
-    private var _contBtn:CSprite;
-    private var _contImage:Sprite;
+    private var _btnBuy:CSprite;
     private var _woBG:WindowBackground;
 
     private var _txtHardCost:TextField;
-    private var _txtBuyBtn:TextField;
-    private var _txtNoResource:TextField;
-    private var _txtPanel:TextField;
-    private var _txtCount:TextField;
-    private var _imageItem:Image;
-    private var _imageHard:Image;
-    private var _imageBtn:Image;
-    private var _arrCells:Array;
+    private var _arrItems:Array;
 
     private var _count:int;
     private var _dataResource:Object;
@@ -44,65 +39,119 @@ public class WONoResources extends Window {
 
     public function WONoResources() {
         super();
-        _contBtn = new CSprite();
-        _contImage = new Sprite();
-        _arrCells = [];
-//        createTempBG(400, 300, Color.GRAY);
-        _woBG = new WindowBackground(400, 300);
+        _arrItems = [];
+        _woBG = new WindowBackground(400, 340);
         _source.addChild(_woBG);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.x += 200;
-        _btnExit.y -= 150;
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _txtHardCost = new TextField(100, 100, "", "Arial", 18, Color.WHITE);
-        _txtBuyBtn = new TextField(100, 100, "докупить ресурсы", "Arial", 14, Color.WHITE);
-        _txtNoResource = new TextField(300, 100, "НЕДОСТАТОЧНО РЕСУРСОВ", "Arial", 18, Color.WHITE);
-        _txtPanel = new TextField(350, 200, "Не хватает ингредиентов. Вы можете купить их за изумруды и начать производство немедленно.", "Arial", 18, Color.WHITE);
-        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn1"));
-        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
-        _txtCount = new TextField(50, 50, "", "Arial", 12, Color.WHITE);
-        MCScaler.scale(_imageHard, 20, 20);
-        _contBtn.addChild(_imageBtn);
-        _source.addChild(_txtPanel);
-        _source.addChild(_txtNoResource);
-        _contBtn.addChild(_txtBuyBtn);
-        _contBtn.addChild(_imageHard);
-        _source.addChild(_contBtn);
-        _source.addChild(_contImage);
+        _btnExit.x += 200;
+        _btnExit.y -= 170;
+        callbackClickBG = onClickExit;
 
-        _imageBtn.x -= 50;
-        _imageBtn.y += 80;
-        _imageBtn.width = 90;
-        _imageHard.y += 90;
-        _txtNoResource.x -= 150;
-        _txtNoResource.y -= 150;
-        _txtPanel.x -= 180;
-        _txtPanel.y -= 150;
-        _txtHardCost.x -= 70;
-        _txtHardCost.y += 50;
-        _txtBuyBtn.x += 30;
-        _txtBuyBtn.y += 50;
-        _txtCount.y += 40;
+        var txt:TextField = new TextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = -150;
+        txt.y = -135;
+        _source.addChild(txt);
+        txt = new TextField(350, 100, "Не хватает ингредиентов. Вы можете купить их за изумруды и начать производство немедленно.", g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = -175;
+        txt.y = -110;
+        _source.addChild(txt);
 
+        createBtn();
         callbackClickBG = onClickExit;
     }
 
+    private function createBtn():void {
+        _btnBuy = new CSprite();
+        var b:WOButtonTexture = new WOButtonTexture(190, 34, WOButtonTexture.GREEN);
+        _btnBuy.addChild(b);
+        _btnBuy.x = -95;
+        _btnBuy.y = 90;
+        _source.addChild(_btnBuy);
+        _txtHardCost = new TextField(160, 34, "Купить ресурсы за 8888", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        _txtHardCost.y = 0;
+        _txtHardCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _btnBuy.addChild(_txtHardCost);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        MCScaler.scale(im, 25, 25);
+        im.x = 160;
+        im.y = 4;
+        _btnBuy.addChild(im);
+    }
+
     private function onClickExit(e:Event = null):void {
-        hideIt();
-        while (_contImage.numChildren) {
-            _contImage.removeChildAt(0);
+        _btnBuy.endClickCallback = null;
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].deleteIt();
         }
-        _contImage.removeChild(_imageItem);
-        _contImage.removeChild(_txtCount);
-        _arrCells.length = 0;
+        _arrItems.length = 0;
+        hideIt();
     }
 
     public function showItMoney(currency:int, count:int, f:Function):void {
-        _count = count;
-        createListMoney(currency);
+        _count = Math.ceil(_count / g.HARD_IN_SOFT);
+        if (currency == DataMoney.HARD_CURRENCY) {
+            Cc.error('hard currency can"t be in woNoResourceWindow');
+            g.woGameError.showIt();
+            return;
+        }
+        _txtHardCost.text = 'Купить ресурсы ' + String(_count);
+        var item:WONoResourcesItem = new WONoResourcesItem();
+        item.fillWithMoney(count);
+        item.source.x = - item.source.width/2;
+        item.source.y = 0;
+        _source.addChild(item.source);
+        _arrItems.push(item);
         _callbackBuy = f;
-        _contBtn.endClickCallback = onClickMoney;
+        _btnBuy.endClickCallback = onClickMoney;
         showIt();
+    }
+
+    private function onClickMoney():void {
+        if (_count < g.user.hardCurrency) {
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_count);
+        } else {
+            g.woBuyCurrency.showItMenu(true);
+            return;
+        }
+        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _count);
+        onClickExit();
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null);
+            _callbackBuy = null;
+        }
+    }
+
+    public function showItAnimal(data:Object, f:Function = null):void {
+        _dataResource = data;
+        _callbackBuy = f;
+        _count = g.dataResource.objectResources[_dataResource.idResourceRaw].priceHard;
+        _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
+        var item:WONoResourcesItem = new WONoResourcesItem();
+        item.fillWithResource(g.dataResource.objectResources[_dataResource.idResourceRaw], 1);
+        item.source.x =  - item.source.width/2;
+        item.source.y = 0;
+        _source.addChild(item.source);
+        _arrItems.push(item);
+        _callbackBuy = f;
+        _btnBuy.endClickCallback = onClickAnimal;
+        showIt();
+    }
+
+    private function onClickAnimal():void {
+        if (int(_txtHardCost.text) < g.user.hardCurrency) {
+            g.userInventory.addMoney(1, -int(_txtHardCost.text));
+        } else {  g.woBuyCurrency.showItMenu(true);
+            return;
+        }
+        g.userInventory.addResource(_dataResource.idResourceRaw,1);
+        onClickExit();
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null);
+            _callbackBuy = null;
+        }
     }
 
     public function showItMenu(data:Object, count:int, f:Function = null, params:Object = null):void {
@@ -111,48 +160,6 @@ public class WONoResources extends Window {
         _params = params;
         _dataResource = data;
         _callbackBuy = f;
-    }
-
-    public function showItTrain(id:int, count:int, f:Function):void {
-        createListTrain(id, count);
-        _contBtn.endClickCallback = onClickTrain;
-        _callbackBuy = f;
-        _count = count;
-        showIt();
-    }
-
-    private function createListMoney(currency:int):void {
-        if (!currency) {
-            Cc.error('WONoResource createListMoney:: empty currency');
-            g.woGameError.showIt();
-            return;
-        }
-        if (!currency) {
-            _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
-            _txtCount.text = String(_count);
-            _txtHardCost.text = String( int(_count / g.HARD_IN_SOFT + 0.5));
-            _contBtn.addChild(_txtHardCost);
-            _contImage.addChild(_imageItem);
-            _contImage.addChild(_txtCount);
-            return;
-        }
-
-        if (currency == DataMoney.HARD_CURRENCY) {
-            _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
-            _txtCount.text = String(_count);
-            _txtHardCost.text = String(_count);
-            _contBtn.addChild(_txtHardCost);
-            _contImage.addChild(_imageItem);
-            _contImage.addChild(_txtCount);
-        } else if (currency == DataMoney.SOFT_CURRENCY) {
-            _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
-            _txtCount.text = String(_count);
-            _txtHardCost.text = String(int( _count / g.HARD_IN_SOFT + 0.5));
-            if (int(_txtHardCost.text) <= 0) _txtHardCost.text ="1";
-            _contBtn.addChild(_txtHardCost);
-            _contImage.addChild(_imageItem);
-            _contImage.addChild(_txtCount);
-        }
     }
 
     private function createList(_data:Object, count:int):void {
@@ -166,59 +173,67 @@ public class WONoResources extends Window {
             return;
         }
 
-        if (_data.buildType == BuildType.ANIMAL) {
-            im = new WONoResourcesItem(_data.idResourceRaw, 1);
-            _contImage.addChild(im.source);
-            _txtHardCost.text = String(int(g.dataResource.objectResources[_data.idResourceRaw].priceHard * count));
-            _contBtn.addChild(_txtHardCost);
-           _contBtn.endClickCallback = onClickAnimal;
-            return;
-        } else if (_data.buildType == BuildType.PLANT) {
-            im = new WONoResourcesItem(_data.id, 1);
-            _contImage.addChild(im.source);
-            _txtHardCost.text = String(int(g.dataResource.objectResources[_data.ingridientsId].priceHard * count));
-            _contBtn.addChild(_txtHardCost);
+        if (_data.buildType == BuildType.PLANT) {
+            im = new WONoResourcesItem();
+            im.fillWithResource(_data.id, 1);
+            im.source.x =  - im.source.width/2;
+            im.source.y = 0;
+            _source.addChild(im.source);
+            _arrItems.push(im);
+            _count = int(g.dataResource.objectResources[_data.ingridientsId].priceHard);
+            _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
             return;
         }
 
         if (_data.ingridientsId) {
-            var n:int;
-            var h:int;
+            _count = 0;
             for (i = 0; i < _data.ingridientsId.length; i++) {
                 countRes = g.userInventory.getCountResourceById(_data.ingridientsId[i]);
                 if (countRes < _data.ingridientsCount[i]) {
-                    im = new WONoResourcesItem(_data.ingridientsId[i], _data.ingridientsCount[i] - countRes);
-                    n = g.dataResource.objectResources[_data.ingridientsId[i]].priceHard * (_data.ingridientsCount[i] - countRes) + n;
-                    _arrCells.push(im);
-                    _contImage.addChild(im.source);
+                    im = new WONoResourcesItem();
+                    im.fillWithResource(_data.ingridientsId[i], _data.ingridientsCount[i] - countRes);
+                    count += g.dataResource.objectResources[_data.ingridientsId[i]].priceHard * (_data.ingridientsCount[i] - countRes);
+                    im.source.y = 0;
+                    _source.addChild(im.source);
+                    _arrItems.push(im);
                 }
             }
-            _txtHardCost.text = String(n);
-
-            _contBtn.addChild(_txtHardCost);
-            for (i = 0; i < _arrCells.length; i++) {
-                _arrCells[i].source.x = int(i * 55);
+            _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
+            switch (_arrItems.length) {
+                case 1:
+                    _arrItems[0].source.x = - im.source.width/2;
+                    break;
+                case 2:
+                    _arrItems[0].source.x = -200 + 117;
+                    _arrItems[1].source.x = -200 + 217;
+                    break;
+                case 3:
+                    _arrItems[0].source.x = -200 + 77;
+                    _arrItems[1].source.x = -200 + 167;
+                    _arrItems[2].source.x = -200 + 257;
+                    break;
+                case 4:
+                    _arrItems[0].source.x = -200 + 39;
+                    _arrItems[1].source.x = -200 + 124;
+                    _arrItems[2].source.x = -200 + 209;
+                    _arrItems[3].source.x = -200 + 294;
+                    break;
+                case 5:
+                    _arrItems[0].source.x = -200 + 27;
+                    _arrItems[1].source.x = -200 + 97;
+                    _arrItems[2].source.x = -200 + 167;
+                    _arrItems[3].source.x = -200 + 237;
+                    _arrItems[4].source.x = -200 + 307;
+                    break;
             }
+
         }
 
-//
-        _contBtn.endClickCallback = onClickResource;
+        _btnBuy.endClickCallback = onClickResource;
 
-    }
-
-    private function createListTrain(id:int, count:int):void {
-        _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coin"));
-        _txtCount.text = String(count);
-        _contImage.addChild(_imageItem);
-        _txtHardCost.text = String(int(count / g.HARD_IN_SOFT + 0.5));
-        if (int(_txtHardCost.text) <= 0) _txtHardCost.text ="1";
-        _contBtn.addChild(_txtHardCost);
-        _contImage.addChild(_txtCount);
-        _contImage.addChild(_imageItem);
     }
 
     private function onClickResource():void {
-        hideIt();
         var countRes:int = 0;
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
             g.userInventory.addMoney(1, -int(_txtHardCost.text));
@@ -244,62 +259,8 @@ public class WONoResources extends Window {
                 }
             }
         }
-        clearIt();
+        onClickExit();
     }
 
-    private function onClickMoney():void {
-        hideIt();
-        if (int(_txtHardCost.text) < g.user.hardCurrency) {
-            g.userInventory.addMoney(1, -int(_txtHardCost.text));
-        } else {  g.woBuyCurrency.showItMenu(true);
-            return;
-        }
-
-        g.userInventory.addMoney(2, _count);
-        if (_callbackBuy != null) {
-            _callbackBuy.apply(null);
-        }
-        clearIt();
-    }
-
-    private function onClickTrain():void {
-        hideIt();
-        if (int(_txtHardCost.text) < g.user.hardCurrency) {
-            g.userInventory.addMoney(1, -int(_txtHardCost.text));
-        } else {  g.woBuyCurrency.showItMenu(true);
-            return;
-        }
-
-        g.userInventory.addMoney(2, _count);
-        if (_callbackBuy != null) {
-            _callbackBuy.apply(null);
-        }
-        clearIt();
-    }
-
-    private function clearIt():void {
-        _dataResource = null;
-        while (_contImage.numChildren) {
-            _contImage.removeChildAt(0);
-        }
-        _contImage.removeChild(_imageItem);
-        _contImage.removeChild(_txtCount);
-        _arrCells.length = 0;
-    }
-
-    private function onClickAnimal():void {
-        hideIt();
-        if (int(_txtHardCost.text) < g.user.hardCurrency) {
-            g.userInventory.addMoney(1, -int(_txtHardCost.text));
-        } else {  g.woBuyCurrency.showItMenu(true);
-            return;
-        }
-        g.userInventory.addResource(_dataResource.idResourceRaw,1);
-
-        if (_callbackBuy != null) {
-            _callbackBuy.apply(null);
-        }
-        clearIt();
-    }
 }
 }

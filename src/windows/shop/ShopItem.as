@@ -67,7 +67,7 @@ public class ShopItem {
 
         _lockedSprite = new Sprite();
         _lockedTxt = new TextField(145, 70, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _nameTxt.nativeFilters = ManagerFilters.TEXT_STROKE_RED;
+        _lockedTxt.nativeFilters = ManagerFilters.TEXT_STROKE_RED;
         _lockedSprite.addChild(_lockedTxt);
         _lockedSprite.y = 136;
         source.addChild(_lockedSprite);
