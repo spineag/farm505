@@ -412,19 +412,21 @@ public class ToolsModifier {
     }
 
     public function cancelMove():void {
+        if (!_spriteForMove) return;
+        g.cont.contentCont.alpha = 1;
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
-        g.toolsModifier.modifierType = ToolsModifier.NONE;
-        if (_spriteForMove) {
-            while (_spriteForMove.numChildren) {
-                _spriteForMove.removeChildAt(0);
-            }
+        while (_spriteForMove.numChildren) {
+             _spriteForMove.removeChildAt(0);
         }
         if (_moveGrid) _moveGrid.clearIt();
         _moveGrid = null;
         if (imForMove) imForMove.dispose();
         imForMove = null;
         _spriteForMove = null;
-        return;
+        if (g.selectedBuild) {
+            g.selectedBuild.source.filter = null;
+            g.townArea.backBuildAfterMoveCancel();
+        }
     }
 
     private var _needMoveGameCont:Boolean = false;

@@ -176,7 +176,7 @@ public class Farm extends AreaObject{
     public function readyAnimal(an:Animal):void {
         var countNotWorkedAnimals:int = 0;
         for (var i:int=0; i<_arrAnimals.length; i++) {
-            if ((_arrAnimals[i] as Animal).state != Animal.WORKED) ++countNotWorkedAnimals;
+            if ((_arrAnimals[i] as Animal).state != Animal.WORKED) countNotWorkedAnimals++;
         }
         if (countNotWorkedAnimals == _arrAnimals.length) {
             stopAnimateCat();

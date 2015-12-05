@@ -79,7 +79,6 @@ public class WOAmbars extends Window {
         _type = type;
         showUsualState();
         checkTypes();
-        _scrollSprite.source.visible = true;
         fillItems();
         updateProgress();
         super.showIt();
@@ -402,7 +401,7 @@ public class WOAmbars extends Window {
         _txtCount.text = st;
         unfillItems();
         fillItems();
-        checkUpdateBtn();
+        updateItemsForUpdate();
     }
 
     public function smallUpdate():void {

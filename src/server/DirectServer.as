@@ -4,6 +4,7 @@
 package server {
 import build.WorldObject;
 import build.WorldObject;
+import build.fabrica.Fabrica;
 import build.farm.Animal;
 import build.ridge.Ridge;
 import build.train.Train;
@@ -831,6 +832,11 @@ public class DirectServer {
         variables.buildingId = wObject.dataBuild.id;
         variables.posX = wObject.posX;
         variables.posY = wObject.posY;
+        if (wObject is Fabrica) {
+            variables.countCell = wObject.dataBuild.countCell;
+        } else {
+            variables.countCell = 0;
+        }
         request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserBuilding);

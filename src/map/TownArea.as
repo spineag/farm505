@@ -437,7 +437,7 @@ public class TownArea extends Sprite {
         zSort();
 
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree)) {
-//            g.bottomPanel.cancelBoolean(true);
+            g.bottomPanel.cancelBoolean(true);
             var arr:Array;
             var curCount:int;
             var maxCount:int;
@@ -452,7 +452,7 @@ public class TownArea extends Sprite {
             }
             maxCount = maxCountAtCurrentLevel * _dataObjects.countUnblock;
             if (curCount == maxCount) {
-//                g.bottomPanel.cancelBoolean(false);
+                g.bottomPanel.cancelBoolean(false);
                 return;
             }
             g.toolsModifier.startMove(_dataObjects, afterMoveReturn);
@@ -548,7 +548,12 @@ public class TownArea extends Sprite {
     }
 
     private function afterMove(_x:Number, _y:Number):void {
-        pasteBuild(g.selectedBuild, _x, _y, false, true);
+        pasteBuild(g.selectedBuild, _x, _y, false, false);
+        g.selectedBuild = null;
+    }
+
+    public function backBuildAfterMoveCancel():void {
+        pasteBuild(g.selectedBuild, g.selectedBuild.source.x, g.selectedBuild.source.y, false, true);
         g.selectedBuild = null;
     }
 
@@ -611,7 +616,7 @@ public class TownArea extends Sprite {
     private function afterMoveReturn(_x:Number, _y:Number):void {
         if (g.user.softCurrencyCount < _dataObjects.cost) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-//            g.bottomPanel.cancelBoolean(false);
+            g.bottomPanel.cancelBoolean(false);
             return;
         }
             g.toolsModifier.modifierType = ToolsModifier.NONE;

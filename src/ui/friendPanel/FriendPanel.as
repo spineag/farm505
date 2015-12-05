@@ -103,7 +103,7 @@ public class FriendPanel {
         _leftArrow.endClickCallback = leftArrow;
 
         _rightArrow = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.scaleX = -1;
         im.x = -im.width;
         _rightArrow.addChild(im);

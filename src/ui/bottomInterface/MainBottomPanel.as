@@ -157,30 +157,39 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    g.toolsModifier.cancelMove();
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                }
                 g.woShop.showIt();
                 break;
             case 'cancel':
-                if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                    _toolsBtn.visible = true;
-                    _cancelBtn.visible = false;
+                _toolsBtn.visible = true;
+                _cancelBtn.visible = false;
+                if (g.toolsPanel.isShowed) {
                     g.friendPanel.showIt();
                     g.toolsPanel.hideIt();
-                } else {
-                    g.toolsModifier.cancelMove();
-                    g.cont.contentCont.alpha = 1;
+                }
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.toolsModifier.cancelMove();
                 }
                 break;
             case 'tools':
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    g.toolsModifier.cancelMove();
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                }
                 g.friendPanel.hideIt();
                 g.toolsPanel.showIt();
                 _toolsBtn.visible = false;
                 _cancelBtn.visible = true;
                 break;
             case 'option':
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    g.toolsModifier.cancelMove();
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                }
                 if (g.optionPanel.isShowed) {
                      g.optionPanel.hideIt();
                  } else {
@@ -188,11 +197,17 @@ public class MainBottomPanel {
                  }
                 break;
             case 'order':
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    g.toolsModifier.cancelMove();
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                }
                 g.woOrder.showIt();
                 break;
             case 'ambar':
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    g.toolsModifier.cancelMove();
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                }
                 g.woAmbars.showItWithParams(WOAmbars.AMBAR);
                 break;
             case 'door':
@@ -206,10 +221,10 @@ public class MainBottomPanel {
         _source.y = Starling.current.nativeStage.stageHeight - 83;
     }
 
-//    public function cancelBoolean(b:Boolean):void {
-//        _cancelBtn.visible = b;
-//        _shopBtn.visible = !b;
-//    }
+    public function cancelBoolean(b:Boolean):void {
+        _cancelBtn.visible = b;
+        _toolsBtn.visible = !b;
+    }
 
     public function doorBoolean(b:Boolean):void {
         _doorBtn.visible = b;

@@ -75,7 +75,7 @@ public class WOOrderItem {
 
     public function activateIt(v:Boolean):void {
         if (v) {
-            source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
+            source.filter = ManagerFilters.YELLOW_STROKE;
         } else {
             source.filter = null;
         }

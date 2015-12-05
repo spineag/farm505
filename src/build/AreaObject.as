@@ -98,7 +98,7 @@ public class AreaObject extends WorldObject {
 
         _source.addChild(_build);
 
-        createIsoView();
+        //createIsoView();
     }
 
     protected function createIsoView():void {

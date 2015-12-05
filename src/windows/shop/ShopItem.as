@@ -391,13 +391,15 @@ public class ShopItem {
                 return;
             }
         }
-//        g.bottomPanel.cancelBoolean(true);
 
         if (_data.buildType == BuildType.RIDGE) {
-//            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
             g.woShop.onClickExit();
             g.toolsModifier.startMove(_data, afterMove);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.woShop.onClickExit();
             if (_state == STATE_FROM_INVENTORY) {
                 g.toolsModifier.startMoveTail(_data, afterMoveFromInventory, true);
@@ -405,13 +407,13 @@ public class ShopItem {
                 g.toolsModifier.startMoveTail(_data, afterMove, true);
             }
         } else if (_data.buildType == BuildType.CAT) {
-//            g.bottomPanel.cancelBoolean(false);
             g.managerCats.onBuyCatFromShop();
             updateItem();
-            g.userInventory.addMoney(_data.currency, -_data.cost);
+            g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_data.cost);
         } else if (_data.buildType != BuildType.ANIMAL) {
             g.woShop.onClickExit();
-//            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if (_state == STATE_FROM_INVENTORY) {
                 g.toolsModifier.startMove(_data, afterMoveFromInventory, 1, 1, true);
             } else {
@@ -425,20 +427,19 @@ public class ShopItem {
                     (arr[i] as Farm).addAnimal();
                     g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-_data.cost);
                     checkState();
-//                    g.bottomPanel.cancelBoolean(false);
+                    g.bottomPanel.cancelBoolean(false);
                     g.woShop.updateMoneyCounts();
                     return;
                 }
             }
             Cc.error('ShopItem:: no such Farm :(');
-//            g.bottomPanel.cancelBoolean(false);
         }
     }
 
     private function afterMove(_x:Number, _y:Number):void {
         if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA
                 || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
-//            g.bottomPanel.cancelBoolean(false);
+            g.bottomPanel.cancelBoolean(false);
         }
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             var cont:Sprite = new Sprite();
@@ -455,7 +456,7 @@ public class ShopItem {
     }
 
     private function afterMoveFromInventory(_x:Number, _y:Number):void {
-//        g.bottomPanel.cancelBoolean(false);
+        g.bottomPanel.cancelBoolean(false);
         var dbId:int = g.userInventory.removeFromDecorInventory(_data.id);
         g.townArea.createNewBuild(_data, _x, _y, true, dbId);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));

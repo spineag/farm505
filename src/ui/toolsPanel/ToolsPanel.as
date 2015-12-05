@@ -100,6 +100,10 @@ public class ToolsPanel {
         _repositoryBox.visible = true;
     }
 
+    public function get isShowed():Boolean {
+        return _source.visible;
+    }
+
     public function onResize():void {
         if (_source.visible) {
             _source.x = Starling.current.nativeStage.stageWidth - 480;

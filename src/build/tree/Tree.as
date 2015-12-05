@@ -148,7 +148,7 @@ public class Tree extends AreaObject{
         }
         _source.addChild(_build);
 
-        createIsoView();
+        //createIsoView();
     }
 
     private function setBuildImage():void {

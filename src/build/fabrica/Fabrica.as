@@ -52,6 +52,7 @@ public class Fabrica extends AreaObject {
             g.woGameError.showIt();
             return;
         }
+        _dataBuild.countCell = g.dataBuilding.objectBuilding[_dataBuild.id].startCountCell;
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         checkBuildState();
@@ -317,7 +318,7 @@ public class Fabrica extends AreaObject {
         super.clearIt();
     }
 
-    private function callbackSkip():void {
+    private function callbackSkip():void { // for building build
         _stateBuild = STATE_WAIT_ACTIVATE;
         g.directServer.skipTimeOnFabricBuild(_leftBuildTime,dbBuildingId,null);
         _leftBuildTime = 0;
@@ -329,10 +330,10 @@ public class Fabrica extends AreaObject {
         g.directServer.buyNewCellOnFabrica(_dbBuildingId, _dataBuild.countCell, null);
     }
 
-    public function skipRecipe():void {
+    public function skipRecipe():void { // for making recipe
         g.woFabrica.onClickExit();
         g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
-        _arrList.shift();
+        craftResource(_arrList.shift());
         g.woFabrica.showItWithParams(_arrRecipes, _arrList, this, callbackOnChooseRecipe);
     }
 

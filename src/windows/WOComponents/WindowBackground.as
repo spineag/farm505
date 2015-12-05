@@ -2,6 +2,7 @@
  * Created by andy on 11/5/15.
  */
 package windows.WOComponents {
+import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
@@ -96,6 +97,7 @@ public class WindowBackground extends Sprite{
         arr.length = 0;
 //        touchable = false;
         flatten();
+        filter = ManagerFilters.SHADOW;
     }
 }
 }

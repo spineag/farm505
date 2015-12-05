@@ -191,7 +191,7 @@ public class Train extends AreaObject{
         if (_flip) _build.scaleX = -_defaultScale;
         _source.addChild(_build);
 
-        createIsoView();
+        //createIsoView();
     }
 
     protected function renderBuildTrainProgress():void {

@@ -15,7 +15,6 @@ import heroes.ManagerCats;
 import hint.ResourceHint;
 import hint.TreeHint;
 import hint.fabricHint.FabricHint;
-import hint.FarmHint;
 import hint.Hint;
 import hint.MouseHint;
 import hint.TimerHint;
@@ -31,7 +30,6 @@ import mouse.ToolsModifier;
 import preloader.StartPreloader;
 
 import server.DirectServer;
-import server.NodeServer;
 import server.Server;
 
 import social.SocialNetwork;
@@ -40,7 +38,6 @@ import social.SocialNetworkSwitch;
 
 import starling.core.Starling;
 import starling.display.Stage;
-import starling.textures.TextureAtlas;
 
 import temp.dataTemp.DataAnimal;
 import temp.dataTemp.DataLevel;
