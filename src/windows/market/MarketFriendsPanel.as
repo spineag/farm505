@@ -1,131 +1,150 @@
 /**
- * Created by user on 8/26/15.
+ * Created by user on 8/27/15.
  */
 package windows.market {
-import com.greensock.TweenMax;
-import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
 
+import flash.display.Bitmap;
 import flash.filters.GlowFilter;
-
-import flash.geom.Rectangle;
 
 import manager.Vars;
 
-import social.SocialNetworkEvent;
-
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.filters.BlurFilter;
+import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
 
+import user.NeighborBot;
 import user.Someone;
-import user.TempUser;
 
 import utils.CSprite;
+import utils.MCScaler;
 
 import windows.WOComponents.CartonBackground;
+import windows.WOComponents.WOButtonTexture;
 
-public class MarketFriendsPanel {
-    public var _source:Sprite;
-    private var _wo:WOMarket;
-    private var _cont:Sprite;
-    private var _arrFriends:Array;
-    private var _arrItems:Array;
-    private var _shift:int = 0;
-    private var _additionalFriendItem:MarketFriendItem;
+public class MarketFriendsPanel{
+    private var _person:Someone;
+    public var source:CSprite;
+    private var cont:Sprite;
+    private var _ava:Image;
+    private var _txt:TextField;
+    private var _panel:WOMarket;
+    private var _planet:CSprite;
+    private var c:CartonBackground;
+    private var _shiftFriend:int;
 
     private var g:Vars = Vars.getInstance();
 
-    public function MarketFriendsPanel(w:WOMarket) {
-        _source = new Sprite();
-        _wo = w;
-        _source.x = 225;
-        _source.y = -160;
-        _wo.source.addChild(_source);
-        _cont = new Sprite();
-        _source.addChild(_cont);
-        _arrItems = [];
-        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
-        var txt:TextField = new TextField(80, 30, 'ДРУЗЬЯ', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
-
-        txt.y = -45;
-        txt.x = 10;
-        _source.addChild(txt);
-    }
-
-    private function fillFriends(e:SocialNetworkEvent):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
-        var item:MarketFriendItem;
-        _arrFriends = g.user.arrFriends.slice();
-        _arrFriends.unshift(g.user.neighbor);
-        _arrFriends.unshift(g.user);
-        for (var i:int = 0; i < 3; i++) {
-            item = new MarketFriendItem(_arrFriends[i], this);
-            item.source.y = i*115;
-            _cont.addChild(item.source);
-            _arrItems.push(item);
+    public function MarketFriendsPanel(f:Someone, p:WOMarket, _shift:int) {
+        _shiftFriend = _shift;
+        source = new CSprite();
+        source.x = 218;
+        cont = new Sprite();
+        _person = f;
+        if (!_person) {
+            Cc.error('MarketFriendItem:: person == null');
+            g.woGameError.showIt();
+            return;
         }
-
-    }
-
-    public function choosePerson(_person:Someone):void {
-        for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].activateIt(false);
-        }
-        if (_additionalFriendItem) _additionalFriendItem.activateIt(false);
-        _wo.unFillItems();
-        _wo.fillItemsByUser(_person);
-    }
-
-    public function addAdditionalUser(p:Someone):void {
-        var i:int;
-        for (i = 0; i < _arrItems.length; i++) {
-            _arrItems[i].activateIt(false);
-        }
-        if (p is TempUser) {
-            _additionalFriendItem = new MarketFriendItem(p, this);
-            _additionalFriendItem.source.y = 0;
-            _cont.addChild(_additionalFriendItem.source);
-            _additionalFriendItem.activateIt(true);
-            for (i = 0; i < _arrItems.length; i++) {
-                _arrItems[i].source.y = (i + 1) * 110;
-            }
+        _panel = p;
+        if (_person is NeighborBot) {
+            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
-            _wo.unFillItems();
-            _wo.fillItemsByUser(p);
-            var index:int = _arrFriends.indexOf(p);
-            if (index > _arrFriends.length - 3) index = _arrFriends.length -3;
-            _shift = index;
-            _cont.y = _shift*(-110);
-        }
-    }
-
-    public function checkRemoveAdditionalUser():void {
-        if (_additionalFriendItem) {
-            _cont.removeChild(_additionalFriendItem.source);
-            _additionalFriendItem.clearIt();
-            _additionalFriendItem = null;
-            for (var i:int = 0; i < _arrItems.length; i++) {
-                _arrItems[i].source.y = i * 110;
+            if (_person.photo) {
+                g.load.loadImage(_person.photo, onLoadPhoto);
+            } else {
+                g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
             }
         }
+        _txt = new TextField(100, 30, 'loading...', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txt.x = -15;
+        _txt.y = 50;
+        if (_person.name) _txt.text = _person.name;
+        source.addChild(_txt);
+        source.endClickCallback = chooseThis;
+
+        _planet = new CSprite();
+        var btn:WOButtonTexture = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
+        var txtBtn:TextField = new TextField(80,25, "Посетить", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        txtBtn.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        txtBtn.x = -8;
+        _planet.addChild(btn);
+        _planet.addChild(txtBtn);
+        _planet.x = 20;
+        _planet.y = -10;
+        _planet.visible = false;
+        if (_person.userSocialId == g.user.userSocialId) source.removeChild(_planet);
+        else source.addChildAt(_planet,1);
+
+        var filter:ColorMatrixFilter = new ColorMatrixFilter();
+        filter.tint(Color.WHITE, 1);
+        _planet.hoverCallback = function():void {_planet.filter = filter};
+        _planet.outCallback = function():void {_planet.filter = null};
+        _planet.endClickCallback = visitPerson;
     }
 
-    public function activateUser(_curUser:Someone):void {
-        var i:int;
-        for (i = 0; i < _arrItems.length; i++) {
-            _arrItems[i].person == _curUser ? _arrItems[i].activateIt(true) : _arrItems[i].activateIt(false);
-        }
-        if (_additionalFriendItem) _additionalFriendItem.person == _curUser ? _additionalFriendItem.activateIt(true) : _additionalFriendItem.activateIt(false);
+    private function visitPerson():void {
+        g.townArea.goAway(_person);
+        g.woMarket.hideIt();
     }
 
-    public function resetIt():void {
-        for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].activateIt(false);
+    public function get person():Someone {
+        return _person;
+    }
+
+    private function onGettingUserInfo(ar:Array):void {
+        _person.name = ar[0].first_name;
+        _person.lastName = ar[0].last_name;
+        _person.photo = ar[0].photo_100;
+        _txt.text = _person.name;
+        g.load.loadImage(_person.photo, onLoadPhoto);
+    }
+
+    private function onLoadPhoto(bitmap:Bitmap):void {
+        if (!bitmap) {
+            bitmap = g.pBitmaps[person.photo].create() as Bitmap;
         }
-        _shift = 0;
-        _cont.y = 0;
+        if (!bitmap) {
+            Cc.error('MarketFriendItem:: no photo for userId: ' + _person.userSocialId);
+            return;
+        }
+        photoFromTexture(Texture.fromBitmap(bitmap));
+    }
+
+    private function photoFromTexture(tex:Texture):void {
+        _ava = new Image(tex);
+        MCScaler.scale(_ava, 70, 70);
+        _ava.x = 1;
+        _ava.y = 1;
+        source.addChild(_ava);
+    }
+
+    private function chooseThis():void {
+        if (g.woMarket.curUser == _person) return;
+        _panel.choosePerson(_person);
+        _panel.deleteFriends();
+        _panel.shiftFriend = _shiftFriend;
+        _panel.createMarketTabBtns();
+    }
+
+    public function clearIt():void {
+        _planet.hoverCallback = null;
+        _planet.outCallback = null;
+        _planet.endClickCallback = null;
+        _planet.touchable = false;
+        while (source.numChildren) source.removeChildAt(0);
+        source.endClickCallback = null;
+        source.touchable = false;
+        _person = null;
+        _ava = null;
+        _txt = null;
+        _planet = null;
+        source = null;
     }
 }
 }

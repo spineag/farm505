@@ -13,6 +13,8 @@ import data.DataMoney;
 import flash.filters.GlowFilter;
 import flash.geom.Point;
 import hint.FlyMessage;
+
+import manager.ManagerFilters;
 import manager.Vars;
 import resourceItem.ResourceItem;
 
@@ -34,7 +36,10 @@ public class MarketItem {
 //    private var _bg:Image;
     private var _costTxt:TextField;
     private var _countTxt:TextField;
-    private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная
+    private var _txtName:TextField;
+    private var _txtPlawka:TextField;
+    private var _bg:CartonBackgroundIn;
+    private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная  , 3 - недоступна по лвлу
     private var _callback:Function;
     private var _data:Object;
     private var _dataFromServer:Object;
@@ -50,32 +55,49 @@ public class MarketItem {
 
     public function MarketItem() {
         source = new CSprite();
-        var bg:CartonBackgroundIn = new CartonBackgroundIn(109, 133);
-        source.addChild(bg);
-        _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 14, 0xfbf4cf);
-        _costTxt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
-        _costTxt.x = 22;
+        _bg = new CartonBackgroundIn(110, 133);
+        source.addChild(_bg);
+        _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+//        _costTxt.x = 22;
         _costTxt.y = 103;
+        _costTxt.pivotX = _costTxt.width/2;
+        _costTxt.x = _bg.width/2;
         source.addChild(_costTxt);
 
-        _countTxt = new TextField(30, 20, '', g.allData.fonts['BloggerBold'], 14, 0xfbf4cf);
-        _countTxt.x = 120;
+        _countTxt = new TextField(30, 20, '', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _countTxt.x = 80;
         _countTxt.y = 7;
+        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_countTxt);
+
+        _txtName = new TextField(100,40,'',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtName.pivotX = _txtName.width/2;
+        _txtName.x = _bg.width/2;
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        source.addChild(_txtName);
 
         _imageCont = new Sprite();
         source.addChild(_imageCont);
 
-        _inPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('in_papper'));
+        _inPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
         _inPapper.x = -5;
         _inPapper.y = -5;
         source.addChild(_inPapper);
         _inPapper.visible = false;
 
         _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('roadside_shop_tabl'));
-        _plawkaSold.x = 0 - _plawkaSold.width/2;
+        _plawkaSold.pivotX = _plawkaSold.width/2;
+        _plawkaSold.x = _bg.width/2;
         source.addChild(_plawkaSold);
         _plawkaSold.visible = false;
+
+        _txtPlawka = new TextField(80,60, 'Продано', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtPlawka.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtPlawka.x = 15;
+        _txtPlawka.y = 30;
+        _txtPlawka.visible = false;
+        source.addChild(_txtPlawka);
 
         isFill = 0;
         source.endClickCallback = onClick;
@@ -93,8 +115,10 @@ public class MarketItem {
                 return;
             }
             MCScaler.scale(im, 80, 80);
-            im.x = 80 - im.width/2;
-            im.y = 50 - im.height/2;
+            im.pivotX = im.width/2;
+            im.pivotY = im.height/2;
+            im.x = _bg.width/2;
+            im.y = _bg.height/2;
             _imageCont.addChild(im);
         } else {
             Cc.error('MarketItem fillIt:: empty _data');
@@ -103,6 +127,7 @@ public class MarketItem {
         }
         _countResource = count;
         _countMoney = cost;
+        _txtName.text = _data.name;
         if (!isFromServer) g.userInventory.addResource(_data.id, -_countResource);
         _countTxt.text = String(_countResource);
 //        _countMoney = _countResource * _data.cost;
@@ -152,6 +177,7 @@ public class MarketItem {
                 _inPapper.visible = false;
                 showCoinImage();
                 _plawkaSold.visible = true;
+                _txtPlawka.visible = true;
                 if (_person == g.user.neighbor) {
                     g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
                     _dataFromServer.resourceId = -1;
@@ -179,6 +205,8 @@ public class MarketItem {
                 g.woMarket.marketChoose.callback = onChoose;
                 g.woMarket.marketChoose.showIt();
             }
+        } else if (isFill == 3){
+
         } else {
             if (_isUser) {
                 g.userInventory.addMoney(2,_dataFromServer.cost);
@@ -254,9 +282,11 @@ public class MarketItem {
         _countResource = 0;
         _costTxt.text = '';
         _countTxt.text = '';
+        _txtName.text = '';
         _data = null;
         _inPapper.visible = false;
         _plawkaSold.visible = false;
+        _txtPlawka.visible = false;
     }
 
     public function fillFromServer(obj:Object, p:Someone):void {
@@ -265,12 +295,26 @@ public class MarketItem {
         _dataFromServer = obj;
         _inPapper.visible = _dataFromServer.inPapper;
         if (_dataFromServer.buyerId != '0') {
-            _plawkaSold.visible = true;
+            if (_person.userSocialId == g.user.userSocialId) {
+                _plawkaSold.visible = false;
+                _txtPlawka.visible = false;
+                showCoinImage();
+            }
+            else {
+                _plawkaSold.visible = true;
+                _txtPlawka.visible = true;
+            }
             isFill = 2;
-            showCoinImage();
         } else {
             isFill = 1;
             fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
+            if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) {
+                _plawkaSold.visible = true;
+                _txtPlawka.visible = true;
+                _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
+                isFill = 3;
+                return;
+            }
         }
     }
 
@@ -318,9 +362,12 @@ public class MarketItem {
         MCScaler.scale(im, 80, 80);
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
-//        im.x = _bg.width/2;
-//        im.y = _bg.height/2;
+        im.x = _bg.width/2;
+        im.y = _bg.height/2;
         _imageCont.addChild(im);
+        _costTxt.text = String(_dataFromServer.cost);
     }
+
+//    private function
 }
 }

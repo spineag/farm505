@@ -24,29 +24,32 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.CartonBackground;
+import windows.WOComponents.WOButtonTexture;
 
 public class MarketFriendItem {
     private var _person:Someone;
     public var source:CSprite;
+    public var cloneSource:CSprite;
     private var cont:Sprite;
     private var _ava:Image;
     private var _txt:TextField;
-    private var _ramka:Image;
-    private var _panel:MarketFriendsPanel;
-    private var _planet:CSprite;
+    private var _panel:WOMarket;
+    public var _planet:CSprite;
     private var c:CartonBackground;
+    private var _shiftFriend:int;
 
     private var g:Vars = Vars.getInstance();
 
-    public function MarketFriendItem(f:Someone, p:MarketFriendsPanel) {
+    public function MarketFriendItem(f:Someone, p:WOMarket, _shift:int) {
+        _shiftFriend = _shift;
         source = new CSprite();
+        cloneSource = new CSprite();
+        source.x = 218;
         cont = new Sprite();
-        source.x = -2;
-         c = new CartonBackground(110, 110);
+         c = new CartonBackground(115, 115);
         c.x = -5;
         c.y = -5;
-//        cont.addChild(c);
-        source.addChild(c);
+        source.addChildAt(c,0);
         _person = f;
         if (!_person) {
             Cc.error('MarketFriendItem:: person == null');
@@ -54,8 +57,6 @@ public class MarketFriendItem {
             return;
         }
         _panel = p;
-//        _ramka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tamp_ramka'));
-//        source.addChild(_ramka);
         if (_person is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
@@ -69,17 +70,19 @@ public class MarketFriendItem {
         _txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
         _txt.y = 70;
         if (_person.name) _txt.text = _person.name;
-//        _ramka.visible = false;
         source.addChild(_txt);
         source.endClickCallback = chooseThis;
 
         _planet = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('planet'));
-        im.x = -im.width/2;
-        im.y = -im.height/2;
-        _planet.addChild(im);
-        _planet.x = 85;
-        _planet.y = 15;
+        var btn:WOButtonTexture = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
+        var txtBtn:TextField = new TextField(80,25, "Посетить", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        txtBtn.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        txtBtn.x = -8;
+        _planet.addChild(btn);
+        _planet.addChild(txtBtn);
+        _planet.x = 20;
+        _planet.y = -10;
+        _planet.visible = false;
         if (_person.userSocialId == g.user.userSocialId) source.removeChild(_planet);
         else source.addChild(_planet);
 
@@ -123,18 +126,15 @@ public class MarketFriendItem {
         MCScaler.scale(_ava, 98, 98);
         _ava.x = 1;
         _ava.y = 1;
-        source.addChild(_ava);
-    }
-
-    public function activateIt(value:Boolean):void {
-        c.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        source.addChildAt(_ava,1);
     }
 
     private function chooseThis():void {
         if (g.woMarket.curUser == _person) return;
-
         _panel.choosePerson(_person);
-        activateIt(true);
+        _panel.deleteFriends();
+        _panel.shiftFriend = _shiftFriend;
+        _panel.createMarketTabBtns();
     }
 
     public function clearIt():void {
@@ -145,7 +145,6 @@ public class MarketFriendItem {
         while (source.numChildren) source.removeChildAt(0);
         source.endClickCallback = null;
         source.touchable = false;
-//        _ramka = null;
         _person = null;
         _ava = null;
         _txt = null;

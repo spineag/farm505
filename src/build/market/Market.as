@@ -67,13 +67,12 @@ public class Market extends AreaObject{
             } else {
                 g.woMarket.curUser = g.user;
             }
-            g.woMarket.showIt();
+            g.woMarket.showItWithParams();
             onOut();
             _source.filter = null;
         } else {
             Cc.error('Market:: unknown g.toolsModifier.modifierType')
         }
-
     }
 
     private function onOut():void {
