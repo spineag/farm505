@@ -148,6 +148,7 @@ public class WOFabricaWorkListItem {
             _icon = null;
         }
         _resource = null;
+        _skipCallback = null;
         if (_type == SMALL_CELL) {
             _source.visible = false;
             if (_proposeBtn) {
@@ -235,7 +236,6 @@ public class WOFabricaWorkListItem {
                 g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_resource.priceSkipHard);
                 destroyTimer();
                 _skipCallback.apply();
-                _skipCallback = null;
             }
         } else {
             g.woBuyCurrency.showItMenu(true);

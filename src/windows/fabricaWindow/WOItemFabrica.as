@@ -89,6 +89,7 @@ public class WOItemFabrica {
     }
 
     private function onHover():void {
+        if (!_dataRecipe) return;
         g.fabricHint.clearIt();
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
@@ -96,6 +97,7 @@ public class WOItemFabrica {
     }
 
     private function onOut():void {
+        if (!_dataRecipe) return;
         g.fabricHint.clearIt();
     }
 }

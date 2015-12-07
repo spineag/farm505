@@ -23,7 +23,6 @@ import windows.ambar.AmbarProgress;
 
 public class CraftPanel {
     private var _source:Sprite;
-    private var _bg:Quad;
     private var _progress:AmbarProgress;
     private var _isShow:Boolean;
     private var _resourceSprite:Sprite;
@@ -39,8 +38,6 @@ public class CraftPanel {
         _isShow = false;
         _source = new Sprite();
         _source.touchable = false;
-        _bg = new Quad(300, 45, Color.GRAY);
-        _source.addChild(_bg);
         _source.pivotX = _source.width/2;
         _source.pivotY = _source.height/2;
         _source.x = g.stageWidth/2;
@@ -110,7 +107,7 @@ public class CraftPanel {
         var im:Image;
         im = new Image(g.allData.atlas[item.url].getTexture(item.imageShop));
         MCScaler.scale(im, 50, 50);
-        im.x = -im.width/2;
+        im.x = -im.width/2 - 140;
         im.y = -im.height/2;
         _resourceSprite.addChild(im);
     }
@@ -136,7 +133,7 @@ public class CraftPanel {
     }
 
     public function pointXY():Point {
-        return _source.localToGlobal(new Point(0,0));
+        return _source.localToGlobal(new Point(-140,0));
     }
 
 }

@@ -80,6 +80,16 @@ public class WOFabricaWorkList {
 
     private function onSkip():void {
         _fabrica.skipRecipe();
+        updateList();
+    }
+
+    private function updateList():void {
+        var ar:Array = _arrRecipes.slice(1); // don't use first recipe, because it was just skipped
+        _arrRecipes.length = 0;
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _arrItems[i].unfillIt();
+        }
+        fillIt(ar, _fabrica);
     }
 
     public function get isFull():Boolean {
@@ -126,10 +136,10 @@ public class WOFabricaWorkList {
         _fabrica = null;
     }
 
-    public function skipIt():void {
-        _arrItems[0].destroyTimer();
-        _arrItems[0].unfillIt();
-        onFinishTimer();
-    }
+//    public function skipIt():void {
+//        _arrItems[0].destroyTimer();
+//        _arrItems[0].unfillIt();
+//        onFinishTimer();
+//    }
 }
 }

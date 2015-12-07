@@ -374,8 +374,6 @@ public class Vars {
     }
 
     private function initVariables2():void {
-        managerCats.setAllCatsToRandomPositions();
-
         startPreloader.setProgress(100);
         startPreloader.hideIt();
         startPreloader = null;
@@ -438,6 +436,7 @@ public class Vars {
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         managerPaper.getPaperItems();
+        managerCats.setAllCatsToRandomPositions();
 
         if (!useDataFromServer) temporaryFillUserInventory();
 

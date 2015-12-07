@@ -112,13 +112,20 @@ public class TownArea extends Sprite {
         return ar;
     }
 
-    public function getCityTreeById(id:int):Array {
+    public function getCityTreeById(id:int, checkLastState:Boolean = false):Array {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 if (_cityObjects[i] is BasicCat) continue;
-                if (_cityObjects[i].dataBuild.id == id && _cityObjects[i].stateTree != Tree.FULL_DEAD)
-                    ar.push(_cityObjects[i]);
+                if (_cityObjects[i] is Tree) {
+                    if (checkLastState) {
+                        if (_cityObjects[i].dataBuild.id == id && (_cityObjects[i] as Tree).stateTree != Tree.FULL_DEAD)
+                            ar.push(_cityObjects[i])
+                    } else {
+                        if (_cityObjects[i].dataBuild.id == id)
+                            ar.push(_cityObjects[i])
+                    }
+                }
             }
         } catch (e:Error) {
             Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
@@ -438,6 +445,11 @@ public class TownArea extends Sprite {
 
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree)) {
             g.bottomPanel.cancelBoolean(true);
+            if (worldObject is Ridge) {
+                g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
+            } else {
+                g.toolsModifier.modifierType = ToolsModifier.PLANT_TREES;
+            }
             var arr:Array;
             var curCount:int;
             var maxCount:int;

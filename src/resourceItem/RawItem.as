@@ -20,6 +20,7 @@ import utils.MCScaler;
 public class RawItem {
     private var g:Vars = Vars.getInstance();
 
+    //just animation for raw process
     public function RawItem(endPoint:Point, texture:Texture, count:int, delay:Number):void {
         var _source:Sprite = new Sprite();
         _source.touchable = false;

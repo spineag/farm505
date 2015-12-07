@@ -245,6 +245,15 @@ public class Fabrica extends AreaObject {
     }
 
     private function render():void {
+        if (!_arrList.length) {
+            if (_heroCat) {
+                _heroCat.visible = true;
+                _heroCat.isFree = true;
+            }
+            stopTempAnimation();
+            g.gameDispatcher.removeFromTimer(render);
+            return;
+        }
         _arrList[0].leftTime--;
         if (_arrList[0].leftTime <= 0) {
             craftResource(_arrList.shift());
@@ -331,10 +340,8 @@ public class Fabrica extends AreaObject {
     }
 
     public function skipRecipe():void { // for making recipe
-        g.woFabrica.onClickExit();
         g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
         craftResource(_arrList.shift());
-        g.woFabrica.showItWithParams(_arrRecipes, _arrList, this, callbackOnChooseRecipe);
     }
 
 }

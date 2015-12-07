@@ -118,7 +118,7 @@ public class WOFabrica extends Window {
         if (_list.isFull){
             var price:int = _list.priceForNewCell;
             hideIt();
-            g.woNoPlaces.showItWithParams(price, onBuyNewCellFromWO);
+            g.woNoPlaces.showItWithParams(price, onBuyNewCellFromWO, onClickExit);
             return;
         }
             var count:int = 0;

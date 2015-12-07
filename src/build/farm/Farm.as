@@ -147,8 +147,8 @@ public class Farm extends AreaObject{
     private function sortAnimals():void {
         counter--;
         if (counter <= 0) {
-            arr = _arrAnimals;
-            if (_farmCat) arr.push(_farmCat);
+            arr = _arrAnimals.slice();
+            if (_farmCat && arr.indexOf(_farmCat) == -1) arr.push(_farmCat);
             if (arr.length > 1) {
                 arr.sortOn('depth', Array.NUMERIC);
                 for (var i:int = 0; i < arr.length; i++) {
@@ -178,7 +178,7 @@ public class Farm extends AreaObject{
         for (var i:int=0; i<_arrAnimals.length; i++) {
             if ((_arrAnimals[i] as Animal).state != Animal.WORKED) countNotWorkedAnimals++;
         }
-        if (countNotWorkedAnimals == _arrAnimals.length) {
+        if (countNotWorkedAnimals >= _arrAnimals.length) {
             stopAnimateCat();
             g.managerAnimal.freeFarmCat(_dbBuildingId);
         }

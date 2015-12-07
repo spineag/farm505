@@ -313,6 +313,22 @@ public class ToolsModifier {
                 imForMove.x = _activeBuildingData.innerX;
                 imForMove.y = _activeBuildingData.innerY;
                 _spriteForMove.addChild(imForMove);
+                if (_activeBuildingData.url == "farmAtlas") {
+                    var dataAnimal:Object;
+                    for (var id:String in g.dataAnimal.objectAnimal) {
+                        if (g.dataAnimal.objectAnimal[id].buildId == _activeBuildingData.id) {
+                            dataAnimal = g.dataAnimal.objectAnimal[id];
+                            break;
+                        }
+                    }
+                    if (dataAnimal && dataAnimal.id != 6) {
+                        var im:Image = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image + '2'));
+                        im.x = -338;
+                        im.y = 88;
+                        im.touchable = false;
+                        _spriteForMove.addChild(im);
+                    }
+                }
             } else {
                 Cc.error('ToolsModifier startMove:: no image for url=buildAtlas and _activeBuildingData.image: ' + _activeBuildingData.image);
                 g.woGameError.showIt();
@@ -351,7 +367,10 @@ public class ToolsModifier {
             return;
         }
 
-        if (_activeBuildingData.isFlip) imForMove.scaleX *= -1;
+        if (_activeBuildingData.isFlip) {
+            imForMove.pivotX = imForMove.width;
+            imForMove.scaleX *= -1;
+        }
 
         _spriteForMove.x = _mouse.mouseX - _cont.x;
         _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
@@ -468,11 +487,6 @@ public class ToolsModifier {
         var y:Number;
         var point:Point;
 
-        if (_activeBuildingData.buildType == BuildType.DECOR_TAIL) {
-            g.cont.contentCont.alpha = 1;
-            g.cont.contentCont.touchable = true;
-        }
-
 
         if (!_spriteForMove) return;
         if (g.selectedBuild && g.selectedBuild.useIsometricOnly) {
@@ -481,6 +495,15 @@ public class ToolsModifier {
         }
         x = _spriteForMove.x;
         y = _spriteForMove.y;
+        if (_activeBuildingData.buildType == BuildType.DECOR_TAIL) {
+            if (g.townArea.townTailMatrix[point.y][point.x].build) {
+                g.gameDispatcher.addEnterFrame(onEnterFrame);
+                return;
+            } else {
+                g.cont.contentCont.alpha = 1;
+                g.cont.contentCont.touchable = true;
+            }
+        }
         if (!g.isActiveMapEditor && g.selectedBuild && g.selectedBuild.useIsometricOnly && !(g.selectedBuild is DecorTail)) {
             if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) {
                 g.gameDispatcher.addEnterFrame(onEnterFrame);
@@ -494,7 +517,6 @@ public class ToolsModifier {
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
 
         _cont.removeChild(_spriteForMove);
-//        _spriteForMove.unflatten();
         while (_spriteForMove.numChildren) {
             _spriteForMove.removeChildAt(0);
         }
@@ -554,6 +576,7 @@ public class ToolsModifier {
     public function checkFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
         for (i = posY; i < posY + height; i++) {
             for (j = posX; j < posX + width; j++) {
+                if (i < 0 || j < 0 || i > 80 || j > 80) return false;
                 obj = _townMatrix[i][j];
                 if (!obj.inGame) return false;
                 if (obj.isFull) return false;

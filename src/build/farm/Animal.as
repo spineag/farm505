@@ -132,15 +132,14 @@ public class Animal {
             return;
             }
             if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
-                var rawItem:RawItem;
                 g.userInventory.addResource(_data.idResourceRaw, -1);
                 _timeToEnd = _data.timeCraft;
                 g.gameDispatcher.addToTimer(render);
                 _state = WORKED;
-//                g.managerAnimal.addCatToFarm(_farm);
+                g.managerAnimal.addCatToFarm(_farm);
                 var p:Point = new Point(source.x, source.y);
                 p = source.parent.localToGlobal(p);
-                rawItem = new RawItem(p, g.allData.atlas[g.dataResource.objectResources[_data.idResourceRaw].url].getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+                new RawItem(p, g.allData.atlas[g.dataResource.objectResources[_data.idResourceRaw].url].getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
                 if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
                 addRenderAnimation();
             } else {
@@ -312,6 +311,7 @@ public class Animal {
     }
 
     private function callbackSkip():void {
+        onOut();
         g.directServer.skipTimeOnAnimal(_timeToEnd,animal_db_id,null);
         _timeToEnd = 0;
         render();

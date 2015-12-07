@@ -34,7 +34,6 @@ public class ShopItem {
     private var _nameTxt:TextField;
     private var _data:Object;
     private var _lockedSprite:Sprite;
-    private var _lockedTxt:TextField;
     private var _countCost:int;
     private var _state:int;
     private const STATE_FROM_INVENTORY:int = 1;
@@ -66,11 +65,12 @@ public class ShopItem {
         source.endClickCallback = onClick;
 
         _lockedSprite = new Sprite();
-        _lockedTxt = new TextField(145, 70, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _lockedTxt.nativeFilters = ManagerFilters.TEXT_STROKE_RED;
-        _lockedSprite.addChild(_lockedTxt);
-        _lockedSprite.y = 136;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_lock'));
+        _lockedSprite.addChild(im);
+        _lockedSprite.x = 1;
+        _lockedSprite.y = 75;
         source.addChild(_lockedSprite);
+        _lockedSprite.visible = false;
 
         _txtAvailable = new TextField(145, 80, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtAvailable.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -78,7 +78,7 @@ public class ShopItem {
         source.addChild(_txtAvailable);
 
         _shopLimitSprite = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_limit'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_limit'));
         im.x = -7;
         _shopLimitSprite.addChild(im);
         var txt:TextField = new TextField(145, 26, 'Достигнут лимит', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
@@ -181,12 +181,19 @@ public class ShopItem {
         var maxCount:int;
         var curCount:int;
         var maxCountAtCurrentLevel:int = 0;
+
         _nameTxt.text = '';
+        _lockedSprite.visible = false;
+        _btnActivationYellow.visible = false;
+        _btnBuyBlue.visible = false;
+        _btnBuyGreen.visible = false;
+        _shopLimitSprite.visible = false;
 
         if (_data.buildType == BuildType.FABRICA ) {
             if (_data.blockByLevel) {
                 arr = g.townArea.getCityObjectsById(_data.id);
                 if (_data.blockByLevel[0] > g.user.level) {
+                    _lockedSprite.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                     _nameTxt.text = _data.name;
                 } else {
@@ -218,6 +225,7 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
+                _lockedSprite.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _nameTxt.text = _data.name;
             } else {
@@ -244,6 +252,7 @@ public class ShopItem {
                     arr = g.townArea.getCityObjectsById(_data.id);
                 }
                 if (_data.blockByLevel[0] > g.user.level) {
+                    _lockedSprite.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                     _nameTxt.text = _data.name;
                 } else {
@@ -263,6 +272,7 @@ public class ShopItem {
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
+                    _lockedSprite.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(dataFarm.blockByLevel[0]) + ' уровне';
                     _nameTxt.text = _data.name;
                 } else {
@@ -294,9 +304,10 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.TREE) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
+                _lockedSprite.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
             } else {
-                arr = g.townArea.getCityTreeById(_data.id);
+                arr = g.townArea.getCityTreeById(_data.id, true);
                 curCount = arr.length;
                 for (i = 0; _data.blockByLevel.length; i++) {
                     if (_data.blockByLevel[i] <= g.user.level) {
@@ -374,7 +385,7 @@ public class ShopItem {
             new FlyMessage(p,"откроется на " + String(_data.blockByLevel) + " уровне");
             return;
         }
-        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (_data.currency == DataMoney.SOFT_CURRENCY) {
                 if (g.user.softCurrencyCount < _countCost){
                     g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);

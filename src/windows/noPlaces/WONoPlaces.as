@@ -30,6 +30,7 @@ public class WONoPlaces extends Window{
     private var _woBG:WindowBackground;
     private var _price:int;
     private var _buyCallback:Function;
+    private var _exitCallback:Function;
 
     public function WONoPlaces() {
         super();
@@ -69,12 +70,18 @@ public class WONoPlaces extends Window{
 
     private function onClickExit(e:Event=null):void {
         hideIt();
+        if (_exitCallback != null) {
+            _exitCallback.apply();
+            _exitCallback = null;
+        }
+        _buyCallback = null;
     }
 
-    public function showItWithParams(price:int, callback:Function):void {
+    public function showItWithParams(price:int, callback:Function, callbackExit:Function):void {
         _price = price;
         _txtCost.text = String(price);
         _buyCallback = callback;
+        _exitCallback = callbackExit;
         showIt();
     }
 

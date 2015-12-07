@@ -8,6 +8,8 @@ import flash.geom.Rectangle;
 
 import manager.Vars;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 
 import starling.display.Sprite;
@@ -38,6 +40,7 @@ public class Hint {
 
     public function Hint() {
         source = new Sprite();
+        source.touchable = false;
         _contHint = new Sprite();
         _isShow = false;
         _txtHintOne = new TextField(70,50,"","Arial",14,Color.BLACK);
@@ -131,6 +134,14 @@ public class Hint {
     private function onEnterFrame():void {
         source.x = g.ownMouse.mouseX + 20;
         source.y = g.ownMouse.mouseY - 40;
+        checkPosition();
+    }
+
+    private function checkPosition():void {  // check is hint source is in stage width|height
+        if (source.x < 20) source.x = 20;
+        if (source.x > Starling.current.nativeStage.stageWidth - source.width - 20) source.x = Starling.current.nativeStage.stageWidth - source.width - 20;
+        if (source.y < 20) source.y = 20;
+        if (source.y > Starling.current.nativeStage.stageHeight - source.height - 20) source.y = Starling.current.nativeStage.stageHeight - source.height - 20;
     }
 
     public function hideIt():void {
