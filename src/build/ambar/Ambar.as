@@ -18,6 +18,7 @@ import starling.utils.Color;
 import windows.ambar.WOAmbars;
 
 public class Ambar extends AreaObject{
+    private var _ambarIndicator:AmbarIndicator;
     public function Ambar(_data:Object) {
         super(_data);
         if (!_data) {
@@ -26,6 +27,10 @@ public class Ambar extends AreaObject{
             return;
         }
         createBuild();
+        _ambarIndicator = new AmbarIndicator();
+        _ambarIndicator.source.x = -36;
+        _ambarIndicator.source.y = -210;
+        _build.addChild(_ambarIndicator.source);
 
         if (!g.isAway) {
             _source.hoverCallback = onHover;
@@ -62,7 +67,6 @@ public class Ambar extends AreaObject{
         } else {
             Cc.error('Ambar:: unknown g.toolsModifier.modifierType')
         }
-
     }
 
     private function onOut():void {
@@ -75,6 +79,11 @@ public class Ambar extends AreaObject{
         _source.touchable = false;
         super.clearIt();
     }
+
+    public function updateIndicatorProgress():void {
+        _ambarIndicator.updateProgress();
+    }
+
 
 }
 }

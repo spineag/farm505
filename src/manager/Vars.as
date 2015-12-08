@@ -3,9 +3,12 @@
  */
 package manager {
 import build.WorldObject;
+import build.ambar.Ambar;
 import build.farm.FarmGrid;
 
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
 
 import dragonBones.animation.WorldClock;
 
@@ -460,6 +463,7 @@ public class Vars {
         xpPanel.checkXP();
         managerOrder.checkOrders();
         gameDispatcher.addEnterFrame(onEnterFrameGlobal);
+        updateAmbarIndicator();
     }
 
     private function onEnterFrameGlobal():void {
@@ -507,6 +511,11 @@ public class Vars {
         if (treeHint) treeHint.hideIt();
         if (resourceHint) resourceHint.hideIt();
         if (hint) (hint as Hint).hideIt();
+    }
+
+    public function updateAmbarIndicator():void {
+        var a:WorldObject = townArea.getCityObjectsByType(BuildType.AMBAR)[0];
+        (a as Ambar).updateIndicatorProgress();
     }
 }
 }

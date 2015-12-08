@@ -23,8 +23,6 @@ public class ProgressBarComponent extends Sprite {
         _right = new Sprite();
         var im:Image = new Image(lt);
         _left.addChild(im);
-        im = new Image(ct);
-        _left.addChild(im);
         im = new Image(rt);
         _right.addChild(im);
         _center.x = _left.width;

@@ -70,8 +70,12 @@ public class FriendItem {
     }
 
     private function visitPerson():void {
-        g.townArea.goAway(_person);
-        g.woMarket.hideIt();
+        if (g.currentOpenedWindow && g.currentOpenedWindow == g.woMarket) g.woMarket.hideIt();
+        if (_person == g.user) {
+            if (g.isAway) g.townArea.backHome();
+        } else {
+            g.townArea.goAway(_person);
+        }
     }
 
     public function get person():Someone {

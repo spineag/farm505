@@ -115,7 +115,7 @@ public class FriendPanel {
 
     private var isAnimated:Boolean = false;
     private function leftArrow():void {
-        if (isAnimated) return;
+        if (isAnimated || !_arrFriends.length) return;
         if (_shift > 0) {
             _shift -= 5;
             if (_shift<0) _shift = 0;
@@ -125,7 +125,7 @@ public class FriendPanel {
     }
 
     private function rightArrow():void {
-        if (isAnimated) return;
+        if (isAnimated || !_arrFriends.length) return;
         var l:int = _arrFriends.length;
         if (_shift +1 < l) {
             _shift += 5;
