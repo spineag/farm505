@@ -18,6 +18,7 @@ import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
@@ -140,7 +141,11 @@ public class ShopItem {
 
     private function setInfo():void {
         if (_data.image) {
-            _im = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
+            var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
+            if (!texture) {
+                texture = g.allData.atlas[_data.url].getTexture(_data.image);
+            }
+            _im = new Image(texture);
             if (!_im) {
                 Cc.error('ShopItem:: no such image: ' + _data.image);
                 g.woGameError.showIt();
