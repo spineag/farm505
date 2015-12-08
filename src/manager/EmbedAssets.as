@@ -72,6 +72,8 @@ public class EmbedAssets {
 
     [Embed(source = "../../assets/cat9.png", mimeType = "application/octet-stream")]
     public static const CatData:Class;
+    [Embed(source = "../../assets/buildingBuild.png", mimeType = "application/octet-stream")]
+    public static const BuildingBuild:Class;
 
     private var g:Vars = Vars.getInstance();
 
