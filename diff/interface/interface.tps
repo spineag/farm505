@@ -310,6 +310,10 @@
             <filename>shop</filename>
             <filename>ui</filename>
             <filename>newspaper_icon_small.png</filename>
+            <filename>newlevel_window_fon.png</filename>
+            <filename>newlevel_window_paper.png</filename>
+            <filename>ambar_indicator_main.png</filename>
+            <filename>ambar_indicator_top.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

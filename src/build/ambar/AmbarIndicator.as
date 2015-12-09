@@ -21,7 +21,7 @@ public class AmbarIndicator {
         _cont = new Sprite();
         _cont.clipRect = new flash.geom.Rectangle(0, 0, 73, 271);
         source.addChild(_cont);
-        imLenta = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ambar_indicator_main'));
+        imLenta = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ambar_indicator_main' ));
         imLenta.pivotX = imLenta.width/2;
         imLenta.x = 39;
         _cont.addChild(imLenta);
