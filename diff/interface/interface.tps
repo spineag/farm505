@@ -314,6 +314,7 @@
             <filename>newlevel_window_paper.png</filename>
             <filename>ambar_indicator_main.png</filename>
             <filename>ambar_indicator_top.png</filename>
+            <filename>default_avatar_big.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

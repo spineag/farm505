@@ -52,7 +52,7 @@ public class WOLevelUp extends Window{
         _source.addChild(_woBG);
         var bg:Image;
         bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newlevel_window_fon'));
-        bg.x = -_woWidth/2 + 7;
+        bg.x = -_woWidth/2 + 10;
         bg.y = -_woHeight/2 + 15;
         _source.addChild(bg);
         createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
@@ -69,7 +69,7 @@ public class WOLevelUp extends Window{
         _arrCells = [];
         _source.addChild(_contClipRect);
         _contClipRect.clipRect = new Rectangle(0,0,460,220);
-        _contClipRect.x = -_woWidth/2 + 47;
+        _contClipRect.x = -_woWidth/2 + 42;
         _contClipRect.y = 70;
         _contBtn.endClickCallback = onClickBtn;
         _txtNewLvl = new TextField(120,100,"НОВЫЙ УРОВЕНЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
@@ -90,7 +90,7 @@ public class WOLevelUp extends Window{
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.x = im.width;
         _leftArrow.addChild(im);
-        _leftArrow.x = -_woWidth/2 + 9;
+        _leftArrow.x = -_woWidth/2 - 9;
         _leftArrow.y = 87;
         _source.addChild(_leftArrow);
         _leftArrow.endClickCallback = onLeftClick;
@@ -116,11 +116,11 @@ public class WOLevelUp extends Window{
         _source.addChild(_contBtn);
         _contClipRect.addChild(_contImage);
 
-        _txtNewLvl.x = -70;
+        _txtNewLvl.x = -67;
         _txtNewLvl.y = -55;
-        _txtNewObject.x = -100;
+        _txtNewObject.x = -108;
         _txtNewObject.y = 125;
-        _txtLevel.x = -155;
+        _txtLevel.x = -152;
         _txtLevel.y = -120;
         _txtContinue.x = -80;
         _txtContinue.y = 165;
@@ -129,7 +129,7 @@ public class WOLevelUp extends Window{
         btn.x = -86;
         btn.y = 193;
         _imageHard.x = 40;
-        _imageHard.y = 205;
+        _imageHard.y = 203;
         callbackClickBG = onClickExit;
     }
 
@@ -201,6 +201,15 @@ public class WOLevelUp extends Window{
 //            im.source.y = i % 2 * (110);
             _arrCells.push(im);
             _contImage.addChild(im.source);
+        }
+        if (_arrCells.length == 1) {
+            _contImage.x = 180;
+        } else if (_arrCells.length == 2) {
+            _contImage.x = 140;
+        } else if (_arrCells.length == 3) {
+            _contImage.x = 120;
+        } else if (_arrCells.length == 4) {
+            _contImage.x = 50;
         }
         if (_arrCells.length > 5) {
             _leftArrow.visible = true;

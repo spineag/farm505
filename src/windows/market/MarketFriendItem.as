@@ -64,6 +64,12 @@ public class MarketFriendItem {
         } else {
             if (_person.photo) {
                 g.load.loadImage(_person.photo, onLoadPhoto);
+                _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                _ava.filter = ManagerFilters.WHITE_STROKE;
+                MCScaler.scale(_ava, 98, 98);
+                _ava.x = 1;
+                _ava.y = 1;
+                source.addChildAt(_ava,1);
             } else {
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
             }
@@ -125,6 +131,7 @@ public class MarketFriendItem {
 
     private function photoFromTexture(tex:Texture):void {
         _ava = new Image(tex);
+        _ava.filter = ManagerFilters.WHITE_STROKE;
         MCScaler.scale(_ava, 98, 98);
         _ava.x = 1;
         _ava.y = 1;
