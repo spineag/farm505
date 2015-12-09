@@ -79,7 +79,7 @@ public class Window {
 
     protected function createExitButton(callback:Function):void {
         _btnExit = new CButton();
-        _btnExit.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
+        _btnExit.addDisplayObject(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
         _btnExit.setPivots();
         _btnExit.x = _woWidth/2 - 36;
         _btnExit.y = -_woHeight/2 + 36;

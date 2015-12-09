@@ -2,12 +2,12 @@
  * Created by user on 11/24/15.
  */
 package windows.WOComponents {
-import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.TextureAtlas;
+import utils.CButton;
 
 public class WOButtonTexture extends Sprite {
     public static const GREEN:int = 1;
@@ -26,9 +26,9 @@ public class WOButtonTexture extends Sprite {
         var st:String = 'bt_b_';
 
         switch (_type) {
-            case GREEN: st = 'bt_gr_'; break;
-            case BLUE: st = 'bt_b_'; break;
-            case YELLOW: st = 'bt_y_'; break;
+            case CButton.GREEN: st = 'bt_gr_'; break;
+            case CButton.BLUE: st = 'bt_b_'; break;
+            case CButton.YELLOW: st = 'bt_y_'; break;
         }
 
         //top left
@@ -98,7 +98,6 @@ public class WOButtonTexture extends Sprite {
             }
         }
 
-        this.filter = ManagerFilters.SHADOW;
         arr.length = 0;
         flatten();
     }

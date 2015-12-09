@@ -8,13 +8,15 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
 
+import utils.CButton;
+
 import utils.CSprite;
 
 public class OwnScroll {
     public var source:Sprite;
     private var _size:int;  //height - для вертикального, width - для горизонтального
     private var _lineImage:Image;
-    private var _box:CSprite;
+    private var _box:CButton;
     private var _startDragSourcePoint:int;
     private var _startDragPoint:int;
     private var _dragCallback:Function;
@@ -31,10 +33,9 @@ public class OwnScroll {
         _isVertical ? _lineImage.height = _size : _lineImage.width = _size;
         _lineImage.pivotX = _lineImage.width/2;
 
-        _box = new CSprite();
-        var boxImage:Image = new Image(boxTexture);
-        boxImage.pivotX = boxImage.width/2;
-        _box.addChild(boxImage);
+        _box = new CButton();
+        _box.addDisplayObject(new Image(boxTexture));
+        _box.setPivots();
 
         source.addChild(_lineImage);
         source.addChild(_box);
@@ -45,7 +46,7 @@ public class OwnScroll {
 
     private function onStartDrag():void {
         if (_isVertical) {
-            _startDragSourcePoint = _box.y;
+            _startDragSourcePoint = _box.y + _box.height/2;
             _startDragPoint = g.ownMouse.mouseY;
         } else {
             _startDragSourcePoint = _box.x;
@@ -58,9 +59,9 @@ public class OwnScroll {
     private function onDrag(_globalX:int, _globalY:int):void {
         if (_isVertical) {
             _delta = _globalY - _startDragPoint;
-            _box.y = _startDragSourcePoint + _delta;
-            if (_box.y > _size - _box.height) _box.y = _size - _box.height;
-            if (_box.y < 0) _box.y = 0;
+            _box.y = _startDragSourcePoint + _delta  - _box.height/2;
+            if (_box.y > _size - _box.height/2) _box.y = _size - _box.height/2;
+            if (_box.y <_box.height/2) _box.y = _box.height/2;
             _percent = _box.y / (_size - _box.height);
         } else {
             // для горизонталього скролла
@@ -71,7 +72,7 @@ public class OwnScroll {
     }
 
     public function resetPosition():void {
-        _box.y = 0;
+        _box.y = _box.height/2;
         _box.x = 0;
     }
 

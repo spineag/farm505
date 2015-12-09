@@ -15,6 +15,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 import utils.MCScaler;
@@ -25,7 +27,7 @@ public class UpdateItem {
     public var source:CSprite;
     private var _resourceId:int;
     private var _bg:Sprite;
-    private var _btn:CSprite;
+    private var _btn:CButton;
     private var _btnTxt:TextField;
     private var _imGalo4ka:Image;
     private var _txtCount:TextField;
@@ -49,12 +51,12 @@ public class UpdateItem {
         _txtCount.y = 80;
         source.addChild(_txtCount);
 
-        _btn = new CSprite();
-        _btn.y = 120;
+        _btn = new CButton();
+        _btn.addButtonTexture(100, 40, CButton.GREEN, true);
+        _btn.x = 50;
+        _btn.y = 140;
         source.addChild(_btn);
-        _btn.endClickCallback = onBuy;
-        var imBG:Sprite = new WOButtonTexture(100, 40, WOButtonTexture.GREEN);
-        _btn.addChild(imBG);
+        _btn.clickCallback = onBuy;
 
         _btnTxt = new TextField(50,20,'50',g.allData.fonts['BloggerMedium'],18, Color.WHITE);
         _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
@@ -66,12 +68,13 @@ public class UpdateItem {
         MCScaler.scale(dmnt, 30, 30);
         dmnt.x = 57;
         dmnt.y = 4;
-        _btn.addChild(dmnt);
+        _btn.addDisplayObject(dmnt, true);
 
         _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-        _imGalo4ka.x = 50 - _imGalo4ka.width/2;
-        _imGalo4ka.y = 120;
+        _imGalo4ka.x = 53 - _imGalo4ka.width/2;
+        _imGalo4ka.y = 123;
         source.addChild(_imGalo4ka);
+        _imGalo4ka.filter = ManagerFilters.SHADOW_TINY;
     }
 
     public function updateIt(id:int, isAmbar:Boolean = true):void {

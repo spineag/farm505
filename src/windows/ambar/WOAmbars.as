@@ -16,13 +16,14 @@ import starling.text.TextField;
 import starling.utils.Color;
 import starling.utils.HAlign;
 
+import utils.CButton;
+
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
-import windows.WOComponents.WOButtonTexture;
 import windows.Window;
 import windows.WOComponents.WindowBackground;
 
@@ -42,14 +43,14 @@ public class WOAmbars extends Window {
     private var _birka:Birka;
     private var _progress:AmbarProgress;
     private var _txtCount:TextField;
-    private var _btnShowUpdate:CSprite;
+    private var _btnShowUpdate:CButton;
     private var _txtBtnShowUpdate:TextField;
-    private var _btnBackFromUpdate:CSprite;
+    private var _btnBackFromUpdate:CButton;
     private var _updateSprite:Sprite;
     private var _item1:UpdateItem;
     private var _item2:UpdateItem;
     private var _item3:UpdateItem;
-    private var _btnMakeUpdate:CSprite;
+    private var _btnMakeUpdate:CButton;
 
     public function WOAmbars() {
         _woWidth = 538;
@@ -197,33 +198,31 @@ public class WOAmbars extends Window {
         _txtCount.y = -_woHeight/2 + 473;
         _source.addChild(_txtCount);
 
-        _btnShowUpdate = new CSprite();
-        var t:Sprite = new WOButtonTexture(121, 40, WOButtonTexture.GREEN);
-        _btnShowUpdate.addChild(t);
+        _btnShowUpdate = new CButton();
+        _btnShowUpdate.addButtonTexture(121, 40, CButton.GREEN, true);
+        _btnShowUpdate.x = -_woWidth/2 + 430;
+        _btnShowUpdate.y = -_woHeight/2 + 509;
         _txtBtnShowUpdate = new TextField(90, 50, "Увеличить склад", g.allData.fonts['BloggerMedium'], 14, Color.WHITE);
         _txtBtnShowUpdate.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtBtnShowUpdate.x = 18;
         _txtBtnShowUpdate.y = -5;
         _btnShowUpdate.addChild(_txtBtnShowUpdate);
-        _btnShowUpdate.x = -_woWidth/2 + 370;
-        _btnShowUpdate.y = -_woHeight/2 + 489;
         _source.addChild(_btnShowUpdate);
-        _btnShowUpdate.endClickCallback = showUpdateState;
+        _btnShowUpdate.clickCallback = showUpdateState;
     }
 
     private function createWOUpdateElements():void {
-        _btnBackFromUpdate = new CSprite();
-        var t:Sprite = new WOButtonTexture(121, 40, WOButtonTexture.GREEN);
-        _btnBackFromUpdate.addChild(t);
+        _btnBackFromUpdate = new CButton();
+        _btnBackFromUpdate.addButtonTexture(121, 40, CButton.BLUE, true);
         var txt:TextField = new TextField(90, 50, "Назад", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = 18;
         txt.y = -4;
         _btnBackFromUpdate.addChild(txt);
-        _btnBackFromUpdate.x = -_woWidth/2 + 370;
-        _btnBackFromUpdate.y = -_woHeight/2 + 489;
+        _btnBackFromUpdate.x = -_woWidth/2 + 430;
+        _btnBackFromUpdate.y = -_woHeight/2 + 509;
         _source.addChild(_btnBackFromUpdate);
-        _btnBackFromUpdate.endClickCallback = showUsualState;
+        _btnBackFromUpdate.clickCallback = showUsualState;
 
         _updateSprite = new Sprite();
         _item1 = new UpdateItem();
@@ -247,21 +246,21 @@ public class WOAmbars extends Window {
         txt.y = -35;
         _updateSprite.addChild(txt);
 
-        _btnMakeUpdate = new CSprite();
-        t = new WOButtonTexture(121, 40, WOButtonTexture.BLUE);
-        _btnMakeUpdate.addChild(t);
+        _btnMakeUpdate = new CButton();
+        _btnMakeUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
         txt = new TextField(90, 50, "Увеличить", g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = 17;
         txt.y = -4;
         _btnMakeUpdate.addChild(txt);
-        _btnMakeUpdate.x = 141;
-        _btnMakeUpdate.y = 190;
+        _btnMakeUpdate.x = 201;
+        _btnMakeUpdate.y = 220;
         _updateSprite.addChild(_btnMakeUpdate);
-        _btnMakeUpdate.endClickCallback = onUpdate;
+        _btnMakeUpdate.registerTextField(txt, ManagerFilters.TEXT_STROKE_BLUE);
+        _btnMakeUpdate.clickCallback = onUpdate;
 
         _updateSprite.x = - _updateSprite.width/2 - 10;
-        _updateSprite.y = - 150;
+        _updateSprite.y = - 155;
         _source.addChild(_updateSprite);
     }
 
@@ -365,9 +364,9 @@ public class WOAmbars extends Window {
 
     private function checkUpdateBtn():void {
         if (_item1.isFull && _item2.isFull && _item3.isFull) {
-            _btnMakeUpdate.visible = true;
+            _btnMakeUpdate.setEnabled = true;
         } else {
-            _btnMakeUpdate.visible = false;
+            _btnMakeUpdate.setEnabled = false;
         }
     }
 
@@ -405,7 +404,7 @@ public class WOAmbars extends Window {
         }
     }
 
-    public function smallUpdate():void {
+    public function smallUpdate():void {  // after buy resources for update
         if (_type == SKLAD) {
             _txtCount.text = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
             _progress.setProgress(g.userInventory.currentCountInSklad / g.user.skladMaxCount);
