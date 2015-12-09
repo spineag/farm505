@@ -8,8 +8,8 @@ public class AllData {
     public var fonts:Object;
 
     public function AllData() {
-        atlas = [];
-        fonts = [];
+        atlas = {};
+        fonts = {};
     }
 }
 }

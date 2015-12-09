@@ -54,6 +54,7 @@ public class UserInventory {
         _inventoryResource[id] += count;
         if (_inventoryResource[id] == 0) delete(_inventoryResource[id]);
         if (needSendToServer) {
+            g.updateAmbarIndicator();
             g.directServer.addUserResource(id, count, null);
         }
     }

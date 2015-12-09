@@ -68,9 +68,9 @@ public class Cave extends AreaObject{
         }
 
         if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            addTempGiftIcon();
+            addDoneBuilding();
         } else if (_stateBuild == STATE_BUILD) {
-            addTempBuildIcon();
+            addFoundationBuilding();
         }
     }
 
@@ -112,11 +112,11 @@ public class Cave extends AreaObject{
                         if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                             _stateBuild = STATE_WAIT_ACTIVATE;
                             createBuild();
-                            addTempGiftIcon();
+                            addDoneBuilding();
                         } else {  // еще строится
                             _stateBuild = STATE_BUILD;
                             createBuild();
-                            addTempBuildIcon();
+                            addFoundationBuilding();
                             g.gameDispatcher.addToTimer(renderBuildCaveProgress);
                         }
                     }
@@ -136,7 +136,7 @@ public class Cave extends AreaObject{
         if (_leftBuildTime <= 0) {
             g.gameDispatcher.removeFromTimer(renderBuildCaveProgress);
             clearCraftSprite();
-            addTempGiftIcon();
+            addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
         }
     }
@@ -247,7 +247,7 @@ public class Cave extends AreaObject{
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;
         g.directServer.startBuildBuilding(this, onStartBuildingResponse);
-        addTempBuildIcon();
+        addFoundationBuilding();
         _leftBuildTime = _dataBuild.buildTime;
         g.gameDispatcher.addToTimer(renderBuildCaveProgress);
     }

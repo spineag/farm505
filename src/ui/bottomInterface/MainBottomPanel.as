@@ -232,6 +232,7 @@ public class MainBottomPanel {
         _ambarBtn.visible = !b;
         _orderBtn.visible = !b;
         _toolsBtn.visible = !b;
+        _cancelBtn.visible = false;
     }
 }
 }

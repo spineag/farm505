@@ -402,6 +402,10 @@ public class WOAmbars extends Window {
         unfillItems();
         fillItems();
         updateItemsForUpdate();
+
+        if (_type == AMBAR) {
+            g.updateAmbarIndicator();
+        }
     }
 
     public function smallUpdate():void {

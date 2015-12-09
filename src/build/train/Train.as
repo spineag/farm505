@@ -54,9 +54,9 @@ public class Train extends AreaObject{
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            addTempGiftIcon();
+            addDoneBuilding();
         } else if (_stateBuild == STATE_BUILD) {
-            addTempBuildIcon();
+            addFoundationBuilding();
         }
 
         if (!g.isAway) {
@@ -199,7 +199,7 @@ public class Train extends AreaObject{
         if (_leftBuildTime <= 0) {
             g.gameDispatcher.removeFromTimer(renderBuildTrainProgress);
             clearCraftSprite();
-            addTempGiftIcon();
+            addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
         }
     }
@@ -304,7 +304,7 @@ public class Train extends AreaObject{
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;
         g.directServer.startBuildBuilding(this, null);
-        addTempBuildIcon();
+        addFoundationBuilding();
         _leftBuildTime = _dataBuild.buildTime;
         g.gameDispatcher.addToTimer(renderBuildTrainProgress);
     }

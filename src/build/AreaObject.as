@@ -15,6 +15,7 @@ import utils.CSprite;
 
 public class AreaObject extends WorldObject {
     protected var _leftBuildTime:int;                   // сколько осталось времени до окончания постройки здания
+    private var _buildingBuild:BuildingBuild;
 
     public function AreaObject(dataBuild:Object) {
         _source = new CSprite();
@@ -51,11 +52,11 @@ public class AreaObject extends WorldObject {
                     if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                         _stateBuild = STATE_WAIT_ACTIVATE;
 //                    createBuild();
-                        addTempGiftIcon();
+                        addDoneBuilding();
                     } else {  // еще строится
                         _stateBuild = STATE_BUILD;
 //                    createBuild();
-                        addTempBuildIcon();
+                        addFoundationBuilding();
                         g.gameDispatcher.addToTimer(renderBuildProgress);
                     }
                 }
@@ -126,34 +127,23 @@ public class AreaObject extends WorldObject {
         _isoView = null;
     }
 
-    protected function addTempGiftIcon():void {
+    protected function addDoneBuilding():void {
         if (_craftSprite) {
-            var im:Image = new Image(g.allData.atlas['buildAtlas'].getTexture('done_building'));
-            im.x = -im.width/2;
-            im.y = -10;
-            if (!im) {
-                Cc.error('AreaObject:: no image "done_building"');
-                g.woGameError.showIt();
+            if (!_buildingBuild) {
+                _buildingBuild = new BuildingBuild('done');
             }
-            im.x = -191;
-            im.y = -249;
-            _craftSprite.addChild(im);
+            _craftSprite.addChild(_buildingBuild.source);
         } else {
             Cc.error('_craftSprite == null  :(')
         }
     }
 
-    protected function addTempBuildIcon():void {
+    protected function addFoundationBuilding():void {
         if (_craftSprite) {
-            var im:Image = new Image(g.allData.atlas['buildAtlas'].getTexture('foundation'));
-            im.x = -im.width/2;
-            im.y = -10;
-            if (!im) {
-                Cc.error('AreaObject:: no image "foundation"');
+            if (!_buildingBuild) {
+                _buildingBuild = new BuildingBuild('work');
             }
-            im.x = -262;
-            im.y = -274;
-            _craftSprite.addChild(im);
+            _craftSprite.addChild(_buildingBuild.source);
         } else {
             Cc.error('_craftSprite == null  :(')
         }
@@ -162,6 +152,10 @@ public class AreaObject extends WorldObject {
     protected function clearCraftSprite():void {
         if (_craftSprite) {
             while (_craftSprite.numChildren) _craftSprite.removeChildAt(0);
+            if (_buildingBuild) {
+                _buildingBuild.deleteIt();
+                _buildingBuild = null;
+            }
         }
     }
 
@@ -170,7 +164,7 @@ public class AreaObject extends WorldObject {
         if (_leftBuildTime <= 0) {
             g.gameDispatcher.removeFromTimer(renderBuildProgress);
             clearCraftSprite();
-            addTempGiftIcon();
+            addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
         }
     }

@@ -32,6 +32,8 @@ public class EmbedAssets {
     private const FarmTexture:Class;
     [Embed(source="../../assets/decorAtlas3.png")]
     private const DecorTexture:Class;
+    [Embed(source="../../assets/iconAtlas3.png")]
+    private const IconTexture:Class;
 
     // XML
     [Embed(source="../../assets/mapAtlas3.xml", mimeType="application/octet-stream")]
@@ -56,6 +58,8 @@ public class EmbedAssets {
     private const FarmTextureXML:Class;
     [Embed(source="../../assets/decorAtlas3.xml", mimeType="application/octet-stream")]
     private const DecorTextureXML:Class;
+    [Embed(source="../../assets/iconAtlas3.xml", mimeType="application/octet-stream")]
+    private const IconTextureXML:Class;
 
     [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
     private const BloggerBold:Class;
@@ -72,6 +76,8 @@ public class EmbedAssets {
 
     [Embed(source = "../../assets/cat9.png", mimeType = "application/octet-stream")]
     public static const CatData:Class;
+    [Embed(source = "../../assets/buildingBuild.png", mimeType = "application/octet-stream")]
+    public static const BuildingBuild:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -125,6 +131,10 @@ public class EmbedAssets {
         texture = Texture.fromBitmap(new DecorTexture());
         xml= XML(new DecorTextureXML());
         g.allData.atlas['decorAtlas'] = new TextureAtlas(texture, xml);
+
+        texture = Texture.fromBitmap(new IconTexture());
+        xml= XML(new IconTextureXML());
+        g.allData.atlas['iconAtlas'] = new TextureAtlas(texture, xml);
 
         g.allData.fonts['BloggerBold'] = (new BloggerBold() as Font).fontName;
         g.allData.fonts['BloggerItalic'] = (new BloggerItalic() as Font).fontName;

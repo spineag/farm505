@@ -47,7 +47,7 @@ public class HeroCat extends BasicCat{
         _catImage = new Sprite();
         _catBackImage = new Sprite();
         factory = new StarlingFactory();
-        var f1:Function = function ():void {
+        var f1:Function = function (e:Event):void {
             armature = factory.buildArmature("cat");
             armatureBack = factory.buildArmature("cat_back");
             armatureClip = armature.display as Sprite;
