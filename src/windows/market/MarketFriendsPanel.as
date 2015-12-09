@@ -57,6 +57,12 @@ public class MarketFriendsPanel{
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
             if (_person.photo) {
+                _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                _ava.filter = ManagerFilters.WHITE_STROKE;
+                MCScaler.scale(_ava, 70, 70);
+                _ava.x = 1;
+                _ava.y = 1;
+                source.addChild(_ava);
                 g.load.loadImage(_person.photo, onLoadPhoto);
             } else {
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
@@ -116,10 +122,12 @@ public class MarketFriendsPanel{
             return;
         }
         photoFromTexture(Texture.fromBitmap(bitmap));
+//        photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar'));
     }
 
     private function photoFromTexture(tex:Texture):void {
         _ava = new Image(tex);
+        _ava.filter = ManagerFilters.WHITE_STROKE;
         MCScaler.scale(_ava, 70, 70);
         _ava.x = 1;
         _ava.y = 1;
