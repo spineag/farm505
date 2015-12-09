@@ -43,6 +43,7 @@ public class BuildingBuild {
     }
 
     public function deleteIt():void {
+        WorldClock.clock.remove(armature);
         while (source.numChildren) source.removeChildAt(0);
         armature.animation.dispose();
         armatureClip.dispose();

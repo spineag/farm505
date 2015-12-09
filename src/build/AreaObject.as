@@ -131,6 +131,8 @@ public class AreaObject extends WorldObject {
         if (_craftSprite) {
             if (!_buildingBuild) {
                 _buildingBuild = new BuildingBuild('done');
+            } else {
+                _buildingBuild.doneAnimation();
             }
             _craftSprite.addChild(_buildingBuild.source);
         } else {
@@ -142,6 +144,8 @@ public class AreaObject extends WorldObject {
         if (_craftSprite) {
             if (!_buildingBuild) {
                 _buildingBuild = new BuildingBuild('work');
+            } else {
+                _buildingBuild.workAnimation();
             }
             _craftSprite.addChild(_buildingBuild.source);
         } else {
