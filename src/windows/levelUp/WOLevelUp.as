@@ -33,7 +33,6 @@ public class WOLevelUp extends Window{
     private var _txtLevel:TextField;
     private var _txtContinue:TextField;
     private var _txtHard:TextField;
-    private var _imageBtn:Image;
     private var _imageHard:Image;
     private var _contBtn:CSprite;
     private var _contImage:Sprite;
@@ -55,10 +54,7 @@ public class WOLevelUp extends Window{
         bg.x = -_woWidth/2 + 10;
         bg.y = -_woHeight/2 + 15;
         _source.addChild(bg);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
-        _btnExit.x += _woWidth/2;
-        _btnExit.y -= _woHeight/2;
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
+        createExitButton(onClickExit);
 
         var im:Image;
         _contBtn = new CSprite();
@@ -198,7 +194,6 @@ public class WOLevelUp extends Window{
         for (var i:int = 0; i < arr.length; i++) {
             im = new WOLevelUpItem(arr[i], "new");
             im.source.x = int(i) * (90);
-//            im.source.y = i % 2 * (110);
             _arrCells.push(im);
             _contImage.addChild(im.source);
         }

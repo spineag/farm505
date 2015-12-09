@@ -11,7 +11,9 @@ public class WOServerError extends Window{
     private var _txtError:TextField;
     public function WOServerError() {
         super();
-        createTempBG(400, 400, Color.GRAY);
+        _woWidth = 400;
+        _woHeight = 400;
+        createTempBG();
         var txt:TextField = new TextField(400,100,"Ошибка! Перегрузите игру","Arial",30,Color.WHITE);
         txt.x = -200;
         txt.y = -200;

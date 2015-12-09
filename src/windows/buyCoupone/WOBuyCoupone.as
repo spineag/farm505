@@ -20,17 +20,16 @@ public class WOBuyCoupone extends Window{
     private var _Yellow:WOBuyCouponeItem;
 
     public function WOBuyCoupone() {
+        _woWidth = 400;
+        _woHeight = 300;
         _txtMyCoupone = new TextField(100,50,"Мои купоны","Arial",16,Color.BLUE);
         _txtMyCoupone.x = -50;
         _txtMyCoupone.y = -150;
         _txtCollectCoupone = new TextField(400,100,"Собирай купоны, выполняя заказы на доставку, отправляя пароход, и приобретайте на них особые обьекты","Arial",18,Color.WHITE);
         _txtCollectCoupone.x = -200;
         _txtCollectCoupone.y = -120;
-        createTempBG(400, 300, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 200;
-        _btnExit.y -= 150;
+        createTempBG();
+        createExitButton(onClickExit);
         _source.addChild(_txtMyCoupone);
         _source.addChild(_txtCollectCoupone);
     }

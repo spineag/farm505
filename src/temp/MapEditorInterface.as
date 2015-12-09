@@ -11,6 +11,7 @@ import manager.Vars;
 import mouse.ToolsModifier;
 
 import starling.animation.Tween;
+import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -18,12 +19,13 @@ import starling.textures.Texture;
 import starling.utils.Color;
 
 import utils.CButton;
+import utils.CSprite;
 
 public class MapEditorInterface {
     private var _allTable:Sprite;
     private var _contBuildings:Sprite;
-    private var _leftArrow:CButton;
-    private var _rightArrow:CButton;
+    private var _leftArrow:CSprite;
+    private var _rightArrow:CSprite;
     private var _moveBtn:EditorButtonInterface;
     private var _rotateBtn:EditorButtonInterface;
     private var _cancelBtn:EditorButtonInterface;
@@ -65,7 +67,8 @@ public class MapEditorInterface {
         var BMP:BitmapData = new BitmapData(10, 20, true, 0x00000000);
         BMP.draw(shape);
         var Txr:Texture = Texture.fromBitmapData(BMP,false, false);
-        _leftArrow = new CButton(Txr);
+        _leftArrow = new CSprite();
+        _leftArrow.addChild(new Image(Txr));
         _leftArrow.x = g.stageWidth - 45;
         _leftArrow.y = 0;
         _allTable.addChild(_leftArrow);
@@ -80,7 +83,8 @@ public class MapEditorInterface {
         var BM:BitmapData = new BitmapData(10, 20, true, 0x00000000);
         BM.draw(shape);
         var Tx:Texture = Texture.fromBitmapData(BM,false, false);
-        _rightArrow = new CButton(Tx);
+        _rightArrow = new CSprite();
+        _rightArrow.addChild(new Image(Tx));
         _rightArrow.x = g.stageWidth - 15;
         _rightArrow.y = 0;
         _allTable.addChild(_rightArrow);

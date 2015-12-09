@@ -38,12 +38,11 @@ public class WOTrain extends Window {
 
     public function WOTrain() {
         super ();
+        _woWidth = 500;
+        _woHeight = 320;
         _activeItemIndex = -1;
-        createTempBG(500, 320, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x = 250;
-        _btnExit.y = -160;
+        createTempBG();
+        createExitButton(onClickExit);
         _arrItems = [];
         addItems();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));

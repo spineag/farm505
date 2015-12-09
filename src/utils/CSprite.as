@@ -91,7 +91,6 @@ public class CSprite extends Sprite {
                 _startDragPoint.x = g.cont.gameCont.x;
                 _startDragPoint.y = g.cont.gameCont.y;
             }
-            te.stopImmediatePropagation();
             Mouse.cursor = OwnMouse.CLICK_CURSOR;
             if (_startClickCallback != null) {
                 _startClickCallback.apply();
@@ -100,7 +99,6 @@ public class CSprite extends Sprite {
                 g.cont.setDragPoints(te.touches[0].getLocation(g.mainStage));
             }
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
-            te.stopImmediatePropagation();
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
             if (_endClickCallback != null) {
                 if (_params) {
@@ -110,7 +108,6 @@ public class CSprite extends Sprite {
                 }
             }
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
-            te.stopImmediatePropagation();
             Mouse.cursor = OwnMouse.HOVER_CURSOR;
             if (_hoverCallback != null) {
                 _hoverCallback.apply();

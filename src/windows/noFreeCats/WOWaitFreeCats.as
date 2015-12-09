@@ -21,11 +21,10 @@ public class WOWaitFreeCats extends Window{
 
     public function WOWaitFreeCats() {
         super();
-        createTempBG(300, 300, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 150;
-        _btnExit.y -= 150;
+        _woWidth = 300;
+        _woHeight = 300;
+        createTempBG();
+        createExitButton(onClickExit);
         _txtText = new TextField(300,200,"Свободных работников нет, подождите до окончания другого производства","Arial",18,Color.BLACK);
         _txtText.x = -150;
         _txtText.y = -100;

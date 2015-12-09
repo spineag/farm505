@@ -10,7 +10,9 @@ import windows.Window;
 public class WOReloadPage extends Window{
     public function WOReloadPage() {
         super();
-        createTempBG(300, 200, Color.GRAY);
+        _woWidth = 300;
+        _woHeight = 200;
+        createTempBG();
         var txt:TextField = new TextField(300,100,"Перегрузите игру","Arial",30,Color.WHITE);
         txt.x = -150;
         txt.y = -50;

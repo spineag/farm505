@@ -25,11 +25,10 @@ public class WOAmbarFilled extends Window{
 
     public function WOAmbarFilled() {
         super ();
-        createTempBG(400, 300, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 200;
-        _btnExit.y -= 150;
+        _woWidth = 400;
+        _woHeight = 300;
+        createTempBG();
+        createExitButton(onClickExit);
         _contBtn = new CSprite();
         _contBtn.endClickCallback = onClick;
         _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));

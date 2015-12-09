@@ -107,7 +107,7 @@ public class CraftPanel {
         var im:Image;
         im = new Image(g.allData.atlas[item.url].getTexture(item.imageShop));
         MCScaler.scale(im, 50, 50);
-        im.x = -im.width/2 - 140;
+        im.x = -im.width/2 - 170;
         im.y = -im.height/2;
         _resourceSprite.addChild(im);
     }
@@ -133,7 +133,7 @@ public class CraftPanel {
     }
 
     public function pointXY():Point {
-        return _source.localToGlobal(new Point(-190,-5));
+        return _source.localToGlobal(new Point(-170,-5));
     }
 
 }

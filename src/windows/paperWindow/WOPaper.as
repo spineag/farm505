@@ -4,10 +4,7 @@
 package windows.paperWindow {
 import data.DataMoney;
 
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -15,12 +12,10 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import user.Someone;
-
 import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.WOButtonTexture;
-
 import windows.Window;
 
 public class WOPaper extends Window{
@@ -58,6 +53,10 @@ public class WOPaper extends Window{
         _source.addChild(_btnRefresh);
         _btnRefresh.endClickCallback = makeRefresh;
         createBtns();
+
+        createExitButton(onClickExit);
+        _btnExit.x += 30;
+        _btnExit.y -= 25;
 
         callbackClickBG = onClickExit;
     }
@@ -97,6 +96,8 @@ public class WOPaper extends Window{
         arr = _arrPaper.slice(_shiftPages*6, _shiftPages*6 + 6);
         _rightPage.fillItems(arr);
         checkSocialInfoForArray(_arrPaper.slice((_shiftPages - 1)*6, _shiftPages*6 + 6));
+
+        _source.setChildIndex(_btnExit, _source.numChildren - 1);
     }
 
     private function createBtns():void {
@@ -137,6 +138,7 @@ public class WOPaper extends Window{
         _tempRightPage.source.y = -_woHeight/2;
         _source.addChild(_tempRightPage.source);
         _source.addChild(_flipPage);
+        _source.setChildIndex(_btnExit, _source.numChildren - 1);
     }
 
     private function afterMoveNext():void {
@@ -153,6 +155,7 @@ public class WOPaper extends Window{
         _rightPage = _tempRightPage;
         _tempRightPage = null;
         _isAnim = false;
+        _source.setChildIndex(_btnExit, _source.numChildren - 1);
     }
 
     private function movePrev():void {
@@ -174,6 +177,7 @@ public class WOPaper extends Window{
         _tempLeftPage.source.y = -_woHeight/2;
         _source.addChild(_tempLeftPage.source);
         _source.addChild(_flipPage);
+        _source.setChildIndex(_btnExit, _source.numChildren - 1);
     }
 
     private function afterMovePrev():void {
@@ -189,6 +193,7 @@ public class WOPaper extends Window{
         _leftPage = _tempLeftPage;
         _tempLeftPage = null;
         _isAnim = false;
+        _source.setChildIndex(_btnExit, _source.numChildren - 1);
     }
 
     private function makeRefresh():void {

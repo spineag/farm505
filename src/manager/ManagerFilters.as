@@ -5,6 +5,7 @@ package manager {
 import flash.filters.GlowFilter;
 
 import starling.filters.BlurFilter;
+import starling.filters.ColorMatrixFilter;
 import starling.utils.Color;
 
 public class ManagerFilters {
@@ -29,5 +30,20 @@ public class ManagerFilters {
     public static var TEXT_STROKE_WHITE:Array = [new GlowFilter(Color.WHITE, 1, 4, 4, 5)];
     public static var TEXT_STROKE_BROWN:Array = [new GlowFilter(TEXT_BROWN, 1, 4, 4, 5)];
     public static var TEXT_STROKE_RED:Array = [new GlowFilter(Color.RED, 1, 4, 4, 5)];
+
+    public static var BUTTON_HOVER_FILTER:ColorMatrixFilter;
+    public static var BUTTON_CLICK_FILTER:ColorMatrixFilter;
+    public static var BUTTON_DISABLE_FILTER:ColorMatrixFilter;
+
+    public function ManagerFilters() {
+        BUTTON_DISABLE_FILTER = new ColorMatrixFilter();
+        BUTTON_DISABLE_FILTER.adjustSaturation(-.5);
+
+        BUTTON_HOVER_FILTER = new ColorMatrixFilter();
+        BUTTON_HOVER_FILTER.adjustBrightness(.1);
+
+        BUTTON_CLICK_FILTER = new ColorMatrixFilter();
+        BUTTON_CLICK_FILTER.adjustBrightness(-.1);
+    }
 }
 }

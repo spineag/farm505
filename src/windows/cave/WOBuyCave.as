@@ -22,11 +22,10 @@ public class WOBuyCave extends Window {
 
     public function WOBuyCave() {
         super();
-        createTempBG(300, 300, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.x += 150;
-        _btnExit.y -= 150;
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
+        _woWidth = 300;
+        _woHeight = 300;
+        createTempBG();
+        createExitButton(onClickExit);
 
         btn = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn1'));

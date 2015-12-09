@@ -47,12 +47,11 @@ public class WOOrder extends Window{
 
     public function WOOrder() {
         super ();
-        _woBG = new WindowBackground(764, 570);
+        _woWidth = 764;
+        _woHeight = 570;
+        _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 382;
-        _btnExit.y -= 285;
+        createExitButton(onClickExit);
         callbackClickBG = onClickExit;
 
         createRightBlock();

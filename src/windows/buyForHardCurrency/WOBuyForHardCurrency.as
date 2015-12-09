@@ -25,11 +25,10 @@ public class WOBuyForHardCurrency extends Window{
 
     public function WOBuyForHardCurrency() {
         super();
-        createTempBG(400, 300, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 200;
-        _btnExit.y -= 150;
+        _woWidth = 400;
+        _woHeight = 300;
+        createTempBG();
+        createExitButton(onClickExit);
         _imageYes = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
         _imageNo = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
         _txtYes = new TextField(50,50,"Да","Arial",14,Color.BLACK);

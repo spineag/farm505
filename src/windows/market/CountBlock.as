@@ -11,11 +11,12 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CButton;
+import utils.CSprite;
 
 public class CountBlock {
     public var source:Sprite;
-    public var _btnMinus:CButton;
-    public var _btnPlus:CButton;
+    public var _btnMinus:CSprite;
+    public var _btnPlus:CSprite;
     private var _plawkaBg:Image;
     private var _txt:TextField;
     private var _curCount:int;
@@ -29,8 +30,10 @@ public class CountBlock {
     public function CountBlock() {
         _curCount = 0;
         source = new Sprite();
-        _btnMinus = new CButton(g.allData.atlas['interfaceAtlas'].getTexture('minus'), '', g.allData.atlas['interfaceAtlas'].getTexture('minus'));
-        _btnPlus = new CButton(g.allData.atlas['interfaceAtlas'].getTexture('plus'), '', g.allData.atlas['interfaceAtlas'].getTexture('plus'));
+        _btnMinus = new CSprite();
+        _btnMinus.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus')));
+        _btnPlus = new CSprite();
+        _btnPlus.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus')));
         _txt = new TextField(50, 30, '0', "Arial", 16, Color.BLACK);
         _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         _btnPlus.startClickCallback = onStartPlus;
