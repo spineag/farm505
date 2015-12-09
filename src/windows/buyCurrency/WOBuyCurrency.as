@@ -35,19 +35,14 @@ public class WOBuyCurrency extends Window{
     private var _woBG:WindowBackground;
     private var _cartonBG:CartonBackground;
     private var _contCarton:Sprite;
-//    private var filter:ColorMatrixFilter;
 
     public function WOBuyCurrency() {
-//        filter = new ColorMatrixFilter();
-//        filter.adjustSaturation(-.3);
-
-        _woBG = new WindowBackground(700, 560);
+        _woWidth = 700;
+        _woHeight = 560;
+        _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _contCarton = new Sprite();
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
-        _btnExit.x += 350;
-        _btnExit.y -= 280;
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
+        createExitButton(onClickExit);
 
         createTabs();
         _cartonBG = new CartonBackground(618, 398);

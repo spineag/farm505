@@ -6,6 +6,8 @@ import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 import windows.WOComponents.DefaultVerticalScrollSprite;
 
 import utils.CButton;
@@ -16,7 +18,7 @@ public class WOMarketChoose extends Window {
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _arrCells:Array;
     private var _callback:Function;
-    private var _btnSell:CButton;
+    private var _btnSell:CSprite;
     private var _countResourceBlock:CountBlock;
     private var _countMoneyBlock:CountBlock;
     private var _curResourceId:int;
@@ -33,10 +35,7 @@ public class WOMarketChoose extends Window {
         _bg.pivotX = _bg.width/2;
         _bg.pivotY = _bg.height/2;
         _source.addChild(_bg);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.x -= 28;
-        _btnExit.y += 40;
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
+        createExitButton(onClickExit);
         booleanPlus = true;
         booleanMinus = true;
         filter = new ColorMatrixFilter();
@@ -69,7 +68,8 @@ public class WOMarketChoose extends Window {
         t.y = 145;
         _source.addChild(t);
 
-        _btnSell = new CButton(g.allData.atlas['interfaceAtlas'].getTexture('btn100500'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn100500'));
+        _btnSell = new CSprite();
+        _btnSell.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn100500')));
         _btnSell.x = 170;
         _btnSell.y = 140;
         _source.addChild(_btnSell);

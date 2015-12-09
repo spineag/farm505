@@ -251,6 +251,7 @@ public class Vars {
         townArea = new TownArea();
         farmGrid = new FarmGrid();
 
+        var managerFilters:ManagerFilters = new ManagerFilters();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
         toolsModifier.setTownArray();

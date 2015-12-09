@@ -13,7 +13,6 @@ import utils.MCScaler;
 import windows.Window;
 
 public class WONoFreeCats extends Window{
-
     private var _contBtn:CSprite;
     private var _txtText:TextField;
     private var _txtBtn:TextField;
@@ -21,11 +20,10 @@ public class WONoFreeCats extends Window{
 
     public function WONoFreeCats() {
         super();
-        createTempBG(300, 300, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 150;
-        _btnExit.y -= 150;
+        _woWidth = 300;
+        _woHeight = 300;
+        createTempBG();
+        createExitButton(hideIt);
         _txtText = new TextField(300,100,"Нету сводобных котов","Arial",20,Color.BLACK);
         _txtText.x = -150;
         _txtText.y = -100;
@@ -39,10 +37,6 @@ public class WONoFreeCats extends Window{
         _txtBtn = new TextField(_contBtn.width,_contBtn.height,"Купить","Arial",20,Color.BLACK);
         _contBtn.addChild(_txtBtn);
         _source.addChild(_txtText);
-    }
-
-    private function onClickExit(e:Event=null):void {
-        hideIt();
     }
 
     private function onClick():void {

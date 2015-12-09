@@ -17,6 +17,7 @@ import starling.textures.Texture;
 import starling.utils.Color;
 
 import utils.CButton;
+import utils.CSprite;
 
 public class Window {
     protected var _source:Sprite;
@@ -76,17 +77,20 @@ public class Window {
 
     }
 
-    protected function createExitButton(up:Texture, txt:String ='', click:Texture = null, hover:Texture = null):void {
-        _btnExit = new CButton(up, txt, click, hover);
-        _btnExit.pivotX = _btnExit.width*7/6;
-        _btnExit.pivotY = -_btnExit.height*1/5;
+    protected function createExitButton(callback:Function):void {
+        _btnExit = new CButton();
+        _btnExit.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
+        _btnExit.setPivots();
+        _btnExit.x = _woWidth/2 - 36;
+        _btnExit.y = -_woHeight/2 + 36;
         _source.addChild(_btnExit);
+        _btnExit.clickCallback = callback;
     }
 
-    protected function createTempBG(w:int, h:int, color:uint):void {
-        var q:Quad = new Quad(w, h, color);
-        q.pivotX = w/2;
-        q.pivotY = h/2;
+    protected function createTempBG():void {
+        var q:Quad = new Quad(_woWidth, _woHeight, Color.GRAY);
+        q.pivotX = _woWidth/2;
+        q.pivotY = _woHeight/2;
         _source.addChild(q);
     }
 

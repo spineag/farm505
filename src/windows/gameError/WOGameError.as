@@ -2,7 +2,6 @@
  * Created by user on 9/29/15.
  */
 package windows.gameError {
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
@@ -11,20 +10,15 @@ import windows.Window;
 public class WOGameError extends Window{
     public function WOGameError() {
         super();
-        createTempBG(200, 100, Color.GRAY);
+        _woWidth = 200;
+        _woHeight = 100;
+        createTempBG();
         var txt:TextField = new TextField(200,100,"Ошибка!","Arial",30,Color.WHITE);
         txt.touchable = false;
         txt.x = -100;
         txt.y = -50;
         _source.addChild(txt);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.x = 100;
-        _btnExit.y = -50;
-        _btnExit.addEventListener(Event.TRIGGERED, hideIt);
-    }
-
-    override public function showIt():void {
-        super.showIt();
+        createExitButton(hideIt);
     }
 }
 }

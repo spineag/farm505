@@ -2,71 +2,63 @@
  * Created by user on 5/21/15.
  */
 package utils {
+
 import flash.ui.Mouse;
 
-import manager.Vars;
-
+import manager.ManagerFilters;
 import mouse.OwnMouse;
 
-import starling.display.Button;
+import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
-import starling.textures.Texture;
 
-public class CButton extends Button{
-    private var g:Vars = Vars.getInstance();
-    private var _hoverState:Texture;
-    private var _upState:Texture;
-    private var _endClickCallback:Function;
-    private var _startClickCallback:Function;
+public class CButton extends Sprite {
+    private var _clickCallback:Function;
     private var _hoverCallback:Function;
     private var _outCallback:Function;
-    private var _onMovedCallback:Function;
+    private var _scale:Number;
 
-    public function CButton(upState:Texture, text:String = "", downState:Texture = null, hoverState:Texture = null) {
-        super (upState,text,downState);
-
-        _upState = upState;
-        _hoverState = hoverState;
+    public function CButton() {
+        super();
+        _scale = 1;
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
 
+    public function setPivots():void {
+        pivotX = width/2;
+        pivotY = height/2;
+    }
+
     private function onTouch(te:TouchEvent):void {
-//        if (te.getTouch(this, TouchPhase.MOVED)) {
-//        }
+        te.stopImmediatePropagation();
+        te.stopPropagation();
 
         if (te.getTouch(this, TouchPhase.BEGAN)) {
             Mouse.cursor = OwnMouse.CLICK_CURSOR;
-            if (_startClickCallback != null) {
-                _startClickCallback.apply();
-            }
+            onBeganClickAnimation();
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
-            super.upState = _upState;
-            if (_endClickCallback != null) {
-                _endClickCallback.apply();
+            if (_clickCallback != null) {
+                _clickCallback.apply();
             }
+            onEndClickAnimation();
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
             Mouse.cursor = OwnMouse.HOVER_CURSOR;
-            if (_hoverState) super.upState = _hoverState;
             if (_hoverCallback != null) {
                 _hoverCallback.apply();
             }
+            onHoverAnimation();
         } else {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
-            super.upState = _upState;
             if (_outCallback != null) {
                 _outCallback.apply();
             }
+            onOutAnimation();
         }
     }
 
-    public function set endClickCallback(f:Function):void {
-        _endClickCallback = f;
-    }
-
-    public function set startClickCallback(f:Function):void {
-        _startClickCallback = f;
+    public function set clickCallback(f:Function):void {
+        _clickCallback = f;
     }
 
     public function set hoverCallback(f:Function):void {
@@ -75,10 +67,6 @@ public class CButton extends Button{
 
     public function set outCallback(f:Function):void {
         _outCallback = f;
-    }
-
-    public function set onMovedCallback(f:Function):void {
-        _onMovedCallback = f;
     }
 
     public function set isTouchable(value:Boolean):void {
@@ -92,15 +80,40 @@ public class CButton extends Button{
         }
     }
 
+    public function set setEnabled(v:Boolean):void {
+        isTouchable = v;
+        if (v) {
+            filter = null;
+        } else {
+            filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+        }
+    }
+
     public function deleteIt():void {
-        this.removeEventListener(TouchEvent.TOUCH, onTouch);
-        _endClickCallback = null;
+        filter = null;
+        if (this.hasEventListener(TouchEvent.TOUCH)) removeEventListener(TouchEvent.TOUCH, onTouch);
+        while (this.numChildren) this.removeChildAt(0);
+        _clickCallback = null;
         _hoverCallback = null;
-        _startClickCallback = null;
         _outCallback = null;
-        this.dispose();
-        _upState = null;
-        _hoverState = null;
+    }
+
+    private function onBeganClickAnimation():void {
+        filter = ManagerFilters.BUTTON_CLICK_FILTER;
+        scaleX = scaleY = _scale*.9;
+    }
+
+    private function onEndClickAnimation():void {
+        filter = null;
+        scaleX = scaleY = _scale;
+    }
+
+    private function onHoverAnimation():void {
+        filter = ManagerFilters.BUTTON_HOVER_FILTER;
+    }
+
+    private function onOutAnimation():void {
+        filter = null;
     }
 }
 }

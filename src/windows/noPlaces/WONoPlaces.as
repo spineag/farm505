@@ -34,12 +34,11 @@ public class WONoPlaces extends Window{
 
     public function WONoPlaces() {
         super();
-        _woBG = new WindowBackground(400, 380);
+        _woWidth = 400;
+        _woHeight = 380;
+        _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 200;
-        _btnExit.y -= 190;
+        createExitButton(onClickExit);
 
         _contBtn = new CSprite();
         _contBtn.x =-65;

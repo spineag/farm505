@@ -58,10 +58,7 @@ public class WOAmbars extends Window {
 
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += _woWidth/2;
-        _btnExit.y -= _woHeight/2;
+        createExitButton(onClickExit);
         callbackClickBG = onClickExit;
 
         createWOElements();

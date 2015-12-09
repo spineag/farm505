@@ -14,13 +14,12 @@ public class WOCave extends Window {
         super();
         _woHeight = 200;
         _woWidth = 390;
-        createTempBG(_woWidth, _woHeight, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.addEventListener(Event.TRIGGERED, hideIt);
-        callbackClickBG = hideIt;
+        createTempBG();
+        createExitButton(onClickExit);
+        callbackClickBG = onClickExit;
     }
 
-    override public function hideIt():void {
+     public function onClickExit():void {
         clearItems();
         super.hideIt();
     }

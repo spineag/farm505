@@ -30,11 +30,10 @@ public class WOTrainOrder extends Window{
     public function WOTrainOrder() {
         super ();
         _arrItems = [];
-        createTempBG(500, 320, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x = 250;
-        _btnExit.y = -160;
+        _woWidth = 500;
+        _woHeight = 320;
+        createTempBG();
+        createExitButton(onClickExit);
         _contBtn = new CSprite();
         _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
         _imageBtn.width = 150;

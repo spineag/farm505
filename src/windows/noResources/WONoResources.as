@@ -39,13 +39,12 @@ public class WONoResources extends Window {
 
     public function WONoResources() {
         super();
+        _woWidth = 400;
+        _woHeight = 340;
         _arrItems = [];
-        _woBG = new WindowBackground(400, 340);
+        _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 200;
-        _btnExit.y -= 170;
+        createExitButton(onClickExit);
         callbackClickBG = onClickExit;
 
         var txt:TextField = new TextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
@@ -60,7 +59,6 @@ public class WONoResources extends Window {
         _source.addChild(txt);
 
         createBtn();
-        callbackClickBG = onClickExit;
     }
 
     private function createBtn():void {

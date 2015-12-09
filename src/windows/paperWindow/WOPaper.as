@@ -4,10 +4,7 @@
 package windows.paperWindow {
 import data.DataMoney;
 
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -15,12 +12,10 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import user.Someone;
-
 import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.WOButtonTexture;
-
 import windows.Window;
 
 public class WOPaper extends Window{
@@ -59,10 +54,9 @@ public class WOPaper extends Window{
         _btnRefresh.endClickCallback = makeRefresh;
         createBtns();
 
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += _woWidth/2 + 30;
-        _btnExit.y -= _woHeight/2 + 25;
+        createExitButton(onClickExit);
+        _btnExit.x += 30;
+        _btnExit.y -= 25;
 
         callbackClickBG = onClickExit;
     }

@@ -26,11 +26,10 @@ public class WOLastResource extends Window{
 
     public function WOLastResource() {
         super();
-        createTempBG(300, 300, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
-        _btnExit.x = 150;
-        _btnExit.y -= 150;
-        _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
+        _woWidth = 300;
+        _woHeight = 300;
+        createTempBG();
+        createExitButton(onClickExit);
         _txtHeader = new TextField(100,50,"Будьте Внимательны","Arial",14,Color.BLACK);
         _txtHeader.x = -50;
         _txtHeader.y = -100;
