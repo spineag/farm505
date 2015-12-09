@@ -6,6 +6,8 @@ import data.BuildType;
 
 import flash.geom.Rectangle;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.animation.Tween;
@@ -19,10 +21,15 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WOComponents.WOButtonTexture;
+
+import windows.WOComponents.WindowBackground;
+
 import windows.Window;
 
 public class WOLevelUp extends Window{
-    private var _txtCongratulations:TextField;
+    private var _txtNewLvl:TextField;
+    private var _txtNewObject:TextField;
     private var _txtLevel:TextField;
     private var _txtContinue:TextField;
     private var _txtHard:TextField;
@@ -35,15 +42,25 @@ public class WOLevelUp extends Window{
     private var _leftArrow:CSprite;
     private var _rightArrow:CSprite;
     private var _shift:int;
+    private var _woBG:WindowBackground;
 
     public function WOLevelUp() {
         super ();
-        var im:Image;
-        createTempBG(500, 500, Color.GRAY);
-        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('btn_exit'), '', g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_click'), g.allData.atlas['interfaceAtlas'].getTexture('btn_exit_hover'));
+        _woWidth = 551;
+        _woHeight = 409;
+        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _source.addChild(_woBG);
+        var bg:Image;
+        bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newlevel_window_fon'));
+        bg.x = -_woWidth/2 + 7;
+        bg.y = -_woHeight/2 + 15;
+        _source.addChild(bg);
+        createExitButton(g.allData.atlas['interfaceAtlas'].getTexture('bt_close'), '');
+        _btnExit.x += _woWidth/2;
+        _btnExit.y -= _woHeight/2;
         _btnExit.addEventListener(Event.TRIGGERED, onClickExit);
-        _btnExit.x += 250;
-        _btnExit.y -= 250;
+
+        var im:Image;
         _contBtn = new CSprite();
         _contClipRect = new Sprite();
         _contImage = new Sprite();
@@ -51,65 +68,74 @@ public class WOLevelUp extends Window{
         _rightArrow = new CSprite();
         _arrCells = [];
         _source.addChild(_contClipRect);
-        _contClipRect.clipRect = new Rectangle(0,0,300,220);
-        _contClipRect.x = -150;
-        _contClipRect.y = -100;
-        _contBtn.endClickCallback = onClickExit;
-        _txtCongratulations = new TextField(120,100,"Поздравляю","Arial",18,Color.WHITE);
-        _txtLevel = new TextField(300,100,"","Arial",18,Color.WHITE);
-        _txtContinue = new TextField(100,100,"Рассказать","Arial",18,Color.WHITE);
-        _txtHard = new TextField(50,50,"+1","Arial",18,Color.WHITE);
-        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn1"));
-        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
+        _contClipRect.clipRect = new Rectangle(0,0,460,220);
+        _contClipRect.x = -_woWidth/2 + 47;
+        _contClipRect.y = 70;
+        _contBtn.endClickCallback = onClickBtn;
+        _txtNewLvl = new TextField(120,100,"НОВЫЙ УРОВЕНЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtNewLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtNewObject = new TextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЬЕКТЫ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtNewObject.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtLevel = new TextField(300,100,"",g.allData.fonts['BloggerBold'],51,Color.WHITE);
+        _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtContinue = new TextField(110,100,"РАССКАЗАТЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtHard = new TextField(50,50,"+1", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtHard.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var btn:WOButtonTexture = new WOButtonTexture(172, 45, WOButtonTexture.BLUE);
+        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         MCScaler.scale(_imageHard,25,25);
 
         _leftArrow = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
-        im.scaleX = -1;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.x = im.width;
         _leftArrow.addChild(im);
-        _leftArrow.x = -200;
-        _leftArrow.y = -50;
+        _leftArrow.x = -_woWidth/2 + 9;
+        _leftArrow.y = 87;
         _source.addChild(_leftArrow);
         _leftArrow.endClickCallback = onLeftClick;
 
 
         _rightArrow = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        im.scaleX = -1;
         _rightArrow.addChild(im);
-        _rightArrow.x = 180;
-        _rightArrow.y = -50;
+        _rightArrow.x = _woWidth/2 - 19;
+        _rightArrow.y = 87;
         _source.addChild(_rightArrow);
         _rightArrow.endClickCallback = onRightClick;
 
 
-        _contBtn.addChild(_imageBtn);
-        _source.addChild(_txtCongratulations);
+        _contBtn.addChild(btn);
+        _source.addChild(_txtNewLvl);
         _source.addChild(_txtLevel);
+        _source.addChild(_txtNewObject);
         _contBtn.addChild(_imageHard);
         _contBtn.addChild(_txtHard);
         _contBtn.addChild(_txtContinue);
         _source.addChild(_contBtn);
         _contClipRect.addChild(_contImage);
 
-        _txtCongratulations.x = -50;
-        _txtCongratulations.y = -250;
-        _txtLevel.x = -145;
-        _txtLevel.y = -200;
+        _txtNewLvl.x = -70;
+        _txtNewLvl.y = -55;
+        _txtNewObject.x = -100;
+        _txtNewObject.y = 125;
+        _txtLevel.x = -155;
+        _txtLevel.y = -120;
         _txtContinue.x = -80;
-        _txtContinue.y = 200;
-        _txtHard.x = 40;
-        _txtHard.y = 225;
-        _imageHard.x = 80;
-        _imageHard.y = 238;
-        _imageBtn.x = -100;
-        _imageBtn.y = 225;
+        _txtContinue.y = 165;
+        _txtHard.x = 5;
+        _txtHard.y = 190;
+        btn.x = -86;
+        btn.y = 193;
+        _imageHard.x = 40;
+        _imageHard.y = 205;
         callbackClickBG = onClickExit;
     }
 
     public function showLevelUp():void {
         showIt();
-        _txtLevel.text = "Вы достигли " + g.user.level + " уровень";
+        _txtLevel.text = String(g.user.level);
         createList();
     }
 
@@ -119,14 +145,14 @@ public class WOLevelUp extends Window{
     }
 
     private function onLeftClick():void {
-        _shift -= 3;
+        _shift -= 5;
         if (_shift < 0) _shift = 0;
         animList();
     }
 
     private function onRightClick():void {
-        _shift += 3;
-        if (_shift > int(_arrCells.length/2+.5) -3) _shift = int(_arrCells.length/2+.5) - 3 ;
+        _shift += 5;
+        if (_shift > int(_arrCells.length - 5)) _shift = int(_arrCells.length - 5);
         animList();
     }
 
@@ -139,7 +165,7 @@ public class WOLevelUp extends Window{
 
     private function animList():void {
         var tween:Tween = new Tween(_contImage, .5);
-        tween.moveTo(-_shift*100,0);
+        tween.moveTo(-_shift*90,0);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
@@ -171,15 +197,19 @@ public class WOLevelUp extends Window{
 
         for (var i:int = 0; i < arr.length; i++) {
             im = new WOLevelUpItem(arr[i], "new");
-            im.source.x = int(i / 2) * (100);
-            im.source.y = i % 2 * (110);
+            im.source.x = int(i) * (90);
+//            im.source.y = i % 2 * (110);
             _arrCells.push(im);
             _contImage.addChild(im.source);
         }
-        if (_arrCells.length >= 6) {
+        if (_arrCells.length > 5) {
             _leftArrow.visible = true;
             _rightArrow.visible = true;
         }
+    }
+
+    private function onClickBtn():void {
+
     }
 }
 }

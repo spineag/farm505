@@ -7,6 +7,8 @@ import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -61,7 +63,7 @@ public class MarketFriendsPanel{
             }
         }
         _txt = new TextField(100, 30, 'loading...', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txt.x = -15;
         _txt.y = 50;
         if (_person.name) _txt.text = _person.name;
@@ -71,7 +73,7 @@ public class MarketFriendsPanel{
         _planet = new CSprite();
         var btn:WOButtonTexture = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
         var txtBtn:TextField = new TextField(80,25, "Посетить", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
-        txtBtn.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txtBtn.x = -8;
         _planet.addChild(btn);
         _planet.addChild(txtBtn);
