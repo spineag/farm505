@@ -52,7 +52,7 @@ public class CraftPanel {
         _resourceSprite = new Sprite();
         _source.addChild(_resourceSprite);
 
-        _ambarImage = new Image(g.allData.atlas['buildAtlas'].getTexture('ambar'));
+        _ambarImage = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
         MCScaler.scale(_ambarImage, 70, 70);
         _ambarImage.pivotX = _ambarImage.width/2;
         _ambarImage.pivotY = _ambarImage.height/2;
@@ -60,7 +60,7 @@ public class CraftPanel {
         _source.addChild(_ambarImage);
         _ambarImage.visible = false;
 
-        _skladImage = new Image(g.allData.atlas['buildAtlas'].getTexture('sklad'));
+        _skladImage = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
         MCScaler.scale(_skladImage, 70, 70);
         _skladImage.pivotX = _skladImage.width/2;
         _skladImage.pivotY = _skladImage.height/2;
@@ -133,7 +133,7 @@ public class CraftPanel {
     }
 
     public function pointXY():Point {
-        return _source.localToGlobal(new Point(-170,-5));
+        return _source.localToGlobal(new Point(-190,-5));
     }
 
 }

@@ -33,12 +33,12 @@ public class AmbarProgress {
         _bar.y = 13;
         source.addChild(_bar);
 
-        imAmbar = new Image(g.allData.atlas['buildAtlas'].getTexture('ambar'));
+        imAmbar = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
         MCScaler.scale(imAmbar, 40, 40);
         imAmbar.x = 427;
         imAmbar.y = 3;
         source.addChild(imAmbar);
-        imSklad = new Image(g.allData.atlas['buildAtlas'].getTexture('sklad'));
+        imSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
         MCScaler.scale(imSklad, 40, 40);
         imSklad.x = 420;
         imSklad.y = 5;
