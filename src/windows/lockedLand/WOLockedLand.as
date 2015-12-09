@@ -5,26 +5,17 @@ package windows.lockedLand {
 import build.lockedLand.LockedLand;
 
 import com.junkbyte.console.Cc;
-
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
 
 import starling.display.Image;
-
-import starling.display.Sprite;
-
 import starling.events.Event;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import utils.CSprite;
-
+import utils.CButton;
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.HintBackground;
-import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
@@ -33,7 +24,7 @@ public class WOLockedLand extends Window{
     private var _dataLand:Object;
     private var _land:LockedLand;
     private var _arrItems:Array;
-    private var _btnOpen:CSprite;
+    private var _btnOpen:CButton;
     private var _woBG:WindowBackground;
 
     public function WOLockedLand() {
@@ -52,14 +43,14 @@ public class WOLockedLand extends Window{
         c.y = -_woHeight/2 + 180;
         _source.addChild(c);
 
-        _btnOpen = new CSprite();
-        var t:Sprite = new WOButtonTexture(158, 46, WOButtonTexture.BLUE);
-        _btnOpen.addChild(t);
+        _btnOpen = new CButton();
+        _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
         var txt:TextField = new TextField(158,46,'Открыть участок',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnOpen.addChild(txt);
-        _btnOpen.x = -_btnOpen.width/2;
-        _btnOpen.y = -_woHeight/2 + 492;
+        _btnOpen.registerTextField(txt, ManagerFilters.TEXT_STROKE_BLUE);
+        _btnOpen.x = 0;
+        _btnOpen.y = -_woHeight/2 + 515;
         _source.addChild(_btnOpen);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_right'));
@@ -78,7 +69,7 @@ public class WOLockedLand extends Window{
     public function onClickExit(e:Event=null):void {
         hideIt();
         clearIt();
-        _btnOpen.endClickCallback = null;
+        _btnOpen.clickCallback = null;
     }
 
     public function showItWithParams(dataLand:Object, land:LockedLand):void {
@@ -141,10 +132,20 @@ public class WOLockedLand extends Window{
     }
 
     private function checkBtn():void {
+        var b:Boolean = true;
         for (var i:int=0; i<_arrItems.length; i++) {
-            if (!_arrItems[i].isGood) return;
+            if (!_arrItems[i].isGood) {
+                b = false;
+                break;
+            }
         }
-        _btnOpen.endClickCallback = onBtnOpen;
+        if (b) {
+            _btnOpen.setEnabled = true;
+            _btnOpen.clickCallback = onBtnOpen;
+        } else {
+            _btnOpen.clickCallback = null;
+            _btnOpen.setEnabled = false;
+        }
     }
 
     private function onBtnOpen():void {

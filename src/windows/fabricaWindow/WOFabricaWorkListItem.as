@@ -14,6 +14,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
@@ -31,7 +33,7 @@ public class WOFabricaWorkListItem {
     private var _txtNumberCreate:TextField;
     private var _type:String;
     private var _timerBlock:Sprite;
-    private var _btnSkip:CSprite;
+    private var _btnSkip:CButton;
     private var _txtSkip:TextField;
     private var _proposeBtn:CSprite;
     private var _skipCallback:Function;
@@ -67,9 +69,8 @@ public class WOFabricaWorkListItem {
             _source.addChild(_timerBlock);
             _timerBlock.visible = false;
 
-            _btnSkip = new CSprite();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_green'));
-            _btnSkip.addChild(im);
+            _btnSkip = new CButton();
+            _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
             _txtSkip = new TextField(100,35,"25",g.allData.fonts['BloggerBold'], 22, Color.WHITE);
             _txtSkip.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _txtSkip.y = 2;
@@ -78,12 +79,12 @@ public class WOFabricaWorkListItem {
             MCScaler.scale(im, 30, 30);
             im.x = 72;
             im.y = 5;
-            _btnSkip.addChild(im);
-            _btnSkip.x = -15;
-            _btnSkip.y = 97;
+            _btnSkip.addDisplayObject(im);
+            _btnSkip.x = 45;
+            _btnSkip.y = 117;
             _source.addChild(_btnSkip);
             _btnSkip.visible = false;
-            _btnSkip.endClickCallback = makeSkip;
+            _btnSkip.clickCallback = makeSkip;
         }
     }
 
@@ -202,6 +203,7 @@ public class WOFabricaWorkListItem {
             MCScaler.scale(im, 20, 20);
             im.x = 14;
             im.y = 23;
+            im.filter = ManagerFilters.SHADOW_TINY;
             _proposeBtn.addChild(im);
             _proposeBtn.flatten();
             _source.addChild(_proposeBtn);

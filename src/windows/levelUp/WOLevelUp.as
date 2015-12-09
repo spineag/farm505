@@ -34,7 +34,7 @@ public class WOLevelUp extends Window{
     private var _txtContinue:TextField;
     private var _txtHard:TextField;
     private var _imageHard:Image;
-    private var _contBtn:CSprite;
+    private var _contBtn:Sprite;
     private var _contImage:Sprite;
     private var _contClipRect:Sprite;
     private var _arrCells:Array;
@@ -57,7 +57,7 @@ public class WOLevelUp extends Window{
         createExitButton(onClickExit);
 
         var im:Image;
-        _contBtn = new CSprite();
+        _contBtn = new Sprite();
         _contClipRect = new Sprite();
         _contImage = new Sprite();
         _leftArrow = new CSprite();
@@ -67,7 +67,6 @@ public class WOLevelUp extends Window{
         _contClipRect.clipRect = new Rectangle(0,0,460,220);
         _contClipRect.x = -_woWidth/2 + 42;
         _contClipRect.y = 70;
-        _contBtn.endClickCallback = onClickBtn;
         _txtNewLvl = new TextField(120,100,"НОВЫЙ УРОВЕНЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtNewLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtNewObject = new TextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЬЕКТЫ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
@@ -212,8 +211,5 @@ public class WOLevelUp extends Window{
         }
     }
 
-    private function onClickBtn():void {
-
-    }
 }
 }

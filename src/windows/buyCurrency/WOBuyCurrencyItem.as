@@ -15,6 +15,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 
 import utils.MCScaler;
@@ -52,6 +54,7 @@ public class WOBuyCurrencyItem {
         MCScaler.scale(im, 38, 38);
         im.x = 15;
         im.y = 9;
+        im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(im);
 
         var txt:TextField = new TextField(135, 52, String(count), g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE);
@@ -60,19 +63,18 @@ public class WOBuyCurrencyItem {
         txt.y = 4;
         source.addChild(txt);
 
-        var btn:CSprite = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_green'));
-        btn.addChild(im);
-        txt = new TextField(btn.width, btn.height-5, String(cost) + ' голосов', g.allData.fonts['BloggerRegular'], 18, Color.WHITE);
+        var btn:CButton = new CButton();
+        btn.addButtonTexture(120, 40, CButton.GREEN, true);
+        txt = new TextField(120, 38, String(cost) + ' голосов', g.allData.fonts['BloggerRegular'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         btn.addChild(txt);
-        btn.x = 453;
-        btn.y = 7;
+        btn.x = 493;
+        btn.y = 28;
         source.addChild(btn);
         var onClick:Function = function():void {
             g.userInventory.addMoney(currency, count);
         };
-        btn.endClickCallback = onClick;
+        btn.clickCallback = onClick;
     }
 }
 }

@@ -22,6 +22,8 @@ import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -36,7 +38,7 @@ public class WOOrder extends Window{
     private var _woBG:WindowBackground;
     private var _arrItems:Array;
     private var _arrResourceItems:Array;
-    private var _btnCell:CSprite;
+    private var _btnCell:CButton;
     private var _btnDeleteOrder:CSprite;
     private var _txtXP:TextField;
     private var _txtCoins:TextField;
@@ -86,7 +88,7 @@ public class WOOrder extends Window{
         var bg:CartonBackground = new CartonBackground(317, 278);
         bg.x = -382 + 407;
         bg.y = -285 + 178;
-        bg.filter = BlurFilter.createDropShadow(0, 0.785, 0, 1, .5, 0.5);
+        bg.filter = ManagerFilters.SHADOW_LIGHT;
         _source.addChild(bg);
 
         _txtName = new TextField(320, 35, "Самбука заказывает", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
@@ -133,6 +135,7 @@ public class WOOrder extends Window{
         _btnDeleteOrder = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
         _btnDeleteOrder.addChild(im);
+        im.filter = ManagerFilters.SHADOW_TINY;
         _btnDeleteOrder.x = -382 + 670;
         _btnDeleteOrder.y = -285 + 414;
         _source.addChild(_btnDeleteOrder);
@@ -152,31 +155,27 @@ public class WOOrder extends Window{
     }
 
     private function createButtonCell():void {
-        _btnCell = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_green'));
-        _btnCell.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_left'));
+        _btnCell = new CButton();
+        _btnCell.addButtonTexture(120, 40, CButton.GREEN, true);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_left'));
         MCScaler.scale(im, 66, 65);
         im.x = 98;
         im.y = -15;
-        _btnCell.addChild(im);
+        _btnCell.addDisplayObject(im);
         var txt:TextField = new TextField(110, 60, "Оформить заказ", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.y = -9;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnCell.addChild(txt);
-        _btnCell.x = -382 + 487;
-        _btnCell.y = -285 + 480;
-        _btnCell.flatten();
+        _btnCell.registerTextField(txt, ManagerFilters.TEXT_STROKE_GREEN);
+        _btnCell.x = -_woWidth/2 + 547;
+        _btnCell.y = -_woHeight/2 + 500;
         _source.addChild(_btnCell);
-        _btnCell.endClickCallback = sellOrder;
+        _btnCell.clickCallback = sellOrder;
     }
 
     private function sellOrder():void {
         if (_curOrder) {
             for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
-                if (!_arrResourceItems[i].isChecked()) return;
-            }
-            for (i=0; i<_curOrder.resourceIds.length; i++) {
                 g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
             }
             var p:Point = new Point(134, 147);
@@ -248,6 +247,18 @@ public class WOOrder extends Window{
         for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
             _arrResourceItems[i].fillIt(_curOrder.resourceIds[i], _curOrder.resourceCounts[i]);
         }
+        checkSellBtn();
+    }
+
+    private function checkSellBtn():void {
+        var b:Boolean = true;
+        for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
+            if (!_arrResourceItems[i].isChecked()) {
+                b = false;
+                break;
+            }
+        }
+        _btnCell.setEnabled = b;
     }
 
     private function deleteOrder():void {

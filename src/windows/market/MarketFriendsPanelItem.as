@@ -28,7 +28,7 @@ import utils.MCScaler;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.WOButtonTexture;
 
-public class MarketFriendsPanel{
+public class MarketFriendsPanelItem{
     private var _person:Someone;
     public var source:CSprite;
     private var cont:Sprite;
@@ -41,7 +41,7 @@ public class MarketFriendsPanel{
 
     private var g:Vars = Vars.getInstance();
 
-    public function MarketFriendsPanel(f:Someone, p:WOMarket, _shift:int) {
+    public function MarketFriendsPanelItem(f:Someone, p:WOMarket, _shift:int) {
         _shiftFriend = _shift;
         source = new CSprite();
         source.x = 218;

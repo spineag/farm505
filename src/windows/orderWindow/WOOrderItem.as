@@ -36,13 +36,14 @@ public class WOOrderItem {
     private var g:Vars = Vars.getInstance();
     public function WOOrderItem() {
         source = new CSprite();
-        source.filter = BlurFilter.createDropShadow(0, 0.785, 0, 1, .5, 0.5);
+        source.filter = ManagerFilters.SHADOW_LIGHT;
         _bgCarton = new CartonBackground(112, 90);
         source.addChild(_bgCarton);
         _bgCartonIn = new CartonBackgroundIn(102, 64);
         _bgCartonIn.x = 5;
         _bgCartonIn.y = 21;
         source.addChild(_bgCartonIn);
+        _bgCarton.touchable = true;
 
         _txtName = new TextField(112, 20, "Васько", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -52,6 +53,7 @@ public class WOOrderItem {
         im.x = 17;
         im.y = 24;
         MCScaler.scale(im, 30, 30);
+        im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(im);
         _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -63,6 +65,7 @@ public class WOOrderItem {
         im.x = 17;
         im.y = 55;
         MCScaler.scale(im, 30, 30);
+        im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(im);
         _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

@@ -5,15 +5,11 @@ package windows.noResources {
 
 
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-
 import manager.ManagerFilters;
-
-import utils.CSprite;
+import utils.CButton;
 import utils.MCScaler;
-
 import windows.*;
 
 import starling.display.Image;
@@ -21,12 +17,10 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import windows.WOComponents.WOButtonTexture;
-
 import windows.WOComponents.WindowBackground;
 
 public class WONoResources extends Window {
-    private var _btnBuy:CSprite;
+    private var _btnBuy:CButton;
     private var _woBG:WindowBackground;
 
     private var _txtHardCost:TextField;
@@ -62,11 +56,10 @@ public class WONoResources extends Window {
     }
 
     private function createBtn():void {
-        _btnBuy = new CSprite();
-        var b:WOButtonTexture = new WOButtonTexture(190, 34, WOButtonTexture.GREEN);
-        _btnBuy.addChild(b);
-        _btnBuy.x = -95;
-        _btnBuy.y = 90;
+        _btnBuy = new CButton();
+        _btnBuy.addButtonTexture(190, 34, CButton.GREEN, true);
+        _btnBuy.x = 0;
+        _btnBuy.y = 124;
         _source.addChild(_btnBuy);
         _txtHardCost = new TextField(160, 34, "Купить ресурсы за 8888", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         _txtHardCost.y = 0;
@@ -76,11 +69,11 @@ public class WONoResources extends Window {
         MCScaler.scale(im, 25, 25);
         im.x = 160;
         im.y = 4;
-        _btnBuy.addChild(im);
+        _btnBuy.addDisplayObject(im);
     }
 
     private function onClickExit(e:Event = null):void {
-        _btnBuy.endClickCallback = null;
+        _btnBuy.clickCallback = null;
         for (var i:int=0; i<_arrItems.length; i++) {
             _arrItems[i].deleteIt();
         }
@@ -103,7 +96,7 @@ public class WONoResources extends Window {
         _source.addChild(item.source);
         _arrItems.push(item);
         _callbackBuy = f;
-        _btnBuy.endClickCallback = onClickMoney;
+        _btnBuy.clickCallback = onClickMoney;
         showIt();
     }
 
@@ -134,7 +127,7 @@ public class WONoResources extends Window {
         _source.addChild(item.source);
         _arrItems.push(item);
         _callbackBuy = f;
-        _btnBuy.endClickCallback = onClickAnimal;
+        _btnBuy.clickCallback = onClickAnimal;
         showIt();
     }
 
@@ -224,10 +217,9 @@ public class WONoResources extends Window {
                     _arrItems[4].source.x = -200 + 307;
                     break;
             }
-
         }
 
-        _btnBuy.endClickCallback = onClickResource;
+        _btnBuy.clickCallback = onClickResource;
 
     }
 

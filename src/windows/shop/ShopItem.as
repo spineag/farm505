@@ -23,11 +23,11 @@ import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WOComponents.CartonBackgroundIn;
-import windows.WOComponents.WOButtonTexture;
 
 public class ShopItem {
     public var source:CSprite;
@@ -39,9 +39,9 @@ public class ShopItem {
     private var _state:int;
     private const STATE_FROM_INVENTORY:int = 1;
     private const STATE_BUY:int = 2;
-    private var _btnBuyGreen:Sprite;
-    private var _btnBuyBlue:Sprite;
-    private var _btnActivationYellow:Sprite;
+    private var _btnBuyGreen:CButton;
+    private var _btnBuyBlue:CButton;
+    private var _btnActivationYellow:CButton;
     private var _txtBtnBuyBlue:TextField;
     private var _txtBtnBuyGreen:TextField;
     private var _txtAvailable:TextField;
@@ -95,46 +95,43 @@ public class ShopItem {
     }
 
     private function createButtons():void {
-        _btnBuyBlue = new Sprite();
-        var btn:WOButtonTexture = new WOButtonTexture(126, 41, WOButtonTexture.BLUE);
-        _btnBuyBlue.addChild(btn);
+        _btnBuyBlue = new CButton();
+        _btnBuyBlue.addButtonTexture(126, 40, CButton.BLUE, true);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         MCScaler.scale(im, 35, 35);
         im.x = 85;
         im.y = 4;
-        _btnBuyBlue.addChild(im);
+        _btnBuyBlue.addDisplayObject(im);
         _txtBtnBuyBlue = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtBtnBuyBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnBuyBlue.addChild(_txtBtnBuyBlue);
-        _btnBuyBlue.x = 11;
-        _btnBuyBlue.y = 160;
+        _btnBuyBlue.x = 74;
+        _btnBuyBlue.y = 180;
         source.addChild(_btnBuyBlue);
         _btnBuyBlue.visible = false;
 
-        _btnBuyGreen = new Sprite();
-        btn = new WOButtonTexture(126, 41, WOButtonTexture.GREEN);
-        _btnBuyGreen.addChild(btn);
+        _btnBuyGreen = new CButton();
+        _btnBuyGreen.addButtonTexture(126, 40, CButton.GREEN, true);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         MCScaler.scale(im, 35, 35);
         im.x = 85;
         im.y = 4;
-        _btnBuyGreen.addChild(im);
+        _btnBuyGreen.addDisplayObject(im);
         _txtBtnBuyGreen = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtBtnBuyGreen.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuyGreen.addChild(_txtBtnBuyGreen);
-        _btnBuyGreen.x = 11;
-        _btnBuyGreen.y = 160;
+        _btnBuyGreen.x = 74;
+        _btnBuyGreen.y = 180;
         source.addChild(_btnBuyGreen);
         _btnBuyGreen.visible = false;
 
-        _btnActivationYellow = new Sprite();
-        btn = new WOButtonTexture(126, 41, WOButtonTexture.YELLOW);
-        _btnActivationYellow.addChild(btn);
+        _btnActivationYellow = new CButton();
+        _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
         var txt:TextField = new TextField(125, 40, 'Активировать', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         _btnActivationYellow.addChild(txt);
-        _btnActivationYellow.x = 11;
-        _btnActivationYellow.y = 160;
+        _btnActivationYellow.x = 74;
+        _btnActivationYellow.y = 180;
         source.addChild(_btnActivationYellow);
         _btnActivationYellow.visible = false;
     }

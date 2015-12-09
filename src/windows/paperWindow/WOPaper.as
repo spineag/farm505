@@ -12,6 +12,8 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import user.Someone;
+
+import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -19,7 +21,7 @@ import windows.WOComponents.WOButtonTexture;
 import windows.Window;
 
 public class WOPaper extends Window{
-    private var _btnRefresh:CSprite;
+    private var _btnRefresh:CButton;
     private var _arrPaper:Array;
     private var _leftPage:WOPaperPage;
     private var _rightPage:WOPaperPage;
@@ -36,9 +38,8 @@ public class WOPaper extends Window{
         _woHeight = 526;
         _shiftPages = 1;
 
-        _btnRefresh = new CSprite();
-        var btnT:Sprite = new WOButtonTexture(130, 40, WOButtonTexture.GREEN);
-        _btnRefresh.addChild(btnT);
+        _btnRefresh = new CButton();
+        _btnRefresh.addButtonTexture(130, 40, CButton.GREEN, true);
         var txt:TextField = new TextField(100, 40, "Обновить 1", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 2;
@@ -47,11 +48,11 @@ public class WOPaper extends Window{
         MCScaler.scale(im, 25, 25);
         im.x = 100;
         im.y = 8;
-        _btnRefresh.addChild(im);
-        _btnRefresh.x = 285;
-        _btnRefresh.y = 270;
+        _btnRefresh.addDisplayObject(im);
+        _btnRefresh.x = 360;
+        _btnRefresh.y = 290;
         _source.addChild(_btnRefresh);
-        _btnRefresh.endClickCallback = makeRefresh;
+        _btnRefresh.clickCallback = makeRefresh;
         createBtns();
 
         createExitButton(onClickExit);

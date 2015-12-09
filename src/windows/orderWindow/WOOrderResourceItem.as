@@ -34,6 +34,7 @@ public class WOOrderResourceItem {
         _check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _check.x = 69;
         _check.y = -5;
+        _check.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_check);
         _check.visible = false;
 

@@ -22,6 +22,8 @@ import user.NeighborBot;
 
 import user.Someone;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -42,7 +44,7 @@ public class WOMarket  extends Window {
     private var _arrItemsFriend:Array;
     private var _curUser:Someone;
     private var _btnRefresh:CSprite;
-    private var _btnFriends:CSprite;
+    private var _btnFriends:CButton;
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
     private var _item3:MarketFriendItem;
@@ -51,7 +53,6 @@ public class WOMarket  extends Window {
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _txtName:TextField;
     private var _panelBool:Boolean;
-
 
     public function WOMarket() {
         super ();
@@ -62,15 +63,14 @@ public class WOMarket  extends Window {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        _btnFriends = new CSprite();
-        var btn:WOButtonTexture = new WOButtonTexture(95, 40, WOButtonTexture.GREEN);
-        _btnFriends.x = _woWidth/2 - 145;
-        _btnFriends.y = _woHeight/2 - 78;
-        _btnFriends.addChild(btn);
+        _btnFriends = new CButton();
+        _btnFriends.addButtonTexture(96, 40, CButton.GREEN, true);
+        _btnFriends.x = _woWidth/2 - 97;
+        _btnFriends.y = _woHeight/2 - 58;
         var c:CartonBackground = new CartonBackground(550, 445);
         c.x = -_woWidth/2 + 43;
         c.y = -_woHeight/2 + 40;
-        c.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        c.filter = ManagerFilters.SHADOW_LIGHT;
         _source.addChildAt(c,1);
         var txt:TextField = new TextField(80, 25, 'Все друзья', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
@@ -78,10 +78,10 @@ public class WOMarket  extends Window {
         txt.y = 8;
         _btnFriends.addChild(txt);
         _source.addChild(_btnFriends);
-        _btnFriends.endClickCallback = btnFriend;
+        _btnFriends.clickCallback = btnFriend;
         marketChoose = new WOMarketChoose();
         addItems();
-//        _friendsPanel = new MarketFriendsPanel(this,_source);
+//        _friendsPanel = new MarketFriendsPanelItem(this,_source);
         _btnRefresh = new CSprite();
         var ref:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
         _btnRefresh.addChild(ref);
@@ -253,7 +253,6 @@ public class WOMarket  extends Window {
         if (!_panelBool){
             _shopSprite.visible = true;
             _panelBool = true;
-
         } else if (_panelBool) {
             _shopSprite.visible = false;
             _panelBool = false;
@@ -263,15 +262,13 @@ public class WOMarket  extends Window {
         _scrollSprite.source.x = 12;
         _scrollSprite.source.y = 55;
         _scrollSprite.createScoll(285, 0, 200, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
-        var woWidth = 314;
-        var woHeight = 0;
+        var woWidth:int = 314;
+        var woHeight:int = 0;
         if (_arrFriends.length <= 3) {
             woHeight = 143;
         } else if (_arrFriends.length > 3 && _arrFriends.length <= 6) {
-
             woHeight = 218;
         } else if (_arrFriends.length > 6 && _arrFriends.length <= 9){
-
             woHeight = 300;
         } else {
             woHeight = 300;
@@ -279,12 +276,12 @@ public class WOMarket  extends Window {
         var c:CartonBackground = new CartonBackground(woWidth, woHeight);
         _shopSprite.addChild(c);
         for (var i:int=0; i < _arrFriends.length; i++) {
-            var item:MarketFriendsPanel = new MarketFriendsPanel(_arrFriends[i],this, i);
+            var item:MarketFriendsPanelItem = new MarketFriendsPanelItem(_arrFriends[i],this, i);
             _scrollSprite.addNewCell(item.source);
         }
         _shopSprite.addChild(_scrollSprite.source);
-        var txtPanel:TextField = new TextField(220, 25, 'Быстрый доступ к друзьям по игре:', g.allData.fonts['BloggerBold'], 13, 0xfbf4cf);
-        txtPanel.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        var txtPanel:TextField = new TextField(220, 25, 'Быстрый доступ к друзьям по игре:', g.allData.fonts['BloggerBold'], 13, Color.WHITE);
+        txtPanel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txtPanel.x = 42;
         txtPanel.y = 11;
         _shopSprite.addChild(txtPanel);

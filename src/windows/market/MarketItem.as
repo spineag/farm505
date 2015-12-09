@@ -33,7 +33,6 @@ import windows.WOComponents.CartonBackgroundIn;
 
 public class MarketItem {
     public var source:CSprite;
-//    private var _bg:Image;
     private var _costTxt:TextField;
     private var _countTxt:TextField;
     private var _txtName:TextField;
@@ -59,7 +58,6 @@ public class MarketItem {
         source.addChild(_bg);
         _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-//        _costTxt.x = 22;
         _costTxt.y = 103;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2;

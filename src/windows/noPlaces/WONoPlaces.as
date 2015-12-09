@@ -13,6 +13,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -21,11 +23,8 @@ import windows.WOComponents.WindowBackground;
 
 public class WONoPlaces extends Window{
 
-    private var _contBtn:CSprite;
+    private var _contBtn:CButton;
     private var _txtText:TextField;
-    private var _imageBtn:Image;
-    private var _imageHard:Image;
-    private var _imageBg:Image;
     private var _txtCost:TextField;
     private var _woBG:WindowBackground;
     private var _price:int;
@@ -40,30 +39,29 @@ public class WONoPlaces extends Window{
         _source.addChild(_woBG);
         createExitButton(onClickExit);
 
-        _contBtn = new CSprite();
-        _contBtn.x =-65;
-        _contBtn.y = 100;
+        _contBtn = new CButton();
+        _contBtn.addButtonTexture(120, 40, CButton.GREEN, true);
+        _contBtn.x =-5;
+        _contBtn.y = 120;
         _source.addChild(_contBtn);
-        _contBtn.endClickCallback = onClick;
+        _contBtn.clickCallback = onClick;
         _txtText = new TextField(200,100,"Недостаточно места",g.allData.fonts['BloggerBold'],24,Color.WHITE);
         _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtText.x = -100;
         _txtText.y = -150;
-        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("bt_green"));
-        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        MCScaler.scale(_imageHard,35,35);
-        _imageHard.x = 80;
-        _imageHard.y = 4;
-        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
-        _imageBg.x = -50;
-        _imageBg.y = -50;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
+        MCScaler.scale(im,35,35);
+        im.x = 80;
+        im.y = 4;
+        _contBtn.addDisplayObject(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
+        im.x = -50;
+        im.y = -50;
         _txtCost = new TextField(50,50,"","g.allData.fonts['BloggerBold']",24,Color.WHITE);
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtCost.x = 30;
-        _contBtn.addChild(_imageBtn);
         _contBtn.addChild(_txtCost);
-        _contBtn.addChild(_imageHard);
-        _source.addChild(_imageBg);
+        _source.addChild(im);
         _source.addChild(_txtText);
     }
 
