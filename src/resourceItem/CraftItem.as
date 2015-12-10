@@ -11,6 +11,8 @@ import flash.geom.Point;
 
 import hint.FlyMessage;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -62,7 +64,8 @@ public class CraftItem {
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }
-        _txtNumber = new TextField(50,50," ","Arial",18,Color.WHITE);
+        _txtNumber = new TextField(50,50,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
+        _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtNumber.x = 15;
         _txtNumber.y = 25;
         _source.addChild(_txtNumber);
@@ -157,7 +160,7 @@ public class CraftItem {
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
         new XPStar(_source.x,_source.y,_resourceItem.craftXP);
         if (_count > 1) {
-            _txtNumber.text = String(_count);
+            _txtNumber.text = '+' + String(_count);
         } else {
             _txtNumber.text = '';
         }

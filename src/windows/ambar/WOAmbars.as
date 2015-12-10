@@ -86,7 +86,7 @@ public class WOAmbars extends Window {
         _cloneTabAmbar = new CSprite();
         carton = new CartonBackground(122, 80);
         _cloneTabAmbar.addChild(carton);
-        var im:Image = new Image(g.allData.atlas['buildAtlas'].getTexture("ambar"));
+        var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));
         MCScaler.scale(im, 41, 41);
         im.x = 12;
         im.y = 1;
@@ -98,7 +98,7 @@ public class WOAmbars extends Window {
         _cloneTabAmbar.addChild(txt);
         _cloneTabAmbar.x = -_woWidth/2 + 73;
         _cloneTabAmbar.y = -_woHeight/2 + 51;
-        _cloneTabAmbar.filter = ManagerFilters.SHADOW;
+        carton.filter = ManagerFilters.SHADOW;
         _cloneTabAmbar.flatten();
         _source.addChild(_cloneTabAmbar);
         var fAmbar:Function = function():void {
@@ -112,7 +112,7 @@ public class WOAmbars extends Window {
         _cloneTabSklad = new CSprite();
         carton = new CartonBackground(122, 80);
         _cloneTabSklad.addChild(carton);
-        im = new Image(g.allData.atlas['buildAtlas'].getTexture("sklad"));
+        im = new Image(g.allData.atlas['iconAtlas'].getTexture("sklad_icon"));
         MCScaler.scale(im, 40, 40);
         im.x = 12;
         im.y = 2;
@@ -124,7 +124,7 @@ public class WOAmbars extends Window {
         _cloneTabSklad.addChild(txt);
         _cloneTabSklad.x = -_woWidth/2 + 202;
         _cloneTabSklad.y = -_woHeight/2 + 51;
-        _cloneTabSklad.filter = ManagerFilters.SHADOW;
+        carton.filter = ManagerFilters.SHADOW;
         _cloneTabSklad.flatten();
         _source.addChild(_cloneTabSklad);
         var fSklad:Function = function():void {
@@ -145,7 +145,7 @@ public class WOAmbars extends Window {
         _tabAmbar = new Sprite();
         carton = new CartonBackground(122, 80);
         _tabAmbar.addChild(carton);
-        im = new Image(g.allData.atlas['buildAtlas'].getTexture("ambar"));
+        im = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));
         MCScaler.scale(im, 41, 41);
         im.x = 12;
         im.y = 1;
@@ -163,7 +163,7 @@ public class WOAmbars extends Window {
         _tabSklad = new Sprite();
         carton = new CartonBackground(122, 80);
         _tabSklad.addChild(carton);
-        im = new Image(g.allData.atlas['buildAtlas'].getTexture("sklad"));
+        im = new Image(g.allData.atlas['iconAtlas'].getTexture("sklad_icon"));
         MCScaler.scale(im, 40, 40);
         im.x = 10;
         im.y = 2;
