@@ -97,7 +97,7 @@ public class WOLevelUp extends Window{
         im.scaleX = -1;
         _rightArrow.addDisplayObject(im);
         _rightArrow.setPivots();
-        _rightArrow.x = _woWidth/2 - 19 - _rightArrow.width/2;
+        _rightArrow.x = _woWidth/2 - 19 + _rightArrow.width/2;
         _rightArrow.y = 87 + _rightArrow.height/2;
         _source.addChild(_rightArrow);
         _rightArrow.clickCallback = onRightClick;
