@@ -404,7 +404,7 @@ public class DirectServer {
                 if (d.message[i].image_b_flower) obj.imageGrowBigFlower = d.message[i].image_b_flower;
                 if (d.message[i].image_b_growed) {
                     obj.imageGrowedBig = d.message[i].image_b_growed;
-                    obj.image = obj.imageGrowedBig;
+//                    obj.image = obj.imageGrowedBig;
                 }
                 if (d.message[i].image_dead) obj.imageDead = d.message[i].image_dead;
                 if (d.message[i].inner_position_s) {

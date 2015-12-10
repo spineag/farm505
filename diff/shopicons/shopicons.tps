@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/shopicons/shopicons.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/shopicons/shopicons.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">

@@ -147,6 +147,10 @@ public class ShopItem {
             if (!texture) {
                 texture = g.allData.atlas[_data.url].getTexture(_data.image);
             }
+            //temp for trees
+            if (!texture) {
+                texture = g.allData.atlas[_data.url].getTexture(_data.imageGrowedBig);
+            }
             _im = new Image(texture);
             if (!_im) {
                 Cc.error('ShopItem:: no such image: ' + _data.image);

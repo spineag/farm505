@@ -32,7 +32,7 @@ public class EmbedAssets {
     private const FarmTexture:Class;
     [Embed(source="../../assets/decorAtlas3.png")]
     private const DecorTexture:Class;
-    [Embed(source="../../assets/iconAtlas3.png")]
+    [Embed(source="../../assets/iconAtlas.png")]
     private const IconTexture:Class;
 
     // XML
@@ -58,7 +58,7 @@ public class EmbedAssets {
     private const FarmTextureXML:Class;
     [Embed(source="../../assets/decorAtlas3.xml", mimeType="application/octet-stream")]
     private const DecorTextureXML:Class;
-    [Embed(source="../../assets/iconAtlas3.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/iconAtlas.xml", mimeType="application/octet-stream")]
     private const IconTextureXML:Class;
 
     [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
