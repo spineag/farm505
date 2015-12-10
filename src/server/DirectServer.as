@@ -206,7 +206,6 @@ public class DirectServer {
                 obj.ingridientsCount = String(d.message[i].ingredients_count).split('&');
                 obj.buildingId = int(d.message[i].building_id);
                 obj.priceSkipHard = int(d.message[i].prise_skip);
-//                obj.blockByLevel = int(d.message[i].block_by_level);
                 obj.blockByLevel = g.dataResource.objectResources[obj.idResource].blockByLevel;
                 g.dataRecipe.objectRecipe[obj.id] = obj;
             }

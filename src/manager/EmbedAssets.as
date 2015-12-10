@@ -14,7 +14,7 @@ public class EmbedAssets {
     private const MapTexture:Class;
     [Embed(source="../../assets/buildAtlas3.png")]
     private const BuildTexture:Class;
-    [Embed(source="../../assets/plants3.png")]
+    [Embed(source="../../assets/plants.png")]
     private const PlantTexture:Class;
     [Embed(source="../../assets/interfaceAtlas.png")]
     private const InterfaceTexture:Class;
@@ -40,7 +40,7 @@ public class EmbedAssets {
     private const MapTextureXML:Class;
     [Embed(source="../../assets/buildAtlas3.xml", mimeType="application/octet-stream")]
     private const BuildTextureXML:Class;
-    [Embed(source="../../assets/plants3.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/plants.xml", mimeType="application/octet-stream")]
     private const PlantTextureXML:Class;
     [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
     private const InterfaceTextureXML:Class;
