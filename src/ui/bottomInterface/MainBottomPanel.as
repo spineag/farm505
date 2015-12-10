@@ -126,18 +126,20 @@ public class MainBottomPanel {
 
         _doorBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_home'));
+        im.width = 260;
         _doorBtn.addDisplayObject(im);
         _doorBtn.setPivots();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_home'));
         im.x = 60;
-        im.y = 3;
+        im.y = 6;
         _doorBtn.addDisplayObject(im);
-        var txt:TextField = new TextField(267, 65, "Домой", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        var txt:TextField = new TextField(100, 70, "Домой", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_ORANGE;
+        txt.x = 105;
         _doorBtn.addChild(txt);
         _doorBtn.flatten();
-        _doorBtn.x = -2 + _doorBtn.width/2;
-        _doorBtn.y = 9 + _doorBtn.height/2;
+        _doorBtn.x = 0 + _doorBtn.width/2;
+        _doorBtn.y = 2 + _doorBtn.height/2;
         _source.addChild(_doorBtn);
         _doorBtn.hoverCallback = function():void { g.hint.showIt("Домой","0") };
         _doorBtn.outCallback = function():void { g.hint.hideIt() };
