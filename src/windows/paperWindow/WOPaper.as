@@ -27,8 +27,8 @@ public class WOPaper extends Window{
     private var _rightPage:WOPaperPage;
     private var _shiftPages:int;
     private var _maxPages:int;
-    private var _leftArrow:CSprite;
-    private var _rightArrow:CSprite;
+    private var _leftArrow:CButton;
+    private var _rightArrow:CButton;
     private var _tempLeftPage:WOPaperPage;
     private var _tempRightPage:WOPaperPage;
     private var _flipPage:WOPaperFlipPage;
@@ -48,7 +48,8 @@ public class WOPaper extends Window{
         MCScaler.scale(im, 25, 25);
         im.x = 100;
         im.y = 8;
-        _btnRefresh.addDisplayObject(im);
+        _btnRefresh.addChild(im);
+        im.filter = ManagerFilters.SHADOW_TINY;
         _btnRefresh.x = 360;
         _btnRefresh.y = 290;
         _source.addChild(_btnRefresh);
@@ -103,21 +104,21 @@ public class WOPaper extends Window{
 
     private function createBtns():void {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
-        _leftArrow = new CSprite();
-        _leftArrow.addChild(im);
-        _leftArrow.x = -_woWidth/2 + 12 - 50;
+        _leftArrow = new CButton();
+        _leftArrow.addDisplayObject(im);
+        _leftArrow.x = -_woWidth/2 - 50 + _leftArrow.width/2;
         _leftArrow.y = -_woHeight/2 + 240;
         _source.addChild(_leftArrow);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.scaleX = -1;
         im.x = im.width;
-        _rightArrow = new CSprite();
-        _rightArrow.addChild(im);
-        _rightArrow.x = 386 + 50;
+        _rightArrow = new CButton();
+        _rightArrow.addDisplayObject(im);
+        _rightArrow.x = 386 + 57 - _leftArrow.width/2;
         _rightArrow.y = -_woHeight/2 + 240;
         _source.addChild(_rightArrow);
-        _leftArrow.endClickCallback = movePrev;
-        _rightArrow.endClickCallback = moveNext;
+        _leftArrow.clickCallback = movePrev;
+        _rightArrow.clickCallback = moveNext;
     }
 
     private var _isAnim:Boolean = false;

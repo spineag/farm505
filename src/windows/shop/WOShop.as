@@ -15,6 +15,8 @@ import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 
 import utils.MCScaler;
@@ -187,22 +189,23 @@ public class WOShop extends Window{
         im.x = -_woWidth/2 + 41;
         im.y = -_woHeight/2 + 505;
         _source.addChild(im);
-        var btn:CSprite = new CSprite();
+        var btn:CButton = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
         MCScaler.scale(im, 38, 38);
-        btn.addChild(im);
+        btn.addDisplayObject(im);
+        btn.setPivots();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
         MCScaler.scale(im, 24, 24);
         im.x = im.y = 7;
         btn.addChild(im);
-        btn.x = -_woWidth/2 + 144;
-        btn.y = -_woHeight/2 + 509;
+        btn.x = -_woWidth/2 + 163;
+        btn.y = -_woHeight/2 + 528;
         _source.addChild(btn);
         var f1:Function = function ():void {
             onClickExit();
             g.woBuyCurrency.showItMenu(true);
         };
-        btn.endClickCallback = f1;
+        btn.clickCallback = f1;
 
         pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 104);
@@ -214,44 +217,46 @@ public class WOShop extends Window{
         im.x = -_woWidth/2 + 196;
         im.y = -_woHeight/2 + 504;
         _source.addChild(im);
-        btn = new CSprite();
+        btn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
         MCScaler.scale(im, 38, 38);
-        btn.addChild(im);
+        btn.addDisplayObject(im);
+        btn.setPivots();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
         MCScaler.scale(im, 24, 24);
         im.x = im.y = 7;
         btn.addChild(im);
-        btn.x = -_woWidth/2 + 300;
-        btn.y = -_woHeight/2 + 509;
+        btn.x = -_woWidth/2 + 319;
+        btn.y = -_woHeight/2 + 528;
         _source.addChild(btn);
         var f2:Function = function ():void {
             onClickExit();
             g.woBuyCurrency.showItMenu(false);
         };
-        btn.endClickCallback = f2;
+        btn.clickCallback = f2;
 
         pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 310);
         pl.x = -_woWidth/2 + 380;
         pl.y = -_woHeight/2 + 509;
         _source.addChild(pl);
-        btn = new CSprite();
+        btn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
         MCScaler.scale(im, 38, 38);
-        btn.addChild(im);
+        btn.addDisplayObject(im);
+        btn.setPivots();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
         MCScaler.scale(im, 24, 24);
         im.x = im.y = 7;
         btn.addChild(im);
-        btn.x = -_woWidth/2 + 668;
-        btn.y = -_woHeight/2 + 509;
+        btn.x = -_woWidth/2 + 687;
+        btn.y = -_woHeight/2 + 528;
         _source.addChild(btn);
         var f3:Function = function ():void {
             onClickExit();
             g.woBuyCoupone.showItWO();
         };
-        btn.endClickCallback = f3;
+        btn.clickCallback = f3;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone'));
         MCScaler.scale(im, 45, 45);
         im.x = -_woWidth/2 + 364;

@@ -79,7 +79,8 @@ public class WOFabricaWorkListItem {
             MCScaler.scale(im, 30, 30);
             im.x = 72;
             im.y = 5;
-            _btnSkip.addDisplayObject(im);
+            _btnSkip.addChild(im);
+            im.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 45;
             _btnSkip.y = 117;
             _source.addChild(_btnSkip);

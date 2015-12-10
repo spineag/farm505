@@ -52,20 +52,17 @@ public class CButton extends Sprite {
     public function addButtonTexture(w:int, h:int, type:int, needMakeSimpleShadow:Boolean = false):void {
         var t:Sprite = new WOButtonTexture(w, h, type);
         _bg.addChild(t);
-        _bg.flatten();
         if (needMakeSimpleShadow) {
             setPivots();
             makeSimpleShadow(w, h, type);
             addCloneShadow();
         }
+        _bg.flatten();
     }
 
-    public function addDisplayObject(d:DisplayObject, addShadow:Boolean = false):void {
+    public function addDisplayObject(d:DisplayObject):void {
         _bg.unflatten();
         _bg.addChild(d);
-        if (addShadow) {
-            d.filter = ManagerFilters.SHADOW_TINY;
-        }
         _bg.flatten();
     }
 
@@ -91,29 +88,29 @@ public class CButton extends Sprite {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
             }
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
+            onBeganClickAnimation();
             if (_startClickCallback != null) {
                 _startClickCallback.apply();
             }
             Mouse.cursor = OwnMouse.CLICK_CURSOR;
-            onBeganClickAnimation();
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
+            onEndClickAnimation();
             if (_clickCallback != null) {
                 _clickCallback.apply();
             }
-            onEndClickAnimation();
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
             Mouse.cursor = OwnMouse.HOVER_CURSOR;
+            onHoverAnimation();
             if (_hoverCallback != null) {
                 _hoverCallback.apply();
             }
-            onHoverAnimation();
         } else {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
+            onOutAnimation();
             if (_outCallback != null) {
                 _outCallback.apply();
             }
-            onOutAnimation();
         }
     }
 

@@ -17,6 +17,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 
+import utils.CButton;
+
 import utils.CSprite;
 
 import windows.WOComponents.HorizontalPlawka;
@@ -25,8 +27,8 @@ public class FriendPanel {
     private var _source:Sprite;
     private var _mask:Sprite;
     private var _cont:Sprite;
-    private var _leftArrow:CSprite;
-    private var _rightArrow:CSprite;
+    private var _leftArrow:CButton;
+    private var _rightArrow:CButton;
     private var _arrFriends:Array;
     private var _arrItems:Array;
     private var _shift:int;
@@ -57,17 +59,17 @@ public class FriendPanel {
         _source.addChild(_mask);
 
         createAddFriendBtn();
-        createArrows();
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
 
     }
 
     private function createAddFriendBtn():void {
-        var bt:CSprite = new CSprite();
+        var bt:CButton = new CButton();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_bt_add'));
-        bt.addChild(im);
-        bt.x = 13;
-        bt.y = 4;
+        bt.addDisplayObject(im);
+        bt.setPivots();
+        bt.x = 13 + bt.width/2;
+        bt.y = 4 + bt.height/2;
         _source.addChild(bt);
 //        bt.endClickCallback = inviteFriends();
     }
@@ -94,23 +96,24 @@ public class FriendPanel {
     }
 
     private function createArrows():void {
-        _leftArrow = new CSprite();
+        _leftArrow = new CButton();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
-        _leftArrow.addChild(im);
-        _leftArrow.x = 78;
-        _leftArrow.y = 15;
+        _leftArrow.addDisplayObject(im);
+        _leftArrow.setPivots();
+        _leftArrow.x = 78 + _leftArrow.width/2;
+        _leftArrow.y = 15 + _leftArrow.height/2;
         _source.addChild(_leftArrow);
-        _leftArrow.endClickCallback = leftArrow;
+        _leftArrow.clickCallback = leftArrow;
 
-        _rightArrow = new CSprite();
+        _rightArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.scaleX = -1;
-        im.x = -im.width;
-        _rightArrow.addChild(im);
-        _rightArrow.x = 485;
-        _rightArrow.y = 15;
+        _rightArrow.addDisplayObject(im);
+        _rightArrow.setPivots();
+        _rightArrow.x = 485 - _rightArrow.width/2;
+        _rightArrow.y = 15 + _rightArrow.height/2;
         _source.addChild(_rightArrow);
-        _rightArrow.endClickCallback = rightArrow;
+        _rightArrow.clickCallback = rightArrow;
     }
 
     private var isAnimated:Boolean = false;
@@ -122,6 +125,7 @@ public class FriendPanel {
             isAnimated = true;
             new TweenMax(_cont, .5, {x:-_shift*66, ease:Linear.easeNone ,onComplete: function():void {isAnimated = false}});
         }
+        checkArrows();
     }
 
     private function rightArrow():void {
@@ -133,6 +137,20 @@ public class FriendPanel {
             isAnimated = true;
             new TweenMax(_cont, .5, {x:-_shift*66, ease:Linear.easeNone ,onComplete: function():void {isAnimated = false}});
         }
+        checkArrows();
+    }
+
+    private function checkArrows():void {
+        if (_shift <= 0) {
+            _leftArrow.setEnabled = false;
+        } else {
+            _leftArrow.setEnabled = true;
+        }
+        if (_shift + 5 >= _arrFriends.length) {
+            _rightArrow.setEnabled = false;
+        } else {
+            _rightArrow.setEnabled = true;
+        }
     }
 
     public function onGettingInfo(e:SocialNetworkEvent):void {
@@ -141,9 +159,12 @@ public class FriendPanel {
         _arrItems = [];
         _shift = 0;
         _arrFriends = g.user.arrFriends.slice();
-        trace('arrFriends length: ' + _arrFriends.length);
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
+        if (_arrFriends.length > 5) {
+            createArrows();
+            checkArrows();
+        }
         _arrFriends.sortOn("level", Array.DESCENDING | Array.NUMERIC);
         for (var i:int = 0; i < _arrFriends.length; i++) {
             item = new FriendItem(_arrFriends[i]);

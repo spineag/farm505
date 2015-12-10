@@ -13,16 +13,17 @@ import mouse.ToolsModifier;
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
+
+import utils.CButton;
 import utils.CSprite;
 import windows.WOComponents.HorizontalPlawka;
 
 public class ToolsPanel {
 
     private var _source:Sprite;
-    private var _repositoryBtn:CSprite;
-    private var _flipBtn:CSprite;
-    private var _moveBtn:CSprite;
+    private var _repositoryBtn:CButton;
+    private var _flipBtn:CButton;
+    private var _moveBtn:CButton;
     private var _repositoryBox:RepositoryBox;
     private var g:Vars = Vars.getInstance();
 
@@ -50,50 +51,50 @@ public class ToolsPanel {
     private function createBtns():void {
         var im:Image;
 
-        _repositoryBtn = new CSprite();
+        _repositoryBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-        _repositoryBtn.addChild(im);
+        _repositoryBtn.addDisplayObject(im);
+        _repositoryBtn.setPivots();
+        _repositoryBtn.x = 3 + _repositoryBtn.width/2;
+        _repositoryBtn.y = 8 + _repositoryBtn.height/2;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_inv'));
         im.x = 4;
         im.y = 2;
-        _repositoryBtn.addChild(im);
-        _repositoryBtn.flatten();
-        _repositoryBtn.x = 3;
-        _repositoryBtn.y = 8;
+        _repositoryBtn.addDisplayObject(im);
         _source.addChild(_repositoryBtn);
         _repositoryBtn.hoverCallback = function():void { g.hint.showIt("Инвентарь", "0"); };
         _repositoryBtn.outCallback = function():void { g.hint.hideIt(); };
-        _repositoryBtn.endClickCallback = function():void {onClick('repository')};
+        _repositoryBtn.clickCallback = function():void {onClick('repository')};
 
-        _flipBtn = new CSprite();
+        _flipBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-        _flipBtn.addChild(im);
+        _flipBtn.addDisplayObject(im);
+        _flipBtn.setPivots();
+        _flipBtn.x = 66 + _flipBtn.width/2;
+        _flipBtn.y = 8 + _flipBtn.height/2;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_rotate'));
         im.x = 4;
         im.y = 4;
-        _flipBtn.addChild(im);
-        _flipBtn.flatten();
-        _flipBtn.x = 66;
-        _flipBtn.y = 8;
+        _flipBtn.addDisplayObject(im);
         _source.addChild(_flipBtn);
         _flipBtn.hoverCallback = function():void { g.hint.showIt("Повернуть","0"); };
         _flipBtn.outCallback = function():void { g.hint.hideIt(); };
-        _flipBtn.endClickCallback = function():void {onClick('flip')};
+        _flipBtn.clickCallback = function():void {onClick('flip')};
 
-        _moveBtn = new CSprite();
+        _moveBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-        _moveBtn.addChild(im);
+        _moveBtn.addDisplayObject(im);
+        _moveBtn.setPivots();
+        _moveBtn.x = 129 + _moveBtn.width/2;
+        _moveBtn.y = 8 + _moveBtn.height/2;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_move'));
         im.x = 5;
         im.y = 3;
-        _moveBtn.addChild(im);
-        _moveBtn.flatten();
-        _moveBtn.x = 129;
-        _moveBtn.y = 8;
+        _moveBtn.addDisplayObject(im);
         _source.addChild(_moveBtn);
         _moveBtn.hoverCallback = function():void { g.hint.showIt("Переместить", "0"); };
         _moveBtn.outCallback = function():void { g.hint.hideIt(); };
-        _moveBtn.endClickCallback = function():void {onClick('move')};
+        _moveBtn.clickCallback = function():void {onClick('move')};
     }
 
     public function updateRepositoryBox():void {

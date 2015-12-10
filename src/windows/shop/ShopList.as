@@ -15,12 +15,14 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 
 public class ShopList {
     private var _arrItems:Array;
-    private var _leftArrow:CSprite;
-    private var _rightArrow:CSprite;
+    private var _leftArrow:CButton;
+    private var _rightArrow:CButton;
     private var _shift:int;
     private var _source:Sprite;
     private var _itemsSprite:Sprite;
@@ -49,23 +51,25 @@ public class ShopList {
     private function addArrows(parent:Sprite):void {
         var im:Image;
 
-        _leftArrow = new CSprite();
+        _leftArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.x = im.width;
-        _leftArrow.addChild(im);
-        _leftArrow.x = -22;
-        _leftArrow.y = 94;
+        _leftArrow.addDisplayObject(im);
+        _leftArrow.setPivots();
+        _leftArrow.x = -22 + _leftArrow.width/2;
+        _leftArrow.y = 94 + _leftArrow.height/2;
         parent.addChild(_leftArrow);
-        _leftArrow.endClickCallback = onLeftClick;
+        _leftArrow.clickCallback = onLeftClick;
 
-        _rightArrow = new CSprite();
+        _rightArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.scaleX = -1;
-        _rightArrow.addChild(im);
-        _rightArrow.x = 662;
-        _rightArrow.y = 94;
+        _rightArrow.addDisplayObject(im);
+        _rightArrow.setPivots();
+        _rightArrow.x = 662 + _leftArrow.width/2;
+        _rightArrow.y = 94 + _leftArrow.height/2;
         parent.addChild(_rightArrow);
-        _rightArrow.endClickCallback = onRightClick;
+        _rightArrow.clickCallback = onRightClick;
     }
 
     public function fillIt(arr:Array):void {
@@ -131,10 +135,14 @@ public class ShopList {
 
         if (_arrItems.length > 4) {
             if (_shift <= 0) {
-                _leftArrow.visible = false;
+                _leftArrow.setEnabled = false;
+            } else {
+                _leftArrow.setEnabled = true;
             }
             if (_shift >= _arrItems.length - 4){
-                _rightArrow.visible = false;
+                _rightArrow.setEnabled = false;
+            } else {
+                _rightArrow.setEnabled = true;
             }
         } else {
             _leftArrow.visible = false;

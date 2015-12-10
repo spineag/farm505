@@ -2,25 +2,16 @@
  * Created by user on 7/22/15.
  */
 package windows.orderWindow {
-import data.BuildType;
-
-import flash.filters.GlowFilter;
 
 import manager.ManagerFilters;
-
 import manager.Vars;
 
 import starling.display.Image;
-
-import starling.display.Sprite;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
-
 import utils.MCScaler;
-
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
 
@@ -36,8 +27,8 @@ public class WOOrderItem {
     private var g:Vars = Vars.getInstance();
     public function WOOrderItem() {
         source = new CSprite();
-        source.filter = ManagerFilters.SHADOW_LIGHT;
         _bgCarton = new CartonBackground(112, 90);
+        _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(_bgCarton);
         _bgCartonIn = new CartonBackgroundIn(102, 64);
         _bgCartonIn.x = 5;
@@ -78,9 +69,9 @@ public class WOOrderItem {
 
     public function activateIt(v:Boolean):void {
         if (v) {
-            source.filter = ManagerFilters.YELLOW_STROKE;
+            _bgCarton.filter = ManagerFilters.YELLOW_STROKE;
         } else {
-            source.filter = null;
+            _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
         }
     }
 

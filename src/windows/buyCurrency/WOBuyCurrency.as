@@ -64,7 +64,6 @@ public class WOBuyCurrency extends Window{
         MCScaler.scale(im, 55, 55);
         im.x = 27;
         im.y = 9;
-        im.filter = ManagerFilters.SHADOW_TINY;
         _tabHard.addChild(im);
         var txt:TextField = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -82,7 +81,6 @@ public class WOBuyCurrency extends Window{
         MCScaler.scale(im, 55, 55);
         im.x = 27;
         im.y = 9;
-        im.filter = ManagerFilters.SHADOW_TINY;
         _cloneTabHard.addChild(im);
         txt = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -101,7 +99,6 @@ public class WOBuyCurrency extends Window{
         MCScaler.scale(im, 55, 55);
         im.x = 27;
         im.y = 9;
-        im.filter = ManagerFilters.SHADOW_TINY;
         _tabSoft.addChild(im);
         txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -119,7 +116,6 @@ public class WOBuyCurrency extends Window{
         MCScaler.scale(im, 55, 55);
         im.x = 27;
         im.y = 9;
-        im.filter = ManagerFilters.SHADOW_TINY;
         _cloneTabSoft.addChild(im);
         txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;

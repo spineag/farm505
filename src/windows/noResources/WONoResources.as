@@ -69,7 +69,8 @@ public class WONoResources extends Window {
         MCScaler.scale(im, 25, 25);
         im.x = 160;
         im.y = 4;
-        _btnBuy.addDisplayObject(im);
+        _btnBuy.addChild(im);
+        im.filter = ManagerFilters.SHADOW_TINY;
     }
 
     private function onClickExit(e:Event = null):void {

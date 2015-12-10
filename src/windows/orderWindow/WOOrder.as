@@ -116,6 +116,7 @@ public class WOOrder extends Window{
         im.x = -382 + 501;
         im.y = -285 + 417;
         MCScaler.scale(im, 30, 30);
+        im.filter = ManagerFilters.SHADOW_TINY;
         _source.addChild(im);
         _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -126,6 +127,7 @@ public class WOOrder extends Window{
         im.x = -382 + 580;
         im.y = -285 + 419;
         MCScaler.scale(im, 30, 30);
+        im.filter = ManagerFilters.SHADOW_TINY;
         _source.addChild(im);
         _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

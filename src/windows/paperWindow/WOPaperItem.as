@@ -167,6 +167,7 @@ public class WOPaperItem {
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
+        if (!_ava) return;
         if (!bitmap) {
             bitmap = g.pBitmaps[_p.photo].create() as Bitmap;
         }

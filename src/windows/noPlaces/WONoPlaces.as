@@ -53,7 +53,8 @@ public class WONoPlaces extends Window{
         MCScaler.scale(im,35,35);
         im.x = 80;
         im.y = 4;
-        _contBtn.addDisplayObject(im);
+        _contBtn.addChild(im);
+        im.filter = ManagerFilters.SHADOW_TINY;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         im.x = -50;
         im.y = -50;

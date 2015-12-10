@@ -68,7 +68,8 @@ public class UpdateItem {
         MCScaler.scale(dmnt, 30, 30);
         dmnt.x = 57;
         dmnt.y = 4;
-        _btn.addDisplayObject(dmnt, true);
+        _btn.addChild(dmnt);
+        dmnt.filter = ManagerFilters.SHADOW_TINY;
 
         _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _imGalo4ka.x = 53 - _imGalo4ka.width/2;

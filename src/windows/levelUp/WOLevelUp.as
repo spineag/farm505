@@ -18,6 +18,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -38,8 +40,8 @@ public class WOLevelUp extends Window{
     private var _contImage:Sprite;
     private var _contClipRect:Sprite;
     private var _arrCells:Array;
-    private var _leftArrow:CSprite;
-    private var _rightArrow:CSprite;
+    private var _leftArrow:CButton;
+    private var _rightArrow:CButton;
     private var _shift:int;
     private var _woBG:WindowBackground;
 
@@ -60,8 +62,6 @@ public class WOLevelUp extends Window{
         _contBtn = new Sprite();
         _contClipRect = new Sprite();
         _contImage = new Sprite();
-        _leftArrow = new CSprite();
-        _rightArrow = new CSprite();
         _arrCells = [];
         _source.addChild(_contClipRect);
         _contClipRect.clipRect = new Rectangle(0,0,460,220);
@@ -81,24 +81,26 @@ public class WOLevelUp extends Window{
         _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         MCScaler.scale(_imageHard,25,25);
 
-        _leftArrow = new CSprite();
+        _leftArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.x = im.width;
-        _leftArrow.addChild(im);
-        _leftArrow.x = -_woWidth/2 - 9;
-        _leftArrow.y = 87;
+        _leftArrow.addDisplayObject(im);
+        _leftArrow.setPivots();
+        _leftArrow.x = -_woWidth/2 - 9 + _leftArrow.width/2;
+        _leftArrow.y = 87 + _leftArrow.height/2;
         _source.addChild(_leftArrow);
-        _leftArrow.endClickCallback = onLeftClick;
+        _leftArrow.clickCallback = onLeftClick;
 
 
-        _rightArrow = new CSprite();
+        _rightArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
         im.scaleX = -1;
-        _rightArrow.addChild(im);
-        _rightArrow.x = _woWidth/2 - 19;
-        _rightArrow.y = 87;
+        _rightArrow.addDisplayObject(im);
+        _rightArrow.setPivots();
+        _rightArrow.x = _woWidth/2 - 19 - _rightArrow.width/2;
+        _rightArrow.y = 87 + _rightArrow.height/2;
         _source.addChild(_rightArrow);
-        _rightArrow.endClickCallback = onRightClick;
+        _rightArrow.clickCallback = onRightClick;
 
 
         _contBtn.addChild(btn);
@@ -137,23 +139,47 @@ public class WOLevelUp extends Window{
     private function onClickExit(e:Event=null):void {
         hideIt();
         clearIt();
+        _leftArrow.visible = false;
+        _leftArrow.setEnabled = true;
+        _rightArrow.visible = false;
+        _rightArrow.setEnabled = true;
     }
 
     private function onLeftClick():void {
         _shift -= 5;
         if (_shift < 0) _shift = 0;
         animList();
+        checkBtns();
     }
 
     private function onRightClick():void {
         _shift += 5;
         if (_shift > int(_arrCells.length - 5)) _shift = int(_arrCells.length - 5);
         animList();
+        checkBtns();
+    }
+
+    private function checkBtns():void {
+        if (_arrCells.length > 5) {
+            if (_shift <= 0) {
+                _leftArrow.setEnabled = false;
+            } else {
+                _leftArrow.setEnabled = true;
+            }
+            if (_shift + 5 >= _arrCells.length) {
+                _rightArrow.setEnabled = false;
+            } else {
+                _rightArrow.setEnabled = true;
+            }
+        }
     }
 
     private function clearIt():void {
         while (_contImage.numChildren) {
             _contImage.removeChildAt(0);
+        }
+        for (var i:int=0; i<_arrCells.length; i++) {
+            _arrCells[i].clearIt();
         }
         _arrCells.length = 0;
     }
@@ -207,6 +233,7 @@ public class WOLevelUp extends Window{
         }
         if (_arrCells.length > 5) {
             _leftArrow.visible = true;
+            _leftArrow.setEnabled = false;
             _rightArrow.visible = true;
         }
     }

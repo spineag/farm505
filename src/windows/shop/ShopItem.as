@@ -101,7 +101,8 @@ public class ShopItem {
         MCScaler.scale(im, 35, 35);
         im.x = 85;
         im.y = 4;
-        _btnBuyBlue.addDisplayObject(im);
+        _btnBuyBlue.addChild(im);
+        im.filter = ManagerFilters.SHADOW_TINY;
         _txtBtnBuyBlue = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtBtnBuyBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnBuyBlue.addChild(_txtBtnBuyBlue);
@@ -116,7 +117,8 @@ public class ShopItem {
         MCScaler.scale(im, 35, 35);
         im.x = 85;
         im.y = 4;
-        _btnBuyGreen.addDisplayObject(im);
+        _btnBuyGreen.addChild(im);
+        im.filter = ManagerFilters.SHADOW_TINY;
         _txtBtnBuyGreen = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtBtnBuyGreen.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuyGreen.addChild(_txtBtnBuyGreen);
