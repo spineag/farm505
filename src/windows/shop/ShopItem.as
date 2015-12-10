@@ -110,6 +110,7 @@ public class ShopItem {
         _btnBuyBlue.y = 180;
         source.addChild(_btnBuyBlue);
         _btnBuyBlue.visible = false;
+        _btnBuyBlue.clickCallback = onClick;
 
         _btnBuyGreen = new CButton();
         _btnBuyGreen.addButtonTexture(126, 40, CButton.GREEN, true);
@@ -126,6 +127,7 @@ public class ShopItem {
         _btnBuyGreen.y = 180;
         source.addChild(_btnBuyGreen);
         _btnBuyGreen.visible = false;
+        _btnBuyGreen.clickCallback = onClick;
 
         _btnActivationYellow = new CButton();
         _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
@@ -136,6 +138,7 @@ public class ShopItem {
         _btnActivationYellow.y = 180;
         source.addChild(_btnActivationYellow);
         _btnActivationYellow.visible = false;
+        _btnActivationYellow.clickCallback = onClick;
     }
 
     private function setInfo():void {
