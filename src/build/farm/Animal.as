@@ -102,7 +102,7 @@ public class Animal {
 
     public function render():void {
         _timeToEnd--;
-        if (_timeToEnd <=0) {
+        if (_timeToEnd <= 0 && _state == WORKED) {
             g.gameDispatcher.removeFromTimer(render);
             craftResource();
             _state = CRAFT;

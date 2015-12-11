@@ -164,7 +164,7 @@ public class HeroCat extends BasicCat{
     }
     override public function idleAnimation():void {
         if (isLoaded) {
-            if (Math.random() > .7) {
+            if (Math.random() > .2) {
                 showFront(true);
             } else {
                 showFront(false);

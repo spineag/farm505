@@ -52,7 +52,9 @@ public class Fabrica extends AreaObject {
             g.woGameError.showIt();
             return;
         }
-        _dataBuild.countCell = g.dataBuilding.objectBuilding[_dataBuild.id].startCountCell;
+        if (!_dataBuild.countCell) {
+            _dataBuild.countCell = g.dataBuilding.objectBuilding[_dataBuild.id].startCountCell;
+        }
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         checkBuildState();
@@ -174,6 +176,10 @@ public class Fabrica extends AreaObject {
             Cc.error('fabrica recipe error: ' + e.errorID + ' - ' + e.message);
             g.woGameError.showIt();
         }
+    }
+
+    public function get heroCat():Boolean {
+        return _heroCat;
     }
 
     public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object, isFromServer:Boolean = false, deltaTime:int = 0):void {

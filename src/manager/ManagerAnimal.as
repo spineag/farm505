@@ -52,8 +52,7 @@ public class ManagerAnimal {
     public function addCatToFarm(fa:Farm):void {
         if (_catsForFarm[fa.dbBuildingId]) return;
 
-        var cat:HeroCat;
-        cat = g.managerCats.getFreeCat();
+        var cat:HeroCat = g.managerCats.getFreeCat();
         _catsForFarm[fa.dbBuildingId] = cat;
         if (cat) {
             cat.isFree = false;
