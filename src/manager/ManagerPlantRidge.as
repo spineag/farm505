@@ -99,7 +99,7 @@ public class ManagerPlantRidge {
 
     private function removeCatFromPlant(plantId:int, cat:HeroCat):void {
         cat.isFree = true;
-        g.managerCats.goCatToPoint(cat, g.managerCats.getRandomFreeCell());
+//        g.managerCats.goCatToPoint(cat, g.managerCats.getRandomFreeCell());
         delete _catsForPlant[plantId];
     }
 

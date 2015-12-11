@@ -204,7 +204,6 @@ public class Vars {
     public var dataPath:DataPath;
 
     public var managerCats:ManagerCats;
-    public var activeCat:HeroCat;
     public var aStar:AStar;
 
     public static function getInstance():Vars {
@@ -256,6 +255,7 @@ public class Vars {
         toolsModifier = new ToolsModifier();
         toolsModifier.setTownArray();
 
+        aStar = new AStar();
         managerCats = new ManagerCats();
         catPanel = new CatPanel();
 
@@ -317,7 +317,6 @@ public class Vars {
     }
 
     private function onDataCats():void {
-        aStar = new AStar();
         managerCats.calculateMaxCountCats();
         catPanel.checkCat();
         directServer.getDataLockedLand(onDataLockedLand);

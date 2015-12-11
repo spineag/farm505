@@ -92,7 +92,62 @@ public class ManagerCats {
     }
 
     public function goCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
+        if (!cat.isLoaded) {
+            var f:Function = function ():void { goCatToPoint(cat, p, callback, callbackParams)};
+            cat.setLoadedCallback(f);
+            return;
+        }
+
+        var f2:Function = function ():void {
+            try {
+                cat.flipIt(false);
+                cat.showFront(true);
+                cat.idleAnimation();
+                if (callback != null) {
+                    callback.apply(null, callbackParams);
+                }
+            } catch (e:Error) {
+                Cc.error('ManagerCats goCatToPoint f2 error: ' + e.errorID + ' - ' + e.message);
+                g.woGameError.showIt();
+            }
+        };
+
+        var f1:Function = function (arr:Array):void {
+            try {
+                if (arr.length > 5) {
+                    cat.runAnimation();
+                } else {
+                    cat.walkAnimation()
+                }
+                cat.goWithPath(arr, f2);
+            } catch (e:Error) {
+                Cc.error('ManagerCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
+                g.woGameError.showIt();
+            }
+        };
+
+
         try {
+            if (!cat) {
+                Cc.error('ManagerCats goCatToPoint error: cat == null');
+                g.woGameError.showIt();
+                return;
+            }
+            g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
+        } catch (e:Error) {
+            Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
+            g.woGameError.showIt();
+        }
+    }
+
+    public function goIdleCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
+        try {
+            if (!cat.isLoaded) {
+                var f:Function = function ():void { goCatToPoint(cat, p, callback, callbackParams)};
+                cat.setLoadedCallback(f);
+                return;
+            }
+
             var f2:Function = function ():void {
                 cat.flipIt(false);
                 cat.showFront(true);
@@ -102,11 +157,7 @@ public class ManagerCats {
                 }
             };
             var f1:Function = function (arr:Array):void {
-                if (arr.length > 5) {
-                    cat.runAnimation();
-                } else {
-                    cat.walkAnimation()
-                }
+                cat.walkAnimation();
                 cat.goWithPath(arr, f2);
             };
             g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
@@ -128,7 +179,10 @@ public class ManagerCats {
 
     public function getFreeCat():HeroCat {
         for (var i:int=0; i<_catsArray.length; i++) {
-            if ((_catsArray[i] as HeroCat).isFree) return _catsArray[i];
+            if ((_catsArray[i] as HeroCat).isFree) {
+                (_catsArray[i] as HeroCat).stopFreeCatIdle();
+                return _catsArray[i];
+            }
         }
         return null;
     }

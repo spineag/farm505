@@ -281,7 +281,7 @@ public class Fabrica extends AreaObject {
         if (!_arrList.length && _heroCat) {
             _heroCat.visible = true;
             _heroCat.isFree = true;
-            g.managerCats.goCatToPoint(_heroCat, g.managerCats.getRandomFreeCell());
+//            g.managerCats.goCatToPoint(_heroCat, g.managerCats.getRandomFreeCell());
             _heroCat = null;
         }
     }
