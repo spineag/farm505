@@ -29,7 +29,6 @@ import starling.utils.Color;
 public class LockedLand extends AreaObject {
     private var _dataLand:Object;
     private var _arrWilds:Array;
-    private var _filter:ColorMatrixFilter;
 
     public function LockedLand(_data:Object) {
         super(_data);
@@ -63,9 +62,6 @@ public class LockedLand extends AreaObject {
         _source.addChildAt(tempSprite, 0);
 
         _arrWilds = [];
-
-        _filter = new ColorMatrixFilter();
-        _filter.tint(Color.YELLOW, .5);
     }
 
     public function createLockedLandBuild():void {
@@ -101,9 +97,9 @@ public class LockedLand extends AreaObject {
     private function onHover():void {
         if (g.isActiveMapEditor) return;
         _source.filter = ManagerFilters.GREEN_STROKE;
-        _source.filter = _filter;
+        _source.filter = ManagerFilters.YELLOW_TINT_FILTER;
         for (var i:int=0; i<_arrWilds.length; i++) {
-            _arrWilds[i].setFilter(_filter);
+            _arrWilds[i].setFilter(ManagerFilters.YELLOW_TINT_FILTER);
         }
     }
 
@@ -136,7 +132,6 @@ public class LockedLand extends AreaObject {
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
-
     }
 
     private function onOut():void {

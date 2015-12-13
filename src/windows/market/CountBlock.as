@@ -23,7 +23,6 @@ public class CountBlock {
     private var _max:int;
     private var _min:int;
     private var _callback:Function;
-    private var filter:ColorMatrixFilter;
 
     private var g:Vars = Vars.getInstance();
 
@@ -40,8 +39,6 @@ public class CountBlock {
         _btnPlus.endClickCallback = onEndPlus;
         _btnMinus.startClickCallback = onStartMinus;
         _btnMinus.endClickCallback = onEndMinus;
-        filter = new ColorMatrixFilter();
-        filter.adjustSaturation(-1);
         btnFilter();
     }
 
@@ -51,8 +48,8 @@ public class CountBlock {
     }
 
     public function btnFilter():void {
-        _btnMinus.filter = filter;
-        _btnPlus.filter = filter;
+//        _btnMinus.filter = filter;
+//        _btnPlus.filter = filter;
     }
 
     public function set setWidth(a:int):void {
@@ -161,7 +158,7 @@ public class CountBlock {
 
     private function checkPlusBtn():void {
         if (_curCount >= _max) {
-            _btnPlus.filter = filter;
+//            _btnPlus.filter = filter;
         } else {
             _btnPlus.filter = null;
         }
@@ -169,7 +166,7 @@ public class CountBlock {
 
     private function checkMinusBtn():void {
         if (_curCount <= _min) {
-            _btnMinus.filter = filter;
+//            _btnMinus.filter = filter;
         } else {
             _btnMinus.filter = null;
         }

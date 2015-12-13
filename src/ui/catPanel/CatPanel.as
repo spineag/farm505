@@ -5,6 +5,8 @@ package ui.catPanel {
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -35,7 +37,7 @@ public class CatPanel {
         im.y = -5;
         _source.addChild(im);
         _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _txtCount.nativeFilters = [new GlowFilter(0x4d3800, 1, 4, 4, 5)];
+        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.x = 26;
         _source.addChild(_txtCount);
         onResize();

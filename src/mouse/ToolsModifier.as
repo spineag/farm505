@@ -14,6 +14,8 @@ import data.BuildType;
 
 import flash.geom.Point;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import map.MatrixGrid;
@@ -55,7 +57,6 @@ public class ToolsModifier {
     private var _plantId:int;
     private var _ridgeId:int;
     private var _txtCount:TextField;
-    private var filter:ColorMatrixFilter;
 
     private var g:Vars = Vars.getInstance();
 
@@ -71,9 +72,6 @@ public class ToolsModifier {
         _txtCount = new TextField(50, 40,"","Arial",16,Color.RED);
         _txtCount.x = 5;
         _txtCount.y = 5;
-
-        filter = new ColorMatrixFilter();
-        filter.tint(Color.RED, 1);
     }
 
     public function setTownArray():void {
@@ -549,7 +547,7 @@ public class ToolsModifier {
             spriteForMoveIndexY = point.y;
             if (_activeBuildingData.buildType == BuildType.DECOR_TAIL) {
                 if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
-                    imForMove.filter = filter;
+                    imForMove.filter = ManagerFilters.RED_TINT_FILTER;
                 } else {
                     imForMove.filter = null;
                 }
@@ -559,7 +557,7 @@ public class ToolsModifier {
                 if (_moveGrid.isFree) {
                     imForMove.filter = null;
                 } else {
-                    imForMove.filter = filter;
+                    imForMove.filter = ManagerFilters.RED_TINT_FILTER;
 
                 }
             }

@@ -48,7 +48,7 @@ public class MouseHint {
         _source.addChild(_txtCount);
     }
 
-    public function hideHintMouse():void {
+    public function hideIt():void {
         while(_imageCont.numChildren) _imageCont.removeChildAt(0);
         if (_image) {
             _image.dispose();

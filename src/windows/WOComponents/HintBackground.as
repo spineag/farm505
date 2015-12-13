@@ -2,6 +2,7 @@
  * Created by user on 11/27/15.
  */
 package windows.WOComponents {
+import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
@@ -253,7 +254,7 @@ public class HintBackground extends Sprite {
     }
 
     public function addShadow():void {
-        _bg.filter = BlurFilter.createDropShadow(1, 0.785, 0, 1, 1.0, 0.5);
+        _bg.filter = ManagerFilters.SHADOW_LIGHT;
     }
 }
 }

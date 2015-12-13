@@ -80,7 +80,7 @@ public class CSprite extends Sprite {
                 if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) return;
                 g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
                 g.timerHint.hideIt();
-                g.mouseHint.hideHintMouse();
+                g.mouseHint.hideIt();
             }
             if (_onMovedCallback != null) {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);

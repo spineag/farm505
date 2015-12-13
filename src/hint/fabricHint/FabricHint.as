@@ -101,7 +101,7 @@ public class FabricHint {
         }
     }
 
-    public function clearIt():void {
+    public function hideIt():void {
         _source.removeChild(_imageItem);
         g.cont.hintCont.removeChild(_source);
 

@@ -154,7 +154,7 @@ public class Ridge extends AreaObject{
             }
             if (_stateRidge == EMPTY) {
                 _source.filter = null;
-                g.mouseHint.hideHintMouse();
+                g.mouseHint.hideIt();
                 g.woBuyPlant.showItWithParams(this, onBuy);
             } else if (_stateRidge == GROWED) {
                  if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
@@ -172,7 +172,7 @@ public class Ridge extends AreaObject{
                      item.flyIt();
                      onOut();
 
-                     g.mouseHint.hideHintMouse();
+                     g.mouseHint.hideIt();
                  }
             }
         } else {
@@ -190,7 +190,7 @@ public class Ridge extends AreaObject{
         if (g.isActiveMapEditor || g.isAway) return;
         _source.filter = null;
         _isOnHover = false;
-        g.mouseHint.hideHintMouse();
+        g.mouseHint.hideIt();
         g.timerHint.hideIt();
 
     }

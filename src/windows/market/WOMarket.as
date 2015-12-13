@@ -73,7 +73,7 @@ public class WOMarket  extends Window {
         c.filter = ManagerFilters.SHADOW_LIGHT;
         _source.addChildAt(c,1);
         var txt:TextField = new TextField(80, 25, 'Все друзья', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 8;
         txt.y = 8;
         _btnFriends.addChild(txt);
@@ -107,8 +107,8 @@ public class WOMarket  extends Window {
         _arrFriends = g.user.arrFriends.slice();
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
-        _txtName = new TextField(150, 30, '', g.allData.fonts['BloggerBold'], 20, 0xfbf4cf);
-        _txtName.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtName = new TextField(150, 30, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
         _txtName.x = -100;
     }

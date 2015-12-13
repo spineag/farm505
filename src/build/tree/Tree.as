@@ -305,7 +305,7 @@ public class Tree extends AreaObject{
             g.mouseHint.checkMouseHint(MouseHint.CLOCK);
         }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            g.mouseHint.hideHintMouse();
+            g.mouseHint.hideIt();
         }
     }
 
@@ -316,7 +316,7 @@ public class Tree extends AreaObject{
         g.timerHint.hideIt();
 //        g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.treeHint.hideIt();
-        g.mouseHint.hideHintMouse();
+        g.mouseHint.hideIt();
         if (!_isOnHover) g.treeHint.hideIt();
 
     }

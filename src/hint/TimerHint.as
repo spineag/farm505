@@ -74,6 +74,7 @@ public class TimerHint {
     }
 
     public function showIt(x:int, y:int, timer:int, cost:int, name:String,f:Function):void {
+        if (timer <=0) return;
 //        var s:Number = g.cont.gameCont.scaleX;
 //        var oY:Number = g.matrixGrid.offsetY*s;
         _callbackSkip = f;

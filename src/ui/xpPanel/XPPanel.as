@@ -5,6 +5,8 @@ package ui.xpPanel {
 
 import flash.filters.GlowFilter;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Image;
@@ -43,12 +45,12 @@ public class XPPanel {
         im.y = -12;
         _source.addChild(im);
         _txtLevel = new TextField(60, 60, '55', g.allData.fonts['BloggerBold'], 24, Color.WHITE);
-        _txtLevel.nativeFilters = [new GlowFilter(0x036ea1, 1, 4, 4, 5)];
+        _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtLevel.x = -27;
         _txtLevel.y = -12;
         _source.addChild(_txtLevel);
         _txtXPCount = new TextField(123, 30, '6784/247289', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txtXPCount.nativeFilters = [new GlowFilter(0x036ea1, 1, 4, 4, 5)];
+        _txtXPCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtXPCount.x = 35;
         _txtXPCount.y = 4;
         _source.addChild(_txtXPCount);
