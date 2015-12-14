@@ -31,6 +31,8 @@ import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
 
+import utils.CSprite;
+
 import utils.MCScaler;
 
 public class Tree extends AreaObject{
@@ -57,6 +59,7 @@ public class Tree extends AreaObject{
     private var _arrCrafted:Array;
     private var _isOnHover:Boolean;
     private var _count:int;
+    private var _wateringIcon:Sprite;
     public var tree_db_id:String;    // id в табличке user_tree
 
     public function Tree(_data:Object) {
@@ -66,9 +69,10 @@ public class Tree extends AreaObject{
 
         if (!g.isAway) {
             _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
             _source.outCallback = onOut;
         }
+        _source.endClickCallback = onClick;
+
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
 
@@ -124,14 +128,27 @@ public class Tree extends AreaObject{
                     _timeToEndState = _resourceItem.buildTime - ob.time_work;
                 }
                 break;
+            case GROW_FIXED:
+                if (ob.time_work > _resourceItem.buildTime) {
+                    _state = GROWED_FIXED;
+                    _timeToEndState = 0;
+                } else if (ob.time_work <int(_resourceItem.buildTime/2 + .5)) {
+                    _state = GROW_FIXED;
+                    _timeToEndState = int(_resourceItem.buildTime/2 + .5) - ob.time_work;
+                } else {
+                    _state = GROW_FIXED_FLOWER;
+                    _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                }
+                break;
             default:
-                _state = FULL_DEAD;
+                _state = int(ob.state);
                 break;
         }
+
         setBuildImage();
         if (!g.isAway) {
             if (_state == GROW1 || _state == GROW_FLOWER1 || _state == GROW2 || _state == GROW_FLOWER2
-                    || _state == GROW3 || _state == GROW_FLOWER3) {
+                    || _state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
                 g.gameDispatcher.addToTimer(render);
             }
         }
@@ -291,6 +308,7 @@ public class Tree extends AreaObject{
         }
         _build.addChild(im);
         if (im2) _build.addChild(im2);
+        if (_state == ASK_FIX || _state == FIXED) makeWateringIcon();
         _rect = _build.getBounds(_build);
     }
 
@@ -323,6 +341,14 @@ public class Tree extends AreaObject{
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
+        if (g.isAway) {
+            if (_state == ASK_FIX) {
+                _state = FIXED;
+                g.directServer.makeWateringUserTree(tree_db_id, _state, null);
+                makeWateringIcon();
+            }
+            return;
+        }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             _isOnHover = false;
 //            g.gameDispatcher.addEnterFrame(countEnterFrame);
@@ -340,12 +366,19 @@ public class Tree extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
             if (_state ==  FULL_DEAD){
-//                _isOnHover = true;
                 if (_isOnHover == true) {
                     g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, _dataBuild.name,this);
                     if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
                         g.treeHint.onDelete = deleteTree;
                     }
+                }
+            } else if (_state == DEAD) {
+                if (_isOnHover == true) {
+                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, _dataBuild.name,this);
+                    if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
+                        g.treeHint.onDelete = deleteTree;
+                    }
+                    g.treeHint.onWatering = askWateringTree;
                 }
             } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
@@ -464,6 +497,12 @@ public class Tree extends AreaObject{
         g.directServer.deleteUserTree(tree_db_id, _dbBuildingId, null);
     }
 
+    private function askWateringTree():void {
+        _state = ASK_FIX;
+        g.directServer.askWateringUserTree(tree_db_id, _state, null);
+        makeWateringIcon();
+    }
+
     override public function clearIt():void {
         onOut();
         g.gameDispatcher.removeFromTimer(render);
@@ -491,6 +530,33 @@ public class Tree extends AreaObject{
 
     public function get stateTree():int {
         return _state;
+    }
+
+    private function makeWateringIcon():void {
+        if (_wateringIcon) {
+            if (_build.contains(_wateringIcon)) _build.removeChild(_wateringIcon);
+            while (_wateringIcon.numChildren) _wateringIcon.removeChildAt(0);
+        }
+
+        if (_state == ASK_FIX || _state == FIXED) {
+            _wateringIcon = new Sprite();
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('circle'));
+            im.pivotX = im.width/2;
+            im.pivotY = im.height/2;
+            _wateringIcon.addChild(im);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
+            im.pivotX = im.width/2;
+            im.pivotY = im.height/2;
+            MCScaler.scale(im, 45, 45);
+            _wateringIcon.addChild(im);
+            if (_state == FIXED) {
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                im.x = 10;
+                im.y = 10;
+                _wateringIcon.addChild(im);
+            }
+            _build.addChild(_wateringIcon);
+        }
     }
 }
 }

@@ -3670,5 +3670,95 @@ public class DirectServer {
             woError.showItParams('deleteUserOrder: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function askWateringUserTree(treeDbId:String, state:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ASK_WATERING_USER_TREE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'askWateringUserTree', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.id = treeDbId;
+        variables.state = state;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAskWateringUserTree);
+        function onCompleteAskWateringUserTree(e:Event):void { completeAskWateringUserTree(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('askWateringUserTree error:' + error.errorID);
+            woError.showItParams('askWateringUserTree error:' + error.errorID);
+        }
+    }
+
+    private function completeAskWateringUserTree(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('askWateringUserTree: wrong JSON:' + String(response));
+            woError.showItParams('askWateringUserTree: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('askWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('askWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function makeWateringUserTree(treeDbId:String, state:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_MAKE_WATERING_USER_TREE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'makeWateringUserTree', 1);
+//        variables = addDefault(variables);
+        variables.userSocialId = g.user.userSocialId;
+        variables.awayUserSocialId = g.visitedUser.userSocialId;
+        variables.id = treeDbId;
+        variables.state = state;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteMakeWateringUserTree);
+        function onCompleteMakeWateringUserTree(e:Event):void { completeMakeWateringUserTree(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('MakeWateringUserTree error:' + error.errorID);
+            woError.showItParams('MakeWateringUserTree error:' + error.errorID);
+        }
+    }
+
+    private function completeMakeWateringUserTree(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('makeWateringUserTree: wrong JSON:' + String(response));
+            woError.showItParams('makeWateringUserTree: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('makeWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('makeWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
 }
 }

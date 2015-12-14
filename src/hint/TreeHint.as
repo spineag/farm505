@@ -28,6 +28,7 @@ import utils.MCScaler;
 public class TreeHint {
     private var _source:CSprite;
     private var _contDelete:CSprite;
+    private var _contWatering:CSprite;
     private var _isOnHover:Boolean;
     private var _isShowed:Boolean;
     private var _imageBg:Image;
@@ -39,12 +40,14 @@ public class TreeHint {
     private var _worldObject:WorldObject;
     private var _data:Object;
     private var _deleteCallback:Function;
+    private var _wateringCallback:Function;
 
     private var g:Vars = Vars.getInstance();
 
     public function TreeHint() {
         _source = new CSprite();
         _contDelete = new CSprite();
+        _contWatering = new CSprite();
         _isShowed = false;
         _isOnHover = false;
         _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup"));
@@ -64,7 +67,8 @@ public class TreeHint {
         _txtName.y = -30;
 
         _source.addChild(_imageBg);
-        _source.addChild(_imageHelp);
+        _contWatering.addChild(_imageHelp);
+        _source.addChild(_contWatering);
         _source.addChild(_imageCircle);
         _source.addChild(_txtName);
         _source.addChild(_contDelete);
@@ -76,7 +80,8 @@ public class TreeHint {
 
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-        _contDelete.endClickCallback = onClick;
+        _contDelete.endClickCallback = onClickDelete;
+        _contWatering.endClickCallback = onClickWatering;
     }
 
     public function showIt(data:Object, x:int, y:int, name:String, worldobject:WorldObject):void {
@@ -153,16 +158,30 @@ public class TreeHint {
         hideIt();
     }
 
-    private function onClick():void {
+    private function onClickDelete():void {
         onOut();
         if (_deleteCallback != null) {
             _deleteCallback.apply();
             _deleteCallback = null;
         }
+        _wateringCallback = null;
+    }
+
+    private function onClickWatering():void {
+        onOut();
+        if (_wateringCallback != null) {
+            _wateringCallback.apply();
+            _wateringCallback = null;
+        }
+        _deleteCallback = null;
     }
 
     public function set onDelete(f:Function):void {
         _deleteCallback = f;
+    }
+
+    public function set onWatering(f:Function):void {
+        _wateringCallback = f;
     }
 }
 }
