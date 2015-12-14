@@ -85,12 +85,12 @@ public class WOItemFabrica {
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataRecipe]);
         }
-        g.fabricHint.clearIt();
+        g.fabricHint.hideIt();
     }
 
     private function onHover():void {
         if (!_dataRecipe) return;
-        g.fabricHint.clearIt();
+        g.fabricHint.hideIt();
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
         g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
@@ -98,7 +98,7 @@ public class WOItemFabrica {
 
     private function onOut():void {
         if (!_dataRecipe) return;
-        g.fabricHint.clearIt();
+        g.fabricHint.hideIt();
     }
 }
 }

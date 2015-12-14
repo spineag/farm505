@@ -21,6 +21,8 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WOComponents.WOButtonTexture;
+
 public class TimerHint {
     public var source:CSprite;
     private var _contBtn:CSprite;
@@ -28,7 +30,7 @@ public class TimerHint {
     private var _txtTimer:TextField;
     private var _timer:int;
     private var _textureHint:Image;
-    private var _imageBtn:Image;
+    private var _imageBtn:WOButtonTexture;
     private var _txtCost:TextField;
     private var _isOnHover:Boolean;
     private var _isShow:Boolean;
@@ -49,7 +51,7 @@ public class TimerHint {
         _txtName.x = 40;
         _txtName.y = -30;
         _textureHint = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup"));
-        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn4"));
+        _imageBtn = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
         _contBtn.addChild(_imageBtn);
         _contBtn.addChild(_txtCost);
         MCScaler.scale(_imageBtn,60,60);
@@ -74,6 +76,7 @@ public class TimerHint {
     }
 
     public function showIt(x:int, y:int, timer:int, cost:int, name:String,f:Function):void {
+        if (timer <=0) return;
 //        var s:Number = g.cont.gameCont.scaleX;
 //        var oY:Number = g.matrixGrid.offsetY*s;
         _callbackSkip = f;

@@ -27,9 +27,7 @@ public class HeroCat extends BasicCat{
     private var _catImage:Sprite;
     private var _catBackImage:Sprite;
     private var _isFree:Boolean;
-    private var _isActive:Boolean;
     private var _type:int;
-
     private var factory:StarlingFactory;
     private var armature:Armature;
     private var armatureBack:Armature;
@@ -42,11 +40,11 @@ public class HeroCat extends BasicCat{
 
         _type = type;
         _isFree = true;
-        _isActive = false;
         _source = new CSprite();
         _catImage = new Sprite();
         _catBackImage = new Sprite();
         factory = new StarlingFactory();
+        _isLoaded = false;
         var f1:Function = function (e:Event):void {
             armature = factory.buildArmature("cat");
             armatureBack = factory.buildArmature("cat_back");
@@ -61,6 +59,12 @@ public class HeroCat extends BasicCat{
             }
             heroEyes = new HeroEyesAnimation(factory, armature, _type == WOMAN);
             showFront(true);
+            _isLoaded = true;
+            makeFreeCatIdle();
+            if (_loadedCallback != null) {
+                _loadedCallback.apply();
+                _loadedCallback = null;
+            }
         };
         factory.addEventListener(Event.COMPLETE, f1);
         factory.parseData(new EmbedAssets.CatData());
@@ -76,8 +80,6 @@ public class HeroCat extends BasicCat{
         _catBackImage.x = -_catBackImage.width/2;
         _catBackImage.y = -_catBackImage.height + 2;
         _source.addChild(_catBackImage);
-
-        _source.endClickCallback = onClick;
     }
 
     override public function showFront(v:Boolean):void {
@@ -103,24 +105,6 @@ public class HeroCat extends BasicCat{
         v ? _source.scaleX = -1*_scaleDefault : _source.scaleX = 1*_scaleDefault;
     }
 
-    private function onClick():void {
-        if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
-        activateIt();
-    }
-
-    public function activateIt():void {
-        if (!_isFree) return;
-        _isActive = !_isActive;
-        if (_isActive) {
-            if (g.activeCat) g.activeCat.activateIt();
-            _source.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1);
-            g.activeCat = this;
-        } else {
-            _source.filter = null;
-            g.activeCat = null;
-        }
-    }
-
     public function get isFree():Boolean {
         return _isFree;
     }
@@ -128,6 +112,9 @@ public class HeroCat extends BasicCat{
     public function set isFree(value:Boolean):void {
         _isFree = value;
         g.catPanel.checkCat();
+        if (_isFree) {
+            makeFreeCatIdle();
+        }
     }
 
     private var countWorkPlant:int;
@@ -152,28 +139,41 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
-        heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("walk");
-        armatureBack.animation.gotoAndPlay("walk");
-        super.walkAnimation();
+        if (isLoaded) {
+            heroEyes.startAnimations();
+            armature.animation.gotoAndPlay("walk");
+            armatureBack.animation.gotoAndPlay("walk");
+            super.walkAnimation();
+        }
     }
     override public function runAnimation():void {
-        heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("run");
-        armatureBack.animation.gotoAndPlay("run");
-        super.runAnimation();
+        if (isLoaded) {
+            heroEyes.startAnimations();
+            armature.animation.gotoAndPlay("run");
+            armatureBack.animation.gotoAndPlay("run");
+            super.runAnimation();
+        }
     }
     override public function stopAnimation():void {
-        heroEyes.stopAnimations();
-        armature.animation.gotoAndStop("idle", 0);
-        armatureBack.animation.gotoAndStop("idle", 0);
-        super.stopAnimation()
+        if (isLoaded) {
+            heroEyes.stopAnimations();
+            armature.animation.gotoAndStop("idle", 0);
+            armatureBack.animation.gotoAndStop("idle", 0);
+            super.stopAnimation();
+        }
     }
     override public function idleAnimation():void {
-        heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("idle");
-        armatureBack.animation.gotoAndPlay("idle");
-        super.idleAnimation();
+        if (isLoaded) {
+            if (Math.random() > .2) {
+                showFront(true);
+            } else {
+                showFront(false);
+            }
+            heroEyes.startAnimations();
+            armature.animation.gotoAndPlay("idle");
+            armatureBack.animation.gotoAndPlay("idle");
+            super.idleAnimation();
+        }
     }
 
     private function releaseWoman():void {
@@ -203,6 +203,37 @@ public class HeroCat extends BasicCat{
         }
         b.display.dispose();
         b.display = im;
+    }
+
+    private var timer:int;
+    private function makeFreeCatIdle():void {
+        if (isLoaded) {
+            if (Math.random() > .5) {
+                g.managerCats.goIdleCatToPoint(this, g.managerCats.getRandomFreeCell(), makeFreeCatIdle);
+            } else {
+                idleAnimation();
+                timer = 3 + int(Math.random()) * 7;
+                g.gameDispatcher.addToTimer(renderForIdleFreeCat);
+                renderForIdleFreeCat();
+            }
+        }
+    }
+
+    private function renderForIdleFreeCat():void {
+        timer--;
+        if (timer <= 0) {
+            stopAnimation();
+            g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
+            makeFreeCatIdle();
+        }
+    }
+
+    public function stopFreeCatIdle():void {
+        stopAnimation();
+        timer = 0;
+        g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
+        _currentPath = [];
+        TweenMax.killTweensOf(_source);
     }
 
 }

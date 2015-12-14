@@ -126,14 +126,6 @@ public class Containers {
                 _isDragged = false;
                 return;
             }
-            if (!_isDragged && g.activeCat) {
-                p = te.touches[0].getLocation(g.mainStage);
-                p = contentCont.globalToLocal(p);
-                p = g.matrixGrid.getStrongIndexFromXY(p);
-                if (!(p.x == g.activeCat.posX && p.y == g.activeCat.posY)) {
-                    g.managerCats.goCatToPoint(g.activeCat, p);
-                }
-            }
             _isDragged = false;
         }
 

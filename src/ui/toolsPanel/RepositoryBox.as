@@ -21,15 +21,12 @@ public class RepositoryBox {
     private var _leftBtn:CSprite;
     private var _rightBtn:CSprite;
     private var _arrItems:Array;
-    private var filter:ColorMatrixFilter;
     private var count:int;
     private var _shift:int;
 
     private var g:Vars = Vars.getInstance();
 
     public function RepositoryBox() {
-        filter = new ColorMatrixFilter();
-        filter.adjustSaturation(-1);
         _arrItems = [];
         source = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_plawka"));
@@ -58,7 +55,7 @@ public class RepositoryBox {
 
         _leftBtn.y = 90/2 - _leftBtn.height/2;
         _leftBtn.x = 2;
-        _leftBtn.filter = filter;
+//        _leftBtn.filter = filter;
         _rightBtn.y = 90/2 - _rightBtn.height/2;
         _rightBtn.x = 20 + 270 + 2;
         source.addChild(_leftBtn);
@@ -94,7 +91,7 @@ public class RepositoryBox {
 //                _cont.addChild(item.source);
 //                _arrItems.push(item);
 //            }
-            _rightBtn.filter = filter;
+//            _rightBtn.filter = filter;
         } else {
             _rightBtn.filter = null;
         }
@@ -109,13 +106,13 @@ public class RepositoryBox {
     }
 
     private function onLeft():void {
-        if (_leftBtn.filter == filter) return;
+//        if (_leftBtn.filter == filter) return;
         _rightBtn.filter = null;
         var tween:Tween = new Tween(_cont, 0.5);
         tween.moveTo(count,0);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
-            _leftBtn.filter = filter;
+//            _leftBtn.filter = filter;
             _rightBtn.filter = null;
         };
         g.starling.juggler.add(tween);
@@ -123,13 +120,13 @@ public class RepositoryBox {
     }
 
     private function onRight():void {
-        if (_rightBtn.filter == filter) return;
+//        if (_rightBtn.filter == filter) return;
         _leftBtn.filter = null;
         var tween:Tween = new Tween(_cont, 0.5);
         tween.moveTo((count - 3)* - 90 ,0);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
-            _rightBtn.filter = filter;
+//            _rightBtn.filter = filter;
             _leftBtn.filter = null;
         };
         g.starling.juggler.add(tween);

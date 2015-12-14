@@ -35,7 +35,7 @@ public class ShopList {
         _source = new Sprite();
         _source.x = 32;
         _source.y = 23;
-        _source.clipRect = new Rectangle(0, 0, 601, 245);
+        _source.clipRect = new Rectangle(0, 0, 605, 245);
         parent.addChild(_source);
         _itemsSprite = new Sprite();
         _source.addChild(_itemsSprite);
@@ -66,7 +66,7 @@ public class ShopList {
         im.scaleX = -1;
         _rightArrow.addDisplayObject(im);
         _rightArrow.setPivots();
-        _rightArrow.x = 662 + _leftArrow.width/2;
+        _rightArrow.x = 664 + _leftArrow.width/2;
         _rightArrow.y = 94 + _leftArrow.height/2;
         parent.addChild(_rightArrow);
         _rightArrow.clickCallback = onRightClick;

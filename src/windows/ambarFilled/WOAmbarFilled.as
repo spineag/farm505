@@ -10,6 +10,8 @@ import starling.utils.Color;
 
 import utils.CSprite;
 
+import windows.WOComponents.WOButtonTexture;
+
 import windows.Window;
 
 public class WOAmbarFilled extends Window{
@@ -17,7 +19,6 @@ public class WOAmbarFilled extends Window{
     private var _contBtn:CSprite;
     private var _imageAmbar:Image;
     private var _imageAmbarArrow:Image;
-    private var _imageBtn:Image;
     private var _txtBtn:TextField;
     private var _txtAmbarFilled:TextField;
     private var _txtCount:TextField;
@@ -31,19 +32,19 @@ public class WOAmbarFilled extends Window{
         createExitButton(onClickExit);
         _contBtn = new CSprite();
         _contBtn.endClickCallback = onClick;
-        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
+        var bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
         _txtBtn = new TextField(150,50,"","Arial",12,Color.BLACK);
         _txtBtn.y = -10;
         _txtBtn.x = -10;
-        _contBtn.addChild(_imageBtn);
+        _contBtn.addChild(bg);
         _contBtn.addChild(_txtBtn);
         _contBtn.x = -50;
         _contBtn.y = 100;
         _source.addChild(_contBtn);
-        _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("plus"));
+        _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cross"));
         _imageAmbar.x = -198;
         _imageAmbar.y = -100;
-        _imageAmbarArrow = new Image(g.allData.atlas['interfaceAtlas'].getTexture("plus"));
+        _imageAmbarArrow = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cross"));
         _txtAmbarFilled = new TextField(100,50,"","Arial",14,Color.BLACK);
         _txtAmbarFilled.x = -50;
         _txtAmbarFilled.y = -150;

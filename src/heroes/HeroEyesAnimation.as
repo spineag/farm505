@@ -44,7 +44,7 @@ public class HeroEyesAnimation {
             _armatureEyes.removeBone(b);
         }
 
-        changeColorEyes(fact);
+        //changeColorEyes(fact);
         startAnimations();
     }
 

@@ -48,7 +48,7 @@ public class WOTrainItem {
         _txt = new TextField(100,30,"","Arial",16,Color.BLACK);
         _txt.y = 50;
         source.addChild(_txt);
-        _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('galo4ka'));
+        _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
         _galo4ka.x = 65;
         _galo4ka.y = 40;

@@ -110,6 +110,9 @@ public class ResourceHint {
     }
 
     public function hideIt():void {
+        _txtName.text = '';
+        _txtText.text = '';
+        _txtTime.text = '';
         g.cont.hintCont.removeChild(_source);
     }
 }

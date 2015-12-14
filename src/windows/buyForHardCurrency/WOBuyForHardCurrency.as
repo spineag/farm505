@@ -10,13 +10,13 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WOComponents.WOButtonTexture;
+
 import windows.Window;
 
 public class WOBuyForHardCurrency extends Window{
     private var _contBtnYes:CSprite;
     private var _contBtnNo:CSprite;
-    private var _imageYes:Image;
-    private var _imageNo:Image;
     private var _txtYes:TextField;
     private var _txtNo:TextField;
     private var _id:int;
@@ -29,14 +29,12 @@ public class WOBuyForHardCurrency extends Window{
         _woHeight = 300;
         createTempBG();
         createExitButton(onClickExit);
-        _imageYes = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
-        _imageNo = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
+        var yes:WOButtonTexture = new WOButtonTexture(70, 40, WOButtonTexture.BLUE);
+        var no:WOButtonTexture = new WOButtonTexture(70, 40, WOButtonTexture.BLUE);
         _txtYes = new TextField(50,50,"Да","Arial",14,Color.BLACK);
         _txtYes.y = -20;
         _txtNo = new TextField(50,50,"Нет","Arial",14,Color.BLACK);
         _txtNo.y = -20;
-        _imageYes.width = _imageYes.width/2;
-        _imageNo.width = _imageNo.width/2;
         _contBtnNo = new CSprite();
         _contBtnYes = new CSprite();
         _contBtnYes.endClickCallback = onYes;
@@ -45,8 +43,8 @@ public class WOBuyForHardCurrency extends Window{
         _contBtnYes.y += 100;
         _contBtnNo.x -= 150;
         _contBtnNo.y += 100;
-        _contBtnNo.addChild(_imageNo);
-        _contBtnYes.addChild(_imageYes);
+        _contBtnNo.addChild(no);
+        _contBtnYes.addChild(yes);
         _contBtnYes.addChild(_txtYes);
         _contBtnNo.addChild(_txtNo);
         _source.addChild(_contBtnYes);
@@ -62,7 +60,7 @@ public class WOBuyForHardCurrency extends Window{
         _id = id;
         _count = count;
         _txtCost= new TextField(250,50,"Подтвердить покупку за " + String(count * g.dataResource.objectResources[id].priceHard) +" ?","Arial",14,Color.BLACK);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         MCScaler.scale(im,25,25);
         _source.addChild(_txtCost);
         _source.addChild(im);

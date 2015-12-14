@@ -38,13 +38,12 @@ import windows.Window;
 public class WOMarket  extends Window {
 
     public var marketChoose:WOMarketChoose;
+    private var _shopSprite:Sprite;
     private var _woBG:WindowBackground;
     private var _arrItems:Array;
     private var _arrItemsFriend:Array;
     private var _curUser:Someone;
     private var _btnRefresh:CSprite;
-    private var _cont:Sprite;
-    private var _contItem:Sprite;
     private var _btnFriends:CButton;
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
@@ -54,31 +53,25 @@ public class WOMarket  extends Window {
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _txtName:TextField;
     private var _panelBool:Boolean;
-    private var ma:MarketAllFriend;
 
     public function WOMarket() {
         super ();
-        _cont = new Sprite();
-        _contItem = new Sprite();
         _arrItemsFriend = [];
+        _shopSprite = new Sprite();
         _woWidth = 750;
         _woHeight = 520;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        callbackClickBG = onClickExit;
-        _source.addChild(_contItem);
-        _contItem.filter = ManagerFilters.SHADOW_LIGHT;
         _btnFriends = new CButton();
         _btnFriends.addButtonTexture(96, 40, CButton.GREEN, true);
         _btnFriends.x = _woWidth/2 - 97;
         _btnFriends.y = _woHeight/2 - 58;
-        _source.addChild(_cont);
         var c:CartonBackground = new CartonBackground(550, 445);
         c.x = -_woWidth/2 + 43;
         c.y = -_woHeight/2 + 40;
-        _cont.filter = ManagerFilters.SHADOW_LIGHT;
-        _cont.addChild(c);
+        c.filter = ManagerFilters.SHADOW_LIGHT;
+        _source.addChildAt(c,1);
         var txt:TextField = new TextField(80, 25, 'Все друзья', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
         txt.x = 8;
@@ -110,8 +103,8 @@ public class WOMarket  extends Window {
         _arrFriends = g.user.arrFriends.slice();
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
-        _txtName = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 20, 0xfbf4cf);
-        _txtName.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
+        _txtName = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
         _txtName.x = -170;
         ma = new MarketAllFriend(_arrFriends,this);

@@ -5,6 +5,8 @@ package ui.softHardCurrencyPanel {
 import flash.filters.GlowFilter;
 import flash.geom.Point;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import mouse.ToolsModifier;
@@ -51,10 +53,10 @@ public class SoftHardCurrency {
         createPanel(true, _contSoft, onClickSoft);
         createPanel(false, _contHard, onClickHard);
         _txtSoft =  new TextField(122, 38, '88888', g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
-        _txtSoft.nativeFilters = [new GlowFilter(0x4d3800, 1, 4, 4, 5)];
+        _txtSoft.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _contSoft.addChild(_txtSoft);
         _txtHard =  new TextField(122, 38, '88888', g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
-        _txtHard.nativeFilters = [new GlowFilter(0x4d3800, 1, 4, 4, 5)];
+        _txtHard.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _contHard.addChild(_txtHard);
 
         _source.addChild(_contSoft);

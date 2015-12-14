@@ -24,13 +24,15 @@ public class BasicCat {
     protected var _posY:int;
     protected var _depth:Number;
     protected var _source:CSprite;
-    protected var _speedWalk:int = 6;
-    protected var _speedRun:int = 10;
+    protected var _speedWalk:int = 2;
+    protected var _speedRun:int = 8;
     protected var _curSpeed:int;
     protected var _currentPath:Array;
     protected var _callbackOnWalking:Function;
     protected var _scaleDefault:Number = 1;
     protected var g:Vars = Vars.getInstance();
+    protected var _isLoaded:Boolean;
+    protected var _loadedCallback:Function;
     public var isOnMap:Boolean = false;
 
     public function BasicCat() {
@@ -176,6 +178,14 @@ public class BasicCat {
             Cc.error('BasicCat gotoPoint:: wrong front-back logic');
         }
         new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1});
+    }
+
+    public function get isLoaded():Boolean {
+        return _isLoaded;
+    }
+
+    public function setLoadedCallback(f:Function):void {
+        _loadedCallback = f;
     }
 
 }

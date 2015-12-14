@@ -31,7 +31,7 @@ public class MarketCheckBox {
         im.width = im.height;
         _bg = new CSprite();
         _bg.addChild(im);
-        _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('galo4ka'));
+        _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, im.width + 3, im.width + 3);
         _galo4ka.x = 3;
         _galo4ka.y = -3;

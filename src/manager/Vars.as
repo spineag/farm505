@@ -204,7 +204,6 @@ public class Vars {
     public var dataPath:DataPath;
 
     public var managerCats:ManagerCats;
-    public var activeCat:HeroCat;
     public var aStar:AStar;
 
     public static function getInstance():Vars {
@@ -256,6 +255,7 @@ public class Vars {
         toolsModifier = new ToolsModifier();
         toolsModifier.setTownArray();
 
+        aStar = new AStar();
         managerCats = new ManagerCats();
         catPanel = new CatPanel();
 
@@ -317,7 +317,6 @@ public class Vars {
     }
 
     private function onDataCats():void {
-        aStar = new AStar();
         managerCats.calculateMaxCountCats();
         catPanel.checkCat();
         directServer.getDataLockedLand(onDataLockedLand);
@@ -507,8 +506,8 @@ public class Vars {
         if (timerHint) timerHint.hideIt();
         if (wildHint) wildHint.hideIt();
 //        if (farmHint) farmHint.hideIt();
-        if (mouseHint) mouseHint.hideHintMouse();
-        if (fabricHint) fabricHint.clearIt();
+        if (mouseHint) mouseHint.hideIt();
+        if (fabricHint) fabricHint.hideIt();
         if (treeHint) treeHint.hideIt();
         if (resourceHint) resourceHint.hideIt();
         if (hint) (hint as Hint).hideIt();

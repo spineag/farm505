@@ -90,10 +90,8 @@ public class MarketFriendsPanelItem{
         if (_person.userSocialId == g.user.userSocialId) source.removeChild(_planet);
         else source.addChildAt(_planet,1);
 
-        var filter:ColorMatrixFilter = new ColorMatrixFilter();
-        filter.tint(Color.WHITE, 1);
-        _planet.hoverCallback = function():void {_planet.filter = filter};
-        _planet.outCallback = function():void {_planet.filter = null};
+//        _planet.hoverCallback = function():void {_planet.filter = filter};
+//        _planet.outCallback = function():void {_planet.filter = null};
         _planet.endClickCallback = visitPerson;
     }
 

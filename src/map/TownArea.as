@@ -560,12 +560,12 @@ public class TownArea extends Sprite {
     }
 
     private function afterMove(_x:Number, _y:Number):void {
-        pasteBuild(g.selectedBuild, _x, _y, false, false);
+        pasteBuild(g.selectedBuild, _x, _y, false, true);
         g.selectedBuild = null;
     }
 
     public function backBuildAfterMoveCancel():void {
-        pasteBuild(g.selectedBuild, g.selectedBuild.source.x, g.selectedBuild.source.y, false, true);
+        pasteBuild(g.selectedBuild, g.selectedBuild.source.x, g.selectedBuild.source.y, false, false);
         g.selectedBuild = null;
     }
 

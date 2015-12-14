@@ -104,7 +104,7 @@ public class WOBuyPlantItem {
         }
         source.filter = null;
         g.resourceHint.hideIt();
-        g.fabricHint.clearIt();
+        g.fabricHint.hideIt();
     }
 
     private function onHover():void {

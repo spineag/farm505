@@ -303,8 +303,8 @@ public class OptionPanel {
         g.catPanel.onResize();
         if (g.currentOpenedWindow) g.currentOpenedWindow.onResize();
         _source.x = Starling.current.nativeStage.stageWidth;
-        _source.y = Starling.current.nativeStage.stageHeight - g.stageHeight + 100;
-        if (_source.visible) _source.x -= 50;
+        _source.y = Starling.current.nativeStage.stageHeight - g.stageHeight + 147;
+        if (_source.visible) _source.x -= 58;
     }
 
     private var isAnimScaling:Boolean = false;

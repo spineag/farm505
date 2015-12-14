@@ -52,7 +52,9 @@ public class Fabrica extends AreaObject {
             g.woGameError.showIt();
             return;
         }
-        _dataBuild.countCell = g.dataBuilding.objectBuilding[_dataBuild.id].startCountCell;
+        if (!_dataBuild.countCell) {
+            _dataBuild.countCell = g.dataBuilding.objectBuilding[_dataBuild.id].startCountCell;
+        }
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         checkBuildState();
@@ -176,6 +178,10 @@ public class Fabrica extends AreaObject {
         }
     }
 
+    public function get heroCat():Boolean {
+        return _heroCat;
+    }
+
     public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object, isFromServer:Boolean = false, deltaTime:int = 0):void {
         if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
 
@@ -281,7 +287,7 @@ public class Fabrica extends AreaObject {
         if (!_arrList.length && _heroCat) {
             _heroCat.visible = true;
             _heroCat.isFree = true;
-            g.managerCats.goCatToPoint(_heroCat, g.managerCats.getRandomFreeCell());
+//            g.managerCats.goCatToPoint(_heroCat, g.managerCats.getRandomFreeCell());
             _heroCat = null;
         }
     }

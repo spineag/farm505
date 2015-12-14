@@ -11,6 +11,8 @@ import starling.utils.Color;
 
 import utils.CSprite;
 
+import windows.WOComponents.WOButtonTexture;
+
 import windows.Window;
 
 public class WOBuyCave extends Window {
@@ -28,8 +30,8 @@ public class WOBuyCave extends Window {
         createExitButton(onClickExit);
 
         btn = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn1'));
-        btn.addChild(im);
+        var bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
+        btn.addChild(bg);
         btn.x = -btn.width/2;
         btn.y = 125;
         priceTxt = new TextField(217, 30, '', "Arial", 18, Color.WHITE);

@@ -223,7 +223,7 @@ public class ShopItem {
                                 maxCountAtCurrentLevel++;
                             } else break;
                         }
-                        if (maxCountAtCurrentLevel == arr.length) {
+                        if (arr.length >= maxCountAtCurrentLevel) {
                             _shopLimitSprite.visible = true;
                             _nameTxt.text = _data.name + ' ' + String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                         } else {
@@ -246,7 +246,7 @@ public class ShopItem {
                         maxCountAtCurrentLevel++;
                     } else break;
                 }
-                if (maxCountAtCurrentLevel == arr.length) {
+                if (arr.length >= maxCountAtCurrentLevel) {
                     _shopLimitSprite.visible = true;
                     _nameTxt.text = _data.name + ' ' + String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                 } else {
@@ -296,7 +296,7 @@ public class ShopItem {
                     if (maxCount == 0) {
                         _txtAvailable.text = 'Необходимо построить ' + String(dataFarm.name);
                         _nameTxt.text = _data.name;
-                    } else if (curCount == maxCount) {
+                    } else if (curCount >= maxCount) {
                         _shopLimitSprite.visible = true;
                         _nameTxt.text = _data.name + " " + String(maxCount) + '/' + String(maxCount);
                         _countCost = 0;
@@ -326,7 +326,7 @@ public class ShopItem {
                     } else break;
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
-                if (curCount == maxCount) {
+                if (curCount >= maxCount) {
                     _shopLimitSprite.visible = true;
                     _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
                 } else {
@@ -345,7 +345,7 @@ public class ShopItem {
                     } else break;
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
-                if (curCount == maxCount) {
+                if (curCount >= maxCount) {
                     _shopLimitSprite.visible = true;
                     _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
                 } else {
@@ -357,7 +357,7 @@ public class ShopItem {
         } else if (_data.buildType == BuildType.CAT) {
             curCount = g.managerCats.curCountCats;
             maxCount = g.managerCats.maxCountCats;
-            if (curCount == maxCount) {
+            if (curCount >= maxCount) {
                 _shopLimitSprite.visible = true;
                 _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
             } else {

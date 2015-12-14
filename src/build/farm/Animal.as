@@ -102,7 +102,7 @@ public class Animal {
 
     public function render():void {
         _timeToEnd--;
-        if (_timeToEnd <=0) {
+        if (_timeToEnd <= 0 && _state == WORKED) {
             g.gameDispatcher.removeFromTimer(render);
             craftResource();
             _state = CRAFT;
@@ -179,7 +179,7 @@ public class Animal {
         _isOnHover = false;
 //        g.timerHint.hideIt();
         g.gameDispatcher.addEnterFrame(countEnterFrame);
-        g.mouseHint.hideHintMouse();
+        g.mouseHint.hideIt();
     }
 
     private function countEnterFrame():void{
@@ -299,7 +299,7 @@ public class Animal {
 
     public function clearIt():void {
         _farm = null;
-        g.mouseHint.hideHintMouse();
+        g.mouseHint.hideIt();
         source.filter = null;
         TweenMax.killTweensOf(source);
         g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);

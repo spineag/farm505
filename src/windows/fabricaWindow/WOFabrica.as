@@ -120,22 +120,33 @@ public class WOFabrica extends Window {
             g.woNoPlaces.showItWithParams(price, onBuyNewCellFromWO, onClickExit);
             return;
         }
-            var count:int = 0;
-            if (!dataRecipe || !dataRecipe.ingridientsId) {
-                Cc.error('UserInventory checkRecipe:: bad _data');
-                g.woGameError.showIt();
+
+        if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
+            onClickExit();
+            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
+                g.woWaitFreeCats.showIt();
+            } else {
+                g.woNoFreeCats.showIt();
             }
-            for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
-                count =  g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
-                if (count < int(dataRecipe.ingridientsCount[i])) {
-                    var obj:Object = {};
-                    obj.fabrica = _fabrica;
-                    obj.callback = _callbackOnClick;
-                    onClickExit();
-                    g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count,onBuyResource, obj);
-                    return;
-                }
+            return;
+        }
+
+        var count:int = 0;
+        if (!dataRecipe || !dataRecipe.ingridientsId) {
+            Cc.error('UserInventory checkRecipe:: bad _data');
+            g.woGameError.showIt();
+        }
+        for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+            count =  g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
+            if (count < int(dataRecipe.ingridientsCount[i])) {
+                var obj:Object = {};
+                obj.fabrica = _fabrica;
+                obj.callback = _callbackOnClick;
+                onClickExit();
+                g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count,onBuyResource, obj);
+                return;
             }
+        }
 
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);
