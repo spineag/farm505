@@ -12,6 +12,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.filters.ColorMatrixFilter;
@@ -31,7 +32,6 @@ import windows.WOComponents.WOButtonTexture;
 public class MarketFriendsPanelItem{
     private var _person:Someone;
     public var source:CSprite;
-    private var cont:Sprite;
     private var _ava:Image;
     private var _txt:TextField;
     private var _panel:WOMarket;
@@ -43,10 +43,22 @@ public class MarketFriendsPanelItem{
 
     public function MarketFriendsPanelItem(f:Someone, p:WOMarket, _shift:int) {
         _shiftFriend = _shift;
+        _person = f;
         source = new CSprite();
         source.x = 218;
-        cont = new Sprite();
         _person = f;
+        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+        MCScaler.scale(_ava, 70, 70);
+        _ava.x = 1;
+        _ava.y = 1;
+        source.addChildAt(_ava,0);
+        _txt = new TextField(100, 30, 'loading...', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txt.x = -15;
+        _txt.y = 50;
+        if (_person.name) _txt.text = _person.name;
+        source.addChildAt(_txt,1);
+        source.endClickCallback = chooseThis;
         if (!_person) {
             Cc.error('MarketFriendItem:: person == null');
             g.woGameError.showIt();
@@ -57,24 +69,13 @@ public class MarketFriendsPanelItem{
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
             if (_person.photo) {
-                _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                _ava.filter = ManagerFilters.WHITE_STROKE;
-                MCScaler.scale(_ava, 70, 70);
-                _ava.x = 1;
-                _ava.y = 1;
-                source.addChild(_ava);
+
                 g.load.loadImage(_person.photo, onLoadPhoto);
             } else {
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
             }
         }
-        _txt = new TextField(100, 30, 'loading...', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txt.x = -15;
-        _txt.y = 50;
-        if (_person.name) _txt.text = _person.name;
-        source.addChild(_txt);
-        source.endClickCallback = chooseThis;
+
 
         _planet = new CSprite();
         var btn:WOButtonTexture = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
@@ -127,11 +128,12 @@ public class MarketFriendsPanelItem{
 
     private function photoFromTexture(tex:Texture):void {
         _ava = new Image(tex);
-        _ava.filter = ManagerFilters.WHITE_STROKE;
         MCScaler.scale(_ava, 70, 70);
         _ava.x = 1;
         _ava.y = 1;
-        source.addChild(_ava);
+        source.addChildAt(_ava,1);
+        var bg:Quad = new Quad(72, 72, Color.WHITE);
+        source.addChildAt(bg,0);
     }
 
     private function chooseThis():void {
@@ -140,6 +142,7 @@ public class MarketFriendsPanelItem{
         _panel.deleteFriends();
         _panel.shiftFriend = _shiftFriend;
         _panel.createMarketTabBtns();
+        g.woMarket.closePanelFriend();
     }
 
     public function clearIt():void {

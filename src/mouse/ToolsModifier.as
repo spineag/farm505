@@ -139,7 +139,7 @@ public class ToolsModifier {
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.INVENTORY:
-                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Storage'));;
+                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Storage'));
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.GRID_DEACTIVATED:
@@ -166,12 +166,12 @@ public class ToolsModifier {
             if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
             MCScaler.scale(_mouseIcon, 30, 30);
             g.gameDispatcher.addEnterFrame(moveMouseIcon);
-        } else {
-            if (g.toolsModifier.modifierType != ToolsModifier.ADD_NEW_RIDGE) {
-                Cc.error('ToolsModifier:: no image for modifierType: ' + g.toolsModifier.modifierType);
-                g.woGameError.showIt();
-            }
-        }
+        } //else {
+//            if (g.toolsModifier.modifierType != ToolsModifier.ADD_NEW_RIDGE) {
+//                Cc.error('ToolsModifier:: no image for modifierType: ' + g.toolsModifier.modifierType);
+//                g.woGameError.showIt();
+//            }
+//        }
      }
 
     public function updateCountTxt():void {
