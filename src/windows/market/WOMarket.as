@@ -45,9 +45,12 @@ public class WOMarket  extends Window {
     private var _curUser:Someone;
     private var _btnRefresh:CSprite;
     private var _btnFriends:CButton;
+    private var _cont:Sprite;
+    private var _contItem:Sprite;
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
     private var _item3:MarketFriendItem;
+    private var ma:MarketAllFriend;
     private var _shiftFriend:int = 0;
     private var _arrFriends:Array;
     private var _scrollSprite:DefaultVerticalScrollSprite;
@@ -56,6 +59,8 @@ public class WOMarket  extends Window {
 
     public function WOMarket() {
         super ();
+        _cont = new Sprite();
+        _contItem = new Sprite();
         _arrItemsFriend = [];
         _shopSprite = new Sprite();
         _woWidth = 750;
@@ -63,15 +68,19 @@ public class WOMarket  extends Window {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
+        callbackClickBG = onClickExit;
+        _source.addChild(_contItem);
+        _contItem.filter = ManagerFilters.SHADOW_LIGHT;
         _btnFriends = new CButton();
         _btnFriends.addButtonTexture(96, 40, CButton.GREEN, true);
         _btnFriends.x = _woWidth/2 - 97;
         _btnFriends.y = _woHeight/2 - 58;
+        _source.addChild(_cont);
         var c:CartonBackground = new CartonBackground(550, 445);
         c.x = -_woWidth/2 + 43;
         c.y = -_woHeight/2 + 40;
-        c.filter = ManagerFilters.SHADOW_LIGHT;
-        _source.addChildAt(c,1);
+        _cont.filter = ManagerFilters.SHADOW_LIGHT;
+        _cont.addChild(c);
         var txt:TextField = new TextField(80, 25, 'Все друзья', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
         txt.x = 8;
@@ -225,7 +234,7 @@ public class WOMarket  extends Window {
             var c:CartonBackground = new CartonBackground(125, 115);
             c.x = 208 - 5;
             c.y = -185;
-            _cont.addChildAt(c, 1);
+            _cont.addChild(c);
             _source.addChild(_item.source);
             if (_shiftFriend + 2 >= _arrFriends.length) {
                 _shiftFriend = -1;
@@ -236,7 +245,7 @@ public class WOMarket  extends Window {
 //            c.filter = ManagerFilters.SHADOW_LIGHT;
             c.x = 208 - 5;
             c.y = 1 * 120 - 185;
-            _contItem.addChildAt(c,1);
+            _contItem.addChild(c);
             _source.addChild(_item2.source);
             _item2.source.y = 5;
             _item2.source.width = _item2.source.height = 100;
