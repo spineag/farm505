@@ -37,9 +37,22 @@ public class FriendItem {
             return;
         }
         source = new CSprite();
+        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+        MCScaler.scale(_ava, 50, 50);
+        _ava.x = 5;
+        _ava.y = 18;
+        source.addChildAt(_ava,0);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_panel_bt_fr"));
-        source.addChild(im);
-
+        source.addChildAt(im,1);
+        if (_person is NeighborBot) {
+            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
+        } else {
+            if (_person.photo) {
+                g.load.loadImage(_person.photo, onLoadPhoto);
+            } else {
+                g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
+            }
+        }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         MCScaler.scale(im,30,30);
         im.x = 35;
@@ -52,15 +65,6 @@ public class FriendItem {
         _txtLvl.y = 50;
         source.addChild(_txtLvl);
 
-        if (_person is NeighborBot) {
-            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
-        } else {
-            if (_person.photo) {
-                g.load.loadImage(_person.photo, onLoadPhoto);
-            } else {
-                g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
-            }
-        }
         _txt = new TextField(63, 30, "loading..", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
         _txt.y = -5;
         if (_person.name) _txt.text = _person.name;
@@ -106,7 +110,7 @@ public class FriendItem {
         MCScaler.scale(_ava, 50, 50);
         _ava.x = 5;
         _ava.y = 18;
-        source.addChildAt(_ava, 0);
+        source.addChildAt(_ava,1);
     }
 
 

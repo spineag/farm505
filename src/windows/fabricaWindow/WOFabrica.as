@@ -69,7 +69,6 @@ public class WOFabrica extends Window {
         _callbackOnClick = f;
         _arrAllRecipes = arrRecipes;
         createShiftBtns();
-        activateShiftBtn(1, false);
         fillFabricaItems();
         _list.fillIt(arrList, _fabrica);
         _birka.updateText(_fabrica.dataBuild.name);
@@ -190,23 +189,24 @@ public class WOFabrica extends Window {
         for (i = 0; i < _arrAllRecipes.length; i++) {
             if (_arrAllRecipes[i].blockByLevel <= g.user.level) n++;
         }
-        if (n <= 5) {
-            s = new CSprite();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
-            s.addChild(im);
-            txt = new TextField(32, 32, String(1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
-            txt.y = 20;
-            txt.x = 2;
-            s.addChild(txt);
-            s.flatten();
-            s.x = -_woWidth / 2 + 220 + 42;
-            s.y = -_woHeight / 2 + 117;
-            _source.addChildAt(s, 0);
-            _arrShiftBtns.push(s);
-            s.endClickParams = 1;
-            s.endClickCallback = activateShiftBtn;
-        } else if ( n > 5 && n <= 10) {
+//        if (n <= 5) {
+//            s = new CSprite();
+//            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+//            s.addChild(im);
+//            txt = new TextField(32, 32, String(1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
+//            txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+//            txt.y = 20;
+//            txt.x = 2;
+//            s.addChild(txt);
+//            s.flatten();
+//            s.x = -_woWidth / 2 + 220 + 42;
+//            s.y = -_woHeight / 2 + 117;
+//            _source.addChildAt(s, 0);
+//            _arrShiftBtns.push(s);
+//            s.endClickParams = 1;
+//            s.endClickCallback = activateShiftBtn;
+//        } else
+        if ( n > 5 && n <= 10) {
             for (i= 0; i < 2; i++) {
                 s = new CSprite();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
@@ -221,6 +221,7 @@ public class WOFabrica extends Window {
                 s.y = -_woHeight / 2 + 117;
                 _source.addChildAt(s, 0);
                 _arrShiftBtns.push(s);
+                activateShiftBtn(1, false);
                 s.endClickParams = i + 1;
                 s.endClickCallback = activateShiftBtn;
             }
