@@ -41,7 +41,7 @@ public class WODailyBonus extends Window{
         _source.addChild(_contBtn);
         _source.addChild(_contImage);
         _contBtn.endClickCallback = onClick;
-        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
+        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         MCScaler.scale(_imageHard,25,25);
         _imageHard.x = 30;
         _imageHard.y = 75;

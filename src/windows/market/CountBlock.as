@@ -32,7 +32,7 @@ public class CountBlock {
         _btnMinus = new CSprite();
         _btnMinus.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus')));
         _btnPlus = new CSprite();
-        _btnPlus.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus')));
+        _btnPlus.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross')));
         _txt = new TextField(50, 30, '0', "Arial", 16, Color.BLACK);
         _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         _btnPlus.startClickCallback = onStartPlus;

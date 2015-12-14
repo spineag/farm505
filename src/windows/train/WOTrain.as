@@ -22,6 +22,8 @@ import ui.xpPanel.XPStar;
 
 import utils.CSprite;
 
+import windows.WOComponents.WOButtonTexture;
+
 import windows.Window;
 
 public class WOTrain extends Window {
@@ -45,20 +47,20 @@ public class WOTrain extends Window {
         createExitButton(onClickExit);
         _arrItems = [];
         addItems();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
+        var bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
         _btn = new CSprite();
-        _btn.addChild(im);
+        _btn.addChild(bg);
         _btn.x = 140;
         _btn.y = 70;
         var txt:TextField = new TextField(89,62,"Отправить","Arial",16,Color.BLACK);
         _btn.addChild(txt);
         _source.addChild(_btn);
         _btn.alpha = .5;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
-        im.scaleX = .9;
-        im.scaleY = .7;
+        bg = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
+        bg.scaleX = .9;
+        bg.scaleY = .7;
         _btn1 = new CSprite();
-        _btn1.addChild(im);
+        _btn1.addChild(bg);
         _btn1.x = 150;
         _btn1.y = -15;
         var txt1:TextField = new TextField(80,50,"Загрузить","Arial",16,Color.BLACK);

@@ -30,7 +30,7 @@ public class WOMarketChoose extends Window {
         super();
         _woHeight = 500;
         _woWidth = 534;
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus'));
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
         _bg.pivotX = _bg.width/2;
         _bg.pivotY = _bg.height/2;
         _source.addChild(_bg);
@@ -43,7 +43,7 @@ public class WOMarketChoose extends Window {
         _scrollSprite.source.x = 40 - _woWidth/2;
         _scrollSprite.source.y = 79 - _woHeight/2;
         _source.addChild(_scrollSprite.source);
-        _scrollSprite.createScoll(440, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('plus'), g.allData.atlas['interfaceAtlas'].getTexture('plus'));
+        _scrollSprite.createScoll(440, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('cross'), g.allData.atlas['interfaceAtlas'].getTexture('cross'));
 
         _countResourceBlock = new CountBlock();
         _countResourceBlock.setWidth = 50;

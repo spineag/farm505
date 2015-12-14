@@ -10,13 +10,14 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WOComponents.WOButtonTexture;
+
 import windows.Window;
 
 public class WONoFreeCats extends Window{
     private var _contBtn:CSprite;
     private var _txtText:TextField;
     private var _txtBtn:TextField;
-    private var _imageBtn:Image;
 
     public function WONoFreeCats() {
         super();
@@ -27,10 +28,10 @@ public class WONoFreeCats extends Window{
         _txtText = new TextField(300,100,"Нету сводобных котов","Arial",20,Color.BLACK);
         _txtText.x = -150;
         _txtText.y = -100;
-        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn3"));
+       var  bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
         _contBtn = new CSprite();
         _contBtn.endClickCallback = onClick;
-        _contBtn.addChild(_imageBtn);
+        _contBtn.addChild(bg);
         _contBtn.x =-_contBtn.width/2;
         _contBtn.y = 100;
         _source.addChild(_contBtn);

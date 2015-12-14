@@ -11,11 +11,12 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WOComponents.WOButtonTexture;
+
 import windows.Window;
 
 public class WOTrainOrder extends Window{
     private var _contBtn:CSprite;
-    private var _imageBtn:Image;
     private var _imageHard:Image;
     private var _txtBtn:TextField;
     private var _txtCostBtn:TextField;
@@ -35,10 +36,10 @@ public class WOTrainOrder extends Window{
         createTempBG();
         createExitButton(onClickExit);
         _contBtn = new CSprite();
-        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn2"));
-        _imageBtn.width = 150;
-        _imageBtn.height = 50;
-        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
+        var bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
+        bg.width = 150;
+        bg.height = 50;
+        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         _imageHard.y = 10;
         MCScaler.scale(_imageHard,25,25);
         _txtBtn = new TextField(100,50,"Вернуть корабль сейчас","Arial",12,Color.BLACK);
@@ -46,7 +47,7 @@ public class WOTrainOrder extends Window{
         _txtCostBtn = new TextField(50,50,"5","Arial",12,Color.BLACK);
         _txtCostBtn.x = 10;
         _source.addChild(_contBtn);
-        _contBtn.addChild(_imageBtn);
+        _contBtn.addChild(bg);
         _contBtn.addChild(_imageHard);
         _contBtn.addChild(_txtBtn);
         _contBtn.addChild(_txtCostBtn);

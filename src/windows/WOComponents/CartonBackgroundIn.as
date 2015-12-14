@@ -18,7 +18,7 @@ public class CartonBackgroundIn extends Sprite{
         var countH:int;
         var arr:Array = [];
         var i:int;
-        var delta:int = 5;
+        var delta:int = 2;
 
         //top left
         im = new Image(tex.getTexture('shop_window_lt'));
@@ -49,13 +49,12 @@ public class CartonBackgroundIn extends Sprite{
         arr.push(im);
 
         //top center and bottom center
-        im = new Image(tex.getTexture('shop_window_cc'));
+        im = new Image(tex.getTexture('shop_window_ct'));
         countW = Math.ceil((w - arr[0].width - arr[2].width)/im.width);
         if (countW*(im.width - delta) < w - arr[0].width - arr[2].width) countW++;
         for (i=0; i<countW; i++) {
-            im = new Image(tex.getTexture('shop_window_cl'));
-            im.rotation = Math.PI/2;
-            im.x = arr[0].x + arr[0].width + i*(im.width - delta) + im.width;
+            im = new Image(tex.getTexture('shop_window_ct'));
+            im.x = arr[0].x + arr[0].width + i*(im.width - delta);
             im.y = 0;
             addChildAt(im, 0);
             im = new Image(tex.getTexture('shop_window_dc'));
