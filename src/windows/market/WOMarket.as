@@ -241,7 +241,7 @@ public class WOMarket  extends Window {
             }
             _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
             _item2.source.y = 1 * 120 - 180;
-            var c:CartonBackground = new CartonBackground(125, 115);
+            c = new CartonBackground(125, 115);
 //            c.filter = ManagerFilters.SHADOW_LIGHT;
             c.x = 208 - 5;
             c.y = 1 * 120 - 185;
@@ -257,7 +257,7 @@ public class WOMarket  extends Window {
         if (_arrFriends[_shiftFriend] == g.user) {
             _item._visitBtn.visible = false;
         } else _item._visitBtn.visible = true;
-        var c:CartonBackground = new CartonBackground(125, 115);
+        c = new CartonBackground(125, 115);
         c.x = 208 - 5;
         c.y = -185;
         _cont.addChild(c);
@@ -268,7 +268,7 @@ public class WOMarket  extends Window {
 
         _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
         _item2.source.y = 1 * 120 - 177;
-        var c:CartonBackground = new CartonBackground(120, 110);
+        c = new CartonBackground(120, 110);
         c.x = 208 - 5;
         c.y = 1 * 120 - 185;
         _contItem.addChild(c);
@@ -278,7 +278,7 @@ public class WOMarket  extends Window {
 
         _item3 = new MarketFriendItem(_arrFriends[_shiftFriend + 2],this,_shiftFriend + 2);
         _item3.source.y = 2 * 120-182;
-        var c:CartonBackground = new CartonBackground(120, 110);
+        c = new CartonBackground(120, 110);
         c.x = 208-5;
         c.y = 2 * 120-190;
         _contItem.addChild(c);

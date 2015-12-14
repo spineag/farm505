@@ -6,6 +6,8 @@ import build.AreaObject;
 
 import data.BuildType;
 
+import flash.display.Bitmap;
+
 import flash.geom.Point;
 
 import hint.MouseHint;
@@ -27,9 +29,12 @@ import starling.display.Image;
 import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
+import starling.textures.Texture;
 import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
+
+import user.Someone;
 
 import utils.CSprite;
 
@@ -61,6 +66,7 @@ public class Tree extends AreaObject{
     private var _count:int;
     private var _wateringIcon:Sprite;
     public var tree_db_id:String;    // id в табличке user_tree
+    private var _wateringUserSocialId:String;
 
     public function Tree(_data:Object) {
         super(_data);
@@ -90,6 +96,7 @@ public class Tree extends AreaObject{
 
     public function releaseTreeFromServer(ob:Object):void {
         tree_db_id = ob.id;
+        _wateringUserSocialId = ob.fixed_user_id;
         ob.time_work = int(ob.time_work);
         switch (int(ob.state)) {
             case GROW1:
@@ -319,7 +326,8 @@ public class Tree extends AreaObject{
         _count = 20;
         if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
             g.mouseHint.checkMouseHint(MouseHint.KORZINA);
-        } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3) {
+        } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
+                _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
             g.mouseHint.checkMouseHint(MouseHint.CLOCK);
         }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -384,19 +392,26 @@ public class Tree extends AreaObject{
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
                         g.woAmbarFilled.showAmbarFilled(true);
-                        var p:Point = new Point(_source.x, _source.y);
-                        p = _source.parent.localToGlobal(p);
+//                        var p:Point = new Point(_source.x, _source.y);
+//                        p = _source.parent.localToGlobal(p);
 //                        new FlyMessage(p,"Амбар заполнен");
                         return;
                     }
                     _arrCrafted.shift().flyIt();
                 } else Cc.error('TREE:: state == GROWED*, but empty _arrCrafted');
-            } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 || _state == GROW_FLOWER2 || _state == GROW_FLOWER3){
+            } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
+                    _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
                 var time:int = _timeToEndState;
-                if (_state == GROW1 || _state == GROW2 || _state == GROW3) {
+                if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FIXED) {
                     time += int(_resourceItem.buildTime/2 + .5);
                 }
                 g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
+            } else if (_state == FIXED) {
+                _state = GROW_FIXED;
+                setBuildImage();
+                startGrow();
+                g.managerTree.updateTreeState(tree_db_id, _state);
+                makeWateringIcon();
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -471,8 +486,7 @@ public class Tree extends AreaObject{
                     g.managerTree.updateTreeState(tree_db_id, _state);
                     break;
                 case GROWED3:
-                    //_state = DEAD;
-                    _state = FULL_DEAD; // временно, потом добавить поливание
+                    _state = DEAD;
                     g.managerTree.updateTreeState(tree_db_id, _state);
                     break;
                 case GROWED_FIXED:
@@ -536,6 +550,8 @@ public class Tree extends AreaObject{
         if (_wateringIcon) {
             if (_build.contains(_wateringIcon)) _build.removeChild(_wateringIcon);
             while (_wateringIcon.numChildren) _wateringIcon.removeChildAt(0);
+            _wateringIcon = null;
+            _wateringUserSocialId = '0';
         }
 
         if (_state == ASK_FIX || _state == FIXED) {
@@ -551,12 +567,36 @@ public class Tree extends AreaObject{
             _wateringIcon.addChild(im);
             if (_state == FIXED) {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-                im.x = 10;
-                im.y = 10;
                 _wateringIcon.addChild(im);
+                if (_wateringUserSocialId != '0' || _wateringUserSocialId != '-1') {
+                    var p:Someone = g.user.getSomeoneBySocialId(_wateringUserSocialId);
+                    if (!p.photo) {
+                        var f1:Function = function():void {
+                            p = g.user.getSomeoneBySocialId(_wateringUserSocialId);
+                            g.load.loadImage(p.photo, onLoadPhoto, p);
+                        };
+                        g.socialNetwork.getTempUsersInfoById([_wateringUserSocialId], f1);
+                    } else {
+                        g.load.loadImage(p.photo, onLoadPhoto, p);
+                    }
+                }
             }
             _build.addChild(_wateringIcon);
         }
+    }
+
+    private function onLoadPhoto(bitmap:Bitmap, p:Someone):void {
+        if (!bitmap) {
+            bitmap = g.pBitmaps[p.photo].create() as Bitmap;
+        }
+        if (!bitmap) {
+            Cc.error('WOPaperItem:: no photo for userId: ' + p.userSocialId);
+            return;
+        }
+        var ava:Image = new Image(Texture.fromBitmap(bitmap));
+        MCScaler.scale(ava, 50, 50);
+        ava.x = -60;
+        _wateringIcon.addChild(ava);
     }
 }
 }

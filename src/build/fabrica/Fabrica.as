@@ -178,7 +178,7 @@ public class Fabrica extends AreaObject {
         }
     }
 
-    public function get heroCat():Boolean {
+    public function get heroCat():HeroCat {
         return _heroCat;
     }
 
