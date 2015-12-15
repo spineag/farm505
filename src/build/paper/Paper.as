@@ -35,7 +35,7 @@ public class Paper extends AreaObject{
 
     private function onHover():void {
         _source.filter = ManagerFilters.RED_STROKE;
-        g.hint.showIt(_dataBuild.name, "0");
+        g.hint.showIt(_dataBuild.name);
     }
 
     private function onOut():void {

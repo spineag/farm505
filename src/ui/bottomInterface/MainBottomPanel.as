@@ -59,7 +59,7 @@ public class MainBottomPanel {
         _toolsBtn.x = 3 + _toolsBtn.width/2;
         _toolsBtn.y = 8 + _toolsBtn.height/2;
         _source.addChild(_toolsBtn);
-        _toolsBtn.hoverCallback = function():void { g.hint.showIt("Редактирование карты", "0"); };
+        _toolsBtn.hoverCallback = function():void { g.hint.showIt("Редактирование карты"); };
         _toolsBtn.outCallback = function():void { g.hint.hideIt(); };
         _toolsBtn.clickCallback = function():void {onClick('tools')};
 
@@ -74,7 +74,7 @@ public class MainBottomPanel {
         _shopBtn.x = 66 + _shopBtn.width/2;
         _shopBtn.y = 8 + _shopBtn.height/2;
         _source.addChild(_shopBtn);
-        _shopBtn.hoverCallback = function():void { g.hint.showIt("Магазин","0"); };
+        _shopBtn.hoverCallback = function():void { g.hint.showIt("Магазин"); };
         _shopBtn.outCallback = function():void { g.hint.hideIt(); };
         _shopBtn.clickCallback = function():void {onClick('shop')};
 
@@ -89,7 +89,7 @@ public class MainBottomPanel {
         _ambarBtn.x = 129 + _ambarBtn.width/2;
         _ambarBtn.y = 8 + _ambarBtn.height/2;
         _source.addChild(_ambarBtn);
-        _ambarBtn.hoverCallback = function():void { g.hint.showIt("Амбар/Склад", "0"); };
+        _ambarBtn.hoverCallback = function():void { g.hint.showIt("Амбар/Склад"); };
         _ambarBtn.outCallback = function():void { g.hint.hideIt(); };
         _ambarBtn.clickCallback = function():void {onClick('ambar')};
 
@@ -104,7 +104,7 @@ public class MainBottomPanel {
         _orderBtn.x = 192 + _orderBtn.width/2;
         _orderBtn.y = 8 + _orderBtn.height/2;
         _source.addChild(_orderBtn);
-        _orderBtn.hoverCallback = function():void { g.hint.showIt("Заказы", "0"); };
+        _orderBtn.hoverCallback = function():void { g.hint.showIt("Заказы"); };
         _orderBtn.outCallback = function():void { g.hint.hideIt(); };
         _orderBtn.clickCallback = function():void {onClick('order')};
 
@@ -119,7 +119,7 @@ public class MainBottomPanel {
         _cancelBtn.x = 3 + _cancelBtn.width/2;
         _cancelBtn.y = 8 + _cancelBtn.height/2;
         _source.addChild(_cancelBtn);
-        _cancelBtn.hoverCallback = function():void {g.hint.showIt("Отменить","0");};
+        _cancelBtn.hoverCallback = function():void {g.hint.showIt("Отменить");};
         _cancelBtn.outCallback = function():void { g.hint.hideIt(); };
         _cancelBtn.clickCallback = function():void {onClick('cancel')};
         _cancelBtn.visible = false;
@@ -141,7 +141,7 @@ public class MainBottomPanel {
         _doorBtn.x = 0 + _doorBtn.width/2;
         _doorBtn.y = 2 + _doorBtn.height/2;
         _source.addChild(_doorBtn);
-        _doorBtn.hoverCallback = function():void { g.hint.showIt("Домой","0") };
+        _doorBtn.hoverCallback = function():void { g.hint.showIt("Домой") };
         _doorBtn.outCallback = function():void { g.hint.hideIt() };
         _doorBtn.clickCallback = function():void {onClick('door')};
         _doorBtn.visible = false;
@@ -152,7 +152,7 @@ public class MainBottomPanel {
         _optionBtn.x = 214;
         _optionBtn.y = -70;
         _source.addChild(_optionBtn);
-        _optionBtn.hoverCallback = function():void { g.hint.showIt("Настройки","0"); };
+        _optionBtn.hoverCallback = function():void { g.hint.showIt("Настройки"); };
         _optionBtn.outCallback = function():void { g.hint.hideIt(); };
         _optionBtn.endClickCallback = function():void {onClick('option')};
     }

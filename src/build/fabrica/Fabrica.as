@@ -82,7 +82,7 @@ public class Fabrica extends AreaObject {
         _count = 20;
         _source.filter = ManagerFilters.RED_STROKE;
         if (_stateBuild == STATE_ACTIVE) {
-            g.hint.showIt(_dataBuild.name, "0");
+            g.hint.showIt(_dataBuild.name);
         }
     }
 

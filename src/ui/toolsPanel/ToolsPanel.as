@@ -62,7 +62,7 @@ public class ToolsPanel {
         im.y = 2;
         _repositoryBtn.addDisplayObject(im);
         _source.addChild(_repositoryBtn);
-        _repositoryBtn.hoverCallback = function():void { g.hint.showIt("Инвентарь", "0"); };
+        _repositoryBtn.hoverCallback = function():void { g.hint.showIt("Инвентарь"); };
         _repositoryBtn.outCallback = function():void { g.hint.hideIt(); };
         _repositoryBtn.clickCallback = function():void {onClick('repository')};
 
@@ -77,7 +77,7 @@ public class ToolsPanel {
         im.y = 4;
         _flipBtn.addDisplayObject(im);
         _source.addChild(_flipBtn);
-        _flipBtn.hoverCallback = function():void { g.hint.showIt("Повернуть","0"); };
+        _flipBtn.hoverCallback = function():void { g.hint.showIt("Повернуть"); };
         _flipBtn.outCallback = function():void { g.hint.hideIt(); };
         _flipBtn.clickCallback = function():void {onClick('flip')};
 
@@ -92,7 +92,7 @@ public class ToolsPanel {
         im.y = 3;
         _moveBtn.addDisplayObject(im);
         _source.addChild(_moveBtn);
-        _moveBtn.hoverCallback = function():void { g.hint.showIt("Переместить", "0"); };
+        _moveBtn.hoverCallback = function():void { g.hint.showIt("Переместить"); };
         _moveBtn.outCallback = function():void { g.hint.hideIt(); };
         _moveBtn.clickCallback = function():void {onClick('move')};
     }
