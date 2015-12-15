@@ -19,8 +19,8 @@ import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 
 public class Containers {
-    public static const SHIFT_MAP_X:int = 70;
-    public static const SHIFT_MAP_Y:int = 227;
+    public static const SHIFT_MAP_X:int = 120;
+    public static const SHIFT_MAP_Y:int = 590;
 
     public var mainCont:Sprite;
     public var backgroundCont:Sprite;

@@ -176,6 +176,12 @@ public class WOOrder extends Window{
     }
 
     private function sellOrder():void {
+        for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
+            if (!_arrResourceItems[i].isChecked()) {
+                g.woNoResources.showItOrder(_curOrder.resourceIds[i],sellOrder);
+            }
+        }
+            return;
         if (_curOrder) {
             for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
                 g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
@@ -260,7 +266,7 @@ public class WOOrder extends Window{
                 break;
             }
         }
-        _btnCell.setEnabled = b;
+//        _btnCell.setEnabled = b;
     }
 
     private function deleteOrder():void {

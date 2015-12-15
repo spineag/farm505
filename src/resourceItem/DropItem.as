@@ -45,11 +45,11 @@ public class DropItem {
             endPoint = g.couponePanel.getPoint();
             switch (prise.id) {
                 case DataMoney.HARD_CURRENCY:
-                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('diamont'));
+                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
                     endPoint = g.softHardCurrency.getHardCurrencyPoint();
                     break;
                 case DataMoney.SOFT_CURRENCY:
-                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coin'));
+                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
                     endPoint = g.softHardCurrency.getSoftCurrencyPoint();
                     break;
                 case DataMoney.BLUE_COUPONE:

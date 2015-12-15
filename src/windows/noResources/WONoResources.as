@@ -122,7 +122,7 @@ public class WONoResources extends Window {
         _count = g.dataResource.objectResources[_dataResource.idResourceRaw].priceHard;
         _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
         var item:WONoResourcesItem = new WONoResourcesItem();
-        item.fillWithResource(g.dataResource.objectResources[_dataResource.idResourceRaw], 1);
+        item.fillWithResource(_dataResource.idResourceRaw, 1);
         item.source.x =  - item.source.width/2;
         item.source.y = 0;
         _source.addChild(item.source);
@@ -253,5 +253,58 @@ public class WONoResources extends Window {
         onClickExit();
     }
 
+    public function showItOrder(_data:Object, f:Function = null):void {
+        _callbackBuy = f;
+        _dataResource = _data;
+        var item:WONoResourcesItem;
+        for (var i:int=0; i<_data.resourceIds.length; i++) {
+                item = new WONoResourcesItem();
+                item.fillWithResource(_data.resourceIds[i], _data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]));
+                _count += g.dataResource.objectResources[_data.resourceIds[i]].priceHard *  (_data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]));
+                _source.addChild(item.source);
+                _arrItems.push(item);
+        }
+        switch (_arrItems.length) {
+            case 1:
+                _arrItems[0].source.x = - item.source.width/2;
+                break;
+            case 2:
+                _arrItems[0].source.x = -200 + 117;
+                _arrItems[1].source.x = -200 + 217;
+                break;
+            case 3:
+                _arrItems[0].source.x = -200 + 77;
+                _arrItems[1].source.x = -200 + 167;
+                _arrItems[2].source.x = -200 + 257;
+                break;
+            case 4:
+                _arrItems[0].source.x = -200 + 39;
+                _arrItems[1].source.x = -200 + 124;
+                _arrItems[2].source.x = -200 + 209;
+                _arrItems[3].source.x = -200 + 294;
+                break;
+            case 5:
+                _arrItems[0].source.x = -200 + 27;
+                _arrItems[1].source.x = -200 + 97;
+                _arrItems[2].source.x = -200 + 167;
+                _arrItems[3].source.x = -200 + 237;
+                _arrItems[4].source.x = -200 + 307;
+                break;
+        }
+
+        _callbackBuy = f;
+        _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
+        _btnBuy.clickCallback = onClickOrder;
+        showIt();
+    }
+
+    private function onClickOrder():void {
+//        g.userInventory.addResource(_dataResource)
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null);
+            _callbackBuy = null;
+        }
+        onClickExit();
+    }
 }
 }
