@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:5dfb111be761e676fab291f260abc601:e61b4392e7f585496bd7481ec28345e2:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:dcb6cc4ebee2e59b41c7166eec7f981e:e98cb87680f456ff730ad77b6e77979a:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png">
     <SubTexture name="ambar_indicator_main" x="544" y="487" width="40" height="233"/>
     <SubTexture name="ambar_indicator_top" x="710" y="706" width="45" height="22"/>
@@ -170,7 +170,7 @@
     <SubTexture name="shop_window_tr" x="433" y="984" width="18" height="29"/>
     <SubTexture name="star" x="1018" y="585" width="100" height="100"/>
     <SubTexture name="storage_window_pr" x="2" y="933" width="449" height="49"/>
-    <SubTexture name="storage_window_prl_c" x="835" y="706" width="1" height="14"/>
+    <SubTexture name="storage_window_prl_c" x="922" y="654" width="2" height="14"/>
     <SubTexture name="storage_window_prl_l" x="825" y="706" width="8" height="14"/>
     <SubTexture name="storage_window_prl_r" x="1271" y="823" width="6" height="14"/>
     <SubTexture name="storage_window_scr_c" x="1196" y="967" width="34" height="34" frameX="-1" frameY="-1" frameWidth="36" frameHeight="37"/>

@@ -20,7 +20,7 @@ public class AmbarProgress {
 
     private var g:Vars = Vars.getInstance();
 
-    public function AmbarProgress() {
+    public function AmbarProgress(addImages:Boolean = true) {
         source = new Sprite();
         source.touchable = false;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('storage_window_pr'));
@@ -33,16 +33,18 @@ public class AmbarProgress {
         _bar.y = 13;
         source.addChild(_bar);
 
-        imAmbar = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
-        MCScaler.scale(imAmbar, 40, 40);
-        imAmbar.x = 427;
-        imAmbar.y = 3;
-        source.addChild(imAmbar);
-        imSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
-        MCScaler.scale(imSklad, 40, 40);
-        imSklad.x = 420;
-        imSklad.y = 5;
-        source.addChild(imSklad);
+        if (addImages) {
+            imAmbar = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
+            MCScaler.scale(imAmbar, 50, 50);
+            imAmbar.x = 425;
+            imAmbar.y = 0;
+            source.addChild(imAmbar);
+            imSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
+            MCScaler.scale(imSklad, 50, 50);
+            imSklad.x = 418;
+            imSklad.y = 2;
+            source.addChild(imSklad);
+        }
     }
 
     public function setProgress(a:Number):void {

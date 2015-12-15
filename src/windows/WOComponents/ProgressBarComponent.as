@@ -44,9 +44,9 @@ public class ProgressBarComponent extends Sprite {
         var im:Image;
         _center.unflatten();
         while (_center.numChildren) _center.removeChildAt(0);
-        for (var i:int=0; i<=w; i++) {
+        for (var i:int=0; i<=w+1; i++) {
             im = new Image(_ct);
-            im.x = i;
+            im.x = i-1;
             _center.addChild(im);
         }
         _center.flatten();
