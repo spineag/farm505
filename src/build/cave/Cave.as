@@ -144,7 +144,7 @@ public class Cave extends AreaObject{
     private function onHover():void {
         _isOnHover = true;
         _source.filter = ManagerFilters.RED_STROKE;
-        g.hint.showIt(_dataBuild.name, "0");
+        g.hint.showIt(_dataBuild.name);
         if (_stateBuild == STATE_BUILD) {
             g.gameDispatcher.addEnterFrame(countEnterFrame);
         }

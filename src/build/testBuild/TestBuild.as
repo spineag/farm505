@@ -29,7 +29,7 @@ public class TestBuild extends AreaObject{
 
     private function onHover():void {
         _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
-        g.hint.showIt(_dataBuild.name, "0");
+        g.hint.showIt(_dataBuild.name);
 
     }
 

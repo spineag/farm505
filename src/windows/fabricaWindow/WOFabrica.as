@@ -271,6 +271,7 @@ public class WOFabrica extends Window {
         _arrShiftBtns[n-1].y += 8;
         _shift = n-1;
         if (needUpdate) {
+            unfillFabricaItems();
             fillFabricaItems();
         }
     }

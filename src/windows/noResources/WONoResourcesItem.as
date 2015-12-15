@@ -86,7 +86,8 @@ public class WONoResourcesItem {
 
         _txtCount = new TextField(66, 20, String(count), g.allData.fonts['BloggerMedium'], 12, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtCount.y = 50;
+        _txtCount.y = 49;
+        _txtCount.x = 15;
         source.addChild(_txtCount);
     }
 

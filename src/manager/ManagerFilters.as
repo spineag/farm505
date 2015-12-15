@@ -24,16 +24,18 @@ public class ManagerFilters {
     public static var TEXT_GREEN:int = 0x10650a;
     public static var TEXT_YELLOW:int = 0xa37b01;
     public static var TEXT_BLUE:int = 0x0659b6;
+    public static var TEXT_LIGHT_BLUE:int = 0x1377ab;
     public static var TEXT_GRAY_HARD:int = 0x444444;
 
-    public static var TEXT_STROKE_ORANGE:Array = [new GlowFilter(TEXT_ORANGE, 1, 4, 4, 5)];
-    public static var TEXT_STROKE_GREEN:Array = [new GlowFilter(TEXT_GREEN, 1, 4, 4, 5)];
-    public static var TEXT_STROKE_YELLOW:Array = [new GlowFilter(TEXT_YELLOW, 1, 4, 4, 5)];
-    public static var TEXT_STROKE_BLUE:Array = [new GlowFilter(TEXT_BLUE, 1, 4, 4, 5)];
-    public static var TEXT_STROKE_WHITE:Array = [new GlowFilter(Color.WHITE, 1, 4, 4, 5)];
-    public static var TEXT_STROKE_BROWN:Array = [new GlowFilter(TEXT_BROWN, 1, 4, 4, 5)];
-    public static var TEXT_STROKE_RED:Array = [new GlowFilter(Color.RED, 1, 4, 4, 5)];
-    public static var TEXT_STROKE_GRAY:Array = [new GlowFilter(TEXT_GRAY_HARD, 1, 4, 4, 5)];
+    public static var TEXT_STROKE_ORANGE:Array = [new GlowFilter(TEXT_ORANGE, 1, 3, 3, 5)];
+    public static var TEXT_STROKE_GREEN:Array = [new GlowFilter(TEXT_GREEN, 1, 3, 3, 5)];
+    public static var TEXT_STROKE_YELLOW:Array = [new GlowFilter(TEXT_YELLOW, 1, 3, 3, 5)];
+    public static var TEXT_STROKE_BLUE:Array = [new GlowFilter(TEXT_BLUE, 1, 3, 3, 5)];
+    public static var TEXT_STROKE_LIGHT_BLUE:Array = [new GlowFilter(TEXT_LIGHT_BLUE, 1, 3, 3, 5)];
+    public static var TEXT_STROKE_WHITE:Array = [new GlowFilter(Color.WHITE, 1, 3, 3, 5)];
+    public static var TEXT_STROKE_BROWN:Array = [new GlowFilter(TEXT_BROWN, 1, 3, 3, 5)];
+    public static var TEXT_STROKE_RED:Array = [new GlowFilter(Color.RED, 1, 3, 3, 5)];
+    public static var TEXT_STROKE_GRAY:Array = [new GlowFilter(TEXT_GRAY_HARD, 1, 3, 3, 5)];
 
     public static var BUTTON_HOVER_FILTER:ColorMatrixFilter;
     public static var BUTTON_CLICK_FILTER:ColorMatrixFilter;

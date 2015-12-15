@@ -6,6 +6,8 @@ package ui.xpPanel {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import resourceItem.ResourceItem;
@@ -30,7 +32,8 @@ public class XPStar {
 
     public function XPStar(_x:int, _y:int,xp:int) {
         _source = new Sprite();
-        _txtStar = new TextField(50,50," ","Arial",18,Color.WHITE);
+        _txtStar = new TextField(50,50,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
+        _txtStar.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtStar.y = 25;
         _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         _xp = xp;
@@ -49,7 +52,7 @@ public class XPStar {
     private function flyItStar():void {
         var endX:int = g.stageWidth - 200;
         var endY:int = 50;
-        _txtStar.text = String(_xp);
+        _txtStar.text = '+' + String(_xp);
 
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);

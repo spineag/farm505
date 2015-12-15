@@ -5,6 +5,8 @@ package hint.fabricHint {
 
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -14,11 +16,13 @@ import starling.display.Sprite;
 
 import starling.text.TextField;
 import starling.utils.Color;
+import starling.utils.HAlign;
 
 import utils.MCScaler;
 
+import windows.WOComponents.HintBackground;
+
 public class FabricHint {
-    private var _imageClock:Image;
     private var _imageItem:Image;
     private var _txtName:TextField;
     private var _txtCreate:TextField;
@@ -35,44 +39,50 @@ public class FabricHint {
 
     public function FabricHint() {
         _source = new Sprite();
-        _contImage = new Sprite();
         _arrCells = [];
-        var q:Quad = new Quad(200, 200, Color.AQUA);
-        q.pivotX = 0;
-        q.pivotY = 0;
-        _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock_icon"));
-        MCScaler.scale(_imageClock,30,30);
-        _imageClock.x = 10;
-        _imageClock.y = q.height - 35;
+        var bg:HintBackground = new HintBackground(200, 180, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
         _txtName = new TextField(200,100,"","Arial",14,Color.BLACK);
-        _txtName.y = -20;
-        _txtCreate = new TextField(200,100,"Для изготовления требуется", "Arial",14,Color.BLACK);
-        _txtCreate.x = -5;
-        _txtCreate.y = 10;
-        _txtTimeCreate = new TextField(150,100,"Время производства:","Arial",10,Color.BLACK);
-        _txtTimeCreate.x = -20;
-        _txtTimeCreate.y = 100;
-        _txtOnSklad = new TextField(100,100,"На складе:","Arial",10,Color.BLACK);
-        _txtOnSklad.x = 100;
-        _txtOnSklad.y = 100;
-        _txtItem = new TextField(100,100,"","Arial",14,Color.BLACK);
-        _txtItem.x = 100;
-        _txtItem.y = 130;
-        _txtTime = new TextField(100,100,"","Arial",14,Color.BLACK);
-        _txtTime.x = 20;
-        _txtTime.y = 130;
+        bg.x = 100;
+        _source.addChild(bg);
 
-        _source.addChild(q);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
+        im.x = 15;
+        im.y = 155;
+        _source.addChild(im);
+
+        _txtName = new TextField(200,40,'',g.allData.fonts['BloggerBold'],24,Color.WHITE);
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtName.y = 20;
         _source.addChild(_txtName);
+
+        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE);
+        _txtCreate.y = 50;
         _source.addChild(_txtCreate);
+
+        _txtTimeCreate = new TextField(50, 30 ,'Время:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE);
+        _txtTimeCreate.x = 20;
+        _txtTimeCreate.y = 130;
+        _txtOnSklad = new TextField(100, 30 ,'На складе:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE);
+        _txtOnSklad.x = 100;
+        _txtOnSklad.y = 130;
+        _txtItem = new TextField(50, 40 ,'', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtItem.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtItem.hAlign = HAlign.LEFT;
+        _txtItem.x = 160;
+        _txtItem.y = 150;
+        _txtTime = new TextField(100, 40 ,'', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtTime.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtItem.hAlign = HAlign.LEFT;
+        _txtTime.x = 20;
+        _txtTime.y = 150;
         _source.addChild(_txtTimeCreate);
         _source.addChild(_txtOnSklad);
         _source.addChild(_txtItem);
         _source.addChild(_txtTime);
-        _source.addChild(_imageClock);
+
+        _contImage = new Sprite();
+        _contImage.y = 50;
         _source.addChild(_contImage);
-//        _source.x = 300;
-//        _source.y = 300;
     }
 
     public function showIt(data:Object, sX:int, sY:int):void {
@@ -89,12 +99,12 @@ public class FabricHint {
                 g.woGameError.showIt();
                 return;
             }
-            _imageItem.x = 160;
-            _imageItem.y = 160;
+            _imageItem.x = 120;
+            _imageItem.y = 150;
             MCScaler.scale(_imageItem, 40,40);
             _source.addChild(_imageItem);
             _source.x = sX - 50;
-            _source.y = sY + 100;
+            _source.y = sY + 80;
             g.cont.hintCont.addChild(_source);
         } else {
             Cc.error('FabricHint showIt with empty data or g.dataResource.objectResources[data.idResource] = null');
@@ -123,7 +133,6 @@ public class FabricHint {
             im.source.x = int (i * 45);
             _arrCells.push(im);
             _contImage.addChild(im.source);
-            _contImage.y = 50;
             switch (_data.ingridientsId.length) {
                 case 1:
                     _contImage.x = 50;

@@ -38,14 +38,14 @@ public class SoftHardCurrency {
         _contHard = new CSprite();
         _contSoft.endClickCallback = onClickSoft;
         _contSoft.hoverCallback = function ():void {
-            g.hint.showIt("Монеты","0");
+            g.hint.showIt("Монеты");
         };
         _contSoft.outCallback = function ():void {
             g.hint.hideIt();
         };
         _contHard.endClickCallback = onClickHard;
         _contHard.hoverCallback = function ():void {
-            g.hint.showIt("Изумруды","0");
+            g.hint.showIt("Изумруды");
         };
         _contHard.outCallback = function ():void {
             g.hint.hideIt();
