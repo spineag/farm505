@@ -30,6 +30,7 @@ import utils.MCScaler;
 import windows.WOComponents.Birka;
 
 import windows.WOComponents.CartonBackground;
+import windows.WOComponents.CartonBackgroundIn;
 
 import windows.Window;
 import windows.WOComponents.WindowBackground;
@@ -63,6 +64,8 @@ public class WOOrder extends Window{
         createItems();
         createButtonCell();
         createTopCats();
+
+        _rightBlock.visible = false;
 
         new Birka('ЛАВКА', _source, 764, 570);
     }
@@ -178,7 +181,7 @@ public class WOOrder extends Window{
         _btnCell.registerTextField(txt, ManagerFilters.TEXT_STROKE_GREEN);
         _btnCell.x = -_woWidth/2 + 547;
         _btnCell.y = -_woHeight/2 + 500;
-        _source.addChild(_btnCell);
+        _rightBlock.addChild(_btnCell);
         _btnCell.clickCallback = sellOrder;
     }
 
@@ -295,16 +298,40 @@ public class WOOrder extends Window{
         fillResourceItems(_arrOrders[0]);
     }
 
+    private var _txtTimer:TextField;
     private function createRightBlockTimer():void {
         _rightBlockTimer = new Sprite();
-        _rightBlock.x = -382;
-        _rightBlock.y = -285;
-        _source.addChild(_rightBlock);
+        _rightBlockTimer.x = -382 + 407;
+        _rightBlockTimer.y = -285 + 178;
+        _source.addChild(_rightBlockTimer);
         var bg:CartonBackground = new CartonBackground(317, 278);
-        bg.x = 407;
-        bg.y = 178;
         bg.filter = ManagerFilters.SHADOW_LIGHT;
-        _rightBlock.addChild(bg);
+        _rightBlockTimer.addChild(bg);
+//        var bgIn:CartonBackgroundIn = new CartonBackgroundIn(280, 150);
+//        bgIn.x = 14;
+//        bgIn.y = 32;
+//        _rightBlockTimer.addChild(bgIn);
+
+        var t:TextField = new TextField(280, 30, "ЗАКАЗ УДАЛЕН", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        t.x = 12;
+        t.y = 26;
+        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _rightBlockTimer.addChild(t);
+        t = new TextField(280, 30, "следующий поступит через:", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        t.x = 12;
+        t.y = 60;
+        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _rightBlockTimer.addChild(t);
+
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
+        im.x = 66;
+        im.y = 104;
+        _rightBlockTimer.addChild(im);
+        _txtTimer = new TextField(165, 50, "00:13:14", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        t.x = 101;
+        t.y = 99;
+        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _rightBlockTimer.addChild(t);
     }
 
 }
