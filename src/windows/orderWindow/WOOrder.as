@@ -46,6 +46,8 @@ public class WOOrder extends Window{
     private var _arrOrders:Array;
     private var _curOrder:Object;
     private var position:int;
+    private var _rightBlock:Sprite;
+    private var _rightBlockTimer:Sprite;
 
     public function WOOrder() {
         super ();
@@ -57,6 +59,7 @@ public class WOOrder extends Window{
         callbackClickBG = onClickExit;
 
         createRightBlock();
+        createRightBlockTimer();
         createItems();
         createButtonCell();
         createTopCats();
@@ -85,62 +88,66 @@ public class WOOrder extends Window{
     }
 
     private function createRightBlock():void {
+        _rightBlock = new Sprite();
+        _rightBlock.x = -382;
+        _rightBlock.y = -285;
+        _source.addChild(_rightBlock);
         var bg:CartonBackground = new CartonBackground(317, 278);
-        bg.x = -382 + 407;
-        bg.y = -285 + 178;
+        bg.x = 407;
+        bg.y = 178;
         bg.filter = ManagerFilters.SHADOW_LIGHT;
-        _source.addChild(bg);
+        _rightBlock.addChild(bg);
 
         _txtName = new TextField(320, 35, "Самбука заказывает", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtName.x = -382 + 407;
-        _txtName.y = -285 + 175;
-        _source.addChild(_txtName);
+        _txtName.x = 407;
+        _txtName.y = 175;
+        _rightBlock.addChild(_txtName);
 
         var item:WOOrderResourceItem;
         _arrResourceItems = [];
         for (var i:int=0; i<6; i++) {
             item = new WOOrderResourceItem();
-            item.source.x = bg.x + 9 + (i%3)*103;
-            item.source.y = bg.y + 33 + int(i/3)*104;
-            _source.addChild(item.source);
+            item.source.x = 418 + (i%3)*103;
+            item.source.y = 211 + int(i/3)*104;
+            _rightBlock.addChild(item.source);
             _arrResourceItems.push(item);
         }
 
         var txt:TextField = new TextField(90, 30, "Награда:", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = -382 + 411;
-        txt.y = -285 + 418;
-        _source.addChild(txt);
+        txt.x = 411;
+        txt.y = 418;
+        _rightBlock.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
-        im.x = -382 + 501;
-        im.y = -285 + 417;
+        im.x = 501;
+        im.y = 417;
         MCScaler.scale(im, 30, 30);
         im.filter = ManagerFilters.SHADOW_TINY;
-        _source.addChild(im);
+        _rightBlock.addChild(im);
         _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtXP.x = -382 + 528;
-        _txtXP.y = -285 + 418;
-        _source.addChild(_txtXP);
+        _txtXP.x = 528;
+        _txtXP.y = 418;
+        _rightBlock.addChild(_txtXP);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-        im.x = -382 + 580;
-        im.y = -285 + 419;
+        im.x = 580;
+        im.y = 419;
         MCScaler.scale(im, 30, 30);
         im.filter = ManagerFilters.SHADOW_TINY;
-        _source.addChild(im);
+        _rightBlock.addChild(im);
         _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtCoins.x = -382 + 610;
-        _txtCoins.y = -285 + 418;
-        _source.addChild(_txtCoins);
+        _txtCoins.x = 610;
+        _txtCoins.y = 418;
+        _rightBlock.addChild(_txtCoins);
         _btnDeleteOrder = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
         _btnDeleteOrder.addChild(im);
         im.filter = ManagerFilters.SHADOW_TINY;
-        _btnDeleteOrder.x = -382 + 670;
-        _btnDeleteOrder.y = -285 + 414;
-        _source.addChild(_btnDeleteOrder);
+        _btnDeleteOrder.x = 670;
+        _btnDeleteOrder.y = 414;
+        _rightBlock.addChild(_btnDeleteOrder);
         _btnDeleteOrder.endClickCallback = deleteOrder;
     }
 
@@ -280,6 +287,18 @@ public class WOOrder extends Window{
         fillList();
         _arrItems[0].activateIt(true);
         fillResourceItems(_arrOrders[0]);
+    }
+
+    private function createRightBlockTimer():void {
+        _rightBlockTimer = new Sprite();
+        _rightBlock.x = -382;
+        _rightBlock.y = -285;
+        _source.addChild(_rightBlock);
+        var bg:CartonBackground = new CartonBackground(317, 278);
+        bg.x = 407;
+        bg.y = 178;
+        bg.filter = ManagerFilters.SHADOW_LIGHT;
+        _rightBlock.addChild(bg);
     }
 
 }

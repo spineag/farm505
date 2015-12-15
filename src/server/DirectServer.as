@@ -3536,7 +3536,7 @@ public class DirectServer {
         }
     }
 
-    public function addUserOrder(order:Object, callback:Function):void {
+    public function addUserOrder(order:Object, delay:int, callback:Function):void {
         if (!g.useDataFromServer) return;
 
         var loader:URLLoader = new URLLoader();
@@ -3551,6 +3551,7 @@ public class DirectServer {
         variables.xp = order.xp;
         variables.coins = order.coins;
         variables.addCoupone = int(order.addCoupone);
+        variables.delay = delay;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserOrder);

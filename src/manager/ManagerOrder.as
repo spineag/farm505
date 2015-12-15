@@ -54,6 +54,7 @@ public class ManagerOrder {
         order.coins = int(ob.coins);
         order.xp = int(ob.xp);
         order.addCoupone = ob.add_coupone == '1';
+        order.delay = int(ob.left_time) || 0;
         _arrOrders.push(order);
     }
 
@@ -285,7 +286,7 @@ public class ManagerOrder {
                 order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
             }
             _arrOrders.push(order);
-            g.directServer.addUserOrder(order, null);
+            g.directServer.addUserOrder(order, 0, null);
         }
     }
 
