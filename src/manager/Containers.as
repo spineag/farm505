@@ -19,7 +19,7 @@ import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 
 public class Containers {
-    public static const SHIFT_MAP_X:int = 120;
+    public static const SHIFT_MAP_X:int = 185;
     public static const SHIFT_MAP_Y:int = 590;
 
     public var mainCont:Sprite;
@@ -159,8 +159,8 @@ public class Containers {
             gameCont.y = -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s;
         if (gameCont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s)
             gameCont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
-        if (gameCont.x < -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*s)
-            gameCont.x = -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*s;
+        if (gameCont.x < -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s)
+            gameCont.x = -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s;
     }
 
     public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в загальній системі gameCont

@@ -2099,7 +2099,7 @@ public class DirectServer {
         variables.resourceId = id;
         variables.count = count;
         variables.cost = cost;
-//        variables.numberCell = numberCell;
+        variables.numberCell = numberCell;
         variables.inPapper = inPapper ? 1 : 0;
         request.data = variables;
         request.method = URLRequestMethod.POST;

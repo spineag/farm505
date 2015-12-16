@@ -16,15 +16,17 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 import windows.WOComponents.HorizontalPlawka;
 
 public class CatPanel {
-    private var _source:Sprite;
+    private var _source:CSprite;
     private var _txtCount:TextField;
 
     private var g:Vars = Vars.getInstance();
     public function CatPanel() {
-        _source = new Sprite();
+        _source = new CSprite();
         var pl:HorizontalPlawka = new HorizontalPlawka(null, g.allData.atlas['interfaceAtlas'].getTexture('xp_center'),
                 g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 105);
         _source.addChild(pl);
@@ -43,6 +45,8 @@ public class CatPanel {
         onResize();
         g.cont.interfaceCont.addChild(_source);
         checkCat();
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
     }
 
     public function checkCat():void {
@@ -52,6 +56,14 @@ public class CatPanel {
     public function onResize():void {
         _source.y = 77;
         _source.x = Starling.current.nativeStage.stageWidth - 112;
+    }
+
+    private function onHover():void {
+        g.hint.showIt('Всего работников: ' + g.managerCats.countFreeCats + '      Всего котов: ' + g.managerCats.curCountCats);
+    }
+
+    private function onOut():void {
+        g.hint.hideIt();
     }
 }
 }

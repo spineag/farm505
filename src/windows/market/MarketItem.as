@@ -49,10 +49,12 @@ public class MarketItem {
     private var _isUser:Boolean;
     private var _imageCont:Sprite;
     private var _person:Someone;
+    public var number:int;
 
     private var g:Vars = Vars.getInstance();
 
-    public function MarketItem() {
+    public function MarketItem(numberCell:int) {
+        number = numberCell;
         source = new CSprite();
         _bg = new CartonBackgroundIn(110, 133);
         source.addChild(_bg);
@@ -102,6 +104,7 @@ public class MarketItem {
     }
 
     private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
+//        if (_dataFromServer.numberCell == number) trace("number");
         var im:Image;
         isFill = 1;
         _data = data;
@@ -144,7 +147,7 @@ public class MarketItem {
         if (isFill == 1) {
             if (_isUser) {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
-
+                    trace(_dataFromServer.numberCell)
             } else {
                 var p:Point;
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
@@ -227,7 +230,7 @@ public class MarketItem {
         if (a > 0) {
             fillIt(g.dataResource.objectResources[a],count, cost);
             _inPapper.visible = inPapper;
-            g.directServer.addUserMarketItem(a, count, inPapper, cost,0, onAddToServer);
+            g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
             g.woMarket.refreshMarket();
         }
     }
@@ -242,6 +245,7 @@ public class MarketItem {
         obj.resourceId = int(ob.resource_id);
         obj.timeSold = ob.time_sold;
         obj.timeStart = ob.time_start;
+        obj.numberCell = ob.number_cell;
         _dataFromServer = obj;
         g.user.marketItems.push(obj);
     }
@@ -287,10 +291,11 @@ public class MarketItem {
         _txtPlawka.visible = false;
     }
 
-    public function fillFromServer(obj:Object, p:Someone):void {
+    public function fillFromServer(obj:Object, p:Someone, _numberCell:int):void {
         _person = p;
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
+        if (_dataFromServer.numberCell != _numberCell)return;
         _inPapper.visible = _dataFromServer.inPapper;
         if (_dataFromServer.buyerId != '0') {
             if (_person.userSocialId == g.user.userSocialId) {
@@ -305,6 +310,7 @@ public class MarketItem {
             isFill = 2;
         } else {
             isFill = 1;
+//            if (_dataFromServer.numberCell == number) trace(String(number));////////////////////////////////////
             fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
             if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) {
                 _plawkaSold.visible = true;
@@ -365,6 +371,11 @@ public class MarketItem {
         _imageCont.addChild(im);
         _costTxt.text = String(_dataFromServer.cost);
     }
+
+    public function get dataFromServer():int {
+        return _dataFromServer.numberCell;
+    }
+
 
 //    private function
 }

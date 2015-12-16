@@ -122,7 +122,22 @@ public class WOMarket  extends Window {
 
     public function showItWithParams():void {
         createMarketTabBtns();
+//        for (var i:int = 0; i < g.user.marketItems.length; i++) {
+//            if (g.user.marketItems[i].numberCell == i) {
+//
+//            }
+//
+//        }
         showIt();
+    }
+
+    private function fillItemss():void {
+
+        for (var i:int = 0; i < g.user.marketItems.length; i++) {
+            if (g.user.marketItems[i].numberCell == i) {
+                _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser,i);
+            }
+        }
     }
     override public function hideIt():void {
 //        _friendsPanel.checkRemoveAdditionalUser();
@@ -151,7 +166,7 @@ public class WOMarket  extends Window {
         var item:MarketItem;
         _arrItems = [];
         for (var i:int=0; i<6; i++) {
-            item = new MarketItem();
+            item = new MarketItem(i);
             item.source.x = 125*(i%3) - 300;
             if (i >= 3) {
                 item.source.y = -10;
@@ -190,7 +205,7 @@ public class WOMarket  extends Window {
             for (var i:int = 0; i < _arrItems.length; i++) {
                 if (_curUser.marketItems[i]) {
                     if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
-                    _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser);
+                    _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser,i);
                 } else {
                     _arrItems[i].isUser = _curUser == g.user;
                 }

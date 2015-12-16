@@ -54,6 +54,8 @@ public class XPPanel {
         _txtXPCount.x = 35;
         _txtXPCount.y = 4;
         _source.addChild(_txtXPCount);
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
 
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
         checkXP();
@@ -90,6 +92,14 @@ public class XPPanel {
         _bar.progress = ((g.user.xp)/_maxXP)*.9 + .1; // get 10% for better view
         _txtXPCount.text = String(g.user.xp) + ' / ' + String(_maxXP);
         _txtLevel.text = String(g.user.level);
+    }
+
+    private function onHover():void {
+        g.hint.showIt('Ваш уровень: ' + g.user.level);
+    }
+
+    private function onOut():void {
+        g.hint.hideIt();
     }
 }
 }
