@@ -52,6 +52,7 @@ public class WOOrder extends Window{
     private var _activeOrderItem:WOOrderItem;
     private var _txtTimer:TextField;
     private var _waitForAnswer:Boolean;
+    private var _btnSkipDelete:CButton;
 
     public function WOOrder() {
         super ();
@@ -66,6 +67,7 @@ public class WOOrder extends Window{
         createRightBlockTimer();
         createItems();
         createButtonCell();
+        createButtonSkipDelete();
         createTopCats();
 
         _waitForAnswer = false;
@@ -82,6 +84,7 @@ public class WOOrder extends Window{
     }
 
     private function onClickExit(e:Event=null):void {
+        g.gameDispatcher.removeFromTimer(onTimer);
         _activeOrderItem = null;
         for (var i:int=0; i<_arrItems.length; i++) {
             _arrItems[i].activateIt(false);
@@ -173,7 +176,7 @@ public class WOOrder extends Window{
         _btnCell = new CButton();
         _btnCell.addButtonTexture(120, 40, CButton.GREEN, true);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_left'));
-        MCScaler.scale(im, 66, 65);
+        MCScaler.scale(im, 66, 66);
         im.x = 98;
         im.y = -15;
         _btnCell.addDisplayObject(im);
@@ -182,10 +185,31 @@ public class WOOrder extends Window{
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnCell.addChild(txt);
         _btnCell.registerTextField(txt, ManagerFilters.TEXT_STROKE_GREEN);
-        _btnCell.x = -_woWidth/2 + 547;
-        _btnCell.y = -_woHeight/2 + 500;
+        _btnCell.x = 547;
+        _btnCell.y = 500;
         _rightBlock.addChild(_btnCell);
         _btnCell.clickCallback = sellOrder;
+    }
+
+    private function createButtonSkipDelete():void {
+        _btnSkipDelete = new CButton();
+        _btnSkipDelete.addButtonTexture(120, 50, CButton.GREEN, true);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        MCScaler.scale(im, 20, 20);
+        im.x = 98;
+        im.y = 15;
+        _btnSkipDelete.addDisplayObject(im);
+        var txt:TextField = new TextField(80, 50, "Получить сейчас", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _btnSkipDelete.addChild(txt);
+        txt = new TextField(20, 50, "7", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt.x = 80;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _btnSkipDelete.addChild(txt);
+        _btnSkipDelete.x = 160;
+        _btnSkipDelete.y = 220;
+        _rightBlockTimer.addChild(_btnSkipDelete);
+        _btnSkipDelete.clickCallback = skipDelete;
     }
 
     private function sellOrder():void {
@@ -311,6 +335,16 @@ public class WOOrder extends Window{
         _txtTimer.text = String(300);
        _activeOrderItem.fillIt(order, _activeOrderItem.position, onItemClick);
         g.gameDispatcher.addToTimer(onTimer);
+    }
+
+    private function skipDelete():void {
+        if (g.user.hardCurrency < 7) {
+            onClickExit();
+            g.woBuyCurrency.showItMenu(true);
+            return;
+        }
+        _activeOrderItem.onSkipTimer();
+        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -7);
     }
 
     private function updateIt():void {

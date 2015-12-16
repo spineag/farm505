@@ -3804,5 +3804,48 @@ public class DirectServer {
         }
     }
 
+    public function skipOrderTimer(orderID:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_ORDER_TIMER);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'skipOrderTimer', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.dbId = orderID;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteSkipOrderTimer);
+        function onCompleteSkipOrderTimer(e:Event):void { completeSkipOrderTimer(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('skipOrderTimer error:' + error.errorID);
+            woError.showItParams('skipOrderTimer error:' + error.errorID);
+        }
+    }
+
+    private function completeSkipOrderTimer(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('skipOrderTimer: wrong JSON:' + String(response));
+            woError.showItParams('addUserOrder: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('skipOrderTimer: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('skipOrderTimer: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
 }
 }

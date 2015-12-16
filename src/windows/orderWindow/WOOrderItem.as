@@ -151,5 +151,10 @@ public class WOOrderItem {
         return _leftSeconds;
     }
 
+    public function onSkipTimer():void {
+        _leftSeconds = 0;
+        g.directServer.skipOrderTimer(_order.dbId, null);
+    }
+
 }
 }
