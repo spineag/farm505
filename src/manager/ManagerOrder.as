@@ -54,7 +54,7 @@ public class ManagerOrder {
         order.coins = int(ob.coins);
         order.xp = int(ob.xp);
         order.addCoupone = ob.add_coupone == '1';
-        order.delay = int(ob.left_time) || 0;
+        order.startTime = int(ob.start_time) || 0;
         _arrOrders.push(order);
     }
 
@@ -81,7 +81,7 @@ public class ManagerOrder {
     // 1 - usual resource fromFabrica
     // 2 - resources made from resources from cave
     // 3 - resource plants
-    private function addNewOrders(n:int):void {
+    private function addNewOrders(n:int, delay:int = 0, f:Function = null):void {
         var order:Object;
         var arrOrderType1:Array = new Array();
         var arrOrderType2:Array = new Array();
@@ -286,16 +286,14 @@ public class ManagerOrder {
                 order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
             }
             _arrOrders.push(order);
-            g.directServer.addUserOrder(order, 0, null);
+            g.directServer.addUserOrder(order, delay, f);
         }
     }
 
-    public function deleteOrder(order:Object):void {
+    public function deleteOrder(order:Object, f:Function):void {
         _arrOrders.splice(_arrOrders.indexOf(order), 1);
         g.directServer.deleteUserOrder(order.dbId, null);
-        if (_arrOrders.length < _curMaxCountOrders) {
-            addNewOrders(_curMaxCountOrders - _arrOrders.length);
-        }
+        addNewOrders(1, 5*60, f);
     }
 
     public function sellOrder(order:Object):void {

@@ -49,6 +49,9 @@ public class WOOrder extends Window{
     private var position:int;
     private var _rightBlock:Sprite;
     private var _rightBlockTimer:Sprite;
+    private var _activeOrderItem:WOOrderItem;
+    private var _txtTimer:TextField;
+    private var _waitForAnswer:Boolean;
 
     public function WOOrder() {
         super ();
@@ -65,6 +68,7 @@ public class WOOrder extends Window{
         createButtonCell();
         createTopCats();
 
+        _waitForAnswer = false;
         _rightBlock.visible = false;
 
         new Birka('ЛАВКА', _source, 764, 570);
@@ -73,13 +77,12 @@ public class WOOrder extends Window{
     override public function showIt():void {
         _arrOrders = g.managerOrder.arrOrders;
         fillList();
-        _arrItems[0].activateIt(true);
-        fillResourceItems(_arrOrders[0]);
+        onItemClick(0);
         super.showIt();
     }
 
-
     private function onClickExit(e:Event=null):void {
+        _activeOrderItem = null;
         for (var i:int=0; i<_arrItems.length; i++) {
             _arrItems[i].activateIt(false);
         }
@@ -186,14 +189,16 @@ public class WOOrder extends Window{
     }
 
     private function sellOrder():void {
-        for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
+        var i:int;
+        for (i=0; i<_curOrder.resourceIds.length; i++) {
             if (!_arrResourceItems[i].isChecked()) {
                 g.woNoResources.showItOrder(_curOrder.resourceIds[i],sellOrder);
+                return;
             }
         }
-            return;
+
         if (_curOrder) {
-            for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
+            for (i=0; i<_curOrder.resourceIds.length; i++) {
                 g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
             }
             var p:Point = new Point(134, 147);
@@ -239,13 +244,23 @@ public class WOOrder extends Window{
     }
 
     private function onItemClick(pos:int):void {
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].activateIt(false);
-        }
+        if (_waitForAnswer) return;
+        if (_activeOrderItem) _activeOrderItem.activateIt(false);
         position = pos;
-        _arrItems[pos].activateIt(true);
         clearResourceItems();
+        _activeOrderItem = _arrItems[pos];
         fillResourceItems(_arrOrders[pos]);
+        _activeOrderItem.activateIt(true);
+        if (_activeOrderItem.leftSeconds > 0) {
+            _rightBlock.visible = false;
+            _rightBlockTimer.visible = true;
+            g.gameDispatcher.addToTimer(onTimer);
+            _txtTimer.text = String(_activeOrderItem.leftSeconds);
+        } else {
+            _rightBlock.visible = true;
+            _rightBlockTimer.visible = false;
+            g.gameDispatcher.removeFromTimer(onTimer);
+        }
     }
 
     private function clearResourceItems():void {
@@ -281,11 +296,21 @@ public class WOOrder extends Window{
 
     private function deleteOrder():void {
         if (_curOrder) {
-            g.managerOrder.deleteOrder(_curOrder);
-            _arrItems[position].activateIt(false);
-            _curOrder = null;
-            updateIt();
+            _rightBlock.visible = false;
+            _rightBlockTimer.visible = true;
+            _txtTimer.text = String(5*60);
+            _waitForAnswer = true;
+            g.managerOrder.deleteOrder(_curOrder, afterDeleteOrder);
         }
+    }
+
+    private function afterDeleteOrder(order:Object):void {
+        order.startTime = int(new Date().getTime()/1000) + 5*60;
+        _waitForAnswer = false;
+       _curOrder = order;
+        _txtTimer.text = String(300);
+       _activeOrderItem.fillIt(order, _activeOrderItem.position, onItemClick);
+        g.gameDispatcher.addToTimer(onTimer);
     }
 
     private function updateIt():void {
@@ -298,7 +323,6 @@ public class WOOrder extends Window{
         fillResourceItems(_arrOrders[0]);
     }
 
-    private var _txtTimer:TextField;
     private function createRightBlockTimer():void {
         _rightBlockTimer = new Sprite();
         _rightBlockTimer.x = -382 + 407;
@@ -307,31 +331,42 @@ public class WOOrder extends Window{
         var bg:CartonBackground = new CartonBackground(317, 278);
         bg.filter = ManagerFilters.SHADOW_LIGHT;
         _rightBlockTimer.addChild(bg);
-//        var bgIn:CartonBackgroundIn = new CartonBackgroundIn(280, 150);
-//        bgIn.x = 14;
-//        bgIn.y = 32;
-//        _rightBlockTimer.addChild(bgIn);
+        var bgIn:CartonBackgroundIn = new CartonBackgroundIn(280, 150);
+        bgIn.x = 14;
+        bgIn.y = 32;
+        _rightBlockTimer.addChild(bgIn);
 
         var t:TextField = new TextField(280, 30, "ЗАКАЗ УДАЛЕН", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        t.x = 12;
-        t.y = 26;
+        t.x = 14;
+        t.y = 40;
         t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _rightBlockTimer.addChild(t);
         t = new TextField(280, 30, "следующий поступит через:", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
-        t.x = 12;
-        t.y = 60;
+        t.x = 14;
+        t.y = 65;
         t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _rightBlockTimer.addChild(t);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
-        im.x = 66;
-        im.y = 104;
+        im.x = 65;
+        im.y = 110;
         _rightBlockTimer.addChild(im);
-        _txtTimer = new TextField(165, 50, "00:13:14", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
-        t.x = 101;
-        t.y = 99;
-        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _rightBlockTimer.addChild(t);
+        _txtTimer = new TextField(165, 50, "", g.allData.fonts['BloggerBold'], 30, Color.WHITE);
+        _txtTimer.x = 101;
+        _txtTimer.y = 102;
+        _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _rightBlockTimer.addChild(_txtTimer);
+    }
+
+    private function onTimer():void {
+        if (_activeOrderItem.leftSeconds > 0) {
+            _txtTimer.text = String(_activeOrderItem.leftSeconds);
+        } else {
+            _rightBlock.visible = true;
+            _rightBlockTimer.visible = false;
+            g.gameDispatcher.removeFromTimer(onTimer);
+            _txtTimer.text = '';
+        }
     }
 
 }

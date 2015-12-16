@@ -3619,7 +3619,7 @@ public class DirectServer {
         if (d.id == 0) {
             order.dbId = String(d.message);
             if (callback != null) {
-                callback.apply();
+                callback.apply(null, [order]);
             }
         } else {
             Cc.error('addUserOrder: id: ' + d.id + '  with message: ' + d.message);
