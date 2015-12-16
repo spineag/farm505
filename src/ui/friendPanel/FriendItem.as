@@ -60,7 +60,7 @@ public class FriendItem {
         source.addChild(im);
 
         _txtLvl = new TextField(27, 15, "55", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txtLvl.text = String(g.user.level);
+        _txtLvl.text = String(_person.level);
         _txtLvl.x = 36;
         _txtLvl.y = 50;
         source.addChild(_txtLvl);

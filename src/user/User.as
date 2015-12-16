@@ -20,7 +20,6 @@ public class User extends Someone {
     public var blueCouponCount:int;
     public var greenCouponCount:int;
     public var xp:int = 0;
-    public var globalXP:int;
     public var sex:String = 'm';
     public var isTester:Boolean;
     public var isMegaTester:Boolean;

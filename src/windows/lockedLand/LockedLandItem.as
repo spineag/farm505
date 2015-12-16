@@ -131,7 +131,7 @@ public class LockedLandItem {
     }
 
     public function fillWithFriends(count:int):void {
-        var icon:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_icon'));
+        var icon:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_icon'));
         MCScaler.scale(icon, 50, 50);
         icon.x = 41 - icon.width/2;
         icon.y = 34 - icon.height/2;

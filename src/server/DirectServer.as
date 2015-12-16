@@ -551,7 +551,7 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
-            g.user.level = int(ob.level);
+//            g.user.level = int(ob.level);
             g.user.countCats = int(ob.count_cats);
             if (ob.scale) {
                 g.currentGameScale = int(ob.scale)/100;
@@ -572,6 +572,48 @@ public class DirectServer {
         } else {
             Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('userInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getFriendsInfo(callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_FRIENDS_INFO);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getFriendsInfo', 1);
+        variables.userSocialId = g.user.userSocialId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteFriendsInfo);
+        function onCompleteFriendsInfo(e:Event):void { completeFriendsInfo(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getFriendsInfo error:' + error.errorID);
+            woError.showItParams('getFriendsInfo error:' + error.errorID);
+        }
+    }
+
+    private function completeFriendsInfo(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getFriendsInfo: wrong JSON:' + String(response));
+            woError.showItParams('getFriendsInfo: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+//            g.user.level =  d.message.level;
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 

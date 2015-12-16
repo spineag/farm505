@@ -12,6 +12,7 @@ public class Consts {
     public static var INQ_DATA_CATS:String = 'getDataCats.php';
     public static var INQ_START:String = 'start.php';
     public static var INQ_USER_INFO:String = 'getUserInfo.php';
+    public static var INQ_FRIENDS_INFO:String = 'getFriendsInfo.php';
     public static var INQ_USER_MONEY:String = 'addUserMoney.php';
     public static var INQ_ADD_USER_XP:String = 'addUserXP.php';
     public static var INQ_UPDATE_USER_LEVEL:String = 'updateUserLevel.php';
