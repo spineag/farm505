@@ -57,17 +57,17 @@ public class WONoResources extends Window {
 
     private function createBtn():void {
         _btnBuy = new CButton();
-        _btnBuy.addButtonTexture(190, 34, CButton.GREEN, true);
+        _btnBuy.addButtonTexture(210, 34, CButton.GREEN, true);
         _btnBuy.x = 0;
         _btnBuy.y = 124;
         _source.addChild(_btnBuy);
-        _txtHardCost = new TextField(160, 34, "Купить ресурсы за 8888", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        _txtHardCost = new TextField(180, 34, "Купить ресурсы за 8888", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         _txtHardCost.y = 0;
         _txtHardCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuy.addChild(_txtHardCost);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         MCScaler.scale(im, 25, 25);
-        im.x = 160;
+        im.x = 180;
         im.y = 4;
         _btnBuy.addChild(im);
         im.filter = ManagerFilters.SHADOW_TINY;

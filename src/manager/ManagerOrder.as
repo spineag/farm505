@@ -45,6 +45,10 @@ public class ManagerOrder {
         }
     }
 
+    public function get maxCountOrders():int {
+        return _curMaxCountOrders;
+    }
+
     public function addFromServer(ob:Object):void {
         var order:Object = {};
         order.dbId = ob.id;
@@ -285,6 +289,7 @@ public class ManagerOrder {
                 order.coins += g.dataResource.objectResources[order.resourceIds[k]].orderPrice * order.resourceCounts[k];
                 order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
             }
+            order.startTime = int(new Date().getTime()/1000);
             _arrOrders.push(order);
             g.directServer.addUserOrder(order, delay, f);
         }
@@ -296,11 +301,16 @@ public class ManagerOrder {
         addNewOrders(1, 5*60, f);
     }
 
-    public function sellOrder(order:Object):void {
+    public function sellOrder(order:Object, f:Function):void {
         _arrOrders.splice(_arrOrders.indexOf(order), 1);
         g.directServer.deleteUserOrder(order.dbId, null);
+        var f1:Function = function(order:Object):void {
+            if (f != null) {
+                f.apply();
+            }
+        };
         if (_arrOrders.length < _curMaxCountOrders) {
-            addNewOrders(_curMaxCountOrders - _arrOrders.length);
+            addNewOrders(1, 0, f1);
         }
     }
 }

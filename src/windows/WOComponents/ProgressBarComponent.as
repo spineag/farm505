@@ -35,6 +35,8 @@ public class ProgressBarComponent extends Sprite {
     }
 
     public function set progress(percent:Number):void {
+        if (percent > 1) percent = 1;
+        if (percent < 0) percent = 0;
         var w:Number = percent*_maxWidth;
         setCenterWidth(int(w - _left.width - _right.width));
         _right.x = w - _right.width;

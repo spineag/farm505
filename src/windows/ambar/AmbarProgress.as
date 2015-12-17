@@ -48,6 +48,7 @@ public class AmbarProgress {
     }
 
     public function setProgress(a:Number):void {
+
         _bar.progress = a;
     }
 

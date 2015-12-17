@@ -26,6 +26,7 @@ import utils.CButton;
 
 import utils.CSprite;
 import utils.MCScaler;
+import utils.TimeUtils;
 
 import windows.WOComponents.Birka;
 
@@ -81,6 +82,7 @@ public class WOOrder extends Window{
         fillList();
         onItemClick(0);
         super.showIt();
+        _waitForAnswer = false;
     }
 
     private function onClickExit(e:Event=null):void {
@@ -213,35 +215,40 @@ public class WOOrder extends Window{
     }
 
     private function sellOrder():void {
+        if (_waitForAnswer) return;
         var i:int;
         for (i=0; i<_curOrder.resourceIds.length; i++) {
             if (!_arrResourceItems[i].isChecked()) {
-                g.woNoResources.showItOrder(_curOrder.resourceIds[i],sellOrder);
+                g.woNoResources.showItOrder(_curOrder,sellOrder);
                 return;
             }
         }
 
-        if (_curOrder) {
-            for (i=0; i<_curOrder.resourceIds.length; i++) {
-                g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
-            }
-            var p:Point = new Point(134, 147);
-            p = _source.localToGlobal(p);
-            new XPStar(p.x, p.y,_curOrder.xp);
-            p = new Point(186, 147);
-            var prise:Object = {};
-            prise.id = DataMoney.SOFT_CURRENCY;
-            prise.count = _curOrder.coins;
+        for (i=0; i<_curOrder.resourceIds.length; i++) {
+            g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
+        }
+        var p:Point = new Point(134, 147);
+        p = _source.localToGlobal(p);
+        new XPStar(p.x, p.y,_curOrder.xp);
+        p = new Point(186, 147);
+        var prise:Object = {};
+        prise.id = DataMoney.SOFT_CURRENCY;
+        prise.count = _curOrder.coins;
+        new DropItem(p.x, p.y, prise);
+        if (_curOrder.addCoupone) {
+            p.x = _btnCell.x + _btnCell.width*4/5;
+            p.y = _btnCell.y + _btnCell.height/2;
+            prise.id = int(Math.random()*4) + 3;
+            prise.count = 1;
             new DropItem(p.x, p.y, prise);
-            if (_curOrder.addCoupone) {
-                p.x = _btnCell.x + _btnCell.width*4/5;
-                p.y = _btnCell.y + _btnCell.height/2;
-                prise.id = int(Math.random()*4) + 3;
-                prise.count = 1;
-                new DropItem(p.x, p.y, prise);
-            }
-            g.managerOrder.sellOrder(_curOrder);
-            _curOrder = null;
+        }
+        _waitForAnswer = true;
+        g.managerOrder.sellOrder(_curOrder, afterSell);
+    }
+
+    private function afterSell():void {
+        _waitForAnswer = false;
+        if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
             updateIt();
         }
     }
@@ -262,7 +269,9 @@ public class WOOrder extends Window{
     }
 
     private function fillList():void {
+        var maxCount:int = g.managerOrder.maxCountOrders;
         for (var i:int=0; i<_arrOrders.length; i++) {
+            if (i >= maxCount) return;
             _arrItems[i].fillIt(_arrOrders[i], i, onItemClick);
         }
     }
@@ -279,7 +288,7 @@ public class WOOrder extends Window{
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
             g.gameDispatcher.addToTimer(onTimer);
-            _txtTimer.text = String(_activeOrderItem.leftSeconds);
+            setTimerText = _activeOrderItem.leftSeconds;
         } else {
             _rightBlock.visible = true;
             _rightBlockTimer.visible = false;
@@ -304,37 +313,27 @@ public class WOOrder extends Window{
         for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
             _arrResourceItems[i].fillIt(_curOrder.resourceIds[i], _curOrder.resourceCounts[i]);
         }
-        checkSellBtn();
-    }
-
-    private function checkSellBtn():void {
-        var b:Boolean = true;
-        for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
-            if (!_arrResourceItems[i].isChecked()) {
-                b = false;
-                break;
-            }
-        }
-//        _btnCell.setEnabled = b;
     }
 
     private function deleteOrder():void {
         if (_curOrder) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
-            _txtTimer.text = String(5*60);
+            setTimerText = 5*60;
             _waitForAnswer = true;
             g.managerOrder.deleteOrder(_curOrder, afterDeleteOrder);
         }
     }
 
     private function afterDeleteOrder(order:Object):void {
-        order.startTime = int(new Date().getTime()/1000) + 5*60;
-        _waitForAnswer = false;
-       _curOrder = order;
-        _txtTimer.text = String(300);
-       _activeOrderItem.fillIt(order, _activeOrderItem.position, onItemClick);
-        g.gameDispatcher.addToTimer(onTimer);
+        if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
+            order.startTime = int(new Date().getTime() / 1000) + 5 * 60;
+            _waitForAnswer = false;
+            _curOrder = order;
+            setTimerText = 300;
+            _activeOrderItem.fillIt(order, _activeOrderItem.position, onItemClick);
+            g.gameDispatcher.addToTimer(onTimer);
+        }
     }
 
     private function skipDelete():void {
@@ -394,13 +393,17 @@ public class WOOrder extends Window{
 
     private function onTimer():void {
         if (_activeOrderItem.leftSeconds > 0) {
-            _txtTimer.text = String(_activeOrderItem.leftSeconds);
+            setTimerText = _activeOrderItem.leftSeconds;
         } else {
             _rightBlock.visible = true;
             _rightBlockTimer.visible = false;
             g.gameDispatcher.removeFromTimer(onTimer);
-            _txtTimer.text = '';
+            setTimerText = 0;
         }
+    }
+
+    private function set setTimerText(c:int):void {
+        _txtTimer.text = TimeUtils.convertSecondsForOrders(c);
     }
 
 }

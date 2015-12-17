@@ -19,6 +19,7 @@ import starling.utils.Color;
 import starling.utils.HAlign;
 
 import utils.MCScaler;
+import utils.TimeUtils;
 
 import windows.WOComponents.HintBackground;
 
@@ -89,7 +90,7 @@ public class FabricHint {
         _data = data;
         if (data && g.dataResource.objectResources[data.idResource]) {
             _txtName.text = String(g.dataResource.objectResources[data.idResource].name);
-            _txtTime.text = String(g.dataResource.objectResources[data.idResource].buildTime);
+            _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[data.idResource].buildTime);
             _txtItem.text = String(g.userInventory.getCountResourceById(data.idResource));
             createList();
             _source.removeChild(_imageItem);
