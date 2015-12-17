@@ -186,7 +186,7 @@ public class HeroCat extends BasicCat{
         changeTexture("legLeft", "left_leg/legLeft_w");
         changeTexture("legLeft", "left_leg_b/legLeft_w_b", false);
         changeTexture("handRight", "right_hand/handRight_w");
-        changeTexture("handRight", "right_hand_n/handRight_w_b", false);
+        changeTexture("handRight", "right_hand_b/handRight_w_b", false);
         changeTexture("legRight", "right_leg/legRight_w");
         changeTexture("legRight", "right_leg_b/legRight_w_b", false);
         changeTexture("tail", "tails/tail_w");
