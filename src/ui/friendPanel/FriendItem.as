@@ -31,6 +31,7 @@ public class FriendItem {
 
     public function FriendItem(f:Someone) {
         _person = f;
+        g.directServer.getFriendsInfo(int(_person.userSocialId),_person,newLevel);
         if (!_person) {
             Cc.error('FriendItem:: person == null');
             g.woGameError.showIt();
@@ -59,12 +60,11 @@ public class FriendItem {
         im.y = 41;
         source.addChild(im);
 
+
         _txtLvl = new TextField(27, 15, "55", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txtLvl.text = String(_person.level);
+        _txtLvl.text = '1';
         _txtLvl.x = 36;
         _txtLvl.y = 50;
-        source.addChild(_txtLvl);
-
         _txt = new TextField(63, 30, "loading..", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
         _txt.y = -5;
         if (_person.name) _txt.text = _person.name;
@@ -123,6 +123,16 @@ public class FriendItem {
         _ava = null;
         _txt = null;
         source = null;
+    }
+
+    private function newLevel():void {
+        _txtLvl.text = String(_person.level);
+//        trace(_person.level);
+        _txtLvl.x = 36;
+        _txtLvl.y = 50;
+        source.addChild(_txtLvl);
+        if (_txtLvl.text == null || int(_txtLvl.text) == 0) _txtLvl.text = '1';
+        if (_person is NeighborBot) _txtLvl.text = '10';
     }
 }
 }

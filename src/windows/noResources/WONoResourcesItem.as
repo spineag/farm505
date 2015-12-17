@@ -105,7 +105,9 @@ public class WONoResourcesItem {
     }
 
     public function deleteIt():void {
-
+        while (source.numChildren) {
+            source.removeChildAt(0);
+        }
     }
 }
 }

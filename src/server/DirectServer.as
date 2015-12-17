@@ -30,6 +30,8 @@ import manager.Vars;
 
 import user.Someone;
 
+import user.Someone;
+
 import windows.serverError.WOServerError;
 
 
@@ -575,7 +577,7 @@ public class DirectServer {
         }
     }
 
-    public function getFriendsInfo(callback:Function):void {
+    public function getFriendsInfo(userSocialId:int,_person:Someone,callback:Function):void {
         if (!g.useDataFromServer) return;
 
         var loader:URLLoader = new URLLoader();
@@ -583,11 +585,11 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getFriendsInfo', 1);
-        variables.userSocialId = g.user.userSocialId;
+        variables.userSocialId = userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteFriendsInfo);
-        function onCompleteFriendsInfo(e:Event):void { completeFriendsInfo(e.target.data, callback); }
+        function onCompleteFriendsInfo(e:Event):void { completeFriendsInfo(e.target.data,_person, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -596,7 +598,7 @@ public class DirectServer {
         }
     }
 
-    private function completeFriendsInfo(response:String, callback:Function = null):void {
+    private function completeFriendsInfo(response:String,_person:Someone, callback:Function = null):void {
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -607,7 +609,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
-//            g.user.level =  d.message.level;
+                _person.level = d.message.level;
             if (callback != null) {
                 callback.apply();
             }

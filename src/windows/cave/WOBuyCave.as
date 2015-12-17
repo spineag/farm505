@@ -4,6 +4,8 @@
 package windows.cave {
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.text.TextField;
@@ -29,7 +31,7 @@ public class WOBuyCave extends Window {
         _woWidth = 600;
         _woHeight = 350;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('mine_picture'));
-        im.x = - 300;
+        im.x = - 298;
         im.y = - 175;
         _source.addChild(im);
         _wm = new WindowMine(_woWidth,_woHeight);
@@ -43,7 +45,9 @@ public class WOBuyCave extends Window {
         btn.x = -btn.width/2;
         btn.y = 125;
         priceTxt = new TextField(217, 30, '',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        priceTxt.y = 20;
+        priceTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        priceTxt.y = 5;
+//        priceTxt.x = -20;
         btn.addChild(priceTxt);
         _source.addChild(btn);
         btn.endClickCallback = onClickBuy;
@@ -65,7 +69,7 @@ public class WOBuyCave extends Window {
             return;
         }
         _dataObject = _data;
-        priceTxt.text = String(_data.cost);
+        priceTxt.text = 'Отремонтировать ' + String(_data.cost);
 //        txt.text = _t;
         _callback = f;
         showIt();
