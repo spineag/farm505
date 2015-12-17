@@ -133,6 +133,7 @@ public class ManagerCats {
                 g.woGameError.showIt();
                 return;
             }
+            (cat as HeroCat).killAllAnimations();
             g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);

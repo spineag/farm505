@@ -87,9 +87,13 @@ public class BasicCat {
 
     public function set visible(value:Boolean):void {
         if (value) {
-            g.townArea.addHeroSourceOnMap(this);
+            isOnMap = true;
+            g.townArea.addHero(this);
+//            g.townArea.addHeroSourceOnMap(this);
         } else {
-            g.townArea.removeHeroSourceFromMap(this);
+            isOnMap = false;
+            g.townArea.removeHero(this);
+//            g.townArea.removeHeroSourceFromMap(this);
         }
     }
 

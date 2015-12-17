@@ -173,7 +173,7 @@ public class Farm extends AreaObject{
         if (_imageBottom) _imageBottom.dispose();
     }
 
-    public function readyAnimal(an:Animal):void {
+    public function readyAnimal():void {
         var countNotWorkedAnimals:int = 0;
         for (var i:int=0; i<_arrAnimals.length; i++) {
             if ((_arrAnimals[i] as Animal).state != Animal.WORKED) countNotWorkedAnimals++;

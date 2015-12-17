@@ -242,26 +242,18 @@ public class TownArea extends Sprite {
     }
 
     public function addHero(c:BasicCat):void {
-        _cityObjects.push(c);
-        addHeroSourceOnMap(c);
-    }
-
-    public function addHeroSourceOnMap(c:BasicCat):void {
-        var p:Point = g.matrixGrid.getXYFromIndex(new Point(c.posX, c.posY));
-        c.source.x = int(p.x);
-        c.source.y = int(p.y);
-//        c.updateDepth();
-        if (!_cont.contains(c.source))
+        if (_cityObjects.indexOf(c) == -1) _cityObjects.push(c);
+        if (!_cont.contains(c.source)) {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(c.posX, c.posY));
+            c.source.x = int(p.x);
+            c.source.y = int(p.y);
             _cont.addChild(c.source);
+        }
         zSort();
     }
 
     public function removeHero(c:BasicCat):void {
         if (_cityObjects.indexOf(c) > -1) _cityObjects.slice(_cityObjects.indexOf(c), 1);
-        removeHeroSourceFromMap(c);
-    }
-
-    public function removeHeroSourceFromMap(c:BasicCat):void {
         if (_cont.contains(c.source))
             _cont.removeChild(c.source);
     }

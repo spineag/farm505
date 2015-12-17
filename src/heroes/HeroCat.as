@@ -93,7 +93,7 @@ public class HeroCat extends BasicCat{
     }
 
     override public function set visible(value:Boolean):void {
-        if (value) {
+        if (!value) {
             stopAnimation();
         } else {
 //            idleAnimation();  - already has this after going away from fabrica via run or walk
@@ -229,9 +229,13 @@ public class HeroCat extends BasicCat{
     }
 
     public function stopFreeCatIdle():void {
-        stopAnimation();
+        killAllAnimations();
         timer = 0;
         g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
+    }
+
+    public function killAllAnimations():void {
+        stopAnimation();
         _currentPath = [];
         TweenMax.killTweensOf(_source);
     }

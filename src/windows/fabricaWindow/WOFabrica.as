@@ -70,6 +70,7 @@ public class WOFabrica extends Window {
         _arrAllRecipes = arrRecipes;
         createShiftBtns();
         fillFabricaItems();
+        _list.unfillIt();
         _list.fillIt(arrList, _fabrica);
         _birka.updateText(_fabrica.dataBuild.name);
         super.showIt();
@@ -134,7 +135,9 @@ public class WOFabrica extends Window {
         var count:int = 0;
         if (!dataRecipe || !dataRecipe.ingridientsId) {
             Cc.error('UserInventory checkRecipe:: bad _data');
+            onClickExit();
             g.woGameError.showIt();
+            return;
         }
         for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
             count =  g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));

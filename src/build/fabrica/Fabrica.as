@@ -346,8 +346,12 @@ public class Fabrica extends AreaObject {
     }
 
     public function skipRecipe():void { // for making recipe
-        g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
-        craftResource(_arrList.shift());
+        if (_arrList[0]) {
+            g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
+            craftResource(_arrList.shift());
+        } else {
+            Cc.error('Fabrica skipRecipe:: _arrList[0] == null');
+        }
     }
 
 }

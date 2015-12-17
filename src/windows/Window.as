@@ -25,7 +25,7 @@ public class Window {
     protected var _bg:Image;
     protected var _woWidth:int;
     protected var _woHeight:int;
-    protected var _black:Quad;
+    protected var _black:CSprite;
     protected var g:Vars = Vars.getInstance();
     protected var callbackClickBG:Function;
     public var needAddToPool:Boolean = false;
@@ -106,30 +106,30 @@ public class Window {
     }
 
     private function createBlackBG():void {
-        _black = new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK);
+        _black = new CSprite();
+        _black.addChild(new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK));
         _black.x = -Starling.current.nativeStage.stageWidth/2;
         _black.y = -Starling.current.nativeStage.stageHeight/2;
         _source.addChildAt(_black, 0);
         _black.alpha = .3;
-        _black.addEventListener(TouchEvent.TOUCH, onBGTouch);
+        _black.endClickCallback = onBGClick;
     }
 
     private function removeBlackBG():void {
         if (_black) {
-            _black.removeEventListener(TouchEvent.TOUCH, onBGTouch);
+            _black.endClickCallback = null;
+            while (_black.numChildren) _black.removeChildAt(0);
             if (_source.contains(_black))_source.removeChild(_black);
             _black.dispose();
             _black = null;
         }
     }
 
-    private function onBGTouch(te:TouchEvent):void {
-        if ( te.getTouch(_black, TouchPhase.ENDED)) {
-            if (callbackClickBG != null) {
-                callbackClickBG.apply();
-            } else {
-                hideIt();
-            }
+    private function onBGClick():void {
+        if (callbackClickBG != null) {
+            callbackClickBG.apply();
+        } else {
+            hideIt();
         }
     }
 }
