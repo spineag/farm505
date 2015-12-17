@@ -37,7 +37,6 @@ public class WOBuyPlant extends Window {
         _woWidth = 580;
         _woHeight = 134;
         createBG();
-        createShiftBtns();
         createPlantItems();
         callbackClickBG = onClickExit;
         _arrAllPlants = [];
@@ -69,7 +68,8 @@ public class WOBuyPlant extends Window {
         _ridge = ridge;
         _callback = f;
         updatePlantArray();
-        activateShiftBtn(1, false);
+        createShiftBtns();
+//        activateShiftBtn(1, false);
         fillPlantItems();
         super.showIt();
     }
@@ -158,24 +158,86 @@ public class WOBuyPlant extends Window {
         var s:CSprite;
         var im:Image;
         var txt:TextField;
-
+        var n:int = 0;
+        var i:int;
         _arrShiftBtns = [];
-        for (var i:int=0; i<4; i++) {
-            s = new CSprite();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
-            s.addChild(im);
-            txt = new TextField(32, 32, String(i+1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
-            txt.y = 20;
-            txt.x = 2;
-            s.addChild(txt);
-            s.flatten();
-            s.x = -_woWidth/2 + 180 + i*(42);
-            s.y = -_woHeight/2 + 117;
-            _source.addChildAt(s, 0);
-            _arrShiftBtns.push(s);
-            s.endClickParams = i+1;
-            s.endClickCallback = activateShiftBtn;
+        for (i = 0; i < _arrAllPlants.length; i++) {
+            if (_arrAllPlants[i].blockByLevel <= g.user.level) n++;
+        }
+//        if (n <= 5) {
+//            s = new CSprite();
+//            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+//            s.addChild(im);
+//            txt = new TextField(32, 32, String(1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
+//            txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+//            txt.y = 20;
+//            txt.x = 2;
+//            s.addChild(txt);
+//            s.flatten();
+//            s.x = -_woWidth / 2 + 220 + 42;
+//            s.y = -_woHeight / 2 + 117;
+//            _source.addChildAt(s, 0);
+//            _arrShiftBtns.push(s);
+//            s.endClickParams = 1;
+//            s.endClickCallback = activateShiftBtn;
+//        } else
+        if ( n > 5 && n <= 10) {
+            for (i= 0; i < 2; i++) {
+                s = new CSprite();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                s.addChild(im);
+                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
+                txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+                txt.y = 20;
+                txt.x = 2;
+                s.addChild(txt);
+                s.flatten();
+                s.x = -_woWidth/2 + 180 + i*(42);
+                s.y = -_woHeight / 2 + 117;
+                _source.addChildAt(s, 0);
+                _arrShiftBtns.push(s);
+                activateShiftBtn(1, false);
+                s.endClickParams = i + 1;
+                s.endClickCallback = activateShiftBtn;
+            }
+        } else if (n > 10 && n <= 15) {
+            for (i= 0; i < 3; i++) {
+                s = new CSprite();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                s.addChild(im);
+                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
+                txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+                txt.y = 20;
+                txt.x = 2;
+                s.addChild(txt);
+                s.flatten();
+                s.x = -_woWidth/2 + 180 + i*(42);
+                s.y = -_woHeight / 2 + 117;
+                _source.addChildAt(s, 0);
+                _arrShiftBtns.push(s);
+                activateShiftBtn(1, false);
+                s.endClickParams = i + 1;
+                s.endClickCallback = activateShiftBtn;
+            }
+        } else if (n > 15 && n <= 20) {
+            for (i= 0; i < 4; i++) {
+                s = new CSprite();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
+                s.addChild(im);
+                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
+                txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+                txt.y = 20;
+                txt.x = 2;
+                s.addChild(txt);
+                s.flatten();
+                s.x = -_woWidth/2 + 180 + i*(42);
+                s.y = -_woHeight / 2 + 117;
+                _source.addChildAt(s, 0);
+                _arrShiftBtns.push(s);
+                activateShiftBtn(1, false);
+                s.endClickParams = i + 1;
+                s.endClickCallback = activateShiftBtn;
+            }
         }
     }
 

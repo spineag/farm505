@@ -300,11 +300,17 @@ public class WONoResources extends Window {
 
     private function onClickOrder():void {
 //        g.userInventory.addResource(_dataResource)
+        if (int(_txtHardCost.text) <= g.user.hardCurrency) {
+            g.userInventory.addMoney(1, -int(_txtHardCost.text));
+        } else {
+            g.woBuyCurrency.showItMenu(true);
+            return;
+        }
+        onClickExit();
         if (_callbackBuy != null) {
             _callbackBuy.apply(null);
             _callbackBuy = null;
         }
-        onClickExit();
     }
 }
 }

@@ -95,16 +95,16 @@ public class TreeHint {
             g.woGameError.showIt();
             return;
         }
-        var obj:Object;
-        var id:String;
-        obj = g.dataBuilding.objectBuilding;
-        for (id in obj) {
-            if (obj[id].innerPositionsDead > data.innerPositionsDead) {
+//        var obj:Object;
+//        var id:String;
+//        obj = g.dataBuilding.objectBuilding;
+//        for (id in obj) {
+            if ( data.removeByResourceId == 124) {
                 _txtName.text = "Засохшее дерево";
             } else {
                 _txtName.text = "Засохший куст";
             }
-        }
+//        }
         _worldObject = worldobject;
         _data = data;
         if (_isShowed) return;
