@@ -165,7 +165,7 @@ public class WONoResources extends Window {
             return;
         }
 
-        if (_data.buildType == BuildType.PLANT) {
+        if (_data.buildType && _data.buildType == BuildType.PLANT) {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, 1);
             im.source.x =  - im.source.width/2;

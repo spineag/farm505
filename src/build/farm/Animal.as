@@ -100,13 +100,13 @@ public class Animal {
         }
     }
 
-    public function render():void {
+    private function render():void {
         _timeToEnd--;
         if (_timeToEnd <= 0 && _state == WORKED) {
+            _state = CRAFT;
             g.gameDispatcher.removeFromTimer(render);
             craftResource();
-            _state = CRAFT;
-            _farm.readyAnimal(this);
+            _farm.readyAnimal();
             addRenderAnimation();
         }
     }
@@ -165,19 +165,12 @@ public class Animal {
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
             g.gameDispatcher.addEnterFrame(countEnterFrame);
         }
-
-//        if (_state == WORKED) {
-//
-//        } else if (_state == EMPTY) {
-//
-//        }
     }
 
     private function onOut():void {
         if (g.isActiveMapEditor) return;
         source.filter = null;
         _isOnHover = false;
-//        g.timerHint.hideIt();
         g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.mouseHint.hideIt();
     }
@@ -188,6 +181,8 @@ public class Animal {
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
                 g.timerHint.showIt(g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip);
+            } else {
+                g.timerHint.hideIt();
             }
         }
     }

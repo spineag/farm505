@@ -110,8 +110,8 @@ public class TimerHint {
     }
 
     public function hideIt():void {
-        _isShow = false;
         if (_isOnHover) return;
+        _isShow = false;
         g.gameDispatcher.removeFromTimer(onTimer);
         if (g.cont.hintContUnder.contains(source)) {
             g.cont.hintContUnder.removeChild(source);

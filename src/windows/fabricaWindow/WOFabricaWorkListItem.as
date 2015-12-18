@@ -81,7 +81,7 @@ public class WOFabricaWorkListItem {
             im.y = 5;
             _btnSkip.addChild(im);
             im.filter = ManagerFilters.SHADOW_TINY;
-            _btnSkip.x = 45;
+            _btnSkip.x = 52;
             _btnSkip.y = 117;
             _source.addChild(_btnSkip);
             _btnSkip.visible = false;
@@ -238,6 +238,7 @@ public class WOFabricaWorkListItem {
             if (_skipCallback != null) {
                 g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_resource.priceSkipHard);
                 destroyTimer();
+                _btnSkip.visible = false;
                 _skipCallback.apply();
             }
         } else {

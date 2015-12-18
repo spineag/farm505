@@ -19,7 +19,7 @@ public class ManagerAnimal {
     public function ManagerAnimal() {
         var arr:Array = g.townArea.cityObjects;
         _arrFarm = [];
-        _catsForFarm = [];
+        _catsForFarm = {};
         for (var i:int = 0; i < arr.length; i++) {
             if (arr[i] is Farm) {
                 _arrFarm.push(arr[i]);
@@ -60,7 +60,6 @@ public class ManagerAnimal {
                 g.managerCats.goCatToPoint(cat, new Point(fa.posX, fa.posY), afterWalk, fa, cat);
             } else {
                 cat.setPosition(new Point(fa.posX, fa.posY));
-//                cat.addToMap();
                 afterWalk(fa, cat);
             }
         } else {
@@ -78,7 +77,7 @@ public class ManagerAnimal {
         if (_catsForFarm[farmDbId]) {
             (_catsForFarm[farmDbId] as HeroCat).isFree = true;
             (_catsForFarm[farmDbId] as HeroCat).visible = true;
-            g.managerCats.goCatToPoint(_catsForFarm[farmDbId] as HeroCat, g.managerCats.getRandomFreeCell());
+//            g.managerCats.goCatToPoint(_catsForFarm[farmDbId] as HeroCat, g.managerCats.getRandomFreeCell());
             delete _catsForFarm[farmDbId];
         } else {
             Cc.error('ManagerAnimal freeFarmCat:: empty _catsForFarm[farmDbId] for farmDbId: ' + farmDbId);
