@@ -27,6 +27,7 @@ public class WONoResources extends Window {
     private var _arrItems:Array;
 
     private var _count:int;
+    private var _countCost:int;
     private var _dataResource:Object;
     private var _callbackBuy:Function;
     private var _params:Object;
@@ -79,11 +80,13 @@ public class WONoResources extends Window {
             _arrItems[i].deleteIt();
         }
         _arrItems.length = 0;
+        _count = 0;
         hideIt();
     }
 
     public function showItMoney(currency:int, count:int, f:Function):void {
-        _count = Math.ceil(_count / g.HARD_IN_SOFT);
+        _count = Math.ceil(count / g.HARD_IN_SOFT);
+        _countCost = count;
         if (currency == DataMoney.HARD_CURRENCY) {
             Cc.error('hard currency can"t be in woNoResourceWindow');
             g.woGameError.showIt();
@@ -105,10 +108,11 @@ public class WONoResources extends Window {
         if (_count < g.user.hardCurrency) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_count);
         } else {
+            onClickExit();
             g.woBuyCurrency.showItMenu(true);
             return;
         }
-        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _count);
+        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _countCost);
         onClickExit();
         if (_callbackBuy != null) {
             _callbackBuy.apply(null);
@@ -258,11 +262,13 @@ public class WONoResources extends Window {
         _dataResource = _data;
         var item:WONoResourcesItem;
         for (var i:int=0; i<_data.resourceIds.length; i++) {
-                item = new WONoResourcesItem();
-                item.fillWithResource(_data.resourceIds[i], _data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]));
-                _count += g.dataResource.objectResources[_data.resourceIds[i]].priceHard *  (_data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]));
-                _source.addChild(item.source);
-                _arrItems.push(item);
+                if (_data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]) > 0) {
+                    item = new WONoResourcesItem();
+                    item.fillWithResource(_data.resourceIds[i], _data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]));
+                    _count += g.dataResource.objectResources[_data.resourceIds[i]].priceHard * (_data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]));
+                    _source.addChild(item.source);
+                    _arrItems.push(item);
+                }
         }
         switch (_arrItems.length) {
             case 1:
@@ -299,18 +305,23 @@ public class WONoResources extends Window {
     }
 
     private function onClickOrder():void {
-//        g.userInventory.addResource(_dataResource)
-        if (int(_txtHardCost.text) <= g.user.hardCurrency) {
-            g.userInventory.addMoney(1, -int(_txtHardCost.text));
+        var number:int = 0;
+        if (_count <= g.user.hardCurrency) {
+            g.userInventory.addMoney(1, -_count);
         } else {
+            onClickExit();
             g.woBuyCurrency.showItMenu(true);
             return;
         }
-        onClickExit();
+        for (var i:int=0; i<_dataResource.resourceIds.length; i++) {
+            number = _dataResource.resourceCounts[i] - g.userInventory.getCountResourceById(_dataResource.resourceIds[i]);
+            if (number > 0) g.userInventory.addResource(_dataResource.resourceIds[i],number);
+        }
         if (_callbackBuy != null) {
             _callbackBuy.apply(null);
             _callbackBuy = null;
         }
+        onClickExit();
     }
 }
 }

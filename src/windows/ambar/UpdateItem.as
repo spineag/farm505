@@ -25,6 +25,7 @@ import windows.WOComponents.WOButtonTexture;
 
 public class UpdateItem {
     public var source:CSprite;
+    private var _contImage:CSprite;
     private var _resourceId:int;
     private var _bg:Sprite;
     private var _btn:CButton;
@@ -40,10 +41,12 @@ public class UpdateItem {
 
     public function UpdateItem() {
         source = new CSprite();
+        _contImage = new CSprite();
         _bg = new CartonBackgroundIn(100, 100);
         source.addChild(_bg);
-        source.hoverCallback = onHover;
-        source.outCallback = onOut;
+        source.addChild(_contImage);
+        _contImage.hoverCallback = onHover;
+        _contImage.outCallback = onOut;
 
         _txtCount = new TextField(50,20,'',g.allData.fonts['BloggerMedium'],14, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -62,6 +65,7 @@ public class UpdateItem {
         _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnTxt.x = 16;
         _btnTxt.y = 10;
+//        _contTxt.addChild(_btnTxt);
         _btn.addChild(_btnTxt);
 
         var dmnt:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
@@ -109,7 +113,7 @@ public class UpdateItem {
             }
         }
         if (_resourceImage) {
-            source.removeChild(_resourceImage);
+            _contImage.removeChild(_resourceImage);
             _resourceImage.dispose();
             _resourceImage = null;
         }
@@ -117,7 +121,7 @@ public class UpdateItem {
         MCScaler.scale(_resourceImage, 90, 90);
         _resourceImage.x = 50 - _resourceImage.width/2;
         _resourceImage.y = 50 - _resourceImage.height/2;
-        source.addChild(_resourceImage);
+        _contImage.addChild(_resourceImage);
     }
 
     public function get isFull():Boolean {
@@ -144,7 +148,8 @@ public class UpdateItem {
     }
 
     private function onHover():void {
-        g.resourceHint.showIt(_resourceId,source.x,source.y,source);
+        g.resourceHint.hideIt();
+        g.resourceHint.showIt(_resourceId,source.x,source.y,source,true);
     }
 
     private function onOut():void {

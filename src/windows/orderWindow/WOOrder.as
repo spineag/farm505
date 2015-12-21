@@ -223,7 +223,6 @@ public class WOOrder extends Window{
                 return;
             }
         }
-
         for (i=0; i<_curOrder.resourceIds.length; i++) {
             g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
         }

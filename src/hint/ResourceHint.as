@@ -37,18 +37,17 @@ public class ResourceHint {
         _source = new Sprite();
     }
 
-    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,ridge:Boolean = false):void {
+    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,bol:Boolean = false):void {
         var obj:Object;
         var id:String;
-        var h:int = 0;
-        var w:int = 0;
+        var wText:int = 0;
+        var wName:int = 0;
         var bg:HintBackground;
         if (!g.dataResource.objectResources[_dataId]) {
             Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
             g.woGameError.showIt();
             return;
         }
-
         var start:Point = new Point(int(sX), int(sY));
         start = source.parent.localToGlobal(start);
         _source.x = start.x + source.width/2;
@@ -60,8 +59,8 @@ public class ResourceHint {
                 _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
                 _txtText.x = -76;
                 _txtText.y = -5;
-                w = _txtText.textBounds.width + 40;
-                bg = new HintBackground(w, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                wName = _txtText.textBounds.width + 40;
+                bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);
                 _source.addChild(_txtText);
                 g.cont.hintCont.addChild(_source);
@@ -84,8 +83,12 @@ public class ResourceHint {
                 _txtText.x = -76;
                 _txtText.y = 5;
 
-                w = _txtName.textBounds.width + 40;
-                bg = new HintBackground(w, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                wText = _txtText.textBounds.width + 20;
+                wName = _txtName.textBounds.width + 40;
+
+                if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
@@ -109,7 +112,7 @@ public class ResourceHint {
                 _txtText.x = -76;
                 _txtText.y = 5;
 
-                if(ridge) {
+                if(bol) {
                     _source.x = start.x;
                     _source.y = start.y;
                      _txtText.text = 'Время роста:';
@@ -118,8 +121,11 @@ public class ResourceHint {
                     _source.x = start.x + source.width/2;
                     _source.y = start.y + source.height + 5;
                 }
-                w = _txtName.textBounds.width + 40;
-                bg = new HintBackground(w, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                wText = _txtText.textBounds.width + 20;
+                wName = _txtName.textBounds.width + 40;
+
+                if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
@@ -130,29 +136,43 @@ public class ResourceHint {
                 return;
             }
             if (g.dataResource.objectResources[_dataId].buildType == BuildType.INSTRUMENT) {
-                _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
-                _imageClock.y = 70;
-                _imageClock.x = -30;
+//                _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
+//                _imageClock.y = 70;
+//                _imageClock.x = -30;
                 _txtName = new TextField(150,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
                 _txtName.x = -75;
                 _txtName.y = 20;
-                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime),g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
-                _txtTime.x = -10;
-                _txtTime.y = 60;
+//                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime),g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
+//                _txtTime.x = -10;
+//                _txtTime.y = 60;
                 _txtText = new TextField(150,100,String(g.dataResource.objectResources[_dataId].opys),g.allData.fonts['BloggerBold'],12,Color.WHITE);
                 _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
                 _txtText.x = -76;
-                _txtText.y = 5;
+                _txtText.y = 15;
 
-                _imageClock.visible = false;
-                _txtTime.visible = false;
-                w = _txtName.textBounds.width + 40;
-                bg = new HintBackground(w, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+//                _imageClock.visible = false;
+//                _txtTime.visible = false;
+                wText = _txtText.textBounds.width + 20;
+                wName = _txtName.textBounds.width + 40;
+                if (bol) {
+                    if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                    else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                    _source.x = start.x + source.width/2;
+                    _source.y = start.y - 5;
+                    _txtName.x = -75;
+                    _txtName.y = -110;
+                    _txtText.x = -76;
+                    _txtText.y = -105;
+                } else {
+                    if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                }
+
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
-                _source.addChild(_txtTime);
-                _source.addChild(_imageClock);
+//                _source.addChild(_txtTime);
+//                _source.addChild(_imageClock);
                     g.cont.hintCont.addChild(_source);
                     return;
             }
@@ -174,8 +194,11 @@ public class ResourceHint {
                 _txtText.x = -76;
                 _txtText.y = 5;
 
-                w = _txtName.textBounds.width + 40;
-                bg = new HintBackground(w, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                wText = _txtText.textBounds.width + 20;
+                wName = _txtName.textBounds.width + 40;
+
+                if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
@@ -198,8 +221,11 @@ public class ResourceHint {
             _txtText.x = -76;
             _txtText.y = 5;
 
-            w = _txtName.textBounds.width + 40;
-            bg = new HintBackground(w, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            wText = _txtText.textBounds.width + 20;
+            wName = _txtName.textBounds.width + 40;
+
+            if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);

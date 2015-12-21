@@ -110,6 +110,7 @@ public class WOBuyPlantItem {
     private function onHover():void {
         if (!_dataPlant) return;
         if (_dataPlant) {
+            g.resourceHint.hideIt();
             g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source, true);
         }
     }

@@ -74,6 +74,7 @@ public class AmbarCell {
     }
 
     private function onHover():void {
+        g.resourceHint.hideIt();
         g.resourceHint.showIt(_data.id,source.x,source.y,source);
     }
 
