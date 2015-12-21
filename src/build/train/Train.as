@@ -258,7 +258,7 @@ public class Train extends AreaObject{
         } else if (_stateBuild == STATE_UNACTIVE) {
             if (_source.wasGameContMoved) return;
             _source.filter = null;
-            _woBuy.showItWithParams(_dataBuild, "Откройте поезд", onBuy);
+            _woBuy.showItWithParams(_dataBuild, "Откройте поезд", onBuy,false);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) return;

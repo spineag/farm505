@@ -30,10 +30,6 @@ public class WOBuyCave extends Window {
         super();
         _woWidth = 600;
         _woHeight = 350;
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('mine_picture'));
-        im.x = - 298;
-        im.y = - 175;
-        _source.addChild(im);
         _wm = new WindowMine(_woWidth,_woHeight);
         _source.addChild(_wm);
         createExitButton(onClickExit);
@@ -62,12 +58,24 @@ public class WOBuyCave extends Window {
         hideIt();
     }
 
-    public function showItWithParams(_data:Object, _t:String, f:Function):void {
+    public function showItWithParams(_data:Object, _t:String, f:Function,cave:Boolean):void {
         if (!_data) {
             Cc.error('WOBuyCave showItWithParams: empty _data');
             g.woGameError.showIt();
             return;
         }
+        if (cave){
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('mine_picture'));
+            im.x = - 298;
+            im.y = - 175;
+            _source.addChildAt(im,0);
+        } else {
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('aerial_tram_all'));
+            im.x = - 298;
+            im.y = - 175;
+            _source.addChildAt(im,0);
+        }
+
         _dataObject = _data;
         priceTxt.text = 'Отремонтировать ' + String(_data.cost);
 //        txt.text = _t;

@@ -197,7 +197,7 @@ public class Cave extends AreaObject{
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             _source.filter = null;
-            if (!_source.wasGameContMoved) _woBuy.showItWithParams(_dataBuild, "Откройте пещеру", onBuy);
+            if (!_source.wasGameContMoved) _woBuy.showItWithParams(_dataBuild, "Откройте пещеру", onBuy,true);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) return;

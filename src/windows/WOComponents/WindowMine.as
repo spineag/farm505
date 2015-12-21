@@ -19,7 +19,7 @@ public class WindowMine extends Sprite {
         var countH:int;
         var arr:Array = [];
         var i:int;
-        var delta:int = 5;
+        var delta:int = 4;
 
         //top left
         im = new Image(tex.getTexture('build_window_top_left'));
@@ -56,12 +56,12 @@ public class WindowMine extends Sprite {
         for (i=0; i<countW; i++) {
             im = new Image(tex.getTexture('build_window_top'));
             im.x = arr[0].x + arr[0].width + i * (im.width - delta);
-            if (i == countW-1 && im.x > arr[2].x - 50) im.x = arr[2].x - 15;
+//            if (i == countW-1 && im.x > arr[2].x - 50) im.x = arr[2].x - 41;
             im.y = -h/2;
             addChildAt(im, 0);
             im = new Image(tex.getTexture('build_window_down'));
             im.x = arr[1].x + arr[1].width + i*(im.width - delta);
-            if (i == countW-1 && im.x > arr[3].x - 50) im.x = arr[3].x - 15;
+//            if (i == countW-1 && im.x > arr[3].x + 10) im.x = arr[3].x + 100;
             im.y = h/2 - im.height;
             addChildAt(im, 0);
         }
