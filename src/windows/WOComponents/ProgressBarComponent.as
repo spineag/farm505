@@ -35,11 +35,19 @@ public class ProgressBarComponent extends Sprite {
     }
 
     public function set progress(percent:Number):void {
+        _left.visible = true;
+        _center.visible = true;
+        _right.visible = true;
         if (percent > 1) percent = 1;
         if (percent < 0) percent = 0;
         var w:Number = percent*_maxWidth;
         setCenterWidth(int(w - _left.width - _right.width));
         _right.x = w - _right.width;
+        if (w == 0) {
+            _left.visible = false;
+            _center.visible = false;
+            _right.visible = false;
+        }
     }
 
     private function setCenterWidth(w:int):void {

@@ -136,7 +136,12 @@ public class TimerHint {
     }
 
     private function onClickBtn():void {
-        if (g.user.hardCurrency < int(_txtCost.text))return;
+        if (g.user.hardCurrency < int(_txtCost.text)) {
+            _isOnHover = false;
+            hideIt();
+            g.woBuyCurrency.showItMenu(true);
+            return;
+        }
         if (_callbackSkip != null) {
             _callbackSkip.apply(null);
         }
