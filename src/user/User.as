@@ -69,7 +69,7 @@ public class User extends Someone {
                 txp += levels[st].xp;
             }
         }
-        if (level <= 0) level = 1;
+//        if (level <= 0) level = 1;
     }
 
     public function friendAppUser():void {

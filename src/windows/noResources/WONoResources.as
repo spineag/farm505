@@ -138,7 +138,7 @@ public class WONoResources extends Window {
 
     private function onClickAnimal():void {
         if (int(_txtHardCost.text) < g.user.hardCurrency) {
-            g.userInventory.addMoney(1, -int(_txtHardCost.text));
+            g.userInventory.addMoney(1, -_count);
         } else {  g.woBuyCurrency.showItMenu(true);
             return;
         }
