@@ -100,6 +100,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.selectedBuild) return;
         if (g.isActiveMapEditor || g.isAway) return;
         _source.filter = ManagerFilters.YELLOW_STROKE;
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
@@ -130,11 +131,25 @@ public class Ridge extends AreaObject{
 
     private function onEndClick():void {
         if (g.isActiveMapEditor || g.isAway) return;
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
-                g.toolsModifier.ridgeId = _dataPlant.id;
+        if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
+            if (g.selectedBuild) {
+                onOut();
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                } else return;
             }
-            g.townArea.moveBuild(this,1,_stateRidge);
+        } else if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                } else return;
+            } else {
+                onOut();
+                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
+                    g.toolsModifier.ridgeId = _dataPlant.id;
+                }
+                g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
