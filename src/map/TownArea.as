@@ -356,6 +356,7 @@ public class TownArea extends Sprite {
             return;
         }
 
+        g.selectedBuild = null;
         if (_cont.contains(worldObject.source)) {
             _cont.removeChild(worldObject.source);
         }
@@ -478,7 +479,6 @@ public class TownArea extends Sprite {
         (build as WorldObject).source.filter = null;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (build is Tree) (build as Tree).removeShopView();
-//        if (build is Fabrica) (build as Fabrica).removeShopView();
         g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);
         pasteBuild(build, _x, _y);
     }
