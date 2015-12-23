@@ -42,10 +42,6 @@ public class Wild extends AreaObject{
         _source.isTouchable = false;
     }
 
-    public function setFilter(f:ColorMatrixFilter):void {
-        _source.filter = f;
-    }
-
     private function onHover():void {
         if (g.selectedBuild) return;
         _source.filter = ManagerFilters.YELLOW_STROKE;
@@ -109,9 +105,5 @@ public class Wild extends AreaObject{
         super.clearIt();
     }
 
-    public function addItToMatrix():void {
-        g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
-        _source.isTouchable = true;
-    }
 }
 }

@@ -25,10 +25,16 @@ import starling.filters.BlurFilter;
 import starling.filters.ColorMatrixFilter;
 import starling.utils.Color;
 
+import utils.CSprite;
+
+import utils.CreateTile;
+
 
 public class LockedLand extends AreaObject {
     private var _dataLand:Object;
     private var _arrWilds:Array;
+    private var _topRibbon:Sprite;
+    private var _bottomRibbon:Sprite;
 
     public function LockedLand(_data:Object) {
         super(_data);
@@ -37,13 +43,16 @@ public class LockedLand extends AreaObject {
             g.woGameError.showIt();
             return;
         }
+        _arrWilds = [];
         _dataLand = g.allData.lockedLandData[_data.dbId];
         if (!_dataLand) {
             Cc.error('no dataLand for LockedLand _data.dbId: ' + _data.dbId);
             g.woGameError.showIt();
             return;
         }
-        createLockedLandBuild();
+        _build.touchable = false;
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
 
         if (!g.isAway) {
             _source.hoverCallback = onHover;
@@ -52,56 +61,86 @@ public class LockedLand extends AreaObject {
         }
         _source.releaseContDrag = true;
 
-        var tempSprite:Sprite = new Sprite();
-        var q:Quad = new Quad(60*_dataBuild.width, 60*_dataBuild.width, Color.BLACK);
-        q.rotation = Math.PI / 4;
-        q.alpha = 0;
-        tempSprite.addChild(q);
-        tempSprite.scaleY = .5;
-        tempSprite.flatten();
-        _source.addChildAt(tempSprite, 0);
+        var s:Sprite = CreateTile.createSimpleTile(10);
+        s.alpha = 0;
+        _source.addChild(s);
 
-        _arrWilds = [];
+        _topRibbon = new Sprite();
+        _source.addChild(_topRibbon);
+        _source.addChild(_build);
+        _bottomRibbon = new Sprite();
+        _source.addChild(_bottomRibbon);
+        createRibbons();
     }
 
-    public function createLockedLandBuild():void {
+    private function createRibbons():void {
         var im:Image;
-        var p:Point = new Point();
-        for (var i:int=0; i<10; i++) {
-            for (var j:int=0; j<10; j++) {
-                p.x = i;
-                p.y = j;
-                p = g.matrixGrid.getXYFromIndex(p);
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
-                im.x = p.x + _dataBuild.innerX;
-                im.y = p.y + _dataBuild.innerY;
-                _build.addChild(im);
-            }
-        }
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ribbon_dark_green'));
+        im.rotation = -28*Math.PI/180;
+        im.x = -367;
+        im.y = 182;
+        _topRibbon.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ribbon_dark_green'));
+        im.rotation = 24*Math.PI/180;
+        im.x = 2;
+        im.y = 4;
+        _topRibbon.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bow_dark_green_3'));
+        im.x = -36;
+        im.y = -9;
+        _topRibbon.addChild(im);
+        _topRibbon.flatten();
 
-        _build.flatten();
-        _build.touchable = false;
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        _source.addChild(_build);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ribbon_dark_green'));
+        im.rotation = 24*Math.PI/180;
+        im.x = -338;
+        im.y = 187;
+        _bottomRibbon.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ribbon_dark_green'));
+        im.rotation = -28*Math.PI/180;
+        im.x = -3;
+        im.y = 352;
+        _bottomRibbon.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bow_dark_green_2'));
+        im.x = -398;
+        im.y = 161;
+        _bottomRibbon.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bow_dark_green_2'));
+        im.scaleX = -1;
+        im.x = 412;
+        im.y = 162;
+        _bottomRibbon.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bow_dark_green_1'));
+        im.x = -36;
+        im.y = 333;
+        _bottomRibbon.addChild(im);
+        _bottomRibbon.flatten();
     }
 
     override public function get depth():Number {
         return _depth - 1000;
     }
 
-    public function addWild(w:Wild):void {
+    public function addWild(w:Wild, _x:int, _y:int):void {
         _arrWilds.push(w);
+        w.source.x = _x - _source.x;
+        w.source.y = _y - _source.y;
+        _build.addChild(w.source);
     }
 
     private function onHover():void {
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
-        _source.filter = ManagerFilters.GREEN_STROKE;
-        _source.filter = ManagerFilters.YELLOW_TINT_FILTER;
-        for (var i:int=0; i<_arrWilds.length; i++) {
-            _arrWilds[i].setFilter(ManagerFilters.YELLOW_TINT_FILTER);
-        }
+        _build.filter = ManagerFilters.RED_LIGHT_TINT_FILTER;
+        _topRibbon.filter = ManagerFilters.RED_LIGHT_TINT_FILTER;
+        _bottomRibbon.filter = ManagerFilters.RED_LIGHT_TINT_FILTER;
+    }
+
+    private function onOut():void {
+        if (g.isActiveMapEditor) return;
+        _build.filter = null;
+        _topRibbon.filter = null;
+        _bottomRibbon.filter = null;
     }
 
     private function onClick():void {
@@ -128,7 +167,7 @@ public class LockedLand extends AreaObject {
                 return;
             } else {
                 g.woLockedLand.showItWithParams(_dataLand, this);
-                _source.filter = null;
+                onOut();
                 return;
             }
         } else {
@@ -136,23 +175,19 @@ public class LockedLand extends AreaObject {
         }
     }
 
-    private function onOut():void {
-        if (g.isActiveMapEditor) return;
-        _source.filter = null;
-        for (var i:int=0; i<_arrWilds.length; i++) {
-            _arrWilds[i].setFilter(null);
-        }
-    }
-
     public function openIt():void {
+        var _x:int = _source.x;
+        var _y:int = _source.y;
         if (_dataLand.currencyCount > 0) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataLand.currencyCount);
         if (_dataLand.resourceCount > 0) g.userInventory.addResource(_dataLand.resourceId, -_dataLand.resourceCount);
         g.directServer.removeUserLockedLand(_dataLand.id);
+        while (_build.numChildren) _build.removeChildAt(0);
         g.townArea.deleteBuild(this);
-        _dataLand = null;
         for (var i:int=0; i<_arrWilds.length; i++) {
-            (_arrWilds[i] as Wild).addItToMatrix();
+            (_arrWilds[i].source as CSprite).isTouchable = true;
+            g.townArea.pasteBuild(_arrWilds[i], _arrWilds[i].source.x + _x, _arrWilds[i].source.y + _y, false, false);
         }
+        _dataLand = null;
         _arrWilds.length = 0;
     }
 
