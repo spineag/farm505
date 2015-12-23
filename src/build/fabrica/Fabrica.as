@@ -76,7 +76,23 @@ public class Fabrica extends AreaObject {
         updateRecipes();
     }
 
+    public function showShopView():void {
+        createBuild();
+        _craftSprite.visible = false;
+    }
+
+    public function removeShopView():void {
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+        _craftSprite.visible = true;
+    }
+
     private function onHover():void {
+        if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
         _count = 20;
@@ -99,10 +115,18 @@ public class Fabrica extends AreaObject {
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
+        if (g.selectedBuild) {
+            if (g.selectedBuild == this) {
+                g.toolsModifier.onTouchEnded();
+                onOut();
+            } else {
+                return;
+            }
+        }
         if (_stateBuild == STATE_ACTIVE) {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+                onOut();
                 g.townArea.moveBuild(this);
-                _isOnHover = false;
                 g.timerHint.hideIt();
             } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
                 g.townArea.deleteBuild(this);

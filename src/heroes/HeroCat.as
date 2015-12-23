@@ -28,12 +28,12 @@ public class HeroCat extends BasicCat{
     private var _catBackImage:Sprite;
     private var _isFree:Boolean;
     private var _type:int;
-    private var factory:StarlingFactory;
     private var armature:Armature;
     private var armatureBack:Armature;
     private var armatureClip:Sprite;
     private var armatureClipBack:Sprite;
     private var heroEyes:HeroEyesAnimation;
+    private var freeIdleGo:Boolean;
 
     public function HeroCat(type:int) {
         super();
@@ -43,37 +43,26 @@ public class HeroCat extends BasicCat{
         _source = new CSprite();
         _catImage = new Sprite();
         _catBackImage = new Sprite();
-        factory = new StarlingFactory();
-        _isLoaded = false;
-        var f1:Function = function (e:Event):void {
-            armature = factory.buildArmature("cat");
-            armatureBack = factory.buildArmature("cat_back");
-            armatureClip = armature.display as Sprite;
-            armatureClipBack = armatureBack.display as Sprite;
-            _catImage.addChild(armatureClip);
-            _catBackImage.addChild(armatureClipBack);
-            WorldClock.clock.add(armature);
-            WorldClock.clock.add(armatureBack);
-            if (_type == WOMAN) {
-                releaseWoman();
-            }
-            heroEyes = new HeroEyesAnimation(factory, armature, _type == WOMAN);
-            showFront(true);
-            _isLoaded = true;
-            makeFreeCatIdle();
-            if (_loadedCallback != null) {
-                _loadedCallback.apply();
-                _loadedCallback = null;
-            }
-        };
-        factory.addEventListener(Event.COMPLETE, f1);
-        factory.parseData(new EmbedAssets.CatData());
-
-        if (!_catImage || !_catBackImage) {
-            Cc.error('HeroCat no such image: for type: ' + type);
-            g.woGameError.showIt();
-            return;
+        freeIdleGo = true;
+        armature = g.allData.factory['cat'].buildArmature("cat");
+        armatureBack = g.allData.factory['cat'].buildArmature("cat_back");
+        armatureClip = armature.display as Sprite;
+        armatureClipBack = armatureBack.display as Sprite;
+        _catImage.addChild(armatureClip);
+        _catBackImage.addChild(armatureClipBack);
+        WorldClock.clock.add(armature);
+        WorldClock.clock.add(armatureBack);
+        if (_type == WOMAN) {
+            releaseWoman();
         }
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, _type == WOMAN);
+        showFront(true);
+        makeFreeCatIdle();
+        if (_loadedCallback != null) {
+            _loadedCallback.apply();
+            _loadedCallback = null;
+        }
+
         _catImage.x = -_catImage.width/2;
         _catImage.y = -_catImage.height + 2;
         _source.addChild(_catImage);
@@ -139,7 +128,7 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
-        if (isLoaded) {
+        if (_isLoaded) {
             heroEyes.startAnimations();
             armature.animation.gotoAndPlay("walk");
             armatureBack.animation.gotoAndPlay("walk");
@@ -147,7 +136,7 @@ public class HeroCat extends BasicCat{
         }
     }
     override public function runAnimation():void {
-        if (isLoaded) {
+        if (_isLoaded) {
             heroEyes.startAnimations();
             armature.animation.gotoAndPlay("run");
             armatureBack.animation.gotoAndPlay("run");
@@ -155,7 +144,7 @@ public class HeroCat extends BasicCat{
         }
     }
     override public function stopAnimation():void {
-        if (isLoaded) {
+        if (_isLoaded) {
             heroEyes.stopAnimations();
             armature.animation.gotoAndStop("idle", 0);
             armatureBack.animation.gotoAndStop("idle", 0);
@@ -163,7 +152,7 @@ public class HeroCat extends BasicCat{
         }
     }
     override public function idleAnimation():void {
-        if (isLoaded) {
+        if (_isLoaded) {
             if (Math.random() > .2) {
                 showFront(true);
             } else {
@@ -194,7 +183,7 @@ public class HeroCat extends BasicCat{
     }
 
     private function changeTexture(oldName:String, newName:String, isFront:Boolean = true):void {
-        var im:Image = factory.getTextureDisplay(newName) as Image;
+        var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
         var b:Bone;
         if (isFront) {
             b = armature.getBone(oldName);
@@ -207,15 +196,16 @@ public class HeroCat extends BasicCat{
 
     private var timer:int;
     private function makeFreeCatIdle():void {
-        if (isLoaded) {
-            if (Math.random() > .5) {
+        if (_isLoaded) {
+            if (freeIdleGo) {
                 g.managerCats.goIdleCatToPoint(this, g.managerCats.getRandomFreeCell(), makeFreeCatIdle);
             } else {
                 idleAnimation();
-                timer = 3 + int(Math.random()) * 7;
+                timer = 5 + int(Math.random()*15);
                 g.gameDispatcher.addToTimer(renderForIdleFreeCat);
                 renderForIdleFreeCat();
             }
+            freeIdleGo = !freeIdleGo;
         }
     }
 

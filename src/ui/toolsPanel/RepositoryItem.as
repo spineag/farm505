@@ -2,6 +2,9 @@
  * Created by user on 10/9/15.
  */
 package ui.toolsPanel {
+import build.AreaObject;
+import build.AreaObject;
+
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
@@ -65,16 +68,18 @@ public class RepositoryItem {
     }
 
     private function onClick():void {
+        var build:AreaObject = g.townArea.createNewBuild(_data);
+        g.selectedBuild = build;
         if (_data.buildType == BuildType.DECOR_TAIL) {
-            g.toolsModifier.startMoveTail(_data, afterMove, true);
+            g.toolsModifier.startMoveTail(build, afterMove, true);
         } else {
-            g.toolsModifier.startMove(_data, afterMove, 1, 1,true);
+            g.toolsModifier.startMove(build, afterMove, true);
         }
     }
 
-    private function afterMove(_x:Number, _y:Number):void {
+    private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
         var dbId:int = g.userInventory.removeFromDecorInventory(_data.id);
-        g.townArea.createNewBuild(_data, _x, _y, true, dbId);
+        g.townArea.pasteBuild(build, _x, _y, false);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
         _count--;

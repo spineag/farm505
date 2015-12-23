@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/shopicons/shopicons.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/shopicons/shopicons.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -216,6 +216,7 @@
             <filename>sugar_mill_icon.png</filename>
             <filename>ridge_icon.png</filename>
             <filename>farm_sheep_icon.png</filename>
+            <filename>apple_tree_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

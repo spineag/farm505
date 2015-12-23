@@ -37,9 +37,6 @@ public class CSprite extends Sprite {
     public function CSprite() {
         super();
 
-//        filter = new ColorMatrixFilter();
-//        filter.adjustSaturation(-1);
-
         _needStrongCheckHitTest = false;
         _needStrongCheckByteArray = false;
         _useContDrag = false;
@@ -55,18 +52,18 @@ public class CSprite extends Sprite {
         return _useContDrag;
     }
 
-    private var b:Boolean;
-    private var p:Point;
+//    private var b:Boolean;
+//    private var p:Point;
     private var _startDragPoint:Point;
     private function onTouch(te:TouchEvent):void {
         te.stopImmediatePropagation();
         te.stopPropagation();
-        if (_needStrongCheckHitTest && te.getTouch(this, TouchPhase.ENDED)) {
-            p = new Point(te.touches[0].globalX, te.touches[0].globalY);
-            p = this.globalToLocal(p);
-            b = hitTestOwn(p, true);
-            if (!b) return;
-        }
+//        if (_needStrongCheckHitTest && te.getTouch(this, TouchPhase.ENDED)) {
+//            p = new Point(te.touches[0].globalX, te.touches[0].globalY);
+//            p = this.globalToLocal(p);
+//            b = hitTestOwn(p, true);
+//            if (!b) return;
+//        }
 
 //        if (_needStrongCheckByteArray && te.getTouch(this, TouchPhase.ENDED)) {
 //            p = new Point(te.touches[0].globalX, te.touches[0].globalY);
@@ -79,8 +76,6 @@ public class CSprite extends Sprite {
             if (_useContDrag) {
                 if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) return;
                 g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
-                g.timerHint.hideIt();
-                g.mouseHint.hideIt();
             }
             if (_onMovedCallback != null) {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
@@ -100,6 +95,7 @@ public class CSprite extends Sprite {
             }
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
+            if (wasGameContMoved) return;
             if (_endClickCallback != null) {
                 if (_params) {
                     _endClickCallback.apply(null, [_params]);

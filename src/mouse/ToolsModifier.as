@@ -2,22 +2,15 @@
  * Created by user on 5/20/15.
  */
 package mouse {
-import build.WorldObject;
+import build.AreaObject;
 import build.decor.DecorTail;
-import build.ridge.Ridge;
-import build.tree.Tree;
 import build.wild.Wild;
 
 import com.junkbyte.console.Cc;
 
-import data.BuildType;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import map.MatrixGrid;
 
 import starling.display.Image;
@@ -25,7 +18,6 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
-import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
@@ -43,7 +35,9 @@ public class ToolsModifier {
     public static var GRID_DEACTIVATED:int = 8;
     public static var ADD_NEW_RIDGE:int = 9;
 
-    private var _activeBuildingData:Object;
+    private var _activeBuilding:AreaObject;
+    private var _startMoveX:int;
+    private var _startMoveY:int;
     private var _spriteForMove:Sprite;
     private var _moveGrid:BuildMoveGrid;
     private var _cont:Sprite;
@@ -164,12 +158,7 @@ public class ToolsModifier {
             if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
             MCScaler.scale(_mouseIcon, 30, 30);
             g.gameDispatcher.addEnterFrame(moveMouseIcon);
-        } //else {
-//            if (g.toolsModifier.modifierType != ToolsModifier.ADD_NEW_RIDGE) {
-//                Cc.error('ToolsModifier:: no image for modifierType: ' + g.toolsModifier.modifierType);
-//                g.woGameError.showIt();
-//            }
-//        }
+        }
      }
 
     public function updateCountTxt():void {
@@ -194,181 +183,27 @@ public class ToolsModifier {
         _mouseCont.y = g.ownMouse.mouseY + 10;
     }
 
-    private var imForMove:Image;
-    public function  startMove(buildingData:Object, callback:Function = null, treeState:int = 1, ridgeState:int = 1, isFromShop:Boolean = false):void {
-        if (!buildingData) {
-            Cc.error('ToolsModifier startMove:: empty buildingData');
+    public function  startMove(selectedBuild:AreaObject, callback:Function = null, isFromShop:Boolean = false):void {
+        if (!selectedBuild) {
+            Cc.error('ToolsModifier startMove:: empty selectedBuild');
             g.woGameError.showIt();
             return;
         }
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
-        _activeBuildingData = buildingData;
+        _activeBuilding = selectedBuild;
+        _activeBuilding.source.filter = null;
 
-        if (_activeBuildingData.url == "treeAtlas"){
-            switch (treeState) {
-                case Tree.GROW1:
-                case Tree.GROW_FLOWER1:
-                case Tree.GROWED1:
-                    imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.imageGrowSmall));
-                    if (imForMove) {
-                        imForMove.x = _activeBuildingData.innerPositionsGrow1[0];
-                        imForMove.y = _activeBuildingData.innerPositionsGrow1[1];
-                    }
-                    break;
-                case Tree.GROW2:
-                case Tree.GROW_FLOWER2:
-                case Tree.GROWED2:
-                    imForMove = new Image(g.allData.atlas['treeAtlas'].getTexture(_activeBuildingData.imageGrowMiddle));
-                    if (imForMove) {
-                        imForMove.x = _activeBuildingData.innerPositionsGrow2[0];
-                        imForMove.y = _activeBuildingData.innerPositionsGrow2[1];
-                    }
-                    break;
-                case Tree.GROW3:
-                case Tree.GROW_FLOWER3:
-                case Tree.GROWED3:
-                case Tree.GROW_FIXED:
-                case Tree.GROWED_FIXED:
-                case Tree.GROW_FIXED_FLOWER:
-                    imForMove = new Image(g.allData.atlas['treeAtlas'].getTexture(_activeBuildingData.imageGrowBig));
-                    if (imForMove) {
-                        imForMove.x = _activeBuildingData.innerPositionsGrow3[0];
-                        imForMove.y = _activeBuildingData.innerPositionsGrow3[1];
-                    }
-                    break;
-                case Tree.DEAD:
-                case Tree.ASK_FIX:
-                case Tree.FIXED:
-                case Tree.FULL_DEAD:
-                    imForMove = new Image(g.allData.atlas['treeAtlas'].getTexture(_activeBuildingData.imageDead));
-                    if (imForMove) {
-                        imForMove.x = _activeBuildingData.innerPositionsDead[0];
-                        imForMove.y = _activeBuildingData.innerPositionsDead[1];
-                    }
-                    break;
-            }
-            if (imForMove) {
-                _spriteForMove.addChild(imForMove);
-            } else {
-                Cc.error('ToolsModifier startMove:: no image for tree type: ' + treeState);
-                g.woGameError.showIt();
-                return;
-            }
-        } else if (_activeBuildingData.buildType == BuildType.RIDGE) {
-            imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
-            if (imForMove) {
-                imForMove.x = _activeBuildingData.innerX;
-                imForMove.y = _activeBuildingData.innerY;
-                _spriteForMove.addChild(imForMove);
-            } else {
-                Cc.error('ToolsModifier startMove:: no image for BuildType: ' + _activeBuildingData.image);
-                g.woGameError.showIt();
-                return;
-            }
-            if (ridgeState == Ridge.GROW1 || ridgeState == Ridge.GROW2 || ridgeState == Ridge.GROW3 || ridgeState == Ridge.GROWED ) {
-                switch (ridgeState) {
-                    case Ridge.GROW1:
-                        imForMove = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_ridgeId].image1));
-                        if (imForMove) {
-                            imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[0];
-                            imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[1];
-                        }
-                        break;
-                    case Ridge.GROW2:
-                        imForMove = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_ridgeId].image2));
-                        if (imForMove) {
-                            imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[2];
-                            imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[3];
-                        }
-                        break;
-                    case Ridge.GROW3:
-                        imForMove = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_ridgeId].image3));
-                        if (imForMove) {
-                            imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[4];
-                            imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[5];
-                        }
-                        break;
-                    case Ridge.GROWED:
-                        imForMove = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_ridgeId].image4));
-                        if (imForMove) {
-                            imForMove.x = g.dataResource.objectResources[_ridgeId].innerPositions[6];
-                            imForMove.y = g.dataResource.objectResources[_ridgeId].innerPositions[7];
-                        }
-                        break;
-                }
-                if (imForMove) {
-                    _spriteForMove.addChild(imForMove);
-                } else {
-                    Cc.error('ToolsModifier startMove:: no image for ridge type: ' + ridgeState);
-                    g.woGameError.showIt();
-                    return;
-                }
-            }
-        } else if (_activeBuildingData.url == "buildAtlas" || _activeBuildingData.url == "farmAtlas" || _activeBuildingData.url == "decorAtlas") {
-            imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
-            if (imForMove) {
-                imForMove.x = _activeBuildingData.innerX;
-                imForMove.y = _activeBuildingData.innerY;
-                _spriteForMove.addChild(imForMove);
-                if (_activeBuildingData.url == "farmAtlas") {
-                    var dataAnimal:Object;
-                    for (var id:String in g.dataAnimal.objectAnimal) {
-                        if (g.dataAnimal.objectAnimal[id].buildId == _activeBuildingData.id) {
-                            dataAnimal = g.dataAnimal.objectAnimal[id];
-                            break;
-                        }
-                    }
-                    if (dataAnimal && dataAnimal.id != 6) {
-                        var im:Image = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image + '2'));
-                        im.x = -338;
-                        im.y = 88;
-                        im.touchable = false;
-                        _spriteForMove.addChild(im);
-                    }
-                }
-            } else {
-                Cc.error('ToolsModifier startMove:: no image for url=buildAtlas and _activeBuildingData.image: ' + _activeBuildingData.image);
-                g.woGameError.showIt();
-                return;
-            }
-            if (!isFromShop && g.selectedBuild && g.selectedBuild.stateBuild == WorldObject.STATE_BUILD) {
-                imForMove = new Image(g.allData.atlas['buildAtlas'].getTexture("foundation"));
-                imForMove.x = -262;
-                imForMove.y = -274;
-                _spriteForMove.addChild(imForMove);
-            }
-        } else if (_activeBuildingData.url == 'wildAtlas') {
-            imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
-            if (imForMove) {
-                imForMove.x = _activeBuildingData.innerX;
-                imForMove.y = _activeBuildingData.innerY;
-                _spriteForMove.addChild(imForMove);
-            } else {
-                Cc.error('ToolsModifier startMove:: no image for url=wildAtlas and _activeBuildingData.image: ' + _activeBuildingData.image);
-                g.woGameError.showIt();
-                return;
-            }
-        } else if (_activeBuildingData.url == 'mapAtlas') {
-            imForMove  = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
-            if (imForMove) {
-                imForMove.x = -imForMove.width/2;
-                _spriteForMove.addChild(imForMove);
-            } else {
-                Cc.error('ToolsModifier startMove:: no such image _activeBuildingData.image: ' + _activeBuildingData.image);
-                g.woGameError.showIt();
-                return;
-            }
+        if (!isFromShop) {
+            _startMoveX = _activeBuilding.source.x;
+            _startMoveY = _activeBuilding.source.y;
         } else {
-            Cc.error('ToolsModifier startMove:: no such image _activeBuildingData.image: ' + _activeBuildingData.image + ' for url: ' + _activeBuildingData.url);
-            g.woGameError.showIt();
-            return;
+            _startMoveX = -1;
+            _startMoveY = -1;
         }
-
-        if (_activeBuildingData.isFlip) {
-            imForMove.pivotX = imForMove.width;
-            imForMove.scaleX *= -1;
-        }
+        _activeBuilding.source.x = 0;
+        _activeBuilding.source.y = 0;
+        _spriteForMove.addChild(_activeBuilding.source);
 
         _spriteForMove.x = _mouse.mouseX - _cont.x;
         _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
@@ -378,16 +213,16 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
         _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
-        if (g.selectedBuild && g.selectedBuild.source && g.selectedBuild.isContDrag || isFromShop) {
+        if (_activeBuilding.isContDrag || isFromShop) {
             _needMoveGameCont = true;
         }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
-        _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuildingData.width, _activeBuildingData.height);
-        g.gameDispatcher.addEnterFrame(onEnterFrame);
+        _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height);
+        g.gameDispatcher.addEnterFrame(moveIt);
     }
 
-    public function startMoveTail(buildingData:Object, callback:Function = null, isFromShop:Boolean = false):void {
-        if (!buildingData) {
+    public function startMoveTail(selectedBuild:AreaObject, callback:Function = null, isFromShop:Boolean = false):void {
+        if (!selectedBuild) {
             Cc.error('ToolsModifier startMoveTail:: empty buildingData');
             g.woGameError.showIt();
             return;
@@ -398,19 +233,14 @@ public class ToolsModifier {
 
         _spriteForMove = new Sprite();
         _callbackAfterMove = callback;
-        _activeBuildingData = buildingData;
-        imForMove = new Image(g.allData.atlas[_activeBuildingData.url].getTexture(_activeBuildingData.image));
-        if (imForMove) {
-            imForMove.x = _activeBuildingData.innerX;
-            imForMove.y = _activeBuildingData.innerY;
-            _spriteForMove.addChild(imForMove);
-        } else {
-            Cc.error('ToolsModifier startMove:: no image for url=buildAtlas and _activeBuildingData.image: ' + _activeBuildingData.image);
-            g.woGameError.showIt();
-            return;
-        }
+        _activeBuilding = selectedBuild;
+        _activeBuilding.source.filter = null;
 
-        if (_activeBuildingData.isFlip) imForMove.scaleX *= -1;
+        _startMoveX = _activeBuilding.source.x;
+        _startMoveY = _activeBuilding.source.y;
+        _activeBuilding.source.x = 0;
+        _activeBuilding.source.y = 0;
+        _spriteForMove.addChild(_activeBuilding.source);
 
         _spriteForMove.x = _mouse.mouseX - _cont.x;
         _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
@@ -420,37 +250,42 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
         _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
-        if (g.selectedBuild && g.selectedBuild.source && g.selectedBuild.source.isContDrag || isFromShop) {
+        if (_activeBuilding.isContDrag || isFromShop) {
             _needMoveGameCont = true;
         }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
         _moveGrid = null;
-        g.gameDispatcher.addEnterFrame(onEnterFrame);
+        g.gameDispatcher.addEnterFrame(moveIt);
     }
 
     public function cancelMove():void {
         if (!_spriteForMove) return;
         g.cont.contentCont.alpha = 1;
-        g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        g.gameDispatcher.removeEnterFrame(moveIt);
         while (_spriteForMove.numChildren) {
              _spriteForMove.removeChildAt(0);
         }
         if (_moveGrid) _moveGrid.clearIt();
         _moveGrid = null;
-        if (imForMove) imForMove.dispose();
-        imForMove = null;
+        _spriteForMove.removeChild(_activeBuilding.source);
         _spriteForMove = null;
-        if (g.selectedBuild) {
-            g.selectedBuild.source.filter = null;
-            g.townArea.backBuildAfterMoveCancel();
+        if (_activeBuilding) {
+            _activeBuilding.source.filter = null;
+            if (_startMoveX == -1 && _startMoveY == -1) {
+                _activeBuilding.clearIt();
+                _activeBuilding = null;
+            } else {
+                g.townArea.pasteBuild(_activeBuilding, _startMoveX, _startMoveY, false, false);
+            }
         }
+        g.selectedBuild = null;
     }
 
     private var _needMoveGameCont:Boolean = false;
     private var _startDragPoint:Point;
     private function onTouch(te:TouchEvent):void {
         if (_needMoveGameCont && te.getTouch(_cont, TouchPhase.BEGAN)) {
-            g.gameDispatcher.removeEnterFrame(onEnterFrame);
+            g.gameDispatcher.removeEnterFrame(moveIt);
             _startDragPoint = new Point();
             _startDragPoint.x = g.cont.gameCont.x;
             _startDragPoint.y = g.cont.gameCont.y;
@@ -468,7 +303,7 @@ public class ToolsModifier {
             if (_startDragPoint) {
                 var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
                 if (distance > 5) {
-                    g.gameDispatcher.addEnterFrame(onEnterFrame);
+                    g.gameDispatcher.addEnterFrame(moveIt);
                 } else {
                     _needMoveGameCont = false;
                     onTouchEnded();
@@ -485,26 +320,25 @@ public class ToolsModifier {
         var y:Number;
         var point:Point;
 
-
         if (!_spriteForMove) return;
-        if (g.selectedBuild && g.selectedBuild.useIsometricOnly) {
+        if (_activeBuilding.useIsometricOnly) {
             point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
             g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
         }
         x = _spriteForMove.x;
         y = _spriteForMove.y;
-        if (_activeBuildingData.buildType == BuildType.DECOR_TAIL) {
+        if (_activeBuilding is DecorTail) {
             if (g.townArea.townTailMatrix[point.y][point.x].build) {
-                g.gameDispatcher.addEnterFrame(onEnterFrame);
+                g.gameDispatcher.addEnterFrame(moveIt);
                 return;
             } else {
                 g.cont.contentCont.alpha = 1;
                 g.cont.contentCont.touchable = true;
             }
         }
-        if (!g.isActiveMapEditor && g.selectedBuild && g.selectedBuild.useIsometricOnly && !(g.selectedBuild is DecorTail)) {
-            if (!checkFreeGrids(point.x, point.y, _activeBuildingData.width, _activeBuildingData.height)) {
-                g.gameDispatcher.addEnterFrame(onEnterFrame);
+        if (!g.isActiveMapEditor && _activeBuilding.useIsometricOnly && !(_activeBuilding is DecorTail)) {
+            if (!checkFreeGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
+                g.gameDispatcher.addEnterFrame(moveIt);
                 return;
             }
         }
@@ -512,7 +346,7 @@ public class ToolsModifier {
         spriteForMoveIndexX = 0;
         spriteForMoveIndexY = 0;
         _cont.removeEventListener(TouchEvent.TOUCH, onTouch);
-        g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        g.gameDispatcher.removeEnterFrame(moveIt);
 
         _cont.removeChild(_spriteForMove);
         while (_spriteForMove.numChildren) {
@@ -522,50 +356,44 @@ public class ToolsModifier {
             _moveGrid.clearIt();
             _moveGrid = null;
         }
-
-        if (imForMove) imForMove.dispose();
-        imForMove = null;
         _spriteForMove = null;
 
         if (_callbackAfterMove != null) {
-            _callbackAfterMove.apply(null, [x, y])
+            _callbackAfterMove.apply(null, [_activeBuilding, int(x), int(y)]);
         }
     }
 
     private var spriteForMoveIndexX:int = 0;
     private var spriteForMoveIndexY:int = 0;
     private function moveIt():void {
+        _cont.x = g.cont.gameCont.x;
+        _cont.y = g.cont.gameCont.y;
         _spriteForMove.x = (_mouse.mouseX - _cont.x)/g.cont.gameCont.scaleX;
         _spriteForMove.y = (_mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2)/g.cont.gameCont.scaleX;
-        if (_startDragPoint) return;
-        if (g.selectedBuild && !g.selectedBuild.useIsometricOnly) return;
+        if (_startDragPoint) return;  // using for dragging gameCont
+        if (!_activeBuilding.useIsometricOnly) return;
 
         var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
         if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {
             spriteForMoveIndexX = point.x;
             spriteForMoveIndexY = point.y;
-            if (_activeBuildingData.buildType == BuildType.DECOR_TAIL) {
+            if (_activeBuilding is DecorTail) {
                 if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
-                    imForMove.filter = ManagerFilters.RED_TINT_FILTER;
+                    _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
                 } else {
-                    imForMove.filter = null;
+                    _spriteForMove.filter = null;
                 }
             } else {
-                if (g.isActiveMapEditor && _activeBuildingData.buildType == BuildType.WILD) return;
+                if (g.isActiveMapEditor && _activeBuilding is Wild) return;
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
                 if (_moveGrid.isFree) {
-                    imForMove.filter = null;
+                    _spriteForMove.filter = null;
                 } else {
-                    imForMove.filter = ManagerFilters.RED_TINT_FILTER;
-
+                    _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
                 }
             }
         }
-    }
-
-    private function onEnterFrame():void {
-        moveIt();
     }
 
     private var i:int;

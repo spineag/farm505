@@ -42,13 +42,21 @@ public class Ambar extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.selectedBuild) return;
         _source.filter = ManagerFilters.RED_STROKE;
         g.hint.showIt(_dataBuild.name);
     }
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                } else return;
+            } else {
+                onOut();
+                g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             onOut();
             g.townArea.deleteBuild(this);

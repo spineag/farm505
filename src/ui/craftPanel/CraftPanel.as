@@ -135,7 +135,7 @@ public class CraftPanel {
     }
 
     public function pointXY():Point {
-        return _source.localToGlobal(new Point(-170,-5));
+        return _source.localToGlobal(new Point(-165,-5));
     }
 
 }
