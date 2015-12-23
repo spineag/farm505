@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:ad2929bc3e2f1af8391cbea209006f42:c24b99d8f68411139902c06f91dadded:4793af12d87b93b48c95ed9be00d1ca8$ -->
+<!-- $TexturePacker:SmartUpdate:bd45d20c8a8cac6fd8b73b74b32335e6:ad4b4bec8656e655b167b762bd679cc7:4793af12d87b93b48c95ed9be00d1ca8$ -->
 <TextureAtlas imagePath="iconAtlas.png">
-    <SubTexture name="ambar_icon" x="1285" y="2" width="71" height="120" frameX="-1" frameY="0" frameWidth="73" frameHeight="120"/>
-    <SubTexture name="bakery_icon" x="1358" y="2" width="143" height="117" frameX="-4" frameY="-20" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="bbq_grill_icon" x="2" y="138" width="140" height="87" frameX="-5" frameY="-50" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="beehive_icon" x="273" y="2" width="136" height="131" frameX="-7" frameY="-15" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="blueberry_icon" x="479" y="2" width="130" height="126" frameX="-12" frameY="-17" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cat_icon" x="411" y="2" width="66" height="131" frameX="-42" frameY="-15" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cheery2_icon" x="150" y="2" width="121" height="132" frameX="-19" frameY="-13" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="chicken_icon" x="1644" y="116" width="105" height="107" frameX="-22" frameY="-23" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cow_icon" x="611" y="2" width="124" height="123" frameX="-13" frameY="-12" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="dairy_icon" x="737" y="2" width="141" height="121" frameX="-6" frameY="-16" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="farm_bee_icon" x="1358" y="121" width="144" height="104" frameX="-3" frameY="-33" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="farm_chicken_icon" x="624" y="127" width="143" height="96" frameX="-3" frameY="-41" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="farm_cow_icon" x="769" y="125" width="143" height="96" frameX="-3" frameY="-41" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="farm_pig_icon" x="914" y="125" width="142" height="95" frameX="-4" frameY="-42" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="farm_sheep_icon" x="479" y="130" width="143" height="95" frameX="-3" frameY="-42" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="feed_mill_icon" x="144" y="138" width="141" height="83" frameX="-5" frameY="-54" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="juice_press_icon" x="1018" y="2" width="139" height="120" frameX="-6" frameY="-17" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="loom_icon" x="1210" y="124" width="139" height="91" frameX="-6" frameY="-46" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pie_oven_icon" x="1641" y="2" width="136" height="112" frameX="-9" frameY="-17" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pig_icon" x="1917" y="2" width="128" height="110" frameX="-11" frameY="-21" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pizza_maker_icon" x="1503" y="2" width="136" height="113" frameX="-9" frameY="-16" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="raspberry_icon" x="2" y="2" width="146" height="134" frameX="-2" frameY="-16" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="ridge_icon" x="1058" y="124" width="150" height="93" frameX="0" frameY="-28" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="sheep_icon" x="1917" y="114" width="112" height="111" frameX="-20" frameY="-24" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="sklad_icon" x="1159" y="2" width="124" height="120" frameX="0" frameY="0" frameWidth="126" frameHeight="120"/>
-    <SubTexture name="smelter_icon" x="1779" y="2" width="136" height="112" frameX="-9" frameY="-17" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="smoke_house_icon" x="1504" y="117" width="138" height="107" frameX="-7" frameY="-30" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="sugar_mill_icon" x="880" y="2" width="136" height="121" frameX="-9" frameY="-8" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="ambar_icon" x="1411" y="2" width="71" height="120" frameX="-1" frameY="0" frameWidth="73" frameHeight="120"/>
+    <SubTexture name="apple_tree_icon" x="2" y="2" width="124" height="140" frameX="-12" frameY="-8" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="bakery_icon" x="1484" y="2" width="143" height="117" frameX="-4" frameY="-20" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="bbq_grill_icon" x="145" y="138" width="140" height="87" frameX="-5" frameY="-50" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="beehive_icon" x="399" y="2" width="136" height="131" frameX="-7" frameY="-15" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="blueberry_icon" x="605" y="2" width="130" height="126" frameX="-12" frameY="-17" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cat_icon" x="537" y="2" width="66" height="131" frameX="-42" frameY="-15" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cheery2_icon" x="276" y="2" width="121" height="132" frameX="-19" frameY="-13" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="chicken_icon" x="1624" y="121" width="105" height="107" frameX="-22" frameY="-23" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cow_icon" x="737" y="2" width="124" height="123" frameX="-13" frameY="-12" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="dairy_icon" x="863" y="2" width="141" height="121" frameX="-6" frameY="-16" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="farm_bee_icon" x="1184" y="124" width="144" height="104" frameX="-3" frameY="-33" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="farm_chicken_icon" x="605" y="130" width="143" height="96" frameX="-3" frameY="-41" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="farm_cow_icon" x="750" y="127" width="143" height="96" frameX="-3" frameY="-41" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="farm_pig_icon" x="1040" y="125" width="142" height="95" frameX="-4" frameY="-42" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="farm_sheep_icon" x="895" y="125" width="143" height="95" frameX="-3" frameY="-42" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="feed_mill_icon" x="2" y="144" width="141" height="83" frameX="-5" frameY="-54" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="juice_press_icon" x="1144" y="2" width="139" height="120" frameX="-6" frameY="-17" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="loom_icon" x="287" y="136" width="139" height="91" frameX="-6" frameY="-46" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pie_oven_icon" x="1767" y="2" width="136" height="112" frameX="-9" frameY="-17" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pig_icon" x="1905" y="2" width="128" height="110" frameX="-11" frameY="-21" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pizza_maker_icon" x="1629" y="2" width="136" height="113" frameX="-9" frameY="-16" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="raspberry_icon" x="128" y="2" width="146" height="134" frameX="-2" frameY="-16" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="ridge_icon" x="428" y="135" width="150" height="93" frameX="0" frameY="-28" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="sheep_icon" x="1731" y="117" width="112" height="111" frameX="-20" frameY="-24" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="sklad_icon" x="1285" y="2" width="124" height="120" frameX="0" frameY="0" frameWidth="126" frameHeight="120"/>
+    <SubTexture name="smelter_icon" x="1845" y="116" width="136" height="112" frameX="-9" frameY="-17" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="smoke_house_icon" x="1484" y="121" width="138" height="107" frameX="-7" frameY="-30" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="sugar_mill_icon" x="1006" y="2" width="136" height="121" frameX="-9" frameY="-8" frameWidth="150" frameHeight="150"/>
 </TextureAtlas>

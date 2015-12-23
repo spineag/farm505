@@ -2,7 +2,11 @@
  * Created by user on 6/24/15.
  */
 package windows.shop {
+import build.AreaObject;
+import build.WorldObject;
+import build.fabrica.Fabrica;
 import build.farm.Farm;
+import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
 
@@ -414,32 +418,41 @@ public class ShopItem {
             }
         }
 
+        var build:AreaObject;
         if (_data.buildType == BuildType.RIDGE) {
+            build = g.townArea.createNewBuild(_data);
+            g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
             g.woShop.onClickExit();
-            g.toolsModifier.startMove(_data, afterMove);
+            g.toolsModifier.startMove(build as AreaObject, afterMove);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
+            build = g.townArea.createNewBuild(_data);
+            g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.woShop.onClickExit();
             if (_state == STATE_FROM_INVENTORY) {
-                g.toolsModifier.startMoveTail(_data, afterMoveFromInventory, true);
+                g.toolsModifier.startMoveTail(build, afterMoveFromInventory, true);
             } else {
-                g.toolsModifier.startMoveTail(_data, afterMove, true);
+                g.toolsModifier.startMoveTail(build, afterMove, true);
             }
         } else if (_data.buildType == BuildType.CAT) {
             g.managerCats.onBuyCatFromShop();
             updateItem();
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_data.cost);
         } else if (_data.buildType != BuildType.ANIMAL) {
+            build = g.townArea.createNewBuild(_data);
+            g.selectedBuild = build;
             g.woShop.onClickExit();
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            if (build is Tree) (build as Tree).showShopView();
+            if (build is Fabrica) (build as Fabrica).showShopView();
             if (_state == STATE_FROM_INVENTORY) {
-                g.toolsModifier.startMove(_data, afterMoveFromInventory, 1, 1, true);
+                g.toolsModifier.startMove(build, afterMoveFromInventory, true);
             } else {
-                g.toolsModifier.startMove(_data, afterMove, 1, 1, true);
+                g.toolsModifier.startMove(build, afterMove, true);
             }
         } else {
             //додаємо на відповідну ферму
@@ -458,7 +471,7 @@ public class ShopItem {
         }
     }
 
-    private function afterMove(_x:Number, _y:Number):void {
+    private function afterMove(build:AreaObject,_x:Number, _y:Number):void {
         if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA
                 || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             g.bottomPanel.cancelBoolean(false);
@@ -472,17 +485,20 @@ public class ShopItem {
             localPoint = cont.parent.localToGlobal(localPoint);
             new XPStar(localPoint.x, localPoint.y, _data.xpForBuild);
         }
+        (build as WorldObject).source.filter = null;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        g.townArea.createNewBuild(_data, _x, _y);
         g.userInventory.addMoney(_data.currency, -_countCost);
+        if (build is Tree) (build as Tree).removeShopView();
+        if (build is Fabrica) (build as Fabrica).removeShopView();
+        g.townArea.pasteBuild(build, _x, _y);
     }
 
-    private function afterMoveFromInventory(_x:Number, _y:Number):void {
+    private function afterMoveFromInventory(_build:AreaObject, _x:Number, _y:Number):void {
         g.bottomPanel.cancelBoolean(false);
         var dbId:int = g.userInventory.removeFromDecorInventory(_data.id);
-        g.townArea.createNewBuild(_data, _x, _y, true, dbId);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
+        g.townArea.pasteBuild(_build, _x, _y);
         g.userInventory.addMoney(_data.currency, -_data.cost);
     }
 

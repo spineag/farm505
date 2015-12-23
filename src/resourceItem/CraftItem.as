@@ -119,6 +119,7 @@ public class CraftItem {
         if (_callback != null) {
             _callback.apply(null, []);
         }
+        _source.visible = true;
         _source.endClickCallback = null;
         _source.filter = null;
         for(var id:String in g.dataRecipe.objectRecipe) {
@@ -148,7 +149,6 @@ public class CraftItem {
                 _source.removeChildAt(0);
             }
             _source = null;
-//            g.userInventory.addResource(_resourceItem.resourceID, _count);
             if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
                 g.craftPanel.afterFly(_resourceItem);
         };

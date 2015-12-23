@@ -8,30 +8,27 @@ import dragonBones.factories.StarlingFactory;
 
 import flash.events.Event;
 import manager.EmbedAssets;
+import manager.Vars;
+
 import starling.display.Sprite;
 
 public class BuildingBuild {
     public var source:Sprite;
-    private var factory:StarlingFactory;
     private var armature:Armature;
     private var armatureClip:Sprite;
+    private var g:Vars = Vars.getInstance();
 
     public function BuildingBuild(st:String) {
         source = new Sprite();
-        factory = new StarlingFactory();
-        var f1:Function = function (e:Event):void {
-            armature = factory.buildArmature("cat");
-            armatureClip = armature.display as Sprite;
-            source.addChild(armatureClip);
-            WorldClock.clock.add(armature);
-            if (st == 'work') {
-                workAnimation();
-            } else {
-                doneAnimation();
-            }
-        };
-        factory.addEventListener(Event.COMPLETE, f1);
-        factory.parseData(new EmbedAssets.BuildingBuild());
+        armature = g.allData.factory['buildingBuild'].buildArmature("cat");
+        armatureClip = armature.display as Sprite;
+        source.addChild(armatureClip);
+        WorldClock.clock.add(armature);
+        if (st == 'work') {
+            workAnimation();
+        } else {
+            doneAnimation();
+        }
     }
 
     public function workAnimation():void {
@@ -48,10 +45,8 @@ public class BuildingBuild {
         armature.animation.dispose();
         armatureClip.dispose();
         armature.dispose();
-        factory.dispose();
         armatureClip = null;
         armature = null;
-        factory = null;
         source = null;
     }
 }

@@ -28,6 +28,7 @@ import data.BuildType;
 import flash.geom.Point;
 import heroes.BasicCat;
 import manager.Vars;
+
 import mouse.ToolsModifier;
 
 import resourceItem.ResourceItem;
@@ -43,7 +44,6 @@ public class TownArea extends Sprite {
     private var _cityAwayObjects:Array;
     private var _cityAwayTailObjects:Array;
     private var _dataPreloaders:Object;
-    private var _dataObjects:Object;
     private var _cont:Sprite;
     private var _contTail:Sprite;
     private var _townMatrix:Array;
@@ -59,7 +59,6 @@ public class TownArea extends Sprite {
         _townMatrix = [];
         _townTailMatrix = [];
         _dataPreloaders = {};
-        _dataObjects = {};
         _cont = g.cont.contentCont;
         _contTail = g.cont.tailCont;
 
@@ -258,32 +257,23 @@ public class TownArea extends Sprite {
             _cont.removeChild(c.source);
     }
 
-    public function createNewBuild(_data:Object, _x:Number, _y:Number, isFromServer:Boolean = false, dbId:int = 0):void {
-        var build:WorldObject;
-        var isFlip:Boolean = false;
-        var ob:Object = {};
+    public function createNewBuild(_data:Object, dbId:int = 0):AreaObject {
+        var build:AreaObject;
 
         if (!_data) {
             Cc.error('TownArea createNewBuild:: _data == nul for building');
             g.woGameError.showIt();
-            return;
+            return null;
         }
 
-        if (!isFromServer && _data.buildType == BuildType.FABRICA) {    // что означает, что через магазин купили и поставили новое здание
-            if (g.useDataFromServer) {
-                ob.dbId = -1;
-                ob.timeBuildBuilding = 0;
-                ob.isOpen = 0;
-                g.user.userBuildingData[_data.id] = ob;
-            } else {
-                ob.dbId = int(Math.random() * 1000);
-                ob.dateStartBuild = new Date().getTime();
-                ob.isOpen = 0;
-                g.user.userBuildingData[_data.id] = ob;
-            }
+        if (!_data.dbBuildingId && _data.buildType == BuildType.FABRICA) {    // что означает, что через магазин купили и поставили новую фабрику
+            var ob:Object = {};
+            ob.dbId = int(Math.random()*100000);
+            ob.timeBuildBuilding = 0;
+            ob.isOpen = 0;
+            g.user.userBuildingData[_data.id] = ob;
         }
 
-        if (_data.isFlip) isFlip = true;
         switch (_data.buildType) {
             case BuildType.TEST:
                 build = new TestBuild(_data);
@@ -302,7 +292,6 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.TREE:
                 build = new Tree(_data);
-                if (!isFromServer) (build as Tree).releaseNewTree();
                 break;
             case BuildType.WILD:
                 build = new Wild(_data);
@@ -348,19 +337,15 @@ public class TownArea extends Sprite {
         if (!build) {
             Cc.error('TownArea:: BUILD is null for type: ' + _data.buildType);
             g.woGameError.showIt();
-            return;
+            return null;
         }
-        g.selectedBuild = build;
         (build as WorldObject).dbBuildingId = dbId;
-        if (_data.buildType == BuildType.DECOR_TAIL) {
-            pasteTailBuild(build as DecorTail, _x, _y, !isFromServer);
-        } else {
-            pasteBuild(build, _x, _y, !isFromServer);
-        }
-        if (isFlip && !(build is DecorPostFence)) {
+
+        if (_data.isFlip) {
             (build as AreaObject).releaseFlip();
-            if (!isFromServer) g.directServer.userBuildingFlip(dbId, int(isFlip), null);
         }
+
+        return build;
     }
 
     public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
@@ -436,6 +421,11 @@ public class TownArea extends Sprite {
         zSort();
 
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree)) {
+            if (g.user.softCurrencyCount < worldObject.dataBuild.cost) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                return;
+            }
             g.bottomPanel.cancelBoolean(true);
             if (worldObject is Ridge) {
                 g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
@@ -446,21 +436,32 @@ public class TownArea extends Sprite {
             var curCount:int;
             var maxCount:int;
             var maxCountAtCurrentLevel:int = 0;
-            _dataObjects = worldObject.dataBuild;
-            arr = g.townArea.getCityObjectsById(_dataObjects.id);
+            arr = g.townArea.getCityObjectsById(worldObject.dataBuild.id);
             curCount = arr.length;
-            for (i = 0; _dataObjects.blockByLevel.length; i++) {
-                if (_dataObjects.blockByLevel[i] <= g.user.level) {
+            for (i = 0; worldObject.dataBuild.blockByLevel.length; i++) {
+                if (worldObject.dataBuild.blockByLevel[i] <= g.user.level) {
                     maxCountAtCurrentLevel++;
                 } else break;
             }
-            maxCount = maxCountAtCurrentLevel * _dataObjects.countUnblock;
+            maxCount = maxCountAtCurrentLevel * worldObject.dataBuild.countUnblock;
             if (curCount == maxCount) {
                 g.bottomPanel.cancelBoolean(false);
                 return;
             }
-            g.toolsModifier.startMove(_dataObjects, afterMoveReturn);
+            var build:AreaObject = g.townArea.createNewBuild(worldObject.dataBuild);
+            g.selectedBuild = build;
+            (build as WorldObject).source.filter = null;
+            g.toolsModifier.startMove(build, afterMoveReturn, true);
         }
+    }
+
+    private function afterMoveReturn(build:AreaObject, _x:Number, _y:Number):void {   // юзали для автоматической покупки грядок и деревьев
+        (build as WorldObject).source.filter = null;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        if (build is Tree) (build as Tree).removeShopView();
+//        if (build is Fabrica) (build as Fabrica).removeShopView();
+        g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);
+        pasteBuild(build, _x, _y);
     }
 
     public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
@@ -530,7 +531,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function moveBuild(worldObject:WorldObject, treeState:int = 1,ridgeState:int = 1):void{
+    public function moveBuild(worldObject:WorldObject):void{
         if (!worldObject) {
             Cc.error('TownArea moveBuild:: empty worldObject');
             g.woGameError.showIt();
@@ -547,17 +548,12 @@ public class TownArea extends Sprite {
                     unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
                 }
             }
-            g.toolsModifier.startMove((worldObject as AreaObject).dataBuild, afterMove, treeState,ridgeState);
+            g.toolsModifier.startMove(worldObject as AreaObject, afterMove);
         }
     }
 
-    private function afterMove(_x:Number, _y:Number):void {
-        pasteBuild(g.selectedBuild, _x, _y, false, true);
-        g.selectedBuild = null;
-    }
-
-    public function backBuildAfterMoveCancel():void {
-        pasteBuild(g.selectedBuild, g.selectedBuild.source.x, g.selectedBuild.source.y, false, false);
+    private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
+        pasteBuild(build, _x, _y, false, true);
         g.selectedBuild = null;
     }
 
@@ -571,12 +567,12 @@ public class TownArea extends Sprite {
             g.selectedBuild = tail;
             _contTail.removeChild(tail.source);
             unFillTailMatrix(tail.posX, tail.posY);
-            g.toolsModifier.startMoveTail((tail as AreaObject).dataBuild, afterMoveTail);
+            g.toolsModifier.startMoveTail(tail as AreaObject, afterMoveTail);
         }
     }
 
-    private function afterMoveTail(_x:Number, _y:Number):void {
-        pasteTailBuild(g.selectedBuild as DecorTail, _x, _y, false, true);
+    private function afterMoveTail(build:AreaObject,_x:Number, _y:Number):void {
+        pasteTailBuild(build as DecorTail, _x, _y, false, true);
         g.selectedBuild = null;
     }
 
@@ -615,17 +611,6 @@ public class TownArea extends Sprite {
 
         d.removeLeftLenta();
         d.removeRightLenta();
-    }
-
-    private function afterMoveReturn(_x:Number, _y:Number):void {
-        if (g.user.softCurrencyCount < _dataObjects.cost) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.bottomPanel.cancelBoolean(false);
-            return;
-        }
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.townArea.createNewBuild(_dataObjects, _x, _y);
-            g.userInventory.addMoney(_dataObjects.currency, -_dataObjects.cost);
     }
 
     private function removeAllBuildingsFromTown():void {

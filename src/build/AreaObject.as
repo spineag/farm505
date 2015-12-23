@@ -26,6 +26,7 @@ public class AreaObject extends WorldObject {
         _sizeY = 0;
     }
 
+
     public function clearIt():void {
 //        if (_isoView) {
 //            while (_isoView.numChildren) _isoView.removeChildAt(0);
@@ -76,6 +77,7 @@ public class AreaObject extends WorldObject {
             if (_source.contains(_build)) {
                 _source.removeChild(_build);
             }
+            while (_build.numChildren) _build.removeChildAt(0);
         }
 
         im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));

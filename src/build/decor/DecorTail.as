@@ -27,14 +27,24 @@ public class DecorTail extends AreaObject{
 
     private function onHover():void {
         if (g.isActiveMapEditor) return;
-        _source.filter = ManagerFilters.RED_STROKE;
+        if (g.selectedBuild) return;
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+            if (g.selectedBuild) return;
+            _source.filter = ManagerFilters.RED_STROKE;
+        }
     }
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            _source.filter = null;
-            g.townArea.moveTailBuild(this);
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                } else return;
+            } else {
+                onOut();
+                g.townArea.moveTailBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteTailBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {

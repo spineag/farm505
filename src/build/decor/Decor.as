@@ -28,6 +28,7 @@ public class Decor extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         _source.filter = ManagerFilters.RED_STROKE;
     }
@@ -35,7 +36,14 @@ public class Decor extends AreaObject{
     private function onClick():void {
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                } else return;
+            } else {
+                onOut();
+                g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {

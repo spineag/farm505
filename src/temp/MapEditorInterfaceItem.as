@@ -3,6 +3,9 @@
  */
 package temp {
 
+import build.AreaObject;
+import build.AreaObject;
+
 import manager.Vars;
 
 import mouse.ToolsModifier;
@@ -49,12 +52,13 @@ public class MapEditorInterfaceItem {
         if(g.toolsModifier.modifierType !== ToolsModifier.NONE) return;
         // это условие только для включенного режима передвижения, нужно добавить и на остальные
         g.toolsModifier.modifierType = ToolsModifier.MOVE;
-        g.toolsModifier.startMove(_data, afterMove);
+        var build:AreaObject = g.townArea.createNewBuild(_data);
+        g.toolsModifier.startMove(build, afterMove);
     }
 
-    private function afterMove(_x:Number, _y:Number):void {
+    private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        g.townArea.createNewBuild(_data, _x, _y);
+        g.townArea.pasteBuild(build, _x, _y);
     }
 
     public function deleteIt():void {

@@ -95,6 +95,7 @@ public class LockedLand extends AreaObject {
     }
 
     private function onHover():void {
+        if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         _source.filter = ManagerFilters.GREEN_STROKE;
         _source.filter = ManagerFilters.YELLOW_TINT_FILTER;
@@ -104,6 +105,7 @@ public class LockedLand extends AreaObject {
     }
 
     private function onClick():void {
+        if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {

@@ -6,10 +6,12 @@ public class AllData {
     public var lockedLandData:Object;
     public var atlas:Object;
     public var fonts:Object;
+    public var factory:Object;  // StarlingFactory
 
     public function AllData() {
         atlas = {};
         fonts = {};
+        factory = {};
     }
 }
 }

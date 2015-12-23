@@ -2,8 +2,10 @@
  * Created by user on 7/16/15.
  */
 package server {
+import build.AreaObject;
 import build.WorldObject;
 import build.WorldObject;
+import build.decor.DecorTail;
 import build.fabrica.Fabrica;
 import build.farm.Animal;
 import build.ridge.Ridge;
@@ -981,7 +983,6 @@ public class DirectServer {
                         // in another case we get isometric coordinates from server
                         p = g.matrixGrid.getXYFromIndex(p);
                     }
-                    g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
 
                     ob = {};
                     ob.buildId = dataBuild.id;
@@ -994,6 +995,13 @@ public class DirectServer {
                         ob.isOpen = Boolean(int(d.message[i].is_open));
                     }
                     g.user.userDataCity.objects.push(ob);
+
+                    var build:AreaObject = g.townArea.createNewBuild(dataBuild, dbId);
+                    if (build is DecorTail) {
+                        g.townArea.pasteTailBuild(build as DecorTail, p.x, p.y, false);
+                    } else {
+                        g.townArea.pasteBuild(build, p.x, p.y, false);
+                    }
                 }
             }
             if (callback != null) {
@@ -3101,7 +3109,6 @@ public class DirectServer {
                 var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
                 dataBuild.dbId = dbId;
                 dataBuild.isFlip = int(d.message[i].is_flip);
-                g.townArea.createNewBuild(dataBuild, p.x, p.y, true, dbId);
 
                 ob = {};
                 ob.buildId = dataBuild.id;
@@ -3110,6 +3117,9 @@ public class DirectServer {
                 ob.isFlip = int(d.message[i].is_flip);
                 ob.dbId = dbId;
                 g.user.userDataCity.objects.push(ob);
+
+                var build:AreaObject = g.townArea.createNewBuild(dataBuild, dbId);
+                g.townArea.pasteBuild(build, p.x, p.y, false);
             }
             if (callback != null) {
                 callback.apply();

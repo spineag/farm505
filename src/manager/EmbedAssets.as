@@ -3,6 +3,10 @@
  */
 package manager {
 
+import dragonBones.factories.StarlingFactory;
+
+import flash.events.Event;
+
 import flash.text.Font;
 
 import starling.textures.Texture;
@@ -75,17 +79,19 @@ public class EmbedAssets {
     private const HouschkaBold:Class;
 
     [Embed(source = "../../assets/cat9.png", mimeType = "application/octet-stream")]
-    public static const CatData:Class;
+    private const CatData:Class;
     [Embed(source = "../../assets/buildingBuild.png", mimeType = "application/octet-stream")]
-    public static const BuildingBuild:Class;
+    private const BuildingBuild:Class;
+    [Embed(source = "../../assets/trees.png", mimeType = "application/octet-stream")]
+    private const BuildingTrees:Class;
 
     private var g:Vars = Vars.getInstance();
 
-    public function EmbedAssets() {
-        createTexture();
+    public function EmbedAssets(onLoadCallback:Function) {
+        createTexture(onLoadCallback);
     }
 
-    private function createTexture():void {
+    private function createTexture(onLoadCallback:Function):void {
         g.allData = new AllData();
 
         var texture:Texture = Texture.fromBitmap(new MapTexture());
@@ -142,6 +148,52 @@ public class EmbedAssets {
         g.allData.fonts['BloggerRegular'] = (new BloggerRegular() as Font).fontName;
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
+
+
+
+
+        var count:int = 3;
+        var factoryTree:StarlingFactory = new StarlingFactory();
+        var fTree:Function = function (e:Event):void {
+            g.allData.factory['tree'] = factoryTree;
+            count--;
+            if (count <= 0) {
+                if (onLoadCallback != null) {
+                    onLoadCallback.apply();
+                    onLoadCallback = null;
+                }
+            }
+        };
+        factoryTree.addEventListener(Event.COMPLETE, fTree);
+        factoryTree.parseData(new BuildingTrees());
+
+        var factoryCat:StarlingFactory = new StarlingFactory();
+        var fCat:Function = function (e:Event):void {
+            g.allData.factory['cat'] = factoryCat;
+            count--;
+            if (count <= 0) {
+                if (onLoadCallback != null) {
+                    onLoadCallback.apply();
+                    onLoadCallback = null;
+                }
+            }
+        };
+        factoryCat.addEventListener(Event.COMPLETE, fCat);
+        factoryCat.parseData(new CatData());
+
+        var factoryBuild:StarlingFactory = new StarlingFactory();
+        var fBuild:Function = function (e:Event):void {
+            g.allData.factory['buildingBuild'] = factoryBuild;
+            count--;
+            if (count <= 0) {
+                if (onLoadCallback != null) {
+                    onLoadCallback.apply();
+                    onLoadCallback = null;
+                }
+            }
+        };
+        factoryBuild.addEventListener(Event.COMPLETE, fBuild);
+        factoryBuild.parseData(new BuildingBuild());
     }
 }
 }

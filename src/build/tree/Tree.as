@@ -6,13 +6,21 @@ import build.AreaObject;
 
 import data.BuildType;
 
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+
+import dragonBones.factories.StarlingFactory;
+
 import flash.display.Bitmap;
+import flash.events.Event;
 
 import flash.geom.Point;
 
 import hint.MouseHint;
 
 import hint.FlyMessage;
+
+import manager.EmbedAssets;
 
 import manager.ManagerFilters;
 
@@ -68,6 +76,10 @@ public class Tree extends AreaObject{
     public var tree_db_id:String;    // id в табличке user_tree
     private var _wateringUserSocialId:String;
 
+    private var armature:Armature;
+    private var armatureClip:Sprite;
+    private var arrFruits:Array;
+
     public function Tree(_data:Object) {
         super(_data);
         _arrCrafted = [];
@@ -82,16 +94,34 @@ public class Tree extends AreaObject{
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
 
+        switch (_data.id) {
+            case 25: armature = g.allData.factory['tree'].buildArmature("apple"); break;
+            case 26: armature = g.allData.factory['tree'].buildArmature("cheery"); break;
+            case 41: armature = g.allData.factory['tree'].buildArmature("raspberry"); break;
+            case 42: armature = g.allData.factory['tree'].buildArmature("blueberry"); break;
+        }
+        armatureClip = armature.display as Sprite;
+        _build.addChild(armatureClip);
+        WorldClock.clock.add(armature);
+
+        arrFruits = [];
+        arrFruits.push(armature.getBone('fruit1'));
+        arrFruits.push(armature.getBone('fruit2'));
+        arrFruits.push(armature.getBone('fruit3'));
+        arrFruits.push(armature.getBone('fruit4'));
+
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         _resourceItem = new ResourceItem();
         _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
     }
 
-    public function releaseNewTree():void {
-        _state = GROW1;
-        setBuildImage();
-        startGrow();
+    public function showShopView():void {
+        armature.animation.gotoAndStop("big", 0);
+    }
+
+    public function removeShopView():void {
+        armature.animation.gotoAndStop("small", 0);
     }
 
     public function releaseTreeFromServer(ob:Object):void {
@@ -167,159 +197,119 @@ public class Tree extends AreaObject{
         _sizeY = _dataBuild.height;
 
         (_build as Sprite).alpha = 1;
-        if (_flip) {
-            _build.scaleX = -_defaultScale;
-        }
         _source.addChild(_build);
 
         //createIsoView();
     }
 
     private function setBuildImage():void {
-        var im:Image;
-        var im2:Image;
         var i:int;
         var item:CraftItem;
 
-        while (_build.numChildren) { _build.removeChildAt(0); }
-
         switch (_state) {
             case GROW1:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowSmall));
-                im.x = _dataBuild.innerPositionsGrow1[0];
-                im.y = _dataBuild.innerPositionsGrow1[1];
+                armature.animation.gotoAndStop("small", 0);
                 break;
             case GROW_FLOWER1:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowSmall));
-                im2 = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowSmallFlower));
-                im.x = _dataBuild.innerPositionsGrow1[0];
-                im.y = _dataBuild.innerPositionsGrow1[1];
-                im2.x = _dataBuild.innerPositionsGrow1[2];
-                im2.y = _dataBuild.innerPositionsGrow1[3];
+                armature.animation.gotoAndStop("small_flower", 0);
                 break;
             case GROWED1:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowSmall));
-                im.x = _dataBuild.innerPositionsGrow1[0];
-                im.y = _dataBuild.innerPositionsGrow1[1];
+                armature.animation.gotoAndStop("small_fruits", 0);
                 for (i=0; i < _dataBuild.countCraftResource[0]; i++) {
-                    item = new CraftItem(-3 + int(Math.random()*3), im.y + 7 - int(Math.random()*3), _resourceItem, _craftSprite, 1);
-                    MCScaler.scale(item.source, 30, 30);
+                    item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
+                    item.source.visible = false;
+//                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
                     item.callback = function():void {onCraftItemClick(item)};
                     _arrCrafted.push(item);
                 }
+                rechekFruits();
                 break;
             case GROW2:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowMiddle));
-                im.x = _dataBuild.innerPositionsGrow2[0];
-                im.y = _dataBuild.innerPositionsGrow2[1];
+                armature.animation.gotoAndStop("middle", 0);
                 break;
             case GROW_FLOWER2:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowMiddle));
-                im2 = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowMiddleFlower));
-                im.x = _dataBuild.innerPositionsGrow2[0];
-                im.y = _dataBuild.innerPositionsGrow2[1];
-                im2.x = _dataBuild.innerPositionsGrow2[2];
-                im2.y = _dataBuild.innerPositionsGrow2[3];
+                armature.animation.gotoAndStop("middle_flower", 0);
                 break;
             case GROWED2:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowMiddle));
-                im.x = _dataBuild.innerPositionsGrow2[0];
-                im.y = _dataBuild.innerPositionsGrow2[1];
+                armature.animation.gotoAndStop("middle_fruits", 0);
                 for (i=0; i < _dataBuild.countCraftResource[1]; i++) {
-                    item = new CraftItem(-3 + int(Math.random()*3), im.y + 7 - int(Math.random()*3), _resourceItem, _craftSprite, 1);
-                    MCScaler.scale(item.source, 30, 30);
+                    item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
+                    item.source.visible = false;
+//                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
                     item.callback = function():void {onCraftItemClick(item)};
                     _arrCrafted.push(item);
                 }
+                rechekFruits();
                 break;
             case GROW3:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowBig));
-                im.x = _dataBuild.innerPositionsGrow3[0];
-                im.y = _dataBuild.innerPositionsGrow3[1];
+                armature.animation.gotoAndStop("big", 0);
                 break;
             case GROW_FLOWER3:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowBig));
-                im2 = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowBigFlower));
-                im.x = _dataBuild.innerPositionsGrow3[0];
-                im.y = _dataBuild.innerPositionsGrow3[1];
-                im2.x = _dataBuild.innerPositionsGrow3[2];
-                im2.y = _dataBuild.innerPositionsGrow3[3];
+                armature.animation.gotoAndStop("big_flower", 0);
                 break;
             case GROWED3:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowBig));
-                im.x = _dataBuild.innerPositionsGrow3[0];
-                im.y = _dataBuild.innerPositionsGrow3[1];
+                armature.animation.gotoAndStop("big_fruits", 0);
                 for (i=0; i < _dataBuild.countCraftResource[2]; i++) {
-                    item = new CraftItem(-3 + int(Math.random()*3), im.y + 7 - int(Math.random()*3), _resourceItem, _craftSprite, 1);
-                    MCScaler.scale(item.source, 30, 30);
+                    item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
+                    item.source.visible = false;
+//                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
                     item.callback = function():void {onCraftItemClick(item)};
                     _arrCrafted.push(item);
                 }
+                rechekFruits();
                 break;
             case DEAD:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageDead));
-                im.x = _dataBuild.innerPositionsDead[0];
-                im.y = _dataBuild.innerPositionsDead[1];
+                armature.animation.gotoAndStop("dead", 0);
                 break;
             case FULL_DEAD:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageDead));
-                im.x = _dataBuild.innerPositionsDead[0];
-                im.y = _dataBuild.innerPositionsDead[1];
+                armature.animation.gotoAndStop("dead", 0);
                 break;
             case ASK_FIX:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageDead));
-                im.x = _dataBuild.innerPositionsDead[0];
-                im.y = _dataBuild.innerPositionsDead[1];
+                armature.animation.gotoAndStop("dead", 0);
                 break;
             case FIXED:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageDead));
-                im.x = _dataBuild.innerPositionsDead[0];
-                im.y = _dataBuild.innerPositionsDead[1];
+                armature.animation.gotoAndStop("dead", 0);
                 break;
             case GROW_FIXED:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowBig));
-                im.x = _dataBuild.innerPositionsGrow3[0];
-                im.y = _dataBuild.innerPositionsGrow3[1];
+                armature.animation.gotoAndStop("big", 0);
                 break;
             case GROW_FIXED_FLOWER:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowBig));
-                im2 = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowBigFlower));
-                im.x = _dataBuild.innerPositionsGrow3[0];
-                im.y = _dataBuild.innerPositionsGrow3[1];
-                im2.x = _dataBuild.innerPositionsGrow3[2];
-                im2.y = _dataBuild.innerPositionsGrow3[3];
+                armature.animation.gotoAndStop("big_flower", 0);
                 break;
             case GROWED_FIXED:
-                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageGrowBig));
-                im.x = _dataBuild.innerPositionsGrow3[0];
-                im.y = _dataBuild.innerPositionsGrow3[1];
+                armature.animation.gotoAndStop("big_fruits", 0);
                 for (i=0; i < _dataBuild.countCraftResource[2]; i++) {
-                    item = new CraftItem(-3 + int(Math.random()*3), im.y + 7 - int(Math.random()*3), _resourceItem, _craftSprite, 1);
-                    MCScaler.scale(item.source, 30, 30);
+                    item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
+                    item.source.visible = false;
+//                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
                     item.callback = function():void {onCraftItemClick(item)};
                     _arrCrafted.push(item);
                 }
+                rechekFruits();
                 break;
             default:
                 Cc.error('tree state is WRONG');
         }
 
-        if (!im) {
-            Cc.error('Tree setBuildImage:: no such image state = ' + _state  + ' for _dataBuild.id: ' + _dataBuild.id);
-            g.woGameError.showIt();
-            return;
-        }
-        _build.addChild(im);
-        if (im2) _build.addChild(im2);
         if (_state == ASK_FIX || _state == FIXED) makeWateringIcon();
         _rect = _build.getBounds(_build);
     }
 
+    private function rechekFruits():void {
+        for (var i:int=0; i<4; i++) {
+            arrFruits[i].visible = false;
+        }
+        for (i=0; i<_arrCrafted.length; i++) {
+            arrFruits[i].visible = true;
+        }
+    }
+
     private function onHover():void {
+        if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         _source.filter = ManagerFilters.YELLOW_STROKE;
         _isOnHover = true;
@@ -340,7 +330,6 @@ public class Tree extends AreaObject{
         _source.filter = null;
         _isOnHover = false;
         g.timerHint.hideIt();
-//        g.gameDispatcher.addEnterFrame(countEnterFrame);
         g.treeHint.hideIt();
         g.mouseHint.hideIt();
         if (!_isOnHover) g.treeHint.hideIt();
@@ -358,9 +347,14 @@ public class Tree extends AreaObject{
             return;
         }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            _isOnHover = false;
-//            g.gameDispatcher.addEnterFrame(countEnterFrame);
-            g.townArea.moveBuild(this, _state);
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                } else return;
+            } else {
+                onOut();
+                g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -465,13 +459,10 @@ public class Tree extends AreaObject{
     }
 
     private function onCraftItemClick(item:CraftItem):void {
-//        if (item.source) {
-//            item.source.scaleX = item.source.scaleY = 1;
-//        }
-//        _arrCrafted.splice(0, 1);
         _source.filter = null;
         _isOnHover = false;
         g.treeHint.hideIt();
+
 
         if (!_arrCrafted.length) {
             switch (_state) {
@@ -494,6 +485,8 @@ public class Tree extends AreaObject{
                     g.managerTree.updateTreeState(tree_db_id, _state);
             }
             setBuildImage();
+        } else {
+            rechekFruits();
         }
     }
 

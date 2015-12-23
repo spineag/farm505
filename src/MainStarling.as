@@ -37,9 +37,7 @@ public class MainStarling extends Sprite {
     }
 
     private function initGame():void {
-        var embedAsset:EmbedAssets = new EmbedAssets();
-
-        g.initInterface();
+        new EmbedAssets(g.initInterface);
     }
 
 }
