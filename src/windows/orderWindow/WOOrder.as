@@ -204,7 +204,7 @@ public class WOOrder extends Window{
         var txt:TextField = new TextField(80, 50, "Получить сейчас", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSkipDelete.addChild(txt);
-        txt = new TextField(20, 50, "7", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(20, 50, "8", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.x = 80;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSkipDelete.addChild(txt);
@@ -318,7 +318,7 @@ public class WOOrder extends Window{
         if (_curOrder) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
-            setTimerText = 5*60;
+            setTimerText = 15*60;  //! 15
             _waitForAnswer = true;
             g.managerOrder.deleteOrder(_curOrder, afterDeleteOrder);
         }
@@ -326,10 +326,10 @@ public class WOOrder extends Window{
 
     private function afterDeleteOrder(order:Object):void {
         if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
-            order.startTime = int(new Date().getTime() / 1000) + 5 * 60;
+            order.startTime = int(new Date().getTime() / 1000) + 15 * 60;  //! 15
             _waitForAnswer = false;
             _curOrder = order;
-            setTimerText = 300;
+            setTimerText = 15 * 60; //! 15
             _activeOrderItem.fillIt(order, _activeOrderItem.position, onItemClick);
             g.gameDispatcher.addToTimer(onTimer);
         }
@@ -342,7 +342,7 @@ public class WOOrder extends Window{
             return;
         }
         _activeOrderItem.onSkipTimer();
-        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -7);
+        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -8);
     }
 
     private function updateIt():void {
