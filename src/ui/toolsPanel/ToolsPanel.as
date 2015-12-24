@@ -91,10 +91,6 @@ public class ToolsPanel {
         _moveBtn.clickCallback = function():void {onClick('move')};
     }
 
-    public function updateRepositoryBox():void {
-//        _repositoryBox.visible = true;
-    }
-
     public function get isShowed():Boolean {
         return _source.visible;
     }

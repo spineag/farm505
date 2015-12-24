@@ -7,7 +7,11 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 
+import manager.OwnEvent;
+
 import manager.Vars;
+
+import starling.events.Event;
 
 public class UserInventory {
     private var _inventoryResource:Object;
@@ -31,6 +35,7 @@ public class UserInventory {
         } else {
             _decorInventory[id] = {count: 1, ids:[dbId]};
         }
+        g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
     }
 
     public function removeFromDecorInventory(id:int):int {

@@ -41,6 +41,7 @@ import social.SocialNetworkSwitch;
 
 import starling.core.Starling;
 import starling.display.Stage;
+import starling.events.Event;
 
 import temp.dataTemp.DataAnimal;
 import temp.dataTemp.DataLevel;
@@ -202,6 +203,7 @@ public class Vars {
     public var startPreloader:StartPreloader;
     public var useDataFromServer:Boolean;
     public var dataPath:DataPath;
+    public var event:OwnEvent;
 
     public var managerCats:ManagerCats;
     public var aStar:AStar;
@@ -225,6 +227,7 @@ public class Vars {
     }
 
     private function initVariables():void {
+        event = new OwnEvent();
         useDataFromServer = true;
         //server = new Server();
         directServer = new DirectServer();
@@ -518,6 +521,7 @@ public class Vars {
         var a:WorldObject = townArea.getCityObjectsByType(BuildType.AMBAR)[0];
         (a as Ambar).updateIndicatorProgress();
     }
+
 }
 }
 
