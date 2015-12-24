@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:a8c452e53d4d0a6aebbbeacef5788be6:306d0cfbb59de9ff0822e2d80e8c60ae:8e467b6e9f38a55d4cabd49280944c60$ -->
+<TextureAtlas imagePath="decorAtlas.png">
+    <SubTexture name="decor1" x="89" y="135" width="157" height="103"/>
+    <SubTexture name="decor2" x="2" y="2" width="52" height="158"/>
+    <SubTexture name="swamp_decor" x="56" y="2" width="207" height="131" frameX="-10" frameY="0" frameWidth="226" frameHeight="137"/>
+    <SubTexture name="tail1" x="282" y="145" width="86" height="43"/>
+    <SubTexture name="tail2" x="282" y="99" width="86" height="44"/>
+    <SubTexture name="tail3" x="2" y="162" width="85" height="46"/>
+    <SubTexture name="white_fence" x="248" y="135" width="32" height="81" frameX="-1" frameY="-4" frameWidth="36" frameHeight="87"/>
+    <SubTexture name="white_fence_1" x="265" y="2" width="108" height="95" frameX="0" frameY="-2" frameWidth="108" frameHeight="100"/>
+</TextureAtlas>

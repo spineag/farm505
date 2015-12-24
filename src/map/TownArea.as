@@ -599,19 +599,19 @@ public class TownArea extends Sprite {
         // проверяем, есть ли по соседству еще столбы забора, если да - то проводим между ними ленту
         var obj:Object;
 
-        obj = _townMatrix[d.posY][d.posX-1];
+        obj = _townMatrix[d.posY][d.posX-2];
         if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
             obj.buildFence.addRightLenta();
 
-        obj = _townMatrix[d.posY-1][d.posX];
+        obj = _townMatrix[d.posY-2][d.posX];
         if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
             obj.buildFence.addLeftLenta();
 
-        obj = _townMatrix[d.posY][d.posX+1];
+        obj = _townMatrix[d.posY][d.posX+2];
         if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
             d.addRightLenta();
 
-        obj = _townMatrix[d.posY+1][d.posX];
+        obj = _townMatrix[d.posY+2][d.posX];
         if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
             d.addLeftLenta();
     }
