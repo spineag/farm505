@@ -28,18 +28,17 @@ public class RepositoryItem {
     private var _count:int;
     private var _txtCount:TextField;
     private var _box:RepositoryBox;
+    private var _arrDbIds:Array;
 
     private var g:Vars = Vars.getInstance();
 
     public function RepositoryItem() {
         source = new CSprite();
-        var q:Quad = new Quad(90, 90, Color.OLIVE);
-        q.alpha = .2 *.8;
-        q.filter = BlurFilter.createGlow(Color.BLACK, 3, 5, 5);
-        source.addChild(q);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('decor_cell'));
+        source.addChild(im);
     }
 
-    public function fillIt(data:Object, count:int, box:RepositoryBox):void {
+    public function fillIt(data:Object, count:int, arrIds:Array, box:RepositoryBox):void {
         if (!data) {
             Cc.error('RepoItem:: empty data');
             g.woGameError.showIt();
@@ -48,10 +47,11 @@ public class RepositoryItem {
         _data = data;
         _count = count;
         _box = box;
+        _arrDbIds = arrIds;
         var im:Image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
-        MCScaler.scale(im, 90, 90);
-        im.x = 45 - im.width/2;
-        im.y = 45 - im.height/2;
+        MCScaler.scale(im, 45, 45);
+        im.x = 25 - im.width/2;
+        im.y = 25 - im.height/2;
         source.addChild(im);
 
         _txtCount = new TextField(30, 30, String(_count),"Arial", 18, Color.WHITE);
@@ -68,7 +68,7 @@ public class RepositoryItem {
     }
 
     private function onClick():void {
-        var build:AreaObject = g.townArea.createNewBuild(_data);
+        var build:AreaObject = g.townArea.createNewBuild(_data, _arrDbIds[0]);
         g.selectedBuild = build;
         if (_data.buildType == BuildType.DECOR_TAIL) {
             g.toolsModifier.startMoveTail(build, afterMove, true);
@@ -83,11 +83,6 @@ public class RepositoryItem {
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
         _count--;
-        if (_count <= 0) {
-            _box.visible = true;
-        } else {
-            _txtCount.text = String(_count);
-        }
     }
 }
 }

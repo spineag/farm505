@@ -291,6 +291,7 @@
             <filename>shop</filename>
             <filename>aerial_tram_all.png</filename>
             <filename>ribbon</filename>
+            <filename>decor_cell.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

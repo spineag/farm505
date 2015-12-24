@@ -2,24 +2,28 @@
  * Created by user on 10/9/15.
  */
 package ui.toolsPanel {
-import flash.geom.Rectangle;
+import com.greensock.TweenMax;
+import com.greensock.easing.Back;
 
+import flash.geom.Rectangle;
 import manager.Vars;
 
 import starling.animation.Tween;
-
+import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.ColorMatrixFilter;
 
-import utils.CSprite;
+import utils.CButton;
+import utils.MCScaler;
+
+import windows.WOComponents.HorizontalPlawka;
 
 public class RepositoryBox {
     public var source:Sprite;
     private var _contRect:Sprite;
     private var _cont:Sprite;
-    private var _leftBtn:CSprite;
-    private var _rightBtn:CSprite;
+    private var _leftBtn:CButton;
+    private var _rightBtn:CButton;
     private var _arrItems:Array;
     private var count:int;
     private var _shift:int;
@@ -29,47 +33,51 @@ public class RepositoryBox {
     public function RepositoryBox() {
         _arrItems = [];
         source = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_plawka"));
-        im.height = 100;
-        im.width = 330;
-        source.addChild(im);
+        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
+                g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 256);
+        source.addChild(pl);
         _contRect = new Sprite();
         source.addChild(_contRect);
-        _contRect.clipRect = new Rectangle(0, 0, 270, 90);
-        _contRect.y = 5;
-        _contRect.x = 20;
+        _contRect.clipRect = new Rectangle(0, 0, 186, 62);
+        _contRect.y = 8;
+        _contRect.x = 36;
         _cont = new Sprite();
         _contRect.addChild(_cont);
+        source.visible = false;
 
-        _leftBtn = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
-        im.scaleX = im.scaleY = .5;
-        im.x = im.width;
-        im.y = im.height;
-        im.rotation = Math.PI;
-        _leftBtn.addChild(im);
-        _rightBtn = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_arrow'));
-        im.scaleX = im.scaleY = .5;
-        _rightBtn.addChild(im);
-
-        _leftBtn.y = 90/2 - _leftBtn.height/2;
-        _leftBtn.x = 2;
-//        _leftBtn.filter = filter;
-        _rightBtn.y = 90/2 - _rightBtn.height/2;
-        _rightBtn.x = 20 + 270 + 2;
+        _leftBtn = new CButton();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        _leftBtn.addDisplayObject(im);
+        _leftBtn.setPivots();
+        MCScaler.scale(_leftBtn, 60, 60);
+        _leftBtn.x = 22;
+        _leftBtn.y = 40;
         source.addChild(_leftBtn);
+        _leftBtn.clickCallback = onLeft;
+
+        _rightBtn = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        im.scaleX = -1;
+        im.x = im.width;
+        _rightBtn.addDisplayObject(im);
+        _rightBtn.setPivots();
+        MCScaler.scale(_rightBtn, 60, 60);
+        _rightBtn.x = 237;
+        _rightBtn.y = 40;
         source.addChild(_rightBtn);
-        _leftBtn.endClickCallback = onLeft;
-        _rightBtn.endClickCallback = onRight;
+        _rightBtn.clickCallback = onRight;
     }
 
-    public function set visible(value:Boolean):void {
-        source.visible = value;
-        deleteItems();
-        if (value) {
-            showItems();
-        }
+    public function showIt():void {
+        showItems();
+        source.visible = true;
+        TweenMax.killTweensOf(source);
+        new TweenMax(source, .5, {y:Starling.current.nativeStage.stageHeight - 83, ease:Back.easeOut});
+    }
+
+    public function hideIt(needQuick:Boolean = false):void {
+        TweenMax.killTweensOf(source);
+        new TweenMax(source, .5, {y:Starling.current.nativeStage.stageHeight + 10, ease:Back.easeOut, onComplete: function():void {source.visible = false}});
     }
 
     private function showItems():void {
@@ -78,7 +86,7 @@ public class RepositoryBox {
         var ob:Object = g.userInventory.decorInventory;
         for (var id:String in ob) {
             item = new RepositoryItem();
-            item.fillIt(g.dataBuilding.objectBuilding[id], ob[id].count, this);
+            item.fillIt(g.dataBuilding.objectBuilding[id], ob[id].count, ob[id].ids, this);
             item.source.x = count * 90;
             _cont.addChild(item.source);
             _arrItems.push(item);
@@ -91,9 +99,7 @@ public class RepositoryBox {
 //                _cont.addChild(item.source);
 //                _arrItems.push(item);
 //            }
-//            _rightBtn.filter = filter;
         } else {
-            _rightBtn.filter = null;
         }
     }
 

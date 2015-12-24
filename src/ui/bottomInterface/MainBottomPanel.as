@@ -167,11 +167,15 @@ public class MainBottomPanel {
                 g.woShop.showIt();
                 break;
             case 'cancel':
-                _toolsBtn.visible = true;
-                _cancelBtn.visible = false;
                 if (g.toolsPanel.isShowed) {
-                    g.friendPanel.showIt();
-                    g.toolsPanel.hideIt();
+                    if (g.toolsPanel.repositoryBoxVisible) {
+                        g.toolsPanel.hideRepository();
+                    } else {
+                        _toolsBtn.visible = true;
+                        _cancelBtn.visible = false;
+                        g.friendPanel.showIt();
+                        g.toolsPanel.hideIt();
+                    }
                 }
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;

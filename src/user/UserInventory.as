@@ -37,7 +37,7 @@ public class UserInventory {
         var dbId:int = 0;
         if (_decorInventory[id]) {
             _decorInventory[id].count--;
-            dbId = _decorInventory[id].ids.pop();
+            dbId = _decorInventory[id].ids.shift();
             if (_decorInventory[id].count <= 0) delete _decorInventory[id];
         }
         return dbId;

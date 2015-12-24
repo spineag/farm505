@@ -34,15 +34,9 @@ public class ToolsPanel {
         var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 204);
         _source.addChild(pl);
-//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
-//        im.x = 20;
-//        im.y = -23;
-//        _source.addChild(im);
-//        var txt:TextField = new TextField(106, 27, "Инструменты", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
-//        txt.x = 30;
-//        txt.y = -23;
-//        _source.addChild(txt);
 
+        _repositoryBox = new RepositoryBox();
+        g.cont.interfaceCont.addChildAt(_repositoryBox.source, 0);
         createBtns();
         _source.visible = false;
         onResize();
@@ -98,7 +92,7 @@ public class ToolsPanel {
     }
 
     public function updateRepositoryBox():void {
-        _repositoryBox.visible = true;
+//        _repositoryBox.visible = true;
     }
 
     public function get isShowed():Boolean {
@@ -111,33 +105,41 @@ public class ToolsPanel {
         } else {
             _source.x = Starling.current.nativeStage.stageWidth - 271;
         }
+        if (_repositoryBox.source.visible) {
+            _repositoryBox.source.y = Starling.current.nativeStage.stageHeight - 83;
+        } else {
+            _repositoryBox.source.y = Starling.current.nativeStage.stageHeight + 10;
+        }
+
+        _repositoryBox.source.x = Starling.current.nativeStage.stageWidth - 740;
         _source.y = Starling.current.nativeStage.stageHeight - 83;
     }
 
     public function showIt():void {
-//        _repositoryBox.visible = false;
         _source.visible  = true;
         TweenMax.killTweensOf(_source);
         new TweenMax(_source, .5, {x:Starling.current.nativeStage.stageWidth - 480, ease:Back.easeOut, delay:.2});
     }
 
+    public function hideRepository():void {
+        _repositoryBox.hideIt();
+    }
+
     public function hideIt():void {
-//        _repositoryBox.visible = false;
         TweenMax.killTweensOf(_source);
         new TweenMax(_source, .5, {x:Starling.current.nativeStage.stageWidth - 271, ease:Back.easeOut, onComplete: function():void {_source.visible = false}});
     }
 
     private function onClick(reason:String):void {
-//        _repositoryBox.source.visible = false;
         switch (reason) {
             case 'repository':
                 if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                     if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
                         g.toolsModifier.modifierType = ToolsModifier.NONE;
-                        _repositoryBox.visible = false;
+                        hideRepository();
                     } else {
                         g.toolsModifier.modifierType = ToolsModifier.INVENTORY;
-                        _repositoryBox.visible = true;
+                        _repositoryBox.showIt();
                     }
                 }
                 break;
@@ -154,6 +156,10 @@ public class ToolsPanel {
                 }
                 break;
         }
+    }
+
+    public function get repositoryBoxVisible():Boolean {
+        return _repositoryBox.source.visible;
     }
 }
 }

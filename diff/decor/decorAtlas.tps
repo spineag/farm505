@@ -190,12 +190,12 @@
         <array>
             <filename>decor1.png</filename>
             <filename>decor2.png</filename>
-            <filename>lenta.png</filename>
-            <filename>stolb.png</filename>
             <filename>swamp_decor.png</filename>
             <filename>tail1.png</filename>
             <filename>tail2.png</filename>
             <filename>tail3.png</filename>
+            <filename>white_fence_1.png</filename>
+            <filename>white_fence.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
