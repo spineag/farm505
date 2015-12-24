@@ -266,7 +266,7 @@ public class TownArea extends Sprite {
             return null;
         }
 
-        if (!_data.dbBuildingId && _data.buildType == BuildType.FABRICA) {    // что означает, что через магазин купили и поставили новую фабрику
+        if (dbId == 0 && _data.buildType == BuildType.FABRICA && !g.user.userBuildingData[_data.id]) {    // что означает, что через магазин купили и поставили новую фабрику
             var ob:Object = {};
             ob.dbId = int(Math.random()*100000);
             ob.timeBuildBuilding = 0;

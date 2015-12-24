@@ -128,31 +128,24 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
-        if (_isLoaded) {
             heroEyes.startAnimations();
             armature.animation.gotoAndPlay("walk");
             armatureBack.animation.gotoAndPlay("walk");
             super.walkAnimation();
-        }
     }
     override public function runAnimation():void {
-        if (_isLoaded) {
             heroEyes.startAnimations();
             armature.animation.gotoAndPlay("run");
             armatureBack.animation.gotoAndPlay("run");
             super.runAnimation();
-        }
     }
     override public function stopAnimation():void {
-        if (_isLoaded) {
             heroEyes.stopAnimations();
             armature.animation.gotoAndStop("idle", 0);
             armatureBack.animation.gotoAndStop("idle", 0);
             super.stopAnimation();
-        }
     }
     override public function idleAnimation():void {
-        if (_isLoaded) {
             if (Math.random() > .2) {
                 showFront(true);
             } else {
@@ -162,7 +155,6 @@ public class HeroCat extends BasicCat{
             armature.animation.gotoAndPlay("idle");
             armatureBack.animation.gotoAndPlay("idle");
             super.idleAnimation();
-        }
     }
 
     private function releaseWoman():void {
@@ -196,7 +188,6 @@ public class HeroCat extends BasicCat{
 
     private var timer:int;
     private function makeFreeCatIdle():void {
-        if (_isLoaded) {
             if (freeIdleGo) {
                 g.managerCats.goIdleCatToPoint(this, g.managerCats.getRandomFreeCell(), makeFreeCatIdle);
             } else {
@@ -206,7 +197,6 @@ public class HeroCat extends BasicCat{
                 renderForIdleFreeCat();
             }
             freeIdleGo = !freeIdleGo;
-        }
     }
 
     private function renderForIdleFreeCat():void {
