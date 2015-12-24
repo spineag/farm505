@@ -466,6 +466,7 @@ public class TownArea extends Sprite {
             maxCount = maxCountAtCurrentLevel * worldObject.dataBuild.countUnblock;
             if (curCount == maxCount) {
                 g.bottomPanel.cancelBoolean(false);
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
             }
             var build:AreaObject = g.townArea.createNewBuild(worldObject.dataBuild);
