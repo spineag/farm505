@@ -266,7 +266,7 @@ public class TownArea extends Sprite {
             return null;
         }
 
-        if (!_data.dbBuildingId && _data.buildType == BuildType.FABRICA) {    // что означает, что через магазин купили и поставили новую фабрику
+        if (dbId == 0 && _data.buildType == BuildType.FABRICA && !g.user.userBuildingData[_data.id]) {    // что означает, что через магазин купили и поставили новую фабрику
             var ob:Object = {};
             ob.dbId = int(Math.random()*100000);
             ob.timeBuildBuilding = 0;
@@ -349,20 +349,51 @@ public class TownArea extends Sprite {
     }
 
     public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
+        var point:Point;
         if (!worldObject) {
             Cc.error('TownArea pasteBuild:: empty worldObject');
             g.woGameError.showIt();
             return;
         }
 
+        g.selectedBuild = null;
         if (_cont.contains(worldObject.source)) {
             _cont.removeChild(worldObject.source);
         }
+
+        if (worldObject is Wild) {
+            point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+            worldObject.posX = point.x;
+            worldObject.posY = point.y;
+            if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
+                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild, _x, _y);
+                (worldObject as Wild).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
+
+            } else {
+                worldObject.source.x = int(_x);
+                worldObject.source.y = int(_y);
+                _cont.addChild(worldObject.source);
+                _cityObjects.push(worldObject);
+                worldObject.updateDepth();
+                for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
+                    for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
+                        fillTailMatrix(jk, ik, worldObject);
+                    }
+                }
+            }
+            if (isNewAtMap && g.isActiveMapEditor)
+                g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+            if (updateAfterMove && g.isActiveMapEditor) {
+                g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+            }
+            return;
+        }
+
         worldObject.source.x = int(_x);
         worldObject.source.y = int(_y);
         _cont.addChild(worldObject.source);
         if (worldObject.useIsometricOnly) {
-            var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+            point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
             worldObject.posX = point.x;
             worldObject.posY = point.y;
         } else {
@@ -378,7 +409,7 @@ public class TownArea extends Sprite {
             if (worldObject.useIsometricOnly) {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
-            if (worldObject is Order || worldObject is Wild) {
+            if (worldObject is Order) {
                 for (var i:int = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
                     for (var j:int = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
                         fillTailMatrix(j, i, worldObject);
@@ -393,22 +424,11 @@ public class TownArea extends Sprite {
                 worldObject.addXP();
             if (worldObject is Tree)
                 g.directServer.addUserBuilding(worldObject, onAddNewTree);
-            if (worldObject is Wild && g.isActiveMapEditor)
-                g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-        }
-
-        if (worldObject is Wild) {
-            if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
-                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild);
-                (worldObject as Wild).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
-            }
         }
 
         if (updateAfterMove) {
             if (g.isActiveMapEditor) {
-                if (worldObject is Wild) {
-                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
-                } else if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Shop || worldObject is Market ||
+                if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Shop || worldObject is Market ||
                     worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus) {
                         g.directServer.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
                 }
@@ -460,7 +480,6 @@ public class TownArea extends Sprite {
         (build as WorldObject).source.filter = null;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (build is Tree) (build as Tree).removeShopView();
-//        if (build is Fabrica) (build as Fabrica).removeShopView();
         g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);
         pasteBuild(build, _x, _y);
     }
@@ -581,19 +600,19 @@ public class TownArea extends Sprite {
         // проверяем, есть ли по соседству еще столбы забора, если да - то проводим между ними ленту
         var obj:Object;
 
-        obj = _townMatrix[d.posY][d.posX-1];
+        obj = _townMatrix[d.posY][d.posX-2];
         if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
             obj.buildFence.addRightLenta();
 
-        obj = _townMatrix[d.posY-1][d.posX];
+        obj = _townMatrix[d.posY-2][d.posX];
         if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
             obj.buildFence.addLeftLenta();
 
-        obj = _townMatrix[d.posY][d.posX+1];
+        obj = _townMatrix[d.posY][d.posX+2];
         if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
             d.addRightLenta();
 
-        obj = _townMatrix[d.posY+1][d.posX];
+        obj = _townMatrix[d.posY+2][d.posX];
         if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
             d.addLeftLenta();
     }

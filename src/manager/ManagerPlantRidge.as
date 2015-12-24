@@ -21,7 +21,7 @@ public class ManagerPlantRidge {
     public function ManagerPlantRidge() {
         var arr:Array = g.townArea.cityObjects;
         _arrRidge = [];
-        _catsForPlant = [];
+        _catsForPlant = {};
         for (var i:int = 0; i < arr.length; i++) {
             if (arr[i] is Ridge) {
                 _arrRidge.push(arr[i]);

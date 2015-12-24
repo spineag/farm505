@@ -42,6 +42,7 @@ public class ManagerFilters {
     public static var BUTTON_DISABLE_FILTER:ColorMatrixFilter;
     public static var YELLOW_TINT_FILTER:ColorMatrixFilter;
     public static var RED_TINT_FILTER:ColorMatrixFilter;
+    public static var RED_LIGHT_TINT_FILTER:ColorMatrixFilter;
 
     public function ManagerFilters() {
         BUTTON_DISABLE_FILTER = new ColorMatrixFilter();
@@ -58,6 +59,9 @@ public class ManagerFilters {
 
         RED_TINT_FILTER = new ColorMatrixFilter();
         RED_TINT_FILTER.tint(Color.RED, 1);
+
+        RED_LIGHT_TINT_FILTER = new ColorMatrixFilter();
+        RED_LIGHT_TINT_FILTER.tint(Color.RED, .4);
     }
 }
 }

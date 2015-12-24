@@ -75,7 +75,7 @@ public class PlantOnRidge {
         try {
             var im:Image = new Image(g.allData.atlas['plantAtlas'].getTexture(st));
             im.x = _x;
-            im.y = _y;
+            im.y = _y + 15;
             _source.addChild(im);
         } catch(e:Error) {
             Cc.error('PlantOnRidge:: no such image: ' + st);

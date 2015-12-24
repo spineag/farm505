@@ -92,12 +92,6 @@ public class ManagerCats {
     }
 
     public function goCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
-        if (!cat.isLoaded) {
-            var f:Function = function ():void { goCatToPoint(cat, p, callback, callbackParams)};
-            cat.setLoadedCallback(f);
-            return;
-        }
-
         var f2:Function = function ():void {
             try {
                 cat.flipIt(false);
@@ -143,12 +137,6 @@ public class ManagerCats {
 
     public function goIdleCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
         try {
-            if (!cat.isLoaded) {
-                var f:Function = function ():void { goIdleCatToPoint(cat, p, callback, callbackParams)};
-                cat.setLoadedCallback(f);
-                return;
-            }
-
             if (cat.posX == p.x && cat.posY == p.y) {
                 if (callback != null) {
                     callback.apply(null, callbackParams);

@@ -32,9 +32,9 @@ public class DecorPostFence extends AreaObject{
     public function addLeftLenta():void {
         if (_leftLenta) return;
         _leftLenta = new Sprite();
-        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture('lenta'));
-        im.x = -22;
-        im.y = -17;
+        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_1'));
+        im.x = -107;
+        im.y = -3;
         _leftLenta.addChild(im);
         _source.addChild(_leftLenta);
     }
@@ -42,11 +42,11 @@ public class DecorPostFence extends AreaObject{
     public function addRightLenta():void {
         if (_rightLenta) return;
         _rightLenta = new Sprite();
-        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture('lenta'));
-        im.x = -22;
-        im.y = -17;
+        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_1'));
+        im.x = -107;
+        im.y = -3;
         _rightLenta.addChild(im);
-        _rightLenta.scaleX *= -1;
+        _rightLenta.scaleX = -1;
         _source.addChild(_rightLenta);
     }
 
@@ -67,7 +67,13 @@ public class DecorPostFence extends AreaObject{
     private function onClick():void {
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            g.townArea.moveBuild(this);
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                } else return;
+            } else {
+                g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
