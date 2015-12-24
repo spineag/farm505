@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:6d34333819cf71e58c8494e06afee7e0:99d0bafd4047fd8ef7cbb2c66df6adb1:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:64836682319e0c53fe54157868663e05:f537b1221d7836a254973c14be67afb8:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png">
     <SubTexture name="aerial_tram_all" x="425" y="2" width="595" height="346"/>
     <SubTexture name="ambar_indicator_main" x="1564" y="2" width="40" height="233"/>
