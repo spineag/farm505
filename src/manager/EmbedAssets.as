@@ -82,7 +82,7 @@ public class EmbedAssets {
     private const CatData:Class;
     [Embed(source = "../../assets/buildingBuild.png", mimeType = "application/octet-stream")]
     private const BuildingBuild:Class;
-    [Embed(source = "../../assets/trees.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/trees2.png", mimeType = "application/octet-stream")]
     private const BuildingTrees:Class;
 
     private var g:Vars = Vars.getInstance();

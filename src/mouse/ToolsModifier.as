@@ -213,7 +213,7 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
         _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
-        if (_activeBuilding.isContDrag || isFromShop) {
+        if (_activeBuilding.isContDrag() || isFromShop) {
             _needMoveGameCont = true;
         }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
@@ -250,7 +250,7 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
         _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
-        if (_activeBuilding.isContDrag || isFromShop) {
+        if (_activeBuilding.isContDrag() || isFromShop) {
             _needMoveGameCont = true;
         }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
