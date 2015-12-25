@@ -201,7 +201,6 @@
             <filename>birka_t.png</filename>
             <filename>blue_coupone.png</filename>
             <filename>bt_close.png</filename>
-            <filename>btn100500.png</filename>
             <filename>buttons</filename>
             <filename>buy_coupons.png</filename>
             <filename>carton</filename>
@@ -210,7 +209,6 @@
             <filename>cave</filename>
             <filename>check.png</filename>
             <filename>circle.png</filename>
-            <filename>clock_icon.png</filename>
             <filename>coins.png</filename>
             <filename>cross.png</filename>
             <filename>default_avatar_big.png</filename>
@@ -220,15 +218,11 @@
             <filename>green_coupone.png</filename>
             <filename>green_tail.png</filename>
             <filename>hint</filename>
-            <filename>hint_circle.png</filename>
             <filename>hint_wild.png</filename>
             <filename>hintMiddle.png</filename>
             <filename>hintSidePixels.png</filename>
             <filename>hintSidePixels2.png</filename>
             <filename>hintTopLeftPart.png</filename>
-            <filename>korzina_icon.png</filename>
-            <filename>kowolka_icon.png</filename>
-            <filename>mouse_circle.png</filename>
             <filename>neighbor.png</filename>
             <filename>newlevel_window_fon.png</filename>
             <filename>newlevel_window_paper.png</filename>
@@ -271,7 +265,6 @@
             <filename>roadside_shop_tabl.png</filename>
             <filename>rubins.png</filename>
             <filename>sciccors_icon.png</filename>
-            <filename>serp_icon.png</filename>
             <filename>shop_window_animals.png</filename>
             <filename>shop_window_court.png</filename>
             <filename>shop_window_decor.png</filename>
@@ -288,7 +281,6 @@
             <filename>storage_window_scr_c.png</filename>
             <filename>storage_window_scr_line.png</filename>
             <filename>ui</filename>
-            <filename>vedro_icon.png</filename>
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>shop</filename>
@@ -297,6 +289,12 @@
             <filename>decor_cell.png</filename>
             <filename>coins_market.png</filename>
             <filename>minus.png</filename>
+            <filename>cursor_fertilizer.png</filename>
+            <filename>cursor_basket.png</filename>
+            <filename>cursor_circle.png</filename>
+            <filename>cursor_clock.png</filename>
+            <filename>cursor_number_circle.png</filename>
+            <filename>cursor_sickle.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
