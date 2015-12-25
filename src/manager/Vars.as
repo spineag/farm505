@@ -229,7 +229,6 @@ public class Vars {
     private function initVariables():void {
         event = new OwnEvent();
         useDataFromServer = true;
-        //server = new Server();
         directServer = new DirectServer();
         dataPath = new DataPath();
         pBitmaps = {};
@@ -253,7 +252,7 @@ public class Vars {
         townArea = new TownArea();
         farmGrid = new FarmGrid();
 
-        var managerFilters:ManagerFilters = new ManagerFilters();
+        new ManagerFilters();
         ownMouse = new OwnMouse();
         toolsModifier = new ToolsModifier();
         toolsModifier.setTownArray();
@@ -402,15 +401,10 @@ public class Vars {
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
 
-        continueInitGame();
-    }
-
-    private function continueInitGame():void {
         background = new BackgroundArea(afterCreateMapBackground);
     }
 
     private function afterCreateMapBackground():void {
-
         if (currentGameScale != 1) {
             optionPanel.makeScaling(currentGameScale, false, true);
         }

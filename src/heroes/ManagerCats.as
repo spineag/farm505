@@ -14,6 +14,7 @@ import manager.Vars;
 
 public class ManagerCats {
     protected var _townMatrix:Array;
+//    [ArrayElementType('heroes.BasicCat')]
     private var _catsArray:Array;
     private var _catInfo:Object;
     private var _maxCountCats:int;
@@ -85,8 +86,9 @@ public class ManagerCats {
     public function setAllCatsToRandomPositions():void {
         for (var i:int=0; i<_catsArray.length; i++) {
             if ((_catsArray[i] as HeroCat).isFree) {
-                _catsArray[i].setPosition(getRandomFreeCell());
-                _catsArray[i].addToMap();
+                (_catsArray[i] as BasicCat).setPosition(getRandomFreeCell());
+                (_catsArray[i] as BasicCat).addToMap();
+                (_catsArray[i] as HeroCat).makeFreeCatIdle();
             }
         }
     }

@@ -56,8 +56,8 @@ public class HeroCat extends BasicCat{
             releaseWoman();
         }
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, _type == WOMAN);
-        showFront(true);
-        makeFreeCatIdle();
+//        showFront(true);
+//        makeFreeCatIdle();
         if (_loadedCallback != null) {
             _loadedCallback.apply();
             _loadedCallback = null;
@@ -187,7 +187,7 @@ public class HeroCat extends BasicCat{
     }
 
     private var timer:int;
-    private function makeFreeCatIdle():void {
+    public function makeFreeCatIdle():void {
             if (freeIdleGo) {
                 g.managerCats.goIdleCatToPoint(this, g.managerCats.getRandomFreeCell(), makeFreeCatIdle);
             } else {
