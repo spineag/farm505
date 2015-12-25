@@ -228,7 +228,6 @@
             <filename>hintTopLeftPart.png</filename>
             <filename>korzina_icon.png</filename>
             <filename>kowolka_icon.png</filename>
-            <filename>minus.png</filename>
             <filename>mouse_circle.png</filename>
             <filename>neighbor.png</filename>
             <filename>newlevel_window_fon.png</filename>
@@ -297,6 +296,7 @@
             <filename>ribbon</filename>
             <filename>decor_cell.png</filename>
             <filename>coins_market.png</filename>
+            <filename>minus.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

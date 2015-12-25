@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<<<<<<< HEAD
-<!-- $TexturePacker:SmartUpdate:59ae971945f67237b08b58ed2c75e4ba:04772bea1d5c0d0166cdbf23b80399c9:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:405ee30e9f8c4a0861f29f4578f598e9:a9629f5a0e37760aa358982eedd6f1d1:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png" width="1640" height="1020">
-=======
-<!-- $TexturePacker:SmartUpdate:64836682319e0c53fe54157868663e05:f537b1221d7836a254973c14be67afb8:87d64ae7b3043c3093d120a2e53e2fb6$ -->
-<TextureAtlas imagePath="interfaceAtlas.png">
->>>>>>> origin/master
     <SubTexture name="aerial_tram_all" x="425" y="2" width="595" height="346"/>
     <SubTexture name="ambar_indicator_main" x="544" y="483" width="40" height="233"/>
     <SubTexture name="ambar_indicator_top" x="282" y="984" width="45" height="22"/>
@@ -105,7 +100,7 @@
     <SubTexture name="main_panel_bt_stor" x="1466" y="696" width="53" height="52" frameX="-2" frameY="-3" frameWidth="57" frameHeight="57"/>
     <SubTexture name="main_panel_bt_tools" x="835" y="971" width="46" height="47" frameX="-5" frameY="-5" frameWidth="57" frameHeight="57"/>
     <SubTexture name="mine_picture" x="1022" y="2" width="595" height="346"/>
-    <SubTexture name="minus" x="453" y="933" width="22" height="12"/>
+    <SubTexture name="minus" x="453" y="933" width="27" height="11"/>
     <SubTexture name="mouse_circle" x="1576" y="539" width="58" height="68"/>
     <SubTexture name="neighbor" x="1368" y="586" width="100" height="100"/>
     <SubTexture name="newlevel_window_fon" x="2" y="549" width="540" height="382"/>
