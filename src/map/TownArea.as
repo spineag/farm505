@@ -375,6 +375,7 @@ public class TownArea extends Sprite {
                 _cont.addChild(worldObject.source);
                 _cityObjects.push(worldObject);
                 worldObject.updateDepth();
+                fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
                 for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
                     for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
                         fillTailMatrix(jk, ik, worldObject);
@@ -469,9 +470,9 @@ public class TownArea extends Sprite {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
             }
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             var build:AreaObject = g.townArea.createNewBuild(worldObject.dataBuild);
             g.selectedBuild = build;
-            g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if (build is Tree) (build as Tree).showShopView();
             (build as WorldObject).source.filter = null;
             g.toolsModifier.startMove(build, afterMoveReturn, true);
@@ -534,6 +535,13 @@ public class TownArea extends Sprite {
             unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
         } else {
             unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+        }
+        if (worldObject is Wild) {
+            for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
+                for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
+                    unFillTailMatrix(jk, ik);
+                }
+            }
         }
         if (_cityObjects.indexOf(worldObject) > -1) _cityObjects.splice(_cityObjects.indexOf(worldObject), 1);
         (worldObject as AreaObject).clearIt();
