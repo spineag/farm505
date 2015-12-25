@@ -6,6 +6,8 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Back;
 
 import flash.geom.Rectangle;
+
+import manager.OwnEvent;
 import manager.Vars;
 
 import starling.animation.Tween;
@@ -38,9 +40,9 @@ public class RepositoryBox {
         source.addChild(pl);
         _contRect = new Sprite();
         source.addChild(_contRect);
-        _contRect.clipRect = new Rectangle(0, 0, 186, 62);
+        _contRect.clipRect = new Rectangle(0, 0, 188, 62);
         _contRect.y = 8;
-        _contRect.x = 36;
+        _contRect.x = 35;
         _cont = new Sprite();
         _contRect.addChild(_cont);
         source.visible = false;
@@ -69,6 +71,8 @@ public class RepositoryBox {
     }
 
     public function showIt():void {
+        g.event.addEventListener(OwnEvent.UPDATE_REPOSITORY, updateItems);
+        _shift = 0;
         showItems();
         source.visible = true;
         TweenMax.killTweensOf(source);
@@ -76,8 +80,9 @@ public class RepositoryBox {
     }
 
     public function hideIt(needQuick:Boolean = false):void {
+        g.event.removeEventListener(OwnEvent.UPDATE_REPOSITORY, updateItems);
         TweenMax.killTweensOf(source);
-        new TweenMax(source, .5, {y:Starling.current.nativeStage.stageHeight + 10, ease:Back.easeOut, onComplete: function():void {source.visible = false}});
+        new TweenMax(source, .5, {y:Starling.current.nativeStage.stageHeight + 10, ease:Back.easeOut, onComplete: function():void {source.visible = false; deleteItems()}});
     }
 
     private function showItems():void {
@@ -87,19 +92,21 @@ public class RepositoryBox {
         for (var id:String in ob) {
             item = new RepositoryItem();
             item.fillIt(g.dataBuilding.objectBuilding[id], ob[id].count, ob[id].ids, this);
-            item.source.x = count * 90;
+            item.source.x = count * 64;
             _cont.addChild(item.source);
             _arrItems.push(item);
             count++;
         }
-        if (count < 4) {
-//            for (count; count < 3; count++) {
-//                item = new RepositoryItem();
-//                item.source.x = count * 90;
-//                _cont.addChild(item.source);
-//                _arrItems.push(item);
-//            }
-        } else {
+        checkBtns();
+    }
+
+    public function updateItems():void { // not optimal
+        deleteItems();
+        showItems();
+        if ((_shift + 1)*3 > count) {
+            _cont.x = 0;
+            _shift = 0;
+            checkBtns();
         }
     }
 
@@ -112,31 +119,39 @@ public class RepositoryBox {
     }
 
     private function onLeft():void {
-//        if (_leftBtn.filter == filter) return;
-        _rightBtn.filter = null;
+        _shift--;
         var tween:Tween = new Tween(_cont, 0.5);
-        tween.moveTo(count,0);
+        tween.moveTo(-192*_shift ,0);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
-//            _leftBtn.filter = filter;
-            _rightBtn.filter = null;
+            checkBtns();
         };
         g.starling.juggler.add(tween);
 
     }
 
     private function onRight():void {
-//        if (_rightBtn.filter == filter) return;
-        _leftBtn.filter = null;
+        _shift++;
         var tween:Tween = new Tween(_cont, 0.5);
-        tween.moveTo((count - 3)* - 90 ,0);
+        tween.moveTo(-192*_shift ,0);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
-//            _rightBtn.filter = filter;
-            _leftBtn.filter = null;
+            checkBtns();
         };
         g.starling.juggler.add(tween);
-//        if (_cont.x/2 == _cont.x/2) _leftBtn.filter = filter;
+    }
+
+    private function checkBtns():void {
+        if (_shift == 0) {
+            _leftBtn.setEnabled = false;
+        } else {
+            _leftBtn.setEnabled = true;
+        }
+        if ((_shift + 1)*3 < count) {
+            _rightBtn.setEnabled = true;
+        } else {
+            _rightBtn.setEnabled = false;
+        }
     }
 }
 }

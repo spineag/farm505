@@ -273,7 +273,7 @@ public class ToolsModifier {
             g.cont.contentCont.touchable = true;
         }
         if (_activeBuilding) {
-            _activeBuilding.source.filter = null;
+            if (_activeBuilding.source) _activeBuilding.source.filter = null;
             if (_startMoveX == -1 && _startMoveY == -1) {
                 _activeBuilding.clearIt();
                 _activeBuilding = null;

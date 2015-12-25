@@ -7,8 +7,11 @@ import build.AreaObject;
 import com.junkbyte.console.Cc;
 
 import manager.ManagerFilters;
+import manager.OwnEvent;
 
 import mouse.ToolsModifier;
+
+import starling.events.Event;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
@@ -50,10 +53,16 @@ public class Decor extends AreaObject{
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-            g.directServer.addToInventory(_dbBuildingId, null);
-            g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
-            g.townArea.deleteBuild(this);
-            g.toolsPanel.updateRepositoryBox();
+            if (!g.selectedBuild) {
+                g.directServer.addToInventory(_dbBuildingId, null);
+                g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
+                g.townArea.deleteBuild(this);
+                g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
+            } else {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                }
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             // ничего не делаем вообще
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {

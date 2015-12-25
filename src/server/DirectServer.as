@@ -3859,5 +3859,49 @@ public class DirectServer {
         }
     }
 
+    public function craftUserTree(treeDbId:String, state:int, callback:Function):void {
+        if (!g.useDataFromServer) return;
+
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_USER_TREE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'craftUserTree', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.id = treeDbId;
+        variables.state = state;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteCraftUserTree);
+        function onCompleteCraftUserTree(e:Event):void { completeCraftUserTree(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('craftUserTree error:' + error.errorID);
+            woError.showItParams('craftUserTree error:' + error.errorID);
+        }
+    }
+
+    private function completeCraftUserTree(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('craftUserTree: wrong JSON:' + String(response));
+            woError.showItParams('craftUserTree: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('craftUserTree: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('craftUserTree: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
 }
 }

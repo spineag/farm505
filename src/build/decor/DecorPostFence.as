@@ -6,6 +6,8 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import manager.OwnEvent;
+
 import manager.Vars;
 
 import mouse.ToolsModifier;
@@ -13,6 +15,7 @@ import mouse.ToolsModifier;
 import starling.display.Image;
 
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class DecorPostFence extends AreaObject{
     private var _rightLenta:Sprite;
@@ -79,10 +82,16 @@ public class DecorPostFence extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             // ничего не делаем
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-            g.directServer.addToInventory(_dbBuildingId, null);
-            g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
-            g.townArea.deleteBuild(this);
-            g.toolsPanel.updateRepositoryBox();
+            if (!g.selectedBuild) {
+                g.directServer.addToInventory(_dbBuildingId, null);
+                g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
+                g.townArea.deleteBuild(this);
+                g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
+            } else {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                }
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             // ничего не делаем
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {

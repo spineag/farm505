@@ -27,6 +27,7 @@ public class Consts {
     public static var INQ_GET_USER_ANIMAL:String = 'getUserAnimal.php';
     public static var INQ_CRAFT_USER_ANIMAL:String = 'craftUserAnimal.php';
     public static var INQ_UPDATE_USER_TREE_STATE:String = 'updateUserTreeState.php';
+    public static var INQ_CRAFT_USER_TREE:String = 'craftUserTree.php';
     public static var INQ_ASK_WATERING_USER_TREE:String = 'askWateringUserTree.php';
     public static var INQ_MAKE_WATERING_USER_TREE:String = 'makeWateringUserTree.php';
     public static var INQ_ADD_USER_BUILDING:String = 'addUserBuilding.php';

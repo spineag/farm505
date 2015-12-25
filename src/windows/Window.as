@@ -2,6 +2,7 @@
  * Created by user on 6/2/15.
  */
 package windows {
+import manager.OwnEvent;
 import manager.Vars;
 
 import starling.core.Starling;
@@ -11,6 +12,7 @@ import starling.display.Quad;
 import starling.display.Quad;
 
 import starling.display.Sprite;
+import starling.events.Event;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.textures.Texture;
