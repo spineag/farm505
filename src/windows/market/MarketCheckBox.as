@@ -2,6 +2,7 @@
  * Created by user on 8/26/15.
  */
 package windows.market {
+import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
@@ -24,7 +25,8 @@ public class MarketCheckBox {
     public function MarketCheckBox() {
         source = new Sprite();
         _stateChecked = true;
-        _txt = new TextField(250, 40, 'Добавить объявление в газету:', "Arial", 16, Color.BLACK);
+        _txt = new TextField(250, 40, 'Обьявление в газету на 4 часа', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         im.scaleY = .8;
@@ -33,12 +35,12 @@ public class MarketCheckBox {
         _bg.addChild(im);
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, im.width + 3, im.width + 3);
-        _galo4ka.x = 3;
+        _galo4ka.x = 2;
         _galo4ka.y = -3;
         _bg.addChild(_galo4ka);
         _bg.endClickCallback = changeState;
-        _bg.x = 250;
-        _bg.y = 5;
+        _bg.x = 240;
+        _bg.y = 8;
         source.addChild(_bg);
     }
 

@@ -60,7 +60,7 @@ public class Fabrica extends AreaObject {
         checkBuildState();
         _sizeX = _dataBuild.width;
         _sizeY = _dataBuild.height;
-        _source.setChildIndex(_craftSprite, _source.numChildren-1);
+        _source.setChildIndex(_craftSprite, _source.numChildren - 1);
 
         _isAnim = false;
         _arrRecipes = [];
