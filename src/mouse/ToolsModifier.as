@@ -269,6 +269,9 @@ public class ToolsModifier {
         _moveGrid = null;
         _spriteForMove.removeChild(_activeBuilding.source);
         _spriteForMove = null;
+        if (_activeBuilding is DecorTail) {
+            g.cont.contentCont.touchable = true;
+        }
         if (_activeBuilding) {
             _activeBuilding.source.filter = null;
             if (_startMoveX == -1 && _startMoveY == -1) {

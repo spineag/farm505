@@ -117,6 +117,7 @@ public class WOFabricaWorkList {
         var i:int;
         for (i=0; i<_arrItems.length; i++) {
             _arrItems[i].unfillIt();
+            _arrItems[i].visibleSource(true);
         }
         _arrRecipes.shift();
         if (_arrRecipes.length) {

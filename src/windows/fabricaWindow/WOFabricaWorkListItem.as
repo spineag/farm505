@@ -107,6 +107,11 @@ public class WOFabricaWorkListItem {
         _source.visible = true;
     }
 
+    public function visibleSource(b:Boolean):void {
+        if (b) _source.visible = true;
+        else _source.visible = false;
+    }
+
     private function fillIcon(s:String):void {
         if (_icon) {
             _source.removeChild(_icon);

@@ -20,6 +20,8 @@ import utils.CSprite;
 
 import utils.MCScaler;
 
+import windows.WOComponents.CartonBackgroundIn;
+
 public class MarketCell {
     public var source:CSprite;
 
@@ -40,10 +42,8 @@ public class MarketCell {
         _ramka.y = 1;
         source.addChild(_ramka);
         _ramka.visible =false;
-        var quad:Quad = new Quad(94, 94, Color.WHITE);
-        quad.x = 3;
-        quad.y = 3;
-        source.addChild(quad);
+        var s:CartonBackgroundIn = new CartonBackgroundIn(100, 100);
+        source.addChild(s);
 
         _info = info;
         if (!_info) {

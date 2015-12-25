@@ -69,7 +69,7 @@ public class WOLevelUp extends Window{
         _contClipRect.y = 70;
         _txtNewLvl = new TextField(120,100,"НОВЫЙ УРОВЕНЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtNewLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtNewObject = new TextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЬЕКТЫ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtNewObject = new TextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtNewObject.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtLevel = new TextField(300,100,"",g.allData.fonts['BloggerBold'],51,Color.WHITE);
         _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;

@@ -65,6 +65,7 @@ public class WOFabrica extends Window {
     }
 
     public function showItWithParams(arrRecipes:Array, arrList:Array, fabr:Fabrica, f:Function):void {
+        hideIt();
         _fabrica = fabr;
         _callbackOnClick = f;
         _arrAllRecipes = arrRecipes;
