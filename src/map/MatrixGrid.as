@@ -49,12 +49,12 @@ public class MatrixGrid {
         }
     }
 
-    private function isTileInGame(i:int, j:int):Boolean { // перевіряємо чи тайл попадає в ігрову зону, якщо ні - то його не використовуємо
+//    private function isTileInGame(i:int, j:int):Boolean { // перевіряємо чи тайл попадає в ігрову зону, якщо ні - то його не використовуємо
 //        var p:Point = getXYFromIndex(new Point(i,j));
 //        if (p.x < -g.realGameTilesWidth/2 + DIAGONAL|| p.x > g.realGameTilesWidth/2) return false;
 //        if (p.y < _offsetY || p.y > g.realGameTilesHeight + _offsetY - FACTOR) return false;
-        return true;
-    }
+//        return true;
+//    }
 
     public function setBuildFromIndex(cityObject:WorldObject, point:Point):void {
         var pos:Point3D = new Point3D();

@@ -42,10 +42,13 @@ public class ManagerCats {
     public function getRandomFreeCell():Point {
         var i:int;
         var j:int;
+        var b:int = 0;
         try {
             do {
                 i = int(Math.random() * _townMatrix.length);
                 j = int(Math.random() * _townMatrix[0].length);
+                b++;
+                if (b>30) return new Point(0, 0);
             } while (_townMatrix[i][j].isFull);
             return new Point(j, i);
         } catch (e:Error) {

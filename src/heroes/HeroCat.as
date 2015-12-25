@@ -17,6 +17,7 @@ import manager.EmbedAssets;
 import mouse.ToolsModifier;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
@@ -56,8 +57,6 @@ public class HeroCat extends BasicCat{
             releaseWoman();
         }
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, _type == WOMAN);
-//        showFront(true);
-//        makeFreeCatIdle();
         if (_loadedCallback != null) {
             _loadedCallback.apply();
             _loadedCallback = null;
@@ -69,6 +68,12 @@ public class HeroCat extends BasicCat{
         _catBackImage.x = -_catBackImage.width/2;
         _catBackImage.y = -_catBackImage.height + 2;
         _source.addChild(_catBackImage);
+
+        addShadow();
+    }
+
+    private function addShadow():void {
+
     }
 
     override public function showFront(v:Boolean):void {
