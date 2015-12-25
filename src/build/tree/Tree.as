@@ -75,6 +75,7 @@ public class Tree extends AreaObject{
     private var _wateringIcon:Sprite;
     public var tree_db_id:String;    // id в табличке user_tree
     private var _wateringUserSocialId:String;
+    private var _craftedCountFromServer:int;
 
     private var armature:Armature;
     private var armatureClip:Sprite;
@@ -84,6 +85,7 @@ public class Tree extends AreaObject{
         super(_data);
         _arrCrafted = [];
         createTreeBuild();
+        _state = GROW1;
 
         if (!g.isAway) {
             _source.hoverCallback = onHover;
@@ -128,6 +130,7 @@ public class Tree extends AreaObject{
         tree_db_id = ob.id;
         _wateringUserSocialId = ob.fixed_user_id;
         ob.time_work = int(ob.time_work);
+        _craftedCountFromServer = int(ob.crafted_count);
         switch (int(ob.state)) {
             case GROW1:
                 if (ob.time_work > _resourceItem.buildTime) {
@@ -215,7 +218,10 @@ public class Tree extends AreaObject{
                 break;
             case GROWED1:
                 armature.animation.gotoAndStop("small_fruits", 0);
-                for (i=0; i < _dataBuild.countCraftResource[0]; i++) {
+                if (_craftedCountFromServer >= _dataBuild.countCraftResource[0]) {
+                    Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[0] for dbId: ' + tree_db_id);
+                }
+                for (i=0; i < _dataBuild.countCraftResource[0] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
 //                    MCScaler.scale(item.source, 30, 30);
@@ -233,7 +239,10 @@ public class Tree extends AreaObject{
                 break;
             case GROWED2:
                 armature.animation.gotoAndStop("middle_fruits", 0);
-                for (i=0; i < _dataBuild.countCraftResource[1]; i++) {
+                if (_craftedCountFromServer >= _dataBuild.countCraftResource[1]) {
+                    Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[1] for dbId: ' + tree_db_id);
+                }
+                for (i=0; i < _dataBuild.countCraftResource[1] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
 //                    MCScaler.scale(item.source, 30, 30);
@@ -251,7 +260,10 @@ public class Tree extends AreaObject{
                 break;
             case GROWED3:
                 armature.animation.gotoAndStop("big_fruits", 0);
-                for (i=0; i < _dataBuild.countCraftResource[2]; i++) {
+                if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
+                    Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[2] for dbId: ' + tree_db_id);
+                }
+                for (i=0; i < _dataBuild.countCraftResource[2] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
 //                    MCScaler.scale(item.source, 30, 30);
@@ -281,7 +293,10 @@ public class Tree extends AreaObject{
                 break;
             case GROWED_FIXED:
                 armature.animation.gotoAndStop("big_fruits", 0);
-                for (i=0; i < _dataBuild.countCraftResource[2]; i++) {
+                if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
+                    Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[2] for dbId: ' + tree_db_id);
+                }
+                for (i=0; i < _dataBuild.countCraftResource[2] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
 //                    MCScaler.scale(item.source, 30, 30);
@@ -462,26 +477,32 @@ public class Tree extends AreaObject{
         _source.filter = null;
         _isOnHover = false;
         g.treeHint.hideIt();
-
+        if (_arrCrafted.length > 0) { // dont use with == 0 because of optimisation
+            g.directServer.craftUserTree(tree_db_id, _state, null);
+        }
 
         if (!_arrCrafted.length) {
             switch (_state) {
                 case GROWED1:
                     _state = GROW2;
                     startGrow();
+                    _craftedCountFromServer = 0;
                     g.managerTree.updateTreeState(tree_db_id, _state);
                     break;
                 case GROWED2:
                     _state = GROW3;
                     startGrow();
+                    _craftedCountFromServer = 0;
                     g.managerTree.updateTreeState(tree_db_id, _state);
                     break;
                 case GROWED3:
                     _state = DEAD;
+                    _craftedCountFromServer = 0;
                     g.managerTree.updateTreeState(tree_db_id, _state);
                     break;
                 case GROWED_FIXED:
                     _state = FULL_DEAD;
+                    _craftedCountFromServer = 0;
                     g.managerTree.updateTreeState(tree_db_id, _state);
             }
             setBuildImage();
@@ -520,6 +541,7 @@ public class Tree extends AreaObject{
     }
 
     private function callbackSkip():void {
+        onOut();
         if (_state == GROW1 ||_state == GROW_FLOWER1){
             _state = GROWED1;
             setBuildImage();

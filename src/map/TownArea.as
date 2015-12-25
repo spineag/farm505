@@ -471,6 +471,8 @@ public class TownArea extends Sprite {
             }
             var build:AreaObject = g.townArea.createNewBuild(worldObject.dataBuild);
             g.selectedBuild = build;
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            if (build is Tree) (build as Tree).showShopView();
             (build as WorldObject).source.filter = null;
             g.toolsModifier.startMove(build, afterMoveReturn, true);
         }
