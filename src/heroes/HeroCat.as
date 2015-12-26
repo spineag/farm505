@@ -19,6 +19,7 @@ import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
+import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
@@ -56,19 +57,15 @@ public class HeroCat extends BasicCat{
             releaseWoman();
         }
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, _type == WOMAN);
-//        showFront(true);
-//        makeFreeCatIdle();
-        if (_loadedCallback != null) {
-            _loadedCallback.apply();
-            _loadedCallback = null;
-        }
 
-        _catImage.x = -_catImage.width/2;
-        _catImage.y = -_catImage.height + 2;
+//        _catImage.x = -_catImage.width/2;
+//        _catImage.y = -_catImage.height + 2;
         _source.addChild(_catImage);
-        _catBackImage.x = -_catBackImage.width/2;
-        _catBackImage.y = -_catBackImage.height + 2;
+//        _catBackImage.x = -_catBackImage.width/2;
+//        _catBackImage.y = -_catBackImage.height + 2;
         _source.addChild(_catBackImage);
+
+        showFront(true);
     }
 
     override public function showFront(v:Boolean):void {
@@ -110,6 +107,7 @@ public class HeroCat extends BasicCat{
     public function workWithPlant(f:Function):void {
         var s:Number = _source.scaleX;
         countWorkPlant = 10;
+        showFront(true);
         var f1:Function = function():void {
             new TweenMax(_catImage, .5, {scaleX:0.97*s, scaleY:1.03*s, ease:Linear.easeOut ,onComplete: f2});
         };
