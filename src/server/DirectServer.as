@@ -1800,7 +1800,6 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
-            g.managerAnimal = new ManagerAnimal();
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerAnimal.addAnimal(d.message[i]);
             }

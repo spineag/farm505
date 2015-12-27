@@ -178,6 +178,8 @@ public class MainBottomPanel {
                     }
                 }
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    _toolsBtn.visible = true;
+                    _cancelBtn.visible = false;
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();
                 }
