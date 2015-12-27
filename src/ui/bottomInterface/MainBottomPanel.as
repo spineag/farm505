@@ -167,8 +167,16 @@ public class MainBottomPanel {
                 g.woShop.showIt();
                 break;
             case 'cancel':
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    _toolsBtn.visible = true;
+                    _cancelBtn.visible = false;
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.toolsModifier.cancelMove();
+                }
                 if (g.toolsPanel.isShowed) {
                     if (g.toolsPanel.repositoryBoxVisible) {
+                        _toolsBtn.visible = false;
+                        _cancelBtn.visible = true;
                         g.toolsPanel.hideRepository();
                     } else {
                         _toolsBtn.visible = true;
@@ -176,12 +184,6 @@ public class MainBottomPanel {
                         g.friendPanel.showIt();
                         g.toolsPanel.hideIt();
                     }
-                }
-                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
-                    _toolsBtn.visible = true;
-                    _cancelBtn.visible = false;
-                    g.toolsModifier.modifierType = ToolsModifier.NONE;
-                    g.toolsModifier.cancelMove();
                 }
                 break;
             case 'tools':

@@ -60,8 +60,7 @@ public class FriendItem {
         im.y = 41;
         source.addChild(im);
 
-
-        _txtLvl = new TextField(27, 15, "55", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtLvl = new TextField(27, 15, "", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtLvl.text = '1';
         _txtLvl.x = 36;
         _txtLvl.y = 50;
@@ -78,6 +77,7 @@ public class FriendItem {
         if (_person == g.user) {
             if (g.isAway) g.townArea.backHome();
         } else {
+            if (g.visitedUser && g.visitedUser == _person) return;
             g.townArea.goAway(_person);
         }
     }

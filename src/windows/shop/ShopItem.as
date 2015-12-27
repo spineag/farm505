@@ -4,6 +4,7 @@
 package windows.shop {
 import build.AreaObject;
 import build.WorldObject;
+import build.decor.DecorTail;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.tree.Tree;
@@ -423,7 +424,11 @@ public class ShopItem {
             g.woShop.onClickExit();
             g.toolsModifier.startMove(build as AreaObject, afterMove);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
-            build = g.townArea.createNewBuild(_data);
+            if (_state == STATE_FROM_INVENTORY) {
+                build = g.townArea.createNewBuild(_data, g.userInventory.decorInventory[_data.id].ids[0]);
+            } else {
+                build = g.townArea.createNewBuild(_data);
+            }
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
@@ -486,16 +491,23 @@ public class ShopItem {
         g.userInventory.addMoney(_data.currency, -_countCost);
         if (build is Tree) (build as Tree).removeShopView();
         if (build is Fabrica) (build as Fabrica).removeShopView();
-        g.townArea.pasteBuild(build, _x, _y);
+        if (build is DecorTail) {
+            g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
+        } else {
+            g.townArea.pasteBuild(build, _x, _y);
+        }
     }
 
-    private function afterMoveFromInventory(_build:AreaObject, _x:Number, _y:Number):void {
+    private function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void {
         g.bottomPanel.cancelBoolean(false);
         var dbId:int = g.userInventory.removeFromDecorInventory(_data.id);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
-        g.townArea.pasteBuild(_build, _x, _y);
-        g.userInventory.addMoney(_data.currency, -_data.cost);
+        if (build is DecorTail) {
+            g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
+        } else {
+            g.townArea.pasteBuild(build, _x, _y);
+        }
     }
 
     private function updateItem():void {

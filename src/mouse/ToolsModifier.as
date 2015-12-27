@@ -382,6 +382,7 @@ public class ToolsModifier {
             spriteForMoveIndexX = point.x;
             spriteForMoveIndexY = point.y;
             if (_activeBuilding is DecorTail) {
+                if (!g.townArea.townTailMatrix[spriteForMoveIndexY] || !g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX]) return;
                 if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
                     _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
                 } else {
