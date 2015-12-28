@@ -15,6 +15,8 @@ import mouse.ToolsModifier;
 public class ManagerPlantRidge {
     private var _arrRidge:Array; // список всех грядок юзера
     private var _catsForPlant:Object; // _catsForPlant['id plant'] = { cat: HeroCat, ridges: array(ridge1, ridge2..) };
+    private var _curActiveRidge:Ridge;
+    private var _isLeftSide:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
@@ -62,6 +64,7 @@ public class ManagerPlantRidge {
         } else {
             var cat:HeroCat = g.managerCats.getFreeCat();
             if (cat) {
+                _curActiveRidge = ridge;
                 cat.isFree = false;
                 if (cat.isOnMap) {
                     g.managerCats.goCatToPoint(cat, new Point(ridge.posX, ridge.posY), onArrivedCatToRidge, cat, plantId);
@@ -103,21 +106,41 @@ public class ManagerPlantRidge {
     }
 
     private function onArrivedCatToRidge(cat:HeroCat, plantId:int):void {
-        //goto to Left side of ridge or to right side
-
-        //....
-        onArrivedCat(cat, plantId);
+        var p:Point = new Point();
+        cat.isLeftForPlantWatering = Math.random() > .5;
+        if (cat.isLeftForPlantWatering) {
+            p.x = _curActiveRidge.posX;
+            p.y = _curActiveRidge.posY + 1;
+        } else {
+            p.x = _curActiveRidge.posX + 1;
+            p.y = _curActiveRidge.posY;
+        }
+        g.managerCats.goCatToPoint(cat, p, onArrivedCatToRidgePoint, cat, plantId);
     }
 
-    private function onArrivedCat(cat:HeroCat, plantId:int):void {
-        var onFinishWork:Function = function ():void {
+    private function onArrivedCatToRidgePoint(cat:HeroCat, plantId:int):void {
+        var onFinishWork:Function = function():void {
             if (_catsForPlant[plantId] && _catsForPlant[plantId].ridges && _catsForPlant[plantId].ridges.length) {
-                var randomRidge:Ridge = _catsForPlant[plantId].ridges[int(_catsForPlant[plantId].ridges.length * Math.random())];
-                if (randomRidge.posX == cat.posX && randomRidge.posY == cat.posY) {
-                    onArrivedCat(cat, plantId);
+                var p:Point = new Point();
+                if (_catsForPlant[plantId].ridges.length == 1) {
+                    cat.isLeftForPlantWatering = !cat.isLeftForPlantWatering;
                 } else {
-                    g.managerCats.goCatToPoint(cat, new Point(randomRidge.posX, randomRidge.posY), onArrivedCat, cat, plantId);
+                    var randomRidge:Ridge = _catsForPlant[plantId].ridges[int(_catsForPlant[plantId].ridges.length * Math.random())];
+                    if (randomRidge == _curActiveRidge) {
+                        cat.isLeftForPlantWatering = !cat.isLeftForPlantWatering;
+                    } else {
+                        _curActiveRidge = randomRidge;
+                        cat.isLeftForPlantWatering = Math.random() > .5;
+                    }
                 }
+                if (cat.isLeftForPlantWatering) {
+                    p.x = _curActiveRidge.posX;
+                    p.y = _curActiveRidge.posY + 1;
+                } else {
+                    p.x = _curActiveRidge.posX + 1;
+                    p.y = _curActiveRidge.posY;
+                }
+                g.managerCats.goCatToPoint(cat, p, onArrivedCatToRidgePoint, cat, plantId);
             } else {
                 removeCatFromPlant(plantId, cat);
             }

@@ -8,6 +8,8 @@ import com.greensock.easing.Linear;
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
+
 import starling.display.Image;
 import starling.display.Sprite;
 
@@ -24,6 +26,7 @@ public class HeroCat extends BasicCat{
     private var armatureFeeding:Armature;
     private var heroEyes:HeroEyesAnimation;
     private var freeIdleGo:Boolean;
+    public var isLeftForPlantWatering:Boolean; // choose the side of ridge for watering
 
     public function HeroCat(type:int) {
         super();
@@ -81,28 +84,6 @@ public class HeroCat extends BasicCat{
         if (_isFree) {
             makeFreeCatIdle();
         }
-    }
-
-    private var countWorkPlant:int;
-    public function workWithPlant(f:Function):void {
-        var s:Number = _source.scaleX;
-        countWorkPlant = 10;
-        showFront(true);
-        var f1:Function = function():void {
-            new TweenMax(_catImage, .5, {scaleX:0.97*s, scaleY:1.03*s, ease:Linear.easeOut ,onComplete: f2});
-        };
-        var f2:Function = function():void {
-            countWorkPlant--;
-            if (countWorkPlant <= 0) {
-                _catImage.scaleX = _catImage.scaleY = s;
-                if (f != null) {
-                    f.apply(null, [this]);
-                }
-                return;
-            }
-            new TweenMax(_catImage, .5, {scaleX:1.03*s, scaleY:0.97*s, ease:Linear.easeIn ,onComplete: f1});
-        };
-        f2();
     }
 
     override public function walkAnimation():void {
@@ -164,6 +145,7 @@ public class HeroCat extends BasicCat{
         b.display = im;
     }
 
+// SIMPLE IDLE
     private var timer:int;
     public function makeFreeCatIdle():void {
             if (freeIdleGo) {
@@ -197,6 +179,74 @@ public class HeroCat extends BasicCat{
         _currentPath = [];
         TweenMax.killTweensOf(_source);
     }
+
+// WORK WITH PLANT
+    public function workWithPlant(callback:Function):void {
+        if (!armatureWatering) {
+            armatureWatering = g.allData.factory['cat_watering'].buildArmature("cat");
+        }
+        _catImage.addChild(armatureWatering.display as Sprite);
+//        if (_type == WOMAN) changeWateringTexture();     !!!!!
+        (armature.display as Sprite).visible = false;
+        if (isLeftForPlantWatering) flipIt(true);
+
+        var f:Function = function(e:AnimationEvent):void {
+            armatureWatering.removeEventListener(AnimationEvent.COMPLETE, f);
+            armatureWatering.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
+            makeWatering(callback);
+        };
+        armatureWatering.addEventListener(AnimationEvent.COMPLETE, f);
+        armatureWatering.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
+        armatureWatering.animation.gotoAndPlay("open");
+    }
+
+    private function makeWatering(callback:Function):void {
+        var f:Function = function(e:AnimationEvent):void {
+            armatureWatering.removeEventListener(AnimationEvent.COMPLETE, f);
+            armatureWatering.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
+            makeWateringIdle(callback);
+        };
+        armatureWatering.addEventListener(AnimationEvent.COMPLETE, f);
+        armatureWatering.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
+        armatureWatering.animation.gotoAndPlay("work");
+    }
+
+    private function makeWateringIdle(callback:Function):void {
+        var f:Function = function(e:AnimationEvent):void {
+            armatureWatering.removeEventListener(AnimationEvent.COMPLETE, f);
+            armatureWatering.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
+            makeWateringIdle(callback);
+        };
+        var fClose:Function = function(e:AnimationEvent):void {
+            armatureWatering.removeEventListener(AnimationEvent.COMPLETE, fClose);
+            armatureWatering.removeEventListener(AnimationEvent.LOOP_COMPLETE, fClose);
+            _catImage.removeChild(armatureWatering.display as Sprite);
+            armatureWatering.dispose();
+            armatureWatering = null;
+            (armature.display as Sprite).visible = true;
+            if (callback != null) {
+                callback.apply();
+            }
+        };
+        var k:Number = Math.random();
+        if (k < .25) {
+            armatureWatering.addEventListener(AnimationEvent.COMPLETE, fClose);
+            armatureWatering.addEventListener(AnimationEvent.LOOP_COMPLETE, fClose);
+            armatureWatering.animation.gotoAndPlay("close");
+        } else {
+            armatureWatering.addEventListener(AnimationEvent.COMPLETE, f);
+            armatureWatering.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
+            if (k < .5) {
+                armatureWatering.animation.gotoAndPlay("work");
+            } else if (k < .75) {
+                armatureWatering.animation.gotoAndPlay("idle");
+            } else {
+                armatureWatering.animation.gotoAndPlay("look");
+            }
+        }
+    }
+
+    // !! add FORCE STOP WATERING
 
 }
 }

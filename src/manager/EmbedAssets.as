@@ -76,6 +76,10 @@ public class EmbedAssets {
 
     [Embed(source = "../../assets/animations/cat9.png", mimeType = "application/octet-stream")]
     private const CatData:Class;
+    [Embed(source = "../../assets/animations/cat_watering_can.png", mimeType = "application/octet-stream")]
+    private const CatWateringData:Class;
+    [Embed(source = "../../assets/animations/cat_feed.png", mimeType = "application/octet-stream")]
+    private const CatFeedData:Class;
     [Embed(source = "../../assets/animations/buildingBuild.png", mimeType = "application/octet-stream")]
     private const BuildingBuild:Class;
     [Embed(source = "../../assets/animations/trees2.png", mimeType = "application/octet-stream")]
@@ -155,7 +159,7 @@ public class EmbedAssets {
 
 
 
-        var count:int = 8;
+        var count:int = 10;
         var factoryTree:StarlingFactory = new StarlingFactory();
         var fTree:Function = function (e:Event):void {
             g.allData.factory['tree'] = factoryTree;
@@ -183,6 +187,34 @@ public class EmbedAssets {
         };
         factoryCat.addEventListener(Event.COMPLETE, fCat);
         factoryCat.parseData(new CatData());
+
+        var factoryCatWatering:StarlingFactory = new StarlingFactory();
+        var fCatWatering:Function = function (e:Event):void {
+            g.allData.factory['cat_watering'] = factoryCatWatering;
+            count--;
+            if (count <= 0) {
+                if (onLoadCallback != null) {
+                    onLoadCallback.apply();
+                    onLoadCallback = null;
+                }
+            }
+        };
+        factoryCatWatering.addEventListener(Event.COMPLETE, fCatWatering);
+        factoryCatWatering.parseData(new CatWateringData());
+
+        var factoryCatFeed:StarlingFactory = new StarlingFactory();
+        var fCatFeed:Function = function (e:Event):void {
+            g.allData.factory['cat_feed'] = factoryCatFeed;
+            count--;
+            if (count <= 0) {
+                if (onLoadCallback != null) {
+                    onLoadCallback.apply();
+                    onLoadCallback = null;
+                }
+            }
+        };
+        factoryCatFeed.addEventListener(Event.COMPLETE, fCatFeed);
+        factoryCatFeed.parseData(new CatFeedData());
 
         var factoryBuild:StarlingFactory = new StarlingFactory();
         var fBuild:Function = function (e:Event):void {
