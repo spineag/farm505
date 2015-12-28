@@ -110,20 +110,37 @@ public class Farm extends AreaObject{
 
     public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
         try {
+            var p:Point;
             var an:Animal = new Animal(_dataAnimal, this);
-            MCScaler.scale(an.source, 80, 80);
-            var p:Point = g.farmGrid.getRandomPoint();
+            _arrAnimals.push(an);
+            if (_dataAnimal.id == 6) {
+                p = new Point();
+                if (_arrAnimals.length == 1) {
+                    p.x = 4;
+                    p.y = 125;
+                } else  if (_arrAnimals.length == 2) {
+                    p.x = 177;
+                    p.y = 208;
+                } else if (_arrAnimals.length == 3) {
+                    p.x = -165;
+                    p.y = 214;
+                } else {
+                    p.x = 7;
+                    p.y = 297;
+                }
+            } else {
+                p = g.farmGrid.getRandomPoint();
+            }
             an.source.x = p.x;
             an.source.y = p.y;
             _contAnimals.addChild(an.source);
-            _arrAnimals.push(an);
             if (!isFromServer) {
                 g.directServer.addUserAnimal(an, _dbBuildingId, null);
             } else {
                 an.fillItFromServer(ob);
             }
+            an.addRenderAnimation();
             if (_dataAnimal.id != 6) {
-                an.addRenderAnimation();
                 sortAnimals();
             }
         } catch (e:Error) {
@@ -182,7 +199,7 @@ public class Farm extends AreaObject{
     public function readyAnimal():void {
         var countNotWorkedAnimals:int = 0;
         for (var i:int=0; i<_arrAnimals.length; i++) {
-            if ((_arrAnimals[i] as Animal).state != Animal.WORKED) countNotWorkedAnimals++;
+            if ((_arrAnimals[i] as Animal).state != Animal.WORK) countNotWorkedAnimals++;
         }
         if (countNotWorkedAnimals >= _arrAnimals.length) {
             stopAnimateCat();

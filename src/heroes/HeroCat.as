@@ -5,21 +5,11 @@ package heroes {
 
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
-import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
-import dragonBones.factories.StarlingFactory;
-
-import flash.events.Event;
-import manager.EmbedAssets;
-import mouse.ToolsModifier;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
-import starling.utils.Color;
 
 import utils.CSprite;
 

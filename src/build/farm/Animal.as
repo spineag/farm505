@@ -6,32 +6,29 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
+
 import flash.geom.Point;
-
 import hint.MouseHint;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
 
 import resourceItem.CraftItem;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
-
-import starling.display.Image;
-import starling.filters.BlurFilter;
-import starling.utils.Color;
+import starling.display.Sprite;
 
 import utils.CSprite;
 
 public class Animal {
-    public static var EMPTY:int = 1;
-    public static var WORKED:int = 2;
+    public static var HUNGRY:int = 1;
+    public static var WORK:int = 2;
     public static var CRAFT:int = 3;
     private const WALK_SPEED:int = 20;
 
     public var source:CSprite;
-    private var _image:Image;
     private var _data:Object;
     private var _timeToEnd:int;
     private var _state:int;
@@ -39,8 +36,14 @@ public class Animal {
     private var _frameCounterMouseHint:int;
     private var _isOnHover:Boolean;
     private var _farm:Farm;
-    private var _defautScale:Number;
     public var animal_db_id:String;  // id в табличке user_animal
+
+    private var armature:Armature;
+    private var defaultLabel:String;
+    private var hungryLabel:String;
+    private var feedLabel:String;
+    private var walkLabel:String;
+    private var idleLabels:Array;
 
     private var g:Vars = Vars.getInstance();
 
@@ -55,24 +58,58 @@ public class Animal {
         _data = data;
         _isOnHover = false;
 
-        try {
-            _image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
-            _image.pivotX = _image.width / 2;
-            _image.pivotY = _image.height;
-            source.addChild(_image);
-        } catch (e:Error) {
-            Cc.error('no image for Animal: ' + _data.image);
-            g.woGameError.showIt();
+        armature = g.allData.factory[_data.image].buildArmature("animal");
+        if (!armature) {
+            Cc.error('Animal:: no armature for animalId: ' + _data.id);
             return;
         }
+        WorldClock.clock.add(armature);
+        source.addChild(armature.display as Sprite);
 
-        _state = EMPTY;
-        _defautScale = source.scaleX;
+        _state = HUNGRY;
 
         if (!g.isAway) {
             source.hoverCallback = onHover;
             source.outCallback = onOut;
             source.endClickCallback = onClick;
+        }
+
+        switch (_data.id) {
+            case 1: // chicken
+                defaultLabel = 'walk';
+                hungryLabel = 'hungry';
+                feedLabel = 'feed';
+                walkLabel = 'walk';
+                idleLabels = ['idle_1'];
+                break;
+            case 2: // cow
+                defaultLabel = 'walk';
+                hungryLabel = 'hungry';
+                feedLabel = 'feed';
+                walkLabel = 'walk';
+                idleLabels = ['idle_1', 'idle_2'];
+                break;
+            case 3: // pig
+                defaultLabel = 'walk';
+                hungryLabel = 'hungry';
+                feedLabel = 'feed';
+                walkLabel = 'walk';
+                idleLabels = ['idle1', 'idle2', 'idle3'];
+                break;
+            case 6: // bee
+                defaultLabel = 'idle';
+                hungryLabel = 'idle';
+                feedLabel = 'work';
+                walkLabel = 'idle';
+                idleLabels = ['work1', 'work2'];
+                break;
+            case 7: // sheep
+                defaultLabel = 'walk';
+                hungryLabel = 'hungry';
+                feedLabel = 'feed';
+                walkLabel = 'walk';
+                idleLabels = ['idle_2', 'idle_1'];
+                break;
         }
     }
 
@@ -89,20 +126,20 @@ public class Animal {
                 _state = CRAFT;
             } else {
                 _timeToEnd = _data.timeCraft - int(ob.time_work);
-                _state = WORKED;
+                _state = WORK;
                 if (!g.isAway) {
                     g.managerAnimal.addCatToFarm(_farm);
                     g.gameDispatcher.addToTimer(render);
                 }
             }
         } else {
-            _state = EMPTY;
+            _state = HUNGRY;
         }
     }
 
     private function render():void {
         _timeToEnd--;
-        if (_timeToEnd <= 0 && _state == WORKED) {
+        if (_timeToEnd <= 0 && _state == WORK) {
             _state = CRAFT;
             g.gameDispatcher.removeFromTimer(render);
             craftResource();
@@ -118,14 +155,14 @@ public class Animal {
     }
 
     private function onCraft():void {
-        _state = EMPTY;
+        _state = HUNGRY;
         addRenderAnimation();
         if (g.useDataFromServer) g.directServer.craftUserAnimal(animal_db_id, null);
     }
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
-        if (_state == EMPTY) {
+        if (_state == HUNGRY) {
             source.filter = null;
             if(g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
                 g.woNoResources.showItAnimal(_data,onClick);
@@ -135,7 +172,7 @@ public class Animal {
                 g.userInventory.addResource(_data.idResourceRaw, -1);
                 _timeToEnd = _data.timeCraft;
                 g.gameDispatcher.addToTimer(render);
-                _state = WORKED;
+                _state = WORK;
                 g.managerAnimal.addCatToFarm(_farm);
                 var p:Point = new Point(source.x, source.y);
                 p = source.parent.localToGlobal(p);
@@ -155,7 +192,7 @@ public class Animal {
     private function onHover():void {
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
-        if (_state == EMPTY) {
+        if (_state == HUNGRY) {
             source.filter = ManagerFilters.YELLOW_STROKE;
             _frameCounterMouseHint = 2;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
@@ -192,10 +229,10 @@ public class Animal {
         if(_frameCounterMouseHint <= 0){
             g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
             if (_isOnHover == true) {
-                if (_state == EMPTY) {
+                if (_state == HUNGRY) {
                     g.mouseHint.checkMouseHint('animal', _data);
                 }
-                if (_state == WORKED){
+                if (_state == WORK){
                     g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
 
                 }
@@ -212,87 +249,95 @@ public class Animal {
 
     public function addRenderAnimation():void {
         stopAnimation();
-        if (_state == EMPTY) {
-            waitForRawAnimation();
-        } else if (_state == CRAFT) {
-            waitForCraftAnimation();
-        } else {
-//            g.gameDispatcher.addToTimer(render);
+        if (_state == HUNGRY) {
+            showHungryAnimations();
+        } else if (_state == CRAFT || _state == WORK) {
             chooseAnimation();
         }
     }
 
-    private function waitForCraftAnimation():void {
-        source.scaleX = source.scaleY = .5*_defautScale;
-    }
-
-    private function waitForRawAnimation():void {
-        if (_data.id == 6) return;
-        var f1:Function = function():void {
-            new TweenMax(_image, .5, {scaleX:0.97*_defautScale, scaleY:1.03*_defautScale, ease:Linear.easeOut ,onComplete: f2});
-        };
-        var f2:Function = function():void {
-            new TweenMax(_image, .5, {scaleX:1.03*_defautScale, scaleY:0.97*_defautScale, ease:Linear.easeIn ,onComplete: f1});
-        };
-        f1();
+    private function showHungryAnimations():void {
+        armature.animation.gotoAndPlay(hungryLabel);
     }
 
     private function chooseAnimation():void {
         stopAnimation();
-        if (_data.id == 6) return;
-        var i:int = int(Math.random()*3);
-        if (i > 0) {
-            walkAnimation();
-        } else {
-            countIdle = 3;
+        if (_data.id == 6) {
             idleAnimation();
+        } else {
+            if (Math.random() > .7) {
+                walkAnimation();
+            } else {
+                idleAnimation();
+            }
         }
     }
 
-    private var countIdle:int;
     private function idleAnimation():void {
-        var f1:Function = function():void {
-            new TweenMax(_image, .2, {y:0, ease:Linear.easeOut ,onComplete: f2});
-        };
-        var f2:Function = function():void {
-            countIdle--;
-            if (countIdle <= 0) {
-                chooseAnimation();
-                return;
+        if (!idleLabels.length) {
+            Cc.error('Animal:: empty idleLabels for animalId: ' + String(_data.id));
+            return;
+        }
+        try {
+            if (idleLabels.length == 1) {
+                armature.animation.gotoAndPlay(idleLabels[0]);
+            } else if (idleLabels.length == 2) {
+                if (Math.random()<.75) {
+                    armature.animation.gotoAndPlay(idleLabels[0]);
+                } else {
+                    armature.animation.gotoAndPlay(idleLabels[1]);
+                }
+            } else {
+                var r:Number = Math.random();
+                if (r < .75) {
+                    armature.animation.gotoAndPlay(idleLabels[0]);
+                } else if (r < .95) {
+                    armature.animation.gotoAndPlay(idleLabels[1]);
+                } else {
+                    armature.animation.gotoAndPlay(idleLabels[2]);
+                }
             }
-            new TweenMax(_image, .2, {y:-20, ease:Linear.easeIn ,onComplete: f1});
-        };
-        f2();
+        } catch(e:Error) {
+            Cc.error('Animal idleAnimation:: error with animalId: ' + _data.id);
+            return;
+        }
+
+        armature.addEventListener(AnimationEvent.COMPLETE, completeIdleAnimation);
+        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, completeIdleAnimation);
+    }
+
+    private function completeIdleAnimation(e:AnimationEvent):void {
+        armature.removeEventListener(AnimationEvent.COMPLETE, completeIdleAnimation);
+        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeIdleAnimation);
+        chooseAnimation();
     }
 
     private function walkAnimation():void {
         var p:Point = g.farmGrid.getRandomPoint();
         var dist:int = Math.sqrt((source.x - p.x)*(source.x - p.x) + (source.y - p.y)*(source.y - p.y));
         if (p.x > source.x) {
-            source.scaleX = -_defautScale;
+            source.scaleX = -1;
         } else {
-            source.scaleX = _defautScale;
+            source.scaleX = 1;
         }
+        armature.animation.gotoAndPlay(walkLabel);
         new TweenMax(source, dist/WALK_SPEED, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
     }
 
     private function stopAnimation():void {
+        armature.animation.gotoAndStop(defaultLabel, 0);
         TweenMax.killTweensOf(source);
-        TweenMax.killTweensOf(_image);
-        _image.y = 0;
-        countIdle = 0;
-        source.scaleX = source.scaleY = _defautScale;
     }
 
     public function get depth():Number {
-//        var point3d:Point3D = g.farmGrid.screenToIso(new Point(source.x, source.y));
-//        point3d.x += 7;
-//        point3d.z += 7;
-//        return point3d.x + point3d.z;
         return source.y;
     }
 
     public function clearIt():void {
+        if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, completeIdleAnimation);
+        if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeIdleAnimation);
+        WorldClock.clock.remove(armature);
+        armature.dispose();
         _farm = null;
         g.mouseHint.hideIt();
         source.filter = null;
@@ -301,7 +346,6 @@ public class Animal {
         g.gameDispatcher.removeEnterFrame(countEnterFrame);
         _data = null;
         while (source.numChildren) source.removeChildAt(0);
-        _image.dispose();
         source = null;
     }
 

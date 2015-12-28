@@ -129,7 +129,7 @@ public class ManagerPlantRidge {
     public function checkFreeRidges():void {
         var b:Boolean = false;
         var i:int;
-        for (i=0; i<_arrRidge.length; i++) {  // check if there are at least one EMPTY ridge
+        for (i=0; i<_arrRidge.length; i++) {  // check if there are at least one HUNGRY ridge
             if (_arrRidge[i].stateRidge == Ridge.EMPTY) {
                 b = true;
                 break;
