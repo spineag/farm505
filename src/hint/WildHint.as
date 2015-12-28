@@ -36,7 +36,7 @@ public class WildHint {
         _source.addChild(_bg);
         _source.pivotX = _source.width/2;
         _source.pivotY = _source.height;
-        _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_circle'));
+        _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
         _txtCount = new TextField(50,50,"","Arial",12,Color.BLACK);
         _txtName = new TextField(100,50,"","Arial",18,Color.WHITE);
         _txtName.x = 20;

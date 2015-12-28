@@ -5,6 +5,8 @@ package hint {
 
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -15,12 +17,12 @@ import starling.utils.Color;
 import utils.MCScaler;
 
 public class MouseHint {
-    public static const SERP:String = "serp_icon";
-    public static const CLOCK:String = "clock_icon";
-    public static const VEDRO:String = "vedro_icon";
-    public static const SCICCORS:String = "sciccors_icon";
-    public static const KOWOLKA:String = "kowolka_icon";
-    public static const KORZINA:String = "korzina_icon";
+    public static const SERP:String = "cursor_sickle";
+    public static const CLOCK:String = "cursor_clock";
+    public static const VEDRO:String = "cursor_basket";
+    public static const SCICCORS:String = "cursor_basket";
+    public static const KOWOLKA:String = "cursor_basket";
+    public static const KORZINA:String = "cursor_basket";
     public static const HELP:String = "help_icon";
 
     private var _source:Sprite;
@@ -34,15 +36,16 @@ public class MouseHint {
 
     public function MouseHint() {
         _source = new Sprite();
-        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("mouse_circle"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle"));
         _source.addChild(_imageBg);
         _imageCont = new Sprite();
         _source.addChild(_imageCont);
-        _imageCircle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_circle"));
+        _imageCircle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_number_circle"));
         _imageCircle.x = _source.width - 27;
         _imageCircle.y = _source.height - 23;
         _source.addChild(_imageCircle);
-        _txtCount = new TextField(_imageCircle.width,_imageCircle.height,"","Arial",14,Color.BLACK);
+        _txtCount = new TextField(_imageCircle.width,_imageCircle.height,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCount.x = _imageCircle.x;
         _txtCount.y = _imageCircle.y;
         _source.addChild(_txtCount);
@@ -73,31 +76,33 @@ public class MouseHint {
         switch (s) {
             case SERP:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(SERP));
-                _image.x = 10;
-                _image.y = 15;
+                _image.x = 7;
+                _image.y = 7;
                 break;
             case CLOCK:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(CLOCK));
-                _image.x = 10;
-                _image.y = 15;
+                _image.x = 7;
+                _image.y = 7;
+
                 break;
             case VEDRO:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(VEDRO));
-                _image.x = 10;
-                _image.y = 15;
+                _image.x = 7;
+                _image.y = 7;
                 break;
             case KORZINA:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(KORZINA));
-                _image.x = 10;
-                _image.y = 15;
+                _image.x = 7;
+                _image.y = 7;
+
                 break;
             case 'animal':
                 _imageCircle.visible = true;
                 _txtCount.text = String(g.userInventory.getCountResourceById(data.idResourceRaw));
                 _image = new Image(g.allData.atlas[g.dataResource.objectResources[data.idResourceRaw].url].getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
-                MCScaler.scale(_image, 50, 50);
-                _image.x = 3;
-                _image.y = 8;
+                MCScaler.scale(_image, 40, 40);
+                _image.x = 4;
+                _image.y = 6;
                 break;
         }
 

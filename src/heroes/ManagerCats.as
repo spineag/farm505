@@ -26,7 +26,7 @@ public class ManagerCats {
         _townMatrix = g.townArea.townMatrix;
         _catsArray = [];
         _catInfo = new Object();
-        _catInfo.name = 'Котэ';
+        _catInfo.name = 'Кот';
         _catInfo.url = 'catAtlas';
         _catInfo.image = 'cat_man';
         _catInfo.image2 = 'cat_woman';
@@ -133,6 +133,15 @@ public class ManagerCats {
                 return;
             }
             (cat as HeroCat).killAllAnimations();
+            if (cat.posX == p.x && cat.posY == p.y) {
+                cat.flipIt(false);
+                cat.showFront(true);
+                cat.idleAnimation();
+                if (callback != null) {
+                    callback.apply(null, callbackParams);
+                }
+                return;
+            }
             g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);

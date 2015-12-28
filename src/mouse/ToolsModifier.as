@@ -213,7 +213,7 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
         _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
-        if (_activeBuilding.isContDrag || isFromShop) {
+        if (_activeBuilding.isContDrag() || isFromShop) {
             _needMoveGameCont = true;
         }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
@@ -250,7 +250,7 @@ public class ToolsModifier {
         _cont.y = g.cont.gameCont.y;
         _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
 
-        if (_activeBuilding.isContDrag || isFromShop) {
+        if (_activeBuilding.isContDrag() || isFromShop) {
             _needMoveGameCont = true;
         }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
@@ -382,6 +382,7 @@ public class ToolsModifier {
             spriteForMoveIndexX = point.x;
             spriteForMoveIndexY = point.y;
             if (_activeBuilding is DecorTail) {
+                if (!g.townArea.townTailMatrix[spriteForMoveIndexY] || !g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX]) return;
                 if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
                     _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
                 } else {

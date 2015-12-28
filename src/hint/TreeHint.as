@@ -55,7 +55,7 @@ public class TreeHint {
         _imageHelp.width = _imageHelp.height = 40;
         _imageHelp.x = 30;
         _imageHelp.y = 30;
-        _imageCircle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_circle"));
+        _imageCircle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_number_circle"));
         _imageCircle.x = 145;
         _imageCircle.y = 20;
 

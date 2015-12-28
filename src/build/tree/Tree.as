@@ -356,6 +356,12 @@ public class Tree extends AreaObject{
         if (g.isAway) {
             if (_state == ASK_FIX) {
                 _state = FIXED;
+                for (var i:int = 0; i<g.visitedUser.userDataCity.treesInfo.length; i++) {
+                    if (g.visitedUser.userDataCity.treesInfo[i].dbId == tree_db_id) {
+                        g.visitedUser.userDataCity.treesInfo[i].state = String(FIXED);
+                        break;
+                    }
+                }
                 g.directServer.makeWateringUserTree(tree_db_id, _state, null);
                 makeWateringIcon();
             }

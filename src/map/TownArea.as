@@ -511,6 +511,7 @@ public class TownArea extends Sprite {
                 g.directServer.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
             }
         }
+        g.selectedBuild = null;
     }
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
@@ -553,12 +554,12 @@ public class TownArea extends Sprite {
             g.woGameError.showIt();
             return;
         }
-        tail.clearIt();
         if(_contTail.contains(tail.source)){
             _contTail.removeChild(tail.source);
-            unFillTailMatrix(tail.posX, tail.posY);
-            _cityTailObjects.splice(_cityTailObjects.indexOf(tail), 1);
         }
+        unFillTailMatrix(tail.posX, tail.posY);
+        if (_cityTailObjects.indexOf(tail) > -1) _cityTailObjects.splice(_cityTailObjects.indexOf(tail), 1);
+        tail.clearIt();
     }
 
     public function moveBuild(worldObject:WorldObject):void{

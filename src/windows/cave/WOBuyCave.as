@@ -64,13 +64,14 @@ public class WOBuyCave extends Window {
             g.woGameError.showIt();
             return;
         }
+        var im:Image;
         if (cave){
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('mine_picture'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('mine_picture'));
             im.x = - 298;
             im.y = - 175;
             _source.addChildAt(im,0);
         } else {
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('aerial_tram_all'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('aerial_tram_all'));
             im.x = - 298;
             im.y = - 175;
             _source.addChildAt(im,0);
