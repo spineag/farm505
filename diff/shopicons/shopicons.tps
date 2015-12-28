@@ -214,9 +214,9 @@
             <filename>smelter_icon.png</filename>
             <filename>smoke_house_icon.png</filename>
             <filename>sugar_mill_icon.png</filename>
-            <filename>ridge_icon.png</filename>
             <filename>farm_sheep_icon.png</filename>
             <filename>apple_tree_icon.png</filename>
+            <filename>ridge_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

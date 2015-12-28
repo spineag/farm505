@@ -20,8 +20,8 @@ public class HeroCat extends BasicCat{
     private var _type:int;
     private var armature:Armature;
     private var armatureBack:Armature;
-    private var armatureClip:Sprite;
-    private var armatureClipBack:Sprite;
+    private var armatureWatering:Armature;
+    private var armatureFeeding:Armature;
     private var heroEyes:HeroEyesAnimation;
     private var freeIdleGo:Boolean;
 
@@ -36,24 +36,15 @@ public class HeroCat extends BasicCat{
         freeIdleGo = true;
         armature = g.allData.factory['cat'].buildArmature("cat");
         armatureBack = g.allData.factory['cat'].buildArmature("cat_back");
-        armatureClip = armature.display as Sprite;
-        armatureClipBack = armatureBack.display as Sprite;
-        _catImage.addChild(armatureClip);
-        _catBackImage.addChild(armatureClipBack);
+        _catImage.addChild(armature.display as Sprite);
+        _catBackImage.addChild(armatureBack.display as Sprite);
         WorldClock.clock.add(armature);
         WorldClock.clock.add(armatureBack);
-        if (_type == WOMAN) {
-            releaseWoman();
-        }
+
+        if (_type == WOMAN) releaseWoman();
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, _type == WOMAN);
-
-//        _catImage.x = -_catImage.width/2;
-//        _catImage.y = -_catImage.height + 2;
         _source.addChild(_catImage);
-//        _catBackImage.x = -_catBackImage.width/2;
-//        _catBackImage.y = -_catBackImage.height + 2;
         _source.addChild(_catBackImage);
-
         showFront(true);
     }
 
@@ -77,7 +68,7 @@ public class HeroCat extends BasicCat{
     }
 
     override public function flipIt(v:Boolean):void {
-        v ? _source.scaleX = -1*_scaleDefault : _source.scaleX = 1*_scaleDefault;
+        v ? _source.scaleX = -1: _source.scaleX = 1;
     }
 
     public function get isFree():Boolean {

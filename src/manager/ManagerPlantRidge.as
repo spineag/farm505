@@ -64,11 +64,11 @@ public class ManagerPlantRidge {
             if (cat) {
                 cat.isFree = false;
                 if (cat.isOnMap) {
-                    g.managerCats.goCatToPoint(cat, new Point(ridge.posX, ridge.posY), onArrivedCat, cat, plantId);
+                    g.managerCats.goCatToPoint(cat, new Point(ridge.posX, ridge.posY), onArrivedCatToRidge, cat, plantId);
                 } else {
                     cat.setPosition(new Point(ridge.posX,ridge.posY));
                     cat.addToMap();
-                    onArrivedCat(cat, plantId);
+                    onArrivedCatToRidge(cat, plantId);
                 }
                 _catsForPlant[plantId] = {cat: cat, ridges:[ridge]};
             } else {
@@ -99,8 +99,14 @@ public class ManagerPlantRidge {
 
     private function removeCatFromPlant(plantId:int, cat:HeroCat):void {
         cat.isFree = true;
-//        g.managerCats.goCatToPoint(cat, g.managerCats.getRandomFreeCell());
         delete _catsForPlant[plantId];
+    }
+
+    private function onArrivedCatToRidge(cat:HeroCat, plantId:int):void {
+        //goto to Left side of ridge or to right side
+
+        //....
+        onArrivedCat(cat, plantId);
     }
 
     private function onArrivedCat(cat:HeroCat, plantId:int):void {

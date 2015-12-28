@@ -31,7 +31,6 @@ public class BasicCat {
     protected var _callbackOnWalking:Function;
     protected var _scaleDefault:Number = 1;
     protected var g:Vars = Vars.getInstance();
-    protected var _loadedCallback:Function;
     public var isOnMap:Boolean = false;
 
     public function BasicCat() {
