@@ -26,8 +26,6 @@ public class EmbedAssets {
     private const InstrumentTexture:Class;
     [Embed(source="../../assets/resourceAtlas.png")]
     private const ResourceTexture:Class;
-    [Embed(source="../../assets/treeAtlas3.png")]
-    private const TreeTexture:Class;
     [Embed(source="../../assets/cats3.png")]
     private const CatTexture:Class;
     [Embed(source="../../assets/wildAtlas3.png")]
@@ -52,8 +50,6 @@ public class EmbedAssets {
     private const InstrumentTextureXML:Class;
     [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
     private const ResourceTextureXML:Class;
-    [Embed(source="../../assets/treeAtlas3.xml", mimeType="application/octet-stream")]
-    private const TreeTextureXML:Class;
     [Embed(source="../../assets/cats3.xml", mimeType="application/octet-stream")]
     private const CatTextureXML:Class;
     [Embed(source="../../assets/wildAtlas3.xml", mimeType="application/octet-stream")]
@@ -78,11 +74,11 @@ public class EmbedAssets {
     [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
     private const HouschkaBold:Class;
 
-    [Embed(source = "../../assets/cat9.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/cat9.png", mimeType = "application/octet-stream")]
     private const CatData:Class;
-    [Embed(source = "../../assets/buildingBuild.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/buildingBuild.png", mimeType = "application/octet-stream")]
     private const BuildingBuild:Class;
-    [Embed(source = "../../assets/trees2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/trees2.png", mimeType = "application/octet-stream")]
     private const BuildingTrees:Class;
 
     private var g:Vars = Vars.getInstance();
@@ -117,10 +113,6 @@ public class EmbedAssets {
         texture = Texture.fromBitmap(new InstrumentTexture());
         xml= XML(new InstrumentTextureXML());
         g.allData.atlas['instrumentAtlas'] = new TextureAtlas(texture, xml);
-
-        texture = Texture.fromBitmap(new TreeTexture());
-        xml= XML(new TreeTextureXML());
-        g.allData.atlas['treeAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new CatTexture());
         xml= XML(new CatTextureXML());
