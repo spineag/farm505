@@ -99,7 +99,7 @@ public class WOAmbarFilled extends Window{
         _bol = isAmbar;
         if (isAmbar == true){
             showIt();
-            _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount) + "КГ.";
+            _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount);
             _txtAmbarFilled.text = "АМБАР ЗАПОЛНЕН";
             _txtBtn.text = "Увеличть Амбар";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
@@ -110,7 +110,7 @@ public class WOAmbarFilled extends Window{
             _source.addChild(_imAmbarSklad);
         } else if(isAmbar == false) {
             showIt();
-            _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount) + "КГ.";
+            _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount);
             _txtAmbarFilled.text = "СКЛАД ЗАПОЛНЕН";
             _txtBtn.text = "Увеличть Склад";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
