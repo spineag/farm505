@@ -12,6 +12,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.MCScaler;
 
 import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowMine;
@@ -36,10 +37,15 @@ public class WOBuyCave extends Window {
         callbackClickBG = onClickExit;
 
         btn = new CSprite();
-        var bg:WOButtonTexture = new WOButtonTexture(230, 35, WOButtonTexture.BLUE);
+        var bg:WOButtonTexture = new WOButtonTexture(250, 35, WOButtonTexture.BLUE);
         btn.addChild(bg);
         btn.x = -btn.width/2;
         btn.y = 125;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        im.x = 215;
+        im.y = 7;
+        btn.addChild(im);
+        MCScaler.scale(im,25,25);
         priceTxt = new TextField(217, 30, '',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         priceTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         priceTxt.y = 5;
@@ -52,6 +58,8 @@ public class WOBuyCave extends Window {
         txt.x = -150;
         txt.y = -20;
         _source.addChild(txt);
+
+
     }
 
     private function onClickExit(e:Event = null):void {

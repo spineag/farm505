@@ -37,13 +37,10 @@ public class WOTrainItem {
 
     private var g:Vars = Vars.getInstance();
 
-    public function WOTrainItem() {
+    public function WOTrainItem(type:int) {
         _index = -1;
         source = new CSprite();
-//        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
-//        MCScaler.scale(_bg, 80, 80);
-//        _bg.width = 100;
-//        source.addChild(_bg);
+
         source.alpha = .25;
         _txt = new TextField(100,30,"","Arial",16,Color.BLACK);
         _txt.y = 50;
@@ -54,11 +51,25 @@ public class WOTrainItem {
         _galo4ka.y = 40;
         source.addChild(_galo4ka);
         _galo4ka.visible = false;
+        switch (type) {
+            case (WOTrain.CELL_BLUE):
+                var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_blue'));
+                source.addChild(_bg);
+                break;
+            case (WOTrain.CELL_GREEN):
+                var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_green'));
+                source.addChild(_bg);
+                break;
+            case (WOTrain.CELL_RED):
+                var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_red'));
+                source.addChild(_bg);
+                break;
+        }
     }
 
     public function fillIt(t:TrainCell, i:int):void {
         _index = i;
-        source.alpha = .7;
+//        source.alpha = .7;
         _info = t;
         if (!t || !g.dataResource.objectResources[_info.id]) {
             Cc.error('WOTrainItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
@@ -89,7 +100,7 @@ public class WOTrainItem {
     }
 
     public function setAlpha():void {
-        if (_index >= 0) source.alpha = .7;
+//        if (_index >= 0) source.alpha = .7;
     }
 
     public function get idFree():int {
@@ -104,7 +115,7 @@ public class WOTrainItem {
         if (_f != null) {
             _f.apply(null, [_index]);
         }
-        source.alpha = 1;
+//        source.alpha = 1;
     }
 
     public function get isResourceLoaded():Boolean {
@@ -136,7 +147,7 @@ public class WOTrainItem {
         _index = -1;
         source.removeChild(_im);
         _im = null;
-        source.alpha = .25;
+//        source.alpha = .25;
         source.endClickCallback = null;
     }
 }

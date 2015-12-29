@@ -295,6 +295,13 @@
             <filename>cursor_clock.png</filename>
             <filename>cursor_number_circle.png</filename>
             <filename>cursor_sickle.png</filename>
+            <filename>a_tr_cup_ico.png</filename>
+            <filename>a_tr_kor_ico.png</filename>
+            <filename>a_tr_rup_ico.png</filename>
+            <filename>a_tr_blue.png</filename>
+            <filename>a_tr_gray.png</filename>
+            <filename>a_tr_green.png</filename>
+            <filename>a_tr_red.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

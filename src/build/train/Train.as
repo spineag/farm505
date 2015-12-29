@@ -35,7 +35,7 @@ public class Train extends AreaObject{
     private var _dataPack:Object;
     private var _train_db_id:String; // id для поезда юзера в табличке user_train
     private var TIME_READY:int = 280; // время, которое ожидает поезд для загрузки продуктов
-    private var TIME_WAIT:int = 280;  // время, на которое уезжает поезд
+    private var TIME_WAIT:int = 2;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _count:int;
 

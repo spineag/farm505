@@ -29,7 +29,7 @@ public class WOTrainOrderItem {
         source = new CSprite();
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_item'));
+        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_blue'));
         MCScaler.scale(_bg, 80, 80);
         _bg.width = 100;
         source.addChild(_bg);
