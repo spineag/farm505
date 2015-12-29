@@ -122,7 +122,7 @@ public class BasicCat {
         if (_curSpeed <= 0) return;
         var koef:Number = 1;
         var pXY:Point = g.matrixGrid.getXYFromIndex(p);
-        var f1:Function = function():void {
+        var f1:Function = function(callback:Function):void {
             _posX = p.x;
             _posY = p.y;
             g.townArea.zSort();
@@ -130,8 +130,8 @@ public class BasicCat {
                 gotoPoint(_currentPath.shift());
             } else {
                 idleAnimation();
-                if (_callbackOnWalking != null) {
-                    _callbackOnWalking.apply();
+                if (callback != null) {
+                    callback.apply();
                     _callbackOnWalking = null;
                 }
             }
@@ -179,7 +179,7 @@ public class BasicCat {
             _source.scaleX = 1;
             Cc.error('BasicCat gotoPoint:: wrong front-back logic');
         }
-        new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1});
+        new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [_callbackOnWalking]});
     }
 
 }

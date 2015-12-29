@@ -125,7 +125,6 @@ public class ManagerCats {
             }
         };
 
-
         try {
             if (!cat) {
                 Cc.error('ManagerCats goCatToPoint error: cat == null');

@@ -17,6 +17,7 @@ import utils.CSprite;
 
 public class HeroCat extends BasicCat{
     private var _catImage:Sprite;
+    private var _catWatering:Sprite;
     private var _catBackImage:Sprite;
     private var _isFree:Boolean;
     private var _type:int;
@@ -35,6 +36,7 @@ public class HeroCat extends BasicCat{
         _isFree = true;
         _source = new CSprite();
         _catImage = new Sprite();
+        _catWatering = new Sprite();
         _catBackImage = new Sprite();
         freeIdleGo = true;
         armature = g.allData.factory['cat'].buildArmature("cat");
@@ -47,6 +49,7 @@ public class HeroCat extends BasicCat{
         if (_type == WOMAN) releaseWoman();
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, _type == WOMAN);
         _source.addChild(_catImage);
+        _source.addChild(_catWatering);
         _source.addChild(_catBackImage);
         showFront(true);
     }
@@ -83,6 +86,8 @@ public class HeroCat extends BasicCat{
         g.catPanel.checkCat();
         if (_isFree) {
             makeFreeCatIdle();
+        } else {
+            stopFreeCatIdle();
         }
     }
 
@@ -105,15 +110,16 @@ public class HeroCat extends BasicCat{
             super.stopAnimation();
     }
     override public function idleAnimation():void {
-            if (Math.random() > .2) {
-                showFront(true);
-            } else {
-                showFront(false);
-            }
-            heroEyes.startAnimations();
-            armature.animation.gotoAndPlay("idle");
-            armatureBack.animation.gotoAndPlay("idle");
-            super.idleAnimation();
+        if (armatureWatering || armatureFeeding) return;
+        if (Math.random() > .2) {
+            showFront(true);
+        } else {
+            showFront(false);
+        }
+        heroEyes.startAnimations();
+        armature.animation.gotoAndPlay("idle");
+        armatureBack.animation.gotoAndPlay("idle");
+        super.idleAnimation();
     }
 
     private function releaseWoman():void {
@@ -170,24 +176,26 @@ public class HeroCat extends BasicCat{
 
     public function stopFreeCatIdle():void {
         killAllAnimations();
-        timer = 0;
-        g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
     }
 
     public function killAllAnimations():void {
         stopAnimation();
         _currentPath = [];
         TweenMax.killTweensOf(_source);
+        timer = 0;
+        g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
     }
 
 // WORK WITH PLANT
     public function workWithPlant(callback:Function):void {
         if (!armatureWatering) {
             armatureWatering = g.allData.factory['cat_watering'].buildArmature("cat");
+            WorldClock.clock.add(armatureWatering);
         }
-        _catImage.addChild(armatureWatering.display as Sprite);
+        _catWatering.addChild(armatureWatering.display as Sprite);
 //        if (_type == WOMAN) changeWateringTexture();     !!!!!
-        (armature.display as Sprite).visible = false;
+        _catImage.visible = false;
+        _catBackImage.visible = false;
         if (isLeftForPlantWatering) flipIt(true);
 
         var f:Function = function(e:AnimationEvent):void {
@@ -218,12 +226,13 @@ public class HeroCat extends BasicCat{
             makeWateringIdle(callback);
         };
         var fClose:Function = function(e:AnimationEvent):void {
+            WorldClock.clock.remove(armatureWatering);
             armatureWatering.removeEventListener(AnimationEvent.COMPLETE, fClose);
             armatureWatering.removeEventListener(AnimationEvent.LOOP_COMPLETE, fClose);
-            _catImage.removeChild(armatureWatering.display as Sprite);
+            while (_catWatering.numChildren) _catWatering.removeChildAt(0);
             armatureWatering.dispose();
             armatureWatering = null;
-            (armature.display as Sprite).visible = true;
+            showFront(true);
             if (callback != null) {
                 callback.apply();
             }
@@ -246,7 +255,13 @@ public class HeroCat extends BasicCat{
         }
     }
 
-    // !! add FORCE STOP WATERING
+    public function forceStopWorkWithPlant():void {
+        WorldClock.clock.remove(armatureWatering);
+        while (_catWatering.numChildren) _catWatering.removeChildAt(0);
+        armatureWatering.dispose();
+        armatureWatering = null;
+        showFront(true);
+    }
 
 }
 }

@@ -101,6 +101,7 @@ public class ManagerPlantRidge {
     }
 
     private function removeCatFromPlant(plantId:int, cat:HeroCat):void {
+        cat.forceStopWorkWithPlant();
         cat.isFree = true;
         delete _catsForPlant[plantId];
     }
@@ -146,6 +147,7 @@ public class ManagerPlantRidge {
             }
         };
 
+        g.townArea.zSort();
         cat.workWithPlant(onFinishWork);
     }
 

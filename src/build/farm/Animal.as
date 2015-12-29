@@ -257,7 +257,11 @@ public class Animal {
     }
 
     private function showHungryAnimations():void {
-        armature.animation.gotoAndPlay(hungryLabel);
+        if (_data.id == 6) {
+            armature.animation.gotoAndStop(hungryLabel, 0);
+        } else {
+            armature.animation.gotoAndPlay(hungryLabel);
+        }
     }
 
     private function chooseAnimation():void {
