@@ -7,6 +7,9 @@ import build.AreaObject;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import mouse.ToolsModifier;
+
+import particle.FarmFeedParticles;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import ui.xpPanel.XPStar;
@@ -195,6 +198,18 @@ public class Farm extends AreaObject{
         if (countNotWorkedAnimals >= _arrAnimals.length) {
             g.managerAnimal.freeFarmCat(_dbBuildingId);
         }
+    }
+
+    public function showParticles(p:Point, isFromLeftSide:Boolean):void {
+        var tempCont:Sprite = new Sprite();
+        _source.addChild(tempCont);
+        p = tempCont.globalToLocal(p);
+
+        var onFinish:Function = function():void {
+
+        };
+        var particles:FarmFeedParticles = new FarmFeedParticles(onFinish);
+        tempCont.addChild(particles.source);
     }
 
 }

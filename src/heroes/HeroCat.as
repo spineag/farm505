@@ -12,6 +12,8 @@ import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 
+import flash.geom.Point;
+
 import starling.display.Image;
 import starling.display.Sprite;
 
@@ -348,7 +350,12 @@ public class HeroCat extends BasicCat{
     }
 
     private function makeFeedingParticles():void {
-
+        var bone:Bone = armatureWorker.getBone('particle');
+        var p:Point = new Point();
+        p.x = bone.display.x;
+        p.y = bone.display.y;
+        p = (armature.display as Sprite).localToGlobal(p);
+        curActiveFarm.showParticles(p, isLeftForFeedAndWatering);
     }
 
 }
