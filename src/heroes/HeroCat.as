@@ -46,7 +46,10 @@ public class HeroCat extends BasicCat{
         WorldClock.clock.add(armature);
         WorldClock.clock.add(armatureBack);
 
-        if (_type == WOMAN) releaseWoman();
+        if (_type == WOMAN) {
+            releaseFrontWoman('cat', armature);
+            releaseBackWoman('cat', armatureBack);
+        }
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWatering);
@@ -122,31 +125,29 @@ public class HeroCat extends BasicCat{
         super.idleAnimation();
     }
 
-    private function releaseWoman():void {
-        changeTexture("head", "heads/head_w");
-        changeTexture("head", "heads_b/head_w_b", false);
-        changeTexture("body", "bodys/body_w");
-        changeTexture("body", "bodys_b/body_w_b", false);
-        changeTexture("handLeft", "left_hand/handLeft_w");
-        changeTexture("handLeft", "left_hand_b/handLeft_w_b", false);
-        changeTexture("legLeft", "left_leg/legLeft_w");
-        changeTexture("legLeft", "left_leg_b/legLeft_w_b", false);
-        changeTexture("handRight", "right_hand/handRight_w");
-        changeTexture("handRight", "right_hand_b/handRight_w_b", false);
-        changeTexture("legRight", "right_leg/legRight_w");
-        changeTexture("legRight", "right_leg_b/legRight_w_b", false);
-        changeTexture("tail", "tails/tail_w");
-        changeTexture("tail11", "tails/tail_w", false);
+    private function releaseFrontWoman(factory:String, arma:Armature):void {
+        changeTexture(factory, "head", "heads/head_w", arma);
+        changeTexture(factory, "body", "bodys/body_w", arma);
+        changeTexture(factory, "handLeft", "left_hand/handLeft_w", arma);
+        changeTexture(factory, "legLeft", "left_leg/legLeft_w", arma);
+        changeTexture(factory, "handRight", "right_hand/handRight_w", arma);
+        changeTexture(factory, "legRight", "right_leg/legRight_w", arma);
+        changeTexture(factory, "tail", "tails/tail_w", arma);
     }
 
-    private function changeTexture(oldName:String, newName:String, isFront:Boolean = true):void {
-        var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
-        var b:Bone;
-        if (isFront) {
-            b = armature.getBone(oldName);
-        } else {
-            b = armatureBack.getBone(oldName);
-        }
+    private function releaseBackWoman(factory:String, arma:Armature):void {
+        changeTexture(factory, "head", "heads_b/head_w_b", arma);
+        changeTexture(factory, "body", "bodys_b/body_w_b", arma);
+        changeTexture(factory, "handLeft", "left_hand_b/handLeft_w_b", arma);
+        changeTexture(factory, "legLeft", "left_leg_b/legLeft_w_b", arma);
+        changeTexture(factory, "handRight", "right_hand_b/handRight_w_b", arma);
+        changeTexture(factory, "legRight", "right_leg_b/legRight_w_b", arma);
+        changeTexture(factory, "tail11", "tails/tail_w", arma);
+    }
+
+    private function changeTexture(factory:String, oldName:String, newName:String, arma:Armature):void {
+        var im:Image = g.allData.factory[factory].getTextureDisplay(newName) as Image;
+        var b:Bone = arma.getBone(oldName);
         b.display.dispose();
         b.display = im;
     }
@@ -191,9 +192,11 @@ public class HeroCat extends BasicCat{
         if (!armatureWatering) {
             armatureWatering = g.allData.factory['cat_watering'].buildArmature("cat");
             WorldClock.clock.add(armatureWatering);
+            if (_type == WOMAN) {
+                releaseFrontWoman('cat', armatureWatering);
+            }
         }
         _catWatering.addChild(armatureWatering.display as Sprite);
-//        if (_type == WOMAN) changeWateringTexture();     !!!!!
         _catImage.visible = false;
         _catBackImage.visible = false;
         if (isLeftForPlantWatering) flipIt(true);
@@ -238,16 +241,16 @@ public class HeroCat extends BasicCat{
             }
         };
         var k:Number = Math.random();
-        if (k < .25) {
+        if (k < .4) {
             armatureWatering.addEventListener(AnimationEvent.COMPLETE, fClose);
             armatureWatering.addEventListener(AnimationEvent.LOOP_COMPLETE, fClose);
             armatureWatering.animation.gotoAndPlay("close");
         } else {
             armatureWatering.addEventListener(AnimationEvent.COMPLETE, f);
             armatureWatering.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
-            if (k < .5) {
+            if (k < .6) {
                 armatureWatering.animation.gotoAndPlay("work");
-            } else if (k < .75) {
+            } else if (k < .8) {
                 armatureWatering.animation.gotoAndPlay("idle");
             } else {
                 armatureWatering.animation.gotoAndPlay("look");
