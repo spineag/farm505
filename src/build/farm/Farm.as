@@ -6,23 +6,15 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
-import heroes.FarmCat;
 import mouse.ToolsModifier;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
-import starling.utils.Color;
-
 import ui.xpPanel.XPStar;
-import utils.CSprite;
-import utils.MCScaler;
 
 public class Farm extends AreaObject{
     private var _dataAnimal:Object;
     private var _arrAnimals:Array;
     private var _contAnimals:Sprite;
-    private var _farmCat:FarmCat;
     private var _imageBottom:Image;
 
     public function Farm(_data:Object) {
@@ -171,7 +163,6 @@ public class Farm extends AreaObject{
         counter--;
         if (counter <= 0) {
             arr = _arrAnimals.slice();
-            if (_farmCat && arr.indexOf(_farmCat) == -1) arr.push(_farmCat);
             if (arr.length > 1) {
                 arr.sortOn('depth', Array.NUMERIC);
                 for (var i:int = 0; i < arr.length; i++) {
@@ -202,28 +193,9 @@ public class Farm extends AreaObject{
             if ((_arrAnimals[i] as Animal).state != Animal.WORK) countNotWorkedAnimals++;
         }
         if (countNotWorkedAnimals >= _arrAnimals.length) {
-            stopAnimateCat();
             g.managerAnimal.freeFarmCat(_dbBuildingId);
         }
     }
 
-    public function startAnimateCat():void {
-        if (!_farmCat && !g.isAway) {
-            _farmCat = new FarmCat();
-            var p:Point = g.farmGrid.getZeroPoint();
-            _farmCat.source.x = p.x;
-            _farmCat.source.y = p.y;
-            _contAnimals.addChild(_farmCat.source);
-            _farmCat.startFarmAnimation();
-        }
-    }
-
-    public function stopAnimateCat():void {
-        if (_farmCat && !g.isAway) {
-            _farmCat.clearIt();
-            if (_contAnimals.contains(_farmCat.source)) _contAnimals.removeChild(_farmCat.source);
-            _farmCat = null;
-        }
-    }
 }
 }

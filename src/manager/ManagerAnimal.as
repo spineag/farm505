@@ -56,11 +56,13 @@ public class ManagerAnimal {
         _catsForFarm[fa.dbBuildingId] = cat;
         if (cat) {
             cat.isFree = false;
+            cat.curActiveFarm = fa;
             if (cat.isOnMap) {
-                g.managerCats.goCatToPoint(cat, new Point(fa.posX, fa.posY), afterWalk, fa, cat);
+                g.managerCats.goCatToPoint(cat, new Point(fa.posX, fa.posY), onArrivedCatToFarm, cat);
             } else {
                 cat.setPosition(new Point(fa.posX, fa.posY));
-                afterWalk(fa, cat);
+                cat.addToMap();
+                onArrivedCatToFarm(cat);
             }
         } else {
             Cc.error('ManagerAnimal addCatToFarm:: cat = null');
@@ -68,16 +70,31 @@ public class ManagerAnimal {
         }
     }
 
-    private function afterWalk(fa:Farm, cat:HeroCat):void {
-        cat.visible = false;
-        fa.startAnimateCat();
+    private function onArrivedCatToFarm(cat:HeroCat):void {
+        var p:Point = new Point();
+        var k:int = 3 + int(Math.random()*3);
+        cat.isLeftForFeedAndWatering = Math.random() > .5;
+        if (cat.isLeftForFeedAndWatering) {
+            p.x = cat.curActiveFarm.posX;
+            p.y = cat.curActiveFarm.posY + k;
+        } else {
+            p.x = cat.curActiveFarm.posX + k;
+            p.y = cat.curActiveFarm.posY;
+        }
+        g.managerCats.goCatToPoint(cat, p, onArrivedCatToFarmPoint, cat);
+    }
+
+    private function onArrivedCatToFarmPoint(cat:HeroCat):void {
+        var onFinishWork:Function = function():void {
+            onArrivedCatToFarm(cat);
+        };
+        cat.workWithFarm(onFinishWork);
     }
 
     public function freeFarmCat(farmDbId:int):void {
         if (_catsForFarm[farmDbId]) {
+            (_catsForFarm[farmDbId] as HeroCat).forceStopWork();
             (_catsForFarm[farmDbId] as HeroCat).isFree = true;
-            (_catsForFarm[farmDbId] as HeroCat).visible = true;
-//            g.managerCats.goCatToPoint(_catsForFarm[farmDbId] as HeroCat, g.managerCats.getRandomFreeCell());
             delete _catsForFarm[farmDbId];
         } else {
             Cc.error('ManagerAnimal freeFarmCat:: empty _catsForFarm[farmDbId] for farmDbId: ' + farmDbId);

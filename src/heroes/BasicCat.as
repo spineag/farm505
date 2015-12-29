@@ -28,8 +28,6 @@ public class BasicCat {
     protected var _speedRun:int = 8;
     protected var _curSpeed:int;
     protected var _currentPath:Array;
-    protected var _callbackOnWalking:Function;
-    protected var _scaleDefault:Number = 1;
     protected var g:Vars = Vars.getInstance();
     public var isOnMap:Boolean = false;
 
@@ -106,36 +104,35 @@ public class BasicCat {
     }
     public function idleAnimation():void {}
 
-    public function goWithPath(arr:Array, f:Function):void {
+    public function goWithPath(arr:Array, callbackOnWalking:Function):void {
         _currentPath = arr;
         if (_currentPath.length) {
-            _callbackOnWalking = f;
             _currentPath.shift(); // first element is that point, where we are now
-            gotoPoint(_currentPath.shift());
+            gotoPoint(_currentPath.shift(), callbackOnWalking);
         }
     }
 
     public function showFront(v:Boolean):void {}
     public function flipIt(v:Boolean):void {}
 
-    protected function gotoPoint(p:Point):void {
+    protected function gotoPoint(p:Point, callbackOnWalking:Function):void {
         if (_curSpeed <= 0) return;
         var koef:Number = 1;
         var pXY:Point = g.matrixGrid.getXYFromIndex(p);
-        var f1:Function = function():void {
+        var f1:Function = function(callbackOnWalking:Function):void {
             _posX = p.x;
             _posY = p.y;
             g.townArea.zSort();
             if (_currentPath.length) {
-                gotoPoint(_currentPath.shift());
+                gotoPoint(_currentPath.shift(), callbackOnWalking);
             } else {
                 idleAnimation();
-                if (_callbackOnWalking != null) {
-                    _callbackOnWalking.apply();
-                    _callbackOnWalking = null;
+                if (callbackOnWalking != null) {
+                    callbackOnWalking.apply();
                 }
             }
         };
+
         if (Math.abs(_posX - p.x) + Math.abs(_posY - p.y) == 2) {
             koef = 1.4;
         } else {
@@ -179,7 +176,7 @@ public class BasicCat {
             _source.scaleX = 1;
             Cc.error('BasicCat gotoPoint:: wrong front-back logic');
         }
-        new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1});
+        new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
     }
 
 }

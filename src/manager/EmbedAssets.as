@@ -26,8 +26,6 @@ public class EmbedAssets {
     private const InstrumentTexture:Class;
     [Embed(source="../../assets/resourceAtlas.png")]
     private const ResourceTexture:Class;
-    [Embed(source="../../assets/cats3.png")]
-    private const CatTexture:Class;
     [Embed(source="../../assets/wildAtlas3.png")]
     private const WildTexture:Class;
     [Embed(source="../../assets/farmAtlas3.png")]
@@ -50,8 +48,6 @@ public class EmbedAssets {
     private const InstrumentTextureXML:Class;
     [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
     private const ResourceTextureXML:Class;
-    [Embed(source="../../assets/cats3.xml", mimeType="application/octet-stream")]
-    private const CatTextureXML:Class;
     [Embed(source="../../assets/wildAtlas3.xml", mimeType="application/octet-stream")]
     private const WildTextureXML:Class;
     [Embed(source="../../assets/farmAtlas3.xml", mimeType="application/octet-stream")]
@@ -128,10 +124,6 @@ public class EmbedAssets {
         texture = Texture.fromBitmap(new InstrumentTexture());
         xml= XML(new InstrumentTextureXML());
         g.allData.atlas['instrumentAtlas'] = new TextureAtlas(texture, xml);
-
-        texture = Texture.fromBitmap(new CatTexture());
-        xml= XML(new CatTextureXML());
-        g.allData.atlas['catAtlas'] = new TextureAtlas(texture, xml);
 
         texture = Texture.fromBitmap(new WildTexture());
         xml= XML(new WildTextureXML());
