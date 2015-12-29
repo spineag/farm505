@@ -6,6 +6,10 @@ package hint {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 
+import flash.geom.Point;
+
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -13,24 +17,31 @@ import starling.core.Starling;
 
 import starling.display.Image;
 import starling.display.Quad;
+import starling.display.Sprite;
 
 import starling.text.TextField;
 
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
+import utils.TimeUtils;
+
+import windows.WOComponents.HintBackground;
 
 import windows.WOComponents.WOButtonTexture;
 
 public class TimerHint {
     public var source:CSprite;
-    private var _contBtn:CSprite;
     private var _txtName:TextField;
     private var _txtTimer:TextField;
+    private var _txtText:TextField;
     private var _timer:int;
-    private var _textureHint:Image;
-    private var _imageBtn:WOButtonTexture;
+    private var _imageClock:Image;
+    private var _bg:HintBackground;
+    private var _btn:CButton;
     private var _txtCost:TextField;
     private var _isOnHover:Boolean;
     private var _isShow:Boolean;
@@ -40,35 +51,53 @@ public class TimerHint {
 
     public function TimerHint() {
         source = new CSprite();
-        _contBtn = new CSprite();
-        _contBtn.x = 100;
-        _contBtn.y = 20;
         _isOnHover = false;
         _isShow = false;
-        _txtCost = new TextField(50,50,"","Arial",12,Color.BLACK);
-        _txtTimer = new TextField(50,30,"","Arial",18,Color.BLACK);
-        _txtName = new TextField(100,50,"","Arial",18,Color.WHITE);
-        _txtName.x = 40;
-        _txtName.y = -30;
-        _textureHint = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup"));
-        _imageBtn = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
-        _contBtn.addChild(_imageBtn);
-        _contBtn.addChild(_txtCost);
-        MCScaler.scale(_imageBtn,60,60);
+        _bg = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        source.addChild(_bg);
+        _btn = new CButton();
+        _btn.addButtonTexture(77, 45, CButton.GREEN, true);
+        _txtCost = new TextField(50,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _txtCost.x = 10;
+        _txtCost.y = -5;
+        _txtTimer = new TextField(50,30,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtName = new TextField(80,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtText = new TextField(80,40,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE);
+        _txtName.x = -40;
+        _txtName.y = -130;
+        _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));
+        _imageClock.y = -90;
+        _imageClock.x = -60;
+        _btn = new CButton();
+        _btn.addButtonTexture(77, 45, CButton.GREEN, true);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        im.x = 50;
+        im.y = 10;
+        MCScaler.scale(im,25,25);
+        _btn.addChild(im);
+        _btn.addChild(_txtCost);
+        _btn.y = -60;
+        _btn.x = 35;
+        source.addChild(_btn);
         source.addChild(_txtName);
-        source.addChild(_textureHint);
-        source.pivotX = source.width/2;
-        source.pivotY = source.height;
-        _txtTimer.x = 20;
-        _txtTimer.y = 65;
+        source.addChild(_imageClock);
+        source.addChild(_txtText);
+//        source.pivotX = source.width/2;
+//        source.pivotY = source.height;
+        _txtTimer.x = -70;
+        _txtTimer.y = -60;
         source.addChild(_txtTimer);
-        var quad:Quad = new Quad(source.width, source.height,Color.WHITE ,false);
+        var quad:Quad = new Quad(_bg.width, _bg.height+45,Color.WHITE ,false);
         quad.alpha = 0;
+        quad.x = -_bg.width/2;
+        quad.y = -_bg.height;
         source.addChildAt(quad,0);
-        source.addChild(_contBtn);
-        _contBtn.endClickCallback = onClickBtn;
         source.hoverCallback = onHover;
         source.outCallback = outHover;
+        _btn.clickCallback = onClickBtn;
     }
 
     public function set needMoveCenter(v:Boolean):void {
@@ -82,8 +111,8 @@ public class TimerHint {
         _callbackSkip = f;
         if(_isShow) return;
         _isShow = true;
-        source.x = x;
-        source.y = y;
+        source.x = x;// + 115;
+        source.y = y;//+ 150;
         _timer = timer;
         _txtTimer.text = String(_timer);
         _txtCost.text = String(cost);

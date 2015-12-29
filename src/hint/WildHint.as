@@ -14,12 +14,14 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WOComponents.HintBackground;
+
 public class WildHint {
     private var _source:CSprite;
     private var _isShowed:Boolean;
     private var _isOnHover:Boolean;
     private var _circle:Image;
-    private var _bg:Image;
+    private var _bgItem:Image;
     private var _iconResource:Image;
     private var _txtCount:TextField;
     private var _txtName:TextField;
@@ -32,10 +34,11 @@ public class WildHint {
         _source = new CSprite();
         _isShowed = false;
         _isOnHover = false;
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_wild'));
-        _source.addChild(_bg);
-        _source.pivotX = _source.width/2;
-        _source.pivotY = _source.height;
+        _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
+        _source.addChild(_bgItem);
+        var bg:HintBackground = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        _source.addChild(bg);
+
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
         _txtCount = new TextField(50,50,"","Arial",12,Color.BLACK);
         _txtName = new TextField(100,50,"","Arial",18,Color.WHITE);
@@ -44,8 +47,10 @@ public class WildHint {
         _circle.x = 70;
         _circle.y = 10;
         _source.addChild(_circle);
-        var quad:Quad = new Quad(_source.width, _source.height + _source.height/2, Color.WHITE ,false);
+        var quad:Quad = new Quad(bg.width, bg.height+45,Color.WHITE ,false);
         quad.alpha = 0;
+        quad.x = -bg.width/2;
+        quad.y = -bg.height;
         _source.addChildAt(quad,0);
         _source.addChild(_txtName);
         _source.endClickCallback = onClick;

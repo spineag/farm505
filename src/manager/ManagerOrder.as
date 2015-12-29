@@ -14,15 +14,16 @@ public class ManagerOrder {
 
     public function ManagerOrder() {
         _countCellOnLevel = [
-            {level: 1, count: 1},
-            {level: 4, count: 2},
+            {level: 1, count: 0},
+            {level: 2, count: 1},
+            {level: 5, count: 2},
             {level: 6, count: 3},
-            {level: 8, count: 4},
-            {level: 10, count: 5},
-            {level: 12, count: 6},
-            {level: 14, count: 7},
-            {level: 16, count: 8},
-            {level: 18, count: 9}];
+            {level: 7, count: 4},
+            {level: 8, count: 5},
+            {level: 9, count: 6},
+            {level: 10, count: 7},
+            {level: 22, count: 8},
+            {level: 32, count: 9}];
         _countResourceOnLevelAtCell = [
             {level: 1, count: 1},
             {level: 2, count: 2},

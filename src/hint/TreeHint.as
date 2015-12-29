@@ -11,6 +11,8 @@ import com.greensock.easing.Linear;
 
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -25,14 +27,18 @@ import utils.CSprite;
 
 import utils.MCScaler;
 
+import windows.WOComponents.HintBackground;
+
 public class TreeHint {
     private var _source:CSprite;
     private var _contDelete:CSprite;
     private var _contWatering:CSprite;
     private var _isOnHover:Boolean;
     private var _isShowed:Boolean;
-    private var _imageBg:Image;
+    private var _txtText:TextField;
     private var _imageCircle:Image;
+    private var _imageBgItem:Image;
+    private var _imageBgItemHelp:Image;
     private var _imageItem:Image;
     private var _imageHelp:Image;
     private var _txtItem:TextField;
@@ -50,32 +56,44 @@ public class TreeHint {
         _contWatering = new CSprite();
         _isShowed = false;
         _isOnHover = false;
-        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup"));
+        var bg:HintBackground = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        _source.addChild(bg);
+
         _imageHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("watering_can"));
         _imageHelp.width = _imageHelp.height = 40;
-        _imageHelp.x = 30;
-        _imageHelp.y = 30;
+        _imageHelp.x = -60;
+        _imageHelp.y = -90;
+        _imageBgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
+        _imageBgItem.y = -100;
+        _imageBgItemHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
+        _imageBgItemHelp.x = -75;
+        _imageBgItemHelp.y = -100;
         _imageCircle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_number_circle"));
-        _imageCircle.x = 145;
-        _imageCircle.y = 20;
+        _imageCircle.x = 45;
+        _imageCircle.y = -110;
 
-        _txtItem = new TextField(50,50,"","Arial",14,Color.BLACK);
-        _txtItem.x = 133;
-        _txtItem.y = 8;
-        _txtName = new TextField(100,50,"","Arial",18,Color.BLACK);
-        _txtName.x = 40;
-        _txtName.y = -30;
+        _txtItem = new TextField(50,50,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtItem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtItem.x = 38;
+        _txtItem.y = -118;
+        _txtName = new TextField(200,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtName.x = -100;
+        _txtName.y = -150;
+        _txtText = new TextField(50,30,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE);
 
-        _source.addChild(_imageBg);
         _contWatering.addChild(_imageHelp);
+        _source.addChild(_imageBgItem);
+        _source.addChild(_imageBgItemHelp);
         _source.addChild(_contWatering);
         _source.addChild(_imageCircle);
         _source.addChild(_txtName);
         _source.addChild(_contDelete);
-        _source.pivotX = _source.width/2;
-        _source.pivotY = _source.height;
-        var quad:Quad = new Quad(_source.width, _source.height,Color.WHITE ,false);
+        _source.addChild(_txtText);
+        var quad:Quad = new Quad(bg.width, bg.height+45,Color.WHITE ,false);
         quad.alpha = 0;
+        quad.x = -bg.width/2;
+        quad.y = -bg.height;
         _source.addChildAt(quad,0);
 
         _source.hoverCallback = onHover;
@@ -117,9 +135,9 @@ public class TreeHint {
             g.woGameError.showIt();
             return;
         }
-        MCScaler.scale(_imageItem,60,60);
-        _imageItem.x = 95;
-        _imageItem.y = 20;
+        MCScaler.scale(_imageItem,55,55);
+        _imageItem.y = -95;
+        _imageItem.x = 5;
         _txtItem.text = String(g.userInventory.getCountResourceById(data.removeByResourceId));
         _contDelete.addChild(_imageItem);
         _source.addChild(_txtItem);

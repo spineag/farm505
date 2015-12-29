@@ -101,7 +101,7 @@ public class MouseHint {
                 _txtCount.text = String(g.userInventory.getCountResourceById(data.idResourceRaw));
                 _image = new Image(g.allData.atlas[g.dataResource.objectResources[data.idResourceRaw].url].getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
                 MCScaler.scale(_image, 40, 40);
-                _image.x = 4;
+                _image.x = 5;
                 _image.y = 6;
                 break;
         }
