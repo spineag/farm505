@@ -368,7 +368,6 @@ public class TownArea extends Sprite {
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
                 (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild, _x, _y);
                 (worldObject as Wild).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
-
             } else {
                 worldObject.source.x = int(_x);
                 worldObject.source.y = int(_y);
@@ -410,7 +409,7 @@ public class TownArea extends Sprite {
             if (worldObject.useIsometricOnly) {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
-            if (worldObject is Order) {
+            if (worldObject is Order || worldObject is LockedLand) {
                 for (var i:int = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
                     for (var j:int = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
                         fillTailMatrix(j, i, worldObject);
@@ -537,7 +536,7 @@ public class TownArea extends Sprite {
         } else {
             unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
         }
-        if (worldObject is Wild) {
+        if (worldObject is Wild || worldObject is LockedLand) {
             for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
                 for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
                     unFillTailMatrix(jk, ik);
