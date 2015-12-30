@@ -262,8 +262,10 @@ public class HeroCat extends BasicCat{
     public function forceStopWork():void {
         WorldClock.clock.remove(armatureWorker);
         while (_catWateringAndFeed.numChildren) _catWateringAndFeed.removeChildAt(0);
-        armatureWorker.dispose();
-        armatureWorker = null;
+        if (armatureWorker) {
+            armatureWorker.dispose();
+            armatureWorker = null;
+        }
         showFront(true);
     }
 
@@ -321,14 +323,14 @@ public class HeroCat extends BasicCat{
 
     private function makeFeedIdle(callback:Function):void {
         var k:Number = Math.random();
-        if (k < .4) {
+        if (k < .35) {
             forceStopWork();
             if (callback != null) {
                 callback.apply();
             }
-        } else if (k < .5) {
+        } else if (k < .45) {
             makeFeeding(callback);
-        } else if (k < .75) {
+        } else if (k < .7) {
             var fHello:Function = function():void {
                 armatureWorker.removeEventListener(AnimationEvent.COMPLETE, fHello);
                 armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, fHello);
@@ -337,7 +339,7 @@ public class HeroCat extends BasicCat{
             armatureWorker.addEventListener(AnimationEvent.COMPLETE, fHello);
             armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, fHello);
             armatureWorker.animation.gotoAndPlay("hello");
-        } else {
+        } else if (k < .85) {
             var fIdle:Function = function():void {
                 armatureWorker.removeEventListener(AnimationEvent.COMPLETE, fIdle);
                 armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, fIdle);
@@ -346,14 +348,25 @@ public class HeroCat extends BasicCat{
             armatureWorker.addEventListener(AnimationEvent.COMPLETE, fIdle);
             armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, fIdle);
             armatureWorker.animation.gotoAndPlay("idle");
+        } else {
+            var fIdle2:Function = function():void {
+                armatureWorker.removeEventListener(AnimationEvent.COMPLETE, fIdle2);
+                armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, fIdle2);
+                makeFeedIdle(callback);
+            };
+            armatureWorker.addEventListener(AnimationEvent.COMPLETE, fIdle2);
+            armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, fIdle2);
+            armatureWorker.animation.gotoAndPlay("idle2");
         }
     }
 
     private function makeFeedingParticles():void {
-        var bone:Bone = armatureWorker.getBone('particle');
+//        var bone:Bone = armatureWorker.getBone('particle');
         var p:Point = new Point();
-        p.x = bone.display.x;
-        p.y = bone.display.y;
+//        p.x = bone.display.x;
+//        p.y = bone.display.y;
+        p.x = -11;
+        p.y = -92;
         p = (armature.display as Sprite).localToGlobal(p);
         curActiveFarm.showParticles(p, isLeftForFeedAndWatering);
     }

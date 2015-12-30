@@ -202,13 +202,21 @@ public class Farm extends AreaObject{
 
     public function showParticles(p:Point, isFromLeftSide:Boolean):void {
         var tempCont:Sprite = new Sprite();
+        var particles:FarmFeedParticles;
         _source.addChild(tempCont);
         p = tempCont.globalToLocal(p);
 
         var onFinish:Function = function():void {
-
+            tempCont.removeChild(particles.source);
+            particles.source.dispose();
+            particles = null;
+            _source.removeChild(tempCont);
+            tempCont = null;
         };
-        var particles:FarmFeedParticles = new FarmFeedParticles(onFinish);
+        particles = new FarmFeedParticles(onFinish);
+        particles.source.x = p.x;
+        particles.source.y = p.y;
+        if (!isFromLeftSide) particles.source.scaleX = -1;
         tempCont.addChild(particles.source);
     }
 

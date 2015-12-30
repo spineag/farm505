@@ -299,6 +299,7 @@
             <filename>a_tr_green.png</filename>
             <filename>a_tr_red.png</filename>
             <filename>star_particle.png</filename>
+            <filename>particle_yelow.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
