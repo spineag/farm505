@@ -93,7 +93,6 @@ public class BuildMoveGrid {
         if (!obj.inGame) return false;
         if (obj.isFull) return false;
         if (obj.isBlocked) return false;
-        if (obj.isFence) return false;
 
         return true;
     }

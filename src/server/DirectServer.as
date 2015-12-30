@@ -555,6 +555,7 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
+            g.user.checkUserLevel();
 //            g.user.level = int(ob.level);
             g.user.countCats = int(ob.count_cats);
             if (ob.scale) {

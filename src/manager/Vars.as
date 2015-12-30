@@ -383,7 +383,6 @@ public class Vars {
         startPreloader.hideIt();
         startPreloader = null;
 
-        (user as User).checkUserLevel();
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();

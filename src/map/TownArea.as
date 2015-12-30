@@ -177,7 +177,6 @@ public class TownArea extends Sprite {
                     _townMatrix[i][j].isFull = false;
                     _townMatrix[i][j].inGame = true;
                     _townMatrix[i][j].isBlocked = false;
-                    _townMatrix[i][j].isFence = false;
                     _townMatrix[i][j].isWall = false;
                 } else {
                     _townMatrix[i][j].inGame = false;
@@ -222,20 +221,21 @@ public class TownArea extends Sprite {
         _townTailMatrix[posY][posX].build = null;
     }
 
-    public function fillMatrixWithFence(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
-        for (var i:int = posY; i < (posY + sizeY); i++) {
-            for (var j:int = posX; j < (posX + sizeX); j++) {
-                _townMatrix[i][j].buildFence = source;
-                _townMatrix[i][j].isFence = true;
+    public function fillMatrixWithFence(posX:int, posY:int, source:*):void {
+        for (var i:int = posY; i < (posY + 2); i++) {
+            for (var j:int = posX; j < (posX + 2); j++) {
+                _townMatrix[i][j].isFull = true;
+                if (i == posY && j == posX)
+                    _townMatrix[i][j].buildFence = source;
             }
         }
     }
 
-    public function unFillMatrixWithFence(posX:int, posY:int, sizeX:int, sizeY:int):void {
-        for (var i:int = posY; i < (posY + sizeY); i++) {
-            for (var j:int = posX; j < (posX + sizeX); j++) {
+    public function unFillMatrixWithFence(posX:int, posY:int):void {
+        for (var i:int = posY; i < (posY + 2); i++) {
+            for (var j:int = posX; j < (posX + 2); j++) {
                 _townMatrix[i][j].buildFence = null;
-                _townMatrix[i][j].isFence = false;
+                _townMatrix[i][j].isFull = false;
             }
         }
     }
@@ -403,7 +403,7 @@ public class TownArea extends Sprite {
         if (!updateAfterMove) _cityObjects.push(worldObject);
         worldObject.updateDepth();
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
-            fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+            fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
             if (worldObject is DecorPostFence) addFenceLenta(worldObject as DecorPostFence);
         } else {
             if (worldObject.useIsometricOnly) {
@@ -424,6 +424,8 @@ public class TownArea extends Sprite {
                 worldObject.addXP();
             if (worldObject is Tree)
                 g.directServer.addUserBuilding(worldObject, onAddNewTree);
+            if (worldObject is Ridge)
+                g.managerPlantRidge.addRidge(worldObject as Ridge);
         }
 
         if (updateAfterMove) {
@@ -532,7 +534,7 @@ public class TownArea extends Sprite {
         }
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
             if (worldObject is DecorPostFence) removeFenceLenta(worldObject as DecorPostFence);
-            unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+            unFillMatrixWithFence(worldObject.posX, worldObject.posY);
         } else {
             unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
         }
@@ -572,7 +574,7 @@ public class TownArea extends Sprite {
             _cont.removeChild(worldObject.source);
             if (worldObject is DecorFence || worldObject is DecorPostFence) {
                 if (worldObject is DecorPostFence) removeFenceLenta(worldObject as DecorPostFence);
-                unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+                unFillMatrixWithFence(worldObject.posX, worldObject.posY);
             } else {
                 if (g.selectedBuild.useIsometricOnly) {
                     unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
@@ -610,34 +612,42 @@ public class TownArea extends Sprite {
         // проверяем, есть ли по соседству еще столбы забора, если да - то проводим между ними ленту
         var obj:Object;
 
-        obj = _townMatrix[d.posY][d.posX-2];
-        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
-            obj.buildFence.addRightLenta();
-
-        obj = _townMatrix[d.posY-2][d.posX];
-        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
-            obj.buildFence.addLeftLenta();
-
-        obj = _townMatrix[d.posY][d.posX+2];
-        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
-            d.addRightLenta();
-
-        obj = _townMatrix[d.posY+2][d.posX];
-        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
-            d.addLeftLenta();
+        if (_townMatrix[d.posY][d.posX-2]) {
+            obj = _townMatrix[d.posY][d.posX - 2];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                obj.buildFence.addRightLenta();
+        }
+        if (_townMatrix[d.posY-2]) {
+            obj = _townMatrix[d.posY - 2][d.posX];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                obj.buildFence.addLeftLenta();
+        }
+        if (_townMatrix[d.posY][d.posX+2]) {
+            obj = _townMatrix[d.posY][d.posX + 2];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                d.addRightLenta();
+        }
+        if (_townMatrix[d.posY+2]) {
+            obj = _townMatrix[d.posY + 2][d.posX];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                d.addLeftLenta();
+        }
     }
 
     private function removeFenceLenta(d:DecorPostFence):void {
         // проверяем, есть ли по соседству еще столбы забора, если да - то забираем между ними ленту
         var obj:Object;
 
-        obj = _townMatrix[d.posY][d.posX-1];
-        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
-            obj.buildFence.removeRightLenta();
-
-        obj = _townMatrix[d.posY-1][d.posX];
-        if (obj && obj.inGame && obj.isFence && obj.buildFence && obj.buildFence is DecorPostFence)
-            obj.buildFence.removeLeftLenta();
+        if (_townMatrix[d.posY][d.posX-2]) {
+            obj = _townMatrix[d.posY][d.posX - 2];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                obj.buildFence.removeRightLenta();
+        }
+        if (_townMatrix[d.posY-2]) {
+            obj = _townMatrix[d.posY - 2][d.posX];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                obj.buildFence.removeLeftLenta();
+        }
 
         d.removeLeftLenta();
         d.removeRightLenta();

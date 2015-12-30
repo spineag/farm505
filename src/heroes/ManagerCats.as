@@ -27,8 +27,8 @@ public class ManagerCats {
         _catsArray = [];
         _catInfo = new Object();
         _catInfo.name = 'Кот';
-        _catInfo.url = 'catAtlas';
-        _catInfo.image = 'cat_man';
+        _catInfo.url = 'cat';
+        _catInfo.image = 'cat';
         _catInfo.image2 = 'cat_woman';
         _catInfo.cost = 0;
         _catInfo.currency == DataMoney.SOFT_CURRENCY;

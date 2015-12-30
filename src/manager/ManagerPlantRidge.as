@@ -29,6 +29,10 @@ public class ManagerPlantRidge {
         }
     }
 
+    public function addRidge(r:Ridge):void {
+        _arrRidge.push(r);
+    }
+
     public function addPlant(ob:Object):void {
         var curRidge:Ridge;
         var i:int;
