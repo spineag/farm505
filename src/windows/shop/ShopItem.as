@@ -207,6 +207,7 @@ public class ShopItem {
                 if (_data.blockByLevel[0] > g.user.level) {
                     _lockedSprite.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
                 } else {
                     if (_data.blockByLevel.length == 1) {
@@ -217,6 +218,7 @@ public class ShopItem {
                         } else {
                             _shopLimitSprite.visible = true;
                             _nameTxt.text = _data.name + ' 1/1';
+                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         }
                     } else {
                         for (i = 0; _data.blockByLevel.length; i++) {
@@ -226,6 +228,7 @@ public class ShopItem {
                         }
                         if (arr.length >= maxCountAtCurrentLevel) {
                             _shopLimitSprite.visible = true;
+                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                             _nameTxt.text = _data.name + ' ' + String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                         } else {
                             _nameTxt.text = _data.name + ' ' +  String(arr.length) + '/' + String(maxCountAtCurrentLevel);
@@ -239,6 +242,7 @@ public class ShopItem {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _lockedSprite.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _nameTxt.text = _data.name;
             } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
@@ -249,6 +253,7 @@ public class ShopItem {
                 }
                 if (arr.length >= maxCountAtCurrentLevel) {
                     _shopLimitSprite.visible = true;
+                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name + ' ' + String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                 } else {
                     _nameTxt.text = _data.name + ' ' + String(arr.length) + '/' + String(maxCountAtCurrentLevel);
@@ -266,6 +271,7 @@ public class ShopItem {
                 if (_data.blockByLevel[0] > g.user.level) {
                     _lockedSprite.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
                 } else {
                     if (_state == STATE_FROM_INVENTORY) {
@@ -286,6 +292,7 @@ public class ShopItem {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
                     _lockedSprite.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(dataFarm.blockByLevel[0]) + ' уровне';
+                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
                 } else {
                     arr = g.townArea.getCityObjectsById(dataFarm.id);
@@ -296,9 +303,11 @@ public class ShopItem {
                     }
                     if (maxCount == 0) {
                         _txtAvailable.text = 'Необходимо построить ' + String(dataFarm.name);
+                        _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         _nameTxt.text = _data.name;
                     } else if (curCount >= maxCount) {
                         _shopLimitSprite.visible = true;
+                        _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         _nameTxt.text = _data.name + " " + String(maxCount) + '/' + String(maxCount);
                         _countCost = 0;
                     } else {
@@ -318,6 +327,7 @@ public class ShopItem {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _lockedSprite.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
             } else {
                 arr = g.townArea.getCityTreeById(_data.id, true);
                 curCount = arr.length;
@@ -329,6 +339,7 @@ public class ShopItem {
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
                     _shopLimitSprite.visible = true;
+                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
                 } else {
                     _nameTxt.text = _data.name + ' ' + String(curCount) + '/' + String(maxCount);
@@ -348,6 +359,7 @@ public class ShopItem {
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
                     _shopLimitSprite.visible = true;
+                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
                 } else {
                     _nameTxt.text = _data.name + ' ' + String(curCount) + '/' + String(maxCount);
@@ -360,6 +372,7 @@ public class ShopItem {
             maxCount = g.managerCats.maxCountCats;
             if (curCount >= maxCount) {
                 _shopLimitSprite.visible = true;
+                _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
             } else {
                 _nameTxt.text = _data.name + ' ' + String(curCount) + '/' + String(maxCount);
@@ -372,6 +385,7 @@ public class ShopItem {
     }
 
     public function clearIt():void {
+        _im.filter = null;
         while (source.numChildren) {
             source.removeChildAt(0);
         }
@@ -441,7 +455,7 @@ public class ShopItem {
         } else if (_data.buildType == BuildType.CAT) {
             g.managerCats.onBuyCatFromShop();
             updateItem();
-            g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_data.cost);
+            g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(_data.cost));
         } else if (_data.buildType != BuildType.ANIMAL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
@@ -461,7 +475,7 @@ public class ShopItem {
             for (var i:int = 0; i < arr.length; i++) {
                 if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
                     (arr[i] as Farm).addAnimal();
-                    g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-_data.cost);
+                    g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost));
                     checkState();
                     g.bottomPanel.cancelBoolean(false);
                     g.woShop.updateMoneyCounts();

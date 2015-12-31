@@ -87,7 +87,7 @@ public class WOTrain extends Window {
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 50;
         _btn.addChild(txt);
-        var im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
         im.y = -10;
         _btn.addDisplayObject(im);
         _source.addChild(_btn);
