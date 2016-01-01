@@ -11,6 +11,8 @@ import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.text.TextField;
+import starling.utils.Color;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -64,8 +66,8 @@ public class AmbarCell {
             source.addChild(_image);
         }
 
-        _countTxt = new TextField(30,20,String(_info.count),g.allData.fonts['BloggerMedium'],16, ManagerFilters.TEXT_BROWN);
-        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+        _countTxt = new TextField(30,20,'',g.allData.fonts['BloggerBold'],16, Color.WHITE);
+        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = 75;
         _countTxt.y = 77;
         source.addChild(_countTxt);

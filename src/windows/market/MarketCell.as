@@ -7,6 +7,8 @@ import com.junkbyte.console.Cc;
 
 import data.BuildType;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -73,7 +75,8 @@ public class MarketCell {
             return;
         }
 
-        _countTxt = new TextField(30,20,String(_info.count),"Arial",16,Color.BLACK);
+        _countTxt = new TextField(30,20,'',g.allData.fonts['BloggerBold'],16, Color.WHITE);
+        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = 75;
         _countTxt.y = 77;
         source.addChild(_countTxt);
