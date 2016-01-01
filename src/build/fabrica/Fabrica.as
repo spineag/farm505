@@ -96,7 +96,7 @@ public class Fabrica extends AreaObject {
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
         _count = 20;
-        _source.filter = ManagerFilters.RED_STROKE;
+        _source.filter = ManagerFilters.BUILD_STROKE;
         if (_stateBuild == STATE_ACTIVE) {
             g.hint.showIt(_dataBuild.name);
         }

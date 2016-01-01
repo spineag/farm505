@@ -326,7 +326,7 @@ public class Tree extends AreaObject{
     private function onHover():void {
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
-        _source.filter = ManagerFilters.YELLOW_STROKE;
+        _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
         _count = 20;
         if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {

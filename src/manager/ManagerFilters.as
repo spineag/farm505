@@ -13,6 +13,7 @@ public class ManagerFilters {
     public static var GREEN_STROKE:BlurFilter = BlurFilter.createGlow(Color.GREEN, 4, 2, 1);
     public static var YELLOW_STROKE:BlurFilter = BlurFilter.createGlow(Color.YELLOW, 4, 2, 1);
     public static var WHITE_STROKE:BlurFilter = BlurFilter.createGlow(Color.WHITE, 4, 2, 1);
+    public static var BUILD_STROKE:BlurFilter = BlurFilter.createGlow(0xeffd98, 4, 2, 1);
 
     public static var SHADOW:BlurFilter = BlurFilter.createDropShadow(2, .8, 0, 1, 1.0, 0.5);
     public static var SHADOW_LIGHT:BlurFilter = BlurFilter.createDropShadow(2, .8, 0, .7, .5, 0.5);

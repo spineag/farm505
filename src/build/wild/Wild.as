@@ -44,7 +44,7 @@ public class Wild extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.YELLOW_STROKE;
+        _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
     }
 

@@ -206,7 +206,7 @@ public class Train extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.RED_STROKE;
+        _source.filter = ManagerFilters.BUILD_STROKE;
         g.hint.showIt(_dataBuild.name);
         _isOnHover = true;
         if (_stateBuild == STATE_BUILD) {

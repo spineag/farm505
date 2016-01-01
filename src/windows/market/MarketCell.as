@@ -53,7 +53,11 @@ public class MarketCell {
         }
         _data = g.dataResource.objectResources[_info.id];
         if (_data) {
-            _image = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            if (_data.buildType == BuildType.PLANT) {
+                _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+            } else {
+                _image = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            }
             if (!_image) {
                 Cc.error('MarketCell:: no such image: ' + _data.imageShop);
                 g.woGameError.showIt();

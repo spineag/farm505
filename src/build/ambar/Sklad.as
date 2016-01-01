@@ -38,7 +38,7 @@ public class Sklad extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.RED_STROKE;
+        _source.filter = ManagerFilters.BUILD_STROKE;
         g.hint.showIt(_dataBuild.name);
     }
 
