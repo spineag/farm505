@@ -5,6 +5,8 @@ package hint {
 
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import manager.ManagerFilters;
 
 import manager.Vars;
@@ -99,7 +101,10 @@ public class MouseHint {
             case 'animal':
                 _imageCircle.visible = true;
                 _txtCount.text = String(g.userInventory.getCountResourceById(data.idResourceRaw));
-                _image = new Image(g.allData.atlas[g.dataResource.objectResources[data.idResourceRaw].url].getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
+                if (g.dataResource.objectResources[data.idResourceRaw].buildType == BuildType.PLANT)
+                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop + '_icon'));
+                else
+                    _image = new Image(g.allData.atlas[g.dataResource.objectResources[data.idResourceRaw].url].getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
                 MCScaler.scale(_image, 40, 40);
                 _image.x = 5;
                 _image.y = 6;
