@@ -5,6 +5,8 @@ package hint.fabricHint {
 
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import manager.ManagerFilters;
 
 import manager.Vars;
@@ -86,17 +88,20 @@ public class FabricHint {
         _source.addChild(_contImage);
     }
 
-    public function showIt(data:Object, sX:int, sY:int):void {
-        _data = data;
-        if (data && g.dataResource.objectResources[data.idResource]) {
-            _txtName.text = String(g.dataResource.objectResources[data.idResource].name);
-            _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[data.idResource].buildTime);
-            _txtItem.text = String(g.userInventory.getCountResourceById(data.idResource));
+    public function showIt(da:Object, sX:int, sY:int):void {
+        _data = da;
+        if (_data && g.dataResource.objectResources[_data.idResource]) {
+            _txtName.text = String(g.dataResource.objectResources[_data.idResource].name);
+            _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_data.idResource].buildTime);
+            _txtItem.text = String(g.userInventory.getCountResourceById(_data.idResource));
             createList();
             _source.removeChild(_imageItem);
-            _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[data.idResource].url].getTexture(g.dataResource.objectResources[data.idResource].imageShop));
+            if (g.dataResource.objectResources[_data.idResource].buildType == BuildType.PLANT)
+                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_data.idResource].imageShop + '_icon'));
+            else
+                _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[_data.idResource].url].getTexture(g.dataResource.objectResources[_data.idResource].imageShop));
             if (!_imageItem) {
-                Cc.error('FabricHint showIt:: no such image: ' + g.dataResource.objectResources[data.idResource].imageShop);
+                Cc.error('FabricHint showIt:: no such image: ' + g.dataResource.objectResources[_data.idResource].imageShop);
                 g.woGameError.showIt();
                 return;
             }

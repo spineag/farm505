@@ -145,7 +145,7 @@ public class ToolsModifier {
                 break;
             case ToolsModifier.PLANT_SEED:
                 if (_plantId <= 0) return;
-                im = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_plantId].imageShop));
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_plantId].imageShop + '_icon'));
                 if (im) _mouseIcon.addChild(im);
                 updateCountTxt();
                 if (!_mouseCont.contains(_txtCount)) _mouseCont.addChild(_txtCount);

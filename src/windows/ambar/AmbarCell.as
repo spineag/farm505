@@ -4,6 +4,9 @@
 package windows.ambar {
 
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
@@ -45,7 +48,11 @@ public class AmbarCell {
             return;
         }
         if (_data) {
-            _image = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            if (_data.buildType == BuildType.PLANT) {
+                _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+            } else {
+                _image = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            }
             if (!_image) {
                 Cc.error('AmbarCell:: no such image: ' + _data.imageShop);
                 g.woGameError.showIt();

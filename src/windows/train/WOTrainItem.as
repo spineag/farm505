@@ -79,7 +79,10 @@ public class WOTrainItem {
         }
 
         _txt.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
-        _im = new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
+        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT)
+            _im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_info.id].imageShop + '_icon'));
+        else
+            _im = new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
         if (!_im) {
             Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
             g.woGameError.showIt();

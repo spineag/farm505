@@ -54,7 +54,10 @@ public class WONoResourcesItem {
         } else if (ob.buildType == BuildType.TREE) {
             st = ob.imageGrowBig;
             _image = new Image(g.allData.atlas[ob.url].getTexture(st));
-        } else if (ob.buildType == BuildType.PLANT || ob.buildType == BuildType.RESOURCE) {
+        } else if (ob.buildType == BuildType.PLANT) {
+            st = ob.imageShop + '_icon';
+            _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(st));
+        } else if (ob.buildType == BuildType.RESOURCE) {
             st = ob.imageShop;
             _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE

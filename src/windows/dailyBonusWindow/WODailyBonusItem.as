@@ -29,7 +29,10 @@ public class WODailyBonusItem {
         }
         source = new Sprite();
         _txtItem = new TextField(50,50,"","Arial",12,Color.WHITE);
-        _imageItem = new Image(g.allData.atlas[obj.url].getTexture(obj.imageShop));
+        if (obj.buildType == BuildType.PLANT)
+            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon'));
+        else
+            _imageItem = new Image(g.allData.atlas[obj.url].getTexture(obj.imageShop));
         if (!_imageItem) {
             Cc.error('WODailyBonusItem:: no such image: ' + obj.imageShop);
             g.woGameError.showIt();

@@ -69,9 +69,10 @@ public class WOBuyPlantItem {
     private function fillIcon(s:String):void {
         if (_icon) {
             source.removeChild(_icon);
+            _icon.dispose();
             _icon = null;
         }
-        _icon = new Image(g.allData.atlas['plantAtlas'].getTexture(s));
+        _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s + '_icon'));
         if (!_icon) {
             Cc.error('WOItemFabrica fillIcon:: no such image: ' + s);
             g.woGameError.showIt();

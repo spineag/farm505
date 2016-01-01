@@ -107,7 +107,10 @@ public class CraftPanel {
             _resourceSprite.removeChildAt(0);
         }
         var im:Image;
-        im = new Image(g.allData.atlas[item.url].getTexture(item.imageShop));
+        if (item.buildType == BuildType.PLANT)
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(item.imageShop + '_icon'));
+        else
+            im = new Image(g.allData.atlas[item.url].getTexture(item.imageShop));
         MCScaler.scale(im, 50, 50);
         im.x = -im.width/2 - 170;
         im.y = -im.height/2;
