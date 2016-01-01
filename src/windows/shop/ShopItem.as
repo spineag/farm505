@@ -533,6 +533,7 @@ public class ShopItem {
             maxCount = g.managerCats.maxCountCats;
             if (curCount == maxCount) {
                 _shopLimitSprite.visible = true;
+                _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _btnBuyBlue.visible = false;
                 _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
             } else {

@@ -2,19 +2,13 @@
  * Created by user on 6/2/15.
  */
 package build.ridge {
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
-
 import manager.Vars;
-
-import starling.display.Image;
-
 import starling.display.Sprite;
-import starling.text.TextField;
-import starling.utils.Color;
-
-import utils.CSprite;
 
 public class PlantOnRidge {
     private var _source:Sprite;
@@ -37,8 +31,8 @@ public class PlantOnRidge {
         _source = new Sprite();
         _ridge.addChildPlant(_source);
         armature = g.allData.factory[_data.url].buildArmature(_data.imageShop);
-        (armature.display as Sprite).y = 35;
         _source.addChild(armature.display as Sprite);
+        _source.y = 35;
 
         _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);
         _data.timeToStateGwoned = _data.buildTime -  _data.timeToGrow2 -  _data.timeToGrow3;
@@ -70,6 +64,7 @@ public class PlantOnRidge {
                 break;
             case Ridge.GROWED:
                 armature.animation.gotoAndPlay("state4");
+                animateEndState();
                 break;
         }
     }
@@ -125,9 +120,20 @@ public class PlantOnRidge {
     public function clearIt():void {
         _ridge = null;
         _data = null;
+        TweenMax.killTweensOf(_source);
         g.gameDispatcher.removeFromTimer(render);
         while (_source.numChildren) _source.removeChildAt(0);
         _source = null;
+    }
+
+    private function animateEndState():void {
+        var fToLeft:Function = function (d:Number = 0):void {
+            TweenMax.to(_source, 2, {rotation:-Math.PI/100, ease:Linear.easeIn, onComplete: fToRight, delay:d});
+        };
+        var fToRight:Function = function ():void {
+            TweenMax.to(_source, 2, {rotation:Math.PI/100, ease:Linear.easeIn, onComplete: fToLeft});
+        };
+        fToLeft(5*Math.random());
     }
 }
 }

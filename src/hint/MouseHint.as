@@ -68,7 +68,7 @@ public class MouseHint {
         _source.y = g.ownMouse.mouseY + 20;
     }
 
-    public function checkMouseHint(s:String, data:Object = null):void {
+    public function checkMouseHint(s:String, dat:Object = null):void {
         if (g.currentOpenedWindow == true) return;
         _imageCircle.visible = false;
         _txtCount.text = '';
@@ -100,11 +100,11 @@ public class MouseHint {
                 break;
             case 'animal':
                 _imageCircle.visible = true;
-                _txtCount.text = String(g.userInventory.getCountResourceById(data.idResourceRaw));
-                if (g.dataResource.objectResources[data.idResourceRaw].buildType == BuildType.PLANT)
-                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop + '_icon'));
+                _txtCount.text = String(g.userInventory.getCountResourceById(dat.idResourceRaw));
+                if (g.dataResource.objectResources[dat.idResourceRaw].buildType == BuildType.PLANT)
+                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[dat.idResourceRaw].imageShop + '_icon'));
                 else
-                    _image = new Image(g.allData.atlas[g.dataResource.objectResources[data.idResourceRaw].url].getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
+                    _image = new Image(g.allData.atlas[g.dataResource.objectResources[dat.idResourceRaw].url].getTexture(g.dataResource.objectResources[dat.idResourceRaw].imageShop));
                 MCScaler.scale(_image, 40, 40);
                 _image.x = 5;
                 _image.y = 6;
