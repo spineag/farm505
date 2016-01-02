@@ -123,9 +123,13 @@ public class LockedLand extends AreaObject {
 
     public function addWild(w:Wild, _x:int, _y:int):void {
         _arrWilds.push(w);
-        w.source.x = _x - _source.x;
-        w.source.y = _y - _source.y;
-        _build.addChild(w.source);
+        if (g.isActiveMapEditor) {
+            g.cont.contentCont.addChild(w.source);
+        } else {
+            w.source.x = _x - _source.x;
+            w.source.y = _y - _source.y;
+            _build.addChild(w.source);
+        }
     }
 
     private function onHover():void {
@@ -184,7 +188,6 @@ public class LockedLand extends AreaObject {
         while (_build.numChildren) _build.removeChildAt(0);
         g.townArea.deleteBuild(this);
         for (var i:int=0; i<_arrWilds.length; i++) {
-            (_arrWilds[i].source as CSprite).isTouchable = true;
             g.townArea.pasteBuild(_arrWilds[i], _arrWilds[i].source.x + _x, _arrWilds[i].source.y + _y, false, false);
         }
         _dataLand = null;
@@ -258,6 +261,32 @@ public class LockedLand extends AreaObject {
         }
 
         return count != 4;
+    }
+
+    public function onOpenMapEditor():void {
+        for (var i:int=0; i< _arrWilds.length; i++) {
+            _build.removeChild(_arrWilds[i].source);
+            _arrWilds[i].source.x += _source.x;
+            _arrWilds[i].source.y += _source.y;
+            g.cont.contentCont.addChild(_arrWilds[i].source);
+        }
+    }
+
+    public function activateOnMapEditor(w:Wild):void {
+        _build.removeChild(w.source);
+        w.source.x += _source.x;
+        w.source.y += _source.y;
+        g.cont.contentCont.addChild(w.source);
+        _arrWilds.splice(_arrWilds.indexOf(w), 1);
+    }
+
+    public function onCloseMapEditor():void {
+        for (var i:int=0; i< _arrWilds.length; i++) {
+            g.cont.contentCont.removeChild(_arrWilds[i].source);
+            _arrWilds[i].source.x -= _source.x;
+            _arrWilds[i].source.y -= _source.y;
+            _build.addChild(_arrWilds[i].source);
+        }
     }
 }
 }

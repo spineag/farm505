@@ -475,6 +475,7 @@ public class Vars {
             cont.interfaceContMapEditor.visible = true;
             matrixGrid.drawDebugGrid();
             isActiveMapEditor = true;
+            townArea.onOpenMapEditor(true);
         }
     }
 
@@ -484,6 +485,7 @@ public class Vars {
         mapEditor.deleteIt();
         cont.interfaceContMapEditor.visible = false;
         toolsModifier.modifierType = ToolsModifier.NONE;
+        townArea.onOpenMapEditor(false);
     }
 
     private function temporaryFillUserInventory():void {
