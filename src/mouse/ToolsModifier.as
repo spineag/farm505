@@ -191,8 +191,8 @@ public class ToolsModifier {
     }
 
     private function moveMouseIcon():void{
-        _mouseCont.x = g.ownMouse.mouseX + 20;
-        _mouseCont.y = g.ownMouse.mouseY + 10;
+        _mouseCont.x = g.ownMouse.mouseX + 15;
+        _mouseCont.y = g.ownMouse.mouseY + 5;
     }
 
     public function  startMove(selectedBuild:AreaObject, callback:Function = null, isFromShop:Boolean = false):void {

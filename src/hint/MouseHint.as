@@ -64,8 +64,8 @@ public class MouseHint {
     }
 
     private function onEnterFrame():void {
-        _source.x = g.ownMouse.mouseX + 20;
-        _source.y = g.ownMouse.mouseY + 20;
+        _source.x = g.ownMouse.mouseX + 15;
+        _source.y = g.ownMouse.mouseY + 15;
     }
 
     public function checkMouseHint(s:String, dat:Object = null):void {

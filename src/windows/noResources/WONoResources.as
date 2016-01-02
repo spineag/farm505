@@ -63,7 +63,6 @@ public class WONoResources extends Window {
         _btnBuy.y = 124;
         _source.addChild(_btnBuy);
         _txtHardCost = new TextField(180, 34, "Купить ресурсы за 8888", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
-        _txtHardCost.y = 0;
         _txtHardCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuy.addChild(_txtHardCost);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
