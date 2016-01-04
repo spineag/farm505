@@ -4,6 +4,8 @@
 package hint {
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -34,18 +36,22 @@ public class WildHint {
         _source = new CSprite();
         _isShowed = false;
         _isOnHover = false;
-        _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
-        _source.addChild(_bgItem);
-        var bg:HintBackground = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        var bg:HintBackground = new HintBackground(120, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(bg);
-
+        _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
+        _bgItem.x = -_bgItem.width/2;
+        _bgItem.y = -_bgItem.height - 35;
+        _source.addChild(_bgItem);
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
-        _txtCount = new TextField(50,50,"","Arial",12,Color.BLACK);
-        _txtName = new TextField(100,50,"","Arial",18,Color.WHITE);
-        _txtName.x = 20;
-        _txtName.y = -30;
-        _circle.x = 70;
-        _circle.y = 10;
+
+        _txtCount = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtName = new TextField(100,50,"", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtName.x = -50;
+        _txtName.y = -150;
+        _circle.x = +_bgItem.width/2 -20;
+        _circle.y = -_bgItem.height - 50;
         _source.addChild(_circle);
         var quad:Quad = new Quad(bg.width, bg.height+45,Color.WHITE ,false);
         quad.alpha = 0;
@@ -71,7 +77,8 @@ public class WildHint {
         _txtCount.text = String(g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId));
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
-        _txtCount.x = 58;
+        _txtCount.x = +_bgItem.width/2 -28;
+        _txtCount.y = -_bgItem.height - 55;
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         if (!_iconResource) {
             Cc.error('WildHint showIt:: no such image: ' + g.dataResource.objectResources[idResourceForRemoving].imageShop);
@@ -79,8 +86,8 @@ public class WildHint {
             return;
         }
         MCScaler.scale(_iconResource, 60, 60);
-        _iconResource.x = _source.width/2 - _iconResource.width/2;
-        _iconResource.y = 18;
+        _iconResource.x = -_bgItem.width/2 +3;
+        _iconResource.y = -_bgItem.height - 32;
         _source.addChild(_txtCount);
         _source.addChild(_iconResource);
         _source.x = x;

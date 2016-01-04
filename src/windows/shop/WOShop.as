@@ -129,6 +129,7 @@ public class WOShop extends Window{
         switch (a) {
             case 1: _btnTab1.activateIt(true);
                 obj = g.dataBuilding.objectBuilding;
+                arr.push(g.managerCats.catInfo);
                 for (id in obj) {
                     if (obj[id].buildType == BuildType.RIDGE || obj[id].buildType == BuildType.FARM || obj[id].buildType == BuildType.PET_HOUSE) {
                         arr.push(obj[id]);
@@ -137,7 +138,6 @@ public class WOShop extends Window{
                 break;
             case 2: _btnTab2.activateIt(true);
                 obj = g.dataAnimal.objectAnimal;
-                arr.push(g.managerCats.catInfo);
                 for (id in obj) {
                         arr.push(obj[id]);
                 }
