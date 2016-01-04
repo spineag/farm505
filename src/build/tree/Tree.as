@@ -388,9 +388,9 @@ public class Tree extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
-            if (_state ==  FULL_DEAD){
+            if (_state ==  FULL_DEAD || _state == ASK_FIX){
                 if (_isOnHover == true) {
-                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, _dataBuild.name,this);
+                    g.wildHint.showIt( g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale,_dataBuild.removeByResourceId, _dataBuild.name);
                     if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
                         g.treeHint.onDelete = deleteTree;
                     }
@@ -577,17 +577,26 @@ public class Tree extends AreaObject{
 
         if (_state == ASK_FIX || _state == FIXED) {
             _wateringIcon = new Sprite();
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('circle'));
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
             im.pivotX = im.width/2;
             im.pivotY = im.height/2;
+            im.y =  -_source.height/2 - im.height - 40;
+//            im.x = g.cont.gameCont.x + _source.x * g.currentGameScale;
             _wateringIcon.addChild(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
             im.pivotX = im.width/2;
             im.pivotY = im.height/2;
+            im.y =  -_source.height/2 - im.height - 50;
             MCScaler.scale(im, 45, 45);
             _wateringIcon.addChild(im);
             if (_state == FIXED) {
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
+                im.x = 25;
+                im.y =  -_source.height/2 - im.height - 60;
+                _wateringIcon.addChild(im);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                im.x = 33;
+                im.y =  -_source.height/2 - im.height - 68;
                 _wateringIcon.addChild(im);
                 if (_wateringUserSocialId != '0' || _wateringUserSocialId != '-1') {
                     var p:Someone = g.user.getSomeoneBySocialId(_wateringUserSocialId);

@@ -164,6 +164,7 @@ public class MainBottomPanel {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
+                    g.toolsPanel.hideRepository();
                 g.woShop.showIt();
                 break;
             case 'cancel':
@@ -195,6 +196,7 @@ public class MainBottomPanel {
                 g.toolsPanel.showIt();
                 _toolsBtn.visible = false;
                 _cancelBtn.visible = true;
+                g.toolsPanel.hideRepository();
                 break;
             case 'option':
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -206,6 +208,7 @@ public class MainBottomPanel {
                  } else {
                      g.optionPanel.showIt();
                  }
+                g.toolsPanel.hideRepository();
                 break;
             case 'order':
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -213,6 +216,7 @@ public class MainBottomPanel {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
                 g.woOrder.showIt();
+                g.toolsPanel.hideRepository();
                 break;
             case 'ambar':
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -220,6 +224,8 @@ public class MainBottomPanel {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
                 g.woAmbars.showItWithParams(WOAmbars.AMBAR);
+                g.toolsPanel.hideRepository();
+
                 break;
             case 'door':
                 if (g.isAway) g.townArea.backHome();

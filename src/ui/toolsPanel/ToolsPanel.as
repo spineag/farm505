@@ -143,12 +143,14 @@ public class ToolsPanel {
                     if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                         g.toolsModifier.modifierType == ToolsModifier.MOVE
                           ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
+                        hideRepository();
                     }
                 break;
             case 'flip':
                 if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                     g.toolsModifier.modifierType == ToolsModifier.FLIP
                       ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.FLIP;
+                    hideRepository();
                 }
                 break;
         }

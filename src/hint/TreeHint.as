@@ -99,7 +99,11 @@ public class TreeHint {
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         _contDelete.endClickCallback = onClickDelete;
+        _contDelete.hoverCallback = onHoverDelete;
+        _contDelete.outCallback = onOutDelete;
         _contWatering.endClickCallback = onClickWatering;
+        _contWatering.hoverCallback = onHoverWatering;
+        _contWatering.outCallback = onOutWatering;
     }
 
     public function showIt(data:Object, x:int, y:int, name:String, worldobject:WorldObject):void {
@@ -200,6 +204,21 @@ public class TreeHint {
 
     public function set onWatering(f:Function):void {
         _wateringCallback = f;
+    }
+
+    private function onHoverDelete():void {
+        g.hint.showIt("Убрать Объект");
+    }
+
+    private function onOutDelete():void {
+        g.hint.hideIt();
+    }
+
+    private function onHoverWatering():void {
+        g.hint.showIt("Попросить помощи");
+    }
+    private function onOutWatering():void {
+        g.hint.hideIt();
     }
 }
 }

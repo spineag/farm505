@@ -79,7 +79,7 @@ public class WODailyBonus extends Window{
     }
 
     public function showItMenu():void {
-        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn100500"));
+        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
         _imageBtn.x = -30;
         _imageBtn.y = 60;
         _txtBtn = new TextField(50,50,"Забрать","Arial",12,Color.WHITE);
