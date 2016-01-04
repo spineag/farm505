@@ -177,6 +177,7 @@ public class Ridge extends AreaObject{
                       g.woAmbarFilled.showAmbarFilled(true);
                  } else {
                      _stateRidge = EMPTY;
+                     _plant.onCraftPlant();
                      _plant.checkStateRidge();
                      _resourceItem = new ResourceItem();
                      _resourceItem.fillIt(_dataPlant);
