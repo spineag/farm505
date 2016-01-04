@@ -308,6 +308,7 @@
             <filename>a_tr_rup_ico.png</filename>
             <filename>aerial_tram_all.png</filename>
             <filename>hint_arrow.png</filename>
+            <filename>coupons_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -119,11 +119,11 @@ public class ToolsModifier {
                  _mouseIcon.scaleX = _mouseIcon.scaleY = 1;
                  return;
              case ToolsModifier.MOVE:
-                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Move'));
+                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_move'));
                  if (im) _mouseIcon.addChild(im);
                  break;
              case ToolsModifier.FLIP:
-                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Rotate'));
+                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_rotate'));
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.DELETE:
@@ -131,7 +131,7 @@ public class ToolsModifier {
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.INVENTORY:
-                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Storage'));
+                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_inv'));
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.GRID_DEACTIVATED:
