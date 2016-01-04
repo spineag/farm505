@@ -41,7 +41,7 @@ public class WOTrainItem {
         _index = -1;
         source = new CSprite();
 
-        source.alpha = .25;
+//        source.alpha = .25;
         _txt = new TextField(100,30,"","Arial",16,Color.BLACK);
         _txt.y = 50;
         source.addChild(_txt);
@@ -62,6 +62,10 @@ public class WOTrainItem {
                 break;
             case (WOTrain.CELL_RED):
                 var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_red'));
+                source.addChild(_bg);
+                break;
+            case (WOTrain.CELL_GRAY):
+                var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_gray'));
                 source.addChild(_bg);
                 break;
         }

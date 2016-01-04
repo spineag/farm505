@@ -3,73 +3,85 @@
  */
 package windows.train {
 
+import manager.ManagerFilters;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.WOButtonTexture;
+import windows.WOComponents.WindowBackground;
 
 import windows.Window;
 
 public class WOTrainOrder extends Window{
-    private var _contBtn:CSprite;
-    private var _imageHard:Image;
-    private var _txtBtn:TextField;
-    private var _txtCostBtn:TextField;
-    private var _txtInformation:TextField;
-    private var _txtText:TextField;
+    private var _btn:CButton;
     private var _txtTime:TextField;
-    private var _txtTextTime:TextField;
     private var _arrItems:Array;
     private var _timer:int;
-
+    private var _woBG:WindowBackground;
 
     public function WOTrainOrder() {
         super ();
+        var txt:TextField;
+        var im;
         _arrItems = [];
         _woWidth = 500;
-        _woHeight = 320;
-        createTempBG();
+        _woHeight = 337;
+//        createTempBG();
+        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _source.addChild(_woBG);
         createExitButton(onClickExit);
-        _contBtn = new CSprite();
-        var bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
-        bg.width = 150;
-        bg.height = 50;
-        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        _imageHard.y = 10;
-        MCScaler.scale(_imageHard,25,25);
-        _txtBtn = new TextField(100,50,"Вернуть корабль сейчас","Arial",12,Color.BLACK);
-        _txtBtn.x = 40;
-        _txtCostBtn = new TextField(50,50,"5","Arial",12,Color.BLACK);
-        _txtCostBtn.x = 10;
-        _source.addChild(_contBtn);
-        _contBtn.addChild(bg);
-        _contBtn.addChild(_imageHard);
-        _contBtn.addChild(_txtBtn);
-        _contBtn.addChild(_txtCostBtn);
-        _contBtn.x = -80;
-        _contBtn.y = 100;
-        _contBtn.endClickCallback = onClickBtn;
+        _btn = new CButton();
+        _btn.addButtonTexture(172, 50, CButton.GREEN, true);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
+        im.y = 10;
+        im.x = 30;
+        MCScaler.scale(im,30,30);
+        _btn.addDisplayObject(im);
+        txt = new TextField(100,50,"привести сейчас",g.allData.fonts['BloggerBold'],16,Color.WHITE);
+        txt.x = 60;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _btn.addChild(txt);
+        txt = new TextField(50,50,"30",g.allData.fonts['BloggerBold'],16,Color.WHITE);
+        txt.x = -5;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _btn.addChild(txt);
+        _btn.y = 110;
+        _btn.clickCallback = onClickBtn;
+        _source.addChild(_btn);
 
-        _txtInformation = new TextField(150,50,"Информация о заказе","Arial",12,Color.BLACK);
-        _txtInformation.x = -50;
-        _txtInformation.y = -140;
-        _txtText = new TextField(300,50,"Пока корабль в пути вы можете начать подготовку товаров для следующего заказа!","Arial",12,Color.BLACK);
-        _txtText.x = -120;
-        _txtText.y = -100;
-        _txtTextTime = new TextField(200,50,"Корабль вернется к пристани через:","Arial",12,Color.BLACK);
-        _txtTextTime.x = -100;
-        _txtTextTime.y = 20;
-        _txtTime = new TextField(50,50,"","Arial",12,Color.BLACK);
+        txt = new TextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ",g.allData.fonts['BloggerBold'],24,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = -150;
+        txt.y = -140;
+        _source.addChild(txt);
+
+        txt = new TextField(150,50,"Следующий заказ","Arial",14,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = -80;
+        txt.y = -60;
+        _source.addChild(txt);
+
+        txt = new TextField(300,50,"Корзина прибудет к станции через:",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = -150;
+        txt.y = -120;
+        _source.addChild(txt);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
+        im.x = -55;
+        im.y = -80;
+        _source.addChild(im);
+        _txtTime = new TextField(50,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtTime.x = -20;
-        _txtTime.y = 60;
-        _source.addChild(_txtInformation);
-        _source.addChild(_txtText);
-        _source.addChild(_txtTextTime);
+        _txtTime.y = -85;
+        _txtTime.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _source.addChild(_txtTime);
     }
 
@@ -78,8 +90,8 @@ public class WOTrainOrder extends Window{
     }
 
     private function onClickBtn():void {
-        if (g.user.hardCurrency < int(_txtCostBtn.text)) return;
-        g.userInventory.addMoney(1,-int(_txtCostBtn.text));
+        if (g.user.hardCurrency < 30) return;
+        g.userInventory.addMoney(1,-30);
         hideIt()
     }
 
@@ -97,34 +109,18 @@ public class WOTrainOrder extends Window{
             item1 = new WOTrainOrderItem();
             item1.fillIt(list[1], 1);
             item1.source.x = -150;
-            item1.source.y = -50;
+            item1.source.y = -20;
             _source.addChild(item1.source);
             item2 = new WOTrainOrderItem();
             item2.fillIt(list[4], 4);
             item2.source.x = -50;
-            item2.source.y = -50;
+            item2.source.y = -20;
             _source.addChild(item2.source);
             item3 = new WOTrainOrderItem();
             item3.source.x = 50;
-            item3.source.y = -50;
+            item3.source.y = -20;
             item3.fillIt(list[6], 6);
             _source.addChild(item3.source);
-
-//        for (var j:int = 0; j<list.length; j++) {
-//            item = new WOTrainOrderItem();
-//            item.fillIt(list[j], j);
-//            item.source.x = j%3 * 110 - 240;
-//            if (j >= 6) {
-//                item.source.y = 60;
-//            } else if (j >= 3) {
-//                item.source.y = -40;
-//            } else {
-//                item.source.y = -140;
-//            }
-//            _source.addChild(item.source);
-//            _arrItems.push(item);
-//        }
-
     }
 
     private function timerCheck():void {

@@ -44,6 +44,7 @@ public class WOTrain extends Window {
     public static var CELL_RED:int = 1;
     public static var CELL_GREEN:int = 2;
     public static var CELL_BLUE:int = 3;
+    public static var CELL_GRAY:int = 4;
 
     private var _woBG:WindowBackground;
     private var _rightBlock:Sprite;
@@ -86,6 +87,7 @@ public class WOTrain extends Window {
         var txt:TextField = new TextField(89,62,"Отправить",g.allData.fonts['BloggerBold'],16,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 50;
+        txt.y = -5;
         _btn.addChild(txt);
         var im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
         im.y = -10;
@@ -102,7 +104,9 @@ public class WOTrain extends Window {
         _txtCounter.x = 100;
         _txtCounter.y = 130;
         _source.addChild(_txtCounter);
-
+        _txtHelp = new TextField(150, 50, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtHelp.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _source.addChild(_txtHelp);
         callbackClickBG = onClickExit;
         new Birka('Погрузка вагона', _source, _woWidth, _woHeight);
     }
@@ -148,12 +152,12 @@ public class WOTrain extends Window {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
         im.y = -10;
         _btnHelp.addDisplayObject(im);
-        _btnHelp.x = 150;
+        _btnHelp.x = 140;
         _btnHelp.y = 210;
         _rightBlock.addChild(_btnHelp);
         txt = new TextField(150,50,'Награда за загрузку всех контейнеров:', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.y = 250;
+        txt.y = 245;
         txt.x = 68;
         _rightBlock.addChild(txt);
         _txtCostItem = new TextField(50,30,'', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
@@ -225,7 +229,7 @@ public class WOTrain extends Window {
         var txt:TextField = new TextField(200,30,'Требуются продукты:', g.allData.fonts['BloggerBold'], 19, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 15;
-        txt.x = 50;
+        txt.x = 60;
         _leftBlock.addChild(txt);
     }
 
@@ -240,10 +244,13 @@ public class WOTrain extends Window {
 
     public function showItWithParams(list:Array, b:Train, state:int, counter:int):void {
         _build = b;
+        var cost:int = 0;
         for (var i:int = 0; i<list.length; i++) {
             _arrItems[i].fillIt(list[i], i);
             _arrItems[i].clickCallback = onItemClick;
+            cost = _arrItems[i].cost;
         }
+        _txtCostAll.text = String(cost);
         showIt();
         checkBtn();
         if (!g.isAway) {
@@ -267,13 +274,23 @@ public class WOTrain extends Window {
 
     private function addItems():void {
         var item:WOTrainItem;
-        for (var i:int = 0; i < 9; i++) {
-            item = new WOTrainItem(CELL_GREEN);
-            item.source.x = i%3 * 110 - 318;
-            if (i >= 6) {
-                item.source.y = 50;
+        for (var i:int = 0; i < 12; i++) {
+            if(i >= 9) {
+                item = new WOTrainItem(CELL_GRAY);
+            } else if (i >= 6) {
+                item = new WOTrainItem(CELL_GREEN);
             } else if (i >= 3) {
-                item.source.y = -40;
+                item = new WOTrainItem(CELL_BLUE);
+            } else {
+                item = new WOTrainItem(CELL_RED);
+            }
+            item.source.x = i%3 * 100 - 310;
+            if(i >= 9) {
+              item.source.y = 110;
+            } else if (i >= 6) {
+                item.source.y = 20;
+            } else if (i >= 3) {
+                item.source.y = -70;
             } else {
                 item.source.y = -160;
             }

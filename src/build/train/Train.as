@@ -35,7 +35,7 @@ public class Train extends AreaObject{
     private var _dataPack:Object;
     private var _train_db_id:String; // id для поезда юзера в табличке user_train
     private var TIME_READY:int = 280; // время, которое ожидает поезд для загрузки продуктов
-    private var TIME_WAIT:int = 2;  // время, на которое уезжает поезд
+    private var TIME_WAIT:int = 280;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _count:int;
 
@@ -250,9 +250,15 @@ public class Train extends AreaObject{
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                if (_source.wasGameContMoved) return;
-                g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
-                onOut();
+                    if (list.length) {
+                        g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
+                        onOut();
+                    } else {
+                        g.directServer.getTrainPack(g.user.userSocialId, fillList);
+                        g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
+                        onOut();
+                    }
+//                }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
