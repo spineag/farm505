@@ -8,6 +8,11 @@ import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
 import manager.Vars;
+
+import particle.PlantParticle;
+
+import starling.animation.Tween;
+
 import starling.display.Sprite;
 
 public class PlantOnRidge {
@@ -17,6 +22,7 @@ public class PlantOnRidge {
     public var _timeToEndState:int;
     public var idFromServer:String; // в табличке user_plant_ridge
     private var armature:Armature;
+    private var particles:PlantParticle;
 
     private var g:Vars = Vars.getInstance();
 
@@ -65,6 +71,7 @@ public class PlantOnRidge {
             case Ridge.GROWED:
                 armature.animation.gotoAndPlay("state4");
                 animateEndState();
+                addParticles();
                 break;
         }
     }
@@ -81,8 +88,9 @@ public class PlantOnRidge {
     }
 
     public function renderSkip():void {
-        checkStateRidge();
         g.gameDispatcher.removeFromTimer(render);
+        _ridge.stateRidge = Ridge.GROWED;
+        checkStateRidge();
     }
 
     public function getTimeToGrowed():int {
@@ -134,6 +142,19 @@ public class PlantOnRidge {
             TweenMax.to(_source, 2, {rotation:Math.PI/100, ease:Linear.easeIn, onComplete: fToLeft});
         };
         fToLeft(5*Math.random());
+    }
+
+    private function addParticles():void {
+        particles = new PlantParticle(_source.height);
+        _source.addChildAt(particles.source, 0);
+    }
+
+    public function onCraftPlant():void {
+        TweenMax.killTweensOf(_source);
+        _source.rotation = 0;
+        _source.removeChild(particles.source);
+        particles.clearIt();
+        particles = null;
     }
 }
 }
