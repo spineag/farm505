@@ -46,7 +46,10 @@ public class CraftItem {
             g.woGameError.showIt();
             return;
         }
-        _image = new Image(g.allData.atlas[_resourceItem.url].getTexture(_resourceItem.imageShop));
+        if (_resourceItem.buildType == BuildType.PLANT)
+            _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(_resourceItem.imageShop + '_icon'));
+        else
+            _image = new Image(g.allData.atlas[_resourceItem.url].getTexture(_resourceItem.imageShop));
         if (!_image) {
             Cc.error('CraftItem:: no such image: ' + _resourceItem.imageShop);
             g.woGameError.showIt();

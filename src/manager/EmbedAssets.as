@@ -18,8 +18,6 @@ public class EmbedAssets {
     private const MapTexture:Class;
     [Embed(source="../../assets/buildAtlas.png")]
     private const BuildTexture:Class;
-    [Embed(source="../../assets/plants.png")]
-    private const PlantTexture:Class;
     [Embed(source="../../assets/interfaceAtlas.png")]
     private const InterfaceTexture:Class;
     [Embed(source="../../assets/instrumentAtlas3.png")]
@@ -40,8 +38,6 @@ public class EmbedAssets {
     private const MapTextureXML:Class;
     [Embed(source="../../assets/buildAtlas.xml", mimeType="application/octet-stream")]
     private const BuildTextureXML:Class;
-    [Embed(source="../../assets/plants.xml", mimeType="application/octet-stream")]
-    private const PlantTextureXML:Class;
     [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
     private const InterfaceTextureXML:Class;
     [Embed(source="../../assets/instrumentAtlas3.xml", mimeType="application/octet-stream")]
@@ -80,6 +76,8 @@ public class EmbedAssets {
     private const BuildingBuild:Class;
     [Embed(source = "../../assets/animations/trees2.png", mimeType = "application/octet-stream")]
     private const BuildingTrees:Class;
+    [Embed(source = "../../assets/animations/plants.png", mimeType = "application/octet-stream")]
+    private const BuildingPlants:Class;
 
     [Embed(source = "../../assets/animations/beehive.png", mimeType = "application/octet-stream")]
     private const Beehive:Class;
@@ -113,10 +111,6 @@ public class EmbedAssets {
         xml= XML(new BuildTextureXML());
         g.allData.atlas['buildAtlas'] = new TextureAtlas(texture, xml);
 
-        texture = Texture.fromBitmap(new PlantTexture());
-        xml= XML(new PlantTextureXML());
-        g.allData.atlas['plantAtlas'] = new TextureAtlas(texture, xml);
-
         texture = Texture.fromBitmap(new InterfaceTexture());
         xml= XML(new InterfaceTextureXML());
         g.allData.atlas['interfaceAtlas'] = new TextureAtlas(texture, xml);
@@ -149,9 +143,7 @@ public class EmbedAssets {
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
 
-
-
-        var count:int = 10;
+        var count:int = 11;
         var factoryTree:StarlingFactory = new StarlingFactory();
         var fTree:Function = function (e:Event):void {
             g.allData.factory['tree'] = factoryTree;
@@ -165,6 +157,20 @@ public class EmbedAssets {
         };
         factoryTree.addEventListener(Event.COMPLETE, fTree);
         factoryTree.parseData(new BuildingTrees());
+
+        var factoryPlants:StarlingFactory = new StarlingFactory();
+        var fPlants:Function = function (e:Event):void {
+            g.allData.factory['plant'] = factoryPlants;
+            count--;
+            if (count <= 0) {
+                if (onLoadCallback != null) {
+                    onLoadCallback.apply();
+                    onLoadCallback = null;
+                }
+            }
+        };
+        factoryPlants.addEventListener(Event.COMPLETE, fPlants);
+        factoryPlants.parseData(new BuildingPlants());
 
         var factoryCat:StarlingFactory = new StarlingFactory();
         var fCat:Function = function (e:Event):void {

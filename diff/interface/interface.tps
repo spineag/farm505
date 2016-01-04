@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/interface/interface.tps</string>
+        <string>C:/Andy/farm/farm505/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -284,6 +284,7 @@
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>shop</filename>
+            <filename>aerial_tram_all.png</filename>
             <filename>ribbon</filename>
             <filename>decor_cell.png</filename>
             <filename>coins_market.png</filename>
@@ -294,16 +295,18 @@
             <filename>cursor_clock.png</filename>
             <filename>cursor_number_circle.png</filename>
             <filename>cursor_sickle.png</filename>
-            <filename>star_particle.png</filename>
-            <filename>particle_yelow.png</filename>
-            <filename>a_tr_blue.png</filename>
             <filename>a_tr_cup_ico.png</filename>
+            <filename>a_tr_kor_ico.png</filename>
+            <filename>a_tr_rup_ico.png</filename>
+            <filename>a_tr_blue.png</filename>
             <filename>a_tr_gray.png</filename>
             <filename>a_tr_green.png</filename>
-            <filename>a_tr_kor_ico.png</filename>
             <filename>a_tr_red.png</filename>
-            <filename>a_tr_rup_ico.png</filename>
-            <filename>aerial_tram_all.png</filename>
+            <filename>star_particle.png</filename>
+            <filename>particle_yelow.png</filename>
+            <filename>cursor_click.png</filename>
+            <filename>cursor_default.png</filename>
+            <filename>cursor_hover.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -47,13 +47,14 @@ public class FabricHintItem {
         txt.text = String(userCount);
         source.addChild(txt);
 
-
         if (!g.dataResource.objectResources[obId]) {
             Cc.error('FabricHintItem error: g.dataResource.objectResources[obId] = null');
             g.woGameError.showIt();
             return;
         }
-        if (g.dataResource.objectResources[obId].buildType == BuildType.PLANT || g.dataResource.objectResources[obId].buildType == BuildType.RESOURCE) {
+        if (g.dataResource.objectResources[obId].buildType == BuildType.PLANT) {
+            _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[obId].imageShop + '_icon'));
+        } else if (g.dataResource.objectResources[obId].buildType == BuildType.RESOURCE) {
             _image = new Image(g.allData.atlas[g.dataResource.objectResources[obId].url].getTexture(g.dataResource.objectResources[obId].imageShop));
         }
         _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_blue_d"));

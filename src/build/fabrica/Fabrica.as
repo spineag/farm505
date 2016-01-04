@@ -96,7 +96,7 @@ public class Fabrica extends AreaObject {
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
         _count = 20;
-        _source.filter = ManagerFilters.RED_STROKE;
+        _source.filter = ManagerFilters.BUILD_STROKE;
         if (_stateBuild == STATE_ACTIVE) {
             g.hint.showIt(_dataBuild.name);
         }
@@ -263,7 +263,10 @@ public class Fabrica extends AreaObject {
             var texture:Texture;
             for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
                 obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
-                texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
+                if (obj.buildType == BuildType.PLANT)
+                    texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
+                else
+                    texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
                 new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i * .1);
             }
         }

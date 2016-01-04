@@ -33,7 +33,7 @@ public class Decor extends AreaObject{
     private function onHover():void {
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
-        _source.filter = ManagerFilters.RED_STROKE;
+        _source.filter = ManagerFilters.BUILD_STROKE;
     }
 
     private function onClick():void {

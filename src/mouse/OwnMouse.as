@@ -19,9 +19,9 @@ import starling.textures.Texture;
 import utils.DrawToBitmap;
 
 public class OwnMouse {
-    public static const USUAL_CURSOR:String = 'usual_cursor';
-    public static const HOVER_CURSOR:String = 'hover_cursor';
-    public static const CLICK_CURSOR:String = 'click_cursor';
+    public static const USUAL_CURSOR:String = 'cursor_default';
+    public static const HOVER_CURSOR:String = 'cursor_hover';
+    public static const CLICK_CURSOR:String = 'cursor_click';
 
     private var _cont:Sprite;
     private var g:Vars = Vars.getInstance();
@@ -41,7 +41,7 @@ public class OwnMouse {
 
     private function CreateMouseCursor():void {
         var cursor_D:MouseCursorData = new MouseCursorData();
-        cursor_D.data = makeCursorImages("cursor");
+        cursor_D.data = makeCursorImages("cursor_default");
         cursor_D.frameRate = 0;
         cursor_D.hotSpot = new Point(0, 0);
         Mouse.registerCursor(USUAL_CURSOR, cursor_D);
@@ -62,7 +62,7 @@ public class OwnMouse {
 
     private function makeCursorImages(st:String):Vector.<BitmapData> {
         var cursorData:Vector.<BitmapData> = new Vector.<BitmapData>();
-        var texture:Texture = g.allData.atlas['mapAtlas'].getTexture(st);
+        var texture:Texture = g.allData.atlas['interfaceAtlas'].getTexture(st);
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(new Image(texture));
         cursorData.push(bitMap.bitmapData);
 

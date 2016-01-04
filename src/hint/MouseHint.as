@@ -5,6 +5,8 @@ package hint {
 
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import manager.ManagerFilters;
 
 import manager.Vars;
@@ -62,11 +64,11 @@ public class MouseHint {
     }
 
     private function onEnterFrame():void {
-        _source.x = g.ownMouse.mouseX + 20;
-        _source.y = g.ownMouse.mouseY + 20;
+        _source.x = g.ownMouse.mouseX + 15;
+        _source.y = g.ownMouse.mouseY + 15;
     }
 
-    public function checkMouseHint(s:String, data:Object = null):void {
+    public function checkMouseHint(s:String, dat:Object = null):void {
         if (g.currentOpenedWindow == true) return;
         _imageCircle.visible = false;
         _txtCount.text = '';
@@ -98,8 +100,11 @@ public class MouseHint {
                 break;
             case 'animal':
                 _imageCircle.visible = true;
-                _txtCount.text = String(g.userInventory.getCountResourceById(data.idResourceRaw));
-                _image = new Image(g.allData.atlas[g.dataResource.objectResources[data.idResourceRaw].url].getTexture(g.dataResource.objectResources[data.idResourceRaw].imageShop));
+                _txtCount.text = String(g.userInventory.getCountResourceById(dat.idResourceRaw));
+                if (g.dataResource.objectResources[dat.idResourceRaw].buildType == BuildType.PLANT)
+                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[dat.idResourceRaw].imageShop + '_icon'));
+                else
+                    _image = new Image(g.allData.atlas[g.dataResource.objectResources[dat.idResourceRaw].url].getTexture(g.dataResource.objectResources[dat.idResourceRaw].imageShop));
                 MCScaler.scale(_image, 40, 40);
                 _image.x = 5;
                 _image.y = 6;

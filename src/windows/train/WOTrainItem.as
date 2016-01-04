@@ -51,17 +51,18 @@ public class WOTrainItem {
         _galo4ka.y = 40;
         source.addChild(_galo4ka);
         _galo4ka.visible = false;
+        var _bg:Image;
         switch (type) {
             case (WOTrain.CELL_BLUE):
-                var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_blue'));
+                _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_blue'));
                 source.addChild(_bg);
                 break;
             case (WOTrain.CELL_GREEN):
-                var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_green'));
+                _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_green'));
                 source.addChild(_bg);
                 break;
             case (WOTrain.CELL_RED):
-                var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_red'));
+                _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_red'));
                 source.addChild(_bg);
                 break;
             case (WOTrain.CELL_GRAY):
@@ -82,7 +83,10 @@ public class WOTrainItem {
         }
 
         _txt.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
-        _im = new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
+        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT)
+            _im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_info.id].imageShop + '_icon'));
+        else
+            _im = new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
         if (!_im) {
             Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
             g.woGameError.showIt();

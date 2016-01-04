@@ -33,7 +33,7 @@ public class DecorTail extends AreaObject{
         if (g.selectedBuild) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             if (g.selectedBuild) return;
-            _source.filter = ManagerFilters.RED_STROKE;
+            _source.filter = ManagerFilters.BUILD_STROKE;
         }
     }
 

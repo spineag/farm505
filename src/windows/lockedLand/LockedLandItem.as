@@ -4,6 +4,8 @@
 package windows.lockedLand {
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import flash.filters.GlowFilter;
 
 import manager.ManagerFilters;
@@ -81,7 +83,11 @@ public class LockedLandItem {
             g.woGameError.showIt();
             return;
         }
-        var icon:Image = new Image(g.allData.atlas[g.dataResource.objectResources[id].url].getTexture(g.dataResource.objectResources[id].imageShop));
+        var icon:Image;
+        if (g.dataResource.objectResources[id].buildType == BuildType.PLANT)
+            icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[id].imageShop + '_icon'));
+        else
+            icon = new Image(g.allData.atlas[g.dataResource.objectResources[id].url].getTexture(g.dataResource.objectResources[id].imageShop));
         if (!icon) {
             Cc.error('LockedLandItem fillWithResource:: no such image: ' + g.dataResource.objectResources[id].imageShop);
             g.woGameError.showIt();

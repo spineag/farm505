@@ -2,8 +2,18 @@
  * Created by user on 9/29/15.
  */
 package windows.serverError {
+import flash.events.Event;
+
+import manager.ManagerFilters;
+
 import starling.text.TextField;
 import starling.utils.Color;
+
+import utils.CButton;
+
+import windows.WOComponents.Birka;
+
+import windows.WOComponents.WindowBackground;
 
 import windows.Window;
 
@@ -11,22 +21,39 @@ public class WOServerError extends Window{
     private var _txtError:TextField;
     public function WOServerError() {
         super();
-        _woWidth = 400;
-        _woHeight = 400;
-        createTempBG();
-        var txt:TextField = new TextField(400,100,"Ошибка! Перегрузите игру","Arial",30,Color.WHITE);
-        txt.x = -200;
-        txt.y = -200;
+        _woWidth = 390;
+        _woHeight = 280;
+        var _woBG:WindowBackground = new WindowBackground(_woWidth, _woHeight);
+        _source.addChild(_woBG);
+        createExitButton(onClickExit);
+        callbackClickBG = onClickExit;
+        new Birka('Ошибка', _source, _woWidth, _woHeight);
+        var txt:TextField = new TextField(340,100,'Произошла ощибка в игре. Если подобное происхдит часто, сообщите в службу поддержки.',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = -170;
+        txt.y = -60;
         _source.addChild(txt);
-        _txtError = new TextField(400,300,"","Arial",20,Color.WHITE);
-        _txtError.x = -200;
-        _txtError.y = -100;
+        _txtError = new TextField(340,100,'Ошибка',g.allData.fonts['BloggerMedium'],24,Color.WHITE);
+        _txtError.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtError.x = -170;
+        _txtError.y = -135;
         _source.addChild(_txtError);
+        var b:CButton = new CButton();
+        b.addButtonTexture(210, 34, CButton.GREEN, true);
+        b.y = 85;
+        _source.addChild(b);
+        txt = new TextField(200, 34, "Перезагрузить", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        b.addChild(txt);
     }
 
     public function showItParams(st:String):void {
         _txtError.text = st;
         showIt();
+    }
+
+    public function onClickExit(e:Event=null):void {
+        hideIt();
     }
 }
 }

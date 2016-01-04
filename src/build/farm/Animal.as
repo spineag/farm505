@@ -193,11 +193,11 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
         if (_state == HUNGRY) {
-            source.filter = ManagerFilters.YELLOW_STROKE;
+            source.filter = ManagerFilters.BUILD_STROKE;
             _frameCounterMouseHint = 2;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
         } else {
-            source.filter = ManagerFilters.YELLOW_STROKE;
+            source.filter = ManagerFilters.BUILD_STROKE;
             _frameCounterTimerHint = 5;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
             g.gameDispatcher.addEnterFrame(countEnterFrame);

@@ -924,5 +924,22 @@ public class TownArea extends Sprite {
         }
         return null;
     }
+
+    public function onOpenMapEditor(value:Boolean):void {
+        var i:int;
+        if (value) {
+            for (i=0; i<_cityObjects.length; i++) {
+                if (_cityObjects[i] is LockedLand) {
+                    (_cityObjects[i] as LockedLand).onOpenMapEditor();
+                }
+            }
+        } else {
+            for (i=0; i<_cityObjects.length; i++) {
+                if (_cityObjects[i] is LockedLand) {
+                    (_cityObjects[i] as LockedLand).onCloseMapEditor();
+                }
+            }
+        }
+    }
 }
 }

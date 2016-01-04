@@ -29,9 +29,11 @@ public class Wild extends AreaObject{
         }
         createBuild();
 
-        _source.hoverCallback = onHover;
-        _source.endClickCallback = onClick;
-        _source.outCallback = onOut;
+        if (!g.isAway) {
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+        }
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
         _isOnHover = false;
@@ -39,12 +41,12 @@ public class Wild extends AreaObject{
 
     public function setLockedLand(l:LockedLand):void {
         _curLockedLand = l;
-        _source.isTouchable = false;
     }
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.YELLOW_STROKE;
+        if (_curLockedLand && !g.isActiveMapEditor) return;
+        _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
     }
 
@@ -55,11 +57,28 @@ public class Wild extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.selectedBuild) {
+            if (g.selectedBuild == this && g.isActiveMapEditor) {
+                g.toolsModifier.onTouchEnded();
+                onOut();
+            }
+            return;
+        }
+        if (_curLockedLand && !g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            if (g.isActiveMapEditor)
+            if (g.isActiveMapEditor) {
+                if (_curLockedLand) {
+                    _curLockedLand.activateOnMapEditor(this);
+                    _curLockedLand = null;
+                }
                 g.townArea.moveBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             if (g.isActiveMapEditor) {
+                if (_curLockedLand) {
+                    _curLockedLand.activateOnMapEditor(this);
+                    _curLockedLand = null;
+                }
                 g.directServer.ME_removeWild(_dbBuildingId, null);
                 g.townArea.deleteBuild(this);
             }

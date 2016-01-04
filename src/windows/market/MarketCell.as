@@ -7,6 +7,8 @@ import com.junkbyte.console.Cc;
 
 import data.BuildType;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -53,7 +55,11 @@ public class MarketCell {
         }
         _data = g.dataResource.objectResources[_info.id];
         if (_data) {
-            _image = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            if (_data.buildType == BuildType.PLANT) {
+                _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+            } else {
+                _image = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            }
             if (!_image) {
                 Cc.error('MarketCell:: no such image: ' + _data.imageShop);
                 g.woGameError.showIt();
@@ -69,7 +75,8 @@ public class MarketCell {
             return;
         }
 
-        _countTxt = new TextField(30,20,String(_info.count),"Arial",16,Color.BLACK);
+        _countTxt = new TextField(30,20,'',g.allData.fonts['BloggerBold'],16, Color.WHITE);
+        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = 75;
         _countTxt.y = 77;
         source.addChild(_countTxt);

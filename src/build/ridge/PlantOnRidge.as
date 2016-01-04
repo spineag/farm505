@@ -2,24 +2,21 @@
  * Created by user on 6/2/15.
  */
 package build.ridge {
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
+import dragonBones.Armature;
 import manager.Vars;
-
-import starling.display.Image;
-
 import starling.display.Sprite;
-import starling.text.TextField;
-import starling.utils.Color;
-
-import utils.CSprite;
 
 public class PlantOnRidge {
     private var _source:Sprite;
     private var _ridge:Ridge;
     private var _data:Object;
     public var _timeToEndState:int;
-     public var idFromServer:String; // в табличке user_plant_ridge
+    public var idFromServer:String; // в табличке user_plant_ridge
+    private var armature:Armature;
 
     private var g:Vars = Vars.getInstance();
 
@@ -33,6 +30,9 @@ public class PlantOnRidge {
         _data = data;
         _source = new Sprite();
         _ridge.addChildPlant(_source);
+        armature = g.allData.factory[_data.url].buildArmature(_data.imageShop);
+        _source.addChild(armature.display as Sprite);
+        _source.y = 35;
 
         _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);
         _data.timeToStateGwoned = _data.buildTime -  _data.timeToGrow2 -  _data.timeToGrow3;
@@ -51,35 +51,21 @@ public class PlantOnRidge {
                 return;
 
             case Ridge.GROW1:
-                addPlantImage(_data.image1, _data.innerPositions[0], _data.innerPositions[1]);
+                armature.animation.gotoAndPlay("state1");
                 if (needSetTimer) _timeToEndState = _data.timeToGrow2;
                 break;
             case Ridge.GROW2:
-                addPlantImage(_data.image2, _data.innerPositions[2], _data.innerPositions[3]);
+                armature.animation.gotoAndPlay("state2");
                 if (needSetTimer) _timeToEndState = _data.timeToGrow3;
                 break;
             case Ridge.GROW3:
-                addPlantImage(_data.image3, _data.innerPositions[4], _data.innerPositions[5]);
+                armature.animation.gotoAndPlay("state3");
                 if (needSetTimer) _timeToEndState = _data.timeToStateGwoned;
                 break;
             case Ridge.GROWED:
-                addPlantImage(_data.image4, _data.innerPositions[6], _data.innerPositions[7]);
+                armature.animation.gotoAndPlay("state4");
+                animateEndState();
                 break;
-        }
-    }
-
-    private function addPlantImage(st:String, _x:int, _y:int):void {
-        while (_source.numChildren) {
-            _source.removeChildAt(0);
-        }
-        try {
-            var im:Image = new Image(g.allData.atlas['plantAtlas'].getTexture(st));
-            im.x = _x;
-            im.y = _y + 15;
-            _source.addChild(im);
-        } catch(e:Error) {
-            Cc.error('PlantOnRidge:: no such image: ' + st);
-            g.woGameError.showIt();
         }
     }
 
@@ -134,9 +120,20 @@ public class PlantOnRidge {
     public function clearIt():void {
         _ridge = null;
         _data = null;
+        TweenMax.killTweensOf(_source);
         g.gameDispatcher.removeFromTimer(render);
         while (_source.numChildren) _source.removeChildAt(0);
         _source = null;
+    }
+
+    private function animateEndState():void {
+        var fToLeft:Function = function (d:Number = 0):void {
+            TweenMax.to(_source, 2, {rotation:-Math.PI/100, ease:Linear.easeIn, onComplete: fToRight, delay:d});
+        };
+        var fToRight:Function = function ():void {
+            TweenMax.to(_source, 2, {rotation:Math.PI/100, ease:Linear.easeIn, onComplete: fToLeft});
+        };
+        fToLeft(5*Math.random());
     }
 }
 }

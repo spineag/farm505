@@ -63,9 +63,9 @@ public class ToolsModifier {
         _mouseIcon = new Sprite();
         contImage = new Sprite();
         _plantId = -1;
-        _txtCount = new TextField(50, 40,"","Arial",16,Color.RED);
-        _txtCount.x = 5;
-        _txtCount.y = 5;
+        _txtCount = new TextField(50,40,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtCount.x = 18;
+        _txtCount.y = 29;
     }
 
     public function setTownArray():void {
@@ -145,10 +145,22 @@ public class ToolsModifier {
                 break;
             case ToolsModifier.PLANT_SEED:
                 if (_plantId <= 0) return;
-                im = new Image(g.allData.atlas['plantAtlas'].getTexture(g.dataResource.objectResources[_plantId].imageShop));
-                if (im) _mouseIcon.addChild(im);
-                updateCountTxt();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle'));
+                _mouseCont.addChild(im);
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_plantId].imageShop + '_icon'));
+                if (im) {
+                    MCScaler.scale(im, 40, 40);
+                    im.x = 27 - im.width/2;
+                    im.y = 27 - im.height/2;
+                    _mouseIcon.addChild(im);
+                }
+                if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
+                var im2:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_number_circle"));
+                im2.x = _mouseCont.width - 27;
+                im2.y = _mouseCont.height - 23;
+                _mouseCont.addChild(im2);
                 if (!_mouseCont.contains(_txtCount)) _mouseCont.addChild(_txtCount);
+                updateCountTxt();
                 break;
             case ToolsModifier.ADD_NEW_RIDGE:
 //                _modifierType = NONE;
@@ -156,7 +168,7 @@ public class ToolsModifier {
         }
         if (im) {
             if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
-            MCScaler.scale(_mouseIcon, 30, 30);
+            MCScaler.scale(_mouseIcon, 40, 40);
             g.gameDispatcher.addEnterFrame(moveMouseIcon);
         }
      }
@@ -173,14 +185,14 @@ public class ToolsModifier {
         while (_mouseIcon.numChildren) {
             _mouseIcon.removeChildAt(0);
         }
-        if (_mouseCont.contains(_txtCount)) {
-            _mouseCont.removeChild(_txtCount);
+        while (_mouseCont.numChildren) {
+            _mouseCont.removeChildAt(0);
         }
     }
 
     private function moveMouseIcon():void{
-        _mouseCont.x = g.ownMouse.mouseX + 20;
-        _mouseCont.y = g.ownMouse.mouseY + 10;
+        _mouseCont.x = g.ownMouse.mouseX + 15;
+        _mouseCont.y = g.ownMouse.mouseY + 5;
     }
 
     public function  startMove(selectedBuild:AreaObject, callback:Function = null, isFromShop:Boolean = false):void {

@@ -102,7 +102,7 @@ public class Ridge extends AreaObject{
     private function onHover():void {
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor || g.isAway) return;
-        _source.filter = ManagerFilters.YELLOW_STROKE;
+        _source.filter = ManagerFilters.BUILD_STROKE;
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             g.managerPlantRidge.checkFreeRidges();
@@ -246,7 +246,7 @@ public class Ridge extends AreaObject{
             g.directServer.rawPlantOnRidge(_dataPlant.id, _dbBuildingId, f1);
             var p:Point = new Point(_source.x, _source.y);
             p = _source.parent.localToGlobal(p);
-            var rawItem:RawItem = new RawItem(p, g.allData.atlas[_dataPlant.url].getTexture(_dataPlant.imageShop), 1, 0);
+            var rawItem:RawItem = new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
         }
     }
 

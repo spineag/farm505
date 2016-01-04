@@ -4,6 +4,8 @@
 package windows.paperWindow {
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import flash.display.Bitmap;
 
 import flash.geom.Rectangle;
@@ -142,7 +144,10 @@ public class WOPaperItem {
         _txtCountResource.text = String(_data.resourceCount) + ' шт.';
         _dataResource = g.dataResource.objectResources[_data.resourceId];
         _txtResourceName.text = _dataResource.name;
-        _imageItem = new Image(g.allData.atlas[_dataResource.url].getTexture(_dataResource.imageShop));
+        if (_dataResource.buildType == BuildType.PLANT)
+            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
+        else
+            _imageItem = new Image(g.allData.atlas[_dataResource.url].getTexture(_dataResource.imageShop));
         if (!_imageItem) {
             Cc.error('WOPaperItem fillIt:: no such image: ' + _dataResource.imageShop);
             g.woGameError.showIt();

@@ -5,6 +5,8 @@ package windows.lastResource {
 
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.filters.BlurFilter;
@@ -52,7 +54,10 @@ public class WOLastResource extends Window{
             g.woGameError.showIt();
             return;
         }
-        _imageItem = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+        if (_data.buildType == BuildType.PLANT)
+            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+        else
+            _imageItem = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
         if (!_data) {
             Cc.error('WOLastResource showItMenu:: no such image: ' + _data.imageShop);
             g.woGameError.showIt();

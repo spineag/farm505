@@ -20,12 +20,6 @@ public class ResourceItem {
     private var _buildTime:int;
     private var _buildType:int;
     public var craftXP:int;
-    public var image1:String;
-    public var image2:String;
-    public var image3:String;
-    public var image4:String;
-    public var imageHarvested:String; // иконка собраного растения, которое летит в изображение склада
-    public var innerPositions:Array;
     public var leftTime:int;
     public var currentRecipeID:int;
     public var placeBuild:int;
@@ -47,14 +41,8 @@ public class ResourceItem {
         dataResource.priceSkipHard ? _priceSkipHard = dataResource.priceSkipHard : _priceSkipHard = 10000;
         dataResource.blockByLevel ? _blockByLevel = dataResource.blockByLevel : _blockByLevel = 1;
         dataResource.buildTime ? _buildTime = int(dataResource.buildTime) : _buildTime = 30;
-        dataResource.builType ? _buildType = dataResource.buildType : _buildType = BuildType.TEST;
+        dataResource.builType = _buildType = dataResource.buildType;
         dataResource.craftXP ? craftXP = dataResource.craftXP : craftXP = 1;
-        dataResource.image1 ? image1 = dataResource.image1 : image1 = '';
-        dataResource.image2 ? image2 = dataResource.image2 : image2 = '';
-        dataResource.image3 ? image3 = dataResource.image3 : image3 = '';
-        dataResource.image4 ? image4 = dataResource.image4 : image4 = '';
-        dataResource.imageHarvested ? imageHarvested = dataResource.imageHarvested : imageHarvested = _imageShop;
-        dataResource.innerPositions ? innerPositions = dataResource.innerPositions : innerPositions = [];
         dataResource.placeBuild ? placeBuild = dataResource.placeBuild : BuildType.PLACE_NONE;
         leftTime = _buildTime;
         currentRecipeID= 0;

@@ -2,6 +2,8 @@
  * Created by andy on 11/13/15.
  */
 package windows.orderWindow {
+import data.BuildType;
+
 import flash.filters.GlowFilter;
 
 import manager.ManagerFilters;
@@ -61,7 +63,10 @@ public class WOOrderResourceItem {
 
     public function fillIt(id:int, count:int):void {
         var obj:Object = g.dataResource.objectResources[id];
-        _image = new Image(g.allData.atlas[obj.url].getTexture(obj.imageShop));
+        if (obj.buildType == BuildType.PLANT)
+            _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon'));
+        else
+            _image = new Image(g.allData.atlas[obj.url].getTexture(obj.imageShop));
         MCScaler.scale(_image, 85, 85);
         _image.x = 47 - _image.width/2;
         _image.y = 47 - _image.height/2;

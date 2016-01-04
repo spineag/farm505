@@ -274,15 +274,6 @@ public class DirectServer {
                 if (d.message[i].cost_skip) obj.priceSkipHard = d.message[i].cost_skip;
                 if (d.message[i].build_time) obj.buildTime = d.message[i].build_time;
                 if (d.message[i].craft_xp) obj.craftXP = d.message[i].craft_xp;
-                if (d.message[i].image1) obj.image1 = d.message[i].image1;
-                if (d.message[i].image2) obj.image2 = d.message[i].image2;
-                if (d.message[i].image3) obj.image3 = d.message[i].image3;
-                if (d.message[i].image4) obj.image4 = d.message[i].image4;
-                if (d.message[i].image_harvested) obj.imageHarvested = d.message[i].image_harvested;
-                if (d.message[i].inner_positions) {
-                    obj.innerPositions = String(d.message[i].inner_positions).split('&');
-                    for (var k:int = 0; k < obj.innerPositions.length; k++) obj.innerPositions[k] = int(obj.innerPositions[k]);
-                }
                 g.dataResource.objectResources[obj.id] = obj;
             }
             if (callback != null) {
