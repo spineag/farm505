@@ -52,14 +52,18 @@ public class HeroCat extends BasicCat{
         WorldClock.clock.add(armatureBack);
 
         if (_type == WOMAN) {
-            releaseFrontWoman('cat', armature);
-            releaseBackWoman('cat', armatureBack);
+            releaseFrontWoman(armature);
+            releaseBackWoman(armatureBack);
         }
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);
         showFront(true);
+    }
+
+    public function get typeMan():int {
+        return _type;
     }
 
     override public function showFront(v:Boolean):void {
@@ -130,28 +134,31 @@ public class HeroCat extends BasicCat{
         super.idleAnimation();
     }
 
-    private function releaseFrontWoman(factory:String, arma:Armature):void {
-        changeTexture(factory, "head", "heads/head_w", arma);
-        changeTexture(factory, "body", "bodys/body_w", arma);
-        changeTexture(factory, "handLeft", "left_hand/handLeft_w", arma);
-        changeTexture(factory, "legLeft", "left_leg/legLeft_w", arma);
-        changeTexture(factory, "handRight", "right_hand/handRight_w", arma);
-        changeTexture(factory, "legRight", "right_leg/legRight_w", arma);
-        changeTexture(factory, "tail", "tails/tail_w", arma);
+    public function get armatureCatFront():Armature {  return armature; }
+    public function get armatureCatBack():Armature {  return armatureBack; }
+
+    private function releaseFrontWoman(arma:Armature):void {
+        changeTexture("head", "heads/head_w", arma);
+        changeTexture("body", "bodys/body_w", arma);
+        changeTexture("handLeft", "left_hand/handLeft_w", arma);
+        changeTexture("legLeft", "left_leg/legLeft_w", arma);
+        changeTexture("handRight", "right_hand/handRight_w", arma);
+        changeTexture("legRight", "right_leg/legRight_w", arma);
+        changeTexture("tail", "tails/tail_w", arma);
     }
 
-    private function releaseBackWoman(factory:String, arma:Armature):void {
-        changeTexture(factory, "head", "heads_b/head_w_b", arma);
-        changeTexture(factory, "body", "bodys_b/body_w_b", arma);
-        changeTexture(factory, "handLeft", "left_hand_b/handLeft_w_b", arma);
-        changeTexture(factory, "legLeft", "left_leg_b/legLeft_w_b", arma);
-        changeTexture(factory, "handRight", "right_hand_b/handRight_w_b", arma);
-        changeTexture(factory, "legRight", "right_leg_b/legRight_w_b", arma);
-        changeTexture(factory, "tail11", "tails/tail_w", arma);
+    private function releaseBackWoman(arma:Armature):void {
+        changeTexture("head", "heads_b/head_w_b", arma);
+        changeTexture("body", "bodys_b/body_w_b", arma);
+        changeTexture("handLeft", "left_hand_b/handLeft_w_b", arma);
+        changeTexture("legLeft", "left_leg_b/legLeft_w_b", arma);
+        changeTexture("handRight", "right_hand_b/handRight_w_b", arma);
+        changeTexture("legRight", "right_leg_b/legRight_w_b", arma);
+        changeTexture("tail11", "tails/tail_w", arma);
     }
 
-    private function changeTexture(factory:String, oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory[factory].getTextureDisplay(newName) as Image;
+    private function changeTexture(oldName:String, newName:String, arma:Armature):void {
+        var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
         var b:Bone = arma.getBone(oldName);
         b.display.dispose();
         b.display = im;
@@ -198,7 +205,7 @@ public class HeroCat extends BasicCat{
             armatureWorker = g.allData.factory['cat_watering'].buildArmature("cat");
             WorldClock.clock.add(armatureWorker);
             if (_type == WOMAN) {
-                releaseFrontWoman('cat', armatureWorker);
+                releaseFrontWoman(armatureWorker);
             }
         }
         _catWateringAndFeed.addChild(armatureWorker.display as Sprite);
@@ -275,7 +282,7 @@ public class HeroCat extends BasicCat{
             armatureWorker = g.allData.factory['cat_feed'].buildArmature("cat");
             WorldClock.clock.add(armatureWorker);
             if (_type == WOMAN) {
-                releaseFrontWoman('cat', armatureWorker);
+                releaseFrontWoman(armatureWorker);
             }
         }
         _catWateringAndFeed.addChild(armatureWorker.display as Sprite);

@@ -10,9 +10,12 @@ import com.greensock.easing.Linear;
 import data.BuildType;
 
 import dragonBones.Armature;
+import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 
 import flash.geom.Point;
+
+import heroes.BasicCat;
 
 import heroes.HeroCat;
 
@@ -29,6 +32,7 @@ import resourceItem.ResourceItem;
 import mouse.ToolsModifier;
 
 import starling.core.Starling;
+import starling.display.Image;
 
 import starling.display.Sprite;
 
@@ -344,6 +348,7 @@ public class Fabrica extends AreaObject {
     private function startAnimation():void {
         WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlay('work');
+        releaseHeroCatWoman();
     }
 
     private function stopAnimation():void {
@@ -380,6 +385,69 @@ public class Fabrica extends AreaObject {
             craftResource(_arrList.shift());
         } else {
             Cc.error('Fabrica skipRecipe:: _arrList[0] == null');
+        }
+    }
+
+    private function releaseHeroCatWoman():void {
+        if (_heroCat.typeMan == BasicCat.MAN) {
+            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                releaseManBackTexture();
+            else releaseManFrontTexture();
+        } else if (_heroCat.typeMan == BasicCat.WOMAN) {
+            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                releaseWomanBackTexture();
+            else releaseWomanFrontTexture();
+        }
+    }
+
+    private function releaseManFrontTexture():void {
+        changeTexture("head", "heads/head");
+        changeTexture("body", "bodys/body");
+        changeTexture("handLeft", "left_hand/handLeft");
+        changeTexture("legLeft", "left_leg/legLeft");
+        changeTexture("handRight", "right_hand/handRight");
+        changeTexture("legRight", "right_leg/legRight");
+        changeTexture("tail", "tails/tail");
+    }
+
+    private function releaseManBackTexture():void {
+        changeTexture("head", "heads_b/head_b");
+        changeTexture("body", "bodys_b/body_b");
+        changeTexture("handLeft", "left_hand_b/handLeft_b");
+        changeTexture("legLeft", "left_leg_b/legLeft_b");
+        changeTexture("handRight", "right_hand_b/handRight_b");
+        changeTexture("legRight", "right_leg_b/legRight_b");
+        changeTexture("tail", "tails/tail");
+    }
+
+    private function releaseWomanFrontTexture():void {
+        changeTexture("head", "heads/head_w");
+        changeTexture("body", "bodys/body_w");
+        changeTexture("handLeft", "left_hand/handLeft_w");
+        changeTexture("legLeft", "left_leg/legLeft_w");
+        changeTexture("handRight", "right_hand/handRight_w");
+        changeTexture("legRight", "right_leg/legRight_w");
+        changeTexture("tail", "tails/tail_w");
+    }
+
+    private function releaseWomanBackTexture():void {
+        changeTexture("head", "heads_b/head_w_b");
+        changeTexture("body", "bodys_b/body_w_b");
+        changeTexture("handLeft", "left_hand_b/handLeft_w_b");
+        changeTexture("legLeft", "left_leg_b/legLeft_w_b");
+        changeTexture("handRight", "right_hand_b/handRight_w_b");
+        changeTexture("legRight", "right_leg_b/legRight_w_b");
+        changeTexture("tail", "tails/tail_w");
+    }
+
+    private function changeTexture(oldName:String, newName:String):void {
+        var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
+        var b:Bone = _armature.getBone(oldName);
+        if (b) {
+            b.display.dispose();
+            b.display = im;
+        } else {
+            Cc.error('Fabrica changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
         }
     }
 
