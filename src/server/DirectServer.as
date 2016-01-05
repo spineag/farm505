@@ -1855,20 +1855,13 @@ public class DirectServer {
     public function getUserTrain(callback:Function):void {
         if (!g.useDataFromServer) return;
 
-        var tr:Train;
-        for (var i:int=0; i<g.townArea.cityObjects.length; i++) {
-            if (g.townArea.cityObjects[i] is Train) {
-                tr = g.townArea.cityObjects[i];
-                break;
-            }
-        }
+        var tr:Train = g.townArea.getCityObjectsByType(BuildType.TRAIN)[0];
         if (!tr ||tr.stateBuild < 4) {
             if (callback != null) {
                 callback.apply();
             }
             return;
         }
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TRAIN);
         var variables:URLVariables = new URLVariables();
