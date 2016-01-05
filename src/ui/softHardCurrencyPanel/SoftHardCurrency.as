@@ -45,7 +45,7 @@ public class SoftHardCurrency {
         };
         _contHard.endClickCallback = onClickHard;
         _contHard.hoverCallback = function ():void {
-            g.hint.showIt("Изумруды");
+            g.hint.showIt("Рубины");
         };
         _contHard.outCallback = function ():void {
             g.hint.hideIt();

@@ -76,6 +76,7 @@ public class Tree extends AreaObject{
     public var tree_db_id:String;    // id в табличке user_tree
     private var _wateringUserSocialId:String;
     private var _craftedCountFromServer:int;
+    private var _countMouse:int;
 
     private var armature:Armature;
     private var armatureClip:Sprite;
@@ -329,12 +330,8 @@ public class Tree extends AreaObject{
         _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
         _count = 20;
-        if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
-            g.mouseHint.checkMouseHint(MouseHint.KORZINA);
-        } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
-                _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-            g.mouseHint.checkMouseHint(MouseHint.CLOCK);
-        }
+        _countMouse = 2;
+        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             g.mouseHint.hideIt();
         }
@@ -346,7 +343,8 @@ public class Tree extends AreaObject{
         _isOnHover = false;
         g.timerHint.hideIt();
         g.treeHint.hideIt();
-        g.mouseHint.hideIt();
+//        g.mouseHint.hideIt();
+        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         if (!_isOnHover) g.treeHint.hideIt();
 
     }
@@ -517,6 +515,26 @@ public class Tree extends AreaObject{
         }
     }
 
+    public function countMouseEnterFrame():void {
+        _countMouse--;
+        if (_countMouse <= 0) {
+            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+            if (_isOnHover == true) {
+                if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
+                    g.mouseHint.checkMouseHint(MouseHint.KORZINA);
+                } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
+                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
+                }
+            }
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.mouseHint.hideIt();
+                g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+            }
+        }
+    }
+
     override public function addXP():void {
         if (_dataBuild.xpForBuild) {
             var start:Point = new Point(int(_source.x), int(_source.y));
@@ -560,6 +578,10 @@ public class Tree extends AreaObject{
             _state = GROWED3;
             setBuildImage();
             g.directServer.skipTimeOnTree(GROWED3,_dbBuildingId,null)
+        } else if (_state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+            _state = GROWED_FIXED;
+            setBuildImage();
+            g.directServer.skipTimeOnTree(GROWED_FIXED,_dbBuildingId,null)
         }
     }
 
