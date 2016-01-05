@@ -369,7 +369,7 @@ public class Train extends AreaObject{
                 g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                 _counter = TIME_WAIT;
                 leaveTrain();
-                g.woTrain.onClickExit();
+                if (g.woTrain) g.woTrain.onClickExit();
             } else if (_stateBuild == STATE_WAIT_BACK) {
                 _stateBuild = STATE_READY;
                 g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
