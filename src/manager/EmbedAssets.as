@@ -90,6 +90,29 @@ public class EmbedAssets {
     [Embed(source = "../../assets/animations/sheep.png", mimeType = "application/octet-stream")]
     private const Sheep:Class;
 
+    [Embed(source = "../../assets/animations/bakery.png", mimeType = "application/octet-stream")]
+    private const BakeryFabrica:Class;
+    [Embed(source = "../../assets/animations/sugar_mill.png", mimeType = "application/octet-stream")]
+    private const SugarMillFabrica:Class;
+    [Embed(source = "../../assets/animations/feed_mill.png", mimeType = "application/octet-stream")]
+    private const FeedMillFabrica:Class;
+    [Embed(source = "../../assets/animations/bbq_grill.png", mimeType = "application/octet-stream")]
+    private const BbqGrillFabrica:Class;
+    [Embed(source = "../../assets/animations/dairy.png", mimeType = "application/octet-stream")]
+    private const DairyFabrica:Class;
+    [Embed(source = "../../assets/animations/pie_oven.png", mimeType = "application/octet-stream")]
+    private const PieOvenFabrica:Class;
+    [Embed(source = "../../assets/animations/juice_press.png", mimeType = "application/octet-stream")]
+    private const JuicePressFabrica:Class;
+    [Embed(source = "../../assets/animations/loom.png", mimeType = "application/octet-stream")]
+    private const LoomFabrica:Class;
+    [Embed(source = "../../assets/animations/pizza_maker.png", mimeType = "application/octet-stream")]
+    private const PizzaMakerFabrica:Class;
+    [Embed(source = "../../assets/animations/smelter.png", mimeType = "application/octet-stream")]
+    private const SmelterFabrica:Class;
+    [Embed(source = "../../assets/animations/smoke_house.png", mimeType = "application/octet-stream")]
+    private const SmokeHouseFabrica:Class;
+
     private var g:Vars = Vars.getInstance();
 
     public function EmbedAssets(onLoadCallback:Function) {
@@ -102,35 +125,27 @@ public class EmbedAssets {
         var texture:Texture = Texture.fromBitmap(new MapTexture());
         var xml:XML = XML(new MapTextureXML());
         g.allData.atlas['mapAtlas'] = new TextureAtlas(texture, xml);
-
         texture = Texture.fromBitmap(new ResourceTexture());
         xml= XML(new ResourceTextureXML());
         g.allData.atlas['resourceAtlas'] = new TextureAtlas(texture, xml);
-
         texture = Texture.fromBitmap(new BuildTexture());
         xml= XML(new BuildTextureXML());
         g.allData.atlas['buildAtlas'] = new TextureAtlas(texture, xml);
-
         texture = Texture.fromBitmap(new InterfaceTexture());
         xml= XML(new InterfaceTextureXML());
         g.allData.atlas['interfaceAtlas'] = new TextureAtlas(texture, xml);
-
         texture = Texture.fromBitmap(new InstrumentTexture());
         xml= XML(new InstrumentTextureXML());
         g.allData.atlas['instrumentAtlas'] = new TextureAtlas(texture, xml);
-
         texture = Texture.fromBitmap(new WildTexture());
         xml= XML(new WildTextureXML());
         g.allData.atlas['wildAtlas'] = new TextureAtlas(texture, xml);
-
         texture = Texture.fromBitmap(new FarmTexture());
         xml= XML(new FarmTextureXML());
         g.allData.atlas['farmAtlas'] = new TextureAtlas(texture, xml);
-
         texture = Texture.fromBitmap(new DecorTexture());
         xml= XML(new DecorTextureXML());
         g.allData.atlas['decorAtlas'] = new TextureAtlas(texture, xml);
-
         texture = Texture.fromBitmap(new IconTexture());
         xml= XML(new IconTextureXML());
         g.allData.atlas['iconAtlas'] = new TextureAtlas(texture, xml);
@@ -142,11 +157,8 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-
-        var count:int = 11;
-        var factoryTree:StarlingFactory = new StarlingFactory();
-        var fTree:Function = function (e:Event):void {
-            g.allData.factory['tree'] = factoryTree;
+        var count:int = 22;
+        var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
                 if (onLoadCallback != null) {
@@ -155,148 +167,40 @@ public class EmbedAssets {
                 }
             }
         };
-        factoryTree.addEventListener(Event.COMPLETE, fTree);
-        factoryTree.parseData(new BuildingTrees());
 
-        var factoryPlants:StarlingFactory = new StarlingFactory();
-        var fPlants:Function = function (e:Event):void {
-            g.allData.factory['plant'] = factoryPlants;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        factoryPlants.addEventListener(Event.COMPLETE, fPlants);
-        factoryPlants.parseData(new BuildingPlants());
+        loadFactory('tree', BuildingTrees, checkCount);
+        loadFactory('plant', BuildingPlants, checkCount);
+        loadFactory('cat', CatData, checkCount);
+        loadFactory('cat_watering', CatWateringData, checkCount);
+        loadFactory('cat_feed', CatFeedData, checkCount);
+        loadFactory('buildingBuild', BuildingBuild, checkCount);
+        loadFactory('beehive', Beehive, checkCount);
+        loadFactory('chicken', Chicken, checkCount);
+        loadFactory('cow', Cow, checkCount);
+        loadFactory('pig', Pig, checkCount);
+        loadFactory('sheep', Sheep, checkCount);
+        loadFactory('bakery', BakeryFabrica, checkCount);
+        loadFactory('sugar_mill', SugarMillFabrica, checkCount);
+        loadFactory('feed_mill', FeedMillFabrica, checkCount);
+        loadFactory('bbq_grill', BbqGrillFabrica, checkCount);
+        loadFactory('dairy', DairyFabrica, checkCount);
+        loadFactory('pie_oven', PieOvenFabrica, checkCount);
+        loadFactory('juice_press', JuicePressFabrica, checkCount);
+        loadFactory('loom', LoomFabrica, checkCount);
+        loadFactory('pizza_maker', PizzaMakerFabrica, checkCount);
+        loadFactory('smelter', SmelterFabrica, checkCount);
+        loadFactory('smoke_house', SmokeHouseFabrica, checkCount);
+    }
 
-        var factoryCat:StarlingFactory = new StarlingFactory();
-        var fCat:Function = function (e:Event):void {
-            g.allData.factory['cat'] = factoryCat;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
+    private function loadFactory(name:String, clas:Class, onLoad:Function):void {
+        var factory:StarlingFactory = new StarlingFactory();
+        var f:Function = function (e:Event):void {
+            factory.removeEventListener(Event.COMPLETE, f);
+            g.allData.factory[name] = factory;
+            if (onLoad != null) onLoad.apply();
         };
-        factoryCat.addEventListener(Event.COMPLETE, fCat);
-        factoryCat.parseData(new CatData());
-
-        var factoryCatWatering:StarlingFactory = new StarlingFactory();
-        var fCatWatering:Function = function (e:Event):void {
-            g.allData.factory['cat_watering'] = factoryCatWatering;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        factoryCatWatering.addEventListener(Event.COMPLETE, fCatWatering);
-        factoryCatWatering.parseData(new CatWateringData());
-
-        var factoryCatFeed:StarlingFactory = new StarlingFactory();
-        var fCatFeed:Function = function (e:Event):void {
-            g.allData.factory['cat_feed'] = factoryCatFeed;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        factoryCatFeed.addEventListener(Event.COMPLETE, fCatFeed);
-        factoryCatFeed.parseData(new CatFeedData());
-
-        var factoryBuild:StarlingFactory = new StarlingFactory();
-        var fBuild:Function = function (e:Event):void {
-            g.allData.factory['buildingBuild'] = factoryBuild;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        factoryBuild.addEventListener(Event.COMPLETE, fBuild);
-        factoryBuild.parseData(new BuildingBuild());
-
-        var factoryBeehive:StarlingFactory = new StarlingFactory();
-        var fBee:Function = function (e:Event):void {
-            g.allData.factory['beehive'] = factoryBeehive;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        factoryBeehive.addEventListener(Event.COMPLETE, fBee);
-        factoryBeehive.parseData(new Beehive());
-
-        var factoryChicken:StarlingFactory = new StarlingFactory();
-        var fChicken:Function = function (e:Event):void {
-            g.allData.factory['chicken'] = factoryChicken;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        factoryChicken.addEventListener(Event.COMPLETE, fChicken);
-        factoryChicken.parseData(new Chicken());
-
-        var factoryCow:StarlingFactory = new StarlingFactory();
-        var fCow:Function = function (e:Event):void {
-            g.allData.factory['cow'] = factoryCow;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        factoryCow.addEventListener(Event.COMPLETE, fCow);
-        factoryCow.parseData(new Cow());
-
-        var factoryPig:StarlingFactory = new StarlingFactory();
-        var fPig:Function = function (e:Event):void {
-            g.allData.factory['pig'] = factoryPig;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        factoryPig.addEventListener(Event.COMPLETE, fPig);
-        factoryPig.parseData(new Pig());
-
-        var factorySheep:StarlingFactory = new StarlingFactory();
-        var fSheep:Function = function (e:Event):void {
-            g.allData.factory['sheep'] = factorySheep;
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        factorySheep.addEventListener(Event.COMPLETE, fSheep);
-        factorySheep.parseData(new Sheep());
+        factory.addEventListener(Event.COMPLETE, f);
+        factory.parseData(new clas());
     }
 }
 }

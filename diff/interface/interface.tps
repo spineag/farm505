@@ -202,7 +202,6 @@
             <filename>blue_coupone.png</filename>
             <filename>bt_close.png</filename>
             <filename>buttons</filename>
-            <filename>buy_coupons.png</filename>
             <filename>carton</filename>
             <filename>cat_icon.png</filename>
             <filename>cat_shadow.png</filename>
