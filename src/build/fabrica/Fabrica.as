@@ -9,6 +9,9 @@ import com.greensock.easing.Linear;
 
 import data.BuildType;
 
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+
 import flash.geom.Point;
 
 import heroes.HeroCat;
@@ -38,12 +41,11 @@ import ui.xpPanel.XPStar;
 public class Fabrica extends AreaObject {
     private var _arrRecipes:Array;  // массив всех рецептов, которые можно изготовить на этой фабрике
     private var _arrList:Array; // массив заказанных для изготовления ресурсов
-    private var _tween:TweenMax;
-    private var _isAnim:Boolean;
     private var _isOnHover:Boolean;
     private var _heroCat:HeroCat;
     private var _count:int;
     private var _arrCrafted:Array;
+    private var _armature:Armature;
 
     public function Fabrica(_data:Object) {
         super(_data);
@@ -58,11 +60,8 @@ public class Fabrica extends AreaObject {
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         checkBuildState();
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
         _source.setChildIndex(_craftSprite, _source.numChildren - 1);
 
-        _isAnim = false;
         _arrRecipes = [];
         _arrList = [];
         _arrCrafted = [];
@@ -74,6 +73,26 @@ public class Fabrica extends AreaObject {
             _source.outCallback = onOut;
         }
         updateRecipes();
+    }
+
+    override public function createBuild(isImageClicked:Boolean = true):void {
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+        _armature = g.allData.factory[_dataBuild.image].buildArmature("fabrica");
+        _build.addChild(_armature.display as Sprite);
+//        if (!isImageClicked) _build.touchable = false;
+        _defaultScale = 1;
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        (_build as Sprite).alpha = 1;
+        if (_flip) _build.scaleX = -_defaultScale;
+        _source.addChild(_build);
+        stopAnimation();
     }
 
     public function showShopView():void {
@@ -273,7 +292,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onHeroAnimation():void {
-        startTempAnimation();
+        startAnimation();
         _heroCat.visible = false;
     }
 
@@ -283,7 +302,7 @@ public class Fabrica extends AreaObject {
                 _heroCat.visible = true;
                 _heroCat.isFree = true;
             }
-            stopTempAnimation();
+            stopAnimation();
             g.gameDispatcher.removeFromTimer(render);
             return;
         }
@@ -292,7 +311,7 @@ public class Fabrica extends AreaObject {
             craftResource(_arrList.shift());
             if (!_arrList.length) {
                 g.gameDispatcher.removeFromTimer(render);
-                stopTempAnimation();
+                stopAnimation();
             }
         }
     }
@@ -314,49 +333,32 @@ public class Fabrica extends AreaObject {
         if (!_arrList.length && _heroCat) {
             _heroCat.visible = true;
             _heroCat.isFree = true;
-//            g.managerCats.goCatToPoint(_heroCat, g.managerCats.getRandomFreeCell());
             _heroCat = null;
         }
     }
 
     public function awayImitationOfWork():void {
-        startTempAnimation();
+        startAnimation();
     }
 
-    private function startTempAnimation():void {
-        _isAnim = true;
-        TweenMax.killTweensOf(_build);
-        anim1();
+    private function startAnimation():void {
+        WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlay('work');
     }
 
-    private function anim1():void {
-        if (_isAnim) {
-            _tween = new TweenMax(_build, .5, {scaleX:.97, scaleY:1.03, ease:Linear.easeOut, onComplete: anim2});
-        }
-    }
-
-    private function anim2():void {
-        if (_isAnim) {
-            _tween = new TweenMax(_build, .5, {scaleX:1.03, scaleY:.97, ease:Linear.easeOut, onComplete: anim1});
-        }
-    }
-
-    private function stopTempAnimation():void {
-        _isAnim = false;
-        if (_tween) {
-            TweenMax.killTweensOf(_build);
-        }
-        _build.scaleX = _build.scaleY = 1;
-        _tween = null;
+    private function stopAnimation():void {
+       _armature.animation.gotoAndStop('idle', 0);
+        WorldClock.clock.remove(_armature);
     }
 
     override public function clearIt():void {
         onOut();
-        stopTempAnimation();
+        stopAnimation();
         g.gameDispatcher.removeFromTimer(render);
         _source.touchable = false;
         _arrList.length = 0;
         _arrRecipes.length = 0;
+        _armature.dispose();
         super.clearIt();
     }
 
