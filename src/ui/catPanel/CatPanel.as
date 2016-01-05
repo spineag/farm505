@@ -50,7 +50,7 @@ public class CatPanel {
     }
 
     public function checkCat():void {
-        _txtCount.text = String(g.managerCats.countFreeCats + " / " + g.managerCats.curCountCats);
+        _txtCount.text = String(g.managerCats.countFreeCats);// + " / " + g.managerCats.curCountCats);
     }
 
     public function onResize():void {
