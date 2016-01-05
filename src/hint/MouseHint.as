@@ -64,8 +64,8 @@ public class MouseHint {
     }
 
     private function onEnterFrame():void {
-        _source.x = g.ownMouse.mouseX + 15;
-        _source.y = g.ownMouse.mouseY + 15;
+        _source.x = g.ownMouse.mouseX - 5;
+        _source.y = g.ownMouse.mouseY + 20;
     }
 
     public function checkMouseHint(s:String, dat:Object = null):void {
@@ -106,7 +106,7 @@ public class MouseHint {
                 else
                     _image = new Image(g.allData.atlas[g.dataResource.objectResources[dat.idResourceRaw].url].getTexture(g.dataResource.objectResources[dat.idResourceRaw].imageShop));
                 MCScaler.scale(_image, 40, 40);
-                _image.x = 5;
+                _image.x = 6;
                 _image.y = 6;
                 break;
         }

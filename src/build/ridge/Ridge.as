@@ -110,7 +110,7 @@ public class Ridge extends AreaObject{
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
             _isOnHover = true;
             _count = 10;
-            _countMouse = 5;
+            _countMouse = 2;
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
