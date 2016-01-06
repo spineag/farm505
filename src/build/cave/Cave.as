@@ -12,6 +12,7 @@ import data.DataMoney;
 
 import dragonBones.Armature;
 import dragonBones.Bone;
+import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 
 import flash.geom.Point;
@@ -173,7 +174,8 @@ public class Cave extends AreaObject{
                     onOut();
                 }
             } else {
-                g.townArea.moveBuild(this);
+                if (g.isActiveMapEditor)
+                    g.townArea.moveBuild(this);
             }
             return;
         }
@@ -251,6 +253,7 @@ public class Cave extends AreaObject{
         var fOut:Function = function():void {
             _armature.removeEventListener(AnimationEvent.COMPLETE, fOut);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fOut);
+            WorldClock.clock.remove(_armature);
             g.userInventory.addResource(id, -1);
             var v:Number = _dataBuild.variaty[_dataBuild.idResourceRaw.indexOf(id)];
             var c:int = 2 + int(Math.random() * 3);
@@ -306,6 +309,7 @@ public class Cave extends AreaObject{
 
         _armature.addEventListener(AnimationEvent.COMPLETE, fIn);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fIn);
+        WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlay("in");
     }
 
