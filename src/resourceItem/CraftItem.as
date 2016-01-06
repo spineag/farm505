@@ -55,7 +55,7 @@ public class CraftItem {
             g.woGameError.showIt();
             return;
         }
-        MCScaler.scale(_image, 50, 50);
+        MCScaler.scale(_image, 100, 100);
         _source.addChild(_image);
         _source.pivotX = _source.width/2;
         _source.pivotY = _source.height/2;

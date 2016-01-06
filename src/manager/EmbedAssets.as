@@ -112,6 +112,8 @@ public class EmbedAssets {
     private const SmelterFabrica:Class;
     [Embed(source = "../../assets/animations/smoke_house.png", mimeType = "application/octet-stream")]
     private const SmokeHouseFabrica:Class;
+    [Embed(source = "../../assets/animations/mine.png", mimeType = "application/octet-stream")]
+    private const Cave:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -157,7 +159,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 22;
+        var count:int = 23;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -190,6 +192,7 @@ public class EmbedAssets {
         loadFactory('pizza_maker', PizzaMakerFabrica, checkCount);
         loadFactory('smelter', SmelterFabrica, checkCount);
         loadFactory('smoke_house', SmokeHouseFabrica, checkCount);
+        loadFactory('cave', Cave, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

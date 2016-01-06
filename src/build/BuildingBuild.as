@@ -20,7 +20,7 @@ public class BuildingBuild {
 
     public function BuildingBuild(st:String) {
         source = new Sprite();
-        armature = g.allData.factory['buildingBuild'].buildArmature("cat");
+        armature = g.allData.factory['buildingBuild'].buildArmature("building");
         armatureClip = armature.display as Sprite;
         source.addChild(armatureClip);
         WorldClock.clock.add(armature);

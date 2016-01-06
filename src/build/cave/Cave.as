@@ -10,6 +10,10 @@ import data.BuildType;
 
 import data.DataMoney;
 
+import dragonBones.Armature;
+import dragonBones.Bone;
+import dragonBones.events.AnimationEvent;
+
 import flash.geom.Point;
 
 import hint.FlyMessage;
@@ -43,6 +47,7 @@ public class Cave extends AreaObject{
     private var _isOnHover:Boolean;
     private var _count:int;
     private var _arrCraftItems:Array;
+    private var _armature:Armature;
 
     public function Cave(data:Object) {
         super (data);
@@ -53,7 +58,6 @@ public class Cave extends AreaObject{
             return;
         }
         checkCaveState();
-//        createIsoView();
 
         _source.releaseContDrag = true;
         _dataBuild.isFlip = _flip;
@@ -82,47 +86,48 @@ public class Cave extends AreaObject{
         super.clearIt();
     }
 
+    override public function createBuild(isImageClicked:Boolean = true):void {
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+        _armature = g.allData.factory[_dataBuild.image].buildArmature("building");
+        _build.addChild(_armature.display as Sprite);
+        _defaultScale = 1;
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        if (_flip) _build.scaleX = -_defaultScale;
+        _source.addChild(_build);
+    }
+
     private function checkCaveState():void {
         try {
+            createBuild();
             if (g.isAway) {
-                createBuild();
+
             } else {
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
-                        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageActive));
-                        if (!im) {
-                            Cc.error('no active cave image:' + _dataBuild.imageActive);
-                            g.woGameError.showIt();
-                            return;
-                        }
-                        im.x = _dataBuild.innerX;
-                        im.y = _dataBuild.innerY;
-                        _build.addChild(im);
-                        _defaultScale = _build.scaleX;
-                        _rect = _build.getBounds(_build);
-                        _sizeX = _dataBuild.width;
-                        _sizeY = _dataBuild.height;
-                        (_build as Sprite).alpha = 1;
-                        if (_flip) _build.scaleX = -_defaultScale;
-                        _source.addChild(_build);
+                        _armature.animation.gotoAndStop('open', 0);
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
                         _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
                         if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                             _stateBuild = STATE_WAIT_ACTIVATE;
-                            createBuild();
                             addDoneBuilding();
                         } else {  // еще строится
                             _stateBuild = STATE_BUILD;
-                            createBuild();
                             addFoundationBuilding();
                             g.gameDispatcher.addToTimer(renderBuildCaveProgress);
                         }
                     }
                 } else {
                     _stateBuild = STATE_UNACTIVE;
-                    createBuild();
+                    _armature.animation.gotoAndStop('close', 0);
                 }
             }
         } catch (e:Error) {
@@ -162,7 +167,12 @@ public class Cave extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            if (g.isActiveMapEditor) {
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                    onOut();
+                }
+            } else {
                 g.townArea.moveBuild(this);
             }
             return;
@@ -186,7 +196,6 @@ public class Cave extends AreaObject{
                         }
                         _arrCraftItems.pop().flyIt();
                     } else {
-
                         _source.filter = null;
                         g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
                         g.woCave.showIt();
@@ -202,6 +211,7 @@ public class Cave extends AreaObject{
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) return;
+            _armature.animation.gotoAndStop('open', 0);
             if (g.useDataFromServer) {
                 g.directServer.openBuildedBuilding(this, onOpenBuilded);
             }
@@ -213,24 +223,6 @@ public class Cave extends AreaObject{
             _stateBuild = STATE_ACTIVE;
             _source.filter = null;
             clearCraftSprite();
-            while (_build.numChildren) {
-                _build.removeChildAt(0);
-            }
-            while (_source.numChildren) {
-                _source.removeChildAt(0);
-            }
-            var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.imageActive));
-            im.x = _dataBuild.innerX;
-            im.y = _dataBuild.innerY;
-            _build.addChild(im);
-            _defaultScale = _build.scaleX;
-            _rect = _build.getBounds(_build);
-            _sizeX = _dataBuild.width;
-            _sizeY = _dataBuild.height;
-            (_build as Sprite).alpha = 1;
-            if (_flip) _build.scaleX = -_defaultScale;
-            _source.addChild(_build);
-            _source.addChild(_craftSprite);
         }
     }
 
@@ -256,46 +248,65 @@ public class Cave extends AreaObject{
     private function onStartBuildingResponse(value:Boolean):void {}
 
     private function onItemClick(id:int):void {
-        g.userInventory.addResource(id, -1);
-        var v:Number = _dataBuild.variaty[_dataBuild.idResourceRaw.indexOf(id)];
-        var c:int = 2 + int(Math.random()*3);
-        var l1:Number = v;
-        var l2:Number = (1-l1)*v;
-        var l3:Number = (1-l1-l2)/2;
-        l3 += l2 + l1;
-        l2 += l1;
-        var r:Number;
-        var craftItem:CraftItem;
-        var item:ResourceItem;
-        _arrCraftItems = [];
-        for (var i:int = 0; i < c; i++) {
-            r = Math.random();
-            if (r < l1) {
-                item = new ResourceItem();
-                item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[0]]);
-                craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
-                craftItem.removeDefaultCallbacks();
-                _arrCraftItems.push(craftItem);
-            } else if (r < l2) {
-                item = new ResourceItem();
-                item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[1]]);
-                craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
-                craftItem.removeDefaultCallbacks();
-                _arrCraftItems.push(craftItem);
-            } else if (r < l3) {
-                item = new ResourceItem();
-                item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[2]]);
-                craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
-                craftItem.removeDefaultCallbacks();
-                _arrCraftItems.push(craftItem);
-            } else {
-                item = new ResourceItem();
-                item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[3]]);
-                craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
-                craftItem.removeDefaultCallbacks();
-                _arrCraftItems.push(craftItem);
+        var fOut:Function = function():void {
+            _armature.removeEventListener(AnimationEvent.COMPLETE, fOut);
+            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fOut);
+            g.userInventory.addResource(id, -1);
+            var v:Number = _dataBuild.variaty[_dataBuild.idResourceRaw.indexOf(id)];
+            var c:int = 2 + int(Math.random() * 3);
+            var l1:Number = v;
+            var l2:Number = (1 - l1) * v;
+            var l3:Number = (1 - l1 - l2) / 2;
+            l3 += l2 + l1;
+            l2 += l1;
+            var r:Number;
+            var craftItem:CraftItem;
+            var item:ResourceItem;
+            _arrCraftItems = [];
+            var bone:Bone = _armature.getBone('craft');
+            _craftSprite.x = bone.display.x;
+            _craftSprite.y = bone.display.y;
+            for (var i:int = 0; i < c; i++) {
+                r = Math.random();
+                if (r < l1) {
+                    item = new ResourceItem();
+                    item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[0]]);
+                    craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
+                    craftItem.removeDefaultCallbacks();
+                    _arrCraftItems.push(craftItem);
+                } else if (r < l2) {
+                    item = new ResourceItem();
+                    item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[1]]);
+                    craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
+                    craftItem.removeDefaultCallbacks();
+                    _arrCraftItems.push(craftItem);
+                } else if (r < l3) {
+                    item = new ResourceItem();
+                    item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[2]]);
+                    craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
+                    craftItem.removeDefaultCallbacks();
+                    _arrCraftItems.push(craftItem);
+                } else {
+                    item = new ResourceItem();
+                    item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[3]]);
+                    craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
+                    craftItem.removeDefaultCallbacks();
+                    _arrCraftItems.push(craftItem);
+                }
             }
-        }
+        };
+
+        var fIn:Function = function():void {
+            _armature.removeEventListener(AnimationEvent.COMPLETE, fIn);
+            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fIn);
+            _armature.addEventListener(AnimationEvent.COMPLETE, fOut);
+            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fOut);
+            _armature.animation.gotoAndPlay("out");
+        };
+
+        _armature.addEventListener(AnimationEvent.COMPLETE, fIn);
+        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fIn);
+        _armature.animation.gotoAndPlay("in");
     }
 
     private function countEnterFrame():void {
