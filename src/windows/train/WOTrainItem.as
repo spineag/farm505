@@ -66,7 +66,7 @@ public class WOTrainItem {
                 source.addChild(_bg);
                 break;
             case (WOTrain.CELL_GRAY):
-                var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_gray'));
+                _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_gray'));
                 source.addChild(_bg);
                 break;
         }

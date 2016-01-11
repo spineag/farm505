@@ -30,7 +30,7 @@ public class WOTrainOrder extends Window{
     public function WOTrainOrder() {
         super ();
         var txt:TextField;
-        var im;
+        var im:Image;
         _arrItems = [];
         _woWidth = 500;
         _woHeight = 337;

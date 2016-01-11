@@ -122,7 +122,7 @@ public class WOTrain extends Window {
         var bg:CartonBackground = new CartonBackground(287, 375);
         bg.filter = ManagerFilters.SHADOW;
         _rightBlock.addChild(bg);
-        txt = new TextField(240, 50, 'Загрузите контейнер товарм и получите награду', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(240, 50, 'Загрузите контейнер товаром и получите награду', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 15;
         txt.y = 15;
@@ -244,13 +244,14 @@ public class WOTrain extends Window {
 
     public function showItWithParams(list:Array, b:Train, state:int, counter:int):void {
         _build = b;
-        var cost:int = 0;
         for (var i:int = 0; i<list.length; i++) {
             _arrItems[i].fillIt(list[i], i);
             _arrItems[i].clickCallback = onItemClick;
-            cost = _arrItems[i].cost;
         }
-        _txtCostAll.text = String(cost);
+//        _txtCostAll.text = String(_build.allCoinsCount);
+//        _txtXpAll.text = String(_build.allXPCount);
+        _txtCostAll.text = String(-1);
+        _txtXpAll.text = String(-1);
         showIt();
         checkBtn();
         if (!g.isAway) {
@@ -269,7 +270,7 @@ public class WOTrain extends Window {
 
     private function checkCounter():void {
         _counter--;
-        _txtCounter.text =  String(_counter);
+        _txtCounter.text = String(_counter);
     }
 
     private function addItems():void {

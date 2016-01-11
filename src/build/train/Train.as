@@ -36,8 +36,8 @@ public class Train extends AreaObject{
     private var _counter:int;
     private var _dataPack:Object;
     private var _train_db_id:String; // id для поезда юзера в табличке user_train
-    private var TIME_READY:int = 280; // время, которое ожидает поезд для загрузки продуктов
-    private var TIME_WAIT:int = 280;  // время, на которое уезжает поезд
+    private var TIME_READY:int = 8*60*60; // время, которое ожидает поезд для загрузки продуктов
+    private var TIME_WAIT:int = 8*60*60;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _count:int;
     private var _armature:Armature;
@@ -106,7 +106,6 @@ public class Train extends AreaObject{
                 // do nothing
             } else {
                 Cc.error('Train:: wrong state');
-                return;
             }
         }
     }
@@ -134,7 +133,7 @@ public class Train extends AreaObject{
                     var ar:Array = g.visitedUser.userDataCity.objects;
                     for (var i:int=0; i<ar.length; i++) {
                         if (_dataBuild.id == ar[i].buildId) {
-                            _stateBuild = ar[i].state;
+                            _stateBuild = int(ar[i].state);
                             break;
                         }
                     }
@@ -334,6 +333,14 @@ public class Train extends AreaObject{
         if (_stateBuild == STATE_BUILD) {
             g.timerHint.hideIt();
         }
+    }
+
+    public function get allXPCount():int {
+        return int(_dataPack.count_xp);
+    }
+
+    public function get allCoinsCount():int {
+        return int(_dataPack.count_money);
     }
 
     private function fillList(ob:Object):void {
