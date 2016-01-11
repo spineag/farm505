@@ -195,24 +195,8 @@ public class Train extends AreaObject{
     }
 
     private function createBrokenTrain():void {
-        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture('train_broken'));
-        if (!im) {
-            Cc.error('no image "train_broken"');
-            g.woGameError.showIt();
-            return;
-        }
-        im.x = _dataBuild.innerX;
-        im.y = _dataBuild.innerY;
-        _build.addChild(im);
-        _defaultScale = _build.scaleX;
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        (_build as Sprite).alpha = 1;
-        if (_flip) _build.scaleX = -_defaultScale;
-        _source.addChild(_build);
+        createBuild();
 
-        //createIsoView();
     }
 
     protected function renderBuildTrainProgress():void {

@@ -1855,6 +1855,13 @@ public class DirectServer {
     public function getUserTrain(callback:Function):void {
         if (!g.useDataFromServer) return;
 
+        if (g.user.level < 17) {
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
         var tr:Train = g.townArea.getCityObjectsByType(BuildType.TRAIN)[0];
         if (!tr ||tr.stateBuild < 4) {
             if (callback != null) {
