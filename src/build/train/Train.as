@@ -5,6 +5,8 @@ import com.junkbyte.console.Cc;
 
 import data.DataMoney;
 
+import dragonBones.Armature;
+
 import flash.geom.Point;
 
 import manager.ManagerFilters;
@@ -38,6 +40,7 @@ public class Train extends AreaObject{
     private var TIME_WAIT:int = 280;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _count:int;
+    private var _armature:Armature;
 
     public function Train(_data:Object) {
         super(_data);
@@ -173,6 +176,24 @@ public class Train extends AreaObject{
         }
     }
 
+    override public function createBuild(isImageClicked:Boolean = true):void {
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+        _armature = g.allData.factory[_dataBuild.image].buildArmature("aerial_tram");
+        _build.addChild(_armature.display as Sprite);
+        _defaultScale = 1;
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        if (_flip) _build.scaleX = -_defaultScale;
+        _source.addChild(_build);
+        _armature.animation.gotoAndStop('idle', 0);
+    }
+
     private function createBrokenTrain():void {
         var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture('train_broken'));
         if (!im) {
@@ -233,8 +254,14 @@ public class Train extends AreaObject{
         }
 
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            if (g.isActiveMapEditor) {
-                g.townArea.moveBuild(this);
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                    onOut();
+                }
+            } else {
+                if (g.isActiveMapEditor)
+                    g.townArea.moveBuild(this);
             }
             return;
         }
@@ -400,6 +427,8 @@ public class Train extends AreaObject{
         g.gameDispatcher.removeFromTimer(renderBuildTrainProgress);
         _dataPack = null;
         if (list) list.length = 0;
+        _armature.dispose();
+        _armature = null;
         super.clearIt();
     }
 
