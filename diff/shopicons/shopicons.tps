@@ -204,8 +204,6 @@
             <filename>blueberry_icon.png</filename>
             <filename>bridge_icon.png</filename>
             <filename>cat_icon.png</filename>
-            <filename>chair_1_icon.png</filename>
-            <filename>chair_2_icon.png</filename>
             <filename>cheery2_icon.png</filename>
             <filename>chicken_icon.png</filename>
             <filename>cow_icon.png</filename>
@@ -237,6 +235,8 @@
             <filename>white_fence_icon.png</filename>
             <filename>dandelion_icon.png</filename>
             <filename>sunflower_icon.png</filename>
+            <filename>chair_1_icon.png</filename>
+            <filename>chair_2_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

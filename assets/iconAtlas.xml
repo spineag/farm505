@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:797f4f030afe3caee3e83af15c7bdd63:0091b31db7f361296f74b4ff816105a2:4793af12d87b93b48c95ed9be00d1ca8$ -->
+<!-- $TexturePacker:SmartUpdate:3c887979a1c3729198bcad985e77aaeb:f0f6bd64c57fe7514b1937ee542f196f:4793af12d87b93b48c95ed9be00d1ca8$ -->
 <TextureAtlas imagePath="iconAtlas.png" width="1388" height="509">
     <SubTexture name="alive_fence_icon" x="983" y="304" width="106" height="91" frameX="0" frameY="-1" frameWidth="107" frameHeight="94"/>
     <SubTexture name="ambar_icon" x="1303" y="291" width="73" height="120"/>
@@ -14,8 +14,8 @@
     <SubTexture name="blueberry_icon" x="152" y="2" width="132" height="128" frameX="-11" frameY="-16" frameWidth="150" frameHeight="150"/>
     <SubTexture name="bridge_icon" x="966" y="97" width="138" height="93" frameX="-6" frameY="-1" frameWidth="150" frameHeight="94"/>
     <SubTexture name="cat_icon" x="1091" y="337" width="68" height="133" frameX="-41" frameY="-14" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="chair_1_icon" x="1161" y="390" width="67" height="89" frameX="0" frameY="0" frameWidth="69" frameHeight="92"/>
-    <SubTexture name="chair_2_icon" x="910" y="424" width="57" height="73" frameX="-9" frameY="-15" frameWidth="69" frameHeight="92"/>
+    <SubTexture name="chair_1_icon" x="910" y="424" width="57" height="73" frameX="-9" frameY="-15" frameWidth="69" frameHeight="92"/>
+    <SubTexture name="chair_2_icon" x="1161" y="390" width="67" height="89" frameX="0" frameY="0" frameWidth="69" frameHeight="92"/>
     <SubTexture name="cheery2_icon" x="441" y="365" width="123" height="134" frameX="-18" frameY="-12" frameWidth="150" frameHeight="150"/>
     <SubTexture name="chicken_icon" x="1247" y="2" width="107" height="109" frameX="-21" frameY="-22" frameWidth="150" frameHeight="150"/>
     <SubTexture name="cow_icon" x="417" y="2" width="126" height="125" frameX="-12" frameY="-11" frameWidth="150" frameHeight="150"/>
