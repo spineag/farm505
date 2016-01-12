@@ -301,6 +301,7 @@ public class Ridge extends AreaObject{
         g.directServer.skipTimeOnRidge(_plant._timeToEndState,_dbBuildingId,null);
         _plant.renderSkip();
 
+
     }
 
     public function lockIt(v:Boolean):void {

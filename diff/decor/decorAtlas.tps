@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.7.1</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/decor/decorAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/farm505/diff/decor/decorAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,6 +43,8 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
+        <key>atfCompressData</key>
+        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -173,14 +175,16 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
-            <key>innerPadding</key>
-            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
+            <key>trimMargin</key>
+            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <key>tracerTolerance</key>
+            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -188,14 +192,33 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>decor1.png</filename>
-            <filename>decor2.png</filename>
             <filename>swamp_decor.png</filename>
-            <filename>tail1.png</filename>
             <filename>tail2.png</filename>
             <filename>tail3.png</filename>
             <filename>white_fence_1.png</filename>
             <filename>white_fence.png</filename>
+            <filename>alive_fence_1.png</filename>
+            <filename>alive_fence.png</filename>
+            <filename>barrel.png</filename>
+            <filename>blue_fence_1.png</filename>
+            <filename>blue_fence.png</filename>
+            <filename>bridge.png</filename>
+            <filename>dandelion.png</filename>
+            <filename>fir_1.png</filename>
+            <filename>fir_2.png</filename>
+            <filename>pink_fence_1.png</filename>
+            <filename>pink_fence.png</filename>
+            <filename>sunflower.png</filename>
+            <filename>decor1.png</filename>
+            <filename>decor2.png</filename>
+            <filename>tail1.png</filename>
+            <filename>arbor.png</filename>
+            <filename>Chair_1.png</filename>
+            <filename>Chair_2.png</filename>
+            <filename>farming_table.png</filename>
+            <filename>easel_clear.png</filename>
+            <filename>well_white.png</filename>
+            <filename>well_yellow.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

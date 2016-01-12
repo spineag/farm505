@@ -222,11 +222,15 @@
             <filename>ridge_icon.png</filename>
             <filename>farm_bee_icon.png</filename>
             <filename>sunflower_icon.png</filename>
-            <filename>fence_pink_icon.png</filename>
-            <filename>fence_blue_icon.png</filename>
-            <filename>fence_alive_icon.png</filename>
-            <filename>decor_bridge_icon.png</filename>
             <filename>dandelion_icon.png</filename>
+            <filename>alive_fence_icon.png</filename>
+            <filename>barrel_icon.png</filename>
+            <filename>blue_fence_icon.png</filename>
+            <filename>fir_1_icon.png</filename>
+            <filename>fir_2_icon.png</filename>
+            <filename>pink_fence_icon.png</filename>
+            <filename>swamp_decor_icon.png</filename>
+            <filename>bridge_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
