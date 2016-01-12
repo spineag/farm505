@@ -192,33 +192,33 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>swamp_decor.png</filename>
-            <filename>tail2.png</filename>
-            <filename>tail3.png</filename>
-            <filename>white_fence_1.png</filename>
-            <filename>white_fence.png</filename>
             <filename>alive_fence_1.png</filename>
             <filename>alive_fence.png</filename>
+            <filename>arbor.png</filename>
             <filename>barrel.png</filename>
             <filename>blue_fence_1.png</filename>
             <filename>blue_fence.png</filename>
             <filename>bridge.png</filename>
+            <filename>chair_1.png</filename>
+            <filename>chair_2.png</filename>
             <filename>dandelion.png</filename>
+            <filename>decor1.png</filename>
+            <filename>decor2.png</filename>
+            <filename>easel_clear.png</filename>
+            <filename>farming_table.png</filename>
             <filename>fir_1.png</filename>
             <filename>fir_2.png</filename>
             <filename>pink_fence_1.png</filename>
             <filename>pink_fence.png</filename>
             <filename>sunflower.png</filename>
-            <filename>decor1.png</filename>
-            <filename>decor2.png</filename>
+            <filename>swamp_decor.png</filename>
             <filename>tail1.png</filename>
-            <filename>arbor.png</filename>
-            <filename>Chair_1.png</filename>
-            <filename>Chair_2.png</filename>
-            <filename>farming_table.png</filename>
-            <filename>easel_clear.png</filename>
+            <filename>tail2.png</filename>
+            <filename>tail3.png</filename>
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
+            <filename>white_fence_1.png</filename>
+            <filename>white_fence.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
