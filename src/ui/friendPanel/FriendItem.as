@@ -11,6 +11,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.textures.Texture;
@@ -73,6 +75,7 @@ public class FriendItem {
     }
 
     private function visitPerson():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) return;
         if (g.currentOpenedWindow && g.currentOpenedWindow == g.woMarket) g.woMarket.hideIt();
         if (_person == g.user) {
             if (g.isAway) g.townArea.backHome();

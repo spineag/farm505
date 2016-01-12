@@ -4,6 +4,7 @@
 package ui.toolsPanel {
 import com.greensock.TweenMax;
 import com.greensock.easing.Back;
+import com.greensock.easing.Linear;
 
 import flash.geom.Rectangle;
 
@@ -119,26 +120,39 @@ public class RepositoryBox {
     }
 
     private function onLeft():void {
-        _shift--;
-        var tween:Tween = new Tween(_cont, 0.5);
-        tween.moveTo(-192*_shift ,0);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
-            checkBtns();
-        };
-        g.starling.juggler.add(tween);
-
+//        _shift--;
+//        var tween:Tween = new Tween(_cont, 0.5);
+//        tween.moveTo(-192*_shift ,0);
+//        tween.onComplete = function ():void {
+//            g.starling.juggler.remove(tween);
+//            checkBtns();
+//        };
+//        g.starling.juggler.add(tween);
+        if (_shift > 0) {
+            _shift -= 3;
+            if (_shift<0) _shift = 0;
+            new TweenMax(_cont, .5, {x:-_shift*60, ease:Linear.easeNone ,onComplete: function():void {}});
+        }
+        checkBtns();
     }
 
     private function onRight():void {
-        _shift++;
-        var tween:Tween = new Tween(_cont, 0.5);
-        tween.moveTo(-192*_shift ,0);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
-            checkBtns();
-        };
-        g.starling.juggler.add(tween);
+//        _shift++;
+//        var tween:Tween = new Tween(_cont, 0.5);
+//        tween.moveTo(-192*_shift ,0);
+//        tween.onComplete = function ():void {
+//            g.starling.juggler.remove(tween);
+//            checkBtns();
+//        };
+//        g.starling.juggler.add(tween);
+        var l:int = _arrItems.length;
+
+        if (_shift +1 < l) {
+            _shift += 3;
+            if (_shift > l-3) _shift = l-3;
+            new TweenMax(_cont, .5, {x:-_shift*60, ease:Linear.easeNone ,onComplete: function():void {}});
+        }
+        checkBtns();
     }
 
     private function checkBtns():void {

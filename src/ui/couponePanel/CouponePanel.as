@@ -85,7 +85,7 @@ public class CouponePanel {
         _txtYellow.y = 20;
         _source.addChild(_imCoupone);
 
-        _source.x = 35;
+        _source.x = 20;
         _source.y = 120;
 
         _contCoupone.addChild(_imGreen);
