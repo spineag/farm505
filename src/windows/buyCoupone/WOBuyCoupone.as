@@ -9,6 +9,8 @@ import starling.utils.Color;
 
 import utils.CSprite;
 
+import windows.WOComponents.WindowBackground;
+
 import windows.Window;
 
 public class WOBuyCoupone extends Window{
@@ -18,6 +20,7 @@ public class WOBuyCoupone extends Window{
     private var _Blue:WOBuyCouponeItem;
     private var _Red:WOBuyCouponeItem;
     private var _Yellow:WOBuyCouponeItem;
+    private var _woBG:WindowBackground;
 
     public function WOBuyCoupone() {
         _woWidth = 400;
@@ -28,7 +31,8 @@ public class WOBuyCoupone extends Window{
         _txtCollectCoupone = new TextField(400,100,"Собирай купоны, выполняя заказы на доставку, отправляя пароход, и приобретайте на них особые обьекты","Arial",18,Color.WHITE);
         _txtCollectCoupone.x = -200;
         _txtCollectCoupone.y = -120;
-        createTempBG();
+        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _source.addChild(_woBG);
         createExitButton(onClickExit);
         _source.addChild(_txtMyCoupone);
         _source.addChild(_txtCollectCoupone);

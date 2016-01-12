@@ -116,6 +116,11 @@ public class WildHint {
 
     private function onClick():void {
         onOut();
+        if (g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId) >= 0){
+            g.woNoResources.showItMenu(g.dataResource.objectResources[_id],1,onClick);
+        } else {
+            g.userInventory.addResource(_id,-1);
+        }
         if (_deleteCallback != null) {
             _deleteCallback.apply();
             _deleteCallback = null;

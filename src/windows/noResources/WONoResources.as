@@ -167,16 +167,28 @@ public class WONoResources extends Window {
             g.woGameError.showIt();
             return;
         }
-
-        if (_data.buildType && _data.buildType == BuildType.PLANT) {
+        if (_data.buildType == BuildType.INSTRUMENT) {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, 1);
             im.source.x =  - im.source.width/2;
             im.source.y = 0;
             _source.addChild(im.source);
             _arrItems.push(im);
-            _count = int(g.dataResource.objectResources[_data.ingridientsId].priceHard);
+            _count = int(_data.priceHard);
             _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
+            _btnBuy.clickCallback = onClickResource;
+            return;
+        }
+        if (_data.buildType == BuildType.PLANT) {
+            im = new WONoResourcesItem();
+            im.fillWithResource(_data.id, 1);
+            im.source.x =  - im.source.width/2;
+            im.source.y = 0;
+            _source.addChild(im.source);
+            _arrItems.push(im);
+            _count = int(_data.priceHard);
+            _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
+            _btnBuy.clickCallback = onClickResource;
             return;
         }
 
@@ -235,8 +247,14 @@ public class WONoResources extends Window {
             g.woBuyCurrency.showItMenu(true);
             return;
         }
+        if (_dataResource.buildType == BuildType.PLANT) {
+            g.userInventory.addResource(_dataResource.id,1);
 
-        if (_dataResource.ingridientsId) {
+            if (_callbackBuy != null) {
+                _callbackBuy.apply(null,[true]);
+                _callbackBuy = null;
+            }
+        } else if (_dataResource.ingridientsId) {
             for (var i:int = 0; i < _dataResource.ingridientsId.length; i++) {
                 countRes = g.userInventory.getCountResourceById(_dataResource.ingridientsId[i]);
                 if (countRes < _dataResource.ingridientsCount[i]) {
@@ -297,7 +315,6 @@ public class WONoResources extends Window {
                 break;
         }
 
-        _callbackBuy = f;
         _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
         _btnBuy.clickCallback = onClickOrder;
         showIt();
@@ -317,7 +334,7 @@ public class WONoResources extends Window {
             if (number > 0) g.userInventory.addResource(_dataResource.resourceIds[i],number);
         }
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null);
+            _callbackBuy.apply(null,[true]);
             _callbackBuy = null;
         }
         onClickExit();

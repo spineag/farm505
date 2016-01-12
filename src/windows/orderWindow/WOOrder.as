@@ -214,13 +214,15 @@ public class WOOrder extends Window{
         _btnSkipDelete.clickCallback = skipDelete;
     }
 
-    private function sellOrder():void {
+    private function sellOrder(b:Boolean = false):void {
         if (_waitForAnswer) return;
         var i:int;
-        for (i=0; i<_curOrder.resourceIds.length; i++) {
-            if (!_arrResourceItems[i].isChecked()) {
-                g.woNoResources.showItOrder(_curOrder,sellOrder);
-                return;
+        if (b == false) {
+            for (i = 0; i < _curOrder.resourceIds.length; i++) {
+                if (!_arrResourceItems[i].isChecked()) {
+                    g.woNoResources.showItOrder(_curOrder, sellOrder);
+                    return;
+                }
             }
         }
         for (i=0; i<_curOrder.resourceIds.length; i++) {

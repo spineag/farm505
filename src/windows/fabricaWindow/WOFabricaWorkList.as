@@ -64,6 +64,16 @@ public class WOFabricaWorkList {
         }
     }
 
+    public function visibleSource():void {
+        if (_maxCount < 9) {
+            var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+            _arrItems[_maxCount].showBuyPropose(price, onBuyNewCell);
+        }
+        for (var i=1; i<_maxCount; i++) {
+            _arrItems[i].source.visible = true;
+        }
+    }
+
     public function butNewCellFromWO():void {
         _arrItems[_maxCount].removePropose();
         onBuyNewCell();
@@ -117,7 +127,8 @@ public class WOFabricaWorkList {
         var i:int;
         for (i=0; i<_arrItems.length; i++) {
             _arrItems[i].unfillIt();
-            _arrItems[i].visibleSource(true);
+//            _arrItems[i].visibleSource(true);
+            visibleSource();
         }
         _arrRecipes.shift();
         if (_arrRecipes.length) {

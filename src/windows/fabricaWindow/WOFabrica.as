@@ -119,6 +119,7 @@ public class WOFabrica extends Window {
         if (_list.isFull){
             var price:int = _list.priceForNewCell;
             hideIt();
+            if (_fabrica.dataBuild.countCell >= 9) return;
             g.woNoPlaces.showItWithParams(price, onBuyNewCellFromWO, onClickExit);
             return;
         }
