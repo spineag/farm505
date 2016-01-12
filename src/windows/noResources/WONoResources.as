@@ -199,7 +199,7 @@ public class WONoResources extends Window {
                 if (countRes < _data.ingridientsCount[i]) {
                     im = new WONoResourcesItem();
                     im.fillWithResource(_data.ingridientsId[i], _data.ingridientsCount[i] - countRes);
-                    count += g.dataResource.objectResources[_data.ingridientsId[i]].priceHard * (_data.ingridientsCount[i] - countRes);
+                    _count += g.dataResource.objectResources[_data.ingridientsId[i]].priceHard * (_data.ingridientsCount[i] - countRes);
                     im.source.y = 0;
                     _source.addChild(im.source);
                     _arrItems.push(im);
@@ -233,6 +233,7 @@ public class WONoResources extends Window {
                     _arrItems[4].source.x = -200 + 307;
                     break;
             }
+            _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
         }
 
         _btnBuy.clickCallback = onClickResource;
@@ -241,8 +242,8 @@ public class WONoResources extends Window {
 
     private function onClickResource():void {
         var countRes:int = 0;
-        if (int(_txtHardCost.text) < g.user.hardCurrency) {
-            g.userInventory.addMoney(1, -int(_txtHardCost.text));
+        if (_count < g.user.hardCurrency) {
+            g.userInventory.addMoney(1, -_count);
         } else {
             g.woBuyCurrency.showItMenu(true);
             return;
