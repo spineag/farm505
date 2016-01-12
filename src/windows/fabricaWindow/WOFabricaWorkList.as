@@ -69,7 +69,7 @@ public class WOFabricaWorkList {
             var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
             _arrItems[_maxCount].showBuyPropose(price, onBuyNewCell);
         }
-        for (var i=1; i<_maxCount; i++) {
+        for (var i:int=1; i<_maxCount; i++) {
             _arrItems[i].source.visible = true;
         }
     }

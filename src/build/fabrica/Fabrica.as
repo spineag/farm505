@@ -138,20 +138,20 @@ public class Fabrica extends AreaObject {
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
-        if (g.selectedBuild) {
-            if (g.selectedBuild == this) {
-                g.toolsModifier.onTouchEnded();
-                onOut();
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                } else return;
             } else {
-                return;
-            }
-        }
-        if (_stateBuild == STATE_ACTIVE) {
-            if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
                 onOut();
                 g.townArea.moveBuild(this);
                 g.timerHint.hideIt();
-            } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+            }
+            return;
+        }
+        if (_stateBuild == STATE_ACTIVE) {
+            if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
                 g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
                 releaseFlip();

@@ -63,11 +63,11 @@ public class TimerHint {
         _txtCost.y = -5;
         _txtTimer = new TextField(50,30,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtName = new TextField(80,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtName = new TextField(176,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtText = new TextField(80,40,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE);
-        _txtName.x = -40;
+        _txtName.x = -88;
         _txtName.y = -130;
+        _txtText = new TextField(80,40,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE);
         _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));
         _imageClock.y = -90;
         _imageClock.x = -60;

@@ -33,6 +33,7 @@ public class Sklad extends AreaObject{
             _source.outCallback = onOut;
         }
         _source.releaseContDrag = true;
+        _dbBuildingId = _data.dbId;
         _dataBuild.isFlip = _flip;
     }
 

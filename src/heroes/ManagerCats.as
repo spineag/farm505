@@ -184,6 +184,7 @@ public class ManagerCats {
         g.user.countCats++;
         g.directServer.buyHeroCat(null);
         g.catPanel.checkCat();
+        cat.makeFreeCatIdle();
     }
 
     public function getFreeCat():HeroCat {

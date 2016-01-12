@@ -3120,8 +3120,6 @@ public class DirectServer {
     }
 
     public function userBuildingFlip(dbId:int, isFlip:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_BUILDING_FLIP);
         var variables:URLVariables = new URLVariables();

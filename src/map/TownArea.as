@@ -342,7 +342,7 @@ public class TownArea extends Sprite {
         (build as WorldObject).dbBuildingId = dbId;
 
         if (_data.isFlip) {
-            (build as AreaObject).releaseFlip();
+            (build as AreaObject).releaseFlip(false);
         }
 
         return build;

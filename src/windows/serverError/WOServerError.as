@@ -32,6 +32,7 @@ public class WOServerError extends Window{
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -170;
         txt.y = -60;
+        txt.touchable = false;
         _source.addChild(txt);
         _txtError = new TextField(340,100,'Ошибка',g.allData.fonts['BloggerMedium'],24,Color.WHITE);
         _txtError.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

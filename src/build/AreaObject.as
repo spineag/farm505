@@ -21,11 +21,10 @@ public class AreaObject extends WorldObject {
         _source = new CSprite();
         _build = new Sprite();
         _dataBuild = dataBuild;
-        _flip = false;
+        _flip = _dataBuild.isFlip || false;
         _sizeX = 0;
         _sizeY = 0;
     }
-
 
     public function clearIt():void {
 //        if (_isoView) {
@@ -97,7 +96,7 @@ public class AreaObject extends WorldObject {
         _sizeY = _dataBuild.height;
 
         (_build as Sprite).alpha = 1;
-        if (_flip) _build.scaleX = -_defaultScale;
+//        if (_flip) _build.scaleX = -_defaultScale;
 
         _source.addChild(_build);
 
