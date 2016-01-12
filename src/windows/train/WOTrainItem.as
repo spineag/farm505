@@ -3,26 +3,19 @@
  */
 package windows.train {
 import build.train.TrainCell;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-
 import flash.geom.Point;
-
+import manager.ManagerFilters;
 import manager.Vars;
-
 import resourceItem.DropItem;
-
 import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
-
+import starling.utils.HAlign;
 import temp.DropResourceVariaty;
-
 import ui.xpPanel.XPStar;
-
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -34,47 +27,49 @@ public class WOTrainItem {
     private var _index:int;
     private var _f:Function;
     private var _galo4ka:Image;
+    private var _bg:Image;
 
     private var g:Vars = Vars.getInstance();
 
-    public function WOTrainItem(type:int) {
+    public function WOTrainItem() {
         _index = -1;
         source = new CSprite();
-
-//        source.alpha = .25;
-        _txt = new TextField(100,30,"","Arial",16,Color.BLACK);
-        _txt.y = 50;
+        _txt = new TextField(40,30,'-3', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txt.hAlign = HAlign.RIGHT;
+        _txt.x = 43;
+        _txt.y = 60;
         source.addChild(_txt);
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
         _galo4ka.x = 65;
-        _galo4ka.y = 40;
+        _galo4ka.y = 60;
         source.addChild(_galo4ka);
         _galo4ka.visible = false;
-        var _bg:Image;
+    }
+
+    public function fillIt(t:TrainCell, i:int, type:int):void {
+        _index = i;
         switch (type) {
             case (WOTrain.CELL_BLUE):
                 _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_blue'));
-                source.addChild(_bg);
+                source.addChildAt(_bg, 0);
                 break;
             case (WOTrain.CELL_GREEN):
                 _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_green'));
-                source.addChild(_bg);
+                source.addChildAt(_bg, 0);
                 break;
             case (WOTrain.CELL_RED):
                 _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_red'));
-                source.addChild(_bg);
+                source.addChildAt(_bg, 0);
                 break;
             case (WOTrain.CELL_GRAY):
                 _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_gray'));
-                source.addChild(_bg);
+                source.addChildAt(_bg, 0);
+                _txt.text = '';
+                return;
                 break;
         }
-    }
-
-    public function fillIt(t:TrainCell, i:int):void {
-        _index = i;
-//        source.alpha = .7;
         _info = t;
         if (!t || !g.dataResource.objectResources[_info.id]) {
             Cc.error('WOTrainItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
@@ -83,18 +78,15 @@ public class WOTrainItem {
         }
 
         _txt.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
-        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT)
-            _im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_info.id].imageShop + '_icon'));
-        else
-            _im = new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
+        _im = currentImage();
         if (!_im) {
             Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
             g.woGameError.showIt();
             return;
         }
         MCScaler.scale(_im, 50, 50);
-        _im.x = 50 - _im.width/2;
-        _im.y = 5;
+        _im.x = 45 - _im.width/2;
+        _im.y = 45 - _im.height/2;
         source.addChild(_im);
         source.endClickCallback = onClick;
         if (isResourceLoaded) {
@@ -105,10 +97,6 @@ public class WOTrainItem {
 
     public function set clickCallback(f:Function):void {
         _f = f;
-    }
-
-    public function setAlpha():void {
-//        if (_index >= 0) source.alpha = .7;
     }
 
     public function get idFree():int {
@@ -123,7 +111,6 @@ public class WOTrainItem {
         if (_f != null) {
             _f.apply(null, [_index]);
         }
-//        source.alpha = 1;
     }
 
     public function get isResourceLoaded():Boolean {
@@ -153,10 +140,47 @@ public class WOTrainItem {
         _galo4ka.visible = false;
         _txt.text = '';
         _index = -1;
-        source.removeChild(_im);
-        _im = null;
-//        source.alpha = .25;
+        if (_im) {
+            source.removeChild(_im);
+            _im.dispose();
+            _im = null;
+        }
         source.endClickCallback = null;
+        _bg.filter = null;
+        source.removeChild(_bg);
+        _bg.dispose();
+        _bg = null;
+    }
+
+    public function activateIt(v:Boolean):void {
+        if (v) {
+            _bg.filter = ManagerFilters.YELLOW_STROKE;
+        } else {
+            _bg.filter = null;
+        }
+    }
+
+    public function get countXP():int {
+        return _info.countXP;
+    }
+
+    public function get countCoins():int {
+        return _info.countMoney;
+    }
+
+    public function currentImage():Image{
+        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT)
+            return new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_info.id].imageShop + '_icon'));
+        else
+            return new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
+    }
+
+    public function updateIt():void {
+        if (_info) {
+            if (!_galo4ka.visible) {
+                _txt.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
+            }
+        }
     }
 }
 }

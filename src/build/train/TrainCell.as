@@ -23,8 +23,8 @@ public class TrainCell {
     private var _count:int;
     private var _isFull:Boolean;
     private var item_db_id:String;
-    private var countXP:int;
-    private var countMoney:int;
+    public var countXP:int;
+    public var countMoney:int;
 
     private var g:Vars = Vars.getInstance();
 
