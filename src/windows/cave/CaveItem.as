@@ -2,10 +2,11 @@ package windows.cave {
 
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 import starling.display.Image;
 import starling.text.TextField;
-import starling.utils.Color;
 
 import utils.CSprite;
 import utils.MCScaler;
@@ -23,13 +24,17 @@ public class CaveItem {
 
     public function CaveItem() {
         source = new CSprite();
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tempItemBG'));
-        MCScaler.scale(_bg, 100, 100);
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
         source.addChild(_bg);
         source.pivotX = source.width/2;
-        source.pivotY = source.height/2;
+        source.pivotY = source.height;
         source.endClickCallback = onClick;
-        source.alpha = .5;
+//        source.hoverCallback = onHover;
+//        source.outCallback = onOut;
+        _txtCount = new TextField(40,30,'',g.allData.fonts['BloggerMedium'],16, ManagerFilters.TEXT_BROWN);
+        _txtCount.x = 52;
+        _txtCount.y = 68;
+        source.addChild(_txtCount);
     }
 
     public function fillData(ob:Object, f:Function):void {
@@ -40,18 +45,17 @@ public class CaveItem {
             return;
         }
         _clickCallback = f;
-        source.alpha = 1;
-        fillIcon(_data.imageShop);
+        fillIcon();
     }
 
-    private function fillIcon(s:String):void {
+    private function fillIcon():void {
         if (_icon) {
             source.removeChild(_icon);
             _icon = null;
         }
-        _icon = new Image(g.allData.atlas['instrumentAtlas'].getTexture(s));
-        if (!s) {
-            Cc.error('CaveItem fillIcon:: no such image: ' + s);
+        _icon = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+        if (!_icon ) {
+            Cc.error('CaveItem fillIcon:: no such image: ' + _data.imageShop);
             g.woGameError.showIt();
             return;
         }
@@ -59,15 +63,11 @@ public class CaveItem {
         _icon.x = _bg.width/2 - _icon.width/2;
         _icon.y = _bg.height/2 - _icon.height/2;
         source.addChild(_icon);
-        _txtCount = new TextField(30,30,"","Arial", 14, Color.BLACK);
-        _txtCount.x = 65;
-        _txtCount.y = 65;
-        source.addChild(_txtCount);
         _countResource = g.userInventory.getCountResourceById(_data.id);
         _txtCount.text = String(_countResource);
-        if (_countResource <=0) {
-            source.alpha = .7;
-        }
+//        if (_countResource <=0) {
+//            source.alpha = .7;
+//        }
     }
 
     private function onClick():void {
@@ -79,13 +79,12 @@ public class CaveItem {
     }
 
     public function clearIt():void {
-        while (source.numChildren) source.removeChildAt(0);
         _clickCallback = null;
         _data = null;
-        _bg.dispose();
+        source.removeChild(_icon);
         _icon.dispose();
-        _txtCount.dispose();
-        source = null;
+        _icon = null;
+        _txtCount.text = '';
     }
 }
 }

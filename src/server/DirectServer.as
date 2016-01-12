@@ -1056,8 +1056,6 @@ public class DirectServer {
     }
 
     public function openBuildedBuilding(wObject:WorldObject, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_OPEN_BUILDED_BUILDING);
         var variables:URLVariables = new URLVariables();

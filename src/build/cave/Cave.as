@@ -120,9 +120,11 @@ public class Cave extends AreaObject{
                         if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                             _stateBuild = STATE_WAIT_ACTIVATE;
                             addDoneBuilding();
+                            _build.visible = false;
                         } else {  // еще строится
                             _stateBuild = STATE_BUILD;
                             addFoundationBuilding();
+                            _build.visible = false;
                             g.gameDispatcher.addToTimer(renderBuildCaveProgress);
                         }
                     }
@@ -197,6 +199,10 @@ public class Cave extends AreaObject{
                             return;
                         }
                         _arrCraftItems.pop().flyIt();
+                        if (!_arrCraftItems.length) {
+                            _armature.animation.gotoAndStop('open', 0);
+                            WorldClock.clock.remove(_armature);
+                        }
                     } else {
                         _source.filter = null;
                         g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
@@ -214,9 +220,7 @@ public class Cave extends AreaObject{
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) return;
             _armature.animation.gotoAndStop('open', 0);
-            if (g.useDataFromServer) {
-                g.directServer.openBuildedBuilding(this, onOpenBuilded);
-            }
+            g.directServer.openBuildedBuilding(this, onOpenBuilded);
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
                 start = _source.parent.localToGlobal(start);
@@ -225,6 +229,7 @@ public class Cave extends AreaObject{
             _stateBuild = STATE_ACTIVE;
             _source.filter = null;
             clearCraftSprite();
+            _build.visible = true;
         }
     }
 
@@ -253,7 +258,7 @@ public class Cave extends AreaObject{
         var fOut:Function = function():void {
             _armature.removeEventListener(AnimationEvent.COMPLETE, fOut);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fOut);
-            WorldClock.clock.remove(_armature);
+            _armature.animation.gotoAndStop('crafting', 0);
             g.userInventory.addResource(id, -1);
             var v:Number = _dataBuild.variaty[_dataBuild.idResourceRaw.indexOf(id)];
             var c:int = 2 + int(Math.random() * 3);
@@ -266,9 +271,11 @@ public class Cave extends AreaObject{
             var craftItem:CraftItem;
             var item:ResourceItem;
             _arrCraftItems = [];
-            var bone:Bone = _armature.getBone('craft');
-            _craftSprite.x = bone.display.x;
-            _craftSprite.y = bone.display.y;
+//            var bone:Bone = _armature.getBone('craft');
+//            _craftSprite.x = bone.display.x;
+//            _craftSprite.y = bone.display.y;
+            _craftSprite.x = 104;
+            _craftSprite.y = 109;
             for (var i:int = 0; i < c; i++) {
                 r = Math.random();
                 if (r < l1) {
