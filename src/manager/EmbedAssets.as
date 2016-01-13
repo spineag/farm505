@@ -72,7 +72,7 @@ public class EmbedAssets {
     private const CatWateringData:Class;
     [Embed(source = "../../assets/animations/cat_feed.png", mimeType = "application/octet-stream")]
     private const CatFeedData:Class;
-    [Embed(source = "../../assets/animations/buildingBuild.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/buildingBuild2.png", mimeType = "application/octet-stream")]
     private const BuildingBuild:Class;
     [Embed(source = "../../assets/animations/trees2.png", mimeType = "application/octet-stream")]
     private const BuildingTrees:Class;
@@ -90,9 +90,9 @@ public class EmbedAssets {
     [Embed(source = "../../assets/animations/sheep.png", mimeType = "application/octet-stream")]
     private const Sheep:Class;
 
-    [Embed(source = "../../assets/animations/bakery.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/bakery2.png", mimeType = "application/octet-stream")]
     private const BakeryFabrica:Class;
-    [Embed(source = "../../assets/animations/sugar_mill.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/sugar_mill2.png", mimeType = "application/octet-stream")]
     private const SugarMillFabrica:Class;
     [Embed(source = "../../assets/animations/feed_mill.png", mimeType = "application/octet-stream")]
     private const FeedMillFabrica:Class;
@@ -100,13 +100,13 @@ public class EmbedAssets {
     private const BbqGrillFabrica:Class;
     [Embed(source = "../../assets/animations/dairy.png", mimeType = "application/octet-stream")]
     private const DairyFabrica:Class;
-    [Embed(source = "../../assets/animations/pie_oven.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/pie_oven2.png", mimeType = "application/octet-stream")]
     private const PieOvenFabrica:Class;
     [Embed(source = "../../assets/animations/juice_press.png", mimeType = "application/octet-stream")]
     private const JuicePressFabrica:Class;
     [Embed(source = "../../assets/animations/loom.png", mimeType = "application/octet-stream")]
     private const LoomFabrica:Class;
-    [Embed(source = "../../assets/animations/pizza_maker.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/pizza_maker2.png", mimeType = "application/octet-stream")]
     private const PizzaMakerFabrica:Class;
     [Embed(source = "../../assets/animations/smelter.png", mimeType = "application/octet-stream")]
     private const SmelterFabrica:Class;

@@ -4,41 +4,23 @@
 package build.fabrica {
 import build.AreaObject;
 
-import com.greensock.TweenMax;
-import com.greensock.easing.Linear;
-
 import data.BuildType;
-
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 
 import flash.geom.Point;
-
 import heroes.BasicCat;
-
 import heroes.HeroCat;
-
 import manager.ManagerFilters;
-
 import resourceItem.CraftItem;
-
 import com.junkbyte.console.Cc;
-
 import resourceItem.RawItem;
-
 import resourceItem.ResourceItem;
-
 import mouse.ToolsModifier;
-
-import starling.core.Starling;
 import starling.display.Image;
-
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
 import starling.textures.Texture;
-import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
 
@@ -77,6 +59,7 @@ public class Fabrica extends AreaObject {
             _source.outCallback = onOut;
         }
         updateRecipes();
+        WorldClock.clock.add(_armature);
     }
 
     override public function createBuild(isImageClicked:Boolean = true):void {
@@ -346,14 +329,12 @@ public class Fabrica extends AreaObject {
     }
 
     private function startAnimation():void {
-        WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlay('work');
         releaseHeroCatWoman();
     }
 
     private function stopAnimation():void {
        _armature.animation.gotoAndStop('idle', 0);
-        WorldClock.clock.remove(_armature);
     }
 
     override public function clearIt():void {
@@ -408,6 +389,9 @@ public class Fabrica extends AreaObject {
         changeTexture("handRight", "right_hand/handRight");
         changeTexture("legRight", "right_leg/legRight");
         changeTexture("tail", "tails/tail");
+        if (_dataBuild.id == 10) {
+            changeTexture("handRight2", "right_hand/handRight");
+        }
     }
 
     private function releaseManBackTexture():void {
@@ -428,6 +412,9 @@ public class Fabrica extends AreaObject {
         changeTexture("handRight", "right_hand/handRight_w");
         changeTexture("legRight", "right_leg/legRight_w");
         changeTexture("tail", "tails/tail_w");
+        if (_dataBuild.id == 10) {
+            changeTexture("handRight2", "right_hand/handRight_w");
+        }
     }
 
     private function releaseWomanBackTexture():void {

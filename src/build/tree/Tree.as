@@ -3,49 +3,21 @@
  */
 package build.tree {
 import build.AreaObject;
-
-import data.BuildType;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-
-import dragonBones.factories.StarlingFactory;
-
 import flash.display.Bitmap;
-import flash.events.Event;
-
 import flash.geom.Point;
-
 import hint.MouseHint;
-
-import hint.FlyMessage;
-
-import manager.EmbedAssets;
-
 import manager.ManagerFilters;
-
 import resourceItem.CraftItem;
-
 import com.junkbyte.console.Cc;
-
 import resourceItem.ResourceItem;
-
 import mouse.ToolsModifier;
-
 import starling.display.Image;
-
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
 import starling.textures.Texture;
-import starling.utils.Color;
-
 import ui.xpPanel.XPStar;
-
 import user.Someone;
-
-import utils.CSprite;
-
 import utils.MCScaler;
 
 public class Tree extends AreaObject{

@@ -6,6 +6,8 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
@@ -19,6 +21,7 @@ import resourceItem.CraftItem;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
 import starling.display.Sprite;
+import starling.textures.Texture;
 
 import utils.CSprite;
 
@@ -176,9 +179,17 @@ public class Animal {
                 g.managerAnimal.addCatToFarm(_farm);
                 var p:Point = new Point(source.x, source.y);
                 p = source.parent.localToGlobal(p);
-                new RawItem(p, g.allData.atlas[g.dataResource.objectResources[_data.idResourceRaw].url].getTexture(g.dataResource.objectResources[_data.idResourceRaw].imageShop), 1, 0);
+                var texture:Texture;
+                var obj:Object = g.dataResource.objectResources[_data.idResourceRaw];
+                if (obj.buildType == BuildType.PLANT)
+                    texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
+                else
+                    texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
+
+                new RawItem(p, texture, 1, 0);
                 if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
                 addRenderAnimation();
+                onOut();
             } else {
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                     g.woWaitFreeCats.showIt();
@@ -261,7 +272,15 @@ public class Animal {
             armature.animation.gotoAndStop(hungryLabel, 0);
         } else {
             armature.animation.gotoAndPlay(hungryLabel);
+            if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, completeIdleAnimation);
+            if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeIdleAnimation);
+            armature.addEventListener(AnimationEvent.COMPLETE, playHungry);
+            armature.addEventListener(AnimationEvent.LOOP_COMPLETE, playHungry);
         }
+    }
+
+    private function playHungry(e:AnimationEvent):void {
+        armature.animation.gotoAndPlay(hungryLabel);
     }
 
     private function chooseAnimation():void {
@@ -329,6 +348,8 @@ public class Animal {
     }
 
     private function stopAnimation():void {
+        if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, playHungry);
+        if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, playHungry);
         armature.animation.gotoAndStop(defaultLabel, 0);
         TweenMax.killTweensOf(source);
     }
