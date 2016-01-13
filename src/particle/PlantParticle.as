@@ -23,7 +23,7 @@ public class PlantParticle {
 
     private function onEnterFrame():void {
         _counter++;
-        if (_counter >= 15) {
+        if (_counter >= 10) {
             _counter = 0;
             new Particle(_height, source);
         }

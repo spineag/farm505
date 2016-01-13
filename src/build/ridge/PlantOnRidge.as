@@ -5,14 +5,10 @@ package build.ridge {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
 import manager.Vars;
-
 import particle.PlantParticle;
-
-import starling.animation.Tween;
-
 import starling.display.Sprite;
 
 public class PlantOnRidge {
@@ -38,6 +34,7 @@ public class PlantOnRidge {
         _ridge.addChildPlant(_source);
         armature = g.allData.factory[_data.url].buildArmature(_data.imageShop);
         _source.addChild(armature.display as Sprite);
+        WorldClock.clock.add(armature);
         _source.y = 35;
 
         _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);
@@ -57,19 +54,19 @@ public class PlantOnRidge {
                 return;
 
             case Ridge.GROW1:
-                armature.animation.gotoAndPlay("state1");
+                armature.animation.gotoAndStop("state1", 0);
                 if (needSetTimer) _timeToEndState = _data.timeToGrow2;
                 break;
             case Ridge.GROW2:
-                armature.animation.gotoAndPlay("state2");
+                armature.animation.gotoAndStop("state2", 0);
                 if (needSetTimer) _timeToEndState = _data.timeToGrow3;
                 break;
             case Ridge.GROW3:
-                armature.animation.gotoAndPlay("state3");
+                armature.animation.gotoAndStop("state3", 0);
                 if (needSetTimer) _timeToEndState = _data.timeToStateGwoned;
                 break;
             case Ridge.GROWED:
-                armature.animation.gotoAndPlay("state4");
+                armature.animation.gotoAndStop("state4", 0);
                 animateEndState();
                 addParticles();
                 break;
@@ -129,6 +126,9 @@ public class PlantOnRidge {
         _ridge = null;
         _data = null;
         TweenMax.killTweensOf(_source);
+        WorldClock.clock.remove(armature);
+        armature.dispose();
+        armature = null;
         g.gameDispatcher.removeFromTimer(render);
         while (_source.numChildren) _source.removeChildAt(0);
         _source = null;
