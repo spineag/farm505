@@ -368,6 +368,7 @@ public class WOMarketChoose extends Window {
 
     private function onCellClick(a:int):void {
         _curResourceId = a;
+        _scrollSprite.scrolleSource.filter = ManagerFilters.GREEN_STROKE;
         _btnSell.filter = null;
         _countResourceBlock.btnNull();
         _countMoneyBlock.btnNull();

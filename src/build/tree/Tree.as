@@ -390,7 +390,18 @@ public class Tree extends AreaObject{
                 if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FIXED) {
                     time += int(_resourceItem.buildTime/2 + .5);
                 }
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
+                if (_dataBuild.width == 2) g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
+                else {
+                    var newX:int;
+                    if (_state == GROW3 || _state == GROW_FLOWER3) {
+                        newX = g.cont.gameCont.x + (_source.x + _source.width/2) * g.currentGameScale;
+                    }
+                    else {
+                        newX = g.cont.gameCont.x + (_source.x + _source.width/5) * g.currentGameScale;
+                    }
+                    g.timerHint.showIt(newX, g.cont.gameCont.y + (_source.y - _source.height/4) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
+                }
+
             } else if (_state == FIXED) {
                 _state = GROW_FIXED;
                 setBuildImage();
