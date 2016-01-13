@@ -192,8 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>alive_fence_1.png</filename>
-            <filename>alive_fence.png</filename>
             <filename>arbor.png</filename>
             <filename>barrel.png</filename>
             <filename>blue_fence_1.png</filename>
@@ -219,6 +217,8 @@
             <filename>well_yellow.png</filename>
             <filename>white_fence_1.png</filename>
             <filename>white_fence.png</filename>
+            <filename>alive_fence_1.png</filename>
+            <filename>alive_fence.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

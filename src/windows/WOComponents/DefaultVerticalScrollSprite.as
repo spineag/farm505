@@ -74,5 +74,8 @@ public class DefaultVerticalScrollSprite {
     public function get source():Sprite {
         return _source;
     }
+    public function get scrolleSource():Sprite {
+        return _scrolledSprite;
+    }
 }
 }
