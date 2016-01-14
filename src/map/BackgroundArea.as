@@ -65,12 +65,12 @@ public class BackgroundArea {
 
     private function loadBG():void {
         var st:String;
+        if (g.scaleFactor == 1) {
+            st = 'map_x2';
+        } else if (g.scaleFactor == .5) {
+            st = 'map_x1';
+        }
         if (g.isDebug) {
-            if (g.scaleFactor == 1) {
-                st = 'map_x1';
-            } else if (g.scaleFactor == .5) {
-                st = 'map_x2';
-            }
             g.load.loadImage('../assets/map/'+st+'/map_1.jpg', onLoadMap, '../assets/map/'+st+'/map_1.jpg', 0, 0);
             g.load.loadImage('../assets/map/'+st+'/map_2.jpg', onLoadMap, '../assets/map/'+st+'/map_2.jpg', 2000, 0);
             g.load.loadImage('../assets/map/'+st+'/map_3.jpg', onLoadMap, '../assets/map/'+st+'/map_3.jpg', 4000, 0);
@@ -84,11 +84,6 @@ public class BackgroundArea {
             g.load.loadImage('../assets/map/'+st+'/map_11.jpg', onLoadMap, '../assets/map/'+st+'/map_11.jpg', 4000, 4000);
             g.load.loadImage('../assets/map/'+st+'/map_12.jpg', onLoadMap, '../assets/map/'+st+'/map_12.jpg', 6000, 4000);
         } else {
-            if (g.scaleFactor == 1) {
-                st = 'map_x1';
-            } else if (g.scaleFactor == .5) {
-                st = 'map_x2';
-            }
             g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_1.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_1.jpg', 0, 0);
             g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_2.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_2.jpg', 2000, 0);
             g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_3.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_3.jpg', 4000, 0);
