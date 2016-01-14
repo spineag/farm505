@@ -37,7 +37,7 @@ public class HeroCat extends BasicCat{
     public function HeroCat(type:int) {
         super();
 
-        _type = WOMAN; //type;
+        _type = type;
         _isFree = true;
         _source = new CSprite();
         _catImage = new Sprite();
