@@ -17,6 +17,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import windows.WOComponents.Birka;
 import windows.Window;
@@ -32,7 +34,10 @@ public class WOFabrica extends Window {
     private var _bottomBG:Sprite;
     private var _fabrica:Fabrica;
     private var _birka:Birka;
-
+    private var _number1:CSprite;
+    private var _number2:CSprite;
+    private var _number3:CSprite;
+    private var _number4:CSprite;
     public function WOFabrica() {
         super();
         _arrShiftBtns = [];
@@ -48,6 +53,7 @@ public class WOFabrica extends Window {
         createBottomBG();
         createFabricaItems();
         _list = new WOFabricaWorkList(_source);
+
     }
 
     public function onClickExit(e:Event=null):void {
@@ -70,6 +76,7 @@ public class WOFabrica extends Window {
         _callbackOnClick = f;
         _arrAllRecipes = arrRecipes;
         createShiftBtns();
+        activateShiftBtn(1, false);
         fillFabricaItems();
         _list.unfillIt();
         _list.fillIt(arrList, _fabrica);
@@ -185,15 +192,22 @@ public class WOFabrica extends Window {
     }
 
     private function createShiftBtns():void {
-        var s:CSprite;
+//        var s1:CSprite;
+//        var s2:CSprite;
+//        var s3:CSprite;
+//        var s4:CSprite;
         var im:Image;
         var txt:TextField;
         var n:int = 0;
         var i:int;
+        var item:WOFabricNumber;
+
 
         for (i = 0; i < _arrAllRecipes.length; i++) {
             if (_arrAllRecipes[i].blockByLevel <= g.user.level) n++;
         }
+
+
 //        if (n <= 5) {
 //            s = new CSprite();
 //            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
@@ -212,68 +226,47 @@ public class WOFabrica extends Window {
 //            s.endClickCallback = activateShiftBtn;
 //        } else
         if ( n > 5 && n <= 10) {
+
+//            }
             for (i= 0; i < 2; i++) {
-                s = new CSprite();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
-                s.addChild(im);
-                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
-                txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
-                txt.y = 20;
-                txt.x = 2;
-                s.addChild(txt);
-                s.flatten();
-                s.x = -_woWidth / 2 + 220 + i * (42);
-                s.y = -_woHeight / 2 + 117;
-                _source.addChildAt(s, 0);
-                _arrShiftBtns.push(s);
-                activateShiftBtn(1, false);
-                s.endClickParams = i + 1;
-                s.endClickCallback = activateShiftBtn;
+                item = new WOFabricNumber(i+1);
+                item.source.x = -_woWidth / 2 + 220 + i * (42);
+                item.source.y = -_woHeight / 2 + 117;
+                _source.addChildAt(item.source,0);
+                _arrShiftBtns.push(item.source);
+                item.source.endClickParams = i + 1;
+                item.source.endClickCallback = activateShiftBtn;
             }
         } else if (n > 10 && n <= 15) {
             for (i= 0; i < 3; i++) {
-                s = new CSprite();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
-                s.addChild(im);
-                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
-                txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
-                txt.y = 20;
-                txt.x = 2;
-                s.addChild(txt);
-                s.flatten();
-                s.x = -_woWidth / 2 + 220 + i * (42);
-                s.y = -_woHeight / 2 + 117;
-                _source.addChildAt(s, 0);
-                _arrShiftBtns.push(s);
-                s.endClickParams = i + 1;
-                s.endClickCallback = activateShiftBtn;
+                item = new WOFabricNumber(i+1);
+                item.source.x = -_woWidth / 2 + 220 + i * (42);
+                item.source.y = -_woHeight / 2 + 117;
+                _source.addChildAt(item.source,0);
+
+                _arrShiftBtns.push(item.source);
+                item.source.endClickParams = i + 1;
+                item.source.endClickCallback = activateShiftBtn;
             }
         } else if (n > 15 && n <= 20) {
             for (i= 0; i < 4; i++) {
-                s = new CSprite();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
-                s.addChild(im);
-                txt = new TextField(32, 32, String(i + 1), g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BLUE);
-                txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
-                txt.y = 20;
-                txt.x = 2;
-                s.addChild(txt);
-                s.flatten();
-                s.x = -_woWidth / 2 + 220 + i * (42);
-                s.y = -_woHeight / 2 + 117;
-                _source.addChildAt(s, 0);
-                _arrShiftBtns.push(s);
-                s.endClickParams = i + 1;
-                s.endClickCallback = activateShiftBtn;
+                item = new WOFabricNumber(i+1);
+                item.source.x = -_woWidth / 2 + 220 + i * (42);
+                item.source.y = -_woHeight / 2 + 117;
+                _source.addChildAt(item.source,0);
+                _arrShiftBtns.push(item.source);
+                item.source.endClickParams = i + 1;
+                item.source.endClickCallback = activateShiftBtn;
             }
         }
+
     }
 
     private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
             _arrShiftBtns[i].y = -_woHeight/2 + 117;
         }
-        _arrShiftBtns[n-1].y += 8;
+//        _arrShiftBtns[n-1].y += 8;
         _shift = n-1;
         if (needUpdate) {
             unfillFabricaItems();

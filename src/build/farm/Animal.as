@@ -197,7 +197,12 @@ public class Animal {
                     g.woNoFreeCats.showIt();
                 }
             }
+        } else {
+            g.timerHint.showIt(g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip);
+            source.filter = null;
         }
+
+
     }
 
     private function onHover():void {
@@ -211,7 +216,6 @@ public class Animal {
             source.filter = ManagerFilters.BUILD_STROKE;
             _frameCounterTimerHint = 5;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
         }
     }
 
@@ -219,21 +223,10 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         source.filter = null;
         _isOnHover = false;
-        g.gameDispatcher.addEnterFrame(countEnterFrame);
+        g.timerHint.hideIt();
         g.mouseHint.hideIt();
     }
 
-    private function countEnterFrame():void{
-        _frameCounterTimerHint--;
-        if(_frameCounterTimerHint <=0){
-            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            if (_isOnHover == true) {
-                g.timerHint.showIt(g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip);
-            } else {
-                g.timerHint.hideIt();
-            }
-        }
-    }
 
     private function countEnterFrameMouseHint():void {
         _frameCounterMouseHint--;
@@ -368,7 +361,7 @@ public class Animal {
         source.filter = null;
         TweenMax.killTweensOf(source);
         g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
-        g.gameDispatcher.removeEnterFrame(countEnterFrame);
+        g.timerHint.hideIt();
         _data = null;
         while (source.numChildren) source.removeChildAt(0);
         source = null;

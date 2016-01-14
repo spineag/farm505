@@ -58,7 +58,10 @@ public class WOBuyPlant extends Window {
         _ridge = null;
         super.hideIt();
         activateShiftBtn(1, false);
-//        while
+        for (var i:int=0; i<_arrShiftBtns.length; i++) {
+            _source.removeChild(_arrShiftBtns[i]);
+            _arrShiftBtns[i].deleteIt();
+        }
     }
 
     public function showItWithParams(ridge:Ridge, f:Function):void {

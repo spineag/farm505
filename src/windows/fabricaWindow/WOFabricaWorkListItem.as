@@ -46,10 +46,12 @@ public class WOFabricaWorkListItem {
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
             MCScaler.scale(_bg, 50, 50);
-            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerRegular'], 13,ManagerFilters.TEXT_BROWN);
+            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerBold'], 13,Color.WHITE);
+            _txtNumberCreate.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         } else {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
-            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerRegular'], 16,ManagerFilters.TEXT_BROWN);
+            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerBold'], 16,Color.WHITE);
+            _txtNumberCreate.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         }
         _source.addChild(_bg);
         if (type == SMALL_CELL) {
@@ -62,7 +64,7 @@ public class WOFabricaWorkListItem {
             im.x = 13;
             im.y = -20;
             _timerBlock.addChild(im);
-            _txtTimer = new TextField(78, 33, '', g.allData.fonts['BloggerRegular'], 18, Color.WHITE);
+            _txtTimer = new TextField(78, 33, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
             _txtTimer.x = 13;
             _txtTimer.y = -20;
             _timerBlock.addChild(_txtTimer);

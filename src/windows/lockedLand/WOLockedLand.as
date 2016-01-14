@@ -39,6 +39,7 @@ public class WOLockedLand extends Window{
         new Birka('Новая территория', _source, _woWidth, _woHeight);
 
         var c:CartonBackground = new CartonBackground(460, 320);
+        c.filter =  ManagerFilters.SHADOW;
         c.x = -_woWidth/2 + 47;
         c.y = -_woHeight/2 + 180;
         _source.addChild(c);
@@ -58,7 +59,7 @@ public class WOLockedLand extends Window{
         im.y = -_woHeight/2 + 44;
         _source.addChild(im);
         var pl:HintBackground = new HintBackground(310, 97, HintBackground.LONG_TRIANGLE, HintBackground.LEFT_CENTER);
-        pl.x = -_woWidth/2 + 159;
+        pl.x = -_woWidth/2 + 179;
         pl.y = -_woHeight/2 + 109;
         pl.addShadow();
         _source.addChild(pl);

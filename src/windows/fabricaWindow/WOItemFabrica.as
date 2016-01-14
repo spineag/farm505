@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -90,6 +92,7 @@ public class WOItemFabrica {
 
     private function onHover():void {
         if (!_dataRecipe) return;
+        source.filter = ManagerFilters.YELLOW_STROKE;
         g.fabricHint.hideIt();
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
@@ -98,6 +101,7 @@ public class WOItemFabrica {
 
     private function onOut():void {
         if (!_dataRecipe) return;
+        source.filter = null;
         g.fabricHint.hideIt();
     }
 }
