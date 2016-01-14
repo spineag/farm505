@@ -57,6 +57,8 @@ public class WOBuyPlant extends Window {
         _callback = null;
         _ridge = null;
         super.hideIt();
+        activateShiftBtn(1, false);
+//        while
     }
 
     public function showItWithParams(ridge:Ridge, f:Function):void {
@@ -69,7 +71,7 @@ public class WOBuyPlant extends Window {
         _callback = f;
         updatePlantArray();
         createShiftBtns();
-//        activateShiftBtn(1, false);
+        activateShiftBtn(1, false);
         fillPlantItems();
         super.showIt();
     }
@@ -196,7 +198,7 @@ public class WOBuyPlant extends Window {
                 s.y = -_woHeight / 2 + 117;
                 _source.addChildAt(s, 0);
                 _arrShiftBtns.push(s);
-                activateShiftBtn(1, false);
+//                activateShiftBtn(1, false);
                 s.endClickParams = i + 1;
                 s.endClickCallback = activateShiftBtn;
             }
@@ -215,7 +217,7 @@ public class WOBuyPlant extends Window {
                 s.y = -_woHeight / 2 + 117;
                 _source.addChildAt(s, 0);
                 _arrShiftBtns.push(s);
-                activateShiftBtn(1, false);
+//                activateShiftBtn(1, false);
                 s.endClickParams = i + 1;
                 s.endClickCallback = activateShiftBtn;
             }
@@ -234,7 +236,7 @@ public class WOBuyPlant extends Window {
                 s.y = -_woHeight / 2 + 117;
                 _source.addChildAt(s, 0);
                 _arrShiftBtns.push(s);
-                activateShiftBtn(1, false);
+//                activateShiftBtn(1, false);
                 s.endClickParams = i + 1;
                 s.endClickCallback = activateShiftBtn;
             }
