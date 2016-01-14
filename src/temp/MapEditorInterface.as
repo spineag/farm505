@@ -145,22 +145,22 @@ public class MapEditorInterface {
 
     private function setEditorButtons():void{
         _moveBtn = new EditorButtonInterface();
-        _moveBtn.setIconButton("Move");
+        _moveBtn.setIconButton("tools_panel_bt_move");
         _moveBtn.source.x = 700;
         _allTable.addChild(_moveBtn.source);
 
         _rotateBtn = new EditorButtonInterface();
-        _rotateBtn.setIconButton("Rotate");
+        _rotateBtn.setIconButton("tools_panel_bt_rotate");
         _rotateBtn.source.x = 740;
         _allTable.addChild(_rotateBtn.source);
 
         _cancelBtn = new EditorButtonInterface();
-        _cancelBtn.setIconButton("Cancel");
+        _cancelBtn.setIconButton("tools_panel_bt_canc");
         _cancelBtn.source.x = 780;
         _allTable.addChild(_cancelBtn.source);
 
         _activeBtn = new EditorButtonInterface();
-        _activeBtn.setIconButton("Active");
+        _activeBtn.setIconButton("red_tail");
         _activeBtn.source.x = 840;
         _allTable.addChild(_activeBtn.source);
 

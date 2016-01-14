@@ -39,7 +39,7 @@ public class EditorButtonInterface {
             _iconEditor.y = 5;
             _iconEditor.x = 15;
         } else{
-            var im:Image = new Image(g.allData.atlas['mapAtlas'].getTexture(s));
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(s));
             _iconEditor.addChild(im);
         }
 

@@ -99,8 +99,8 @@ public class BackgroundArea {
         }
 
         _cont.addChild(_additionalCont);
-        _additionalCont.x = -g.realGameWidth/2 + g.matrixGrid.DIAGONAL/2 - Containers.SHIFT_MAP_X;
-        _additionalCont.y = -g.matrixGrid.offsetY - Containers.SHIFT_MAP_Y;
+        _additionalCont.x = -g.realGameWidth/2 + g.matrixGrid.DIAGONAL/2 - g.cont.SHIFT_MAP_X;
+        _additionalCont.y = -g.matrixGrid.offsetY - g.cont.SHIFT_MAP_Y;
         if (_callback != null) {
             _callback.apply();
             _callback = null;

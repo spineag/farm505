@@ -223,14 +223,6 @@ public class Vars {
     }
 
     public function initInterface():void {
-        // x2:: scaleFactor == 1
-        // x1:: scaleFactor == .5
-        scaleFactor = 1;
-
-        realGameHeight *= scaleFactor;
-        realGameWidth *= scaleFactor;
-        realGameTilesHeight *= scaleFactor;
-        realGameTilesWidth *= scaleFactor;
         initVariables();
     }
 
