@@ -109,7 +109,7 @@ public class AreaObject extends WorldObject {
         try {
             for (var i:int = 0; i < _dataBuild.width; i++) {
                 for (var j:int = 0; j < _dataBuild.height; j++) {
-                    im = new Image(MatrixGrid.buildUnderTexture);
+                    im = new Image(g.matrixGrid.buildUnderTexture);
                     im.pivotX = im.width/2;
                     g.matrixGrid.setSpriteFromIndex(im, new Point(i, j));
                     _isoView.addChild(im);

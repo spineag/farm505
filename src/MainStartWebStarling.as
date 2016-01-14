@@ -17,6 +17,8 @@ import manager.Containers;
 
 import manager.Vars;
 
+import map.MatrixGrid;
+
 import preloader.StartPreloader;
 
 import starling.core.Starling;

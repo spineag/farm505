@@ -32,7 +32,7 @@ public class EditorButtonInterface {
 
     public function setIconButton(s:String):void {
         if (s == "Active") {
-            var q:Quad = new Quad(MatrixGrid.WIDTH_CELL, MatrixGrid.WIDTH_CELL, Color.RED);
+            var q:Quad = new Quad(g.matrixGrid.WIDTH_CELL, g.matrixGrid.WIDTH_CELL, Color.RED);
             q.rotation = Math.PI/4;
             _iconEditor.addChild(q);
             _iconEditor.scaleY /= 2;

@@ -218,7 +218,7 @@ public class ToolsModifier {
         _spriteForMove.addChild(_activeBuilding.source);
 
         _spriteForMove.x = _mouse.mouseX - _cont.x;
-        _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
+        _spriteForMove.y = _mouse.mouseY - _cont.y - g.matrixGrid.FACTOR/2;
         _cont.addChild(_spriteForMove);
 
         _cont.x = g.cont.gameCont.x;
@@ -255,7 +255,7 @@ public class ToolsModifier {
         _spriteForMove.addChild(_activeBuilding.source);
 
         _spriteForMove.x = _mouse.mouseX - _cont.x;
-        _spriteForMove.y = _mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2;
+        _spriteForMove.y = _mouse.mouseY - _cont.y - g.matrixGrid.FACTOR/2;
         _cont.addChild(_spriteForMove);
 
         _cont.x = g.cont.gameCont.x;
@@ -384,7 +384,7 @@ public class ToolsModifier {
         _cont.x = g.cont.gameCont.x;
         _cont.y = g.cont.gameCont.y;
         _spriteForMove.x = (_mouse.mouseX - _cont.x)/g.cont.gameCont.scaleX;
-        _spriteForMove.y = (_mouse.mouseY - _cont.y - MatrixGrid.FACTOR/2)/g.cont.gameCont.scaleX;
+        _spriteForMove.y = (_mouse.mouseY - _cont.y - g.matrixGrid.FACTOR/2)/g.cont.gameCont.scaleX;
         if (_startDragPoint) return;  // using for dragging gameCont
         if (!_activeBuilding.useIsometricOnly) return;
 

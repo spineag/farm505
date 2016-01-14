@@ -89,8 +89,8 @@ public class WorldObject {
     public function updateDepth():void {
         var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
 
-        point3d.x += MatrixGrid.FACTOR * _sizeX * 0.5;
-        point3d.z += MatrixGrid.FACTOR * _sizeY * 0.5;
+        point3d.x += g.matrixGrid.FACTOR * _sizeX * 0.5;
+        point3d.z += g.matrixGrid.FACTOR * _sizeY * 0.5;
 
         _depth = point3d.x + point3d.z;
     }

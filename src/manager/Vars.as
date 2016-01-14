@@ -101,6 +101,7 @@ public class Vars {
 
     public var starling:Starling;
     public var mainStage:Stage;
+    public var scaleFactor:Number;
     public var currentGameScale:Number = 1;
     public var stageWidth:int = 1000;
     public var stageHeight:int = 640;
@@ -222,7 +223,12 @@ public class Vars {
     }
 
     public function initInterface():void {
+        scaleFactor = .5;
 
+        realGameHeight *= scaleFactor;
+        realGameWidth *= scaleFactor;
+        realGameTilesHeight *= scaleFactor;
+        realGameTilesWidth *= scaleFactor;
         initVariables();
     }
 

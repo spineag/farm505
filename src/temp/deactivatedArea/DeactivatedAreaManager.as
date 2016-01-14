@@ -38,12 +38,12 @@ public class DeactivatedAreaManager {
     private function createTexture():void {
         var sp:flash.display.Shape = new flash.display.Shape();
         sp.graphics.beginFill(0xFF0000);
-        sp.graphics.moveTo(MatrixGrid.DIAGONAL/2, 0);
-        sp.graphics.lineTo(0, MatrixGrid.FACTOR/2);
-        sp.graphics.lineTo(MatrixGrid.DIAGONAL/2, MatrixGrid.FACTOR);
-        sp.graphics.lineTo(MatrixGrid.DIAGONAL, MatrixGrid.FACTOR/2);
-        sp.graphics.lineTo(MatrixGrid.DIAGONAL/2, 0);
-        var BMP:BitmapData = new BitmapData(MatrixGrid.DIAGONAL, MatrixGrid.FACTOR, true, 0x00000000);
+        sp.graphics.moveTo(g.matrixGrid.DIAGONAL/2, 0);
+        sp.graphics.lineTo(0, g.matrixGrid.FACTOR/2);
+        sp.graphics.lineTo(g.matrixGrid.DIAGONAL/2, g.matrixGrid.FACTOR);
+        sp.graphics.lineTo(g.matrixGrid.DIAGONAL, g.matrixGrid.FACTOR/2);
+        sp.graphics.lineTo(g.matrixGrid.DIAGONAL/2, 0);
+        var BMP:BitmapData = new BitmapData(g.matrixGrid.DIAGONAL, g.matrixGrid.FACTOR, true, 0x00000000);
         BMP.draw(sp);
         _texture = Texture.fromBitmapData(BMP);
     }

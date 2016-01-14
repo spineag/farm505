@@ -291,10 +291,10 @@ public class OptionPanel {
         if (cont.y > -oY) cont.y = -oY;
         if (cont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)
             cont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
-        if (cont.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2)
-            cont.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2;
-        if (cont.x < -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
-            cont.x =  -s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
+        if (cont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2)
+            cont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2;
+        if (cont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
+            cont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
         g.bottomPanel.onResize();
         g.craftPanel.onResize();
         g.friendPanel.onResize();
@@ -327,10 +327,10 @@ public class OptionPanel {
         if (pNew.y > -oY + Containers.SHIFT_MAP_Y*s) pNew.y = -oY + Containers.SHIFT_MAP_Y*s;
         if (pNew.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + Containers.SHIFT_MAP_Y*s)
             pNew.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + Containers.SHIFT_MAP_Y*s;
-        if (pNew.x > s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Containers.SHIFT_MAP_X*s)
-            pNew.x =  s*g.realGameWidth/2 - s*MatrixGrid.DIAGONAL/2 + Containers.SHIFT_MAP_X*s;
-        if (pNew.x < -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s)
-            pNew.x =  -s*g.realGameWidth/2 + s*MatrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s;
+        if (pNew.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Containers.SHIFT_MAP_X*s)
+            pNew.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Containers.SHIFT_MAP_X*s;
+        if (pNew.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s)
+            pNew.x =  -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s;
         cont.scaleX = cont.scaleY = oldScale;
         g.currentGameScale = s;
         if (needQuick) {

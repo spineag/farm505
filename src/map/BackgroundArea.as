@@ -54,8 +54,8 @@ public class BackgroundArea {
 
     private function setTileFromIndex(tile:BackgroundTile, point:Point):void {
         var pos:Point3D = new Point3D();
-        pos.x = point.x * MatrixGrid.FACTOR;
-        pos.z = point.y * MatrixGrid.FACTOR;
+        pos.x = point.x * g.matrixGrid.FACTOR;
+        pos.z = point.y * g.matrixGrid.FACTOR;
         var isoPoint:Point = IsoUtils.isoToScreen(pos);
         tile.graphicsSource.x = isoPoint.x;
         tile.graphicsSource.y = isoPoint.y;
@@ -64,36 +64,47 @@ public class BackgroundArea {
     }
 
     private function loadBG():void {
+        var st:String;
         if (g.isDebug) {
-            g.load.loadImage('../assets/map/map_opt/map01.jpg', onLoadMap, '../assets/map/map_opt/map01.jpg', 0, 0);
-            g.load.loadImage('../assets/map/map_opt/map02.jpg', onLoadMap, '../assets/map/map_opt/map02.jpg', 2000, 0);
-            g.load.loadImage('../assets/map/map_opt/map03.jpg', onLoadMap, '../assets/map/map_opt/map03.jpg', 4000, 0);
-            g.load.loadImage('../assets/map/map_opt/map04.jpg', onLoadMap, '../assets/map/map_opt/map04.jpg', 6000, 0);
-            g.load.loadImage('../assets/map/map_opt/map05.jpg', onLoadMap, '../assets/map/map_opt/map05.jpg', 0, 2000);
-            g.load.loadImage('../assets/map/map_opt/map06.jpg', onLoadMap, '../assets/map/map_opt/map06.jpg', 2000, 2000);
-            g.load.loadImage('../assets/map/map_opt/map07.jpg', onLoadMap, '../assets/map/map_opt/map07.jpg', 4000, 2000);
-            g.load.loadImage('../assets/map/map_opt/map08.jpg', onLoadMap, '../assets/map/map_opt/map08.jpg', 6000, 2000);
-            g.load.loadImage('../assets/map/map_opt/map09.jpg', onLoadMap, '../assets/map/map_opt/map09.jpg', 0, 4000);
-            g.load.loadImage('../assets/map/map_opt/map10.jpg', onLoadMap, '../assets/map/map_opt/map10.jpg', 2000, 4000);
-            g.load.loadImage('../assets/map/map_opt/map11.jpg', onLoadMap, '../assets/map/map_opt/map11.jpg', 4000, 4000);
-            g.load.loadImage('../assets/map/map_opt/map12.jpg', onLoadMap, '../assets/map/map_opt/map12.jpg', 6000, 4000);
+            if (g.scaleFactor == 1) {
+                st = 'map_x1';
+            } else if (g.scaleFactor == .5) {
+                st = 'map_x2';
+            }
+            g.load.loadImage('../assets/map/'+st+'/map_1.jpg', onLoadMap, '../assets/map/'+st+'/map_1.jpg', 0, 0);
+            g.load.loadImage('../assets/map/'+st+'/map_2.jpg', onLoadMap, '../assets/map/'+st+'/map_2.jpg', 2000, 0);
+            g.load.loadImage('../assets/map/'+st+'/map_3.jpg', onLoadMap, '../assets/map/'+st+'/map_3.jpg', 4000, 0);
+            g.load.loadImage('../assets/map/'+st+'/map_4.jpg', onLoadMap, '../assets/map/'+st+'/map_4.jpg', 6000, 0);
+            g.load.loadImage('../assets/map/'+st+'/map_5.jpg', onLoadMap, '../assets/map/'+st+'/map_5.jpg', 0, 2000);
+            g.load.loadImage('../assets/map/'+st+'/map_6.jpg', onLoadMap, '../assets/map/'+st+'/map_6.jpg', 2000, 2000);
+            g.load.loadImage('../assets/map/'+st+'/map_7.jpg', onLoadMap, '../assets/map/'+st+'/map_7.jpg', 4000, 2000);
+            g.load.loadImage('../assets/map/'+st+'/map_8.jpg', onLoadMap, '../assets/map/'+st+'/map_8.jpg', 6000, 2000);
+            g.load.loadImage('../assets/map/'+st+'/map_9.jpg', onLoadMap, '../assets/map/'+st+'/map_9.jpg', 0, 4000);
+            g.load.loadImage('../assets/map/'+st+'/map_10.jpg', onLoadMap, '../assets/map/'+st+'/map_10.jpg', 2000, 4000);
+            g.load.loadImage('../assets/map/'+st+'/map_11.jpg', onLoadMap, '../assets/map/'+st+'/map_11.jpg', 4000, 4000);
+            g.load.loadImage('../assets/map/'+st+'/map_12.jpg', onLoadMap, '../assets/map/'+st+'/map_12.jpg', 6000, 4000);
         } else {
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map01.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map01.jpg', 0, 0);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map02.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map02.jpg', 2000, 0);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map03.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map03.jpg', 4000, 0);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map04.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map04.jpg', 6000, 0);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map05.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map05.jpg', 0, 2000);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map06.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map06.jpg', 2000, 2000);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map07.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map07.jpg', 4000, 2000);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map08.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map08.jpg', 6000, 2000);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map09.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map09.jpg', 0, 4000);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map10.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map10.jpg', 2000, 4000);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map11.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map11.jpg', 4000, 4000);
-            g.load.loadImage(g.dataPath.getTempGraphicsPath() + 'map/map12.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + 'map/map12.jpg', 6000, 4000);
+            if (g.scaleFactor == 1) {
+                st = 'map_x1';
+            } else if (g.scaleFactor == .5) {
+                st = 'map_x2';
+            }
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_1.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_1.jpg', 0, 0);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_2.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_2.jpg', 2000, 0);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_3.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_3.jpg', 4000, 0);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_4.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_4.jpg', 6000, 0);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_5.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_5.jpg', 0, 2000);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_6.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_6.jpg', 2000, 2000);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_7.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_7.jpg', 4000, 2000);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_8.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_8.jpg', 6000, 2000);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_9.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_9.jpg', 0, 4000);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_10.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_10.jpg', 2000, 4000);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_11.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_11.jpg', 4000, 4000);
+            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_12.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_12.jpg', 6000, 4000);
         }
 
         _cont.addChild(_additionalCont);
-        _additionalCont.x = -g.realGameWidth/2 + MatrixGrid.DIAGONAL/2 - Containers.SHIFT_MAP_X;
+        _additionalCont.x = -g.realGameWidth/2 + g.matrixGrid.DIAGONAL/2 - Containers.SHIFT_MAP_X;
         _additionalCont.y = -g.matrixGrid.offsetY - Containers.SHIFT_MAP_Y;
         if (_callback != null) {
             _callback.apply();
@@ -115,8 +126,8 @@ public class BackgroundArea {
         b.bitmapData.dispose();
         b = null;
         var bg:Image = new Image(t);
-        bg.x = _x;
-        bg.y = _y;
+        bg.x = _x * g.scaleFactor;
+        bg.y = _y * g.scaleFactor;
         _additionalCont.addChild(bg);
         g.pBitmaps[url].deleteIt();
         delete g.pBitmaps[url];

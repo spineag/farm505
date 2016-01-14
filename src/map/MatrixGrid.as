@@ -18,13 +18,10 @@ import utils.IsoUtils;
 import utils.Point3D;
 
 public class MatrixGrid {
-    public static const WIDTH_CELL:uint = 60;
-//    public static const WIDTH_CELL:uint = 30;
-    public static const FACTOR:Number = WIDTH_CELL / Math.SQRT2;
-    public static const DIAGONAL:Number = Math.sqrt(WIDTH_CELL * WIDTH_CELL + WIDTH_CELL * WIDTH_CELL);
-
+    public var WIDTH_CELL:uint;
+    public var FACTOR:Number;
+    public var DIAGONAL:Number;
     private var _offsetY:int = 0;
-
     private var _matrix:Array;
     private var _matrixSize:int;
     private var _gridWhiteTexture:Texture;
@@ -33,6 +30,9 @@ public class MatrixGrid {
     protected var g:Vars = Vars.getInstance();
 
     public function MatrixGrid() {
+        WIDTH_CELL = 60 * g.scaleFactor;
+        FACTOR = WIDTH_CELL / Math.SQRT2;
+        DIAGONAL = Math.sqrt(WIDTH_CELL * WIDTH_CELL + WIDTH_CELL * WIDTH_CELL);
     }
 
     public function createMatrix():void {
@@ -184,8 +184,8 @@ public class MatrixGrid {
         _gridRedTexture = Texture.fromBitmapData(BMP2,false, false);
     }
 
-    private static var underTexture:Texture;
-    public static function get buildUnderTexture():Texture {
+    private var underTexture:Texture;
+    public function get buildUnderTexture():Texture {
         if (underTexture) return underTexture;
 
         var sp:flash.display.Shape = new flash.display.Shape();
