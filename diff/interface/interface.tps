@@ -270,7 +270,6 @@
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>shop</filename>
-            <filename>ribbon</filename>
             <filename>decor_cell.png</filename>
             <filename>coins_market.png</filename>
             <filename>minus.png</filename>

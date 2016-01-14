@@ -196,6 +196,7 @@
             <filename>buildings/bazar.png</filename>
             <filename>buildings/ambar_indicator_main.png</filename>
             <filename>buildings/ambar_indicator_top.png</filename>
+            <filename>buildings/ribbon</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
