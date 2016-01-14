@@ -397,8 +397,10 @@ public class TownArea extends Sprite {
             worldObject.posX = point.x;
             worldObject.posY = point.y;
         } else {
-            worldObject.posX = _x;
-            worldObject.posY = _y;
+            worldObject.source.x = int(_x) * g.scaleFactor;
+            worldObject.source.y = int(_y) * g.scaleFactor;
+            worldObject.posX = int(_x * g.scaleFactor);
+            worldObject.posY = int(_y * g.scaleFactor);
         }
         if (!updateAfterMove) _cityObjects.push(worldObject);
         worldObject.updateDepth();

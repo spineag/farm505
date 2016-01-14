@@ -88,6 +88,16 @@ public class MainStartWebStarling extends Sprite{
         game.addEventListener(MainStarling.LOADED, onLoaded);
         star.start();
 
+        ///// PART FOR GAME SCALE FACTOR  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // x2:: scaleFactor == 1
+        // x1:: scaleFactor == .5
+        g.scaleFactor = .5;
+        g.realGameHeight *= g.scaleFactor;
+        g.realGameWidth *= g.scaleFactor;
+        g.realGameTilesHeight *= g.scaleFactor;
+        g.realGameTilesWidth *= g.scaleFactor;
+        ///// END OF PART FOR GAME SCALE FACTOR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   :)
+
         g.cont = new Containers();
         g.startPreloader = new StartPreloader();
         g.startPreloader.showIt();

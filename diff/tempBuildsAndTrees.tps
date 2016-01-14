@@ -11,7 +11,7 @@
         <array>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>1</double>
+                <double>0.5</double>
                 <key>extension</key>
                 <string></string>
                 <key>spriteFilter</key>
@@ -145,7 +145,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../assets/buildAtlas.xml</filename>
+                <filename>../assets/x1/buildAtlas.xml</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -188,38 +188,15 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>buildings/ambar.png</filename>
-            <filename>buildings/bakery.png</filename>
-            <filename>buildings/bazar.png</filename>
-            <filename>buildings/bbq_grill.png</filename>
-            <filename>buildings/cave_active.PNG</filename>
-            <filename>buildings/cave.png</filename>
-            <filename>buildings/confectionery.png</filename>
-            <filename>buildings/daily_bonus.png</filename>
-            <filename>buildings/dairy.png</filename>
-            <filename>buildings/feed_mill.png</filename>
-            <filename>buildings/fryer.png</filename>
-            <filename>buildings/ice_cream_maker.png</filename>
-            <filename>buildings/jam_machine.png</filename>
-            <filename>buildings/jeweler.png</filename>
-            <filename>buildings/juice_press.png</filename>
-            <filename>buildings/loom.png</filename>
-            <filename>buildings/pie_oven.png</filename>
-            <filename>buildings/pizza_maker.png</filename>
-            <filename>buildings/sauce_maker.png</filename>
-            <filename>buildings/sklad.png</filename>
-            <filename>buildings/smelter.png</filename>
-            <filename>buildings/smoke_house.png</filename>
-            <filename>buildings/sugar_mill.png</filename>
-            <filename>buildings/train.png</filename>
-            <filename>buildings/yogurt_machine.png</filename>
             <filename>buildings/zakaz.png</filename>
-            <filename>buildings/train_broken.png</filename>
             <filename>buildings/ridge.png</filename>
-            <filename>buildings/locked_land.png</filename>
-            <filename>buildings/foundation.png</filename>
-            <filename>buildings/done_building.png</filename>
             <filename>buildings/paper.png</filename>
+            <filename>buildings/ambar.png</filename>
+            <filename>buildings/sklad.png</filename>
+            <filename>buildings/bazar.png</filename>
+            <filename>buildings/ambar_indicator_main.png</filename>
+            <filename>buildings/ambar_indicator_top.png</filename>
+            <filename>buildings/ribbon</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

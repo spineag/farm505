@@ -4,16 +4,20 @@
 package build.farm {
 import flash.geom.Point;
 
+import manager.Vars;
+
 import utils.Point3D;
 
 public class FarmGrid {
     private var _matrix:Array;
-    private const FACTOR:Number = 30;
+    private var FACTOR:int;
 //    private const WIDTH_CELL:uint = FACTOR*Math.SQRT2;
     private const Y_CORRECT:Number = Math.cos(-Math.PI / 6) * Math.SQRT2;
+    private var g:Vars = Vars.getInstance();
 
     public function FarmGrid() {
         _matrix = [];
+        FACTOR = 30 * g.scaleFactor;
 
         for (var i:int = 0; i < 10; i++) {
             _matrix.push([]);

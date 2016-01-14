@@ -370,8 +370,8 @@ public class DirectServer {
                 obj.id = int(d.message[i].id);
                 obj.width = int(d.message[i].width);
                 obj.height = int(d.message[i].height);
-                obj.innerX = int(d.message[i].inner_x);
-                obj.innerY = int(d.message[i].inner_y);
+                obj.innerX = int(d.message[i].inner_x)*g.scaleFactor;
+                obj.innerY = int(d.message[i].inner_y)*g.scaleFactor;
                 obj.name = d.message[i].name;
                 obj.url = d.message[i].url;
                 obj.image = d.message[i].image;
@@ -389,32 +389,7 @@ public class DirectServer {
                 if (d.message[i].cost_skip) obj.priceSkipHard = d.message[i].cost_skip;
                 if (d.message[i].build_time) obj.buildTime = int(d.message[i].build_time);
                 if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
-                if (d.message[i].image_s) obj.imageGrowSmall = d.message[i].image_s;
-                if (d.message[i].image_s_flower) obj.imageGrowSmallFlower = d.message[i].image_s_flower;
-                if (d.message[i].image_s_growed) obj.imageGrowedSmall = d.message[i].image_s_growed;
-                if (d.message[i].image_m) obj.imageGrowMiddle = d.message[i].image_m;
-                if (d.message[i].image_m_flower) obj.imageGrowMiddleFlower = d.message[i].image_m_flower;
-                if (d.message[i].image_m_growed) obj.imageGrowedMiddle = d.message[i].image_m_growed;
-                if (d.message[i].image_b) obj.imageGrowBig = d.message[i].image_b;
-                if (d.message[i].image_b_flower) obj.imageGrowBigFlower = d.message[i].image_b_flower;
-                if (d.message[i].image_b_growed) {
-                    obj.imageGrowedBig = d.message[i].image_b_growed;
-//                    obj.image = obj.imageGrowedBig;
-                }
-                if (d.message[i].image_dead) obj.imageDead = d.message[i].image_dead;
-                if (d.message[i].inner_position_s) {
-                    obj.innerPositionsGrow1 = String(d.message[i].inner_position_s).split('&');
-                    for (k = 0; k < obj.innerPositionsGrow1.length; k++) obj.innerPositionsGrow1[k] = int(obj.innerPositionsGrow1[k]);
-                }
-                if (d.message[i].inner_position_m) {
-                    obj.innerPositionsGrow2 = String(d.message[i].inner_position_m).split('&');
-                    for (k = 0; k < obj.innerPositionsGrow2.length; k++) obj.innerPositionsGrow2[k] = int(obj.innerPositionsGrow2[k]);
-                }
-                if (d.message[i].inner_position_b) {
-                    obj.innerPositionsGrow3 = String(d.message[i].inner_position_b).split('&');
-                    for (k = 0; k < obj.innerPositionsGrow3.length; k++) obj.innerPositionsGrow3[k] = int(obj.innerPositionsGrow3[k]);
-                }
-                obj.innerPositionsDead = [obj.innerX, obj.innerY];
+
                 if (d.message[i].craft_resource_id) obj.craftIdResource = int(d.message[i].craft_resource_id);
                 if (d.message[i].count_craft_resource) {
                     obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
@@ -428,9 +403,6 @@ public class DirectServer {
                 if (d.message[i].up_instrument_id_1) obj.upInstrumentId1 = int(d.message[i].up_instrument_id_1);
                 if (d.message[i].up_instrument_id_2) obj.upInstrumentId2 = int(d.message[i].up_instrument_id_2);
                 if (d.message[i].up_instrument_id_3) obj.upInstrumentId3 = int(d.message[i].up_instrument_id_3);
-                if (d.message[i].image_house) obj.imageHouse = d.message[i].image_house;
-                if (d.message[i].inner_house_x) obj.innerHouseX = int(d.message[i].inner_house_x);
-                if (d.message[i].inner_house_y) obj.innerHouseY = int(d.message[i].inner_house_y);
                 if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
                 if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
                 if (d.message[i].resource_id) {
@@ -971,6 +943,8 @@ public class DirectServer {
                     if (dataBuild.buildType == BuildType.CAVE || dataBuild.buildType == BuildType.MARKET || dataBuild.buildType == BuildType.SHOP ||
                             dataBuild.buildType == BuildType.PAPER || dataBuild.buildType == BuildType.DAILY_BONUS || dataBuild.buildType == BuildType.TRAIN) {
                         //do nothing, use usual x and y from server
+//                        p.x *= g.scaleFactor;
+//                        p.y *= g.scaleFactor;  // scaleFactor will use at pasteBuild
                     } else {
                         // in another case we get isometric coordinates from server
                         p = g.matrixGrid.getXYFromIndex(p);

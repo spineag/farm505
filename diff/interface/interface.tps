@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>3.7.1</string>
         <key>fileName</key>
-        <string>C:/Andy/farm/farm505/diff/interface/interface.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,8 +43,6 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>atfCompressData</key>
-        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -175,16 +173,14 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
+            <key>innerPadding</key>
+            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
-            <key>trimMargin</key>
-            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
-            <key>tracerTolerance</key>
-            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -192,8 +188,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>ambar_indicator_main.png</filename>
-            <filename>ambar_indicator_top.png</filename>
             <filename>bg</filename>
             <filename>birka_c.png</filename>
             <filename>birka_cat.png</filename>
@@ -204,7 +198,6 @@
             <filename>buttons</filename>
             <filename>carton</filename>
             <filename>cat_icon.png</filename>
-            <filename>cat_shadow.png</filename>
             <filename>cave</filename>
             <filename>check.png</filename>
             <filename>circle.png</filename>
@@ -217,7 +210,6 @@
             <filename>green_coupone.png</filename>
             <filename>green_tail.png</filename>
             <filename>hint</filename>
-            <filename>hint_wild.png</filename>
             <filename>hintMiddle.png</filename>
             <filename>hintSidePixels.png</filename>
             <filename>hintSidePixels2.png</filename>
@@ -249,11 +241,7 @@
             <filename>order_window_paket.png</filename>
             <filename>order_window_right_top.png</filename>
             <filename>order_window_right.png</filename>
-            <filename>planet.png</filename>
-            <filename>plawka7.png</filename>
             <filename>plus_button.png</filename>
-            <filename>popup_farm.png</filename>
-            <filename>popup.png</filename>
             <filename>production</filename>
             <filename>progress_bar_center.png</filename>
             <filename>progress_bar_left.png</filename>
@@ -263,7 +251,6 @@
             <filename>refresh_icon.png</filename>
             <filename>roadside_shop_tabl.png</filename>
             <filename>rubins.png</filename>
-            <filename>sciccors_icon.png</filename>
             <filename>shop_window_animals.png</filename>
             <filename>shop_window_court.png</filename>
             <filename>shop_window_decor.png</filename>
@@ -283,7 +270,6 @@
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>shop</filename>
-            <filename>ribbon</filename>
             <filename>decor_cell.png</filename>
             <filename>coins_market.png</filename>
             <filename>minus.png</filename>
@@ -308,6 +294,7 @@
             <filename>aerial_tram_all.png</filename>
             <filename>hint_arrow.png</filename>
             <filename>coupons_icon.png</filename>
+            <filename>plawka7.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -127,7 +127,7 @@ public class ToolsModifier {
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.DELETE:
-                 im = new Image(g.allData.atlas['mapAtlas'].getTexture('Cancel'));
+                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_canc'));
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.INVENTORY:
@@ -135,13 +135,8 @@ public class ToolsModifier {
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.GRID_DEACTIVATED:
-                 var q:Quad = new Quad(100, 100, Color.RED);
-                 q.rotation = Math.PI/4;
-                 var _iconEditor:Sprite = new Sprite();
-                 _iconEditor.addChild(q);
-                 _iconEditor.scaleY /= 2;
-                 _iconEditor.x = _iconEditor.width/2;
-                 _mouseIcon.addChild(_iconEditor);
+                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_tail'));
+                 if (im) _mouseIcon.addChild(im);
                 break;
             case ToolsModifier.PLANT_SEED:
                 if (_plantId <= 0) return;

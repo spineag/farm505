@@ -19,8 +19,8 @@ import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 
 public class Containers {
-    public static const SHIFT_MAP_X:int = 185;
-    public static const SHIFT_MAP_Y:int = 590;
+    public var SHIFT_MAP_X:int;
+    public var SHIFT_MAP_Y:int;
 
     public var mainCont:Sprite;
     public var backgroundCont:Sprite;
@@ -48,6 +48,9 @@ public class Containers {
     private var g:Vars = Vars.getInstance();
 
     public function Containers() {
+        SHIFT_MAP_X = 185 * g.scaleFactor;
+        SHIFT_MAP_Y = 590 * g.scaleFactor;
+
         mainCont = new Sprite();
         gameCont = new Sprite();
         backgroundCont = new Sprite();

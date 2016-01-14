@@ -324,13 +324,13 @@ public class OptionPanel {
         pNew.x = cont.x - p.x + g.stageWidth/2;
         pNew.y = cont.y - p.y + g.stageHeight/2;
         var oY:Number = g.matrixGrid.offsetY*s;
-        if (pNew.y > -oY + Containers.SHIFT_MAP_Y*s) pNew.y = -oY + Containers.SHIFT_MAP_Y*s;
-        if (pNew.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + Containers.SHIFT_MAP_Y*s)
-            pNew.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + Containers.SHIFT_MAP_Y*s;
-        if (pNew.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Containers.SHIFT_MAP_X*s)
-            pNew.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Containers.SHIFT_MAP_X*s;
-        if (pNew.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s)
-            pNew.x =  -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - Containers.SHIFT_MAP_X*s;
+        if (pNew.y > -oY + g.cont.SHIFT_MAP_Y*s) pNew.y = -oY + g.cont.SHIFT_MAP_Y*s;
+        if (pNew.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            pNew.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
+        if (pNew.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
+            pNew.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
+        if (pNew.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - g.cont.SHIFT_MAP_X*s)
+            pNew.x =  -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - g.cont.SHIFT_MAP_X*s;
         cont.scaleX = cont.scaleY = oldScale;
         g.currentGameScale = s;
         if (needQuick) {

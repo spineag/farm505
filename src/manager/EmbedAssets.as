@@ -14,17 +14,15 @@ import starling.textures.TextureAtlas;
 
 public class EmbedAssets {
     // Texture
-//    [Embed(source="../../assets/mapAtlas3.png")]
-//    private const MapTexture:Class;
     [Embed(source="../../assets/interfaceAtlas.png")]
     private const InterfaceTexture:Class;
-    [Embed(source="../../assets/instrumentAtlas3.png")]
+    [Embed(source="../../assets/instrumentAtlas.png")]
     private const InstrumentTexture:Class;
     [Embed(source="../../assets/resourceAtlas.png")]
     private const ResourceTexture:Class;
-    [Embed(source="../../assets/x1/wildAtlas3.png")]
+    [Embed(source="../../assets/x1/wildAtlas.png")]
     private const WildTexture:Class;
-    [Embed(source="../../assets/x1/farmAtlas3.png")]
+    [Embed(source="../../assets/x1/farmAtlas.png")]
     private const FarmTexture:Class;
     [Embed(source="../../assets/x1/decorAtlas.png")]
     private const DecorTexture:Class;
@@ -34,17 +32,15 @@ public class EmbedAssets {
     private const IconTexture:Class;
 
     // XML
-//    [Embed(source="../../assets/mapAtlas3.xml", mimeType="application/octet-stream")]
-//    private const MapTextureXML:Class;
     [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
     private const InterfaceTextureXML:Class;
-    [Embed(source="../../assets/instrumentAtlas3.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
     private const InstrumentTextureXML:Class;
     [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
     private const ResourceTextureXML:Class;
-    [Embed(source="../../assets/x1/wildAtlas3.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/x1/wildAtlas.xml", mimeType="application/octet-stream")]
     private const WildTextureXML:Class;
-    [Embed(source="../../assets/x1/farmAtlas3.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/x1/farmAtlas.xml", mimeType="application/octet-stream")]
     private const FarmTextureXML:Class;
     [Embed(source="../../assets/x1/decorAtlas.xml", mimeType="application/octet-stream")]
     private const DecorTextureXML:Class;
@@ -66,15 +62,15 @@ public class EmbedAssets {
     [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
     private const HouschkaBold:Class;
 
-    [Embed(source = "../../assets/animations/x1/cat9.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/cat.png", mimeType = "application/octet-stream")]
     private const CatData:Class;
     [Embed(source = "../../assets/animations/x1/cat_watering_can.png", mimeType = "application/octet-stream")]
     private const CatWateringData:Class;
     [Embed(source = "../../assets/animations/x1/cat_feed.png", mimeType = "application/octet-stream")]
     private const CatFeedData:Class;
-    [Embed(source = "../../assets/animations/x1/buildingBuild2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/buildingBuild.png", mimeType = "application/octet-stream")]
     private const BuildingBuild:Class;
-    [Embed(source = "../../assets/animations/x1/trees2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/trees.png", mimeType = "application/octet-stream")]
     private const BuildingTrees:Class;
     [Embed(source = "../../assets/animations/x1/plants.png", mimeType = "application/octet-stream")]
     private const BuildingPlants:Class;
@@ -90,9 +86,9 @@ public class EmbedAssets {
     [Embed(source = "../../assets/animations/x1/sheep.png", mimeType = "application/octet-stream")]
     private const Sheep:Class;
 
-    [Embed(source = "../../assets/animations/x1/bakery2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/bakery.png", mimeType = "application/octet-stream")]
     private const BakeryFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/sugar_mill2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/sugar_mill.png", mimeType = "application/octet-stream")]
     private const SugarMillFabrica:Class;
     [Embed(source = "../../assets/animations/x1/feed_mill.png", mimeType = "application/octet-stream")]
     private const FeedMillFabrica:Class;
@@ -100,13 +96,13 @@ public class EmbedAssets {
     private const BbqGrillFabrica:Class;
     [Embed(source = "../../assets/animations/x1/dairy.png", mimeType = "application/octet-stream")]
     private const DairyFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/pie_oven2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/pie_oven.png", mimeType = "application/octet-stream")]
     private const PieOvenFabrica:Class;
     [Embed(source = "../../assets/animations/x1/juice_press.png", mimeType = "application/octet-stream")]
     private const JuicePressFabrica:Class;
     [Embed(source = "../../assets/animations/x1/loom.png", mimeType = "application/octet-stream")]
     private const LoomFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/pizza_maker2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/pizza_maker.png", mimeType = "application/octet-stream")]
     private const PizzaMakerFabrica:Class;
     [Embed(source = "../../assets/animations/x1/smelter.png", mimeType = "application/octet-stream")]
     private const SmelterFabrica:Class;
@@ -128,9 +124,6 @@ public class EmbedAssets {
     private function createTexture(onLoadCallback:Function):void {
         g.allData = new AllData();
 
-//        var texture:Texture = Texture.fromBitmap(new MapTexture());
-//        var xml:XML = XML(new MapTextureXML());
-//        g.allData.atlas['mapAtlas'] = new TextureAtlas(texture, xml);
         var texture:Texture = Texture.fromBitmap(new ResourceTexture());
         var xml:XML= XML(new ResourceTextureXML());
         g.allData.atlas['resourceAtlas'] = new TextureAtlas(texture, xml);

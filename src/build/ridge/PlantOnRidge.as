@@ -35,7 +35,7 @@ public class PlantOnRidge {
         armature = g.allData.factory[_data.url].buildArmature(_data.imageShop);
         _source.addChild(armature.display as Sprite);
         WorldClock.clock.add(armature);
-        _source.y = 35;
+        _source.y = 35 * g.scaleFactor;
 
         _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);
         _data.timeToStateGwoned = _data.buildTime -  _data.timeToGrow2 -  _data.timeToGrow3;
