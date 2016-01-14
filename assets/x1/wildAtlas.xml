@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:3c963ea35452124638d8c7ee0d70149b:4e4378145bc116913bcae9eaa8eac379:acd9378c26fec4c35b90314369efd81a$ -->
+<TextureAtlas imagePath="wildAtlas.png">
+    <SubTexture name="dry_log_1" x="2" y="526" width="81" height="74" frameX="-3" frameY="-1" frameWidth="88" frameHeight="75"/>
+    <SubTexture name="dry_log_2" x="2" y="702" width="72" height="56" frameX="-1" frameY="0" frameWidth="75" frameHeight="56"/>
+    <SubTexture name="fir_big" x="2" y="602" width="73" height="98"/>
+    <SubTexture name="fir_small" x="2" y="939" width="51" height="73"/>
+    <SubTexture name="oak_big" x="2" y="178" width="107" height="153"/>
+    <SubTexture name="oak_small" x="2" y="401" width="85" height="123"/>
+    <SubTexture name="stone_big_1" x="2" y="829" width="68" height="51"/>
+    <SubTexture name="stone_big_2" x="2" y="882" width="61" height="55"/>
+    <SubTexture name="stone_small_1" x="55" y="939" width="49" height="46"/>
+    <SubTexture name="stone_small_2" x="65" y="882" width="42" height="35"/>
+    <SubTexture name="stump" x="2" y="760" width="69" height="67" frameX="-4" frameY="-7" frameWidth="80" frameHeight="80"/>
+    <SubTexture name="swamp" x="2" y="333" width="103" height="66" frameX="-2" frameY="0" frameWidth="113" frameHeight="69"/>
+    <SubTexture name="wild_tree" x="2" y="2" width="108" height="174" frameX="0" frameY="0" frameWidth="108" frameHeight="177"/>
+</TextureAtlas>

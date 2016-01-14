@@ -91,7 +91,7 @@ public class MainStartWebStarling extends Sprite{
         ///// PART FOR GAME SCALE FACTOR  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // x2:: scaleFactor == 1
         // x1:: scaleFactor == .5
-        g.scaleFactor = .5;
+        g.scaleFactor = 1;
         g.realGameHeight *= g.scaleFactor;
         g.realGameWidth *= g.scaleFactor;
         g.realGameTilesHeight *= g.scaleFactor;

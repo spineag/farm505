@@ -20,13 +20,13 @@ public class EmbedAssets {
     private const InstrumentTexture:Class;
     [Embed(source="../../assets/resourceAtlas.png")]
     private const ResourceTexture:Class;
-    [Embed(source="../../assets/x2/wildAtlas.png")]
+    [Embed(source="../../assets/x1/wildAtlas.png")]
     private const WildTexture:Class;
-    [Embed(source="../../assets/x2/farmAtlas.png")]
+    [Embed(source="../../assets/x1/farmAtlas.png")]
     private const FarmTexture:Class;
-    [Embed(source="../../assets/x2/decorAtlas.png")]
+    [Embed(source="../../assets/x1/decorAtlas.png")]
     private const DecorTexture:Class;
-    [Embed(source="../../assets/x2/buildAtlas.png")]
+    [Embed(source="../../assets/x1/buildAtlas.png")]
     private const BuildTexture:Class;
     [Embed(source="../../assets/iconAtlas.png")]
     private const IconTexture:Class;
@@ -38,13 +38,13 @@ public class EmbedAssets {
     private const InstrumentTextureXML:Class;
     [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
     private const ResourceTextureXML:Class;
-    [Embed(source="../../assets/x2/wildAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/x1/wildAtlas.xml", mimeType="application/octet-stream")]
     private const WildTextureXML:Class;
-    [Embed(source="../../assets/x2/farmAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/x1/farmAtlas.xml", mimeType="application/octet-stream")]
     private const FarmTextureXML:Class;
-    [Embed(source="../../assets/x2/decorAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/x1/decorAtlas.xml", mimeType="application/octet-stream")]
     private const DecorTextureXML:Class;
-    [Embed(source="../../assets/x2/buildAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/x1/buildAtlas.xml", mimeType="application/octet-stream")]
     private const BuildTextureXML:Class;
     [Embed(source="../../assets/iconAtlas.xml", mimeType="application/octet-stream")]
     private const IconTextureXML:Class;
@@ -62,57 +62,57 @@ public class EmbedAssets {
     [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
     private const HouschkaBold:Class;
 
-    [Embed(source = "../../assets/animations/x2/cat.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/cat.png", mimeType = "application/octet-stream")]
     private const CatData:Class;
-    [Embed(source = "../../assets/animations/x2/cat_watering_can.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/cat_watering_can.png", mimeType = "application/octet-stream")]
     private const CatWateringData:Class;
-    [Embed(source = "../../assets/animations/x2/cat_feed.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/cat_feed.png", mimeType = "application/octet-stream")]
     private const CatFeedData:Class;
-    [Embed(source = "../../assets/animations/x2/buildingBuild.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/buildingBuild.png", mimeType = "application/octet-stream")]
     private const BuildingBuild:Class;
-    [Embed(source = "../../assets/animations/x2/trees.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/trees.png", mimeType = "application/octet-stream")]
     private const BuildingTrees:Class;
-    [Embed(source = "../../assets/animations/x2/plants.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/plants.png", mimeType = "application/octet-stream")]
     private const BuildingPlants:Class;
 
-    [Embed(source = "../../assets/animations/x2/beehive.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/beehive.png", mimeType = "application/octet-stream")]
     private const Beehive:Class;
-    [Embed(source = "../../assets/animations/x2/chicken.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/chicken.png", mimeType = "application/octet-stream")]
     private const Chicken:Class;
-    [Embed(source = "../../assets/animations/x2/cow.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/cow.png", mimeType = "application/octet-stream")]
     private const Cow:Class;
-    [Embed(source = "../../assets/animations/x2/pig.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/pig.png", mimeType = "application/octet-stream")]
     private const Pig:Class;
-    [Embed(source = "../../assets/animations/x2/sheep.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/sheep.png", mimeType = "application/octet-stream")]
     private const Sheep:Class;
 
-    [Embed(source = "../../assets/animations/x2/bakery.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/bakery.png", mimeType = "application/octet-stream")]
     private const BakeryFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/sugar_mill.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/sugar_mill.png", mimeType = "application/octet-stream")]
     private const SugarMillFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/feed_mill.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/feed_mill.png", mimeType = "application/octet-stream")]
     private const FeedMillFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/bbq_grill.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/bbq_grill.png", mimeType = "application/octet-stream")]
     private const BbqGrillFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/dairy.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/dairy.png", mimeType = "application/octet-stream")]
     private const DairyFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/pie_oven.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/pie_oven.png", mimeType = "application/octet-stream")]
     private const PieOvenFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/juice_press.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/juice_press.png", mimeType = "application/octet-stream")]
     private const JuicePressFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/loom.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/loom.png", mimeType = "application/octet-stream")]
     private const LoomFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/pizza_maker.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/pizza_maker.png", mimeType = "application/octet-stream")]
     private const PizzaMakerFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/smelter.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/smelter.png", mimeType = "application/octet-stream")]
     private const SmelterFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/smoke_house.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/smoke_house.png", mimeType = "application/octet-stream")]
     private const SmokeHouseFabrica:Class;
-    [Embed(source = "../../assets/animations/x2/mine.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/mine.png", mimeType = "application/octet-stream")]
     private const Cave:Class;
-    [Embed(source = "../../assets/animations/x2/wheel_of_fortune.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/wheel_of_fortune.png", mimeType = "application/octet-stream")]
     private const DailyBonus:Class;
-    [Embed(source = "../../assets/animations/x2/aerial_tram.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/aerial_tram.png", mimeType = "application/octet-stream")]
     private const AerialTram:Class;
 
     private var g:Vars = Vars.getInstance();
