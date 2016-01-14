@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:9a3f85db0add1c73613103c6b7286a0a:e930aaaf016868870d39309a41dbaf8d:8cd4caae4f70083015e4fa51cc2a58b3$ -->
+<TextureAtlas imagePath="buildAtlas.png">
+    <SubTexture name="ambar" x="788" y="446" width="248" height="488"/>
+    <SubTexture name="bazar" x="1038" y="446" width="338" height="404" frameX="0" frameY="-2" frameWidth="345" frameHeight="406"/>
+    <SubTexture name="paper" x="1267" y="2" width="139" height="239"/>
+    <SubTexture name="ridge" x="2" y="839" width="169" height="91" frameX="-2" frameY="0" frameWidth="172" frameHeight="92"/>
+    <SubTexture name="sklad" x="788" y="2" width="477" height="442" frameX="-1" frameY="-1" frameWidth="481" frameHeight="443"/>
+    <SubTexture name="zakaz" x="2" y="2" width="784" height="835"/>
+</TextureAtlas>
