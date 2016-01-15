@@ -114,6 +114,8 @@ public class EmbedAssets {
     private const DailyBonus:Class;
     [Embed(source = "../../assets/animations/x1/aerial_tram.png", mimeType = "application/octet-stream")]
     private const AerialTram:Class;
+    [Embed(source = "../../assets/animations/x1/orders.png", mimeType = "application/octet-stream")]
+    private const Orders:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -156,7 +158,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 25;
+        var count:int = 26;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -192,6 +194,7 @@ public class EmbedAssets {
         loadFactory('cave', Cave, checkCount);
         loadFactory('daily_bonus', DailyBonus, checkCount);
         loadFactory('train', AerialTram, checkCount);
+        loadFactory('order', Orders, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

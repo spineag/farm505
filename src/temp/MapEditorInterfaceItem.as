@@ -53,6 +53,7 @@ public class MapEditorInterfaceItem {
         // это условие только для включенного режима передвижения, нужно добавить и на остальные
         g.toolsModifier.modifierType = ToolsModifier.MOVE;
         var build:AreaObject = g.townArea.createNewBuild(_data);
+        g.selectedBuild = build;
         g.toolsModifier.startMove(build, afterMove);
     }
 
