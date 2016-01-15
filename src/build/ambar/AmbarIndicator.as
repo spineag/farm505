@@ -17,13 +17,15 @@ public class AmbarIndicator {
     private var g:Vars = Vars.getInstance();
 
     public function AmbarIndicator() {
+        _maxY *= g.scaleFactor;
+        _minY *= g.scaleFactor;
         source = new Sprite();
         _cont = new Sprite();
-        _cont.clipRect = new flash.geom.Rectangle(0, 0, 73, 271);
+        _cont.clipRect = new flash.geom.Rectangle(0, 0, 74*g.scaleFactor, 272*g.scaleFactor);
         source.addChild(_cont);
         imLenta = new Image(g.allData.atlas['buildAtlas'].getTexture('ambar_indicator_main' ));
         imLenta.pivotX = imLenta.width/2;
-        imLenta.x = 39;
+        imLenta.x = 39 * g.scaleFactor;
         _cont.addChild(imLenta);
         _cont.y = _maxY;
         imBant  = new Image(g.allData.atlas['buildAtlas'].getTexture('ambar_indicator_top'));

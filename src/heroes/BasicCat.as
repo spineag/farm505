@@ -25,6 +25,7 @@ public class BasicCat {
     protected var _depth:Number;
     protected var _source:CSprite;
     protected var _speedWalk:int = 2;
+    protected var _speedIdleWalk:int = 1;
     protected var _speedRun:int = 8;
     protected var _curSpeed:int;
     protected var _currentPath:Array;
@@ -95,6 +96,9 @@ public class BasicCat {
 
     public function walkAnimation():void {
         _curSpeed = _speedWalk;
+    }
+    public function walkIdleAnimation():void {
+        _curSpeed = _speedIdleWalk;
     }
     public function runAnimation():void {
         _curSpeed = _speedRun;

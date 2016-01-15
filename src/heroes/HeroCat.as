@@ -109,6 +109,12 @@ public class HeroCat extends BasicCat{
             armatureBack.animation.gotoAndPlay("walk");
             super.walkAnimation();
     }
+    override public function walkIdleAnimation():void {
+        heroEyes.startAnimations();
+        armature.animation.gotoAndPlay("walk");
+        armatureBack.animation.gotoAndPlay("walk");
+        super.walkIdleAnimation();
+    }
     override public function runAnimation():void {
             heroEyes.startAnimations();
             armature.animation.gotoAndPlay("run");

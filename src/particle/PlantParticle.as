@@ -60,7 +60,7 @@ internal class Particle {
         im.pivotY = im.height/2;
         _source.addChild(im);
         _source.y = -int(h/2*Math.random());
-        _source.x = -60 + int(Math.random()*120);
+        _source.x = int((-60 + Math.random()*120) * g.scaleFactor);
         _parent.addChild(_source);
         var time:Number = 2 + 2*Math.random();
         TweenMax.to(_source, time, {y: _source.y - int(h/2), rotation:360, onComplete:onFinish, ease:Linear.easeNone});

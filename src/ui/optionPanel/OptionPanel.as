@@ -44,7 +44,7 @@ public class OptionPanel {
     private var g:Vars = Vars.getInstance();
 
     public function OptionPanel() {
-        _arrCells = [.3, .5, 1, 1.25, 1.5];
+        _arrCells = [.5, .62, .8, 1, 1.25, 1.55];
         fillBtns();
     }
 
@@ -288,9 +288,10 @@ public class OptionPanel {
         var cont:Sprite = g.cont.gameCont;
         var s:Number = cont.scaleX;
         var oY:Number = g.matrixGrid.offsetY*s;
-        if (cont.y > -oY) cont.y = -oY;
-        if (cont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight)
-            cont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight;
+//        if (cont.y > -oY) cont.y = -oY;
+        if (cont.y > oY + g.cont.SHIFT_MAP_Y*s) cont.y = oY + g.cont.SHIFT_MAP_Y*s;
+        if (cont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            cont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
         if (cont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2)
             cont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2;
         if (cont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
@@ -324,9 +325,10 @@ public class OptionPanel {
         pNew.x = cont.x - p.x + g.stageWidth/2;
         pNew.y = cont.y - p.y + g.stageHeight/2;
         var oY:Number = g.matrixGrid.offsetY*s;
-        if (pNew.y > -oY + g.cont.SHIFT_MAP_Y*s) pNew.y = -oY + g.cont.SHIFT_MAP_Y*s;
-        if (pNew.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
-            pNew.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
+
+        if (pNew.y > oY + g.cont.SHIFT_MAP_Y*s) pNew.y = oY + g.cont.SHIFT_MAP_Y*s;
+        if (pNew.y < oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            pNew.y = oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
         if (pNew.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
             pNew.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
         if (pNew.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - g.cont.SHIFT_MAP_X*s)
@@ -346,6 +348,7 @@ public class OptionPanel {
         if (sendToServer) {
             g.directServer.saveUserGameScale(null);
         }
+        Cc.info('Game scale:: ' + s*100 + '%');
     }
 }
 }
