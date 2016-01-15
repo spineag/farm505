@@ -111,17 +111,17 @@ public class Farm extends AreaObject{
             if (_dataAnimal.id == 6) {
                 p = new Point();
                 if (_arrAnimals.length == 1) {
-                    p.x = 4;
-                    p.y = 125;
+                    p.x = 4 * g.scaleFactor;
+                    p.y = 125 * g.scaleFactor;
                 } else  if (_arrAnimals.length == 2) {
-                    p.x = 177;
-                    p.y = 208;
+                    p.x = 177 * g.scaleFactor;
+                    p.y = 208 * g.scaleFactor;
                 } else if (_arrAnimals.length == 3) {
-                    p.x = -165;
-                    p.y = 214;
+                    p.x = -165 * g.scaleFactor;
+                    p.y = 214 * g.scaleFactor;
                 } else {
-                    p.x = 7;
-                    p.y = 297;
+                    p.x = 7 * g.scaleFactor;
+                    p.y = 297 * g.scaleFactor;
                 }
             } else {
                 p = g.farmGrid.getRandomPoint();
