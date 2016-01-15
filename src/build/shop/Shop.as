@@ -48,7 +48,8 @@ public class Shop extends AreaObject{
                 } else return;
             } else {
                 onOut();
-                g.townArea.moveBuild(this);
+                if (g.isActiveMapEditor)
+                    g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);

@@ -65,12 +65,7 @@ public class Ridge extends AreaObject{
 
         _bgClicked = new CSprite();
         var tempSprite:Sprite = new Sprite();
-        var q:Quad = new Quad(120, 120, Color.BLACK);
-        q.rotation = Math.PI / 4;
-        q.alpha = 0;
-        q.y = -45;
-        tempSprite.addChild(q);
-        q = new Quad(120, 120, Color.BLACK);
+        var q:Quad = new Quad(120 * g.scaleFactor, 120 * g.scaleFactor, Color.BLACK);
         q.rotation = Math.PI / 4;
         q.alpha = 0;
         tempSprite.addChild(q);

@@ -23,7 +23,7 @@ public class PlantParticle {
 
     private function onEnterFrame():void {
         _counter++;
-        if (_counter >= 10) {
+        if (_counter >= 15) {
             _counter = 0;
             new Particle(_height, source);
         }
@@ -64,7 +64,7 @@ internal class Particle {
         _parent.addChild(_source);
         var time:Number = 2 + 2*Math.random();
         TweenMax.to(_source, time, {y: _source.y - int(h/2), rotation:360, onComplete:onFinish, ease:Linear.easeNone});
-        _source.scaleX = _source.scaleY = .5;
+        _source.scaleX = _source.scaleY = .5 * g.scaleFactor;
         var scaleT:Number = 1 + Math.random()/2;
         var alphaT:Number = .7 + Math.random()*.3;
         _source.alpha = .5;
