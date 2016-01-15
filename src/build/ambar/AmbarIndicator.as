@@ -25,7 +25,7 @@ public class AmbarIndicator {
         source.addChild(_cont);
         imLenta = new Image(g.allData.atlas['buildAtlas'].getTexture('ambar_indicator_main' ));
         imLenta.pivotX = imLenta.width/2;
-        imLenta.x = 38;
+        imLenta.x = 38 * g.scaleFactor;
         _cont.addChild(imLenta);
         _cont.y = _maxY;
         imBant  = new Image(g.allData.atlas['buildAtlas'].getTexture('ambar_indicator_top'));
