@@ -365,12 +365,12 @@ public class TownArea extends Sprite {
             point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
             worldObject.posX = point.x;
             worldObject.posY = point.y;
+            worldObject.source.x = int(_x);
+            worldObject.source.y = int(_y);
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
                 (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild, _x, _y);
                 (worldObject as Wild).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
             } else {
-                worldObject.source.x = int(_x);
-                worldObject.source.y = int(_y);
                 _cont.addChild(worldObject.source);
                 _cityObjects.push(worldObject);
                 worldObject.updateDepth();
@@ -397,10 +397,13 @@ public class TownArea extends Sprite {
             worldObject.posX = point.x;
             worldObject.posY = point.y;
         } else {
-            worldObject.source.x = int(_x) * g.scaleFactor;
-            worldObject.source.y = int(_y) * g.scaleFactor;
-            worldObject.posX = int(_x * g.scaleFactor);
-            worldObject.posY = int(_y * g.scaleFactor);
+            if (updateAfterMove) {
+                worldObject.posX = int(_x / g.scaleFactor);
+                worldObject.posY = int(_y / g.scaleFactor);
+            } else {
+                worldObject.source.x = int(_x) * g.scaleFactor;
+                worldObject.source.y = int(_y) * g.scaleFactor;
+            }
 
         }
         if (!updateAfterMove) _cityObjects.push(worldObject);
@@ -808,8 +811,8 @@ public class TownArea extends Sprite {
             worldObject.source.x = int(point.x);
             worldObject.source.y = int(point.y);
         } else {
-            worldObject.source.x = posX;
-            worldObject.source.y = posY;
+            worldObject.source.x =  int(posX * g.scaleFactor);
+            worldObject.source.y = int(posY * g.scaleFactor);
         }
 
         if (!_cont.contains(worldObject.source)) {

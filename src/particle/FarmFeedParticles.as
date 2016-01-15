@@ -3,6 +3,8 @@
  */
 package particle {
 
+import manager.Vars;
+
 import starling.display.Sprite;
 
 public class FarmFeedParticles {
@@ -10,14 +12,15 @@ public class FarmFeedParticles {
     private const MAX_COUNT:int = 8;
     private var _count:int;
     private var _callback:Function;
+    private var g:Vars = Vars.getInstance()
 
     public function FarmFeedParticles(callback:Function) {
         source = new Sprite();
         _callback = callback;
         var part:Particle;
         _count = MAX_COUNT;
-        var dX:int = 120 + 100*Math.random();
-        var dY:int = 120 + 100*Math.random();
+        var dX:int = (120 + 100*Math.random()) * g.scaleFactor;
+        var dY:int = (120 + 100*Math.random()) * g.scaleFactor;
         for (var i:int=0; i< MAX_COUNT; i++) {
             part = new Particle(1 + Math.random(), dX, dY, onFinishParticle);
             source.addChild(part.source);
@@ -51,12 +54,12 @@ internal class Particle {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('particle_yelow'));
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
-        im.scaleX = im.scaleY = .5;
+        im.scaleX = im.scaleY = .5 * g.scaleFactor;
         s.addChild(im);
         source.addChild(s);
 
-        var deltaX:int = -70 + 140*Math.random();
-        var deltaY:int = -40 + 60*Math.random();
+        var deltaX:int = (-70 + 140*Math.random()) * g.scaleFactor;
+        var deltaY:int = (-40 + 60*Math.random()) * g.scaleFactor;
         var arrValues:Array = new Array();
         var obj:Object = {};
         obj.x = (DISTANCE_X + deltaX)/3;
