@@ -28,8 +28,8 @@ public class Ambar extends AreaObject{
         }
         createBuild();
         _ambarIndicator = new AmbarIndicator();
-        _ambarIndicator.source.x = -36;
-        _ambarIndicator.source.y = -210;
+        _ambarIndicator.source.x = -36 * g.scaleFactor;
+        _ambarIndicator.source.y = -210 * g.scaleFactor;
         _build.addChild(_ambarIndicator.source);
 
         if (!g.isAway) {
