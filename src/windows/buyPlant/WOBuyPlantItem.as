@@ -114,6 +114,7 @@ public class WOBuyPlantItem {
 
     private function onHover():void {
         if (!_dataPlant) return;
+        source.filter = ManagerFilters.YELLOW_STROKE;
         if (_dataPlant) {
             g.resourceHint.hideIt();
             g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source, true);
@@ -122,6 +123,7 @@ public class WOBuyPlantItem {
 
     private function onOut():void {
         if (!_dataPlant) return;
+        source.filter = null;
         g.resourceHint.hideIt();
     }
 }

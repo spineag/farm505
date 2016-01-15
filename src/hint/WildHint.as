@@ -4,6 +4,8 @@
 package hint {
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 
 import manager.Vars;
@@ -12,6 +14,8 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import ui.xpPanel.XPStar;
 
 import utils.CSprite;
 import utils.MCScaler;
@@ -116,14 +120,17 @@ public class WildHint {
 
     private function onClick():void {
         onOut();
-        if (g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId) >= 0){
+        if (g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId) <= 0){
             g.woNoResources.showItMenu(g.dataResource.objectResources[_id],1,onClick);
         } else {
             g.userInventory.addResource(_id,-1);
-        }
-        if (_deleteCallback != null) {
-            _deleteCallback.apply();
-            _deleteCallback = null;
+//            var start:Point = new Point(int(_source.x), int(_source.y));
+//            start = _source.parent.localToGlobal(start);
+//            new XPStar(start.x,start.y,8);
+            if (_deleteCallback != null) {
+                _deleteCallback.apply();
+                _deleteCallback = null;
+            }
         }
     }
 

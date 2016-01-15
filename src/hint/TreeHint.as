@@ -11,6 +11,8 @@ import com.greensock.easing.Linear;
 
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 
 import manager.Vars;
@@ -22,6 +24,8 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import ui.xpPanel.XPStar;
 
 import utils.CSprite;
 
@@ -182,11 +186,20 @@ public class TreeHint {
 
     private function onClickDelete():void {
         onOut();
-        if (_deleteCallback != null) {
-            _deleteCallback.apply();
-            _deleteCallback = null;
+        if (g.userInventory.getCountResourceById(_data.removeByResourceId) <= 0){
+            g.woNoResources.showItMenu(_data.removeByResourceId,1,onClickDelete);
+        } else {
+            var start:Point = new Point(int(_source.x), int(_source.y));
+            start = _source.parent.localToGlobal(start);
+            new XPStar(start.x,start.y,8);
+            g.userInventory.addResource(_data.removeByResourceId,-1);
+            if (_deleteCallback != null) {
+                _deleteCallback.apply();
+                _deleteCallback = null;
+            }
+            _wateringCallback = null;
         }
-        _wateringCallback = null;
+
     }
 
     private function onClickWatering():void {
