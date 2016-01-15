@@ -166,7 +166,7 @@ public class ManagerCats {
                 }
             };
             var f1:Function = function (arr:Array):void {
-                cat.walkAnimation();
+                cat.walkIdleAnimation();
                 cat.goWithPath(arr, f2);
             };
             g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
