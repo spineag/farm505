@@ -29,8 +29,6 @@ public class WOFabricNumber {
         txt.x = 2;
         source.addChild(txt);
         source.flatten();
-//        source.x = -_woWidth / 2 + 220 + 1 * (42);
-//        source.y = -_woHeight / 2 + 117;
     }
 
     private function onHover():void {
@@ -40,6 +38,7 @@ public class WOFabricNumber {
     private function onOut():void {
         source.filter = null;
     }
+
 
 }
 }

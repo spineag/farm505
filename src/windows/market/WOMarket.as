@@ -122,6 +122,7 @@ public class WOMarket  extends Window {
 
     public function showItWithParams():void {
         createMarketTabBtns();
+        fillItems();
 //        for (var i:int = 0; i < g.user.marketItems.length; i++) {
 //            if (g.user.marketItems[i].numberCell == i) {
 //
@@ -131,14 +132,13 @@ public class WOMarket  extends Window {
         showIt();
     }
 
-    private function fillItemss():void {
-
-        for (var i:int = 0; i < g.user.marketItems.length; i++) {
-            if (g.user.marketItems[i].numberCell == i) {
-                _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser,i);
-            }
-        }
-    }
+//    private function fillItemss():void {
+//        for (var i:int = 0; i < g.user.marketItems.length; i++) {
+//            if (g.user.marketItems[i].numberCell == i) {
+//                _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser,i);
+//            }
+//        }
+//    }
     override public function hideIt():void {
 //        _friendsPanel.checkRemoveAdditionalUser();
         _panelBool = false;
@@ -202,10 +202,12 @@ public class WOMarket  extends Window {
 
     private function fillItems():void {
         try {
+            var n:int = 0;
             for (var i:int = 0; i < _arrItems.length; i++) {
                 if (_curUser.marketItems[i]) {
                     if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
-                    _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser,i);
+                    n = _curUser.marketItems[i].numberCell;
+                    _arrItems[n].fillFromServer(_curUser.marketItems[i], _curUser,n);
                 } else {
                     _arrItems[i].isUser = _curUser == g.user;
                 }
@@ -234,7 +236,7 @@ public class WOMarket  extends Window {
     public function addAdditionalUser(ob:Object):void {
         _curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
 //        _friendsPanel.addAdditionalUser(_curUser);
-        g.woMarket.refreshMarket();
+//        g.woMarket.refreshMarket();
     }
 
     public function createMarketTabBtns():void {

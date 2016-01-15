@@ -110,11 +110,6 @@ public class WOMarketChoose extends Window {
 //        _btnSell.filter = filter;
         _btnSell.clickCallback = onClickBtnSell;
 
-
-
-
-
-
         _checkBox = new MarketCheckBox();
         _checkBox.source.x = -180;
         _checkBox.source.y = 205;
@@ -233,9 +228,6 @@ public class WOMarketChoose extends Window {
         _scrollSprite.source.y = 107 - _woHeight/2;
         _source.addChild(_scrollSprite.source);
         _scrollSprite.createScoll(423, 0, 303, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
-
-
-
     }
 
     private function checkTypes():void {
@@ -317,17 +309,6 @@ public class WOMarketChoose extends Window {
 //        }
 //    }
 
-
-
-
-
-
-
-
-
-
-
-
     public function set callback(f:Function):void {
         _callback = f;
     }
@@ -368,7 +349,6 @@ public class WOMarketChoose extends Window {
 
     private function onCellClick(a:int):void {
         _curResourceId = a;
-        _scrollSprite.scrolleSource.filter = ManagerFilters.GREEN_STROKE;
         _btnSell.filter = null;
         _countResourceBlock.btnNull();
         _countMoneyBlock.btnNull();
@@ -460,6 +440,7 @@ public class WOMarketChoose extends Window {
     }
 
     private function onClickBtnSell():void {
+        g.woMarket.refreshMarket();
         if (_curResourceId > 0) {
             unfillItems();
             _scrollSprite.resetAll();
@@ -468,7 +449,6 @@ public class WOMarketChoose extends Window {
                 _callback.apply(null, [_curResourceId, _countResourceBlock.count, _countMoneyBlock.count, _checkBox.isChecked]);
                 _callback = null;
             }
-//            g.woMarket.refreshMarket();
             _countResourceBlock.count = 0;
             _countMoneyBlock.count = 0;
         }

@@ -39,9 +39,9 @@ public class MarketCell {
         _clickCallback = null;
         source = new CSprite();
         source.endClickCallback = onClick;
-        _ramka = new Quad(98, 98, Color.RED);
-        _ramka.x = 1;
-        _ramka.y = 1;
+        _ramka = new Quad(105, 105, Color.GREEN);
+        _ramka.x = -2;
+        _ramka.y = -2;
         source.addChild(_ramka);
         _ramka.visible =false;
         var s:CartonBackgroundIn = new CartonBackgroundIn(100, 100);
@@ -75,7 +75,7 @@ public class MarketCell {
             return;
         }
 
-        _countTxt = new TextField(30,20,'',g.allData.fonts['BloggerBold'],16, Color.WHITE);
+        _countTxt = new TextField(30,20,String(g.userInventory.getCountResourceById(_data.id)),g.allData.fonts['BloggerBold'],16, Color.WHITE);
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = 75;
         _countTxt.y = 77;

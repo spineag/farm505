@@ -109,7 +109,11 @@ public class MarketItem {
         isFill = 1;
         _data = data;
         if (_data) {
-            im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            if (_data.buildType == BuildType.PLANT) {
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+            } else {
+                im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            }
             if (!im) {
                 Cc.error('MarketItem fillIt:: no such image: ' + _data.imageShop);
                 g.woGameError.showIt();
@@ -147,7 +151,7 @@ public class MarketItem {
         if (isFill == 1) {
             if (_isUser) {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
-                    trace(_dataFromServer.numberCell)
+//                    trace(_dataFromServer.numberCell)
             } else {
                 var p:Point;
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
@@ -172,7 +176,7 @@ public class MarketItem {
                         return;
                     }
                 }
-                clearImageCont();
+//                clearImageCont();
                 g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
                 showFlyResource(d, _dataFromServer.resourceCount);
                 _inPapper.visible = false;
@@ -231,7 +235,7 @@ public class MarketItem {
             fillIt(g.dataResource.objectResources[a],count, cost);
             _inPapper.visible = inPapper;
             g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
-            g.woMarket.refreshMarket();
+//            g.woMarket.refreshMarket();
         }
     }
 
@@ -295,7 +299,6 @@ public class MarketItem {
         _person = p;
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
-        if (_dataFromServer.numberCell != _numberCell)return;
         _inPapper.visible = _dataFromServer.inPapper;
         if (_dataFromServer.buyerId != '0') {
             if (_person.userSocialId == g.user.userSocialId) {
