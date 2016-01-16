@@ -10,6 +10,10 @@ import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 
+import flash.geom.Point;
+
+import hint.FlyMessage;
+
 import manager.ManagerFilters;
 
 
@@ -94,6 +98,9 @@ public class Order extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
+            if (g.user.level <= 1) {
+                new FlyMessage(new Point(_source.x, _source.y - 100),"Откройте соседние территории");
+            }
             _source.filter = null;
             g.woOrder.showIt();
             g.hint.hideIt();

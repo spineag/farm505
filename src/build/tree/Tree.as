@@ -92,7 +92,7 @@ public class Tree extends AreaObject{
     }
 
     public function showShopView():void {
-        armature.animation.gotoAndStop("big", 0);
+        armature.animation.gotoAndStop("small", 0);
     }
 
     public function removeShopView():void {
