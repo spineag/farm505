@@ -6,6 +6,9 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
+
+import manager.ManagerFilters;
+
 import mouse.ToolsModifier;
 
 import particle.FarmFeedParticles;
@@ -75,7 +78,7 @@ public class Farm extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            releaseFlip();
+            //releaseFlip();
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             // ничего не делаем
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
@@ -218,6 +221,34 @@ public class Farm extends AreaObject{
         particles.source.y = p.y;
         if (!isFromLeftSide) particles.source.scaleX = -1;
         tempCont.addChild(particles.source);
+    }
+
+    public function onActivateMoveModifier(v:Boolean):void {
+        var i:int;
+        if (v) {
+            for (i=0; i<_arrAnimals.length; i++) {
+                _arrAnimals[i].source.isTouchable = false;
+            }
+            _source.hoverCallback = onHover;
+            _source.outCallback = onOut;
+        } else {
+            for (i=0; i<_arrAnimals.length; i++) {
+                _arrAnimals[i].source.isTouchable = true;
+            }
+            _source.hoverCallback = null;
+            _source.outCallback = null;
+        }
+    }
+
+    private function onHover():void {
+        if (g.selectedBuild) return;
+        if (g.isActiveMapEditor) return;
+        _source.filter = ManagerFilters.BUILD_STROKE;
+    }
+
+    private function onOut():void {
+        if (g.isActiveMapEditor) return;
+        _source.filter = null;
     }
 
 }

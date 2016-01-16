@@ -590,6 +590,7 @@ public class TownArea extends Sprite {
         }
     }
 
+
     private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
         pasteBuild(build, _x, _y, false, true);
         g.selectedBuild = null;
@@ -944,6 +945,37 @@ public class TownArea extends Sprite {
                 if (_cityObjects[i] is LockedLand) {
                     (_cityObjects[i] as LockedLand).onCloseMapEditor();
                 }
+            }
+        }
+    }
+
+    public function onActivateMoveModifier(v:Boolean):void {
+        for (var i:int=0; i<_cityObjects.length; i++) {
+            if (_cityObjects[i] is Order || _cityObjects[i] is Wild) {
+                v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
+                _cityObjects[i].source.isTouchable = v;
+            }
+            if (_cityObjects[i] is Farm) {
+                (_cityObjects[i] as Farm).onActivateMoveModifier(v);
+            }
+        }
+    }
+
+    public function onActivateRotateModifier(v:Boolean):void {
+        for (var i:int=0; i<_cityObjects.length; i++) {
+            if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is Farm || _cityObjects[i] is Ridge) {
+                v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
+                _cityObjects[i].source.isTouchable = v;
+            }
+        }
+    }
+
+    public function onActivateInventoryModifier(v:Boolean):void {
+        for (var i:int=0; i<_cityObjects.length; i++) {
+            if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is Farm || _cityObjects[i] is Ridge ||
+                _cityObjects[i] is Fabrica || _cityObjects[i] is Tree || _cityObjects[i] is Ambar || _cityObjects[i] is Sklad) {
+                v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
+                _cityObjects[i].source.isTouchable = v;
             }
         }
     }

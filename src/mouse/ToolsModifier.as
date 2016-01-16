@@ -76,7 +76,22 @@ public class ToolsModifier {
         if (_modifierType == PLANT_SEED || _modifierType == PLANT_SEED_ACTIVE) {
             g.managerPlantRidge.lockAllFillRidge(false); // unlock all not empty ridges
         }
+        if (_modifierType == MOVE) {
+            g.townArea.onActivateMoveModifier(false);
+        } else if (_modifierType == FLIP) {
+            g.townArea.onActivateRotateModifier(false);
+        } else if (_modifierType == INVENTORY) {
+            g.townArea.onActivateInventoryModifier(false);
+        }
+
         _modifierType = a;
+        if (_modifierType == MOVE) {
+            g.townArea.onActivateMoveModifier(true);
+        } else if (_modifierType == FLIP) {
+            g.townArea.onActivateRotateModifier(true);
+        } else if (_modifierType == INVENTORY) {
+            g.townArea.onActivateInventoryModifier(true);
+        }
         checkMouseIcon();
         if (_modifierType == PLANT_SEED || _modifierType == PLANT_SEED_ACTIVE) {
             g.managerPlantRidge.lockAllFillRidge(true);  // lock all not empty ridges
