@@ -301,23 +301,29 @@ public class Tree extends AreaObject{
         if (g.isActiveMapEditor) return;
         _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
-        _count = 20;
-        _countMouse = 2;
-        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+        if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            _count = 20;
+            _countMouse = 2;
+            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+        } else{
             g.mouseHint.hideIt();
         }
     }
 
     private function onOut():void {
         if (g.isActiveMapEditor) return;
+        if (g.selectedBuild) return;
         _source.filter = null;
         _isOnHover = false;
         g.timerHint.hideIt();
         g.treeHint.hideIt();
-//        g.mouseHint.hideIt();
-        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-        if (!_isOnHover) g.treeHint.hideIt();
+        if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            _count = 20;
+            _countMouse = 2;
+            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+        } else{
+            g.mouseHint.hideIt();
+        }
 
     }
 

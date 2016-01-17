@@ -78,7 +78,8 @@ public class Farm extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            //releaseFlip();
+            releaseFlip();
+            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             // ничего не делаем
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
@@ -227,13 +228,13 @@ public class Farm extends AreaObject{
         var i:int;
         if (v) {
             for (i=0; i<_arrAnimals.length; i++) {
-                _arrAnimals[i].source.isTouchable = false;
+                (_arrAnimals[i] as Animal).source.isTouchable = false;
             }
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         } else {
             for (i=0; i<_arrAnimals.length; i++) {
-                _arrAnimals[i].source.isTouchable = true;
+                (_arrAnimals[i] as Animal).source.isTouchable = true;
             }
             _source.hoverCallback = null;
             _source.outCallback = null;

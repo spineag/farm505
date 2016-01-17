@@ -151,7 +151,8 @@ public class Ridge extends AreaObject{
             g.toolsModifier.activatePlantState = false;
             g.managerPlantRidge.checkFreeRidges();
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            releaseFlip();
+            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {

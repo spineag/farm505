@@ -153,11 +153,9 @@ public class CSprite extends Sprite {
     public function set isTouchable(value:Boolean):void {
         this.touchable = value;
         if (value) {
-            if(!this.hasEventListener(TouchEvent.TOUCH))
-                this.addEventListener(TouchEvent.TOUCH, onTouch);
+            this.addEventListener(TouchEvent.TOUCH, onTouch);
         } else {
-            if(this.hasEventListener(TouchEvent.TOUCH))
-                this.removeEventListener(TouchEvent.TOUCH, onTouch);
+            this.removeEventListener(TouchEvent.TOUCH, onTouch);
         }
     }
 

@@ -37,6 +37,8 @@ import starling.display.Sprite;
 
 import user.Someone;
 
+import utils.CSprite;
+
 
 public class TownArea extends Sprite {
     private var _cityObjects:Array;
@@ -953,7 +955,7 @@ public class TownArea extends Sprite {
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild) {
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
-                _cityObjects[i].source.isTouchable = v;
+                (_cityObjects[i].source as CSprite).isTouchable = !v;
             }
             if (_cityObjects[i] is Farm) {
                 (_cityObjects[i] as Farm).onActivateMoveModifier(v);
@@ -963,20 +965,27 @@ public class TownArea extends Sprite {
 
     public function onActivateRotateModifier(v:Boolean):void {
         for (var i:int=0; i<_cityObjects.length; i++) {
-            if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is Farm || _cityObjects[i] is Ridge) {
+            if (_cityObjects[i] is Order || _cityObjects[i] is Wild) {
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
-                _cityObjects[i].source.isTouchable = v;
+                (_cityObjects[i].source as CSprite).isTouchable = !v;
+            }
+            if (_cityObjects[i] is Farm) {
+                (_cityObjects[i] as Farm).onActivateMoveModifier(v);
             }
         }
     }
 
     public function onActivateInventoryModifier(v:Boolean):void {
         for (var i:int=0; i<_cityObjects.length; i++) {
-            if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is Farm || _cityObjects[i] is Ridge ||
+            if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is Ridge || _cityObjects[i] is Farm ||
                 _cityObjects[i] is Fabrica || _cityObjects[i] is Tree || _cityObjects[i] is Ambar || _cityObjects[i] is Sklad) {
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
-                _cityObjects[i].source.isTouchable = v;
+                (_cityObjects[i].source as CSprite).isTouchable = !v;
             }
+//            if (_cityObjects[i] is Farm) {
+//                v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
+//                (_cityObjects[i] as Farm).onActivateMoveModifier(v);
+//            }
         }
     }
 }
