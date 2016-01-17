@@ -148,7 +148,8 @@ public class Fabrica extends AreaObject {
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
                 if (_source.wasGameContMoved) return;
                 if (_arrCrafted.length) {
-                    (_arrCrafted.pop() as CraftItem).flyIt();
+                    var item:CraftItem = _arrCrafted.pop();
+                    item.flyIt();
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
                     g.cont.moveCenterToXY(_source.x, _source.y);
@@ -314,9 +315,10 @@ public class Fabrica extends AreaObject {
         var f1:Function = function():void {
             if (g.useDataFromServer) g.managerFabricaRecipe.onCraft(item);
         };
-        var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, f1);
+        var craftItem:CraftItem = new CraftItem(0, 135*g.scaleFactor, item, _craftSprite, countResources, f1);
         _arrCrafted.push(craftItem);
         craftItem.removeDefaultCallbacks();
+        craftItem.addParticle();
         if (!_arrList.length && _heroCat) {
             _heroCat.visible = true;
             _heroCat.isFree = true;

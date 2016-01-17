@@ -461,6 +461,7 @@ public class Vars {
         gameDispatcher.addEnterFrame(onEnterFrameGlobal);
         updateAmbarIndicator();
         townArea.zSort();
+        bottomPanel.checkIsFullOrder();
     }
 
     private function onEnterFrameGlobal():void {

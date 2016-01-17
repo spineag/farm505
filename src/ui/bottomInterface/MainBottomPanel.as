@@ -33,6 +33,7 @@ public class MainBottomPanel {
     private var _doorBtn:CButton;
     private var _orderBtn:CButton;
     private var _ambarBtn:CButton;
+    private var _checkImage:Image;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -104,6 +105,12 @@ public class MainBottomPanel {
         _orderBtn.x = 192 + _orderBtn.width/2;
         _orderBtn.y = 8 + _orderBtn.height/2;
         _source.addChild(_orderBtn);
+        _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _checkImage.touchable = false;
+        _checkImage.x = 18;
+        _checkImage.y = 20;
+        _orderBtn.addChild(_checkImage);
+        _checkImage.visible = false;
         _orderBtn.hoverCallback = function():void { g.hint.showIt("Заказы"); };
         _orderBtn.outCallback = function():void { g.hint.hideIt(); };
         _orderBtn.clickCallback = function():void {onClick('order')};
@@ -250,6 +257,10 @@ public class MainBottomPanel {
         _orderBtn.visible = !b;
         _toolsBtn.visible = !b;
         _cancelBtn.visible = false;
+    }
+
+    public function checkIsFullOrder():void {
+        _checkImage.visible = g.managerOrder.chekIsAnyFullOrder();
     }
 }
 }

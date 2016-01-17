@@ -245,6 +245,7 @@ public class WOOrder extends Window{
         }
         _waitForAnswer = true;
         g.managerOrder.sellOrder(_curOrder, afterSell);
+        g.bottomPanel.checkIsFullOrder();
     }
 
     private function afterSell():void {
@@ -252,6 +253,7 @@ public class WOOrder extends Window{
         if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
             updateIt();
         }
+        g.bottomPanel.checkIsFullOrder();
     }
 
     private function createTopCats():void {

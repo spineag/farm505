@@ -314,5 +314,24 @@ public class ManagerOrder {
             addNewOrders(1, 0, f1);
         }
     }
+
+    public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
+        var b:Boolean;
+        var k:int;
+        var order:Object;
+        for (var i:int=0; i<_arrOrders.length; i++) {
+            order = _arrOrders[i];
+            b = true;
+            for (k=0; k<order.resourceIds.length; k++) {
+                if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+                    b = false;
+                    break;
+                }
+            }
+            if (b) return true;
+        }
+
+        return false;
+    }
 }
 }

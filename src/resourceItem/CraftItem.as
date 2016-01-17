@@ -15,6 +15,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import particle.CraftItemParticle;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
@@ -33,6 +35,7 @@ public class CraftItem {
     private var _callback:Function;
     private var _count:int;
     private var _txtNumber:TextField;
+    private var _particle:CraftItemParticle;
 
     private var g:Vars = Vars.getInstance();
 
@@ -55,10 +58,10 @@ public class CraftItem {
             g.woGameError.showIt();
             return;
         }
-        MCScaler.scale(_image, 100, 100);
+        MCScaler.scale(_image, 100*g.scaleFactor, 100*g.scaleFactor);
+        _image.x = -_image.width/2;
+        _image.y = -_image.height/2;
         _source.addChild(_image);
-        _source.pivotX = _source.width/2;
-        _source.pivotY = _source.height/2;
         _source.x = _x + int(Math.random()*30) - 15;
         _source.y = _y + int(Math.random()*30) - 15;
         parent.addChild(_source);
@@ -69,17 +72,17 @@ public class CraftItem {
         }
         _txtNumber = new TextField(50,50,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
         _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtNumber.x = 15;
-        _txtNumber.y = 25;
+        _txtNumber.x = -5;
+        _txtNumber.y = 5;
         _source.addChild(_txtNumber);
     }
 
     private function onHover():void {
-        _source.filter = BlurFilter.createGlow(Color.BLUE, 10, 2, 1);
+        _image.filter = ManagerFilters.YELLOW_STROKE;
     }
 
     private function onOut():void {
-        _source.filter = null;
+        _image.filter = null;
     }
 
     public function removeDefaultCallbacks():void {
@@ -98,6 +101,8 @@ public class CraftItem {
     }
 
     public function flyIt():void {
+        _image.filter = null;
+        deleteParticle();
         if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + _count > g.user.ambarMaxCount) {
 //            g.flyMessage.showIt(_source,"Амбар заполнен");
             g.woAmbarFilled.showAmbarFilled(true);
@@ -168,5 +173,18 @@ public class CraftItem {
             _txtNumber.text = '';
         }
     }
+
+    public function addParticle():void {
+        if (_particle) return;
+        _particle = new CraftItemParticle(_source);
+    }
+
+    public function deleteParticle():void {
+        if (_particle) {
+            _particle.deleteIt();
+            _particle = null;
+        }
+    }
+
 }
 }

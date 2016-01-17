@@ -283,24 +283,28 @@ public class Cave extends AreaObject{
                     item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[0]]);
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
+                    craftItem.addParticle();
                     _arrCraftItems.push(craftItem);
                 } else if (r < l2) {
                     item = new ResourceItem();
                     item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[1]]);
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
+                    craftItem.addParticle();
                     _arrCraftItems.push(craftItem);
                 } else if (r < l3) {
                     item = new ResourceItem();
                     item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[2]]);
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
+                    craftItem.addParticle();
                     _arrCraftItems.push(craftItem);
                 } else {
                     item = new ResourceItem();
                     item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[3]]);
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
+                    craftItem.addParticle();
                     _arrCraftItems.push(craftItem);
                 }
             }

@@ -62,6 +62,7 @@ public class UserInventory {
             g.updateAmbarIndicator();
             g.directServer.addUserResource(id, count, null);
         }
+        if (needSendToServer) g.bottomPanel.checkIsFullOrder();
     }
 
     public function getResourcesForAmbar():Array {

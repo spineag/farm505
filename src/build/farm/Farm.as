@@ -30,28 +30,15 @@ public class Farm extends AreaObject{
             g.woGameError.showIt();
             return;
         }
+        setDataAnimal();
         createBuild();
 
         _dataBuild.isFlip = _flip;
         _source.endClickCallback = onClick;
-
         _source.releaseContDrag = true;
 
         _contAnimals = new Sprite();
         source.addChild(_contAnimals);
-
-        _craftSprite = new Sprite();
-        _craftSprite.y = 160;
-        _source.addChild(_craftSprite);
-
-        _arrAnimals = [];
-
-        setDataAnimal();
-        if (!g.isAway) {
-            if (_dataAnimal.id != 6) {
-                g.gameDispatcher.addEnterFrame(sortAnimals);
-            }
-        }
 
         if (_dataAnimal.id != 6) {
             try {
@@ -64,6 +51,21 @@ public class Farm extends AreaObject{
                 Cc.error('Farm:: no image: ' + _data.image + '2');
             }
         }
+
+        _craftSprite = new Sprite();
+        _craftSprite.y = 320*g.scaleFactor;
+        _source.addChild(_craftSprite);
+
+        _arrAnimals = [];
+
+
+        if (!g.isAway) {
+            if (_dataAnimal.id != 6) {
+                g.gameDispatcher.addEnterFrame(sortAnimals);
+            }
+        }
+
+
     }
 
     private function onClick():void {

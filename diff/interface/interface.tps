@@ -295,6 +295,7 @@
             <filename>hint_arrow.png</filename>
             <filename>coupons_icon.png</filename>
             <filename>plawka7.png</filename>
+            <filename>product_particle.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
