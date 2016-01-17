@@ -15,6 +15,7 @@ import starling.utils.HAlign;
 
 import utils.CButton;
 import utils.MCScaler;
+import utils.TimeUtils;
 
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
@@ -278,14 +279,14 @@ public class WOTrain extends Window {
                 g.woTrainOrder.showItWO(list, counter);
             }
             _counter = counter;
-            _txtCounter.text = String(_counter);
+            _txtCounter.text = TimeUtils.convertSecondsToStringClassic(_counter);
             g.gameDispatcher.addToTimer(checkCounter);
         }
     }
 
     private function checkCounter():void {
         _counter--;
-        _txtCounter.text = String(_counter);
+        _txtCounter.text = TimeUtils.convertSecondsToStringClassic(_counter);
     }
 
     private function addItems():void {

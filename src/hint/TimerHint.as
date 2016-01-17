@@ -63,14 +63,16 @@ public class TimerHint {
         _txtCost.y = -5;
         _txtTimer = new TextField(50,30,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtTimer.x = -70;
+        _txtTimer.y = -58;
         _txtName = new TextField(176,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -88;
         _txtName.y = -130;
         _txtText = new TextField(80,40,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE);
         _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));
-        _imageClock.y = -90;
-        _imageClock.x = -60;
+        _imageClock.y = -93;
+        _imageClock.x = -63;
         _btn = new CButton();
         _btn.addButtonTexture(77, 45, CButton.GREEN, true);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
@@ -85,10 +87,6 @@ public class TimerHint {
         source.addChild(_txtName);
         source.addChild(_imageClock);
         source.addChild(_txtText);
-//        source.pivotX = source.width/2;
-//        source.pivotY = source.height;
-        _txtTimer.x = -70;
-        _txtTimer.y = -60;
         source.addChild(_txtTimer);
         var quad:Quad = new Quad(_bg.width, _bg.height+45,Color.WHITE ,false);
         quad.alpha = 0;
@@ -114,7 +112,7 @@ public class TimerHint {
         source.x = x;// + 115;
         source.y = y;//+ 150;
         _timer = timer;
-        _txtTimer.text = String(_timer);
+        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
         _txtCost.text = String(cost);
         _txtName.text = name;
         g.cont.hintContUnder.addChild(source);
@@ -149,7 +147,7 @@ public class TimerHint {
 
     private function onTimer():void {
         _timer --;
-        _txtTimer.text = String(_timer);
+        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
         if(_timer <=0){
             hideIt();
         }
