@@ -78,7 +78,7 @@ public class WildHint {
             return;
         }
         _txtName.text = name;
-        _txtCount.text = String(g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId));
+        _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _txtCount.x = +_bgItem.width/2 -28;
@@ -120,13 +120,13 @@ public class WildHint {
 
     private function onClick():void {
         onOut();
-        if (g.userInventory.getCountResourceById(g.dataResource.objectResources.removeByResourceId) <= 0){
+        if (g.userInventory.getCountResourceById(_id) <= 0){
             g.woNoResources.showItMenu(g.dataResource.objectResources[_id],1,onClick);
         } else {
             g.userInventory.addResource(_id,-1);
 //            var start:Point = new Point(int(_source.x), int(_source.y));
 //            start = _source.parent.localToGlobal(start);
-//            new XPStar(start.x,start.y,8);
+            new XPStar(_source.x,_source.y,8);
             if (_deleteCallback != null) {
                 _deleteCallback.apply();
                 _deleteCallback = null;

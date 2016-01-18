@@ -28,6 +28,7 @@ public class WOOrderItem {
     private var _coinsImage:Image;
     private var _delImage:Image;
     private var _position:int;
+    private var _check:Image;
 
     private var g:Vars = Vars.getInstance();
     public function WOOrderItem() {
@@ -75,6 +76,9 @@ public class WOOrderItem {
         source.addChild(_txtCoins);
 
         source.visible = false;
+        _check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _check.visible = false;
+        source.addChild(_check);
     }
 
     public function activateIt(v:Boolean):void {
@@ -89,13 +93,15 @@ public class WOOrderItem {
         return _position;
     }
 
-    public function fillIt(order:Object, position:int, f:Function):void {
+    public function fillIt(order:Object, position:int, f:Function, b:Boolean = false):void {
         _position = position;
         _order = order;
         _txtName.text = _order.catName;
         _txtXP.text = String(_order.xp);
         _txtCoins.text = String(_order.coins);
         source.visible = true;
+        if (b) _check.visible = true;
+        else _check.visible = false;
         var f1:Function = function():void {
             if (f != null) {
                 f.apply(null, [position]);
@@ -121,6 +127,7 @@ public class WOOrderItem {
             _starImage.visible = true;
             _delImage.visible = false;
         }
+//        _check.visible = g.managerOrder.chekIsAnyFullOrder();
     }
 
     public function clearIt():void {
@@ -130,6 +137,7 @@ public class WOOrderItem {
         _txtName.text = '';
         _txtCoins.text = '';
         source.visible = false;
+        _check.visible = false;
         g.gameDispatcher.removeFromTimer(renderLeftTime);
     }
 
@@ -154,7 +162,7 @@ public class WOOrderItem {
     public function onSkipTimer():void {
         _leftSeconds = 0;
         g.directServer.skipOrderTimer(_order.dbId, null);
+        _check.visible = false;
     }
-
 }
 }

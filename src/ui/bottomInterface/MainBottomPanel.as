@@ -2,6 +2,10 @@
  * Created by user on 6/24/15.
  */
 package ui.bottomInterface {
+import com.junkbyte.console.Cc;
+
+import flash.display.Bitmap;
+
 import manager.ManagerFilters;
 import manager.Vars;
 
@@ -15,17 +19,24 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
+
+import user.NeighborBot;
+
+import user.Someone;
 
 import utils.CButton;
 
 import utils.CSprite;
+import utils.MCScaler;
 
 import windows.WOComponents.HorizontalPlawka;
 import windows.ambar.WOAmbars;
 
 public class MainBottomPanel {
     private var _source:Sprite;
+    private var _friendBoard:Sprite;
     private var _shopBtn:CButton;
     private var _toolsBtn:CButton;
     private var _optionBtn:CSprite;
@@ -34,11 +45,15 @@ public class MainBottomPanel {
     private var _orderBtn:CButton;
     private var _ambarBtn:CButton;
     private var _checkImage:Image;
+    private var _person:Someone;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
         _source = new Sprite();
         onResize();
+        _friendBoard = new Sprite();
+        _friendBoard.x = Starling.current.nativeStage.stageWidth/2 - 40;
+        g.cont.interfaceCont.addChild(_friendBoard);
         g.cont.interfaceCont.addChild(_source);
         var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 260);
@@ -148,7 +163,7 @@ public class MainBottomPanel {
         _doorBtn.x = 0 + _doorBtn.width/2;
         _doorBtn.y = 2 + _doorBtn.height/2;
         _source.addChild(_doorBtn);
-        _doorBtn.hoverCallback = function():void { g.hint.showIt("Домой") };
+        _doorBtn.hoverCallback = function():void { g.hint.showIt("Вернутся домой") };
         _doorBtn.outCallback = function():void { g.hint.hideIt() };
         _doorBtn.clickCallback = function():void {onClick('door')};
         _doorBtn.visible = false;
@@ -250,17 +265,71 @@ public class MainBottomPanel {
         _toolsBtn.visible = !b;
     }
 
-    public function doorBoolean(b:Boolean):void {
+    public function doorBoolean(b:Boolean,person:Someone = null):void {
+        _person = person;
         _doorBtn.visible = b;
         _shopBtn.visible = !b;
         _ambarBtn.visible = !b;
         _orderBtn.visible = !b;
         _toolsBtn.visible = !b;
         _cancelBtn.visible = false;
+        if(b) friendBoard();
+        else {
+            while (_friendBoard.numChildren) {
+                _friendBoard.removeChildAt(0);
+            }
+        }
     }
 
     public function checkIsFullOrder():void {
         _checkImage.visible = g.managerOrder.chekIsAnyFullOrder();
+    }
+
+    private function friendBoard():void {
+        var im:Image;
+        var txt:TextField;
+        if (_person is NeighborBot) {
+            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
+        } else {
+            if (_person.photo) {
+                g.load.loadImage(_person.photo, onLoadPhoto);
+            }
+    }
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
+        _friendBoard.addChild(im);
+        txt = new TextField(150,40,_person.name,g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BROWN);
+        txt.x = 70;
+        txt.y = 20;
+        _friendBoard.addChild(txt);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
+        im.x = 60;
+        im.y = 60;
+        MCScaler.scale(im,30,30);
+        _friendBoard.addChild(im);
+        txt = new TextField(30,30,String(_person.level),g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt.x = 58;
+        txt.y = 57;
+        _friendBoard.addChild(txt);
+    }
+
+    private function onLoadPhoto(bitmap:Bitmap):void {
+        if (!bitmap) {
+            bitmap = g.pBitmaps[_person.photo].create() as Bitmap;
+        }
+        if (!bitmap) {
+            Cc.error('FriendItem:: no photo for userId: ' + _person.userSocialId);
+            return;
+        }
+        photoFromTexture(Texture.fromBitmap(bitmap));
+    }
+
+    private function photoFromTexture(tex:Texture):void {
+        var im:Image = new Image(tex);
+        MCScaler.scale(im,68,68);
+        im.x = 10;
+        im.y = 9;
+        _friendBoard.addChild(im);
     }
 }
 }

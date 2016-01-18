@@ -248,7 +248,13 @@ public class WONoResources extends Window {
             g.woBuyCurrency.showItMenu(true);
             return;
         }
-        if (_dataResource.buildType == BuildType.PLANT) {
+        if (_dataResource.buildType == BuildType.INSTRUMENT) {
+            g.userInventory.addResource(_dataResource.id,1);
+            if (_callbackBuy != null) {
+                _callbackBuy.apply(null);
+                _callbackBuy = null;
+            }
+        } else if (_dataResource.buildType == BuildType.PLANT) {
             g.userInventory.addResource(_dataResource.id,1);
 
             if (_callbackBuy != null) {

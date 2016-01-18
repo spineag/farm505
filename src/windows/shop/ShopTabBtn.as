@@ -36,6 +36,8 @@ public class ShopTabBtn {
         create(type, source, null);
         create(type, cloneSource, f);
         cloneSource.filter = ManagerFilters.SHADOW;
+        cloneSource.hoverCallback = onHover;
+        cloneSource.outCallback = onOut;
     }
 
     private function create(type:int, parent:CSprite, callback:Function):void {
@@ -86,6 +88,15 @@ public class ShopTabBtn {
         source.y = y;
         cloneSource.x = dX + x;
         cloneSource.y = dY + y + 7;
+    }
+
+    private function onHover():void {
+        cloneSource.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+    }
+
+    private function onOut():void {
+        cloneSource.filter = null;
+        cloneSource.filter = ManagerFilters.SHADOW;
     }
 }
 }

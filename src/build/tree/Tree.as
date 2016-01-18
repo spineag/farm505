@@ -517,7 +517,7 @@ public class Tree extends AreaObject{
                 }
             }
             if (_isOnHover == false) {
-                _source.filter = null;
+//                _source.filter = null;
                 g.mouseHint.hideIt();
                 g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             }

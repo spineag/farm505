@@ -695,7 +695,7 @@ public class TownArea extends Sprite {
             clearAwayCity();
         }
         g.isAway = true;
-        g.bottomPanel.doorBoolean(true);
+        g.bottomPanel.doorBoolean(true,p);
         for (i=0; i<p.userDataCity.objects.length; i++) {
             createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, p.userDataCity.objects[i].dbId, p.userDataCity.objects[i].isFlip);
         }

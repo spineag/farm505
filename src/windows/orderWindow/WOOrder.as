@@ -138,7 +138,7 @@ public class WOOrder extends Window{
         _rightBlock.addChild(im);
         _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtXP.x = 528;
+        _txtXP.x = 523;
         _txtXP.y = 418;
         _rightBlock.addChild(_txtXP);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
@@ -149,7 +149,7 @@ public class WOOrder extends Window{
         _rightBlock.addChild(im);
         _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtCoins.x = 610;
+        _txtCoins.x = 600;
         _txtCoins.y = 418;
         _rightBlock.addChild(_txtCoins);
         _btnDeleteOrder = new CSprite();
@@ -160,6 +160,8 @@ public class WOOrder extends Window{
         _btnDeleteOrder.y = 414;
         _rightBlock.addChild(_btnDeleteOrder);
         _btnDeleteOrder.endClickCallback = deleteOrder;
+        _btnDeleteOrder.hoverCallback = function():void { _btnDeleteOrder.filter = ManagerFilters.BUTTON_HOVER_FILTER; };
+        _btnDeleteOrder.outCallback = function():void { _btnDeleteOrder.filter = null; };
     }
 
     private function createItems():void {
@@ -168,12 +170,18 @@ public class WOOrder extends Window{
         for (var i:int=0; i<9; i++) {
             item = new WOOrderItem();
             item.source.x = -382 + 40 + (i%3)*120;
-            item.source.y = -285 + 178 + int(i/3)*94;
+            item.source.y = -285 + 185 + int(i/3)*94;
             _source.addChild(item.source);
             _arrItems.push(item);
         }
     }
+    private function checkFull():void {
+        for (var i:int = 0; i < _curOrder.resourceIds.length; i++) {
+            if (_arrResourceItems[i].isChecked()) {
 
+            }
+        }
+    }
     private function createButtonCell():void {
         _btnCell = new CButton();
         _btnCell.addButtonTexture(120, 40, CButton.GREEN, true);
@@ -273,9 +281,19 @@ public class WOOrder extends Window{
 
     private function fillList():void {
         var maxCount:int = g.managerOrder.maxCountOrders;
+        var b:Boolean;
+        var order:Object;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (i >= maxCount) return;
-            _arrItems[i].fillIt(_arrOrders[i], i, onItemClick);
+            b = true;
+            order = _arrOrders[i];
+            for (var k:int=0; k<order.resourceIds.length; k++) {
+                    if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+                        b = false;
+                        break;
+                    }
+            }
+            _arrItems[i].fillIt(_arrOrders[i], i, onItemClick,b);
         }
     }
 

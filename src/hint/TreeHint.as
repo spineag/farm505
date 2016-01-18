@@ -187,11 +187,11 @@ public class TreeHint {
     private function onClickDelete():void {
         onOut();
         if (g.userInventory.getCountResourceById(_data.removeByResourceId) <= 0){
-            g.woNoResources.showItMenu(_data.removeByResourceId,1,onClickDelete);
+            g.woNoResources.showItMenu(g.dataResource.objectResources[_data.removeByResourceId],1,onClickDelete);
         } else {
-            var start:Point = new Point(int(_source.x), int(_source.y));
-            start = _source.parent.localToGlobal(start);
-            new XPStar(start.x,start.y,8);
+//            var start:Point = new Point(int(_source.x), int(_source.y));
+//            start = _source.parent.localToGlobal(start);
+            new XPStar(_source.x,_source.y,8);
             g.userInventory.addResource(_data.removeByResourceId,-1);
             if (_deleteCallback != null) {
                 _deleteCallback.apply();
