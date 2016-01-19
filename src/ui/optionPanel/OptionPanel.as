@@ -18,6 +18,8 @@ import manager.Vars;
 
 import map.MatrixGrid;
 
+import mouse.ToolsModifier;
+
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.core.Starling;
@@ -240,6 +242,9 @@ public class OptionPanel {
                     }
                 break;
             case 'scale_plus':
+                g.bottomPanel.cancelBoolean(false);
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.toolsModifier.cancelMove();
                 if (isAnimScaling) return;
                 i = _arrCells.indexOf(g.cont.gameCont.scaleX);
                 if (i >= _arrCells.length-1) return;
@@ -247,6 +252,9 @@ public class OptionPanel {
                 makeScaling(_arrCells[i]);
                 break;
             case 'scale_minus':
+                g.bottomPanel.cancelBoolean(false);
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.toolsModifier.cancelMove();
                 if (isAnimScaling) return;
                 i = _arrCells.indexOf(g.cont.gameCont.scaleX);
                 if (i <= 0 ) return;

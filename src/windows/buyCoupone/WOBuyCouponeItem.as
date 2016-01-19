@@ -4,6 +4,8 @@
 package windows.buyCoupone {
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -11,61 +13,54 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 
 import utils.MCScaler;
 
+import windows.WOComponents.CartonBackground;
+
 public class WOBuyCouponeItem {
     public var source:Sprite;
-    private var _contBtn:CSprite;
-    private var _imageCoupone:Image;
-    private var _imagePlus:Image;
-    private var _imageHard:Image;
-    private var _imageBtn:Image;
-    private var _txtItemCoupone:TextField;
-    private var _txtAddCoupone:TextField;
-    private var _txtCostCoupone:TextField;
     private var cost:int;
+    private var _btn:CButton;
     private var g:Vars = Vars.getInstance();
 
     public function WOBuyCouponeItem(imageCopone:String, txtItemCoupone:int, txtCostCoupone:int) {
         try {
-            source = new Sprite();
+            var im:Image;
+            var txt:TextField;
+            var carton:CartonBackground = new CartonBackground(100, 150);
             cost = txtCostCoupone;
-            _contBtn = new CSprite();
-            _contBtn.endClickCallback = onClick;
-            _imageCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture(imageCopone));
-            _txtCostCoupone = new TextField(50,50,String(txtCostCoupone),"Arial",12,Color.BLACK);
-            _txtCostCoupone.x = -20;
-            _txtCostCoupone.y = 110;
-            _txtItemCoupone = new TextField(50,50,String(txtItemCoupone),"Arial",12,Color.BLACK);
-            _txtItemCoupone.x = 10;
-            _txtItemCoupone.y = 40;
-            _imagePlus = new Image(g.allData.atlas['interfaceAtlas'].getTexture("plus"));
-            MCScaler.scale(_imagePlus,20,20);
-            _imageCoupone.x = -15;
-            _imagePlus.y = 60;
-            _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("btn4"));
-            MCScaler.scale(_imageBtn,30,50);
-            _imageBtn.x = -10;
-            _imageBtn.y = 120;
-            _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("diamont"));
-            _imageHard.x = 15;
-            _imageHard.y = 125;
-            MCScaler.scale(_imageHard,15,15);
-            _txtAddCoupone = new TextField(60,50,"Добавить купон","Arial",12,Color.BLACK);
-            _txtAddCoupone.x = -15;
-            _txtAddCoupone.y = 70;
-
-            _contBtn.addChild(_imageBtn);
-            source.addChild(_imageCoupone);
-            _contBtn.addChild(_txtCostCoupone);
-            source.addChild(_txtItemCoupone);
-            source.addChild(_imagePlus);
-            _contBtn.addChild(_imageHard);
-            source.addChild(_txtAddCoupone);
-            source.addChild(_contBtn);
-//        onClick(txtCostCoupone);
+            carton.filter = ManagerFilters.SHADOW_LIGHT;
+            source = new Sprite();
+            source.addChild(carton);
+            _btn = new CButton();
+            _btn.addButtonTexture(80, 50, CButton.GREEN, true);
+            txt = new TextField(50,50,'+' + String(cost),g.allData.fonts['BloggerBold'],16,Color.WHITE);
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            txt.x = 5;
+//            txt.y = 20;
+            _btn.addChild(txt);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            MCScaler.scale(im,30,30);
+            im.x = 45;
+            im.y = 10;
+            _btn.addDisplayObject(im);
+            source.addChild(_btn);
+            _btn.clickCallback = onClick;
+            _btn.x = 50;
+            _btn.y = 115;
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture(imageCopone));
+            im.x = 30;
+            im.y = 20;
+            source.addChild(im);
+            txt = new TextField(50,50,String(txtItemCoupone),g.allData.fonts['BloggerBold'],16,Color.WHITE);
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            txt.x = 23;
+            txt.y = 50;
+            source.addChild(txt);
         } catch (e:Error) {
             Cc.error('WOBuyCouponeItem error: ' + e.errorID + ' - ' + e.message);
             g.woGameError.showIt();
@@ -73,7 +68,6 @@ public class WOBuyCouponeItem {
     }
 
     private function onClick():void {
-        trace("click");
         g.userInventory.addMoney(1, -cost);
     }
 }

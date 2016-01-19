@@ -73,8 +73,7 @@ public class WOFabrica extends Window {
         _callbackOnClick = f;
         _arrAllRecipes = arrRecipes;
         createShiftBtns();
-        if (_arrShiftBtns.length > 0)
-        activateShiftBtn(1, false);
+        if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
         fillFabricaItems();
         _list.unfillIt();
         _list.fillIt(arrList, _fabrica);

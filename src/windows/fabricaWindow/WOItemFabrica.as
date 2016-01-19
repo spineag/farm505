@@ -84,6 +84,7 @@ public class WOItemFabrica {
     }
 
     private function onClick():void {
+        source.filter = null;
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataRecipe]);
         }

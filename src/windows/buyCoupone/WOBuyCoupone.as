@@ -2,6 +2,8 @@
  * Created by user on 7/15/15.
  */
 package windows.buyCoupone {
+import manager.ManagerFilters;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.text.TextField;
@@ -14,8 +16,6 @@ import windows.WOComponents.WindowBackground;
 import windows.Window;
 
 public class WOBuyCoupone extends Window{
-    private var _txtMyCoupone:TextField;
-    private var _txtCollectCoupone:TextField;
     private var _Green:WOBuyCouponeItem;
     private var _Blue:WOBuyCouponeItem;
     private var _Red:WOBuyCouponeItem;
@@ -23,37 +23,34 @@ public class WOBuyCoupone extends Window{
     private var _woBG:WindowBackground;
 
     public function WOBuyCoupone() {
-        _woWidth = 400;
-        _woHeight = 300;
-        _txtMyCoupone = new TextField(100,50,"Мои купоны","Arial",16,Color.BLUE);
-        _txtMyCoupone.x = -50;
-        _txtMyCoupone.y = -150;
-        _txtCollectCoupone = new TextField(400,100,"Собирай купоны, выполняя заказы на доставку, отправляя пароход, и приобретайте на них особые обьекты","Arial",18,Color.WHITE);
-        _txtCollectCoupone.x = -200;
-        _txtCollectCoupone.y = -120;
+        _woWidth = 500;
+        _woHeight = 400;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        _source.addChild(_txtMyCoupone);
-        _source.addChild(_txtCollectCoupone);
+        var txt:TextField = new TextField(400,100,'Собирай ваучеры, выполняя заказы на доставку, отправляя пароход, и приобретайте на них особые объекты', g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = -200;
+        txt.y = -120;
+        _source.addChild(txt);
     }
 
     public function showItWO():void {
         _Green = new WOBuyCouponeItem("green_coupone", g.user.greenCouponCount,15);
-        _Green.source.x = -100;
-        _Green.source.y = -20;
-        _Blue = new WOBuyCouponeItem("blue_coupone", g.user.blueCouponCount,15);
-        _Blue.source.x = -30;
-        _Blue.source.y = -20;
-        _Red = new WOBuyCouponeItem("red_coupone", g.user.redCouponCount,15);
-        _Red.source.x = 30;
-        _Red.source.y = -20;
-        _Yellow = new WOBuyCouponeItem("yellow_coupone", g.user.yellowCouponCount,15);
-        _Yellow.source.x = 100;
-        _Yellow.source.y = -20;
+        _Green.source.x = -215;
+        _Green.source.y = -15;
         _source.addChild(_Green.source);
+        _Blue = new WOBuyCouponeItem("blue_coupone", g.user.blueCouponCount,15);
+        _Blue.source.x = -105;
+        _Blue.source.y = -15;
         _source.addChild(_Blue.source);
+        _Red = new WOBuyCouponeItem("red_coupone", g.user.redCouponCount,15);
+        _Red.source.x = 5;
+        _Red.source.y = -15;
         _source.addChild(_Red.source);
+        _Yellow = new WOBuyCouponeItem("yellow_coupone", g.user.yellowCouponCount,15);
+        _Yellow.source.x = 115;
+        _Yellow.source.y = -15;
         _source.addChild(_Yellow.source);
         showIt();
     }

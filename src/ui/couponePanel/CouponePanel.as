@@ -114,7 +114,7 @@ public class CouponePanel {
        _contClipRect.clipRect = new Rectangle(15,0,400,400);
 
         var tween:Tween = new Tween(_contCoupone, 0.2);
-        tween.moveTo(0,0);
+        tween.moveTo(10,0);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
 

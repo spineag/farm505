@@ -105,9 +105,7 @@ public class Wild extends AreaObject{
     }
 
     private function wildDelete():void {
-        if (g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) return;
-        g.userInventory.addResource(g.dataResource.objectResources[_dataBuild.removeByResourceId].id, -1);
-        if (_dataBuild.xp) new XPStar(_source.x, _source.y, _dataBuild.xp);
+//        if (_dataBuild.xp) new XPStar(_source.x, _source.y, _dataBuild.xp);
         for (var i:int=0; i< g.user.userDataCity.objects.length; i++) {
             if (g.user.userDataCity.objects[i].dbId == _dbBuildingId) {
                 g.user.userDataCity.objects.splice(i, 1);

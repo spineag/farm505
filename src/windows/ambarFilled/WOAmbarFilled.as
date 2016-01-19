@@ -54,7 +54,7 @@ public class WOAmbarFilled extends Window{
         _contBtn.addChild(bg);
         _contBtn.addChild(_txtBtn);
         _contBtn.x = -50;
-        _contBtn.y = 100;
+        _contBtn.y = 75;
         _source.addChild(_contBtn);
         _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("storage_window_pr"));
         _imageAmbar.x = -160;
@@ -66,7 +66,7 @@ public class WOAmbarFilled extends Window{
         _txtAmbarFilled.y = -120;
         _txtCount = new TextField(200,50,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtCount.x = -90;
+        _txtCount.x = -95;
         _txtCount.y = 20;
         _source.addChild(_txtAmbarFilled);
         _source.addChild(_txtCount);
@@ -103,8 +103,8 @@ public class WOAmbarFilled extends Window{
             _txtAmbarFilled.text = "АМБАР ЗАПОЛНЕН";
             _txtBtn.text = "Увеличть Амбар";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
-            _imAmbarSklad.x = _imageAmbar.x + _imageAmbar.width - 10;
-            _imAmbarSklad.y = _imageAmbar.y - 5;
+            _imAmbarSklad.x = -5;
+            _imAmbarSklad.y = _imageAmbar.y - 40;
             MCScaler.scale(_imAmbarSklad, 40, 40);
             _bar.progress = 1;
             _source.addChild(_imAmbarSklad);
@@ -114,8 +114,8 @@ public class WOAmbarFilled extends Window{
             _txtAmbarFilled.text = "СКЛАД ЗАПОЛНЕН";
             _txtBtn.text = "Увеличть Склад";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
-            _imAmbarSklad.x = _imageAmbar.x + _imageAmbar.width - 10;
-            _imAmbarSklad.y = _imageAmbar.y - 5;
+            _imAmbarSklad.x = -5;
+            _imAmbarSklad.y = _imageAmbar.y - 40;
             MCScaler.scale(_imAmbarSklad, 40, 40);
             _bar.progress = 1;
             _source.addChild(_imAmbarSklad);

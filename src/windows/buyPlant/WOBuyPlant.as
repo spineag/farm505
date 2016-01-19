@@ -58,7 +58,7 @@ public class WOBuyPlant extends Window {
         _callback = null;
         _ridge = null;
         super.hideIt();
-        activateShiftBtn(1, false);
+        if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
             _source.removeChild(_arrShiftBtns[i]);
             _arrShiftBtns[i].deleteIt();
@@ -75,7 +75,7 @@ public class WOBuyPlant extends Window {
         _callback = f;
         updatePlantArray();
         createShiftBtns();
-        activateShiftBtn(1, false);
+        if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
         fillPlantItems();
         super.showIt();
     }
