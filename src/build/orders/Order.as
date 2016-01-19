@@ -42,7 +42,6 @@ public class Order extends AreaObject{
             _source.outCallback = onOut;
         }
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
     }
 
     public function createOrderBuild():void {

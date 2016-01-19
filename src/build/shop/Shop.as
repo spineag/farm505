@@ -31,7 +31,6 @@ public class Shop extends AreaObject{
             _source.outCallback = onOut;
         }
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
     }
 
     private function onHover():void {

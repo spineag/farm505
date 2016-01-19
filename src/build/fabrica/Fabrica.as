@@ -52,7 +52,6 @@ public class Fabrica extends AreaObject {
         _arrList = [];
         _arrCrafted = [];
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
         if (!g.isAway) {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
@@ -71,13 +70,10 @@ public class Fabrica extends AreaObject {
         }
         _armature = g.allData.factory[_dataBuild.image].buildArmature("fabrica");
         _build.addChild(_armature.display as Sprite);
-//        if (!isImageClicked) _build.touchable = false;
-        _defaultScale = 1;
         _rect = _build.getBounds(_build);
         _sizeX = _dataBuild.width;
         _sizeY = _dataBuild.height;
         (_build as Sprite).alpha = 1;
-        if (_flip) _build.scaleX = -_defaultScale;
         _source.addChild(_build);
         stopAnimation();
     }

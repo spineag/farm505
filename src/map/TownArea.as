@@ -344,7 +344,7 @@ public class TownArea extends Sprite {
         (build as WorldObject).dbBuildingId = dbId;
 
         if (_data.isFlip) {
-            (build as AreaObject).releaseFlip(false);
+            (build as AreaObject).makeFlipBuilding();
         }
 
         return build;
@@ -448,7 +448,7 @@ public class TownArea extends Sprite {
         }
 
         // временно полная сортировка, далее нужно будет дописать "умную"
-        zSort();
+        if (isNewAtMap) zSort();
 
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree)) {
             if (g.user.softCurrencyCount < worldObject.dataBuild.cost) {
@@ -795,7 +795,7 @@ public class TownArea extends Sprite {
         }
 
         if (isFlip && !(build is DecorPostFence)) {
-            (build as AreaObject).releaseFlip();
+            (build as AreaObject).makeFlipBuilding();
         }
     }
 
@@ -982,10 +982,6 @@ public class TownArea extends Sprite {
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as CSprite).isTouchable = !v;
             }
-//            if (_cityObjects[i] is Farm) {
-//                v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
-//                (_cityObjects[i] as Farm).onActivateMoveModifier(v);
-//            }
         }
     }
 }

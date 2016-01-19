@@ -101,18 +101,26 @@ public class WorldObject {
         return _flip;
     }
 
-    public function releaseFlip(change:Boolean = true):void {
+    public function makeFlipBuilding():void {
+        if (_flip)
+            _source.scaleX = -_defaultScale;
+        else
+            _source.scaleX = _defaultScale;
+    }
+
+    public function releaseFlip():void {
         if (_sizeX == _sizeY) {
-            if (change) _flip = !_flip;
-            _flip ? _source.scaleX = -_defaultScale : _source.scaleX = _defaultScale;
+            _flip = !_flip;
+            makeFlipBuilding();
             _dataBuild.isFlip = _flip;
             return;
         }
 
+        _flip = !_flip;
         if (_flip) {
             g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
             if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY)) {
-                if (change) _flip = false;
+                _flip = false;
                 _source.scaleX = _defaultScale;
                 g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
             } else {
@@ -121,13 +129,14 @@ public class WorldObject {
         } else {
             g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
             if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
-                if (change) _flip = true;
+                _flip = true;
                 _source.scaleX = -_defaultScale;
                 g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
             } else {
                 g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
             }
         }
+        makeFlipBuilding();
         _dataBuild.isFlip = _flip;
     }
 

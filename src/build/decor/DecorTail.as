@@ -25,7 +25,6 @@ public class DecorTail extends AreaObject{
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
     }
 
     private function onHover():void {

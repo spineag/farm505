@@ -21,7 +21,9 @@ public class AreaObject extends WorldObject {
         _source = new CSprite();
         _build = new Sprite();
         _dataBuild = dataBuild;
+        _defaultScale = 1;
         _flip = _dataBuild.isFlip || false;
+        _dataBuild.isFlip = _flip;
         _sizeX = 0;
         _sizeY = 0;
     }
@@ -90,17 +92,11 @@ public class AreaObject extends WorldObject {
         }
         _build.addChild(im);
         if (!isImageClicked) im.touchable = false;
-        _defaultScale = _build.scaleX;
         _rect = _build.getBounds(_build);
         _sizeX = _dataBuild.width;
         _sizeY = _dataBuild.height;
-
         (_build as Sprite).alpha = 1;
-//        if (_flip) _build.scaleX = -_defaultScale;
-
         _source.addChild(_build);
-
-        //createIsoView();
     }
 
     protected function createIsoView():void {

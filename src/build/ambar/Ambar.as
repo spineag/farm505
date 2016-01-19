@@ -39,7 +39,6 @@ public class Ambar extends AreaObject{
         }
         _source.releaseContDrag = true;
         _dbBuildingId = _data.dbId;
-        _dataBuild.isFlip = _flip;
     }
 
     private function onHover():void {
