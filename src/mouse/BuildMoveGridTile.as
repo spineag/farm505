@@ -37,13 +37,13 @@ public class BuildMoveGridTile {
                 source.alpha = .7;
                 break;
             case TYPE_BORDER:
-                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_tail'));
-                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_tail'));
+                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_green_tail'));
+                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_red_tail'));
                 source.alpha = .5;
                 break;
             case TYPE_BORDER_OUT:
-                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_tail'));
-                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_tail'));
+                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_green_tail'));
+                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_red_tail'));
                 source.alpha = .3;
                 break;
         }
