@@ -33,13 +33,11 @@ public class Farm extends AreaObject{
         setDataAnimal();
         createBuild();
 
-        _dataBuild.isFlip = _flip;
         _source.endClickCallback = onClick;
         _source.releaseContDrag = true;
 
         _contAnimals = new Sprite();
         source.addChild(_contAnimals);
-
         if (_dataAnimal.id != 6) {
             try {
                 _imageBottom = new Image(g.allData.atlas[_data.url].getTexture(_data.image + '2'));
@@ -51,21 +49,16 @@ public class Farm extends AreaObject{
                 Cc.error('Farm:: no image: ' + _data.image + '2');
             }
         }
-
         _craftSprite = new Sprite();
         _craftSprite.y = 320*g.scaleFactor;
         _source.addChild(_craftSprite);
-
         _arrAnimals = [];
-
 
         if (!g.isAway) {
             if (_dataAnimal.id != 6) {
                 g.gameDispatcher.addEnterFrame(sortAnimals);
             }
         }
-
-
     }
 
     private function onClick():void {

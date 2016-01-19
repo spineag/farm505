@@ -25,13 +25,10 @@ public class Market extends AreaObject{
         }
         createBuild();
 
-//        if (!g.isAway) {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-//        }
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
     }
 
     private function onHover():void {

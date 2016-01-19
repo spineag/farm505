@@ -38,7 +38,6 @@ public class DailyBonus extends AreaObject{
             _source.outCallback = onOut;
         }
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
     }
 
     override public function createBuild(isImageClicked:Boolean = true):void {

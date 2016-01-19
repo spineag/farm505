@@ -69,7 +69,6 @@ public class Train extends AreaObject{
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
     }
 
     public function fillFromServer(ob:Object):void {

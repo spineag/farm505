@@ -57,7 +57,10 @@ public class Tree extends AreaObject{
     public function Tree(_data:Object) {
         super(_data);
         _arrCrafted = [];
-        createTreeBuild();
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        (_build as Sprite).alpha = 1;
+        _source.addChild(_build);
         _state = GROW1;
 
         if (!g.isAway) {
@@ -67,7 +70,6 @@ public class Tree extends AreaObject{
         _source.endClickCallback = onClick;
 
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
 
         switch (_data.id) {
             case 25: armature = g.allData.factory['tree'].buildArmature("apple"); break;
@@ -165,17 +167,6 @@ public class Tree extends AreaObject{
                 g.gameDispatcher.addToTimer(render);
             }
         }
-    }
-
-    private function createTreeBuild():void {
-        _defaultScale = _build.scaleX;
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-
-        (_build as Sprite).alpha = 1;
-        _source.addChild(_build);
-
-        //createIsoView();
     }
 
     private function setBuildImage():void {
@@ -355,7 +346,8 @@ public class Tree extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            // ничего не делаем вообще
+            releaseFlip();
+            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             // ничего не делаем вообще
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {

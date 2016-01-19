@@ -15,7 +15,6 @@ public class DecorFence extends AreaObject {
 //        _source.endClickCallback = onClick;
 //        _source.outCallback = onOut;
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
     }
 
     override public function clearIt():void {

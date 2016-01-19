@@ -61,7 +61,6 @@ public class Cave extends AreaObject{
         checkCaveState();
 
         _source.releaseContDrag = true;
-        _dataBuild.isFlip = _flip;
         if (!g.isAway) {
             _woBuy = new WOBuyCave();
             _source.hoverCallback = onHover;
