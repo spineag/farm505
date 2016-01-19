@@ -29,6 +29,7 @@ public class WOOrderItem {
     private var _delImage:Image;
     private var _position:int;
     private var _check:Image;
+    private var _clickCallback:Function;
 
     private var g:Vars = Vars.getInstance();
     public function WOOrderItem() {
@@ -96,18 +97,14 @@ public class WOOrderItem {
     public function fillIt(order:Object, position:int, f:Function, b:Boolean = false):void {
         _position = position;
         _order = order;
+        _clickCallback = f;
         _txtName.text = _order.catName;
         _txtXP.text = String(_order.xp);
         _txtCoins.text = String(_order.coins);
         source.visible = true;
         if (b) _check.visible = true;
-        else _check.visible = false;
-        var f1:Function = function():void {
-            if (f != null) {
-                f.apply(null, [position]);
-            }
-        };
-        source.endClickCallback = f1;
+            else _check.visible = false;
+        source.endClickCallback = onClick;
 
         _leftSeconds = _order.startTime - int(new Date().getTime()/1000);
         if (_leftSeconds > 0) {
@@ -127,7 +124,12 @@ public class WOOrderItem {
             _starImage.visible = true;
             _delImage.visible = false;
         }
-//        _check.visible = g.managerOrder.chekIsAnyFullOrder();
+    }
+
+    private function onClick():void {
+        if (_clickCallback != null) {
+            _clickCallback.apply(null, [_position]);
+        }
     }
 
     public function clearIt():void {

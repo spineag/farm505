@@ -2,37 +2,24 @@
  * Created by user on 7/22/15.
  */
 package windows.orderWindow {
+import com.junkbyte.console.Cc;
 import data.DataMoney;
-
-import flash.filters.GlowFilter;
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
-import manager.Vars;
-
 import resourceItem.DropItem;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import ui.xpPanel.XPStar;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
-
 import windows.WOComponents.Birka;
-
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
-
 import windows.Window;
 import windows.WOComponents.WindowBackground;
 
@@ -96,6 +83,7 @@ public class WOOrder extends Window{
             _arrItems[i].clearIt();
         }
         hideIt();
+        position = 0;
     }
 
     private function createRightBlock():void {
@@ -293,7 +281,11 @@ public class WOOrder extends Window{
                         break;
                     }
             }
-            _arrItems[i].fillIt(_arrOrders[i], i, onItemClick,b);
+            if (order.place > -1) {
+                _arrItems[order.place].fillIt(order, order.place, onItemClick, b);
+            } else {
+                Cc.error('WOOrder fillList:: order.place == -1');
+            }
         }
     }
 
@@ -364,17 +356,18 @@ public class WOOrder extends Window{
             return;
         }
         _activeOrderItem.onSkipTimer();
+        _curOrder.startTime -= 30*60;
         g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -8);
     }
 
     private function updateIt():void {
         clearResourceItems();
-        for (var i:int=0; i<_arrOrders.length; i++) {
+        for (var i:int=0; i<_arrItems.length; i++) {
             _arrItems[i].clearIt();
         }
         fillList();
-        _arrItems[0].activateIt(true);
-        fillResourceItems(_arrOrders[0]);
+        _arrItems[position].activateIt(true);
+        fillResourceItems(_arrOrders[position]);
     }
 
     private function createRightBlockTimer():void {

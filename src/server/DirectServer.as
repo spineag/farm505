@@ -3568,6 +3568,7 @@ public class DirectServer {
         variables.coins = order.coins;
         variables.addCoupone = int(order.addCoupone);
         variables.delay = delay;
+        variables.place = order.place;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserOrder);

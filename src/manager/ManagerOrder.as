@@ -60,6 +60,7 @@ public class ManagerOrder {
         order.xp = int(ob.xp);
         order.addCoupone = ob.add_coupone == '1';
         order.startTime = int(ob.start_time) || 0;
+        order.place = int(ob.place);
         _arrOrders.push(order);
     }
 
@@ -291,15 +292,32 @@ public class ManagerOrder {
                 order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
             }
             order.startTime = int(new Date().getTime()/1000);
+            order.place = getFreePlace();
             _arrOrders.push(order);
             g.directServer.addUserOrder(order, delay, f);
         }
     }
 
+    private function getFreePlace():int {
+        var k:int;
+        var find:Boolean;
+        for (var i:int=0; i < _curMaxCountOrders; i++) {
+            find = true;
+            for (k=0; k<_arrOrders.length; k++) {
+                if (_arrOrders[k].place == i) {
+                    find = false;
+                    break;
+                }
+            }
+            if (find) return i;
+        }
+        return -1;
+    }
+
     public function deleteOrder(order:Object, f:Function):void {
         _arrOrders.splice(_arrOrders.indexOf(order), 1);
         g.directServer.deleteUserOrder(order.dbId, null);
-        addNewOrders(1, 5*60, f);
+        addNewOrders(1, 15*60, f);
     }
 
     public function sellOrder(order:Object, f:Function):void {
@@ -310,9 +328,7 @@ public class ManagerOrder {
                 f.apply();
             }
         };
-        if (_arrOrders.length < _curMaxCountOrders) {
-            addNewOrders(1, 0, f1);
-        }
+        addNewOrders(1, 0, f1);
     }
 
     public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled

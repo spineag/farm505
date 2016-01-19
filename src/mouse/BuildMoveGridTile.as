@@ -53,8 +53,8 @@ public class BuildMoveGridTile {
 
         imGreen.pivotX = imGreen.width/2;
         imRed.pivotX = imRed.width/2;
-        imGreen.scaleX = imGreen.scaleY = 2 * g.scaleFactor;
-        imRed.scaleX = imRed.scaleY = 2 * g.scaleFactor;
+        imGreen.scaleX = imGreen.scaleY = g.scaleFactor;
+        imRed.scaleX = imRed.scaleY = g.scaleFactor;
         source.addChild(imGreen);
         source.addChild(imRed);
         imGreen.visible = false;
