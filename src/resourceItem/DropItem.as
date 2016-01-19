@@ -42,7 +42,6 @@ public class DropItem {
              endPoint = g.craftPanel.pointXY();
              g.craftPanel.showIt(BuildType.PLACE_SKLAD);
         } else {
-            endPoint = g.couponePanel.getPoint();
             switch (prise.id) {
                 case DataMoney.HARD_CURRENCY:
                     _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
@@ -54,15 +53,19 @@ public class DropItem {
                     break;
                 case DataMoney.BLUE_COUPONE:
                     _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
+                    endPoint = g.couponePanel.getPoint();
                     break;
                 case DataMoney.GREEN_COUPONE:
                     _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone'));
+                    endPoint = g.couponePanel.getPoint();
                     break;
                 case DataMoney.RED_COUPONE:
                     _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone'));
+                    endPoint = g.couponePanel.getPoint();
                     break;
                 case DataMoney.YELLOW_COUPONE:
                     _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone'));
+                    endPoint = g.couponePanel.getPoint();
                     break;
             }
         }

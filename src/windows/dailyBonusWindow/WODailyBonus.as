@@ -2,11 +2,10 @@
  * Created by user on 7/23/15.
  */
 package windows.dailyBonusWindow {
-import data.BuildType;
+import com.greensock.TweenMax;
+import com.greensock.easing.Quad;
 
-import resourceItem.ResourceItem;
-
-import starling.animation.Tween;
+import manager.ManagerFilters;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -14,118 +13,151 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import utils.CSprite;
+import utils.CButton;
 import utils.MCScaler;
 
 import windows.Window;
 
 public class WODailyBonus extends Window{
+    private var _koleso:Sprite;
+    private var _arrItems:Array;
+    private var _btnFree:CButton;
+    private var _btnBuy:CButton;
+    private var _txtBtnBuy:TextField;
+    private var _isAnimate:Boolean;
+    private var _curActivePosition:int;
 
-    private var _contBtn:CSprite;
-    private var _contImage:CSprite;
-    private var _imageHard:Image;
-    private var _txtItem:TextField;
-    private var _imageBtn:Image;
-    private var _txtBtn:TextField;
-    private var _data:Object;
     public function WODailyBonus() {
         super();
 
-        _woWidth = 300;
-        _woHeight = 300;
-        createTempBG();
+        _woWidth = 538;
+        _woHeight = 500;
         createExitButton(onClickExit);
-        _contBtn = new CSprite();
-        _contImage = new CSprite();
-        _contImage.y = -50;
-        _source.addChild(_contBtn);
-        _source.addChild(_contImage);
-        _contBtn.endClickCallback = onClick;
-        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        MCScaler.scale(_imageHard,25,25);
-        _imageHard.x = 30;
-        _imageHard.y = 75;
         callbackClickBG = onClickExit;
+        createKoleso();
     }
 
     private function onClickExit(e:Event=null):void {
-        hideIt();
-        while (_contBtn.numChildren) {
-            _contBtn.removeChildAt(0);
-        }
-        while (_contImage.numChildren) {
-            _contImage.removeChildAt(0);
-        }
-    }
-
-    private function onClick():void {
-        var hard:int;
-        hard = 1;
-        if (_txtBtn.text == "Забрать"){
-            _txtBtn.text = String("Купить за " + hard) ;
-            _contBtn.addChild(_imageHard);
-            flyBonus();
-        } else if (_txtBtn.text == String("Купить за " + hard)){
-            if (int(_txtBtn.text) >= g.user.hardCurrency){
-                g.woBuyCurrency.showItMenu(true);
-                return;
-            }
-            _contBtn.removeChild(_imageHard);
-            _imageHard.visible = true;
-            createList();
-            _txtBtn.text = "Забрать";
-            g.userInventory.addMoney(1,-hard);
-        }
+        if (_isAnimate) return;
+        clearItems();
+        super.hideIt();
     }
 
     public function showItMenu():void {
-        _imageBtn = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
-        _imageBtn.x = -30;
-        _imageBtn.y = 60;
-        _txtBtn = new TextField(50,50,"Забрать","Arial",12,Color.WHITE);
-        _txtBtn.x = -10;
-        _txtBtn.y = 60;
-        _contBtn.addChild(_imageBtn);
-        _contBtn.addChild(_txtBtn);
-        showIt();
-        createList();
+        _koleso.rotation = 0;
+        _curActivePosition = 0;
+        fillItems();
+        checkBtns();
+        super.showIt();
     }
 
-    private function createList():void {
-        var obj:Object;
-        var id:String;
-        var r:int;
-        var arr:Array;
-        var im:WODailyBonusItem;
-        arr = [];
-        obj = g.dataResource.objectResources;
-        for (id in obj) {
-            if (g.user.level >= obj[id].blockByLevel) {
-                arr.push(obj[id]);
+    private function createKoleso():void {
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune_disk'));
+        im.x = -im.width/2;
+        im.y = -im.height/2;
+        _koleso = new Sprite();
+        _koleso.addChild(im);
+        _koleso.x = 0;
+        _koleso.y = 14;
+        _source.addChild(_koleso);
+
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune_text'));
+        im.x = -186;
+        im.y = -284;
+        im.touchable = false;
+        _source.addChild(im);
+
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune _str'));
+        im.x = -71;
+        im.y = -238;
+        im.touchable = false;
+        _source.addChild(im);
+
+        _btnFree = new CButton();
+        _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
+        var txt:TextField  = new TextField(146, 40, 'Вращать колесо', g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _btnFree.addChild(txt);
+        _btnFree.y = 260;
+        _source.addChild(_btnFree);
+
+        _btnBuy = new CButton();
+        _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
+        _txtBtnBuy = new TextField(170, 40, 'Вращать колесо за 10', g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        _txtBtnBuy.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _btnBuy.addChild(_txtBtnBuy);
+        _btnBuy.y = 260;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        MCScaler.scale(im, 30, 30);
+        im.x = 163;
+        im.y = 4;
+        _btnBuy.addChild(im);
+        _source.addChild(_btnBuy);
+    }
+
+    private function fillItems():void {
+        var arr:Array = g.managerDailyBonus.dailyBonusItems;
+        var item:WODailyBonusItem;
+        _arrItems = [];
+        for (var i:int=0; i<arr.length; i++) {
+            item = new WODailyBonusItem(arr[i], i, _koleso);
+            _arrItems.push(item);
+        }
+        _koleso.flatten();
+    }
+
+    private function clearItems():void {
+        _koleso.unflatten();
+        for (var i:int=0; i< _arrItems.length; i++) {
+            _arrItems[i].deleteIt();
+        }
+        _arrItems = [];
+    }
+
+    private function checkBtns():void {
+        _isAnimate = false;
+        if (g.managerDailyBonus.count <= 0) {
+            _btnBuy.visible = false;
+            _btnFree.visible = true;
+            _btnFree.clickCallback = rotateKoleso;
+        } else {
+            _btnBuy.visible = true;
+            _btnFree.visible = false;
+            _btnBuy.clickCallback = rotateKoleso;
+            _txtBtnBuy.text = 'Вращать колесо за ' + String(g.managerDailyBonus.count);
+        }
+    }
+
+    private function rotateKoleso():void {
+        if (g.managerDailyBonus.count > 0) {
+            if (g.user.hardCurrency >= g.managerDailyBonus.count) {
+                g.userInventory.addMoney(1, -g.managerDailyBonus.count);
+            } else {
+                onClickExit();
+                g.woBuyCurrency.showItMenu(true);
+                return;
             }
         }
-        r = int(1+Math.random()*arr.length);
-        _data = obj[r];
-        im = new WODailyBonusItem(obj[r]);
-        _contImage.addChild(im.source);
-        _contImage.y = 0;
-        _contImage.x = 0;
+        g.managerDailyBonus.updateCount();
+        g.directServer.useDailyBonus(g.managerDailyBonus.count);
+
+        _curActivePosition = int(Math.random()*12); // choose random item position as prise
+        var angle:Number = -(Math.PI/6)*_curActivePosition - (3 + int(Math.random()*3))*Math.PI*2;
+        var delta:Number = -Math.PI/9 + Math.random()*Math.PI/6;
+        TweenMax.to(_koleso, 5, {rotation: angle - delta, ease: Quad.easeInOut, onComplete:completeRotateKoleso, onCompleteParams:[delta]});
+        _btnBuy.visible = false;
+        _btnFree.visible = false;
+        _btnBuy.clickCallback = null;
+        _btnFree.clickCallback = null;
     }
 
-    private function flyBonus():void {
-        g.craftPanel.showIt(_data.placeBuild);
-        var tween:Tween = new Tween(_contImage, 1);
-        tween.moveTo(-170,-300 );
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
-            var item:ResourceItem = new ResourceItem();
-            item.fillIt(_data);
-            g.craftPanel.afterFly(item);
-            while (_contImage.numChildren) {
-            _contImage.removeChildAt(0);
-        }
-        };
-        g.starling.juggler.add(tween);
+    private function completeRotateKoleso(delta:Number):void {
+        TweenMax.to(_koleso, 1, {rotation: _koleso.rotation + delta, ease: Quad.easeInOut, onComplete:showGiftAnimation, delay:.2});
     }
+
+    private function showGiftAnimation():void {
+        new WODailyBonusCraftItem(g.managerDailyBonus.dailyBonusItems[_curActivePosition], _source, checkBtns);
+    }
+
 }
 }

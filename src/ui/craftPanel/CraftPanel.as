@@ -117,6 +117,29 @@ public class CraftPanel {
         _resourceSprite.addChild(im);
     }
 
+    public function afterFlyWithId(id:int):void {
+        _countFlying--;
+        _counter = 40;
+        g.gameDispatcher.addEnterFrame(onEnterFrame);
+        if (g.dataResource.objectResources[id].placeBuild == BuildType.PLACE_AMBAR) {
+            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
+        } else {
+            _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
+        }
+        while (_resourceSprite.numChildren) {
+            _resourceSprite.removeChildAt(0);
+        }
+        var im:Image;
+        if (g.dataResource.objectResources[id].buildType == BuildType.PLANT)
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[id].imageShop + '_icon'));
+        else
+            im = new Image(g.allData.atlas[g.dataResource.objectResources[id].url].getTexture(g.dataResource.objectResources[id].imageShop));
+        MCScaler.scale(im, 50, 50);
+        im.x = -im.width/2 - 170;
+        im.y = -im.height/2;
+        _resourceSprite.addChild(im);
+    }
+
     private function onEnterFrame():void {
         _counter--;
         if (_counter <= 0) {
@@ -138,7 +161,9 @@ public class CraftPanel {
     }
 
     public function pointXY():Point {
-        return _source.localToGlobal(new Point(-165,-5));
+        var p:Point = new Point(-165,-5);
+        p = _source.localToGlobal(p);
+        return p;
     }
 
 }

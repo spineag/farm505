@@ -519,6 +519,7 @@ public class DirectServer {
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
             g.user.checkUserLevel();
+            g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
 //            g.user.level = int(ob.level);
             g.user.countCats = int(ob.count_cats);
             if (ob.scale) {
@@ -3864,5 +3865,89 @@ public class DirectServer {
         }
     }
 
+    public function useDailyBonus(count:int, callback:Function=null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USE_DAILY_BONUS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'useDailyBonus', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.count = count;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUseDailyBonus);
+        function onCompleteUseDailyBonus(e:Event):void { completeUseDailyBonus(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('useDailyBonus error:' + error.errorID);
+            woError.showItParams('useDailyBonus error:' + error.errorID);
+        }
+    }
+
+    private function completeUseDailyBonus(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('useDailyBonus: wrong JSON:' + String(response));
+            woError.showItParams('useDailyBonus: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('useDailyBonus: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('useDailyBonus: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+
+    public function buyAndAddToInventory(id:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_BUY_AND_ADD_TO_INVENTORY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'buyAndAddToInventory', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buildingId = id;
+        variables.posX = 0;
+        variables.posY = 0;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteBuyAndAddToInventory);
+        function onCompleteBuyAndAddToInventory(e:Event):void { completeBuyAndAddToInventory(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('buyAndAddToInventory error:' + error.errorID);
+            woError.showItParams('buyAndAddToInventory error:' + error.errorID);
+        }
+    }
+
+    private function completeBuyAndAddToInventory(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('buyAndAddToInventory: wrong JSON:' + String(response));
+            woError.showItParams('buyAndAddToInventory: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            if (callback != null) {
+                callback.apply(null, [int(d.message)]);
+            }
+        } else {
+            Cc.error('buyAndAddToInventory: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('buyAndAddToInventory: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

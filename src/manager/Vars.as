@@ -134,6 +134,7 @@ public class Vars {
     public var load:LoaderManager;
     public var pBitmaps:Object;
     public var managerOrder:ManagerOrder;
+    public var managerDailyBonus:ManagerDailyBonus;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
@@ -251,6 +252,7 @@ public class Vars {
         matrixGrid.createMatrix();
         townArea = new TownArea();
         farmGrid = new FarmGrid();
+        managerDailyBonus = new ManagerDailyBonus();
 
         new ManagerFilters();
         ownMouse = new OwnMouse();
@@ -462,6 +464,7 @@ public class Vars {
         updateAmbarIndicator();
         townArea.zSort();
         bottomPanel.checkIsFullOrder();
+        managerDailyBonus.generateDailyBonusItems();
     }
 
     private function onEnterFrameGlobal():void {

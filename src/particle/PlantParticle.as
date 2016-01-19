@@ -63,7 +63,7 @@ internal class Particle {
         _source.x = int((-60 + Math.random()*120) * g.scaleFactor);
         _parent.addChild(_source);
         var time:Number = 2 + 2*Math.random();
-        TweenMax.to(_source, time, {y: _source.y - int(h/2), rotation:360, onComplete:onFinish, ease:Linear.easeNone});
+        TweenMax.to(_source, time, {y: _source.y - int(h/2), rotation:3*Math.PI, onComplete:onFinish, ease:Linear.easeNone});
         _source.scaleX = _source.scaleY = .5 * g.scaleFactor;
         var scaleT:Number = 1 + Math.random()/2;
         var alphaT:Number = .7 + Math.random()*.3;

@@ -80,5 +80,7 @@ public class Consts {
     public static var INQ_SKIP_ORDER_TIMER:String = 'skipOrderTimer.php';
     public static var INQ_GET_USER_ORDER:String = 'getUserOrder.php';
     public static var INQ_DELETE_USER_ORDER:String = 'deleteUserOrder.php';
+    public static var INQ_USE_DAILY_BONUS:String = 'useDailyBonus.php';
+    public static var INQ_BUY_AND_ADD_TO_INVENTORY:String = 'buyAndAddToInventory.php';
 }
 }
