@@ -254,8 +254,8 @@ public class Cave extends AreaObject{
 //            var bone:Bone = _armature.getBone('craft');
 //            _craftSprite.x = bone.display.x;
 //            _craftSprite.y = bone.display.y;
-            _craftSprite.x = 104;
-            _craftSprite.y = 109;
+            _craftSprite.x = 104*g.scaleFactor;
+            _craftSprite.y = 109*g.scaleFactor;
             for (var i:int = 0; i < c; i++) {
                 r = Math.random();
                 if (r < l1) {

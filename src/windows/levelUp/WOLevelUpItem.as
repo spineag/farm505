@@ -37,38 +37,43 @@ public class WOLevelUpItem {
 //        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_RED;
 
         source = new Sprite();
-        var st:String;
-        if (ob.buildType == BuildType.FARM || ob.buildType == BuildType.TEST){
-            st = ob.image;
-            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
-        } else if (ob.buildType == BuildType.FABRICA || ob.buildType == BuildType.RIDGE) {
-            st = ob.image;
-            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
-        } else if (ob.buildType == BuildType.TREE) {
-            st = ob.imageGrowBig;
-            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
-        } else if (ob.buildType == BuildType.RESOURCE) {
-            st = ob.imageShop;
-            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
-        } else if (ob.buildType == BuildType.PLANT) {
-            st = ob.imageShop + '_icon';
-            _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(st));
-        } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
-                || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.PET_HOUSE || ob.buildType == BuildType.DECOR) {
-            st = ob.image;
-            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
-        } else if (ob.buildType == BuildType.ANIMAL){
-            st = ob.imageShop;
-            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
-        } else if (ob.buildType == BuildType.INSTRUMENT) {
-            st = ob.imageShop;
-            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
-        } else if (ob.buildType == BuildType.PET) {
-
-        } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
-                || ob.buildType == BuildType.SHOP || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
-            st = ob.image;
-            _image = new Image(g.allData.atlas[ob.url].getTexture(st));
+        try {
+            var st:String;
+            if (ob.buildType == BuildType.FARM) {
+                st = ob.image;
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(st + '_icon'));
+            } else if (ob.buildType == BuildType.RIDGE) {
+                st = ob.image;
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(st + '_icon'));
+            } else if (ob.buildType == BuildType.FABRICA) {
+                st = ob.image;
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(st + '_icon'));
+            } else if (ob.buildType == BuildType.TREE) {
+                st = ob.image;
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(st + '_icon'));
+            } else if (ob.buildType == BuildType.RESOURCE) {
+                st = ob.imageShop;
+                _image = new Image(g.allData.atlas[ob.url].getTexture(st));
+            } else if (ob.buildType == BuildType.PLANT) {
+                st = ob.imageShop;
+                _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(st + '_icon'));
+            } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
+                    || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.DECOR) {
+                st = ob.image;
+                _image = new Image(g.allData.atlas[ob.url].getTexture(st));
+            } else if (ob.buildType == BuildType.ANIMAL) {
+                st = ob.image;
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(st + '_icon'));
+            } else if (ob.buildType == BuildType.INSTRUMENT) {
+                st = ob.imageShop;
+                _image = new Image(g.allData.atlas[ob.url].getTexture(st));
+            } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
+                    || ob.buildType == BuildType.SHOP || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
+                st = ob.image;
+                // _image = new Image(g.allData.atlas[ob.url].getTexture(st));    !!!!!!!!!!!!!!
+            }
+        } catch (e:Error) {
+            Cc.error('WOLevelUpItem:: error with _image for data.id: ' + ob.id);
         }
 
         _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("newlevel_window_paper"));
@@ -87,7 +92,7 @@ public class WOLevelUpItem {
 
     public function clearIt():void {
         while (source.numChildren) source.removeChildAt(0);
-        _image.dispose();
+        if (_image) _image.dispose();
         _imageBg.dispose();
         _image = null;
         _imageBg = null;
