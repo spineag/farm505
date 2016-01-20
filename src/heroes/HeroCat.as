@@ -173,15 +173,15 @@ public class HeroCat extends BasicCat{
 // SIMPLE IDLE
     private var timer:int;
     public function makeFreeCatIdle():void {
-            if (freeIdleGo) {
-                g.managerCats.goIdleCatToPoint(this, g.managerCats.getRandomFreeCell(), makeFreeCatIdle);
-            } else {
-                idleAnimation();
-                timer = 5 + int(Math.random()*15);
-                g.gameDispatcher.addToTimer(renderForIdleFreeCat);
-                renderForIdleFreeCat();
-            }
-            freeIdleGo = !freeIdleGo;
+        if (freeIdleGo) {
+            g.managerCats.goIdleCatToPoint(this, g.managerCats.getRandomFreeCell(), makeFreeCatIdle);
+        } else {
+            idleAnimation();
+            timer = 5 + int(Math.random()*15);
+            g.gameDispatcher.addToTimer(renderForIdleFreeCat);
+            renderForIdleFreeCat();
+        }
+        freeIdleGo = !freeIdleGo;
     }
 
     private function renderForIdleFreeCat():void {
@@ -382,6 +382,30 @@ public class HeroCat extends BasicCat{
         p.y = -92;
         p = (armature.display as Sprite).localToGlobal(p);
         curActiveFarm.showParticles(p, isLeftForFeedAndWatering);
+    }
+
+    override public function deleteIt():void {
+        killAllAnimations();
+        removeFromMap();
+        if (armatureWorker) {
+            WorldClock.clock.remove(armatureWorker);
+            _catWateringAndFeed.removeChild(armatureWorker.display as Sprite);
+            armatureWorker.dispose();
+        }
+        if (heroEyes) {
+            heroEyes.stopAnimations();
+            heroEyes = null;
+        }
+        _catImage.removeChild(armature.display as Sprite);
+        _catBackImage.removeChild(armatureBack.display as Sprite);
+        WorldClock.clock.remove(armature);
+        WorldClock.clock.remove(armatureBack);
+        armature.dispose();
+        armatureBack.dispose();
+        super.deleteIt();
+        _catImage = null;
+        _catWateringAndFeed = null;
+        _catBackImage = null;
     }
 
 }

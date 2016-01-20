@@ -14,11 +14,12 @@ import manager.Vars;
 
 public class ManagerCats {
     protected var _townMatrix:Array;
+    protected var _townAwayMatrix:Array;
 //    [ArrayElementType('heroes.BasicCat')]
     private var _catsArray:Array;
+    private var _catsAwayArray:Array;
     private var _catInfo:Object;
     private var _maxCountCats:int;
-    private var _cat:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -43,13 +44,19 @@ public class ManagerCats {
         var i:int;
         var j:int;
         var b:int = 0;
+        var arr:Array;
+        if (g.isAway) {
+            arr = _townAwayMatrix;
+        } else {
+            arr = _townMatrix;
+        }
         try {
             do {
-                i = int(Math.random() * _townMatrix.length);
-                j = int(Math.random() * _townMatrix[0].length);
+                i = int(Math.random() * arr.length);
+                j = int(Math.random() * arr[0].length);
                 b++;
                 if (b>30) return new Point(0, 0);
-            } while (_townMatrix[i][j].isFull);
+            } while (arr[i][j].isFull);
             return new Point(j, i);
         } catch (e:Error) {
             Cc.error('ManagerCats getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
@@ -203,6 +210,28 @@ public class ManagerCats {
             if ((_catsArray[i] as HeroCat).isFree) ++j;
         }
         return j;
+    }
+
+    public function makeAwayCats():void {
+        _catsAwayArray = [];
+        var cat:HeroCat;
+        for (var i:int=0; i<5; i++) {
+            cat = new HeroCat(int(Math.random() * 2) + 1);
+            _catsAwayArray.push(cat);
+        }
+        _townAwayMatrix = g.townArea.townAwayMatrix;
+        for (i=0; i<_catsAwayArray.length; i++) {
+            (_catsAwayArray[i] as BasicCat).setPosition(getRandomFreeCell());
+            (_catsAwayArray[i] as BasicCat).addToMap();
+            (_catsAwayArray[i] as HeroCat).makeFreeCatIdle();
+        }
+    }
+
+    public function removeAwayCats():void {
+        for (var i:int=0; i<5; i++) {
+            (_catsAwayArray[i] as HeroCat).deleteIt();
+        }
+        _catsAwayArray = [];
     }
 }
 }

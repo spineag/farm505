@@ -77,10 +77,10 @@ public class HeroEyesAnimation {
 
     public function stopAnimations():void {
         if (!isAnimated) return;
-        WorldClock.clock.remove(_armatureEyes);
         isAnimated  = false;
         _armatureEyes.removeEventListener(dragonBones.events.AnimationEvent.LOOP_COMPLETE, armatureEventHandler);
         _armatureEyes.animation.gotoAndStop("idle", 0);
+        WorldClock.clock.remove(_armatureEyes);
     }
 
     private function changeColorEyes(fact:StarlingFactory):void {

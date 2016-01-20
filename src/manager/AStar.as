@@ -23,21 +23,7 @@ public class AStar {
     private var path:Array;
     private var callback:Function;
 
-    public function AStar() {
-        matrix = g.townArea.townMatrix;
-        ln = matrix.length;
-//        matrixXY = [];
-//        var p:Point = new Point();
-//        for (var i:int=0; i<ln; i++) {                    // for future optimisation
-//            matrixXY[i] = [];
-//            for (var j:int=0; j<ln; j++) {
-//                p.x = i;
-//                p.y = j;
-//                p = g.matrixGrid.getXYFromIndex(p);
-//                matrixXY[i][j] = {x:p.x, y:p.y};
-//            }
-//        }
-    }
+    public function AStar() {}
 
     public function getPath(sX:int, sY:int, eX:int, eY:int, f:Function):void {
         callback = f;
@@ -48,6 +34,12 @@ public class AStar {
         openList = [];
         closedList = [];
         path = [];
+        if (g.isAway) {
+            matrix = g.townArea.townAwayMatrix;
+        } else {
+            matrix = g.townArea.townMatrix;
+        }
+        ln = matrix.length;
         openList[startX + " " + startY] = new AStarNode(startX, startY, 0, 0, null);
 //        showWallPoints();
         try {

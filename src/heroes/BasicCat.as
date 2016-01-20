@@ -32,9 +32,7 @@ public class BasicCat {
     protected var g:Vars = Vars.getInstance();
     public var isOnMap:Boolean = false;
 
-    public function BasicCat() {
-
-    }
+    public function BasicCat() {}
 
     public function setPosition(p:Point):void {
         _posX = p.x;
@@ -50,12 +48,20 @@ public class BasicCat {
 
     public function addToMap():void {
         isOnMap = true;
-        g.townArea.addHero(this);
+        if (g.isAway) {
+            g.townArea.addAwayHero(this);
+        } else {
+            g.townArea.addHero(this);
+        }
     }
 
     public function removeFromMap():void {
         isOnMap = false;
-        g.townArea.removeHero(this);
+        if (g.isAway) {
+            g.townArea.removeAwayHero(this);
+        } else {
+            g.townArea.removeHero(this);
+        }
     }
 
     public function get depth():Number {
@@ -86,11 +92,9 @@ public class BasicCat {
         if (value) {
             isOnMap = true;
             g.townArea.addHero(this);
-//            g.townArea.addHeroSourceOnMap(this);
         } else {
             isOnMap = false;
             g.townArea.removeHero(this);
-//            g.townArea.removeHeroSourceFromMap(this);
         }
     }
 
@@ -126,7 +130,11 @@ public class BasicCat {
         var f1:Function = function(callbackOnWalking:Function):void {
             _posX = p.x;
             _posY = p.y;
-            g.townArea.zSort();
+            if (g.isAway)
+                g.townArea.zAwaySort();
+            else
+                g.townArea.zSort();
+
             if (_currentPath.length) {
                 gotoPoint(_currentPath.shift(), callbackOnWalking);
             } else {
@@ -181,6 +189,12 @@ public class BasicCat {
             Cc.error('BasicCat gotoPoint:: wrong front-back logic');
         }
         new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+    }
+
+    public function deleteIt():void {
+        while (_source.numChildren) _source.removeChildAt(0);
+        _currentPath = [];
+        _source = null;
     }
 
 }

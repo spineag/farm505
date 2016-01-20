@@ -84,6 +84,10 @@ public class TownArea extends Sprite {
         return _cityTailObjects;
     }
 
+    public function get townAwayMatrix():Array {
+        return _townAwayMatrix;
+    }
+
     public function getCityObjectsByType(buildType:int):Array {
         var ar:Array = [];
         try {
@@ -699,6 +703,8 @@ public class TownArea extends Sprite {
         } else {
             g.directServer.getAllCityData(person, setAwayCity);
         }
+        g.managerCats.makeAwayCats();
+        zAwaySort();
     }
 
     private function setDefaultAwayMatrix():void {
@@ -766,7 +772,6 @@ public class TownArea extends Sprite {
         for (i=0; i<p.userDataCity.recipes.length; i++) {
             fillAwayRecipe(p.userDataCity.recipes[i]);
         }
-        zAwaySort();
     }
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
@@ -863,7 +868,6 @@ public class TownArea extends Sprite {
 
         worldObject.posX = posX;
         worldObject.posY = posY;
-
         if (worldObject.useIsometricOnly) {
             var point:Point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
             worldObject.source.x = int(point.x);
@@ -915,23 +919,6 @@ public class TownArea extends Sprite {
         }
     }
 
-    private function removeAwayFenceLenta(d:DecorPostFence):void {
-        var obj:Object;
-        if (_townAwayMatrix[d.posY][d.posX-2]) {
-            obj = _townAwayMatrix[d.posY][d.posX - 2];
-            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
-                obj.buildFence.removeRightLenta();
-        }
-        if (_townAwayMatrix[d.posY-2]) {
-            obj = _townAwayMatrix[d.posY - 2][d.posX];
-            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
-                obj.buildFence.removeLeftLenta();
-        }
-
-        d.removeLeftLenta();
-        d.removeRightLenta();
-    }
-
     public function pasteAwayTailBuild(tail:DecorTail, posX:Number, posY:Number):void {
         if (!tail) {
             Cc.error('TownArea pasteAWayTailBuild:: empty tail');
@@ -945,13 +932,27 @@ public class TownArea extends Sprite {
             tail.source.x = int(point.x);
             tail.source.y = int(point.y);
             _cont.addChild(tail.source);
-
             _cityAwayTailObjects.push(tail);
-//            tail.updateDepth();
         }
     }
 
-    private function zAwaySort():void {
+    public function addAwayHero(c:BasicCat):void {
+        if (_cityAwayObjects.indexOf(c) == -1) _cityAwayObjects.push(c);
+        if (!_cont.contains(c.source)) {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(c.posX, c.posY));
+            c.source.x = int(p.x);
+            c.source.y = int(p.y);
+            _cont.addChild(c.source);
+        }
+    }
+
+    public function removeAwayHero(c:BasicCat):void {
+        if (_cityAwayObjects.indexOf(c) > -1) _cityAwayObjects.slice(_cityObjects.indexOf(c), 1);
+        if (_cont.contains(c.source))
+            _cont.removeChild(c.source);
+    }
+
+    public function zAwaySort():void {
         try {
             _cityAwayObjects.sortOn("depth", Array.NUMERIC);
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
@@ -978,6 +979,7 @@ public class TownArea extends Sprite {
 
     private function clearAwayCity():void {
         for (var i:int = 0; i < _cityAwayObjects.length; i++) {
+            if (_cityAwayObjects[i] is BasicCat) continue;
             _cont.removeChild(_cityAwayObjects[i].source);
             (_cityAwayObjects[i] as AreaObject).clearIt();
         }
@@ -985,6 +987,7 @@ public class TownArea extends Sprite {
             _contTail.removeChild(_cityAwayTailObjects[i].source);
             _cityAwayTailObjects[i].clearIt();
         }
+        g.managerCats.removeAwayCats();
         _cityAwayObjects = [];
         _cityAwayTailObjects = [];
         _townAwayMatrix = [];
@@ -1036,11 +1039,14 @@ public class TownArea extends Sprite {
 
     private function getAwayBuildingByDbId(dbId:int):WorldObject {
         for (var i:int=0; i<_cityAwayObjects.length; i++) {
+            if (_cityAwayObjects[i] is BasicCat) continue;
             if (_cityAwayObjects[i].dbBuildingId == dbId)
             return _cityAwayObjects[i];
         }
         return null;
     }
+
+//   --------------------- END AWAY SECTION -----------------------------------
 
     public function onOpenMapEditor(value:Boolean):void {
         var i:int;
