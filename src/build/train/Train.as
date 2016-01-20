@@ -6,6 +6,7 @@ import com.junkbyte.console.Cc;
 import data.DataMoney;
 
 import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
 
 import flash.geom.Point;
 
@@ -54,6 +55,8 @@ public class Train extends AreaObject{
         }
 
        checkTrainState();
+        WorldClock.clock.add(_armature);
+
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         if (_stateBuild == STATE_WAIT_ACTIVATE) {
@@ -65,9 +68,9 @@ public class Train extends AreaObject{
         if (!g.isAway) {
             _woBuy = new WOBuyCave();
         }
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
+        _source.hoverCallback = onHover;
+        _source.endClickCallback = onClick;
+        _source.outCallback = onOut;
         _source.releaseContDrag = true;
     }
 
@@ -127,6 +130,7 @@ public class Train extends AreaObject{
 
     private function checkTrainState():void {
         try {
+            createBuild();
             if (g.isAway) {
                 if (g.visitedUser) {
                     var ar:Array = g.visitedUser.userDataCity.objects;
@@ -140,8 +144,6 @@ public class Train extends AreaObject{
                         createBrokenTrain();
                     } else if (_stateBuild == STATE_WAIT_BACK) {
                         arriveTrain();
-                    } else {
-                        createBuild();
                     }
                 } else {
                     createBrokenTrain();
@@ -150,16 +152,15 @@ public class Train extends AreaObject{
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
-                        createBuild();
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
                         _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
                         if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                             _stateBuild = STATE_WAIT_ACTIVATE;
-                            createBrokenTrain();
+                            _build.visible = false;
                         } else {  // еще строится
                             _stateBuild = STATE_BUILD;
-                            createBrokenTrain();
+                            _build.visible = false;
                             g.gameDispatcher.addToTimer(renderBuildTrainProgress);
                         }
                     }
@@ -193,8 +194,8 @@ public class Train extends AreaObject{
     }
 
     private function createBrokenTrain():void {
-        createBuild();
-
+        _build.visible = true;
+        _armature.animation.gotoAndStop('close', 0);
     }
 
     protected function renderBuildTrainProgress():void {
@@ -297,6 +298,7 @@ public class Train extends AreaObject{
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
+            _build.visible = true;
             createBuild();
         }
     }
@@ -315,6 +317,7 @@ public class Train extends AreaObject{
     }
 
     private function onBuy():void {
+        _build.visible = false;
         g.hint.hideIt();
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;

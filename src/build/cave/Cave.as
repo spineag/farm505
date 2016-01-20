@@ -1,45 +1,19 @@
 package build.cave {
 import build.AreaObject;
 
-import com.greensock.TweenMax;
-import com.greensock.easing.Linear;
-
 import com.junkbyte.console.Cc;
-
-import data.BuildType;
-
 import data.DataMoney;
-
 import dragonBones.Armature;
-import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import flash.geom.Point;
-
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
-
-
 import mouse.ToolsModifier;
-
 import resourceItem.CraftItem;
-
-import resourceItem.RawItem;
-
 import resourceItem.ResourceItem;
-
-import starling.display.Image;
-
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
-import starling.textures.Texture;
-import starling.utils.Color;
-
 import ui.xpPanel.XPStar;
-
 import windows.cave.WOBuyCave;
 
 
@@ -59,6 +33,7 @@ public class Cave extends AreaObject{
             return;
         }
         checkCaveState();
+        WorldClock.clock.add(_armature);
 
         _source.releaseContDrag = true;
         if (!g.isAway) {
@@ -200,7 +175,6 @@ public class Cave extends AreaObject{
                         _arrCraftItems.pop().flyIt();
                         if (!_arrCraftItems.length) {
                             _armature.animation.gotoAndStop('open', 0);
-                            WorldClock.clock.remove(_armature);
                         }
                     } else {
                         _source.filter = null;
@@ -241,6 +215,7 @@ public class Cave extends AreaObject{
             new FlyMessage(p, "Недостаточно денег");
             return;
         }
+        _build.visible = false;
         g.hint.hideIt();
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
@@ -319,7 +294,6 @@ public class Cave extends AreaObject{
 
         _armature.addEventListener(AnimationEvent.COMPLETE, fIn);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fIn);
-        WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlay("in");
     }
 
