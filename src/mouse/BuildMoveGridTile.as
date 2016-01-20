@@ -32,19 +32,17 @@ public class BuildMoveGridTile {
         _type = a;
         switch (a) {
             case TYPE_IN:
-                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_tail'));
-                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_tail'));
-                source.alpha = .7;
+                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_tile'));
+                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_tile'));
                 break;
             case TYPE_BORDER:
-                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_green_tail'));
-                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_red_tail'));
-                source.alpha = .5;
+                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_green_tile'));
+                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_red_tile'));
                 break;
             case TYPE_BORDER_OUT:
-                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_green_tail'));
-                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_red_tail'));
-                source.alpha = .3;
+                imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_green_tile'));
+                imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture('empty_red_tile'));
+                source.alpha = .7;
                 break;
         }
         if (!imGreen || !imRed) {
@@ -55,6 +53,7 @@ public class BuildMoveGridTile {
         imRed.pivotX = imRed.width/2;
         imGreen.scaleX = imGreen.scaleY = g.scaleFactor;
         imRed.scaleX = imRed.scaleY = g.scaleFactor;
+        imGreen.y = imRed.y = 3;
         source.addChild(imGreen);
         source.addChild(imRed);
         imGreen.visible = false;

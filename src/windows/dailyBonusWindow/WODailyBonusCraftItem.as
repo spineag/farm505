@@ -62,13 +62,13 @@ public class WODailyBonusCraftItem {
         im.y = -im.height/2;
         _source = new Sprite();
         _source.addChild(im);
-        if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
+//        if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
             var txt:TextField = new TextField(80, 60, '+'+String(obj.count), g.allData.fonts['BloggerMedium'], 30, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
             txt.x = 0;
             txt.y = 5;
             _source.addChild(txt);
-        }
+//        }
 
         _parent.addChild(_source);
         showIt();

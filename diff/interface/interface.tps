@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/interface/interface.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -204,11 +204,8 @@
             <filename>coins.png</filename>
             <filename>cross.png</filename>
             <filename>default_avatar_big.png</filename>
-            <filename>empty_green_tail.png</filename>
-            <filename>empty_red_tail.png</filename>
             <filename>friends_panel_ar.png</filename>
             <filename>green_coupone.png</filename>
-            <filename>green_tail.png</filename>
             <filename>hint</filename>
             <filename>hintMiddle.png</filename>
             <filename>hintSidePixels.png</filename>
@@ -247,7 +244,6 @@
             <filename>progress_bar_left.png</filename>
             <filename>progress_bar_right.png</filename>
             <filename>red_coupone.png</filename>
-            <filename>red_tail.png</filename>
             <filename>refresh_icon.png</filename>
             <filename>roadside_shop_tabl.png</filename>
             <filename>rubins.png</filename>
@@ -298,8 +294,12 @@
             <filename>product_particle.png</filename>
             <filename>friend_board.png</filename>
             <filename>wheels_of_fortune _str.png</filename>
-            <filename>wheels_of_fortune_disk.png</filename>
             <filename>wheels_of_fortune_text.png</filename>
+            <filename>wheels_of_fortune_disk.png</filename>
+            <filename>empty_green_tile.png</filename>
+            <filename>empty_red_tile.png</filename>
+            <filename>green_tile.png</filename>
+            <filename>red_tile.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

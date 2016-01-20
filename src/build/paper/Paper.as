@@ -6,6 +6,10 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
+import hint.FlyMessage;
+
 import manager.ManagerFilters;
 
 import mouse.ToolsModifier;
@@ -62,6 +66,12 @@ public class Paper extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
+            if (g.user.level < _dataBuild.blockByLevel) {
+                var p:Point = new Point(_source.x, _source.y - 100);
+                p = _source.parent.localToGlobal(p);
+                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                return;
+            }
             g.woPaper.showItMenu();
             g.hint.hideIt();
             _source.filter = null;

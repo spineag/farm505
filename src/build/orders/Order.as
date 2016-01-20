@@ -97,10 +97,13 @@ public class Order extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
-            if (g.user.level <= 1) {
-                new FlyMessage(new Point(_source.x, _source.y - 100),"Откройте соседние территории");
-            }
             _source.filter = null;
+            if (g.user.level < _dataBuild.blockByLevel) {
+                var p:Point = new Point(_source.x, _source.y - 100);
+                p = _source.parent.localToGlobal(p);
+                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                return;
+            }
             g.woOrder.showIt();
             g.hint.hideIt();
         } else {

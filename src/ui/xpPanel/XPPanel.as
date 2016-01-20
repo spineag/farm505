@@ -78,9 +78,11 @@ public class XPPanel {
             _txtLevel.text = String(g.user.level);
             g.woLevelUp.showLevelUp();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
-            if (g.useDataFromServer) g.directServer.updateUserLevel(onUpdateUserLevel);
+            g.directServer.updateUserLevel(onUpdateUserLevel);
             g.managerCats.calculateMaxCountCats();
             g.managerOrder.checkOrders();
+            if (g.user.level == g.dataBuilding.objectBuilding[45].blockByLevel)
+                g.managerDailyBonus.generateDailyBonusItems();
         }
         checkXP();
     }

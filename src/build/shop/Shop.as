@@ -3,6 +3,10 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
+import hint.FlyMessage;
+
 import manager.ManagerFilters;
 
 import map.TownArea;
@@ -63,6 +67,12 @@ public class Shop extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
             _source.filter = null;
+            if (g.user.level < _dataBuild.blockByLevel) {
+                var p:Point = new Point(_source.x, _source.y - 100);
+                p = _source.parent.localToGlobal(p);
+                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                return;
+            }
             g.woShop.showIt();
             g.hint.hideIt();
         } else {

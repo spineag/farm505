@@ -464,7 +464,8 @@ public class Vars {
         updateAmbarIndicator();
         townArea.zSort();
         bottomPanel.checkIsFullOrder();
-        managerDailyBonus.generateDailyBonusItems();
+        if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel)
+            managerDailyBonus.generateDailyBonusItems();
     }
 
     private function onEnterFrameGlobal():void {

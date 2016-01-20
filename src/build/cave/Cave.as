@@ -1,45 +1,19 @@
 package build.cave {
 import build.AreaObject;
 
-import com.greensock.TweenMax;
-import com.greensock.easing.Linear;
-
 import com.junkbyte.console.Cc;
-
-import data.BuildType;
-
 import data.DataMoney;
-
 import dragonBones.Armature;
-import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import flash.geom.Point;
-
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
-
-
 import mouse.ToolsModifier;
-
 import resourceItem.CraftItem;
-
-import resourceItem.RawItem;
-
 import resourceItem.ResourceItem;
-
-import starling.display.Image;
-
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
-import starling.textures.Texture;
-import starling.utils.Color;
-
 import ui.xpPanel.XPStar;
-
 import windows.cave.WOBuyCave;
 
 
@@ -59,6 +33,7 @@ public class Cave extends AreaObject{
             return;
         }
         checkCaveState();
+        WorldClock.clock.add(_armature);
 
         _source.releaseContDrag = true;
         if (!g.isAway) {
@@ -200,10 +175,8 @@ public class Cave extends AreaObject{
                         _arrCraftItems.pop().flyIt();
                         if (!_arrCraftItems.length) {
                             _armature.animation.gotoAndStop('open', 0);
-                            WorldClock.clock.remove(_armature);
                         }
                     } else {
-                        _source.filter = null;
                         g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
                         g.woCave.showIt();
                         g.hint.hideIt();
@@ -214,6 +187,13 @@ public class Cave extends AreaObject{
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             _source.filter = null;
+            _source.filter = null;
+            if (g.user.level < _dataBuild.blockByLevel) {
+                var p1:Point = new Point(_source.x, _source.y - 100);
+                p1 = _source.parent.localToGlobal(p1);
+                new FlyMessage(p1,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                return;
+            }
             if (!_source.wasGameContMoved) _woBuy.showItWithParams(_dataBuild, "Откройте пещеру", onBuy,true);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
@@ -241,6 +221,7 @@ public class Cave extends AreaObject{
             new FlyMessage(p, "Недостаточно денег");
             return;
         }
+        _build.visible = false;
         g.hint.hideIt();
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
@@ -273,8 +254,8 @@ public class Cave extends AreaObject{
 //            var bone:Bone = _armature.getBone('craft');
 //            _craftSprite.x = bone.display.x;
 //            _craftSprite.y = bone.display.y;
-            _craftSprite.x = 104;
-            _craftSprite.y = 109;
+            _craftSprite.x = 104*g.scaleFactor;
+            _craftSprite.y = 109*g.scaleFactor;
             for (var i:int = 0; i < c; i++) {
                 r = Math.random();
                 if (r < l1) {
@@ -319,7 +300,6 @@ public class Cave extends AreaObject{
 
         _armature.addEventListener(AnimationEvent.COMPLETE, fIn);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fIn);
-        WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlay("in");
     }
 
