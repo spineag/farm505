@@ -9,6 +9,10 @@ import com.junkbyte.console.Cc;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 
+import flash.geom.Point;
+
+import hint.FlyMessage;
+
 import manager.ManagerFilters;
 
 import mouse.ToolsModifier;
@@ -94,8 +98,15 @@ public class DailyBonus extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            _source.filter = null;
-            if (!_source.wasGameContMoved) g.woDailyBonus.showItMenu();
+            if (!_source.wasGameContMoved) {
+                if (g.user.level < _dataBuild.blockByLevel) {
+                    var p:Point = new Point(_source.x, _source.y - 100);
+                    p = _source.parent.localToGlobal(p);
+                    new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                    return;
+                }
+                g.woDailyBonus.showItMenu();
+            }
             g.hint.hideIt();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')

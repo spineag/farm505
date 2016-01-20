@@ -10,6 +10,8 @@ import dragonBones.animation.WorldClock;
 
 import flash.geom.Point;
 
+import hint.FlyMessage;
+
 import manager.ManagerFilters;
 
 
@@ -275,6 +277,12 @@ public class Train extends AreaObject{
         } else if (_stateBuild == STATE_UNACTIVE) {
             if (_source.wasGameContMoved) return;
             _source.filter = null;
+            if (g.user.level < _dataBuild.blockByLevel[0]) {
+                var p:Point = new Point(_source.x, _source.y - 100);
+                p = _source.parent.localToGlobal(p);
+                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel[0]) + ' уровне');
+                return;
+            }
             _woBuy.showItWithParams(_dataBuild, "Откройте поезд", onBuy,false);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {

@@ -177,7 +177,6 @@ public class Cave extends AreaObject{
                             _armature.animation.gotoAndStop('open', 0);
                         }
                     } else {
-                        _source.filter = null;
                         g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
                         g.woCave.showIt();
                         g.hint.hideIt();
@@ -188,6 +187,13 @@ public class Cave extends AreaObject{
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             _source.filter = null;
+            _source.filter = null;
+            if (g.user.level < _dataBuild.blockByLevel) {
+                var p1:Point = new Point(_source.x, _source.y - 100);
+                p1 = _source.parent.localToGlobal(p1);
+                new FlyMessage(p1,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                return;
+            }
             if (!_source.wasGameContMoved) _woBuy.showItWithParams(_dataBuild, "Откройте пещеру", onBuy,true);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {

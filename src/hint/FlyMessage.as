@@ -4,11 +4,9 @@
 package hint {
 
 import flash.geom.Point;
-
+import manager.ManagerFilters;
 import manager.Vars;
-
 import starling.animation.Tween;
-
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -20,10 +18,9 @@ public class FlyMessage {
 
     public function FlyMessage(p:Point, text:String) {
         _source = new Sprite();
-        _txtMessage = new TextField(300,30,"","Arial",16,Color.BLACK);
+        _txtMessage = new TextField(300,30,text,g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtMessage.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtMessage.x = -150;
-        _txtMessage.text = text;
-//        start = spr.parent.localToGlobal(start);
         _source.x = p.x;
         _source.y = p.y;
         _source.addChild(_txtMessage);
