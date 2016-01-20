@@ -85,6 +85,8 @@ public class LockedLandItem {
             return;
         }
         var icon:Image;
+        _id = id;
+        _count = count;
         if (g.dataResource.objectResources[id].buildType == BuildType.PLANT)
             icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[id].imageShop + '_icon'));
         else

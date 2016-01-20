@@ -24,33 +24,33 @@ public class WOBuyCoupone extends Window{
 
     public function WOBuyCoupone() {
         _woWidth = 500;
-        _woHeight = 400;
+        _woHeight = 330;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        var txt:TextField = new TextField(400,100,'Собирай ваучеры, выполняя заказы на доставку, отправляя пароход, и приобретайте на них особые объекты', g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        var txt:TextField = new TextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары', g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -200;
-        txt.y = -120;
+        txt.y = -130;
         _source.addChild(txt);
     }
 
     public function showItWO():void {
         _Green = new WOBuyCouponeItem("green_coupone", g.user.greenCouponCount,15);
         _Green.source.x = -215;
-        _Green.source.y = -15;
+        _Green.source.y = -20;
         _source.addChild(_Green.source);
-        _Blue = new WOBuyCouponeItem("blue_coupone", g.user.blueCouponCount,15);
+        _Blue = new WOBuyCouponeItem("blue_coupone", g.user.blueCouponCount,30);
         _Blue.source.x = -105;
-        _Blue.source.y = -15;
+        _Blue.source.y = -20;
         _source.addChild(_Blue.source);
-        _Red = new WOBuyCouponeItem("red_coupone", g.user.redCouponCount,15);
+        _Red = new WOBuyCouponeItem("red_coupone", g.user.redCouponCount,45);
         _Red.source.x = 5;
-        _Red.source.y = -15;
+        _Red.source.y = -20;
         _source.addChild(_Red.source);
-        _Yellow = new WOBuyCouponeItem("yellow_coupone", g.user.yellowCouponCount,15);
+        _Yellow = new WOBuyCouponeItem("yellow_coupone", g.user.yellowCouponCount,60);
         _Yellow.source.x = 115;
-        _Yellow.source.y = -15;
+        _Yellow.source.y = -20;
         _source.addChild(_Yellow.source);
         showIt();
     }

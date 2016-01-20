@@ -53,7 +53,7 @@ public class WOBuyCurrency extends Window{
         _source.addChild(_contCarton);
         createLists();
 
-        new Birka('ОБМЕННИК', _source, 700, 560);
+        new Birka('БАНК', _source, 700, 560);
     }
 
     private function createTabs():void {

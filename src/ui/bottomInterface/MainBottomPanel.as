@@ -46,13 +46,13 @@ public class MainBottomPanel {
     private var _ambarBtn:CButton;
     private var _checkImage:Image;
     private var _person:Someone;
+    private var _ava:Image;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
         _source = new Sprite();
         onResize();
         _friendBoard = new Sprite();
-        _friendBoard.x = Starling.current.nativeStage.stageWidth/2 - 40;
         g.cont.interfaceCont.addChild(_friendBoard);
         g.cont.interfaceCont.addChild(_source);
         var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
@@ -292,6 +292,11 @@ public class MainBottomPanel {
     private function friendBoard():void {
         var im:Image;
         var txt:TextField;
+        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+        MCScaler.scale(_ava, 70, 70);
+        _ava.x = 10;
+        _ava.y = 8;
+        _friendBoard.addChild(_ava);
         if (_person is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
@@ -300,9 +305,10 @@ public class MainBottomPanel {
             }
     }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
+        _friendBoard.x = Starling.current.nativeStage.stageWidth/2 - im.width/2;
         _friendBoard.addChild(im);
         txt = new TextField(150,40,_person.name,g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BROWN);
-        txt.x = 70;
+        txt.x = 90;
         txt.y = 20;
         _friendBoard.addChild(txt);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
@@ -329,11 +335,11 @@ public class MainBottomPanel {
     }
 
     private function photoFromTexture(tex:Texture):void {
-        var im:Image = new Image(tex);
-        MCScaler.scale(im,70,70);
-        im.x = 10;
-        im.y = 8;
-        _friendBoard.addChild(im);
+        _ava = new Image(tex);
+        MCScaler.scale(_ava,70,70);
+        _ava.x = 10;
+        _ava.y = 8;
+        _friendBoard.addChild(_ava);
     }
 }
 }
