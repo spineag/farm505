@@ -49,6 +49,7 @@ public class TownArea extends Sprite {
     private var _cont:Sprite;
     private var _contTail:Sprite;
     private var _townMatrix:Array;
+    private var _townAwayMatrix:Array;
     private var _townTailMatrix:Array;
 
     protected var g:Vars = Vars.getInstance();
@@ -675,8 +676,24 @@ public class TownArea extends Sprite {
         _cityTailObjects.length = 0;
     }
 
+     // ---------------------------------------------------- AWAY SECTION -------------------------------------------------------
+
     public function goAway(person:Someone):void {
         g.visitedUser = person;
+        if (g.isAway) {
+            clearAwayCity();
+        } else {
+            for (var i:int = 0; i < _cityObjects.length; i++) {
+                _cont.removeChild(_cityObjects[i].source);
+            }
+            for (i = 0; i < _cityTailObjects.length; i++) {
+                _contTail.removeChild(_cityTailObjects[i].source);
+            }
+        }
+        g.isAway = true;
+        g.bottomPanel.doorBoolean(true,person);
+        _townAwayMatrix = [];
+        setDefaultAwayMatrix();
         if (person.userDataCity.objects) {
             setAwayCity(person);
         } else {
@@ -684,18 +701,56 @@ public class TownArea extends Sprite {
         }
     }
 
+    private function setDefaultAwayMatrix():void {
+        var arr:Array = g.matrixGrid.matrix;
+        var ln:int = g.matrixGrid.matrixSize;
+
+        for (var i:int = 0; i < ln; i++) {
+            _townAwayMatrix.push([]);
+            for (var j:int = 0; j < ln; j++) {
+                _townAwayMatrix[i][j] = {};
+                if (arr[i][j].inGame) {
+                    _townAwayMatrix[i][j].build = null;
+                    _townAwayMatrix[i][j].buildFence = null;
+                    _townAwayMatrix[i][j].isFull = false;
+                    _townAwayMatrix[i][j].inGame = true;
+                    _townAwayMatrix[i][j].isBlocked = false;
+                    _townAwayMatrix[i][j].isWall = false;
+                } else {
+                    _townMatrix[i][j].inGame = false;
+                }
+            }
+        }
+    }
+
+    private function fillAwayMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
+        for (var i:int = posY; i < (posY + sizeY); i++) {
+            for (var j:int = posX; j < (posX + sizeX); j++) {
+                if (_townAwayMatrix[i][j].build && _townAwayMatrix[i][j].build is LockedLand && source is Wild) {
+                    continue;
+                }
+                _townAwayMatrix[i][j].build = source;
+                _townAwayMatrix[i][j].isFull = true;
+                if (sizeX > 1 && sizeY > 1) {
+                    if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
+                        _townAwayMatrix[i][j].isWall = true;
+                }
+            }
+        }
+    }
+
+    private function fillAwayMatrixWithFence(posX:int, posY:int, source:*):void {
+        for (var i:int = posY; i < (posY + 2); i++) {
+            for (var j:int = posX; j < (posX + 2); j++) {
+                _townAwayMatrix[i][j].isFull = true;
+                if (i == posY && j == posX)
+                    _townAwayMatrix[i][j].buildFence = source;
+            }
+        }
+    }
+
     private function setAwayCity(p:Someone):void {
-        for (var i:int = 0; i < _cityObjects.length; i++) {
-            _cont.removeChild(_cityObjects[i].source);
-        }
-        for (i = 0; i < _cityTailObjects.length; i++) {
-            _contTail.removeChild(_cityTailObjects[i].source);
-        }
-        if (g.isAway) {
-            clearAwayCity();
-        }
-        g.isAway = true;
-        g.bottomPanel.doorBoolean(true,p);
+        var i:int;
         for (i=0; i<p.userDataCity.objects.length; i++) {
             createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, p.userDataCity.objects[i].dbId, p.userDataCity.objects[i].isFlip);
         }
@@ -821,8 +876,60 @@ public class TownArea extends Sprite {
         if (!_cont.contains(worldObject.source)) {
             _cont.addChild(worldObject.source);
         }
+
+        if (worldObject is DecorFence || worldObject is DecorPostFence) {
+            fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
+            if (worldObject is DecorPostFence) addAwayFenceLenta(worldObject as DecorPostFence);
+        } else {
+            if (worldObject.useIsometricOnly) {
+                fillAwayMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+            }
+        }
         _cityAwayObjects.push(worldObject);
         worldObject.updateDepth();
+    }
+
+    private function addAwayFenceLenta(d:DecorPostFence):void {
+        // проверяем, есть ли по соседству еще столбы забора, если да - то проводим между ними ленту
+        var obj:Object;
+
+        if (_townAwayMatrix[d.posY][d.posX-2]) {
+            obj = _townAwayMatrix[d.posY][d.posX - 2];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                obj.buildFence.addRightLenta();
+        }
+        if (_townAwayMatrix[d.posY-2]) {
+            obj = _townAwayMatrix[d.posY - 2][d.posX];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                obj.buildFence.addLeftLenta();
+        }
+        if (_townAwayMatrix[d.posY][d.posX+2]) {
+            obj = _townAwayMatrix[d.posY][d.posX + 2];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                d.addRightLenta();
+        }
+        if (_townAwayMatrix[d.posY+2]) {
+            obj = _townMatrix[d.posY + 2][d.posX];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                d.addLeftLenta();
+        }
+    }
+
+    private function removeAwayFenceLenta(d:DecorPostFence):void {
+        var obj:Object;
+        if (_townAwayMatrix[d.posY][d.posX-2]) {
+            obj = _townAwayMatrix[d.posY][d.posX - 2];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                obj.buildFence.removeRightLenta();
+        }
+        if (_townAwayMatrix[d.posY-2]) {
+            obj = _townAwayMatrix[d.posY - 2][d.posX];
+            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                obj.buildFence.removeLeftLenta();
+        }
+
+        d.removeLeftLenta();
+        d.removeRightLenta();
     }
 
     public function pasteAwayTailBuild(tail:DecorTail, posX:Number, posY:Number):void {
@@ -880,6 +987,7 @@ public class TownArea extends Sprite {
         }
         _cityAwayObjects = [];
         _cityAwayTailObjects = [];
+        _townAwayMatrix = [];
     }
 
     private function fillAwayTree(ob:Object):void {

@@ -33,8 +33,6 @@ public class Cave extends AreaObject{
             return;
         }
         checkCaveState();
-        WorldClock.clock.add(_armature);
-
         _source.releaseContDrag = true;
         if (!g.isAway) {
             _woBuy = new WOBuyCave();
@@ -55,6 +53,7 @@ public class Cave extends AreaObject{
 
     override public function clearIt():void {
         onOut();
+        WorldClock.clock.remove(_armature);
         g.gameDispatcher.removeFromTimer(renderBuildCaveProgress);
         _source.touchable = false;
         _arrCraftItems = [];
@@ -70,6 +69,7 @@ public class Cave extends AreaObject{
         }
         _armature = g.allData.factory[_dataBuild.image].buildArmature("building");
         _build.addChild(_armature.display as Sprite);
+        WorldClock.clock.add(_armature);
         _defaultScale = 1;
         _rect = _build.getBounds(_build);
         _sizeX = _dataBuild.width;

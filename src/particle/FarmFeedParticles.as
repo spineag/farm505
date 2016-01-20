@@ -63,7 +63,7 @@ internal class Particle {
         var arrValues:Array = new Array();
         var obj:Object = {};
         obj.x = (DISTANCE_X + deltaX)/3;
-        obj.y = -50 + Math.random()*20;
+        obj.y = (-50 + Math.random()*20)*g.scaleFactor;
         arrValues.push(obj);
         obj = {};
         obj.x = DISTANCE_X + deltaX;

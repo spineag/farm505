@@ -58,7 +58,6 @@ public class Fabrica extends AreaObject {
             _source.outCallback = onOut;
         }
         updateRecipes();
-        WorldClock.clock.add(_armature);
     }
 
     override public function createBuild(isImageClicked:Boolean = true):void {
@@ -75,6 +74,7 @@ public class Fabrica extends AreaObject {
         _sizeY = _dataBuild.height;
         (_build as Sprite).alpha = 1;
         _source.addChild(_build);
+        WorldClock.clock.add(_armature);
         stopAnimation();
     }
 
@@ -338,6 +338,7 @@ public class Fabrica extends AreaObject {
     override public function clearIt():void {
         onOut();
         stopAnimation();
+        WorldClock.clock.remove(_armature);
         g.gameDispatcher.removeFromTimer(render);
         _source.touchable = false;
         _arrList.length = 0;

@@ -57,7 +57,6 @@ public class Train extends AreaObject{
         }
 
        checkTrainState();
-        WorldClock.clock.add(_armature);
 
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
@@ -186,6 +185,7 @@ public class Train extends AreaObject{
         }
         _armature = g.allData.factory[_dataBuild.image].buildArmature("aerial_tram");
         _build.addChild(_armature.display as Sprite);
+        WorldClock.clock.add(_armature);
         _defaultScale = 1;
         _rect = _build.getBounds(_build);
         _sizeX = _dataBuild.width;
@@ -423,6 +423,7 @@ public class Train extends AreaObject{
     override public function clearIt():void {
         onOut();
         _source.touchable = false;
+        WorldClock.clock.remove(_armature);
         g.gameDispatcher.removeEnterFrame(countEnterFrame);
         g.gameDispatcher.removeFromTimer(render);
         g.gameDispatcher.removeFromTimer(renderBuildTrainProgress);

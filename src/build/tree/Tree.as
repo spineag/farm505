@@ -68,7 +68,6 @@ public class Tree extends AreaObject{
             _source.outCallback = onOut;
         }
         _source.endClickCallback = onClick;
-
         _source.releaseContDrag = true;
 
         switch (_data.id) {
@@ -538,6 +537,7 @@ public class Tree extends AreaObject{
 
     override public function clearIt():void {
         onOut();
+        WorldClock.clock.remove(armature);
         g.gameDispatcher.removeFromTimer(render);
         _resourceItem = null;
         _arrCrafted.length = 0;

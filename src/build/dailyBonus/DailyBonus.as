@@ -53,6 +53,7 @@ public class DailyBonus extends AreaObject{
         }
         _armature = g.allData.factory[_dataBuild.image].buildArmature("building");
         _build.addChild(_armature.display as Sprite);
+        WorldClock.clock.add(_armature);
         _defaultScale = 1;
         _rect = _build.getBounds(_build);
         _sizeX = _dataBuild.width;
@@ -64,12 +65,14 @@ public class DailyBonus extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
+        _source.filter = ManagerFilters.BUILD_STROKE;
         WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlay('work');
         g.hint.showIt(_dataBuild.name);
     }
 
     private function onOut():void {
+        _source.filter = null;
         WorldClock.clock.remove(_armature);
         _armature.animation.gotoAndStop('idle', 0);
         g.hint.hideIt();
@@ -105,6 +108,7 @@ public class DailyBonus extends AreaObject{
                     new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
                     return;
                 }
+                _source.filter = null;
                 g.woDailyBonus.showItMenu();
             }
             g.hint.hideIt();
@@ -115,6 +119,7 @@ public class DailyBonus extends AreaObject{
 
     override public function clearIt():void {
         onOut();
+        WorldClock.clock.remove(_armature);
         _source.touchable = false;
         super.clearIt();
     }
