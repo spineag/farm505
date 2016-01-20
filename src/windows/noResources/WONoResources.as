@@ -60,7 +60,7 @@ public class WONoResources extends Window {
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(210, 34, CButton.GREEN, true);
         _btnBuy.x = 0;
-        _btnBuy.y = 124;
+        _btnBuy.y = 110;
         _source.addChild(_btnBuy);
         _txtHardCost = new TextField(180, 34, "Купить ресурсы за 8888", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         _txtHardCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;

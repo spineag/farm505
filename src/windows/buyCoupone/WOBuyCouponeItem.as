@@ -68,6 +68,10 @@ public class WOBuyCouponeItem {
     }
 
     private function onClick():void {
+        if (g.user.hardCurrency < cost) {
+            g.woBuyCurrency.showItMenu(true);
+            return;
+        }
         g.userInventory.addMoney(1, -cost);
     }
 }

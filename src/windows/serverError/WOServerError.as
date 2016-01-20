@@ -37,7 +37,7 @@ public class WOServerError extends Window{
         _txtError = new TextField(340,100,'Ошибка',g.allData.fonts['BloggerMedium'],24,Color.WHITE);
         _txtError.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtError.x = -170;
-        _txtError.y = -135;
+        _txtError.y = -90;
         _source.addChild(_txtError);
         var b:CButton = new CButton();
         b.addButtonTexture(210, 34, CButton.GREEN, true);

@@ -38,8 +38,8 @@ public class CatPanel {
         im.x = -19;
         im.y = -5;
         _source.addChild(im);
-        _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 24, 0xb78f33);
-        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BROWN);
+//        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.x = 10;
         _source.addChild(_txtCount);
         onResize();

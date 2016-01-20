@@ -9,6 +9,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -18,10 +20,8 @@ import windows.WOComponents.WindowBackground;
 import windows.Window;
 
 public class WOBuyForHardCurrency extends Window{
-    private var _contBtnYes:CSprite;
-    private var _contBtnNo:CSprite;
-    private var _txtYes:TextField;
-    private var _txtNo:TextField;
+    private var _contBtnYes:CButton;
+    private var _contBtnNo:CButton;
     private var _id:int;
     private var _count:int;
     private var _woBG:WindowBackground;
@@ -35,26 +35,38 @@ public class WOBuyForHardCurrency extends Window{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        var yes:WOButtonTexture = new WOButtonTexture(70, 40, WOButtonTexture.BLUE);
-        var no:WOButtonTexture = new WOButtonTexture(70, 40, WOButtonTexture.BLUE);
-        _txtYes = new TextField(50,50,"Да",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
-        _txtYes.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtYes.y = -5;
-        _txtNo = new TextField(50,50,"Нет",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
-        _txtNo.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtNo.y = -5;
-        _contBtnNo = new CSprite();
-        _contBtnYes = new CSprite();
-        _contBtnYes.endClickCallback = onYes;
-        _contBtnNo.endClickCallback = onNo;
-        _contBtnYes.x += 70;
-        _contBtnYes.y += 70;
-        _contBtnNo.x -= 150;
-        _contBtnNo.y += 70;
-        _contBtnNo.addChild(no);
-        _contBtnYes.addChild(yes);
-        _contBtnYes.addChild(_txtYes);
-        _contBtnNo.addChild(_txtNo);
+        _contBtnNo = new CButton();
+        _contBtnNo.addButtonTexture(80, 40, CButton.BLUE, true);
+        _contBtnYes = new CButton();
+        _contBtnYes.addButtonTexture(80, 40, CButton.BLUE, true);
+        var txt:TextField;
+        txt = new TextField(50,50,"Да",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = 15;
+        txt.y = -5;
+        _contBtnYes.addChild(txt);
+        txt = new TextField(50,50,"Нет",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = 15;
+        txt.y = -5;
+        _contBtnNo.addChild(txt);
+        _txtCost = new TextField(280,50,'',g.allData.fonts['BloggerMedium'], 24, Color.WHITE);
+        _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCost.x = -150;
+        _txtCost.y = -32;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
+        MCScaler.scale(im,40,40);
+        _source.addChild(im);
+        im.x = 130;
+        im.y -= 30;
+
+        _contBtnYes.clickCallback = onYes;
+        _contBtnNo.clickCallback = onNo;
+        _contBtnYes.x += 100;
+        _contBtnYes.y += 80;
+        _contBtnNo.x -= 100;
+        _contBtnNo.y += 80;
+
         _source.addChild(_contBtnYes);
         _source.addChild(_contBtnNo);
     }
@@ -66,25 +78,24 @@ public class WOBuyForHardCurrency extends Window{
 
     public function showItWO(id:int,count:int):void {
         _id = id;
-        _count = count;
-//        _txtCost= new TextField(250,50,"Подтвердить покупку за " + String(count * g.dataResource.objectResources[id].priceHard) +" ?","Arial",14,Color.BLACK);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        MCScaler.scale(im,25,25);
-//        _source.addChild(_txtCost);
-        _source.addChild(im);
-//        _txtCost.x -= 150;
-//        _txtCost.y -= 20;
-        im.x = 80;
-        im.y -= 20;
+        _count = count - g.userInventory.getCountResourceById(id);
+
+        _txtCost.text = "Подтвердить покупку за " + String(count * g.dataResource.objectResources[id].priceHard);
+        _source.addChild(_txtCost);
         showIt();
 
     }
 
     private function onYes():void {
-        g.userInventory.addResource(_id,_count);
-        hideIt();
+        if (g.user.hardCurrency < _count * g.dataResource.objectResources[_id].priceHard) {
+            _source.removeChild(_txtCost);
+            hideIt();
+            return;
+        }
         g.userInventory.addMoney(1,-_count * g.dataResource.objectResources[_id].priceHard);
+        g.userInventory.addResource(_id,_count);
         _source.removeChild(_txtCost);
+        hideIt();
     }
 
     private function onNo():void {
