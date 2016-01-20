@@ -703,8 +703,6 @@ public class TownArea extends Sprite {
         } else {
             g.directServer.getAllCityData(person, setAwayCity);
         }
-        g.managerCats.makeAwayCats();
-        zAwaySort();
     }
 
     private function setDefaultAwayMatrix():void {
@@ -772,6 +770,8 @@ public class TownArea extends Sprite {
         for (i=0; i<p.userDataCity.recipes.length; i++) {
             fillAwayRecipe(p.userDataCity.recipes[i]);
         }
+        g.managerCats.makeAwayCats();
+        zAwaySort();
     }
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {

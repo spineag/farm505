@@ -4,18 +4,13 @@
 package temp {
 
 import build.AreaObject;
-import build.AreaObject;
-
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
 import starling.display.Image;
 import starling.text.TextField;
 import starling.text.TextFieldAutoSize;
 import starling.utils.HAlign;
 import starling.utils.VAlign;
-
 import utils.CSprite;
 import utils.MCScaler;
 

@@ -160,7 +160,7 @@ public class MapEditorInterface {
         _allTable.addChild(_cancelBtn.source);
 
         _activeBtn = new EditorButtonInterface();
-        _activeBtn.setIconButton("red_tail");
+        _activeBtn.setIconButton("red_tile");
         _activeBtn.source.x = 840;
         _allTable.addChild(_activeBtn.source);
 
