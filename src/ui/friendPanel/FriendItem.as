@@ -63,6 +63,7 @@ public class FriendItem {
         source.addChild(im);
 
         _txtLvl = new TextField(27, 15, "", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtLvl.text = '1';
         _txtLvl.x = 36;
         _txtLvl.y = 50;

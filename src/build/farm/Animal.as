@@ -154,8 +154,8 @@ public class Animal {
     private function craftResource():void {
         var rItem:ResourceItem = new ResourceItem();
         rItem.fillIt(g.dataResource.objectResources[_data.idResource]);
-        var item:CraftItem = new CraftItem(0, -30, rItem, _farm.craftSprite, 1, onCraft, true);
-        item.addParticle();
+            var item:CraftItem = new CraftItem(0, -30, rItem, _farm.craftSprite, 1, onCraft, true);
+            item.addParticle();
     }
 
     private function onCraft():void {

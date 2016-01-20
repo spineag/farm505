@@ -20,7 +20,7 @@ import ui.xpPanel.XPStar;
 import user.Someone;
 import utils.MCScaler;
 
-public class Tree extends AreaObject{
+public class Tree extends AreaObject {
     public static const GROW1:int = 1;
     public static const GROW_FLOWER1:int = 2;
     public static const GROWED1:int = 3;
@@ -72,10 +72,18 @@ public class Tree extends AreaObject{
         _source.releaseContDrag = true;
 
         switch (_data.id) {
-            case 25: armature = g.allData.factory['tree'].buildArmature("apple"); break;
-            case 26: armature = g.allData.factory['tree'].buildArmature("cheery"); break;
-            case 41: armature = g.allData.factory['tree'].buildArmature("raspberry"); break;
-            case 42: armature = g.allData.factory['tree'].buildArmature("blueberry"); break;
+            case 25:
+                armature = g.allData.factory['tree'].buildArmature("apple");
+                break;
+            case 26:
+                armature = g.allData.factory['tree'].buildArmature("cheery");
+                break;
+            case 41:
+                armature = g.allData.factory['tree'].buildArmature("raspberry");
+                break;
+            case 42:
+                armature = g.allData.factory['tree'].buildArmature("blueberry");
+                break;
         }
         armatureClip = armature.display as Sprite;
         _build.addChild(armatureClip);
@@ -111,9 +119,9 @@ public class Tree extends AreaObject{
                 if (ob.time_work > _resourceItem.buildTime) {
                     _state = GROWED1;
                     _timeToEndState = 0;
-                } else if (ob.time_work <int(_resourceItem.buildTime/2 + .5)) {
+                } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW1;
-                    _timeToEndState = int(_resourceItem.buildTime/2 + .5) - ob.time_work;
+                    _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
                 } else {
                     _state = GROW_FLOWER1;
                     _timeToEndState = _resourceItem.buildTime - ob.time_work;
@@ -123,9 +131,9 @@ public class Tree extends AreaObject{
                 if (ob.time_work > _resourceItem.buildTime) {
                     _state = GROWED2;
                     _timeToEndState = 0;
-                } else if (ob.time_work <int(_resourceItem.buildTime/2 + .5)) {
+                } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW2;
-                    _timeToEndState = int(_resourceItem.buildTime/2 + .5) - ob.time_work;
+                    _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
                 } else {
                     _state = GROW_FLOWER2;
                     _timeToEndState = _resourceItem.buildTime - ob.time_work;
@@ -135,9 +143,9 @@ public class Tree extends AreaObject{
                 if (ob.time_work > _resourceItem.buildTime) {
                     _state = GROWED3;
                     _timeToEndState = 0;
-                } else if (ob.time_work <int(_resourceItem.buildTime/2 + .5)) {
+                } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW3;
-                    _timeToEndState = int(_resourceItem.buildTime/2 + .5) - ob.time_work;
+                    _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
                 } else {
                     _state = GROW_FLOWER3;
                     _timeToEndState = _resourceItem.buildTime - ob.time_work;
@@ -147,9 +155,9 @@ public class Tree extends AreaObject{
                 if (ob.time_work > _resourceItem.buildTime) {
                     _state = GROWED_FIXED;
                     _timeToEndState = 0;
-                } else if (ob.time_work <int(_resourceItem.buildTime/2 + .5)) {
+                } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW_FIXED;
-                    _timeToEndState = int(_resourceItem.buildTime/2 + .5) - ob.time_work;
+                    _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
                 } else {
                     _state = GROW_FIXED_FLOWER;
                     _timeToEndState = _resourceItem.buildTime - ob.time_work;
@@ -185,12 +193,14 @@ public class Tree extends AreaObject{
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[0]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[0] for dbId: ' + tree_db_id);
                 }
-                for (i=0; i < _dataBuild.countCraftResource[0] - _craftedCountFromServer; i++) {
+                for (i = 0; i < _dataBuild.countCraftResource[0] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
 //                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
-                    item.callback = function():void {onCraftItemClick(item)};
+                    item.callback = function ():void {
+                        onCraftItemClick(item)
+                    };
                     _arrCrafted.push(item);
                 }
                 rechekFruits();
@@ -206,12 +216,14 @@ public class Tree extends AreaObject{
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[1]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[1] for dbId: ' + tree_db_id);
                 }
-                for (i=0; i < _dataBuild.countCraftResource[1] - _craftedCountFromServer; i++) {
+                for (i = 0; i < _dataBuild.countCraftResource[1] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
 //                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
-                    item.callback = function():void {onCraftItemClick(item)};
+                    item.callback = function ():void {
+                        onCraftItemClick(item)
+                    };
                     _arrCrafted.push(item);
                 }
                 rechekFruits();
@@ -227,12 +239,14 @@ public class Tree extends AreaObject{
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[2] for dbId: ' + tree_db_id);
                 }
-                for (i=0; i < _dataBuild.countCraftResource[2] - _craftedCountFromServer; i++) {
+                for (i = 0; i < _dataBuild.countCraftResource[2] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
 //                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
-                    item.callback = function():void {onCraftItemClick(item)};
+                    item.callback = function ():void {
+                        onCraftItemClick(item)
+                    };
                     _arrCrafted.push(item);
                 }
                 rechekFruits();
@@ -260,12 +274,14 @@ public class Tree extends AreaObject{
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[2] for dbId: ' + tree_db_id);
                 }
-                for (i=0; i < _dataBuild.countCraftResource[2] - _craftedCountFromServer; i++) {
+                for (i = 0; i < _dataBuild.countCraftResource[2] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
 //                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
-                    item.callback = function():void {onCraftItemClick(item)};
+                    item.callback = function ():void {
+                        onCraftItemClick(item)
+                    };
                     _arrCrafted.push(item);
                 }
                 rechekFruits();
@@ -279,10 +295,10 @@ public class Tree extends AreaObject{
     }
 
     private function rechekFruits():void {
-        for (var i:int=0; i<4; i++) {
+        for (var i:int = 0; i < 4; i++) {
             arrFruits[i].visible = false;
         }
-        for (i=0; i<_arrCrafted.length; i++) {
+        for (i = 0; i < _arrCrafted.length; i++) {
             arrFruits[i].visible = true;
         }
     }
@@ -296,7 +312,7 @@ public class Tree extends AreaObject{
             _count = 20;
             _countMouse = 2;
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-        } else{
+        } else {
             g.mouseHint.hideIt();
         }
     }
@@ -312,7 +328,7 @@ public class Tree extends AreaObject{
             _count = 20;
             _countMouse = 2;
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-        } else{
+        } else {
             g.mouseHint.hideIt();
         }
 
@@ -323,7 +339,7 @@ public class Tree extends AreaObject{
         if (g.isAway) {
             if (_state == ASK_FIX) {
                 _state = FIXED;
-                for (var i:int = 0; i<g.visitedUser.userDataCity.treesInfo.length; i++) {
+                for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
                     if (g.visitedUser.userDataCity.treesInfo[i].dbId == tree_db_id) {
                         g.visitedUser.userDataCity.treesInfo[i].state = String(FIXED);
                         break;
@@ -356,16 +372,16 @@ public class Tree extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
-            if (_state ==  FULL_DEAD || _state == ASK_FIX){
+            if (_state == FULL_DEAD || _state == ASK_FIX) {
                 if (_isOnHover == true) {
-                    g.wildHint.showIt( g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale,_dataBuild.removeByResourceId, _dataBuild.name);
+                    g.wildHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale, _dataBuild.removeByResourceId, _dataBuild.name);
                     if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
                         g.treeHint.onDelete = deleteTree;
                     }
                 }
             } else if (_state == DEAD) {
                 if (_isOnHover == true) {
-                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, _dataBuild.name,this);
+                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale, _dataBuild.name, this);
                     if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
                         g.treeHint.onDelete = deleteTree;
                     }
@@ -386,18 +402,18 @@ public class Tree extends AreaObject{
                     _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
                 var time:int = _timeToEndState;
                 if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FIXED) {
-                    time += int(_resourceItem.buildTime/2 + .5);
+                    time += int(_resourceItem.buildTime / 2 + .5);
                 }
-                if (_dataBuild.width == 2) g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
+                if (_dataBuild.width == 2) g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
                 else {
                     var newX:int;
                     if (_state == GROW3 || _state == GROW_FLOWER3) {
-                        newX = g.cont.gameCont.x + (_source.x + _source.width/2) * g.currentGameScale;
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 2) * g.currentGameScale;
                     }
                     else {
-                        newX = g.cont.gameCont.x + (_source.x + _source.width/5) * g.currentGameScale;
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 4) * g.currentGameScale;
                     }
-                    g.timerHint.showIt(newX, g.cont.gameCont.y + (_source.y - _source.height/4) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
+                    g.timerHint.showIt(newX, g.cont.gameCont.y + (_source.y - _source.height / 4) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
                 }
 
             } else if (_state == FIXED) {
@@ -413,13 +429,13 @@ public class Tree extends AreaObject{
     }
 
     private function startGrow():void {
-        _timeToEndState = int(_resourceItem.buildTime/2 + .5);
+        _timeToEndState = int(_resourceItem.buildTime / 2 + .5);
         g.gameDispatcher.addToTimer(render);
     }
 
     private function render():void {
         _timeToEndState--;
-        if (_timeToEndState <=0) {
+        if (_timeToEndState <= 0) {
             switch (_state) {
                 case GROW1:
                     _state = GROW_FLOWER1;
@@ -547,22 +563,22 @@ public class Tree extends AreaObject{
 
     private function callbackSkip():void {
         onOut();
-        if (_state == GROW1 ||_state == GROW_FLOWER1){
+        if (_state == GROW1 || _state == GROW_FLOWER1) {
             _state = GROWED1;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED1,_dbBuildingId,null)
+            g.directServer.skipTimeOnTree(GROWED1, _dbBuildingId, null)
         } else if (_state == GROW2 || _state == GROW_FLOWER2) {
             _state = GROWED2;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED2,_dbBuildingId,null)
+            g.directServer.skipTimeOnTree(GROWED2, _dbBuildingId, null)
         } else if (_state == GROW3 || _state == GROW_FLOWER3) {
             _state = GROWED3;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED3,_dbBuildingId,null)
+            g.directServer.skipTimeOnTree(GROWED3, _dbBuildingId, null)
         } else if (_state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
             _state = GROWED_FIXED;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED_FIXED,_dbBuildingId,null)
+            g.directServer.skipTimeOnTree(GROWED_FIXED, _dbBuildingId, null)
         }
     }
 
@@ -580,57 +596,93 @@ public class Tree extends AreaObject{
 
         if (_state == ASK_FIX || _state == FIXED) {
             _wateringIcon = new Sprite();
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
-            im.pivotX = im.width/2;
-            im.pivotY = im.height/2;
-            im.y =  -_source.height/2 - im.height - 40;
+            var im:Image;
+            if (_dataBuild.width == 2) {
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
+                im.pivotX = im.width / 2;
+                im.pivotY = im.height / 2;
+                im.y = -_source.height / 2 - im.height;
 //            im.x = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            _wateringIcon.addChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
-            im.pivotX = im.width/2;
-            im.pivotY = im.height/2;
-            im.y =  -_source.height/2 - im.height - 50;
-            MCScaler.scale(im, 45, 45);
-            _wateringIcon.addChild(im);
-            if (_state == FIXED) {
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
-                im.x = 25;
-                im.y =  -_source.height/2 - im.height - 60;
                 _wateringIcon.addChild(im);
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-                im.x = 33;
-                im.y =  -_source.height/2 - im.height - 68;
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
+                im.pivotX = im.width / 2;
+                im.pivotY = im.height / 2;
+                im.y = -_source.height / 2 - im.height - 10;
+                MCScaler.scale(im, 45, 45);
                 _wateringIcon.addChild(im);
-                if (_wateringUserSocialId != '0' || _wateringUserSocialId != '-1') {
-                    var p:Someone = g.user.getSomeoneBySocialId(_wateringUserSocialId);
-                    if (!p.photo) {
-                        var f1:Function = function():void {
-                            p = g.user.getSomeoneBySocialId(_wateringUserSocialId);
-                            g.load.loadImage(p.photo, onLoadPhoto, p);
-                        };
-                        g.socialNetwork.getTempUsersInfoById([_wateringUserSocialId], f1);
-                    } else {
-                        g.load.loadImage(p.photo, onLoadPhoto, p);
-                    }
+                if (_state == FIXED) {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
+                    im.pivotX = im.width / 2;
+                    im.pivotY = im.height / 2;
+                    im.x = 25;
+                    im.y = -_source.height / 2 - im.height - 45;
+                    _wateringIcon.addChild(im);
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                    im.pivotX = im.width / 2;
+                    im.pivotY = im.height / 2;
+                    im.x = 26;
+                    im.y = -_source.height / 2 - im.height - 53;
+                    _wateringIcon.addChild(im);
+
+//                if (_wateringUserSocialId != '0' || _wateringUserSocialId != '-1') {
+//                    var p:Someone = g.user.getSomeoneBySocialId(_wateringUserSocialId);
+//                    if (!p.photo) {
+//                        var f1:Function = function():void {
+//                            p = g.user.getSomeoneBySocialId(_wateringUserSocialId);
+//                            g.load.loadImage(p.photo, onLoadPhoto, p);
+//                        };
+//                        g.socialNetwork.getTempUsersInfoById([_wateringUserSocialId], f1);
+//                    } else {
+//                        g.load.loadImage(p.photo, onLoadPhoto, p);
+//                    }
+//                }
+                }
+            } else {
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
+                im.pivotX = im.width / 2;
+                im.pivotY = im.height / 2;
+                im.y = -_source.height + 20;
+//            im.x = g.cont.gameCont.x + _source.x * g.currentGameScale;
+                _wateringIcon.addChild(im);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
+                im.pivotX = im.width / 2;
+                im.pivotY = im.height / 2;
+                im.y = -_source.height + 8;
+                MCScaler.scale(im, 45, 45);
+                _wateringIcon.addChild(im);
+                if (_state == FIXED) {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
+                    im.pivotX = im.width / 2;
+                    im.pivotY = im.height / 2;
+                    im.x = 25;
+                    im.y = -_source.height + 38;
+                    _wateringIcon.addChild(im);
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                    im.pivotX = im.width / 2;
+                    im.pivotY = im.height / 2;
+                    im.x = 26;
+                    im.y = -_source.height + 37;
+                    _wateringIcon.addChild(im);
+
                 }
             }
             _build.addChild(_wateringIcon);
         }
     }
 
-    private function onLoadPhoto(bitmap:Bitmap, p:Someone):void {
-        if (!bitmap) {
-            bitmap = g.pBitmaps[p.photo].create() as Bitmap;
-        }
-        if (!bitmap) {
-            Cc.error('WOPaperItem:: no photo for userId: ' + p.userSocialId);
-            return;
-        }
-        var ava:Image = new Image(Texture.fromBitmap(bitmap));
-        MCScaler.scale(ava, 50, 50);
-        ava.x = -60;
-        _wateringIcon.addChild(ava);
-    }
+//    private function onLoadPhoto(bitmap:Bitmap, p:Someone):void {
+//        if (!bitmap) {
+//            bitmap = g.pBitmaps[p.photo].create() as Bitmap;
+//        }
+//        if (!bitmap) {
+//            Cc.error('WOPaperItem:: no photo for userId: ' + p.userSocialId);
+//            return;
+//        }
+//        var ava:Image = new Image(Texture.fromBitmap(bitmap));
+//        MCScaler.scale(ava, 50, 50);
+//        ava.x = -60;
+//        _wateringIcon.addChild(ava);
+//}
 }
 }
 

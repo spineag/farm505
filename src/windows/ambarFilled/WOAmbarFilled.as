@@ -92,7 +92,6 @@ public class WOAmbarFilled extends Window{
         } else {
             g.woAmbars.showItWithParams(WOAmbars.SKLAD);
         }
-
     }
 
     public function showAmbarFilled(isAmbar:Boolean):void {
@@ -105,7 +104,7 @@ public class WOAmbarFilled extends Window{
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
             _imAmbarSklad.x = -5;
             _imAmbarSklad.y = _imageAmbar.y - 40;
-            MCScaler.scale(_imAmbarSklad, 40, 40);
+            MCScaler.scale(_imAmbarSklad, 60, 60);
             _bar.progress = 1;
             _source.addChild(_imAmbarSklad);
         } else if(isAmbar == false) {
@@ -116,11 +115,10 @@ public class WOAmbarFilled extends Window{
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
             _imAmbarSklad.x = -5;
             _imAmbarSklad.y = _imageAmbar.y - 40;
-            MCScaler.scale(_imAmbarSklad, 40, 40);
+            MCScaler.scale(_imAmbarSklad, 60, 60);
             _bar.progress = 1;
             _source.addChild(_imAmbarSklad);
         }
-
     }
 }
 }

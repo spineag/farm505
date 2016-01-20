@@ -212,9 +212,6 @@ public class Train extends AreaObject{
         _source.filter = ManagerFilters.BUILD_STROKE;
         g.hint.showIt(_dataBuild.name);
         _isOnHover = true;
-        if (_stateBuild == STATE_BUILD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
-        }
     }
 
     private function onClick():void {
@@ -246,6 +243,9 @@ public class Train extends AreaObject{
                     g.townArea.moveBuild(this);
             }
             return;
+        }
+        if (_stateBuild == STATE_BUILD) {
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
         }
         if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_READY || _stateBuild == STATE_WAIT_BACK) {
             if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -404,7 +404,7 @@ public class Train extends AreaObject{
         if(_count <=0){
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
             if (_isOnHover == true) {
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, 5, _dataBuild.name,callbackSkip);
+                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
             }
         }
     }

@@ -29,6 +29,8 @@ public class CaveItem {
         source.pivotX = source.width/2;
         source.pivotY = source.height;
         source.endClickCallback = onClick;
+        source.hoverCallback = function():void {source.filter = ManagerFilters.YELLOW_STROKE;};
+        source.outCallback = function():void {source.filter = null;};
 //        source.hoverCallback = onHover;
 //        source.outCallback = onOut;
         _txtCount = new TextField(40,30,'',g.allData.fonts['BloggerMedium'],16, ManagerFilters.TEXT_BROWN);
@@ -71,8 +73,8 @@ public class CaveItem {
     }
 
     private function onClick():void {
+        source.filter = null;
         if (_countResource <=0) return;
-
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_data.id]);
         }

@@ -33,14 +33,14 @@ public class CraftItem {
     private var _resourceItem:ResourceItem;
     private var _image:Image;
     private var _callback:Function;
-    private var _count:int;
+    public  var count:int;
     private var _txtNumber:TextField;
     private var _particle:CraftItemParticle;
 
     private var g:Vars = Vars.getInstance();
 
-    public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, count:int = 1, f:Function = null, useHover:Boolean = false) {
-        _count = count;
+    public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, _count:int = 1, f:Function = null, useHover:Boolean = false) {
+        count = _count;
         _callback = f;
         _source = new CSprite();
         _resourceItem = resourceItem;
@@ -102,8 +102,7 @@ public class CraftItem {
 
     public function flyIt():void {
         _image.filter = null;
-        deleteParticle();
-        if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + _count > g.user.ambarMaxCount) {
+        if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + count > g.user.ambarMaxCount) {
 //            g.flyMessage.showIt(_source,"Амбар заполнен");
             g.woAmbarFilled.showAmbarFilled(true);
             while (_source.numChildren) {
@@ -113,14 +112,14 @@ public class CraftItem {
             return;
         }
 
-        if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + _count > g.user.skladMaxCount) {
+        if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + count > g.user.skladMaxCount) {
             var p:Point = new Point(_source.x, _source.y);
             p = _source.parent.localToGlobal(p);
             g.woAmbarFilled.showAmbarFilled(false);
 //            new FlyMessage(p,"Склад заполнен");
             return;
         }
-
+        deleteParticle();
         if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
             g.craftPanel.showIt(_resourceItem.placeBuild);
 
@@ -149,7 +148,7 @@ public class CraftItem {
         if (g.managerDropResources.checkDrop()) {
             g.managerDropResources.makeDrop(_source.x,_source.y);
         }
-        g.userInventory.addResource(_resourceItem.resourceID, _count);
+        g.userInventory.addResource(_resourceItem.resourceID, count);
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
             removeDefaultCallbacks();
@@ -167,8 +166,8 @@ public class CraftItem {
         var v:Number = 250;
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
         new XPStar(_source.x,_source.y,_resourceItem.craftXP);
-        if (_count > 0) {
-            _txtNumber.text = '+' + String(_count);
+        if (count > 0) {
+            _txtNumber.text = '+' + String(count);
         } else {
             _txtNumber.text = '';
         }
