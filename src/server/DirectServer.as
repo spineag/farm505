@@ -5,6 +5,7 @@ package server {
 import build.AreaObject;
 import build.WorldObject;
 import build.WorldObject;
+import build.cave.Cave;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
 import build.farm.Animal;
@@ -386,7 +387,7 @@ public class DirectServer {
                     obj.blockByLevel = String(d.message[i].block_by_level).split('&');
                     for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
                 }
-                if (d.message[i].cost_skip) obj.priceSkipHard = d.message[i].cost_skip;
+                if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
                 if (d.message[i].build_time) obj.buildTime = int(d.message[i].build_time);
                 if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
 
@@ -962,7 +963,6 @@ public class DirectServer {
                         ob.isOpen = Boolean(int(d.message[i].is_open));
                     }
                     g.user.userDataCity.objects.push(ob);
-
                     var build:AreaObject = g.townArea.createNewBuild(dataBuild, dbId);
                     if (build is DecorTail) {
                         g.townArea.pasteTailBuild(build as DecorTail, p.x, p.y, false);

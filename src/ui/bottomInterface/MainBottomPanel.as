@@ -273,8 +273,12 @@ public class MainBottomPanel {
         _orderBtn.visible = !b;
         _toolsBtn.visible = !b;
         _cancelBtn.visible = false;
-        if(b) friendBoard();
-        else {
+        if(b) {
+            while (_friendBoard.numChildren) {
+                _friendBoard.removeChildAt(0);
+            }
+            friendBoard();
+        } else {
             while (_friendBoard.numChildren) {
                 _friendBoard.removeChildAt(0);
             }
@@ -308,8 +312,8 @@ public class MainBottomPanel {
         _friendBoard.addChild(im);
         txt = new TextField(30,30,String(_person.level),g.allData.fonts['BloggerBold'],14,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 58;
-        txt.y = 57;
+        txt.x = 60;
+        txt.y = 59;
         _friendBoard.addChild(txt);
     }
 
@@ -326,9 +330,9 @@ public class MainBottomPanel {
 
     private function photoFromTexture(tex:Texture):void {
         var im:Image = new Image(tex);
-        MCScaler.scale(im,68,68);
+        MCScaler.scale(im,70,70);
         im.x = 10;
-        im.y = 9;
+        im.y = 8;
         _friendBoard.addChild(im);
     }
 }

@@ -144,8 +144,12 @@ public class Fabrica extends AreaObject {
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
                 if (_source.wasGameContMoved) return;
                 if (_arrCrafted.length) {
-                    var item:CraftItem = _arrCrafted.pop();
-                    item.flyIt();
+                    if (g.userInventory.currentCountInSklad + _arrCrafted.count > g.user.skladMaxCount) {
+                        g.woAmbarFilled.showAmbarFilled(false);
+                    } else {
+                        var item:CraftItem = _arrCrafted.pop();
+                        item.flyIt();
+                    }
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
                     g.cont.moveCenterToXY(_source.x, _source.y);
