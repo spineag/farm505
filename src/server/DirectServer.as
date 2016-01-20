@@ -66,8 +66,6 @@ public class DirectServer {
     }
 
     public function getDataLevel(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_LEVEL);
 //        var variables:URLVariables = new URLVariables();
@@ -98,6 +96,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getDataLevel OK', 5);
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
@@ -115,8 +114,6 @@ public class DirectServer {
     }
 
     public function getDataAnimal(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_ANIMAL);
 
@@ -143,6 +140,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getDataAnimal OK', 5);
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
@@ -173,8 +171,6 @@ public class DirectServer {
     }
 
     public function getDataRecipe(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_RECIPE);
 
@@ -201,6 +197,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getDataRecipe OK', 5);
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
@@ -224,8 +221,6 @@ public class DirectServer {
     }
 
     public function getDataResource(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_RESOURCE);
 
@@ -252,6 +247,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getDataResource OK', 5);
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
@@ -287,8 +283,6 @@ public class DirectServer {
     }
 
     public function getDataCats(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_CATS);
 
@@ -315,6 +309,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getDataCats OK', 5);
             var obj:Object;
             g.dataCats = new Array();
             for (var i:int = 0; i<d.message.length; i++) {
@@ -336,8 +331,6 @@ public class DirectServer {
     }
 
     public function getDataBuilding(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_BUILDING);
 
@@ -365,6 +358,7 @@ public class DirectServer {
 
         var k:int;
         if (d.id == 0) {
+            Cc.ch('server', 'getDataBuilding OK', 5);
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
@@ -431,8 +425,6 @@ public class DirectServer {
     }
 
     public function authUser(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_START);
         var variables:URLVariables = new URLVariables();
@@ -464,6 +456,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'authUser OK', 5);
             g.user.userId = int(d.message);
             if (callback != null) {
                 callback.apply();
@@ -475,8 +468,6 @@ public class DirectServer {
     }
 
     public function getUserInfo(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_INFO);
         var variables:URLVariables = new URLVariables();
@@ -507,6 +498,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserInfo OK', 5);
             var ob:Object = d.message;
             g.user.ambarLevel = int(ob.ambar_level);
             g.user.skladLevel = int(ob.sklad_level);
@@ -546,8 +538,6 @@ public class DirectServer {
     }
 
     public function getFriendsInfo(userSocialId:int,_person:Someone,callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_FRIENDS_INFO);
         var variables:URLVariables = new URLVariables();
@@ -577,6 +567,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getFriendsInfo OK', 5);
                 _person.level = d.message.level;
             if (callback != null) {
                 callback.apply();
@@ -588,8 +579,6 @@ public class DirectServer {
     }
 
     public function addUserMoney(type:int, count:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_MONEY);
         var variables:URLVariables = new URLVariables();
@@ -625,6 +614,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addUserMoney OK', 5);
             if (callback != null) {
                 callback.apply(null, [true]);
             }
@@ -638,8 +628,6 @@ public class DirectServer {
     }
 
     public function addUserXP(count:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_XP);
         var variables:URLVariables = new URLVariables();
@@ -674,6 +662,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addUserXP OK', 5);
             if (callback != null) {
                 callback.apply(null, [true]);
             }
@@ -687,8 +676,6 @@ public class DirectServer {
     }
 
     public function updateUserLevel(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_LEVEL);
         var variables:URLVariables = new URLVariables();
@@ -723,6 +710,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'updateUserLevel OK', 5);
             if (callback != null) {
                 callback.apply(null, [true]);
             }
@@ -736,8 +724,6 @@ public class DirectServer {
     }
 
     public function getUserResource(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_RESOURCE);
         var variables:URLVariables = new URLVariables();
@@ -771,6 +757,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserResource OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -781,8 +768,6 @@ public class DirectServer {
     }
 
     public function addUserResource(resourceId:int, count:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_RESOURCE);
         var variables:URLVariables = new URLVariables();
@@ -818,6 +803,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addUserResource OK', 5);
             if (callback != null) {
                 callback.apply(null, [true]);
             }
@@ -831,8 +817,6 @@ public class DirectServer {
     }
 
     public function addUserBuilding(wObject:WorldObject, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_BUILDING);
         var variables:URLVariables = new URLVariables();
@@ -874,6 +858,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addUserBuilding OK', 5);
             wObject.dbBuildingId = int(d.message);
             if (g.user.userBuildingData[wObject.dataBuild.id])
                 g.user.userBuildingData[wObject.dataBuild.id].dbId = int(d.message);
@@ -890,8 +875,6 @@ public class DirectServer {
     }
 
     public function getUserBuilding(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_BUILDING);
         var variables:URLVariables = new URLVariables();
@@ -924,6 +907,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserBuilding OK', 5);
             g.user.userDataCity.objects = new Array();
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
@@ -981,8 +965,6 @@ public class DirectServer {
     }
 
     public function startBuildBuilding(wObject:WorldObject, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_START_BUILD_BUILDING);
         var variables:URLVariables = new URLVariables();
@@ -1018,6 +1000,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'startBuildMapBuilding OK', 5);
             if (callback != null) {
                 callback.apply(null, [true]);
             }
@@ -1066,6 +1049,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'openBuildMapBuilding OK', 5);
             if (callback != null) {
                 callback.apply(null, [true]);
             }
@@ -1079,8 +1063,6 @@ public class DirectServer {
     }
 
     public function addFabricaRecipe(recipeId:int, dbId:int, delay:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_FABRICA_RECIPE);
         var variables:URLVariables = new URLVariables();
@@ -1117,6 +1099,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addFabricaRecipe OK', 5);
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
@@ -1130,8 +1113,6 @@ public class DirectServer {
     }
 
     public function getUserFabricaRecipe(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_FABRICA_RECIPE);
         var variables:URLVariables = new URLVariables();
@@ -1162,6 +1143,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserFabricaRecipe OK', 5);
             (d.message as Array).sortOn('delay', Array.NUMERIC);
             g.managerFabricaRecipe = new ManagerFabricaRecipe();
             for (var i:int = 0; i < d.message.length; i++) {
@@ -1177,8 +1159,6 @@ public class DirectServer {
     }
 
     public function craftFabricaRecipe(dbId:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_FABRICA_RECIPE);
         var variables:URLVariables = new URLVariables();
@@ -1213,6 +1193,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'craftFabricaRecipe OK', 5);
             if (callback != null) {
                 callback.apply(null, [true]);
             }
@@ -1226,8 +1207,6 @@ public class DirectServer {
     }
 
     public function rawPlantOnRidge(plantId:int, dbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RAW_PLANT_RIDGE);
         var variables:URLVariables = new URLVariables();
@@ -1263,6 +1242,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'rawPlantOnRidge OK', 5);
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
@@ -1276,8 +1256,6 @@ public class DirectServer {
     }
 
     public function getUserPlantRidge(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_PLANT_RIDGE);
         var variables:URLVariables = new URLVariables();
@@ -1308,6 +1286,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserPlantRidge OK', 5);
             var ob:Object;
             var time:int;
             var timeWork:int;
@@ -1338,8 +1317,6 @@ public class DirectServer {
     }
 
     public function craftPlantRidge(dbId:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_PLANT_RIDGE);
         var variables:URLVariables = new URLVariables();
@@ -1374,6 +1351,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'craftPlantRidge OK', 5);
             if (callback != null) {
                 callback.apply(null, [true]);
             }
@@ -1387,8 +1365,6 @@ public class DirectServer {
     }
 
     public function addUserTree(wObject:WorldObject, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_TREE);
         var variables:URLVariables = new URLVariables();
@@ -1423,6 +1399,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addUserTree OK', 5);
             (wObject as Tree).tree_db_id = d.message;
             if (callback != null) {
                 callback.apply(null, [true]);
@@ -1437,8 +1414,6 @@ public class DirectServer {
     }
 
     public function getUserTree(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TREE);
         var variables:URLVariables = new URLVariables();
@@ -1469,6 +1444,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserTree OK', 5);
             var ob:Object;
             g.user.userDataCity.treesInfo = [];
             g.managerTree = new ManagerTree();
@@ -1490,8 +1466,6 @@ public class DirectServer {
     }
 
     public function updateUserTreeState(treeDbId:String, state:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TREE_STATE);
         var variables:URLVariables = new URLVariables();
@@ -1524,6 +1498,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'updateUserTreeState OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -1534,8 +1509,6 @@ public class DirectServer {
     }
 
     public function deleteUserTree(treeDbId:String, dbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_TREE);
         var variables:URLVariables = new URLVariables();
@@ -1568,6 +1541,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'deleteUserTree OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -1578,8 +1552,6 @@ public class DirectServer {
     }
 
     public function addUserAnimal(an:Animal, farmDbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_ANIMAL);
         var variables:URLVariables = new URLVariables();
@@ -1615,6 +1587,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addUserAnimal OK', 5);
             an.animal_db_id = d.message;
             if (callback != null) {
                 callback.apply(null, [true]);
@@ -1629,8 +1602,6 @@ public class DirectServer {
     }
 
     public function rawUserAnimal(anDbId:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RAW_USER_ANIMAL);
         var variables:URLVariables = new URLVariables();
@@ -1665,6 +1636,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'rawUserAnimal OK', 5);
             if (callback != null) {
                 callback.apply(null, [true]);
             }
@@ -1678,8 +1650,6 @@ public class DirectServer {
     }
 
     public function getUserAnimal(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_ANIMAL);
         var variables:URLVariables = new URLVariables();
@@ -1710,6 +1680,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserAnimal OK', 5);
             var ob:Object;
             g.user.userDataCity.animalsInfo = [];
             g.managerAnimal = new ManagerAnimal();
@@ -1732,8 +1703,6 @@ public class DirectServer {
     }
 
     public function craftUserAnimal(animalDbId:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_USER_ANIMAL);
         var variables:URLVariables = new URLVariables();
@@ -1765,6 +1734,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'craftUserAnimal OK', 5);
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerAnimal.addAnimal(d.message[i]);
             }
@@ -1778,8 +1748,6 @@ public class DirectServer {
     }
 
     public function addUserTrain(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_TRAIN);
         var variables:URLVariables = new URLVariables();
@@ -1813,6 +1781,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addUserTrain OK', 5);
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
@@ -1826,9 +1795,8 @@ public class DirectServer {
     }
 
     public function getUserTrain(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         if (g.user.level < 17) {
+            Cc.ch('server', 'getUserTrain:: g.user.level < 17', 1);
             if (callback != null) {
                 callback.apply();
             }
@@ -1837,6 +1805,7 @@ public class DirectServer {
 
         var tr:Train = g.townArea.getCityObjectsByType(BuildType.TRAIN)[0];
         if (!tr ||tr.stateBuild < 4) {
+            Cc.ch('server', 'getUserTrain:: train.stateBuild < 4', 1);
             if (callback != null) {
                 callback.apply();
             }
@@ -1871,6 +1840,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserTrain OK', 5);
             tr.fillFromServer(d.message);
         } else {
             Cc.error('GetUserTrain: id: ' + d.id + '  with message: ' + d.message);
@@ -1883,8 +1853,6 @@ public class DirectServer {
     }
 
     public function updateUserTrainState(state:int, train_db_id:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TRAIN_STATE);
         var variables:URLVariables = new URLVariables();
@@ -1920,6 +1888,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'updateUserTrainState OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -1933,8 +1902,6 @@ public class DirectServer {
     }
 
     public function getTrainPack(userSocialId:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TRAIN_PACK);
         var variables:URLVariables = new URLVariables();
@@ -1965,6 +1932,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getTrainPack OK', 5);
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
@@ -1976,8 +1944,6 @@ public class DirectServer {
     }
 
     public function releaseUserTrainPack(train_db_id:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RELEASE_USER_TRAIN_PACK);
         var variables:URLVariables = new URLVariables();
@@ -2012,6 +1978,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'releaseUserTrainPack OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2025,8 +1992,6 @@ public class DirectServer {
     }
 
     public function updateUserTrainPackItems(train_item_db_id:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TRAIN_PACK_ITEM);
         var variables:URLVariables = new URLVariables();
@@ -2061,6 +2026,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'updateUserTrainPackItems OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2074,8 +2040,6 @@ public class DirectServer {
     }
 
     public function deleteUser(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER);
         var variables:URLVariables = new URLVariables();
@@ -2103,8 +2067,6 @@ public class DirectServer {
     }
 
     public function addUserMarketItem(id:int, count:int, inPapper:Boolean, cost:int, numberCell:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_MARKET_ITEM);
         var variables:URLVariables = new URLVariables();
@@ -2140,6 +2102,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addUserMarketItem OK', 5);
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
@@ -2151,8 +2114,6 @@ public class DirectServer {
     }
 
     public function getUserMarketItem(socialId:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_MARKET_ITEM);
         var variables:URLVariables = new URLVariables();
@@ -2184,6 +2145,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserMarketItem OK', 5);
             g.user.fillSomeoneMarketItems(d.message, socialId);
             if (callback != null) {
                 callback.apply();
@@ -2196,8 +2158,6 @@ public class DirectServer {
     }
 
     public function buyFromMarket(itemId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_BUY_FROM_MARKET);
         var variables:URLVariables = new URLVariables();
@@ -2229,6 +2189,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'buyFromMarket OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2240,8 +2201,6 @@ public class DirectServer {
     }
 
     public function deleteUserMarketItem(itemId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_MARKET_ITEM);
         var variables:URLVariables = new URLVariables();
@@ -2273,6 +2232,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'deleteUserMarketItem OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2284,8 +2244,6 @@ public class DirectServer {
     }
 
     public function updateUserBuildPosition(dbId:int, pX:int, pY:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_BUILD_POSITION);
         var variables:URLVariables = new URLVariables();
@@ -2319,6 +2277,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'updateUserBuildPosition OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2329,8 +2288,6 @@ public class DirectServer {
     }
 
     public function getPaperItems(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_PAPER_ITEMS);
         var variables:URLVariables = new URLVariables();
@@ -2361,6 +2318,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getPaperItems OK', 5);
             g.managerPaper.fillIt(d.message);
             if (callback != null) {
                 callback.apply();
@@ -2372,8 +2330,6 @@ public class DirectServer {
     }
 
     public function updateUserAmbar(isAmbar:int, newLevel:int, newMaxCount:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_AMBAR);
         var variables:URLVariables = new URLVariables();
@@ -2407,6 +2363,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'updateUserAmbar OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2417,8 +2374,6 @@ public class DirectServer {
     }
 
     public function getDataLockedLand(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_LOCKED_LAND);
         var variables:URLVariables = new URLVariables();
@@ -2449,6 +2404,7 @@ public class DirectServer {
 
         g.allData.lockedLandData = {};
         if (d.id == 0) {
+            Cc.ch('server', 'getDataLockedLand OK', 5);
             var obj:Object;
             for (var i:int = 0; i < d.message.length; i++) {
                 obj = {};
@@ -2471,8 +2427,6 @@ public class DirectServer {
     }
 
     public function removeUserLockedLand(id:int, callback:Function = null):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_REMOVE_USER_LOCKED_LAND);
         var variables:URLVariables = new URLVariables();
@@ -2502,6 +2456,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'removeUserLockedLand OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2512,8 +2467,6 @@ public class DirectServer {
     }
 
     public function addToInventory(dbId:int, callback:Function = null):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_TO_INVENTORY);
         var variables:URLVariables = new URLVariables();
@@ -2543,6 +2496,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addToInventory',5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2553,8 +2507,6 @@ public class DirectServer {
     }
 
     public function removeFromInventory(dbId:int, posX:int, posY:int, callback:Function = null):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_REMOVE_FROM_INVENTORY);
         var variables:URLVariables = new URLVariables();
@@ -2586,6 +2538,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'removeFromInventory OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2596,8 +2549,6 @@ public class DirectServer {
     }
 
     public function getUserNeighborMarket(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_NEIGHBOR_MARKET);
         var variables:URLVariables = new URLVariables();
@@ -2628,6 +2579,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserNeighborMarket OK', 5);
             g.user.fillNeighborMarketItems(d.message);
             if (callback != null) {
                 callback.apply();
@@ -2640,8 +2592,6 @@ public class DirectServer {
     }
 
     public function buyFromNeighborMarket(itemId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_BUY_FROM_NEIGHBOR_MARKET);
         var variables:URLVariables = new URLVariables();
@@ -2673,6 +2623,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'buyFromNeighborMarket OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2684,8 +2635,6 @@ public class DirectServer {
     }
 
     public function getAllCityData(p:Someone, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_ALL_CITY_DATA);
         var variables:URLVariables = new URLVariables();
@@ -2717,6 +2666,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getAllCityData OK', 5);
             p.userDataCity.objects = new Array();
             for (var i:int = 0; i < d.message['building'].length; i++) {
                 ob = {};
@@ -2788,8 +2738,6 @@ public class DirectServer {
     }
 
     public function buyHeroCat(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_BUY_HERO_CAT);
         var variables:URLVariables = new URLVariables();
@@ -2820,6 +2768,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'buyHeroCat OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -2831,8 +2780,6 @@ public class DirectServer {
     }
 
     public function ME_addWild(posX:int, posY:int, w:WorldObject, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_ADD_WILD);
         var variables:URLVariables = new URLVariables();
@@ -2869,6 +2816,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'ME_addWild OK', 5);
             w.dbBuildingId = int(d.message);
             if (callback != null) {
                 callback.apply(null);
@@ -2883,8 +2831,6 @@ public class DirectServer {
     }
 
     public function ME_removeWild(dbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_REMOVE_WILD);
         var variables:URLVariables = new URLVariables();
@@ -2919,6 +2865,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'ME_removeWild OK', 5);
             if (callback != null) {
                 callback.apply(null);
             }
@@ -2932,8 +2879,6 @@ public class DirectServer {
     }
 
     public function ME_moveWild(posX:int, posY:int, dbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_MOVE_WILD);
         var variables:URLVariables = new URLVariables();
@@ -2970,6 +2915,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'ME_moveWild OK', 5);
             if (callback != null) {
                 callback.apply(null);
             }
@@ -2983,8 +2929,6 @@ public class DirectServer {
     }
 
     public function ME_flipWild(dbId:int, isFlip:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_FLIP_WILD);
         var variables:URLVariables = new URLVariables();
@@ -3020,6 +2964,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'ME_flipWild OK', 5);
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3033,8 +2978,6 @@ public class DirectServer {
     }
 
     public function getUserWild(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_WILD);
         var variables:URLVariables = new URLVariables();
@@ -3067,6 +3010,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserWild OK', 5);
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
                 dataBuild = g.dataBuilding.objectBuilding[int(d.message[i].building_id)];
@@ -3130,6 +3074,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'userBuildingFlip OK', 5);
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3143,8 +3088,6 @@ public class DirectServer {
     }
 
     public function deleteUserWild(dbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_WILD);
         var variables:URLVariables = new URLVariables();
@@ -3179,6 +3122,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'deleteUserWild OK', 5);
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3192,8 +3136,6 @@ public class DirectServer {
     }
 
     public function ME_moveMapBuilding(id:int, posX:int, posY:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_MOVE_MAP_BUILDING);
         var variables:URLVariables = new URLVariables();
@@ -3230,6 +3172,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'ME_moveMapBuilding OK', 5);
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3243,8 +3186,6 @@ public class DirectServer {
     }
 
     public function saveUserGameScale(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_GAME_SCALE);
         var variables:URLVariables = new URLVariables();
@@ -3276,6 +3217,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'saveUserGameScale OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3286,8 +3228,6 @@ public class DirectServer {
     }
 
     public function buyNewCellOnFabrica(dbId:int, count:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_CELL_FABRICA);
         var variables:URLVariables = new URLVariables();
@@ -3320,6 +3260,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'buyNewCellOnFabrica OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3330,8 +3271,6 @@ public class DirectServer {
     }
 
     public function skipRecipeOnFabrica(userRecipeDbId:String, leftTime:int, buildDbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_RECIPE_FABRICA);
         var variables:URLVariables = new URLVariables();
@@ -3365,6 +3304,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'skipRecipeOnFabrica OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3375,8 +3315,6 @@ public class DirectServer {
     }
 
     public function skipTimeOnRidge(plantTime:int,buildDbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_RIDGE);
         var variables:URLVariables = new URLVariables();
@@ -3410,6 +3348,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'skipTimeOnRidge OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3420,8 +3359,6 @@ public class DirectServer {
     }
 
     public function skipTimeOnTree(stateTree:int, buildDbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_TREE);
         var variables:URLVariables = new URLVariables();
@@ -3454,6 +3391,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'skipTimeOnTree OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3464,8 +3402,6 @@ public class DirectServer {
     }
 
     public function skipTimeOnAnimal(timeToEnd:int,buildDbId:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_ANIMAL);
         var variables:URLVariables = new URLVariables();
@@ -3498,6 +3434,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'skipTimeOnAnimal OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3508,8 +3445,6 @@ public class DirectServer {
     }
 
     public function skipTimeOnFabricBuild(leftTime:int, buildDbId:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_FABRIC_BUILD);
         var variables:URLVariables = new URLVariables();
@@ -3543,6 +3478,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'skipTimeOnFabricBuild OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3553,8 +3489,6 @@ public class DirectServer {
     }
 
     public function addUserOrder(order:Object, delay:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_ORDER);
         var variables:URLVariables = new URLVariables();
@@ -3592,6 +3526,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'addUserOrder OK', 5);
             order.dbId = String(d.message);
             if (callback != null) {
                 callback.apply(null, [order]);
@@ -3603,8 +3538,6 @@ public class DirectServer {
     }
 
     public function getUserOrder(callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_ORDER);
         var variables:URLVariables = new URLVariables();
@@ -3635,6 +3568,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'getUserOrder OK', 5);
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerOrder.addFromServer(d.message[i]);
             }
@@ -3648,8 +3582,6 @@ public class DirectServer {
     }
 
     public function deleteUserOrder(orderDbId:String, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_ORDER);
         var variables:URLVariables = new URLVariables();
@@ -3681,6 +3613,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'deleteUserOrder OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3691,8 +3624,6 @@ public class DirectServer {
     }
 
     public function askWateringUserTree(treeDbId:String, state:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ASK_WATERING_USER_TREE);
         var variables:URLVariables = new URLVariables();
@@ -3725,6 +3656,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'askWateringUserTree OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3735,8 +3667,6 @@ public class DirectServer {
     }
 
     public function makeWateringUserTree(treeDbId:String, state:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_MAKE_WATERING_USER_TREE);
         var variables:URLVariables = new URLVariables();
@@ -3770,6 +3700,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'makeWateringUserTree OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3780,8 +3711,6 @@ public class DirectServer {
     }
 
     public function skipOrderTimer(orderID:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_ORDER_TIMER);
         var variables:URLVariables = new URLVariables();
@@ -3813,6 +3742,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'skipOrderTimer OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3823,8 +3753,6 @@ public class DirectServer {
     }
 
     public function craftUserTree(treeDbId:String, state:int, callback:Function):void {
-        if (!g.useDataFromServer) return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_USER_TREE);
         var variables:URLVariables = new URLVariables();
@@ -3857,6 +3785,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'craftUserTree OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3898,6 +3827,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'useDailyBonus OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -3942,6 +3872,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            Cc.ch('server', 'buyAndAddToInventory OK', 5);
             if (callback != null) {
                 callback.apply(null, [int(d.message)]);
             }
