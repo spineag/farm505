@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/preloader/preloaderAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/farm505/diff/preloader/preloaderAtlas2.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -194,7 +194,7 @@
         <array>
             <filename>preloader_bg.png</filename>
             <filename>preloader_line.png</filename>
-            <filename>preloader_window.png</filename>
+            <filename>preloader_window.jpg</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

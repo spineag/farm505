@@ -74,7 +74,10 @@ public class CaveItem {
 
     private function onClick():void {
         source.filter = null;
-        if (_countResource <=0) return;
+        if (g.userInventory.getCountResourceById(_data.id) <= 0) {
+            g.woNoResources.showItMenu(_data,1,onClick);
+            return;
+        }
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_data.id]);
         }

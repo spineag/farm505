@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:d3e8804512ccde2866b6841c5d5fe005:f15b79d97cc2890e339d34cd4d61c121:31eb2820b0f5eb53ce3c6f44c4b6dfc7$ -->
+<!-- $TexturePacker:SmartUpdate:7be74cf9d54b8377a116da2ddf913186:3cce5c499fcc602b948708faaa60e08b:31eb2820b0f5eb53ce3c6f44c4b6dfc7$ -->
 <TextureAtlas imagePath="preloaderAtlas.png" width="1004" height="708">
     <SubTexture name="preloader_bg" x="2" y="644" width="613" height="30"/>
     <SubTexture name="preloader_line" x="2" y="676" width="613" height="30"/>

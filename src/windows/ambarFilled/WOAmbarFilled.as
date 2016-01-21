@@ -103,7 +103,7 @@ public class WOAmbarFilled extends Window{
             _txtBtn.text = "Увеличть Амбар";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
             _imAmbarSklad.x = -5;
-            _imAmbarSklad.y = _imageAmbar.y - 40;
+            _imAmbarSklad.y = _imageAmbar.y - 60;
             MCScaler.scale(_imAmbarSklad, 60, 60);
             _bar.progress = 1;
             _source.addChild(_imAmbarSklad);
@@ -113,8 +113,8 @@ public class WOAmbarFilled extends Window{
             _txtAmbarFilled.text = "СКЛАД ЗАПОЛНЕН";
             _txtBtn.text = "Увеличть Склад";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
-            _imAmbarSklad.x = -5;
-            _imAmbarSklad.y = _imageAmbar.y - 40;
+            _imAmbarSklad.x = -10;
+            _imAmbarSklad.y = _imageAmbar.y - 60;
             MCScaler.scale(_imAmbarSklad, 60, 60);
             _bar.progress = 1;
             _source.addChild(_imAmbarSklad);

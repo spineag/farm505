@@ -293,8 +293,8 @@ public class MainBottomPanel {
         var im:Image;
         var txt:TextField;
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-        MCScaler.scale(_ava, 70, 70);
-        _ava.x = 10;
+        MCScaler.scale(_ava, 71, 71);
+        _ava.x = 9;
         _ava.y = 8;
         _friendBoard.addChild(_ava);
         if (_person is NeighborBot) {
@@ -313,13 +313,13 @@ public class MainBottomPanel {
         _friendBoard.addChild(txt);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
         im.x = 60;
-        im.y = 60;
-        MCScaler.scale(im,30,30);
+        im.y = 50;
+        MCScaler.scale(im,45,45);
         _friendBoard.addChild(im);
-        txt = new TextField(30,30,String(_person.level),g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        txt = new TextField(50,50,String(_person.level),g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 60;
-        txt.y = 59;
+        txt.x = 57;
+        txt.y = 49;
         _friendBoard.addChild(txt);
     }
 
@@ -336,8 +336,8 @@ public class MainBottomPanel {
 
     private function photoFromTexture(tex:Texture):void {
         _ava = new Image(tex);
-        MCScaler.scale(_ava,70,70);
-        _ava.x = 10;
+        MCScaler.scale(_ava,71,71);
+        _ava.x = 9;
         _ava.y = 8;
         _friendBoard.addChild(_ava);
     }

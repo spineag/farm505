@@ -341,7 +341,7 @@ public class WONoResources extends Window {
             if (number > 0) g.userInventory.addResource(_dataResource.resourceIds[i],number);
         }
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[true]);
+            _callbackBuy.apply(null,[true, true]);
             _callbackBuy = null;
         }
         onClickExit();

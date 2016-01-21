@@ -95,7 +95,7 @@ public class Wild extends AreaObject{
             if (_source.wasGameContMoved) return;
             if (_isOnHover)  {
                 g.wildHint.onDelete = wildDelete;
-                g.wildHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _dataBuild.removeByResourceId,_dataBuild.name);
+                g.wildHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale, _dataBuild.removeByResourceId,_dataBuild.name);
                 _source.filter = null;
             }
         } else {
