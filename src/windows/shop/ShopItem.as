@@ -487,6 +487,7 @@ public class ShopItem {
     }
 
     private function afterMove(build:AreaObject,_x:Number, _y:Number):void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA
                 || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             g.bottomPanel.cancelBoolean(false);
@@ -501,7 +502,6 @@ public class ShopItem {
             new XPStar(localPoint.x, localPoint.y, _data.xpForBuild);
         }
         (build as WorldObject).source.filter = null;
-        g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.userInventory.addMoney(_data.currency, -_countCost);
         if (build is Tree) (build as Tree).removeShopView();
         if (build is Fabrica) (build as Fabrica).removeShopView();
