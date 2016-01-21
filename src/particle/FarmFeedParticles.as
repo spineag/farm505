@@ -19,8 +19,8 @@ public class FarmFeedParticles {
         _callback = callback;
         var part:Particle;
         _count = MAX_COUNT;
-        var dX:int = (120 + 100*Math.random()) * g.scaleFactor;
-        var dY:int = (120 + 100*Math.random()) * g.scaleFactor;
+        var dX:int = 100 + 100*Math.random() * g.scaleFactor;
+        var dY:int = 100 + 100*Math.random() * g.scaleFactor;
         for (var i:int=0; i< MAX_COUNT; i++) {
             part = new Particle(1 + Math.random(), dX, dY, onFinishParticle);
             source.addChild(part.source);
@@ -63,7 +63,7 @@ internal class Particle {
         var arrValues:Array = new Array();
         var obj:Object = {};
         obj.x = (DISTANCE_X + deltaX)/3;
-        obj.y = (-50 + Math.random()*20)*g.scaleFactor;
+        obj.y = (-30 + Math.random()*20)*g.scaleFactor;
         arrValues.push(obj);
         obj = {};
         obj.x = DISTANCE_X + deltaX;

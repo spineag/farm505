@@ -13,6 +13,10 @@ import mouse.ToolsModifier;
 
 import particle.FarmFeedParticles;
 
+import resourceItem.CraftItem;
+
+import resourceItem.ResourceItem;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import ui.xpPanel.XPStar;
@@ -22,6 +26,7 @@ public class Farm extends AreaObject{
     private var _arrAnimals:Array;
     private var _contAnimals:Sprite;
     private var _imageBottom:Image;
+    private var _arrCrafted:Array;
 
     public function Farm(_data:Object) {
         super(_data);
@@ -34,6 +39,8 @@ public class Farm extends AreaObject{
         createBuild();
 
         _source.endClickCallback = onClick;
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
         _source.releaseContDrag = true;
 
         _contAnimals = new Sprite();
@@ -53,12 +60,31 @@ public class Farm extends AreaObject{
         _craftSprite.y = 320*g.scaleFactor;
         _source.addChild(_craftSprite);
         _arrAnimals = [];
+        _arrCrafted = [];
 
         if (!g.isAway) {
             if (_dataAnimal.id != 6) {
                 g.gameDispatcher.addEnterFrame(sortAnimals);
             }
         }
+    }
+
+    private function onHover():void {
+        if (g.selectedBuild) return;
+        if (g.isActiveMapEditor) return;
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+            _source.filter = ManagerFilters.BUILD_STROKE;
+        } else {
+            if (_arrCrafted.length) {
+                _craftSprite.filter = ManagerFilters.BUILD_STROKE;
+            }
+        }
+    }
+
+    private function onOut():void {
+        if (g.isActiveMapEditor) return;
+        _source.filter = null;
+        _craftSprite.filter = null;
     }
 
     private function onClick():void {
@@ -82,7 +108,15 @@ public class Farm extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            // ничего не делаем
+            if (_arrCrafted.length) {
+                if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
+                    g.woAmbarFilled.showAmbarFilled(false);
+                } else {
+                    var item:CraftItem = _arrCrafted.pop();
+                    item.flyIt();
+                    checkForCraft();
+                }
+            }
         } else {
             Cc.error('Farm:: unknown g.toolsModifier.modifierType')
         }
@@ -222,30 +256,40 @@ public class Farm extends AreaObject{
     public function onActivateMoveModifier(v:Boolean):void {
         var i:int;
         if (v) {
+            if (_arrCrafted.length) return;
             for (i=0; i<_arrAnimals.length; i++) {
                 (_arrAnimals[i] as Animal).source.isTouchable = false;
             }
-            _source.hoverCallback = onHover;
-            _source.outCallback = onOut;
+        } else {
+            if (!_arrCrafted.length) {
+                for (i = 0; i < _arrAnimals.length; i++) {
+                    (_arrAnimals[i] as Animal).source.isTouchable = true;
+                }
+            }
+        }
+    }
+
+    private function checkForCraft():void {
+        var i:int;
+        if (_arrCrafted.length) {
+            for (i=0; i<_arrAnimals.length; i++) {
+                (_arrAnimals[i] as Animal).source.isTouchable = false;
+            }
         } else {
             for (i=0; i<_arrAnimals.length; i++) {
                 (_arrAnimals[i] as Animal).source.isTouchable = true;
             }
-            _source.hoverCallback = null;
-            _source.outCallback = null;
         }
     }
 
-    private function onHover():void {
-        if (g.selectedBuild) return;
-        if (g.isActiveMapEditor) return;
-        _source.filter = ManagerFilters.BUILD_STROKE;
+    public function onAnimalReadyToCraft(idResource:int, onCraftCallback:Function):void {
+        var rItem:ResourceItem = new ResourceItem();
+        rItem.fillIt(g.dataResource.objectResources[idResource]);
+        var item:CraftItem = new CraftItem(0, -70, rItem, craftSprite, 1, onCraftCallback, true);
+        item.removeDefaultCallbacks();
+        item.addParticle();
+        _arrCrafted.push(item);
+        checkForCraft();
     }
-
-    private function onOut():void {
-        if (g.isActiveMapEditor) return;
-        _source.filter = null;
-    }
-
 }
 }

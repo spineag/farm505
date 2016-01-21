@@ -226,12 +226,12 @@ public class WOOrder extends Window{
         for (i=0; i<_curOrder.resourceIds.length; i++) {
             g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
         }
+        var prise:Object = {};
         if (move){
 //            var p:Point = new Point(0, 0);
 //            p = _source.localToGlobal(p);
             new XPStar(Starling.current.nativeStage.stageWidth/2,Starling.current.nativeStage.stageHeight/2, _curOrder.xp);
 //            p = new Point(0, 0);
-            var prise:Object = {};
             prise.id = DataMoney.SOFT_CURRENCY;
             prise.count = _curOrder.coins;
             new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
@@ -247,7 +247,6 @@ public class WOOrder extends Window{
             p = _source.localToGlobal(p);
             new XPStar(p.x, p.y, _curOrder.xp);
             p = new Point(186, 147);
-            var prise:Object = {};
             prise.id = DataMoney.SOFT_CURRENCY;
             prise.count = _curOrder.coins;
             new DropItem(p.x, p.y, prise);
