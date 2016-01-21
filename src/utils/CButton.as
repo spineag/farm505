@@ -20,11 +20,13 @@ import starling.text.TextField;
 import starling.textures.Texture;
 
 import windows.WOComponents.WOButtonTexture;
+import windows.WOComponents.WOSimpleButtonTexture;
 
 public class CButton extends Sprite {
     public static const GREEN:int = 1;
     public static const BLUE:int = 2;
     public static const YELLOW:int = 3;
+    public static const PINK:int = 4;
 
     private var _clickCallback:Function;
     private var _hoverCallback:Function;
@@ -50,12 +52,13 @@ public class CButton extends Sprite {
     }
 
     public function addButtonTexture(w:int, h:int, type:int, needMakeSimpleShadow:Boolean = false):void {
-        var t:Sprite = new WOButtonTexture(w, h, type);
+        var t:Sprite = new WOSimpleButtonTexture(w, h, type);
+//        var t:Sprite = new WOButtonTexture(w, h, type);
         _bg.addChild(t);
         if (needMakeSimpleShadow) {
             setPivots();
-            makeSimpleShadow(w, h, type);
-            addCloneShadow();
+//            makeSimpleShadow(w, h, type);
+//            addCloneShadow();
         }
         _bg.flatten();
     }

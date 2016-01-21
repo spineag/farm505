@@ -70,7 +70,7 @@ public class WOLevelUpItem {
             } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
                     || ob.buildType == BuildType.SHOP || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
                 st = ob.image;
-                // _image = new Image(g.allData.atlas[ob.url].getTexture(st));    !!!!!!!!!!!!!!
+                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(st + '_icon'));
             }
         } catch (e:Error) {
             Cc.error('WOLevelUpItem:: error with _image for data.id: ' + ob.id);
