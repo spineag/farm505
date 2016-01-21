@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -211,7 +211,6 @@
             <filename>hintSidePixels.png</filename>
             <filename>hintSidePixels2.png</filename>
             <filename>hintTopLeftPart.png</filename>
-            <filename>neighbor.png</filename>
             <filename>newlevel_window_fon.png</filename>
             <filename>newlevel_window_paper.png</filename>
             <filename>newspaper_icon_small.png</filename>
@@ -300,6 +299,8 @@
             <filename>empty_red_tile.png</filename>
             <filename>green_tile.png</filename>
             <filename>red_tile.png</filename>
+            <filename>buttons_new</filename>
+            <filename>neighbor.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
