@@ -144,7 +144,7 @@ public class Fabrica extends AreaObject {
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
                 if (_source.wasGameContMoved) return;
                 if (_arrCrafted.length) {
-                    if (g.userInventory.currentCountInSklad + _arrCrafted.count > g.user.skladMaxCount) {
+                    if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
                         g.woAmbarFilled.showAmbarFilled(false);
                     } else {
                         var item:CraftItem = _arrCrafted.pop();

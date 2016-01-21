@@ -7,6 +7,8 @@ import data.DataMoney;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import resourceItem.DropItem;
+
+import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -210,7 +212,7 @@ public class WOOrder extends Window{
         _btnSkipDelete.clickCallback = skipDelete;
     }
 
-    private function sellOrder(b:Boolean = false):void {
+    private function sellOrder(b:Boolean = false, move:Boolean = false):void {
         if (_waitForAnswer) return;
         var i:int;
         if (b == false) {
@@ -224,20 +226,38 @@ public class WOOrder extends Window{
         for (i=0; i<_curOrder.resourceIds.length; i++) {
             g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
         }
-        var p:Point = new Point(134, 147);
-        p = _source.localToGlobal(p);
-        new XPStar(p.x, p.y,_curOrder.xp);
-        p = new Point(186, 147);
-        var prise:Object = {};
-        prise.id = DataMoney.SOFT_CURRENCY;
-        prise.count = _curOrder.coins;
-        new DropItem(p.x, p.y, prise);
-        if (_curOrder.addCoupone) {
-            p.x = _btnCell.x + _btnCell.width*4/5;
-            p.y = _btnCell.y + _btnCell.height/2;
-            prise.id = int(Math.random()*4) + 3;
-            prise.count = 1;
+        if (move){
+//            var p:Point = new Point(0, 0);
+//            p = _source.localToGlobal(p);
+            new XPStar(Starling.current.nativeStage.stageWidth/2,Starling.current.nativeStage.stageHeight/2, _curOrder.xp);
+//            p = new Point(0, 0);
+            var prise:Object = {};
+            prise.id = DataMoney.SOFT_CURRENCY;
+            prise.count = _curOrder.coins;
+            new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
+            if (_curOrder.addCoupone) {
+//                p.x = _btnCell.x + _btnCell.width * 4 / 5;
+//                p.y = _btnCell.y + _btnCell.height / 2;
+                prise.id = int(Math.random() * 4) + 3;
+                prise.count = 1;
+                new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
+            }
+        } else {
+            var p:Point = new Point(134, 147);
+            p = _source.localToGlobal(p);
+            new XPStar(p.x, p.y, _curOrder.xp);
+            p = new Point(186, 147);
+            var prise:Object = {};
+            prise.id = DataMoney.SOFT_CURRENCY;
+            prise.count = _curOrder.coins;
             new DropItem(p.x, p.y, prise);
+            if (_curOrder.addCoupone) {
+                p.x = _btnCell.x + _btnCell.width * 4 / 5;
+                p.y = _btnCell.y + _btnCell.height / 2;
+                prise.id = int(Math.random() * 4) + 3;
+                prise.count = 1;
+                new DropItem(p.x, p.y, prise);
+            }
         }
         _waitForAnswer = true;
         g.managerOrder.sellOrder(_curOrder, afterSell);

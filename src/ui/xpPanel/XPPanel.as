@@ -92,7 +92,7 @@ public class XPPanel {
 
     public function checkXP():void{
         _bar.progress = ((g.user.xp)/_maxXP)*.9 + .1; // get 10% for better view
-        _txtXPCount.text = String(g.user.xp) + ' / ' + String(_maxXP);
+        _txtXPCount.text = String(g.user.xp);
         _txtLevel.text = String(g.user.level);
     }
 
