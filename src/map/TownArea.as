@@ -683,6 +683,7 @@ public class TownArea extends Sprite {
      // ---------------------------------------------------- AWAY SECTION -------------------------------------------------------
 
     public function goAway(person:Someone):void {
+        g.awayPreloader.showIt(false);
         g.visitedUser = person;
         if (g.isAway) {
             clearAwayCity();
@@ -772,6 +773,7 @@ public class TownArea extends Sprite {
         }
         g.managerCats.makeAwayCats();
         zAwaySort();
+        g.awayPreloader.hideIt();
     }
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
@@ -965,6 +967,7 @@ public class TownArea extends Sprite {
     }
 
     public function backHome():void {
+        g.awayPreloader.showIt(true);
         clearAwayCity();
         g.isAway = false;
         g.visitedUser = null;
@@ -975,6 +978,7 @@ public class TownArea extends Sprite {
         for (i = 0; i < _cityTailObjects.length; i++) {
             _contTail.addChild(_cityTailObjects[i].source);
         }
+        g.awayPreloader.hideIt();
     }
 
     private function clearAwayCity():void {

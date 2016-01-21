@@ -86,6 +86,9 @@ public class EmbedAssets {
     [Embed(source = "../../assets/animations/x1/sheep.png", mimeType = "application/octet-stream")]
     private const Sheep:Class;
 
+    [Embed(source = "../../assets/animations/visit_preloader.png", mimeType = "application/octet-stream")]
+    private const VisitPreloader:Class;
+
     [Embed(source = "../../assets/animations/x1/bakery.png", mimeType = "application/octet-stream")]
     private const BakeryFabrica:Class;
     [Embed(source = "../../assets/animations/x1/sugar_mill.png", mimeType = "application/octet-stream")]
@@ -158,7 +161,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 26;
+        var count:int = 27;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -168,7 +171,6 @@ public class EmbedAssets {
                 }
             }
         };
-
         loadFactory('tree', BuildingTrees, checkCount);
         loadFactory('plant', BuildingPlants, checkCount);
         loadFactory('cat', CatData, checkCount);
@@ -195,6 +197,7 @@ public class EmbedAssets {
         loadFactory('daily_bonus', DailyBonus, checkCount);
         loadFactory('train', AerialTram, checkCount);
         loadFactory('order', Orders, checkCount);
+        loadFactory('visitPreloader', VisitPreloader, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

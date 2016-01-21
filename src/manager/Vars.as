@@ -30,6 +30,8 @@ import map.TownArea;
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
 
+import preloader.AwayPreloader;
+
 import preloader.StartPreloader;
 
 import server.DirectServer;
@@ -203,6 +205,7 @@ public class Vars {
     public var directServer:DirectServer;
     public var useHttps:Boolean;
     public var startPreloader:StartPreloader;
+    public var awayPreloader:AwayPreloader;
     public var useDataFromServer:Boolean;
     public var dataPath:DataPath;
     public var event:OwnEvent;
@@ -262,6 +265,7 @@ public class Vars {
         aStar = new AStar();
         managerCats = new ManagerCats();
         catPanel = new CatPanel();
+        awayPreloader = new AwayPreloader();
 
         if (useDataFromServer) {
             socialNetwork = new SocialNetwork(flashVars);
