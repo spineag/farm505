@@ -131,6 +131,7 @@ public class WOLevelUp extends Window{
     }
 
     public function showLevelUp():void {
+        _shift = 0;
         showIt();
         _txtLevel.text = String(g.user.level);
         createList();
