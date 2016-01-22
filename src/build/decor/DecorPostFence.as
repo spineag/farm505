@@ -6,6 +6,8 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import manager.OwnEvent;
 
 import manager.Vars;
@@ -28,6 +30,8 @@ public class DecorPostFence extends AreaObject{
 
         if (!g.isAway) {
             _source.endClickCallback = onClick;
+            _source.hoverCallback = onHover;
+            _source.outCallback = onOut;
         }
         _source.releaseContDrag = true;
     }
@@ -101,6 +105,15 @@ public class DecorPostFence extends AreaObject{
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
+    }
+
+    private function onHover():void {
+        _source.filter = ManagerFilters.BUILD_STROKE;
+    }
+
+    private function onOut():void {
+        if (g.isActiveMapEditor) return;
+        _source.filter = null;
     }
 
     override public function clearIt():void {

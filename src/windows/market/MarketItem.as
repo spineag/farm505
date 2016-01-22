@@ -148,7 +148,7 @@ public class MarketItem {
 
     private function onClick():void {
         var i:int;
-        if (isFill == 1) {
+        if (isFill == 1) {//заполненная
             if (_isUser) {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
 //                    trace(_dataFromServer.numberCell)
@@ -203,17 +203,17 @@ public class MarketItem {
                 }
                 isFill = 2;
             }
-        } else if (isFill == 0) {
+        } else if (isFill == 0) { // пустая
             if (_isUser) {
 //                g.woMarket.refreshMarket();
                 g.woMarket.hideIt();
                 g.woMarket.marketChoose.callback = onChoose;
                 g.woMarket.marketChoose.showIt();
             }
-        } else if (isFill == 3){
+        } else if (isFill == 3){ // недоступна по лвлу
 
         } else {
-            if (_isUser) {
+            if (_isUser) { // купленная
                 g.userInventory.addMoney(2,_dataFromServer.cost);
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {

@@ -31,7 +31,7 @@ public class WOServerError extends Window{
         var txt:TextField = new TextField(340,100,'Произошла ошибка в игре. Если подобное происходит часто, сообщите в службу поддержки.',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -170;
-        txt.y = -60;
+        txt.y = -45;
         txt.touchable = false;
         _source.addChild(txt);
         _txtError = new TextField(340,100,'Ошибка',g.allData.fonts['BloggerMedium'],24,Color.WHITE);

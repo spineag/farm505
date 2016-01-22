@@ -24,15 +24,20 @@ import windows.WOComponents.CartonBackground;
 public class WOBuyCouponeItem {
     public var source:Sprite;
     private var cost:int;
+    private var count:int;
     private var _btn:CButton;
+    private var _txtCount:TextField;
+    private var _type:int;
     private var g:Vars = Vars.getInstance();
 
-    public function WOBuyCouponeItem(imageCopone:String, txtItemCoupone:int, txtCostCoupone:int) {
+    public function WOBuyCouponeItem(imageCopone:String, txtItemCoupone:int, txtCostCoupone:int,type:int) {
         try {
             var im:Image;
             var txt:TextField;
+            _type = type;
             var carton:CartonBackground = new CartonBackground(100, 150);
             cost = txtCostCoupone;
+            count = txtItemCoupone;
             carton.filter = ManagerFilters.SHADOW_LIGHT;
             source = new Sprite();
             source.addChild(carton);
@@ -56,11 +61,11 @@ public class WOBuyCouponeItem {
             im.x = 30;
             im.y = 20;
             source.addChild(im);
-            txt = new TextField(50,50,String(txtItemCoupone),g.allData.fonts['BloggerBold'],16,Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-            txt.x = 23;
-            txt.y = 50;
-            source.addChild(txt);
+            _txtCount = new TextField(50,50,String(count),g.allData.fonts['BloggerBold'],16,Color.WHITE);
+            _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtCount.x = 23;
+            _txtCount.y = 50;
+            source.addChild(_txtCount);
         } catch (e:Error) {
             Cc.error('WOBuyCouponeItem error: ' + e.errorID + ' - ' + e.message);
             g.woGameError.showIt();
@@ -73,6 +78,10 @@ public class WOBuyCouponeItem {
             return;
         }
         g.userInventory.addMoney(1, -cost);
+        g.userInventory.addMoney(_type,1);
+        count++;
+        _txtCount.text = String(count);
+
     }
 }
 }

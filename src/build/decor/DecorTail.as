@@ -30,7 +30,7 @@ public class DecorTail extends AreaObject{
     private function onHover():void {
         if (g.isActiveMapEditor) return;
         if (g.selectedBuild) return;
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             if (g.selectedBuild) return;
             _source.filter = ManagerFilters.BUILD_STROKE;
         }

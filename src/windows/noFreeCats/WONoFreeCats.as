@@ -26,7 +26,7 @@ public class WONoFreeCats extends Window{
 
     public function WONoFreeCats() {
         super();
-        _woWidth = 300;
+        _woWidth = 320;
         _woHeight = 300;
 //        createTempBG();
         _woBG = new WindowBackground(_woWidth, _woHeight);

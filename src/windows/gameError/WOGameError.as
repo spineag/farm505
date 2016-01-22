@@ -31,12 +31,12 @@ public class WOGameError extends Window{
         var txt:TextField = new TextField(340,100,'Произошла ощибка в игре. Если подобное происхдит часто, сообщите в службу поддержки.',g.allData.fonts['BloggerMedium'],20,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -170;
-        txt.y = -65;
+        txt.y = -45;
         _source.addChild(txt);
         _txtError = new TextField(340,100,'Ошибка',g.allData.fonts['BloggerMedium'],24,Color.WHITE);
         _txtError.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtError.x = -170;
-        _txtError.y = -130;
+        _txtError.y = -90;
         _source.addChild(_txtError);
         var b:CButton = new CButton();
         b.addButtonTexture(210, 34, CButton.GREEN, true);

@@ -58,14 +58,15 @@ public class CouponePanel {
         MCScaler.scale(_imBlue,25,25);
         _imBlue.x = 95;
         _imBlue.y += 5;
-        _imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture("red_coupone"));
-        MCScaler.scale(_imRed,25,25);
-        _imRed.x = 120;
-        _imRed.y += 5;
         _imYellow = new Image(g.allData.atlas['interfaceAtlas'].getTexture("yellow_coupone"));
         MCScaler.scale(_imYellow,25,25);
-        _imYellow.x = 145;
+        _imYellow.x = 120;
         _imYellow.y += 5;
+        _imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture("red_coupone"));
+        MCScaler.scale(_imRed,25,25);
+        _imRed.x = 145;
+        _imRed.y += 5;
+
 
         _txtGreen = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtGreen.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -75,14 +76,14 @@ public class CouponePanel {
         _txtBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtBlue.x = 80;
         _txtBlue.y = 20;
-        _txtRed = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txtRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtRed.x = 105;
-        _txtRed.y = 20;
         _txtYellow = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtYellow.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtYellow.x = 130;
+        _txtYellow.x = 105;
         _txtYellow.y = 20;
+        _txtRed = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtRed.x = 130;
+        _txtRed.y = 20;
         _source.addChild(_imCoupone);
 
         _source.x = 20;
@@ -90,13 +91,14 @@ public class CouponePanel {
 
         _contCoupone.addChild(_imGreen);
         _contCoupone.addChild(_imBlue);
-        _contCoupone.addChild(_imRed);
         _contCoupone.addChild(_imYellow);
+        _contCoupone.addChild(_imRed);
 
         _contCoupone.addChild(_txtGreen);
         _contCoupone.addChild(_txtBlue);
-        _contCoupone.addChild(_txtRed);
         _contCoupone.addChild(_txtYellow);
+        _contCoupone.addChild(_txtRed);
+
         _contCoupone.visible = false;
         _contCoupone.x = -100;
     }
