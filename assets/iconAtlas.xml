@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:f0970e08bf2867939b3248abb0cdf541:d3446ec3e88f57a69131af6d1f7b35be:4793af12d87b93b48c95ed9be00d1ca8$ -->
+<!-- $TexturePacker:SmartUpdate:835f50e445653a47aea16daadccedbd0:d3446ec3e88f57a69131af6d1f7b35be:4793af12d87b93b48c95ed9be00d1ca8$ -->
 <TextureAtlas imagePath="iconAtlas.png">
     <SubTexture name="alive_fence_icon" x="1628" y="291" width="105" height="89" frameX="0" frameY="-2" frameWidth="107" frameHeight="94"/>
     <SubTexture name="ambar_icon" x="1190" y="2" width="71" height="120" frameX="-1" frameY="0" frameWidth="73" frameHeight="120"/>

@@ -84,12 +84,12 @@ public class AmbarCell {
     }
 
     private function onHover():void {
-        g.resourceHint.hideIt();
-        g.resourceHint.showIt(_data.id,source.x,source.y,source);
+//        g.resourceHint.hideIt();
+//        g.resourceHint.showIt(_data.id,source.x,source.y,source);
     }
 
     private function onOut():void {
-        g.resourceHint.hideIt();
+//        g.resourceHint.hideIt();
     }
 
     public function set clickCallback(f:Function):void {

@@ -14,7 +14,7 @@ import starling.textures.TextureAtlas;
 
 public class EmbedAssets {
     // Texture
-    [Embed(source="../../assets/interfaceAtlas2.png")]
+    [Embed(source="../../assets/interfaceAtlas.png")]
     private const InterfaceTexture:Class;
     [Embed(source="../../assets/instrumentAtlas.png")]
     private const InstrumentTexture:Class;
@@ -32,7 +32,7 @@ public class EmbedAssets {
     private const IconTexture:Class;
 
     // XML
-    [Embed(source="../../assets/interfaceAtlas2.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
     private const InterfaceTextureXML:Class;
     [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
     private const InstrumentTextureXML:Class;
@@ -95,7 +95,7 @@ public class EmbedAssets {
     private const SugarMillFabrica:Class;
     [Embed(source = "../../assets/animations/x1/feed_mill.png", mimeType = "application/octet-stream")]
     private const FeedMillFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/bbq_grill.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/bbq_grill2.png", mimeType = "application/octet-stream")]
     private const BbqGrillFabrica:Class;
     [Embed(source = "../../assets/animations/x1/dairy.png", mimeType = "application/octet-stream")]
     private const DairyFabrica:Class;
@@ -103,7 +103,7 @@ public class EmbedAssets {
     private const PieOvenFabrica:Class;
     [Embed(source = "../../assets/animations/x1/juice_press.png", mimeType = "application/octet-stream")]
     private const JuicePressFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/loom.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/loom2.png", mimeType = "application/octet-stream")]
     private const LoomFabrica:Class;
     [Embed(source = "../../assets/animations/x1/pizza_maker.png", mimeType = "application/octet-stream")]
     private const PizzaMakerFabrica:Class;

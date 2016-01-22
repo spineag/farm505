@@ -229,11 +229,11 @@
             <filename>sugar_mill_icon.png</filename>
             <filename>swamp_decor_icon.png</filename>
             <filename>white_fence_icon.png</filename>
-            <filename>dandelion_icon.png</filename>
             <filename>sunflower_icon.png</filename>
             <filename>chair_1_icon.png</filename>
             <filename>chair_2_icon.png</filename>
             <filename>builds</filename>
+            <filename>dandelion_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
