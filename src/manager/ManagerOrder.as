@@ -2,7 +2,12 @@
  * Created by andy on 11/14/15.
  */
 package manager {
+import com.junkbyte.console.Cc;
+
 public class ManagerOrder {
+    public static const TIME_DELAY:int = 15 * 60;
+    public static const COST_SKIP_WAIT:int = 8;
+
     private var _countCellOnLevel:Array;
     private var _countResourceOnLevelAtCell:Array;
     private var _arrOrders:Array;
@@ -60,8 +65,9 @@ public class ManagerOrder {
         order.xp = int(ob.xp);
         order.addCoupone = ob.add_coupone == '1';
         order.startTime = int(ob.start_time) || 0;
-        order.place = int(ob.place);
+        order.placeNumber = int(ob.place);
         _arrOrders.push(order);
+        _arrOrders.sortOn('placeNumber', Array.NUMERIC);
     }
 
     private function updateMaxCounts():void {
@@ -87,7 +93,7 @@ public class ManagerOrder {
     // 1 - usual resource fromFabrica
     // 2 - resources made from resources from cave
     // 3 - resource plants
-    private function addNewOrders(n:int, delay:int = 0, f:Function = null):void {
+    private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1):void {
         var order:Object;
         var arrOrderType1:Array = new Array();
         var arrOrderType2:Array = new Array();
@@ -292,8 +298,13 @@ public class ManagerOrder {
                 order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
             }
             order.startTime = int(new Date().getTime()/1000);
-            order.place = getFreePlace();
+            if (place == -1) {
+                order.placeNumber = getFreePlace();
+            } else {
+                order.placeNumber = place;
+            }
             _arrOrders.push(order);
+            _arrOrders.sortOn('placeNumber', Array.NUMERIC);
             g.directServer.addUserOrder(order, delay, f);
         }
     }
@@ -304,7 +315,7 @@ public class ManagerOrder {
         for (var i:int=0; i < _curMaxCountOrders; i++) {
             find = true;
             for (k=0; k<_arrOrders.length; k++) {
-                if (_arrOrders[k].place == i) {
+                if (_arrOrders[k].placeNumber == i) {
                     find = false;
                     break;
                 }
@@ -315,20 +326,27 @@ public class ManagerOrder {
     }
 
     public function deleteOrder(order:Object, f:Function):void {
-        _arrOrders.splice(_arrOrders.indexOf(order), 1);
+        for (var i:int=0; i<_arrOrders.length; i++) {
+            if (_arrOrders[i].dbId == order.dbId) {
+                _arrOrders.splice(i, 1);
+                break;
+            }
+        }
+        if (i == _arrOrders.length) Cc.error('ManagerOrder deleteOrder:: no order');
         g.directServer.deleteUserOrder(order.dbId, null);
-        addNewOrders(1, 15*60, f);
+        addNewOrders(1, TIME_DELAY, f, order.placeNumber);
     }
 
     public function sellOrder(order:Object, f:Function):void {
-        _arrOrders.splice(_arrOrders.indexOf(order), 1);
-        g.directServer.deleteUserOrder(order.dbId, null);
-        var f1:Function = function(order:Object):void {
-            if (f != null) {
-                f.apply();
+        for (var i:int=0; i<_arrOrders.length; i++) {
+            if (_arrOrders[i].dbId == order.dbId) {
+                _arrOrders.splice(i, 1);
+                break;
             }
-        };
-        addNewOrders(1, 0, f1);
+        }
+        if (i == _arrOrders.length) Cc.error('ManagerOrder cellOrder:: no order');
+        g.directServer.deleteUserOrder(order.dbId, null);
+        addNewOrders(1, 0, f, order.placeNumber);
     }
 
     public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
@@ -348,6 +366,17 @@ public class ManagerOrder {
         }
 
         return false;
+    }
+
+    public function onSkipTimer(orderDbId:int):void {
+        g.directServer.skipOrderTimer(orderDbId, null);
+        for (var i:int=0; i<_arrOrders.length; i++) {
+            if (_arrOrders[i].dbId == orderDbId) {
+                _arrOrders[i].startTime -= 2*ManagerOrder.TIME_DELAY;
+                break;
+            }
+        }
+        if (i == _arrOrders.length) Cc.error('ManagerOrder onSkipTimer:: no order');
     }
 }
 }

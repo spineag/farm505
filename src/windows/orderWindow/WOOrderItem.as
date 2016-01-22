@@ -4,6 +4,7 @@
 package windows.orderWindow {
 
 import manager.ManagerFilters;
+import manager.ManagerOrder;
 import manager.Vars;
 
 import starling.display.Image;
@@ -128,7 +129,7 @@ public class WOOrderItem {
 
     private function onClick():void {
         if (_clickCallback != null) {
-            _clickCallback.apply(null, [_position]);
+            _clickCallback.apply(null, [this]);
         }
     }
 
@@ -163,8 +164,17 @@ public class WOOrderItem {
 
     public function onSkipTimer():void {
         _leftSeconds = 0;
-        g.directServer.skipOrderTimer(_order.dbId, null);
+        g.managerOrder.onSkipTimer(_order.dbId);
         _check.visible = false;
+        _order.startTime -= 2*ManagerOrder.TIME_DELAY;
+    }
+
+    public function getOrder():Object {
+        return _order;
+    }
+
+    public function setOrder(ord:Object):void {
+
     }
 }
 }

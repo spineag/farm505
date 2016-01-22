@@ -340,11 +340,11 @@ public class WONoResources extends Window {
             number = _dataResource.resourceCounts[i] - g.userInventory.getCountResourceById(_dataResource.resourceIds[i]);
             if (number > 0) g.userInventory.addResource(_dataResource.resourceIds[i],number);
         }
+        onClickExit();
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[true, true]);
+            _callbackBuy.apply(null,[true, _dataResource]);
             _callbackBuy = null;
         }
-        onClickExit();
     }
 }
 }

@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 import data.DataMoney;
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerOrder;
+
 import resourceItem.DropItem;
 
 import starling.core.Starling;
@@ -35,8 +37,6 @@ public class WOOrder extends Window{
     private var _txtCoins:TextField;
     private var _txtName:TextField;
     private var _arrOrders:Array;
-    private var _curOrder:Object;
-    private var position:int;
     private var _rightBlock:Sprite;
     private var _rightBlockTimer:Sprite;
     private var _activeOrderItem:WOOrderItem;
@@ -67,9 +67,9 @@ public class WOOrder extends Window{
     }
 
     override public function showIt():void {
-        _arrOrders = g.managerOrder.arrOrders;
+        _arrOrders = g.managerOrder.arrOrders.slice();
         fillList();
-        onItemClick(0);
+        onItemClick(_arrItems[0]);
         super.showIt();
         _waitForAnswer = false;
     }
@@ -85,7 +85,6 @@ public class WOOrder extends Window{
             _arrItems[i].clearIt();
         }
         hideIt();
-        position = 0;
     }
 
     private function createRightBlock():void {
@@ -166,7 +165,7 @@ public class WOOrder extends Window{
         }
     }
     private function checkFull():void {
-        for (var i:int = 0; i < _curOrder.resourceIds.length; i++) {
+        for (var i:int = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
             if (_arrResourceItems[i].isChecked()) {
 
             }
@@ -202,7 +201,7 @@ public class WOOrder extends Window{
         var txt:TextField = new TextField(80, 50, "Получить сейчас", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSkipDelete.addChild(txt);
-        txt = new TextField(20, 50, "8", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(20, 50, String(ManagerOrder.COST_SKIP_WAIT), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.x = 80;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSkipDelete.addChild(txt);
@@ -212,61 +211,59 @@ public class WOOrder extends Window{
         _btnSkipDelete.clickCallback = skipDelete;
     }
 
-    private function sellOrder(b:Boolean = false, move:Boolean = false):void {
+    private function sellOrder(b:Boolean = false, _order:Object = null):void {
         if (_waitForAnswer) return;
         var i:int;
-        if (b == false) {
-            for (i = 0; i < _curOrder.resourceIds.length; i++) {
+        if (!b) {
+            for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
                 if (!_arrResourceItems[i].isChecked()) {
-                    g.woNoResources.showItOrder(_curOrder, sellOrder);
+                    g.woNoResources.showItOrder(_activeOrderItem.getOrder(), sellOrder);
                     return;
                 }
             }
+        } else {
+            showIt();
+            for (i=0; i< _arrItems.length; i++) {
+                if (_arrItems[i].getOrder().dbId == _order.dbId) {
+                    onItemClick(_arrItems[i]);
+                    break;
+                }
+            }
         }
-        for (i=0; i<_curOrder.resourceIds.length; i++) {
-            g.userInventory.addResource(_curOrder.resourceIds[i], -_curOrder.resourceCounts[i]);
+        for (i=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {
+            g.userInventory.addResource(_activeOrderItem.getOrder().resourceIds[i], -_activeOrderItem.getOrder().resourceCounts[i]);
         }
         var prise:Object = {};
-        if (move){
-//            var p:Point = new Point(0, 0);
-//            p = _source.localToGlobal(p);
-            new XPStar(Starling.current.nativeStage.stageWidth/2,Starling.current.nativeStage.stageHeight/2, _curOrder.xp);
-//            p = new Point(0, 0);
-            prise.id = DataMoney.SOFT_CURRENCY;
-            prise.count = _curOrder.coins;
-            new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
-            if (_curOrder.addCoupone) {
-//                p.x = _btnCell.x + _btnCell.width * 4 / 5;
-//                p.y = _btnCell.y + _btnCell.height / 2;
-                prise.id = int(Math.random() * 4) + 3;
-                prise.count = 1;
-                new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
-            }
-        } else {
-            var p:Point = new Point(134, 147);
-            p = _source.localToGlobal(p);
-            new XPStar(p.x, p.y, _curOrder.xp);
-            p = new Point(186, 147);
-            prise.id = DataMoney.SOFT_CURRENCY;
-            prise.count = _curOrder.coins;
+        var p:Point = new Point(134, 147);
+        p = _source.localToGlobal(p);
+        new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp);
+        p = new Point(186, 147);
+        prise.id = DataMoney.SOFT_CURRENCY;
+        prise.count = _activeOrderItem.getOrder().coins;
+        new DropItem(p.x, p.y, prise);
+        if (_activeOrderItem.getOrder().addCoupone) {
+            p.x = _btnCell.x + _btnCell.width * 4 / 5;
+            p.y = _btnCell.y + _btnCell.height / 2;
+            prise.id = int(Math.random() * 4) + 3;
+            prise.count = 1;
             new DropItem(p.x, p.y, prise);
-            if (_curOrder.addCoupone) {
-                p.x = _btnCell.x + _btnCell.width * 4 / 5;
-                p.y = _btnCell.y + _btnCell.height / 2;
-                prise.id = int(Math.random() * 4) + 3;
-                prise.count = 1;
-                new DropItem(p.x, p.y, prise);
-            }
         }
         _waitForAnswer = true;
-        g.managerOrder.sellOrder(_curOrder, afterSell);
+        g.managerOrder.sellOrder(_activeOrderItem.getOrder(), afterSell);
         g.bottomPanel.checkIsFullOrder();
     }
 
-    private function afterSell():void {
+    private function afterSell(order:Object):void {
         _waitForAnswer = false;
         if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
-            updateIt();
+            var b:Boolean = true;
+            for (var k:int=0; k<order.resourceIds.length; k++) {
+                if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+                    b = false;
+                    break;
+                }
+            }
+            _activeOrderItem.fillIt(order, order.placeNumber, onItemClick, b);
         }
         g.bottomPanel.checkIsFullOrder();
     }
@@ -290,31 +287,32 @@ public class WOOrder extends Window{
         var maxCount:int = g.managerOrder.maxCountOrders;
         var b:Boolean;
         var order:Object;
+        var k:int;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (i >= maxCount) return;
             b = true;
             order = _arrOrders[i];
-            for (var k:int=0; k<order.resourceIds.length; k++) {
+            for (k=0; k<order.resourceIds.length; k++) {
                     if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
                         b = false;
                         break;
                     }
             }
-            if (order.place > -1) {
-                _arrItems[order.place].fillIt(order, order.place, onItemClick, b);
+            if (order.placeNumber > -1) {
+                _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b);
             } else {
                 Cc.error('WOOrder fillList:: order.place == -1');
             }
         }
     }
 
-    private function onItemClick(pos:int):void {
+    private function onItemClick(item:WOOrderItem):void {
         if (_waitForAnswer) return;
+        if (item == _activeOrderItem) return;
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
-        position = pos;
         clearResourceItems();
-        _activeOrderItem = _arrItems[pos];
-        fillResourceItems(_arrOrders[pos]);
+        _activeOrderItem = item;
+        fillResourceItems(item.getOrder());
         _activeOrderItem.activateIt(true);
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
@@ -338,55 +336,49 @@ public class WOOrder extends Window{
     }
 
     private function fillResourceItems(order:Object):void {
-        _curOrder = order;
-        _txtName.text = _curOrder.catName + ' заказывает';
-        _txtXP.text = String(_curOrder.xp);
-        _txtCoins.text = String(_curOrder.coins);
-        for (var i:int=0; i<_curOrder.resourceIds.length; i++) {
-            _arrResourceItems[i].fillIt(_curOrder.resourceIds[i], _curOrder.resourceCounts[i]);
+        _txtName.text = _activeOrderItem.getOrder().catName + ' заказывает';
+        _txtXP.text = String(_activeOrderItem.getOrder().xp);
+        _txtCoins.text = String(_activeOrderItem.getOrder().coins);
+        for (var i:int=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {
+            _arrResourceItems[i].fillIt(_activeOrderItem.getOrder().resourceIds[i], _activeOrderItem.getOrder().resourceCounts[i]);
         }
     }
 
     private function deleteOrder():void {
-        if (_curOrder) {
+        if (_activeOrderItem) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
-            setTimerText = 15*60;  //! 15
+            setTimerText = ManagerOrder.TIME_DELAY;
             _waitForAnswer = true;
-            g.managerOrder.deleteOrder(_curOrder, afterDeleteOrder);
+            g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), afterDeleteOrder);
         }
     }
 
     private function afterDeleteOrder(order:Object):void {
         if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
-            order.startTime = int(new Date().getTime() / 1000) + 15 * 60;  //! 15
+            order.startTime += ManagerOrder.TIME_DELAY;
             _waitForAnswer = false;
-            _curOrder = order;
-            setTimerText = 15 * 60; //! 15
-            _activeOrderItem.fillIt(order, _activeOrderItem.position, onItemClick);
+            setTimerText = ManagerOrder.TIME_DELAY;
+            var b:Boolean = true;
+            for (var k:int=0; k<order.resourceIds.length; k++) {
+                if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+                    b = false;
+                    break;
+                }
+            }
+            _activeOrderItem.fillIt(order, order.placeNumber, onItemClick, b);
             g.gameDispatcher.addToTimer(onTimer);
         }
     }
 
     private function skipDelete():void {
-        if (g.user.hardCurrency < 7) {
+        if (g.user.hardCurrency < ManagerOrder.COST_SKIP_WAIT) {
             onClickExit();
             g.woBuyCurrency.showItMenu(true);
             return;
         }
         _activeOrderItem.onSkipTimer();
-        _curOrder.startTime -= 30*60;
-        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -8);
-    }
-
-    private function updateIt():void {
-        clearResourceItems();
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].clearIt();
-        }
-        fillList();
-        _arrItems[position].activateIt(true);
-        fillResourceItems(_arrOrders[position]);
+        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -ManagerOrder.COST_SKIP_WAIT);
     }
 
     private function createRightBlockTimer():void {
