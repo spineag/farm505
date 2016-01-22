@@ -48,9 +48,9 @@ public class WOTrainOrderItem {
             g.woGameError.showIt();
             return;
         }
-        MCScaler.scale(_im, 50, 50);
+//        MCScaler.scale(_im, 50, 50);
         _im.x = 50 - _im.width/2;
-        _im.y = 5;
+//        _im.y = 5;
         source.addChild(_im);
     }
 
