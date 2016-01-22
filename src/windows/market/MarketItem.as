@@ -95,7 +95,7 @@ public class MarketItem {
         _txtPlawka = new TextField(80,60, 'Продано', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txtPlawka.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtPlawka.x = 15;
-        _txtPlawka.y = 30;
+        _txtPlawka.y = 15;
         _txtPlawka.visible = false;
         source.addChild(_txtPlawka);
 
@@ -318,6 +318,7 @@ public class MarketItem {
             if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) {
                 _plawkaSold.visible = true;
                 _txtPlawka.visible = true;
+                _txtPlawka.y = -15;
                 _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
                 isFill = 3;
                 return;
@@ -336,7 +337,11 @@ public class MarketItem {
             g.woGameError.showIt();
             return;
         }
-        im = new Image(g.allData.atlas[d.url].getTexture(d.imageShop));
+        if (_data.buildType == BuildType.PLANT) {
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+        } else {
+            im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+        }
         if (!im) {
             Cc.error('MarketItem showFlyResource:: no such image: ' + d.imageShop);
             g.woGameError.showIt();
@@ -365,7 +370,7 @@ public class MarketItem {
     }
 
     private function showCoinImage():void {
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coin'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         MCScaler.scale(im, 80, 80);
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
