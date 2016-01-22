@@ -371,22 +371,7 @@ public class Tree extends AreaObject {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
-            if (_state == FULL_DEAD || _state == ASK_FIX) {
-                if (_isOnHover == true) {
-                    g.wildHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale, _dataBuild.removeByResourceId, _dataBuild.name);
-                    if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
-                        g.treeHint.onDelete = deleteTree;
-                    }
-                }
-            } else if (_state == DEAD) {
-                if (_isOnHover == true) {
-                    g.treeHint.showIt(_dataBuild, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale, _dataBuild.name, this);
-                    if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
-                        g.treeHint.onDelete = deleteTree;
-                    }
-                    g.treeHint.onWatering = askWateringTree;
-                }
-            } else if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
+             if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
                         g.woAmbarFilled.showAmbarFilled(true);
@@ -398,23 +383,51 @@ public class Tree extends AreaObject {
                     _arrCrafted.shift().flyIt();
                 } else Cc.error('TREE:: state == GROWED*, but empty _arrCrafted');
             } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
-                    _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                    _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER ||
+                    _state == DEAD || _state == FULL_DEAD || _state == ASK_FIX) {
                 var time:int = _timeToEndState;
                 if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FIXED) {
                     time += int(_resourceItem.buildTime / 2 + .5);
                 }
-                if (_dataBuild.width == 2) g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
-                else {
-                    var newX:int;
-                    if (_state == GROW3 || _state == GROW_FLOWER3) {
-                        newX = g.cont.gameCont.x + (_source.x + _source.width / 2) * g.currentGameScale;
-                    }
-                    else {
-                        newX = g.cont.gameCont.x + (_source.x + _source.width / 4) * g.currentGameScale;
-                    }
-                    g.timerHint.showIt(newX, g.cont.gameCont.y + (_source.y - _source.height / 4) * g.currentGameScale, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
+                var newX:int;
+                var newY:int;
+                if (_dataBuild.id == 25) { //Яблоня
+                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+                }else if (_dataBuild.id == 26) { // Вишня
+                    newX = g.cont.gameCont.x + (_source.x + _source.width /12) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+                } else if (_dataBuild.id == 41) { //Малина
+                if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
+                } else{
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 5) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
                 }
-
+                } else if (_dataBuild.id == 42) { //Черника
+                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 6) * g.currentGameScale;
+                    } else{
+                        newX = g.cont.gameCont.x + (_source.x +  _source.width / 12) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
+                    }
+                }
+               if (_state == DEAD) {
+                        g.treeHint.showIt(_dataBuild, newX, newY, _dataBuild.name, this);
+                        if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
+                            g.treeHint.onDelete = deleteTree;
+                        }
+                        g.treeHint.onWatering = askWateringTree;
+                    } else if (_state == FULL_DEAD || _state == ASK_FIX) {
+                         g.wildHint.showIt(newX, newY, _dataBuild.removeByResourceId, _dataBuild.name);
+                         if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
+                             g.treeHint.onDelete = deleteTree;
+                         }
+                 }  else {
+                   g.timerHint.showIt(newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
+                    }
             } else if (_state == FIXED) {
                 _state = GROW_FIXED;
                 setBuildImage();

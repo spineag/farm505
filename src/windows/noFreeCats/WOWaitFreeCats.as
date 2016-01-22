@@ -26,12 +26,12 @@ public class WOWaitFreeCats extends Window{
 
     public function WOWaitFreeCats() {
         super();
-        _woWidth = 300;
+        _woWidth = 320;
         _woHeight = 300;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        _txtText = new TextField(300,200,"Свободных работников нет, подождите до окончания другого производства",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        _txtText = new TextField(300,200,"У вас нет незанятых работников, подождите пока не закончится другое производство!",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtText.touchable = false;
         _txtText.x = -150;

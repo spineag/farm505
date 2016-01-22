@@ -41,7 +41,7 @@ public class WONoPlaces extends Window{
 
         _contBtn = new CButton();
         _contBtn.addButtonTexture(120, 40, CButton.GREEN, true);
-        _contBtn.x =-5;
+//        _contBtn.x =-5;
         _contBtn.y = 120;
         _source.addChild(_contBtn);
         _contBtn.clickCallback = onClick;
@@ -61,6 +61,7 @@ public class WONoPlaces extends Window{
         _txtCost = new TextField(50,50,"","g.allData.fonts['BloggerBold']",24,Color.WHITE);
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtCost.x = 30;
+        _txtCost.y = -3;
         _contBtn.addChild(_txtCost);
         _source.addChild(im);
         _source.addChild(_txtText);

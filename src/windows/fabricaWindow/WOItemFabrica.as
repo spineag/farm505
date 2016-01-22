@@ -84,6 +84,7 @@ public class WOItemFabrica {
     }
 
     private function onClick():void {
+        if (_dataRecipe.blockByLevel > g.user.level) return;
         source.filter = null;
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataRecipe]);

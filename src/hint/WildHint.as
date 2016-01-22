@@ -82,7 +82,7 @@ public class WildHint {
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _txtCount.x = +_bgItem.width/2 -28;
-        _txtCount.y = -_bgItem.height - 55;
+        _txtCount.y = -_bgItem.height - 56;
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         if (!_iconResource) {
             Cc.error('WildHint showIt:: no such image: ' + g.dataResource.objectResources[idResourceForRemoving].imageShop);

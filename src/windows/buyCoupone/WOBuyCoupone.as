@@ -2,6 +2,8 @@
  * Created by user on 7/15/15.
  */
 package windows.buyCoupone {
+import data.DataMoney;
+
 import manager.ManagerFilters;
 
 import starling.display.Image;
@@ -36,22 +38,22 @@ public class WOBuyCoupone extends Window{
     }
 
     public function showItWO():void {
-        _Green = new WOBuyCouponeItem("green_coupone", g.user.greenCouponCount,15);
+        _Green = new WOBuyCouponeItem("green_coupone", g.user.greenCouponCount,15,DataMoney.GREEN_COUPONE);
         _Green.source.x = -215;
         _Green.source.y = -20;
         _source.addChild(_Green.source);
-        _Blue = new WOBuyCouponeItem("blue_coupone", g.user.blueCouponCount,30);
+        _Blue = new WOBuyCouponeItem("blue_coupone", g.user.blueCouponCount,30,DataMoney.BLUE_COUPONE);
         _Blue.source.x = -105;
         _Blue.source.y = -20;
         _source.addChild(_Blue.source);
-        _Red = new WOBuyCouponeItem("red_coupone", g.user.redCouponCount,45);
-        _Red.source.x = 5;
-        _Red.source.y = -20;
-        _source.addChild(_Red.source);
-        _Yellow = new WOBuyCouponeItem("yellow_coupone", g.user.yellowCouponCount,60);
-        _Yellow.source.x = 115;
+        _Yellow = new WOBuyCouponeItem("yellow_coupone", g.user.yellowCouponCount,45,DataMoney.YELLOW_COUPONE);
+        _Yellow.source.x = 5;
         _Yellow.source.y = -20;
         _source.addChild(_Yellow.source);
+        _Red = new WOBuyCouponeItem("red_coupone", g.user.redCouponCount,60,DataMoney.RED_COUPONE);
+        _Red.source.x = 115;
+        _Red.source.y = -20;
+        _source.addChild(_Red.source);
         showIt();
     }
 

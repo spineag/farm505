@@ -10,6 +10,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -23,7 +25,7 @@ import windows.ambar.WOAmbars;
 
 public class WOAmbarFilled extends Window{
 
-    private var _contBtn:CSprite;
+    private var _contBtn:CButton;
     private var _woBG:WindowBackground;
     private var _imageAmbar:Image;
     private var _txtBtn:TextField;
@@ -43,18 +45,18 @@ public class WOAmbarFilled extends Window{
         createExitButton(onClickExit);
         callbackClickBG = onClickExit;
 
-        _contBtn = new CSprite();
-        _contBtn.endClickCallback = onClick;
-        var bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
-        bg.x = -10;
+        _contBtn = new CButton();
+        _contBtn.clickCallback = onClick;
+//        var bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
+//        bg.x = -10;
+        _contBtn.addButtonTexture(130, 40, CButton.YELLOW, true);
         _txtBtn = new TextField(150,50,"",g.allData.fonts['BloggerBold'],12,Color.WHITE);
-        _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         _txtBtn.y = -5;
-        _txtBtn.x = -20;
-        _contBtn.addChild(bg);
+        _txtBtn.x = -10;
         _contBtn.addChild(_txtBtn);
-        _contBtn.x = -50;
-        _contBtn.y = 75;
+//        _contBtn.x = -50;
+        _contBtn.y = 90;
         _source.addChild(_contBtn);
         _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("storage_window_pr"));
         _imageAmbar.x = -160;
@@ -100,7 +102,7 @@ public class WOAmbarFilled extends Window{
             showIt();
             _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount);
             _txtAmbarFilled.text = "АМБАР ЗАПОЛНЕН";
-            _txtBtn.text = "Увеличть Амбар";
+            _txtBtn.text = "Увеличить Амбар";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
             _imAmbarSklad.x = -5;
             _imAmbarSklad.y = _imageAmbar.y - 60;
@@ -111,9 +113,9 @@ public class WOAmbarFilled extends Window{
             showIt();
             _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount);
             _txtAmbarFilled.text = "СКЛАД ЗАПОЛНЕН";
-            _txtBtn.text = "Увеличть Склад";
+            _txtBtn.text = "Увеличить Склад";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
-            _imAmbarSklad.x = -10;
+            _imAmbarSklad.x = -15;
             _imAmbarSklad.y = _imageAmbar.y - 60;
             MCScaler.scale(_imAmbarSklad, 60, 60);
             _bar.progress = 1;
