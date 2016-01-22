@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:3370ed5a98f8e27457aaef3279158b9c:4e4378145bc116913bcae9eaa8eac379:acd9378c26fec4c35b90314369efd81a$ -->
+<!-- $TexturePacker:SmartUpdate:1961fe9faf4cf5e720e306a141d5a5b1:4e74438a329f4af68a9e2795a7014c13:acd9378c26fec4c35b90314369efd81a$ -->
 <TextureAtlas imagePath="wildAtlas.png">
     <SubTexture name="dry_log_1" x="2" y="1040" width="160" height="146" frameX="-7" frameY="-3" frameWidth="175" frameHeight="149"/>
     <SubTexture name="dry_log_2" x="2" y="1385" width="146" height="112" frameX="0" frameY="0" frameWidth="149" frameHeight="112"/>
     <SubTexture name="fir_big" x="2" y="1188" width="146" height="195"/>
-    <SubTexture name="fir_small" x="2" y="1852" width="102" height="144" frameX="0" frameY="-1" frameWidth="102" frameHeight="145"/>
+    <SubTexture name="fir_small" x="2" y="1715" width="102" height="144" frameX="0" frameY="-1" frameWidth="102" frameHeight="145"/>
     <SubTexture name="oak_big" x="2" y="352" width="214" height="306"/>
     <SubTexture name="oak_small" x="2" y="793" width="169" height="245" frameX="0" frameY="-1" frameWidth="169" frameHeight="246"/>
-    <SubTexture name="stone_big_1" x="2" y="1636" width="135" height="102"/>
-    <SubTexture name="stone_big_2" x="2" y="1740" width="122" height="110"/>
-    <SubTexture name="stone_small_1" x="106" y="1852" width="97" height="92"/>
-    <SubTexture name="stone_small_2" x="126" y="1740" width="84" height="69"/>
-    <SubTexture name="stump" x="2" y="1499" width="138" height="135" frameX="-8" frameY="-14" frameWidth="159" frameHeight="160"/>
+    <SubTexture name="stone_big_1" x="2" y="1499" width="135" height="102"/>
+    <SubTexture name="stone_big_2" x="2" y="1603" width="122" height="110"/>
+    <SubTexture name="stone_small_1" x="106" y="1715" width="97" height="92"/>
+    <SubTexture name="stone_small_2" x="126" y="1603" width="84" height="69"/>
+    <SubTexture name="stump" x="139" y="1499" width="70" height="68" frameX="-4" frameY="-7" frameWidth="80" frameHeight="80"/>
     <SubTexture name="swamp" x="2" y="660" width="206" height="131" frameX="-4" frameY="0" frameWidth="226" frameHeight="137"/>
     <SubTexture name="wild_tree" x="2" y="2" width="215" height="348" frameX="0" frameY="0" frameWidth="215" frameHeight="354"/>
 </TextureAtlas>
