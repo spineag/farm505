@@ -76,14 +76,26 @@ public class WOOrder extends Window{
 
     private function onClickExit(e:Event=null):void {
         g.gameDispatcher.removeFromTimer(onTimer);
+        try {
+            for (var i:int = 0; i < _arrItems.length; i++) {
+                _arrItems[i].activateIt(false);
+            }
+        } catch (e:Error) {
+            Cc.error('WOOrder onClickExit error1:: ' + e.message);
+        }
+        try {
+            clearResourceItems();
+        } catch (e:Error) {
+            Cc.error('WOOrder onClickExit error2:: ' + e.message);
+        }
+        try {
+            for (i = 0; i < _arrOrders.length; i++) {
+                _arrItems[i].clearIt();
+            }
+        } catch (e:Error) {
+            Cc.error('WOOrder onClickExit error3:: ' + e.message);
+        }
         _activeOrderItem = null;
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].activateIt(false);
-        }
-        clearResourceItems();
-        for (i=0; i<_arrOrders.length; i++) {
-            _arrItems[i].clearIt();
-        }
         hideIt();
     }
 

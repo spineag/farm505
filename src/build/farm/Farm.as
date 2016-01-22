@@ -197,7 +197,7 @@ public class Farm extends AreaObject{
     private var arr:Array;
     private function sortAnimals():void {
         counter--;
-        if (counter <= 0) {
+        if (counter <= 0 || g.isAway) {
             arr = _arrAnimals.slice();
             if (arr.length > 1) {
                 arr.sortOn('depth', Array.NUMERIC);

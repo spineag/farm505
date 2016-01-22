@@ -28,12 +28,12 @@ public class WONoFreeCats extends Window{
         super();
         _woWidth = 300;
         _woHeight = 300;
-//        createTempBG();
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _txtText = new TextField(300,100,"Нету сводобных котов",g.allData.fonts['BloggerMedium'],20,Color.WHITE);
         _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtText.touchable = false;
         _txtText.x = -150;
         _txtText.y = -120;
        var  bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);

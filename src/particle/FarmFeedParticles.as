@@ -19,8 +19,8 @@ public class FarmFeedParticles {
         _callback = callback;
         var part:Particle;
         _count = MAX_COUNT;
-        var dX:int = 100 + 100*Math.random() * g.scaleFactor;
-        var dY:int = 100 + 100*Math.random() * g.scaleFactor;
+        var dX:int = 100 + 70*Math.random() * g.scaleFactor;
+        var dY:int = 130 + 70*Math.random() * g.scaleFactor;
         for (var i:int=0; i< MAX_COUNT; i++) {
             part = new Particle(1 + Math.random(), dX, dY, onFinishParticle);
             source.addChild(part.source);

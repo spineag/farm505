@@ -60,7 +60,10 @@ public class WOLevelUpItem {
             } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
                     || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.DECOR) {
                 st = ob.image;
-                _image = new Image(g.allData.atlas[ob.url].getTexture(st));
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(st + '_icon'));
+                if (!_image) {
+                    _image = new Image(g.allData.atlas[ob.url].getTexture(st));
+                }
             } else if (ob.buildType == BuildType.ANIMAL) {
                 st = ob.image;
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(st + '_icon'));
@@ -76,7 +79,8 @@ public class WOLevelUpItem {
             Cc.error('WOLevelUpItem:: error with _image for data.id: ' + ob.id);
         }
 
-        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("newlevel_window_paper"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_blue_d"));
+        MCScaler.scale(_imageBg, 77, 77);
         _imageBg.x = 50 - _imageBg.width/2;
         _imageBg.y = 50 - _imageBg.height/2;
         source.addChild(_imageBg);

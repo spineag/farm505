@@ -14,14 +14,15 @@ public class FarmGrid {
 //    private const WIDTH_CELL:uint = FACTOR*Math.SQRT2;
     private const Y_CORRECT:Number = Math.cos(-Math.PI / 6) * Math.SQRT2;
     private var g:Vars = Vars.getInstance();
+    private var COUNT:int = 8;
 
     public function FarmGrid() {
         _matrix = [];
         FACTOR = 30 * g.scaleFactor;
 
-        for (var i:int = 0; i < 10; i++) {
+        for (var i:int = 0; i < COUNT; i++) {
             _matrix.push([]);
-            for (var j:int = 0; j < 10; j++) {
+            for (var j:int = 0; j < COUNT; j++) {
                 _matrix[i][j] = getXYFromIndex(new Point(i, j));
             }
         }
@@ -32,8 +33,8 @@ public class FarmGrid {
      }
 
     public function getRandomPoint():Point {
-        var i:int = int(Math.random()*10);
-        var j:int = int(Math.random()*10);
+        var i:int = int(Math.random()*COUNT);
+        var j:int = int(Math.random()*COUNT);
         return _matrix[i][j];
     }
 
