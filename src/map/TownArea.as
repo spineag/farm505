@@ -1071,7 +1071,8 @@ public class TownArea extends Sprite {
 
     public function onActivateMoveModifier(v:Boolean):void {
         for (var i:int=0; i<_cityObjects.length; i++) {
-            if (_cityObjects[i] is Order || _cityObjects[i] is Wild) {
+            if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand) {
+                if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as CSprite).isTouchable = !v;
             }
@@ -1083,7 +1084,8 @@ public class TownArea extends Sprite {
 
     public function onActivateRotateModifier(v:Boolean):void {
         for (var i:int=0; i<_cityObjects.length; i++) {
-            if (_cityObjects[i] is Order || _cityObjects[i] is Wild) {
+            if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand) {
+                if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as CSprite).isTouchable = !v;
             }

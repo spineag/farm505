@@ -228,7 +228,8 @@ public class ManagerCats {
     }
 
     public function removeAwayCats():void {
-        for (var i:int=0; i<5; i++) {
+        if (!_catsAwayArray.length) return;
+        for (var i:int=0; i<_catsAwayArray.length; i++) {
             (_catsAwayArray[i] as HeroCat).deleteIt();
         }
         _catsAwayArray = [];

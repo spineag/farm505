@@ -31,7 +31,6 @@ public class HorizontalPlawka extends Sprite{
         imC.x = w - imR.width - imC.width;
         addChild(imC);
         flatten();
-        touchable = false;
         imC=null;
         if (iL) iL=null;
         imR=null;

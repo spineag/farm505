@@ -85,8 +85,10 @@ public class WOOrderItem {
 
     public function activateIt(v:Boolean):void {
         if (v) {
+            _bgCarton.filter = null;
             _bgCarton.filter = ManagerFilters.YELLOW_STROKE;
         } else {
+            _bgCarton.filter = null;
             _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
         }
     }
@@ -134,6 +136,7 @@ public class WOOrderItem {
     }
 
     public function clearIt():void {
+        source.filter = null;
         _order = null;
         source.endClickCallback = null;
         _txtCoins.text = '';

@@ -118,7 +118,7 @@ public class LockedLand extends AreaObject {
     }
 
     override public function get depth():Number {
-        return _depth - 1000;
+        return _depth;
     }
 
     public function addWild(w:Wild, _x:int, _y:int):void {
