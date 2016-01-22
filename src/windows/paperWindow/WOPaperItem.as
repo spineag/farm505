@@ -188,8 +188,9 @@ public class WOPaperItem {
     private function onClickVisit():void {
         if (!_data) return;
         g.woPaper.hideIt();
-        g.woMarket.addAdditionalUser(_data);
-        g.woMarket.showIt();
+//        g.woMarket.addAdditionalUser(_data);
+//        g.woMarket.showIt();
+        g.woMarket.showItPapper(_p);
     }
 
     public function deleteIt():void {

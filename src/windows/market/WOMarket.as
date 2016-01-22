@@ -126,6 +126,16 @@ public class WOMarket  extends Window {
         showIt();
     }
 
+    public function showItPapper(p:Someone):void {
+        for (var i:int=0; i < _arrFriends.length; i++) {
+            if (_arrFriends[i].userSocialId == p.userSocialId){
+                _shiftFriend = i;
+            }
+        }
+        createMarketTabBtns();
+        fillItemsByUser(p);
+        showIt();
+    }
 //    private function fillItemss():void {
 //        for (var i:int = 0; i < g.user.marketItems.length; i++) {
 //            if (g.user.marketItems[i].numberCell == i) {
