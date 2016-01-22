@@ -123,12 +123,6 @@ public class WOMarket  extends Window {
     public function showItWithParams():void {
         createMarketTabBtns();
         fillItems();
-//        for (var i:int = 0; i < g.user.marketItems.length; i++) {
-//            if (g.user.marketItems[i].numberCell == i) {
-//
-//            }
-//
-//        }
         showIt();
     }
 

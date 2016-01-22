@@ -46,6 +46,7 @@ public class MarketItem {
     private var _countMoney:int;
     private var _inPapper:Image;
     private var _plawkaSold:Image;
+    private var _plawkaLvl:Image;
     private var _isUser:Boolean;
     private var _imageCont:Sprite;
     private var _person:Someone;
@@ -91,6 +92,13 @@ public class MarketItem {
         _plawkaSold.x = _bg.width/2;
         source.addChild(_plawkaSold);
         _plawkaSold.visible = false;
+
+        _plawkaLvl = new Image(g.allData.atlas['interfaceAtlas'].getTexture('roadside_shop_tabl'));
+        _plawkaLvl.pivotX = _plawkaLvl.width/2;
+        _plawkaLvl.x = _bg.width/2;
+        source.addChild(_plawkaLvl);
+
+        _plawkaLvl.visible = false;
 
         _txtPlawka = new TextField(80,60, 'Продано', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txtPlawka.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -292,6 +300,7 @@ public class MarketItem {
         _data = null;
         _inPapper.visible = false;
         _plawkaSold.visible = false;
+        _plawkaLvl.visible = false;
         _txtPlawka.visible = false;
     }
 
@@ -316,7 +325,8 @@ public class MarketItem {
 //            if (_dataFromServer.numberCell == number) trace(String(number));////////////////////////////////////
             fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
             if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) {
-                _plawkaSold.visible = true;
+                _plawkaLvl.visible = true;
+                _plawkaLvl.y = -15;
                 _txtPlawka.visible = true;
                 _txtPlawka.y = -15;
                 _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
