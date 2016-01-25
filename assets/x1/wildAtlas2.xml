@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:056f1a1f37b1056db4197d2366dae9ff:4e74438a329f4af68a9e2795a7014c13:acd9378c26fec4c35b90314369efd81a$ -->
+<!-- $TexturePacker:SmartUpdate:c9d391f9d8cb2c065f5ded90cc212eba:5250feed9f7a35ac446faba91fbfa94f:acd9378c26fec4c35b90314369efd81a$ -->
 <TextureAtlas imagePath="wildAtlas.png">
     <SubTexture name="dry_log_1" x="2" y="526" width="81" height="74" frameX="-3" frameY="-1" frameWidth="88" frameHeight="75"/>
     <SubTexture name="dry_log_2" x="2" y="702" width="72" height="56" frameX="-1" frameY="0" frameWidth="75" frameHeight="56"/>

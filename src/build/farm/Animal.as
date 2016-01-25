@@ -251,9 +251,9 @@ public class Animal {
 
     public function addRenderAnimation():void {
         stopAnimation();
-        if (_state == HUNGRY) {
+        if (_state == CRAFT || _state == HUNGRY) {
             showHungryAnimations();
-        } else if (_state == CRAFT || _state == WORK) {
+        } else if (_state == WORK) {
             chooseAnimation();
         }
     }

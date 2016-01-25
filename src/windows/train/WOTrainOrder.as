@@ -78,8 +78,8 @@ public class WOTrainOrder extends Window{
         im.x = -55;
         im.y = -80;
         _source.addChild(im);
-        _txtTime = new TextField(50,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        _txtTime.x = -20;
+        _txtTime = new TextField(70,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtTime.x = -28;
         _txtTime.y = -85;
         _txtTime.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _source.addChild(_txtTime);

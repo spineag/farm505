@@ -42,6 +42,10 @@ public class Wild extends AreaObject{
         _curLockedLand = l;
     }
 
+    public function removeLockedLand():void {
+        _curLockedLand = null;
+    }
+
     private function onHover():void {
         if (g.selectedBuild) return;
         if (_curLockedLand && !g.isActiveMapEditor) return;

@@ -372,13 +372,14 @@ public class WOTrain extends Window {
         }
         _btn.visible = true;
         _btn.clickCallback = null;
-        for (var i:int = 0; i<_arrItems.length; i++) {
-            if (_arrItems[i].canFull) {
-                _btn.alpha = 1;
-                _btn.clickCallback = freeTrain;
-                return;
-            }
-        }
+        var i:int;
+//        for (var i:int = 0; i<_arrItems.length; i++) {
+//            if (_arrItems[i].canFull) {
+//                _btn.alpha = 1;
+//                _btn.clickCallback = onClickExit;
+//                return;
+//            }
+//        }
         for (i = 0; i<_arrItems.length; i++) {
             if (!_arrItems[i].isResourceLoaded) {
                 _btn.alpha = .5;
@@ -402,8 +403,5 @@ public class WOTrain extends Window {
         }
     }
 
-    private function freeTrain():void {
-        onClickExit();
-    }
 }
 }

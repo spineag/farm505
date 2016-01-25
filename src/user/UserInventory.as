@@ -2,15 +2,10 @@
  * Created by user on 6/12/15.
  */
 package user {
-import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-
 import manager.OwnEvent;
-
 import manager.Vars;
-
 import starling.events.Event;
 
 public class UserInventory {
