@@ -61,12 +61,21 @@ public class WOSimpleButtonTexture  extends Sprite {
 
         //center
         im = new Image(tex.getTexture(st+'c'));
-        var a:int = 0;
         var countW:int = Math.ceil(w - arr[0].width - arr[1].width) + 1;
         for (i=0; i<countW; i++) {
             im = new Image(tex.getTexture(st+'c'));
             im.x = arr[0].x + arr[0].width + i - 1;
             im.y = 0;
+            addChildAt(im, 0);
+        }
+        arr.push(im);
+        // add shadows
+        if (useBig) st = 'shadow_b';
+            else st = 'shadow_s';
+        for (i=0; i<countW-1; i++) {
+            im = new Image(tex.getTexture(st));
+            im.x = arr[0].x + arr[0].width + i;
+            im.y = arr[2].height;
             addChildAt(im, 0);
         }
 

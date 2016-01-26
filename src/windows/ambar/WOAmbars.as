@@ -199,7 +199,7 @@ public class WOAmbars extends Window {
         _source.addChild(_txtCount);
 
         _btnShowUpdate = new CButton();
-        _btnShowUpdate.addButtonTexture(121, 40, CButton.GREEN, true);
+        _btnShowUpdate.addButtonTexture(120, 40, CButton.GREEN, true);
         _btnShowUpdate.x = -_woWidth/2 + 430;
         _btnShowUpdate.y = -_woHeight/2 + 509;
         _txtBtnShowUpdate = new TextField(90, 50, "Увеличить склад", g.allData.fonts['BloggerMedium'], 14, Color.WHITE);
@@ -213,7 +213,7 @@ public class WOAmbars extends Window {
 
     private function createWOUpdateElements():void {
         _btnBackFromUpdate = new CButton();
-        _btnBackFromUpdate.addButtonTexture(121, 40, CButton.BLUE, true);
+        _btnBackFromUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
         var txt:TextField = new TextField(90, 50, "Назад", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = 18;
