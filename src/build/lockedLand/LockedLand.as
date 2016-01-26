@@ -189,6 +189,7 @@ public class LockedLand extends AreaObject {
         g.townArea.deleteBuild(this);
         for (var i:int=0; i<_arrWilds.length; i++) {
             g.townArea.pasteBuild(_arrWilds[i], _arrWilds[i].source.x + _x, _arrWilds[i].source.y + _y, false, false);
+            (_arrWilds[i] as Wild).removeLockedLand();
         }
         _dataLand = null;
         _arrWilds.length = 0;

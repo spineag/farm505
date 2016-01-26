@@ -396,6 +396,11 @@ public class Fabrica extends AreaObject {
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "right_hand/handRight");
         }
+        var viyi:Bone = _armature.getBone('viyi'); {
+            if (viyi) {
+                viyi.visible = false;
+            }
+        }
     }
 
     private function releaseManBackTexture():void {
@@ -418,6 +423,11 @@ public class Fabrica extends AreaObject {
         changeTexture("tail", "tails/tail_w");
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "right_hand/handRight_w");
+        }
+        var viyi:Bone = _armature.getBone('viyi'); {
+            if (viyi) {
+                viyi.visible = true;
+            }
         }
     }
 

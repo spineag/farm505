@@ -210,8 +210,12 @@ public class HeroCat extends BasicCat{
         if (!armatureWorker) {
             armatureWorker = g.allData.factory['cat_watering'].buildArmature("cat");
             WorldClock.clock.add(armatureWorker);
+            var viyi:Bone = armatureWorker.getBone('viyi');
             if (_type == WOMAN) {
                 releaseFrontWoman(armatureWorker);
+                if (viyi) viyi.visible = true;
+            } else {
+                if (viyi) viyi.visible = false;
             }
         }
         _catWateringAndFeed.addChild(armatureWorker.display as Sprite);
@@ -287,8 +291,12 @@ public class HeroCat extends BasicCat{
         if (!armatureWorker) {
             armatureWorker = g.allData.factory['cat_feed'].buildArmature("cat");
             WorldClock.clock.add(armatureWorker);
+            var viyi:Bone = armatureWorker.getBone('viyi');
             if (_type == WOMAN) {
                 releaseFrontWoman(armatureWorker);
+                if (viyi) viyi.visible = true;
+            } else {
+                if (viyi) viyi.visible = false;
             }
         }
         _catWateringAndFeed.addChild(armatureWorker.display as Sprite);

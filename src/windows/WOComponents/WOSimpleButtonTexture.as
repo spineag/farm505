@@ -61,6 +61,7 @@ public class WOSimpleButtonTexture  extends Sprite {
 
         //center
         im = new Image(tex.getTexture(st+'c'));
+        var a:int = 0;
         var countW:int = Math.ceil(w - arr[0].width - arr[1].width) + 1;
         for (i=0; i<countW; i++) {
             im = new Image(tex.getTexture(st+'c'));

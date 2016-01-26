@@ -6,12 +6,12 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/wild/wildAtlas.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/wild/wildAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>1</double>
+                <double>0.5</double>
                 <key>extension</key>
                 <string></string>
                 <key>spriteFilter</key>
@@ -145,7 +145,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../assets/x2/wildAtlas.xml</filename>
+                <filename>../../assets/x1/wildAtlas.xml</filename>
             </struct>
         </map>
         <key>multiPack</key>

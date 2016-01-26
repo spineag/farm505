@@ -438,11 +438,7 @@ public class ShopItem {
             g.woShop.onClickExit();
             g.toolsModifier.startMove(build as AreaObject, afterMove);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
-            if (_state == STATE_FROM_INVENTORY) {
-                build = g.townArea.createNewBuild(_data, g.userInventory.decorInventory[_data.id].ids[0]);
-            } else {
-                build = g.townArea.createNewBuild(_data);
-            }
+            build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
@@ -514,8 +510,9 @@ public class ShopItem {
 
     private function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void {
         g.bottomPanel.cancelBoolean(false);
-        var dbId:int = g.userInventory.removeFromDecorInventory(_data.id);
+        var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+        (build as WorldObject).dbBuildingId = dbId;
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
         if (build is DecorTail) {
             g.townArea.pasteTailBuild(build as DecorTail, _x, _y);

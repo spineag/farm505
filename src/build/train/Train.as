@@ -346,11 +346,17 @@ public class Train extends AreaObject{
     }
 
     public function get allXPCount():int {
-        return int(_dataPack.count_xp);
+        if (_dataPack) {
+            return int(_dataPack.count_xp);
+        } else {
+            return 0;
+        }
     }
 
     public function get allCoinsCount():int {
-        return int(_dataPack.count_money);
+        if (_dataPack) {
+            return int(_dataPack.count_money);
+        } return 0;
     }
 
     private function fillList(ob:Object):void {

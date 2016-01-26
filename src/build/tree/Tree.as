@@ -63,7 +63,7 @@ public class Tree extends AreaObject {
         _source.addChild(_build);
         _state = GROW1;
 
-        if (!g.isAway) {
+        if (!g.isAway || _state == ASK_FIX) {
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }
