@@ -164,7 +164,7 @@ public class Animal {
     private function onClick():void {
         if (g.isActiveMapEditor) return;
         if (_state == HUNGRY) {
-            source.filter = null;
+            onOut();
             if(g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
                 g.woNoResources.showItAnimal(_data,onClick);
             return;
@@ -189,6 +189,7 @@ public class Animal {
                 addRenderAnimation();
                 onOut();
             } else {
+                onOut();
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                     g.woWaitFreeCats.showIt();
                 } else {
@@ -196,8 +197,8 @@ public class Animal {
                 }
             }
         } else {
-            g.timerHint.showIt(g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip);
             source.filter = null;
+            g.timerHint.showIt(g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip);
         }
 
 

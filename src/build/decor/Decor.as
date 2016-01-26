@@ -32,26 +32,30 @@ public class Decor extends AreaObject{
     private function onHover():void {
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
-        _source.filter = ManagerFilters.BUILD_STROKE;
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY)
+            _source.filter = ManagerFilters.BUILD_STROKE;
     }
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
-                onOut();
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+            onOut();
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+            onOut();
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+            onOut();
             if (!g.selectedBuild) {
                 g.directServer.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
@@ -75,7 +79,6 @@ public class Decor extends AreaObject{
     }
 
     private function onOut():void {
-        if (g.isActiveMapEditor) return;
         _source.filter = null;
     }
 

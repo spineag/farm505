@@ -127,19 +127,19 @@ public class Ridge extends AreaObject{
     private function onEndClick():void {
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
+            onOut();
             if (g.selectedBuild) {
-                onOut();
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
-                onOut();
                 if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
                     g.toolsModifier.ridgeId = _dataPlant.id;
                 }
@@ -161,13 +161,11 @@ public class Ridge extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                _source.filter = null;
-                g.mouseHint.hideIt();
+                onOut();
                 g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip);
             }
             if (_stateRidge == EMPTY) {
-                _source.filter = null;
-                g.mouseHint.hideIt();
+                onOut();
                 g.woBuyPlant.showItWithParams(this, onBuy);
             } else if (_stateRidge == GROWED) {
                  if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
@@ -185,8 +183,6 @@ public class Ridge extends AreaObject{
                      var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
                      item.flyIt();
                      onOut();
-
-                     g.mouseHint.hideIt();
                  }
             }
         } else {

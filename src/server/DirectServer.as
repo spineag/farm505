@@ -31,6 +31,8 @@ import manager.ManagerPlantRidge;
 import manager.ManagerTree;
 import manager.Vars;
 
+import mouse.ServerIconMouse;
+
 import user.Someone;
 
 import user.Someone;
@@ -41,29 +43,7 @@ import windows.serverError.WOServerError;
 public class DirectServer {
     private var g:Vars = Vars.getInstance();
     private var woError:WOServerError = new WOServerError();
-
-    public function makeTest():void {
-        if (!g.useDataFromServer) return;
-
-        var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_TEST);
-        Cc.ch('server', 'start makeTest', 1);
-        request.method = URLRequestMethod.POST;
-        request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
-        loader.addEventListener(Event.COMPLETE, onCompleteTest);
-        function onCompleteTest(e:Event):void {
-            completeTest(e.target.data);
-        }
-        try {
-            loader.load(request);
-        } catch (error:Error) {
-            Cc.error('test error:' + error.errorID);
-        }
-    }
-
-    private function completeTest(response:String):void {
-        Cc.ch('server', 'on makeTest response: ' + response, 1);
-    }
+    private var iconMouse:ServerIconMouse = new ServerIconMouse();
 
     public function getDataLevel(callback:Function):void {
         var loader:URLLoader = new URLLoader();
@@ -76,6 +56,7 @@ public class DirectServer {
 //        request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAllLevels);
+        iconMouse.startConnect();
         function onCompleteAllLevels(e:Event):void { completeLevels(e.target.data, callback); }
         try {
             loader.load(request);
@@ -86,6 +67,7 @@ public class DirectServer {
     }
 
     private function completeLevels(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -119,6 +101,7 @@ public class DirectServer {
 
         Cc.ch('server', 'start getDataAnimal', 1);
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAnimal);
         function onCompleteAnimal(e:Event):void { completeAnimal(e.target.data, callback); }
         try {
@@ -130,6 +113,7 @@ public class DirectServer {
     }
 
     private function completeAnimal(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -176,6 +160,7 @@ public class DirectServer {
 
         Cc.ch('server', 'start getDataRecipe', 1);
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteRecipe);
         function onCompleteRecipe(e:Event):void { completeRecipe(e.target.data, callback); }
         try {
@@ -187,6 +172,7 @@ public class DirectServer {
     }
 
     private function completeRecipe(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -226,6 +212,7 @@ public class DirectServer {
 
         Cc.ch('server', 'start getDataResource', 1);
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteResource);
         function onCompleteResource(e:Event):void { completeResource(e.target.data, callback); }
         try {
@@ -237,6 +224,7 @@ public class DirectServer {
     }
 
     private function completeResource(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -288,6 +276,7 @@ public class DirectServer {
 
         Cc.ch('server', 'start getDataCats', 1);
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteCats);
         function onCompleteCats(e:Event):void { completeCats(e.target.data, callback); }
         try {
@@ -299,6 +288,7 @@ public class DirectServer {
     }
 
     private function completeCats(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -336,6 +326,7 @@ public class DirectServer {
 
         Cc.ch('server', 'start getDataBuilding', 1);
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuilding);
         function onCompleteBuilding(e:Event):void { completeBuilding(e.target.data, callback); }
         try {
@@ -347,6 +338,7 @@ public class DirectServer {
     }
 
     private function completeBuilding(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -436,6 +428,7 @@ public class DirectServer {
         variables.lastName = g.user.lastName;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAuthUser);
         function onCompleteAuthUser(e:Event):void { completeAuthUser(e.target.data, callback); }
         try {
@@ -447,6 +440,7 @@ public class DirectServer {
     }
 
     private function completeAuthUser(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -477,6 +471,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUserInfo);
         function onCompleteUserInfo(e:Event):void { completeUserInfo(e.target.data, callback); }
         try {
@@ -488,6 +483,7 @@ public class DirectServer {
     }
 
     private function completeUserInfo(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -546,6 +542,7 @@ public class DirectServer {
         variables.userSocialId = userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteFriendsInfo);
         function onCompleteFriendsInfo(e:Event):void { completeFriendsInfo(e.target.data,_person, callback); }
         try {
@@ -557,6 +554,7 @@ public class DirectServer {
     }
 
     private function completeFriendsInfo(response:String,_person:Someone, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -590,6 +588,7 @@ public class DirectServer {
         variables.count = count;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserMoney);
         function onCompleteAddUserMoney(e:Event):void { completeAddUserMoney(e.target.data, callback); }
         try {
@@ -601,6 +600,7 @@ public class DirectServer {
     }
 
     private function completeAddUserMoney(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -638,6 +638,7 @@ public class DirectServer {
         variables.count = count;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserXP);
         function onCompleteAddUserXP(e:Event):void { completeAddUserXP(e.target.data, callback); }
         try {
@@ -649,6 +650,7 @@ public class DirectServer {
     }
 
     private function completeAddUserXP(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -686,6 +688,7 @@ public class DirectServer {
         variables.level = g.user.level;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserLevel);
         function onCompleteUpdateUserLevel(e:Event):void { completeUpdateUserLevel(e.target.data, callback); }
         try {
@@ -697,6 +700,7 @@ public class DirectServer {
     }
 
     private function completeUpdateUserLevel(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -733,6 +737,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserResource);
         function onCompleteGetUserResource(e:Event):void { completeGetUserResource(e.target.data, callback); }
         try {
@@ -744,6 +749,7 @@ public class DirectServer {
     }
 
     private function completeGetUserResource(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -778,6 +784,7 @@ public class DirectServer {
         variables.resourceId = resourceId;
         variables.count = count;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserResource);
         function onCompleteAddUserResource(e:Event):void { completeAddUserResource(e.target.data, callback); }
@@ -790,6 +797,7 @@ public class DirectServer {
     }
 
     private function completeAddUserResource(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -834,6 +842,7 @@ public class DirectServer {
         }
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserBuilding);
         function onCompleteAddUserBuilding(e:Event):void { completeAddUserBuilding(e.target.data, wObject, callback); }
         try {
@@ -845,6 +854,7 @@ public class DirectServer {
     }
 
     private function completeAddUserBuilding(response:String, wObject:WorldObject, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -883,6 +893,7 @@ public class DirectServer {
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserBuilding);
         function onCompleteGetUserBuilding(e:Event):void { completeGetUserBuilding(e.target.data, callback); }
@@ -895,6 +906,7 @@ public class DirectServer {
     }
 
     private function completeGetUserBuilding(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         var ob:Object;
         var dbId:int;
@@ -975,6 +987,7 @@ public class DirectServer {
         variables.buildingId = wObject.dataBuild.id;
         variables.dbId = wObject.dbBuildingId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteStartBuildMapBuilding);
         function onCompleteStartBuildMapBuilding(e:Event):void { completeStartBuildMapBuilding(e.target.data, wObject, callback); }
@@ -987,6 +1000,7 @@ public class DirectServer {
     }
 
     private function completeStartBuildMapBuilding(response:String, wObject:WorldObject, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1025,6 +1039,7 @@ public class DirectServer {
         variables.dbId = wObject.dbBuildingId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteOpenBuildMapBuilding);
         function onCompleteOpenBuildMapBuilding(e:Event):void { completeOpenBuildMapBuilding(e.target.data, callback); }
         try {
@@ -1036,6 +1051,7 @@ public class DirectServer {
     }
 
     private function completeOpenBuildMapBuilding(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1074,6 +1090,7 @@ public class DirectServer {
         variables.dbId = dbId;
         variables.delay = delay;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddFabricaRecipe);
         function onCompleteAddFabricaRecipe(e:Event):void { completeAddFabricaRecipe(e.target.data, callback); }
@@ -1086,6 +1103,7 @@ public class DirectServer {
     }
 
     private function completeAddFabricaRecipe(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1121,6 +1139,7 @@ public class DirectServer {
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserFabricaRecipe);
         function onCompleteGetUserFabricaRecipe(e:Event):void { completeGetUserFabricaRecipe(e.target.data, callback); }
@@ -1133,6 +1152,7 @@ public class DirectServer {
     }
 
     private function completeGetUserFabricaRecipe(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1168,6 +1188,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteCraftFabricaRecipe);
         function onCompleteCraftFabricaRecipe(e:Event):void { completeCraftFabricaRecipe(e.target.data, callback); }
@@ -1180,6 +1201,7 @@ public class DirectServer {
     }
 
     private function completeCraftFabricaRecipe(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1217,6 +1239,7 @@ public class DirectServer {
         variables.plantId = plantId;
         variables.dbId = dbId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteRawPlantOnRidge);
         function onCompleteRawPlantOnRidge(e:Event):void { completeRawPlantOnRidge(e.target.data, callback); }
@@ -1229,6 +1252,7 @@ public class DirectServer {
     }
 
     private function completeRawPlantOnRidge(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1264,6 +1288,7 @@ public class DirectServer {
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserPlantRidge);
         function onCompleteGetUserPlantRidge(e:Event):void { completeGetUserPlantRidge(e.target.data, callback); }
@@ -1276,6 +1301,7 @@ public class DirectServer {
     }
 
     private function completeGetUserPlantRidge(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1326,6 +1352,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteCraftPlantRidge);
         function onCompleteCraftPlantRidge(e:Event):void { completeCraftPlantRidge(e.target.data, callback); }
@@ -1338,6 +1365,7 @@ public class DirectServer {
     }
 
     private function completeCraftPlantRidge(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1374,6 +1402,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.dbId = wObject.dbBuildingId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserTree);
         function onCompleteAddUserTree(e:Event):void { completeAddUserTree(e.target.data, wObject, callback); }
@@ -1386,6 +1415,7 @@ public class DirectServer {
     }
 
     private function completeAddUserTree(response:String, wObject:WorldObject, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1422,6 +1452,7 @@ public class DirectServer {
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserTree);
         function onCompleteGetUserTree(e:Event):void { completeGetUserTree(e.target.data, callback); }
@@ -1434,6 +1465,7 @@ public class DirectServer {
     }
 
     private function completeGetUserTree(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1476,6 +1508,7 @@ public class DirectServer {
         variables.id = treeDbId;
         variables.state = state;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTreeState);
         function onCompleteUpdateUserTreeState(e:Event):void { completeUpdateUserTreeState(e.target.data, callback); }
@@ -1488,6 +1521,7 @@ public class DirectServer {
     }
 
     private function completeUpdateUserTreeState(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1519,6 +1553,7 @@ public class DirectServer {
         variables.dbId = dbId;
         variables.treeDbId = treeDbId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserTree);
         function onCompleteDeleteUserTree(e:Event):void { completeDeleteUserTree(e.target.data, callback); }
@@ -1531,6 +1566,7 @@ public class DirectServer {
     }
 
     private function completeDeleteUserTree(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1562,6 +1598,7 @@ public class DirectServer {
         variables.farmDbId = farmDbId;
         variables.animalId = an.animalData.id;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserAnimal);
         function onCompleteAddUserAnimal(e:Event):void { completeAddUserAnimal(e.target.data, an, callback); }
@@ -1574,6 +1611,7 @@ public class DirectServer {
     }
 
     private function completeAddUserAnimal(response:String, an:Animal, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1611,6 +1649,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.anDbId = anDbId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteRawUserAnimal);
         function onCompleteRawUserAnimal(e:Event):void { completeRawUserAnimal(e.target.data, callback); }
@@ -1623,6 +1662,7 @@ public class DirectServer {
     }
 
     private function completeRawUserAnimal(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1658,6 +1698,7 @@ public class DirectServer {
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserAnimal);
         function onCompleteGetUserAnimal(e:Event):void { completeGetUserAnimal(e.target.data, callback); }
@@ -1670,6 +1711,7 @@ public class DirectServer {
     }
 
     private function completeGetUserAnimal(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1712,6 +1754,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.animalDbId = animalDbId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteCraftUserAnimal);
         function onCompleteCraftUserAnimal(e:Event):void { completeCraftUserAnimal(e.target.data, callback); }
@@ -1724,6 +1767,7 @@ public class DirectServer {
     }
 
     private function completeCraftUserAnimal(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1756,6 +1800,7 @@ public class DirectServer {
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserTrain);
         function onCompleteAddUserTrain(e:Event):void { completeAddUserTrain(e.target.data, callback); }
@@ -1768,6 +1813,7 @@ public class DirectServer {
     }
 
     private function completeAddUserTrain(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1819,6 +1865,7 @@ public class DirectServer {
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserTrain);
         function onCompleteGetUserTrain(e:Event):void { completeGetUserTrain(e.target.data, tr, callback); }
@@ -1831,6 +1878,7 @@ public class DirectServer {
     }
 
     private function completeGetUserTrain(response:String, tr:Train, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1864,6 +1912,7 @@ public class DirectServer {
         variables.id = train_db_id;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTrainState);
         function onCompleteUpdateUserTrainState(e:Event):void { completeUpdateUserTrainState(e.target.data, callback); }
         try {
@@ -1875,6 +1924,7 @@ public class DirectServer {
     }
 
     private function completeUpdateUserTrainState(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1911,6 +1961,7 @@ public class DirectServer {
         variables.userSocialId = userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetTrainPack);
         function onCompleteGetTrainPack(e:Event):void { completeGetTrainPack(e.target.data, callback); }
         try {
@@ -1922,6 +1973,7 @@ public class DirectServer {
     }
 
     private function completeGetTrainPack(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -1953,6 +2005,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.id = train_db_id;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteReleaseUserTrainPack);
         function onCompleteReleaseUserTrainPack(e:Event):void { completeReleaseUserTrainPack(e.target.data, callback); }
@@ -1965,6 +2018,7 @@ public class DirectServer {
     }
 
     private function completeReleaseUserTrainPack(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2002,6 +2056,7 @@ public class DirectServer {
         variables.id = train_item_db_id;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTrainPackItems);
         function onCompleteUpdateUserTrainPackItems(e:Event):void { completeUpdateUserTrainPackItems(e.target.data, callback); }
         try {
@@ -2013,6 +2068,7 @@ public class DirectServer {
     }
 
     private function completeUpdateUserTrainPackItems(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2049,6 +2105,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUser);
         function onCompleteDeleteUser(e:Event):void { completeDeleteUser(e.target.data, callback); }
         try {
@@ -2060,6 +2117,7 @@ public class DirectServer {
     }
 
     private function completeDeleteUser(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         if (callback != null) {
             callback.apply();
         }
@@ -2080,6 +2138,7 @@ public class DirectServer {
         variables.numberCell = numberCell;
         variables.inPapper = inPapper ? 1 : 0;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserMarketItem);
         function onCompleteAddUserMarketItem(e:Event):void { completeAddUserMarketItem(e.target.data, callback); }
@@ -2092,6 +2151,7 @@ public class DirectServer {
     }
 
     private function completeAddUserMarketItem(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2124,6 +2184,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserMarketItem);
         function onCompleteGetUserMarketItem(e:Event):void { completeGetUserMarketItem(e.target.data, socialId, callback); }
         try {
@@ -2135,6 +2196,7 @@ public class DirectServer {
     }
 
     private function completeGetUserMarketItem(response:String, socialId:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2168,6 +2230,7 @@ public class DirectServer {
         variables.itemId = itemId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyFromMarket);
         function onCompleteBuyFromMarket(e:Event):void { completeBuyFromMarket(e.target.data, callback); }
         try {
@@ -2179,6 +2242,7 @@ public class DirectServer {
     }
 
     private function completeBuyFromMarket(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2211,6 +2275,7 @@ public class DirectServer {
         variables.itemId = itemId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserMarketItem);
         function onCompleteDeleteUserMarketItem(e:Event):void { completeDeleteUserMarketItem(e.target.data, callback); }
         try {
@@ -2222,6 +2287,7 @@ public class DirectServer {
     }
 
     private function completeDeleteUserMarketItem(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2256,6 +2322,7 @@ public class DirectServer {
         variables.posY = pY;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserBuildPosition);
         function onCompleteUpdateUserBuildPosition(e:Event):void { completeUpdateUserBuildPosition(e.target.data, callback); }
         try {
@@ -2267,6 +2334,7 @@ public class DirectServer {
     }
 
     private function completeUpdateUserBuildPosition(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2297,6 +2365,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetPaperItems);
         function onCompleteGetPaperItems(e:Event):void { completeGetPaperItems(e.target.data, callback); }
         try {
@@ -2308,6 +2377,7 @@ public class DirectServer {
     }
 
     private function completeGetPaperItems(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2342,6 +2412,7 @@ public class DirectServer {
         variables.newMaxCount = newMaxCount;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserAmbar);
         function onCompleteUpdateUserAmbar(e:Event):void { completeUpdateUserAmbar(e.target.data, callback); }
         try {
@@ -2353,6 +2424,7 @@ public class DirectServer {
     }
 
     private function completeUpdateUserAmbar(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2382,6 +2454,7 @@ public class DirectServer {
         request.data = variables;
         Cc.ch('server', 'start getDataLockedLand', 1);
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetDataLockedLand);
         function onCompleteGetDataLockedLand(e:Event):void { completeGetDataLockedLand(e.target.data, callback); }
         try {
@@ -2393,6 +2466,7 @@ public class DirectServer {
     }
 
     private function completeGetDataLockedLand(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2435,6 +2509,7 @@ public class DirectServer {
         request.data = variables;
         Cc.ch('server', 'start removeUserLockedLand', 1);
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteRemoveUserLockedLand);
         function onCompleteRemoveUserLockedLand(e:Event):void { completeRemoveUserLockedLand(e.target.data, callback); }
         try {
@@ -2446,6 +2521,7 @@ public class DirectServer {
     }
 
     private function completeRemoveUserLockedLand(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2475,6 +2551,7 @@ public class DirectServer {
         request.data = variables;
         Cc.ch('server', 'start addToInventory', 1);
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddToInventory);
         function onCompleteAddToInventory(e:Event):void { completeAddToInventory(e.target.data, callback); }
         try {
@@ -2486,6 +2563,7 @@ public class DirectServer {
     }
 
     private function completeAddToInventory(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2517,6 +2595,7 @@ public class DirectServer {
         request.data = variables;
         Cc.ch('server', 'start removeFromInventory', 1);
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteRemoveFromInventory);
         function onCompleteRemoveFromInventory(e:Event):void { completeRemoveFromInventory(e.target.data, callback); }
         try {
@@ -2528,6 +2607,7 @@ public class DirectServer {
     }
 
     private function completeRemoveFromInventory(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2558,6 +2638,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserNeighborMarket);
         function onCompleteGetUserNeighborMarket(e:Event):void { completeGetUserNeighborMarket(e.target.data, callback); }
         try {
@@ -2569,6 +2650,7 @@ public class DirectServer {
     }
 
     private function completeGetUserNeighborMarket(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2602,6 +2684,7 @@ public class DirectServer {
         variables.itemId = itemId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyFromNeighborMarket);
         function onCompleteBuyFromNeighborMarket(e:Event):void { completeBuyFromNeighborMarket(e.target.data, callback); }
         try {
@@ -2613,6 +2696,7 @@ public class DirectServer {
     }
 
     private function completeBuyFromNeighborMarket(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2644,6 +2728,7 @@ public class DirectServer {
         variables.userSocialId = p.userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetAllCityData);
         function onCompleteGetAllCityData(e:Event):void { completeGetAllCityData(e.target.data, p, callback); }
         try {
@@ -2655,6 +2740,7 @@ public class DirectServer {
     }
 
     private function completeGetAllCityData(response:String, p:Someone, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         var ob:Object;
         try {
@@ -2747,6 +2833,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyHeroCat);
         function onCompleteBuyHeroCat(e:Event):void { completeBuyHeroCat(e.target.data, callback); }
         try {
@@ -2758,6 +2845,7 @@ public class DirectServer {
     }
 
     private function completeBuyHeroCat(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2792,6 +2880,7 @@ public class DirectServer {
         variables.wildId = w.dataBuild.id;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_addWild);
         function onCompleteME_addWild(e:Event):void { completeME_addWild(e.target.data, w, callback); }
         try {
@@ -2803,6 +2892,7 @@ public class DirectServer {
     }
 
     private function completeME_addWild(response:String, w:WorldObject, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2841,6 +2931,7 @@ public class DirectServer {
         variables.dbId = dbId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_removeWild);
         function onCompleteME_removeWild(e:Event):void { completeME_removeWild(e.target.data, callback); }
         try {
@@ -2852,6 +2943,7 @@ public class DirectServer {
     }
 
     private function completeME_removeWild(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2891,6 +2983,7 @@ public class DirectServer {
         variables.dbId = dbId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_moveWild);
         function onCompleteME_moveWild(e:Event):void { completeME_moveWild(e.target.data, callback); }
         try {
@@ -2902,6 +2995,7 @@ public class DirectServer {
     }
 
     private function completeME_moveWild(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2940,6 +3034,7 @@ public class DirectServer {
         variables.isFlip = isFlip;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_flipWild);
         function onCompleteME_flipWild(e:Event):void { completeME_flipWild(e.target.data, callback); }
         try {
@@ -2951,6 +3046,7 @@ public class DirectServer {
     }
 
     private function completeME_flipWild(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -2987,6 +3083,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserWild);
         function onCompleteGetUserWild(e:Event):void { completeGetUserWild(e.target.data, callback); }
         try {
@@ -2998,6 +3095,7 @@ public class DirectServer {
     }
 
     private function completeGetUserWild(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         var ob:Object;
         var dbId:int;
@@ -3050,6 +3148,7 @@ public class DirectServer {
         variables.isFlip = isFlip;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUserBuildingFlip);
         function onCompleteUserBuildingFlip(e:Event):void { completeUserBuildingFlip(e.target.data, callback); }
         try {
@@ -3061,6 +3160,7 @@ public class DirectServer {
     }
 
     private function completeUserBuildingFlip(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3098,6 +3198,7 @@ public class DirectServer {
         variables.dbId = dbId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserWild);
         function onCompleteDeleteUserWild(e:Event):void { completeDeleteUserWild(e.target.data, callback); }
         try {
@@ -3109,6 +3210,7 @@ public class DirectServer {
     }
 
     private function completeDeleteUserWild(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3148,6 +3250,7 @@ public class DirectServer {
         variables.posY = posY;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_moveMapBuilding);
         function onCompleteME_moveMapBuilding(e:Event):void { completeME_moveMapBuilding(e.target.data, callback); }
         try {
@@ -3159,6 +3262,7 @@ public class DirectServer {
     }
 
     private function completeME_moveMapBuilding(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3196,6 +3300,7 @@ public class DirectServer {
         variables.scale = g.currentGameScale*100;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSaveUserGameScale);
         function onCompleteSaveUserGameScale(e:Event):void { completeSaveUserGameScale(e.target.data, callback); }
         try {
@@ -3207,6 +3312,7 @@ public class DirectServer {
     }
 
     private function completeSaveUserGameScale(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3239,6 +3345,7 @@ public class DirectServer {
         variables.count = count;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyNewCellOnFabrica);
         function onCompleteBuyNewCellOnFabrica(e:Event):void { completeBuyNewCellOnFabrica(e.target.data, callback); }
         try {
@@ -3250,6 +3357,7 @@ public class DirectServer {
     }
 
     private function completeBuyNewCellOnFabrica(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3283,6 +3391,7 @@ public class DirectServer {
         variables.buildDbId = buildDbId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSkipRecipeOnFabrica);
         function onCompleteSkipRecipeOnFabrica(e:Event):void { completeSkipRecipeOnFabrica(e.target.data, callback); }
         try {
@@ -3294,6 +3403,7 @@ public class DirectServer {
     }
 
     private function completeSkipRecipeOnFabrica(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3327,6 +3437,7 @@ public class DirectServer {
         variables.buildDbId = buildDbId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteskipTimeOnRidge);
         function onCompleteskipTimeOnRidge(e:Event):void { completeskipTimeOnRidge(e.target.data, callback); }
         try {
@@ -3338,6 +3449,7 @@ public class DirectServer {
     }
 
     private function completeskipTimeOnRidge(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3370,6 +3482,7 @@ public class DirectServer {
         variables.id = buildDbId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSkipTimeOnTree);
         function onCompleteSkipTimeOnTree(e:Event):void { completeSkipTimeOnTree(e.target.data,callback);}//e.target.data, callback); }
         try {
@@ -3381,6 +3494,7 @@ public class DirectServer {
     }
 
     private function completeSkipTimeOnTree(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3413,6 +3527,7 @@ public class DirectServer {
         variables.timeToEnd = time - timeToEnd;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteskipTimeOnAnimal);
         function onCompleteskipTimeOnAnimal(e:Event):void { completeskipTimeOnAnimal(e.target.data, callback); }
         try {
@@ -3424,6 +3539,7 @@ public class DirectServer {
     }
 
     private function completeskipTimeOnAnimal(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3457,6 +3573,7 @@ public class DirectServer {
         variables.buildDbId = buildDbId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSkipTimeOnFabricBuild);
         function onCompleteSkipTimeOnFabricBuild(e:Event):void { completeSkipTimeOnFabricBuild(e.target.data, callback); }
         try {
@@ -3468,6 +3585,7 @@ public class DirectServer {
     }
 
     private function completeSkipTimeOnFabricBuild(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3505,6 +3623,7 @@ public class DirectServer {
         variables.place = order.placeNumber;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserOrder);
         function onCompleteAddUserOrder(e:Event):void { completeAddUserOrder(e.target.data, order, callback); }
         try {
@@ -3516,6 +3635,7 @@ public class DirectServer {
     }
 
     private function completeAddUserOrder(response:String, order:Object, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3547,6 +3667,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserOrder);
         function onCompleteGetUserOrder(e:Event):void { completeGetUserOrder(e.target.data, callback); }
         try {
@@ -3558,6 +3679,7 @@ public class DirectServer {
     }
 
     private function completeGetUserOrder(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3592,6 +3714,7 @@ public class DirectServer {
         variables.dbId = orderDbId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserOrder);
         function onCompleteDeleteUserOrder(e:Event):void { completeDeleteUserOrder(e.target.data, callback); }
         try {
@@ -3603,6 +3726,7 @@ public class DirectServer {
     }
 
     private function completeDeleteUserOrder(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3634,6 +3758,7 @@ public class DirectServer {
         variables.id = treeDbId;
         variables.state = state;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAskWateringUserTree);
         function onCompleteAskWateringUserTree(e:Event):void { completeAskWateringUserTree(e.target.data, callback); }
@@ -3646,6 +3771,7 @@ public class DirectServer {
     }
 
     private function completeAskWateringUserTree(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3678,6 +3804,7 @@ public class DirectServer {
         variables.id = treeDbId;
         variables.state = state;
         request.data = variables;
+        iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteMakeWateringUserTree);
         function onCompleteMakeWateringUserTree(e:Event):void { completeMakeWateringUserTree(e.target.data, callback); }
@@ -3690,6 +3817,7 @@ public class DirectServer {
     }
 
     private function completeMakeWateringUserTree(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3721,6 +3849,7 @@ public class DirectServer {
         variables.dbId = orderID;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSkipOrderTimer);
         function onCompleteSkipOrderTimer(e:Event):void { completeSkipOrderTimer(e.target.data, callback); }
         try {
@@ -3732,6 +3861,7 @@ public class DirectServer {
     }
 
     private function completeSkipOrderTimer(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3764,6 +3894,7 @@ public class DirectServer {
         variables.state = state;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteCraftUserTree);
         function onCompleteCraftUserTree(e:Event):void { completeCraftUserTree(e.target.data, callback); }
         try {
@@ -3775,6 +3906,7 @@ public class DirectServer {
     }
 
     private function completeCraftUserTree(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3806,6 +3938,7 @@ public class DirectServer {
         variables.count = count;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUseDailyBonus);
         function onCompleteUseDailyBonus(e:Event):void { completeUseDailyBonus(e.target.data, callback); }
         try {
@@ -3817,6 +3950,7 @@ public class DirectServer {
     }
 
     private function completeUseDailyBonus(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
@@ -3851,6 +3985,7 @@ public class DirectServer {
         variables.posY = 0;
         request.data = variables;
         request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyAndAddToInventory);
         function onCompleteBuyAndAddToInventory(e:Event):void { completeBuyAndAddToInventory(e.target.data, callback); }
         try {
@@ -3862,6 +3997,7 @@ public class DirectServer {
     }
 
     private function completeBuyAndAddToInventory(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);

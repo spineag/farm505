@@ -170,8 +170,8 @@ public class LockedLand extends AreaObject {
                 new FlyMessage(p,"Будет доступно на " + String(_dataLand.blockByLevel) + ' уровне');
                 return;
             } else {
-                g.woLockedLand.showItWithParams(_dataLand, this);
                 onOut();
+                g.woLockedLand.showItWithParams(_dataLand, this);
                 return;
             }
         } else {

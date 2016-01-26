@@ -63,7 +63,7 @@ public class Tree extends AreaObject {
         _source.addChild(_build);
         _state = GROW1;
 
-        if (!g.isAway || _state == ASK_FIX) {
+        if (!g.isAway) {
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }
@@ -291,6 +291,11 @@ public class Tree extends AreaObject {
 
         if (_state == ASK_FIX || _state == FIXED) makeWateringIcon();
         _rect = _build.getBounds(_build);
+
+        if (g.isAway && _state == ASK_FIX) {
+            _source.hoverCallback = onHover;
+            _source.outCallback = onOut;
+        }
     }
 
     private function rechekFruits():void {
@@ -344,18 +349,19 @@ public class Tree extends AreaObject {
                         break;
                     }
                 }
+                onOut();
                 g.directServer.makeWateringUserTree(tree_db_id, _state, null);
                 makeWateringIcon();
             }
             return;
         }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
-                onOut();
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -370,7 +376,10 @@ public class Tree extends AreaObject {
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            if (_source.wasGameContMoved) return;
+            if (_source.wasGameContMoved) {
+                onOut();
+                return;
+            }
              if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
@@ -413,21 +422,22 @@ public class Tree extends AreaObject {
                         newX = g.cont.gameCont.x + (_source.x +  _source.width / 12) * g.currentGameScale;
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
                     }
-                }
-               if (_state == DEAD) {
-                        g.treeHint.showIt(_dataBuild, newX, newY, _dataBuild.name, this);
-                        if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
-                            g.treeHint.onDelete = deleteTree;
-                        }
-                        g.treeHint.onWatering = askWateringTree;
-                    } else if (_state == FULL_DEAD || _state == ASK_FIX) {
-                         g.wildHint.showIt(newX, newY, _dataBuild.removeByResourceId, _dataBuild.name);
-                         if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
-                             g.treeHint.onDelete = deleteTree;
-                         }
+                }if (_state == DEAD) {
+                     onOut();
+                     g.treeHint.showIt(_dataBuild, newX, newY, _dataBuild.name, this);
+                     if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
+                         g.treeHint.onDelete = deleteTree;
+                     }
+                     g.treeHint.onWatering = askWateringTree;
+                 } else if (_state == FULL_DEAD || _state == ASK_FIX) {
+                     g.wildHint.showIt(newX, newY, _dataBuild.removeByResourceId, _dataBuild.name);
+                     if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
+                         g.treeHint.onDelete = deleteTree;
+                     }
                  }  else {
-                   g.timerHint.showIt(newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
-                    }
+                     onOut();
+                     g.timerHint.showIt(newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
+                 }
             } else if (_state == FIXED) {
                 _state = GROW_FIXED;
                 setBuildImage();

@@ -108,7 +108,7 @@ public class DailyBonus extends AreaObject{
                     new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
                     return;
                 }
-                _source.filter = null;
+                onOut();
                 g.woDailyBonus.showItMenu();
             }
             g.hint.hideIt();
