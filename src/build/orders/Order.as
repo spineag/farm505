@@ -78,12 +78,12 @@ public class Order extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
-                onOut();
                 if (g.isActiveMapEditor)
                     g.townArea.moveBuild(this);
             }
@@ -97,13 +97,13 @@ public class Order extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
-            _source.filter = null;
             if (g.user.level < _dataBuild.blockByLevel) {
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
                 return;
             }
+            onOut();
             g.woOrder.showIt();
             g.hint.hideIt();
         } else {

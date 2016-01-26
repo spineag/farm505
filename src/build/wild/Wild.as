@@ -74,6 +74,7 @@ public class Wild extends AreaObject{
                     _curLockedLand.activateOnMapEditor(this);
                     _curLockedLand = null;
                 }
+                onOut();
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -82,6 +83,7 @@ public class Wild extends AreaObject{
                     _curLockedLand.activateOnMapEditor(this);
                     _curLockedLand = null;
                 }
+                onOut();
                 g.directServer.ME_removeWild(_dbBuildingId, null);
                 g.townArea.deleteBuild(this);
             }
@@ -96,8 +98,12 @@ public class Wild extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (g.isAway) return;
-            if (_source.wasGameContMoved) return;
+            if (_source.wasGameContMoved) {
+                onOut();
+                return;
+            }
             if (_isOnHover)  {
+                onOut();
                 g.wildHint.onDelete = wildDelete;
                 var newX:int;
                 var newY:int;
@@ -142,7 +148,6 @@ public class Wild extends AreaObject{
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
                 }
                 g.wildHint.showIt(newX, newY, _dataBuild.removeByResourceId,_dataBuild.name);
-                _source.filter = null;
             }
         } else {
             Cc.error('Wild:: unknown g.toolsModifier.modifierType')

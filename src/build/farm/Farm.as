@@ -94,10 +94,11 @@ public class Farm extends AreaObject{
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
+                onOut();
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            g.townArea.deleteBuild(this);
+            //g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
@@ -110,6 +111,7 @@ public class Farm extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_arrCrafted.length) {
                 if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
+                    onOut();
                     g.woAmbarFilled.showAmbarFilled(false);
                 } else {
                     var item:CraftItem = _arrCrafted.pop();

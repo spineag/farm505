@@ -108,11 +108,11 @@ public class DecorPostFence extends AreaObject{
     }
 
     private function onHover():void {
-        _source.filter = ManagerFilters.BUILD_STROKE;
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY)
+            _source.filter = ManagerFilters.BUILD_STROKE;
     }
 
     private function onOut():void {
-        if (g.isActiveMapEditor) return;
         _source.filter = null;
     }
 

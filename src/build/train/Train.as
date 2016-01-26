@@ -220,14 +220,13 @@ public class Train extends AreaObject{
     private function onClick():void {
         if (g.isAway) {
             if (_stateBuild == STATE_READY) {
+                onOut();
                 if (list.length) {
                     g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
-                    onOut();
                 } else {
                     var f1:Function = function(ob:Object):void {
                         fillList(ob);
                         g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
-                        onOut();
                     };
                     g.directServer.getTrainPack(g.visitedUser.userSocialId, f1);
                 }
@@ -236,10 +235,10 @@ public class Train extends AreaObject{
         }
 
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
-                    onOut();
                 }
             } else {
                 if (g.isActiveMapEditor)
@@ -263,30 +262,36 @@ public class Train extends AreaObject{
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
                     if (list.length) {
-                        g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
                         onOut();
+                        g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
                     } else {
+                        onOut();
                         g.directServer.getTrainPack(g.user.userSocialId, fillList);
                         g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
-                        onOut();
                     }
 //                }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
-            if (_source.wasGameContMoved) return;
-            _source.filter = null;
+            if (_source.wasGameContMoved) {
+                onOut();
+                return;
+            }
             if (g.user.level < _dataBuild.blockByLevel[0]) {
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel[0]) + ' уровне');
                 return;
             }
+            onOut();
             _woBuy.showItWithParams(_dataBuild, "Откройте поезд", onBuy,false);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            if (_source.wasGameContMoved) return;
+            if (_source.wasGameContMoved) {
+                onOut();
+                return;
+            }
             if (g.useDataFromServer) {
                 g.directServer.openBuildedBuilding(this, onOpenTrain);
             }
@@ -298,7 +303,7 @@ public class Train extends AreaObject{
             _stateBuild = STATE_READY;
             _counter = TIME_READY;
             renderTrainWork();
-            _source.filter = null;
+            onOut();
             clearCraftSprite();
             while (_build.numChildren) {
                 _build.removeChildAt(0);

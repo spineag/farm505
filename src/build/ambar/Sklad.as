@@ -66,9 +66,8 @@ public class Sklad extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            _source.filter = null;
-            if (!_source.wasGameContMoved) g.woAmbars.showItWithParams(WOAmbars.SKLAD);
             onOut();
+            if (!_source.wasGameContMoved) g.woAmbars.showItWithParams(WOAmbars.SKLAD);
         } else {
             Cc.error('Ambar:: unknown g.toolsModifier.modifierType')
         }

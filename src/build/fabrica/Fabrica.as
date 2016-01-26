@@ -118,12 +118,12 @@ public class Fabrica extends AreaObject {
     private function onClick():void {
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
-                onOut();
                 g.townArea.moveBuild(this);
                 g.timerHint.hideIt();
             }
@@ -131,6 +131,7 @@ public class Fabrica extends AreaObject {
         }
         if (_stateBuild == STATE_ACTIVE) {
             if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+                onOut();
                 g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
                 releaseFlip();
@@ -142,7 +143,10 @@ public class Fabrica extends AreaObject {
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                if (_source.wasGameContMoved) return;
+                if (_source.wasGameContMoved) {
+                    onOut();
+                    return;
+                }
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
                         g.woAmbarFilled.showAmbarFilled(false);
@@ -153,9 +157,8 @@ public class Fabrica extends AreaObject {
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
                     g.cont.moveCenterToXY(_source.x, _source.y);
+                    onOut();
                     g.woFabrica.showItWithParams(_arrRecipes.slice(), _arrList.slice(), this, callbackOnChooseRecipe);
-                    _source.filter = null;
-                    g.hint.hideIt();
                 }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -164,6 +167,7 @@ public class Fabrica extends AreaObject {
             g.timerHint.needMoveCenter = true;
             g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+                onOut();
                 g.townArea.moveBuild(this);
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
@@ -173,7 +177,7 @@ public class Fabrica extends AreaObject {
                 g.directServer.openBuildedBuilding(this, onOpenBuilded);
             }
             clearCraftSprite();
-            _source.filter = null;
+            onOut();
             createBuild();
             _source.setChildIndex(_craftSprite, _source.numChildren-1);
             if (_dataBuild.xpForBuild) {

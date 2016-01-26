@@ -43,12 +43,12 @@ public class Market extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
-                onOut();
                 if (g.isActiveMapEditor)
                     g.townArea.moveBuild(this);
             }
@@ -83,7 +83,6 @@ public class Market extends AreaObject{
             }
             g.woMarket.showItWithParams();
             onOut();
-            _source.filter = null;
         } else {
             Cc.error('Market:: unknown g.toolsModifier.modifierType')
         }

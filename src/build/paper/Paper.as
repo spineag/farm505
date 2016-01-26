@@ -47,16 +47,17 @@ public class Paper extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
-                onOut();
                 if (g.isActiveMapEditor)
                     g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+            onOut();
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
@@ -65,7 +66,10 @@ public class Paper extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            if (_source.wasGameContMoved) return;
+            if (_source.wasGameContMoved) {
+                onOut();
+                return;
+            }
             if (g.user.level < _dataBuild.blockByLevel) {
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
@@ -73,8 +77,7 @@ public class Paper extends AreaObject{
                 return;
             }
             g.woPaper.showItMenu();
-            g.hint.hideIt();
-            _source.filter = null;
+            onOut();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }

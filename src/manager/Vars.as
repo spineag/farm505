@@ -122,6 +122,7 @@ public class Vars {
     public var visitedUser:Someone;
     public var isActiveMapEditor:Boolean = false;
     public var socialNetwork:SocialNetwork;
+    public var isGameLoaded:Boolean = false;
     public var flashVars:Object;
     public var socialNetworkID:int;
     public var isDebug:Boolean = false;
@@ -442,8 +443,7 @@ public class Vars {
         managerPaper = new ManagerPaper();
         managerPaper.getPaperItems();
         managerCats.setAllCatsToRandomPositions();
-
-        if (!useDataFromServer) temporaryFillUserInventory();
+        isGameLoaded = true;
 
         if ((user as User).isMegaTester) {
             Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
@@ -495,19 +495,6 @@ public class Vars {
         cont.interfaceContMapEditor.visible = false;
         toolsModifier.modifierType = ToolsModifier.NONE;
         townArea.onOpenMapEditor(false);
-    }
-
-    private function temporaryFillUserInventory():void {
-        var k:int;
-        var i:int = 50;
-
-        while (i>0) {
-            k = int(Math.random()*129) + 1;
-            if (dataResource.objectResources[k]) {
-                userInventory.addResource(k, 1, false);
-            }
-            i--;
-        }
     }
 
     public function hideAllHints():void {

@@ -141,10 +141,10 @@ public class Cave extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
-                    onOut();
                 }
             } else {
                 if (g.isActiveMapEditor)
@@ -177,6 +177,7 @@ public class Cave extends AreaObject{
                             _armature.animation.gotoAndStop('open', 0);
                         }
                     } else {
+                        onOut();
                         g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
                         g.woCave.showIt();
                         g.hint.hideIt();
@@ -186,8 +187,6 @@ public class Cave extends AreaObject{
                 Cc.error('Cave:: unknown g.toolsModifier.modifierType')
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
-            _source.filter = null;
-            _source.filter = null;
             if (g.user.level < _dataBuild.blockByLevel) {
                 var p1:Point = new Point(_source.x, _source.y - 100);
                 p1 = _source.parent.localToGlobal(p1);
@@ -195,7 +194,7 @@ public class Cave extends AreaObject{
                 return;
             }
             if (!_source.wasGameContMoved) _woBuy.showItWithParams(_dataBuild, "Откройте пещеру", onBuy,true);
-            g.hint.hideIt();
+            onOut();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) return;
             _armature.animation.gotoAndStop('open', 0);
@@ -206,7 +205,7 @@ public class Cave extends AreaObject{
                 new XPStar(start.x, start.y, _dataBuild.xpForBuild);
             }
             _stateBuild = STATE_ACTIVE;
-            _source.filter = null;
+            onOut();
             clearCraftSprite();
             _build.visible = true;
         }

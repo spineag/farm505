@@ -45,36 +45,37 @@ public class Shop extends AreaObject{
 
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
-                onOut();
                 if (g.isActiveMapEditor)
                     g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+            onOut();
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            releaseFlip();
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             // ничего не делаем вообще
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            if (_source.wasGameContMoved) return;
-            _source.filter = null;
+            if (_source.wasGameContMoved) {
+                onOut();
+                return;
+            }
             if (g.user.level < _dataBuild.blockByLevel) {
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
                 return;
             }
+            onOut();
             g.woShop.showIt();
-            g.hint.hideIt();
         } else {
             Cc.error('Shop:: unknown g.toolsModifier.modifierType')
         }
