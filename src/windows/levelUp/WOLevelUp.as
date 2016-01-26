@@ -36,7 +36,7 @@ public class WOLevelUp extends Window{
     private var _txtContinue:TextField;
     private var _txtHard:TextField;
     private var _imageHard:Image;
-    private var _contBtn:Sprite;
+    private var _contBtn:CButton;
     private var _contImage:Sprite;
     private var _contClipRect:Sprite;
     private var _arrCells:Array;
@@ -59,7 +59,6 @@ public class WOLevelUp extends Window{
         createExitButton(onClickExit);
 
         var im:Image;
-        _contBtn = new Sprite();
         _contClipRect = new Sprite();
         _contImage = new Sprite();
         _arrCells = [];
@@ -77,9 +76,20 @@ public class WOLevelUp extends Window{
         _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtHard = new TextField(50,50,"+1", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtHard.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        var btn:WOButtonTexture = new WOButtonTexture(172, 45, WOButtonTexture.BLUE);
+        _contBtn = new CButton();
+        _contBtn.addButtonTexture(172, 45, CButton.BLUE, true);
         _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         MCScaler.scale(_imageHard,25,25);
+
+        _txtContinue.y = -25;
+        _txtHard.x = 100;
+        _imageHard.x = 135;
+        _imageHard.y = 10;
+        _contBtn.addChild(_imageHard);
+        _contBtn.addChild(_txtHard);
+        _contBtn.addChild(_txtContinue);
+        _contBtn.y = _woHeight/2;
+
 
         _leftArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
@@ -103,30 +113,19 @@ public class WOLevelUp extends Window{
         _rightArrow.clickCallback = onRightClick;
 
 
-        _contBtn.addChild(btn);
         _source.addChild(_txtNewLvl);
         _source.addChild(_txtLevel);
         _source.addChild(_txtNewObject);
-        _contBtn.addChild(_imageHard);
-        _contBtn.addChild(_txtHard);
-        _contBtn.addChild(_txtContinue);
-        _source.addChild(_contBtn);
+
         _contClipRect.addChild(_contImage);
+        _source.addChild(_contBtn);
 
         _txtNewLvl.x = -67;
         _txtNewLvl.y = -55;
         _txtNewObject.x = -108;
-        _txtNewObject.y = 125;
+        _txtNewObject.y = 115;
         _txtLevel.x = -152;
         _txtLevel.y = -120;
-        _txtContinue.x = -80;
-        _txtContinue.y = 165;
-        _txtHard.x = 5;
-        _txtHard.y = 190;
-        btn.x = -86;
-        btn.y = 193;
-        _imageHard.x = 40;
-        _imageHard.y = 203;
         callbackClickBG = onClickExit;
     }
 
