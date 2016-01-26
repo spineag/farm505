@@ -56,7 +56,7 @@ public class TimerHint {
         _bg = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
         source.addChild(_bg);
         _btn = new CButton();
-        _btn.addButtonTexture(77, 45, CButton.GREEN, true);
+        _btn.addButtonTexture(78, 46, CButton.GREEN, true);
         _txtCost = new TextField(50,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtCost.x = 10;

@@ -142,7 +142,7 @@ public class MarketItem {
             MCScaler.scale(im, 80, 80);
             im.pivotX = im.width/2;
             im.pivotY = im.height/2;
-            im.x = _bg.width/2 -10;
+            im.x = _bg.width/2 - 10;
             im.y = _bg.height/2;
             _imageCont.addChild(im);
         } else {
@@ -173,6 +173,7 @@ public class MarketItem {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
 //                    trace(_dataFromServer.numberCell)
             } else {
+                if (_plawkaSold.visible == true) return;
                 var p:Point;
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
                     p = new Point(source.x, source.y);
@@ -397,7 +398,7 @@ public class MarketItem {
         MCScaler.scale(im, 80, 80);
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
-        im.x = _bg.width/2;
+        im.x = _bg.width/2 - 10;
         im.y = _bg.height/2;
         _imageCont.addChild(im);
         _costTxt.text = String(_dataFromServer.cost);

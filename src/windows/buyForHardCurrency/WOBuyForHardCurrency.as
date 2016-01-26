@@ -57,9 +57,14 @@ public class WOBuyForHardCurrency extends Window{
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         MCScaler.scale(im,40,40);
         _source.addChild(im);
-        im.x = 115;
+        im.x = 100;
         im.y = -30;
-
+        txt = new TextField(50,50,"?",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.x = 145;
+        txt.y = -32;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _source.addChild(txt);
         txt = new TextField(300,100,"ПОДТВЕРЖДЕНИЕ ПОКУПКИ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -150;

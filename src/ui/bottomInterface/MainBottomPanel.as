@@ -53,6 +53,7 @@ public class MainBottomPanel {
         _source = new Sprite();
         onResize();
         _friendBoard = new Sprite();
+        onResizePanelFriend();
         g.cont.interfaceCont.addChild(_friendBoard);
         g.cont.interfaceCont.addChild(_source);
         var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
@@ -260,6 +261,10 @@ public class MainBottomPanel {
         _source.y = Starling.current.nativeStage.stageHeight - 83;
     }
 
+    public function onResizePanelFriend():void {
+        _friendBoard.x = Starling.current.nativeStage.stageWidth/2 - 121;
+    }
+
     public function cancelBoolean(b:Boolean):void {
         _cancelBtn.visible = b;
         _toolsBtn.visible = !b;
@@ -305,7 +310,6 @@ public class MainBottomPanel {
             }
     }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
-        _friendBoard.x = Starling.current.nativeStage.stageWidth/2 - im.width/2;
         _friendBoard.addChild(im);
         txt = new TextField(150,40,_person.name,g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BROWN);
         txt.x = 90;
