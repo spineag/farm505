@@ -9,6 +9,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -19,32 +21,36 @@ import windows.Window;
 
 public class WOWaitFreeCats extends Window{
 
-    private var _contBtn:CSprite;
+    private var _contBtn:CButton;
     private var _txtText:TextField;
     private var _txtBtn:TextField;
     private var _woBG:WindowBackground;
 
     public function WOWaitFreeCats() {
         super();
-        _woWidth = 320;
-        _woHeight = 300;
+        _woWidth = 460;
+        _woHeight = 308;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        _txtText = new TextField(300,200,"У вас нет незанятых работников, подождите пока не закончится другое производство!",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
-        _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtText = new TextField(300,200,"НЕТ СВОБОДНЫХ КОТОВ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtText.touchable = false;
         _txtText.x = -150;
-        _txtText.y = -100;
-        var bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
-        _contBtn = new CSprite();
-        _contBtn.endClickCallback = onClick;
-        _contBtn.addChild(bg);
-        _contBtn.x =-_contBtn.width/2;
-        _contBtn.y = 70;
+        _txtText.y = -155;
+        var txt:TextField = new TextField(300,100,'Все коты сейчас заняты! Подождите окончания другого производства!',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        txt.x = -160;
+        txt.y = -120;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _source.addChild(txt);
+        _contBtn = new CButton();
+        _contBtn.addButtonTexture(130,40,CButton.YELLOW, true);
+        _contBtn.clickCallback = onClick;
+//        _contBtn.x =-_contBtn.width/2;
+        _contBtn.y = 100;
         _source.addChild(_contBtn);
-        _txtBtn = new TextField(_contBtn.width,_contBtn.height,"ОК",g.allData.fonts['BloggerMedium'],20,Color.WHITE);
-        _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtBtn = new TextField(_contBtn.width,_contBtn.height,"ОК",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         _contBtn.addChild(_txtBtn);
         _source.addChild(_txtText);
     }

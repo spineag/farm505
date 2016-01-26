@@ -84,7 +84,7 @@ public class WOLevelUp extends Window{
         _txtContinue.y = -25;
         _txtHard.x = 100;
         _imageHard.x = 135;
-        _imageHard.y = 10;
+        _imageHard.y = 12;
         _contBtn.addChild(_imageHard);
         _contBtn.addChild(_txtHard);
         _contBtn.addChild(_txtContinue);

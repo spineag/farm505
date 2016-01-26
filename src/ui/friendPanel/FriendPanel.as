@@ -31,6 +31,7 @@ public class FriendPanel {
     private var _rightArrow:CButton;
     private var _arrFriends:Array;
     private var _arrItems:Array;
+
     private var _shift:int;
 
     private var g:Vars = Vars.getInstance();
@@ -175,5 +176,12 @@ public class FriendPanel {
         }
     }
 
+    public function checkLevel():void {
+        for (var i:int = 0; i < _arrFriends.length; i++) {
+            if (_arrFriends[i].userSocialId == g.user.userSocialId) {
+                _arrItems[i].txtLvl.text = String(g.user.level);
+            }
+        }
+    }
 }
 }

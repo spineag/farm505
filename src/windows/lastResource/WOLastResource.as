@@ -7,36 +7,46 @@ import com.junkbyte.console.Cc;
 
 import data.BuildType;
 
+import manager.ManagerFilters;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
+
+import windows.WOComponents.WindowBackground;
 
 import windows.Window;
 
 public class WOLastResource extends Window{
-    private var _contBtnYes:CSprite;
-    private var _contBtnNo:CSprite;
+    private var _contBtnYes:CButton;
+    private var _contBtnNo:CButton;
     private var _imageItem:Image;
     private var _txtHeader:TextField;
     private var _txtText:TextField;
     private var _data:Object;
+    private var _woBG:WindowBackground;
 
     public function WOLastResource() {
         super();
-        _woWidth = 300;
-        _woHeight = 300;
-        createTempBG();
+        _woWidth = 460;
+        _woHeight = 308;
+        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _source.addChild(_woBG);
         createExitButton(onClickExit);
-        _txtHeader = new TextField(100,50,"Будьте Внимательны","Arial",14,Color.BLACK);
-        _txtHeader.x = -50;
-        _txtHeader.y = -100;
-        _txtText = new TextField(150,50,"После использования у вас не останется семян для посадки","Arial",12,Color.BLACK);
-        _txtText.x = -75;
+        _txtHeader = new TextField(150,50,"ВНИМАНИЕ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        _txtHeader.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtHeader.x = -150;
+        _txtHeader.y = -160;
+        _txtText = new TextField(150,50,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtText.x = -120;
         _source.addChild(_txtHeader);
         _source.addChild(_txtText);
         callbackClickBG = onClickExit;
@@ -63,9 +73,14 @@ public class WOLastResource extends Window{
             g.woGameError.showIt();
             return;
         }
+        var txt:TextField = new TextField(50,50,String(g.userInventory.getCountResourceById(_data.id)),g.allData.fonts['BloggerBold'],18, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt.x = 20;
+        txt.y = -70;
+        _source.addChild(txt);
         _imageItem.x = -25;
         _imageItem.y = -50;
-        MCScaler.scale(_imageItem,70,70);
+//        MCScaler.scale(_imageItem,70,70);
         _source.addChild(_imageItem);
         showIt();
         fillBtn();
@@ -74,29 +89,23 @@ public class WOLastResource extends Window{
     private function fillBtn():void {
         var im:Image;
         var txt:TextField;
-        _contBtnYes = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
-        txt = new TextField(50,50,"ДА","Arial",12,Color.BLACK);
-        _contBtnYes.addChild(im);
+        _contBtnYes = new CButton();
+        txt = new TextField(50,50,"ДА",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _contBtnYes.addButtonTexture(80, 40, CButton.YELLOW, true);
         _contBtnYes.addChild(txt);
         _contBtnYes.x = -140;
         _contBtnYes.y = 70;
         _source.addChild(_contBtnYes);
-        _contBtnYes.hoverCallback = function():void { _contBtnYes.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1) };
-        _contBtnYes.outCallback = function():void { _contBtnYes.filter = null };
-        _contBtnYes.endClickCallback = function():void {onClick('yes')};
+        _contBtnYes.clickCallback = function():void {onClick('yes')};
 
-        _contBtnNo = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('btn4'));
-        txt = new TextField(50,50,"НЕТ","Arial",12,Color.BLACK);
-        _contBtnNo.addChild(im);
+        _contBtnNo = new CButton();
+        txt = new TextField(50,50,"НЕТ",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _contBtnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
         _contBtnNo.addChild(txt);
         _contBtnNo.x = 50;
         _contBtnNo.y = 70;
         _source.addChild(_contBtnNo);
-        _contBtnNo.hoverCallback = function():void { _contBtnNo.filter = BlurFilter.createGlow(Color.YELLOW, 10, 2, 1) };
-        _contBtnNo.outCallback = function():void { _contBtnNo.filter = null };
-        _contBtnNo.endClickCallback = function():void {onClick('no')};
+        _contBtnNo.clickCallback = function():void {onClick('no')};
     }
 
     private function onClick(reason:String):void {

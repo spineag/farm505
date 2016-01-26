@@ -44,7 +44,7 @@ public class FabricHint {
         _source = new Sprite();
         _arrCells = [];
         var bg:HintBackground = new HintBackground(200, 180, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-        _txtName = new TextField(200,100,"","Arial",14,Color.BLACK);
+        _txtName = new TextField(200,200,"","Arial",14,Color.BLACK);
         bg.x = 100;
         _source.addChild(bg);
 

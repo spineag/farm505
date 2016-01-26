@@ -77,11 +77,12 @@ public class Market extends AreaObject{
             }
             g.woMarket.resetAll();
             if (g.isAway && g.visitedUser) {
-                g.woMarket.curUser = g.visitedUser;
+                g.woMarket.showItPapper(g.visitedUser);
             } else {
                 g.woMarket.curUser = g.user;
+                g.woMarket.showItWithParams();
             }
-            g.woMarket.showItWithParams();
+
             onOut();
             _source.filter = null;
         } else {

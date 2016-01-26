@@ -47,7 +47,7 @@ public class WONoResources extends Window {
         txt.x = -150;
         txt.y = -135;
         _source.addChild(txt);
-        txt = new TextField(350, 100, "Не хватает ингредиентов. Вы можете купить их за изумруды и начать производство немедленно.", g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
+        txt = new TextField(350, 100, "Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.", g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -175;
         txt.y = -110;
