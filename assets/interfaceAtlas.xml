@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:cd1875140bd36e86da6fc5f0dfda6a89:c5b795635e6a4f9b12b0179499fef374:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:e015cb745a32cca53dcaf689320a2769:15a8b85b9a9089f4b803d896b33c3fef:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png">
     <SubTexture name="a_tr_blue" x="1258" y="626" width="89" height="88" frameX="-1" frameY="-2" frameWidth="90" frameHeight="90"/>
     <SubTexture name="a_tr_cup_ico" x="1544" y="999" width="19" height="22"/>
