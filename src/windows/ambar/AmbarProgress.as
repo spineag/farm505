@@ -28,7 +28,7 @@ public class AmbarProgress {
         source.pivotX = source.width/2;
         source.pivotY = source.height/2;
         _bar = new ProgressBarComponent(g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_l'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_c'),
-                g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_r'), 428);
+                g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_r'), 403);
         _bar.x = 12;
         _bar.y = 13;
         source.addChild(_bar);

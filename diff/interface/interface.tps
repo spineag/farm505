@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/interface/interface.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -255,7 +255,6 @@
             <filename>shop_window_plants.png</filename>
             <filename>shop_window_tr.png</filename>
             <filename>star.png</filename>
-            <filename>storage_window_pr.png</filename>
             <filename>storage_window_prl_c.png</filename>
             <filename>storage_window_prl_l.png</filename>
             <filename>storage_window_prl_r.png</filename>
@@ -299,9 +298,10 @@
             <filename>empty_red_tile.png</filename>
             <filename>green_tile.png</filename>
             <filename>red_tile.png</filename>
+            <filename>buttons_new</filename>
             <filename>neighbor.png</filename>
             <filename>available_on_level.png</filename>
-            <filename>buttons_new</filename>
+            <filename>storage_window_pr.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
