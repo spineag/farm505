@@ -247,7 +247,8 @@ public class Train extends AreaObject{
             return;
         }
         if (_stateBuild == STATE_BUILD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
+            g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
+            g.hint.hideIt();
         }
         if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_READY || _stateBuild == STATE_WAIT_BACK) {
             if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -421,21 +422,12 @@ public class Train extends AreaObject{
         }
     }
 
-    private function countEnterFrame():void {
-        _count--;
-        if(_count <=0){
-            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            if (_isOnHover == true) {
-                g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
-            }
-        }
-    }
 
     override public function clearIt():void {
         onOut();
         _source.touchable = false;
         WorldClock.clock.remove(_armature);
-        g.gameDispatcher.removeEnterFrame(countEnterFrame);
+        g.timerHint.hideIt();
         g.gameDispatcher.removeFromTimer(render);
         g.gameDispatcher.removeFromTimer(renderBuildTrainProgress);
         _dataPack = null;

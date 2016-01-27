@@ -27,7 +27,7 @@ public class FriendItem {
     public var source:CSprite;
     private var _ava:Image;
     private var _txt:TextField;
-    private var _txtLvl:TextField;
+    public var txtLvl:TextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -62,11 +62,11 @@ public class FriendItem {
         im.y = 41;
         source.addChild(im);
 
-        _txtLvl = new TextField(27, 18, "", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txtLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtLvl.text = '1';
-        _txtLvl.x = 36;
-        _txtLvl.y = 50;
+        txtLvl = new TextField(27, 18, "", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        txtLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txtLvl.text = '1';
+        txtLvl.x = 36;
+        txtLvl.y = 50;
         _txt = new TextField(63, 30, "loading..", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
         _txt.y = -5;
         if (_person.name) _txt.text = _person.name;
@@ -129,14 +129,16 @@ public class FriendItem {
         source = null;
     }
 
-    private function newLevel():void {
-        _txtLvl.text = String(_person.level);
+    public function newLevel():void {
+        txtLvl.text = String(_person.level);
 //        trace(_person.level);
-        _txtLvl.x = 36;
-        _txtLvl.y = 50;
-        source.addChild(_txtLvl);
-        if (_txtLvl.text == null || int(_txtLvl.text) == 0) _txtLvl.text = '1';
-        if (_person is NeighborBot) _txtLvl.text = '10';
+        txtLvl.x = 36;
+        txtLvl.y = 50;
+        source.addChild(txtLvl);
+        if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
+        if (_person is NeighborBot) txtLvl.text = '10';
     }
+
+
 }
 }

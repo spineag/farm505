@@ -305,6 +305,7 @@ public class OptionPanel {
         if (cont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
             cont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
         g.bottomPanel.onResize();
+        g.bottomPanel.onResizePanelFriend();
         g.craftPanel.onResize();
         g.friendPanel.onResize();
         g.toolsPanel.onResize();

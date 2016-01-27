@@ -19,6 +19,7 @@ import manager.Vars;
 import resourceItem.ResourceItem;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -38,6 +39,7 @@ public class MarketItem {
     private var _txtName:TextField;
     private var _txtPlawka:TextField;
     private var _bg:CartonBackgroundIn;
+    private var quad:Quad;
     private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная  , 3 - недоступна по лвлу
     private var _callback:Function;
     private var _data:Object;
@@ -51,14 +53,24 @@ public class MarketItem {
     private var _imageCont:Sprite;
     private var _person:Someone;
     public var number:int;
+    private var _woWidth:int;
+    private var _woHeight:int;
 
     private var g:Vars = Vars.getInstance();
 
     public function MarketItem(numberCell:int) {
         number = numberCell;
         source = new CSprite();
-        _bg = new CartonBackgroundIn(110, 133);
+        _woWidth = 110;
+        _woHeight = 133;
+//        var newx:int = 110;
+//        var newy:int = 133;
+        _bg = new CartonBackgroundIn(_woWidth, _woHeight);
         source.addChild(_bg);
+        quad = new Quad(_woWidth, _woHeight,Color.WHITE ,false);
+        quad.alpha = 0;
+        source.addChild(quad);
+
         _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _costTxt.y = 103;
@@ -83,7 +95,7 @@ public class MarketItem {
 
         _inPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
         _inPapper.x = -5;
-        _inPapper.y = -5;
+        _inPapper.y = 90;
         source.addChild(_inPapper);
         _inPapper.visible = false;
 
@@ -130,7 +142,7 @@ public class MarketItem {
             MCScaler.scale(im, 80, 80);
             im.pivotX = im.width/2;
             im.pivotY = im.height/2;
-            im.x = _bg.width/2;
+            im.x = _bg.width/2 - 10;
             im.y = _bg.height/2;
             _imageCont.addChild(im);
         } else {
@@ -161,6 +173,7 @@ public class MarketItem {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
 //                    trace(_dataFromServer.numberCell)
             } else {
+                if (_plawkaSold.visible == true) return;
                 var p:Point;
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
                     p = new Point(source.x, source.y);
@@ -385,7 +398,7 @@ public class MarketItem {
         MCScaler.scale(im, 80, 80);
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
-        im.x = _bg.width/2;
+        im.x = _bg.width/2 - 10;
         im.y = _bg.height/2;
         _imageCont.addChild(im);
         _costTxt.text = String(_dataFromServer.cost);

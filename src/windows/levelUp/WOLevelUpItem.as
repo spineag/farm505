@@ -79,8 +79,7 @@ public class WOLevelUpItem {
             Cc.error('WOLevelUpItem:: error with _image for data.id: ' + ob.id);
         }
 
-        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_blue_d"));
-        MCScaler.scale(_imageBg, 77, 77);
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         _imageBg.x = 50 - _imageBg.width/2;
         _imageBg.y = 50 - _imageBg.height/2;
         source.addChild(_imageBg);

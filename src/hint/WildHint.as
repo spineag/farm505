@@ -33,14 +33,15 @@ public class WildHint {
     private var _txtName:TextField;
     private var _deleteCallback:Function;
     private var _id:int;
-
+    private var _height:int;
+    private var bg:HintBackground;
     private var g:Vars = Vars.getInstance();
-
+    private var _quad:Quad;
     public function WildHint() {
         _source = new CSprite();
         _isShowed = false;
         _isOnHover = false;
-        var bg:HintBackground = new HintBackground(120, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        bg = new HintBackground(120, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(bg);
         _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
         _bgItem.x = -_bgItem.width/2;
@@ -57,21 +58,23 @@ public class WildHint {
         _circle.x = +_bgItem.width/2 -20;
         _circle.y = -_bgItem.height - 50;
         _source.addChild(_circle);
-        var quad:Quad = new Quad(bg.width, bg.height+45,Color.WHITE ,false);
-        quad.alpha = 0;
-        quad.x = -bg.width/2;
-        quad.y = -bg.height;
-        _source.addChildAt(quad,0);
+
         _source.addChild(_txtName);
         _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
     }
 
-    public function showIt(x:int,y:int, idResourceForRemoving:int, name:String):void {
+    public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String):void {
        if (_isShowed) return;
         _id = idResourceForRemoving;
         _isShowed = true;
+        _height = height;
+        _quad = new Quad(bg.width, bg.height + _height/2,Color.WHITE ,false);
+//        quad.alpha = 0;
+        _quad.x = -bg.width/2;
+        _quad.y = -bg.height;
+        _source.addChildAt(_quad,0);
         if (!g.dataResource.objectResources[idResourceForRemoving]) {
             Cc.error('WildHInt showIt:: no such g.dataResource.objectResources[idResourceForRemoving] for idResourceForRemoving: ' + idResourceForRemoving);
             g.woGameError.showIt();
@@ -105,7 +108,10 @@ public class WildHint {
         if (g.cont.hintGameCont.contains(_source))
             g.cont.hintGameCont.removeChild(_source);
         _source.removeChild(_iconResource);
+        _source.removeChild(_quad);
         _iconResource = null;
+        _height = 0;
+
     }
 
     private function onHover():void {

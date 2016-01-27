@@ -77,6 +77,7 @@ public class XPPanel {
             g.user.level++;
             _txtLevel.text = String(g.user.level);
             g.woLevelUp.showLevelUp();
+            g.friendPanel.checkLevel();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
             g.directServer.updateUserLevel(onUpdateUserLevel);
             g.managerCats.calculateMaxCountCats();
