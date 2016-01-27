@@ -24,9 +24,9 @@ public class Birka extends Sprite{
 
     public function Birka(text:String, woSource:Sprite, w:int, h:int) {
         _source = new Sprite();
-        _txt = new TextField(300, 70, text, g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE);
+        _txt = new TextField(300, 70, text, g.allData.fonts['BloggerBold'], 24, Color.WHITE);
         _txt.hAlign =  HAlign.LEFT;
-        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _bg = new Sprite();
 
         createAll();
