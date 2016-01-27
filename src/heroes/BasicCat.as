@@ -98,6 +98,10 @@ public class BasicCat {
         }
     }
 
+    public function get visible():Boolean {
+        return isOnMap;
+    }
+
     public function walkAnimation():void {
         _curSpeed = _speedWalk;
     }

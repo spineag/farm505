@@ -103,8 +103,12 @@ public class ManagerPlantRidge {
     }
 
     private function removeCatFromPlant(plantId:int, cat:HeroCat):void {
-        cat.forceStopWork();
         cat.curActiveRidge = null;
+        if (cat.visible) {
+            cat.killAllAnimations();
+        } else {
+            cat.forceStopWork();
+        }
         cat.isFree = true;
         delete _catsForPlant[plantId];
     }
@@ -149,9 +153,12 @@ public class ManagerPlantRidge {
                 removeCatFromPlant(plantId, cat);
             }
         };
-
-        g.townArea.zSort();
-        cat.workWithPlant(onFinishWork);
+        if (_catsForPlant[plantId] && _catsForPlant[plantId].ridges && _catsForPlant[plantId].ridges.length) {
+            g.townArea.zSort();
+            cat.workWithPlant(onFinishWork);
+        } else {
+            removeCatFromPlant(plantId, cat);
+        }
     }
 
     public function lockAllFillRidge(value:Boolean):void {

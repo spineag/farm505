@@ -55,7 +55,7 @@ public class ShopTabBtn {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_court'));
                 break;
             case ANIMAL:
-                _txt.text = 'Жывотные';
+                _txt.text = 'Животные';
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_animals'));
                 break;
             case FABRICA:
