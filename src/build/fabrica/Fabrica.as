@@ -285,8 +285,10 @@ public class Fabrica extends AreaObject {
     }
 
     private function onHeroAnimation():void {
-        startAnimation();
-        _heroCat.visible = false;
+        if (_arrList.length && _heroCat) {
+            startAnimation();
+            _heroCat.visible = false;
+        }
     }
 
     private function render():void {
@@ -325,8 +327,13 @@ public class Fabrica extends AreaObject {
         craftItem.removeDefaultCallbacks();
         craftItem.addParticle();
         if (!_arrList.length && _heroCat) {
-            _heroCat.visible = true;
-            _heroCat.isFree = true;
+            if (_heroCat.visible) {
+                _heroCat.killAllAnimations();
+                _heroCat.isFree = true;
+            } else {
+                _heroCat.visible = true;
+                _heroCat.isFree = true;
+            }
             _heroCat = null;
         }
     }

@@ -915,7 +915,7 @@ public class TownArea extends Sprite {
                 d.addRightLenta();
         }
         if (_townAwayMatrix[d.posY+2]) {
-            obj = _townMatrix[d.posY + 2][d.posX];
+            obj = _townAwayMatrix[d.posY + 2][d.posX];
             if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
                 d.addLeftLenta();
         }
@@ -933,7 +933,7 @@ public class TownArea extends Sprite {
             var point:Point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
             tail.source.x = int(point.x);
             tail.source.y = int(point.y);
-            _cont.addChild(tail.source);
+            _contTail.addChild(tail.source);
             _cityAwayTailObjects.push(tail);
         }
     }

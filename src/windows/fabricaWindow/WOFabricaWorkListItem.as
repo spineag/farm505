@@ -97,13 +97,14 @@ public class WOFabricaWorkListItem {
 
     public function fillData(resource:ResourceItem):void {
         _resource = resource;
-        if (_type == BIG_CELL) {
-            _txtSkip.text = String(_resource.priceSkipHard);
-        }
         if (!_resource) {
             Cc.error('WOFabricaWorkListItem fillData:: _resource == null');
             g.woGameError.showIt();
             return;
+        }
+        if (_type == BIG_CELL) {
+            _btnSkip.visible = true;
+            _txtSkip.text = String(_resource.priceSkipHard);
         }
         fillIcon(_resource.imageShop);
         _source.visible = true;
@@ -160,6 +161,9 @@ public class WOFabricaWorkListItem {
                 _proposeBtn.deleteIt();
                 _proposeBtn = null;
             }
+        } else {
+            _txtSkip.text = '';
+            _btnSkip.visible = false;
         }
     }
 
