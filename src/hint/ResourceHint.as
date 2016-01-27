@@ -59,7 +59,7 @@ public class ResourceHint {
         }
     }
 
-    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,bol:Boolean = false):void {
+    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,bol:Boolean = false, fabr:Boolean = false):void {
         var wText:int = 0;
         var wName:int = 0;
         if (!g.dataResource.objectResources[_dataId]) {
@@ -72,7 +72,21 @@ public class ResourceHint {
         start = source.parent.localToGlobal(start);
         _source.x = start.x + source.width/2;
         _source.y = start.y + source.height + 5;
-
+        if (fabr) {
+            _txtText = new TextField(200,100,"Будет доступно на: " + g.dataRecipe.objectRecipe[_dataId].blockByLevel + ' уровне', g.allData.fonts['BloggerBold'],12,Color.WHITE);
+            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText.x = -100;
+            _txtText.y = -5;
+            wName = _txtText.textBounds.width + 40;
+            bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            _source.addChild(bg);
+            _source.addChild(_txtText);
+            _source.flatten();
+            g.cont.hintCont.addChild(_source);
+            _source.x = start.x;
+            _source.y = start.y;
+            return;
+        }
         if (g.dataResource.objectResources[_dataId].blockByLevel > g.user.level) {
             _txtText = new TextField(200,100,"Будет доступно на: " + g.dataResource.objectResources[_dataId].blockByLevel + ' уровне', g.allData.fonts['BloggerBold'],12,Color.WHITE);
             _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

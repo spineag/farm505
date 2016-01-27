@@ -328,6 +328,7 @@ public class Tree extends AreaObject {
         _isOnHover = false;
         g.timerHint.hideIt();
         g.treeHint.hideIt();
+        if (_state == ASK_FIX) makeWateringIcon();
         if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             _count = 20;
             _countMouse = 2;
@@ -401,13 +402,16 @@ public class Tree extends AreaObject {
                 var newX:int;
                 var newY:int;
                 if (_dataBuild.id == 25) { //Яблоня
+                    if (_state == ASK_FIX) makeWateringIcon(true);
                     newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
                 }else if (_dataBuild.id == 26) { // Вишня
+                    if (_state == ASK_FIX) makeWateringIcon(true);
                     newX = g.cont.gameCont.x + (_source.x + _source.width /12) * g.currentGameScale;
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
                 } else if (_dataBuild.id == 41) { //Малина
-                if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                    if (_state == ASK_FIX) makeWateringIcon(true);
+                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
                     newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
                 } else{
@@ -415,6 +419,7 @@ public class Tree extends AreaObject {
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
                 }
                 } else if (_dataBuild.id == 42) { //Черника
+                    if (_state == ASK_FIX) makeWateringIcon(true);
                     if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
                         newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 6) * g.currentGameScale;
@@ -424,19 +429,20 @@ public class Tree extends AreaObject {
                     }
                 }if (_state == DEAD) {
                      onOut();
-                     g.treeHint.showIt(_dataBuild, newX, newY, _dataBuild.name, this);
+                     g.treeHint.showIt(_source.height,_dataBuild, newX, newY, _dataBuild.name, this, onOut);
                      if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
                          g.treeHint.onDelete = deleteTree;
                      }
                      g.treeHint.onWatering = askWateringTree;
                  } else if (_state == FULL_DEAD || _state == ASK_FIX) {
-                     g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId, _dataBuild.name);
+                     g.wildHint.onDelete = deleteTree;
+                     g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId, _dataBuild.name,onOut);
                      if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
                          g.treeHint.onDelete = deleteTree;
                      }
                  }  else {
                      onOut();
-                     g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
+                     g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip,onOut);
                  }
             } else if (_state == FIXED) {
                 _state = GROW_FIXED;
@@ -563,9 +569,8 @@ public class Tree extends AreaObject {
     }
 
     private function deleteTree():void {
-        g.userInventory.addResource(g.dataResource.objectResources[_dataBuild.removeByResourceId].id, -1);
-        g.townArea.deleteBuild(this);
         g.directServer.deleteUserTree(tree_db_id, _dbBuildingId, null);
+        g.townArea.deleteBuild(this);
     }
 
     private function askWateringTree():void {
@@ -609,45 +614,38 @@ public class Tree extends AreaObject {
         return _state;
     }
 
-    private function makeWateringIcon():void {
+    private function makeWateringIcon(ask:Boolean = false):void {
         if (_wateringIcon) {
             if (_build.contains(_wateringIcon)) _build.removeChild(_wateringIcon);
             while (_wateringIcon.numChildren) _wateringIcon.removeChildAt(0);
             _wateringIcon = null;
             _wateringUserSocialId = '0';
         }
-
-        if (_state == ASK_FIX || _state == FIXED) {
-            _wateringIcon = new Sprite();
-            var im:Image;
-            var watering:Image;
-            if (_dataBuild.width == 2) {
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
-                im.pivotX = im.width / 2;
-                im.pivotY = im.height / 2;
-                im.y = -_source.height / 2 - im.height;
-//            im.x = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                _wateringIcon.addChild(im);
-                watering = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
-                watering.pivotX = watering.width / 2;
-                watering.pivotY = watering.height / 2;
-                watering.y = -_source.height / 2 - watering.height - 10;
-                MCScaler.scale(watering, 45, 45);
-                _wateringIcon.addChild(watering);
-                watering.visible = true;
-                if (_state == FIXED) {
-//                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
-//                    im.pivotX = im.width / 2;
-//                    im.pivotY = im.height / 2;
-//                    im.x = 25;
-//                    im.y = -_source.height / 2 - im.height - 45;
-//                    _wateringIcon.addChild(im);
-                    watering.visible = false;
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        if (!ask) {
+            if (_state == ASK_FIX || _state == FIXED) {
+                _wateringIcon = new Sprite();
+                var im:Image;
+                var watering:Image;
+                if (_dataBuild.width == 2) {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
                     im.pivotX = im.width / 2;
                     im.pivotY = im.height / 2;
-                    im.y = -_source.height / 2 - im.height - 10;
+                    im.y = -_source.height / 2 - im.height;
                     _wateringIcon.addChild(im);
+                    watering = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
+                    watering.pivotX = watering.width / 2;
+                    watering.pivotY = watering.height / 2;
+                    watering.y = -_source.height / 2 - watering.height - 10;
+                    MCScaler.scale(watering, 45, 45);
+                    _wateringIcon.addChild(watering);
+                    watering.visible = true;
+                    if (_state == FIXED) {
+                        watering.visible = false;
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                        im.pivotX = im.width / 2;
+                        im.pivotY = im.height / 2;
+                        im.y = -_source.height / 2 - im.height - 80;
+                        _wateringIcon.addChild(im);
 
 //                if (_wateringUserSocialId != '0' || _wateringUserSocialId != '-1') {
 //                    var p:Someone = g.user.getSomeoneBySocialId(_wateringUserSocialId);
@@ -661,39 +659,33 @@ public class Tree extends AreaObject {
 //                        g.load.loadImage(p.photo, onLoadPhoto, p);
 //                    }
 //                }
-                }
-            } else {
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
-                im.pivotX = im.width / 2;
-                im.pivotY = im.height / 2;
-                im.y = -_source.height + 20;
-//            im.x = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                _wateringIcon.addChild(im);
-                watering = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
-                watering.pivotX = im.width / 2;
-                watering.pivotY = im.height / 2;
-                watering.y = -_source.height + 8;
-                watering.visible = true;
-                MCScaler.scale(watering, 45, 45);
-                _wateringIcon.addChild(watering);
-                if (_state == FIXED) {
-//                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
-//                    im.pivotX = im.width / 2;
-//                    im.pivotY = im.height / 2;
-//                    im.x = 25;
-//                    im.y = -_source.height + 38;
-//                    _wateringIcon.addChild(im);
-                    watering.visible = false;
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                    }
+                } else {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
                     im.pivotX = im.width / 2;
                     im.pivotY = im.height / 2;
-//                    im.x = 26;
-                    im.y = -_source.height + 37;
+                    im.y = -_source.height + 20;
                     _wateringIcon.addChild(im);
+                    watering = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
+                    watering.pivotX = im.width / 2;
+                    watering.pivotY = im.height / 2;
+                    watering.x = -5;
+                    watering.y = -_source.height + 8;
+                    watering.visible = true;
+                    MCScaler.scale(watering, 45, 45);
+                    _wateringIcon.addChild(watering);
+                    if (_state == FIXED) {
+                        watering.visible = false;
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                        im.pivotX = im.width / 2;
+                        im.pivotY = im.height / 2;
+                        im.y = -_source.height + 8;
+                        _wateringIcon.addChild(im);
 
+                    }
                 }
+                _build.addChild(_wateringIcon);
             }
-            _build.addChild(_wateringIcon);
         }
     }
 

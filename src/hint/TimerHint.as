@@ -48,6 +48,7 @@ public class TimerHint {
     private var _needMoveCenter:Boolean = false;
     private var _callbackSkip:Function;
     private var _quad:Quad;
+    private var _onOutCallback:Function;
     private var g:Vars = Vars.getInstance();
 
     public function TimerHint() {
@@ -99,10 +100,11 @@ public class TimerHint {
         _needMoveCenter = v;
     }
 
-    public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String,f:Function):void {
+    public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String,f:Function, out:Function):void {
         if (timer <=0) return;
 //        var s:Number = g.cont.gameCont.scaleX;
 //        var oY:Number = g.matrixGrid.offsetY*s;
+        _onOutCallback = out;
         _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE ,false);
         _quad.alpha = 0;
         _quad.x = -_bg.width/2;
@@ -163,6 +165,10 @@ public class TimerHint {
     private function outHover():void {
         _isOnHover = false;
         hideIt();
+        if (_onOutCallback != null) {
+            _onOutCallback.apply();
+            _onOutCallback = null;
+        }
     }
 
     private function onClickBtn():void {

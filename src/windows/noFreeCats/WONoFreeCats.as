@@ -38,7 +38,7 @@ public class WONoFreeCats extends Window{
         _txtText.touchable = false;
         _txtText.x = -150;
         _txtText.y = -155;
-        var txt:TextField = new TextField(310,100,'Все коты сейчас заняты! Подождите окончания производства или наймите еще одного!',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        var txt:TextField = new TextField(310,100,'Все коты сейчас заняты! Подождите окончания производства или купите еще одного!',g.allData.fonts['BloggerBold'],14,Color.WHITE);
         txt.x = -160;
         txt.y = -120;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -49,7 +49,7 @@ public class WONoFreeCats extends Window{
 //        _contBtn.x =-_contBtn.width/2;
         _contBtn.y = 100;
         _source.addChild(_contBtn);
-        _txtBtn = new TextField(_contBtn.width,_contBtn.height,"НАНЯТЬ",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtBtn = new TextField(_contBtn.width,_contBtn.height,"КУПИТЬ",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         _contBtn.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));

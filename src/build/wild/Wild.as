@@ -147,7 +147,7 @@ public class Wild extends AreaObject{
                     newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
                 }
-                g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name);
+                g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
             }
         } else {
             Cc.error('Wild:: unknown g.toolsModifier.modifierType')

@@ -479,7 +479,7 @@ public class TownArea extends Sprite {
                 } else break;
             }
             maxCount = maxCountAtCurrentLevel * worldObject.dataBuild.countUnblock;
-            if (curCount == maxCount) {
+            if (curCount >= maxCount) {
                 g.bottomPanel.cancelBoolean(false);
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;

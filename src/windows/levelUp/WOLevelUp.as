@@ -229,7 +229,7 @@ public class WOLevelUp extends Window{
         } else if (_arrCells.length == 3) {
             _contImage.x = 100;
         } else if (_arrCells.length == 4) {
-//            _contImage.x = 25;
+            _contImage.x = 50;
         }
         if (_arrCells.length > 5) {
             _leftArrow.visible = true;
