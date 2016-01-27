@@ -36,8 +36,8 @@ public class MarketItem {
     public var source:CSprite;
     private var _costTxt:TextField;
     private var _countTxt:TextField;
-    private var _txtName:TextField;
     private var _txtPlawka:TextField;
+    private var _txtAdditem:TextField;
     private var _bg:CartonBackgroundIn;
     private var quad:Quad;
     private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная  , 3 - недоступна по лвлу
@@ -49,6 +49,7 @@ public class MarketItem {
     private var _inPapper:Image;
     private var _plawkaSold:Image;
     private var _plawkaLvl:Image;
+    private var _plawkaCoins:Sprite;
     private var _isUser:Boolean;
     private var _imageCont:Sprite;
     private var _person:Someone;
@@ -71,31 +72,29 @@ public class MarketItem {
         quad.alpha = 0;
         source.addChild(quad);
 
-        _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtAdditem = new TextField(70,70,'Добавить товар',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtAdditem.x = 20;
+        _txtAdditem.y = 30;
+        _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        source.addChild(_txtAdditem);
+        _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _costTxt.y = 103;
+        _costTxt.y = 101;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2;
-        source.addChild(_costTxt);
 
-        _countTxt = new TextField(30, 20, '', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _countTxt = new TextField(30, 20, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         _countTxt.x = 80;
         _countTxt.y = 7;
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_countTxt);
 
-        _txtName = new TextField(100,40,'',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
-        _txtName.pivotX = _txtName.width/2;
-        _txtName.x = _bg.width/2;
-        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        source.addChild(_txtName);
-
         _imageCont = new Sprite();
         source.addChild(_imageCont);
 
         _inPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
-        _inPapper.x = -5;
-        _inPapper.y = 90;
+//        _inPapper.x = -5;
+//        _inPapper.y = 90;
         source.addChild(_inPapper);
         _inPapper.visible = false;
 
@@ -121,6 +120,19 @@ public class MarketItem {
 
         isFill = 0;
         source.endClickCallback = onClick;
+        _plawkaCoins = new Sprite();
+        source.addChild(_plawkaCoins);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_back'));
+        im.x = 5;
+        im.y = 100;
+        _plawkaCoins.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        MCScaler.scale(im,25,25);
+        im.y = 102;
+        im.x = _bg.width/2 + 15;
+        _plawkaCoins.addChild(im);
+        _plawkaCoins.addChild(_costTxt);
+        _plawkaCoins.visible = false;
     }
 
     private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
@@ -143,19 +155,20 @@ public class MarketItem {
             im.pivotX = im.width/2;
             im.pivotY = im.height/2;
             im.x = _bg.width/2 - 10;
-            im.y = _bg.height/2;
+            im.y = _bg.height/2 - 10;
             _imageCont.addChild(im);
         } else {
             Cc.error('MarketItem fillIt:: empty _data');
             g.woGameError.showIt();
             return;
         }
+        _txtAdditem.text = '';
         _countResource = count;
         _countMoney = cost;
-        _txtName.text = _data.name;
         if (!isFromServer) g.userInventory.addResource(_data.id, -_countResource);
         _countTxt.text = String(_countResource);
 //        _countMoney = _countResource * _data.cost;
+        _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
 //        _costTxt.text = String(_dataFromServer.cost);
     }
@@ -199,6 +212,7 @@ public class MarketItem {
                 }
 //                clearImageCont();
                 g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
+
                 showFlyResource(d, _dataFromServer.resourceCount);
                 _inPapper.visible = false;
                 showCoinImage();
@@ -235,6 +249,7 @@ public class MarketItem {
 
         } else {
             if (_isUser) { // купленная
+                _txtAdditem.text = 'Добавить товар';
                 g.userInventory.addMoney(2,_dataFromServer.cost);
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {
@@ -282,7 +297,7 @@ public class MarketItem {
     private function animCoin():void {
         var eP:Point = g.softHardCurrency.getSoftCurrencyPoint();
         var s:Sprite = new Sprite();
-        s.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('coin')));
+        s.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins')));
         MCScaler.scale(s, 50, 50);
         s.pivotX = s.width / 2;
         s.pivotY = s.height / 2;
@@ -309,8 +324,9 @@ public class MarketItem {
         _countResource = 0;
         _costTxt.text = '';
         _countTxt.text = '';
-        _txtName.text = '';
+        _txtAdditem.text = '';
         _data = null;
+        _plawkaCoins.visible = false;
         _inPapper.visible = false;
         _plawkaSold.visible = false;
         _plawkaLvl.visible = false;
@@ -401,6 +417,7 @@ public class MarketItem {
         im.x = _bg.width/2 - 10;
         im.y = _bg.height/2;
         _imageCont.addChild(im);
+        _plawkaCoins.visible = true;
         _costTxt.text = String(_dataFromServer.cost);
     }
 

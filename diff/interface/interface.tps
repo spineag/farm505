@@ -216,7 +216,6 @@
             <filename>hintSidePixels2.png</filename>
             <filename>hintTopLeftPart.png</filename>
             <filename>newlevel_window_fon.png</filename>
-            <filename>newlevel_window_paper.png</filename>
             <filename>newspaper_icon_small.png</filename>
             <filename>newspaper_p1.png</filename>
             <filename>op_bt_a_off.png</filename>
