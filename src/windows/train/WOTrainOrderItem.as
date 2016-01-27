@@ -42,7 +42,7 @@ public class WOTrainOrderItem {
             g.woGameError.showIt();
             return;
         }
-        _im = new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
+        _im = _info.getImage();
         if (!_im) {
             Cc.error('WOTrainOrderItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
             g.woGameError.showIt();

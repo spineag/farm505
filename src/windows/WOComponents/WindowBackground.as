@@ -21,6 +21,9 @@ public class WindowBackground extends Sprite{
         var i:int;
         var delta:int = 5;
 
+        if (w%2) w++;
+        if (h%2) h++;
+
         //top left
         im = new Image(tex.getTexture('window_lt'));
         im.x = -w/2;

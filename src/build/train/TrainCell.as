@@ -4,6 +4,8 @@
 package build.train {
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import data.DataMoney;
 
 import flash.geom.Point;
@@ -75,6 +77,16 @@ public class TrainCell {
         new DropItem(p.x, p.y, prise);
         _isFull = true;
         g.directServer.updateUserTrainPackItems(item_db_id, null);
+    }
+
+    public function getImage():Image {
+        var im:Image;
+        if (_dataResource.buildType == BuildType.PLANT) {
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
+        } else {
+            im = new Image(g.allData.atlas[g.dataResource.objectResources[_dataResource.id].url].getTexture(g.dataResource.objectResources[_dataResource.id].imageShop));
+        }
+        return im;
     }
 }
 }
