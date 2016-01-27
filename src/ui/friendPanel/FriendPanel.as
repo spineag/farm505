@@ -177,9 +177,11 @@ public class FriendPanel {
     }
 
     public function checkLevel():void {
-        for (var i:int = 0; i < _arrFriends.length; i++) {
-            if (_arrFriends[i].userSocialId == g.user.userSocialId) {
-                _arrItems[i].txtLvl.text = String(g.user.level);
+        if (_arrFriends && _arrFriends.length) {
+            for (var i:int = 0; i < _arrFriends.length; i++) {
+                if (_arrFriends[i].userSocialId == g.user.userSocialId) {
+                    _arrItems[i].txtLvl.text = String(g.user.level);
+                }
             }
         }
     }

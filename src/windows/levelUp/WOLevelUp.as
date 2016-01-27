@@ -134,6 +134,8 @@ public class WOLevelUp extends Window{
         showIt();
         _txtLevel.text = String(g.user.level);
         createList();
+        _source.y -= 40;
+        _black.y += 40;
     }
 
     private function onClickExit(e:Event=null):void {
