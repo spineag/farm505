@@ -868,6 +868,24 @@ public class TownArea extends Sprite {
             return;
         }
 
+        if (worldObject is Wild) {
+            point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
+            worldObject.posX = posX;
+            worldObject.posY = posY;
+            worldObject.source.x = int(point.x);
+            worldObject.source.y = int(point.y);
+            if (_townAwayMatrix[worldObject.posY][worldObject.posX].build && _townAwayMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
+                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild, point.x, point.y);
+                (worldObject as Wild).setLockedLand(_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
+            } else {
+                _cont.addChild(worldObject.source);
+                _cityAwayObjects.push(worldObject);
+                worldObject.updateDepth();
+                fillAwayMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+            }
+            return;
+        }
+
         worldObject.posX = posX;
         worldObject.posY = posY;
         if (worldObject.useIsometricOnly) {
@@ -887,11 +905,11 @@ public class TownArea extends Sprite {
             fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
             if (worldObject is DecorPostFence) addAwayFenceLenta(worldObject as DecorPostFence);
         } else {
-            if (worldObject.useIsometricOnly) {
+            if (worldObject.useIsometricOnly && !(worldObject is DecorTail)) {
                 fillAwayMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
         }
-        _cityAwayObjects.push(worldObject);
+        if (!(worldObject is DecorTail)) _cityAwayObjects.push(worldObject);
         worldObject.updateDepth();
     }
 

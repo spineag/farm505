@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/tempBuildsAndTrees.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/buildings/buildings.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -145,7 +145,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../assets/x1/buildAtlas.xml</filename>
+                <filename>../../assets/x1/buildAtlas.xml</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -188,15 +188,15 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>buildings/zakaz.png</filename>
-            <filename>buildings/ridge.png</filename>
-            <filename>buildings/paper.png</filename>
-            <filename>buildings/ambar.png</filename>
-            <filename>buildings/sklad.png</filename>
-            <filename>buildings/bazar.png</filename>
-            <filename>buildings/ambar_indicator_main.png</filename>
-            <filename>buildings/ambar_indicator_top.png</filename>
-            <filename>buildings/ribbon</filename>
+            <filename>cat_shadow.png</filename>
+            <filename>paper.png</filename>
+            <filename>ribbon</filename>
+            <filename>ridge.png</filename>
+            <filename>sklad.png</filename>
+            <filename>ambar_indicator_main.png</filename>
+            <filename>ambar_indicator_top.png</filename>
+            <filename>ambar.png</filename>
+            <filename>bazar.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
