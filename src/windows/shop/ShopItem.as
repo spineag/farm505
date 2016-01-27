@@ -38,6 +38,7 @@ public class ShopItem {
     public var source:CSprite;
     private var _im:Image;
     private var _nameTxt:TextField;
+    private var _countTxt:TextField;
     private var _data:Object;
     private var _lockedSprite:Sprite;
     private var _countCost:int;
@@ -70,6 +71,10 @@ public class ShopItem {
         source.addChild(_nameTxt);
         source.endClickCallback = onClick;
 
+        _countTxt = new TextField(145, 60, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _countTxt.y = 120;
+        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        source.addChild(_countTxt);
         _lockedSprite = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_lock'));
         _lockedSprite.addChild(im);
@@ -112,7 +117,7 @@ public class ShopItem {
         _txtBtnBuyBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnBuyBlue.addChild(_txtBtnBuyBlue);
         _btnBuyBlue.x = 74;
-        _btnBuyBlue.y = 180;
+        _btnBuyBlue.y = 190;
         source.addChild(_btnBuyBlue);
         _btnBuyBlue.visible = false;
         _btnBuyBlue.clickCallback = onClick;
@@ -129,7 +134,7 @@ public class ShopItem {
         _txtBtnBuyGreen.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuyGreen.addChild(_txtBtnBuyGreen);
         _btnBuyGreen.x = 74;
-        _btnBuyGreen.y = 180;
+        _btnBuyGreen.y = 190;
         source.addChild(_btnBuyGreen);
         _btnBuyGreen.visible = false;
         _btnBuyGreen.clickCallback = onClick;
@@ -140,7 +145,7 @@ public class ShopItem {
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         _btnActivationYellow.addChild(txt);
         _btnActivationYellow.x = 74;
-        _btnActivationYellow.y = 180;
+        _btnActivationYellow.y = 190;
         source.addChild(_btnActivationYellow);
         _btnActivationYellow.visible = false;
         _btnActivationYellow.clickCallback = onClick;
@@ -195,6 +200,7 @@ public class ShopItem {
         var maxCountAtCurrentLevel:int = 0;
 
         _nameTxt.text = '';
+        _countTxt.text = '';
         _lockedSprite.visible = false;
         _btnActivationYellow.visible = false;
         _btnBuyBlue.visible = false;
@@ -212,12 +218,14 @@ public class ShopItem {
                 } else {
                     if (_data.blockByLevel.length == 1) {
                         if (arr.length == 0) {
-                            _nameTxt.text = _data.name + ' 0/1';
+                            _nameTxt.text = _data.name;
+                            _countTxt.text = '0/1';
                             _btnBuyBlue.visible = true;
                             _txtBtnBuyBlue.text = String(_countCost);
                         } else {
                             _shopLimitSprite.visible = true;
-                            _nameTxt.text = _data.name + ' 1/1';
+                            _nameTxt.text = _data.name;
+                            _countTxt.text = '1/1';
                             _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         }
                     } else {
@@ -229,9 +237,11 @@ public class ShopItem {
                         if (arr.length >= maxCountAtCurrentLevel) {
                             _shopLimitSprite.visible = true;
                             _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                            _nameTxt.text = _data.name + ' ' + String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
+                            _nameTxt.text = _data.name;
+                            _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                         } else {
-                            _nameTxt.text = _data.name + ' ' +  String(arr.length) + '/' + String(maxCountAtCurrentLevel);
+                            _nameTxt.text = _data.name;
+                            _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
                             _btnBuyBlue.visible = true;
                             _txtBtnBuyBlue.text = String(_countCost);
                         }
@@ -254,9 +264,11 @@ public class ShopItem {
                 if (arr.length >= maxCountAtCurrentLevel) {
                     _shopLimitSprite.visible = true;
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                    _nameTxt.text = _data.name + ' ' + String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
+                    _nameTxt.text = _data.name;
+                    _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                 } else {
-                    _nameTxt.text = _data.name + ' ' + String(arr.length) + '/' + String(maxCountAtCurrentLevel);
+                    _nameTxt.text = _data.name;
+                    _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
                     _btnBuyBlue.visible = true;
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
@@ -308,11 +320,13 @@ public class ShopItem {
                     } else if (curCount >= maxCount) {
                         _shopLimitSprite.visible = true;
                         _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                        _nameTxt.text = _data.name + " " + String(maxCount) + '/' + String(maxCount);
+                        _nameTxt.text = _data.name;
+                        _countTxt.text = String(maxCount) + '/' + String(maxCount);
                         _countCost = 0;
                     } else {
                         _btnBuyBlue.visible = true;
-                        _nameTxt.text = _data.name + ' ' + String(curCount) + '/' + String(maxCount);
+                        _nameTxt.text = _data.name;
+                        _countTxt.text = String(curCount) + '/' + String(maxCount);
                         if (curCount < dataFarm.maxAnimalsCount) {
                             _txtBtnBuyBlue.text = _data.cost;
                         } else if (curCount < 2*dataFarm.maxAnimalsCount) {
@@ -340,9 +354,11 @@ public class ShopItem {
                 if (curCount >= maxCount) {
                     _shopLimitSprite.visible = true;
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                    _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
+                    _nameTxt.text = _data.name;
+                    _countTxt.text = String(maxCount) + '/' + String(maxCount);
                 } else {
-                    _nameTxt.text = _data.name + ' ' + String(curCount) + '/' + String(maxCount);
+                    _nameTxt.text = _data.name;
+                    _countTxt.text = String(curCount) + '/' + String(maxCount);
                     _btnBuyBlue.visible = true;
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
@@ -360,9 +376,11 @@ public class ShopItem {
                 if (curCount >= maxCount) {
                     _shopLimitSprite.visible = true;
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                    _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
+                    _nameTxt.text = _data.name;
+                    _countTxt.text = String(maxCount) + '/' + String(maxCount);
                 } else {
-                    _nameTxt.text = _data.name + ' ' + String(curCount) + '/' + String(maxCount);
+                    _nameTxt.text = _data.name;
+                    _countTxt.text = String(curCount) + '/' + String(maxCount);
                     _btnBuyBlue.visible = true;
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
@@ -373,9 +391,11 @@ public class ShopItem {
             if (curCount >= maxCount) {
                 _shopLimitSprite.visible = true;
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
+                _nameTxt.text = _data.name;
+                _countTxt.text = String(maxCount) + '/' + String(maxCount);
             } else {
-                _nameTxt.text = _data.name + ' ' + String(curCount) + '/' + String(maxCount);
+                _nameTxt.text = _data.name;
+                _countTxt.text = String(curCount) + '/' + String(maxCount);
                 _btnBuyBlue.visible = true;
                 _txtBtnBuyBlue.text = String(_countCost);
             }
@@ -532,9 +552,11 @@ public class ShopItem {
                 _shopLimitSprite.visible = true;
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _btnBuyBlue.visible = false;
-                _nameTxt.text = _data.name + ' ' + String(maxCount) + '/' + String(maxCount);
+                _nameTxt.text = _data.name;
+                _countTxt.text = String(maxCount) + '/' + String(maxCount);
             } else {
-                _nameTxt.text = _data.name + ' ' + String(curCount) + '/' + String(maxCount);
+                _nameTxt.text = _data.name;
+                _countTxt.text = String(curCount) + '/' + String(maxCount);
             }
         }
         g.woShop.updateMoneyCounts();

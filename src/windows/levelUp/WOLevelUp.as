@@ -63,9 +63,9 @@ public class WOLevelUp extends Window{
         _contImage = new Sprite();
         _arrCells = [];
         _source.addChild(_contClipRect);
-        _contClipRect.clipRect = new Rectangle(0,0,460,220);
-        _contClipRect.x = -_woWidth/2 + 42;
-        _contClipRect.y = 70;
+        _contClipRect.clipRect = new Rectangle(0,0,440,260);
+        _contClipRect.x = -_woWidth/2 + 55;
+        _contClipRect.y = 75;
         _txtNewLvl = new TextField(120,100,"НОВЫЙ УРОВЕНЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtNewLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtNewObject = new TextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
@@ -97,7 +97,7 @@ public class WOLevelUp extends Window{
         _leftArrow.addDisplayObject(im);
         _leftArrow.setPivots();
         _leftArrow.x = -_woWidth/2 - 9 + _leftArrow.width/2;
-        _leftArrow.y = 87 + _leftArrow.height/2;
+        _leftArrow.y = 80 + _leftArrow.height/2;
         _source.addChild(_leftArrow);
         _leftArrow.clickCallback = onLeftClick;
 
@@ -108,7 +108,7 @@ public class WOLevelUp extends Window{
         _rightArrow.addDisplayObject(im);
         _rightArrow.setPivots();
         _rightArrow.x = _woWidth/2 - 19 + _rightArrow.width/2;
-        _rightArrow.y = 87 + _rightArrow.height/2;
+        _rightArrow.y = 80 + _rightArrow.height/2;
         _source.addChild(_rightArrow);
         _rightArrow.clickCallback = onRightClick;
 
@@ -223,13 +223,13 @@ public class WOLevelUp extends Window{
             _contImage.addChild(im.source);
         }
         if (_arrCells.length == 1) {
-            _contImage.x = 180;
+            _contImage.x = 200;
         } else if (_arrCells.length == 2) {
-            _contImage.x = 140;
+            _contImage.x = 160;
         } else if (_arrCells.length == 3) {
-            _contImage.x = 120;
+            _contImage.x = 100;
         } else if (_arrCells.length == 4) {
-            _contImage.x = 50;
+//            _contImage.x = 25;
         }
         if (_arrCells.length > 5) {
             _leftArrow.visible = true;

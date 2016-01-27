@@ -82,11 +82,12 @@ public class WOLevelUpItem {
         _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         _imageBg.x = 50 - _imageBg.width/2;
         _imageBg.y = 50 - _imageBg.height/2;
+        MCScaler.scale(_imageBg,80,80);
         source.addChild(_imageBg);
         if (_image) {
             MCScaler.scale(_image, 68, 68);
-            _image.x = 50 - _image.width / 2;
-            _image.y = 50 - _image.height / 2;
+            _image.x = 38 - _image.width / 2;
+            _image.y = 30 - _image.height / 2;
             source.addChild(_image);
         } else {
             Cc.error('WOLevelUpItem:: no such image: ' + st);

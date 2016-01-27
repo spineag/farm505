@@ -44,7 +44,6 @@ public class FabricHint {
         _source = new Sprite();
         _arrCells = [];
         var bg:HintBackground = new HintBackground(200, 180, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-        _txtName = new TextField(200,200,"","Arial",14,Color.BLACK);
         bg.x = 100;
         _source.addChild(bg);
 
@@ -53,9 +52,10 @@ public class FabricHint {
         im.y = 155;
         _source.addChild(im);
 
-        _txtName = new TextField(200,40,'',g.allData.fonts['BloggerBold'],24,Color.WHITE);
+        _txtName = new TextField(240,70,'',g.allData.fonts['BloggerBold'],22,Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
-        _txtName.y = 20;
+        _txtName.y = 5;
+        _txtName.x = -20;
         _source.addChild(_txtName);
 
         _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE);

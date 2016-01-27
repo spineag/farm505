@@ -47,6 +47,7 @@ public class TimerHint {
     private var _isShow:Boolean;
     private var _needMoveCenter:Boolean = false;
     private var _callbackSkip:Function;
+    private var _quad:Quad;
     private var g:Vars = Vars.getInstance();
 
     public function TimerHint() {
@@ -88,11 +89,7 @@ public class TimerHint {
         source.addChild(_imageClock);
         source.addChild(_txtText);
         source.addChild(_txtTimer);
-        var quad:Quad = new Quad(_bg.width, _bg.height+45,Color.WHITE ,false);
-        quad.alpha = 0;
-        quad.x = -_bg.width/2;
-        quad.y = -_bg.height;
-        source.addChildAt(quad,0);
+
         source.hoverCallback = onHover;
         source.outCallback = outHover;
         _btn.clickCallback = onClickBtn;
@@ -102,10 +99,15 @@ public class TimerHint {
         _needMoveCenter = v;
     }
 
-    public function showIt(x:int, y:int, timer:int, cost:int, name:String,f:Function):void {
+    public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String,f:Function):void {
         if (timer <=0) return;
 //        var s:Number = g.cont.gameCont.scaleX;
 //        var oY:Number = g.matrixGrid.offsetY*s;
+        _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE ,false);
+        _quad.alpha = 0;
+        _quad.x = -_bg.width/2;
+        _quad.y = -_bg.height;
+        source.addChildAt(_quad,0);
         _callbackSkip = f;
         if(_isShow) return;
         _isShow = true;
@@ -140,6 +142,7 @@ public class TimerHint {
         if (_isOnHover) return;
         _isShow = false;
         g.gameDispatcher.removeFromTimer(onTimer);
+        source.removeChild(_quad);
         if (g.cont.hintContUnder.contains(source)) {
             g.cont.hintContUnder.removeChild(source);
         }

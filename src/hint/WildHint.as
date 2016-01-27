@@ -70,8 +70,8 @@ public class WildHint {
         _id = idResourceForRemoving;
         _isShowed = true;
         _height = height;
-        _quad = new Quad(bg.width, bg.height + _height/2,Color.WHITE ,false);
-//        quad.alpha = 0;
+        _quad = new Quad(bg.width, bg.height + _height *g.currentGameScale,Color.WHITE ,false);
+        _quad.alpha = 0;
         _quad.x = -bg.width/2;
         _quad.y = -bg.height;
         _source.addChildAt(_quad,0);

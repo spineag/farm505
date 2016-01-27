@@ -59,9 +59,9 @@ public class WOBuyForHardCurrency extends Window{
         _source.addChild(im);
         im.x = 100;
         im.y = -30;
-        txt = new TextField(50,50,"?",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        txt = new TextField(50,50,"?",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txt.x = 145;
+        txt.x = 118;
         txt.y = -32;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _source.addChild(txt);
