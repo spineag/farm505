@@ -3,16 +3,10 @@
  */
 package ui.friendPanel {
 import com.junkbyte.console.Cc;
-
 import flash.display.Bitmap;
-
 import manager.ManagerFilters;
-
-
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
 import starling.display.Image;
 import starling.text.TextField;
 import starling.textures.Texture;
@@ -67,9 +61,14 @@ public class FriendItem {
         txtLvl.text = '1';
         txtLvl.x = 36;
         txtLvl.y = 50;
-        _txt = new TextField(63, 30, "loading..", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
+        _txt = new TextField(64, 30, "", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
         _txt.y = -5;
-        if (_person.name) _txt.text = _person.name;
+        _txt.x = -1;
+        if (_person.name) {
+            setName(_person.name);
+        } else {
+            setName('loading');
+        }
         source.addChild(_txt);
 
         source.endClickCallback = visitPerson;
@@ -105,8 +104,15 @@ public class FriendItem {
         _person.name = ar[0].first_name;
         _person.lastName = ar[0].last_name;
         _person.photo = ar[0].photo_100;
-        _txt.text = _person.name;
+        setName(_person.name);
         g.load.loadImage(_person.photo, onLoadPhoto);
+    }
+
+    private function setName(st:String):void {
+        if (st.length > 8) {
+            _txt.fontSize = 11;
+        }
+        _txt.text = st;
     }
 
     private function photoFromTexture(tex:Texture):void {
