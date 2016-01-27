@@ -453,7 +453,7 @@ public class TownArea extends Sprite {
         }
 
         // временно полная сортировка, далее нужно будет дописать "умную"
-        if (isNewAtMap) zSort();
+        if (updateAfterMove) zSort();
 
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree)) {
             if (g.user.softCurrencyCount < worldObject.dataBuild.cost) {
