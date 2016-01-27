@@ -56,7 +56,7 @@ public class WOLevelUp extends Window{
         bg.x = -_woWidth/2 + 10;
         bg.y = -_woHeight/2 + 15;
         _source.addChild(bg);
-        createExitButton(null);
+        createExitButton(onClickExit);
 
         var im:Image;
         _contClipRect = new Sprite();
@@ -126,7 +126,7 @@ public class WOLevelUp extends Window{
         _txtNewObject.y = 115;
         _txtLevel.x = -152;
         _txtLevel.y = -120;
-        callbackClickBG = onClickExit;
+        callbackClickBG = null;
     }
 
     public function showLevelUp():void {

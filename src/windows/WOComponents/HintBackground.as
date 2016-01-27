@@ -38,6 +38,7 @@ public class HintBackground extends Sprite {
     private var g:Vars = Vars.getInstance();
 
     public function HintBackground(wt:int, ht:int, typeTriangle:int = NONE_TRIANGLE, trianglePosition:int = 0) {
+        if (wt%2) wt++;
         createBG(wt, ht);
         if (typeTriangle == NONE_TRIANGLE) {
             addChild(_bg);
@@ -60,41 +61,32 @@ public class HintBackground extends Sprite {
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
                     im.scaleY = -1;
-                    addChild(im);
                     _bg.x = int(-16 - im.width/2);
                     _bg.y = h;
-                    addChildAt(_bg, 0);
                     break;
                 case TOP_CENTER:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
                     im.scaleY = -1;
-                    addChild(im);
                     _bg.x = int(-wt/2);
                     _bg.y = h;
-                    addChildAt(_bg, 0);
                     break;
                 case TOP_RIGHT:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
                     im.scaleY = -1;
-                    addChild(im);
                     _bg.x = int(-wt+16+im.width/2);
                     _bg.y = h;
-                    addChildAt(_bg, 0);
                     break;
                 case BOTTOM_LEFT:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
-                    addChild(im);
                     _bg.x = int(-16-im.width/2);
                     _bg.y = int(-h-ht);
-                    addChildAt(_bg, 0);
                     break;
                 case BOTTOM_CENTER:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
-                    addChild(im);
                     _bg.x = int(-wt/2);
                     _bg.y = int(-h-ht);
                     addChildAt(_bg, 0);
@@ -102,16 +94,13 @@ public class HintBackground extends Sprite {
                 case BOTTOM_RIGHT:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
-                    addChild(im);
                     _bg.x = int(-wt+16+im.width/2);
                     _bg.y = int(-h-ht);
-                    addChildAt(_bg, 0);
                     break;
                 case LEFT_TOP:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
                     im.rotation = Math.PI/2;
-                    addChild(im);
                     _bg.x = h;
                     _bg.y = int(-16-im.height/2);
                     addChildAt(_bg, 0);
@@ -120,48 +109,40 @@ public class HintBackground extends Sprite {
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
                     im.rotation = Math.PI/2;
-                    addChild(im);
                     _bg.x = h;
                     _bg.y = int(-ht/2);
-                    addChildAt(_bg, 0);
                     break;
                 case LEFT_BOTTOM:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
                     im.rotation = Math.PI/2;
-                    addChild(im);
                     _bg.x = h;
                     _bg.y = int(-wt+16+im.height/2);
-                    addChildAt(_bg, 0);
                     break;
                 case RIGHT_TOP:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
                     im.rotation = -Math.PI/2;
-                    addChild(im);
                     _bg.x = int(-h-wt);
                     _bg.y = int(-16-im.height/2);
-                    addChildAt(_bg, 0);
                     break;
                 case RIGHT_CENTER:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
                     im.rotation = -Math.PI/2;
-                    addChild(im);
                     _bg.x = int(-h-wt);
                     _bg.y = int(-ht/2);
-                    addChildAt(_bg, 0);
                     break;
                 case RIGHT_BOTTOM:
                     im.pivotX = im.width/2;
                     im.pivotY = im.height;
                     im.rotation = -Math.PI/2;
-                    addChild(im);
                     _bg.x = int(-h-wt);
                     _bg.y = int(-ht+16+im.height/2);
-                    addChildAt(_bg, 0);
                     break;
             }
+            addChild(im);
+            addChildAt(_bg, 0);
         }
 
         inSprite = new Sprite();
@@ -209,15 +190,15 @@ public class HintBackground extends Sprite {
 
         //top center and bottom center
         im = new Image(tex.getTexture('hint_up'));
-        countW = Math.ceil((w - arr[0].width - arr[2].width)/im.width);
-        if (countW*im.width < w - arr[0].width - arr[2].width) countW++;
+        countW = Math.ceil((w - arr[0].width - arr[2].width)/(im.width-1));
+        countW += 2;
         for (i=0; i<=countW; i++) {
             im = new Image(tex.getTexture('hint_up'));
-            im.x = arr[0].x + arr[0].width + i*im.width;
+            im.x = arr[0].x + arr[0].width + i*(im.width-1) - 1;
             im.y = 0;
             _bg.addChildAt(im, 0);
             im = new Image(tex.getTexture('hint_down'));
-            im.x = arr[1].x + arr[1].width + i*im.width;
+            im.x = arr[1].x + arr[1].width + i*(im.width-1) - 1;
             im.y = h - im.height;
             _bg.addChildAt(im, 0);
         }
@@ -238,12 +219,12 @@ public class HintBackground extends Sprite {
         }
 
         im = new Image(tex.getTexture('hint_center'));
-        countW = Math.ceil((w - arr[0].width - arr[2].width)/im.width);
+        countW = Math.ceil((w - arr[0].width - arr[2].width)/(im.width-1)) + 2;
         countH = Math.ceil((h - arr[0].height - arr[1].height)/im.height);
         for (i=0; i<countW; i++) {
             for (var j:int=0; j<countH; j++) {
                 im = new Image(tex.getTexture('hint_center'));
-                im.x = arr[0].x + arr[0].width + i*im.width;
+                im.x = arr[0].x + arr[0].width + i*(im.width-1) - 1;
                 im.y = arr[0].y + arr[0].height + j*im.height;
                 _bg.addChildAt(im, 0);
             }
@@ -255,6 +236,17 @@ public class HintBackground extends Sprite {
 
     public function addShadow():void {
         _bg.filter = ManagerFilters.SHADOW_LIGHT;
+    }
+
+    public function clearIt():void {
+        _bg.filter = null;
+        while (numChildren) removeChildAt(0);
+        _bg.unflatten();
+        while (_bg.numChildren) _bg.removeChildAt(0);
+        _bg.dispose();
+        while (inSprite.numChildren) inSprite.removeChildAt(0);
+        inSprite.dispose();
+        dispose();
     }
 }
 }
