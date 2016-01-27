@@ -39,6 +39,7 @@ public class WOPaperPage {
     private function createBG(n:int, nMax:int):void {
         _bg = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_p1'));
+        im.touchable = false;
         if (_side == RIGHT_SIDE) {
             im.scaleX = -1;
             im.x = im.width;

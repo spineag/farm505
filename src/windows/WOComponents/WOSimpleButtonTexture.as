@@ -26,6 +26,9 @@ public class WOSimpleButtonTexture  extends Sprite {
         var st:String = 'bt_b_b_';
         var useBig:Boolean = h<=35;
 
+        if (w%2) w++;
+        if (h%2) h++;
+
         switch (_type) {
             case CButton.GREEN:
                 if (useBig) st = 'bt_b_g_';

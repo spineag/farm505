@@ -22,13 +22,13 @@ public class HorizontalPlawka extends Sprite{
         addChild(imR);
 
         var imC:Image = new Image(ct);
-        var k:int = Math.ceil((w - lW - imR.width)/imC.width);
+        var k:int = Math.ceil((w - lW - imR.width)/(imC.width-1));
         for (var i:int=0; i<k-1; i++) {
-            imC.x = lW + i*imC.width;
+            imC.x = lW + i*(imC.width-1);
             addChildAt(imC, 0);
             imC = new Image(ct);
         }
-        imC.x = w - imR.width - imC.width;
+        imC.x = w - imR.width - (imC.width-1);
         addChild(imC);
         flatten();
         imC=null;

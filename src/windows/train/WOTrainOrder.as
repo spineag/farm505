@@ -14,6 +14,7 @@ import utils.CButton;
 
 import utils.CSprite;
 import utils.MCScaler;
+import utils.TimeUtils;
 
 import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
@@ -97,6 +98,7 @@ public class WOTrainOrder extends Window{
 
     public function showItWO(list:Array,time:int):void {
         _timer = time;
+        _txtTime.text = TimeUtils.convertSecondsToStringClassic(_timer);
         g.gameDispatcher.addToTimer(timerCheck);
         fillList(list);
         showIt();
@@ -125,7 +127,7 @@ public class WOTrainOrder extends Window{
 
     private function timerCheck():void {
         --_timer;
-        _txtTime.text = String(_timer);
+        _txtTime.text = TimeUtils.convertSecondsToStringClassic(_timer);
     }
 }
 }

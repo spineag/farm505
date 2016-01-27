@@ -20,6 +20,9 @@ public class CartonBackground extends Sprite{
         var i:int;
         var delta:int = 5;
 
+        if (w%2) w++;
+        if (h%2) h++;
+
         //top left
         im = new Image(tex.getTexture('carton_lt'));
         im.x = 0;
@@ -54,12 +57,12 @@ public class CartonBackground extends Sprite{
         if (countW*(im.width - delta) < w - arr[0].width - arr[2].width) countW++;
         for (i=0; i<countW; i++) {
             im = new Image(tex.getTexture('carton_cc'));
-            im.x = arr[0].x + arr[0].width + i*(im.width - delta);
+            im.x = arr[0].x + arr[0].width + i*(im.width - delta) - 1;
             if (i == countW-1 && im.x > arr[2].x - 10) im.x = arr[2].x - 10;
             im.y = 0;
             addChildAt(im, 0);
             im = new Image(tex.getTexture('carton_cc'));
-            im.x = arr[1].x + arr[1].width + i*(im.width - delta);
+            im.x = arr[1].x + arr[1].width + i*(im.width - delta) - 1;
             if (i == countW-1 && im.x > arr[3].x - 10) im.x = arr[3].x - 10;
             im.y = h - im.height;
             addChildAt(im, 0);
@@ -85,7 +88,7 @@ public class CartonBackground extends Sprite{
         for (i=0; i<countW; i++) {
             for (var j:int=0; j<countH; j++) {
                 im = new Image(tex.getTexture('carton_cc'));
-                im.x = arr[0].x + arr[0].width + i*(im.width - delta);
+                im.x = arr[0].x + arr[0].width + i*(im.width - delta) - 1;
                 im.y = arr[0].y + arr[0].height + j*(im.height - delta);
                 if (i == countH-1 && im.y > arr[3].y - 10) im.y = arr[3].y - 10;
                 addChildAt(im, 0);

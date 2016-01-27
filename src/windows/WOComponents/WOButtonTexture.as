@@ -25,6 +25,9 @@ public class WOButtonTexture extends Sprite {
         var delta:int = 0;
         var st:String = 'bt_b_';
 
+        if (w%2) w++;
+        if (h%2) h++;
+
         switch (_type) {
             case CButton.GREEN: st = 'bt_gr_'; break;
             case CButton.BLUE: st = 'bt_b_'; break;

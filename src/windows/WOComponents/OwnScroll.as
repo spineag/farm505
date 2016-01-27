@@ -36,6 +36,7 @@ public class OwnScroll {
         _box = new CButton();
         _box.addDisplayObject(new Image(boxTexture));
         _box.setPivots();
+        _box.y = _box.height/2;
 
         source.addChild(_lineImage);
         source.addChild(_box);

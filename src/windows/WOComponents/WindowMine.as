@@ -2,7 +2,6 @@
  * Created by user on 12/14/15.
  */
 package windows.WOComponents {
-import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
@@ -20,6 +19,9 @@ public class WindowMine extends Sprite {
         var arr:Array = [];
         var i:int;
         var delta:int = 4;
+
+        if (w%2) w++;
+        if (h%2) h++;
 
         //top left
         im = new Image(tex.getTexture('build_window_top_left'));
@@ -55,13 +57,11 @@ public class WindowMine extends Sprite {
         if (countW*(im.width - delta) < w - arr[0].width - arr[2].width) countW++;
         for (i=0; i<countW; i++) {
             im = new Image(tex.getTexture('build_window_top'));
-            im.x = arr[0].x + arr[0].width + i * (im.width - delta);
-//            if (i == countW-1 && im.x > arr[2].x - 50) im.x = arr[2].x - 41;
+            im.x = arr[0].x + arr[0].width + i * (im.width - delta) - 1;
             im.y = -h/2;
             addChildAt(im, 0);
             im = new Image(tex.getTexture('build_window_down'));
             im.x = arr[1].x + arr[1].width + i*(im.width - delta);
-//            if (i == countW-1 && im.x > arr[3].x + 10) im.x = arr[3].x + 100;
             im.y = h/2 - im.height;
             addChildAt(im, 0);
         }
@@ -83,21 +83,8 @@ public class WindowMine extends Sprite {
             addChildAt(im, 0);
         }
 
-//        for (i=0; i<countW; i++) {
-//            for (var j:int=0; j<countH; j++) {
-//                im = new Image(tex.getTexture('window_cc'));
-//                im.x = arr[0].x + arr[0].width + i*(im.width - delta);
-//                im.y = arr[0].y + arr[0].height + j*(im.height - delta);
-//                if (j == countH-1 && im.y > arr[1].y - 50) im.y = arr[1].y - 50;
-//                addChildAt(im, 0);
-//            }
-//            if (i == countW-1 && im.x > arr[2].x - 50) im.x = arr[2].x - 50;
-//        }
-
         arr.length = 0;
-//        touchable = false;
         flatten();
-//        filter = ManagerFilters.SHADOW;
     }
 }
 }

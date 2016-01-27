@@ -39,6 +39,7 @@ public class HintBackground extends Sprite {
 
     public function HintBackground(wt:int, ht:int, typeTriangle:int = NONE_TRIANGLE, trianglePosition:int = 0) {
         if (wt%2) wt++;
+        if (ht%2) ht++;
         createBG(wt, ht);
         if (typeTriangle == NONE_TRIANGLE) {
             addChild(_bg);

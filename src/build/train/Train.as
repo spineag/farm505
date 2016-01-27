@@ -42,7 +42,6 @@ public class Train extends AreaObject{
     private var TIME_READY:int = 8*60*60; // время, которое ожидает поезд для загрузки продуктов
     private var TIME_WAIT:int = 8*60*60;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
-    private var _count:int;
     private var _armature:Armature;
 
     public function Train(_data:Object) {

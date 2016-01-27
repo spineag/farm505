@@ -87,7 +87,7 @@ public class WOLevelUpItem {
         if (_image) {
             MCScaler.scale(_image, 68, 68);
             _image.x = 38 - _image.width / 2;
-            _image.y = 30 - _image.height / 2;
+            _image.y = 38 - _image.height / 2;
             source.addChild(_image);
         } else {
             Cc.error('WOLevelUpItem:: no such image: ' + st);
