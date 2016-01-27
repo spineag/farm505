@@ -51,7 +51,9 @@ public class TreeHint {
     private var _data:Object;
     private var _deleteCallback:Function;
     private var _wateringCallback:Function;
-
+    private var _quad:Quad;
+    private var _bg:HintBackground;
+    private var _onOutCallback:Function;
     private var g:Vars = Vars.getInstance();
 
     public function TreeHint() {
@@ -60,8 +62,8 @@ public class TreeHint {
         _contWatering = new CSprite();
         _isShowed = false;
         _isOnHover = false;
-        var bg:HintBackground = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-        _source.addChild(bg);
+        _bg = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        _source.addChild(_bg);
 
         _imageHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("watering_can"));
         _imageHelp.width = _imageHelp.height = 40;
@@ -94,11 +96,6 @@ public class TreeHint {
         _source.addChild(_txtName);
         _source.addChild(_contDelete);
         _source.addChild(_txtText);
-        var quad:Quad = new Quad(bg.width, bg.height+45,Color.WHITE ,false);
-        quad.alpha = 0;
-        quad.x = -bg.width/2;
-        quad.y = -bg.height;
-        _source.addChildAt(quad,0);
 
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
@@ -110,7 +107,7 @@ public class TreeHint {
         _contWatering.outCallback = onOutWatering;
     }
 
-    public function showIt(data:Object, x:int, y:int, name:String, worldobject:WorldObject):void {
+    public function showIt(height:int,data:Object, x:int, y:int, name:String, worldobject:WorldObject, out:Function):void {
         if (!data || !worldobject) {
             Cc.error('TreeHint show it:: empty data or worldObject');
             g.woGameError.showIt();
@@ -121,6 +118,13 @@ public class TreeHint {
             g.woGameError.showIt();
             return;
         }
+        _onOutCallback = out;
+        _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE ,false);
+        _quad.alpha = 0;
+        _quad.x = -_bg.width/2;
+        _quad.y = -_bg.height;
+        _source.addChildAt(_quad,0);
+
 //        var obj:Object;
 //        var id:String;
 //        obj = g.dataBuilding.objectBuilding;
@@ -169,6 +173,7 @@ public class TreeHint {
     public function hideIt():void {
         if (_isOnHover) return;
         _isShowed = false;
+        _source.removeChild(_quad);
         if (g.cont.hintCont.contains(_source)) {
             g.cont.hintCont.removeChild(_source);
             _contDelete.removeChild(_imageItem);
@@ -182,6 +187,10 @@ public class TreeHint {
     private function onOut():void {
         _isOnHover = false;
         hideIt();
+        if (_onOutCallback != null) {
+            _onOutCallback.apply();
+            _onOutCallback = null;
+        }
     }
 
     private function onClickDelete():void {

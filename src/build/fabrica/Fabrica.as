@@ -165,7 +165,7 @@ public class Fabrica extends AreaObject {
             }
         } else if (_stateBuild == STATE_BUILD) {
             g.timerHint.needMoveCenter = true;
-            g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
+            g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip,onOut);
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
                 onOut();
                 g.townArea.moveBuild(this);

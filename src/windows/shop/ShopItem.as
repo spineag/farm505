@@ -96,7 +96,7 @@ public class ShopItem {
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 33;
         _shopLimitSprite.addChild(txt);
-        _shopLimitSprite.y = 130;
+        _shopLimitSprite.y = 150;
         source.addChild(_shopLimitSprite);
         _shopLimitSprite.visible = false;
 

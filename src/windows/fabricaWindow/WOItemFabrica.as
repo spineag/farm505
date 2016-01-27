@@ -99,7 +99,7 @@ public class WOItemFabrica {
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
         if (_dataRecipe.blockByLevel > g.user.level) {
-            g.hint.showIt('Будет доступно на ' + _dataRecipe.blockByLevel + ' уровне');
+            g.resourceHint.showIt(_dataRecipe.id,source.x,source.y,source,false,true);
             //resourcehint
         } else {
             g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
@@ -111,7 +111,7 @@ public class WOItemFabrica {
         if (!_dataRecipe) return;
         source.filter = null;
         g.fabricHint.hideIt();
-        g.hint.hideIt();
+        g.resourceHint.hideIt();
     }
 }
 }

@@ -37,6 +37,8 @@ public class WildHint {
     private var bg:HintBackground;
     private var g:Vars = Vars.getInstance();
     private var _quad:Quad;
+    private var _onOutCallback:Function;
+
     public function WildHint() {
         _source = new CSprite();
         _isShowed = false;
@@ -65,12 +67,13 @@ public class WildHint {
         _source.outCallback = onOut;
     }
 
-    public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String):void {
+    public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function):void {
        if (_isShowed) return;
         _id = idResourceForRemoving;
         _isShowed = true;
         _height = height;
-        _quad = new Quad(bg.width, bg.height + _height *g.currentGameScale,Color.WHITE ,false);
+        _onOutCallback = out;
+        _quad = new Quad(bg.width, bg.height + _height * g.currentGameScale,Color.WHITE ,false);
         _quad.alpha = 0;
         _quad.x = -bg.width/2;
         _quad.y = -bg.height;
@@ -121,6 +124,10 @@ public class WildHint {
     private function onOut():void {
         _isOnHover = false;
         hideIt();
+        if (_onOutCallback != null) {
+            _onOutCallback.apply();
+            _onOutCallback = null;
+        }
     }
 
 
