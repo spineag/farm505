@@ -153,7 +153,7 @@ public class Cave extends AreaObject{
             return;
         }
         if (_stateBuild == STATE_BUILD) {
-            g.timerHint.showIt(g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
+            g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip);
             g.hint.hideIt();
         }
         if (_stateBuild == STATE_ACTIVE) {

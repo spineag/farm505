@@ -100,6 +100,7 @@ public class WOItemFabrica {
         var pointGlobal:Point = source.localToGlobal(point);
         if (_dataRecipe.blockByLevel > g.user.level) {
             g.hint.showIt('Будет доступно на ' + _dataRecipe.blockByLevel + ' уровне');
+            //resourcehint
         } else {
             g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
 

@@ -436,7 +436,7 @@ public class Tree extends AreaObject {
                      }
                  }  else {
                      onOut();
-                     g.timerHint.showIt(newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
+                     g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip);
                  }
             } else if (_state == FIXED) {
                 _state = GROW_FIXED;
@@ -632,8 +632,8 @@ public class Tree extends AreaObject {
                 watering.pivotX = watering.width / 2;
                 watering.pivotY = watering.height / 2;
                 watering.y = -_source.height / 2 - watering.height - 10;
-                MCScaler.scale(im, 45, 45);
-                _wateringIcon.addChild(im);
+                MCScaler.scale(watering, 45, 45);
+                _wateringIcon.addChild(watering);
                 watering.visible = true;
                 if (_state == FIXED) {
 //                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
@@ -669,23 +669,25 @@ public class Tree extends AreaObject {
                 im.y = -_source.height + 20;
 //            im.x = g.cont.gameCont.x + _source.x * g.currentGameScale;
                 _wateringIcon.addChild(im);
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
-                im.pivotX = im.width / 2;
-                im.pivotY = im.height / 2;
-                im.y = -_source.height + 8;
-                MCScaler.scale(im, 45, 45);
-                _wateringIcon.addChild(im);
+                watering = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
+                watering.pivotX = im.width / 2;
+                watering.pivotY = im.height / 2;
+                watering.y = -_source.height + 8;
+                watering.visible = true;
+                MCScaler.scale(watering, 45, 45);
+                _wateringIcon.addChild(watering);
                 if (_state == FIXED) {
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
-                    im.pivotX = im.width / 2;
-                    im.pivotY = im.height / 2;
-                    im.x = 25;
-                    im.y = -_source.height + 38;
-                    _wateringIcon.addChild(im);
+//                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
+//                    im.pivotX = im.width / 2;
+//                    im.pivotY = im.height / 2;
+//                    im.x = 25;
+//                    im.y = -_source.height + 38;
+//                    _wateringIcon.addChild(im);
+                    watering.visible = false;
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
                     im.pivotX = im.width / 2;
                     im.pivotY = im.height / 2;
-                    im.x = 26;
+//                    im.x = 26;
                     im.y = -_source.height + 37;
                     _wateringIcon.addChild(im);
 
