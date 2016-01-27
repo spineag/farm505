@@ -27,9 +27,11 @@ public class AmbarCell {
     private var _countTxt:TextField;
     private var g:Vars = Vars.getInstance();
     private var _clickCallback:Function;
+    private var _onHover:Boolean;
 
     public function AmbarCell(info:Object) {
         _clickCallback = null;
+        _onHover = false;
         source = new CSprite();
         source.hoverCallback = onHover;
         source.outCallback = onOut;
@@ -72,24 +74,43 @@ public class AmbarCell {
         _countTxt.x = 75;
         _countTxt.y = 77;
         source.addChild(_countTxt);
+        source.flatten();
     }
 
     public function clearIt():void {
+        source.unflatten();
         while (source.numChildren) {
             source.removeChildAt(0);
         }
         source = null;
         _image = null;
         _countTxt = null;
+        g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        count = 0;
     }
 
     private function onHover():void {
-//        g.resourceHint.hideIt();
-//        g.resourceHint.showIt(_data.id,source.x,source.y,source);
+        if (_onHover) return;
+        _onHover = true;
+        count = 0;
+        g.gameDispatcher.addEnterFrame(onEnterFrame);
     }
 
     private function onOut():void {
-//        g.resourceHint.hideIt();
+        _onHover = false;
+        g.resourceHint.hideIt();
+        g.gameDispatcher.removeEnterFrame(onEnterFrame);
+    }
+
+    private var count:int;
+    private function onEnterFrame():void {
+        count++;
+        if (count >= 10) {
+            if (!g.resourceHint.isShowed && _onHover)
+                g.resourceHint.showIt(_data.id,source.x,source.y,source);
+            g.gameDispatcher.removeEnterFrame(onEnterFrame);
+            count = 0;
+        }
     }
 
     public function set clickCallback(f:Function):void {
