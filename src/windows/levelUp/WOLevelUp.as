@@ -89,7 +89,7 @@ public class WOLevelUp extends Window{
         _contBtn.addChild(_txtHard);
         _contBtn.addChild(_txtContinue);
         _contBtn.y = _woHeight/2;
-
+        _contBtn.clickCallback = onClickExit;
 
         _leftArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
