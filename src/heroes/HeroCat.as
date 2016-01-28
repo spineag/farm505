@@ -40,6 +40,7 @@ public class HeroCat extends BasicCat{
         _type = type;
         _isFree = true;
         _source = new CSprite();
+        _source.touchable = false;
         _catImage = new Sprite();
         _catWateringAndFeed = new Sprite();
         _catBackImage = new Sprite();

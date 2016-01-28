@@ -142,8 +142,9 @@ public class TimerHint {
         }
     }
 
-    public function hideIt():void {
-        if (_isOnHover) return;
+    public function hideIt(force:Boolean = false):void {
+        if (_isOnHover && !force) return;
+        if (!_isShow) return;
         _isShow = false;
         g.gameDispatcher.removeFromTimer(onTimer);
         source.removeChild(_quad);
