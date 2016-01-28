@@ -120,6 +120,8 @@ public class MarketItem {
 
         isFill = 0;
         source.endClickCallback = onClick;
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
         _plawkaCoins = new Sprite();
         source.addChild(_plawkaCoins);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_back'));
@@ -249,7 +251,6 @@ public class MarketItem {
 
         } else {
             if (_isUser) { // купленная
-                _txtAdditem.text = 'Добавить товар';
                 g.userInventory.addMoney(2,_dataFromServer.cost);
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {
@@ -324,7 +325,7 @@ public class MarketItem {
         _countResource = 0;
         _costTxt.text = '';
         _countTxt.text = '';
-        _txtAdditem.text = '';
+        _txtAdditem.text = 'Добавить товар';
         _data = null;
         _plawkaCoins.visible = false;
         _inPapper.visible = false;
@@ -426,6 +427,16 @@ public class MarketItem {
     }
 
 
-//    private function
+    private function onHover():void {
+        if (isFill == 1) {
+            g.marketHint.showIt(_dataFromServer.id,source.x,source.y,source);
+        }
+    }
+
+    private function onOut():void {
+        if (isFill == 1) {
+            g.marketHint.hideIt();
+        }
+    }
 }
 }

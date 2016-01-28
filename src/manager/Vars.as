@@ -15,6 +15,8 @@ import dragonBones.animation.WorldClock;
 import heroes.HeroCat;
 import heroes.ManagerCats;
 
+import hint.MarketHint;
+
 import hint.ResourceHint;
 import hint.TreeHint;
 import hint.fabricHint.FabricHint;
@@ -166,6 +168,7 @@ public class Vars {
     public var fabricHint:FabricHint;
     public var treeHint:TreeHint;
     public var resourceHint:ResourceHint;
+    public var marketHint:MarketHint;
     public var xpPanel:XPPanel;
     public var softHardCurrency:SoftHardCurrency;
     public var couponePanel:CouponePanel;
@@ -398,6 +401,7 @@ public class Vars {
         fabricHint = new FabricHint();
         treeHint = new TreeHint();
         resourceHint = new ResourceHint();
+        marketHint = new MarketHint();
         xpPanel = new XPPanel();
         couponePanel = new CouponePanel();
         softHardCurrency = new SoftHardCurrency();
@@ -504,6 +508,7 @@ public class Vars {
         if (mouseHint) mouseHint.hideIt();
         if (fabricHint) fabricHint.hideIt();
         if (treeHint) treeHint.hideIt();
+        if (resourceHint) resourceHint.hideIt();
         if (resourceHint) resourceHint.hideIt();
         if (hint) (hint as Hint).hideIt();
     }
