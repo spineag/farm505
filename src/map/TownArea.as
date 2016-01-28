@@ -878,9 +878,9 @@ public class TownArea extends Sprite {
                 (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild, point.x, point.y);
                 (worldObject as Wild).setLockedLand(_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
             } else {
+                worldObject.updateDepth();
                 _cont.addChild(worldObject.source);
                 _cityAwayObjects.push(worldObject);
-                worldObject.updateDepth();
                 fillAwayMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
             return;
@@ -896,6 +896,7 @@ public class TownArea extends Sprite {
             worldObject.source.x =  int(posX * g.scaleFactor);
             worldObject.source.y = int(posY * g.scaleFactor);
         }
+        worldObject.updateDepth();
 
         if (!_cont.contains(worldObject.source)) {
             _cont.addChild(worldObject.source);
@@ -910,7 +911,6 @@ public class TownArea extends Sprite {
             }
         }
         if (!(worldObject is DecorTail)) _cityAwayObjects.push(worldObject);
-        worldObject.updateDepth();
     }
 
     private function addAwayFenceLenta(d:DecorPostFence):void {
@@ -967,7 +967,7 @@ public class TownArea extends Sprite {
     }
 
     public function removeAwayHero(c:BasicCat):void {
-        if (_cityAwayObjects.indexOf(c) > -1) _cityAwayObjects.slice(_cityObjects.indexOf(c), 1);
+        if (_cityAwayObjects.indexOf(c) > -1) _cityAwayObjects.slice(_cityAwayObjects.indexOf(c), 1);
         if (_cont.contains(c.source))
             _cont.removeChild(c.source);
     }

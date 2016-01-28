@@ -73,12 +73,11 @@ public class WOSimpleButtonTexture  extends Sprite {
         }
         arr.push(im);
         // add shadows
-        if (useBig) st = 'shadow_b';
-            else st = 'shadow_s';
+        st = 'shadow_s';
         for (i=0; i<countW-1; i++) {
             im = new Image(tex.getTexture(st));
             im.x = arr[0].x + arr[0].width + i;
-            im.y = arr[2].height;
+            im.y = arr[2].height - 2;
             addChildAt(im, 0);
         }
 

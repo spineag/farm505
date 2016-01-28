@@ -385,14 +385,28 @@ public class Fabrica extends AreaObject {
     }
 
     private function releaseHeroCatWoman():void {
-        if (_heroCat.typeMan == BasicCat.MAN) {
-            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
-                releaseManBackTexture();
-            else releaseManFrontTexture();
-        } else if (_heroCat.typeMan == BasicCat.WOMAN) {
-            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
-                releaseWomanBackTexture();
-            else releaseWomanFrontTexture();
+        if (_heroCat) {
+            if (_heroCat.typeMan == BasicCat.MAN) {
+                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                    releaseManBackTexture();
+                else releaseManFrontTexture();
+            } else if (_heroCat.typeMan == BasicCat.WOMAN) {
+                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                    releaseWomanBackTexture();
+                else releaseWomanFrontTexture();
+            }
+        } else {
+            if (g.isAway) {
+                if (Math.random() < .5) {
+                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                        releaseManBackTexture();
+                    else releaseManFrontTexture();
+                } else {
+                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                        releaseWomanBackTexture();
+                    else releaseWomanFrontTexture();
+                }
+            }
         }
     }
 

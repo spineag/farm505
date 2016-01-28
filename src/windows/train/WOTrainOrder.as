@@ -46,7 +46,7 @@ public class WOTrainOrder extends Window{
         im.x = 30;
         MCScaler.scale(im,30,30);
         _btn.addDisplayObject(im);
-        txt = new TextField(100,50,"привести сейчас",g.allData.fonts['BloggerBold'],16,Color.WHITE);
+        txt = new TextField(100,50,"привезти сейчас",g.allData.fonts['BloggerBold'],16,Color.WHITE);
         txt.x = 60;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);

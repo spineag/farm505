@@ -84,7 +84,7 @@ public class TimerHint {
         _btn.addChild(im);
         _btn.addChild(_txtCost);
         _btn.y = -60;
-        _btn.x = 35;
+        _btn.x = 36;
         source.addChild(_btn);
         source.addChild(_txtName);
         source.addChild(_imageClock);

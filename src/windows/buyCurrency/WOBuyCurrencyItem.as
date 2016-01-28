@@ -24,25 +24,23 @@ import utils.MCScaler;
 
 public class WOBuyCurrencyItem {
     public var source:Sprite;
-
     private var g:Vars = Vars.getInstance();
 
     public function WOBuyCurrencyItem(currency:int, count:int, profit:String, cost:int) {
         source = new Sprite();
 
-        //create bg
         var _bg:Sprite = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_l'));
         _bg.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_r'));
         im.x = 593 - im.width;
         _bg.addChild(im);
-//        var l:int = Math.ceil((_bg.width - 2*im.width)/im.width ===== 9;
-        for (var i:int=0; i<9; i++) {
+        for (var i:int=0; i<8; i++) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_c'));
             im.x = 58*(i+1);
             _bg.addChild(im);
         }
+        im.width = 71;
         _bg.flatten();
         source.addChild(_bg);
 
@@ -69,7 +67,7 @@ public class WOBuyCurrencyItem {
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         btn.addChild(txt);
         btn.x = 493;
-        btn.y = 28;
+        btn.y = 31;
         source.addChild(btn);
         var onClick:Function = function():void {
             g.userInventory.addMoney(currency, count);
