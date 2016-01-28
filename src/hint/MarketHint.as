@@ -18,6 +18,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.MCScaler;
+
 import utils.TimeUtils;
 
 import windows.WOComponents.HintBackground;
@@ -27,18 +29,21 @@ public class MarketHint {
     private var _txtName:TextField;
     private var _txtText:TextField;
     private var _txtCount:TextField;
+    private var _txtSklad:TextField;
     private var _imageItem:Image;
     private var bg:HintBackground;
     private var objTrees:Array;
     private var objCave:Array;
     private var objRecipes:Object;
     private var objAnimals:Object;
+    public var isShowed:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function MarketHint() {
         var obj:Object;
         _source = new Sprite();
         _source.touchable = false;
+        isShowed = false;
 
         objTrees = [];
         objCave = [];
@@ -63,7 +68,7 @@ public class MarketHint {
         }
     }
 
-    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,bol:Boolean = false): void {
+    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite): void {
         var wText:int = 0;
         var wName:int = 0;
         if (!g.dataResource.objectResources[_dataId]) {
@@ -71,29 +76,16 @@ public class MarketHint {
             g.woGameError.showIt();
             return;
         }
+        isShowed = true;
         var start:Point = new Point(int(sX), int(sY));
         start = source.parent.localToGlobal(start);
         _source.x = start.x + source.width/2;
         _source.y = start.y + source.height + 5;
-        if (g.dataResource.objectResources[_dataId].blockByLevel > g.user.level) {
-            _txtText = new TextField(200,100,"Будет доступно на: " + g.dataResource.objectResources[_dataId].blockByLevel + ' уровне', g.allData.fonts['BloggerBold'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-            _txtText.x = -100;
-            _txtText.y = -5;
-            wName = _txtText.textBounds.width + 40;
-            bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            _source.addChild(bg);
-            _source.addChild(_txtText);
-            _source.flatten();
-            g.cont.hintCont.addChild(_source);
-            _source.x = start.x;
-            _source.y = start.y;
-            return;
-        }
         if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop + '_icon'));
+            MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
-            _imageItem.x = -30;
+            _imageItem.x = 10;
             _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
             _txtName.x = -100;
             _txtName.y = 20;
@@ -101,17 +93,18 @@ public class MarketHint {
             _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
             _txtText.y = 5;
-
-            if(bol) {
-                _source.x = start.x;
-                _source.y = start.y;
-                _txtText.text = 'Время роста:';
-            } else {
-                _txtText.text = "Растет на грядке";
-                _source.x = start.x + source.width/2;
-                _source.y = start.y + source.height + 5;
-            }
-            wText = _txtText.textBounds.width + 20;
+            _txtText.text = "Растет на грядке";
+            _txtCount = new TextField(30,30,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+            _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+            _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+            _txtCount.x = 30;
+            _txtCount.y = 70;
+            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+            _txtSklad.x = -55;
+            _txtSklad.y = 75;
+            _source.x = start.x + source.width/2;
+            _source.y = start.y + source.height + 5;
+            wText = _txtText.textBounds.width + 40;
             wName = _txtName.textBounds.width + 40;
             if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -119,6 +112,8 @@ public class MarketHint {
             _source.addChild(_txtName);
             _source.addChild(_txtText);
             _source.addChild(_imageItem);
+            _source.addChild(_txtCount);
+            _source.addChild(_txtSklad);
             _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
@@ -128,31 +123,42 @@ public class MarketHint {
             _txtName.x = -100;
             _txtName.y = 20;
             _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop));
-            _imageItem.y = 70;
-            _imageItem.x = -30;
+            MCScaler.scale(_imageItem,30,30);
+            _imageItem.y = 80;
+            _imageItem.x = 10;
             _txtText = new TextField(200,100,String(g.dataResource.objectResources[_dataId].opys),g.allData.fonts['BloggerBold'],12,Color.WHITE);
             _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
             _txtText.y = 15;
+            _txtCount = new TextField(30,30,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+            _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+            _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+            _txtCount.x = 30;
+            _txtCount.y = 80;
+            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+            _txtSklad.x = -60;
+            _txtSklad.y = 85;
             wText = _txtText.textBounds.width + 20;
-            wName = _txtName.textBounds.width + 40;
-            if (bol) {
-                if (wText > wName) bg = new HintBackground(wText, 75, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-                else bg = new HintBackground(wName, 75, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-                _source.x = start.x + source.width/2;
-                _source.y = start.y - 5;
-                _txtName.x = -75;
-                _txtName.y = -110;
-                _txtText.x = -76;
-                _txtText.y = -105;
-            } else {
+            wName = _txtName.textBounds.width + 80;
+//            if (bol) {
+//                if (wText > wName) bg = new HintBackground(wText, 75, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+//                else bg = new HintBackground(wName, 75, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+//                _source.x = start.x + source.width/2;
+//                _source.y = start.y - 5;
+//                _txtName.x = -75;
+//                _txtName.y = -110;
+//                _txtText.x = -76;
+//                _txtText.y = -105;
+//            } else {
                 if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            }
+//            }
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
             _source.addChild(_imageItem);
+            _source.addChild(_txtCount);
+            _source.addChild(_txtSklad);
             _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
@@ -160,9 +166,10 @@ public class MarketHint {
 
         for (var i:int=0; i<objTrees.length; i++) {
             if (_dataId == objTrees[i].craftIdResource) {
-                _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
+                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop));
+                MCScaler.scale(_imageItem,30,30);
                 _imageItem.y = 70;
-                _imageItem.x = -30;
+                _imageItem.x = 10;
                 _txtName = new TextField(150,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
                 _txtName.x = -75;
                 _txtName.y = 20;
@@ -170,8 +177,15 @@ public class MarketHint {
                 _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
                 _txtText.x = -100;
                 _txtText.y = 5;
-
-                wText = _txtText.textBounds.width + 20;
+                _txtCount = new TextField(30,30,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+                _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+                _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+                _txtCount.x = 30;
+                _txtCount.y = 70;
+                _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+                _txtSklad.x = -55;
+                _txtSklad.y = 75;
+                wText = _txtText.textBounds.width + 40;
                 wName = _txtName.textBounds.width + 40;
                 if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -179,6 +193,8 @@ public class MarketHint {
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
                 _source.addChild(_imageItem);
+                _source.addChild(_txtCount);
+                _source.addChild(_txtSklad);
                 _source.flatten();
                 g.cont.hintCont.addChild(_source);
                 return;
@@ -187,20 +203,25 @@ public class MarketHint {
 
         for (i=0; i<objCave.length; i++) {
             if (_dataId == int(objCave[i])) {
-//                _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
-//                _imageClock.y = 70;
-//                _imageClock.x = -30;
+                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop));
+                MCScaler.scale(_imageItem,30,30);
+                _imageItem.y = 70;
+                _imageItem.x = 15;
                 _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
                 _txtName.x = -100;
                 _txtName.y = 20;
-//                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime),g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
-//                _txtTime.x = -10;
-//                _txtTime.y = 60;
                 _txtText = new TextField(200,100,"Место производства: Пещера",g.allData.fonts['BloggerBold'],12,Color.WHITE);
                 _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
                 _txtText.x = -100;
                 _txtText.y = 5;
-
+                _txtCount = new TextField(30,30,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+                _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+                _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+                _txtCount.x = 35;
+                _txtCount.y = 70;
+                _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+                _txtSklad.x = -50;
+                _txtSklad.y = 75;
                 wText = _txtText.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
                 if (wText > wName) bg = new HintBackground(wText, 65, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -208,8 +229,9 @@ public class MarketHint {
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
-//                _source.addChild(_txtTime);
-//                _source.addChild(_imageClock);
+                _source.addChild(_imageItem);
+                _source.addChild(_txtCount);
+                _source.addChild(_txtSklad);
                 _source.flatten();
                 g.cont.hintCont.addChild(_source);
                 return;
@@ -217,9 +239,10 @@ public class MarketHint {
         }
 
         if (objRecipes[_dataId]) {
-            _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
+            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop));
+            MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
-            _imageItem.x = -30;
+            _imageItem.x = 15;
             _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
             _txtName.x = -100;
             _txtName.y = 20;
@@ -227,7 +250,14 @@ public class MarketHint {
             _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
             _txtText.y = 5;
-
+            _txtCount = new TextField(30,30,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+            _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+            _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+            _txtCount.x = 35;
+            _txtCount.y = 70;
+            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+            _txtSklad.x = -50;
+            _txtSklad.y = 75;
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -236,15 +266,18 @@ public class MarketHint {
             _source.addChild(_txtName);
             _source.addChild(_txtText);
             _source.addChild(_imageItem);
+            _source.addChild(_txtCount);
+            _source.addChild(_txtSklad);
             _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
 
         if (objAnimals[_dataId]) {
-            _imageItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
+            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop));
+            MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
-            _imageItem.x = -30;
+            _imageItem.x = 15;
             _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
             _txtName.x = -100;
             _txtName.y = 20;
@@ -252,7 +285,14 @@ public class MarketHint {
             _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
             _txtText.y = 5;
-
+            _txtCount = new TextField(30,30,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+            _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+            _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+            _txtCount.x = 35;
+            _txtCount.y = 70;
+            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+            _txtSklad.x = -50;
+            _txtSklad.y = 75;
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -261,6 +301,8 @@ public class MarketHint {
             _source.addChild(_txtName);
             _source.addChild(_txtText);
             _source.addChild(_imageItem);
+            _source.addChild(_txtCount);
+            _source.addChild(_txtSklad);
             _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
@@ -275,6 +317,7 @@ public class MarketHint {
             _source.removeChildAt(0);
         }
         g.cont.hintCont.removeChild(_source);
+        isShowed = false;
     }
 }
 }

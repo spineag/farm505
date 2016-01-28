@@ -63,9 +63,9 @@ public class WOLevelUp extends Window{
         _contImage = new Sprite();
         _arrCells = [];
         _source.addChild(_contClipRect);
-        _contClipRect.clipRect = new Rectangle(0,0,440,260);
+        _contClipRect.clipRect = new Rectangle(0,0,440,280);
         _contClipRect.x = -_woWidth/2 + 55;
-        _contClipRect.y = 75;
+        _contClipRect.y = 55;
         _txtNewLvl = new TextField(120,100,"НОВЫЙ УРОВЕНЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtNewLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtNewObject = new TextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
