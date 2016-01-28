@@ -100,10 +100,12 @@ public class TimerHint {
         _needMoveCenter = v;
     }
 
+    public function isShow():Boolean {
+        return _isShow
+    }
+
     public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String,f:Function, out:Function):void {
         if (timer <=0) return;
-//        var s:Number = g.cont.gameCont.scaleX;
-//        var oY:Number = g.matrixGrid.offsetY*s;
         _onOutCallback = out;
         _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE ,false);
         _quad.alpha = 0;

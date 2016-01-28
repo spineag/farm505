@@ -251,7 +251,13 @@ public class Farm extends AreaObject{
         particles = new FarmFeedParticles(onFinish);
         particles.source.x = p.x;
         particles.source.y = p.y;
-        if (!isFromLeftSide) particles.source.scaleX = -1;
+        if (!isFromLeftSide) {
+            if (!_flip)
+                particles.source.scaleX = -1;
+        } else {
+            if (_flip)
+                particles.source.scaleX = -1;
+        }
         tempCont.addChild(particles.source);
     }
 

@@ -85,7 +85,7 @@ public class TreeHint {
         _txtName = new TextField(200,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -100;
-        _txtName.y = -150;
+        _txtName.y = -140;
         _txtText = new TextField(50,30,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE);
 
         _contWatering.addChild(_imageHelp);
@@ -125,16 +125,11 @@ public class TreeHint {
         _quad.y = -_bg.height;
         _source.addChildAt(_quad,0);
 
-//        var obj:Object;
-//        var id:String;
-//        obj = g.dataBuilding.objectBuilding;
-//        for (id in obj) {
-            if ( data.removeByResourceId == 124) {
-                _txtName.text = "Засохшее дерево";
-            } else {
-                _txtName.text = "Засохший куст";
-            }
-//        }
+        if ( data.removeByResourceId == 124) {
+            _txtName.text = "Засохшее дерево";
+        } else {
+            _txtName.text = "Засохший куст";
+        }
         _worldObject = worldobject;
         _data = data;
         if (_isShowed) return;
@@ -198,8 +193,6 @@ public class TreeHint {
         if (g.userInventory.getCountResourceById(_data.removeByResourceId) <= 0){
             g.woNoResources.showItMenu(g.dataResource.objectResources[_data.removeByResourceId],1,onClickDelete);
         } else {
-//            var start:Point = new Point(int(_source.x), int(_source.y));
-//            start = _source.parent.localToGlobal(start);
             new XPStar(_source.x,_source.y,8);
             g.userInventory.addResource(_data.removeByResourceId,-1);
             if (_deleteCallback != null) {
