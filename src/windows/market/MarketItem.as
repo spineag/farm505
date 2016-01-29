@@ -193,9 +193,7 @@ public class MarketItem {
             if (_isUser) {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
 //                    trace(_dataFromServer.numberCell)
-                trace('stoit');
             } else {
-                trace('kypit');
                 if (_plawkaSold.visible == true) return;
                 var p:Point;
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
@@ -225,7 +223,8 @@ public class MarketItem {
 
                 showFlyResource(d, _dataFromServer.resourceCount);
                 _inPapper.visible = false;
-                showCoinImage();
+//                showCoinImage();
+                _plawkaCoins.visible = false;
                 _plawkaSold.visible = true;
                 _txtPlawka.visible = true;
                 if (_person == g.user.neighbor) {
@@ -249,9 +248,7 @@ public class MarketItem {
                 isFill = 2;
             }
         } else if (isFill == 0) { // пустая
-            trace('pystaia');
             if (_isUser) {
-                trace('pokash');
 //                g.woMarket.refreshMarket();
                 g.woMarket.hideIt();
                 g.woMarket.marketChoose.callback = onChoose;
@@ -261,7 +258,6 @@ public class MarketItem {
 
         } else {
             if (_isUser) { // купленная
-                trace('kyplennaia');
                 g.userInventory.addMoney(2,_dataFromServer.cost);
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {
@@ -345,11 +341,14 @@ public class MarketItem {
         _txtPlawka.visible = false;
     }
 
-    public function fillFromServer(obj:Object, p:Someone):void {
+    public function fillFromServer(obj:Object, p:Someone, friend:Boolean = false):void {
         _person = p;
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
         _inPapper.visible = _dataFromServer.inPapper;
+        if (friend) {
+            _txtAdditem.text = '';
+        }
         if (_dataFromServer.buyerId != '0') {
             if (_person.userSocialId == g.user.userSocialId) {
                 _plawkaSold.visible = false;
@@ -361,6 +360,7 @@ public class MarketItem {
                 _txtAdditem.text = '';
                 fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
                 _plawkaCoins.visible = false;
+                _plawkaLvl.visible = false;
                 _plawkaSold.visible = true;
                 _txtPlawka.visible = true;
             }
@@ -381,6 +381,7 @@ public class MarketItem {
                 return;
             }
         }
+        if (!_isUser) _txtAdditem.text = '';
     }
 
     public function set isUser(value:Boolean):void {
@@ -469,6 +470,11 @@ public class MarketItem {
             g.gameDispatcher.removeEnterFrame(onEnterFrame);
             count = 0;
         }
+    }
+
+    public function friendAdd():void {
+        _txtAdditem.text = '';
+        trace('loh');
     }
 }
 }

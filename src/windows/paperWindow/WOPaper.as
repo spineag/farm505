@@ -55,7 +55,6 @@ public class WOPaper extends Window{
         _source.addChild(_btnRefresh);
         _btnRefresh.clickCallback = makeRefresh;
         createBtns();
-
         createExitButton(onClickExit);
         _btnExit.x += 30;
         _btnExit.y -= 25;
@@ -80,6 +79,7 @@ public class WOPaper extends Window{
         if (_maxPages <2) _maxPages = 2;
 
         createPages();
+        checkArrows();
         showIt();
     }
 
@@ -141,6 +141,7 @@ public class WOPaper extends Window{
         _source.addChild(_tempRightPage.source);
         _source.addChild(_flipPage);
         _source.setChildIndex(_btnExit, _source.numChildren - 1);
+        checkArrows();
     }
 
     private function afterMoveNext():void {
@@ -180,6 +181,7 @@ public class WOPaper extends Window{
         _source.addChild(_tempLeftPage.source);
         _source.addChild(_flipPage);
         _source.setChildIndex(_btnExit, _source.numChildren - 1);
+        checkArrows();
     }
 
     private function afterMovePrev():void {
@@ -239,6 +241,19 @@ public class WOPaper extends Window{
         if (_maxPages <2) _maxPages = 2;
 
         createPages();
+    }
+
+    private function checkArrows():void {
+        if (_shiftPages <= 1) {
+            _leftArrow.setEnabled = false;
+        } else {
+            _leftArrow.setEnabled = true;
+        }
+        if (_shiftPages + 1>= _maxPages) {
+            _rightArrow.setEnabled = false;
+        } else {
+            _rightArrow.setEnabled = true;
+        }
     }
 }
 }

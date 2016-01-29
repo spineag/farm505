@@ -207,13 +207,12 @@ public class WOMarket  extends Window {
 
     private function fillItems():void {
         try {
-            trace(2);
             var n:int = 0;
             if (_curUser is NeighborBot) {
                 for (var i:int = 0; i < _arrItems.length; i++) {
                     if (_curUser.marketItems[i]) {
                         if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
-                        _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser, i);
+                        _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser);
                     }
                 }
                 return;

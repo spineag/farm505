@@ -33,11 +33,13 @@ public class MouseHint {
     private var _imageCircle:Image;
     private var _txtCount:TextField;
     private var _imageCont:Sprite;
+    private var _isShowed:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
     public function MouseHint() {
         _source = new Sprite();
+        _isShowed = false;
         _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle"));
         _source.addChild(_imageBg);
         _imageCont = new Sprite();
@@ -55,6 +57,7 @@ public class MouseHint {
 
     public function hideIt():void {
         while(_imageCont.numChildren) _imageCont.removeChildAt(0);
+        _isShowed = false;
         if (_image) {
             _image.dispose();
             _image = null;
@@ -70,6 +73,8 @@ public class MouseHint {
 
     public function checkMouseHint(s:String, dat:Object = null):void {
         if (g.currentOpenedWindow == true) return;
+        if (_isShowed) return;
+        _isShowed = true;
         _imageCircle.visible = false;
         _txtCount.text = '';
         g.cont.hintContUnder.addChild(_source);
