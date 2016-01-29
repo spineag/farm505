@@ -178,7 +178,6 @@ public class ResourceHint {
             if (_dataId == objTrees[i].craftIdResource) {
                 _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
                 _imageClock.y = 70;
-                _imageClock.x = -30;
                 _txtName = new TextField(150,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
                 _txtName.x = -75;
                 _txtName.y = 20;
@@ -189,7 +188,11 @@ public class ResourceHint {
                 _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
                 _txtText.x = -100;
                 _txtText.y = 5;
-
+                if (_txtTime.textBounds.width >= 40) {
+                    _imageClock.x = -35;
+                }else {
+                    _imageClock.x = -30;
+                }
                 wText = _txtText.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
                 if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);

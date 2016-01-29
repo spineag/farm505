@@ -64,7 +64,7 @@ public class WOTrainOrder extends Window{
         txt.y = -145;
         _source.addChild(txt);
 
-        txt = new TextField(150,50,"Следующий заказ","Arial",14,Color.WHITE);
+        txt = new TextField(150,50,"Следующий заказ:","Arial",14,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -80;
         txt.y = -60;

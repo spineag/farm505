@@ -77,10 +77,10 @@ public class MarketHint {
             return;
         }
         isShowed = true;
-        var start:Point = new Point(int(sX), int(sY));
+        var start:Point = new Point(int(sX), int(sY - 15));
         start = source.parent.localToGlobal(start);
         _source.x = start.x + source.width/2;
-        _source.y = start.y + source.height + 5;
+        _source.y = start.y + source.height;
         if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop + '_icon'));
             MCScaler.scale(_imageItem,30,30);

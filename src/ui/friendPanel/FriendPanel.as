@@ -61,7 +61,6 @@ public class FriendPanel {
 
         createAddFriendBtn();
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
-
     }
 
     private function createAddFriendBtn():void {
@@ -73,6 +72,7 @@ public class FriendPanel {
         bt.y = 4 + bt.height/2;
         _source.addChild(bt);
 //        bt.endClickCallback = inviteFriends();
+
     }
 
     public function onResize():void {
