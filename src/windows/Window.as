@@ -31,6 +31,7 @@ public class Window {
     protected var g:Vars = Vars.getInstance();
     protected var callbackClickBG:Function;
     public var needAddToPool:Boolean = false;
+    protected var closeOnBgClick:Boolean = true;
 
     public function Window() {
         _source = new Sprite();
@@ -131,7 +132,7 @@ public class Window {
         if (callbackClickBG != null) {
             callbackClickBG.apply();
         } else {
-            hideIt();
+            if (closeOnBgClick) hideIt();
         }
     }
 }

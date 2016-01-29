@@ -276,6 +276,7 @@ public class WOOrder extends Window{
                 }
             }
             _activeOrderItem.fillIt(order, order.placeNumber, onItemClick, b);
+            onItemClick(_activeOrderItem);
         }
         g.bottomPanel.checkIsFullOrder();
     }
@@ -320,7 +321,6 @@ public class WOOrder extends Window{
 
     private function onItemClick(item:WOOrderItem):void {
         if (_waitForAnswer) return;
-        if (item == _activeOrderItem) return;
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
         clearResourceItems();
         _activeOrderItem = item;
@@ -379,6 +379,7 @@ public class WOOrder extends Window{
                 }
             }
             _activeOrderItem.fillIt(order, order.placeNumber, onItemClick, b);
+            onItemClick(_activeOrderItem);
             g.gameDispatcher.addToTimer(onTimer);
         }
     }

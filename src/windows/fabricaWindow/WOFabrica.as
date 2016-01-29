@@ -68,13 +68,14 @@ public class WOFabrica extends Window {
     }
 
     public function showItWithParams(arrRecipes:Array, arrList:Array, fabr:Fabrica, f:Function):void {
-        hideIt();
+        unfillFabricaItems();
         _fabrica = fabr;
         _callbackOnClick = f;
         _arrAllRecipes = arrRecipes;
+        _shift = 0;
+        fillFabricaItems();
         createShiftBtns();
         if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
-        fillFabricaItems();
         _list.unfillIt();
         _list.fillIt(arrList, _fabrica);
         _birka.updateText(_fabrica.dataBuild.name);

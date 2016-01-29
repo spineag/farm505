@@ -47,6 +47,7 @@ public class WOLevelUp extends Window{
 
     public function WOLevelUp() {
         super ();
+        closeOnBgClick = false;
         _woWidth = 551;
         _woHeight = 409;
         _woBG = new WindowBackground(_woWidth, _woHeight);
@@ -205,15 +206,19 @@ public class WOLevelUp extends Window{
         arr = [];
         obj = g.dataResource.objectResources;
         for (id in obj) {
-            if (obj.buildType == BuildType.TEST || obj.buildType == BuildType.INSTRUMENT) continue;
+            if (obj[id].buildType == BuildType.TEST || obj[id].buildType == BuildType.INSTRUMENT) continue;
             if (g.user.level == obj[id].blockByLevel) {
                 arr.push(obj[id]);
             }
         }
         obj = g.dataBuilding.objectBuilding;
         for (id in obj) {
-            if (g.user.level == obj[id].blockByLevel) {
-                if (obj.buildType == BuildType.TEST || obj.buildType == BuildType.AMBAR || obj.buildType == BuildType.SKLAD || obj.buildType == BuildType.WILD) continue;
+            if (obj[id].buildType == BuildType.TREE || obj[id].buildType == BuildType.FARM) {
+                if (g.user.level == obj[id].blockByLevel[0]) {
+                    arr.push(obj[id]);
+                }
+            } else if (g.user.level == obj[id].blockByLevel) {
+                if (obj[id].buildType == BuildType.TEST) continue;
                 arr.push(obj[id]);
             }
         }
