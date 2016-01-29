@@ -193,7 +193,9 @@ public class MarketItem {
             if (_isUser) {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
 //                    trace(_dataFromServer.numberCell)
+                trace('stoit');
             } else {
+                trace('kypit');
                 if (_plawkaSold.visible == true) return;
                 var p:Point;
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
@@ -247,7 +249,9 @@ public class MarketItem {
                 isFill = 2;
             }
         } else if (isFill == 0) { // пустая
+            trace('pystaia');
             if (_isUser) {
+                trace('pokash');
 //                g.woMarket.refreshMarket();
                 g.woMarket.hideIt();
                 g.woMarket.marketChoose.callback = onChoose;
@@ -257,6 +261,7 @@ public class MarketItem {
 
         } else {
             if (_isUser) { // купленная
+                trace('kyplennaia');
                 g.userInventory.addMoney(2,_dataFromServer.cost);
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {
@@ -340,7 +345,7 @@ public class MarketItem {
         _txtPlawka.visible = false;
     }
 
-    public function fillFromServer(obj:Object, p:Someone, _numberCell:int):void {
+    public function fillFromServer(obj:Object, p:Someone):void {
         _person = p;
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;

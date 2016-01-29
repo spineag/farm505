@@ -29,11 +29,8 @@ public class WONoResourcesItem {
 
     public function WONoResourcesItem() {
         source = new Sprite();
-        var bg:Sprite = new CartonBackground(66, 70);
-        source.addChild(bg);
-        bg = new CartonBackgroundIn(60, 64);
-        bg.x = 3;
-        bg.y = 3;
+        var bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
+        MCScaler.scale(bg,66, 70);
         source.addChild(bg);
     }
 
@@ -87,10 +84,10 @@ public class WONoResourcesItem {
             source.addChild(_image);
         }
 
-        _txtCount = new TextField(66, 20, String(count), g.allData.fonts['BloggerMedium'], 12, Color.WHITE);
+        _txtCount = new TextField(66, 20, String(count), g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtCount.y = 49;
-        _txtCount.x = 15;
+        _txtCount.y = 40;
+        _txtCount.x = 20;
         source.addChild(_txtCount);
     }
 

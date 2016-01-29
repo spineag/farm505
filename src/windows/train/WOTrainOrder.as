@@ -61,7 +61,7 @@ public class WOTrainOrder extends Window{
         txt = new TextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ",g.allData.fonts['BloggerBold'],24,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -150;
-        txt.y = -140;
+        txt.y = -145;
         _source.addChild(txt);
 
         txt = new TextField(150,50,"Следующий заказ","Arial",14,Color.WHITE);
@@ -79,8 +79,8 @@ public class WOTrainOrder extends Window{
         im.x = -55;
         im.y = -80;
         _source.addChild(im);
-        _txtTime = new TextField(70,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        _txtTime.x = -28;
+        _txtTime = new TextField(80,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtTime.x = -20;
         _txtTime.y = -85;
         _txtTime.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _source.addChild(_txtTime);
@@ -109,7 +109,7 @@ public class WOTrainOrder extends Window{
         var item2:WOTrainOrderItem;
         var item3:WOTrainOrderItem;
             item1 = new WOTrainOrderItem();
-            item1.fillIt(list[1], 1);
+            item1.fillIt(list[0], 1);
             item1.source.x = -150;
             item1.source.y = -20;
             _source.addChild(item1.source);
@@ -121,7 +121,7 @@ public class WOTrainOrder extends Window{
             item3 = new WOTrainOrderItem();
             item3.source.x = 50;
             item3.source.y = -20;
-            item3.fillIt(list[6], 6);
+            item3.fillIt(list[9], 9);
             _source.addChild(item3.source);
     }
 

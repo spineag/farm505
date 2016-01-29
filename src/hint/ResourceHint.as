@@ -158,9 +158,9 @@ public class ResourceHint {
                 else bg = new HintBackground(wName, 75, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
                 _source.x = start.x + source.width/2;
                 _source.y = start.y - 5;
-                _txtName.x = -75;
-                _txtName.y = -110;
-                _txtText.x = -76;
+                _txtName.x = -100;
+                _txtName.y = -90;
+                _txtText.x = -100;
                 _txtText.y = -105;
             } else {
                 if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
