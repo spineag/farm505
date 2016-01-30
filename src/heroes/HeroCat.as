@@ -208,16 +208,21 @@ public class HeroCat extends BasicCat{
 
 // WORK WITH PLANT
     public function workWithPlant(callback:Function):void {
-        if (!armatureWorker) {
-            armatureWorker = g.allData.factory['cat_watering'].buildArmature("cat");
-            WorldClock.clock.add(armatureWorker);
-            var viyi:Bone = armatureWorker.getBone('viyi');
-            if (_type == WOMAN) {
-                releaseFrontWoman(armatureWorker);
-                if (viyi) viyi.visible = true;
-            } else {
-                if (viyi) viyi.visible = false;
-            }
+        if (armatureWorker) {
+            while (_catWateringAndFeed.numChildren) _catWateringAndFeed.removeChildAt(0);
+            WorldClock.clock.remove(armatureWorker);
+            armatureWorker.dispose();
+            armatureWorker = null;
+        }
+
+        armatureWorker = g.allData.factory['cat_watering'].buildArmature("cat");
+        WorldClock.clock.add(armatureWorker);
+        var viyi:Bone = armatureWorker.getBone('viyi');
+        if (_type == WOMAN) {
+            releaseFrontWoman(armatureWorker);
+            if (viyi) viyi.visible = true;
+        } else {
+            if (viyi) viyi.visible = false;
         }
         _catWateringAndFeed.addChild(armatureWorker.display as Sprite);
         _catImage.visible = false;
@@ -278,9 +283,9 @@ public class HeroCat extends BasicCat{
     }
 
     public function forceStopWork():void {
-        WorldClock.clock.remove(armatureWorker);
         while (_catWateringAndFeed.numChildren) _catWateringAndFeed.removeChildAt(0);
         if (armatureWorker) {
+            WorldClock.clock.remove(armatureWorker);
             armatureWorker.dispose();
             armatureWorker = null;
         }

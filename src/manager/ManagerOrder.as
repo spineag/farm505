@@ -353,8 +353,11 @@ public class ManagerOrder {
         var b:Boolean;
         var k:int;
         var order:Object;
+
+        if (!_arrOrders.length) return false;
         for (var i:int=0; i<_arrOrders.length; i++) {
             order = _arrOrders[i];
+            if (!order || !order.resourceIds || !order.resourceIds.length) continue;
             b = true;
             for (k=0; k<order.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {

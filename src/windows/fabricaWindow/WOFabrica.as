@@ -54,20 +54,17 @@ public class WOFabrica extends Window {
     }
 
     public function onClickExit(e:Event=null):void {
+        super.hideIt();
+        clearShiftButtons();
         unfillFabricaItems();
         _list.unfillIt();
         _fabrica = null;
         _callbackOnClick = null;
         _arrAllRecipes.length = 0;
-        for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _source.removeChild(_arrShiftBtns[i]);
-            _arrShiftBtns[i].deleteIt();
-        }
-        _arrShiftBtns.length = 0;
-        hideIt();
     }
 
     public function showItWithParams(arrRecipes:Array, arrList:Array, fabr:Fabrica, f:Function):void {
+        super.showIt();
         unfillFabricaItems();
         _fabrica = fabr;
         _callbackOnClick = f;
@@ -79,7 +76,6 @@ public class WOFabrica extends Window {
         _list.unfillIt();
         _list.fillIt(arrList, _fabrica);
         _birka.updateText(_fabrica.dataBuild.name);
-        super.showIt();
     }
 
     private function createFabricaItems():void {
@@ -201,8 +197,8 @@ public class WOFabrica extends Window {
                 item = new WOFabricNumber(i+1);
                 item.source.x = -_woWidth / 2 + 220 + i * (42);
                 item.source.y = -_woHeight / 2 + 117;
-                _source.addChildAt(item.source,0);
-                _arrShiftBtns.push(item.source);
+                _source.addChildAt(item.source,1);
+                _arrShiftBtns.push(item);
                 item.source.endClickParams = i + 1;
                 item.source.endClickCallback = activateShiftBtn;
             }
@@ -211,9 +207,9 @@ public class WOFabrica extends Window {
                 item = new WOFabricNumber(i+1);
                 item.source.x = -_woWidth / 2 + 220 + i * (42);
                 item.source.y = -_woHeight / 2 + 117;
-                _source.addChildAt(item.source,0);
+                _source.addChildAt(item.source,1);
 
-                _arrShiftBtns.push(item.source);
+                _arrShiftBtns.push(item);
                 item.source.endClickParams = i + 1;
                 item.source.endClickCallback = activateShiftBtn;
             }
@@ -222,20 +218,28 @@ public class WOFabrica extends Window {
                 item = new WOFabricNumber(i+1);
                 item.source.x = -_woWidth / 2 + 220 + i * (42);
                 item.source.y = -_woHeight / 2 + 117;
-                _source.addChildAt(item.source,0);
-                _arrShiftBtns.push(item.source);
+                _source.addChildAt(item.source,1);
+                _arrShiftBtns.push(item);
                 item.source.endClickParams = i + 1;
                 item.source.endClickCallback = activateShiftBtn;
             }
         }
     }
 
+    private function clearShiftButtons():void {
+        for (var i:int=0; i< _arrShiftBtns.length; i++) {
+            _source.removeChild(_arrShiftBtns[i].source);
+            _arrShiftBtns[i].deleteIt();
+        }
+        _arrShiftBtns.length = 0;
+    }
+
     private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _arrShiftBtns[i].y = -_woHeight/2 + 117;
+            _arrShiftBtns[i].source.y = -_woHeight/2 + 117;
         }
 
-        _arrShiftBtns[n-1].y += 8;
+        _arrShiftBtns[n-1].source.y += 8;
         _shift = n-1;
         if (needUpdate) {
             unfillFabricaItems();

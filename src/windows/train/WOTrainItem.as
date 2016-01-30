@@ -50,6 +50,11 @@ public class WOTrainItem {
 
     public function fillIt(t:TrainCell, i:int, type:int):void {
         _index = i;
+        if (_bg) {
+            source.removeChild(_bg);
+            _bg.dispose();
+            _bg = null;
+        }
         switch (type) {
             case (WOTrain.CELL_BLUE):
                 _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_blue'));

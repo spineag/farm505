@@ -26,8 +26,6 @@ import windows.WOComponents.CartonBackgroundIn;
 
 public class MarketCell {
     public var source:CSprite;
-
-    private var _ramka:Quad;
     private var _info:Object; // id & count
     private var _data:Object;
     private var _image:Image;
@@ -39,11 +37,6 @@ public class MarketCell {
         _clickCallback = null;
         source = new CSprite();
         source.endClickCallback = onClick;
-        _ramka = new Quad(105, 105, Color.GREEN);
-        _ramka.x = -2;
-        _ramka.y = -2;
-        source.addChild(_ramka);
-        _ramka.visible =false;
         var s:CartonBackgroundIn = new CartonBackgroundIn(100, 100);
         source.addChild(s);
 
@@ -83,6 +76,7 @@ public class MarketCell {
     }
 
     public function clearIt():void {
+        source.filter = null;
         while (source.numChildren) {
             source.removeChildAt(0);
         }
@@ -96,19 +90,10 @@ public class MarketCell {
     }
 
     private function onClick():void {
-       // if (_info.buildType == BuildType.PLANT) {
-//            var count:int;
-//            count = g.userInventory.getCountResourceById(_data.id);
-//            if ((count - 1) == 0) {
-//                g.woLastResource.showItMenu(_data);
-//                trace("count");
-//            }
-            if (_clickCallback != null) {
-                _clickCallback.apply(null, [_info.id]);
-            }
-      //  }
+        if (_clickCallback != null) {
+            _clickCallback.apply(null, [_info.id]);
+        }
         if (g.userInventory.getCountResourceById(_data.id))
-//        g.woLastResource.showItMenu(_data.id);
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_info.id]);
         }
@@ -116,7 +101,8 @@ public class MarketCell {
     }
 
     public function activateIt(a:Boolean):void {
-        _ramka.visible = a;
+        if (a) source.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+         else source.filter = null;
     }
 }
 }

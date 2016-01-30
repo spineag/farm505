@@ -13,6 +13,7 @@ import manager.Vars;
 import resourceItem.ResourceItem;
 
 import starling.animation.Tween;
+import starling.core.Starling;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -32,8 +33,9 @@ public class XPStar {
 
     public function XPStar(_x:int, _y:int,xp:int) {
         _source = new Sprite();
-        _txtStar = new TextField(50,50,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
+        _txtStar = new TextField(80,50,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
         _txtStar.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtStar.x = -15;
         _txtStar.y = 25;
         _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         _xp = xp;
@@ -50,7 +52,7 @@ public class XPStar {
     }
 
     private function flyItStar():void {
-        var endX:int = g.stageWidth - 200;
+        var endX:int = Starling.current.nativeStage.stageWidth - 200;
         var endY:int = 50;
         _txtStar.text = '+' + String(_xp);
 

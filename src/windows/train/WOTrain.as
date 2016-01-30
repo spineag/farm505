@@ -250,26 +250,6 @@ public class WOTrain extends Window {
     }
 
     public function showItWithParams(list:Array, b:Train, state:int, counter:int):void {
-        _build = b;
-        var isBigCount:Boolean = list.length > 9;
-        var type:int;
-        for (var i:int = 0; i<list.length; i++) {
-            if (isBigCount) type = int(i/4);
-                else type = int(i/3);
-            _arrItems[i].fillIt(list[i], i, type + 1);
-            _arrItems[i].clickCallback = onItemClick;
-        }
-        if (!isBigCount) {
-            _arrItems[9].fillIt(null, 9, CELL_GRAY);
-            _arrItems[10].fillIt(null, 10, CELL_GRAY);
-            _arrItems[11].fillIt(null, 11, CELL_GRAY);
-        }
-
-        _txtCostAll.text = String(_build.allCoinsCount);
-        _txtXpAll.text = String(_build.allXPCount);
-        showIt();
-        onItemClick(0);
-        checkBtn();
         if (!g.isAway) {
             if (state == Train.STATE_READY) {
                 _txt.text = 'Отправляется через:';
@@ -278,6 +258,26 @@ public class WOTrain extends Window {
                 _txt.text = 'До прибытия';
                 g.woTrainOrder.showItWO(list, counter);
             }
+            _build = b;
+            var isBigCount:Boolean = list.length > 9;
+            var type:int;
+            for (var i:int = 0; i<list.length; i++) {
+                if (isBigCount) type = int(i/4);
+                else type = int(i/3);
+                _arrItems[i].fillIt(list[i], i, type + 1);
+                _arrItems[i].clickCallback = onItemClick;
+            }
+            if (!isBigCount) {
+                _arrItems[9].fillIt(null, 9, CELL_GRAY);
+                _arrItems[10].fillIt(null, 10, CELL_GRAY);
+                _arrItems[11].fillIt(null, 11, CELL_GRAY);
+            }
+
+            _txtCostAll.text = String(_build.allCoinsCount);
+            _txtXpAll.text = String(_build.allXPCount);
+            showIt();
+            onItemClick(0);
+            checkBtn();
             _counter = counter;
             _txtCounter.text = TimeUtils.convertSecondsToStringClassic(_counter);
             g.gameDispatcher.addToTimer(checkCounter);

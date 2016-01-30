@@ -39,15 +39,17 @@ public class Cave extends AreaObject{
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-            _craftSprite = new Sprite();
-            _source.addChild(_craftSprite);
-            _arrCraftItems = [];
         }
+        _craftSprite = new Sprite();
+        _source.addChild(_craftSprite);
+        _arrCraftItems = [];
 
-        if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            addDoneBuilding();
-        } else if (_stateBuild == STATE_BUILD) {
-            addFoundationBuilding();
+        if (!g.isAway) {
+            if (_stateBuild == STATE_WAIT_ACTIVATE) {
+                addDoneBuilding();
+            } else if (_stateBuild == STATE_BUILD) {
+                addFoundationBuilding();
+            }
         }
     }
 
@@ -82,7 +84,38 @@ public class Cave extends AreaObject{
         try {
             createBuild();
             if (g.isAway) {
-
+                var ob:Object;
+                var ar:Array = g.visitedUser.userDataCity.objects;
+                for (var i:int=0; i<ar.length; i++) {
+                    if (_dataBuild.id == ar[i].buildId) {
+                        ob = ar[i];
+                        break;
+                    }
+                }
+                if (!ob) {
+                    _stateBuild = STATE_UNACTIVE;
+                    _armature.animation.gotoAndStop('close', 0);
+                    return;
+                }
+                if (ob.isOpen) {        // уже построенно и открыто
+                    _stateBuild = STATE_ACTIVE;
+                    _armature.animation.gotoAndStop('open', 0);
+                } else if (ob.isBuilded) {
+                    _leftBuildTime = Number(ob.timeBuildBuilding);  // сколько времени уже строится
+                    _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                    if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                        _stateBuild = STATE_WAIT_ACTIVATE;
+                        addDoneBuilding();
+                        _build.visible = false;
+                    } else {  // еще строится
+                        _stateBuild = STATE_BUILD;
+                        addFoundationBuilding();
+                        _build.visible = false;
+                    }
+                } else {
+                    _stateBuild = STATE_UNACTIVE;
+                    _armature.animation.gotoAndStop('close', 0);
+                }
             } else {
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто

@@ -38,6 +38,8 @@ public class AmbarIndicator {
 
     public function updateProgress():void {
         var percent:Number = g.userInventory.currentCountInAmbar/g.user.ambarMaxCount;
+        if (percent < 0) percent = 0;
+        if (percent > 1) percent = 1;
         _cont.y = _maxY + (1-percent)*(_minY - _maxY);
         imLenta.y = -(1-percent)*(_minY - _maxY);
         imBant.y = _cont.y;
