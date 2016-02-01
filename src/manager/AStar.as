@@ -12,7 +12,6 @@ import utils.MCScaler;
 public class AStar {
     protected var g:Vars = Vars.getInstance();
     private var matrix:Array;
-//    private var matrixXY:Array;
     private var ln:int;
     private var startX:int;
     private var startY:int;
@@ -22,6 +21,7 @@ public class AStar {
     private var closedList:Array;
     private var path:Array;
     private var callback:Function;
+    private var diagonals:Object;
 
     public function AStar() {}
 
@@ -36,8 +36,10 @@ public class AStar {
         path = [];
         if (g.isAway) {
             matrix = g.townArea.townAwayMatrix;
+            diagonals = g.townArea.awayDiagonalsObject;
         } else {
             matrix = g.townArea.townMatrix;
+            diagonals = g.townArea.diagonalsObject;
         }
         ln = matrix.length;
         openList[startX + " " + startY] = new AStarNode(startX, startY, 0, 0, null);
@@ -48,7 +50,7 @@ public class AStar {
             Cc.error('Error with makeSearch at AStar');
             g.woGameError.showIt();
             if (callback != null) {
-                callback.apply(null, [new Point(startX, startY)]);
+                callback.apply(null, [[new Point(startX, startY)]]);
                 callback = null;
                 path = [];
                 callback = null;
@@ -105,7 +107,12 @@ public class AStar {
 //                        showWallPoint(col, row);
                         continue;
                     }
+
                     if ((col >= 0 && col < ln) && (row >= 0 && row < ln) && (i != 0 || j != 0)) {
+                        // check not using buildings' diagonals
+                        if (diagonals[String(curNode.x) +'-'+ String(curNode.y) +'-'+ String(col) +'-'+ String(row)]
+                                || diagonals[String(col) +'-'+ String(row) +'-'+ String(curNode.x) +'-'+ String(curNode.y)]) continue;
+
                         if (closedList[col + " " + row] == null && openList[col + " " + row] == null) {
                             g = 10;
                             if (i != 0 && j != 0) {

@@ -51,6 +51,8 @@ public class TownArea extends Sprite {
     private var _townMatrix:Array;
     private var _townAwayMatrix:Array;
     private var _townTailMatrix:Array;
+    private var _objBuildingsDiagonals:Object; // object of building diagonals for aStar
+    private var _objAwayBuildingsDiagonals:Object; // object of away building diagonals for aStar
 
     protected var g:Vars = Vars.getInstance();
 
@@ -62,6 +64,8 @@ public class TownArea extends Sprite {
         _townMatrix = [];
         _townTailMatrix = [];
         _dataPreloaders = {};
+        _objBuildingsDiagonals = {};
+        _objAwayBuildingsDiagonals = {};
         _cont = g.cont.contentCont;
         _contTail = g.cont.tailCont;
 
@@ -86,6 +90,14 @@ public class TownArea extends Sprite {
 
     public function get townAwayMatrix():Array {
         return _townAwayMatrix;
+    }
+
+    public function get diagonalsObject():Object {
+        return _objBuildingsDiagonals;
+    }
+
+    public function get awayDiagonalsObject():Object {
+        return _objAwayBuildingsDiagonals;
     }
 
     public function getCityObjectsByType(buildType:int):Array {
@@ -208,6 +220,13 @@ public class TownArea extends Sprite {
                 }
             }
         }
+
+        if (sizeX > 1 && sizeY > 1) {  // write coordinates left->right && top->down
+            _objBuildingsDiagonals[String(posX) + '-' + String(posY+1) + '-' + String(posX+1) + '-' + String(posY)] = true;
+            _objBuildingsDiagonals[String(posX+sizeX-1) + '-' + String(posY) + '-' + String(posX+sizeX) + '-' + String(posY+1)] = true;
+            _objBuildingsDiagonals[String(posX) + '-' + String(posY+sizeY-1) + '-' + String(posX+1) + '-' + String(posY+sizeY)] = true;
+            _objBuildingsDiagonals[String(posX+sizeX-1) + '-' + String(posY+sizeY) + '-' + String(posX+sizeX) + '-' + String(posY+sizeY-1)] = true;
+        }
     }
 
     public function unFillMatrix(posX:int, posY:int, sizeX:int, sizeY:int):void {
@@ -217,6 +236,13 @@ public class TownArea extends Sprite {
                 _townMatrix[i][j].isFull = false;
                 _townMatrix[i][j].isWall = false;
             }
+        }
+
+        if (sizeX > 1 && sizeY > 1) {  // write coordinate left->right && top->down
+            delete _objBuildingsDiagonals[String(posX) + '-' + String(posY+1) + '-' + String(posX+1) + '-' + String(posY)];
+            delete _objBuildingsDiagonals[String(posX+sizeX-1) + '-' + String(posY) + '-' + String(posX+sizeX) + '-' + String(posY+1)];
+            delete _objBuildingsDiagonals[String(posX) + '-' + String(posY+sizeY-1) + '-' + String(posX+1) + '-' + String(posY+sizeY)];
+            delete _objBuildingsDiagonals[String(posX+sizeX-1) + '-' + String(posY+sizeY) + '-' + String(posX+sizeX) + '-' + String(posY+sizeY-1)];
         }
     }
 
@@ -742,6 +768,13 @@ public class TownArea extends Sprite {
                 }
             }
         }
+
+        if (sizeX > 1 && sizeY > 1) {  // write coordinates left->right && top->down
+            _objAwayBuildingsDiagonals[String(posX) + '-' + String(posY+1) + '-' + String(posX+1) + '-' + String(posY)] = true;
+            _objAwayBuildingsDiagonals[String(posX+sizeX-1) + '-' + String(posY) + '-' + String(posX+sizeX) + '-' + String(posY+1)] = true;
+            _objAwayBuildingsDiagonals[String(posX) + '-' + String(posY+sizeY-1) + '-' + String(posX+1) + '-' + String(posY+sizeY)] = true;
+            _objAwayBuildingsDiagonals[String(posX+sizeX-1) + '-' + String(posY+sizeY) + '-' + String(posX+sizeX) + '-' + String(posY+sizeY-1)] = true;
+        }
     }
 
     private function fillAwayMatrixWithFence(posX:int, posY:int, source:*):void {
@@ -1013,6 +1046,7 @@ public class TownArea extends Sprite {
         _cityAwayObjects = [];
         _cityAwayTailObjects = [];
         _townAwayMatrix = [];
+        _objAwayBuildingsDiagonals = {};
     }
 
     private function fillAwayTree(ob:Object):void {
