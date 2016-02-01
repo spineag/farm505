@@ -5,9 +5,15 @@ package windows.lockedLand {
 import build.lockedLand.LockedLand;
 
 import com.junkbyte.console.Cc;
+
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
+
 import manager.ManagerFilters;
 
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -26,6 +32,7 @@ public class WOLockedLand extends Window{
     private var _arrItems:Array;
     private var _btnOpen:CButton;
     private var _woBG:WindowBackground;
+    private var _armature:Armature;
 
     public function WOLockedLand() {
         super();
@@ -54,10 +61,6 @@ public class WOLockedLand extends Window{
         _btnOpen.y = -_woHeight/2 + 515;
         _source.addChild(_btnOpen);
 
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_right'));
-        im.x = -_woWidth/2 + 61;
-        im.y = -_woHeight/2 + 44;
-        _source.addChild(im);
         var pl:HintBackground = new HintBackground(310, 97, HintBackground.LONG_TRIANGLE, HintBackground.LEFT_CENTER);
         pl.x = -_woWidth/2 + 179;
         pl.y = -_woHeight/2 + 109;
@@ -65,9 +68,14 @@ public class WOLockedLand extends Window{
         _source.addChild(pl);
         txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.fonts['BloggerMedium'], 18, ManagerFilters.TEXT_BLUE);
         pl.inSprite.addChild(txt);
+        addAnimation();
     }
 
     public function onClickExit(e:Event=null):void {
+        _armature.animation.gotoAndStop('idle1', 0);
+        WorldClock.clock.remove(_armature);
+        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
+        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
         hideIt();
         clearIt();
         _btnOpen.clickCallback = null;
@@ -122,6 +130,9 @@ public class WOLockedLand extends Window{
         }
         checkBtn();
         super.showIt();
+
+        WorldClock.clock.add(_armature);
+        showAnimation();
     }
 
     private function clearIt():void {
@@ -152,6 +163,30 @@ public class WOLockedLand extends Window{
     private function onBtnOpen():void {
         _land.openIt();
         onClickExit();
+    }
+
+    private function addAnimation():void {
+        _armature = g.allData.factory['catCustomer'].buildArmature("cat_customer");
+        _armature.display.x = -150;
+        _armature.display.y = -150;
+        _armature.display.scaleX = -1;
+        _source.addChild(_armature.display as Sprite);
+    }
+
+    private function showAnimation(e:AnimationEvent = null):void {
+        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
+        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+
+        _armature.addEventListener(AnimationEvent.COMPLETE, showAnimation);
+        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+        var l:int = int(Math.random()*5);
+        switch (l) {
+            case 0: _armature.animation.gotoAndPlay('idle1'); break;
+            case 1: _armature.animation.gotoAndPlay('idle1'); break;
+            case 2: _armature.animation.gotoAndPlay('hi'); break;
+            case 3: _armature.animation.gotoAndPlay('idle_2'); break;
+            case 4: _armature.animation.gotoAndPlay('idle_3'); break;
+        }
     }
 
 }
