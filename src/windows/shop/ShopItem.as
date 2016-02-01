@@ -9,6 +9,9 @@ import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.tree.Tree;
 
+import com.greensock.TweenMax;
+import com.greensock.easing.Quad;
+
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
@@ -19,6 +22,8 @@ import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import resourceItem.UseMoneyMessage;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -37,6 +42,7 @@ import windows.WOComponents.CartonBackgroundIn;
 public class ShopItem {
     public var source:CSprite;
     private var _im:Image;
+    private var _imCont:Sprite;
     private var _nameTxt:TextField;
     private var _countTxt:TextField;
     private var _data:Object;
@@ -164,9 +170,13 @@ public class ShopItem {
                 return;
             }
             MCScaler.scale(_im, 120, 120);
-            _im.x = 72 - _im.width / 2;
-            _im.y = 90 - _im.height / 2;
-            source.addChildAt(_im, 1);
+            _imCont = new Sprite();
+            _im.x = - _im.width / 2;
+            _im.y = - _im.height / 2;
+            _imCont.addChild(_im);
+            _imCont.x = 72;
+            _imCont.y = 90;
+            source.addChildAt(_imCont, 1);
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
             g.woGameError.showIt();
@@ -406,14 +416,14 @@ public class ShopItem {
 
     public function clearIt():void {
         _im.filter = null;
-        while (source.numChildren) {
-            source.removeChildAt(0);
-        }
+        while (_imCont.numChildren) _imCont.removeChildAt(0);
+        while (source.numChildren)  source.removeChildAt(0);
         if (_lockedSprite){
             while (_lockedSprite.numChildren) {
                 _lockedSprite.removeChildAt(0);
             }
         }
+        _imCont = null;
         _lockedSprite = null;
         source = null;
     }
@@ -472,6 +482,7 @@ public class ShopItem {
             g.managerCats.onBuyCatFromShop();
             updateItem();
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(_data.cost));
+            showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
         } else if (_data.buildType != BuildType.ANIMAL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
@@ -495,6 +506,7 @@ public class ShopItem {
                     checkState();
                     g.bottomPanel.cancelBoolean(false);
                     g.woShop.updateMoneyCounts();
+                    showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
                     return;
                 }
             }
@@ -560,6 +572,18 @@ public class ShopItem {
             }
         }
         g.woShop.updateMoneyCounts();
+    }
+
+    private function showSmallAnimations(moneyType:int, count:int):void {
+        _imCont.scaleX = _imCont.scaleY = 1;
+        TweenMax.to(_imCont, .3, {scaleX: 1.3, scaleY:1.3, ease:Quad.easeOut, onComplete:showSmallAnimations2});
+        var p:Point = new Point(_imCont.x, _imCont.y + 30);
+        p = source.localToGlobal(p);
+        new UseMoneyMessage(p, moneyType, count, .3);
+    }
+
+    private function showSmallAnimations2():void {
+        TweenMax.to(_imCont, .3, {scaleX: 1, scaleY:1, ease:Quad.easeIn});
     }
 }
 }

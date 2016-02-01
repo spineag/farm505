@@ -3,6 +3,7 @@
  */
 package windows.shop {
 import flash.filters.GlowFilter;
+import flash.net.navigateToURL;
 
 import manager.ManagerFilters;
 
@@ -81,6 +82,7 @@ public class ShopTabBtn {
     public function activateIt(value:Boolean):void {
         source.visible = value;
         cloneSource.visible = !value;
+        if (!value) onOut();
     }
 
     public function setPosition(x:int, y:int, dX:int, dY:int):void {
