@@ -178,6 +178,7 @@ public class WOMarket  extends Window {
             } else {
                 item.source.y = -160;
             }
+
             _source.addChild(item.source);
             item.callbackFill = callbackItem;
             _arrItems.push(item);
@@ -211,6 +212,7 @@ public class WOMarket  extends Window {
             var n:int = 0;
             if (_curUser is NeighborBot) {
                 for (i = 0; i < _arrItems.length; i++) {
+                    _arrItems[i].friendAdd();
                     if (_curUser.marketItems[i]) {
                         if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
                         _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser);
@@ -219,6 +221,9 @@ public class WOMarket  extends Window {
                 return;
             }
             for (i=0; i < _arrItems.length; i++) {
+                if (_arrItems[i].isUser = _curUser != g.user) _arrItems[i].friendAdd();
+                else _arrItems[i].friendAdd(true);
+
                 if (_curUser.marketItems[i]) {
                     if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
                     n = _curUser.marketItems[i].numberCell;

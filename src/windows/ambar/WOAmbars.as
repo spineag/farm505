@@ -201,7 +201,7 @@ public class WOAmbars extends Window {
         _btnShowUpdate = new CButton();
         _btnShowUpdate.addButtonTexture(120, 40, CButton.GREEN, true);
         _btnShowUpdate.x = -_woWidth/2 + 430;
-        _btnShowUpdate.y = -_woHeight/2 + 509;
+        _btnShowUpdate.y = -_woHeight/2 + 514;
         _txtBtnShowUpdate = new TextField(90, 50, "Увеличить склад", g.allData.fonts['BloggerMedium'], 14, Color.WHITE);
         _txtBtnShowUpdate.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtBtnShowUpdate.x = 18;
@@ -220,7 +220,7 @@ public class WOAmbars extends Window {
         txt.y = -4;
         _btnBackFromUpdate.addChild(txt);
         _btnBackFromUpdate.x = -_woWidth/2 + 430;
-        _btnBackFromUpdate.y = -_woHeight/2 + 509;
+        _btnBackFromUpdate.y = -_woHeight/2 + 514;
         _source.addChild(_btnBackFromUpdate);
         _btnBackFromUpdate.clickCallback = showUsualState;
 

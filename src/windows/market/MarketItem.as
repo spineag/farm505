@@ -79,6 +79,8 @@ public class MarketItem {
         _txtAdditem.y = 30;
         _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.addChild(_txtAdditem);
+//        if (numberCell == 0) _txtAdditem.text = 'Добавить товар';
+
         _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _costTxt.y = 101;
@@ -332,7 +334,8 @@ public class MarketItem {
         _countResource = 0;
         _costTxt.text = '';
         _countTxt.text = '';
-        _txtAdditem.text = 'Добавить товар';
+        if (_isUser)_txtAdditem.text = 'Добавить товар';
+        else _txtAdditem.text = '';
         _data = null;
         _plawkaCoins.visible = false;
         _inPapper.visible = false;
@@ -341,14 +344,11 @@ public class MarketItem {
         _txtPlawka.visible = false;
     }
 
-    public function fillFromServer(obj:Object, p:Someone, friend:Boolean = false):void {
+    public function fillFromServer(obj:Object, p:Someone):void {
         _person = p;
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
         _inPapper.visible = _dataFromServer.inPapper;
-        if (friend) {
-            _txtAdditem.text = '';
-        }
         if (_dataFromServer.buyerId != '0') {
             if (_person.userSocialId == g.user.userSocialId) {
                 _plawkaSold.visible = false;
@@ -472,9 +472,9 @@ public class MarketItem {
         }
     }
 
-    public function friendAdd():void {
+    public function friendAdd(user:Boolean = false):void {
         _txtAdditem.text = '';
-        trace('loh');
+        if (user) _txtAdditem.text = 'Добавить товар';
     }
 }
 }

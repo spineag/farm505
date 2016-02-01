@@ -53,6 +53,10 @@ public class User extends Someone {
         arrTempUsers = [];
 
         neighbor = new NeighborBot();
+
+//        for (var i:int = 0; i < arrFriends.length; i++) {
+//            g.directServer.getFriendsInfo(int(arrFriends[i].userSocialId),arrFriends[i],null);
+//        }
     }
 
     public function checkUserLevel():void {

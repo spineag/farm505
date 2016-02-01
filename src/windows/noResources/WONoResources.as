@@ -346,5 +346,39 @@ public class WONoResources extends Window {
             _callbackBuy = null;
         }
     }
+
+//    public function showItPlant(data:Object, count:int, f:Function = null):void {
+//        showIt();
+////        _params = params;
+//        _dataResource = data;
+//        _callbackBuy = f;
+//        var im:WONoResourcesItem;
+//        im = new WONoResourcesItem();
+//        im.fillWithResource(data.id, 1);
+//        im.source.x =  - im.source.width/2;
+//        im.source.y = 0;
+//        _source.addChild(im.source);
+//        _arrItems.push(im);
+//        _count = int(data.priceHard);
+//        _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
+//        _btnBuy.clickCallback = onClickPlant;
+//
+//    }
+//
+//    private function onClickPlant():void {
+//        if (_count <= g.user.hardCurrency) {
+//            g.userInventory.addMoney(1, -_count);
+//        } else {
+//            g.woBuyCurrency.showItMenu(true);
+//            return;
+//        }
+//            g.userInventory.addResource(_dataResource.id,1);
+//
+//            if (_callbackBuy != null) {
+//                _callbackBuy.apply(null,[true]);
+//                _callbackBuy = null;
+//            }
+//    }
+
 }
 }

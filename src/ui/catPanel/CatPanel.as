@@ -38,7 +38,7 @@ public class CatPanel {
         im.x = -19;
         im.y = -5;
         _source.addChild(im);
-        _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BROWN);
+        _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BROWN);
 //        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.x = 10;
         _source.addChild(_txtCount);
@@ -50,7 +50,7 @@ public class CatPanel {
     }
 
     public function checkCat():void {
-        _txtCount.text = String(g.managerCats.countFreeCats);// + " / " + g.managerCats.curCountCats);
+        _txtCount.text = String(g.managerCats.countFreeCats + "/" + g.managerCats.curCountCats);
     }
 
     public function onResize():void {
