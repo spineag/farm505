@@ -46,7 +46,7 @@ public class OptionPanel {
     private var g:Vars = Vars.getInstance();
 
     public function OptionPanel() {
-        _arrCells = [.5, .62, .8, 1, 1.25, 1.55];
+        _arrCells = [/*.5,*/ .62, .8, 1, 1.25, 1.55];
         fillBtns();
     }
 

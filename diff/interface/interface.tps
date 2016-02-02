@@ -302,6 +302,7 @@
             <filename>storage_window_pr.png</filename>
             <filename>buttons_new</filename>
             <filename>coins_back.png</filename>
+            <filename>cat_shadow.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
