@@ -90,6 +90,8 @@ public class EmbedAssets {
     private const VisitPreloader:Class;
     [Embed(source = "../../assets/animations/plot_seller.png", mimeType = "application/octet-stream")]
     private const CatCustomer:Class;
+[Embed(source = "../../assets/animations/order_window.png", mimeType = "application/octet-stream")]
+    private const OrderWindow:Class;
 
     [Embed(source = "../../assets/animations/x1/bakery5.png", mimeType = "application/octet-stream")]
     private const BakeryFabrica:Class;
@@ -163,7 +165,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 28;
+        var count:int = 29;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -201,6 +203,7 @@ public class EmbedAssets {
         loadFactory('order', Orders, checkCount);
         loadFactory('visitPreloader', VisitPreloader, checkCount);
         loadFactory('catCustomer', CatCustomer, checkCount);
+        loadFactory('orderWindow', OrderWindow, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {
