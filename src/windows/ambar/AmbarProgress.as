@@ -41,7 +41,7 @@ public class AmbarProgress {
             source.addChild(imAmbar);
             imSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
             MCScaler.scale(imSklad, 50, 50);
-            imSklad.x = 411;
+            imSklad.x = 414;
             imSklad.y = 2;
             source.addChild(imSklad);
         }

@@ -27,12 +27,12 @@ public class FriendItem {
 
     public function FriendItem(f:Someone) {
         _person = f;
-        g.directServer.getFriendsInfo(int(_person.userSocialId),_person,newLevel);
         if (!_person) {
             Cc.error('FriendItem:: person == null');
             g.woGameError.showIt();
             return;
         }
+        g.directServer.getFriendsInfo(int(_person.userSocialId),_person,newLevel);
         source = new CSprite();
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
         MCScaler.scale(_ava, 50, 50);

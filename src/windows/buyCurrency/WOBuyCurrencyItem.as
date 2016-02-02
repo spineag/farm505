@@ -2,13 +2,20 @@
  * Created by user on 7/17/15.
  */
 package windows.buyCurrency {
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
+import com.greensock.loading.core.DisplayObjectLoader;
+
 import data.DataMoney;
 
 import flash.filters.GlowFilter;
+import flash.geom.Point;
 
 import manager.ManagerFilters;
 
 import manager.Vars;
+
+import resourceItem.DropItem;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -28,7 +35,6 @@ public class WOBuyCurrencyItem {
 
     public function WOBuyCurrencyItem(currency:int, count:int, profit:String, cost:int) {
         source = new Sprite();
-
         var _bg:Sprite = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_l'));
         _bg.addChild(im);
@@ -70,7 +76,25 @@ public class WOBuyCurrencyItem {
         btn.y = 31;
         source.addChild(btn);
         var onClick:Function = function():void {
-            g.userInventory.addMoney(currency, count);
+            var endPoint:Point;
+            var f1:Function = function():void {
+                g.userInventory.addMoney(currency, count);
+            };
+            var obj:Object;
+            obj = {};
+            obj.count = count;
+            var p:Point = new Point(source.x, source.y);
+            p = source.localToGlobal(p);
+
+            if (currency == DataMoney.HARD_CURRENCY) {
+                obj.id =  int(DataMoney.HARD_CURRENCY);
+                new DropItem(p.x, p.y, obj);
+            } else {
+                obj.id = int(DataMoney.SOFT_CURRENCY);
+                new DropItem(p.x, p.y, obj);
+            }
+
+
         };
         btn.clickCallback = onClick;
     }

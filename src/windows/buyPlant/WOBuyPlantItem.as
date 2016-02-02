@@ -99,7 +99,7 @@ public class WOBuyPlantItem {
 
     private function onClick(noResource:Boolean = false):void {
         if (noResource) _countPlants = 1;
-        if (source.alpha < .9) return;
+//        if (_dataPlant.blockByLevel > g.user.level) return;
         if (_countPlants <= 0) {
             g.woNoResources.showItMenu(_dataPlant,1,onClick);
             return;
