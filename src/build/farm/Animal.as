@@ -186,7 +186,7 @@ public class Animal {
 
                 new RawItem(p, texture, 1, 0);
                 if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
-                addRenderAnimation();
+                showFeedingAnimation();
                 onOut();
             } else {
                 onOut();
@@ -248,6 +248,19 @@ public class Animal {
 
     public function get animalData():Object {
         return _data;
+    }
+
+    private function showFeedingAnimation():void {
+        stopAnimation();
+        armature.addEventListener(AnimationEvent.COMPLETE, completeFeedingAnimation);
+        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, completeFeedingAnimation);
+        armature.animation.gotoAndPlay('feed');
+    }
+
+    private function completeFeedingAnimation(e:AnimationEvent):void {
+        armature.removeEventListener(AnimationEvent.COMPLETE, completeFeedingAnimation);
+        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeFeedingAnimation);
+        addRenderAnimation();
     }
 
     public function addRenderAnimation():void {
