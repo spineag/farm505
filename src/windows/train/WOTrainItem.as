@@ -151,10 +151,12 @@ public class WOTrainItem {
             _im = null;
         }
         source.endClickCallback = null;
-        _bg.filter = null;
-        source.removeChild(_bg);
-        _bg.dispose();
-        _bg = null;
+        if (_bg) {
+            _bg.filter = null;
+            source.removeChild(_bg);
+            _bg.dispose();
+            _bg = null;
+        }
     }
 
     public function activateIt(v:Boolean):void {

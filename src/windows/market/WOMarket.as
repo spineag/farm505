@@ -221,7 +221,7 @@ public class WOMarket  extends Window {
                 return;
             }
             for (i=0; i < _arrItems.length; i++) {
-                if (_arrItems[i].isUser = _curUser != g.user) _arrItems[i].friendAdd();
+                if (_curUser != g.user) _arrItems[i].friendAdd();
                 else _arrItems[i].friendAdd(true);
 
                 if (_curUser.marketItems[i]) {

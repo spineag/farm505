@@ -4,6 +4,12 @@
 package windows.orderWindow {
 import com.junkbyte.console.Cc;
 import data.DataMoney;
+
+import dragonBones.Armature;
+import dragonBones.Bone;
+import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
+
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.ManagerOrder;
@@ -43,6 +49,8 @@ public class WOOrder extends Window{
     private var _txtTimer:TextField;
     private var _waitForAnswer:Boolean;
     private var _btnSkipDelete:CButton;
+    private var _armatureCustomer:Armature;
+    private var _armatureSeller:Armature;
 
     public function WOOrder() {
         super ();
@@ -72,6 +80,7 @@ public class WOOrder extends Window{
         onItemClick(_arrItems[0]);
         super.showIt();
         _waitForAnswer = false;
+        startAnimationCats();
     }
 
     private function onClickExit(e:Event=null):void {
@@ -97,6 +106,7 @@ public class WOOrder extends Window{
         }
         _activeOrderItem = null;
         hideIt();
+        killCatsAnimations();
     }
 
     private function createRightBlock():void {
@@ -263,6 +273,7 @@ public class WOOrder extends Window{
         _waitForAnswer = true;
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), afterSell);
         g.bottomPanel.checkIsFullOrder();
+        animateCatsOnSell();
     }
 
     private function afterSell(order:Object):void {
@@ -279,21 +290,6 @@ public class WOOrder extends Window{
             onItemClick(_activeOrderItem);
         }
         g.bottomPanel.checkIsFullOrder();
-    }
-
-    private function createTopCats():void {
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_left'));
-        im.x = -382 + 220;
-        im.y = -285 + 21;
-        _source.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_right'));
-        im.x = -382 + 445;
-        im.y = -285 + 31;
-        _source.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_paket'));
-        im.x = -382 + 373;
-        im.y = -285 + 65;
-        _source.addChild(im);
     }
 
     private function fillList():void {
@@ -442,6 +438,99 @@ public class WOOrder extends Window{
 
     private function set setTimerText(c:int):void {
         _txtTimer.text = TimeUtils.convertSecondsForOrders(c);
+    }
+
+    private function createTopCats():void {
+        _armatureCustomer = g.allData.factory['orderWindow'].buildArmature("cat_customer");
+        _armatureSeller = g.allData.factory['orderWindow'].buildArmature("cat_seller");
+        _armatureCustomer.display.x = 110;
+        _armatureCustomer.display.y = -170;
+        _armatureSeller.display.x = -110;
+        _armatureSeller.display.y = -170;
+        _source.addChild(_armatureCustomer.display as Sprite);
+        _source.addChild(_armatureSeller.display as Sprite);
+        var viyi:Bone = _armatureSeller.getBone('viyi');
+        if (viyi) viyi.visible = false;
+        viyi = _armatureCustomer.getBone('viyi');
+        if (viyi) viyi.visible = false;
+    }
+
+    private function startAnimationCats():void {
+        WorldClock.clock.add(_armatureCustomer);
+        WorldClock.clock.add(_armatureSeller);
+        animateCustomerCat();
+        animateSellerCat();
+    }
+
+    private function animateCustomerCat(e:AnimationEvent=null):void {
+        if (_armatureCustomer.hasEventListener(AnimationEvent.COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
+        if (_armatureCustomer.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+
+        _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+        var l:int = int(Math.random()*6);
+        switch (l) {
+            case 0: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
+            case 1: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
+            case 2: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
+            case 3: _armatureCustomer.animation.gotoAndPlay('hi1'); break;
+            case 4: _armatureCustomer.animation.gotoAndPlay('hi2'); break;
+            case 5: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
+        }
+    }
+
+    private function animateSellerCat(e:AnimationEvent=null):void {
+        if (_armatureSeller.hasEventListener(AnimationEvent.COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerCat);
+        if (_armatureSeller.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+
+        _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+        var l:int = int(Math.random()*6);
+        switch (l) {
+            case 0: _armatureSeller.animation.gotoAndPlay('idle1'); break;
+            case 1: _armatureSeller.animation.gotoAndPlay('idle1'); break;
+            case 2: _armatureSeller.animation.gotoAndPlay('idle1'); break;
+            case 3: _armatureSeller.animation.gotoAndPlay('hi1'); break;
+            case 4: _armatureSeller.animation.gotoAndPlay('hi2'); break;
+            case 5: _armatureSeller.animation.gotoAndPlay('idle1'); break;
+        }
+    }
+
+    private function killCatsAnimations():void {
+        stopCatsAnimations();
+        WorldClock.clock.remove(_armatureCustomer);
+        WorldClock.clock.remove(_armatureSeller);
+    }
+
+    private function stopCatsAnimations():void {
+        _armatureCustomer.animation.gotoAndStop('idle1', 0);
+        _armatureSeller.animation.gotoAndStop('idle1', 0);
+        if (_armatureSeller.hasEventListener(AnimationEvent.COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerCat);
+        if (_armatureSeller.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+        if (_armatureCustomer.hasEventListener(AnimationEvent.COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
+        if (_armatureCustomer.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+    }
+
+    private function animateCatsOnSell():void {
+        stopCatsAnimations();
+        _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerOnSell);
+        _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerOnSell);
+        _armatureSeller.animation.gotoAndPlay('coin');
+        _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
+        _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
+        _armatureCustomer.animation.gotoAndPlay('love');
+    }
+
+    private function animateSellerOnSell(e:AnimationEvent):void {
+        _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerOnSell);
+        _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerOnSell);
+        animateSellerCat();
+    }
+
+    private function animateCustomerOnSell(e:AnimationEvent):void {
+        _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
+        _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
+        animateCustomerCat();
     }
 
 }

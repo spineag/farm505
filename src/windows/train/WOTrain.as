@@ -279,14 +279,14 @@ public class WOTrain extends Window {
             onItemClick(0);
             checkBtn();
             _counter = counter;
-            _txtCounter.text = TimeUtils.convertSecondsToStringClassic(_counter);
+            _txtCounter.text = TimeUtils.convertSecondsForOrders(_counter);
             g.gameDispatcher.addToTimer(checkCounter);
         }
     }
 
     private function checkCounter():void {
         _counter--;
-        _txtCounter.text = TimeUtils.convertSecondsToStringClassic(_counter);
+        _txtCounter.text = TimeUtils.convertSecondsForOrders(_counter);
     }
 
     private function addItems():void {

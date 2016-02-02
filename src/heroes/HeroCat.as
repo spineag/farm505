@@ -61,10 +61,21 @@ public class HeroCat extends BasicCat{
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);
         showFront(true);
+
+        addShadow();
     }
 
     public function get typeMan():int {
         return _type;
+    }
+
+    private function addShadow():void {
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_shadow'));
+        im.scaleX = im.scaleY = g.scaleFactor;
+        im.x = -44*g.scaleFactor;
+        im.y = -28*g.scaleFactor;
+        im.alpha = .5;
+        _source.addChild(im);
     }
 
     override public function showFront(v:Boolean):void {

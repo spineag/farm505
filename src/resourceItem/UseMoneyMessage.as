@@ -38,7 +38,7 @@ public class UseMoneyMessage {
         source.x = p.x;
         source.y = p.y;
         g.cont.animationsResourceCont.addChild(source);
-        TweenMax.to(source, 2, {y:p.y - 70, onComplete:onComplete, delay: delay});
+        TweenMax.to(source, 2, {y:p.y - 50, onComplete:onComplete, delay: delay});
     }
 
     private function onComplete():void {

@@ -3,6 +3,7 @@
  */
 package windows.shop {
 import build.AreaObject;
+import build.AreaObject;
 import build.WorldObject;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
@@ -659,6 +660,7 @@ public class ShopItem {
         } else {
             g.townArea.pasteBuild(build, _x, _y);
         }
+        showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, -int(_data.cost));
     }
 
     private function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void {
@@ -698,13 +700,19 @@ public class ShopItem {
     private function showSmallAnimations(moneyType:int, count:int):void {
         _imCont.scaleX = _imCont.scaleY = 1;
         TweenMax.to(_imCont, .3, {scaleX: 1.3, scaleY:1.3, ease:Quad.easeOut, onComplete:showSmallAnimations2});
-        var p:Point = new Point(_imCont.x, _imCont.y + 30);
+        var p:Point = new Point(_imCont.x, _imCont.y + 20);
         p = source.localToGlobal(p);
         new UseMoneyMessage(p, moneyType, count, .3);
     }
 
     private function showSmallAnimations2():void {
         TweenMax.to(_imCont, .3, {scaleX: 1, scaleY:1, ease:Quad.easeIn});
+    }
+
+    private function showSmallBuildAnimations(b:AreaObject, moneyType:int, count:int):void {
+        var p:Point = new Point((b as WorldObject).source.x, (b as WorldObject).source.y);
+        p = g.cont.contentCont.localToGlobal(p);
+        new UseMoneyMessage(p, moneyType, count, .3);
     }
 }
 }
