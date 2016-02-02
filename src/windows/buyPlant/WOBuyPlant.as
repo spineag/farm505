@@ -112,7 +112,12 @@ public class WOBuyPlant extends Window {
         }
     }
 
-    private function onClickItem(d:Object):void {
+    private function onClickItem(d:Object, r:Ridge = null):void {
+        if (g.userInventory.getCountResourceById(d.id) <= 0) {
+            g.woNoResources.showItMenu(d,1,onClickItem,_ridge);
+            return;
+        }
+        if (!_ridge) _ridge = r;
         if (g.managerPlantRidge.checkIsCat(d.id)) {
             _ridge.fillPlant(d);
             if (_callback != null) {

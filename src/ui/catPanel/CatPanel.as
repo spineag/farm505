@@ -28,7 +28,7 @@ public class CatPanel {
     public function CatPanel() {
         _source = new CSprite();
         var pl:HorizontalPlawka = new HorizontalPlawka(null, g.allData.atlas['interfaceAtlas'].getTexture('xp_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 80);
+                g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 90);
         _source.addChild(pl);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('circle'));
         im.x = -im.width/2;
@@ -40,7 +40,7 @@ public class CatPanel {
         _source.addChild(im);
         _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BROWN);
 //        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtCount.x = 10;
+        _txtCount.x = 15;
         _source.addChild(_txtCount);
         onResize();
         g.cont.interfaceCont.addChild(_source);
@@ -55,7 +55,7 @@ public class CatPanel {
 
     public function onResize():void {
         _source.y = 77;
-        _source.x = Starling.current.nativeStage.stageWidth - 90;
+        _source.x = Starling.current.nativeStage.stageWidth - 97;
     }
 
     private function onHover():void {

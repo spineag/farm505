@@ -149,7 +149,7 @@ public class WOFabrica extends Window {
                 obj.fabrica = _fabrica;
                 obj.callback = _callbackOnClick;
                 onClickExit();
-                g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count,onBuyResource, obj);
+                g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count,onBuyResource,null, obj);
                 return;
             }
         }

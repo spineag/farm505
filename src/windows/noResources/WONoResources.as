@@ -4,6 +4,8 @@
 package windows.noResources {
 
 
+import build.ridge.Ridge;
+
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
@@ -30,6 +32,7 @@ public class WONoResources extends Window {
     private var _countCost:int;
     private var _dataResource:Object;
     private var _callbackBuy:Function;
+    private var _ridge:Ridge;
     private var _params:Object;
 
     public function WONoResources() {
@@ -149,12 +152,13 @@ public class WONoResources extends Window {
         }
     }
 
-    public function showItMenu(data:Object, count:int, f:Function = null, params:Object = null):void {
+    public function showItMenu(data:Object, count:int, f:Function = null, r:Ridge = null, params:Object = null):void {
         createList(data, count);
         showIt();
         _params = params;
         _dataResource = data;
         _callbackBuy = f;
+        _ridge = r;
     }
 
     private function createList(_data:Object, count:int):void {
@@ -258,7 +262,7 @@ public class WONoResources extends Window {
             g.userInventory.addResource(_dataResource.id,1);
 
             if (_callbackBuy != null) {
-                _callbackBuy.apply(null,[true]);
+                _callbackBuy.apply(null, [_dataResource, _ridge]);
                 _callbackBuy = null;
             }
         } else if (_dataResource.ingridientsId) {

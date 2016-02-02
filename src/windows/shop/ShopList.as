@@ -185,7 +185,8 @@ public class ShopList {
             _itemsSprite.removeChildAt(0);
         }
         _itemsSprite.x = 0;
-        _shift = 0;
+
+//        _shift = 0;
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].clearIt();
         }

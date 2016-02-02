@@ -97,13 +97,8 @@ public class WOBuyPlantItem {
         _txtNumber.text = '';
     }
 
-    private function onClick(noResource:Boolean = false):void {
-        if (noResource) _countPlants = 1;
-//        if (_dataPlant.blockByLevel > g.user.level) return;
-        if (_countPlants <= 0) {
-            g.woNoResources.showItMenu(_dataPlant,1,onClick);
-            return;
-        }
+    private function onClick():void {
+        if (_dataPlant.blockByLevel > g.user.level) return;
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataPlant]);
         }

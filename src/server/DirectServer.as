@@ -366,8 +366,14 @@ public class DirectServer {
                 obj.buildType = int(d.message[i].build_type);
 
                 if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
-                if (d.message[i].currency) obj.currency = int(d.message[i].currency);
-                if (d.message[i].cost) obj.cost = int(d.message[i].cost);
+                if (d.message[i].currency) {
+                    obj.currency = String(d.message[i].currency).split('&');
+                    for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
+                }
+                if (d.message[i].cost) {
+                    obj.cost = String(d.message[i].cost).split('&');
+                    for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
+                }
                 if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
                 if (d.message[i].block_by_level) {
                     obj.blockByLevel = String(d.message[i].block_by_level).split('&');
