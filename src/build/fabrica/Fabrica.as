@@ -8,6 +8,7 @@ import data.BuildType;
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
 
 import flash.geom.Point;
 import heroes.BasicCat;
@@ -343,12 +344,31 @@ public class Fabrica extends AreaObject {
     }
 
     private function startAnimation():void {
-        _armature.animation.gotoAndPlay('work');
+        _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
+        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
         releaseHeroCatWoman();
+        chooseAnimation();
     }
 
     private function stopAnimation():void {
-       _armature.animation.gotoAndStop('idle', 0);
+        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, chooseAnimation);
+        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
+        _armature.animation.gotoAndStop('idle', 0);
+    }
+
+    private function chooseAnimation(e:AnimationEvent = null):void {
+        if (!_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
+        if (!_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
+
+        var k:int = int(Math.random()*6);
+        switch (k) {
+            case 0: _armature.animation.gotoAndPlay('idle1'); break;
+            case 1: _armature.animation.gotoAndPlay('idle1'); break;
+            case 2: _armature.animation.gotoAndPlay('idle1'); break;
+            case 3: _armature.animation.gotoAndPlay('idle2'); break;
+            case 4: _armature.animation.gotoAndPlay('idle3'); break;
+            case 5: _armature.animation.gotoAndPlay('idle4'); break;
+        }
     }
 
     override public function clearIt():void {
@@ -470,6 +490,8 @@ public class Fabrica extends AreaObject {
         var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
         var b:Bone = _armature.getBone(oldName);
         if (b) {
+            im.pivotX = b.display.pivotX;
+            im.pivotY = b.display.pivotY;
             b.display.dispose();
             b.display = im;
         } else {

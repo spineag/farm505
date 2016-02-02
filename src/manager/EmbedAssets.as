@@ -91,27 +91,27 @@ public class EmbedAssets {
     [Embed(source = "../../assets/animations/plot_seller.png", mimeType = "application/octet-stream")]
     private const CatCustomer:Class;
 
-    [Embed(source = "../../assets/animations/x1/bakery.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/bakery5.png", mimeType = "application/octet-stream")]
     private const BakeryFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/sugar_mill.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/sugar_mill3.png", mimeType = "application/octet-stream")]
     private const SugarMillFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/feed_mill.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/feed_mill3.png", mimeType = "application/octet-stream")]
     private const FeedMillFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/bbq_grill2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/bbq_grill3.png", mimeType = "application/octet-stream")]
     private const BbqGrillFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/dairy.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/dairy3.png", mimeType = "application/octet-stream")]
     private const DairyFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/pie_oven.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/pie_oven3.png", mimeType = "application/octet-stream")]
     private const PieOvenFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/juice_press.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/juice_press3.png", mimeType = "application/octet-stream")]
     private const JuicePressFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/loom2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/loom3.png", mimeType = "application/octet-stream")]
     private const LoomFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/pizza_maker.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/pizza_maker3.png", mimeType = "application/octet-stream")]
     private const PizzaMakerFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/smelter.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/smelter3.png", mimeType = "application/octet-stream")]
     private const SmelterFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/smoke_house.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/smoke_house3.png", mimeType = "application/octet-stream")]
     private const SmokeHouseFabrica:Class;
     [Embed(source = "../../assets/animations/x1/mine.png", mimeType = "application/octet-stream")]
     private const Cave:Class;
