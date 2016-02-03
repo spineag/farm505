@@ -3,6 +3,8 @@
  */
 package windows.orderWindow {
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
 import data.DataMoney;
 
 import dragonBones.Armature;
@@ -240,6 +242,13 @@ public class WOOrder extends Window{
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
                 if (!_arrResourceItems[i].isChecked()) {
                     g.woNoResources.showItOrder(_activeOrderItem.getOrder(), sellOrder);
+                    return;
+                }
+            }
+            for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
+                if (_activeOrderItem.getOrder().resourceCounts[i] == g.userInventory.getCountResourceById(_activeOrderItem.getOrder().resourceIds[i])
+                        && g.dataResource.objectResources[_activeOrderItem.getOrder().resourceIds[i]].buildType == BuildType.PLANT) {
+                    g.woLastResource.showItOrder(_activeOrderItem.getOrder(), sellOrder);
                     return;
                 }
             }

@@ -307,6 +307,7 @@
             <filename>buttons_new</filename>
             <filename>coins_back.png</filename>
             <filename>cat_shadow.png</filename>
+            <filename>basket_big.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

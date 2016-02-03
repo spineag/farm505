@@ -98,6 +98,7 @@ import windows.reloadPage.WOReloadPage;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
 import windows.train.WOTrainOrder;
+import windows.train.WOTrainSend;
 
 public class Vars {
     private static var _instance:Vars;
@@ -198,6 +199,7 @@ public class Vars {
     public var woAmbarFilled:WOAmbarFilled;
     public var woLastResource:WOLastResource;
     public var woTrainOrder:WOTrainOrder;
+    public var woTrainSend:WOTrainSend;
     public var woLockedLand:WOLockedLand;
     public var windowsPool:Array;
     public var woGameError:WOGameError;
@@ -423,6 +425,7 @@ public class Vars {
         woCave = new WOCave();
         woTrain = new WOTrain();
         woNoResources = new WONoResources();
+        woLastResource = new WOLastResource();
         woNoPlaces = new WONoPlaces();
         woBuyPlant = new WOBuyPlant();
         woFabrica = new WOFabrica();
@@ -436,13 +439,12 @@ public class Vars {
         woDailyBonus = new WODailyBonus();
         woPaper = new WOPaper();
         woAmbarFilled = new WOAmbarFilled();
-        woLastResource = new WOLastResource();
         woTrainOrder = new WOTrainOrder();
+        woTrainSend = new WOTrainSend();
         woLockedLand = new WOLockedLand();
         woNoFreeCats = new WONoFreeCats();
         woWaitFreeCats = new WOWaitFreeCats();
         woBuyForHardCurrency = new WOBuyForHardCurrency();
-
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         managerPaper.getPaperItems();

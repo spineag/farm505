@@ -644,6 +644,7 @@ public class ShopItem {
             var localPoint:Point = new Point( cont.x,cont.y);
             localPoint = cont.parent.localToGlobal(localPoint);
             new XPStar(localPoint.x, localPoint.y, _data.xpForBuild);
+
         }
         (build as WorldObject).source.filter = null;
         if (_data.currency.length > 1) {

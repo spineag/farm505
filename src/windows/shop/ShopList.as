@@ -23,6 +23,7 @@ import utils.CSprite;
 
 public class ShopList {
     private var _arrItems:Array;
+    private var _decor:Boolean;
     private var _leftArrow:CButton;
     private var _rightArrow:CButton;
     private var _shift:int;
@@ -81,7 +82,7 @@ public class ShopList {
         var ar2:Array = [];
         var obj:Object;
         var b:Boolean;
-
+        _decor = false;
         for (var j:int = 0; j < arr.length; j++) {
             var maxCount:int = 0;
             var curCount:int = 0;
@@ -138,6 +139,7 @@ public class ShopList {
             } else if (arr[j].buildType == BuildType.DECOR || arr[j].buildType == BuildType.DECOR_FULL_FENСE ||
                     arr[j].buildType == BuildType.DECOR_POST_FENCE || arr[j].buildType == BuildType.DECOR_TAIL) {
                 b = true;
+                _decor = true;
                 ar.push(arr[j]);
             } else if (arr[j].buildType == BuildType.ANIMAL) {
                 b = false;
@@ -180,13 +182,21 @@ public class ShopList {
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
     }
 
-    public function clearIt():void {
+    public function clearIt(b:Boolean = false):void {
         while (_itemsSprite.numChildren) {
             _itemsSprite.removeChildAt(0);
         }
         _itemsSprite.x = 0;
-
-//        _shift = 0;
+        if (!b && !_decor) {
+            _shift = 0;
+            animList();
+        } else if (b && _decor){
+            animList();
+//            _decor = false;
+        } if (!b && _decor) {
+            _shift = 0;
+            animList();
+        }
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].clearIt();
         }
