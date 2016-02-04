@@ -74,7 +74,7 @@ public class WOShop extends Window{
     }
 
     public function onClickExit(e:Event=null):void {
-        _shopList.clearIt();
+        _shopList.clearIt(true);
         hideIt();
     }
 
@@ -168,7 +168,12 @@ public class WOShop extends Window{
                 }
                 break;
         }
-        _shopList.clearIt();
+        if (a == 5) {
+            _shopList.clearIt(true);
+
+        } else {
+            _shopList.clearIt();
+        }
         _shopList.fillIt(arr);
     }
 

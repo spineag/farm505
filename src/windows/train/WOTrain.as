@@ -3,6 +3,9 @@
  */
 package windows.train {
 import build.train.Train;
+
+import data.BuildType;
+
 import flash.geom.Point;
 import manager.ManagerFilters;
 
@@ -51,6 +54,7 @@ public class WOTrain extends Window {
     private var _txtCostAll:TextField;
     private var _txtXpAll:TextField;
     public var _imageItem:Image;
+    private var _lock:int;
 
     public function WOTrain() {
         super ();
@@ -343,9 +347,13 @@ public class WOTrain extends Window {
         _rightBlock.addChild(_imageItem);
     }
 
-    private function onResourceLoad():void {
+    private function onResourceLoad(lastResource:Boolean = false):void {
         if (_activeItemIndex == -1) return;
-
+        if (!lastResource && _arrItems[_activeItemIndex].countFree == g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)
+                && g.dataResource.objectResources[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT ) {
+            g.woLastResource.showItMarket(_arrItems[_activeItemIndex].idFree,onResourceLoad);
+            return;
+        }
         if (_arrItems[_activeItemIndex].canFull) {
             _arrItems[_activeItemIndex].fullIt();
         }
@@ -380,17 +388,27 @@ public class WOTrain extends Window {
 //                return;
 //            }
 //        }
+        _lock = 0;
         for (i = 0; i<_arrItems.length; i++) {
             if (!_arrItems[i].isResourceLoaded) {
-                _btn.alpha = .5;
-                return;
+                _lock++;
             }
+        }
+        if (_lock == _arrItems.length) {
+            _btn.alpha = 1;
+        } else {
+            _btn.alpha = .5;
+            return;
         }
         _btn.alpha = 1;
         _btn.clickCallback = fullTrain;
     }
 
-    private function fullTrain():void {
+    private function fullTrain(b:Boolean = false):void {
+        if (!b) {
+            if (_lock == _arrItems.length) g.woTrainSend.showItTrain(fullTrain);
+            return;
+        }
         var p:Point = new Point(_btn.width/2, _btn.height/2);
         p = _btn.localToGlobal(p);
         (_build as Train).fullTrain(p);

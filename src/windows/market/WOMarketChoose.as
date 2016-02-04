@@ -2,6 +2,8 @@ package windows.market {
 
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import manager.ManagerFilters;
 
 import starling.display.Image;
@@ -439,9 +441,15 @@ public class WOMarketChoose extends Window {
 
     }
 
-    private function onClickBtnSell():void {
+    private function onClickBtnSell(resource:Boolean = false):void {
         g.woMarket.refreshMarket();
         if (_curResourceId > 0) {
+            if (!resource) {
+                if (g.dataResource.objectResources[_curResourceId].buildType == BuildType.PLANT && _countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId)) {
+                    g.woLastResource.showItMarket(_curResourceId,onClickBtnSell);
+                return;
+                }
+            }
             unfillItems();
             _scrollSprite.resetAll();
             hideIt();

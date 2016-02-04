@@ -38,7 +38,7 @@ public class WOBuyForHardCurrency extends Window{
         _contBtnNo = new CButton();
         _contBtnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
         _contBtnYes = new CButton();
-        _contBtnYes.addButtonTexture(80, 40, CButton.YELLOW, true);
+        _contBtnYes.addButtonTexture(80, 40, CButton.GREEN, true);
         var txt:TextField;
         txt = new TextField(50,50,"Да",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
