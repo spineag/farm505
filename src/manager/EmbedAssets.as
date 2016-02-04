@@ -74,6 +74,8 @@ public class EmbedAssets {
     private const BuildingTrees:Class;
     [Embed(source = "../../assets/animations/x1/plants.png", mimeType = "application/octet-stream")]
     private const BuildingPlants:Class;
+    [Embed(source = "../../assets/animations/x1/tools.png", mimeType = "application/octet-stream")]
+    private const RemoveWild:Class;
 
     [Embed(source = "../../assets/animations/x1/beehive.png", mimeType = "application/octet-stream")]
     private const Beehive:Class;
@@ -90,7 +92,7 @@ public class EmbedAssets {
     private const VisitPreloader:Class;
     [Embed(source = "../../assets/animations/plot_seller.png", mimeType = "application/octet-stream")]
     private const CatCustomer:Class;
-[Embed(source = "../../assets/animations/order_window.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/order_window.png", mimeType = "application/octet-stream")]
     private const OrderWindow:Class;
 
     [Embed(source = "../../assets/animations/x1/bakery5.png", mimeType = "application/octet-stream")]
@@ -165,7 +167,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 29;
+        var count:int = 30;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -204,6 +206,7 @@ public class EmbedAssets {
         loadFactory('visitPreloader', VisitPreloader, checkCount);
         loadFactory('catCustomer', CatCustomer, checkCount);
         loadFactory('orderWindow', OrderWindow, checkCount);
+        loadFactory('removeWild', RemoveWild, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

@@ -136,10 +136,6 @@ public class WildHint {
         if (g.userInventory.getCountResourceById(_id) <= 0){
             g.woNoResources.showItMenu(g.dataResource.objectResources[_id],1,onClick);
         } else {
-            g.userInventory.addResource(_id,-1);
-//            var start:Point = new Point(int(_source.x), int(_source.y));
-//            start = _source.parent.localToGlobal(start);
-            new XPStar(_source.x,_source.y,8);
             if (_deleteCallback != null) {
                 _deleteCallback.apply();
                 _deleteCallback = null;

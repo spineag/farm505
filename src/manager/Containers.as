@@ -114,7 +114,7 @@ public class Containers {
             p.x -= gameCont.x;
             p.y -= gameCont.y;
             p = g.matrixGrid.getStrongIndexFromXY(p);
-            g.deactivatedAreaManager.deactivatedTheArea(p.x, p.y);
+            g.deactivatedAreaManager.deactivateArea(p.x, p.y);
             return;
         }
 

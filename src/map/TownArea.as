@@ -181,27 +181,26 @@ public class TownArea extends Sprite {
     }
 
     public function setDefaultMatrix():void {
-        var arr:Array = g.matrixGrid.matrix;
         var ln:int = g.matrixGrid.matrixSize;
-
         for (var i:int = 0; i < ln; i++) {
             _townMatrix.push([]);
             _townTailMatrix.push([]);
             for (var j:int = 0; j < ln; j++) {
+                _townTailMatrix[i][j] = {build: null, inGame: true};
                 _townMatrix[i][j] = {};
-                _townTailMatrix[i][j] = {build: null};
-                if (arr[i][j].inGame) {
-                    _townMatrix[i][j].build = null;
-                    _townMatrix[i][j].buildFence = null;
-                    _townMatrix[i][j].isFull = false;
-                    _townMatrix[i][j].inGame = true;
-                    _townMatrix[i][j].isBlocked = false;
-                    _townMatrix[i][j].isWall = false;
-                } else {
-                    _townMatrix[i][j].inGame = false;
-                }
+                _townMatrix[i][j].build = null;
+                _townMatrix[i][j].buildFence = null;
+                _townMatrix[i][j].isFull = false;
+                _townMatrix[i][j].inGame = true;
+                _townMatrix[i][j].isBlocked = false; // ? propably it's old not used properties
+                _townMatrix[i][j].isWall = false;
             }
         }
+    }
+
+    public function addDeactivatedArea(posX:int, posY:int, isDeactivated:Boolean):void {
+        _townMatrix[posY][posX].inGame = !isDeactivated;
+        _townTailMatrix[posY][posX].inGame = !isDeactivated;
     }
 
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {

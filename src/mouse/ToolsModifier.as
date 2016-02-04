@@ -150,8 +150,12 @@ public class ToolsModifier {
                  if (im) _mouseIcon.addChild(im);
                 break;
              case ToolsModifier.GRID_DEACTIVATED:
-                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_tail'));
-                 if (im) _mouseIcon.addChild(im);
+                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_tile'));
+                 if (im) {
+                     im.x = -im.width/2 - 15;
+                     im.y = - 5 - 2;
+                     _mouseIcon.addChild(im);
+                 }
                 break;
             case ToolsModifier.PLANT_SEED:
                 if (_plantId <= 0) return;

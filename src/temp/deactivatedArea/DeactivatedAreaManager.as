@@ -2,83 +2,94 @@
  * Created by andy on 5/30/15.
  */
 package temp.deactivatedArea {
-import flash.display.BitmapData;
-import flash.display.Shape;
+import com.junkbyte.console.Cc;
+
 import flash.geom.Point;
-import flash.utils.setTimeout;
-
 import manager.Vars;
-
-import map.MatrixGrid;
-
 import mouse.ToolsModifier;
-
 import starling.display.Sprite;
-import starling.textures.Texture;
-
-import temp.deactivatedArea.DeactivatedArea;
 
 public class DeactivatedAreaManager {
-    private var _texture:Texture;
     private var _matrixSize:int;
     private var _townMatrix:Array; // матрица строений города
     private var _rombsArray:Array;
     private var _cont:Sprite;
+    private var _arrDeactivatedAreas:Array;
 
     private var g:Vars = Vars.getInstance();
 
     public function DeactivatedAreaManager() {
         _rombsArray = [];
         _matrixSize = g.matrixGrid.matrixSize;
-        _townMatrix = g.townArea.townMatrix;
-        _cont = g.cont.contentCont;
-        createTexture();
+        _townMatrix = g.townArea.townMatrix.slice();
+        _cont = g.cont.tailCont;
+        _arrDeactivatedAreas = [];
+        var area:DeactivatedArea;
+        var p:Point = new Point();
+        for (var i:int = 0; i < _matrixSize; i++) {
+            for (var j:int = 0; j < _matrixSize; j++) {
+                if (!_townMatrix[i][j].inGame) {
+                    area = new DeactivatedArea(j, i);
+                    p.x = j;
+                    p.y = i;
+                    p = g.matrixGrid.getXYFromIndex(p);
+                    area.source.x = p.x;
+                    area.source.y = p.y;
+                    _cont.addChild(area.source);
+                    _arrDeactivatedAreas.push(area);
+                }
+            }
+        }
     }
 
-    private function createTexture():void {
-        var sp:flash.display.Shape = new flash.display.Shape();
-        sp.graphics.beginFill(0xFF0000);
-        sp.graphics.moveTo(g.matrixGrid.DIAGONAL/2, 0);
-        sp.graphics.lineTo(0, g.matrixGrid.FACTOR/2);
-        sp.graphics.lineTo(g.matrixGrid.DIAGONAL/2, g.matrixGrid.FACTOR);
-        sp.graphics.lineTo(g.matrixGrid.DIAGONAL, g.matrixGrid.FACTOR/2);
-        sp.graphics.lineTo(g.matrixGrid.DIAGONAL/2, 0);
-        var BMP:BitmapData = new BitmapData(g.matrixGrid.DIAGONAL, g.matrixGrid.FACTOR, true, 0x00000000);
-        BMP.draw(sp);
-        _texture = Texture.fromBitmapData(BMP);
+    public function clearIt():void {
+         for (var i:int=0; i<_arrDeactivatedAreas.length; i++) {
+             if (_cont.contains(_arrDeactivatedAreas[i].source)) {
+                 _cont.removeChild(_arrDeactivatedAreas[i].source);
+                 _arrDeactivatedAreas[i].clearIt();
+             }
+         }
+        _townMatrix.length = 0;
+        _arrDeactivatedAreas.length = 0;
     }
 
-    public function deactivatedTheArea(posX:int, posY:int):void { // add red romb
-        var obj:Object = _townMatrix[posY][posX];
-
-        if (!obj.inGame) return;
-        if (obj.isFull) return;
-        if (obj.isBlocked) return;
-
-        obj.isBlocked = true;
-
-        var area:DeactivatedArea = new DeactivatedArea(posX, posY, _texture, activateArea);
+    public function deactivateArea(posX:int, posY:int):void { // add red romb
+        if (!_townMatrix[posY][posX].inGame) {
+            activateArea(posX, posY);
+            return;
+        }
+        var area:DeactivatedArea = new DeactivatedArea(posX, posY);
+        _townMatrix[posY][posX].inGame = false;
+        g.townArea.addDeactivatedArea(posX, posY, true);
         var p:Point = new Point(posX, posY);
         p = g.matrixGrid.getXYFromIndex(p);
         area.source.x = p.x;
         area.source.y = p.y;
         _cont.addChild(area.source);
-        g.townArea.fillMatrix(posX, posY, 1, 1, area);
+        _arrDeactivatedAreas.push(area);
+        g.directServer.ME_addOutGameTile(posX, posY, null);
     }
 
-    private function activateArea(area:DeactivatedArea):void { // remove red romb
-        if (g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED) return;
-
+    private function activateArea(posX:int, posY:int):void { // remove red romb
+        var area:DeactivatedArea;
+        for (var i:int=0; i<_arrDeactivatedAreas.length; i++) {
+            if (_arrDeactivatedAreas[i].posX == posX && _arrDeactivatedAreas[i].posY == posY) {
+                area = _arrDeactivatedAreas[i];
+                break;
+            }
+        }
+        if (!area) {
+            Cc.error('No deactivated area at this point');
+            return;
+        }
         if (_cont.contains(area.source)) {
             _cont.removeChild(area.source);
         }
-//        var f:Function = function():void {
-            _townMatrix[area.posY][area.posX].isBlocked = false;
-            g.townArea.unFillMatrix(area.posX, area.posY, 1, 1);
-            area = null;
-//        };
-//        setTimeout(f, 50);
-
+        if (_arrDeactivatedAreas.indexOf(area) > -1) _arrDeactivatedAreas.splice(_arrDeactivatedAreas.indexOf(area), 1);
+        g.townArea.addDeactivatedArea(area.posX, area.posY, false);
+        g.directServer.ME_deleteOutGameTile(area.posX, area.posY, null);
+        area.clearIt();
+        area = null;
 
     }
 }

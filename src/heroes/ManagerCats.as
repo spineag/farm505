@@ -56,7 +56,7 @@ public class ManagerCats {
                 j = int(Math.random() * arr[0].length);
                 b++;
                 if (b>30) return new Point(0, 0);
-            } while (arr[i][j].isFull);
+            } while (arr[i][j].isFull || !arr[i][j].inGame);
             return new Point(j, i);
         } catch (e:Error) {
             Cc.error('ManagerCats getRandomFreeCell: ' + e.errorID + ' - ' + e.message);

@@ -6,6 +6,8 @@ import build.AreaObject;
 import build.lockedLand.LockedLand;
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 
 import mouse.ToolsModifier;
@@ -155,13 +157,20 @@ public class Wild extends AreaObject{
     }
 
     private function wildDelete():void {
-//        if (_dataBuild.xp) new XPStar(_source.x, _source.y, _dataBuild.xp);
         for (var i:int=0; i< g.user.userDataCity.objects.length; i++) {
             if (g.user.userDataCity.objects[i].dbId == _dbBuildingId) {
                 g.user.userDataCity.objects.splice(i, 1);
                 break;
             }
         }
+        new RemoveWildAnimation(_source, onEndAnimation, _dataBuild.removeByResourceId);
+    }
+
+    private function onEndAnimation():void {
+        g.userInventory.addResource(_dataBuild.removeByResourceId,-1);
+        var p:Point = new Point(_source.x, _source.y);
+        p = _source.parent.localToGlobal(p);
+        if (_dataBuild.xp) new XPStar(p.x,p.y, _dataBuild.xp);
         g.directServer.deleteUserWild(_dbBuildingId, null);
         g.townArea.deleteBuild(this);
     }

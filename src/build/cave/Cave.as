@@ -284,37 +284,55 @@ public class Cave extends AreaObject{
             var craftItem:CraftItem;
             var item:ResourceItem;
             _arrCraftItems = [];
-//            var bone:Bone = _armature.getBone('craft');
-//            _craftSprite.x = bone.display.x;
-//            _craftSprite.y = bone.display.y;
             _craftSprite.x = 104*g.scaleFactor;
             _craftSprite.y = 109*g.scaleFactor;
-            for (var i:int = 0; i < c; i++) {
+            var arr:Array = [];
+            for (var i:int=0; i<4; i++) {
+                if (g.dataResource.objectResources[_dataBuild.idResource[i]].blockByLevel <= g.user.level)
+                    arr.push(g.dataResource.objectResources[_dataBuild.idResource[i]]);
+            }
+            if (!arr.length) {
+                Cc.error('no items for craft from cave:: arr.length = 0');
+                return;
+            }
+            for (i = 0; i < c; i++) {
                 r = Math.random();
                 if (r < l1) {
                     item = new ResourceItem();
-                    item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[0]]);
+                    item.fillIt(arr[0]);
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
                     craftItem.addParticle();
                     _arrCraftItems.push(craftItem);
                 } else if (r < l2) {
                     item = new ResourceItem();
-                    item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[1]]);
+                    if (arr.length >= 2) {
+                        item.fillIt(arr[1]);
+                    } else {
+                        item.fillIt(arr[0]);
+                    }
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
                     craftItem.addParticle();
                     _arrCraftItems.push(craftItem);
                 } else if (r < l3) {
                     item = new ResourceItem();
-                    item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[2]]);
+                    if (arr.length >= 3) {
+                        item.fillIt(arr[2]);
+                    } else {
+                        item.fillIt(arr[int(Math.random()*arr.length)]);
+                    }
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
                     craftItem.addParticle();
                     _arrCraftItems.push(craftItem);
                 } else {
                     item = new ResourceItem();
-                    item.fillIt(g.dataResource.objectResources[_dataBuild.idResource[3]]);
+                    if (arr.length > 3) {
+                        item.fillIt(arr[3]);
+                    } else {
+                        item.fillIt(arr[int(Math.random()*arr.length)]);
+                    }
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
                     craftItem.addParticle();

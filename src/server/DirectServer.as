@@ -4017,5 +4017,159 @@ public class DirectServer {
             woError.showItParams('buyAndAddToInventory: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function ME_addOutGameTile(posX:int, posY:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_ADD_OUT_GAME_TILE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'ME_addOutGameTile', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.posX = posX;
+        variables.posY = posY;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteME_addOutGameTile);
+        function onCompleteME_addOutGameTile(e:Event):void { completeME_addOutGameTile(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('ME_addOutGameTile error:' + error.errorID);
+            woError.showItParams('ME_addOutGameTile error:' + error.errorID);
+        }
+    }
+
+    private function completeME_addOutGameTile(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('ME_addOutGameTile: wrong JSON:' + String(response));
+            woError.showItParams('ME_addOutGameTile: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'ME_addOutGameTile OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('ME_addOutGameTile: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('ME_addOutGameTile: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+        }
+    }
+
+    public function ME_deleteOutGameTile(posX:int, posY:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ME_DELETE_OUT_GAME_TILE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'ME_deleteOutGameTile', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.posX = posX;
+        variables.posY = posY;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteME_deleteOutGameTile);
+        function onCompleteME_deleteOutGameTile(e:Event):void { completeME_deleteOutGameTile(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('ME_deleteOutGameTile error:' + error.errorID);
+            woError.showItParams('ME_deleteOutGameTile error:' + error.errorID);
+        }
+    }
+
+    private function completeME_deleteOutGameTile(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('ME_deleteOutGameTile: wrong JSON:' + String(response));
+            woError.showItParams('ME_deleteOutGameTile: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'ME_deleteOutGameTile OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('ME_deleteOutGameTile: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('ME_deleteOutGameTile: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+        }
+    }
+
+    public function getDataOutGameTiles(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_DATA_OUT_GAME_TILES);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getDataOutGameTile', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetDataOutGameTile);
+        function onCompleteGetDataOutGameTile(e:Event):void { completeGetDataOutGameTile(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataOutGameTile error:' + error.errorID);
+            woError.showItParams('getDataOutGameTile error:' + error.errorID);
+        }
+    }
+
+    private function completeGetDataOutGameTile(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDataOutGameTile: wrong JSON:' + String(response));
+            woError.showItParams('getDataOutGameTile: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getDataOutGameTile OK', 5);
+            for (var i:int = 0; i < d.message.length; i++) {
+                g.townArea.addDeactivatedArea(int(d.message[i].pos_x), int(d.message[i].pos_y), true);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getDataOutGameTile: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('getDataOutGameTile: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+        }
+    }
 }
 }

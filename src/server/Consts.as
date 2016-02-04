@@ -62,6 +62,8 @@ public class Consts {
     public static var INQ_GET_ALL_CITY_DATA:String = 'getAllCityData.php';
     public static var INQ_BUY_HERO_CAT:String = 'buyHeroCat.php';
     public static var INQ_ME_ADD_WILD:String = 'ME_addWild.php';
+    public static var INQ_ME_ADD_OUT_GAME_TILE:String = 'ME_addOutGameTile.php';
+    public static var INQ_ME_DELETE_OUT_GAME_TILE:String = 'ME_deleteOutGameTile.php';
     public static var INQ_ME_REMOVE_WILD:String = 'ME_removeWild.php';
     public static var INQ_ME_MOVE_WILD:String = 'ME_moveWild.php';
     public static var INQ_ME_MOVE_MAP_BUILDING:String = 'ME_moveMapBuilding.php';
@@ -82,5 +84,6 @@ public class Consts {
     public static var INQ_DELETE_USER_ORDER:String = 'deleteUserOrder.php';
     public static var INQ_USE_DAILY_BONUS:String = 'useDailyBonus.php';
     public static var INQ_BUY_AND_ADD_TO_INVENTORY:String = 'buyAndAddToInventory.php';
+    public static var INQ_GET_DATA_OUT_GAME_TILES:String = 'getDataOutGameTiles.php';
 }
 }

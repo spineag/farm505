@@ -300,6 +300,10 @@ public class Vars {
 
     private function onAuthUser():void {
         startPreloader.setProgress(87);
+        directServer.getDataOutGameTiles(onGetOutGameTiles);
+    }
+
+    private function onGetOutGameTiles():void {
         directServer.getDataLevel(onDataLevel);
     }
 
@@ -493,6 +497,7 @@ public class Vars {
     }
 
     private function closeMapEditorInterface():void {
+        deactivatedAreaManager.clearIt();
         isActiveMapEditor = false;
         matrixGrid.deleteDebugGrid();
         mapEditor.deleteIt();
