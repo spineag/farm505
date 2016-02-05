@@ -176,13 +176,14 @@ public class ManagerPlantRidge {
                 break;
             }
         }
-
+            g.bottomPanel.cancelBoolean(true);
         if (b) {
             if (g.userInventory.getCountResourceById(g.toolsModifier.plantId) <= 0) b = false;  // cehak if there are at least one current resource for plant
         }
 
         if (!b) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.bottomPanel.cancelBoolean(false);
         }
     }
 

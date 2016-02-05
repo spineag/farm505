@@ -32,6 +32,7 @@ import manager.Vars;
 import mouse.ToolsModifier;
 
 import resourceItem.ResourceItem;
+import resourceItem.UseMoneyMessage;
 
 import starling.display.Sprite;
 
@@ -480,7 +481,26 @@ public class TownArea extends Sprite {
         // временно полная сортировка, далее нужно будет дописать "умную"
         if (updateAfterMove) zSort();
 
-        if (isNewAtMap && (worldObject is Ridge || worldObject is Tree)) {
+        if (isNewAtMap && (worldObject is Ridge || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)) {
+            var arr:Array;
+            if (worldObject is DecorTail) {
+                arr = g.townArea.getCityTailObjectsById(worldObject.dataBuild.id);
+                if (g.user.softCurrencyCount < arr.length * worldObject.dataBuild.deltaCost + worldObject.dataBuild.cost) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.bottomPanel.cancelBoolean(false);
+                    g.buyHint.hideIt();
+                    return;
+                }
+
+            } else {
+                arr = g.townArea.getCityObjectsById(worldObject.dataBuild.id);
+                    if (g.user.softCurrencyCount < arr.length * worldObject.dataBuild.deltaCost + worldObject.dataBuild.cost) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    }
+            }
             if (g.user.softCurrencyCount < worldObject.dataBuild.cost) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.bottomPanel.cancelBoolean(false);
@@ -489,10 +509,17 @@ public class TownArea extends Sprite {
             g.bottomPanel.cancelBoolean(true);
             if (worldObject is Ridge) {
                 g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
-            } else {
+            } else if (worldObject is Tree) {
                 g.toolsModifier.modifierType = ToolsModifier.PLANT_TREES;
+            } else if (worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail) {
+                g.toolsModifier.modifierType = ToolsModifier.MOVE;
+                g.buyHint.showIt(arr.length * worldObject.dataBuild.deltaCost + worldObject.dataBuild.cost);
+                var build:AreaObject = g.townArea.createNewBuild(worldObject.dataBuild);
+                g.selectedBuild = build;
+                (build as WorldObject).source.filter = null;
+                g.toolsModifier.startMove(build, afterMoveReturn, true);
+                return;
             }
-            var arr:Array;
             var curCount:int;
             var maxCount:int;
             var maxCountAtCurrentLevel:int = 0;
@@ -520,10 +547,29 @@ public class TownArea extends Sprite {
 
     private function afterMoveReturn(build:AreaObject, _x:Number, _y:Number):void {   // юзали для автоматической покупки грядок и деревьев
         (build as WorldObject).source.filter = null;
+
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (build is Tree) (build as Tree).removeShopView();
-        g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);
         pasteBuild(build, _x, _y);
+        var arr:Array;
+        if (build is Decor || build is DecorFence || build is DecorPostFence) {
+            arr = g.townArea.getCityObjectsById((build as WorldObject).dataBuild.id);
+            showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
+            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
+        } else if (build is DecorTail) {
+            arr = g.townArea.getCityTailObjectsById((build as WorldObject).dataBuild.id);
+            showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
+            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
+
+        } else {
+            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);
+        }
+    }
+
+    private function showSmallBuildAnimations(b:AreaObject, moneyType:int, count:int):void {
+        var p:Point = new Point((b as WorldObject).source.x, (b as WorldObject).source.y);
+        p = g.cont.contentCont.localToGlobal(p);
+        new UseMoneyMessage(p, moneyType, count, .3);
     }
 
     public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {

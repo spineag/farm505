@@ -125,7 +125,10 @@ public class Containers {
                 return;
             }
             if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
-                if (!_isDragged) g.toolsModifier.modifierType = ToolsModifier.NONE;
+                if (!_isDragged) {
+                    g.bottomPanel.cancelBoolean(false);
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                }
                 _isDragged = false;
                 return;
             }

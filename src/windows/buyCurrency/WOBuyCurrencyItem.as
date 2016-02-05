@@ -93,8 +93,6 @@ public class WOBuyCurrencyItem {
                 obj.id = int(DataMoney.SOFT_CURRENCY);
                 new DropItem(p.x, p.y, obj);
             }
-
-
         };
         btn.clickCallback = onClick;
     }

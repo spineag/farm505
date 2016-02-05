@@ -15,6 +15,8 @@ import dragonBones.animation.WorldClock;
 import heroes.HeroCat;
 import heroes.ManagerCats;
 
+import hint.BuyHint;
+
 import hint.MarketHint;
 
 import hint.ResourceHint;
@@ -164,6 +166,7 @@ public class Vars {
     public var timerHint:TimerHint;
     public var wildHint:WildHint;
     public var hint:Hint;
+    public var buyHint:BuyHint;
 //    public var farmHint:FarmHint;
     public var mouseHint:MouseHint;
     public var fabricHint:FabricHint;
@@ -402,6 +405,7 @@ public class Vars {
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();
+        buyHint = new BuyHint();
 //        farmHint = new FarmHint();
         mouseHint = new MouseHint();
         fabricHint = new FabricHint();

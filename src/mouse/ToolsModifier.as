@@ -34,6 +34,7 @@ public class ToolsModifier {
     public static var PLANT_TREES:int = 7;
     public static var GRID_DEACTIVATED:int = 8;
     public static var ADD_NEW_RIDGE:int = 9;
+    public static var ADD_NEW_DECOR:int = 10;
 
     private var _activeBuilding:AreaObject;
     private var _startMoveX:int;

@@ -21,24 +21,25 @@ public class MarketAllFriend {
 
     public function MarketAllFriend(_arrFriends:Array,_panel:WOMarket) {
         source = new Sprite();
-        source.x = -100;
-        _scrollSprite = new DefaultVerticalScrollSprite(200, 150, 84, 76);
-        _scrollSprite.source.x = 35;
+        source.x = -160;
+        _scrollSprite = new DefaultVerticalScrollSprite(275, 225, 76, 76);
+        _scrollSprite.source.x = 15;
         _scrollSprite.source.y = 55;
-        _scrollSprite.createScoll(285, 0, 200, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
-        var woWidth:int = 314;
+        _scrollSprite.createScoll(330, 0, 200, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+        var woWidth:int = 370;
         var woHeight:int = 0;
-        if (_arrFriends.length <= 3) {
+        if (_arrFriends.length <= 4) {
             woHeight = 143;
-        } else if (_arrFriends.length > 3 && _arrFriends.length <= 6) {
+        } else if (_arrFriends.length > 4 && _arrFriends.length <= 7) {
             woHeight = 218;
 //        } else if (_arrFriends.length > 6 && _arrFriends.length <= 9){
 //            woHeight = 300;
 
         } else {
-            woHeight = 218;
-//            woHeight = 300;
-            _scrollSprite.source.x = 12;
+//            woHeight = 218;
+            woHeight = 300;
+            source.y = -50;
+//            _scrollSprite.source.x = 20;
 
         }
         var c:CartonBackground = new CartonBackground(woWidth, woHeight);
@@ -49,10 +50,10 @@ public class MarketAllFriend {
             _scrollSprite.addNewCell(item.source);
         }
         source.addChild(_scrollSprite.source);
-        var txtPanel:TextField = new TextField(220, 25, 'Быстрый доступ к друзьям по игре:', g.allData.fonts['BloggerBold'], 13, Color.WHITE);
+        var txtPanel:TextField = new TextField(220, 25, 'Быстрый доступ к друзьям:', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txtPanel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txtPanel.x = 42;
-        txtPanel.y = 11;
+        txtPanel.x = 80;
+        txtPanel.y = 16;
         source.addChild(txtPanel);
         source.visible = false;
     }
