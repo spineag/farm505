@@ -17,6 +17,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 
+import user.Someone;
+
 import utils.CButton;
 
 import utils.CSprite;
@@ -31,7 +33,8 @@ public class FriendPanel {
     private var _rightArrow:CButton;
     private var _arrFriends:Array;
     private var _arrItems:Array;
-
+    private var _maxFriend:int;
+    private var _count:int;
     private var _shift:int;
 
     private var g:Vars = Vars.getInstance();
@@ -61,6 +64,8 @@ public class FriendPanel {
 
         createAddFriendBtn();
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
+        _maxFriend = 0;
+        _count = 0;
     }
 
     private function createAddFriendBtn():void {
@@ -156,17 +161,25 @@ public class FriendPanel {
 
     public function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
+        _arrFriends = g.user.arrFriends.slice();
+
+
+        for (var i:int = 0; i < _arrFriends.length; i++) {
+            _maxFriend ++;
+        }
+        createLevel();
+    }
+    private function sortFriend():void {
         var item:FriendItem;
         _arrItems = [];
         _shift = 0;
-        _arrFriends = g.user.arrFriends.slice();
+        _arrFriends.sortOn("level",  Array.NUMERIC);
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
         if (_arrFriends.length > 5) {
             createArrows();
             checkArrows();
         }
-        _arrFriends.sortOn("level", Array.DESCENDING | Array.NUMERIC);
         for (var i:int = 0; i < _arrFriends.length; i++) {
             item = new FriendItem(_arrFriends[i]);
             _arrItems.push(item);
@@ -175,7 +188,16 @@ public class FriendPanel {
             _cont.addChild(item.source);
         }
     }
-
+    private function createLevel():void {
+        if (_count == _maxFriend) {
+            sortFriend();
+            return;
+        }
+        var p:Someone = new Someone();
+        p = _arrFriends[_count];
+        g.directServer.getFriendsInfo(int(p.userSocialId),p,createLevel);
+        _count++;
+    }
     public function checkLevel():void {
         if (_arrFriends && _arrFriends.length) {
             for (var i:int = 0; i < _arrFriends.length; i++) {

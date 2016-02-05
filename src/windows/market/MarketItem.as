@@ -235,13 +235,13 @@ public class MarketItem {
                 } else {
                     g.directServer.buyFromMarket(_dataFromServer.id, null);
                     var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
-                    for (var j:int; j< arr.length; j++) {
+                    for (var j:int = 0; j< arr.length; j++) {
                         if (!arr[j].marketItems) continue;
                         for (i = 0; i < arr[j].marketItems.length; i++) {
-                            if (g.user.arrFriends[j].marketItems[i].id == _dataFromServer.id) {
-                                g.user.arrFriends[j].marketItems[i].buyerId = g.user.userId;
-                                g.user.arrFriends[j].marketItems[i].inPapper = false;
-                                g.user.arrFriends[j].marketItems[i].buyerSocialId = g.user.userSocialId;
+                            if (arr[j].marketItems[i].id == _dataFromServer.id) {
+                                arr[j].marketItems[i].buyerId = g.user.userId;
+                                arr[j].marketItems[i].inPapper = false;
+                                arr[j].marketItems[i].buyerSocialId = g.user.userSocialId;
                                 return;
                             }
                         }
@@ -279,6 +279,7 @@ public class MarketItem {
         g.woMarket.showIt();
         if (a > 0) {
             fillIt(g.dataResource.objectResources[a],count, cost);
+            _txtAdditem.text = '';
             _inPapper.visible = inPapper;
             g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
 //            g.woMarket.refreshMarket();
@@ -349,6 +350,7 @@ public class MarketItem {
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
         _inPapper.visible = _dataFromServer.inPapper;
+
         if (_dataFromServer.buyerId != '0') {
             if (_person.userSocialId == g.user.userSocialId) {
                 _plawkaSold.visible = false;
@@ -377,11 +379,11 @@ public class MarketItem {
                 _txtPlawka.y = 75;
 //                _txtPlawka.x = -5;
                 _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
+                _txtAdditem.text = '';
                 isFill = 3;
                 return;
             }
         }
-        if (!_isUser) _txtAdditem.text = '';
     }
 
     public function set isUser(value:Boolean):void {
@@ -473,8 +475,12 @@ public class MarketItem {
     }
 
     public function friendAdd(user:Boolean = false):void {
-        _txtAdditem.text = '';
-        if (user) _txtAdditem.text = 'Добавить товар';
+        if (!user)_txtAdditem.text = '';
+        else {
+            if (isFill == 1 ||  isFill == 2 ) {
+                _txtAdditem.text = '';
+            }else _txtAdditem.text = 'Добавить товар';
+        }
     }
 }
 }

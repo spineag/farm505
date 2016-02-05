@@ -16,8 +16,8 @@ import windows.Window;
 
 public class WOTrainSend extends Window{
     private var _woBG:WindowBackground;
-    private var _contYes;CButton;
-    private var _contNo;CButton;
+    private var _contYes:CButton;
+    private var _contNo:CButton;
     private var _callback:Function;
     public function WOTrainSend() {
         _woWidth = 460;
