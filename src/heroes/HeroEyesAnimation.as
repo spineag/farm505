@@ -16,7 +16,7 @@ public class HeroEyesAnimation {
     private var _armatureClip:Sprite;
     private var isAnimated:Boolean;
 
-    public function HeroEyesAnimation(fact:StarlingFactory, catArmature:Armature, isWoman:Boolean) {
+    public function HeroEyesAnimation(fact:StarlingFactory, catArmature:Armature, path:String, isWoman:Boolean = false) {
         isAnimated = false;
         _armatureEyes = fact.buildArmature("eyes");
 
@@ -26,11 +26,13 @@ public class HeroEyesAnimation {
         headBone.display = _armatureClip;
 
         var b:Bone;
+        var im:Image;
         if (isWoman) {
-            var im:Image = fact.getTextureDisplay('heads/head_w') as Image;
+            im = fact.getTextureDisplay(path) as Image;
             b = _armatureEyes.getBone('head');
             b.display.dispose();
             b.display = im;
+
             b = _armatureEyes.getBone('lid_r');
             im = fact.getTextureDisplay('eye/lid_r_w') as Image;
             b.display.dispose();
@@ -40,6 +42,12 @@ public class HeroEyesAnimation {
             b.display.dispose();
             b.display = im;
         } else {
+            if (path != 'heads/head_w') {
+                im = fact.getTextureDisplay(path) as Image;
+                b = _armatureEyes.getBone('head');
+                b.display.dispose();
+                b.display = im;
+            }
             b = _armatureEyes.getBone('vii');
             _armatureEyes.removeBone(b);
         }

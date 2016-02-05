@@ -27,6 +27,8 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import flash.geom.Point;
 import heroes.BasicCat;
+import heroes.OrderCat;
+
 import manager.Vars;
 
 import mouse.ToolsModifier;
@@ -104,7 +106,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat) continue;
                 if (_cityObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityObjects[i]);
             }
@@ -119,7 +121,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat) continue;
                 if (_cityObjects[i].dataBuild.id == id)
                     ar.push(_cityObjects[i]);
             }
@@ -134,7 +136,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat) continue;
                 if (_cityObjects[i] is Tree) {
                     if (checkLastState) {
                         if (_cityObjects[i].dataBuild.id == id && (_cityObjects[i] as Tree).stateTree != Tree.FULL_DEAD)
@@ -1033,7 +1035,7 @@ public class TownArea extends Sprite {
 
     private function clearAwayCity():void {
         for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-            if (_cityAwayObjects[i] is BasicCat) continue;
+            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
             _cont.removeChild(_cityAwayObjects[i].source);
             (_cityAwayObjects[i] as AreaObject).clearIt();
         }
@@ -1094,7 +1096,7 @@ public class TownArea extends Sprite {
 
     private function getAwayBuildingByDbId(dbId:int):WorldObject {
         for (var i:int=0; i<_cityAwayObjects.length; i++) {
-            if (_cityAwayObjects[i] is BasicCat) continue;
+            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
             if (_cityAwayObjects[i].dbBuildingId == dbId)
             return _cityAwayObjects[i];
         }
@@ -1154,6 +1156,24 @@ public class TownArea extends Sprite {
                 (_cityObjects[i].source as CSprite).isTouchable = !v;
             }
         }
+    }
+
+
+    // ----------------- ORDER CATS --------------------
+    public function addOrderCatToCont(cat:OrderCat):void {
+        _cont.addChild(cat.source);
+    }
+
+    public function removeOrderCatFromCont(cat:OrderCat):void {
+        _cont.removeChild(cat.source);
+    }
+
+    public function addOrderCatToCityObjects(cat:OrderCat):void {
+        _cityObjects.push(cat);
+    }
+
+    public function removeOrderCatFromCityObjects(cat:OrderCat):void {
+        if (_cityObjects.indexOf(cat) > -1) _cityObjects.splice(_cityObjects.indexOf(cat), 1);
     }
 }
 }

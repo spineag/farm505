@@ -14,6 +14,7 @@ import dragonBones.animation.WorldClock;
 
 import heroes.HeroCat;
 import heroes.ManagerCats;
+import heroes.ManagerOrderCats;
 
 import hint.MarketHint;
 
@@ -140,6 +141,7 @@ public class Vars {
     public var load:LoaderManager;
     public var pBitmaps:Object;
     public var managerOrder:ManagerOrder;
+    public var managerOrderCats:ManagerOrderCats;
     public var managerDailyBonus:ManagerDailyBonus;
 
     public var cont:Containers;
@@ -270,6 +272,7 @@ public class Vars {
 
         aStar = new AStar();
         managerCats = new ManagerCats();
+        managerOrderCats = new ManagerOrderCats();
         catPanel = new CatPanel();
         awayPreloader = new AwayPreloader();
 
@@ -389,6 +392,7 @@ public class Vars {
     }
 
     private function onUserOrder():void {
+        managerOrderCats.addCatsOnStartGame();
         startPreloader.setProgress(99);
         (user as User).friendAppUser();
         initVariables2();
@@ -521,7 +525,7 @@ public class Vars {
 
     public function updateAmbarIndicator():void {
         var a:WorldObject = townArea.getCityObjectsByType(BuildType.AMBAR)[0];
-        (a as Ambar).updateIndicatorProgress();
+        if (a) (a as Ambar).updateIndicatorProgress();
     }
 
 }
