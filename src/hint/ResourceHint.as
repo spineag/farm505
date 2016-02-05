@@ -68,10 +68,10 @@ public class ResourceHint {
             return;
         }
         isShowed = true;
-        var start:Point = new Point(int(sX), int(sY));
+        var start:Point = new Point(int(sX-2), int(sY - 20));
         start = source.parent.localToGlobal(start);
         _source.x = start.x + source.width/2;
-        _source.y = start.y + source.height + 5;
+        _source.y = start.y + source.height;
         if (fabr) {
             _txtText = new TextField(200,100,"Будет доступно на: " + g.dataRecipe.objectRecipe[_dataId].blockByLevel + ' уровне', g.allData.fonts['BloggerBold'],12,Color.WHITE);
             _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

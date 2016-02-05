@@ -32,7 +32,8 @@ public class FriendItem {
             g.woGameError.showIt();
             return;
         }
-        g.directServer.getFriendsInfo(int(_person.userSocialId),_person,newLevel);
+//        g.directServer.getFriendsInfo(int(_person.userSocialId),_person,newLevel);
+
         source = new CSprite();
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
         MCScaler.scale(_ava, 50, 50);
@@ -61,6 +62,13 @@ public class FriendItem {
         txtLvl.text = '1';
         txtLvl.x = 36;
         txtLvl.y = 50;
+        txtLvl.text = String(_person.level);
+//        trace(_person.level);
+        txtLvl.x = 36;
+        txtLvl.y = 50;
+        source.addChild(txtLvl);
+        if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
+        if (_person is NeighborBot) txtLvl.text = '10';
         _txt = new TextField(64, 30, "", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
         _txt.y = -5;
         _txt.x = -1;
@@ -135,15 +143,15 @@ public class FriendItem {
         source = null;
     }
 
-    public function newLevel():void {
-        txtLvl.text = String(_person.level);
-//        trace(_person.level);
-        txtLvl.x = 36;
-        txtLvl.y = 50;
-        source.addChild(txtLvl);
-        if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
-        if (_person is NeighborBot) txtLvl.text = '10';
-    }
+//    public function newLevel():void {
+//        txtLvl.text = String(_person.level);
+////        trace(_person.level);
+//        txtLvl.x = 36;
+//        txtLvl.y = 50;
+//        source.addChild(txtLvl);
+//        if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
+//        if (_person is NeighborBot) txtLvl.text = '10';
+//    }
 
 
 }

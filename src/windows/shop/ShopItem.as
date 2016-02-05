@@ -514,6 +514,7 @@ public class ShopItem {
     }
 
     private function onClick():void {
+        var i:int;
         if (_shopLimitSprite.visible) return;
 
         if (_data.buildType == BuildType.CAT) {
@@ -552,7 +553,7 @@ public class ShopItem {
                     return;
                 }
             } else {
-                for (var i:int = 0; i < _data.currency.length; i++) {
+                for (i = 0; i < _data.currency.length; i++) {
                     if (_data.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _data.cost[i]) {
                         g.woBuyCoupone.showItWO();
                         return;
@@ -615,7 +616,7 @@ public class ShopItem {
         } else {
             //додаємо на відповідну ферму
             var arr:Array = g.townArea.cityObjects;
-            for (var i:int = 0; i < arr.length; i++) {
+            for (i = 0; i < arr.length; i++) {
                 if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
                     (arr[i] as Farm).addAnimal();
                     g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost));

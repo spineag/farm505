@@ -122,7 +122,7 @@ public class WOMarket  extends Window {
 
     public function showItWithParams():void {
         createMarketTabBtns();
-        fillItems();
+//        fillItems();
 //        fillItemsByUser(g.user);
         showIt();
     }
@@ -133,7 +133,12 @@ public class WOMarket  extends Window {
                 _shiftFriend = i;
             }
         }
-        createMarketTabBtns();
+
+        if(_shiftFriend == 0) {
+            _curUser = p;
+//            g.user.arrTempUsers.push(_curUser);
+            createMarketTabBtns(true);
+        }else createMarketTabBtns();
         fillItemsByUser(p);
         showIt();
     }
@@ -210,6 +215,7 @@ public class WOMarket  extends Window {
         var i:int;
         try {
             var n:int = 0;
+//            unFillItems();
             if (_curUser is NeighborBot) {
                 for (i = 0; i < _arrItems.length; i++) {
                     _arrItems[i].friendAdd();
@@ -221,16 +227,18 @@ public class WOMarket  extends Window {
                 return;
             }
             for (i=0; i < _arrItems.length; i++) {
-                if (_curUser != g.user) _arrItems[i].friendAdd();
-                else _arrItems[i].friendAdd(true);
-
                 if (_curUser.marketItems[i]) {
+                    n = 0;
                     if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
                     n = _curUser.marketItems[i].numberCell;
                     _arrItems[n].fillFromServer(_curUser.marketItems[i], _curUser);
+                    _arrItems[i].isUser = _curUser == g.user;
                 } else {
                     _arrItems[i].isUser = _curUser == g.user;
                 }
+                if (_curUser != g.user) _arrItems[i].friendAdd();
+                if (_curUser == g.user)  _arrItems[i].friendAdd(true);
+//                _arrItems[n].friendAdd();
             }
         } catch (e:Error) {
             Cc.error('WOMarket fillItems:: error: ' + e.errorID + ' - ' + e.message);
@@ -259,8 +267,9 @@ public class WOMarket  extends Window {
 //        g.woMarket.refreshMarket();
     }
 
-    public function createMarketTabBtns():void {
-        _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
+    public function createMarketTabBtns(paper:Boolean = false):void {
+        if (paper) _txtName.text = _curUser.name + ' продает:';
+        else _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
         _source.addChild(_txtName);
         if (_arrFriends.length <= 2) {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
@@ -288,21 +297,33 @@ public class WOMarket  extends Window {
             _item2.source.width = _item2.source.height = 100;
             return;
         }
-
-        _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
-        _item.source.y = -180;
-        if (_arrFriends[_shiftFriend] == g.user) {
-            _item._visitBtn.visible = false;
-        } else _item._visitBtn.visible = true;
-        c = new CartonBackground(125, 115);
-        c.x = 208 - 5;
-        c.y = -185;
-        _cont.addChild(c);
-        _source.addChild(_item.source);
-        if (_shiftFriend + 2 >= _arrFriends.length) {
-            _shiftFriend = -1;
+        if (paper) {
+            _item = new MarketFriendItem(_curUser, this, 0);
+            _item.source.y = -180;
+            _item._visitBtn.visible = true;
+            c = new CartonBackground(125, 115);
+            c.x = 208 - 5;
+            c.y = -185;
+            _cont.addChild(c);
+            _source.addChild(_item.source);
+            if (_shiftFriend + 2 >= _arrFriends.length) {
+                _shiftFriend = -1;
+            }
+        } else {
+            _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
+            _item.source.y = -180;
+            if (_arrFriends[_shiftFriend] == g.user) {
+                _item._visitBtn.visible = false;
+            } else _item._visitBtn.visible = true;
+            c = new CartonBackground(125, 115);
+            c.x = 208 - 5;
+            c.y = -185;
+            _cont.addChild(c);
+            _source.addChild(_item.source);
+            if (_shiftFriend + 2 >= _arrFriends.length) {
+                _shiftFriend = -1;
+            }
         }
-
         _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
         _item2.source.y = 1 * 120 - 177;
         c = new CartonBackground(120, 110);
