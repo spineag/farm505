@@ -64,6 +64,8 @@ public class EmbedAssets {
 
     [Embed(source = "../../assets/animations/x1/cat.png", mimeType = "application/octet-stream")]
     private const CatData:Class;
+    [Embed(source = "../../assets/animations/x1/cat_queue.png", mimeType = "application/octet-stream")]
+    private const CatQueue:Class;
     [Embed(source = "../../assets/animations/x1/cat_watering_can.png", mimeType = "application/octet-stream")]
     private const CatWateringData:Class;
     [Embed(source = "../../assets/animations/x1/cat_feed.png", mimeType = "application/octet-stream")]
@@ -167,7 +169,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 30;
+        var count:int = 31;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -182,6 +184,7 @@ public class EmbedAssets {
         loadFactory('cat', CatData, checkCount);
         loadFactory('cat_watering', CatWateringData, checkCount);
         loadFactory('cat_feed', CatFeedData, checkCount);
+        loadFactory('cat_queue', CatQueue, checkCount);
         loadFactory('buildingBuild', BuildingBuild, checkCount);
         loadFactory('beehive', Beehive, checkCount);
         loadFactory('chicken', Chicken, checkCount);

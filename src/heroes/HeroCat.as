@@ -56,7 +56,7 @@ public class HeroCat extends BasicCat{
             releaseFrontWoman(armature);
             releaseBackWoman(armatureBack);
         }
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, _type == WOMAN);
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, 'heads/head_w', _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);
@@ -116,10 +116,10 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
-            heroEyes.startAnimations();
-            armature.animation.gotoAndPlay("walk");
-            armatureBack.animation.gotoAndPlay("walk");
-            super.walkAnimation();
+        heroEyes.startAnimations();
+        armature.animation.gotoAndPlay("walk");
+        armatureBack.animation.gotoAndPlay("walk");
+        super.walkAnimation();
     }
     override public function walkIdleAnimation():void {
         heroEyes.startAnimations();
@@ -128,16 +128,16 @@ public class HeroCat extends BasicCat{
         super.walkIdleAnimation();
     }
     override public function runAnimation():void {
-            heroEyes.startAnimations();
-            armature.animation.gotoAndPlay("run");
-            armatureBack.animation.gotoAndPlay("run");
-            super.runAnimation();
+        heroEyes.startAnimations();
+        armature.animation.gotoAndPlay("run");
+        armatureBack.animation.gotoAndPlay("run");
+        super.runAnimation();
     }
     override public function stopAnimation():void {
-            heroEyes.stopAnimations();
-            armature.animation.gotoAndStop("idle", 0);
-            armatureBack.animation.gotoAndStop("idle", 0);
-            super.stopAnimation();
+        heroEyes.stopAnimations();
+        armature.animation.gotoAndStop("idle", 0);
+        armatureBack.animation.gotoAndStop("idle", 0);
+        super.stopAnimation();
     }
     override public function idleAnimation():void {
         if (armatureWorker) return;
