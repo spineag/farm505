@@ -173,7 +173,7 @@ public class FriendPanel {
         var item:FriendItem;
         _arrItems = [];
         _shift = 0;
-        _arrFriends.sortOn("level",  Array.NUMERIC);
+        _arrFriends.sortOn("level",  Array.DESCENDING);
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
         if (_arrFriends.length > 5) {

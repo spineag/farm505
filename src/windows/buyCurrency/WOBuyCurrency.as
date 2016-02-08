@@ -90,6 +90,8 @@ public class WOBuyCurrency extends Window{
         _cloneTabHard.y = -280 + 49;
         _cloneTabHard.flatten();
         _cloneTabHard.endClickCallback = onClickHard;
+        _cloneTabHard.hoverCallback = onHoverHard;
+        _cloneTabHard.outCallback = onOutHard;
         _source.addChild(_cloneTabHard);
 
         _tabSoft = new Sprite();
@@ -125,6 +127,8 @@ public class WOBuyCurrency extends Window{
         _cloneTabSoft.y = -280 + 49;
         _cloneTabSoft.flatten();
         _cloneTabSoft.endClickCallback = onClickSoft;
+        _cloneTabSoft.hoverCallback = onHoverSoft;
+        _cloneTabSoft.outCallback = onOutSoft;
         _source.addChild(_cloneTabSoft);
     }
 
@@ -139,6 +143,15 @@ public class WOBuyCurrency extends Window{
         _cloneTabSoft.filter = ManagerFilters.SHADOW;
     }
 
+    private function onHoverHard():void {
+        _cloneTabHard.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+    }
+
+    private function onOutHard():void {
+        _cloneTabHard.filter = null;
+        _cloneTabHard.filter = ManagerFilters.SHADOW;
+    }
+
     private function onClickSoft():void {
         _contHard.visible = false;
         _contSoft.visible = true;
@@ -148,6 +161,15 @@ public class WOBuyCurrency extends Window{
         _tabSoft.visible = true;
         _cloneTabSoft.visible = false;
         _cloneTabSoft.filter = null;
+    }
+
+    private function onHoverSoft():void {
+        _cloneTabSoft.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+    }
+
+    private function onOutSoft():void {
+        _cloneTabSoft.filter = null;
+        _cloneTabSoft.filter = ManagerFilters.SHADOW;
     }
 
     private function onClickExit(e:Event=null):void {

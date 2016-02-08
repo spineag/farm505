@@ -376,11 +376,11 @@ public class ShopItem {
                     if (_state == STATE_FROM_INVENTORY) {
                         _countCost = 0;
                         _nameTxt.text = _data.name;
-                        _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(arr.length + 1);
+                        _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(g.userInventory.decorInventory[_data.id].count);
                         _btnActivationYellow.visible = true;
                     } else {
                         _countCost = arr.length * _data.deltaCost + _data.cost;
-                        _countCost = 5;
+//                        _countCost = 5;
                             if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
                                 _btnBuyBlue.visible = true;
                                 _txtBtnBuyBlue.text = String(_countCost);

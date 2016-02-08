@@ -89,7 +89,7 @@ public class WOTrainItem {
             g.woGameError.showIt();
             return;
         }
-        MCScaler.scale(_im, 50, 50);
+        MCScaler.scale(_im, 80, 80);
         _im.x = 45 - _im.width/2;
         _im.y = 45 - _im.height/2;
         source.addChild(_im);

@@ -256,7 +256,7 @@ public class WOTrain extends Window {
     public function showItWithParams(list:Array, b:Train, state:int, counter:int):void {
         if (!g.isAway) {
             if (state == Train.STATE_READY) {
-                _txt.text = 'Отправляется через:';
+                _txt.text = 'До отправления';
 
             } else {
                 _txt.text = 'До прибытия';

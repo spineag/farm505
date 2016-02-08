@@ -308,6 +308,10 @@
             <filename>coins_back.png</filename>
             <filename>cat_shadow.png</filename>
             <filename>basket_big.png</filename>
+            <filename>currency_buy_window.png</filename>
+            <filename>market_l1.png</filename>
+            <filename>market_l2.png</filename>
+            <filename>market_l3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

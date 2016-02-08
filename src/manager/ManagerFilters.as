@@ -32,6 +32,7 @@ public class ManagerFilters {
     public static var TEXT_STROKE_GREEN:Array = [new GlowFilter(TEXT_GREEN, 1, 3, 3, 5)];
     public static var TEXT_STROKE_YELLOW:Array = [new GlowFilter(TEXT_YELLOW, 1, 3, 3, 5)];
     public static var TEXT_STROKE_BLUE:Array = [new GlowFilter(TEXT_BLUE, 1, 3, 3, 5)];
+    public static var TEXT_STROKE_BLUE_BIG:Array = [new GlowFilter(TEXT_BLUE, 1, 4, 4, 5)];
     public static var TEXT_STROKE_LIGHT_BLUE:Array = [new GlowFilter(TEXT_LIGHT_BLUE, 1, 3, 3, 5)];
     public static var TEXT_STROKE_WHITE:Array = [new GlowFilter(Color.WHITE, 1, 3, 3, 5)];
     public static var TEXT_STROKE_BROWN:Array = [new GlowFilter(TEXT_BROWN, 1, 3, 3, 5)];

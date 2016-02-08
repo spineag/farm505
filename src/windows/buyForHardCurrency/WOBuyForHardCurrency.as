@@ -25,7 +25,7 @@ public class WOBuyForHardCurrency extends Window{
     private var _id:int;
     private var _count:int;
     private var _woBG:WindowBackground;
-    private var _txtCost:TextField;
+//    private var _txtCost:TextField;
 
     public function WOBuyForHardCurrency() {
         super();
@@ -41,7 +41,7 @@ public class WOBuyForHardCurrency extends Window{
         _contBtnYes.addButtonTexture(80, 40, CButton.GREEN, true);
         var txt:TextField;
         txt = new TextField(50,50,"Да",g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 15;
         txt.y = -5;
         _contBtnYes.addChild(txt);
@@ -50,20 +50,18 @@ public class WOBuyForHardCurrency extends Window{
         txt.x = 15;
         txt.y = -5;
         _contBtnNo.addChild(txt);
-        _txtCost = new TextField(280,50,'',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtCost.x = -150;
-        _txtCost.y = -32;
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        MCScaler.scale(im,40,40);
+//        _txtCost = new TextField(280,50,'',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+//        _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+//        _txtCost.x = -150;
+//        _txtCost.y = -32;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("currency_buy_window"));
         _source.addChild(im);
-        im.x = 100;
-        im.y = -30;
-        txt = new TextField(50,50,"?",g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txt.x = 118;
-        txt.y = -32;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        im.x = -50;
+        im.y = -60;
+        txt = new TextField(300,50,"Подтвердить покупку за рубины?",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE_BIG;
+        txt.x = -150;
+        txt.y = -100;
         _source.addChild(txt);
         txt = new TextField(300,100,"ПОДТВЕРЖДЕНИЕ ПОКУПКИ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -84,34 +82,34 @@ public class WOBuyForHardCurrency extends Window{
 
     private function onClickExit(e:Event=null):void {
         hideIt();
-        _source.removeChild(_txtCost);
+//        _source.removeChild(_txtCost);
     }
 
     public function showItWO(id:int,count:int):void {
         _id = id;
         _count = count - g.userInventory.getCountResourceById(id);
 
-        _txtCost.text = "Подтвердить покупку за " + String(count * g.dataResource.objectResources[id].priceHard);
-        _source.addChild(_txtCost);
+//        _txtCost.text = "Подтвердить покупку за " + String(count * g.dataResource.objectResources[id].priceHard);
+//        _source.addChild(_txtCost);
         showIt();
 
     }
 
     private function onYes():void {
         if (g.user.hardCurrency < _count * g.dataResource.objectResources[_id].priceHard) {
-            _source.removeChild(_txtCost);
+//            _source.removeChild(_txtCost);
             hideIt();
             return;
         }
         g.userInventory.addMoney(1,-_count * g.dataResource.objectResources[_id].priceHard);
         g.userInventory.addResource(_id,_count);
-        _source.removeChild(_txtCost);
+//        _source.removeChild(_txtCost);
         hideIt();
     }
 
     private function onNo():void {
         hideIt();
-        _source.removeChild(_txtCost);
+//        _source.removeChild(_txtCost);
     }
 }
 }

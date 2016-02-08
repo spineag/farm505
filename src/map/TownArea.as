@@ -552,14 +552,37 @@ public class TownArea extends Sprite {
 
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (build is Tree) (build as Tree).removeShopView();
+        if (build is Decor || build is DecorFence || build is DecorPostFence) {
+            arr = g.townArea.getCityObjectsById((build as WorldObject).dataBuild.id);
+            if (g.user.softCurrencyCount < arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                return;
+            }
+        } else if (build is DecorTail) {
+            arr = g.townArea.getCityTailObjectsById((build as WorldObject).dataBuild.id);
+            if (g.user.softCurrencyCount < arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                return;
+            }
+        }
         pasteBuild(build, _x, _y);
         var arr:Array;
         if (build is Decor || build is DecorFence || build is DecorPostFence) {
             arr = g.townArea.getCityObjectsById((build as WorldObject).dataBuild.id);
+            if (g.user.softCurrencyCount < arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost) {
+                return;
+            }
             showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
         } else if (build is DecorTail) {
             arr = g.townArea.getCityTailObjectsById((build as WorldObject).dataBuild.id);
+            if (g.user.softCurrencyCount < arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost) {
+                return;
+            }
             showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
 

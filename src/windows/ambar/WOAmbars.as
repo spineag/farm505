@@ -107,7 +107,15 @@ public class WOAmbars extends Window {
             checkTypes();
             updateItemsForUpdate();
         };
+        var hAmbar:Function = function():void {
+            _cloneTabAmbar.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+        };
+        var oAmbar:Function = function():void {
+            _cloneTabAmbar.filter = null;
+        };
         _cloneTabAmbar.endClickCallback = fAmbar;
+        _cloneTabAmbar.hoverCallback = hAmbar;
+        _cloneTabAmbar.outCallback = oAmbar;
 
         _cloneTabSklad = new CSprite();
         carton = new CartonBackground(122, 80);
@@ -133,7 +141,17 @@ public class WOAmbars extends Window {
             checkTypes();
             updateItemsForUpdate();
         };
+
+        var hSklad:Function = function():void {
+            _cloneTabSklad.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+        };
+
+        var oSklad:Function = function():void {
+            _cloneTabSklad.filter = null;
+        };
         _cloneTabSklad.endClickCallback = fSklad;
+        _cloneTabSklad.hoverCallback = hSklad;
+        _cloneTabSklad.outCallback = oSklad;
 
         _cartonSprite = new Sprite();
         var carton:CartonBackground = new CartonBackground(454, 332);

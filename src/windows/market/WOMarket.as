@@ -56,6 +56,7 @@ public class WOMarket  extends Window {
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _txtName:TextField;
     private var _panelBool:Boolean;
+    private var _callbackState:Function;
 
     public function WOMarket() {
         super ();
@@ -102,6 +103,7 @@ public class WOMarket  extends Window {
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         new Birka('РЫНОК', _source, _woWidth, _woHeight);
         _panelBool = false;
+
     }
 
     private function onClickExit(e:Event=null):void {
@@ -120,8 +122,9 @@ public class WOMarket  extends Window {
         _source.addChild(ma.source);
     }
 
-    public function showItWithParams():void {
+    public function showItWithParams(f:Function):void {
         createMarketTabBtns();
+        _callbackState = f;
 //        fillItems();
 //        fillItemsByUser(g.user);
         showIt();
@@ -136,27 +139,20 @@ public class WOMarket  extends Window {
 
         if(_shiftFriend == 0) {
             _curUser = p;
-//            g.user.arrTempUsers.push(_curUser);
             createMarketTabBtns(true);
         }else createMarketTabBtns();
         fillItemsByUser(p);
         showIt();
     }
-//    private function fillItemss():void {
-//        for (var i:int = 0; i < g.user.marketItems.length; i++) {
-//            if (g.user.marketItems[i].numberCell == i) {
-//                _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser,i);
-//            }
-//        }
-//    }
+
     override public function hideIt():void {
-//        _friendsPanel.checkRemoveAdditionalUser();
         _panelBool = false;
         deleteFriends();
         unFillItems();
         super.hideIt();
         closePanelFriend();
         _shiftFriend = 0;
+        callbackState();
     }
 
     public function resetAll():void {
@@ -374,6 +370,13 @@ public class WOMarket  extends Window {
     public function closePanelFriend():void {
         ma.hideIt();
         _panelBool = false;
+    }
+
+    public function callbackState():void {
+        if (_callbackState != null) {
+            _callbackState.apply(null);
+            _callbackState = null;
+        }
     }
 
 }
