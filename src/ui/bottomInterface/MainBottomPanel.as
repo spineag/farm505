@@ -196,6 +196,7 @@ public class MainBottomPanel {
                     _cancelBtn.visible = false;
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();
+                    g.buyHint.hideIt();
                 }
                 if (g.toolsPanel.isShowed) {
                     if (g.toolsPanel.repositoryBoxVisible) {

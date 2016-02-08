@@ -14,11 +14,18 @@ import map.TownArea;
 
 import mouse.ToolsModifier;
 
+import starling.display.Image;
+
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
-public class Market extends AreaObject{
+import utils.MCScaler;
 
+public class Market extends AreaObject{
+    private var _imCoins:Image;
+    private var _imItemOne:Image;
+    private var _imItemTwo:Image;
+    private var _arrItem:Array;
     public function Market(_data:Object) {
         super(_data);
         useIsometricOnly = false;
@@ -33,6 +40,26 @@ public class Market extends AreaObject{
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
         _source.releaseContDrag = true;
+        _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('market_l1'));
+        _imCoins.x = 19;
+        _imCoins.y = 7;
+        MCScaler.scale(_imCoins,55,55);
+        _imItemOne = new Image(g.allData.atlas['interfaceAtlas'].getTexture('market_l2'));
+        _imItemOne.x = -12;
+        _imItemOne.y = -14;
+        MCScaler.scale(_imItemOne,55,55);
+        _imItemTwo = new Image(g.allData.atlas['interfaceAtlas'].getTexture('market_l3'));
+        _imItemTwo.x = -45;
+        _imItemTwo.y = -27;
+        MCScaler.scale(_imItemTwo,55,55);
+        _source.addChild(_imItemTwo);
+        _source.addChild(_imItemOne);
+        _source.addChild(_imCoins);
+        _imItemTwo.visible = false;
+        _imItemOne.visible = false;
+        _imCoins.visible = false;
+        _arrItem = [];
+        marketState();
     }
 
     private function onHover():void {
@@ -80,7 +107,7 @@ public class Market extends AreaObject{
                 g.woMarket.showItPapper(g.visitedUser);
             } else {
                 g.woMarket.curUser = g.user;
-                g.woMarket.showItWithParams();
+                g.woMarket.showItWithParams(fillIt);
             }
 
             onOut();
@@ -100,5 +127,34 @@ public class Market extends AreaObject{
         super.clearIt();
     }
 
+    public function marketState():void {
+        g.directServer.getUserMarketItem(g.user.userSocialId,fillIt);
+    }
+
+    private function fillIt():void {
+        _arrItem = g.user.marketItems;
+        var coins:int = 0;
+        var res:int = 0;
+        for (var i:int = 0; i < _arrItem.length; i++) {
+            if (g.user.marketItems[i].buyerId != '0') {
+                coins++;
+            } else {
+                res ++;
+            }
+        }
+
+        if (coins > 0) {
+            _imCoins.visible = true;
+        } else {
+            _imCoins.visible = false;
+        }
+        if (res > 0) {
+            _imItemOne.visible = true;
+            _imItemTwo.visible = true;
+        } else {
+            _imItemOne.visible = false;
+            _imItemTwo.visible = false;
+        }
+    }
 }
 }

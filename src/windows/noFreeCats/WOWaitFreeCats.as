@@ -33,12 +33,12 @@ public class WOWaitFreeCats extends Window{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        _txtText = new TextField(300,200,"НЕТ СВОБОДНЫХ КОТОВ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        _txtText = new TextField(300,100,"НЕТ СВОБОДНЫХ КОТОВ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
         _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtText.touchable = false;
         _txtText.x = -150;
         _txtText.y = -155;
-        var txt:TextField = new TextField(300,100,'Все коты сейчас заняты! Подождите окончания другого производства!',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        var txt:TextField = new TextField(310,100,'Все коты сейчас заняты! Подождите окончания другого производства!',g.allData.fonts['BloggerBold'],14,Color.WHITE);
         txt.x = -160;
         txt.y = -120;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -52,6 +52,10 @@ public class WOWaitFreeCats extends Window{
         _txtBtn = new TextField(_contBtn.width,_contBtn.height,"ОК",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         _contBtn.addChild(_txtBtn);
+        var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
+        im.x = -70;
+        im.y = -70;
+        _source.addChild(im);
         _source.addChild(_txtText);
     }
 

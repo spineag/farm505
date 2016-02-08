@@ -233,6 +233,7 @@ public class ShopItem {
     }
 
     private function setInfo():void {
+//        if (_data.id == 68) return;
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
             if (!texture) {
@@ -375,10 +376,11 @@ public class ShopItem {
                     if (_state == STATE_FROM_INVENTORY) {
                         _countCost = 0;
                         _nameTxt.text = _data.name;
-                        _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(arr.length + 1);
+                        _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(g.userInventory.decorInventory[_data.id].count);
                         _btnActivationYellow.visible = true;
                     } else {
                         _countCost = arr.length * _data.deltaCost + _data.cost;
+//                        _countCost = 5;
                             if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
                                 _btnBuyBlue.visible = true;
                                 _txtBtnBuyBlue.text = String(_countCost);
@@ -527,7 +529,7 @@ public class ShopItem {
             new FlyMessage(p,"откроется на " + String(_data.blockByLevel) + " уровне");
             return;
         }
-        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (_data.currency.length == 1) {
                 if (_data.currency == DataMoney.SOFT_CURRENCY) {
                     if (g.user.softCurrencyCount < _countCost) {
@@ -569,6 +571,7 @@ public class ShopItem {
                     }
                 }
             }
+            g.buyHint.showIt(_countCost);
         } else {
             if (g.user.softCurrencyCount < _countCost){
                 g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);
@@ -633,8 +636,7 @@ public class ShopItem {
 
     private function afterMove(build:AreaObject,_x:Number, _y:Number):void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA
-                || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA) {//_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             g.bottomPanel.cancelBoolean(false);
         }
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
@@ -645,7 +647,6 @@ public class ShopItem {
             var localPoint:Point = new Point( cont.x,cont.y);
             localPoint = cont.parent.localToGlobal(localPoint);
             new XPStar(localPoint.x, localPoint.y, _data.xpForBuild);
-
         }
         (build as WorldObject).source.filter = null;
         if (_data.currency.length > 1) {
@@ -662,7 +663,7 @@ public class ShopItem {
         } else {
             g.townArea.pasteBuild(build, _x, _y);
         }
-        showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, -int(_data.cost));
+        showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, -_countCost);
     }
 
     private function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void {

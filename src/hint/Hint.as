@@ -23,7 +23,7 @@ public class Hint {
 
     public function Hint() {
         source = new Sprite();
-        _txtHint = new TextField(100,50,"", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtHint = new TextField(150,50,"", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtHint.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.touchable = false;
         _isShow = false;

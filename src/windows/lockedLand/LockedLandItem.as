@@ -133,7 +133,7 @@ public class LockedLandItem {
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
             btn.addChild(txt);
             btn.x = 362;
-            btn.y = 30;
+            btn.y = 25;
             source.addChild(btn);
 //            btn.endClickCallback = show;
             _isGood = false;

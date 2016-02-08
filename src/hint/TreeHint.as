@@ -92,7 +92,7 @@ public class TreeHint {
 
         _contDelete.addDisplayObject(_imageBgItem);
         _contWatering.addDisplayObject(_imageBgItemHelp);
-        _contWatering.addDisplayObject(_imageHelp);
+        _contWatering.addChild(_imageHelp);
         _source.addChild(_contWatering);
         _source.addChild(_contDelete);
         _source.addChild(_imageCircle);
@@ -148,7 +148,7 @@ public class TreeHint {
         _imageItem.y = -95;
         _imageItem.x = 5;
         _txtItem.text = String(g.userInventory.getCountResourceById(data.removeByResourceId));
-        _contDelete.addDisplayObject(_imageItem);
+        _contDelete.addChild(_imageItem);
         _source.addChild(_txtItem);
         g.cont.hintCont.addChild(_source);
 

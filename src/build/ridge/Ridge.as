@@ -96,7 +96,10 @@ public class Ridge extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        if (g.isActiveMapEditor || g.isAway) return;
+        if (g.isActiveMapEditor || g.isAway){
+            trace('away');
+            return;
+        }
         _source.filter = ManagerFilters.BUILD_STROKE;
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);

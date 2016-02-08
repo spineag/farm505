@@ -12,10 +12,13 @@ import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Quad;
+import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
+
+import utils.CButton;
 
 import utils.CSprite;
 import utils.MCScaler;
@@ -23,7 +26,8 @@ import utils.MCScaler;
 import windows.WOComponents.HintBackground;
 
 public class WildHint {
-    private var _source:CSprite;
+    private var _source:Sprite;
+    private var _btn:CButton;
     private var _isShowed:Boolean;
     private var _isOnHover:Boolean;
     private var _circle:Image;
@@ -40,15 +44,17 @@ public class WildHint {
     private var _onOutCallback:Function;
 
     public function WildHint() {
-        _source = new CSprite();
+        _source = new Sprite();
+        _btn = new CButton();
         _isShowed = false;
         _isOnHover = false;
         bg = new HintBackground(120, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(bg);
+        _source.addChild(_btn);
         _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
         _bgItem.x = -_bgItem.width/2;
         _bgItem.y = -_bgItem.height - 35;
-        _source.addChild(_bgItem);
+        _btn.addDisplayObject(_bgItem);
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
 
         _txtCount = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
@@ -62,9 +68,9 @@ public class WildHint {
         _source.addChild(_circle);
 
         _source.addChild(_txtName);
-        _source.endClickCallback = onClick;
-        _source.hoverCallback = onHover;
-        _source.outCallback = onOut;
+        _btn.clickCallback = onClick;
+        _btn.hoverCallback = onHover;
+        _btn.outCallback = onOut;
     }
 
     public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function):void {
@@ -99,7 +105,7 @@ public class WildHint {
         _iconResource.x = -_bgItem.width/2 +3;
         _iconResource.y = -_bgItem.height - 32;
         _source.addChild(_txtCount);
-        _source.addChild(_iconResource);
+        _btn.addChild(_iconResource);
         _source.x = x;
         _source.y = y;
         g.cont.hintGameCont.addChild(_source);
@@ -107,11 +113,12 @@ public class WildHint {
 
     public function hideIt():void {
         if (_isOnHover) return;
+
         _isShowed = false;
         if (g.cont.hintGameCont.contains(_source))
             g.cont.hintGameCont.removeChild(_source);
-        _source.removeChild(_iconResource);
         _source.removeChild(_quad);
+        _btn.removeChild(_iconResource);
         _iconResource = null;
         _height = 0;
 

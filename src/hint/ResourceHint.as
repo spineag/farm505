@@ -157,11 +157,11 @@ public class ResourceHint {
                 if (wText > wName) bg = new HintBackground(wText, 75, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
                 else bg = new HintBackground(wName, 75, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
                 _source.x = start.x + source.width/2;
-                _source.y = start.y - 5;
+                _source.y = start.y + 30;
                 _txtName.x = -100;
                 _txtName.y = -90;
                 _txtText.x = -100;
-                _txtText.y = -105;
+                _txtText.y = -100;
             } else {
                 if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
