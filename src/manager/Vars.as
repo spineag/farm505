@@ -388,6 +388,7 @@ public class Vars {
 
     private function onUserWild():void {
         managerOrder = new ManagerOrder();
+        managerOrder.updateMaxCounts();
         directServer.getUserOrder(onUserOrder);
     }
 

@@ -56,6 +56,7 @@ public class ManagerOrder {
     }
 
     public function addFromServer(ob:Object):void {
+        if (_arrOrders.length >= _curMaxCountOrders) return;
         var order:Object = {};
         order.dbId = ob.id;
         order.resourceIds = ob.ids.split('&');
@@ -70,7 +71,7 @@ public class ManagerOrder {
         _arrOrders.sortOn('placeNumber', Array.NUMERIC);
     }
 
-    private function updateMaxCounts():void {
+    public function updateMaxCounts():void {
         _curMaxCountOrders = 1;
         _curMaxCountResoureAtOrder = 1;
         for (var i:int=0; i<_countCellOnLevel.length; i++) {
@@ -340,13 +341,25 @@ public class ManagerOrder {
     public function sellOrder(order:Object, f:Function):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == order.dbId) {
+                g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat);
+                _arrOrders[i].cat = null;
                 _arrOrders.splice(i, 1);
                 break;
             }
         }
         if (i == _arrOrders.length) Cc.error('ManagerOrder cellOrder:: no order');
         g.directServer.deleteUserOrder(order.dbId, null);
-        addNewOrders(1, 0, f, order.placeNumber);
+        var pl:int = order.placeNumber;
+        order = null;
+        addNewOrders(1, 0, f, pl);
+        trace('place: ' + pl);
+        for (i=0; i<_arrOrders.length; i++) {
+            if (_arrOrders[i].placeNumber == pl) {
+                trace('add new cat');
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+                break;
+            }
+        }
     }
 
     public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled

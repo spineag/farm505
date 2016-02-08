@@ -93,6 +93,7 @@ public class WorldObject {
         point3d.z += g.matrixGrid.FACTOR * _sizeY * 0.5;
 
         _depth = point3d.x + point3d.z;
+        if (!useIsometricOnly) _depth -= 1000;
     }
 
     public function set enabled(value:Boolean):void { }
