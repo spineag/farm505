@@ -447,6 +447,11 @@ public class MarketItem {
 
 
     private function onHover():void {
+        if (isFill == 0 &&_isUser) {
+            if (_onHover) return;
+            _onHover = true;
+            _bg.filter = ManagerFilters.BUILD_STROKE;
+        }
         if (isFill == 1) {
             if (_onHover) return;
             _onHover = true;
@@ -456,6 +461,10 @@ public class MarketItem {
     }
 
     private function onOut():void {
+        if (isFill == 0 &&_isUser) {
+            _onHover = false;
+            _bg.filter = null;
+        }
         if (isFill == 1) {
             _onHover = false;
             g.marketHint.hideIt();

@@ -31,6 +31,7 @@ import utils.MCScaler;
 
 public class WOBuyCurrencyItem {
     public var source:Sprite;
+    private var _image:Image;
     private var g:Vars = Vars.getInstance();
 
     public function WOBuyCurrencyItem(currency:int, count:int, profit:String, cost:int) {
@@ -51,15 +52,15 @@ public class WOBuyCurrencyItem {
         source.addChild(_bg);
 
         if (currency == DataMoney.HARD_CURRENCY) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         } else {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+            _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         }
-        MCScaler.scale(im, 38, 38);
-        im.x = 15;
-        im.y = 9;
-        im.filter = ManagerFilters.SHADOW_TINY;
-        source.addChild(im);
+        MCScaler.scale(_image, 38, 38);
+        _image.x = 15;
+        _image.y = 9;
+        _image.filter = ManagerFilters.SHADOW_TINY;
+        source.addChild(_image);
 
         var txt:TextField = new TextField(135, 52, String(count), g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
@@ -83,8 +84,8 @@ public class WOBuyCurrencyItem {
             var obj:Object;
             obj = {};
             obj.count = count;
-            var p:Point = new Point(source.x, source.y);
-            p = source.localToGlobal(p);
+            var p:Point = new Point(_image.x, _image.y);
+            p = _image.localToGlobal(p);
 
             if (currency == DataMoney.HARD_CURRENCY) {
                 obj.id =  int(DataMoney.HARD_CURRENCY);

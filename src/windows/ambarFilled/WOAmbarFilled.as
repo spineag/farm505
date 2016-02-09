@@ -91,8 +91,10 @@ public class WOAmbarFilled extends Window{
         _source.removeChild(_imAmbarSklad);
         if (_bol == true) {
             g.woAmbars.showItWithParams(WOAmbars.AMBAR);
+            g.woAmbars.showUpdateState();
         } else {
             g.woAmbars.showItWithParams(WOAmbars.SKLAD);
+            g.woAmbars.showUpdateState();
         }
     }
 

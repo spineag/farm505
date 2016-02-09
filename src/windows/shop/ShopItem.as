@@ -571,14 +571,17 @@ public class ShopItem {
                     }
                 }
             }
-            g.buyHint.showIt(_countCost);
         } else {
             if (g.user.softCurrencyCount < _countCost){
                 g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);
                 return;
             }
         }
-
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+            if (_data.currency == DataMoney.SOFT_CURRENCY) {
+                g.buyHint.showIt(_countCost);
+            }
+        }
         var build:AreaObject;
         if (_data.buildType == BuildType.RIDGE) {
             build = g.townArea.createNewBuild(_data);
@@ -653,8 +656,21 @@ public class ShopItem {
             for (var i:int = 0; i< _data.currency.length; i++){
                 g.userInventory.addMoney(_data.currency[i], -_data.cost[i]);
             }
+            if (build is DecorTail) {
+                g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
+            } else {
+                g.townArea.pasteBuild(build, _x, _y,true,false,true);
+            }
+            return;
         }else {
-            g.userInventory.addMoney(_data.currency, -_countCost);
+            if (_data.currency != DataMoney.SOFT_CURRENCY) {
+                g.userInventory.addMoney(_data.currency, -_countCost);
+                g.townArea.pasteBuild(build, _x, _y,true,false,true);
+                return;
+            } else {
+                g.userInventory.addMoney(_data.currency, -_countCost);
+            }
+
         }
         if (build is Tree) (build as Tree).removeShopView();
         if (build is Fabrica) (build as Fabrica).removeShopView();
@@ -692,9 +708,11 @@ public class ShopItem {
                 _btnBuyBlue.visible = false;
                 _nameTxt.text = _data.name;
                 _countTxt.text = String(maxCount) + '/' + String(maxCount);
+//                _txtBtnBuyBlue.text = String(g.dataCats[g.managerCats.curCountCats].cost);
             } else {
                 _nameTxt.text = _data.name;
                 _countTxt.text = String(curCount) + '/' + String(maxCount);
+                _txtBtnBuyBlue.text = String(g.dataCats[g.managerCats.curCountCats].cost);
             }
         }
         g.woShop.updateMoneyCounts();

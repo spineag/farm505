@@ -383,7 +383,7 @@ public class TownArea extends Sprite {
         return build;
     }
 
-    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
+    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false, decorCost:Boolean = false):void {
         var point:Point;
         if (!worldObject) {
             Cc.error('TownArea pasteBuild:: empty worldObject');
@@ -484,6 +484,14 @@ public class TownArea extends Sprite {
         if (updateAfterMove) zSort();
 
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)) {
+            if (decorCost) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                g.toolsModifier.startMove(build, afterMove, true);
+                g.woShop.showIt();
+                return;
+            }
             var arr:Array;
             if (worldObject is DecorTail) {
                 arr = g.townArea.getCityTailObjectsById(worldObject.dataBuild.id);

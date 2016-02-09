@@ -352,7 +352,7 @@ public class WOAmbars extends Window {
         }
     }
 
-    private function showUpdateState():void {
+    public function showUpdateState():void {
         _scrollSprite.source.visible = false;
         _btnShowUpdate.visible = false;
         _updateSprite.visible = true;

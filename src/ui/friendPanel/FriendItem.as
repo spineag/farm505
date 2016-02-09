@@ -87,9 +87,11 @@ public class FriendItem {
         if (g.currentOpenedWindow && g.currentOpenedWindow == g.woMarket) g.woMarket.hideIt();
         if (_person == g.user) {
             if (g.isAway) g.townArea.backHome();
+            g.catPanel.visibleCatPanel(true);
         } else {
             if (g.visitedUser && g.visitedUser == _person) return;
             g.townArea.goAway(_person);
+            g.catPanel.visibleCatPanel(false);
         }
     }
 

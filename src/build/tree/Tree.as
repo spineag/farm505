@@ -383,7 +383,8 @@ public class Tree extends AreaObject {
             }
              if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_arrCrafted.length) {
-                    if (g.userInventory.currentCountInAmbar + 1 >= g.user.ambarMaxCount) {
+                    if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount) {
+                        _source.filter = null;
                         g.woAmbarFilled.showAmbarFilled(true);
 //                        var p:Point = new Point(_source.x, _source.y);
 //                        p = _source.parent.localToGlobal(p);
@@ -429,17 +430,12 @@ public class Tree extends AreaObject {
                     }
                 }if (_state == DEAD) {
                      onOut();
+                     g.treeHint.onDelete = deleteTree;
                      g.treeHint.showIt(_source.height,_dataBuild, newX, newY, _dataBuild.name, this, onOut);
-                     if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
-                         g.treeHint.onDelete = deleteTree;
-                     }
                      g.treeHint.onWatering = askWateringTree;
                  } else if (_state == FULL_DEAD || _state == ASK_FIX) {
                      g.wildHint.onDelete = deleteTree;
                      g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId, _dataBuild.name,onOut);
-                     if (!g.userInventory.getCountResourceById(_dataBuild.removeByResourceId) == 0) {
-                         g.treeHint.onDelete = deleteTree;
-                     }
                  }  else {
                      onOut();
                      g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip,onOut);

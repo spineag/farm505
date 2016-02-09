@@ -120,9 +120,15 @@ public class LockedLandItem {
         } else {
             var btn:CButton = new CButton();
             btn.addButtonTexture(112, 30, CButton.GREEN, true);
-            txt = new TextField(112,30,'Купить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
+            txt = new TextField(112,30,'Купить ' + String(g.dataResource.objectResources[id].priceHard *(count - g.userInventory.getCountResourceById(id))), g.allData.fonts['BloggerMedium'],16,Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            txt.x = -15;
             btn.addChild(txt);
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            MCScaler.scale(im,25,25);
+            im.x = 80;
+            im.y = 3;
+            btn.addChild(im);
             btn.x = 362;
             btn.y = 64;
             source.addChild(btn);

@@ -91,6 +91,7 @@ public class MarketFriendItem {
 
     private function visitPerson():void {
         g.townArea.goAway(_person);
+        g.catPanel.visibleCatPanel(false);
         g.woMarket.hideIt();
     }
 

@@ -16,23 +16,27 @@ import starling.text.TextField;
 import starling.utils.Color;
 import starling.utils.HAlign;
 
+import utils.CSprite;
+
 import utils.MCScaler;
 
 import windows.WOComponents.CartonBackgroundIn;
 
 public class WOOrderResourceItem {
-    public var source:Sprite;
+    public var source:CSprite;
     private var _check:Image;
     private var _countTxt:TextField;
     private var _image:Image;
+    private var _id:int;
+    private var _onHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function WOOrderResourceItem() {
-        source = new Sprite();
+        source = new CSprite();
         var bg:CartonBackgroundIn = new CartonBackgroundIn(93, 93);
         source.addChild(bg);
-        source.touchable = false;
-
+//        source.touchable = false;
+        _onHover = false;
         _check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _check.x = 69;
         _check.y = -5;
@@ -46,7 +50,8 @@ public class WOOrderResourceItem {
         _countTxt.x = 12;
         _countTxt.y = 60;
         source.addChild(_countTxt);
-
+        source.hoverCallback = onHover;
+        source.outCallback = outCallback;
         source.visible = false;
     }
 
@@ -63,6 +68,7 @@ public class WOOrderResourceItem {
 
     public function fillIt(id:int, count:int):void {
         var obj:Object = g.dataResource.objectResources[id];
+        _id = id;
         if (obj.buildType == BuildType.PLANT)
             _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon'));
         else
@@ -81,6 +87,17 @@ public class WOOrderResourceItem {
 
     public function isChecked():Boolean {
         return _check.visible;
+    }
+
+    private function onHover():void {
+        if (_onHover) return;
+        _onHover = true;
+        g.resourceHint.showIt(_id,source.x,source.y,source);
+    }
+
+    private function outCallback():void {
+        _onHover = false;
+        g.resourceHint.hideIt();
     }
 }
 }
