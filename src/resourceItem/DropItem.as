@@ -13,10 +13,14 @@ import data.DataMoney;
 
 import flash.geom.Point;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.text.TextField;
+import starling.utils.Color;
 
 import temp.DropResourceVariaty;
 
@@ -75,6 +79,11 @@ public class DropItem {
             return;
         }
         MCScaler.scale(_image, 50, 50);
+        var txt:TextField = new TextField(70,30,'+' + String(prise.count),g.allData.fonts['BloggerBold'],18, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt.x = -15;
+        txt.y = _image.height - 5;
+        _source.addChild(txt);
         _source.addChild(_image);
         _source.pivotX = _source.width / 2;
         _source.pivotY = _source.height / 2;

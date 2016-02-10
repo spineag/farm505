@@ -65,5 +65,10 @@ public class CatPanel {
     private function onOut():void {
         g.hint.hideIt();
     }
+
+    public function visibleCatPanel(b:Boolean):void {
+        if (b) _source.visible = true;
+        else _source.visible = false;
+    }
 }
 }

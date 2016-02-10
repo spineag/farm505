@@ -167,6 +167,82 @@ public class FriendPanel {
         for (var i:int = 0; i < _arrFriends.length; i++) {
             _maxFriend ++;
         }
+        var bt:CButton;
+        var im:Image;
+        var txt:TextField;
+        if (_arrFriends.length == 0 ) {
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new TextField(64, 50,"Добавить друга", g.allData.fonts['BloggerBold'], 12, ManagerFilters.TEXT_BROWN);
+            txt.x = -1;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 237 + bt.width/2;
+            bt.y = 6 + bt.height/2;
+            _source.addChild(bt);
+
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new TextField(64, 50,"Добавить друга", g.allData.fonts['BloggerBold'], 12, ManagerFilters.TEXT_BROWN);
+            txt.x = -1;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 303 + bt.width/2;
+            bt.y = 6 + bt.height/2;
+            _source.addChild(bt);
+
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new TextField(64, 50,"Добавить друга", g.allData.fonts['BloggerBold'], 12, ManagerFilters.TEXT_BROWN);
+            txt.x = -1;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 369 + bt.width/2;
+            bt.y = 6 + bt.height/2;
+            _source.addChild(bt);
+        } else if (_arrFriends.length == 1) {
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new TextField(64, 50,"Добавить друга", g.allData.fonts['BloggerBold'], 12, ManagerFilters.TEXT_BROWN);
+            txt.x = -1;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 303 + bt.width/2;
+            bt.y = 6 + bt.height/2;
+            _source.addChild(bt);
+
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new TextField(64, 50,"Добавить друга", g.allData.fonts['BloggerBold'], 12, ManagerFilters.TEXT_BROWN);
+            txt.x = -1;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 369 + bt.width/2;
+            bt.y = 6 + bt.height/2;
+            _source.addChild(bt);
+        } else if (_arrFriends.length == 2) {
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new TextField(64, 50,"Добавить друга", g.allData.fonts['BloggerBold'], 12, ManagerFilters.TEXT_BROWN);
+            txt.x = -1;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 369 + bt.width/2;
+            bt.y = 6 + bt.height/2;
+            _source.addChild(bt);
+        }
         createLevel();
     }
     private function sortFriend():void {
