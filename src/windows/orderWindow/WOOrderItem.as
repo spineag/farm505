@@ -31,6 +31,7 @@ public class WOOrderItem {
     private var _position:int;
     private var _check:Image;
     private var _clickCallback:Function;
+    private var _act:Boolean;
 
     private var g:Vars = Vars.getInstance();
     public function WOOrderItem() {
@@ -76,20 +77,25 @@ public class WOOrderItem {
         _txtCoins.x = 48;
         _txtCoins.y = 55;
         source.addChild(_txtCoins);
+        _act = false;
 
         source.visible = false;
         _check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _check.visible = false;
         source.addChild(_check);
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
     }
 
     public function activateIt(v:Boolean):void {
         if (v) {
             _bgCarton.filter = null;
             _bgCarton.filter = ManagerFilters.YELLOW_STROKE;
+            _act = true;
         } else {
             _bgCarton.filter = null;
             _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
+            _act = false;
         }
     }
 
@@ -178,6 +184,20 @@ public class WOOrderItem {
 
     public function setOrder(ord:Object):void {
 
+    }
+
+    private function onHover():void {
+        _bgCarton.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+    }
+
+    private function onOut():void {
+        if (_act) {
+            _bgCarton.filter = null;
+            _bgCarton.filter = ManagerFilters.YELLOW_STROKE;
+        } else {
+            _bgCarton.filter = null;
+            _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
+        }
     }
 }
 }

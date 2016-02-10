@@ -313,6 +313,7 @@
             <filename>market_l2.png</filename>
             <filename>market_l3.png</filename>
             <filename>add_friend_button.png</filename>
+            <filename>sale.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

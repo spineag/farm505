@@ -46,7 +46,7 @@ public class WOMarket  extends Window {
     private var _btnRefresh:CSprite;
     private var _btnFriends:CButton;
     private var _cont:Sprite;
-    private var _contItem:Sprite;
+    private var _contItem:CSprite;
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
     private var _item3:MarketFriendItem;
@@ -61,7 +61,7 @@ public class WOMarket  extends Window {
     public function WOMarket() {
         super ();
         _cont = new Sprite();
-        _contItem = new Sprite();
+        _contItem = new CSprite();
         _arrItemsFriend = [];
         _shopSprite = new Sprite();
         _woWidth = 750;
@@ -378,6 +378,5 @@ public class WOMarket  extends Window {
             _callbackState = null;
         }
     }
-
 }
 }

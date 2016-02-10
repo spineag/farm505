@@ -259,8 +259,13 @@ public class ShopItem {
         }
 
         if (_data.buildType == BuildType.CAT) {
-            _countCost = g.dataCats[g.managerCats.curCountCats].cost;
-            _data.cost = _countCost;
+            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
+                _shopLimitSprite.visible = true;
+            } else {
+                _countCost = g.dataCats[g.managerCats.curCountCats].cost;
+                _data.cost = _countCost;
+            }
+
         } else {
             _countCost = _data.cost;
         }

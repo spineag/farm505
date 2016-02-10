@@ -10,6 +10,8 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 
+import flash.display.Bitmap;
+
 import flash.filters.GlowFilter;
 import flash.geom.Point;
 import hint.FlyMessage;
@@ -22,7 +24,10 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
+
+import user.NeighborBot;
 
 import user.Someone;
 
@@ -57,6 +62,8 @@ public class MarketItem {
     private var _woWidth:int;
     private var _woHeight:int;
     private var _onHover:Boolean;
+    private var quadGreen:Quad;
+    private var _ava:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -74,6 +81,10 @@ public class MarketItem {
         quad.alpha = 0;
         source.addChild(quad);
 
+        quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
+        quadGreen.y = 100;
+        source.addChild(quadGreen);
+        quadGreen.visible = false;
         _txtAdditem = new TextField(70,70,'Добавить товар',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txtAdditem.x = 20;
         _txtAdditem.y = 30;
@@ -255,6 +266,8 @@ public class MarketItem {
                 g.woMarket.hideIt();
                 g.woMarket.marketChoose.callback = onChoose;
                 g.woMarket.marketChoose.showIt();
+                _onHover = false;
+                _bg.filter = null;
             }
         } else if (isFill == 3){ // недоступна по лвлу
 
@@ -355,7 +368,10 @@ public class MarketItem {
             if (_person.userSocialId == g.user.userSocialId) {
                 _plawkaSold.visible = false;
                 _txtPlawka.visible = false;
-                showCoinImage();
+                _plawkaCoins.visible = false;
+                quadGreen.visible = true;
+                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
+                showSaleImage();
                 _txtAdditem.text = '';
             }
             else {
@@ -429,16 +445,25 @@ public class MarketItem {
         new TweenMax(im, .5, {x:p.x, y:p.y, ease:Linear.easeOut ,onComplete: f1});
     }
 
-    private function showCoinImage():void {
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-        MCScaler.scale(im, 80, 80);
+    private function showSaleImage():void {
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale'));
+//        MCScaler.scale(im, 80, 80);
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
-        im.x = _bg.width/2 - 10;
+        im.x = 10;
         im.y = _bg.height/2 -15;
         _imageCont.addChild(im);
-        _plawkaCoins.visible = true;
         _costTxt.text = String(_dataFromServer.cost);
+
+        if (_person is NeighborBot) {
+            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
+        } else {
+            if (_person.photo) {
+                g.load.loadImage(_person.photo, onLoadPhoto);
+            } else {
+                g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
+            }
+        }
     }
 
     public function get dataFromServer():int {
@@ -490,6 +515,30 @@ public class MarketItem {
                 _txtAdditem.text = '';
             }else _txtAdditem.text = 'Добавить товар';
         }
+    }
+
+    private function onGettingUserInfo(ar:Array):void {
+        _person.photo = ar[0].photo_100;
+        g.load.loadImage(_person.photo, onLoadPhoto);
+    }
+
+    private function onLoadPhoto(bitmap:Bitmap):void {
+        if (!bitmap) {
+            bitmap = g.pBitmaps[_person.photo].create() as Bitmap;
+        }
+        if (!bitmap) {
+            Cc.error('FriendItem:: no photo for userId: ' + _person.userSocialId);
+            return;
+        }
+        photoFromTexture(Texture.fromBitmap(bitmap));
+    }
+
+    private function photoFromTexture(tex:Texture):void {
+        _ava = new Image(tex);
+        MCScaler.scale(_ava, 50, 50);
+        _ava.x = 5;
+        _ava.y = 18;
+        source.addChildAt(_ava,1);
     }
 }
 }

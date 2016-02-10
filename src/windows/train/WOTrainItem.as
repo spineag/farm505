@@ -39,7 +39,6 @@ public class WOTrainItem {
         _txt.hAlign = HAlign.RIGHT;
         _txt.x = 43;
         _txt.y = 60;
-        source.addChild(_txt);
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
         _galo4ka.x = 65;
@@ -93,6 +92,7 @@ public class WOTrainItem {
         _im.x = 45 - _im.width/2;
         _im.y = 45 - _im.height/2;
         source.addChild(_im);
+        source.addChild(_txt);
         source.endClickCallback = onClick;
         if (isResourceLoaded) {
             _galo4ka.visible = true;

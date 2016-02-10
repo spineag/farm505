@@ -209,6 +209,10 @@ public class OrderCat {
         _currentPath = [];
     }
 
+    public function get typeCat():int {
+        return _typeCat;
+    }
+
 
     //  ------------------ ANIMATIONS -----------------------
 

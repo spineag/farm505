@@ -13,6 +13,11 @@ import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 
 import flash.geom.Point;
+
+import heroes.HeroEyesAnimation;
+
+import heroes.OrderCat;
+
 import manager.ManagerFilters;
 import manager.ManagerOrder;
 
@@ -53,6 +58,7 @@ public class WOOrder extends Window{
     private var _btnSkipDelete:CButton;
     private var _armatureCustomer:Armature;
     private var _armatureSeller:Armature;
+    private var heroEyes:HeroEyesAnimation;
 
     public function WOOrder() {
         super ();
@@ -68,8 +74,8 @@ public class WOOrder extends Window{
         createItems();
         createButtonCell();
         createButtonSkipDelete();
+        _arrOrders = g.managerOrder.arrOrders.slice();
         createTopCats();
-
         _waitForAnswer = false;
         _rightBlock.visible = false;
 
@@ -82,6 +88,7 @@ public class WOOrder extends Window{
         onItemClick(_arrItems[0]);
         super.showIt();
         _waitForAnswer = false;
+        changeCatTexture(0);
         startAnimationCats();
     }
 
@@ -331,6 +338,7 @@ public class WOOrder extends Window{
         _activeOrderItem = item;
         fillResourceItems(item.getOrder());
         _activeOrderItem.activateIt(true);
+        changeCatTexture(item.position);
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
@@ -464,6 +472,34 @@ public class WOOrder extends Window{
         if (viyi) viyi.visible = false;
     }
 
+    private function changeCatTexture(type:int):void {
+        var st:String;
+        var isWoman:Boolean;
+        switch (_arrOrders[type].cat.typeCat){
+            case OrderCat.BLUE:   st = '_bl'; isWoman = false; break;
+            case OrderCat.GREEN:  st = '_gr'; isWoman = false; break;
+            case OrderCat.ORANGE: st = '_or'; isWoman = true;  break;
+            case OrderCat.PINK:   st = '_pk'; isWoman = true;  break;
+            case OrderCat.WHITE:  st = '_w';  isWoman = true;  break;
+            case OrderCat.BLACK:  st = '';    isWoman = true;  break;
+        }
+        releaseFrontTexture(st);
+//        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);
+    }
+
+    private function releaseFrontTexture(st:String):void {
+        changeTexture("head", "heads/head" + st, _armatureCustomer);
+        changeTexture("body", "bodys/body" + st, _armatureCustomer);
+        changeTexture("handLeft", "left_hand/handLeft" + st, _armatureCustomer);
+        changeTexture("handRight", "right_hand/handRight" + st, _armatureCustomer);
+    }
+
+    private function changeTexture(oldName:String, newName:String, arma:Armature):void {
+        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
+        var b:Bone = arma.getBone(oldName);
+        b.display.dispose();
+        b.display = im;
+    }
     private function startAnimationCats():void {
         WorldClock.clock.add(_armatureCustomer);
         WorldClock.clock.add(_armatureSeller);
