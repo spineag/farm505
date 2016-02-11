@@ -104,7 +104,7 @@ public class OrderCat {
         im.x = -44*g.scaleFactor;
         im.y = -28*g.scaleFactor;
         im.alpha = .5;
-        _source.addChild(im);
+        _source.addChildAt(im, 0);
     }
 
     public function get depth():Number {
