@@ -67,7 +67,7 @@ public class ManagerOrderCats {
             cat.sayHIAnimation(onFinishArrive);
         }
 
-        // shift queue
+// move queue
         var pos:int = cat.queuePosition;
         for (i=0; i<_arrCats.length; i++) {
             if (_arrCats[i].queuePosition > pos) {
