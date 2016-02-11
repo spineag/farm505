@@ -48,7 +48,9 @@ public class HeroEyesAnimation {
                 b.display.dispose();
                 b.display = im;
             }
-            b = _armatureEyes.getBone('vii');
+            b = _armatureEyes.getBone('vii1');
+            _armatureEyes.removeBone(b);
+            b = _armatureEyes.getBone('vii2');
             _armatureEyes.removeBone(b);
         }
 

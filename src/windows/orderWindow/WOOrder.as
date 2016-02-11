@@ -472,16 +472,17 @@ public class WOOrder extends Window{
         if (viyi) viyi.visible = false;
     }
 
-    private function changeCatTexture(type:int):void {
+    private function changeCatTexture(pos:int):void {
         var st:String;
         var isWoman:Boolean;
-        switch (_arrOrders[type].cat.typeCat){
-            case OrderCat.BLUE:   st = '_bl'; isWoman = false; break;
+        if (!_arrOrders[pos] || !_arrOrders[pos].cat) return;
+        switch (_arrOrders[pos].cat.typeCat){
+            case OrderCat.BLUE:   st = '_bl';  isWoman = false; break;
             case OrderCat.GREEN:  st = '_gr'; isWoman = false; break;
             case OrderCat.ORANGE: st = '_or'; isWoman = true;  break;
             case OrderCat.PINK:   st = '_pk'; isWoman = true;  break;
-            case OrderCat.WHITE:  st = '_w';  isWoman = true;  break;
-            case OrderCat.BLACK:  st = '';    isWoman = true;  break;
+            case OrderCat.WHITE:  st = '_wh'; isWoman = true;  break;
+            case OrderCat.BLACK:  st = '';    isWoman = false; break;
         }
         releaseFrontTexture(st);
 //        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);

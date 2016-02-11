@@ -104,7 +104,7 @@ public class OrderCat {
         im.x = -44*g.scaleFactor;
         im.y = -28*g.scaleFactor;
         im.alpha = .5;
-        _source.addChild(im);
+        _source.addChildAt(im, 0);
     }
 
     public function get depth():Number {
@@ -143,7 +143,7 @@ public class OrderCat {
             case GREEN:  st = '_gr'; isWoman = false; break;
             case ORANGE: st = '_or'; isWoman = true;  break;
             case PINK:   st = '_pk'; isWoman = true;  break;
-            case WHITE:  st = '_w';  isWoman = true;  break;
+            case WHITE:  st = '_wh';  isWoman = true;  break;
         }
         releaseFrontTexture(st);
         releaseBackTexture(st);
@@ -373,7 +373,7 @@ public class OrderCat {
         } else {
             showFront(true);
             _source.scaleX = 1;
-            Cc.error('BasicCat gotoPoint:: wrong front-back logic');
+            Cc.error('OrderCat gotoPoint:: wrong front-back logic');
         }
         new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
     }
