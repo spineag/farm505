@@ -72,8 +72,8 @@ public class MarketFriendItem {
         if (_person.name) _txt.text = _person.name;
         source.addChild(_txt);
         source.endClickCallback = chooseThis;
-        source.hoverCallback = onHover;
-        source.outCallback = onOut;
+//        source.hoverCallback = onHover;
+//        source.outCallback = onOut;
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(66, 26, CButton.BLUE, true);
         var txtBtn:TextField = new TextField(80, 25, "Посетить", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
@@ -108,13 +108,13 @@ public class MarketFriendItem {
         g.load.loadImage(_person.photo, onLoadPhoto);
     }
 
-    private function onHover():void {
-        source.filter = ManagerFilters.BUTTON_HOVER_FILTER;
-    }
-
-    private function onOut():void {
-        source.filter = null;
-    }
+//    private function onHover():void {
+//        source.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+//    }
+//
+//    private function onOut():void {
+//        source.filter = null;
+//    }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!bitmap) {

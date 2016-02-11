@@ -246,7 +246,6 @@
             <filename>progress_bar_left.png</filename>
             <filename>progress_bar_right.png</filename>
             <filename>red_coupone.png</filename>
-            <filename>refresh_icon.png</filename>
             <filename>roadside_shop_tabl.png</filename>
             <filename>rubins.png</filename>
             <filename>shop_window_animals.png</filename>
@@ -314,6 +313,8 @@
             <filename>market_l3.png</filename>
             <filename>add_friend_button.png</filename>
             <filename>sale.png</filename>
+            <filename>refresh_icon.png</filename>
+            <filename>button_yel_left.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

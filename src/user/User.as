@@ -28,6 +28,7 @@ public class User extends Someone {
     public var arrTempUsers:Array;     // users that not your friends, but you interact with them
     public var neighbor:NeighborBot;
     public var countCats:int;
+    public var timePaper:int;
 
     private var g:Vars = Vars.getInstance();
 

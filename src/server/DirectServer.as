@@ -513,6 +513,7 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
+            g.user.timePaper = int (ob.time_paper);
             g.user.checkUserLevel();
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
 //            g.user.level = int(ob.level);
@@ -727,6 +728,56 @@ public class DirectServer {
         } else {
             Cc.error('updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function updateUserTimePaper(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TIMER_PAPER);
+        var variables:URLVariables = new URLVariables();
+        var time:Number = getTimer();
+        Cc.ch('server', 'updateUserTimerPaper', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.timePaper = time;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTimePaper);
+        function onCompleteUpdateUserTimePaper(e:Event):void { completeUpdateUserTimePaper(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserTimerPaper error:' + error.errorID);
+            woError.showItParams('updateUserTimerPaper error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserTimePaper(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserTimerPaper: wrong JSON:' + String(response));
+            woError.showItParams('updateUserTimerPaper: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserTimerPaper OK', 5);
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('updateUserTimerPaper: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateUserTimerPaper: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
