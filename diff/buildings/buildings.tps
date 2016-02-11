@@ -197,6 +197,10 @@
             <filename>ambar_indicator_top.png</filename>
             <filename>ambar.png</filename>
             <filename>bazar.png</filename>
+            <filename>pillar_1.png</filename>
+            <filename>rope.png</filename>
+            <filename>busket_2.png</filename>
+            <filename>pillar_new.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

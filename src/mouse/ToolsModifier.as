@@ -244,7 +244,11 @@ public class ToolsModifier {
             _needMoveGameCont = true;
         }
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
-        _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height);
+        if (_activeBuilding.flip) {
+            _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuilding.dataBuild.height, _activeBuilding.dataBuild.width);
+        } else {
+            _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height);
+        }
         g.gameDispatcher.addEnterFrame(moveIt);
     }
 

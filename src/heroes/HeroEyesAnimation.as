@@ -21,6 +21,7 @@ public class HeroEyesAnimation {
         _armatureEyes = fact.buildArmature("eyes");
 
         var headBone:Bone = catArmature.getBone('head');
+        if (!headBone.display) return;
         headBone.display.dispose();
         _armatureClip = _armatureEyes.display as Sprite;
         headBone.display = _armatureClip;

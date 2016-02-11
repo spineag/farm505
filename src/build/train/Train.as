@@ -43,6 +43,7 @@ public class Train extends AreaObject{
     private var TIME_WAIT:int = 8*60*60;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _armature:Armature;
+    private var _arriveAnim:ArrivedAnimation;
 
     public function Train(_data:Object) {
         super(_data);
@@ -72,6 +73,8 @@ public class Train extends AreaObject{
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
         _source.releaseContDrag = true;
+
+        _arriveAnim = new ArrivedAnimation(_source);
     }
 
     public function fillFromServer(ob:Object):void {
@@ -83,7 +86,7 @@ public class Train extends AreaObject{
                     _stateBuild = STATE_READY;
                     g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                     _counter = TIME_READY;
-                    arriveTrain();
+                    onArrivedKorzina();
                 } else {
                     _counter = TIME_WAIT - int(ob.time_work);
                 }
@@ -94,9 +97,10 @@ public class Train extends AreaObject{
                     _stateBuild = STATE_WAIT_BACK;
                     g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
                     _counter = TIME_WAIT;
-                    leaveTrain();
+//                    leaveTrain(); - there is no visible korzina
                 } else {
                     _counter = TIME_READY - int(ob.time_work);
+                    onArrivedKorzina();
                 }
                 g.directServer.getTrainPack(g.user.userSocialId, fillList);
                 renderTrainWork();
@@ -121,11 +125,17 @@ public class Train extends AreaObject{
     }
 
     private function arriveTrain():void {
-        _source.alpha = 1;
+        _armature.animation.gotoAndPlay('work');
+        _arriveAnim.makeArriveKorzina(onMakeArriveOrAway);
     }
 
     private function leaveTrain():void {
-        _source.alpha = .3;
+        _armature.animation.gotoAndPlay('work');
+        _arriveAnim.makeAwayKorzina(onMakeArriveOrAway);
+    }
+
+    private function onMakeArriveOrAway():void {
+        _armature.animation.gotoAndStop('work', 0);
     }
 
     private function checkTrainState():void {
@@ -217,6 +227,9 @@ public class Train extends AreaObject{
     }
 
     private function onClick():void {
+//        _arriveAnim.makeArriveKorzina(null);
+//        return;
+
         if (g.isAway) {
             if (_stateBuild == STATE_READY) {
                 onOut();
@@ -318,6 +331,7 @@ public class Train extends AreaObject{
 
     private function onOpenTrain(value:Boolean):void {
         g.directServer.addUserTrain(onAddUserTrain);
+        _arriveAnim.makeArriveKorzina(onArrivedKorzina);
     }
 
     private function onAddUserTrain(s_id:String):void {
@@ -421,7 +435,6 @@ public class Train extends AreaObject{
         }
     }
 
-
     override public function clearIt():void {
         onOut();
         _source.touchable = false;
@@ -442,6 +455,11 @@ public class Train extends AreaObject{
 //        addTempGiftIcon();
         _leftBuildTime = 0;
         renderBuildProgress();
+    }
+
+    private function onArrivedKorzina():void {
+        _arriveAnim.showKorzina();
+        _armature.animation.gotoAndStop('work', 0);
     }
 }
 }
