@@ -294,13 +294,17 @@ public class HeroCat extends BasicCat{
     }
 
     public function forceStopWork():void {
+        additionalRemoveWorker();
+        showFront(true);
+    }
+
+    public function additionalRemoveWorker():void {
         while (_catWateringAndFeed.numChildren) _catWateringAndFeed.removeChildAt(0);
         if (armatureWorker) {
             WorldClock.clock.remove(armatureWorker);
             armatureWorker.dispose();
             armatureWorker = null;
         }
-        showFront(true);
     }
 
 // WORK WITH FARM

@@ -1102,6 +1102,7 @@ public class TownArea extends Sprite {
         g.visitedUser = null;
         g.bottomPanel.doorBoolean(false);
         for (var i:int = 0; i < _cityObjects.length; i++) {
+            if (_cityObjects[i] is BasicCat && !_cityObjects[i].isFree) continue;
             _cont.addChild(_cityObjects[i].source);
         }
         for (i = 0; i < _cityTailObjects.length; i++) {

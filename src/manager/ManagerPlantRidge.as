@@ -3,13 +3,9 @@
  */
 package manager {
 import build.ridge.Ridge;
-import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
 import heroes.HeroCat;
-
 import mouse.ToolsModifier;
 
 public class ManagerPlantRidge {
@@ -110,6 +106,7 @@ public class ManagerPlantRidge {
             cat.forceStopWork();
         }
         cat.isFree = true;
+        cat.additionalRemoveWorker();
         delete _catsForPlant[plantId];
     }
 
