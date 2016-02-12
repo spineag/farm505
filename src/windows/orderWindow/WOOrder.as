@@ -3,32 +3,22 @@
  */
 package windows.orderWindow {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import flash.geom.Point;
-
 import heroes.HeroEyesAnimation;
-
 import heroes.OrderCat;
-
 import manager.ManagerFilters;
 import manager.ManagerOrder;
-
 import resourceItem.DropItem;
-
-import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
-import starling.textures.RenderTexture;
 import starling.utils.Color;
 import ui.xpPanel.XPStar;
 import utils.CButton;

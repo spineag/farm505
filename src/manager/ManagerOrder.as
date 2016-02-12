@@ -352,10 +352,8 @@ public class ManagerOrder {
         var pl:int = order.placeNumber;
         order = null;
         addNewOrders(1, 0, f, pl);
-        trace('place: ' + pl);
         for (i=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl) {
-                trace('add new cat');
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
                 break;
             }
