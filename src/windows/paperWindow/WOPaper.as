@@ -4,6 +4,8 @@
 package windows.paperWindow {
 import data.DataMoney;
 
+import flash.utils.getTimer;
+
 import manager.ManagerFilters;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -21,7 +23,8 @@ import windows.WOComponents.WOButtonTexture;
 import windows.Window;
 
 public class WOPaper extends Window{
-    private var _btnRefresh:CButton;
+    private var _btnRefreshGreen:CButton;
+    private var _btnRefreshBlue:CButton;
     private var _arrPaper:Array;
     private var _leftPage:WOPaperPage;
     private var _rightPage:WOPaperPage;
@@ -32,34 +35,50 @@ public class WOPaper extends Window{
     private var _tempLeftPage:WOPaperPage;
     private var _tempRightPage:WOPaperPage;
     private var _flipPage:WOPaperFlipPage;
+    private var _timer:int;
+    private var _txtTimer:TextField;
 
     public function WOPaper() {
         _woWidth = 842;
         _woHeight = 526;
         _shiftPages = 1;
+        var im:Image;
 
-        _btnRefresh = new CButton();
-        _btnRefresh.addButtonTexture(130, 40, CButton.GREEN, true);
+        _btnRefreshGreen = new CButton();
+        _btnRefreshGreen.addButtonTexture(130, 40, CButton.GREEN, true);
         var txt:TextField = new TextField(100, 40, "Обновить 1", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 2;
-        _btnRefresh.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        _btnRefreshGreen.addChild(txt);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         MCScaler.scale(im, 25, 25);
         im.x = 100;
         im.y = 8;
-        _btnRefresh.addChild(im);
+        _btnRefreshGreen.addChild(im);
         im.filter = ManagerFilters.SHADOW_TINY;
-        _btnRefresh.x = 360;
-        _btnRefresh.y = 290;
-        _source.addChild(_btnRefresh);
-        _btnRefresh.clickCallback = makeRefresh;
+        _btnRefreshGreen.x = 360;
+        _btnRefreshGreen.y = 290;
+        _source.addChild(_btnRefreshGreen);
+        _btnRefreshGreen.clickCallback = makeRefresh;
         createBtns();
         createExitButton(onClickExit);
         _btnExit.x += 30;
         _btnExit.y -= 25;
-
+        _btnRefreshBlue = new CButton();
+        _btnRefreshBlue.addButtonTexture(130,40, CButton.BLUE, true);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
+        im.x = 5;
+        im.y = 5;
+        _txtTimer = new TextField(100,30,'',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _btnRefreshBlue.addChild(im);
+        _btnRefreshBlue.addChild(_txtTimer);
+        _btnRefreshBlue.x = 220;
+        _btnRefreshBlue.y = 290;
+        _btnRefreshBlue.setEnabled = false;
+        _btnRefreshBlue.clickCallback = onRefresh;
         callbackClickBG = onClickExit;
+        timerRefresh();
     }
 
     private function onClickExit():void {
@@ -91,7 +110,10 @@ public class WOPaper extends Window{
         _rightPage.source.x = 0;
         _rightPage.source.y = -_woHeight/2;
         _source.addChild(_leftPage.source);
+//        _source.addChildAt(_leftPage.source,0);
+//        _source.addChildAt(_rightPage.source,0);
         _source.addChild(_rightPage.source);
+        _source.addChild(_btnRefreshBlue);
 
         var arr:Array = _arrPaper.slice((_shiftPages - 1)*6, (_shiftPages - 1)*6 + 6);
         _leftPage.fillItems(arr);
@@ -103,18 +125,18 @@ public class WOPaper extends Window{
     }
 
     private function createBtns():void {
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
         _leftArrow = new CButton();
         _leftArrow.addDisplayObject(im);
-        _leftArrow.x = -_woWidth/2 - 50 + _leftArrow.width/2;
+        _leftArrow.x = -_woWidth/2 - 50 ;//+ _leftArrow.width/2;
         _leftArrow.y = -_woHeight/2 + 240;
         _source.addChild(_leftArrow);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
         im.scaleX = -1;
         im.x = im.width;
         _rightArrow = new CButton();
         _rightArrow.addDisplayObject(im);
-        _rightArrow.x = 386 + 57 - _leftArrow.width/2;
+        _rightArrow.x = 390 + 57 - _leftArrow.width/2;
         _rightArrow.y = -_woHeight/2 + 240;
         _source.addChild(_rightArrow);
         _leftArrow.clickCallback = movePrev;
@@ -123,6 +145,7 @@ public class WOPaper extends Window{
 
     private var _isAnim:Boolean = false;
     private function moveNext():void {
+        checkArrows();
         if (_isAnim) return;
         if (_shiftPages + 1>= _maxPages) return;
         _tempLeftPage = new WOPaperPage(_shiftPages + 2, _maxPages, WOPaperPage.LEFT_SIDE);
@@ -141,7 +164,6 @@ public class WOPaper extends Window{
         _source.addChild(_tempRightPage.source);
         _source.addChild(_flipPage);
         _source.setChildIndex(_btnExit, _source.numChildren - 1);
-        checkArrows();
     }
 
     private function afterMoveNext():void {
@@ -162,6 +184,7 @@ public class WOPaper extends Window{
     }
 
     private function movePrev():void {
+        checkArrows();
         if (_isAnim) return;
         if (_shiftPages <= 1) return;
         _tempLeftPage = new WOPaperPage(_shiftPages - 2, _maxPages, WOPaperPage.LEFT_SIDE);
@@ -181,7 +204,6 @@ public class WOPaper extends Window{
         _source.addChild(_tempLeftPage.source);
         _source.addChild(_flipPage);
         _source.setChildIndex(_btnExit, _source.numChildren - 1);
-        checkArrows();
     }
 
     private function afterMovePrev():void {
@@ -206,6 +228,9 @@ public class WOPaper extends Window{
             return;
         }
         g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
+        g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
+        _timer = 900;
+        g.gameDispatcher.addToTimer(renderPaperProgress);
         g.directServer.getPaperItems(fillAfterRefresh);
     }
 
@@ -255,5 +280,42 @@ public class WOPaper extends Window{
             _rightArrow.setEnabled = true;
         }
     }
+    private function timerRefresh():void {
+        var time:Number = getTimer();
+        var TimeC:int = time/10;
+        var timeeee:int = g.user.timePaper/10;
+        _timer = g.user.timePaper - time;
+        if (_timer <= 900) {
+            _btnRefreshBlue.setEnabled = true;
+            _btnRefreshGreen.setEnabled = false;
+            _txtTimer.text = 'Обновить';
+        } else {
+            g.gameDispatcher.addToTimer(renderPaperProgress);
+        }
+    }
+
+    private function renderPaperProgress():void {
+        _timer--;
+        _txtTimer.text = String(_timer);
+        if (_timer <= 0) {
+            _btnRefreshBlue.setEnabled = true;
+            _btnRefreshGreen.setEnabled = false;
+            _txtTimer.text = 'Обновить';
+            g.gameDispatcher.removeFromTimer(renderPaperProgress);
+            g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
+        }
+    }
+
+    private function onRefresh():void {
+        g.directServer.getPaperItems(fillAfterRefresh);
+        _timer = 900;
+        g.gameDispatcher.addToTimer(renderPaperProgress);
+        g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
+        _btnRefreshBlue.setEnabled = false;
+        _btnRefreshGreen.setEnabled = true;
+    }
+
+    private function onUpdateUserTimePaper(b:Boolean = true):void {}
+
 }
 }

@@ -54,15 +54,17 @@ public class MarketItem {
     private var _inPapper:Image;
     private var _plawkaSold:Image;
     private var _plawkaLvl:Image;
+    private var _plawkabuy:Image;
     private var _plawkaCoins:Sprite;
     private var _isUser:Boolean;
     private var _imageCont:Sprite;
     private var _person:Someone;
+    private var _personBuyer:Someone;
     public var number:int;
     private var _woWidth:int;
     private var _woHeight:int;
     private var _onHover:Boolean;
-    private var quadGreen:Quad;
+    private var _quadGreen:Quad;
     private var _ava:Image;
 
     private var g:Vars = Vars.getInstance();
@@ -81,10 +83,10 @@ public class MarketItem {
         quad.alpha = 0;
         source.addChild(quad);
 
-        quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
-        quadGreen.y = 100;
-        source.addChild(quadGreen);
-        quadGreen.visible = false;
+        _quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
+        _quadGreen.y = 100;
+        source.addChild(_quadGreen);
+        _quadGreen.visible = false;
         _txtAdditem = new TextField(70,70,'Добавить товар',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txtAdditem.x = 20;
         _txtAdditem.y = 30;
@@ -140,11 +142,11 @@ public class MarketItem {
         source.outCallback = onOut;
         _plawkaCoins = new Sprite();
         source.addChild(_plawkaCoins);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_back'));
-        im.x = 5;
-        im.y = 100;
-        _plawkaCoins.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        _plawkabuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_back'));
+        _plawkabuy.x = 5;
+        _plawkabuy.y = 100;
+        _plawkaCoins.addChild(_plawkabuy);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         MCScaler.scale(im,25,25);
         im.y = 102;
         im.x = _bg.width/2 + 15;
@@ -351,6 +353,9 @@ public class MarketItem {
         if (_isUser)_txtAdditem.text = 'Добавить товар';
         else _txtAdditem.text = '';
         _data = null;
+        _quadGreen.visible = false;
+        source.removeChild(_ava);
+        _plawkabuy.visible = true;
         _plawkaCoins.visible = false;
         _inPapper.visible = false;
         _plawkaSold.visible = false;
@@ -368,10 +373,10 @@ public class MarketItem {
             if (_person.userSocialId == g.user.userSocialId) {
                 _plawkaSold.visible = false;
                 _txtPlawka.visible = false;
-                _plawkaCoins.visible = false;
-                quadGreen.visible = true;
+                _quadGreen.visible = true;
                 fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
                 showSaleImage();
+                _plawkabuy.visible = false;
                 _txtAdditem.text = '';
             }
             else {
@@ -446,30 +451,42 @@ public class MarketItem {
     }
 
     private function showSaleImage():void {
+        var i:int;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale'));
-//        MCScaler.scale(im, 80, 80);
-        im.pivotX = im.width/2;
         im.pivotY = im.height/2;
-        im.x = 10;
+        im.x = 3;
         im.y = _bg.height/2 -15;
         _imageCont.addChild(im);
+        _quadGreen.visible = true;
         _costTxt.text = String(_dataFromServer.cost);
-
-        if (_person is NeighborBot) {
+        for (i = 0; i < g.user.arrFriends.length; i++) {
+            if (_dataFromServer.buyerSocialId == g.user.arrFriends[i].userSocialId) {
+                _personBuyer = g.user.arrFriends[i];
+                break;
+            }
+        }
+        if (!_personBuyer) {
+            for (i = 0; i < g.user.arrTempUsers.length; i++) {
+                if (_dataFromServer.buyerSocialId == g.user.arrTempUsers[i].userSocialId) {
+                    _personBuyer = g.user.arrTempUsers[i];
+                    break;
+                }
+            }
+        }
+        if (_personBuyer is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
-            if (_person.photo) {
-                g.load.loadImage(_person.photo, onLoadPhoto);
+            if (_personBuyer.photo) {
+                g.load.loadImage(_personBuyer.photo, onLoadPhoto);
             } else {
-                g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
+                g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId], onGettingUserInfo);
             }
         }
     }
 
-    public function get dataFromServer():int {
-        return _dataFromServer.numberCell;
-    }
-
+//    public function get dataFromServer():int {
+//        return _dataFromServer.numberCell;
+//    }
 
     private function onHover():void {
         if (isFill == 0 &&_isUser) {
@@ -518,16 +535,16 @@ public class MarketItem {
     }
 
     private function onGettingUserInfo(ar:Array):void {
-        _person.photo = ar[0].photo_100;
-        g.load.loadImage(_person.photo, onLoadPhoto);
+        _personBuyer.photo = ar[0].photo_100;
+        g.load.loadImage(_personBuyer.photo, onLoadPhoto);
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!bitmap) {
-            bitmap = g.pBitmaps[_person.photo].create() as Bitmap;
+            bitmap = g.pBitmaps[_personBuyer.photo].create() as Bitmap;
         }
         if (!bitmap) {
-            Cc.error('FriendItem:: no photo for userId: ' + _person.userSocialId);
+            Cc.error('FriendItem:: no photo for userId: ' + _personBuyer.userSocialId);
             return;
         }
         photoFromTexture(Texture.fromBitmap(bitmap));
@@ -535,10 +552,11 @@ public class MarketItem {
 
     private function photoFromTexture(tex:Texture):void {
         _ava = new Image(tex);
-        MCScaler.scale(_ava, 50, 50);
-        _ava.x = 5;
-        _ava.y = 18;
-        source.addChildAt(_ava,1);
+        _ava.visible = true;
+        MCScaler.scale(_ava, 35, 35);
+        _ava.x = 2;
+        _ava.y = 102;
+        source.addChild(_ava);
     }
 }
 }
