@@ -28,6 +28,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
+import starling.textures.RenderTexture;
 import starling.utils.Color;
 import ui.xpPanel.XPStar;
 import utils.CButton;
@@ -496,7 +497,7 @@ public class WOOrder extends Window{
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
+        var im:Image = g.allData.factory['orderWindow'].getTextureDisplay(newName) as Image;
         var b:Bone = arma.getBone(oldName);
         b.display.dispose();
         b.display = im;
