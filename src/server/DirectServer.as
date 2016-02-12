@@ -357,8 +357,24 @@ public class DirectServer {
                 obj.id = int(d.message[i].id);
                 obj.width = int(d.message[i].width);
                 obj.height = int(d.message[i].height);
-                obj.innerX = int(d.message[i].inner_x)*g.scaleFactor;
-                obj.innerY = int(d.message[i].inner_y)*g.scaleFactor;
+                if (d.message[i].inner_x) {
+                    obj.innerX = String(d.message[i].inner_x).split('&');
+                    if (obj.innerX.length == 1) {
+                        obj.innerX = int(obj.innerX[0]) * g.scaleFactor;
+                    } else if (obj.innerX.length) {
+                        for (k = 0; k < obj.innerX.length; k++) {
+                            obj.innerX[k] = int(obj.innerX[k]) * g.scaleFactor;
+                        }
+                    }
+                    obj.innerY = String(d.message[i].inner_y).split('&');
+                    if (obj.innerY.length == 1) {
+                        obj.innerY = int(obj.innerY[0]) * g.scaleFactor;
+                    } else if (obj.innerY.length) {
+                        for (k = 0; k < obj.innerY.length; k++) {
+                            obj.innerY[k] = int(obj.innerY[k]) * g.scaleFactor;
+                        }
+                    }
+                }
                 obj.name = d.message[i].name;
                 obj.url = d.message[i].url;
                 obj.image = d.message[i].image;
