@@ -32,7 +32,6 @@ public class Hint {
     public function showIt(st:String,big:Boolean = false):void {
         _txtHint.text = st;
         var rectangle:Rectangle = _txtHint.textBounds;
-//        trace(rectangle);
         if (!big )  {
             _txtHint.x = 0;
             _txtHint.width = rectangle.width + 20;
@@ -44,11 +43,9 @@ public class Hint {
             while (source.numChildren) source.removeChildAt(0);
         }
         var bg:HintBackground = new HintBackground(rectangle.width + 22, rectangle.height + 12);
-//        trace(bg.x);
         if (big) {
             _txtHint.x = bg.x + 7;
         }
-//        trace(_txtHint.x);
         source.addChild(bg);
         source.addChild(_txtHint);
         if(_isShow) return;
