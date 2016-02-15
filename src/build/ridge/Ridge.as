@@ -172,6 +172,7 @@ public class Ridge extends AreaObject{
                 g.woBuyPlant.showItWithParams(this, onBuy);
             } else if (_stateRidge == GROWED) {
                  if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
+                     _source.filter = null;
                       g.woAmbarFilled.showAmbarFilled(true);
                  } else {
                      _stateRidge = EMPTY;

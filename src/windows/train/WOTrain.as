@@ -341,7 +341,7 @@ public class WOTrain extends Window {
             _imageItem = null;
         }
         _imageItem = _arrItems[_activeItemIndex].currentImage();
-        MCScaler.scale(_imageItem, 50, 50);
+        MCScaler.scale(_imageItem, 80, 80);
         _imageItem.x = 65 - _imageItem.width/2;
         _imageItem.y = 115 - _imageItem.height/2;
         _rightBlock.addChild(_imageItem);

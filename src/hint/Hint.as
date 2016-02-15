@@ -23,21 +23,32 @@ public class Hint {
 
     public function Hint() {
         source = new Sprite();
-        _txtHint = new TextField(150,50,"", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtHint = new TextField(150,20,"", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtHint.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.touchable = false;
         _isShow = false;
     }
 
-    public function showIt(st:String):void {
+    public function showIt(st:String,big:Boolean = false):void {
         _txtHint.text = st;
         var rectangle:Rectangle = _txtHint.textBounds;
-        _txtHint.width = rectangle.width + 20;
+//        trace(rectangle);
+        if (!big )  {
+            _txtHint.x = 0;
+            _txtHint.width = rectangle.width + 20;
+        } else {
+            _txtHint.width = 150;
+        }
         _txtHint.height = rectangle.height + 10;
         if (source.numChildren) {
             while (source.numChildren) source.removeChildAt(0);
         }
         var bg:HintBackground = new HintBackground(rectangle.width + 22, rectangle.height + 12);
+//        trace(bg.x);
+        if (big) {
+            _txtHint.x = bg.x + 7;
+        }
+//        trace(_txtHint.x);
         source.addChild(bg);
         source.addChild(_txtHint);
         if(_isShow) return;

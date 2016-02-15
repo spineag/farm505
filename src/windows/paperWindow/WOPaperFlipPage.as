@@ -52,16 +52,18 @@ public class WOPaperFlipPage extends Sprite3D{
         isNext ? angle = Math.PI : angle = 0;
         if (!isNext) this.rotationY = Math.PI;
         TweenMax.to(this, .8, {rotationY: angle, onComplete: f1, ease: Linear.ease});
-        var t:Timer = new Timer(400, 1);
-        var f2:Function = function():void {
-            t.stop();
-            t.removeEventListener(TimerEvent.TIMER, f2);
-            t = null;
-            _back.visible = true;
-            _top.visible = false;
-        };
-        t.addEventListener(TimerEvent.TIMER, f2);
-        t.start();
+//        var t:Timer = new Timer(400, 1);
+//        var f2:Function = function():void {
+//            t.stop();
+//            t.removeEventListener(TimerEvent.TIMER, f2);
+//            t = null;
+//            _back.visible = true;
+//            _top.visible = false;
+//        };
+//        t.addEventListener(TimerEvent.TIMER, f2);
+//        _back.visible = true;
+//        _top.visible = false;
+//        t.start();
     }
 }
 }

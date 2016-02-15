@@ -59,7 +59,7 @@ public class CatPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt('Готовы поработать: ' + g.managerCats.countFreeCats + '  Всего работников: ' + g.managerCats.curCountCats);
+        g.hint.showIt('Готовы поработать: ' + g.managerCats.countFreeCats + '  Всего работников: ' + g.managerCats.curCountCats, true);
     }
 
     private function onOut():void {

@@ -18,6 +18,7 @@ import user.Someone;
 import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
+import utils.TimeUtils;
 
 import windows.WOComponents.WOButtonTexture;
 import windows.Window;
@@ -71,6 +72,7 @@ public class WOPaper extends Window{
         im.y = 5;
         _txtTimer = new TextField(100,30,'',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtTimer.y = 5;
         _btnRefreshBlue.addChild(im);
         _btnRefreshBlue.addChild(_txtTimer);
         _btnRefreshBlue.x = 220;
@@ -145,7 +147,6 @@ public class WOPaper extends Window{
 
     private var _isAnim:Boolean = false;
     private function moveNext():void {
-        checkArrows();
         if (_isAnim) return;
         if (_shiftPages + 1>= _maxPages) return;
         _tempLeftPage = new WOPaperPage(_shiftPages + 2, _maxPages, WOPaperPage.LEFT_SIDE);
@@ -157,6 +158,7 @@ public class WOPaper extends Window{
         _isAnim = true;
         _flipPage = new WOPaperFlipPage(_rightPage.getScreenshot, _tempLeftPage.getScreenshot, true, afterMoveNext);
         _flipPage.y = 28;
+//        checkArrows();
         _source.removeChild(_rightPage.source);
         _rightPage.deleteIt();
         _rightPage = null;
@@ -181,10 +183,24 @@ public class WOPaper extends Window{
         _tempRightPage = null;
         _isAnim = false;
         _source.setChildIndex(_btnExit, _source.numChildren - 1);
+        checkArrows();
+
+        _leftPage.deleteIt();
+        _rightPage.deleteIt();
+        _source.removeChild(_leftPage.source);
+        _source.removeChild(_rightPage.source);
+        _leftPage = null;
+        _rightPage = null;
+        _arrPaper = g.managerPaper.arr;
+        if (_arrPaper.length > 60) _arrPaper.length = 60;
+        _maxPages = Math.ceil(_arrPaper.length/6);
+        if (_maxPages <2) _maxPages = 2;
+        createPages();
+
+
     }
 
     private function movePrev():void {
-        checkArrows();
         if (_isAnim) return;
         if (_shiftPages <= 1) return;
         _tempLeftPage = new WOPaperPage(_shiftPages - 2, _maxPages, WOPaperPage.LEFT_SIDE);
@@ -196,6 +212,7 @@ public class WOPaper extends Window{
         _isAnim = true;
         _flipPage = new WOPaperFlipPage(_leftPage.getScreenshot, _tempRightPage.getScreenshot, false, afterMovePrev);
         _flipPage.y = 28;
+//        checkArrows();
         _source.removeChild(_leftPage.source);
         _leftPage.deleteIt();
         _leftPage = null;
@@ -220,6 +237,19 @@ public class WOPaper extends Window{
         _tempLeftPage = null;
         _isAnim = false;
         _source.setChildIndex(_btnExit, _source.numChildren - 1);
+        checkArrows();
+        _leftPage.deleteIt();
+        _rightPage.deleteIt();
+        _source.removeChild(_leftPage.source);
+        _source.removeChild(_rightPage.source);
+        _leftPage = null;
+        _rightPage = null;
+        _arrPaper = g.managerPaper.arr;
+        if (_arrPaper.length > 60) _arrPaper.length = 60;
+        _maxPages = Math.ceil(_arrPaper.length/6);
+        if (_maxPages <2) _maxPages = 2;
+        createPages();
+
     }
 
     private function makeRefresh():void {
@@ -282,13 +312,12 @@ public class WOPaper extends Window{
     }
     private function timerRefresh():void {
         var time:Number = getTimer();
-        var TimeC:int = time/10;
-        var timeeee:int = g.user.timePaper/10;
-        _timer = g.user.timePaper - time;
+//        _timer = g.user.timePaper - time;
         if (_timer <= 900) {
             _btnRefreshBlue.setEnabled = true;
             _btnRefreshGreen.setEnabled = false;
             _txtTimer.text = 'Обновить';
+            _txtTimer.x = 25;
         } else {
             g.gameDispatcher.addToTimer(renderPaperProgress);
         }
@@ -296,11 +325,13 @@ public class WOPaper extends Window{
 
     private function renderPaperProgress():void {
         _timer--;
-        _txtTimer.text = String(_timer);
+        _txtTimer.x = 20;
+        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
         if (_timer <= 0) {
             _btnRefreshBlue.setEnabled = true;
             _btnRefreshGreen.setEnabled = false;
             _txtTimer.text = 'Обновить';
+            _txtTimer.x = 25;
             g.gameDispatcher.removeFromTimer(renderPaperProgress);
             g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         }
