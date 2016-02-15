@@ -103,10 +103,13 @@ public class WorldObject {
     }
 
     public function makeFlipBuilding():void {
-        if (_flip)
+        if (_flip) {
             _source.scaleX = -_defaultScale;
-        else
+            if (_craftSprite) _craftSprite.scaleX = -_defaultScale;
+        } else {
             _source.scaleX = _defaultScale;
+            if (_craftSprite) _craftSprite.scaleX = _defaultScale;
+        }
     }
 
     public function releaseFlip():void {

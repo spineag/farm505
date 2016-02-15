@@ -112,6 +112,10 @@ public class ArrivedLenta {
                 TweenMax.killTweensOf(_korzina);
                 g.gameDispatcher.removeEnterFrame(checkLentas);
                 _needStop = false;
+                if (_callback != null) {
+                    _callback.apply();
+                    _callback = null;
+                }
             }
         }
     }

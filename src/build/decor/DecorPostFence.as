@@ -62,8 +62,20 @@ public class DecorPostFence extends AreaObject{
         if (_rightLenta) return;
         _rightLenta = new Sprite();
         var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_1'));
-        im.x = -107 * g.scaleFactor;
-        im.y = -3 * g.scaleFactor;
+        switch (_dataBuild.id) {  // better to add its to DB as array
+            case 21: im.x = -107 * g.scaleFactor;
+                im.y = -3 * g.scaleFactor;
+                break;
+            case 19: im.x = -105 * g.scaleFactor;
+                im.y = 12 * g.scaleFactor;
+                break;
+            case 20: im.x = -105 * g.scaleFactor;
+                im.y = 9 * g.scaleFactor;
+                break;
+            case 18: im.x = -105 * g.scaleFactor;
+                im.y = 9 * g.scaleFactor;
+                break;
+        }
         _rightLenta.addChild(im);
         _rightLenta.scaleX = -1;
         _source.addChild(_rightLenta);

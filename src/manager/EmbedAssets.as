@@ -107,7 +107,7 @@ public class EmbedAssets {
     private const BbqGrillFabrica:Class;
     [Embed(source = "../../assets/animations/x1/dairy3.png", mimeType = "application/octet-stream")]
     private const DairyFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/pie_oven3.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/pie_oven.png", mimeType = "application/octet-stream")]
     private const PieOvenFabrica:Class;
     [Embed(source = "../../assets/animations/x1/juice_press3.png", mimeType = "application/octet-stream")]
     private const JuicePressFabrica:Class;
