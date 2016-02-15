@@ -75,8 +75,6 @@ public class MarketItem {
         _onHover = false;
         _woWidth = 110;
         _woHeight = 133;
-//        var newx:int = 110;
-//        var newy:int = 133;
         _bg = new CartonBackgroundIn(_woWidth, _woHeight);
         source.addChild(_bg);
         quad = new Quad(_woWidth, _woHeight,Color.WHITE ,false);
@@ -92,7 +90,6 @@ public class MarketItem {
         _txtAdditem.y = 30;
         _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.addChild(_txtAdditem);
-//        if (numberCell == 0) _txtAdditem.text = 'Добавить товар';
 
         _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -110,8 +107,6 @@ public class MarketItem {
         source.addChild(_imageCont);
 
         _inPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
-//        _inPapper.x = -5;
-//        _inPapper.y = 90;
         source.addChild(_inPapper);
         _inPapper.visible = false;
 
@@ -156,7 +151,6 @@ public class MarketItem {
     }
 
     private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
-//        if (_dataFromServer.numberCell == number) trace("number");
         var im:Image;
         isFill = 1;
         _data = data;
@@ -187,10 +181,8 @@ public class MarketItem {
         _countMoney = cost;
         if (!isFromServer) g.userInventory.addResource(_data.id, -_countResource);
         _countTxt.text = String(_countResource);
-//        _countMoney = _countResource * _data.cost;
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
-//        _costTxt.text = String(_dataFromServer.cost);
     }
 
     public function clearImageCont():void {
@@ -233,12 +225,10 @@ public class MarketItem {
                         return;
                     }
                 }
-//                clearImageCont();
                 g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
 
                 showFlyResource(d, _dataFromServer.resourceCount);
                 _inPapper.visible = false;
-//                showCoinImage();
                 _plawkaCoins.visible = false;
                 _plawkaSold.visible = true;
                 _txtPlawka.visible = true;
@@ -264,7 +254,6 @@ public class MarketItem {
             }
         } else if (isFill == 0) { // пустая
             if (_isUser) {
-//                g.woMarket.refreshMarket();
                 g.woMarket.hideIt();
                 g.woMarket.marketChoose.callback = onChoose;
                 g.woMarket.marketChoose.showIt();
@@ -297,7 +286,6 @@ public class MarketItem {
             _txtAdditem.text = '';
             _inPapper.visible = inPapper;
             g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
-//            g.woMarket.refreshMarket();
         }
     }
 
@@ -390,7 +378,6 @@ public class MarketItem {
             isFill = 2;
         } else {
             isFill = 1;
-//            if (_dataFromServer.numberCell == number) trace(String(number));////////////////////////////////////
             fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
             if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) {
                 _plawkaCoins.visible = false;
@@ -398,7 +385,6 @@ public class MarketItem {
                 _plawkaLvl.y = 50;
                 _txtPlawka.visible = true;
                 _txtPlawka.y = 75;
-//                _txtPlawka.x = -5;
                 _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
                 _txtAdditem.text = '';
                 isFill = 3;
@@ -429,7 +415,6 @@ public class MarketItem {
             return;
         }
         MCScaler.scale(im, 100, 100);
-//        var p:Point = new Point(_bg.width/2, _bg.height/2);
         var p:Point = new Point(0, 0);
         p = source.localToGlobal(p);
         im.pivotX = im.width/2;
@@ -483,10 +468,6 @@ public class MarketItem {
             }
         }
     }
-
-//    public function get dataFromServer():int {
-//        return _dataFromServer.numberCell;
-//    }
 
     private function onHover():void {
         if (isFill == 0 &&_isUser) {

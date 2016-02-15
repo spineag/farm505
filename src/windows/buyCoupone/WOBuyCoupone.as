@@ -38,6 +38,12 @@ public class WOBuyCoupone extends Window{
     }
 
     public function showItWO():void {
+        if (_Green){
+            _Blue.hideIt();
+            _Yellow.hideIt();
+            _Red.hideIt();
+            _Green.hideIt();
+        }
         _Green = new WOBuyCouponeItem("green_coupone", g.user.greenCouponCount,15,DataMoney.GREEN_COUPONE);
         _Green.source.x = -215;
         _Green.source.y = -20;
@@ -62,6 +68,7 @@ public class WOBuyCoupone extends Window{
 //    }
 
     private function onClickExit(e:Event=null):void {
+
         hideIt();
     }
 }

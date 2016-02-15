@@ -49,6 +49,8 @@ public class WOOrder extends Window{
     private var _btnSkipDelete:CButton;
     private var _armatureCustomer:Armature;
     private var _armatureSeller:Armature;
+    private var _imCoup:Image;
+    private var _txtCoupone:TextField;
     private var heroEyes:HeroEyesAnimation;
 
     public function WOOrder() {
@@ -153,14 +155,25 @@ public class WOOrder extends Window{
         _txtXP.y = 418;
         _rightBlock.addChild(_txtXP);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-        im.x = 580;
+        im.x = 570;
         im.y = 419;
         MCScaler.scale(im, 30, 30);
         im.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(im);
+        _imCoup = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_cup_ico'));
+        _imCoup.x = 640;
+        _imCoup.y = 422;
+        _imCoup.visible = false;
+        _rightBlock.addChild(_imCoup);
+        _txtCoupone = new TextField(30, 30, "1", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtCoupone.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtCoupone.x = 650;
+        _txtCoupone.y = 418;
+        _txtCoupone.visible = false;
+        _rightBlock.addChild(_txtCoupone);
         _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtCoins.x = 600;
+        _txtCoins.x = 590;
         _txtCoins.y = 418;
         _rightBlock.addChild(_txtCoins);
         _btnDeleteOrder = new CSprite();
@@ -337,6 +350,14 @@ public class WOOrder extends Window{
             setTimerText = _activeOrderItem.leftSeconds;
         } else {
             _rightBlock.visible = true;
+            if (item.getOrder().addCoupone) {
+                _imCoup.visible = true;
+                _txtCoupone.visible = true;
+            }
+            else {
+                _imCoup.visible = false;
+                _txtCoupone.visible = false;
+            }
             _rightBlockTimer.visible = false;
             g.gameDispatcher.removeFromTimer(onTimer);
         }

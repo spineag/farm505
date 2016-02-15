@@ -44,13 +44,13 @@ public class WONoFreeCats extends Window{
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _source.addChild(txt);
         _contBtn = new CButton();
-        _contBtn.addButtonTexture(130,40,CButton.YELLOW, true);
+        _contBtn.addButtonTexture(130,40,CButton.GREEN, true);
         _contBtn.clickCallback = onClick;
 //        _contBtn.x =-_contBtn.width/2;
         _contBtn.y = 100;
         _source.addChild(_contBtn);
         _txtBtn = new TextField(_contBtn.width,_contBtn.height,"КУПИТЬ",g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+        _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _contBtn.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
         im.x = -70;

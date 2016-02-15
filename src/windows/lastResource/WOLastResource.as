@@ -52,10 +52,10 @@ public class WOLastResource extends Window{
         _source.addChild(txt);
         _contBtnYes = new CButton();
         txt = new TextField(50, 50, "ДА", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 15;
         txt.y = -5;
-        _contBtnYes.addButtonTexture(80, 40, CButton.YELLOW, true);
+        _contBtnYes.addButtonTexture(80, 40, CButton.GREEN, true);
         _contBtnYes.addChild(txt);
         _source.addChild(_contBtnYes);
 

@@ -25,13 +25,11 @@ public class WOBuyForHardCurrency extends Window{
     private var _id:int;
     private var _count:int;
     private var _woBG:WindowBackground;
-//    private var _txtCost:TextField;
 
     public function WOBuyForHardCurrency() {
         super();
         _woWidth = 460;
         _woHeight = 308;
-//        createTempBG();
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
@@ -50,10 +48,6 @@ public class WOBuyForHardCurrency extends Window{
         txt.x = 15;
         txt.y = -5;
         _contBtnNo.addChild(txt);
-//        _txtCost = new TextField(280,50,'',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-//        _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-//        _txtCost.x = -150;
-//        _txtCost.y = -32;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("currency_buy_window"));
         _source.addChild(im);
         im.x = -50;
@@ -82,34 +76,26 @@ public class WOBuyForHardCurrency extends Window{
 
     private function onClickExit(e:Event=null):void {
         hideIt();
-//        _source.removeChild(_txtCost);
     }
 
     public function showItWO(id:int,count:int):void {
         _id = id;
         _count = count - g.userInventory.getCountResourceById(id);
-
-//        _txtCost.text = "Подтвердить покупку за " + String(count * g.dataResource.objectResources[id].priceHard);
-//        _source.addChild(_txtCost);
         showIt();
-
     }
 
     private function onYes():void {
         if (g.user.hardCurrency < _count * g.dataResource.objectResources[_id].priceHard) {
-//            _source.removeChild(_txtCost);
             hideIt();
             return;
         }
         g.userInventory.addMoney(1,-_count * g.dataResource.objectResources[_id].priceHard);
         g.userInventory.addResource(_id,_count);
-//        _source.removeChild(_txtCost);
         hideIt();
     }
 
     private function onNo():void {
         hideIt();
-//        _source.removeChild(_txtCost);
     }
 }
 }

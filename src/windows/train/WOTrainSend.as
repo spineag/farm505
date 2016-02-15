@@ -38,9 +38,9 @@ public class WOTrainSend extends Window{
         _contNo = new CButton();
         _contNo.addButtonTexture(80, 40, CButton.YELLOW, true);
         _contYes = new CButton();
-        _contYes.addButtonTexture(80, 40, CButton.YELLOW, true);
+        _contYes.addButtonTexture(80, 40, CButton.GREEN, true);
         txt = new TextField(50,50,"Да",g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 15;
         txt.y = -5;
         _contYes.addChild(txt);

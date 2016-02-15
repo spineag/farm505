@@ -211,7 +211,6 @@ public class WOMarket  extends Window {
         var i:int;
         try {
             var n:int = 0;
-//            unFillItems();
             if (_curUser is NeighborBot) {
                 for (i = 0; i < _arrItems.length; i++) {
                     _arrItems[i].friendAdd();
@@ -234,7 +233,6 @@ public class WOMarket  extends Window {
                 }
                 if (_curUser != g.user) _arrItems[i].friendAdd();
                 if (_curUser == g.user)  _arrItems[i].friendAdd(true);
-//                _arrItems[n].friendAdd();
             }
         } catch (e:Error) {
             Cc.error('WOMarket fillItems:: error: ' + e.errorID + ' - ' + e.message);
@@ -284,7 +282,6 @@ public class WOMarket  extends Window {
             _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
             _item2.source.y = 1 * 120 - 180;
             c = new CartonBackground(125, 115);
-//            c.filter = ManagerFilters.SHADOW_LIGHT;
             c.x = 208 - 5;
             c.y = 1 * 120 - 185;
             _contItem.addChild(c);
@@ -328,7 +325,6 @@ public class WOMarket  extends Window {
         _contItem.addChild(c);
         _source.addChild(_item2.source);
         _item2.source.width = _item2.source.height = 100;
-
 
         _item3 = new MarketFriendItem(_arrFriends[_shiftFriend + 2],this,_shiftFriend + 2);
         _item3.source.y = 2 * 120-182;

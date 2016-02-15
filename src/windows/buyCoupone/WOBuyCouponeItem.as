@@ -86,16 +86,20 @@ public class WOBuyCouponeItem {
         }
         g.userInventory.addMoney(1, -_cost);
 
-        g.userInventory.addMoney(_type,1);
+//        g.userInventory.addMoney(_type,1);
         _count++;
         _txtCount.text = String(_count);
         var obj:Object;
         obj = {};
-        obj.count = _count;
+        obj.count = 1;
         var p:Point = new Point(_imageCoupone.x, _imageCoupone.y);
         p = _imageCoupone.localToGlobal(p);
         obj.id = _type;
         new DropItem(p.x, p.y, obj);
         }
+
+    public function hideIt():void {
+        while (source.numChildren) source.removeChildAt(0);
+    }
 }
 }
