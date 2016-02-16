@@ -93,6 +93,7 @@ public class WOTrainItem {
         _im.y = 45 - _im.height/2;
         source.addChild(_im);
         source.addChild(_txt);
+        source.addChild(_galo4ka);
         source.endClickCallback = onClick;
         if (isResourceLoaded) {
             _galo4ka.visible = true;

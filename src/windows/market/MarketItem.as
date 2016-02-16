@@ -444,17 +444,21 @@ public class MarketItem {
         _imageCont.addChild(im);
         _quadGreen.visible = true;
         _costTxt.text = String(_dataFromServer.cost);
-        for (i = 0; i < g.user.arrFriends.length; i++) {
-            if (_dataFromServer.buyerSocialId == g.user.arrFriends[i].userSocialId) {
-                _personBuyer = g.user.arrFriends[i];
-                break;
-            }
-        }
-        if (!_personBuyer) {
-            for (i = 0; i < g.user.arrTempUsers.length; i++) {
-                if (_dataFromServer.buyerSocialId == g.user.arrTempUsers[i].userSocialId) {
-                    _personBuyer = g.user.arrTempUsers[i];
+        if (_dataFromServer.buyerSocialId == 1) {
+            _personBuyer = g.user.neighbor;
+        } else {
+            for (i = 0; i < g.user.arrFriends.length; i++) {
+                if (_dataFromServer.buyerSocialId == g.user.arrFriends[i].userSocialId) {
+                    _personBuyer = g.user.arrFriends[i];
                     break;
+                }
+            }
+            if (!_personBuyer) {
+                for (i = 0; i < g.user.arrTempUsers.length; i++) {
+                    if (_dataFromServer.buyerSocialId == g.user.arrTempUsers[i].userSocialId) {
+                        _personBuyer = g.user.arrTempUsers[i];
+                        break;
+                    }
                 }
             }
         }

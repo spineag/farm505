@@ -416,7 +416,7 @@ public class ShopItem {
                         curCount += (arr[i] as Farm).arrAnimals.length;
                     }
                     if (maxCount == 0) {
-                        _txtAvailable.text = 'Необходимо построить ' + String(dataFarm.name);
+                        _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
                         _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         _nameTxt.text = _data.name;
                     } else if (curCount >= maxCount) {
@@ -626,19 +626,32 @@ public class ShopItem {
             }
         } else {
             //додаємо на відповідну ферму
+            var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
+            var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;
+            var arrPat = g.townArea.getCityObjectsById(dataFarm.id);
+            for (i=0; i<arrPat.length; i++) {
+                curCount += (arrPat[i] as Farm).arrAnimals.length;
+            }
             for (i = 0; i < arr.length; i++) {
                 if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
                     (arr[i] as Farm).addAnimal();
-                    g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost));
                     checkState();
                     g.bottomPanel.cancelBoolean(false);
                     g.woShop.updateMoneyCounts();
-                    showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
-                    return;
-                }
             }
             Cc.error('ShopItem:: no such Farm :(');
+        }
+            if (curCount < dataFarm.maxAnimalsCount) {
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost));
+            } else if (curCount < 2*dataFarm.maxAnimalsCount) {
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost2));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost2));
+            } else {
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost3));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost3));
+            }
         }
     }
 

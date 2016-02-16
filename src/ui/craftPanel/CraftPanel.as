@@ -43,7 +43,7 @@ public class CraftPanel {
         _source.x = g.stageWidth/2;
         _source.y = 70;
 
-        _progress = new AmbarProgress(false);
+        _progress = new AmbarProgress(false, false);
         _progress.source.scaleX = _progress.source.scaleY = .75;
         _progress.source.x = _source.width/2;
         _progress.source.y = _source.height/2;
@@ -65,7 +65,7 @@ public class CraftPanel {
         MCScaler.scale(_skladImage, 70, 70);
         _skladImage.pivotX = _skladImage.width/2;
         _skladImage.pivotY = _skladImage.height/2;
-        _skladImage.x = 145;
+        _skladImage.x = 155;
         _skladImage.y = -12;
         _source.addChild(_skladImage);
         _skladImage.visible = false;

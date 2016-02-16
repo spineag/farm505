@@ -265,6 +265,7 @@ public class WOMarket  extends Window {
         if (paper) _txtName.text = _curUser.name + ' продает:';
         else _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
         _source.addChild(_txtName);
+
         if (_arrFriends.length <= 2) {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
             _item.source.y = -180;
@@ -276,17 +277,17 @@ public class WOMarket  extends Window {
             c.y = -185;
             _cont.addChild(c);
             _source.addChild(_item.source);
-            if (_shiftFriend + 2 >= _arrFriends.length) {
+            if (_shiftFriend == 1) {
                 _shiftFriend = -1;
             }
+
             _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
-            _item2.source.y = 1 * 120 - 180;
-            c = new CartonBackground(125, 115);
+            _item2.source.y = 1 * 120 - 177;
+            c = new CartonBackground(120, 110);
             c.x = 208 - 5;
             c.y = 1 * 120 - 185;
             _contItem.addChild(c);
             _source.addChild(_item2.source);
-            _item2.source.y = 5;
             _item2.source.width = _item2.source.height = 100;
             return;
         }
@@ -348,7 +349,7 @@ public class WOMarket  extends Window {
     public function deleteFriends():void {
         _source.removeChild(_item.source);
         _source.removeChild(_item2.source);
-        _source.removeChild(_item3.source);
+        if (_item3)_source.removeChild(_item3.source);
         _source.removeChild(_txtName);
     }
 
