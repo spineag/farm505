@@ -35,6 +35,7 @@ public class RemoveWildAnimation {
                 _y = -43 * g.scaleFactor;
                 _countPlay = 3;
                 _armature = g.allData.factory['removeWild'].buildArmature("axe");
+                (_armature.display as Sprite).rotation = -Math.PI/2;
                 break;
             case 125: // shovel
                 _x = 38 * g.scaleFactor;

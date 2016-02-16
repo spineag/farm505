@@ -119,18 +119,25 @@ public class WorldObject {
             _dataBuild.isFlip = _flip;
             return;
         }
+        if (_flip) {
+            g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
+        } else {
+            g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
+        }
 
         if (_flip) {
             if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY)) {
                 _flip = false;
-                g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
                 g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+            } else {
+                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
             }
         } else {
             if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
                 _flip = true;
-                g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
                 g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+            } else {
+                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
             }
         }
         _dataBuild.isFlip = _flip;

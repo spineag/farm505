@@ -70,6 +70,9 @@ public class ShopItem {
             g.woGameError.showIt();
             return;
         }
+        if (_data.id == 42) {
+            trace('asasd');
+        }
         source = new CSprite();
         var bg:CartonBackgroundIn = new CartonBackgroundIn(145, 221);
         source.addChild(bg);

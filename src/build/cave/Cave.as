@@ -23,6 +23,7 @@ public class Cave extends AreaObject{
     private var _count:int;
     private var _arrCraftItems:Array;
     private var _armature:Armature;
+    private var _isAnimate:Boolean;
 
     public function Cave(data:Object) {
         super (data);
@@ -33,6 +34,7 @@ public class Cave extends AreaObject{
             return;
         }
         checkCaveState();
+        _isAnimate = false;
         _source.releaseContDrag = true;
         if (!g.isAway) {
             _woBuy = new WOBuyCave();
@@ -157,6 +159,7 @@ public class Cave extends AreaObject{
     }
 
     private function onHover():void {
+        if (_isAnimate) return;
         if (g.selectedBuild) return;
         _isOnHover = true;
         _source.filter = ManagerFilters.BUILD_STROKE;
@@ -164,6 +167,7 @@ public class Cave extends AreaObject{
     }
 
     private function onOut():void {
+        if (_isAnimate) return;
         _isOnHover = false;
         if (_source) _source.filter = null;
         g.hint.hideIt();
@@ -173,6 +177,7 @@ public class Cave extends AreaObject{
     }
 
     private function onClick():void {
+        if (_isAnimate) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
             if (g.selectedBuild) {
@@ -339,6 +344,7 @@ public class Cave extends AreaObject{
                     _arrCraftItems.push(craftItem);
                 }
             }
+            _isAnimate = false;
         };
 
         var fIn:Function = function():void {
@@ -349,6 +355,7 @@ public class Cave extends AreaObject{
             _armature.animation.gotoAndPlay("out");
         };
 
+        _isAnimate = true;
         _armature.addEventListener(AnimationEvent.COMPLETE, fIn);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fIn);
         _armature.animation.gotoAndPlay("in");

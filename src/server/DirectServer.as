@@ -37,6 +37,8 @@ import user.Someone;
 
 import user.Someone;
 
+import utils.Utils;
+
 import windows.serverError.WOServerError;
 
 
@@ -996,7 +998,7 @@ public class DirectServer {
             g.user.userDataCity.objects = new Array();
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
-                dataBuild = g.dataBuilding.objectBuilding[int(d.message[i].building_id)];
+                dataBuild = Utils.objectDeepCopy(g.dataBuilding.objectBuilding[int(d.message[i].building_id)]);
                 if (int(d.message[i].in_inventory)) {
                     g.userInventory.addToDecorInventory(dataBuild.id, dbId);
                 } else {
@@ -3184,7 +3186,7 @@ public class DirectServer {
             Cc.ch('server', 'getUserWild OK', 5);
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
-                dataBuild = g.dataBuilding.objectBuilding[int(d.message[i].building_id)];
+                dataBuild = Utils.objectDeepCopy(g.dataBuilding.objectBuilding[int(d.message[i].building_id)]);
                 var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
                 dataBuild.dbId = dbId;
                 dataBuild.isFlip = int(d.message[i].is_flip);

@@ -20,6 +20,7 @@ import starling.utils.Color;
 
 import utils.CButton;
 import utils.CSprite;
+import utils.Utils;
 
 public class MapEditorInterface {
     private var _allTable:Sprite;
@@ -118,7 +119,7 @@ public class MapEditorInterface {
         _arrWilds = [];
         for(var id:String in obj) {
             if (obj[id].buildType == BuildType.WILD) {
-                item = new MapEditorInterfaceItem(obj[id]);
+                item = new MapEditorInterfaceItem(Utils.objectDeepCopy(obj[id]));
                 item.source.y = 20;
                 item.source.x = i * 80;
                 _contBuildings.addChild(item.source);
