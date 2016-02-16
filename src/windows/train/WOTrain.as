@@ -70,17 +70,17 @@ public class WOTrain extends Window {
         addItems();
 
         _btn = new CButton();
-        _btn.addButtonTexture(144, 50, CButton.GREEN, true);
-        _btn.x = _woWidth/2 - 109;
+        _btn.addButtonTexture(120, 40, CButton.GREEN, true);
+        _btn.x = _woWidth/2 - 180;
         _btn.y = 205;
         var txt:TextField = new TextField(89,62,"Отправить",g.allData.fonts['BloggerBold'],16,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-        txt.x = 50;
-        txt.y = -5;
+        txt.x = 5;
+        txt.y = -10;
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
-        im.y = -10;
-        im.x = -2;
+        im.y = -15;
+        im.x = 88;
         _btn.addDisplayObject(im);
         _source.addChild(_btn);
         _btn.alpha = .5;

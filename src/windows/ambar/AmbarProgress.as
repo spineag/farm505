@@ -20,7 +20,7 @@ public class AmbarProgress {
 
     private var g:Vars = Vars.getInstance();
 
-    public function AmbarProgress(addImages:Boolean = true) {
+    public function AmbarProgress(addImages:Boolean = true, ambarSklad:Boolean = true) {
         source = new Sprite();
         source.touchable = false;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('storage_window_pr'));
@@ -48,8 +48,8 @@ public class AmbarProgress {
     }
 
     public function setProgress(a:Number):void {
-
         _bar.progress = a;
+//        imSklad.x = 430;
     }
 
     public function showAmbarIcon(v:Boolean):void {

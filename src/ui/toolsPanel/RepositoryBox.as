@@ -121,37 +121,20 @@ public class RepositoryBox {
     }
 
     private function onLeft():void {
-//        _shift--;
-//        var tween:Tween = new Tween(_cont, 0.5);
-//        tween.moveTo(-192*_shift ,0);
-//        tween.onComplete = function ():void {
-//            g.starling.juggler.remove(tween);
-//            checkBtns();
-//        };
-//        g.starling.juggler.add(tween);
         if (_shift > 0) {
-            _shift -= 3;
+            _shift -= 1;
             if (_shift<0) _shift = 0;
-            new TweenMax(_cont, .5, {x:-_shift*60, ease:Linear.easeNone ,onComplete: function():void {}});
+            new TweenMax(_cont, .5, {x:-_shift*64, ease:Linear.easeNone ,onComplete: function():void {}});
         }
         checkBtns();
     }
 
     private function onRight():void {
-//        _shift++;
-//        var tween:Tween = new Tween(_cont, 0.5);
-//        tween.moveTo(-192*_shift ,0);
-//        tween.onComplete = function ():void {
-//            g.starling.juggler.remove(tween);
-//            checkBtns();
-//        };
-//        g.starling.juggler.add(tween);
         var l:int = _arrItems.length;
-
-        if (_shift +1 < l) {
-            _shift += 3;
-            if (_shift > l-3) _shift = l-3;
-            new TweenMax(_cont, .5, {x:-_shift*60, ease:Linear.easeNone ,onComplete: function():void {}});
+        if (_shift +1 < l - 2) {
+            _shift += 1;
+            if (_shift > l - 1 ) _shift = l-1;
+            new TweenMax(_cont, .5, {x:-_shift*64, ease:Linear.easeNone ,onComplete: function():void {}});
         }
         checkBtns();
     }
@@ -162,7 +145,7 @@ public class RepositoryBox {
         } else {
             _leftBtn.setEnabled = true;
         }
-        if ((_shift + 1)*3 < count) {
+        if ((_shift + 1) * 1 < count) {
             _rightBtn.setEnabled = true;
         } else {
             _rightBtn.setEnabled = false;
