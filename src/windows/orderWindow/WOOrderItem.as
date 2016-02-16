@@ -5,6 +5,7 @@ package windows.orderWindow {
 
 import manager.ManagerFilters;
 import manager.ManagerOrder;
+import manager.ManagerOrderItem;
 import manager.Vars;
 
 import starling.display.Image;
@@ -23,7 +24,7 @@ public class WOOrderItem {
     private var _txtName:TextField;
     private var _txtXP:TextField;
     private var _txtCoins:TextField;
-    private var _order:Object;
+    private var _order:ManagerOrderItem;
     private var _leftSeconds:int;
     private var _starImage:Image;
     private var _coinsImage:Image;
@@ -103,7 +104,7 @@ public class WOOrderItem {
         return _position;
     }
 
-    public function fillIt(order:Object, position:int, f:Function, b:Boolean = false):void {
+    public function fillIt(order:ManagerOrderItem, position:int, f:Function, b:Boolean = false):void {
         _position = position;
         _order = order;
         _clickCallback = f;
@@ -178,11 +179,11 @@ public class WOOrderItem {
         _order.startTime -= 2*ManagerOrder.TIME_DELAY;
     }
 
-    public function getOrder():Object {
+    public function getOrder():ManagerOrderItem {
         return _order;
     }
 
-    public function setOrder(ord:Object):void {
+    public function setOrder(ord:ManagerOrderItem):void {
 
     }
 

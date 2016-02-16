@@ -3911,7 +3911,7 @@ public class DirectServer {
         }
     }
 
-    public function skipOrderTimer(orderID:int, callback:Function):void {
+    public function skipOrderTimer(orderID:String, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_ORDER_TIMER);
         var variables:URLVariables = new URLVariables();

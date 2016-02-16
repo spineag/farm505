@@ -681,6 +681,10 @@ public class Tree extends AreaObject {
                     }
                 }
                 _build.addChild(_wateringIcon);
+                if (_flip)
+                    _wateringIcon.scaleX = -1;
+                else
+                    _wateringIcon.scaleX = 1;
             }
         }
     }

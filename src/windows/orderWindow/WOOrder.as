@@ -14,6 +14,8 @@ import heroes.HeroEyesAnimation;
 import heroes.OrderCat;
 import manager.ManagerFilters;
 import manager.ManagerOrder;
+import manager.ManagerOrderItem;
+
 import resourceItem.DropItem;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -199,13 +201,7 @@ public class WOOrder extends Window{
             _arrItems.push(item);
         }
     }
-    private function checkFull():void {
-        for (var i:int = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
-            if (_arrResourceItems[i].isChecked()) {
 
-            }
-        }
-    }
     private function createButtonCell():void {
         _btnCell = new CButton();
         _btnCell.addButtonTexture(120, 40, CButton.GREEN, true);
@@ -246,7 +242,7 @@ public class WOOrder extends Window{
         _btnSkipDelete.clickCallback = skipDelete;
     }
 
-    private function sellOrder(b:Boolean = false, _order:Object = null):void {
+    private function sellOrder(b:Boolean = false, _order:ManagerOrderItem = null):void {
         if (_waitForAnswer) return;
         var i:int;
         if (!b) {
@@ -291,12 +287,17 @@ public class WOOrder extends Window{
             new DropItem(p.x, p.y, prise);
         }
         _waitForAnswer = true;
-        g.managerOrder.sellOrder(_activeOrderItem.getOrder(), afterSell);
+        var tOrderItem:WOOrderItem = _activeOrderItem;
+        var f:Function = function (order:ManagerOrderItem):void {
+            afterSell(order, tOrderItem);
+        };
+        _arrOrders[_activeOrderItem.position] = null;
+        g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
         g.bottomPanel.checkIsFullOrder();
         animateCatsOnSell();
     }
 
-    private function afterSell(order:Object):void {
+    private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
         if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
             var b:Boolean = true;
@@ -306,8 +307,11 @@ public class WOOrder extends Window{
                     break;
                 }
             }
-            _activeOrderItem.fillIt(order, order.placeNumber, onItemClick, b);
-            onItemClick(_activeOrderItem);
+            orderItem.fillIt(order, order.placeNumber, onItemClick, b);
+            _arrOrders[order.placeNumber] = order;
+            if (_activeOrderItem == orderItem) {
+                onItemClick(_activeOrderItem);
+            }
         }
         g.bottomPanel.checkIsFullOrder();
     }
@@ -315,17 +319,17 @@ public class WOOrder extends Window{
     private function fillList():void {
         var maxCount:int = g.managerOrder.maxCountOrders;
         var b:Boolean;
-        var order:Object;
+        var order:ManagerOrderItem;
         var k:int;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (i >= maxCount) return;
             b = true;
             order = _arrOrders[i];
             for (k=0; k<order.resourceIds.length; k++) {
-                    if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
-                        b = false;
-                        break;
-                    }
+                if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+                    b = false;
+                    break;
+                }
             }
             if (order.placeNumber > -1) {
                 _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b);
@@ -342,7 +346,10 @@ public class WOOrder extends Window{
         _activeOrderItem = item;
         fillResourceItems(item.getOrder());
         _activeOrderItem.activateIt(true);
+        stopCatsAnimations();
         changeCatTexture(item.position);
+        animateCustomerCat();
+        animateSellerCat();
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
@@ -372,7 +379,7 @@ public class WOOrder extends Window{
         _txtCoins.text = '';
     }
 
-    private function fillResourceItems(order:Object):void {
+    private function fillResourceItems(order:ManagerOrderItem):void {
         _txtName.text = _activeOrderItem.getOrder().catName + ' заказывает';
         _txtXP.text = String(_activeOrderItem.getOrder().xp);
         _txtCoins.text = String(_activeOrderItem.getOrder().coins);
@@ -387,11 +394,16 @@ public class WOOrder extends Window{
             _rightBlockTimer.visible = true;
             setTimerText = ManagerOrder.TIME_DELAY;
             _waitForAnswer = true;
-            g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), afterDeleteOrder);
+            _arrOrders[_activeOrderItem.position] = null;
+            var tOrderItem:WOOrderItem = _activeOrderItem;
+            var f:Function = function (order:ManagerOrderItem):void {
+                afterDeleteOrder(order, tOrderItem);
+            };
+            g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
         }
     }
 
-    private function afterDeleteOrder(order:Object):void {
+    private function afterDeleteOrder(order:ManagerOrderItem, orderItem:WOOrderItem):void {
         if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
             order.startTime += ManagerOrder.TIME_DELAY;
             _waitForAnswer = false;
@@ -403,8 +415,11 @@ public class WOOrder extends Window{
                     break;
                 }
             }
-            _activeOrderItem.fillIt(order, order.placeNumber, onItemClick, b);
-            onItemClick(_activeOrderItem);
+            orderItem.fillIt(order, order.placeNumber, onItemClick, b);
+            _arrOrders[order.placeNumber] = order;
+            if (_activeOrderItem == orderItem) {
+                onItemClick(_activeOrderItem);
+            }
             g.gameDispatcher.addToTimer(onTimer);
         }
     }
@@ -468,6 +483,9 @@ public class WOOrder extends Window{
     private function set setTimerText(c:int):void {
         _txtTimer.text = TimeUtils.convertSecondsForOrders(c);
     }
+
+
+    // ------------------ ANIMATIONS ---------------------
 
     private function createTopCats():void {
         _armatureCustomer = g.allData.factory['orderWindow'].buildArmature("cat_customer");

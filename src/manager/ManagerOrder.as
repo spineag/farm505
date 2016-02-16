@@ -4,6 +4,8 @@
 package manager {
 import com.junkbyte.console.Cc;
 
+import utils.Utils;
+
 public class ManagerOrder {
     public static const TIME_DELAY:int = 15 * 60;
     public static const COST_SKIP_WAIT:int = 8;
@@ -57,7 +59,7 @@ public class ManagerOrder {
 
     public function addFromServer(ob:Object):void {
         if (_arrOrders.length >= _curMaxCountOrders) return;
-        var order:Object = {};
+        var order:ManagerOrderItem = new ManagerOrderItem();
         order.dbId = ob.id;
         order.resourceIds = ob.ids.split('&');
         order.resourceCounts = ob.counts.split('&');
@@ -67,6 +69,8 @@ public class ManagerOrder {
         order.addCoupone = ob.add_coupone == '1';
         order.startTime = int(ob.start_time) || 0;
         order.placeNumber = int(ob.place);
+        Utils.intArray(order.resourceCounts);
+        Utils.intArray(order.resourceIds);
         _arrOrders.push(order);
         _arrOrders.sortOn('placeNumber', Array.NUMERIC);
     }
@@ -95,7 +99,7 @@ public class ManagerOrder {
     // 2 - resources made from resources from cave
     // 3 - resource plants
     private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1):void {
-        var order:Object;
+        var order:ManagerOrderItem;
         var arrOrderType1:Array = new Array();
         var arrOrderType2:Array = new Array();
         var arrOrderType3:Array = new Array();
@@ -115,7 +119,7 @@ public class ManagerOrder {
             }
         }
         for (var i:int=0; i<n; i++) {
-            order = {};
+            order = new ManagerOrderItem();
             order.resourceIds = [];
             order.resourceCounts = [];
             if (Math.random() < .2 && arrOrderType2.length) {
@@ -326,19 +330,28 @@ public class ManagerOrder {
         return -1;
     }
 
-    public function deleteOrder(order:Object, f:Function):void {
+    public function deleteOrder(order:ManagerOrderItem, f:Function):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == order.dbId) {
+                g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat);
+                _arrOrders[i].cat = null;
                 _arrOrders.splice(i, 1);
                 break;
             }
         }
         if (i == _arrOrders.length) Cc.error('ManagerOrder deleteOrder:: no order');
+        var pl:int = order.placeNumber;
         g.directServer.deleteUserOrder(order.dbId, null);
         addNewOrders(1, TIME_DELAY, f, order.placeNumber);
+        for (i=0; i<_arrOrders.length; i++) {
+            if (_arrOrders[i].placeNumber == pl) {
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+                break;
+            }
+        }
     }
 
-    public function sellOrder(order:Object, f:Function):void {
+    public function sellOrder(order:ManagerOrderItem, f:Function):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == order.dbId) {
                 g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat);
@@ -363,7 +376,7 @@ public class ManagerOrder {
     public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
         var b:Boolean;
         var k:int;
-        var order:Object;
+        var order:ManagerOrderItem;
 
         if (!_arrOrders.length) return false;
         for (var i:int=0; i<_arrOrders.length; i++) {
@@ -382,7 +395,7 @@ public class ManagerOrder {
         return false;
     }
 
-    public function onSkipTimer(orderDbId:int):void {
+    public function onSkipTimer(orderDbId:String):void {
         g.directServer.skipOrderTimer(orderDbId, null);
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == orderDbId) {
