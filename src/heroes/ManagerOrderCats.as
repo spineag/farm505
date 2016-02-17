@@ -145,10 +145,32 @@ public class ManagerOrderCats {
     // ------ new Cat arrived --------
     public function getNewCatForOrder():OrderCat{
         var cat:OrderCat = new OrderCat(int(Math.random()*6 + 1));
-        cat.setPositionInQueue(g.managerOrder.maxCountOrders-1);
+        cat.setPositionInQueue(getFreeQueuePosition());
         _arrCats.push(cat);
         arriveNewCat(cat);
         return cat;
+    }
+
+    private function getFreeQueuePosition():int {
+        var max:int = g.managerOrder.maxCountOrders;
+        var arr:Array = [];
+        for (var i:int=0; i<max; i++) {
+            arr.push(i);
+        }
+        for (i=0; i<_arrCats.length; i++) {
+             if (arr.indexOf(_arrCats[i].queuePosition)>-1) {
+                 arr.splice(arr.indexOf(_arrCats[i].queuePosition), 1);
+             } else {
+                 Cc.error("ManagerOrderCats:: getFreeQueuePosition error: mismatch with queue position: " + _arrCats[i].queuePosition);
+             }
+        }
+
+        if (!arr.length) {
+            Cc.error("ManagerOrderCats:: getFreeQueuePosition error: no free queue position, so use next: " + String(max));
+            return max;
+        } else {
+            return arr[0];
+        }
     }
 
     private function arriveNewCat(cat:OrderCat):void {

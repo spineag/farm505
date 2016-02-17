@@ -143,8 +143,8 @@ public class LockedLand extends AreaObject {
     private function onOut():void {
         if (g.isActiveMapEditor) return;
         _build.filter = null;
-        _topRibbon.filter = null;
-        _bottomRibbon.filter = null;
+        if (_topRibbon) _topRibbon.filter = null;
+        if (_bottomRibbon) _bottomRibbon.filter = null;
     }
 
     private function onClick():void {

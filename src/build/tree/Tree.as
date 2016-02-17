@@ -338,6 +338,8 @@ public class Tree extends AreaObject {
     }
 
     private function onClick():void {
+        trace('depth: ' + _depth);
+
         if (g.isActiveMapEditor) return;
         if (g.isAway) {
             if (_state == ASK_FIX) {

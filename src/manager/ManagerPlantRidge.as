@@ -86,6 +86,7 @@ public class ManagerPlantRidge {
                     _catsForPlant[plantId].ridges.splice(_catsForPlant[plantId].ridges.indexOf(ridge), 1);
                     if (!_catsForPlant[plantId].ridges.length) {
                         removeCatFromPlant(plantId, _catsForPlant[plantId].cat as HeroCat);
+                        delete _catsForPlant[plantId];
                     }
                 } else {
                     Cc.error('ManagerPlantRidge removeCatFromRidge:: _catsForPlant[plantId].ridges.indexOf(ridge) = -1 for plantId: ' + plantId);
@@ -102,8 +103,6 @@ public class ManagerPlantRidge {
         cat.curActiveRidge = null;
         if (cat.visible) {
             cat.killAllAnimations();
-        } else {
-            cat.forceStopWork();
         }
         cat.isFree = true;
         cat.additionalRemoveWorker();

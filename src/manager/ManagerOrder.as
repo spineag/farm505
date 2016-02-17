@@ -50,6 +50,15 @@ public class ManagerOrder {
         updateMaxCounts();
         if (_arrOrders.length < _curMaxCountOrders) {
             addNewOrders(_curMaxCountOrders - _arrOrders.length);
+            checkForNewCats();
+        }
+    }
+
+    private function checkForNewCats():void {
+        for (var i:int=0; i<_arrOrders.length; i++) {
+            if (!_arrOrders[i].cat) {
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+            }
         }
     }
 
