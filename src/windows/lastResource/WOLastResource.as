@@ -45,9 +45,9 @@ public class WOLastResource extends Window{
         txt.x = -80;
         txt.y = -130;
         _source.addChild(txt);
-        txt = new TextField(320,50,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        txt = new TextField(350,50,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txt.x = -160;
+        txt.x = -170;
         txt.y = -90;
         _source.addChild(txt);
         _contBtnYes = new CButton();
@@ -67,7 +67,7 @@ public class WOLastResource extends Window{
         _contBtnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
         _contBtnNo.addChild(txt);
         _source.addChild(_contBtnNo);
-        _contBtnYes.clickCallback = onClickNo;
+        _contBtnNo.clickCallback = onClickNo;
 
         _contBtnYes.x = 100;
         _contBtnYes.y = 80;
@@ -84,6 +84,7 @@ public class WOLastResource extends Window{
         }
         _arrItems.length = 0;
         hideIt();
+
     }
 
     public function showItOrder(_data:Object, f:Function):void {

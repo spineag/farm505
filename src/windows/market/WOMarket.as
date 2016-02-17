@@ -262,6 +262,11 @@ public class WOMarket  extends Window {
     }
 
     public function createMarketTabBtns(paper:Boolean = false):void {
+        if (_arrFriends == null) {
+           g.woGameError.showItParams('Обнови сиды и сикреты');
+            return;
+        }
+
         if (paper) _txtName.text = _curUser.name + ' продает:';
         else _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
         _source.addChild(_txtName);
@@ -347,8 +352,8 @@ public class WOMarket  extends Window {
     }
 
     public function deleteFriends():void {
-        _source.removeChild(_item.source);
-        _source.removeChild(_item2.source);
+        if (_item) _source.removeChild(_item.source);
+        if (_item2)_source.removeChild(_item2.source);
         if (_item3)_source.removeChild(_item3.source);
         _source.removeChild(_txtName);
     }

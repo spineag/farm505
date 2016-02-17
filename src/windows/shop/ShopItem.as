@@ -384,7 +384,7 @@ public class ShopItem {
                         _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(g.userInventory.decorInventory[_data.id].count);
                         _btnActivationYellow.visible = true;
                     } else {
-                        _countCost = arr.length * _data.deltaCost + _data.cost;
+                        _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
 //                        _countCost = 5;
                             if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
                                 _btnBuyBlue.visible = true;
