@@ -3,6 +3,8 @@
  */
 package build.tree {
 import build.AreaObject;
+import build.wild.RemoveWildAnimation;
+
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import flash.display.Bitmap;
@@ -195,10 +197,9 @@ public class Tree extends AreaObject {
                 for (i = 0; i < _dataBuild.countCraftResource[0] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
-//                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
                     item.callback = function ():void {
-                        onCraftItemClick(item)
+                        onCraftItemClick(item);
                     };
                     _arrCrafted.push(item);
                 }
@@ -218,10 +219,9 @@ public class Tree extends AreaObject {
                 for (i = 0; i < _dataBuild.countCraftResource[1] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
-//                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
                     item.callback = function ():void {
-                        onCraftItemClick(item)
+                        onCraftItemClick(item);
                     };
                     _arrCrafted.push(item);
                 }
@@ -241,10 +241,9 @@ public class Tree extends AreaObject {
                 for (i = 0; i < _dataBuild.countCraftResource[2] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
-//                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
                     item.callback = function ():void {
-                        onCraftItemClick(item)
+                        onCraftItemClick(item);
                     };
                     _arrCrafted.push(item);
                 }
@@ -276,10 +275,9 @@ public class Tree extends AreaObject {
                 for (i = 0; i < _dataBuild.countCraftResource[2] - _craftedCountFromServer; i++) {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
-//                    MCScaler.scale(item.source, 30, 30);
                     item.removeDefaultCallbacks();
                     item.callback = function ():void {
-                        onCraftItemClick(item)
+                        onCraftItemClick(item);
                     };
                     _arrCrafted.push(item);
                 }
@@ -340,6 +338,8 @@ public class Tree extends AreaObject {
     }
 
     private function onClick():void {
+        trace('depth: ' + _depth);
+
         if (g.isActiveMapEditor) return;
         if (g.isAway) {
             if (_state == ASK_FIX) {
@@ -429,7 +429,6 @@ public class Tree extends AreaObject {
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
                     }
                 }if (_state == DEAD) {
-                     onOut();
                      g.treeHint.onDelete = deleteTree;
                      g.treeHint.showIt(_source.height,_dataBuild, newX, newY, _dataBuild.name, this, onOut);
                      g.treeHint.onWatering = askWateringTree;
@@ -437,7 +436,6 @@ public class Tree extends AreaObject {
                      g.wildHint.onDelete = deleteTree;
                      g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId, _dataBuild.name,onOut);
                  }  else {
-                     onOut();
                      g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip,onOut);
                  }
             } else if (_state == FIXED) {
@@ -507,6 +505,7 @@ public class Tree extends AreaObject {
         }
 
         if (!_arrCrafted.length) {
+            onOut();
             switch (_state) {
                 case GROWED1:
                     _state = GROW2;
@@ -566,6 +565,10 @@ public class Tree extends AreaObject {
 
     private function deleteTree():void {
         g.directServer.deleteUserTree(tree_db_id, _dbBuildingId, null);
+        new RemoveWildAnimation(_source, onEndAnimation, _dataBuild.removeByResourceId);
+    }
+
+    private function onEndAnimation():void {
         g.townArea.deleteBuild(this);
     }
 

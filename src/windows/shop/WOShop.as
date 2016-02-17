@@ -20,6 +20,7 @@ import utils.CButton;
 import utils.CSprite;
 
 import utils.MCScaler;
+import utils.Utils;
 
 import windows.WOComponents.Birka;
 
@@ -132,21 +133,21 @@ public class WOShop extends Window{
                 arr.push(g.managerCats.catInfo);
                 for (id in obj) {
                     if (obj[id].buildType == BuildType.RIDGE || obj[id].buildType == BuildType.FARM || obj[id].buildType == BuildType.PET_HOUSE) {
-                        arr.push(obj[id]);
+                        arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
                 break;
             case 2: _btnTab2.activateIt(true);
                 obj = g.dataAnimal.objectAnimal;
                 for (id in obj) {
-                        arr.push(obj[id]);
+                        arr.push(Utils.objectDeepCopy(obj[id]));
                 }
                 break;
             case 3: _btnTab3.activateIt(true);
                 obj = g.dataBuilding.objectBuilding;
                 for (id in obj) {
                     if (obj[id].buildType == BuildType.FABRICA) {
-                        arr.push(obj[id]);
+                        arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
                 break;
@@ -154,7 +155,7 @@ public class WOShop extends Window{
                 obj = g.dataBuilding.objectBuilding;
                 for (id in obj) {
                     if (obj[id].buildType == BuildType.TREE) {
-                        arr.push(obj[id]);
+                        arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
                 break;
@@ -163,7 +164,7 @@ public class WOShop extends Window{
                 for (id in obj) {
                     if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_FULL_FENСE ||
                             obj[id].buildType == BuildType.DECOR_POST_FENCE || obj[id].buildType == BuildType.DECOR_TAIL) {
-                        arr.push(obj[id]);
+                        arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
                 break;

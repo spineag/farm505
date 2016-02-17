@@ -18,6 +18,7 @@ import starling.display.Sprite;
 
 import utils.CButton;
 import utils.MCScaler;
+import utils.Utils;
 
 import windows.WOComponents.HorizontalPlawka;
 
@@ -92,7 +93,7 @@ public class RepositoryBox {
         var ob:Object = g.userInventory.decorInventory;
         for (var id:String in ob) {
             item = new RepositoryItem();
-            item.fillIt(g.dataBuilding.objectBuilding[id], ob[id].count, (ob[id].ids as Array).slice(), this);
+            item.fillIt(Utils.objectDeepCopy(g.dataBuilding.objectBuilding[id]), ob[id].count, (ob[id].ids as Array).slice(), this);
             item.source.x = count * 64;
             _cont.addChild(item.source);
             _arrItems.push(item);

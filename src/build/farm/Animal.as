@@ -17,6 +17,8 @@ import hint.MouseHint;
 import manager.ManagerFilters;
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import resourceItem.CraftItem;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
@@ -200,11 +202,10 @@ public class Animal {
             source.filter = null;
             g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
         }
-
-
     }
 
     private function onHover():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
         if (_state == HUNGRY) {
