@@ -632,7 +632,7 @@ public class ShopItem {
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;
-            var arrPat = g.townArea.getCityObjectsById(dataFarm.id);
+            var arrPat:Array = g.townArea.getCityObjectsById(dataFarm.id);
             for (i=0; i<arrPat.length; i++) {
                 curCount += (arrPat[i] as Farm).arrAnimals.length;
             }

@@ -18,8 +18,10 @@ import starling.utils.Color;
 import windows.ambar.WOAmbars;
 
 public class Sklad extends AreaObject{
+    private var _isOnHover:Boolean;
     public function Sklad(_data:Object) {
         super(_data);
+        _isOnHover = false;
         if (!_data) {
             Cc.error('no data for Sklad');
             g.woGameError.showIt();
@@ -39,7 +41,8 @@ public class Sklad extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.BUILD_STROKE;
+        if (!_isOnHover) makeOverAnimation();
+        _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
     }
 
@@ -75,7 +78,7 @@ public class Sklad extends AreaObject{
     }
 
     private function onOut():void {
-        _source.filter = null;
+        _isOnHover = false;
         g.hint.hideIt();
     }
 

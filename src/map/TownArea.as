@@ -516,6 +516,7 @@ public class TownArea extends Sprite {
                 g.bottomPanel.cancelBoolean(false);
                 return;
             }
+            var build:AreaObject;
             g.bottomPanel.cancelBoolean(true);
             if (worldObject is Ridge) {
                 g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
@@ -524,7 +525,7 @@ public class TownArea extends Sprite {
             } else if (worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail) {
                 g.toolsModifier.modifierType = ToolsModifier.MOVE;
                 g.buyHint.showIt((arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
-                var build:AreaObject = g.townArea.createNewBuild(worldObject.dataBuild);
+                build = g.townArea.createNewBuild(worldObject.dataBuild);
                 g.selectedBuild = build;
                 (build as WorldObject).source.filter = null;
                 g.toolsModifier.startMove(build, afterMoveReturn, true);
@@ -547,7 +548,7 @@ public class TownArea extends Sprite {
                 return;
             }
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            var build:AreaObject = g.townArea.createNewBuild(worldObject.dataBuild);
+            build = g.townArea.createNewBuild(worldObject.dataBuild);
             g.selectedBuild = build;
             if (build is Tree) (build as Tree).showShopView();
             (build as WorldObject).source.filter = null;
@@ -868,7 +869,7 @@ public class TownArea extends Sprite {
     private function setAwayCity(p:Someone):void {
         var i:int;
         for (i=0; i<p.userDataCity.objects.length; i++) {
-            createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, p.userDataCity.objects[i].dbId, p.userDataCity.objects[i].isFlip);
+            createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, int(p.userDataCity.objects[i].dbId), p.userDataCity.objects[i].isFlip);
         }
         for (i=0; i<p.userDataCity.treesInfo.length; i++) {
             fillAwayTree(p.userDataCity.treesInfo[i]);

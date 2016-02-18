@@ -19,9 +19,11 @@ import starling.filters.BlurFilter;
 import starling.utils.Color;
 
 public class Paper extends AreaObject{
+    private var _isOnHover:Boolean;
     public function Paper(data:Object) {
         super (data);
         useIsometricOnly = false;
+        _isOnHover = false;
         if (!data) {
             Cc.error('no data for Paper');
             g.woGameError.showIt();
@@ -36,12 +38,13 @@ public class Paper extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.BUILD_STROKE;
+        if (!_isOnHover) makeOverAnimation();
+        _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
     }
 
     private function onOut():void {
-        _source.filter = null;
+        _isOnHover = false;
         g.hint.hideIt();
     }
 

@@ -29,6 +29,7 @@ public class Market extends AreaObject{
     private var _isOnHover:Boolean;
     public function Market(_data:Object) {
         super(_data);
+        _isOnHover = false;
         useIsometricOnly = false;
         if (!_data) {
             Cc.error('no data for Market');
@@ -67,7 +68,6 @@ public class Market extends AreaObject{
         if (g.selectedBuild) return;
         if (!_isOnHover) makeOverAnimation();
         _isOnHover = true;
-//        _source.filter = ManagerFilters.BUILD_STROKE;
         g.hint.showIt(_dataBuild.name);
     }
 
