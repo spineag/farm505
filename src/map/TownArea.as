@@ -495,7 +495,7 @@ public class TownArea extends Sprite {
             var arr:Array;
             if (worldObject is DecorTail) {
                 arr = g.townArea.getCityTailObjectsById(worldObject.dataBuild.id);
-                if (g.user.softCurrencyCount < arr.length * worldObject.dataBuild.deltaCost + worldObject.dataBuild.cost) {
+                if (g.user.softCurrencyCount < (arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost)) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.bottomPanel.cancelBoolean(false);
                     g.buyHint.hideIt();
@@ -504,7 +504,7 @@ public class TownArea extends Sprite {
 
             } else {
                 arr = g.townArea.getCityObjectsById(worldObject.dataBuild.id);
-                    if (g.user.softCurrencyCount < arr.length * worldObject.dataBuild.deltaCost + worldObject.dataBuild.cost) {
+                    if (g.user.softCurrencyCount < (arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost)) {
                         g.toolsModifier.modifierType = ToolsModifier.NONE;
                         g.bottomPanel.cancelBoolean(false);
                         g.buyHint.hideIt();
@@ -523,7 +523,7 @@ public class TownArea extends Sprite {
                 g.toolsModifier.modifierType = ToolsModifier.PLANT_TREES;
             } else if (worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail) {
                 g.toolsModifier.modifierType = ToolsModifier.MOVE;
-                g.buyHint.showIt(arr.length * worldObject.dataBuild.deltaCost + worldObject.dataBuild.cost);
+                g.buyHint.showIt((arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
                 var build:AreaObject = g.townArea.createNewBuild(worldObject.dataBuild);
                 g.selectedBuild = build;
                 (build as WorldObject).source.filter = null;
@@ -562,7 +562,7 @@ public class TownArea extends Sprite {
         if (build is Tree) (build as Tree).removeShopView();
         if (build is Decor || build is DecorFence || build is DecorPostFence) {
             arr = g.townArea.getCityObjectsById((build as WorldObject).dataBuild.id);
-            if (g.user.softCurrencyCount < arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost) {
+            if (g.user.softCurrencyCount < (arr.length * (build as WorldObject).dataBuild.deltaCost) + int((build as WorldObject).dataBuild.cost)) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.bottomPanel.cancelBoolean(false);
                 g.buyHint.hideIt();
@@ -570,7 +570,7 @@ public class TownArea extends Sprite {
             }
         } else if (build is DecorTail) {
             arr = g.townArea.getCityTailObjectsById((build as WorldObject).dataBuild.id);
-            if (g.user.softCurrencyCount < arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost) {
+            if (g.user.softCurrencyCount < (arr.length * (build as WorldObject).dataBuild.deltaCost) + int((build as WorldObject).dataBuild.cost)) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.bottomPanel.cancelBoolean(false);
                 g.buyHint.hideIt();
@@ -581,18 +581,18 @@ public class TownArea extends Sprite {
         var arr:Array;
         if (build is Decor || build is DecorFence || build is DecorPostFence) {
             arr = g.townArea.getCityObjectsById((build as WorldObject).dataBuild.id);
-            if (g.user.softCurrencyCount < arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost) {
+            if (g.user.softCurrencyCount < (arr.length * (build as WorldObject).dataBuild.deltaCost) + int((build as WorldObject).dataBuild.cost)) {
                 return;
             }
-            showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
-            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
+            showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,(arr.length * (build as WorldObject).dataBuild.deltaCost) + int((build as WorldObject).dataBuild.cost));
+            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -arr.length * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost));
         } else if (build is DecorTail) {
             arr = g.townArea.getCityTailObjectsById((build as WorldObject).dataBuild.id);
-            if (g.user.softCurrencyCount < arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost) {
+            if (g.user.softCurrencyCount < (arr.length * (build as WorldObject).dataBuild.deltaCost) + int((build as WorldObject).dataBuild.cost)) {
                 return;
             }
-            showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
-            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -arr.length * (build as WorldObject).dataBuild.deltaCost + (build as WorldObject).dataBuild.cost);
+            showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,(arr.length * (build as WorldObject).dataBuild.deltaCost) + int((build as WorldObject).dataBuild.cost));
+            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(arr.length * (build as WorldObject).dataBuild.deltaCost) + int((build as WorldObject).dataBuild.cost));
 
         } else {
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);

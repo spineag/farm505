@@ -60,6 +60,7 @@ public class MarketItem {
     private var _imageCont:Sprite;
     private var _person:Someone;
     private var _personBuyer:Someone;
+    private var _personBuyerTemp:Object;
     public var number:int;
     private var _woWidth:int;
     private var _woHeight:int;
@@ -341,6 +342,7 @@ public class MarketItem {
         if (_isUser)_txtAdditem.text = 'Добавить товар';
         else _txtAdditem.text = '';
         _data = null;
+        _personBuyerTemp = null;
         _quadGreen.visible = false;
         source.removeChild(_ava);
         _plawkabuy.visible = true;
@@ -454,9 +456,10 @@ public class MarketItem {
                 }
             }
             if (!_personBuyer) {
-                for (i = 0; i < g.user.arrTempUsers.length; i++) {
-                    if (_dataFromServer.buyerSocialId == g.user.arrTempUsers[i].userSocialId) {
-                        _personBuyer = g.user.arrTempUsers[i];
+
+                for (i = 0; i < g.user.marketItems.length; i++) {
+                    if (_dataFromServer.buyerSocialId == g.user.marketItems[i].buyerSocialId) {
+                        _personBuyerTemp = g.user.marketItems[i];
                         break;
                     }
                 }
@@ -465,10 +468,13 @@ public class MarketItem {
         if (_personBuyer is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
-            if (_personBuyer.photo) {
-                g.load.loadImage(_personBuyer.photo, onLoadPhoto);
-            } else {
-                g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId], onGettingUserInfo);
+            if (!_personBuyer) g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId], onGettingUserInfo);
+            else {
+                if (_personBuyer.photo) {
+                    g.load.loadImage(_personBuyer.photo, onLoadPhoto);
+                } else {
+                    g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId], onGettingUserInfo);
+                }
             }
         }
     }
@@ -520,16 +526,24 @@ public class MarketItem {
     }
 
     private function onGettingUserInfo(ar:Array):void {
-        _personBuyer.photo = ar[0].photo_100;
-        g.load.loadImage(_personBuyer.photo, onLoadPhoto);
+        if (!_personBuyer) {
+            _personBuyerTemp.photo = ar[0].photo_100;
+            g.load.loadImage(_personBuyerTemp.photo, onLoadPhoto);
+        }
+        else {
+            _personBuyer.photo = ar[0].photo_100;
+            g.load.loadImage(_personBuyer.photo, onLoadPhoto);
+        }
+
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!bitmap) {
-            bitmap = g.pBitmaps[_personBuyer.photo].create() as Bitmap;
+            if (!_personBuyer)  bitmap = g.pBitmaps[_personBuyerTemp.photo].create() as Bitmap;
+            else bitmap = g.pBitmaps[_personBuyer.photo].create() as Bitmap;
         }
         if (!bitmap) {
-            Cc.error('FriendItem:: no photo for userId: ' + _personBuyer.userSocialId);
+            Cc.error('FriendItem:: no photo for userId: ' + _personBuyerTemp.buyerSocialId + 'or ' + _personBuyer.userSocialId);
             return;
         }
         photoFromTexture(Texture.fromBitmap(bitmap));

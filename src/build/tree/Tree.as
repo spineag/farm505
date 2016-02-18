@@ -661,14 +661,14 @@ public class Tree extends AreaObject {
                     }
                 } else {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
-                    im.pivotX = im.width / 2;
+                    im.pivotX = im.width / 2 - 8;
                     im.pivotY = im.height / 2;
                     im.y = -_source.height + 20;
                     _wateringIcon.addChild(im);
                     watering = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
                     watering.pivotX = im.width / 2;
                     watering.pivotY = im.height / 2;
-                    watering.x = -5;
+                    watering.x = 3;
                     watering.y = -_source.height + 8;
                     watering.visible = true;
                     MCScaler.scale(watering, 45, 45);
@@ -678,6 +678,7 @@ public class Tree extends AreaObject {
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
                         im.pivotX = im.width / 2;
                         im.pivotY = im.height / 2;
+                        im.x = 8;
                         im.y = -_source.height + 8;
                         _wateringIcon.addChild(im);
 

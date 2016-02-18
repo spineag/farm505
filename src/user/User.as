@@ -118,6 +118,7 @@ public class User extends Someone {
             obj.timeSold = arr[i].time_sold;
             obj.timeStart = arr[i].time_start;
             obj.numberCell = arr[i].number_cell;
+//            obj.photo = '';
             p.marketItems.push(obj);
         }
     }
