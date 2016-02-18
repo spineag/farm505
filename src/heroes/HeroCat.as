@@ -418,6 +418,34 @@ public class HeroCat extends BasicCat{
         curActiveFarm.showParticles(p, isLeftForFeedAndWatering);
     }
 
+// WORK WITH FARM BEEHIVE
+    public function workWithFarmBeehive(callback:Function):void {
+        if (!armatureWorker) {
+            armatureWorker = g.allData.factory['cat_watering'].buildArmature("cat");
+            WorldClock.clock.add(armatureWorker);
+            var viyi:Bone = armatureWorker.getBone('viyi');
+            if (_type == WOMAN) {
+                releaseFrontWoman(armatureWorker);
+                if (viyi) viyi.visible = true;
+            } else {
+                if (viyi) viyi.visible = false;
+            }
+        }
+        _catWateringAndFeed.addChild(armatureWorker.display as Sprite);
+        _catImage.visible = false;
+        _catBackImage.visible = false;
+        if (isLeftForFeedAndWatering) flipIt(true);
+        var f:Function = function(e:AnimationEvent):void {
+            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f);
+            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
+            makeWatering(callback);
+        };
+        armatureWorker.addEventListener(AnimationEvent.COMPLETE, f);
+        armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
+        armatureWorker.animation.gotoAndPlay("open");
+    }
+
+// DELETE
     override public function deleteIt():void {
         killAllAnimations();
         removeFromMap();

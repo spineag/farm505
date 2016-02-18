@@ -138,6 +138,10 @@ public class Farm extends AreaObject{
         }
     }
 
+    public function get dataAnimal():Object {
+        return _dataAnimal;
+    }
+
     public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
         try {
             var p:Point;
