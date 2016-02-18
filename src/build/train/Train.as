@@ -221,8 +221,14 @@ public class Train extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.BUILD_STROKE;
-        g.hint.showIt(_dataBuild.name);
+        if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_UNACTIVE) {
+            g.hint.showIt(_dataBuild.name);
+            _source.filter = ManagerFilters.BUILD_STROKE;
+        } else if (_stateBuild == STATE_BUILD) {
+            if (!_isOnHover) buildingBuildFoundationOver();
+        } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            if (!_isOnHover) buildingBuildDoneOver();
+        }
         _isOnHover = true;
     }
 

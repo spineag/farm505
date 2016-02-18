@@ -150,6 +150,18 @@ public class AreaObject extends WorldObject {
         }
     }
 
+    protected function buildingBuildDoneOver():void {
+        if (_buildingBuild) {
+            _buildingBuild.overItDone();
+        }
+    }
+
+    protected function buildingBuildFoundationOver():void {
+        if (_buildingBuild) {
+            _buildingBuild.overItFoundation();
+        }
+    }
+
     protected function clearCraftSprite():void {
         if (_craftSprite) {
             while (_craftSprite.numChildren) _craftSprite.removeChildAt(0);

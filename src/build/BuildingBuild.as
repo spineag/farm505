@@ -4,6 +4,7 @@
 package build {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
 import dragonBones.factories.StarlingFactory;
 
 import flash.events.Event;
@@ -17,8 +18,10 @@ public class BuildingBuild {
     private var armature:Armature;
     private var armatureClip:Sprite;
     private var g:Vars = Vars.getInstance();
+    private var _isOverAnim:Boolean;
 
     public function BuildingBuild(st:String) {
+        _isOverAnim = false;
         source = new Sprite();
         armature = g.allData.factory['buildingBuild'].buildArmature("building");
         armatureClip = armature.display as Sprite;
@@ -48,6 +51,38 @@ public class BuildingBuild {
         armatureClip = null;
         armature = null;
         source = null;
+    }
+
+    public function overItFoundation():void {
+        if (armature && !_isOverAnim) {
+            _isOverAnim = true;
+            armature.addEventListener(AnimationEvent.COMPLETE, onOverFoundation);
+            armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onOverFoundation);
+            armature.animation.gotoAndPlay('over2');
+        }
+    }
+
+    private function onOverFoundation(e:AnimationEvent):void {
+        armature.removeEventListener(AnimationEvent.COMPLETE, onOverFoundation);
+        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onOverFoundation);
+        _isOverAnim = false;
+        workAnimation();
+    }
+
+    public function overItDone():void {
+        if (armature && !_isOverAnim) {
+            _isOverAnim = true;
+            armature.addEventListener(AnimationEvent.COMPLETE, onOverDone);
+            armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onOverDone);
+            armature.animation.gotoAndPlay('over');
+        }
+    }
+
+    private function onOverDone(e:AnimationEvent):void {
+        armature.removeEventListener(AnimationEvent.COMPLETE, onOverDone);
+        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onOverDone);
+        _isOverAnim = false;
+        doneAnimation();
     }
 }
 }

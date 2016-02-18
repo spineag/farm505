@@ -97,12 +97,16 @@ public class Fabrica extends AreaObject {
     private function onHover():void {
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
-        _isOnHover = true;
         _count = 20;
-        _source.filter = ManagerFilters.BUILD_STROKE;
-        if (_stateBuild == STATE_ACTIVE) {
+        if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_UNACTIVE) {
             g.hint.showIt(_dataBuild.name);
+            _source.filter = ManagerFilters.BUILD_STROKE;
+        } else if (_stateBuild == STATE_BUILD) {
+            if (!_isOnHover) buildingBuildFoundationOver();
+        } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            if (!_isOnHover) buildingBuildDoneOver();
         }
+        _isOnHover = true;
     }
 
     private function onOut():void {

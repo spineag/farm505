@@ -334,6 +334,7 @@ public class HeroCat extends BasicCat{
 
     private function makeFeeding(callback:Function):void {
         var f:Function = function():void {
+            if (!armatureWorker) return;
             armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f);
             armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
             armatureWorker.addEventListener(AnimationEvent.COMPLETE, f1);
@@ -342,6 +343,7 @@ public class HeroCat extends BasicCat{
             armatureWorker.animation.gotoAndPlay("work1");
         };
         var f1:Function = function():void {
+            if (!armatureWorker) return;
             armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f1);
             armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f1);
             armatureWorker.addEventListener(AnimationEvent.COMPLETE, f2);
@@ -350,6 +352,7 @@ public class HeroCat extends BasicCat{
             armatureWorker.animation.gotoAndPlay("work2");
         };
         var f2:Function = function():void {
+            if (!armatureWorker) return;
             armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f2);
             armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f2);
             armatureWorker.addEventListener(AnimationEvent.COMPLETE, onFinishFeeding);
@@ -358,6 +361,7 @@ public class HeroCat extends BasicCat{
             armatureWorker.animation.gotoAndPlay("work3");
         };
         var onFinishFeeding:Function = function():void {
+            if (!armatureWorker) return;
             armatureWorker.removeEventListener(AnimationEvent.COMPLETE, onFinishFeeding);
             armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, onFinishFeeding);
             makeFeedIdle(callback);
