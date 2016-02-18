@@ -26,6 +26,7 @@ public class Market extends AreaObject{
     private var _imItemOne:Image;
     private var _imItemTwo:Image;
     private var _arrItem:Array;
+    private var _isOnHover:Boolean;
     public function Market(_data:Object) {
         super(_data);
         useIsometricOnly = false;
@@ -64,7 +65,9 @@ public class Market extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.BUILD_STROKE;
+        if (!_isOnHover) makeOverAnimation();
+        _isOnHover = true;
+//        _source.filter = ManagerFilters.BUILD_STROKE;
         g.hint.showIt(_dataBuild.name);
     }
 
@@ -117,7 +120,8 @@ public class Market extends AreaObject{
     }
 
     private function onOut():void {
-        _source.filter = null;
+        _isOnHover = false;
+//        _source.filter = null;
         g.hint.hideIt();
     }
 

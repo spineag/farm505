@@ -1,15 +1,10 @@
 package build {
 
+import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
-import map.MatrixGrid;
-
 import starling.display.Image;
-import starling.display.Quad;
 import starling.display.Sprite;
-import starling.utils.Color;
 
 import utils.CSprite;
 
@@ -180,6 +175,18 @@ public class AreaObject extends WorldObject {
             addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
         }
+    }
+
+    protected function makeOverAnimation():void {
+        var time:Number = .3;
+
+        var f1:Function = function ():void {
+            TweenMax.to(_build, time, {scaleX: 1.02, scaleY: 0.98, y: _build.y + 10*g.scaleFactor, onComplete: f2});
+        };
+        var f2:Function = function ():void {
+            TweenMax.to(_build, time, {scaleX: 1, scaleY: 1});
+        };
+        TweenMax.to(_build, time, {scaleX: 0.98, scaleY: 1.02, y: _build.y - 10*g.scaleFactor, onComplete: f1});
     }
 }
 }
