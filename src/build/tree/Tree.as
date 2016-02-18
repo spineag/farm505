@@ -6,6 +6,7 @@ import build.AreaObject;
 import build.wild.RemoveWildAnimation;
 
 import dragonBones.Armature;
+import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import flash.display.Bitmap;
 import flash.geom.Point;
@@ -95,6 +96,9 @@ public class Tree extends AreaObject {
         arrFruits.push(armature.getBone('fruit2'));
         arrFruits.push(armature.getBone('fruit3'));
         arrFruits.push(armature.getBone('fruit4'));
+        for (var i:int=0; i<arrFruits.length; i++) {
+            ((arrFruits[i] as Bone).display as Sprite).touchable = false;
+        }
 
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
@@ -338,8 +342,6 @@ public class Tree extends AreaObject {
     }
 
     private function onClick():void {
-        trace('depth: ' + _depth);
-
         if (g.isActiveMapEditor) return;
         if (g.isAway) {
             if (_state == ASK_FIX) {

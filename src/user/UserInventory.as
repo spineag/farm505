@@ -142,5 +142,18 @@ public class UserInventory {
 
     private function onAddUserMoney(b:Boolean = true):void { }
 
+
+    public function addNewElementsAfterGettingNewLevel():void {
+        addCropsAfterNewLevel();
+    }
+
+    private function addCropsAfterNewLevel():void {
+        var res:Object = g.dataResource.objectResources;
+        for (var id:String in res) {
+            if (res[id].placeBuild == BuildType.PLANT && res[id].blockByLevel == g.user.level) {
+                addResource(int(id), 3);
+            }
+        }
+    }
 }
 }

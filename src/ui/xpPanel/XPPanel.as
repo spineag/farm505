@@ -80,6 +80,7 @@ public class XPPanel {
             g.friendPanel.checkLevel();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
             g.directServer.updateUserLevel(onUpdateUserLevel);
+            g.userInventory.addNewElementsAfterGettingNewLevel();
             g.managerCats.calculateMaxCountCats();
             g.managerOrder.checkOrders();
             if (g.user.level == g.dataBuilding.objectBuilding[45].blockByLevel)
