@@ -98,14 +98,24 @@ public class Fabrica extends AreaObject {
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         _count = 20;
-        if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_UNACTIVE) {
+        if (_stateBuild == STATE_ACTIVE) {
             g.hint.showIt(_dataBuild.name);
-            _source.filter = ManagerFilters.BUILD_STROKE;
+            if (!_isOnHover) {
+                var fEndOver:Function = function():void {
+                    _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+                    _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                    _armature.animation.gotoAndStop('idle', 0);
+                };
+                _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+                _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlay('over');
+            }
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) buildingBuildFoundationOver();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
         }
+        _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         _isOnHover = true;
     }
 

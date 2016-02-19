@@ -91,9 +91,9 @@ public class MarketFriendItem {
     }
 
     private function visitPerson():void {
-        g.townArea.goAway(_person);
         g.catPanel.visibleCatPanel(false);
         g.woMarket.hideIt();
+        g.townArea.goAway(_person);
     }
 
     public function get person():Someone {

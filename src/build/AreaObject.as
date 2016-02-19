@@ -178,7 +178,7 @@ public class AreaObject extends WorldObject {
     }
 
     protected function makeOverAnimation():void {
-        var time:Number = .2;
+        var time:Number = .15;
 
         var f1:Function = function ():void {
             TweenMax.to(_build, time, {scaleX: 1.02, scaleY: 0.98, y: _build.y + 6*g.scaleFactor, onComplete: f2});

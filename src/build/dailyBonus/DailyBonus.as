@@ -25,9 +25,11 @@ import starling.utils.Color;
 
 public class DailyBonus extends AreaObject{
     private var _armature:Armature;
+    private var _isOnHover:Boolean;
 
     public function DailyBonus(data:Object) {
         super (data);
+        _isOnHover = false;
         useIsometricOnly = false;
         if (!data) {
             Cc.error('no data for DailyBonus');
@@ -65,16 +67,17 @@ public class DailyBonus extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.BUILD_STROKE;
-        WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay('work');
+        if (!_isOnHover) {
+            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            makeOverAnimation();
+        }
+        _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
     }
 
     private function onOut():void {
         _source.filter = null;
-        WorldClock.clock.remove(_armature);
-        _armature.animation.gotoAndStop('idle', 0);
+        _isOnHover = false;
         g.hint.hideIt();
     }
 
@@ -120,8 +123,19 @@ public class DailyBonus extends AreaObject{
     override public function clearIt():void {
         onOut();
         WorldClock.clock.remove(_armature);
+        _armature.dispose();
         _source.touchable = false;
         super.clearIt();
+    }
+
+    public function showLights():void {
+        WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlay('work');
+    }
+
+    public function hideLights():void {
+        _armature.animation.gotoAndStop('idle', 0);
+        WorldClock.clock.remove(_armature);
     }
 }
 }

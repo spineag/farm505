@@ -18,6 +18,7 @@ import starling.utils.Color;
 import windows.ambar.WOAmbars;
 
 public class Ambar extends AreaObject{
+    private var _isOnHover:Boolean;
     private var _ambarIndicator:AmbarIndicator;
     public function Ambar(_data:Object) {
         super(_data);
@@ -43,7 +44,11 @@ public class Ambar extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        _source.filter = ManagerFilters.BUILD_STROKE;
+        if (!_isOnHover) {
+            makeOverAnimation();
+            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+        }
+        _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
     }
 
@@ -78,6 +83,7 @@ public class Ambar extends AreaObject{
     }
 
     private function onOut():void {
+       _isOnHover = false;
         _source.filter = null;
         g.hint.hideIt();
     }
