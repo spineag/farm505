@@ -47,7 +47,6 @@ public class CatPanel {
         checkCat();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-        _source.endClickCallback = onClick;
     }
 
     public function checkCat():void {
@@ -70,11 +69,6 @@ public class CatPanel {
     public function visibleCatPanel(b:Boolean):void {
         if (b) _source.visible = true;
         else _source.visible = false;
-    }
-
-    private function onClick():void {
-        g.user.level++;
-        g.woLevelUp.showLevelUp();
     }
 }
 }
