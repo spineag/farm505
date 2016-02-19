@@ -35,7 +35,7 @@ public class ManagerOrderCats {
 
 
    // ------- cat go away -----------
-    public function onReleaseOrder(cat:OrderCat):void {
+    public function onReleaseOrder(cat:OrderCat, isOrderSelled:Boolean):void {
         if (!cat) {
            Cc.error('ManagerOrderCats onReleaseOrder:: cat == null');
            return;
@@ -44,12 +44,20 @@ public class ManagerOrderCats {
         if (i > -1) _arrCats.splice(i, 1);
         cat.forceStopAnimation();
         if (cat.walkPosition == OrderCat.STAY_IN_QUEUE) {
-            cat.walkAnimation();
+            if (isOrderSelled) {
+                cat.walkPackAnimation();
+            } else {
+                cat.walkAnimation();
+            }
             goCatToPoint(cat, new Point(cat.posX + 1, cat.posY), goAwayPart1, cat);
         } else {
 
             var onFinishArrive:Function = function():void {
-                cat.walkAnimation();
+                if (isOrderSelled) {
+                    cat.walkPackAnimation();
+                } else {
+                    cat.walkAnimation();
+                }
                 if (cat.walkPosition == OrderCat.TILE_WALKING) {
                     cat.showFront(false);
                     goAwayPart1(cat);

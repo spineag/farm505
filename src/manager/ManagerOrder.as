@@ -342,7 +342,7 @@ public class ManagerOrder {
     public function deleteOrder(order:ManagerOrderItem, f:Function):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == order.dbId) {
-                g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat);
+                g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat, false);
                 _arrOrders[i].cat = null;
                 _arrOrders.splice(i, 1);
                 break;
@@ -363,7 +363,7 @@ public class ManagerOrder {
     public function sellOrder(order:ManagerOrderItem, f:Function):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == order.dbId) {
-                g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat);
+                g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat, true);
                 _arrOrders[i].cat = null;
                 _arrOrders.splice(i, 1);
                 break;

@@ -168,7 +168,7 @@ public class OrderCat {
         changeTexture("legLeft", "left_leg_b/legLeft_b" + st, armatureBack);
         changeTexture("handRight", "right_hand_b/handRight_b" + st, armatureBack);
         changeTexture("legRight", "right_leg_b/legRight_b" + st, armatureBack);
-        changeTexture("tail11", "tails/tail" + st, armatureBack);
+        changeTexture("tail", "tails/tail" + st, armatureBack);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
@@ -282,6 +282,12 @@ public class OrderCat {
         heroEyes.startAnimations();
         armature.animation.gotoAndPlay("walk");
         armatureBack.animation.gotoAndPlay("walk");
+    }
+
+    public function walkPackAnimation():void {
+        heroEyes.startAnimations();
+        armature.animation.gotoAndPlay("walk_pack");
+        armatureBack.animation.gotoAndPlay("walk_pack");
     }
 
     public function runAnimation():void {
