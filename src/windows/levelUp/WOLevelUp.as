@@ -93,23 +93,25 @@ public class WOLevelUp extends Window{
         _contBtn.clickCallback = onClickExit;
 
         _leftArrow = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
+        MCScaler.scale(im,61,26);
         im.x = im.width;
         _leftArrow.addDisplayObject(im);
         _leftArrow.setPivots();
         _leftArrow.x = -_woWidth/2 - 9 + _leftArrow.width/2;
-        _leftArrow.y = 80 + _leftArrow.height/2;
+        _leftArrow.y = 75 + _leftArrow.height/2;
         _source.addChild(_leftArrow);
         _leftArrow.clickCallback = onLeftClick;
 
 
         _rightArrow = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
-        im.scaleX = -1;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
+        MCScaler.scale(im,61,26);
+        im.scaleX *= -1;
         _rightArrow.addDisplayObject(im);
         _rightArrow.setPivots();
-        _rightArrow.x = _woWidth/2 - 19 + _rightArrow.width/2;
-        _rightArrow.y = 80 + _rightArrow.height/2;
+        _rightArrow.x = _woWidth/2 - 17 + _rightArrow.width/2;
+        _rightArrow.y = 75 + _rightArrow.height/2;
         _source.addChild(_rightArrow);
         _rightArrow.clickCallback = onRightClick;
 
@@ -124,14 +126,14 @@ public class WOLevelUp extends Window{
         _txtNewLvl.x = -67;
         _txtNewLvl.y = -55;
         _txtNewObject.x = -108;
-        _txtNewObject.y = 115;
+        _txtNewObject.y = 110;
         _txtLevel.x = -152;
         _txtLevel.y = -120;
         callbackClickBG = null;
     }
 
     public function showLevelUp():void {
-        _shift = 0;
+
         showIt();
         _txtLevel.text = String(g.user.level);
         createList();
@@ -181,6 +183,9 @@ public class WOLevelUp extends Window{
         while (_contImage.numChildren) {
             _contImage.removeChildAt(0);
         }
+        _shift = 0;
+        checkBtns();
+        animList();
         for (var i:int=0; i<_arrCells.length; i++) {
             _arrCells[i].clearIt();
         }
@@ -198,9 +203,11 @@ public class WOLevelUp extends Window{
 
     private function createList():void {
         var obj:Object;
+        var objDataLevel:Object;
         var id:String;
         var arr:Array;
         var im:WOLevelUpItem;
+        var i:int;
         _leftArrow.visible = false;
         _rightArrow.visible = false;
         arr = [];
@@ -222,9 +229,40 @@ public class WOLevelUp extends Window{
                 arr.push(obj[id]);
             }
         }
+        if (g.dataLevel.objectLevels[g.user.level].countHard > 0) {
+            objDataLevel = {};
+            objDataLevel.hard = true;
+            objDataLevel.countHard = g.dataLevel.objectLevels[g.user.level].countHard;
+            arr.push(objDataLevel);
+        }
+        if (g.dataLevel.objectLevels[g.user.level].countSoft > 0) {
+            objDataLevel = {};
+            objDataLevel.coins = true;
+            objDataLevel.countSoft = g.dataLevel.objectLevels[g.user.level].countSoft;
+            arr.push(objDataLevel);
+        }
 
-        for (var i:int = 0; i < arr.length; i++) {
-            im = new WOLevelUpItem(arr[i], "new");
+        if (g.dataLevel.objectLevels[g.user.level].decorId[0] > 0) {
+            for (i = 0; i < g.dataLevel.objectLevels[g.user.level].decorId.length; i++) {
+                objDataLevel = {};
+                objDataLevel.decorData = true;
+                objDataLevel.id = g.dataLevel.objectLevels[g.user.level].decorId[i];
+                objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countDecor[i];
+                arr.push(objDataLevel);
+            }
+        }
+
+        if (g.dataLevel.objectLevels[g.user.level].resourceId[0] > 0) {
+            for (i = 0; i < g.dataLevel.objectLevels[g.user.level].resourceId.length; i++) {
+                objDataLevel = {};
+                objDataLevel.resourceData = true;
+                objDataLevel.id = g.dataLevel.objectLevels[g.user.level].resourceId[i];
+                objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countResource[i];
+                arr.push(objDataLevel);
+            }
+        }
+        for (i = 0; i < arr.length; i++) {
+            im = new WOLevelUpItem(arr[i],true, true, 3);
             im.source.x = int(i) * (90);
             _arrCells.push(im);
             _contImage.addChild(im.source);

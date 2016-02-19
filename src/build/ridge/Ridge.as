@@ -296,12 +296,9 @@ public class Ridge extends AreaObject{
     private function callbackSkip():void {
         _source.filter = null;
         _isOnHover = false;
-        stateRidge = GROWED;
         _plant.checkStateRidge(false);
         g.directServer.skipTimeOnRidge(_plant._timeToEndState,_dbBuildingId,null);
         _plant.renderSkip();
-
-
     }
 
     public function lockIt(v:Boolean):void {

@@ -163,13 +163,17 @@ public class Animal {
         if (g.useDataFromServer) g.directServer.craftUserAnimal(animal_db_id, null);
     }
 
-    private function onClick():void {
+    private function onClick(last:Boolean = false):void {
         if (g.isActiveMapEditor) return;
         if (_state == HUNGRY) {
             onOut();
             if(g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
                 g.woNoResources.showItAnimal(_data,onClick);
             return;
+            }
+            if (!last && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {
+                g.woLastResource.showItMarket(_data.idResourceRaw,onClick);
+                return;
             }
             if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
                 g.userInventory.addResource(_data.idResourceRaw, -1);

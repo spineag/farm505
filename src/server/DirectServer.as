@@ -82,10 +82,21 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getDataLevel OK', 5);
             var obj:Object;
+            var k:int;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
                 obj.id = int(d.message[i].number_level);
                 obj.xp = int(d.message[i].count_xp);
+                obj.countSoft = int(d.message[i].count_soft);
+                obj.countHard = int(d.message[i].count_hard);
+                if (d.message[i].decor_id) obj.decorId = String(d.message[i].decor_id).split('&');
+                for (k = 0; k < obj.decorId.length; k++) obj.decorId[k] = int(obj.decorId[k]);
+                if (d.message[i].resource_id) obj.resourceId = String(d.message[i].resource_id).split('&');
+                for (k = 0; k < obj.resourceId.length; k++) obj.resourceId[k] = int(obj.resourceId[k]);
+                if (d.message[i].count_decor) obj.countDecor = String(d.message[i].count_decor).split('&');
+                for (k = 0; k < obj.countDecor.length; k++) obj.countDecor[k] = int(obj.countDecor[k]);
+                if (d.message[i].count_resource) obj.countResource = String(d.message[i].count_resource).split('&');
+                for (k = 0; k < obj.countResource.length; k++) obj.countResource[k] = int(obj.countResource[k]);
                 g.dataLevel.objectLevels[obj.id] = obj;
             }
             if (callback != null) {
@@ -389,6 +400,7 @@ public class DirectServer {
                     for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
                 }
                 if (d.message[i].cost) {
+//                    obj.cost = String(d.message[i].cost).split('&');
                     obj.cost = String(d.message[i].cost).split('&');
                     for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
                 }

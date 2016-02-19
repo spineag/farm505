@@ -17,6 +17,7 @@ import heroes.ManagerCats;
 import heroes.ManagerOrderCats;
 
 import hint.BuyHint;
+import hint.LevelUpHint;
 
 import hint.MarketHint;
 
@@ -175,6 +176,7 @@ public class Vars {
     public var treeHint:TreeHint;
     public var resourceHint:ResourceHint;
     public var marketHint:MarketHint;
+    public var levelUpHint:LevelUpHint;
     public var xpPanel:XPPanel;
     public var softHardCurrency:SoftHardCurrency;
     public var couponePanel:CouponePanel;
@@ -417,6 +419,7 @@ public class Vars {
         treeHint = new TreeHint();
         resourceHint = new ResourceHint();
         marketHint = new MarketHint();
+        levelUpHint = new LevelUpHint();
         xpPanel = new XPPanel();
         couponePanel = new CouponePanel();
         softHardCurrency = new SoftHardCurrency();
