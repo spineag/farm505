@@ -39,6 +39,7 @@ public class ManagerFilters {
     public static var TEXT_STROKE_RED:Array = [new GlowFilter(Color.RED, 1, 3, 3, 5)];
     public static var TEXT_STROKE_GRAY:Array = [new GlowFilter(TEXT_GRAY_HARD, 1, 3, 3, 5)];
 
+    public static var BUILDING_HOVER_FILTER:ColorMatrixFilter;
     public static var BUTTON_HOVER_FILTER:ColorMatrixFilter;
     public static var BUTTON_CLICK_FILTER:ColorMatrixFilter;
     public static var BUTTON_DISABLE_FILTER:ColorMatrixFilter;
@@ -64,6 +65,9 @@ public class ManagerFilters {
 
         RED_LIGHT_TINT_FILTER = new ColorMatrixFilter();
         RED_LIGHT_TINT_FILTER.tint(Color.RED, .4);
+
+        BUILDING_HOVER_FILTER = new ColorMatrixFilter();
+        BUILDING_HOVER_FILTER.adjustBrightness(.1);
     }
 }
 }

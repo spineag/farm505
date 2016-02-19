@@ -27,6 +27,7 @@ public class Cave extends AreaObject{
 
     public function Cave(data:Object) {
         super (data);
+        _isOnHover = false;
         useIsometricOnly = false;
         if (!data) {
             Cc.error('no data for Cave');
@@ -161,14 +162,28 @@ public class Cave extends AreaObject{
     private function onHover():void {
         if (_isAnimate) return;
         if (g.selectedBuild) return;
-        if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_UNACTIVE) {
-            g.hint.showIt(_dataBuild.name);
-            _source.filter = ManagerFilters.BUILD_STROKE;
+        if (_stateBuild == STATE_ACTIVE) {
+            if (!_isOnHover) {
+                _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            }
+        } else if (_stateBuild == STATE_UNACTIVE) {
+            if (!_isOnHover) {
+                var fEndOver:Function = function():void {
+                    _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+                    _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                    _armature.animation.gotoAndStop('idle', 0);
+                };
+                _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+                _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlay('over');
+                _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            }
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) buildingBuildFoundationOver();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
         }
+        g.hint.showIt(_dataBuild.name);
         _isOnHover = true;
     }
 

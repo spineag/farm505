@@ -38,13 +38,17 @@ public class Paper extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        if (!_isOnHover) makeOverAnimation();
+        if (!_isOnHover) {
+            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            makeOverAnimation();
+        }
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
     }
 
     private function onOut():void {
         _isOnHover = false;
+        _source.filter = null;
         g.hint.hideIt();
     }
 
