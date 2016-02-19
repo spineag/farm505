@@ -92,12 +92,12 @@ public class Tree extends AreaObject {
         WorldClock.clock.add(armature);
 
         arrFruits = [];
-        arrFruits.push(armature.getBone('fruit1'));
-        arrFruits.push(armature.getBone('fruit2'));
-        arrFruits.push(armature.getBone('fruit3'));
-        arrFruits.push(armature.getBone('fruit4'));
+        var b:Bone;
         for (var i:int=0; i<arrFruits.length; i++) {
-            ((arrFruits[i] as Bone).display as Sprite).touchable = false;
+            b = armature.getBone('fruit' + String(i + 1));
+            arrFruits.push(b);
+            (b.display as Sprite).touchable = false;
+//            ((arrFruits[i] as Bone).display as Sprite).touchable = false;
         }
 
         _craftSprite = new Sprite();
