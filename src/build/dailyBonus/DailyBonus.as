@@ -71,16 +71,13 @@ public class DailyBonus extends AreaObject{
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             makeOverAnimation();
         }
-//        WorldClock.clock.add(_armature);
-//        _armature.animation.gotoAndPlay('work');
+        _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
     }
 
     private function onOut():void {
         _source.filter = null;
         _isOnHover = false;
-//        WorldClock.clock.remove(_armature);
-//        _armature.animation.gotoAndStop('idle', 0);
         g.hint.hideIt();
     }
 
@@ -126,8 +123,19 @@ public class DailyBonus extends AreaObject{
     override public function clearIt():void {
         onOut();
         WorldClock.clock.remove(_armature);
+        _armature.dispose();
         _source.touchable = false;
         super.clearIt();
+    }
+
+    public function showLights():void {
+        WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlay('work');
+    }
+
+    public function hideLights():void {
+        _armature.animation.gotoAndStop('idle', 0);
+        WorldClock.clock.remove(_armature);
     }
 }
 }

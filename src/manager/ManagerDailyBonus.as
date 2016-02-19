@@ -2,6 +2,9 @@
  * Created by andy on 1/18/16.
  */
 package manager {
+import build.WorldObject;
+import build.dailyBonus.DailyBonus;
+
 import data.BuildType;
 
 public class ManagerDailyBonus {
@@ -31,6 +34,7 @@ public class ManagerDailyBonus {
 
     public function updateCount():void {
         _count++;
+        checkDailyBonusStateBuilding();
     }
 
     public function get count():int {
@@ -106,6 +110,15 @@ public class ManagerDailyBonus {
 
     public function get dailyBonusItems():Array {
         return _arrItems.slice();
+    }
+
+    public function checkDailyBonusStateBuilding():void {
+        var b:WorldObject = g.townArea.getCityObjectsByType(BuildType.DAILY_BONUS)[0];
+        if (_count <= 0) {
+            (b as DailyBonus).showLights();
+        } else {
+            (b as DailyBonus).hideLights();
+        }
     }
 }
 }

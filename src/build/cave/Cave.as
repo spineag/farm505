@@ -171,7 +171,7 @@ public class Cave extends AreaObject{
                 var fEndOver:Function = function():void {
                     _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
                     _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-                    _armature.animation.gotoAndStop('idle', 0);
+                    _armature.animation.gotoAndStop('close', 0);
                 };
                 _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
                 _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);

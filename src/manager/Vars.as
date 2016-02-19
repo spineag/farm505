@@ -462,6 +462,7 @@ public class Vars {
         managerPaper = new ManagerPaper();
         managerPaper.getPaperItems();
         managerCats.setAllCatsToRandomPositions();
+        managerDailyBonus.checkDailyBonusStateBuilding();
         isGameLoaded = true;
 
         if ((user as User).isMegaTester) {
