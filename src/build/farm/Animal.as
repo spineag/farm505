@@ -188,7 +188,11 @@ public class Animal {
 
                 new RawItem(p, texture, 1, 0);
                 if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
-                showFeedingAnimation();
+                if (_data.id != 6) {
+                    showFeedingAnimation();
+                } else {
+                    addRenderAnimation();
+                }
                 onOut();
             } else {
                 onOut();
