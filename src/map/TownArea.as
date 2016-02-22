@@ -183,6 +183,12 @@ public class TownArea extends Sprite {
         }
     }
 
+    public function sortAtLockedLands():void {
+        for (var i:int = 0; i < _cityObjects.length; i++) {
+            if (_cityObjects[i] is LockedLand) (_cityObjects[i] as LockedLand).sortWilds();
+        }
+    }
+
     public function setDefaultMatrix():void {
         var ln:int = g.matrixGrid.matrixSize;
         for (var i:int = 0; i < ln; i++) {
@@ -885,6 +891,7 @@ public class TownArea extends Sprite {
         }
         g.managerCats.makeAwayCats();
         zAwaySort();
+        sortAwayAtLockedLands();
         g.awayPreloader.hideIt();
     }
 
@@ -1093,6 +1100,12 @@ public class TownArea extends Sprite {
         } catch(e:Error) {
             g.woGameError.showIt();
             Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
+        }
+    }
+
+    public function sortAwayAtLockedLands():void {
+        for (var i:int = 0; i < _cityAwayObjects.length; i++) {
+            if (_cityAwayObjects[i] is LockedLand) (_cityAwayObjects[i] as LockedLand).sortWilds();
         }
     }
 

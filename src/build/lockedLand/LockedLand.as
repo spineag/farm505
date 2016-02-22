@@ -4,29 +4,14 @@
 package build.lockedLand {
 import build.AreaObject;
 import build.wild.Wild;
-
 import com.junkbyte.console.Cc;
-
 import data.DataMoney;
-
 import flash.geom.Point;
-
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
-
 import mouse.ToolsModifier;
-
 import starling.display.Image;
-
-import starling.display.Quad;
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
-import starling.filters.ColorMatrixFilter;
-import starling.utils.Color;
-
-import utils.CSprite;
-
 import utils.CreateTile;
 
 
@@ -128,7 +113,16 @@ public class LockedLand extends AreaObject {
         } else {
             w.source.x = _x - _source.x;
             w.source.y = _y - _source.y;
+            w.updateDepth();
             _build.addChild(w.source);
+        }
+    }
+
+    public function sortWilds():void {
+        if (g.isActiveMapEditor) return;
+        _arrWilds.sortOn('depth', Array.NUMERIC);
+        for (var i:int = 0; i < _arrWilds.length; i++) {
+            _build.setChildIndex(_arrWilds[i].source, i);
         }
     }
 
