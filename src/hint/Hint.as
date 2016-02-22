@@ -18,7 +18,8 @@ public class Hint {
     public var source:Sprite;
     private var _txtHint:TextField;
     private var _isShow:Boolean;
-
+    private var _newX:int;
+    private var _catXp:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function Hint() {
@@ -29,10 +30,12 @@ public class Hint {
         _isShow = false;
     }
 
-    public function showIt(st:String,big:Boolean = false):void {
+    public function showIt(st:String,xp:Boolean = false,newX:int = 0):void {
         _txtHint.text = st;
         var rectangle:Rectangle = _txtHint.textBounds;
-        if (!big )  {
+        _catXp = xp;
+        _newX = newX;
+        if (!xp )  {
             _txtHint.x = 0;
             _txtHint.width = rectangle.width + 20;
         } else {
@@ -43,8 +46,8 @@ public class Hint {
             while (source.numChildren) source.removeChildAt(0);
         }
         var bg:HintBackground = new HintBackground(rectangle.width + 22, rectangle.height + 12);
-        if (big) {
-            _txtHint.x = bg.x + 7;
+        if (xp) {
+            _txtHint.x = bg.x + 3;
         }
         source.addChild(bg);
         source.addChild(_txtHint);
@@ -55,6 +58,11 @@ public class Hint {
     }
 
     private function onEnterFrame():void {
+        if (_catXp || _newX > 0) {
+            source.x = _newX - 150;
+            source.y = g.ownMouse.mouseY - 30;
+            return;
+        }
         source.x = g.ownMouse.mouseX + 20;
         source.y = g.ownMouse.mouseY - 40;
         checkPosition();

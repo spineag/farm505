@@ -25,7 +25,8 @@ public class XPPanel {
     private var _bar:ProgressBarComponent;
     private var _txtLevel:TextField;
     private var _txtXPCount:TextField;
-
+    private var _imageStar:Image;
+    private var _count:int;
     private var g:Vars = Vars.getInstance();
 
     public function XPPanel() {
@@ -39,11 +40,11 @@ public class XPPanel {
         _bar.x = 14;
         _bar.y = 3;
         _source.addChild(_bar);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
-        MCScaler.scale(im, 60, 60);
-        im.x = -27;
-        im.y = -12;
-        _source.addChild(im);
+        _imageStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
+        MCScaler.scale(_imageStar, 60, 60);
+        _imageStar.x = -27;
+        _imageStar.y = -12;
+        _source.addChild(_imageStar);
         _txtLevel = new TextField(60, 60, '55', g.allData.fonts['BloggerBold'], 24, Color.WHITE);
         _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtLevel.x = -27;
@@ -56,7 +57,6 @@ public class XPPanel {
         _source.addChild(_txtXPCount);
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
         checkXP();
         onResize();
@@ -99,11 +99,29 @@ public class XPPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt(_maxXP - g.user.xp + ' XP до ' + (g.user.level+1) + ' уровня', true);
+        g.hint.showIt(_maxXP - g.user.xp + ' XP до ' + (g.user.level+1) + ' уровня',false, _source.x);
     }
 
     private function onOut():void {
         g.hint.hideIt();
+    }
+    public function animationStar():void {
+        _count = 0;
+        _imageStar.width =_imageStar.height = 65;
+        _imageStar.x = -30;
+        _imageStar.y = -9;
+        g.gameDispatcher.addEnterFrame(onEnterFrame);
+    }
+
+    private function onEnterFrame():void {
+        _count ++;
+        if (_count >= 5) {
+            _imageStar.width =_imageStar.height = 60;
+            _count = 0;
+            _imageStar.x = -27;
+            _imageStar.y = -12;
+            g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        }
     }
 }
 }

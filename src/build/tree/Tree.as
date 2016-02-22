@@ -301,10 +301,12 @@ public class Tree extends AreaObject {
     }
 
     private function rechekFruits():void {
-        for (var i:int = 0; i < 4; i++) {
+        if (!arrFruits.length) return;
+        for (var i:int = 0; i < arrFruits.length; i++) {
             arrFruits[i].visible = false;
         }
         for (i = 0; i < _arrCrafted.length; i++) {
+            if (arrFruits[i])
             arrFruits[i].visible = true;
         }
     }

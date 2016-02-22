@@ -289,7 +289,6 @@
             <filename>a_tr_rup_ico.png</filename>
             <filename>aerial_tram_all.png</filename>
             <filename>hint_arrow.png</filename>
-            <filename>coupons_icon.png</filename>
             <filename>plawka7.png</filename>
             <filename>product_particle.png</filename>
             <filename>friend_board.png</filename>
@@ -300,7 +299,6 @@
             <filename>empty_red_tile.png</filename>
             <filename>green_tile.png</filename>
             <filename>red_tile.png</filename>
-            <filename>neighbor.png</filename>
             <filename>available_on_level.png</filename>
             <filename>storage_window_pr.png</filename>
             <filename>buttons_new</filename>
@@ -315,6 +313,8 @@
             <filename>sale.png</filename>
             <filename>refresh_icon.png</filename>
             <filename>button_yel_left.png</filename>
+            <filename>neighbor.png</filename>
+            <filename>coupons_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
