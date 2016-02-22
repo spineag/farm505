@@ -127,6 +127,8 @@ public class EmbedAssets {
     private const AerialTram:Class;
     [Embed(source = "../../assets/animations/x1/orders.png", mimeType = "application/octet-stream")]
     private const Orders:Class;
+    [Embed(source = "../../assets/animations/x1/explode.png", mimeType = "application/octet-stream")]
+    private const Explode:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -169,7 +171,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 31;
+        var count:int = 32;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -210,6 +212,7 @@ public class EmbedAssets {
         loadFactory('catCustomer', CatCustomer, checkCount);
         loadFactory('orderWindow', OrderWindow, checkCount);
         loadFactory('removeWild', RemoveWild, checkCount);
+        loadFactory('explode', Explode, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

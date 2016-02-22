@@ -5,6 +5,8 @@ package build.tree {
 import build.AreaObject;
 import build.wild.RemoveWildAnimation;
 
+import com.greensock.TweenMax;
+
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
@@ -567,10 +569,14 @@ public class Tree extends AreaObject {
 
     private function deleteTree():void {
         g.directServer.deleteUserTree(tree_db_id, _dbBuildingId, null);
-        new RemoveWildAnimation(_source, onEndAnimation, _dataBuild.removeByResourceId);
+        new RemoveWildAnimation(_source, onEndAnimation, onEndAnimationTotal, _dataBuild.removeByResourceId);
     }
 
     private function onEndAnimation():void {
+        TweenMax.to(_build, 1, {alpha: 0, delay: .3});
+    }
+
+    private function onEndAnimationTotal():void {
         g.townArea.deleteBuild(this);
     }
 

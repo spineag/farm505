@@ -4,6 +4,8 @@
 package build.wild {
 import build.AreaObject;
 import build.lockedLand.LockedLand;
+
+import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
@@ -163,10 +165,14 @@ public class Wild extends AreaObject{
                 break;
             }
         }
-        new RemoveWildAnimation(_source, onEndAnimation, _dataBuild.removeByResourceId);
+        new RemoveWildAnimation(_source, onEndAnimation, onEndAnimationTotal, _dataBuild.removeByResourceId);
     }
 
     private function onEndAnimation():void {
+        TweenMax.to(_build, 1, {alpha: 0, delay: .3});
+    }
+
+    private function onEndAnimationTotal():void {
         g.userInventory.addResource(_dataBuild.removeByResourceId,-1);
         var p:Point = new Point(_source.x, _source.y);
         p = _source.parent.localToGlobal(p);
