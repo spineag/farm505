@@ -13,12 +13,14 @@ import starling.display.Sprite;
 public class RemoveWildAnimation {
     private var _parent:Sprite;
     private var _callback:Function;
+    private var _callbackTotal:Function;
     private var _countPlay:int;
     private var _armature:Armature;
     private var g:Vars = Vars.getInstance();
 
-    public function RemoveWildAnimation(parent:Sprite, f:Function, instrumentId:int) {
+    public function RemoveWildAnimation(parent:Sprite, f:Function, fTotal:Function, instrumentId:int) {
         _callback = f;
+        _callbackTotal = fTotal;
         _parent = parent;
 
         var _x:int;
@@ -77,11 +79,34 @@ public class RemoveWildAnimation {
                 _callback.apply();
                 _callback = null;
             }
+            showBoom();
         } else {
             _armature.addEventListener(AnimationEvent.COMPLETE, playIt);
             _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, playIt);
             _armature.animation.gotoAndPlay("work");
         }
+    }
+
+    private function showBoom():void {
+        _armature = g.allData.factory['explode'].buildArmature("expl");
+        _parent.addChild(_armature.display as Sprite);
+        WorldClock.clock.add(_armature);
+        _armature.addEventListener(AnimationEvent.COMPLETE, onBoom);
+        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        _armature.animation.gotoAndPlay("start");
+    }
+
+    private function onBoom(e:AnimationEvent=null):void {
+        if (_callbackTotal != null) {
+            _callbackTotal.apply();
+            _callbackTotal = null;
+        }
+        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, onBoom);
+        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        WorldClock.clock.remove(_armature);
+        _parent.removeChild(_armature.display as Sprite);
+        _armature.dispose();
+        _armature = null;
     }
 }
 }
