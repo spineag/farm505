@@ -119,12 +119,20 @@ public class Containers {
         }
 
         if (te.getTouch(gameCont, TouchPhase.ENDED)) {
-            if (g.toolsModifier.modifierType == ToolsModifier.MOVE && !_isDragged) {
+            if (g.toolsModifier.modifierType == ToolsModifier.MOVE && !_isDragged && g.selectedBuild) {
                 g.toolsModifier.onTouchEnded();
                 _isDragged = false;
                 return;
             }
             if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+                if (!_isDragged) {
+                    g.bottomPanel.cancelBoolean(false);
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                }
+                _isDragged = false;
+                return;
+            }
+            if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
                 if (!_isDragged) {
                     g.bottomPanel.cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
