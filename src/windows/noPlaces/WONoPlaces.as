@@ -24,8 +24,10 @@ import windows.WOComponents.WindowBackground;
 public class WONoPlaces extends Window{
 
     private var _contBtn:CButton;
+    private var _txtName:TextField;
     private var _txtText:TextField;
     private var _txtCost:TextField;
+    private var _txtAdd:TextField;
     private var _woBG:WindowBackground;
     private var _price:int;
     private var _buyCallback:Function;
@@ -45,10 +47,17 @@ public class WONoPlaces extends Window{
         _contBtn.y = 120;
         _source.addChild(_contBtn);
         _contBtn.clickCallback = onClick;
-        _txtText = new TextField(200,100,"Недостаточно места",g.allData.fonts['BloggerBold'],24,Color.WHITE);
+        _txtName = new TextField(200,100,"Недостаточно места",g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtName.x = -100;
+        _txtName.y = -190;
+        _source.addChild(_txtName);
+        _txtText = new TextField(300,100,"У вас нет свободных ячеек. Вы можете купить ихза рубины и продолжить производство.",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtText.x = -100;
+        _txtText.x = -150;
         _txtText.y = -150;
+        _source.addChild(_txtText);
+
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         MCScaler.scale(im,35,35);
         im.x = 80;
@@ -64,7 +73,11 @@ public class WONoPlaces extends Window{
         _txtCost.y = -3;
         _contBtn.addChild(_txtCost);
         _source.addChild(im);
-        _source.addChild(_txtText);
+        _txtAdd = new TextField(100,100,"Добавить ячейку",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtAdd.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtAdd.x = -55;
+        _txtAdd.y = -50;
+        _source.addChild(_txtAdd);
     }
 
     private function onClickExit(e:Event=null):void {

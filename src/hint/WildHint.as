@@ -26,7 +26,7 @@ import utils.MCScaler;
 import windows.WOComponents.HintBackground;
 
 public class WildHint {
-    private var _source:Sprite;
+    private var _source:CSprite;
     private var _btn:CButton;
     private var _isShowed:Boolean;
     private var _isOnHover:Boolean;
@@ -44,7 +44,7 @@ public class WildHint {
     private var _onOutCallback:Function;
 
     public function WildHint() {
-        _source = new Sprite();
+        _source = new CSprite();
         _btn = new CButton();
         _isShowed = false;
         _isOnHover = false;
@@ -69,8 +69,9 @@ public class WildHint {
 
         _source.addChild(_txtName);
         _btn.clickCallback = onClick;
-        _btn.hoverCallback = onHover;
-        _btn.outCallback = onOut;
+
+
+        _source.outCallback = onOutHint;
     }
 
     public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function):void {
@@ -124,22 +125,8 @@ public class WildHint {
 
     }
 
-    private function onHover():void {
-        _isOnHover = true;
-    }
-
-    private function onOut():void {
-        _isOnHover = false;
-        hideIt();
-        if (_onOutCallback != null) {
-            _onOutCallback.apply();
-            _onOutCallback = null;
-        }
-    }
-
-
     private function onClick():void {
-        onOut();
+        onOutHint();
         if (g.userInventory.getCountResourceById(_id) <= 0){
             g.woNoResources.showItMenu(g.dataResource.objectResources[_id],1,onClick);
         } else {
@@ -152,6 +139,15 @@ public class WildHint {
 
     public function set onDelete(f:Function):void {
         _deleteCallback = f;
+    }
+
+
+    private function onOutHint():void {
+        hideIt();
+        if (_onOutCallback != null) {
+            _onOutCallback.apply();
+            _onOutCallback = null;
+        }
     }
 }
 }
