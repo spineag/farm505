@@ -41,7 +41,7 @@ public class WOBuyCave extends Window {
         btn = new CButton();
         btn.addButtonTexture(250, 35, CButton.BLUE, true);
 //        btn.x = -btn.width/2;
-        btn.y = 150;
+        btn.y = 165;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         im.x = 215;
         im.y = 7;

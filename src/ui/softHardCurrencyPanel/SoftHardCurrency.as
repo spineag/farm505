@@ -30,6 +30,10 @@ public class SoftHardCurrency {
     private var _contHard:CSprite;
     private var _txtSoft:TextField;
     private var _txtHard:TextField;
+    private var _imCoin:Image;
+    private var _imHard:Image;
+    private var _count:int;
+    private var _animation:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function SoftHardCurrency() {
@@ -74,14 +78,18 @@ public class SoftHardCurrency {
         p.addChild(pl);
         pl.touchable = true;
         if (isSoft) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+            _imCoin = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+            MCScaler.scale(_imCoin, 50, 50);
+            _imCoin.x = -_imCoin.width/2;
+            _imCoin.y = -6;
+            p.addChild(_imCoin);
         } else {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            _imHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            MCScaler.scale(_imHard, 50, 50);
+            _imHard.x = -_imHard.width/2;
+            _imHard.y = -6;
+            p.addChild(_imHard);
         }
-        MCScaler.scale(im, 50, 50);
-        im.x = -im.width/2;
-        im.y = -6;
-        p.addChild(im);
         var btn:CButton = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
         MCScaler.scale(im, 46, 46);
@@ -125,6 +133,41 @@ public class SoftHardCurrency {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         }
         g.woBuyCurrency.showItMenu(true);
+    }
+
+    public function animationBuy (hard:Boolean):void {
+        _count = 0;
+        _animation = hard;
+        if (hard) {
+            _imHard.width =_imHard.height = 55;
+            _imHard.x = -_imHard.width/2 - 3;
+            _imHard.y = -8;
+            g.gameDispatcher.addEnterFrame(onEnterFrame);
+        } else {
+            _imCoin.width =_imCoin.height = 55;
+            _imCoin.x = -_imCoin.width/2 - 3;
+            _imCoin.y = -8;
+            g.gameDispatcher.addEnterFrame(onEnterFrame);
+        }
+
+    }
+
+    private function onEnterFrame():void {
+        _count ++;
+        if (_count >= 5) {
+            if (_animation) {
+                _imHard.width = _imHard.height = 50;
+                _count = 0;
+                _imHard.x = -_imHard.width/2;
+                _imHard.y = -6;
+            } else {
+                _imCoin.width = _imCoin.height = 50;
+                _count = 0;
+                _imCoin.x = -_imCoin.width/2;
+                _imCoin.y = -6;
+            }
+                g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        }
     }
 }
 }

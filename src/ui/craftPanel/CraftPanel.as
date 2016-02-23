@@ -65,7 +65,7 @@ public class CraftPanel {
         MCScaler.scale(_skladImage, 70, 70);
         _skladImage.pivotX = _skladImage.width/2;
         _skladImage.pivotY = _skladImage.height/2;
-        _skladImage.x = 155;
+        _skladImage.x = 157;
         _skladImage.y = -12;
         _source.addChild(_skladImage);
         _skladImage.visible = false;

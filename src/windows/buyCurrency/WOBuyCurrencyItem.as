@@ -89,10 +89,10 @@ public class WOBuyCurrencyItem {
 
             if (currency == DataMoney.HARD_CURRENCY) {
                 obj.id =  int(DataMoney.HARD_CURRENCY);
-                new DropItem(p.x, p.y, obj);
+                new DropItem(p.x + 30, p.y + 30, obj);
             } else {
                 obj.id = int(DataMoney.SOFT_CURRENCY);
-                new DropItem(p.x, p.y, obj);
+                new DropItem(p.x + 30, p.y + 30, obj);
             }
         };
         btn.clickCallback = onClick;

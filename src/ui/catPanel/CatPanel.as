@@ -4,6 +4,7 @@
 package ui.catPanel {
 
 import flash.filters.GlowFilter;
+import flash.geom.Point;
 
 import manager.ManagerFilters;
 
@@ -56,10 +57,11 @@ public class CatPanel {
     public function onResize():void {
         _source.y = 77;
         _source.x = Starling.current.nativeStage.stageWidth - 108;
+
     }
 
     private function onHover():void {
-        g.hint.showIt('Готовы поработать: ' + g.managerCats.countFreeCats + '  Всего работников: ' + g.managerCats.curCountCats, true);
+        g.hint.showIt('Готовы поработать: ' + g.managerCats.countFreeCats + '  Всего котов: ' + g.managerCats.curCountCats, true,_source.x);
     }
 
     private function onOut():void {

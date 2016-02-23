@@ -31,6 +31,7 @@ public class CouponePanel {
     private var _imRed:Image;
     private var _imBlue:Image;
     private var _imGreen:Image;
+    private var _count:int;
 
     private var _txtYellow:TextField;
     private var _txtRed:TextField;
@@ -50,54 +51,62 @@ public class CouponePanel {
         _source.addChild(_contClipRect);
         _contClipRect.addChild(_contCoupone);
         _imCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coupons_icon"));
+        MCScaler.scale(_imCoupone,69,75);
+        _source.addChild(_imCoupone);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+        MCScaler.scale(im,35,35);
+        im.x = 40;
+        im.y = 40;
+        _source.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+        MCScaler.scale(im,18,18);
+        im.x = 48;
+        im.y = 48;
+        _source.addChild(im);
         _imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture("green_coupone"));
         MCScaler.scale(_imGreen,25,25);
         _imGreen.x = 70;
         _imGreen.y += 5;
+        _contCoupone.addChild(_imGreen);
         _imBlue = new Image(g.allData.atlas['interfaceAtlas'].getTexture("blue_coupone"));
         MCScaler.scale(_imBlue,25,25);
         _imBlue.x = 95;
         _imBlue.y += 5;
+        _contCoupone.addChild(_imBlue);
         _imYellow = new Image(g.allData.atlas['interfaceAtlas'].getTexture("yellow_coupone"));
         MCScaler.scale(_imYellow,25,25);
         _imYellow.x = 120;
         _imYellow.y += 5;
+        _contCoupone.addChild(_imYellow);
         _imRed = new Image(g.allData.atlas['interfaceAtlas'].getTexture("red_coupone"));
         MCScaler.scale(_imRed,25,25);
         _imRed.x = 145;
         _imRed.y += 5;
-
-
+        _contCoupone.addChild(_imRed);
         _txtGreen = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtGreen.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtGreen.x = 55;
         _txtGreen.y = 20;
+        _contCoupone.addChild(_txtGreen);
         _txtBlue = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtBlue.x = 80;
         _txtBlue.y = 20;
+        _contCoupone.addChild(_txtBlue);
         _txtYellow = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtYellow.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtYellow.x = 105;
         _txtYellow.y = 20;
+        _contCoupone.addChild(_txtYellow);
         _txtRed = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtRed.x = 130;
         _txtRed.y = 20;
-        _source.addChild(_imCoupone);
-
+        _contCoupone.addChild(_txtRed);
         _source.x = 20;
         _source.y = 120;
 
-        _contCoupone.addChild(_imGreen);
-        _contCoupone.addChild(_imBlue);
-        _contCoupone.addChild(_imYellow);
-        _contCoupone.addChild(_imRed);
 
-        _contCoupone.addChild(_txtGreen);
-        _contCoupone.addChild(_txtBlue);
-        _contCoupone.addChild(_txtYellow);
-        _contCoupone.addChild(_txtRed);
 
         _contCoupone.visible = false;
         _contCoupone.x = -100;
@@ -157,6 +166,27 @@ public class CouponePanel {
         p.y = _imCoupone.y + 10;
         p = _source.localToGlobal(p);
         return p;
+    }
+
+    public function animationBuy ():void {
+        _count = 0;
+        _imCoupone.width = 80;
+        _imCoupone.height = 74;
+        _source.x = 23;
+        _source.y = 123;
+        g.gameDispatcher.addEnterFrame(onEnterFrame);
+    }
+
+    private function onEnterFrame():void {
+        _count ++;
+        if (_count >= 5) {
+            _count = 0;
+            _imCoupone.width = 75;
+            _imCoupone.height = 69;
+            _source.x = 20;
+            _source.y = 120;
+            g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        }
     }
 }
 }

@@ -57,6 +57,7 @@ public class XPStar {
         _txtStar.text = '+' + String(_xp);
 
         var f1:Function = function():void {
+            g.xpPanel.animationStar();
             g.cont.animationsResourceCont.removeChild(_source);
             while (_source.numChildren) {
                 _source.removeChildAt(0);

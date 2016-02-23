@@ -140,6 +140,10 @@ public class ToolsPanel {
                 }
                 break;
             case 'move':
+                    if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.toolsModifier.cancelMove();
+                    }
                     if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                         g.toolsModifier.modifierType == ToolsModifier.MOVE
                           ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
@@ -147,6 +151,10 @@ public class ToolsPanel {
                     }
                 break;
             case 'flip':
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.toolsModifier.cancelMove();
+                }
                 if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                     g.toolsModifier.modifierType == ToolsModifier.FLIP
                       ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.FLIP;
