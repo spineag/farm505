@@ -16,7 +16,7 @@ public class HeroEyesAnimation {
     private var _armatureClip:Sprite;
     private var isAnimated:Boolean;
 
-    public function HeroEyesAnimation(fact:StarlingFactory, catArmature:Armature, path:String, isWoman:Boolean = false) {
+    public function HeroEyesAnimation(fact:StarlingFactory, catArmature:Armature, path:String, path2:String, isWoman:Boolean = false) {
         isAnimated = false;
         _armatureEyes = fact.buildArmature("eyes");
 
@@ -27,27 +27,21 @@ public class HeroEyesAnimation {
 
         var b:Bone;
         var im:Image;
-        if (isWoman) {
-            im = fact.getTextureDisplay(path) as Image;
-            b = _armatureEyes.getBone('head');
-            b.display.dispose();
-            b.display = im;
+        im = fact.getTextureDisplay(path) as Image;
+        b = _armatureEyes.getBone('head');
+        b.display.dispose();
+        b.display = im;
 
-            b = _armatureEyes.getBone('lid_r');
-            im = fact.getTextureDisplay('eye/lid_r_w') as Image;
-            b.display.dispose();
-            b.display = im;
-            b = _armatureEyes.getBone('lid_l');
-            im = fact.getTextureDisplay('eye/lid_l_w') as Image;
-            b.display.dispose();
-            b.display = im;
-        } else {
-            if (path != 'heads/head_w') {
-                im = fact.getTextureDisplay(path) as Image;
-                b = _armatureEyes.getBone('head');
-                b.display.dispose();
-                b.display = im;
-            }
+        b = _armatureEyes.getBone('lid_r');
+        im = fact.getTextureDisplay('eye/lid_r' + path2) as Image;
+        b.display.dispose();
+        b.display = im;
+        b = _armatureEyes.getBone('lid_l');
+        im = fact.getTextureDisplay('eye/lid_l' + path2) as Image;
+        b.display.dispose();
+        b.display = im;
+
+        if (!isWoman) {
             b = _armatureEyes.getBone('vii1');
             _armatureEyes.removeBone(b);
             b = _armatureEyes.getBone('vii2');

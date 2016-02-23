@@ -56,7 +56,9 @@ public class HeroCat extends BasicCat{
             releaseFrontWoman(armature);
             releaseBackWoman(armatureBack);
         }
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, 'heads/head_w', _type == WOMAN);
+        var st:String = '';
+        if (_type == WOMAN) st = '_w';
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, 'heads/head_w', st, _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);

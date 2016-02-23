@@ -65,7 +65,7 @@ public class OrderCat {
         if (_typeCat != BLACK) {
             changeCatTexture();
         } else {
-            heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' ,false);
+            heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head', '_black', false);
         }
         _source.addChild(_catImage);
         _source.addChild(_catBackImage);
@@ -137,17 +137,19 @@ public class OrderCat {
 
     private function changeCatTexture():void {
         var st:String;
+        var st2:String;
         var isWoman:Boolean;
         switch (_typeCat) {
-            case BLUE:   st = '_bl'; isWoman = false; break;
-            case GREEN:  st = '_gr'; isWoman = false; break;
-            case ORANGE: st = '_or'; isWoman = true;  break;
-            case PINK:   st = '_pk'; isWoman = true;  break;
-            case WHITE:  st = '_wh';  isWoman = true;  break;
+            case BLACK:   st = '';   st2 = '_black'; isWoman = false; break;
+            case BLUE:   st = '_bl'; st2 = '_blue';  isWoman = false; break;
+            case GREEN:  st = '_gr'; st2 = '_green'; isWoman = false; break;
+            case ORANGE: st = '_or'; st2 = '_orange'; isWoman = true;  break;
+            case PINK:   st = '_pk'; st2 = '_pink'; isWoman = true;  break;
+            case WHITE:  st = '_wh'; st2 = '_white';  isWoman = true;  break;
         }
         releaseFrontTexture(st);
         releaseBackTexture(st);
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st ,isWoman);
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, isWoman);
     }
 
     private function releaseFrontTexture(st:String):void {
