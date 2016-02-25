@@ -121,6 +121,8 @@ public class EmbedAssets {
     private const SmokeHouseFabrica:Class;
     [Embed(source = "../../assets/animations/x1/mine.png", mimeType = "application/octet-stream")]
     private const Cave:Class;
+    [Embed(source = "../../assets/animations/x1/sklad.png", mimeType = "application/octet-stream")]
+    private const Sklad:Class;
     [Embed(source = "../../assets/animations/x1/wheel_of_fortune.png", mimeType = "application/octet-stream")]
     private const DailyBonus:Class;
     [Embed(source = "../../assets/animations/x1/aerial_tram.png", mimeType = "application/octet-stream")]
@@ -171,7 +173,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 32;
+        var count:int = 33;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -205,6 +207,7 @@ public class EmbedAssets {
         loadFactory('smelter', SmelterFabrica, checkCount);
         loadFactory('smoke_house', SmokeHouseFabrica, checkCount);
         loadFactory('cave', Cave, checkCount);
+        loadFactory('sklad', Sklad, checkCount);
         loadFactory('daily_bonus', DailyBonus, checkCount);
         loadFactory('train', AerialTram, checkCount);
         loadFactory('order', Orders, checkCount);

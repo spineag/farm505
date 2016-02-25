@@ -163,7 +163,15 @@ public class Cave extends AreaObject{
         if (_isAnimate) return;
         if (g.selectedBuild) return;
         if (_stateBuild == STATE_ACTIVE) {
-            if (!_isOnHover) {
+            if (!_isOnHover && !_isAnimate) {
+                var fEndOver2:Function = function():void {
+                    _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver2);
+                    _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver2);
+                    _armature.animation.gotoAndStop('open', 0);
+                };
+                _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver2);
+                _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver2);
+                _armature.animation.gotoAndPlay('over2');
                 _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
@@ -183,14 +191,14 @@ public class Cave extends AreaObject{
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
         }
-        g.hint.showIt(_dataBuild.name);
+        if (!_isOnHover) g.hint.showIt(_dataBuild.name);
         _isOnHover = true;
     }
 
     private function onOut():void {
-        if (_isAnimate) return;
         _isOnHover = false;
         if (_source) _source.filter = null;
+        if (_isAnimate) return;
         g.hint.hideIt();
         if (_stateBuild == STATE_BUILD) {
             g.timerHint.hideIt();

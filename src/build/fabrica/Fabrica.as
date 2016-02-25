@@ -100,7 +100,7 @@ public class Fabrica extends AreaObject {
         _count = 20;
         if (_stateBuild == STATE_ACTIVE) {
             g.hint.showIt(_dataBuild.name);
-            if (!_isOnHover) {
+            if (!_isOnHover && !_arrList.length) {
                 var fEndOver:Function = function():void {
                     _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
                     _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
@@ -115,7 +115,7 @@ public class Fabrica extends AreaObject {
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
         }
-        _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+        if (!_isOnHover) _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         _isOnHover = true;
     }
 

@@ -6,11 +6,17 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
+
 import manager.ManagerFilters;
 
 import map.TownArea;
 
 import mouse.ToolsModifier;
+
+import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
@@ -18,7 +24,9 @@ import starling.utils.Color;
 import windows.ambar.WOAmbars;
 
 public class Sklad extends AreaObject{
+    private var _armature:Armature;
     private var _isOnHover:Boolean;
+
     public function Sklad(_data:Object) {
         super(_data);
         _isOnHover = false;
@@ -42,11 +50,18 @@ public class Sklad extends AreaObject{
     private function onHover():void {
         if (g.selectedBuild) return;
         if (!_isOnHover) {
-            makeOverAnimation();
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            var fEndOver:Function = function():void {
+                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndStop('idle', 0);
+            };
+            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlay('over');
+            _isOnHover = true;
+            g.hint.showIt(_dataBuild.name);
         }
-        _isOnHover = true;
-        g.hint.showIt(_dataBuild.name);
     }
 
     private function onClick():void {
@@ -90,6 +105,24 @@ public class Sklad extends AreaObject{
         onOut();
         _source.touchable = false;
         super.clearIt();
+    }
+
+    override public function createBuild(isImageClicked:Boolean = true):void {
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+        _armature = g.allData.factory['sklad'].buildArmature("fabrica");
+        _build.addChild(_armature.display as Sprite);
+        WorldClock.clock.add(_armature);
+        _defaultScale = 1;
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        if (_flip) _build.scaleX = -_defaultScale;
+        _source.addChild(_build);
     }
 
 }
