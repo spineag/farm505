@@ -275,8 +275,12 @@ public class WOLevelUp extends Window{
             _contImage.x = 100;
         } else if (_arrCells.length == 4) {
             _contImage.x = 50;
+        } else if (_arrCells.length == 5) {
+            _contImage.x = 3;
         }
+
         if (_arrCells.length > 5) {
+            _contImage.x = 3;
             _leftArrow.visible = true;
             _leftArrow.setEnabled = false;
             _rightArrow.visible = true;

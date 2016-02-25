@@ -118,7 +118,7 @@ public class WOMarket  extends Window {
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
         _txtName.x = -170;
-        ma = new MarketAllFriend(_arrFriends,this);
+        ma = new MarketAllFriend(_arrFriends,this,btnFriend);
         _source.addChild(ma.source);
     }
 
@@ -358,7 +358,12 @@ public class WOMarket  extends Window {
         _source.removeChild(_txtName);
     }
 
-    private function btnFriend ():void {
+    private function btnFriend (hideCallback:Boolean = false):void {
+        if (hideCallback) {
+            ma.hideIt();
+            _panelBool = false;
+            return;
+        }
         if (!_panelBool){
             ma.showIt();
             _panelBool = true;

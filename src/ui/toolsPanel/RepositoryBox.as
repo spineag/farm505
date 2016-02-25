@@ -145,9 +145,12 @@ public class RepositoryBox {
         } else {
             _leftBtn.setEnabled = true;
         }
-        if ((_shift + 1) * 1 < count) {
+        if (count > 3) {
             _rightBtn.setEnabled = true;
         } else {
+            _rightBtn.setEnabled = false;
+        }
+        if (_shift + 3 == count) {
             _rightBtn.setEnabled = false;
         }
     }

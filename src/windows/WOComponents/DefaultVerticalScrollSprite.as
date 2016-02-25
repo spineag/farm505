@@ -5,6 +5,8 @@ package windows.WOComponents {
 
 import flash.geom.Rectangle;
 
+import manager.Vars;
+
 import starling.display.Sprite;
 import starling.textures.Texture;
 
@@ -19,6 +21,8 @@ public class DefaultVerticalScrollSprite {
     private var _arrCell:Array;
     private var _nextCellX:int;
     private var _nextCellY:int;
+    private var _percent:int;
+
 
     public function DefaultVerticalScrollSprite(w:int, h:int, cellW:int, cellH:int) {
         _nextCellX = 0;
@@ -35,7 +39,7 @@ public class DefaultVerticalScrollSprite {
     }
 
     public function createScoll(x:int, y:int, h:int, lineTexture:Texture, boxTexture:Texture):void {
-        _scroll = new OwnScroll(h, lineTexture, boxTexture, checkPercent);
+        _scroll = new OwnScroll(h, lineTexture, boxTexture, checkPercent,percentNumber);
         _scroll.source.x = x;
         _scroll.source.y = y;
         _source.addChild(_scroll.source);
@@ -43,13 +47,20 @@ public class DefaultVerticalScrollSprite {
     }
 
     private function checkPercent(percent:Number):void {
-        _scrolledSprite.y = -int((_scrolledSprite.height - _height)*percent);
+        _scrolledSprite.y = -int(( _scrolledSprite.height - _height)*percent);
         // можно еще будет дописать передвижение по У к ближайшей точке, так чтобы не резало клетки, а прокручивало на минимальную высоту, равную _cellH
     }
 
+    private function percentNumber(percent:Number):void {
+        _percent = -int(( _scrolledSprite.height - _height)*percent);
+
+    }
+
     public function addNewCell(_cellSource:Sprite):void {
+        _scrolledSprite.y = -_percent;
         _cellSource.x = _nextCellX;
-        _cellSource.y = _nextCellY;
+        _cellSource.y = _nextCellY + _percent;
+
         _scrolledSprite.addChild(_cellSource);
         if (_nextCellX + _cellW > _width - 10) {
             _nextCellX = 0;
@@ -58,6 +69,7 @@ public class DefaultVerticalScrollSprite {
             _nextCellX += _cellW;
         }
         _scroll.source.visible = _scrolledSprite.height > _height + _cellH/2;
+
     }
 
     public function resetAll():void {

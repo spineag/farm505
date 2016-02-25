@@ -5,9 +5,13 @@ package windows.market {
 import manager.ManagerFilters;
 import manager.Vars;
 
+import starling.display.Quad;
+
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import utils.CSprite;
 
 import windows.WOComponents.CartonBackground;
 
@@ -15,31 +19,41 @@ import windows.WOComponents.DefaultVerticalScrollSprite;
 
 public class MarketAllFriend {
     public var source:Sprite;
+    private var quad:Quad;
+    private var _contTouch:CSprite;
     private var _scrollSprite:DefaultVerticalScrollSprite;
+    private var _callback:Function;
 
     private var g:Vars = Vars.getInstance();
 
-    public function MarketAllFriend(_arrFriends:Array,_panel:WOMarket) {
+    public function MarketAllFriend(_arrFriends:Array,_panel:WOMarket,f:Function) {
         source = new Sprite();
         source.x = -160;
-        _scrollSprite = new DefaultVerticalScrollSprite(275, 225, 76, 76);
-        _scrollSprite.source.x = 15;
+        _callback = f;
+        _contTouch = new CSprite();
+        quad = new Quad(585,520,Color.WHITE);
+        quad.alpha = 0;
+        quad.x = -213;
+        quad.y = -260;
+        _contTouch.addChild(quad);
+        _contTouch.endClickCallback = onClickQuad;
+        source.addChild(_contTouch);
+        _scrollSprite = new DefaultVerticalScrollSprite(275, 225, 73, 73);
         _scrollSprite.source.y = 55;
-        _scrollSprite.createScoll(330, 0, 200, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+        _scrollSprite.createScoll(330, 0, 225, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
         var woWidth:int = 370;
         var woHeight:int = 0;
         if (_arrFriends.length <= 4) {
             woHeight = 143;
+            _scrollSprite.source.x = 35;
         } else if (_arrFriends.length > 4 && _arrFriends.length <= 7) {
             woHeight = 218;
-//        } else if (_arrFriends.length > 6 && _arrFriends.length <= 9){
-//            woHeight = 300;
+            _scrollSprite.source.x = 35;
 
         } else {
-//            woHeight = 218;
+            _scrollSprite.source.x = 15;
             woHeight = 300;
             source.y = -50;
-//            _scrollSprite.source.x = 20;
 
         }
         var c:CartonBackground = new CartonBackground(woWidth, woHeight);
@@ -64,6 +78,12 @@ public class MarketAllFriend {
 
     public function hideIt():void {
         source.visible = false;
+    }
+
+    private function onClickQuad():void {
+        if (_callback != null) {
+            _callback.apply(null,[true]);
+        }
     }
 }
 }

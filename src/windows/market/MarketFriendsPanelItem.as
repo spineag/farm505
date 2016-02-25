@@ -47,17 +47,19 @@ public class MarketFriendsPanelItem{
         source = new CSprite();
         source.x = 218;
         _person = f;
+        var bg:Quad = new Quad(72, 72, Color.WHITE);
+        source.addChild(bg);
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
         MCScaler.scale(_ava, 70, 70);
         _ava.x = 1;
         _ava.y = 1;
-        source.addChildAt(_ava,0);
+        source.addChild(_ava);
         _txt = new TextField(100, 30, 'loading...', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txt.x = -15;
         _txt.y = 50;
         if (_person.name) _txt.text = _person.name;
-        source.addChildAt(_txt,1);
+        source.addChild(_txt);
         source.endClickCallback = chooseThis;
         if (!_person) {
             Cc.error('MarketFriendItem:: person == null');
@@ -75,8 +77,6 @@ public class MarketFriendsPanelItem{
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
             }
         }
-
-
         _planet = new CSprite();
         var btn:WOButtonTexture = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
         var txtBtn:TextField = new TextField(80,25, "Посетить", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
@@ -129,9 +129,9 @@ public class MarketFriendsPanelItem{
         MCScaler.scale(_ava, 70, 70);
         _ava.x = 1;
         _ava.y = 1;
-        source.addChildAt(_ava,1);
-        var bg:Quad = new Quad(72, 72, Color.WHITE);
-        source.addChildAt(bg,0);
+        source.addChild(_ava);
+        source.removeChild(_txt);
+        source.addChild(_txt);
     }
 
     private function chooseThis():void {

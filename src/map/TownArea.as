@@ -490,6 +490,15 @@ public class TownArea extends Sprite {
         if (updateAfterMove) zSort();
 
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)) {
+            var build:AreaObject;
+            if (g.userInventory.decorInventory[worldObject.dataBuild.id]) {
+//                    g.buyHint.showIt(0);
+                build = g.townArea.createNewBuild(worldObject.dataBuild);
+                g.selectedBuild = build;
+                (build as WorldObject).source.filter = null;
+                g.toolsModifier.startMove(build, afterMoveFromInventory, true);
+                return;
+            }
             if (decorCost) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.bottomPanel.cancelBoolean(false);
@@ -522,7 +531,6 @@ public class TownArea extends Sprite {
                 g.bottomPanel.cancelBoolean(false);
                 return;
             }
-            var build:AreaObject;
             g.bottomPanel.cancelBoolean(true);
             if (worldObject is Ridge) {
                 g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
@@ -530,12 +538,12 @@ public class TownArea extends Sprite {
                 g.toolsModifier.modifierType = ToolsModifier.PLANT_TREES;
             } else if (worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail) {
                 g.toolsModifier.modifierType = ToolsModifier.MOVE;
-                g.buyHint.showIt((arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
-                build = g.townArea.createNewBuild(worldObject.dataBuild);
-                g.selectedBuild = build;
-                (build as WorldObject).source.filter = null;
-                g.toolsModifier.startMove(build, afterMoveReturn, true);
-                return;
+                    g.buyHint.showIt((arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
+                    build = g.townArea.createNewBuild(worldObject.dataBuild);
+                    g.selectedBuild = build;
+                    (build as WorldObject).source.filter = null;
+                    g.toolsModifier.startMove(build, afterMoveReturn, true);
+                    return;
             }
             var curCount:int;
             var maxCount:int;
@@ -559,6 +567,58 @@ public class TownArea extends Sprite {
             if (build is Tree) (build as Tree).showShopView();
             (build as WorldObject).source.filter = null;
             g.toolsModifier.startMove(build, afterMoveReturn, true);
+        }
+    }
+
+    public function pasteBuildFromInventory(worldObject:WorldObject, _x:Number, _y:Number):void {
+        var build:AreaObject;
+        g.bottomPanel.cancelBoolean(true);
+        if (g.userInventory.decorInventory[worldObject.dataBuild.id]) {
+            build = g.townArea.createNewBuild(worldObject.dataBuild);
+            g.selectedBuild = build;
+            (build as WorldObject).source.filter = null;
+            g.toolsModifier.startMove(build, afterMoveFromInventory, true);
+            return;
+        }
+    }
+
+//    public function pasteBuildFromInventoryTail(tail:DecorTail, _x:Number, _y:Number,) {
+//        if (!tail) {
+//            Cc.error('TownArea pasteTailBuild:: empty tail');
+//            g.woGameError.showIt();
+//            return;
+//        }
+//        if (!_contTail.contains(tail.source)) {
+//            tail.source.x = int(_x);
+//            tail.source.y = int(_y);
+//            _contTail.addChild(tail.source);
+//            var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+//            tail.posX = point.x;
+//            tail.posY = point.y;
+//            _cityTailObjects.push(tail);
+//            fillTailMatrix(tail.posX, tail.posY, tail as WorldObject);
+//            if (isNewAtMap) {
+//                g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
+//                tail.addXP();
+//            }
+//
+//            if (updateAfterMove) {
+//                g.directServer.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
+//            }
+//        }
+//        g.selectedBuild = null;
+//    }
+
+    private function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void { // для декора из инвентаря
+        g.bottomPanel.cancelBoolean(false);
+        var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
+        var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+        (build as WorldObject).dbBuildingId = dbId;
+        g.directServer.removeFromInventory(dbId, p.x, p.y, null);
+        if (build is DecorTail) {
+            g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
+        } else {
+            g.townArea.pasteBuild(build, _x, _y);
         }
     }
 

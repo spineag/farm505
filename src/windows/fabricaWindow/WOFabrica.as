@@ -5,6 +5,9 @@ package windows.fabricaWindow {
 import build.fabrica.Fabrica;
 
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
+
 import flash.filters.GlowFilter;
 
 import manager.ManagerFilters;
@@ -112,50 +115,68 @@ public class WOFabrica extends Window {
         }
     }
 
-    private function onBuyResource(dataRecipe:Object, obj:Object):void {
+    private function onBuyResource(dataRecipe:Object, obj:Object, lastRes:Boolean = false):void {
         showItWithParams((obj.fabrica as Fabrica).arrRecipes, (obj.fabrica as Fabrica).arrList, obj.fabrica as Fabrica, obj.callback);
-        onItemClick(dataRecipe);
+        onItemClick(dataRecipe,lastRes);
     }
 
-    private function onItemClick(dataRecipe:Object):void {
-        if (_list.isFull){
-            var price:int = _list.priceForNewCell;
-            hideIt();
-            if (_fabrica.dataBuild.countCell >= 9) {
+    private function onItemClick(dataRecipe:Object, lastRes:Boolean = false):void {
+        var obj:Object;
+        if (!lastRes) {
+            if (_list.isFull) {
+                var price:int = _list.priceForNewCell;
+                hideIt();
+                if (_fabrica.dataBuild.countCell >= 9) {
+                    g.woNoPlaces.showItWithParams(price, onBuyNewCellFromWO, onClickExit, true);
+                    return;
+                }
                 g.woNoPlaces.showItWithParams(price, onBuyNewCellFromWO, onClickExit);
                 return;
             }
-        }
 
-        if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
-            onClickExit();
-            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                g.woWaitFreeCats.showIt();
-            } else {
-                g.woNoFreeCats.showIt();
-            }
-            return;
-        }
-
-        var count:int = 0;
-        if (!dataRecipe || !dataRecipe.ingridientsId) {
-            Cc.error('UserInventory checkRecipe:: bad _data');
-            onClickExit();
-            g.woGameError.showIt();
-            return;
-        }
-        for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
-            count =  g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
-            if (count < int(dataRecipe.ingridientsCount[i])) {
-                var obj:Object = {};
-                obj.fabrica = _fabrica;
-                obj.callback = _callbackOnClick;
+            if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
                 onClickExit();
-                g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count,onBuyResource,null, obj);
+                if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
+                    g.woWaitFreeCats.showIt();
+                } else {
+                    g.woNoFreeCats.showIt();
+                }
                 return;
             }
-        }
 
+
+            var count:int = 0;
+            if (!dataRecipe || !dataRecipe.ingridientsId) {
+                Cc.error('UserInventory checkRecipe:: bad _data');
+                onClickExit();
+                g.woGameError.showIt();
+                return;
+            }
+            var i:int;
+            for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
+                count = g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
+                if (count < int(dataRecipe.ingridientsCount[i])) {
+                    obj = {};
+                    obj.fabrica = _fabrica;
+                    obj.callback = _callbackOnClick;
+                    onClickExit();
+                    g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count, onBuyResource, null, obj);
+                    return;
+                }
+            }
+
+            for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
+                count = g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
+                if (g.dataResource.objectResources[dataRecipe.ingridientsId[i]].buildType == BuildType.PLANT && count == int(dataRecipe.ingridientsCount[i])) {
+                    obj = {};
+                    obj.fabrica = _fabrica;
+                    obj.callback = _callbackOnClick;
+                    onClickExit();
+                    g.woLastResource.showItFabric(dataRecipe,obj,onBuyResource);
+                    return;
+                }
+            }
+        }
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);
         _list.addResource(resource);

@@ -226,7 +226,7 @@ public class Cave extends AreaObject{
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
                 if (!_source.wasGameContMoved) {
                     if (_arrCraftItems.length) {
-                        if (g.userInventory.currentCountInSklad + 1 >= g.user.skladMaxCount) {
+                        if (g.userInventory.currentCountInSklad >= g.user.skladMaxCount) {
 //                            var p:Point = new Point(_source.x, _source.y);
 //                            p = _source.parent.localToGlobal(p);
 //                            new FlyMessage(p, "Склад заполнен");

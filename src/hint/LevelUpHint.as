@@ -74,7 +74,7 @@ public class LevelUpHint {
 //            return;
 //        }
         isShowed = true;
-        var start:Point = new Point(int(sX-19), int(sY - 5));
+        var start:Point = new Point(int(sX-13), int(sY - 5));
         start = source.parent.localToGlobal(start);
         _source.x = start.x + source.width/2;
         _source.y = start.y + source.height;
