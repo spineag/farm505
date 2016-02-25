@@ -52,7 +52,7 @@ public class WONoPlaces extends Window{
         _txtName.x = -100;
         _txtName.y = -190;
         _source.addChild(_txtName);
-        _txtText = new TextField(300,100,"У вас нет свободных ячеек. Вы можете купить ихза рубины и продолжить производство.",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtText = new TextField(300,100,"У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtText.x = -150;
         _txtText.y = -150;
@@ -75,9 +75,10 @@ public class WONoPlaces extends Window{
         _source.addChild(im);
         _txtAdd = new TextField(100,100,"Добавить ячейку",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtAdd.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtAdd.x = -55;
+        _txtAdd.x = -47;
         _txtAdd.y = -50;
         _source.addChild(_txtAdd);
+        _txtAdd.visible = false;
     }
 
     private function onClickExit(e:Event=null):void {
@@ -89,11 +90,21 @@ public class WONoPlaces extends Window{
         _buyCallback = null;
     }
 
-    public function showItWithParams(price:int, callback:Function, callbackExit:Function):void {
+    public function showItWithParams(price:int, callback:Function, callbackExit:Function, last:Boolean = false):void {
         _price = price;
         _txtCost.text = String(price);
         _buyCallback = callback;
         _exitCallback = callbackExit;
+        if (last) {
+            _txtAdd.visible = false;
+            _txtText.text = 'У вас нет свободных ячеек. Подождите пока освободится ячейка.';
+            _contBtn.visible = false;
+        } else {
+            _txtAdd.visible = true;
+            _txtText.text = 'У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.';
+            _contBtn.visible = true;
+        }
+
         showIt();
     }
 

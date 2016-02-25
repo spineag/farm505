@@ -20,14 +20,16 @@ public class OwnScroll {
     private var _startDragSourcePoint:int;
     private var _startDragPoint:int;
     private var _dragCallback:Function;
+    private var _percentCallback:Function;
     private var _isVertical:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
-    public function OwnScroll(h:int, lineTexture:Texture, boxTexture:Texture, callback:Function, isVertical:Boolean = true) {
+    public function OwnScroll(h:int, lineTexture:Texture, boxTexture:Texture, callback:Function,percent:Function, isVertical:Boolean = true) {
         _isVertical = isVertical;
         source = new Sprite;
         _dragCallback = callback;
+        _percentCallback = percent;
         _size = h;
         _lineImage = new Image(lineTexture);
         _isVertical ? _lineImage.height = _size : _lineImage.width = _size;
@@ -40,7 +42,7 @@ public class OwnScroll {
 
         source.addChild(_lineImage);
         source.addChild(_box);
-
+        callbackPercent();
         _box.onMovedCallback = onDrag;
         _box.startClickCallback = onStartDrag;
     }
@@ -69,6 +71,20 @@ public class OwnScroll {
         }
         if (_dragCallback != null) {
             _dragCallback.apply(null, [_percent]);
+        }
+    }
+
+    private function callbackPercent():void {
+
+        _startDragSourcePoint = _box.y + _box.height/2;
+        _startDragPoint = g.ownMouse.mouseY;
+        _delta = 6;
+        _box.y = _startDragSourcePoint + _delta  - _box.height/2;
+        if (_box.y > _size - _box.height/2) _box.y = _size - _box.height/2;
+        if (_box.y <_box.height/2) _box.y = _box.height/2;
+        _percent = _box.y / (_size - _box.height);
+       if (_percentCallback != null) {
+           _percentCallback.apply(null, [_percent]);
         }
     }
 

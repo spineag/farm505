@@ -32,6 +32,7 @@ public class WOLastResource extends Window{
     private var _woBG:WindowBackground;
     private var _arrItems:Array;
     private var _dataResource:Object;
+    private var _params:Object;
     public function WOLastResource() {
         super();
         var txt:TextField;
@@ -177,6 +178,73 @@ public class WOLastResource extends Window{
     private function onClickMarket():void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null,[true]);
+            _callbackBuy = null;
+        }
+        onClickExit();
+    }
+
+    public function showItFabric(data:Object, params:Object, f:Function):void {
+        _callbackBuy = f;
+        _dataResource = data;
+        _params = params;
+        var item:WOLastResourceItem;
+        for (var i:int=0; i < _dataResource.ingridientsId.length; i++) {
+            if (g.dataResource.objectResources[_dataResource.ingridientsId[i]].buildType == BuildType.PLANT && _dataResource.ingridientsCount[i] == g.userInventory.getCountResourceById(_dataResource.ingridientsId[i])) {
+                item = new WOLastResourceItem();
+                item.fillWithResource(_dataResource.ingridientsId[i]);
+                _source.addChild(item.source);
+                _arrItems.push(item);
+            }
+        }
+        switch (_arrItems.length) {
+            case 1:
+                _arrItems[0].source.x = - item.source.width/2;
+                _arrItems[0].source.y =  -40;
+                break;
+            case 2:
+                _arrItems[0].source.x = -200 + 117;
+                _arrItems[0].source.y =  -40;
+                _arrItems[1].source.x = -200 + 217;
+                _arrItems[1].source.y =  -40;
+                break;
+            case 3:
+                _arrItems[0].source.x = -200 + 77;
+                _arrItems[0].source.y =  -40;
+                _arrItems[1].source.x = -200 + 167;
+                _arrItems[1].source.y =  -40;
+                _arrItems[2].source.x = -200 + 257;
+                _arrItems[2].source.y =  -40;
+                break;
+            case 4:
+                _arrItems[0].source.x = -200 + 39;
+                _arrItems[0].source.y =  -40;
+                _arrItems[1].source.x = -200 + 124;
+                _arrItems[1].source.y =  -40;
+                _arrItems[2].source.x = -200 + 209;
+                _arrItems[2].source.y =  -40;
+                _arrItems[3].source.x = -200 + 294;
+                _arrItems[3].source.y =  -40;
+                break;
+            case 5:
+                _arrItems[0].source.x = -200 + 27;
+                _arrItems[0].source.y =  -40;
+                _arrItems[1].source.x = -200 + 97;
+                _arrItems[1].source.y =  -40;
+                _arrItems[2].source.x = -200 + 167;
+                _arrItems[2].source.y =  -40;
+                _arrItems[3].source.x = -200 + 237;
+                _arrItems[3].source.y =  -40;
+                _arrItems[4].source.x = -200 + 307;
+                _arrItems[4].source.y =  -40;
+                break;
+        }
+        _contBtnYes.clickCallback = onClickFabric;
+        showIt();
+    }
+
+    private function onClickFabric():void {
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null,[_dataResource,_params,true]);
             _callbackBuy = null;
         }
         onClickExit();

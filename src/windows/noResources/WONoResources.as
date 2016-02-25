@@ -275,7 +275,7 @@ public class WONoResources extends Window {
 
             if (_callbackBuy != null) {
                 if (_params) {
-                    _callbackBuy.apply(null, [_dataResource, _params]);
+                    _callbackBuy.apply(null, [_dataResource, _params, true]);
                     _params = null;
                 } else {
                     _callbackBuy.apply(null, [_dataResource]);

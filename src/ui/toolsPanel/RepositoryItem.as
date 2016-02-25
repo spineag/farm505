@@ -88,7 +88,7 @@ public class RepositoryItem {
 
     private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
         var dbId:int = g.userInventory.removeFromDecorInventory(_data.id);
-        g.townArea.pasteBuild(build, _x, _y, false);
+        g.townArea.pasteBuildFromInventory(build, _x, _y);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
         _count--;

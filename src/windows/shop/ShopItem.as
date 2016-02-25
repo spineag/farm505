@@ -388,7 +388,6 @@ public class ShopItem {
                         _btnActivationYellow.visible = true;
                     } else {
                         _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
-//                        _countCost = 5;
                             if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
                                 _btnBuyBlue.visible = true;
                                 _txtBtnBuyBlue.text = String(_countCost);
@@ -606,6 +605,7 @@ public class ShopItem {
             g.woShop.onClickExit();
             if (_state == STATE_FROM_INVENTORY) {
                 g.toolsModifier.startMoveTail(build, afterMoveFromInventory, true);
+                g.buyHint.hideIt();
             } else {
                 g.toolsModifier.startMoveTail(build, afterMove, true);
             }
@@ -624,6 +624,7 @@ public class ShopItem {
             if (build is Fabrica) (build as Fabrica).showShopView();
             if (_state == STATE_FROM_INVENTORY) {
                 g.toolsModifier.startMove(build, afterMoveFromInventory, true);
+                g.buyHint.hideIt();
             } else {
                 g.toolsModifier.startMove(build, afterMove, true);
             }
@@ -636,15 +637,6 @@ public class ShopItem {
             for (i=0; i<arrPat.length; i++) {
                 curCount += (arrPat[i] as Farm).arrAnimals.length;
             }
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
-                    (arr[i] as Farm).addAnimal();
-                    checkState();
-                    g.bottomPanel.cancelBoolean(false);
-                    g.woShop.updateMoneyCounts();
-            }
-            Cc.error('ShopItem:: no such Farm :(');
-        }
             if (curCount < dataFarm.maxAnimalsCount) {
                 showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
                 g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost));
@@ -655,6 +647,18 @@ public class ShopItem {
                 showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost3));
                 g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost3));
             }
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
+                    (arr[i] as Farm).addAnimal();
+                    checkState();
+                    g.bottomPanel.cancelBoolean(false);
+                    g.woShop.updateMoneyCounts();
+                    return;
+                }
+            }
+
+            Cc.error('ShopItem:: no such Farm :(');
+
         }
     }
 
@@ -704,7 +708,7 @@ public class ShopItem {
     }
 
     private function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void {
-        g.bottomPanel.cancelBoolean(false);
+//        g.bottomPanel.cancelBoolean(false);
         var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         (build as WorldObject).dbBuildingId = dbId;
