@@ -95,6 +95,7 @@ public class Farm extends AreaObject{
                 } else return;
             } else {
                 onOut();
+                checkBeforeMove();
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -302,6 +303,14 @@ public class Farm extends AreaObject{
         item.addParticle();
         _arrCrafted.push(item);
         checkForCraft();
+    }
+
+    private function checkBeforeMove():void {
+        g.managerAnimal.onFarmStartMove(_dbBuildingId);
+    }
+
+    public function checkAfterMove():void {
+        g.managerAnimal.onFarmFinishMove(this);
     }
 }
 }

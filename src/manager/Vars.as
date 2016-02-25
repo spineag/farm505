@@ -114,8 +114,6 @@ public class Vars {
     public var currentGameScale:Number = 1;
     public var stageWidth:int = 1000;
     public var stageHeight:int = 640;
-//    public var realGameWidth:int = 2048;
-//    public var realGameHeight:int = 1500;
     public var realGameWidth:int = 7468;
     public var realGameHeight:int = 5000;
     public var realGameTilesWidth:int = 6782;

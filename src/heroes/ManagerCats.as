@@ -120,6 +120,7 @@ public class ManagerCats {
 
         var f1:Function = function (arr:Array):void {
             try {
+                cat.showFront(true);
                 if (arr.length > 5) {
                     cat.runAnimation();
                 } else {

@@ -11,11 +11,13 @@ import mouse.ToolsModifier;
 public class ManagerPlantRidge {
     private var _arrRidge:Array; // список всех грядок юзера
     private var _catsForPlant:Object; // _catsForPlant['id plant'] = { cat: HeroCat, ridges: array(ridge1, ridge2..) };
+    private var _movingRidgePlantId:int;
 
     private var g:Vars = Vars.getInstance();
 
     public function ManagerPlantRidge() {
         var arr:Array = g.townArea.cityObjects;
+        _movingRidgePlantId = -1;
         _arrRidge = [];
         _catsForPlant = {};
         for (var i:int = 0; i < arr.length; i++) {
@@ -124,36 +126,44 @@ public class ManagerPlantRidge {
 
     private function onArrivedCatToRidgePoint(cat:HeroCat, plantId:int):void {
         var onFinishWork:Function = function():void {
-            if (_catsForPlant[plantId] && _catsForPlant[plantId].ridges && _catsForPlant[plantId].ridges.length) {
-                var p:Point = new Point();
-                if (_catsForPlant[plantId].ridges.length == 1) {
-                    cat.isLeftForFeedAndWatering = !cat.isLeftForFeedAndWatering;
-                } else {
-                    var randomRidge:Ridge = _catsForPlant[plantId].ridges[int(_catsForPlant[plantId].ridges.length * Math.random())];
-                    if (randomRidge == cat.curActiveRidge) {
-                        cat.isLeftForFeedAndWatering = !cat.isLeftForFeedAndWatering;
-                    } else {
-                        cat.curActiveRidge = randomRidge;
-                        cat.isLeftForFeedAndWatering = Math.random() > .5;
-                    }
-                }
-                if (cat.isLeftForFeedAndWatering) {
-                    p.x = cat.curActiveRidge.posX;
-                    p.y = cat.curActiveRidge.posY + 1;
-                } else {
-                    p.x = cat.curActiveRidge.posX + 1;
-                    p.y = cat.curActiveRidge.posY;
-                }
-                g.managerCats.goCatToPoint(cat, p, onArrivedCatToRidgePoint, cat, plantId);
-            } else {
-                removeCatFromPlant(plantId, cat);
-            }
+            takePlantForWork(plantId, cat);
         };
         if (_catsForPlant[plantId] && _catsForPlant[plantId].ridges && _catsForPlant[plantId].ridges.length) {
             g.townArea.zSort();
             cat.workWithPlant(onFinishWork);
         } else {
             removeCatFromPlant(plantId, cat);
+        }
+    }
+
+    private function takePlantForWork(plantId:int, cat:HeroCat):void {
+        if (_catsForPlant[plantId] && _catsForPlant[plantId].ridges && _catsForPlant[plantId].ridges.length) {
+            var p:Point = new Point();
+            if (_catsForPlant[plantId].ridges.length == 1) {
+                cat.isLeftForFeedAndWatering = !cat.isLeftForFeedAndWatering;
+            } else {
+                var randomRidge:Ridge = _catsForPlant[plantId].ridges[int(_catsForPlant[plantId].ridges.length * Math.random())];
+                if (randomRidge == cat.curActiveRidge) {
+                    cat.isLeftForFeedAndWatering = !cat.isLeftForFeedAndWatering;
+                } else {
+                    cat.curActiveRidge = randomRidge;
+                    cat.isLeftForFeedAndWatering = Math.random() > .5;
+                }
+            }
+            if (cat.isLeftForFeedAndWatering) {
+                p.x = cat.curActiveRidge.posX;
+                p.y = cat.curActiveRidge.posY + 1;
+            } else {
+                p.x = cat.curActiveRidge.posX + 1;
+                p.y = cat.curActiveRidge.posY;
+            }
+            g.managerCats.goCatToPoint(cat, p, onArrivedCatToRidgePoint, cat, plantId);
+        } else {
+            if (_movingRidgePlantId == -1) {
+                removeCatFromPlant(plantId, cat);
+            } else {
+                (_catsForPlant[plantId].cat as HeroCat).showSimpleIdle();
+            }
         }
     }
 
@@ -172,14 +182,39 @@ public class ManagerPlantRidge {
                 break;
             }
         }
-            g.bottomPanel.cancelBoolean(true);
+        g.bottomPanel.cancelBoolean(true);
         if (b) {
-            if (g.userInventory.getCountResourceById(g.toolsModifier.plantId) <= 0) b = false;  // cehak if there are at least one current resource for plant
+            if (g.userInventory.getCountResourceById(g.toolsModifier.plantId) <= 0) b = false;  // check if there are at least one current resource for plant
         }
 
         if (!b) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.bottomPanel.cancelBoolean(false);
+        }
+    }
+
+    public function onRidgeStartMove(plantId:int, r:Ridge):void {
+        if (_catsForPlant[plantId] && _catsForPlant[plantId].ridges && _catsForPlant[plantId].ridges.indexOf(r) > -1) {
+            var f:Function = function ():void {
+                takePlantForWork(plantId, _catsForPlant[plantId].cat);
+            };
+
+            _movingRidgePlantId = plantId;
+            _catsForPlant[plantId].ridges.splice(_catsForPlant[plantId].ridges.indexOf(r), 1);
+            if ((_catsForPlant[plantId].cat as HeroCat).curActiveRidge == r) {
+                (_catsForPlant[plantId].cat as HeroCat).showFailCat(f);
+            }
+        }
+    }
+
+
+    public function onRidgeFinishMove(plantId:int, r:Ridge):void {
+        if (_catsForPlant[plantId]) {
+            _movingRidgePlantId = -1;
+            _catsForPlant[plantId].ridges.push(r);
+            if (_catsForPlant[plantId].ridges.length == 1) {
+                takePlantForWork(plantId, _catsForPlant[plantId].cat);
+            }
         }
     }
 

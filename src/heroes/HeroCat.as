@@ -25,14 +25,12 @@ public class HeroCat extends BasicCat{
     private var _catBackImage:Sprite;
     private var _isFree:Boolean;
     private var _type:int;
-    private var armature:Armature;
-    private var armatureBack:Armature;
-    private var armatureWorker:Armature; // for watering and feeding
     private var heroEyes:HeroEyesAnimation;
     private var freeIdleGo:Boolean;
     public var isLeftForFeedAndWatering:Boolean; // choose the side of ridge for watering
     public var curActiveRidge:Ridge; //  for watering ridge
     public var curActiveFarm:Farm;  // for feed animal at farm
+    private var _animation:HeroCatsAnimation;
 
     public function HeroCat(type:int) {
         super();
@@ -45,25 +43,27 @@ public class HeroCat extends BasicCat{
         _catWateringAndFeed = new Sprite();
         _catBackImage = new Sprite();
         freeIdleGo = true;
-        armature = g.allData.factory['cat'].buildArmature("cat");
-        armatureBack = g.allData.factory['cat'].buildArmature("cat_back");
-        _catImage.addChild(armature.display as Sprite);
-        _catBackImage.addChild(armatureBack.display as Sprite);
-        WorldClock.clock.add(armature);
-        WorldClock.clock.add(armatureBack);
+
+        _animation = new HeroCatsAnimation();
+        _animation.catArmature = g.allData.factory['cat'].buildArmature("cat");
+        _animation.catBackArmature = g.allData.factory['cat'].buildArmature("cat_back");
+        _catImage.addChild(_animation.catArmature.display as Sprite);
+        _catBackImage.addChild(_animation.catBackArmature.display as Sprite);
 
         if (_type == WOMAN) {
-            releaseFrontWoman(armature);
-            releaseBackWoman(armatureBack);
+            releaseFrontWoman(_animation.catArmature);
+            releaseBackWoman(_animation.catBackArmature);
         }
-        var st:String = '';
-        if (_type == WOMAN) st = '_w';
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], armature, 'heads/head_w', st, _type == WOMAN);
+        var st2:String = '';
+        if (_type == WOMAN) st2 = '_w';
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], _animation.catArmature, 'heads/head' + st2, st2, _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);
+        _animation.catImage = _catImage;
+        _animation.catBackImage = _catBackImage;
+        _animation.catWorkerImage = _catWateringAndFeed;
         showFront(true);
-
         addShadow();
     }
 
@@ -81,21 +81,13 @@ public class HeroCat extends BasicCat{
     }
 
     override public function showFront(v:Boolean):void {
-        _catImage.visible = v;
-        _catBackImage.visible = !v;
-        if (v) {
-            heroEyes.startAnimations();
-        } else {
-            heroEyes.stopAnimations();
-        }
+        _animation.showFront(v);
+        if (v) heroEyes.startAnimations();
+            else heroEyes.stopAnimations();
     }
 
     override public function set visible(value:Boolean):void {
-        if (!value) {
-            stopAnimation();
-        } else {
-//            idleAnimation();  - already has this after going away from fabrica via run or walk
-        }
+        if (!value)  _animation.stopIt();
         super.visible = value;
     }
 
@@ -110,52 +102,43 @@ public class HeroCat extends BasicCat{
     public function set isFree(value:Boolean):void {
         _isFree = value;
         g.catPanel.checkCat();
-        if (_isFree) {
-            makeFreeCatIdle();
-        } else {
-            stopFreeCatIdle();
-        }
+        if (_isFree) makeFreeCatIdle();
+            else stopFreeCatIdle();
     }
 
     override public function walkAnimation():void {
         heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("walk");
-        armatureBack.animation.gotoAndPlay("walk");
+        _animation.playIt('walk');
         super.walkAnimation();
     }
     override public function walkIdleAnimation():void {
         heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("walk");
-        armatureBack.animation.gotoAndPlay("walk");
+        _animation.playIt('walk');
         super.walkIdleAnimation();
     }
     override public function runAnimation():void {
         heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("run");
-        armatureBack.animation.gotoAndPlay("run");
+        _animation.playIt('run');
         super.runAnimation();
     }
     override public function stopAnimation():void {
         heroEyes.stopAnimations();
-        armature.animation.gotoAndStop("idle", 0);
-        armatureBack.animation.gotoAndStop("idle", 0);
+        _animation.stopIt();
         super.stopAnimation();
     }
     override public function idleAnimation():void {
-        if (armatureWorker) return;
         if (Math.random() > .2) {
             showFront(true);
         } else {
             showFront(false);
         }
         heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("idle");
-        armatureBack.animation.gotoAndPlay("idle");
+        _animation.playIt('idle');
         super.idleAnimation();
     }
 
-    public function get armatureCatFront():Armature {  return armature; }
-    public function get armatureCatBack():Armature {  return armatureBack; }
+//    public function get armatureCatFront():Armature {  return armature; }
+//    public function get armatureCatBack():Armature {  return armatureBack; }
 
     private function releaseFrontWoman(arma:Armature):void {
         changeTexture("head", "heads/head_w", arma);
@@ -221,57 +204,26 @@ public class HeroCat extends BasicCat{
 
 // WORK WITH PLANT
     public function workWithPlant(callback:Function):void {
-        if (armatureWorker) {
-            while (_catWateringAndFeed.numChildren) _catWateringAndFeed.removeChildAt(0);
-            WorldClock.clock.remove(armatureWorker);
-            armatureWorker.dispose();
-            armatureWorker = null;
-        }
-
-        armatureWorker = g.allData.factory['cat_watering'].buildArmature("cat");
-        WorldClock.clock.add(armatureWorker);
-        var viyi:Bone = armatureWorker.getBone('viyi');
+        _animation.deleteWorker();
+        _animation.catWorkerArmature = g.allData.factory['cat_watering'].buildArmature("cat");
+        var viyi:Bone = _animation.catWorkerArmature.getBone('viyi');
         if (_type == WOMAN) {
-            releaseFrontWoman(armatureWorker);
+            releaseFrontWoman(_animation.catWorkerArmature);
             if (viyi) viyi.visible = true;
         } else {
             if (viyi) viyi.visible = false;
         }
-        _catWateringAndFeed.addChild(armatureWorker.display as Sprite);
-        _catImage.visible = false;
-        _catBackImage.visible = false;
         if (isLeftForFeedAndWatering) flipIt(true);
 
-        var f:Function = function(e:AnimationEvent):void {
-            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f);
-            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
-            makeWatering(callback);
-        };
-        armatureWorker.addEventListener(AnimationEvent.COMPLETE, f);
-        armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
-        armatureWorker.animation.gotoAndPlay("open");
+        _animation.playIt('open', true, makeWatering, callback);
     }
 
     private function makeWatering(callback:Function):void {
-        var f:Function = function(e:AnimationEvent):void {
-            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f);
-            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
-            makeWateringIdle(callback);
-        };
-        armatureWorker.addEventListener(AnimationEvent.COMPLETE, f);
-        armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
-        armatureWorker.animation.gotoAndPlay("work");
+        _animation.playIt('work', true, makeWateringIdle, callback);
     }
 
     private function makeWateringIdle(callback:Function):void {
-        var f:Function = function(e:AnimationEvent):void {
-            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f);
-            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
-            makeWateringIdle(callback);
-        };
-        var fClose:Function = function(e:AnimationEvent):void {
-            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, fClose);
-            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, fClose);
+        var fClose:Function = function():void {
             forceStopWork();
             if (callback != null) {
                 callback.apply();
@@ -279,98 +231,68 @@ public class HeroCat extends BasicCat{
         };
         var k:Number = Math.random();
         if (k < .4) {
-            armatureWorker.addEventListener(AnimationEvent.COMPLETE, fClose);
-            armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, fClose);
-            armatureWorker.animation.gotoAndPlay("close");
+            _animation.playIt('close', true, fClose);
         } else {
-            armatureWorker.addEventListener(AnimationEvent.COMPLETE, f);
-            armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
             if (k < .6) {
-                armatureWorker.animation.gotoAndPlay("work");
+                _animation.playIt("work", true, makeWateringIdle, callback);
             } else if (k < .8) {
-                armatureWorker.animation.gotoAndPlay("idle");
+                _animation.playIt("idle", true, makeWateringIdle, callback);
             } else {
-                armatureWorker.animation.gotoAndPlay("look");
+                _animation.playIt("look", true, makeWateringIdle, callback);
             }
         }
     }
 
-    public function forceStopWork():void {
+    public function forceStopWork():void { /// !!!
         additionalRemoveWorker();
-        showFront(true);
     }
 
-    public function additionalRemoveWorker():void {
-        while (_catWateringAndFeed.numChildren) _catWateringAndFeed.removeChildAt(0);
-        if (armatureWorker) {
-            WorldClock.clock.remove(armatureWorker);
-            armatureWorker.dispose();
-            armatureWorker = null;
-        }
+    public function additionalRemoveWorker():void {  /// !!!
+       _animation.deleteWorker();
         _isFree = true;
         killAllAnimations();
+        showFront(true);
         _catImage.visible = true;
         makeFreeCatIdle();
     }
 
 // WORK WITH FARM
     public function workWithFarm(callback:Function):void {
-        if (!armatureWorker) {
-            armatureWorker = g.allData.factory['cat_feed'].buildArmature("cat");
-            WorldClock.clock.add(armatureWorker);
-            var viyi:Bone = armatureWorker.getBone('viyi');
-            if (_type == WOMAN) {
-                releaseFrontWoman(armatureWorker);
-                if (viyi) viyi.visible = true;
-            } else {
-                if (viyi) viyi.visible = false;
-            }
+        _animation.deleteWorker();
+        _animation.catWorkerArmature = g.allData.factory['cat_feed'].buildArmature("cat");
+        var viyi:Bone = _animation.catWorkerArmature.getBone('viyi');
+        if (_type == WOMAN) {
+            releaseFrontWoman(_animation.catWorkerArmature);
+            if (viyi) viyi.visible = true;
+        } else {
+            if (viyi) viyi.visible = false;
         }
-        _catWateringAndFeed.addChild(armatureWorker.display as Sprite);
-        _catImage.visible = false;
-        _catBackImage.visible = false;
         if (isLeftForFeedAndWatering) flipIt(true);
 
         makeFeeding(callback);
     }
 
     private function makeFeeding(callback:Function):void {
-        var f:Function = function():void {
-            if (!armatureWorker) return;
-            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f);
-            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
-            armatureWorker.addEventListener(AnimationEvent.COMPLETE, f1);
-            armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, f1);
-            makeFeedingParticles();
-            armatureWorker.animation.gotoAndPlay("work1");
-        };
-        var f1:Function = function():void {
-            if (!armatureWorker) return;
-            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f1);
-            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f1);
-            armatureWorker.addEventListener(AnimationEvent.COMPLETE, f2);
-            armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, f2);
-            makeFeedingParticles();
-            armatureWorker.animation.gotoAndPlay("work2");
-        };
-        var f2:Function = function():void {
-            if (!armatureWorker) return;
-            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f2);
-            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f2);
-            armatureWorker.addEventListener(AnimationEvent.COMPLETE, onFinishFeeding);
-            armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, onFinishFeeding);
-            makeFeedingParticles();
-            armatureWorker.animation.gotoAndPlay("work3");
-        };
-        var onFinishFeeding:Function = function():void {
-            if (!armatureWorker) return;
-            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, onFinishFeeding);
-            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, onFinishFeeding);
-            makeFeedIdle(callback);
-        };
-        armatureWorker.addEventListener(AnimationEvent.COMPLETE, f);
-        armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
-        armatureWorker.animation.gotoAndPlay("work");
+        _animation.playIt('work', true, makeFeedingPart1, callback);
+    }
+
+    private function makeFeedingPart1(callback:Function):void {
+        makeFeedingParticles();
+        _animation.playIt('work1', true, makeFeedingPart2, callback);
+    }
+
+    private function makeFeedingPart2(callback:Function):void {
+        makeFeedingParticles();
+        _animation.playIt('work2', true, makeFeedingPart3, callback);
+    }
+
+    private function makeFeedingPart3(callback:Function):void {
+        makeFeedingParticles();
+        _animation.playIt('work3', true, onFinishFeeding, callback);
+    }
+
+    private function onFinishFeeding(callback:Function):void {
+        makeFeedIdle(callback);
     }
 
     private function makeFeedIdle(callback:Function):void {
@@ -383,32 +305,11 @@ public class HeroCat extends BasicCat{
         } else if (k < .45) {
             makeFeeding(callback);
         } else if (k < .7) {
-            var fHello:Function = function():void {
-                armatureWorker.removeEventListener(AnimationEvent.COMPLETE, fHello);
-                armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, fHello);
-                makeFeedIdle(callback);
-            };
-            armatureWorker.addEventListener(AnimationEvent.COMPLETE, fHello);
-            armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, fHello);
-            armatureWorker.animation.gotoAndPlay("hello");
+            _animation.playIt('hello', true, makeFeedIdle, callback);
         } else if (k < .85) {
-            var fIdle:Function = function():void {
-                armatureWorker.removeEventListener(AnimationEvent.COMPLETE, fIdle);
-                armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, fIdle);
-                makeFeedIdle(callback);
-            };
-            armatureWorker.addEventListener(AnimationEvent.COMPLETE, fIdle);
-            armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, fIdle);
-            armatureWorker.animation.gotoAndPlay("idle");
+            _animation.playIt('idle', true, makeFeedIdle, callback);
         } else {
-            var fIdle2:Function = function():void {
-                armatureWorker.removeEventListener(AnimationEvent.COMPLETE, fIdle2);
-                armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, fIdle2);
-                makeFeedIdle(callback);
-            };
-            armatureWorker.addEventListener(AnimationEvent.COMPLETE, fIdle2);
-            armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, fIdle2);
-            armatureWorker.animation.gotoAndPlay("idle2");
+            _animation.playIt('idle2', true, makeFeedIdle, callback);
         }
     }
 
@@ -416,60 +317,58 @@ public class HeroCat extends BasicCat{
         var p:Point = new Point();
         p.x = -11;
         p.y = -92;
-        p = (armature.display as Sprite).localToGlobal(p);
+        p = (_animation.catArmature.display as Sprite).localToGlobal(p);
         curActiveFarm.showParticles(p, isLeftForFeedAndWatering);
     }
 
 // WORK WITH FARM BEEHIVE
     public function workWithFarmBeehive(callback:Function):void {
-        if (!armatureWorker) {
-            armatureWorker = g.allData.factory['cat_watering'].buildArmature("cat");
-            WorldClock.clock.add(armatureWorker);
-            var viyi:Bone = armatureWorker.getBone('viyi');
+        if (!_animation.catWorkerArmature) {
+            _animation.catWorkerArmature = g.allData.factory['cat_watering'].buildArmature("cat");
+            var viyi:Bone = _animation.catWorkerArmature.getBone('viyi');
             if (_type == WOMAN) {
-                releaseFrontWoman(armatureWorker);
+                releaseFrontWoman(_animation.catWorkerArmature);
                 if (viyi) viyi.visible = true;
             } else {
                 if (viyi) viyi.visible = false;
             }
         }
-        _catWateringAndFeed.addChild(armatureWorker.display as Sprite);
-        _catImage.visible = false;
-        _catBackImage.visible = false;
         if (isLeftForFeedAndWatering) flipIt(true);
-        var f:Function = function(e:AnimationEvent):void {
-            armatureWorker.removeEventListener(AnimationEvent.COMPLETE, f);
-            armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, f);
-            makeWatering(callback);
-        };
-        armatureWorker.addEventListener(AnimationEvent.COMPLETE, f);
-        armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, f);
-        armatureWorker.animation.gotoAndPlay("open");
+        _animation.playIt('idle2', true, makeWatering, callback);
     }
 
 // DELETE
     override public function deleteIt():void {
         killAllAnimations();
         removeFromMap();
-        if (armatureWorker) {
-            WorldClock.clock.remove(armatureWorker);
-            _catWateringAndFeed.removeChild(armatureWorker.display as Sprite);
-            armatureWorker.dispose();
-        }
         if (heroEyes) {
             heroEyes.stopAnimations();
             heroEyes = null;
         }
-        _catImage.removeChild(armature.display as Sprite);
-        _catBackImage.removeChild(armatureBack.display as Sprite);
-        WorldClock.clock.remove(armature);
-        WorldClock.clock.remove(armatureBack);
-        armature.dispose();
-        armatureBack.dispose();
+        _animation.deleteWorker();
+        _catImage.removeChild(_animation.catArmature.display as Sprite);
+        _catBackImage.removeChild(_animation.catBackArmature.display as Sprite);
+        _animation.deleteArmature(_animation.catArmature);
+        _animation.deleteArmature(_animation.catBackArmature);
+        _animation.clearIt();
         super.deleteIt();
         _catImage = null;
         _catWateringAndFeed = null;
         _catBackImage = null;
+    }
+
+
+// SHOW FAIL CAT
+    public function showFailCat(callback:Function):void {
+        killAllAnimations();
+        _animation.deleteWorker();
+        _animation.showFront(true);
+        _animation.playIt('fail', true, callback);
+    }
+
+// SIMPLE IDLE
+    public function showSimpleIdle():void {
+       _animation.playIt('idle');
     }
 
 }

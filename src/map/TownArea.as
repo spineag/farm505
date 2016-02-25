@@ -713,6 +713,8 @@ public class TownArea extends Sprite {
     private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
         pasteBuild(build, _x, _y, false, true);
         g.selectedBuild = null;
+        if (build is Farm) (build as Farm).checkAfterMove();
+        if (build is Ridge) (build as Ridge).checkAfterMove();
     }
 
     public function moveTailBuild(tail:DecorTail):void{// не сохраняется флип при муве

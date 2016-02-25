@@ -62,7 +62,7 @@ public class EmbedAssets {
     [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
     private const HouschkaBold:Class;
 
-    [Embed(source = "../../assets/animations/x1/cat.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/cat_main2.png", mimeType = "application/octet-stream")]
     private const CatData:Class;
     [Embed(source = "../../assets/animations/x1/cat_queue.png", mimeType = "application/octet-stream")]
     private const CatQueue:Class;

@@ -105,5 +105,21 @@ public class ManagerAnimal {
         }
     }
 
+    public function onFarmStartMove(farmDbId:int):void {
+        if (_catsForFarm[farmDbId]) {
+            var f:Function = function ():void {
+                (_catsForFarm[farmDbId] as HeroCat).showSimpleIdle();
+            };
+            (_catsForFarm[farmDbId] as HeroCat).killAllAnimations();
+            (_catsForFarm[farmDbId] as HeroCat).showFailCat(f);
+        }
+    }
+
+    public function onFarmFinishMove(fa:Farm):void {
+        if (_catsForFarm[fa.dbBuildingId]) {
+            g.managerCats.goCatToPoint(_catsForFarm[fa.dbBuildingId] as HeroCat, new Point(fa.posX, fa.posY), onArrivedCatToFarm, _catsForFarm[fa.dbBuildingId] as HeroCat);
+        }
+    }
+
 }
 }

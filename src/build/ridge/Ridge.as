@@ -146,6 +146,7 @@ public class Ridge extends AreaObject{
                 if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
                     g.toolsModifier.ridgeId = _dataPlant.id;
                 }
+                checkBeforeMove();
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -309,6 +310,16 @@ public class Ridge extends AreaObject{
         } else {
             _bgClicked.isTouchable = true;
         }
+    }
+
+    private function checkBeforeMove():void {
+        if (_plant)
+            g.managerPlantRidge.onRidgeStartMove(_dataPlant.id, this);
+    }
+
+    public function checkAfterMove():void {
+        if (_plant)
+            g.managerPlantRidge.onRidgeFinishMove(_dataPlant.id, this);
     }
 }
 }
