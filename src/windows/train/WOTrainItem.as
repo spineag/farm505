@@ -34,10 +34,10 @@ public class WOTrainItem {
     public function WOTrainItem() {
         _index = -1;
         source = new CSprite();
-        _txt = new TextField(40,30,'-3', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txt = new TextField(60,30,'-3', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txt.hAlign = HAlign.RIGHT;
-        _txt.x = 43;
+        _txt.x = 23;
         _txt.y = 60;
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
@@ -132,14 +132,14 @@ public class WOTrainItem {
         _txt.text = '';
         _info.fullIt(_im);
 
-        var p:Point = new Point(source.width/2, source.height/2);
-        p = source.localToGlobal(p);
-        new XPStar(p.x, p.y, 100);
-        var prise:Object = {};
-        prise.id = DataMoney.SOFT_CURRENCY;
-        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
-        prise.count = 100;
-        new DropItem(p.x, p.y, prise);
+//        var p:Point = new Point(source.width/2, source.height/2);
+//        p = source.localToGlobal(p);
+//        new XPStar(p.x, p.y, 100);
+//        var prise:Object = {};
+//        prise.id = DataMoney.SOFT_CURRENCY;
+//        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
+//        prise.count = 100;
+//        new DropItem(p.x, p.y, prise);
     }
 
     public function clearIt():void {

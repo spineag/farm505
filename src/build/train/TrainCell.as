@@ -14,6 +14,8 @@ import manager.Vars;
 
 import resourceItem.DropItem;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 
 import temp.DropResourceVariaty;
@@ -67,8 +69,13 @@ public class TrainCell {
 
     public function fullIt(im:Image):void {
         g.userInventory.addResource(_dataResource.id, -_count);
-        var p:Point = new Point(im.x + im.width/2, im.y + im.height/2);
-        p = im.parent.localToGlobal(p);
+        var p:Point;
+        if (!im) {
+            p = new Point(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2);
+        } else {
+            p = new Point(im.x + im.width / 2, im.y + im.height / 2);
+            p = im.parent.localToGlobal(p);
+        }
         new XPStar(p.x, p.y, countXP);
         var prise:Object = {};
         prise.id = DataMoney.SOFT_CURRENCY;

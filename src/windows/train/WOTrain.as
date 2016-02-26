@@ -174,12 +174,12 @@ public class WOTrain extends Window {
         _txtXpItem.hAlign = HAlign.LEFT;
         _txtCostAll = new TextField(40,30,'-5', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtCostAll.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtCostAll.x = 75;
+        _txtCostAll.x = 160;
         _txtCostAll.y = 280;
         _txtCostAll.hAlign = HAlign.LEFT;
         _txtXpAll = new TextField(40,30,'-5', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtXpAll.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtXpAll.x = 160;
+        _txtXpAll.x = 75;
         _txtXpAll.y = 280;
         _txtXpAll.hAlign = HAlign.LEFT;
 
@@ -259,8 +259,10 @@ public class WOTrain extends Window {
                 _txt.text = 'До отправления';
 
             } else {
-                _txt.text = 'До прибытия';
+//                _txt.text = 'До прибытия';
+
                 g.woTrainOrder.showItWO(list, counter);
+                return;
             }
             _build = b;
             var isBigCount:Boolean = list.length > 9;
@@ -315,18 +317,18 @@ public class WOTrain extends Window {
     private function onItemClick(k:int):void {
         _activeItemIndex = k;
         _btnLoad.visible = true;
+        _btnHelp.visible = true;
         for (var i:int = 0; i<_arrItems.length; i++) {
             _arrItems[i].activateIt(false);
         }
         _arrItems[_activeItemIndex].activateIt(true);
         if (_arrItems[k].isResourceLoaded) {
             _btnLoad.visible = false;
+            _btnHelp.visible = false;
         } else {
             if (_arrItems[k].canFull()) {
-                _btnLoad.alpha = 1;
                 _btnLoad.clickCallback = onResourceLoad;
             } else  {
-                _btnLoad.alpha = .5;
                 _btnLoad.clickCallback = onClickBuy;
                _idFree = _arrItems[k].idFree;
                _countFree = _arrItems[k].countFree;
@@ -359,7 +361,6 @@ public class WOTrain extends Window {
         }
         updateItems();
         _btnLoad.visible = false;
-        checkBtn();
     }
 
     private function updateItems():void {
@@ -370,7 +371,9 @@ public class WOTrain extends Window {
     }
 
     private function onClickBuy():void {
-//        g.woNoResources.showItTrain(_idFree,_countFree - g.userInventory.getCountResourceById(_idFree),onClickBuy);   - need remake
+        onClickExit();
+        g.woNoResources.showItTrain(g.dataResource.objectResources[_idFree],_countFree - g.userInventory.getCountResourceById(_idFree),onResourceLoad);
+//        checkBtn();
     }
 
     private function checkBtn():void {
@@ -390,11 +393,11 @@ public class WOTrain extends Window {
 //        }
         _lock = 0;
         for (i = 0; i<_arrItems.length; i++) {
-            if (!_arrItems[i].isResourceLoaded) {
+            if (_arrItems[i].isResourceLoaded) {
                 _lock++;
             }
         }
-        if (_lock == _arrItems.length) {
+        if (_lock >= _arrItems.length || _lock == 0) {
             _btn.alpha = 1;
         } else {
             _btn.alpha = .5;
@@ -406,16 +409,18 @@ public class WOTrain extends Window {
 
     private function fullTrain(b:Boolean = false):void {
         if (!b) {
-            if (_lock == _arrItems.length) g.woTrainSend.showItTrain(fullTrain);
-            return;
+            if (_lock == 0) {
+                g.woTrainSend.showItTrain(fullTrain);
+                return;
+            }
         }
-        var p:Point = new Point(_btn.width/2, _btn.height/2);
+        var p:Point = new Point(_btn.x, _btn.y);
         p = _btn.localToGlobal(p);
-        (_build as Train).fullTrain(p);
+        (_build as Train).fullTrain(p,b);
         onClickExit();
     }
 
-    private function clearItems():void {
+    public function clearItems():void {
         for (var i:int = 0; i<_arrItems.length; i++) {
             _arrItems[i].clearIt();
         }

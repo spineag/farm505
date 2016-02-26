@@ -19,6 +19,8 @@ import mouse.ToolsModifier;
 
 import resourceItem.DropItem;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 import starling.display.Sprite;
 
@@ -39,8 +41,8 @@ public class Train extends AreaObject{
     private var _counter:int;
     private var _dataPack:Object;
     private var _train_db_id:String; // id для поезда юзера в табличке user_train
-    private var TIME_READY:int = 8*60*60; // время, которое ожидает поезд для загрузки продуктов
-    private var TIME_WAIT:int = 8*60*60;  // время, на которое уезжает поезд
+    private var TIME_READY:int = 300;//8*60*60; // время, которое ожидает поезд для загрузки продуктов
+    private var TIME_WAIT:int = 300;//8*60*60;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _armature:Armature;
     private var _arriveAnim:ArrivedAnimation;
@@ -57,7 +59,6 @@ public class Train extends AreaObject{
         }
 
        checkTrainState();
-
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         if (_stateBuild == STATE_WAIT_ACTIVATE) {
@@ -280,7 +281,9 @@ public class Train extends AreaObject{
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                    if (list.length) {
+                onClickTrainBack();
+
+                if (list.length) {
                         onOut();
                         g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
                     } else {
@@ -288,7 +291,6 @@ public class Train extends AreaObject{
                         g.directServer.getTrainPack(g.user.userSocialId, fillList);
                         g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
                     }
-//                }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
@@ -393,18 +395,18 @@ public class Train extends AreaObject{
         }
     }
 
-    public function fullTrain(p:Point):void {
+    public function fullTrain(p:Point,free:Boolean):void {
         //fillList(_dataPack);
         //g.woTrain.showItWithParams(list, this);
         onOut();
         g.directServer.releaseUserTrainPack(_train_db_id, onReleasePack);
-
-        new XPStar(p.x, p.y, _dataPack.count_xp);
+        if (free) return;
+        new XPStar(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, _dataPack.count_xp);
         var prise:Object = {};
         prise.id = DataMoney.SOFT_CURRENCY;
         prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
         prise.count = _dataPack.count_money;
-        new DropItem(p.x, p.y, prise);
+        new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
     }
 
     private function onReleasePack():void {
@@ -466,6 +468,17 @@ public class Train extends AreaObject{
     private function onArrivedKorzina():void {
         _arriveAnim.showKorzina();
         _armature.animation.gotoAndStop('work', 0);
+    }
+
+    private function onClickTrainBack():void {
+        g.woTrainOrder.callbackTrain(backTrain);
+    }
+
+    private function backTrain():void {
+        _counter = 0;
+        list.length = 0;
+        g.directServer.getTrainPack(g.user.userSocialId, fillList);
+        render();
     }
 }
 }
