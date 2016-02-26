@@ -20,6 +20,11 @@ public class BasicCat {
     public static const MAN:int = 1;
     public static const WOMAN:int = 2;
 
+    public static const WALK:int = 1;
+    public static const WALK_IDLE:int = 2;
+    public static const RUN:int = 3;
+    public static const STOP:int = 3;
+
     protected var _posX:int;
     protected var _posY:int;
     protected var _depth:Number;
@@ -29,6 +34,7 @@ public class BasicCat {
     protected var _speedRun:int = 8;
     protected var _curSpeed:int;
     protected var _currentPath:Array;
+    protected var _curTypeMoving:int;
     protected var g:Vars = Vars.getInstance();
     public var isOnMap:Boolean = false;
 
@@ -104,15 +110,19 @@ public class BasicCat {
 
     public function walkAnimation():void {
         _curSpeed = _speedWalk;
+        _curTypeMoving = WALK;
     }
     public function walkIdleAnimation():void {
         _curSpeed = _speedIdleWalk;
+        _curTypeMoving = WALK_IDLE;
     }
     public function runAnimation():void {
         _curSpeed = _speedRun;
+        _curTypeMoving = RUN;
     }
     public function stopAnimation():void {
         _curSpeed = 0;
+        _curTypeMoving = STOP;
     }
     public function idleAnimation():void {}
 
@@ -192,14 +202,19 @@ public class BasicCat {
             _source.scaleX = 1;
             Cc.error('BasicCat gotoPoint:: wrong front-back logic');
         }
+        checkForJump(p);
         new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
     }
+
+    private function checkForJump(nextPoint:Point):void {
+
+    }
+
 
     public function deleteIt():void {
         while (_source.numChildren) _source.removeChildAt(0);
         _currentPath = [];
         _source = null;
     }
-
 }
 }
