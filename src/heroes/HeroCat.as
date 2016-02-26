@@ -249,7 +249,6 @@ public class HeroCat extends BasicCat{
 
     public function additionalRemoveWorker():void {  /// !!!
        _animation.deleteWorker();
-        _isFree = true;
         killAllAnimations();
         showFront(true);
         _catImage.visible = true;
@@ -334,7 +333,7 @@ public class HeroCat extends BasicCat{
             }
         }
         if (isLeftForFeedAndWatering) flipIt(true);
-        _animation.playIt('idle2', true, makeWatering, callback);
+        _animation.playIt('open', true, makeWatering, callback);
     }
 
 // DELETE
