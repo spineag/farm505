@@ -653,7 +653,7 @@ public class Tree extends AreaObject {
                         watering.pivotX = watering.width / 2;
                         watering.pivotY = watering.height / 2;
                         watering.y = -_source.height / 2 - watering.height - 80;
-                        watering.x = -5;
+                        watering.x = -10;
                     }else if (_dataBuild.id == 26) { // Вишня
                         im.y = -_source.height / 2 - im.height + 20;
                         im.x = 5;
@@ -670,8 +670,9 @@ public class Tree extends AreaObject {
                         im.y = -_source.height / 2 - im.height - 80;
                         _wateringIcon.addChild(im);
                         if (_dataBuild.id == 25) { //Яблоня
-
                         }else if (_dataBuild.id == 26) { // Вишня
+                            im.y = -_source.height / 2 - im.height - 60;
+                            im.x = 6;
 
                         }
 //                if (_wateringUserSocialId != '0' || _wateringUserSocialId != '-1') {
