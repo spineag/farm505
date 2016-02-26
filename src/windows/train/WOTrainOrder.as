@@ -6,6 +6,7 @@ package windows.train {
 import manager.ManagerFilters;
 
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -23,15 +24,20 @@ import windows.Window;
 
 public class WOTrainOrder extends Window{
     private var _btn:CButton;
+    private var _contItem:Sprite;
     private var _txtTime:TextField;
     private var _arrItems:Array;
     private var _timer:int;
     private var _woBG:WindowBackground;
-
+    private var _callback:Function;
+    private var item1:WOTrainOrderItem;
+    private var item2:WOTrainOrderItem;
+    private var item3:WOTrainOrderItem;
     public function WOTrainOrder() {
         super ();
         var txt:TextField;
         var im:Image;
+        _contItem = new Sprite();
         _arrItems = [];
         _woWidth = 500;
         _woHeight = 337;
@@ -90,10 +96,31 @@ public class WOTrainOrder extends Window{
         hideIt();
     }
 
+     override public function hideIt():void {
+         item1.clearIt();
+         item2.clearIt();
+         item3.clearIt();
+        super.hideIt();
+    }
+
+    public function callbackTrain(callback:Function = null):void {
+        _callback = callback;
+    }
     private function onClickBtn():void {
-        if (g.user.hardCurrency < 30) return;
+        if (g.user.hardCurrency < 30) {
+            g.woBuyCurrency.showItMenu(true);
+            return;
+        }
         g.userInventory.addMoney(1,-30);
-        hideIt()
+        g.woTrain.clearItems();
+        if (_callback != null) {
+            _callback.apply(null);
+            _callback = null;
+        }
+        hideIt();
+        item1.clearIt();
+        item2.clearIt();
+        item3.clearIt();
     }
 
     public function showItWO(list:Array,time:int):void {
@@ -105,24 +132,22 @@ public class WOTrainOrder extends Window{
     }
 
     private function fillList(list:Array):void {
-        var item1:WOTrainOrderItem;
-        var item2:WOTrainOrderItem;
-        var item3:WOTrainOrderItem;
             item1 = new WOTrainOrderItem();
             item1.fillIt(list[0], 1);
             item1.source.x = -150;
             item1.source.y = -20;
-            _source.addChild(item1.source);
+            _contItem.addChild(item1.source);
             item2 = new WOTrainOrderItem();
             item2.fillIt(list[4], 4);
             item2.source.x = -50;
             item2.source.y = -20;
-            _source.addChild(item2.source);
+            _contItem.addChild(item2.source);
             item3 = new WOTrainOrderItem();
             item3.source.x = 50;
             item3.source.y = -20;
             item3.fillIt(list[9], 9);
-            _source.addChild(item3.source);
+            _contItem.addChild(item3.source);
+            _source.addChild(_contItem);
     }
 
     private function timerCheck():void {

@@ -22,16 +22,12 @@ public class WOTrainOrderItem {
     private var _index:int;
     private var _info:TrainCell;
 
-
     private var g:Vars = Vars.getInstance();
 
     public function WOTrainOrderItem() {
         source = new CSprite();
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_green'));
-        _bg.width = 100;
-        source.addChild(_bg);
     }
 
     public function fillIt(t:TrainCell, i:int):void {
@@ -48,6 +44,9 @@ public class WOTrainOrderItem {
             g.woGameError.showIt();
             return;
         }
+        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_green'));
+        _bg.width = 100;
+        source.addChild(_bg);
         MCScaler.scale(_im, 80, 80);
         _im.x = 50 - _im.width/2;
         _im.y = 45 - _im.height/2;
@@ -55,11 +54,17 @@ public class WOTrainOrderItem {
     }
 
     private function onHover():void {
-//        g.resourceHint.showIt(_info.id,source.x,source.y,source);
+        g.resourceHint.showIt(_info.id,source.x,source.y,source);
     }
 
     private function onOut():void {
         g.resourceHint.hideIt();
+    }
+
+    public function clearIt():void {
+        while (source.numChildren) {
+            source.removeChildAt(0);
+        }
     }
 }
 }
