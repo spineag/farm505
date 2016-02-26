@@ -33,6 +33,8 @@ public class WOTrainOrder extends Window{
     private var item1:WOTrainOrderItem;
     private var item2:WOTrainOrderItem;
     private var item3:WOTrainOrderItem;
+
+
     public function WOTrainOrder() {
         super ();
         var txt:TextField;

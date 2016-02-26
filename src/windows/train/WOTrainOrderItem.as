@@ -21,13 +21,14 @@ public class WOTrainOrderItem {
     private var _im:Image;
     private var _index:int;
     private var _info:TrainCell;
-
+    private var _onHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function WOTrainOrderItem() {
         source = new CSprite();
         source.hoverCallback = onHover;
         source.outCallback = onOut;
+        _onHover = false;
     }
 
     public function fillIt(t:TrainCell, i:int):void {
@@ -54,10 +55,13 @@ public class WOTrainOrderItem {
     }
 
     private function onHover():void {
+        if (_onHover) return;
+        _onHover = true;
         g.resourceHint.showIt(_info.id,source.x,source.y,source);
     }
 
     private function onOut():void {
+        _onHover = false;
         g.resourceHint.hideIt();
     }
 

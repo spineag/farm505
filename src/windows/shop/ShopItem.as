@@ -71,7 +71,7 @@ public class ShopItem {
             return;
         }
         if (_data.id == 42) {
-            trace('asasd');
+//            trace('asasd');
         }
         source = new CSprite();
         var bg:CartonBackgroundIn = new CartonBackgroundIn(145, 221);
