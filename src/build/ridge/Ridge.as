@@ -100,7 +100,7 @@ public class Ridge extends AreaObject{
             trace('away');
             return;
         }
-        _source.filter = ManagerFilters.BUILD_STROKE;
+        _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             g.managerPlantRidge.checkFreeRidges();

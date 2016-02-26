@@ -204,9 +204,9 @@ public class Tree extends AreaObject {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
                     item.removeDefaultCallbacks();
-                    item.callback = function ():void {
-                        onCraftItemClick(item);
-                    };
+//                    item.callback = function ():void {
+//                        onCraftItemClick(item);
+//                    };
                     _arrCrafted.push(item);
                 }
                 rechekFruits();
@@ -226,9 +226,9 @@ public class Tree extends AreaObject {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
                     item.removeDefaultCallbacks();
-                    item.callback = function ():void {
-                        onCraftItemClick(item);
-                    };
+//                    item.callback = function ():void {
+//                        onCraftItemClick(item);
+//                    };
                     _arrCrafted.push(item);
                 }
                 rechekFruits();
@@ -248,9 +248,9 @@ public class Tree extends AreaObject {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
                     item.removeDefaultCallbacks();
-                    item.callback = function ():void {
-                        onCraftItemClick(item);
-                    };
+//                    item.callback = function ():void {
+//                        onCraftItemClick(item);
+//                    };
                     _arrCrafted.push(item);
                 }
                 rechekFruits();
@@ -282,9 +282,9 @@ public class Tree extends AreaObject {
                     item = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
                     item.source.visible = false;
                     item.removeDefaultCallbacks();
-                    item.callback = function ():void {
-                        onCraftItemClick(item);
-                    };
+//                    item.callback = function ():void {
+//                        onCraftItemClick(item);
+//                    };
                     _arrCrafted.push(item);
                 }
                 rechekFruits();
@@ -399,6 +399,7 @@ public class Tree extends AreaObject {
                         return;
                     }
                     _arrCrafted.shift().flyIt();
+                    onCraftItemClick();
                 } else Cc.error('TREE:: state == GROWED*, but empty _arrCrafted');
             } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
                     _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER ||
@@ -503,16 +504,15 @@ public class Tree extends AreaObject {
         }
     }
 
-    private function onCraftItemClick(item:CraftItem):void {
-        _source.filter = null;
-        _isOnHover = false;
-        g.treeHint.hideIt();
+    private function onCraftItemClick(item:CraftItem=null):void {
+//        _source.filter = null;
+//        _isOnHover = false;
+//        g.treeHint.hideIt();
         if (_arrCrafted.length > 0) { // dont use with == 0 because of optimisation
             g.directServer.craftUserTree(tree_db_id, _state, null);
         }
 
         if (!_arrCrafted.length) {
-            onOut();
             switch (_state) {
                 case GROWED1:
                     _state = GROW2;
@@ -536,6 +536,7 @@ public class Tree extends AreaObject {
                     _craftedCountFromServer = 0;
                     g.managerTree.updateTreeState(tree_db_id, _state);
             }
+            onOut();
             setBuildImage();
         } else {
             rechekFruits();

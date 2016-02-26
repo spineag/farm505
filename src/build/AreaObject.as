@@ -177,16 +177,20 @@ public class AreaObject extends WorldObject {
         }
     }
 
+
     protected function makeOverAnimation():void {
         var time:Number = .15;
+        TweenMax.killTweensOf(_build);
+        _build.scaleX = _build.scaleY = 1;
+        _build.y = 0;
 
         var f1:Function = function ():void {
-            TweenMax.to(_build, time, {scaleX: 1.02, scaleY: 0.98, y: _build.y + 6*g.scaleFactor, onComplete: f2});
+            TweenMax.to(_build, time, {scaleX: 1.02, scaleY: 0.98, y: 0, onComplete: f2});
         };
         var f2:Function = function ():void {
             TweenMax.to(_build, time, {scaleX: 1, scaleY: 1});
         };
-        TweenMax.to(_build, time, {scaleX: 0.98, scaleY: 1.02, y: _build.y - 6*g.scaleFactor, onComplete: f1});
+        TweenMax.to(_build, time, {scaleX: 0.98, scaleY: 1.02, y: -6*g.scaleFactor, onComplete: f1});
     }
 }
 }
