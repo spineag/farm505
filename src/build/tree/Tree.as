@@ -641,15 +641,27 @@ public class Tree extends AreaObject {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
                     im.pivotX = im.width / 2;
                     im.pivotY = im.height / 2;
-                    im.y = -_source.height / 2 - im.height;
                     _wateringIcon.addChild(im);
                     watering = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
-                    watering.pivotX = watering.width / 2;
-                    watering.pivotY = watering.height / 2;
-                    watering.y = -_source.height / 2 - watering.height - 10;
+
+
                     MCScaler.scale(watering, 45, 45);
                     _wateringIcon.addChild(watering);
                     watering.visible = true;
+                    if (_dataBuild.id == 25) { //Яблоня
+                        im.y = -_source.height / 2 - im.height;
+                        watering.pivotX = watering.width / 2;
+                        watering.pivotY = watering.height / 2;
+                        watering.y = -_source.height / 2 - watering.height - 80;
+                        watering.x = -5;
+                    }else if (_dataBuild.id == 26) { // Вишня
+                        im.y = -_source.height / 2 - im.height + 20;
+                        im.x = 5;
+                        watering.pivotX = watering.width / 2;
+                        watering.pivotY = watering.height / 2;
+                        watering.y = -_source.height / 2 - watering.height - 60;
+                        watering.x = -5;
+                    }
                     if (_state == FIXED) {
                         watering.visible = false;
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
@@ -657,7 +669,11 @@ public class Tree extends AreaObject {
                         im.pivotY = im.height / 2;
                         im.y = -_source.height / 2 - im.height - 80;
                         _wateringIcon.addChild(im);
+                        if (_dataBuild.id == 25) { //Яблоня
 
+                        }else if (_dataBuild.id == 26) { // Вишня
+
+                        }
 //                if (_wateringUserSocialId != '0' || _wateringUserSocialId != '-1') {
 //                    var p:Someone = g.user.getSomeoneBySocialId(_wateringUserSocialId);
 //                    if (!p.photo) {
@@ -693,13 +709,20 @@ public class Tree extends AreaObject {
                         im.x = 8;
                         im.y = -_source.height + 8;
                         _wateringIcon.addChild(im);
-
                     }
                 }
+
+
+                if (_dataBuild.id == 41) { //Малина
+
+                } else if (_dataBuild.id == 42) { //Черника
+
+                    }
                 _build.addChild(_wateringIcon);
-                if (_flip)
+                if (_flip) {
                     _wateringIcon.scaleX = -1;
-                else
+                    _wateringIcon.x = _wateringIcon.x + 10;
+                }else
                     _wateringIcon.scaleX = 1;
             }
         }
