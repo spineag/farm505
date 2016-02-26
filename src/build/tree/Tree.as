@@ -375,6 +375,7 @@ public class Tree extends AreaObject {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
+            if (_state == ASK_FIX) makeWateringIcon();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             // ничего не делаем вообще
