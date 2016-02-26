@@ -71,18 +71,18 @@ public class Order extends AreaObject{
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-//            var fEndOver:Function = function():void {
-//                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-//                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-//                _armature.addEventListener(AnimationEvent.COMPLETE, makeAnimation);
-//                _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);
-//                makeAnimation();
-//            };
-//            _armature.removeEventListener(AnimationEvent.COMPLETE, makeAnimation);
-//            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);
-//            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-//            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-//            _armature.animation.gotoAndPlay('over');
+            var fEndOver:Function = function():void {
+                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                _armature.addEventListener(AnimationEvent.COMPLETE, makeAnimation);
+                _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);
+                makeAnimation();
+            };
+            _armature.removeEventListener(AnimationEvent.COMPLETE, makeAnimation);
+            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);
+            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlay('over');
             g.hint.showIt(_dataBuild.name);
         }
         _isOnHover = true;

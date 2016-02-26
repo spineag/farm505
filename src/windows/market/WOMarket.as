@@ -375,7 +375,7 @@ public class WOMarket  extends Window {
     }
 
     public function closePanelFriend():void {
-        ma.hideIt();
+        if (ma) ma.hideIt();
         _panelBool = false;
     }
 
