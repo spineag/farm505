@@ -36,12 +36,12 @@ public class HeroCatsAnimation {
     public function set catBackArmature(a:Armature):void { _armatureBack = a; }
 
     public function set catWorkerArmature(a:Armature):void {
-        _armatureWorker = a;
-        _catWorkerImage.addChild(_armatureWorker.display as Sprite);
-        _state = STATE_WORKER;
         _catWorkerImage.visible = true;
         _catImage.visible = false;
         _catBackImage.visible = false;
+        _armatureWorker = a;
+        _catWorkerImage.addChild(_armatureWorker.display as Sprite);
+        _state = STATE_WORKER;
     }
 
     public function get catArmature():Armature { return _armature; }
