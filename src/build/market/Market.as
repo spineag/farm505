@@ -54,9 +54,9 @@ public class Market extends AreaObject{
         _imItemTwo.x = -45;
         _imItemTwo.y = -27;
         MCScaler.scale(_imItemTwo,55,55);
-        _source.addChild(_imItemTwo);
-        _source.addChild(_imItemOne);
-        _source.addChild(_imCoins);
+        _build.addChild(_imItemTwo);
+        _build.addChild(_imItemOne);
+        _build.addChild(_imCoins);
         _imItemTwo.visible = false;
         _imItemOne.visible = false;
         _imCoins.visible = false;
