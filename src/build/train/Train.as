@@ -7,6 +7,7 @@ import data.DataMoney;
 
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
 
 import flash.geom.Point;
 
@@ -50,6 +51,7 @@ public class Train extends AreaObject{
     public function Train(_data:Object) {
         super(_data);
         useIsometricOnly = false;
+        _isOnHover = false;
         list = [];
         _counter = 0;
         if (!_data) {
@@ -63,8 +65,12 @@ public class Train extends AreaObject{
         _source.addChild(_craftSprite);
         if (_stateBuild == STATE_WAIT_ACTIVATE) {
             addDoneBuilding();
+            _arriveAnim.visible = false;
+            WorldClock.clock.remove(_armature);
         } else if (_stateBuild == STATE_BUILD) {
             addFoundationBuilding();
+            _arriveAnim.visible = false;
+            WorldClock.clock.remove(_armature);
         }
 
         if (!g.isAway) {
@@ -81,7 +87,7 @@ public class Train extends AreaObject{
     public function fillFromServer(ob:Object):void {
         if (!g.isAway) {
             _train_db_id = ob.id;
-            _stateBuild = int(ob.state);
+            if (int(ob.state)) _stateBuild = int(ob.state);
             if (_stateBuild == STATE_WAIT_BACK) {
                 if (int(ob.time_work) > TIME_WAIT) {
                     _stateBuild = STATE_READY;
@@ -98,7 +104,6 @@ public class Train extends AreaObject{
                     _stateBuild = STATE_WAIT_BACK;
                     g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
                     _counter = TIME_WAIT;
-//                    leaveTrain(); - there is no visible korzina
                 } else {
                     _counter = TIME_READY - int(ob.time_work);
                     onArrivedKorzina();
@@ -126,17 +131,38 @@ public class Train extends AreaObject{
     }
 
     private function arriveTrain():void {
+        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
+        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
         _armature.animation.gotoAndPlay('work');
-        _arriveAnim.makeArriveKorzina(onMakeArriveOrAway);
+        _arriveAnim.makeArriveKorzina(afterWork);
     }
 
     private function leaveTrain():void {
+        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
+        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
         _armature.animation.gotoAndPlay('work');
-        _arriveAnim.makeAwayKorzina(onMakeArriveOrAway);
+        _arriveAnim.makeAwayKorzina(afterWork);
     }
 
-    private function onMakeArriveOrAway():void {
-        _armature.animation.gotoAndStop('work', 0);
+    private function afterWork():void {
+        makeIdleAnimation();
+    }
+
+    private function makeIdleAnimation(e:AnimationEvent=null):void {
+        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
+        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
+        _armature.addEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
+        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
+        var n:Number = Math.random();
+        if (n < .55) {
+            _armature.animation.gotoAndPlay('idle_1');
+        } else if (n < .7) {
+            _armature.animation.gotoAndPlay('idle_2');
+        } else if (n < .85) {
+            _armature.animation.gotoAndPlay('idle_3');
+        } else {
+            _armature.animation.gotoAndPlay('idle_4');
+        }
     }
 
     private function checkTrainState():void {
@@ -195,14 +221,14 @@ public class Train extends AreaObject{
         }
         _armature = g.allData.factory[_dataBuild.image].buildArmature("aerial_tram");
         _build.addChild(_armature.display as Sprite);
-        WorldClock.clock.add(_armature);
         _defaultScale = 1;
         _rect = _build.getBounds(_build);
         _sizeX = _dataBuild.width;
         _sizeY = _dataBuild.height;
         if (_flip) _build.scaleX = -_defaultScale;
         _source.addChild(_build);
-        _armature.animation.gotoAndStop('idle', 0);
+        WorldClock.clock.add(_armature);
+        makeIdleAnimation();
     }
 
     private function createBrokenTrain():void {
@@ -221,22 +247,19 @@ public class Train extends AreaObject{
     }
 
     private function onHover():void {
-        if (g.selectedBuild) return;
+        if (g.selectedBuild || _isOnHover) return;
         if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_UNACTIVE) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         } else if (_stateBuild == STATE_BUILD) {
-            if (!_isOnHover) buildingBuildFoundationOver();
+            buildingBuildFoundationOver();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            if (!_isOnHover) buildingBuildDoneOver();
+            buildingBuildDoneOver();
         }
         g.hint.showIt(_dataBuild.name);
         _isOnHover = true;
     }
 
     private function onClick():void {
-//        _arriveAnim.makeArriveKorzina(null);
-//        return;
-
         if (g.isAway) {
             if (_stateBuild == STATE_READY) {
                 onOut();
@@ -273,11 +296,8 @@ public class Train extends AreaObject{
             if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
 //                g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-//                releaseFlip();
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-
             } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
-                // ничего не делаем вообще
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
@@ -313,9 +333,7 @@ public class Train extends AreaObject{
                 onOut();
                 return;
             }
-            if (g.useDataFromServer) {
-                g.directServer.openBuildedBuilding(this, onOpenTrain);
-            }
+            g.directServer.openBuildedBuilding(this, onOpenTrain);
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
                 start = _source.parent.localToGlobal(start);
@@ -323,6 +341,7 @@ public class Train extends AreaObject{
             }
             _stateBuild = STATE_READY;
             _counter = TIME_READY;
+            g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
             renderTrainWork();
             onOut();
             clearCraftSprite();
@@ -333,6 +352,7 @@ public class Train extends AreaObject{
                 _source.removeChildAt(0);
             }
             _build.visible = true;
+            _arriveAnim.visible = true;
             createBuild();
         }
     }
@@ -359,6 +379,7 @@ public class Train extends AreaObject{
         _dbBuildingId = 0;
         g.directServer.startBuildBuilding(this, null);
         addFoundationBuilding();
+        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
         _leftBuildTime = _dataBuild.buildTime;
         g.gameDispatcher.addToTimer(renderBuildTrainProgress);
     }

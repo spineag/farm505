@@ -44,6 +44,12 @@ public class ArrivedAnimation {
         createLentaBack();
     }
 
+    public function set visible(v:Boolean):void {
+        _bottomSprite.visible = v;
+        _mediumSprite.visible = v;
+        _topSprite.visible = v;
+    }
+
     private function createPillars():void {
         var im:Image = new Image(g.allData.atlas['buildAtlas'].getTexture('pillar_1'));
         im.pivotX = im.width/2;
