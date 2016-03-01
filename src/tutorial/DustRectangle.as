@@ -29,7 +29,6 @@ public class DustRectangle {
     private var _width:int;
     private var _height:int;
     private var _parent:Sprite;
-    private var g:Vars = Vars.getInstance();
     private var _curType:int;
 
     public function DustRectangle(p:Sprite, w:int, h:int, _x:int, _y:int, type:int):void {
@@ -55,28 +54,32 @@ public class DustRectangle {
         _arrDustsTop = new Vector.<DustParticle>(_width);
         for (i=0; i<_width; i++) {
             color = _arrColors[int(9*Math.random())];  // 9 == _arrColors.length
-            dust = new DustParticle(color, SIDE_TOP);
+            dust = new DustParticle(color);
+            dust.side = SIDE_TOP;
             _source.addChild(dust.source);
             _arrDustsTop[i] = dust;
         }
         _arrDustsBottom = new Vector.<DustParticle>(_width);
         for (i=0; i<_width; i++) {
             color = _arrColors[int(9*Math.random())];
-            dust = new DustParticle(color, SIDE_BOTTOM);
+            dust = new DustParticle(color);
+            dust.side = SIDE_BOTTOM;
             _source.addChild(dust.source);
             _arrDustsBottom[i] = dust;
         }
         _arrDustsLeft = new Vector.<DustParticle>(_height);
         for (i=0; i<_height; i++) {
             color = _arrColors[int(9*Math.random())];
-            dust = new DustParticle(color, SIDE_LEFT);
+            dust = new DustParticle(color);
+            dust.side = SIDE_LEFT;
             _source.addChild(dust.source);
             _arrDustsLeft[i] = dust;
         }
         _arrDustsRight = new Vector.<DustParticle>(_height);
         for (i=0; i<_height; i++) {
             color = _arrColors[int(9*Math.random())];
-            dust = new DustParticle(color, SIDE_RIGHT);
+            dust = new DustParticle(color);
+            dust.side = SIDE_RIGHT;
             _source.addChild(dust.source);
             _arrDustsRight[i] = dust;
         }
@@ -181,6 +184,11 @@ public class DustRectangle {
     public function deleteIt():void {
         _parent.removeChild(_source);
     }
+
+
+//    v.fixed = false;
+//    v.length = 1000;
+//    v.fixed = true;
 
 }
 }

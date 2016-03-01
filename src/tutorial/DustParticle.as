@@ -3,7 +3,6 @@
  */
 package tutorial {
 import com.greensock.TweenMax;
-import com.greensock.easing.Ease;
 import com.greensock.easing.Linear;
 
 import starling.display.Quad;
@@ -13,18 +12,23 @@ public class DustParticle {
     private var _q:Quad;
     public var source:Sprite;
     private var _side:int;
+    private var _rV:int;
+    private var _rH:int;
 
-    public function DustParticle(color:int, side:int) {
+    public function DustParticle(color:int) {
         source = new Sprite();
         _q = new Quad(1, 1, color);
         source.addChild(_q);
-        _side = side;
+    }
+
+    public function set side(s:int):void {
+        _side = s;
     }
 
     public function setDefaults(_x:int, _y:int):void {
         source.x = _x;
         source.y = _y;
-        source.scaleX = source.scaleY = 1;
+        _q.scaleX = _q.scaleY = 1;
     }
 
     public function moveIt(_newX:int, _newY:int, time:Number, f:Function):void {
@@ -48,6 +52,16 @@ public class DustParticle {
         if (f!=null) {
             f.apply(null, [this, _side]);
         }
+    }
+
+    public function setRadiuses(rVertical:int, rHorizontal:int, scale:Number = 1):void {
+        _rV = rVertical;
+        _rH = rHorizontal;
+        _q.scaleX = _q.scaleY = scale;
+    }
+
+    public function moveItOval(time:Number, f:Function, delay:Number):void {
+        TweenMax.to(source, time, {bezier:[{x:_rH, y:0}, {x:0, y:_rV}, {x:-_rH, y:0}, {x:0, y:-_rV}], ease:Linear.easeNone, onComplete:f, onCompleteParams:[this], delay:delay});
     }
 
     public function deleteIt():void {
