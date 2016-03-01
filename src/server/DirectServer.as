@@ -544,6 +544,7 @@ public class DirectServer {
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
             g.user.timePaper = int (ob.time_paper);
+            g.user.tutorialStep = int(ob.tutorial_step);
             g.user.checkUserLevel();
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
 //            g.user.level = int(ob.level);
@@ -567,6 +568,49 @@ public class DirectServer {
         } else {
             Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message);
             woError.showItParams('userInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserTutorialStep(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TUTORIAL_STEP);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserTutorialStep', 1);
+        variables.userSocialId = g.user.userId;
+        variables.step = g.user.tutorialStep;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onUpdateUserTutorialStep);
+        function onUpdateUserTutorialStep(e:Event):void { completeUpdateUserTutorialStep(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserTutorialStep error:' + error.errorID);
+            woError.showItParams('updateUserTutorialStep error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserTutorialStep(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserTutorialStep: wrong JSON:' + String(response));
+            woError.showItParams('updateUserTutorialStep: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserTutorialStep OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
