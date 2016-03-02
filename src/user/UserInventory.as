@@ -23,6 +23,11 @@ public class UserInventory {
         return _decorInventory;
     }
 
+    public function  getDecorInventory(id:int):Boolean {
+        if (_decorInventory[id]) return true;
+        return false;
+    }
+
     public function addToDecorInventory(id:int, dbId:int):void {
         if (_decorInventory[id]) {
             _decorInventory[id].count++;

@@ -31,6 +31,8 @@ import user.NeighborBot;
 
 import user.Someone;
 
+import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -39,6 +41,7 @@ import windows.WOComponents.CartonBackgroundIn;
 
 public class MarketItem {
     public var source:CSprite;
+    public var buyCont:Sprite;
     private var _costTxt:TextField;
     private var _countTxt:TextField;
     private var _txtPlawka:TextField;
@@ -65,12 +68,14 @@ public class MarketItem {
     private var _woWidth:int;
     private var _woHeight:int;
     private var _onHover:Boolean;
+    private var _closeCell:Boolean;
     private var _quadGreen:Quad;
     private var _ava:Image;
-
+    private var _countBuyCell:int;
     private var g:Vars = Vars.getInstance();
 
-    public function MarketItem(numberCell:int) {
+    public function MarketItem(numberCell:int, close:Boolean) {
+        _closeCell = close;
         number = numberCell;
         source = new CSprite();
         _onHover = false;
@@ -81,16 +86,52 @@ public class MarketItem {
         quad = new Quad(_woWidth, _woHeight,Color.WHITE ,false);
         quad.alpha = 0;
         source.addChild(quad);
-
-        _quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
-        _quadGreen.y = 100;
-        source.addChild(_quadGreen);
-        _quadGreen.visible = false;
-        _txtAdditem = new TextField(70,70,'Добавить товар',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        isFill = 0;
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
+        _txtAdditem = new TextField(70,70,'',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txtAdditem.x = 20;
         _txtAdditem.y = 30;
         _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.addChild(_txtAdditem);
+        if (close) {
+            buyCont = new Sprite();
+            if (numberCell == 5) _countBuyCell = 5;
+            else _countBuyCell = (numberCell - 5) * 2 + 5;
+            source.addChild(buyCont);
+            var txt:TextField = new TextField(100,90,'Докупить торговое место',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+            txt.x = 5;
+            txt.y = 20;
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+            buyCont.addChild(txt);
+            var btn:CButton = new CButton();
+            btn.addButtonTexture(90,30,CButton.GREEN, true);
+            txt = new TextField(30,30,String(String(_countBuyCell)),g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+            txt.x = 10;
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            btn.addChild(txt);
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            im.x = 55;
+            im.y = 3;
+            MCScaler.scale(im,25,25);
+            btn.addChild(im);
+            btn.y = 110;
+            btn.x = 55;
+            btn.clickCallback = onClickBuy;
+            buyCont.addChild(btn);
+//            buyCont.x = 25;
+//            buyCont.y = 30;
+//            var quad11 = new Quad(buyCont.width, buyCont.height,Color.WHITE ,false);
+//            buyCont.addChild(quad11);
+            return;
+        }
+
+        _txtAdditem.text = 'Добавить товар';
+        _quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
+        _quadGreen.y = 100;
+        source.addChild(_quadGreen);
+        _quadGreen.visible = false;
+
 
         _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -132,10 +173,8 @@ public class MarketItem {
         _txtPlawka.visible = false;
         source.addChild(_txtPlawka);
 
-        isFill = 0;
         source.endClickCallback = onClick;
-        source.hoverCallback = onHover;
-        source.outCallback = onOut;
+
         _plawkaCoins = new Sprite();
         source.addChild(_plawkaCoins);
         _plawkabuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_back'));
@@ -187,8 +226,24 @@ public class MarketItem {
     }
 
     public function clearImageCont():void {
+        if (!_imageCont) return;
         while (_imageCont.numChildren) {
             _imageCont.removeChildAt(0);
+        }
+    }
+
+    private function onClickBuy():void {
+        if (_countBuyCell > g.user.hardCurrency) {
+            g.woBuyCurrency.showItMenu(true);
+            return;
+        }
+        g.userInventory.addMoney(1,-_countBuyCell);
+        g.directServer.updateUserMarketCell(1,null);
+        g.user.marketCell++;
+        _txtAdditem.text = 'Добавить товар';
+        source.endClickCallback = onClick;
+        while (buyCont.numChildren) {
+            buyCont.removeChildAt(0);
         }
     }
 
@@ -333,6 +388,7 @@ public class MarketItem {
     }
 
     public function unFillIt():void {
+        if(_closeCell) return;
         clearImageCont();
         isFill = 0;
         _countMoney = 0;
@@ -354,6 +410,7 @@ public class MarketItem {
     }
 
     public function fillFromServer(obj:Object, p:Someone):void {
+        if (_closeCell) return;
         _person = p;
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
@@ -517,6 +574,7 @@ public class MarketItem {
     }
 
     public function friendAdd(user:Boolean = false):void {
+        if(_closeCell) return;
         if (!user)_txtAdditem.text = '';
         else {
             if (isFill == 1 ||  isFill == 2 ) {

@@ -73,12 +73,14 @@ public class DailyBonus extends AreaObject{
         }
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
+        showLights();
     }
 
     private function onOut():void {
         _source.filter = null;
         _isOnHover = false;
         g.hint.hideIt();
+        if (g.managerDailyBonus.count > 0) hideLights();
     }
 
     private function onClick():void {

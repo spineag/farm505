@@ -428,6 +428,9 @@ public class Train extends AreaObject{
         prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
         prise.count = _dataPack.count_money;
         new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
+        prise.id = int(Math.random() * 4) + 3;
+        prise.count = 1;
+        new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
     }
 
     private function onReleasePack():void {

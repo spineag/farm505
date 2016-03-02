@@ -138,6 +138,7 @@ public class ToolsPanel {
                         _repositoryBox.showIt();
                     }
                 }
+                if (g.buyHint.showIt) g.buyHint.hideIt();
                 break;
             case 'move':
                     if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -149,6 +150,7 @@ public class ToolsPanel {
                           ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
                         hideRepository();
                     }
+                    if (g.buyHint.showIt) g.buyHint.hideIt();
                 break;
             case 'flip':
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -160,6 +162,7 @@ public class ToolsPanel {
                       ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.FLIP;
                     hideRepository();
                 }
+                if (g.buyHint.showIt) g.buyHint.hideIt();
                 break;
         }
     }
