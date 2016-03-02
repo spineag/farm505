@@ -2,11 +2,10 @@
  * Created by user on 3/1/16.
  */
 package tutorial {
-import com.greensock.TweenMax;
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
 
 import manager.Vars;
-
-import starling.display.Image;
 import starling.display.Sprite;
 
 public class SimpleArrow {
@@ -16,22 +15,19 @@ public class SimpleArrow {
     public static const POSITION_RIGHT:int=4;
 
     private var _source:Sprite;
-    private var _arrow:Sprite;
     private var _parent:Sprite;
+    private var _armature:Armature;
     private var g:Vars = Vars.getInstance();
 
-    public function SimpleArrow(pos:int, parent:Sprite, scale:Number = 1) {
+    public function SimpleArrow(posType:int, parent:Sprite, scale:Number = 1) {
         _parent = parent;
         _source = new Sprite();
-        _arrow = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tutorial_arrow_stroke'));
-        im.scaleX = im.scaleY = .5;
-        im.x = -im.width/2;
-        im.y = -im.height;
-        _arrow.addChild(im);
-        _source.addChild(_arrow);
         _source.scaleX = _source.scaleY = scale;
-        switch (pos) {
+        _armature = g.allData.factory['arrow'].buildArmature("arrow");
+        (_armature.display as Sprite).x = -(_armature.display as Sprite).width/2;
+        (_armature.display as Sprite).y = -(_armature.display as Sprite).height;
+        _source.addChild(_armature.display as Sprite);
+        switch (posType) {
             case POSITION_TOP: _source.rotation = 0; break;
             case POSITION_BOTTOM: _source.rotation = Math.PI/2; break;
             case POSITION_RIGHT: _source.rotation = Math.PI/4; break;
@@ -41,13 +37,20 @@ public class SimpleArrow {
         animateIt();
     }
 
-    private var time:Number = 1;
     private function animateIt():void {
-        TweenMax.to(_arrow, time, {scaleX:.97, scaleY:1.03, y: - _source.width/2, onComplete:func1});
+        WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlay('start');
     }
 
-    private function func1():void {
-
+    public function deleteIt():void {
+        _parent.removeChild(_source);
+        WorldClock.clock.remove(_armature);
+        _armature.dispose();
+        _source.dispose();
+        _armature = null;
+        _source = null;
+        _parent = null;
     }
+
 }
 }
