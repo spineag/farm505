@@ -189,6 +189,7 @@ public class MainBottomPanel {
                 }
                     g.toolsPanel.hideRepository();
                 g.woShop.showIt();
+                if (g.buyHint.showIt) g.buyHint.hideIt();
                 break;
             case 'cancel':
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -233,6 +234,7 @@ public class MainBottomPanel {
                      g.optionPanel.showIt();
                  }
                 g.toolsPanel.hideRepository();
+                if (g.buyHint.showIt) g.buyHint.hideIt();
                 break;
             case 'order':
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -241,6 +243,7 @@ public class MainBottomPanel {
                 }
                 g.woOrder.showIt();
                 g.toolsPanel.hideRepository();
+                if (g.buyHint.showIt) g.buyHint.hideIt();
                 break;
             case 'ambar':
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -249,7 +252,7 @@ public class MainBottomPanel {
                 }
                 g.woAmbars.showItWithParams(WOAmbars.AMBAR);
                 g.toolsPanel.hideRepository();
-
+                if (g.buyHint.showIt) g.buyHint.hideIt();
                 break;
             case 'door':
                 if (g.isAway) g.townArea.backHome();

@@ -4,6 +4,7 @@
 package ui.toolsPanel {
 import build.AreaObject;
 import build.AreaObject;
+import build.WorldObject;
 
 import com.junkbyte.console.Cc;
 
@@ -80,19 +81,19 @@ public class RepositoryItem {
         var build:AreaObject = g.townArea.createNewBuild(_data, _arrDbIds[0]);
         g.selectedBuild = build;
         if (_data.buildType == BuildType.DECOR_TAIL) {
-            g.toolsModifier.startMoveTail(build, afterMove, true);
+            g.toolsModifier.startMoveTail(build, g.townArea.afterMoveFromInventory, true);
         } else {
-            g.toolsModifier.startMove(build, afterMove, true);
+            g.toolsModifier.startMove(build, g.townArea.afterMoveFromInventory, true);
         }
     }
 
-    private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
-        var dbId:int = g.userInventory.removeFromDecorInventory(_data.id);
-        g.townArea.pasteBuildFromInventory(build, _x, _y);
-        var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
-        g.directServer.removeFromInventory(dbId, p.x, p.y, null);
-        _count--;
-        g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
-    }
+//    private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
+//        var dbId:int = g.userInventory.removeFromDecorInventory(_data.id);
+//        g.townArea.pasteBuild(build, _x, _y);
+//        var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+//        g.directServer.removeFromInventory(dbId, p.x, p.y, null);
+//        _count--;
+//        g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
+//    }
 }
 }

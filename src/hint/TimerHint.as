@@ -62,7 +62,7 @@ public class TimerHint {
         _txtCost = new TextField(50,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtCost.x = 10;
-        _txtCost.y = -7;
+        _txtCost.y = -2;
         _txtTimer = new TextField(80,30,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtTimer.x = -85;

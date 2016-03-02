@@ -134,6 +134,7 @@ public class WildHint {
                 _deleteCallback.apply();
                 _deleteCallback = null;
             }
+            g.userInventory.addResource(_id,-1);
         }
     }
 

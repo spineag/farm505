@@ -171,15 +171,21 @@ public class WOMarket  extends Window {
     private function addItems():void {
         var item:MarketItem;
         _arrItems = [];
-        for (var i:int=0; i<6; i++) {
-            item = new MarketItem(i);
-            item.source.x = 125*(i%3) - 300;
-            if (i >= 3) {
+        if (g.user.marketCell == 0) {
+            g.directServer.updateUserMarketCell(5,null);
+            g.user.marketCell = 5;
+        }
+        var marketCell:int = g.user.marketCell + 2;
+        for (var i:int=0; i < marketCell; i++) {
+            if (i+1 > g.user.marketCell)  item = new MarketItem(i,true);
+            else  item = new MarketItem(i,false);
+
+            item.source.x = 125*(i%4) - 300;
+            if (i >= 4) {
                 item.source.y = -10;
             } else {
                 item.source.y = -160;
             }
-
             _source.addChild(item.source);
             item.callbackFill = callbackItem;
             _arrItems.push(item);
@@ -285,7 +291,6 @@ public class WOMarket  extends Window {
             if (_shiftFriend == 1) {
                 _shiftFriend = -1;
             }
-
             _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
             _item2.source.y = 1 * 120 - 177;
             c = new CartonBackground(120, 110);
@@ -371,7 +376,6 @@ public class WOMarket  extends Window {
             ma.hideIt();
             _panelBool = false;
         }
-
     }
 
     public function closePanelFriend():void {

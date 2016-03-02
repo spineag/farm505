@@ -545,6 +545,7 @@ public class DirectServer {
             g.user.globalXP = int(ob.xp);
             g.user.timePaper = int (ob.time_paper);
             g.user.tutorialStep = int(ob.tutorial_step);
+            g.user.marketCell = int(ob.market_cell);
             g.user.checkUserLevel();
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
 //            g.user.level = int(ob.level);
@@ -4300,6 +4301,49 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        }
+    }
+
+    public function updateUserMarketCell(cell:int,callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_MARKET_CELL);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserMarketCell', 1);
+        variables.userId = g.user.userId;
+        variables.marketCell = g.user.marketCell + cell;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserMarketCell);
+        function onCompleteUpdateUserMarketCell(e:Event):void { completeUpdateUserMarketCell(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserMarketCell error:' + error.errorID);
+            woError.showItParams('updateUserMarketCell error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserMarketCell(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserMarketCell: wrong JSON:' + String(response));
+            woError.showItParams('updateUserMarketCell: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserMarketCell OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserMarketCell: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateUserMarketCell: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

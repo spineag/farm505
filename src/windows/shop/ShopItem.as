@@ -219,8 +219,8 @@ public class ShopItem {
                     break;
             }
             im.y = 4;
-            im.x = (47 * i) + 35;
-            txt.x = (47 * i) - 20;
+            im.x = (50 * i) + 35;
+            txt.x = (50 * i) - 20;
         }
 
         if (_data.currency.length == 1) {

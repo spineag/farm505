@@ -28,7 +28,7 @@ public class MarketAllFriend {
 
     public function MarketAllFriend(_arrFriends:Array,_panel:WOMarket,f:Function) {
         source = new Sprite();
-        source.x = -160;
+        source.x = -153;
         _callback = f;
         _contTouch = new CSprite();
         quad = new Quad(585,520,Color.WHITE);
@@ -45,15 +45,16 @@ public class MarketAllFriend {
         var woHeight:int = 0;
         if (_arrFriends.length <= 4) {
             woHeight = 143;
+            source.y = 82;
             _scrollSprite.source.x = 35;
         } else if (_arrFriends.length > 4 && _arrFriends.length <= 7) {
             woHeight = 218;
             _scrollSprite.source.x = 35;
-
+            source.y = 8;
         } else {
             _scrollSprite.source.x = 15;
             woHeight = 300;
-            source.y = -50;
+            source.y = -75;
 
         }
         var c:CartonBackground = new CartonBackground(woWidth, woHeight);
