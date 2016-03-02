@@ -29,6 +29,7 @@ public class User extends Someone {
     public var neighbor:NeighborBot;
     public var countCats:int;
     public var timePaper:int;
+    public var tutorialStep:int;
     public var marketCell:int;
 
     private var g:Vars = Vars.getInstance();
