@@ -2,9 +2,12 @@
  * Created by user on 7/23/15.
  */
 package windows.market {
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
 import flash.filters.GlowFilter;
+import flash.geom.Rectangle;
 
 import manager.ManagerFilters;
 
@@ -13,14 +16,13 @@ import social.SocialNetworkEvent;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.filters.BlurFilter;
-import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
 import user.NeighborBot;
 
 import user.Someone;
+import starling.display.Quad;
 
 import utils.CButton;
 
@@ -30,7 +32,6 @@ import utils.MCScaler;
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.DefaultVerticalScrollSprite;
-import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
@@ -38,23 +39,36 @@ import windows.Window;
 public class WOMarket  extends Window {
 
     public var marketChoose:WOMarketChoose;
-    private var _shopSprite:Sprite;
     private var _woBG:WindowBackground;
+
+    private var _shopSprite:Sprite;
+    private var _contRect:Sprite;
+    private var _contItem:Sprite;
+    private var _cont:Sprite;
+    private var _contItemCell:Sprite;
+    private var _btnRefresh:CSprite;
+
+    private var _btnFriends:CButton;
+    private var _leftBtn:CButton;
+    private var _rightBtn:CButton;
+
     private var _arrItems:Array;
     private var _arrItemsFriend:Array;
+    private var _arrFriends:Array;
+
+    private var _txtName:TextField;
+    private var _txtNumberPage:TextField;
+
     private var _curUser:Someone;
-    private var _btnRefresh:CSprite;
-    private var _btnFriends:CButton;
-    private var _cont:Sprite;
-    private var _contItem:CSprite;
+
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
     private var _item3:MarketFriendItem;
     private var ma:MarketAllFriend;
+
     private var _shiftFriend:int = 0;
-    private var _arrFriends:Array;
-    private var _scrollSprite:DefaultVerticalScrollSprite;
-    private var _txtName:TextField;
+    private var _shift:int;
+
     private var _panelBool:Boolean;
     private var _callbackState:Function;
 
@@ -90,6 +104,15 @@ public class WOMarket  extends Window {
         _source.addChild(_btnFriends);
         _btnFriends.clickCallback = btnFriend;
         marketChoose = new WOMarketChoose();
+
+        _contRect = new Sprite();
+        _contRect.clipRect = new Rectangle(-300, -200, 600, 400);
+//        _contRect.y = -200;
+//        _contRect.x = -330;
+
+        _source.addChild(_contRect);
+        _contItemCell = new Sprite();
+        _contRect.addChild(_contItemCell);
         addItems();
 //        _friendsPanel = new MarketFriendsPanelItem(this,_source);
         _btnRefresh = new CSprite();
@@ -104,11 +127,38 @@ public class WOMarket  extends Window {
         new Birka('РЫНОК', _source, _woWidth, _woHeight);
         _panelBool = false;
 
+        _leftBtn = new CButton();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        _leftBtn.addDisplayObject(im);
+        _leftBtn.setPivots();
+//        MCScaler.scale(_leftBtn, 40, 40);
+        _leftBtn.x = -90;
+        _leftBtn.y = 180;
+        _source.addChild(_leftBtn);
+        _leftBtn.clickCallback = onLeft;
+
+        _rightBtn = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+        im.scaleX = -1;
+        im.x = im.width;
+        _rightBtn.addDisplayObject(im);
+        _rightBtn.setPivots();
+//        MCScaler.scale(_rightBtn, 40, 40);
+        _rightBtn.x = -25;
+        _rightBtn.y = 180;
+        _source.addChild(_rightBtn);
+        _rightBtn.clickCallback = onRight;
+        _txtNumberPage = new TextField(50, 50, '', g.allData.fonts['BloggerBold'], 26, Color.WHITE);
+        _txtNumberPage.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN_BIG;
+        _txtNumberPage.x = -83;
+        _txtNumberPage.y = 155;
+        _source.addChild(_txtNumberPage);
     }
 
     private function onClickExit(e:Event=null):void {
         hideIt();
     }
+
     private function fillFriends(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         _arrFriends = g.user.arrFriends.slice();
@@ -117,7 +167,7 @@ public class WOMarket  extends Window {
         _txtName = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
-        _txtName.x = -170;
+        _txtName.x = -195;
         ma = new MarketAllFriend(_arrFriends,this,btnFriend);
         _source.addChild(ma.source);
     }
@@ -128,6 +178,8 @@ public class WOMarket  extends Window {
 //        fillItems();
 //        fillItemsByUser(g.user);
         showIt();
+        _shift = 0;
+        checkArrow();
     }
 
     public function showItPapper(p:Someone):void {
@@ -143,6 +195,7 @@ public class WOMarket  extends Window {
         }else createMarketTabBtns();
         fillItemsByUser(p);
         showIt();
+
     }
 
     override public function hideIt():void {
@@ -186,10 +239,26 @@ public class WOMarket  extends Window {
             } else {
                 item.source.y = -160;
             }
-            _source.addChild(item.source);
+            _contItemCell.addChild(item.source);
             item.callbackFill = callbackItem;
             _arrItems.push(item);
         }
+    }
+
+    public function addItemsRefresh():void {
+        var item:MarketItem;
+        item = new MarketItem(_arrItems.length + 1,true);
+        if (_arrItems.length >= 8) item.source.x = 125*(_arrItems.length%4);
+        else item.source.x = 125*(_arrItems.length%4) - 300;
+        if (_arrItems.length >= 8) {
+            item.source.y = -160;
+        } else {
+            item.source.y = -10;
+        }
+        _contItemCell.addChild(item.source);
+        _arrItems.push(item.source);
+        item.callbackFill = callbackItem;
+        checkArrow();
     }
 
     private function callbackItem():void { }
@@ -388,6 +457,46 @@ public class WOMarket  extends Window {
             _callbackState.apply(null);
             _callbackState = null;
         }
+    }
+
+    private function onLeft ():void {
+        if (_shift > 0) {
+            _shift -= 1;
+            if (_shift<0) _shift = 0;
+            new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
+        }
+        checkArrow();
+    }
+
+    private function onRight ():void {
+        var l:int = _arrItems.length;
+        if (_shift +1 < l - 2) {
+            _shift += 1;
+            if (_shift > l - 1 ) _shift = l-1;
+            new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
+        }
+        checkArrow();
+    }
+
+    public function checkArrow():void {
+        if (_arrItems.length <= 8) {
+            _rightBtn.setEnabled = false;
+            _leftBtn.setEnabled = false;
+            _txtNumberPage.text = '1';
+            return;
+        } else {
+            _rightBtn.setEnabled = true;
+            _txtNumberPage.text = '1';
+        }
+        if (_shift == 0) {
+            _leftBtn.setEnabled = false;
+        } else {
+            _leftBtn.setEnabled = true;
+        }
+
+//        if (_shift + 3 == count) {
+//            _rightBtn.setEnabled = false;
+//        }
     }
 }
 }

@@ -492,7 +492,7 @@ public class TownArea extends Sprite {
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)) {
             var build:AreaObject;
             if (g.userInventory.decorInventory[worldObject.dataBuild.id]) {
-                var build:AreaObject = g.townArea.createNewBuild(worldObject.dataBuild);
+                build = g.townArea.createNewBuild(worldObject.dataBuild);
                 g.selectedBuild = build;
                 (build as WorldObject).source.filter = null;
                 g.toolsModifier.startMove(build, afterMoveFromInventory, true);

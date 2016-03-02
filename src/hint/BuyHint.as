@@ -22,12 +22,13 @@ public class BuyHint {
     private var _imCoins:Image;
     private var _txtHint:TextField;
     private var g:Vars = Vars.getInstance();
-
+    private var _open:Boolean;
     public function BuyHint() {
         _source = new Sprite();
         _txtHint = new TextField(100,50,"", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtHint.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _source.touchable = false;
+        _open = false;
     }
 
     public function showIt(st:int):void {
@@ -47,6 +48,7 @@ public class BuyHint {
         _source.addChild(_imCoins);
         g.cont.hintCont.addChild(_source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
+        _open = true;
 
     }
 
@@ -67,11 +69,15 @@ public class BuyHint {
         while (_source.numChildren) _source.removeChildAt(0);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
         g.cont.hintCont.removeChild(_source);
+        _open = false
     }
 
 //    public function checkText(st:int):void {
 //        _txtHint.text = String(st);
 //        var rectangle:Rectangle = _txtHint.textBounds;
 //    }
+    public function get showThis():Boolean {
+        return _open;
+    }
 }
 }
