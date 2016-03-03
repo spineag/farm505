@@ -4,9 +4,11 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import manager.Vars;
-import map.MatrixGrid;
 import starling.display.DisplayObject;
+import starling.display.Quad;
 import starling.display.Sprite;
+
+import tutorial.SimpleArrow;
 
 import utils.IsoUtils;
 import utils.Point3D;
@@ -34,6 +36,7 @@ public class WorldObject {
     protected var _rect:Rectangle;
     protected var _dbBuildingId:int = 0;   // id в таблице user_building
     protected var _stateBuild:int;  // состояние постройки (активное, в процесе стройки..)
+    protected var _arrow:SimpleArrow;
 
     protected static var g:Vars = Vars.getInstance();
 
@@ -146,6 +149,26 @@ public class WorldObject {
 
     public function isContDrag():Boolean {
         return _source.isContDrag;
+    }
+
+    public function showArrow():void {
+        hideArrow();
+        if (_rect) {
+//            var q:Quad = new Quad(_rect.width, _rect.height);
+//            q.x = _rect.x;
+//            q.y = _rect.y;
+//            q.alpha = .4;
+//            _source.addChild(q);
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source, 1);
+            _arrow.animateAtPosition(0, _rect.y);
+        }
+    }
+
+    public function hideArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }
