@@ -94,6 +94,7 @@ public class MarketItem {
         _txtAdditem.y = 30;
         _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.addChild(_txtAdditem);
+        var im:Image;
         if (close) {
             buyCont = new Sprite();
             if (numberCell == 5) _countBuyCell = 5;
@@ -110,7 +111,7 @@ public class MarketItem {
             txt.x = 10;
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             btn.addChild(txt);
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             im.x = 55;
             im.y = 3;
             MCScaler.scale(im,25,25);
@@ -181,7 +182,7 @@ public class MarketItem {
         _plawkabuy.x = 5;
         _plawkabuy.y = 100;
         _plawkaCoins.addChild(_plawkabuy);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         MCScaler.scale(im,25,25);
         im.y = 102;
         im.x = _bg.width/2 + 15;
@@ -242,6 +243,7 @@ public class MarketItem {
         g.user.marketCell++;
         _txtAdditem.text = 'Добавить товар';
         source.endClickCallback = onClick;
+        g.woMarket.addItemsRefresh();
         while (buyCont.numChildren) {
             buyCont.removeChildAt(0);
         }
