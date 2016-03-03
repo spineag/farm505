@@ -22,10 +22,9 @@ public class SimpleArrow {
     public function SimpleArrow(posType:int, parent:Sprite, scale:Number = 1) {
         _parent = parent;
         _source = new Sprite();
+        _source.visible = false;
         _source.scaleX = _source.scaleY = scale;
         _armature = g.allData.factory['arrow'].buildArmature("arrow");
-        (_armature.display as Sprite).x = -(_armature.display as Sprite).width/2;
-        (_armature.display as Sprite).y = -(_armature.display as Sprite).height;
         _source.addChild(_armature.display as Sprite);
         switch (posType) {
             case POSITION_TOP: _source.rotation = 0; break;
@@ -33,7 +32,13 @@ public class SimpleArrow {
             case POSITION_RIGHT: _source.rotation = Math.PI/4; break;
             case POSITION_LEFT: _source.rotation = -Math.PI/4; break;
         }
+    }
 
+    public function animateAtPosition(_x:int, _y:int):void {
+        _source.x = _x;
+        _source.y = _y;
+        _source.visible = true;
+        _parent.addChild(_source);
         animateIt();
     }
 
@@ -43,7 +48,7 @@ public class SimpleArrow {
     }
 
     public function deleteIt():void {
-        _parent.removeChild(_source);
+        if (_parent.contains(_source)) _parent.removeChild(_source);
         WorldClock.clock.remove(_armature);
         _armature.dispose();
         _source.dispose();

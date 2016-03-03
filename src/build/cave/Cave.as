@@ -278,6 +278,7 @@ public class Cave extends AreaObject{
             onOut();
             clearCraftSprite();
             _build.visible = true;
+            _rect = _build.getBounds(_build);
         }
     }
 

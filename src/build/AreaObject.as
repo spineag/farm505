@@ -127,6 +127,10 @@ public class AreaObject extends WorldObject {
                 _buildingBuild.doneAnimation();
             }
             _craftSprite.addChild(_buildingBuild.source);
+            _rect = _craftSprite.getBounds(_craftSprite);
+//            if (!_topPoint) _topPoint = new Point();
+//            _topPoint.x = _buildingBuild.source.x;
+//            _topPoint.y = _buildingBuild.source.y;
         } else {
             Cc.error('_craftSprite == null  :(')
         }
@@ -140,6 +144,7 @@ public class AreaObject extends WorldObject {
                 _buildingBuild.workAnimation();
             }
             _craftSprite.addChild(_buildingBuild.source);
+            _rect = _craftSprite.getBounds(_craftSprite);
         } else {
             Cc.error('_craftSprite == null  :(')
         }
