@@ -13,6 +13,7 @@ public class Consts {
     public static var INQ_START:String = 'start.php';
     public static var INQ_USER_INFO:String = 'getUserInfo.php';
     public static var INQ_FRIENDS_INFO:String = 'getFriendsInfo.php';
+    public static var INQ_FRIENDS_MARKET_CELL:String = 'getFriendsMarketCell.php';
     public static var INQ_UPDATE_USER_TUTORIAL_STEP:String = 'updateUserTutorialStep.php';
     public static var INQ_USER_MONEY:String = 'addUserMoney.php';
     public static var INQ_ADD_USER_XP:String = 'addUserXP.php';

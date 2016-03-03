@@ -30,7 +30,6 @@ public class User extends Someone {
     public var countCats:int;
     public var timePaper:int;
     public var tutorialStep:int;
-    public var marketCell:int;
 
     private var g:Vars = Vars.getInstance();
 

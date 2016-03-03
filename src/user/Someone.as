@@ -10,6 +10,7 @@ public class Someone {
     public var globalXP:int;
     public var photo:String;
     public var marketItems:Array;
+    public var marketCell:int;
     public var userDataCity:UserDataCity;
 
     public function Someone() {

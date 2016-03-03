@@ -68,7 +68,7 @@ public class WOMarket  extends Window {
 
     private var _shiftFriend:int = 0;
     private var _shift:int;
-
+    private var _countPage:int;
     private var _panelBool:Boolean;
     private var _callbackState:Function;
 
@@ -104,11 +104,9 @@ public class WOMarket  extends Window {
         _source.addChild(_btnFriends);
         _btnFriends.clickCallback = btnFriend;
         marketChoose = new WOMarketChoose();
-
+        _countPage = 1;
         _contRect = new Sprite();
-        _contRect.clipRect = new Rectangle(-300, -200, 600, 400);
-//        _contRect.y = -200;
-//        _contRect.x = -330;
+        _contRect.clipRect = new Rectangle(-305, -200, 500, 400);
 
         _source.addChild(_contRect);
         _contItemCell = new Sprite();
@@ -178,7 +176,8 @@ public class WOMarket  extends Window {
 //        fillItems();
 //        fillItemsByUser(g.user);
         showIt();
-        _shift = 0;
+//        _shift = 0;
+//        new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
         checkArrow();
     }
 
@@ -200,6 +199,8 @@ public class WOMarket  extends Window {
 
     override public function hideIt():void {
         _panelBool = false;
+        _shift = 0;
+        new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
         deleteFriends();
         unFillItems();
         super.hideIt();
@@ -221,38 +222,151 @@ public class WOMarket  extends Window {
         return _curUser;
     }
 
-    private function addItems():void {
+    private function clearItems():void {
+        while (_contItemCell.numChildren) {
+            _contItemCell.removeChildAt(0);
+        }
+        _arrItems.length = 0;
+    }
+
+    private function addItems(newVisit:Boolean = false):void {
         var item:MarketItem;
         _arrItems = [];
+        if (newVisit) {
+            clearItems();
+        }
         if (g.user.marketCell == 0) {
             g.directServer.updateUserMarketCell(5,null);
             g.user.marketCell = 5;
         }
-        var marketCell:int = g.user.marketCell + 2;
+        var marketCell:int;
+        if (g.user.marketCell == 40) marketCell = g.user.marketCell;
+        else  marketCell = g.user.marketCell + 2;
+
         for (var i:int=0; i < marketCell; i++) {
             if (i+1 > g.user.marketCell)  item = new MarketItem(i,true);
             else  item = new MarketItem(i,false);
+            if (i+1 <= 8) {
+             item.source.x = 125*(_arrItems.length%4) - 300;
+            } else  if (i+1 <= 16) {
+                item.source.x = 125*(_arrItems.length%4)+200;
+            } else if (i+1 <= 24) {
+                item.source.x = 125*(_arrItems.length%4)+700;
+            } else if (i+1 <= 40) {
+                item.source.x = 125*(_arrItems.length%4)+1200;
+            }
 
-            item.source.x = 125*(i%4) - 300;
-            if (i >= 4) {
-                item.source.y = -10;
-            } else {
+            if (i+1 <= 4) {
                 item.source.y = -160;
+            }  else if (i+1 <= 8) {
+                item.source.y = -10;
+            } else if (i+1 <= 12) {
+                item.source.y = -160;
+            } else if (i+1 <= 16) {
+                item.source.y = -10;
+            } else if (i+1 <= 20) {
+                item.source.y = -160;
+            } else if (i+1 <= 24) {
+                item.source.y = -10;
+            } else if (i+1 <= 28) {
+                item.source.y = -160;
+            } else if (i+1 <= 32) {
+                item.source.y = -10;
+            } else if (i+1 <= 36) {
+                item.source.y = -160;
+            } else if (i+1 <= 40) {
+                item.source.y = -10;
             }
             _contItemCell.addChild(item.source);
             item.callbackFill = callbackItem;
             _arrItems.push(item);
         }
+        if (newVisit) checkArrow();
+    }
+
+    private function addItemsFriend(_person:Someone):void {
+        clearItems();
+
+        if (_person.marketCell == 0) {
+            _person.marketCell = 5;
+        } else g.directServer.getFriendsMarketCell(int(_person.userSocialId),_person,null);
+        var item:MarketItem;
+
+        for (var i:int=0; i < _person.marketCell; i++) {
+            if (i+1 > g.user.marketCell)  item = new MarketItem(i,true);
+            else  item = new MarketItem(i,false);
+            if (i+1 <= 8) {
+                item.source.x = 125*(_arrItems.length%4) - 300;
+            } else  if (i+1 <= 16) {
+                item.source.x = 125*(_arrItems.length%4)+200;
+            } else if (i+1 <= 24) {
+                item.source.x = 125*(_arrItems.length%4)+700;
+            } else if (i+1 <= 40) {
+                item.source.x = 125*(_arrItems.length%4)+1200;
+            }
+
+            if (i+1 <= 4) {
+                item.source.y = -160;
+            }  else if (i+1 <= 8) {
+                item.source.y = -10;
+            } else if (i+1 <= 12) {
+                item.source.y = -160;
+            } else if (i+1 <= 16) {
+                item.source.y = -10;
+            } else if (i+1 <= 20) {
+                item.source.y = -160;
+            } else if (i+1 <= 24) {
+                item.source.y = -10;
+            } else if (i+1 <= 28) {
+                item.source.y = -160;
+            } else if (i+1 <= 32) {
+                item.source.y = -10;
+            } else if (i+1 <= 36) {
+                item.source.y = -160;
+            } else if (i+1 <= 40) {
+                item.source.y = -10;
+            }
+            _contItemCell.addChild(item.source);
+            _arrItems.push(item);
+        }
+        checkArrow();
+
     }
 
     public function addItemsRefresh():void {
+        if (_arrItems.length == 40) return;
         var item:MarketItem;
         item = new MarketItem(_arrItems.length + 1,true);
-        if (_arrItems.length >= 8) item.source.x = 125*(_arrItems.length%4);
-        else item.source.x = 125*(_arrItems.length%4) - 300;
-        if (_arrItems.length >= 8) {
+
+        if (_arrItems.length  <= 7) {
+            item.source.x = 125*(_arrItems.length%4) - 300;
+        } else  if (_arrItems.length  <= 15) {
+            item.source.x = 125*(_arrItems.length%4)+200;
+        } else if (_arrItems.length  <= 23) {
+            item.source.x = 125*(_arrItems.length%4)+700;
+        } else if (_arrItems.length  <= 39) {
+            item.source.x = 125*(_arrItems.length%4)+1200;
+        }
+
+        if (_arrItems.length  <= 3) {
             item.source.y = -160;
-        } else {
+        }  else if (_arrItems.length  <= 7) {
+            item.source.y = -10;
+        } else if (_arrItems.length  <= 11) {
+            item.source.y = -160;
+        } else if (_arrItems.length  <= 15) {
+            item.source.y = -10;
+        } else if (_arrItems.length  <= 19) {
+            item.source.y = -160;
+        } else if (_arrItems.length  <= 23) {
+            item.source.y = -10;
+        } else if (_arrItems.length  <= 27) {
+            item.source.y = -160;
+        } else if (_arrItems.length  <= 31) {
+            item.source.y = -10;
+        } else if (_arrItems.length  <= 35) {
+            item.source.y = -160;
+        } else if (_arrItems.length  <= 39) {
             item.source.y = -10;
         }
         _contItemCell.addChild(item.source);
@@ -278,6 +392,7 @@ public class WOMarket  extends Window {
 
     public function unFillItems():void {
         for (var i:int=0; i< _arrItems.length; i++) {
+            if(!_arrItems[i].number) return;
             _arrItems[i].unFillIt();
         }
     }
@@ -418,6 +533,12 @@ public class WOMarket  extends Window {
 
     public function choosePerson(_person:Someone):void {
         unFillItems();
+        _shift = 0;
+        new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
+        _countPage = 1;
+        if (_person.userSocialId == g.user.userSocialId) addItems(true);
+         else addItemsFriend(_person);
+
         fillItemsByUser(_person);
     }
 
@@ -461,42 +582,39 @@ public class WOMarket  extends Window {
 
     private function onLeft ():void {
         if (_shift > 0) {
-            _shift -= 1;
+            _shift -= 4;
             if (_shift<0) _shift = 0;
             new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
+            _countPage--;
+
         }
         checkArrow();
     }
 
     private function onRight ():void {
         var l:int = _arrItems.length;
-        if (_shift +1 < l - 2) {
-            _shift += 1;
-            if (_shift > l - 1 ) _shift = l-1;
+        _shift += 4;
+        if (_shift + 4 <= l - 1) {
             new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
+            _countPage++;
         }
         checkArrow();
+
     }
 
     public function checkArrow():void {
-        if (_arrItems.length <= 8) {
-            _rightBtn.setEnabled = false;
-            _leftBtn.setEnabled = false;
-            _txtNumberPage.text = '1';
-            return;
-        } else {
-            _rightBtn.setEnabled = true;
-            _txtNumberPage.text = '1';
-        }
+        _txtNumberPage.text = String(_countPage);
         if (_shift == 0) {
+            _txtNumberPage.text = '1';
             _leftBtn.setEnabled = false;
         } else {
             _leftBtn.setEnabled = true;
         }
-
-//        if (_shift + 3 == count) {
-//            _rightBtn.setEnabled = false;
-//        }
+        if ((_shift+4)*2 >= _arrItems.length) {
+            _rightBtn.setEnabled = false;
+        } else {
+            _rightBtn.setEnabled = true;
+        }
     }
 }
 }
