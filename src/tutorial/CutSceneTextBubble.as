@@ -4,14 +4,18 @@
 package tutorial {
 import manager.Vars;
 import starling.display.Sprite;
+
+import utils.CButton;
+
 import windows.WOComponents.HintBackground;
 
-public class TutorialTextBubble {
+public class CutSceneTextBubble {
     private var _bubble:HintBackground;
     private var _parent:Sprite;
+    private var _btn:CButton;
     private var g:Vars = Vars.getInstance();
 
-    public function TutorialTextBubble(p:Sprite) {
+    public function CutSceneTextBubble(p:Sprite) {
         _parent = p;
     }
 

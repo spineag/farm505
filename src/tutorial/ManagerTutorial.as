@@ -4,14 +4,17 @@
 package tutorial {
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
 import manager.Vars;
 
 public class ManagerTutorial {
-    private static const TUTORIAL_ON:Boolean = false;
+    private static const TUTORIAL_ON:Boolean = true;
 
     private static const MAX_STEPS:uint = 100;
     private static var _instance:ManagerTutorial;
     private static var g:Vars = Vars.getInstance();
+    private static var cat:TutorialCat;
 
     public function ManagerTutorial(cl:Enforcer) {
     }
@@ -36,12 +39,13 @@ public class ManagerTutorial {
 
         try {
             switch (g.user.tutorialStep) {
-                case 0:
-                    if (TUTORIAL_ON) {
+                case 1:
+//                    if (TUTORIAL_ON) {
 //                        curFunc = initScene50;
-                    } else {
-                        g.user.tutorialStep = 1;
-                    }
+//                    } else {
+//                        g.user.tutorialStep = 1;
+//                    }
+                    curFunc = initScene_0;
                     break;
 //                case 1:
 //                    curFunc = initScene1;
@@ -76,6 +80,13 @@ public class ManagerTutorial {
         } catch (err:Error) {
             Cc.error("Tutorial crashed at step #" + g.user.tutorialStep + " with error message #" + err.errorID);
         }
+    }
+
+    private static function initScene_0():void {
+        cat = new TutorialCat();
+        cat.setPosition(new Point(27, 31));
+        cat.addToMap();
+        cat.playDirectLabel('idle', false, null);
     }
 }
 }

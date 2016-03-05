@@ -60,6 +60,8 @@ import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 
+import tutorial.ManagerTutorial;
+
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
@@ -492,6 +494,9 @@ public class Vars {
         bottomPanel.checkIsFullOrder();
         if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel)
             managerDailyBonus.generateDailyBonusItems();
+        if (ManagerTutorial.isTutorial) {
+            ManagerTutorial.initScenes();
+        }
     }
 
     private function onEnterFrameGlobal():void {
