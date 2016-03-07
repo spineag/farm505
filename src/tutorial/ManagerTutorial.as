@@ -8,6 +8,10 @@ import flash.geom.Point;
 
 import manager.Vars;
 
+import starling.display.Quad;
+
+import starling.display.Sprite;
+
 public class ManagerTutorial {
     private static const TUTORIAL_ON:Boolean = false;
 
@@ -15,6 +19,10 @@ public class ManagerTutorial {
     private static var _instance:ManagerTutorial;
     private static var g:Vars = Vars.getInstance();
     private static var cat:TutorialCat;
+    private static var cutScene:CutScene;
+    private static var subStep:int;
+    private static var texts:Object;
+    private static var black:Sprite;
 
     public function ManagerTutorial(cl:Enforcer) {
     }
@@ -34,10 +42,16 @@ public class ManagerTutorial {
         g.directServer.updateUserTutorialStep(null);
     }
 
+    private static function checkVariables():void {
+        if (!cat) cat = new TutorialCat();
+        if (!cutScene) cutScene = new CutScene();
+        if (!texts) texts = (new TutorialTexts()).objText;
+    }
+
     public static function initScenes():void {
         var curFunc:Function;
 
-        try {
+//        try {
             switch (g.user.tutorialStep) {
                 case 1:
 //                    if (TUTORIAL_ON) {
@@ -45,7 +59,7 @@ public class ManagerTutorial {
 //                    } else {
 //                        g.user.tutorialStep = 1;
 //                    }
-                    curFunc = initScene_0;
+                    curFunc = initScene_1;
                     break;
 //                case 1:
 //                    curFunc = initScene1;
@@ -77,16 +91,28 @@ public class ManagerTutorial {
             if (curFunc != null) {
                 curFunc.apply();
             }
-        } catch (err:Error) {
-            Cc.error("Tutorial crashed at step #" + g.user.tutorialStep + " with error message #" + err.errorID);
-        }
+//        } catch (err:Error) {
+//            Cc.error("Tutorial crashed at step #" + g.user.tutorialStep + " with error message #" + err.errorID);
+//        }
     }
 
-    private static function initScene_0():void {
-        cat = new TutorialCat();
+    private static function initScene_1():void {
+        checkVariables();
+        subStep = 1;
         cat.setPosition(new Point(27, 31));
         cat.addToMap();
         cat.playDirectLabel('idle', false, null);
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['next'], subStep1_1, 1);
+    }
+
+    private static function subStep1_1():void {
+
+    }
+
+    private static function addBlack():void {
+        if (!black) {
+//            var q:Quad = new Quad()
+        }
     }
 }
 }

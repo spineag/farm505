@@ -135,6 +135,8 @@ public class EmbedAssets {
     private const Arrow:Class;
     [Embed(source = "../../assets/animations/x1/cat_tutorial.png", mimeType = "application/octet-stream")]
     private const CatTutorial:Class;
+    [Embed(source = "../../assets/animations/cat_tutorial_big2.png", mimeType = "application/octet-stream")]
+    private const CatTutorialBig:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -177,7 +179,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 35;
+        var count:int = 36;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -222,6 +224,7 @@ public class EmbedAssets {
         loadFactory('explode', Explode, checkCount);
         loadFactory('arrow', Arrow, checkCount);
         loadFactory('tutorialCat', CatTutorial, checkCount);
+        loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

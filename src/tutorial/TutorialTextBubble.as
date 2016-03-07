@@ -18,6 +18,7 @@ public class TutorialTextBubble {
     public function showBubble(st:String):void {
         createBubble();
         _parent.addChild(_bubble);
+        _bubble.addTextField(20);
         _bubble.setText(st);
     }
 

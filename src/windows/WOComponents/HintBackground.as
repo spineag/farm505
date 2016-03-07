@@ -124,7 +124,7 @@ public class HintBackground extends Sprite {
                     im.pivotY = im.height;
                     im.rotation = Math.PI/2;
                     _bg.x = h;
-                    _bg.y = int(-_width+16+im.height/2);
+                    _bg.y = int(-_height+16+im.height/2);
                     break;
                 case RIGHT_TOP:
                     im.pivotX = im.width/2;
@@ -253,11 +253,11 @@ public class HintBackground extends Sprite {
 
     }
 
-    public function addTextField():void {
+    public function addTextField(size:int):void {
         deleteTextField();
-        _txt = new TextField(_bg.width, _bg.height,'',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
-        _txt.x = _bg.x;
-        _txt.y = _bg.y;
+        _txt = new TextField(_bg.width - 10, _bg.height - 10,'',g.allData.fonts['BloggerBold'],size,ManagerFilters.TEXT_BLUE);
+        _txt.x = _bg.x + 5;
+        _txt.y = _bg.y + 5;
         addChild(_txt);
     }
 
