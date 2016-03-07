@@ -4389,5 +4389,50 @@ public class DirectServer {
             woError.showItParams('getFriendsMarketCell: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function updateMarketPapper(numberCell:int,  inPapper:Boolean, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_MARKET_PAPPER);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateMarketPapper', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.numberCell = numberCell;
+        variables.inPapper = inPapper ? 1 : 0;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateMarketPapper);
+        function onCompleteUpdateMarketPapper(e:Event):void { completeupdateMarketPapper(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateMarketPapper error:' + error.errorID);
+            woError.showItParams('updateMarketPapper error:' + error.errorID);
+        }
+    }
+
+    private function completeupdateMarketPapper(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateMarketPapper: wrong JSON:' + String(response));
+            woError.showItParams('updateMarketPapper: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateMarketPapper OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateMarketPapper: id: ' + d.id + '  with message: ' + d.message);
+            woError.showItParams('updateMarketPapper: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

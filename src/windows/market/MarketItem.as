@@ -54,7 +54,6 @@ public class MarketItem {
     private var _dataFromServer:Object;
     private var _countResource:int;
     private var _countMoney:int;
-    private var _inPapper:Image;
     private var _plawkaSold:Image;
     private var _plawkaLvl:Image;
     private var _plawkabuy:Image;
@@ -72,6 +71,10 @@ public class MarketItem {
     private var _quadGreen:Quad;
     private var _ava:Image;
     private var _countBuyCell:int;
+    private var _papper:CButton;
+    private var _inPapper:Boolean;
+    private var _inDelete:Boolean;
+    private var _delete:CButton;
     private var g:Vars = Vars.getInstance();
 
     public function MarketItem(numberCell:int, close:Boolean) {
@@ -95,6 +98,7 @@ public class MarketItem {
         _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.addChild(_txtAdditem);
         var im:Image;
+
         if (close) {
             buyCont = new Sprite();
             if (numberCell == 5) _countBuyCell = 5;
@@ -149,10 +153,6 @@ public class MarketItem {
         _imageCont = new Sprite();
         source.addChild(_imageCont);
 
-        _inPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
-        source.addChild(_inPapper);
-        _inPapper.visible = false;
-
         _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('roadside_shop_tabl'));
         _plawkaSold.pivotX = _plawkaSold.width/2;
         _plawkaSold.x = _bg.width/2;
@@ -189,6 +189,28 @@ public class MarketItem {
         _plawkaCoins.addChild(im);
         _plawkaCoins.addChild(_costTxt);
         _plawkaCoins.visible = false;
+
+        _papper = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
+        _papper.addDisplayObject(im);
+        _papper.setPivots();
+        _papper.x = 10;
+        _papper.y = 10;
+        source.addChild(_papper);
+        _papper.clickCallback = onPaper;
+        _papper.visible = false;
+
+
+
+        _delete = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
+        _delete.addDisplayObject(im);
+        _delete.setPivots();
+        _delete.x = 10;
+        _delete.y = 110;
+        source.addChild(_delete);
+        _delete.clickCallback = onDelete;
+        _delete.visible = false;
     }
 
     private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
@@ -244,9 +266,32 @@ public class MarketItem {
         _txtAdditem.text = 'Добавить товар';
         source.endClickCallback = onClick;
         g.woMarket.addItemsRefresh();
+        _closeCell = false;
         while (buyCont.numChildren) {
             buyCont.removeChildAt(0);
         }
+    }
+
+    private function onPaper ():void {
+        if (_inPapper) return;
+        _inPapper = true;
+        g.directServer.updateMarketPapper(number,true,null);
+    }
+
+    private function onDelete ():void {
+        if (g.user.hardCurrency < 1) {
+            g.woBuyCurrency.showItMenu(true);
+            return;
+        }
+        g.userInventory.addMoney(1,-1);
+        g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
+        for (var i:int = 0; i < g.user.marketItems.length; i++) {
+            if (g.user.marketItems[i].id == _dataFromServer.id) {
+                g.user.marketItems.splice(i, 1);
+                break;
+            }
+        }
+        unFillIt();
     }
 
     private function onClick():void {
@@ -286,7 +331,6 @@ public class MarketItem {
                 g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
 
                 showFlyResource(d, _dataFromServer.resourceCount);
-                _inPapper.visible = false;
                 _plawkaCoins.visible = false;
                 _plawkaSold.visible = true;
                 _txtPlawka.visible = true;
@@ -342,7 +386,6 @@ public class MarketItem {
         if (a > 0) {
             fillIt(g.dataResource.objectResources[a],count, cost);
             _txtAdditem.text = '';
-            _inPapper.visible = inPapper;
             g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
         }
     }
@@ -405,10 +448,13 @@ public class MarketItem {
         source.removeChild(_ava);
         _plawkabuy.visible = true;
         _plawkaCoins.visible = false;
-        _inPapper.visible = false;
         _plawkaSold.visible = false;
         _plawkaLvl.visible = false;
         _txtPlawka.visible = false;
+        _delete.visible = false;
+        _papper.visible = false;
+        g.marketHint.hideIt();
+        g.gameDispatcher.removeEnterFrame(onEnterFrame);
     }
 
     public function fillFromServer(obj:Object, p:Someone):void {
@@ -416,8 +462,8 @@ public class MarketItem {
         _person = p;
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
-        _inPapper.visible = _dataFromServer.inPapper;
-
+        _inPapper = _dataFromServer.inPapper;
+        if (_inPapper) _papper.visible = true;
         if (_dataFromServer.buyerId != '0') {
             if (_person.userSocialId == g.user.userSocialId) {
                 _plawkaSold.visible = false;
@@ -547,6 +593,8 @@ public class MarketItem {
         if (isFill == 1) {
             if (_onHover) return;
             _onHover = true;
+            if (!_inPapper) _papper.visible = true;
+            _delete.visible = true;
             count = 0;
             g.gameDispatcher.addEnterFrame(onEnterFrame);
         }
@@ -559,6 +607,8 @@ public class MarketItem {
         }
         if (isFill == 1) {
             _onHover = false;
+            if (!_inPapper) _papper.visible = false;
+            _delete.visible = false;
             g.marketHint.hideIt();
             g.gameDispatcher.removeEnterFrame(onEnterFrame);
         }

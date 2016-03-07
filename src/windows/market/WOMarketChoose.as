@@ -112,10 +112,10 @@ public class WOMarketChoose extends Window {
 //        _btnSell.filter = filter;
         _btnSell.clickCallback = onClickBtnSell;
 
-        _checkBox = new MarketCheckBox();
-        _checkBox.source.x = -180;
-        _checkBox.source.y = 205;
-        _source.addChild(_checkBox.source);
+//        _checkBox = new MarketCheckBox();
+//        _checkBox.source.x = -180;
+//        _checkBox.source.y = 205;
+//        _source.addChild(_checkBox.source);
 
         callbackClickBG = onClickExit;
     }
@@ -454,7 +454,7 @@ public class WOMarketChoose extends Window {
             _scrollSprite.resetAll();
             hideIt();
             if (_callback != null) {
-                _callback.apply(null, [_curResourceId, _countResourceBlock.count, _countMoneyBlock.count, _checkBox.isChecked]);
+                _callback.apply(null, [_curResourceId, _countResourceBlock.count, _countMoneyBlock.count]);
                 _callback = null;
             }
             _countResourceBlock.count = 0;
