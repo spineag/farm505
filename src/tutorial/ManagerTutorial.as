@@ -9,7 +9,7 @@ import flash.geom.Point;
 import manager.Vars;
 
 public class ManagerTutorial {
-    private static const TUTORIAL_ON:Boolean = true;
+    private static const TUTORIAL_ON:Boolean = false;
 
     private static const MAX_STEPS:uint = 100;
     private static var _instance:ManagerTutorial;
