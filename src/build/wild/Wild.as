@@ -23,7 +23,7 @@ import ui.xpPanel.XPStar;
 public class Wild extends AreaObject{
     private var _isOnHover:Boolean;
     private var _curLockedLand:LockedLand;
-
+    private var _delete:Boolean;
     public function Wild(_data:Object) {
         super(_data);
         if (!_data) {
@@ -40,6 +40,7 @@ public class Wild extends AreaObject{
         }
         _source.releaseContDrag = true;
         _isOnHover = false;
+        _delete = false;
     }
 
     public function setLockedLand(l:LockedLand):void {
@@ -67,6 +68,7 @@ public class Wild extends AreaObject{
 
     private function onClick():void {
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (_delete) return;
         if (g.selectedBuild) {
             if (g.selectedBuild == this && g.isActiveMapEditor) {
                 g.toolsModifier.onTouchEnded();
@@ -163,12 +165,13 @@ public class Wild extends AreaObject{
 
     private function wildDelete():void {
         for (var i:int=0; i< g.user.userDataCity.objects.length; i++) {
-            if (g.user.userDataCity.objects[i].dbId == _dbBuildingId) {
+            if (int(g.user.userDataCity.objects[i].dbId) == _dbBuildingId) {
                 g.user.userDataCity.objects.splice(i, 1);
                 break;
             }
         }
         new RemoveWildAnimation(_source, onEndAnimation, onEndAnimationTotal, _dataBuild.removeByResourceId);
+        _delete = true;
     }
 
     private function onEndAnimation():void {

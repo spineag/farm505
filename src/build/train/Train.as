@@ -69,7 +69,7 @@ public class Train extends AreaObject{
             WorldClock.clock.remove(_armature);
         } else if (_stateBuild == STATE_BUILD) {
             addFoundationBuilding();
-            _arriveAnim.visible = false;
+//            _arriveAnim.visible = false;
             WorldClock.clock.remove(_armature);
         }
 
@@ -289,7 +289,9 @@ public class Train extends AreaObject{
             return;
         }
         if (_stateBuild == STATE_BUILD) {
-            g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+//                        g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+//
+            g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/9) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
             g.hint.hideIt();
         }
         if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_READY || _stateBuild == STATE_WAIT_BACK) {
@@ -354,6 +356,7 @@ public class Train extends AreaObject{
             _build.visible = true;
             _arriveAnim.visible = true;
             createBuild();
+            arriveTrain();
         }
     }
 
@@ -424,13 +427,15 @@ public class Train extends AreaObject{
         if (free) return;
         new XPStar(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, _dataPack.count_xp);
         var prise:Object = {};
+        var priseCoupone:Object = {};
         prise.id = DataMoney.SOFT_CURRENCY;
         prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
         prise.count = _dataPack.count_money;
         new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
-        prise.id = int(Math.random() * 4) + 3;
-        prise.count = 1;
-        new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
+        priseCoupone.id = int(Math.random() * 4) + 3;
+        priseCoupone.type = DropResourceVariaty.DROP_TYPE_MONEY;
+        priseCoupone.count = 1;
+        new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, priseCoupone);
     }
 
     private function onReleasePack():void {

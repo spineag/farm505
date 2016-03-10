@@ -34,7 +34,7 @@ public class RepositoryItem {
     private var _txtCount:TextField;
     private var _box:RepositoryBox;
     private var _arrDbIds:Array;
-
+    private var _countCell:int;
     private var g:Vars = Vars.getInstance();
 
     public function RepositoryItem() {
@@ -44,7 +44,7 @@ public class RepositoryItem {
         source.addChild(im);
     }
 
-    public function fillIt(data:Object, count:int, arrIds:Array, box:RepositoryBox):void {
+    public function fillIt(data:Object, count:int, arrIds:Array, box:RepositoryBox, countCell:int):void {
         if (!data) {
             Cc.error('RepoItem:: empty data');
             g.woGameError.showIt();
@@ -54,6 +54,7 @@ public class RepositoryItem {
         _count = count;
         _box = box;
         _arrDbIds = arrIds;
+        _countCell = countCell;
         var im:Image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
         MCScaler.scale(im, 55, 55);
         im.x = 30 - im.width/2;
@@ -85,6 +86,14 @@ public class RepositoryItem {
         } else {
             g.toolsModifier.startMove(build, g.townArea.afterMoveFromInventory, true);
         }
+        _box.arrNumber(_countCell);
+    }
+
+    public function updateCount():void {
+        _count --;
+        if (_count <= 0) _box.updateItems();
+        else _txtCount.text = String(_count);
+
     }
 
 //    private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
