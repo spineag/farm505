@@ -28,9 +28,11 @@ import utils.CButton;
 
 import utils.CSprite;
 import utils.MCScaler;
+import utils.TimeUtils;
 
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
+import windows.WOComponents.CartonBackgroundIn;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.WindowBackground;
 
@@ -49,9 +51,10 @@ public class WOMarket  extends Window {
     private var _btnRefresh:CSprite;
     private var _leftBtn:CSprite;
     private var _rightBtn:CSprite;
+    private var _contPaper:Sprite;
 
     private var _btnFriends:CButton;
-
+    private var _btnPaper:CButton;
 
     private var _arrItems:Array;
     private var _arrItemsFriend:Array;
@@ -59,6 +62,9 @@ public class WOMarket  extends Window {
 
     private var _txtName:TextField;
     private var _txtNumberPage:TextField;
+    private var _txtTimerPaper:TextField;
+
+    private var _imCheck:Image;
 
     private var _curUser:Someone;
 
@@ -70,7 +76,10 @@ public class WOMarket  extends Window {
     private var _shiftFriend:int = 0;
     private var _shift:int;
     private var _countPage:int;
+    private var _timer:int;
+
     private var _panelBool:Boolean;
+    private var _booleanPaper:Boolean;
     private var _callbackState:Function;
 
     public function WOMarket() {
@@ -156,6 +165,51 @@ public class WOMarket  extends Window {
         _txtNumberPage.x = -253;
         _txtNumberPage.y = 155;
         _source.addChild(_txtNumberPage);
+
+//        var bg:CartonBackgroundIn = new CartonBackgroundIn(54, 36);
+//        bg.x = 80;
+//        bg.y = 164;
+//        _source.addChild(bg);
+        _contPaper = new Sprite();
+        _source.addChild(_contPaper);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
+        im.x = 80;
+        im.y = 164;
+        _contPaper.addChild(im);
+
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
+        im.x = 50;
+        im.y = 160;
+        _contPaper.addChild(im);
+
+        _btnPaper = new CButton();
+        _btnPaper.addButtonTexture(70,30,CButton.GREEN,true);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        MCScaler.scale(im,30,30);
+        im.x = 35;
+        _btnPaper.addChild(im);
+        txt = new TextField(30,30,'1',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt.x = 10;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _btnPaper.addChild(txt);
+        _btnPaper.x = 175;
+        _btnPaper.y = 180;
+        _btnPaper.clickCallback = onClickPaper;
+        _contPaper.addChild(_btnPaper);
+
+        _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _imCheck.x = 95;
+        _imCheck.y = 165;
+        _contPaper.addChild(_imCheck);
+        _imCheck.visible = false;
+
+        _txtTimerPaper = new TextField(80,30,'',g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtTimerPaper.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtTimerPaper.x = 68;
+        _txtTimerPaper.y = 165;
+        _contPaper.addChild(_txtTimerPaper);
+        _timer = 300;
+        _contPaper.visible = false;
     }
 
     private function onClickExit(e:Event=null):void {
@@ -181,6 +235,8 @@ public class WOMarket  extends Window {
 //        fillItems();
         addItems(true);
         fillItemsByUser(g.user);
+        _contPaper.visible = true;
+        g.gameDispatcher.addToTimer(onTimer);
         showIt();
 //        _shift = 0;
 //        new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
@@ -205,6 +261,7 @@ public class WOMarket  extends Window {
 
     override public function hideIt():void {
         _panelBool = false;
+//        g.gameDispatcher.removeFromTimer(onTimer);
         _shift = 0;
         new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
         deleteFriends();
@@ -292,12 +349,15 @@ public class WOMarket  extends Window {
         if (newVisit) checkArrow();
     }
 
-    private function addItemsFriend(_person:Someone):void {
+
+    private function addItemsFriend(callback:Boolean = false,_person:Someone = null):void {
+
+        if (!callback)g.directServer.getFriendsMarketCell(int(_person.userSocialId),_person,addItemsFriend);
         clearItems();
 
         if (_person.marketCell == 0) {
             _person.marketCell = 5;
-        } else g.directServer.getFriendsMarketCell(int(_person.userSocialId),_person,null);
+        }
         var item:MarketItem;
 
         for (var i:int=0; i < _person.marketCell; i++) {
@@ -335,6 +395,7 @@ public class WOMarket  extends Window {
                 item.source.y = -10;
             }
             _contItemCell.addChild(item.source);
+            item.callbackFill = callbackItem;
             _arrItems.push(item);
         }
         checkArrow();
@@ -453,6 +514,38 @@ public class WOMarket  extends Window {
         createMarketTabBtns();
     }
 
+    private function onClickPaper():void {
+        if (g.user.hardCurrency < 1) {
+            g.woBuyCurrency.showItMenu(true);
+            return;
+        }
+        g.userInventory.addMoney(1,-1);
+        _timer = 0;
+        g.gameDispatcher.removeFromTimer(onTimer);
+        _txtTimerPaper.text = '';
+        _btnPaper.visible = false;
+        _booleanPaper = true;
+        _imCheck.visible = true;
+    }
+
+    public function get booleanPaper():Boolean {
+        return _booleanPaper;
+    }
+
+    private function onTimer():void {
+        _timer --;
+        _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(_timer);
+        if(_timer <= 0){
+            _btnPaper.visible = false;
+            _booleanPaper = true;
+            _imCheck.visible = true;
+            _txtTimerPaper.text = '';
+        } else {
+            _booleanPaper = false;
+            _imCheck.visible = false;
+        }
+    }
+
     public function addAdditionalUser(ob:Object):void {
         _curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
 //        _friendsPanel.addAdditionalUser(_curUser);
@@ -544,8 +637,14 @@ public class WOMarket  extends Window {
         _shift = 0;
         new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
         _countPage = 1;
-        if (_person.userSocialId == g.user.userSocialId) addItems(true);
-         else addItemsFriend(_person);
+        if (_person.userSocialId == g.user.userSocialId) {
+            addItems(true);
+            _contPaper.visible = true;
+        }
+         else {
+            addItemsFriend(false,_person);
+            _contPaper.visible = false;
+        }
 
         fillItemsByUser(_person);
     }

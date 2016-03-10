@@ -75,6 +75,8 @@ public class MarketItem {
     private var _inPapper:Boolean;
     private var _inDelete:Boolean;
     private var _delete:CButton;
+    private var _imCheck:Image;
+
     private var g:Vars = Vars.getInstance();
 
     public function MarketItem(numberCell:int, close:Boolean) {
@@ -200,8 +202,11 @@ public class MarketItem {
         _papper.clickCallback = onPaper;
         _papper.visible = false;
 
-
-
+        _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _imCheck.x = 15;
+        _imCheck.y = 15;
+        source.addChild(_imCheck);
+        _imCheck.visible = false;
         _delete = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
         _delete.addDisplayObject(im);
@@ -214,6 +219,7 @@ public class MarketItem {
     }
 
     private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
+        if (_imageCont) unFillIt();
         var im:Image;
         isFill = 1;
         _data = data;
@@ -273,8 +279,10 @@ public class MarketItem {
     }
 
     private function onPaper ():void {
-        if (_inPapper) return;
+        var b:Boolean = g.woMarket.booleanPaper;
+        if (_inPapper && b) return;
         _inPapper = true;
+        _imCheck.visible = true;
         g.directServer.updateMarketPapper(number,true,null);
     }
 
@@ -463,7 +471,10 @@ public class MarketItem {
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
         _inPapper = _dataFromServer.inPapper;
-        if (_inPapper) _papper.visible = true;
+        if (_inPapper) {
+            _papper.visible = true;
+            _imCheck.visible = true;
+        }
         if (_dataFromServer.buyerId != '0') {
             if (_person.userSocialId == g.user.userSocialId) {
                 _plawkaSold.visible = false;
