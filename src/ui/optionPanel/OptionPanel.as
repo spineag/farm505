@@ -219,20 +219,7 @@ public class OptionPanel {
                     try {
                         var func:Function = function(e:flash.events.Event):void {
                             Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
-                            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
-                                Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-                                Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-                                Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
-                                Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);
-                                g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
-                                g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
-                            } else {
-                                Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
-                                Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-                                Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
-                                g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
-                                g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
-                            }
+                            makeFullScreen();
                             _contFullScreen.filter = null;
                             makeResizeForGame();
                         };
@@ -292,7 +279,24 @@ public class OptionPanel {
         makeResizeForGame();
     }
 
-    private function makeResizeForGame():void {
+    public function makeFullScreen():void {
+        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
+            Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
+            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+            Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);
+            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
+            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
+        } else {
+            Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
+            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
+            Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
+            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
+        }
+    }
+
+    public function makeResizeForGame():void {
         var cont:Sprite = g.cont.gameCont;
         var s:Number = cont.scaleX;
         var oY:Number = g.matrixGrid.offsetY*s;

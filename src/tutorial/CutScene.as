@@ -7,9 +7,8 @@ import com.greensock.TweenMax;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import manager.Vars;
-
+import starling.core.Starling;
 import starling.display.Sprite;
 
 public class CutScene {
@@ -30,7 +29,7 @@ public class CutScene {
         _armature = g.allData.factory['tutorialCatBig'].buildArmature('cat');
         (_armature.display as Sprite).scaleX = -1;
         _source.addChild(_armature.display as Sprite);
-        _source.y = 615;
+        onResize();
     }
 
     public function showIt(st:String, stBtn:String, callback:Function, delay:Number):void {
@@ -45,18 +44,49 @@ public class CutScene {
         _bubble.showBubble(st, stBtn, callback);
     }
 
+    public function reChangeBubble(st:String, stBtn:String, callback:Function):void {
+        _bubble.reChangeBubble(st, stBtn, callback);
+    }
+
+    public function hideIt(f:Function):void {
+        _bubble.hideBubble(f);
+    }
+
+    private var label:String;
+    private var d:Number;
     private function animateCat(e:AnimationEvent = null):void {
         if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCat);
         if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, animateCat);
 
-        var label:String;
-        var d:Number = Math.random();
+        d = Math.random();
         if (d < .5) label = 'idle';
             else if (d < .75) label = '_idle_2';
             else label = 'idle_3';
         _armature.addEventListener(AnimationEvent.COMPLETE, animateCat);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCat);
         _armature.animation.gotoAndPlay(label);
+    }
+
+    public function onResize():void {
+        _source.y = Starling.current.nativeStage.stageHeight - 25;
+    }
+
+    public function deleteIt():void {
+        if (_bubble) {
+            _bubble.deleteIt();
+            _bubble = null;
+        }
+        if (_source) {
+            _cont.removeChild(_source);
+            _source.removeChild(_armature.display as Sprite);
+            if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCat);
+            if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, animateCat);
+            WorldClock.clock.remove(_armature);
+            _armature.dispose();
+            _armature = null;
+            _source = null;
+            _cont = null;
+        }
     }
 }
 }

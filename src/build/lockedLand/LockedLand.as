@@ -127,6 +127,7 @@ public class LockedLand extends AreaObject {
     }
 
     private function onHover():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         _build.filter = ManagerFilters.RED_LIGHT_TINT_FILTER;
@@ -135,6 +136,7 @@ public class LockedLand extends AreaObject {
     }
 
     private function onOut():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _build.filter = null;
         if (_topRibbon) _topRibbon.filter = null;
@@ -142,6 +144,7 @@ public class LockedLand extends AreaObject {
     }
 
     private function onClick():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {

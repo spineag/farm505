@@ -8,6 +8,7 @@ public class TutorialTexts {
     public function TutorialTexts() {
         _objText = {};
         _objText['next'] = 'Продолжить';
+        _objText['lookAround'] = 'На полный экран';
 
         _objText[1] = {};
         _objText[1][1] = 'Ну спасибо! Мы жители лоскутного мира! Закройте коробку! Нас и так мало осталось! А с вашей помощью вообще повымираем!';
@@ -17,6 +18,6 @@ public class TutorialTexts {
         _objText[2][1] = 'А местечко неплохое. Пщеница прямо на галазах выросла, и на руках тоже. Можно собирать уже!';
     }
 
-    public function get objText():Object { return _objText };
+    public function get objText():Object { return _objText }
 }
 }

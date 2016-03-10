@@ -68,6 +68,7 @@ public class Order extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
@@ -89,12 +90,14 @@ public class Order extends AreaObject{
     }
 
     private function onOut():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         _source.filter = null;
         _isOnHover = false;
         g.hint.hideIt();
     }
 
     private function onClick():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
             if (g.selectedBuild) {

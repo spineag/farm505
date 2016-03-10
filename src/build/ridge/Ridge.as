@@ -95,6 +95,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor || g.isAway){
             trace('away');
@@ -114,6 +115,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onStartClick():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
             if (g.toolsModifier.plantId <= 0 || _stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
@@ -128,6 +130,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onEndClick():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
             onOut();
@@ -202,6 +205,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onOut():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor || g.isAway) return;
         _source.filter = null;
         _isOnHover = false;

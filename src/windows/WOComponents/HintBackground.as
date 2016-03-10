@@ -6,10 +6,12 @@ import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.textures.TextureAtlas;
+import starling.utils.Color;
 
 public class HintBackground extends Sprite {
     public static const NONE_TRIANGLE:int = 1;
@@ -63,86 +65,62 @@ public class HintBackground extends Sprite {
                 h = big_height;
             }
 
+            im.pivotX = im.width/2;
+            im.pivotY = im.height;
             switch (trianglePosition) {
                 case TOP_LEFT:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     im.scaleY = -1;
                     _bg.x = int(-16 - im.width/2);
                     _bg.y = h;
                     break;
                 case TOP_CENTER:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     im.scaleY = -1;
                     _bg.x = int(-_width/2);
                     _bg.y = h;
                     break;
                 case TOP_RIGHT:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     im.scaleY = -1;
                     _bg.x = int(-_width+16+im.width/2);
                     _bg.y = h;
                     break;
                 case BOTTOM_LEFT:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     _bg.x = int(-16-im.width/2);
                     _bg.y = int(-h-_height);
                     break;
                 case BOTTOM_CENTER:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     _bg.x = int(-_width/2);
                     _bg.y = int(-h-_height);
-                    addChildAt(_bg, 0);
                     break;
                 case BOTTOM_RIGHT:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     _bg.x = int(-_width+16+im.width/2);
                     _bg.y = int(-h-_height);
                     break;
                 case LEFT_TOP:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     im.rotation = Math.PI/2;
                     _bg.x = h;
                     _bg.y = int(-16-im.height/2);
-                    addChildAt(_bg, 0);
                     break;
                 case LEFT_CENTER:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     im.rotation = Math.PI/2;
                     _bg.x = h;
                     _bg.y = int(-ht/2);
                     break;
                 case LEFT_BOTTOM:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     im.rotation = Math.PI/2;
                     _bg.x = h;
                     _bg.y = int(-_height+16+im.height/2);
                     break;
                 case RIGHT_TOP:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     im.rotation = -Math.PI/2;
                     _bg.x = int(-h-_width);
                     _bg.y = int(-16-im.height/2);
                     break;
                 case RIGHT_CENTER:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     im.rotation = -Math.PI/2;
                     _bg.x = int(-h-_width);
                     _bg.y = int(-_height/2);
                     break;
                 case RIGHT_BOTTOM:
-                    im.pivotX = im.width/2;
-                    im.pivotY = im.height;
                     im.rotation = -Math.PI/2;
                     _bg.x = int(-h-_width);
                     _bg.y = int(-_height+16+im.height/2);
@@ -245,12 +223,17 @@ public class HintBackground extends Sprite {
         _bg.filter = ManagerFilters.SHADOW_LIGHT;
     }
 
-    public function flipIt(v:Boolean):void {
-
-    }
 
     public function flipTxt(v:Boolean):void {
-
+        if (!v) {
+            _txt.x = _bg.x + 5;
+            _txt.y = _bg.y + 5;
+            _txt.width = 1;
+        } else {
+            _txt.x = _bg.x + _bg.width - 5;
+            _txt.y = _bg.y + _bg.height - 5;
+            _txt.width = -1;
+        }
     }
 
     public function addTextField(size:int):void {

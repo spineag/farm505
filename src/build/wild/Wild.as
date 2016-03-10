@@ -51,6 +51,7 @@ public class Wild extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (_curLockedLand && !g.isActiveMapEditor) return;
         _source.filter = ManagerFilters.BUILD_STROKE;
@@ -58,12 +59,14 @@ public class Wild extends AreaObject{
     }
 
     private function onOut():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         _isOnHover = false;
             if (!_isOnHover) g.wildHint.hideIt();
         _source.filter = null;
     }
 
     private function onClick():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) {
             if (g.selectedBuild == this && g.isActiveMapEditor) {
                 g.toolsModifier.onTouchEnded();

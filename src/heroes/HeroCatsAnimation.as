@@ -23,10 +23,12 @@ public class HeroCatsAnimation {
     private var _state:int;
     private var _label:String;
     private var _playOnce:Boolean;
+    private var _isFlip:Boolean;
 
     public function HeroCatsAnimation() {
         _state = 0;
         _playOnce = false;
+        _isFlip = false;
     }
 
     public function set catImage(s:Sprite):void { _catImage = s }
@@ -127,6 +129,10 @@ public class HeroCatsAnimation {
         } else if (_state == STATE_WORKER) {
             WorldClock.clock.remove(_armatureWorker);
         }
+    }
+
+    public function flipIt(v:Boolean):void {
+        v ? _catImage.scaleX = -1: _catImage.scaleX = 1;
     }
 
     public function showFront(v:Boolean):void {

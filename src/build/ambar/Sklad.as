@@ -48,6 +48,7 @@ public class Sklad extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
@@ -65,6 +66,7 @@ public class Sklad extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
@@ -96,6 +98,7 @@ public class Sklad extends AreaObject{
     }
 
     private function onOut():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         _isOnHover = false;
         _source.filter = null;
         g.hint.hideIt();

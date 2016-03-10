@@ -19,6 +19,7 @@ public class TutorialCat extends BasicCat {
     private var freeIdleGo:Boolean;
     private var _animation:HeroCatsAnimation;
     private var _bubble:TutorialTextBubble;
+    private var _isFlip:Boolean;
 
     public function TutorialCat() {
         super();
@@ -56,7 +57,7 @@ public class TutorialCat extends BasicCat {
 
     public function showBubble(st:String):void {
         if (_bubble) {
-            _bubble.showBubble(st);
+            _bubble.showBubble(st, _isFlip);
         }
     }
 
@@ -67,9 +68,6 @@ public class TutorialCat extends BasicCat {
     }
 
     override public function showFront(v:Boolean):void {
-//        if (_bubble) {
-//            _bubble.flipTxt(v);
-//        }
         _animation.showFront(v);
         if (v) heroEyes.startAnimations();
         else heroEyes.stopAnimations();
@@ -81,7 +79,8 @@ public class TutorialCat extends BasicCat {
     }
 
     override public function flipIt(v:Boolean):void {
-        v ? _source.scaleX = -1: _source.scaleX = 1;
+        _isFlip = v;
+        _animation.flipIt(v);
     }
 
     override public function walkAnimation():void {
@@ -117,7 +116,6 @@ public class TutorialCat extends BasicCat {
 
     public function playDirectLabel(label:String, playOnce:Boolean, callback:Function):void {
         showFront(true);
-        flipIt(false);
         heroEyes.startAnimations();
         _animation.playIt(label, playOnce, callback);
     }

@@ -206,6 +206,12 @@ public class Containers {
         }
     }
 
+    public function moveCenterToPos(posX:int, posY:int, needQuick:Boolean = false):void {
+        var p:Point = new Point(posX, posY);
+        p = g.matrixGrid.getXYFromIndex(p);
+        moveCenterToXY(p.x, p.y, needQuick);
+    }
+
     public function deltaMoveGameCont(deltaX:int, deltaY:int, time:Number = .5):void {
         var oY:Number = g.matrixGrid.offsetY*g.cont.gameCont.scaleX;
         var nX:int = gameCont.x + deltaX;

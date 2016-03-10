@@ -95,6 +95,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onHover():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         _count = 20;
@@ -120,6 +121,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onOut():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _isOnHover = false;
         _source.filter = null;
@@ -131,6 +133,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onClick():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();

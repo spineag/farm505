@@ -2,68 +2,51 @@
  * Created by user on 2/29/16.
  */
 package tutorial {
+import build.WorldObject;
+
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
 import manager.Vars;
-
+import starling.core.Starling;
 import starling.display.Quad;
-
 import starling.display.Sprite;
+import starling.utils.Color;
 
 public class ManagerTutorial {
-    private static const TUTORIAL_ON:Boolean = false;
+    private const TUTORIAL_ON:Boolean = false;
 
-    private static const MAX_STEPS:uint = 100;
-    private static var _instance:ManagerTutorial;
-    private static var g:Vars = Vars.getInstance();
-    private static var cat:TutorialCat;
-    private static var cutScene:CutScene;
-    private static var subStep:int;
-    private static var texts:Object;
-    private static var black:Sprite;
+    private const MAX_STEPS:uint = 100;
+    private var g:Vars = Vars.getInstance();
+    private var cat:TutorialCat;
+    private var cutScene:CutScene;
+    private var subStep:int;
+    private var texts:Object;
+    private var black:Sprite;
+    private var tutorialObjects:Array;
 
-    public function ManagerTutorial(cl:Enforcer) {
+    public function ManagerTutorial() {
+        tutorialObjects = [];
     }
 
-    public static function getInstance():ManagerTutorial {
-        if (_instance == null) {
-            _instance = new ManagerTutorial(new Enforcer());
-        }
-        return _instance;
-    }
-
-    public static function get isTutorial():Boolean {
+    public function get isTutorial():Boolean {
         return g.user.tutorialStep < MAX_STEPS && TUTORIAL_ON;
     }
 
-    private function updateTutorialStep():void {
-        g.directServer.updateUserTutorialStep(null);
+    private static function updateTutorialStep():void {
+//        g.directServer.updateUserTutorialStep(null);
     }
 
-    private static function checkVariables():void {
-        if (!cat) cat = new TutorialCat();
-        if (!cutScene) cutScene = new CutScene();
-        if (!texts) texts = (new TutorialTexts()).objText;
-    }
-
-    public static function initScenes():void {
+    public function initScenes():void {
         var curFunc:Function;
 
 //        try {
             switch (g.user.tutorialStep) {
                 case 1:
-//                    if (TUTORIAL_ON) {
-//                        curFunc = initScene50;
-//                    } else {
-//                        g.user.tutorialStep = 1;
-//                    }
                     curFunc = initScene_1;
                     break;
-//                case 1:
-//                    curFunc = initScene1;
-//                    break;
+                case 2:
+                    curFunc = initScene_2;
+                    break;
 //                case 2:
 //                    curFunc = initScene2;
 //                    break;
@@ -96,26 +79,101 @@ public class ManagerTutorial {
 //        }
     }
 
-    private static function initScene_1():void {
-        checkVariables();
+    private function initScene_1():void {
+        if (!cat) cat = new TutorialCat();
+        if (!cutScene) cutScene = new CutScene();
+        if (!texts) texts = (new TutorialTexts()).objText;
         subStep = 1;
-        cat.setPosition(new Point(27, 31));
-        cat.addToMap();
-        cat.playDirectLabel('idle', false, null);
+        addCatToPos(30, 26);
+        playCatIdle();
         cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['next'], subStep1_1, 1);
+        addBlack();
     }
 
-    private static function subStep1_1():void {
-
+    private function subStep1_1():void {
+        subStep = 2;
+        cutScene.reChangeBubble(texts[g.user.tutorialStep][subStep], texts['lookAround'], subStep1_2)
     }
 
-    private static function addBlack():void {
+    private function subStep1_2():void {
+        cutScene.hideIt(deleteCutScene);
+        removeBlack();
+//        g.optionPanel.makeFullScreen();
+//        g.optionPanel.makeResizeForGame();
+        onResize();
+        g.user.tutorialStep = 2;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_2():void {
+        subStep = 1;
+        if (!cat) {
+            addCatToPos(30, 26);
+        }
+        if (!texts) texts = (new TutorialTexts()).objText;
+        cat.playDirectLabel('idle3', true, playCatIdle);
+        cat.flipIt(true);
+        cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        g.optionPanel.makeScaling(1,false);
+        g.cont.moveCenterToPos(30, 30);
+    }
+
+
+//    if (!cat) cat = new TutorialCat();
+//    if (!cutScene) cutScene = new CutScene();
+//    if (!texts) texts = (new TutorialTexts()).objText;
+
+
+
+    private function addCatToPos(_x:int, _y:int):void {
+        if (!cat) cat = new TutorialCat();
+        cat.setPosition(new Point(_x, _y));
+        cat.addToMap();
+    }
+
+    private function playCatIdle():void {
+        if (cat) cat.playDirectLabel('idle', false, null);
+    }
+
+    private function addBlack():void {
         if (!black) {
-//            var q:Quad = new Quad()
+            var q:Quad = new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK);
+            black = new Sprite();
+            black.addChild(q);
+            black.alpha = .3;
+            g.cont.popupCont.addChildAt(black, 0);
         }
     }
+
+    private function removeBlack():void {
+        if (black) {
+            if (g.cont.popupCont.contains(black)) g.cont.popupCont.removeChild(black);
+            black.dispose();
+            black = null;
+        }
+    }
+
+    public function onResize():void {
+        if (black) {
+            removeBlack();
+            addBlack();
+        }
+        if (cutScene) {
+            cutScene.onResize();
+        }
+    }
+
+    private function deleteCutScene():void {
+        if (cutScene) {
+            cutScene.deleteIt();
+            cutScene = null;
+        }
+    }
+
+    public function isTutorialBuilding(wo:WorldObject):Boolean {
+        return tutorialObjects.indexOf(wo) > -1;
+    }
 }
 }
 
-
-class Enforcer {}

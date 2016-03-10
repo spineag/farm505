@@ -225,6 +225,7 @@ public class Vars {
 
     public var managerCats:ManagerCats;
     public var aStar:AStar;
+    public var managerTutorial:ManagerTutorial;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -269,6 +270,7 @@ public class Vars {
         townArea = new TownArea();
         farmGrid = new FarmGrid();
         managerDailyBonus = new ManagerDailyBonus();
+        managerTutorial = new ManagerTutorial();
 
         new ManagerFilters();
         ownMouse = new OwnMouse();
@@ -436,7 +438,7 @@ public class Vars {
         if (currentGameScale != 1) {
             optionPanel.makeScaling(currentGameScale, false, true);
         }
-        cont.moveCenterToXY(0, realGameTilesHeight/2, true);
+        cont.moveCenterToXY(0, realGameTilesHeight/2 - 400*scaleFactor, true);
 
         woCave = new WOCave();
         woTrain = new WOTrain();
@@ -494,8 +496,9 @@ public class Vars {
         bottomPanel.checkIsFullOrder();
         if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel)
             managerDailyBonus.generateDailyBonusItems();
-        if (ManagerTutorial.isTutorial) {
-            ManagerTutorial.initScenes();
+
+        if (managerTutorial.isTutorial) {
+            managerTutorial.initScenes();
         }
     }
 
