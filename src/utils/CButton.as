@@ -36,6 +36,7 @@ public class CButton extends Sprite {
     private var _scale:Number;
     private var _bg:Sprite;
     private var _arrTextFields:Array;
+    private var _useFilters:Boolean = true;
 
     public function CButton() {
         super();
@@ -49,6 +50,10 @@ public class CButton extends Sprite {
     public function setPivots():void {
         this.pivotX = this.width/2;
         this.pivotY = this.height/2;
+    }
+
+    public function set useFilters(v:Boolean) {
+        _useFilters = v;
     }
 
     public function addButtonTexture(w:int, h:int, type:int, needMakeSimpleShadow:Boolean = false):void {
@@ -181,7 +186,7 @@ public class CButton extends Sprite {
     }
 
     private function onBeganClickAnimation():void {
-        _bg.filter = ManagerFilters.BUTTON_CLICK_FILTER;
+        if (_useFilters) _bg.filter = ManagerFilters.BUTTON_CLICK_FILTER;
         this.scaleX = this.scaleY = _scale*.95;
     }
 
@@ -191,7 +196,7 @@ public class CButton extends Sprite {
     }
 
     private function onHoverAnimation():void {
-        _bg.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+        if (_useFilters) _bg.filter = ManagerFilters.BUTTON_HOVER_FILTER;
     }
 
     private function onOutAnimation():void {

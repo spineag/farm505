@@ -48,6 +48,7 @@ public class PlantOnRidge {
     public function checkStateRidge(needSetTimer:Boolean = true):void {
         switch (_ridge.stateRidge) {
             case Ridge.EMPTY:
+                _ridge.checkBuildRect(true);
                 while (_source.numChildren) {
                     _source.removeChildAt(0);
                 }
@@ -55,19 +56,23 @@ public class PlantOnRidge {
 
             case Ridge.GROW1:
                 armature.animation.gotoAndStop("state1", 0);
+                _ridge.checkBuildRect(false);
                 if (needSetTimer) _timeToEndState = _data.timeToGrow2;
                 break;
             case Ridge.GROW2:
                 armature.animation.gotoAndStop("state2", 0);
+                _ridge.checkBuildRect(false);
                 if (needSetTimer) _timeToEndState = _data.timeToGrow3;
                 break;
             case Ridge.GROW3:
                 armature.animation.gotoAndStop("state3", 0);
+                _ridge.checkBuildRect(false);
                 if (needSetTimer) _timeToEndState = _data.timeToStateGwoned;
                 break;
             case Ridge.GROWED:
                 armature.animation.gotoAndStop("state4", 0);
-                animateEndState();
+                _ridge.checkBuildRect(false);
+//                animateEndState(); !!!
                 addParticles();
                 break;
         }

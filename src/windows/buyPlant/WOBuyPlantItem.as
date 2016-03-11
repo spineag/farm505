@@ -14,6 +14,9 @@ import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.HAlign;
 
+import tutorial.SimpleArrow;
+import tutorial.TutorialAction;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -25,6 +28,7 @@ public class WOBuyPlantItem {
     private var _clickCallback:Function;
     private var _txtNumber:TextField;
     private var _countPlants:int;
+    private var _arrow:SimpleArrow;
 
     private var g:Vars = Vars.getInstance();
 
@@ -64,6 +68,9 @@ public class WOBuyPlantItem {
         fillIcon(_dataPlant.imageShop);
         _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
         _txtNumber.text = String(_countPlants);
+        if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialResoucre(_dataPlant.id)) {
+            addArrow();
+        }
     }
 
     private function fillIcon(s:String):void {
@@ -85,6 +92,7 @@ public class WOBuyPlantItem {
     }
 
     public function unfillIt():void {
+        removeArrow();
         if (_icon) {
             source.removeChild(_icon);
             _icon = null;
@@ -120,6 +128,19 @@ public class WOBuyPlantItem {
         if (!_dataPlant) return;
         source.filter = null;
         g.resourceHint.hideIt();
+    }
+
+    private function addArrow():void {
+        removeArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source, 1);
+        _arrow.animateAtPosition(source.width/2, 0);
+    }
+
+    private function removeArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

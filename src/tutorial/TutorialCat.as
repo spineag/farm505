@@ -25,9 +25,10 @@ public class TutorialCat extends BasicCat {
         super();
 
         _source = new CSprite();
-        _source.touchable = false;
         _catImage = new Sprite();
         _catBackImage = new Sprite();
+        _catImage.touchable = false;
+        _catBackImage.touchable = false;
         freeIdleGo = true;
 
         _animation = new HeroCatsAnimation();
@@ -55,13 +56,13 @@ public class TutorialCat extends BasicCat {
         _source.addChildAt(im, 0);
     }
 
-    public function showBubble(st:String):void {
+    public function showBubble(st:String, stBtn:String = '', callback:Function = null, delay:Number=0):void {
         if (_bubble) {
-            _bubble.showBubble(st, _isFlip);
+            _bubble.showBubble(st, _isFlip, stBtn, callback);
         }
     }
 
-    public function hideText():void {
+    public function hideBubble():void {
         if (_bubble) {
             _bubble.hideBubble();
         }

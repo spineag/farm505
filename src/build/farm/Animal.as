@@ -5,26 +5,19 @@ package build.farm {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
-import resourceItem.CraftItem;
 import resourceItem.RawItem;
-import resourceItem.ResourceItem;
 import starling.display.Sprite;
 import starling.textures.Texture;
-
+import tutorial.SimpleArrow;
 import utils.CSprite;
 
 public class Animal {
@@ -42,6 +35,8 @@ public class Animal {
     private var _isOnHover:Boolean;
     private var _farm:Farm;
     public var animal_db_id:String;  // id в табличке user_animal
+    private var _arrow:SimpleArrow;
+    private var _rect:flash.geom.Rectangle;
 
     private var armature:Armature;
     private var defaultLabel:String;
@@ -120,6 +115,20 @@ public class Animal {
 
     public function get state():int {
         return _state;
+    }
+
+    public function addArrow():void {
+        _rect = source.getBounds(source);
+        hideArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source, 1);
+        _arrow.animateAtPosition(0, _rect.y);
+    }
+
+    public function hideArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 
     public function fillItFromServer(ob:Object):void {
@@ -279,6 +288,21 @@ public class Animal {
         } else if (_state == WORK) {
             chooseAnimation();
         }
+    }
+
+    public function playDirectIdle():void {
+        stopAnimation();
+        armature.addEventListener(AnimationEvent.COMPLETE, completeDirectIdleAnimation);
+        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, completeDirectIdleAnimation);
+        armature.animation.gotoAndPlay(idleLabels[0]);
+    }
+
+    private function completeDirectIdleAnimation():void {
+        if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, completeDirectIdleAnimation);
+        if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeDirectIdleAnimation);
+        armature.addEventListener(AnimationEvent.COMPLETE, completeDirectIdleAnimation);
+        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, completeDirectIdleAnimation);
+        armature.animation.gotoAndPlay(idleLabels[0]);
     }
 
     private function showHungryAnimations():void {

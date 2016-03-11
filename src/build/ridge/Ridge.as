@@ -31,6 +31,12 @@ import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
+import tutorial.TutorialAction;
+
+import tutorial.TutorialAction;
+
 import utils.CSprite;
 
 public class Ridge extends AreaObject{
@@ -95,16 +101,21 @@ public class Ridge extends AreaObject{
     }
 
     private function onHover():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor || g.isAway){
-            trace('away');
             return;
         }
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+            if (g.managerTutorial.isTutorial) return;
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             g.managerPlantRidge.checkFreeRidges();
+//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
+//                if (_tutorialCallback != null) {
+//                    _tutorialCallback.apply(null, [this]);
+//                }
+//            }
         } else {
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
             _isOnHover = true;
@@ -115,7 +126,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onStartClick():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
             if (g.toolsModifier.plantId <= 0 || _stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
@@ -126,11 +137,16 @@ public class Ridge extends AreaObject{
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             _source.filter = null;
             g.managerPlantRidge.checkFreeRidges();
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
+                if (_tutorialCallback != null) {
+                    _tutorialCallback.apply(null, [this]);
+                }
+            }
         }
     }
 
     private function onEndClick():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
             onOut();
@@ -173,8 +189,16 @@ public class Ridge extends AreaObject{
             }
             if (_stateRidge == EMPTY) {
                 onOut();
+                if (g.managerTutorial.isTutorial && _tutorialCallback != null) {
+                    hideArrow();
+                }
                 g.woBuyPlant.showItWithParams(this, onBuy);
             } else if (_stateRidge == GROWED) {
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
+                    if (_tutorialCallback != null) {
+                        _tutorialCallback.apply(null, [this]);
+                    }
+                }
                  if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
                      _source.filter = null;
                       g.woAmbarFilled.showAmbarFilled(true);
@@ -198,10 +222,23 @@ public class Ridge extends AreaObject{
         }
     }
 
+    public function checkBuildRect(isEmpty:Boolean):void {
+        if (isEmpty) {
+            _rect = _build.getBounds(_build);
+        } else {
+            _rect = _plantSprite.getBounds(_plantSprite);
+        }
+    }
+
     private function onBuy():void {
         g.toolsModifier.plantId = _dataPlant.id;
         g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
         g.managerPlantRidge.checkFreeRidges();
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
+            if (_tutorialCallback != null) {
+                _tutorialCallback.apply(null, [this]);
+            }
+        }
     }
 
     private function onOut():void {

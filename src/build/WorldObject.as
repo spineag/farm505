@@ -37,10 +37,12 @@ public class WorldObject {
     protected var _dbBuildingId:int = 0;   // id в таблице user_building
     protected var _stateBuild:int;  // состояние постройки (активное, в процесе стройки..)
     protected var _arrow:SimpleArrow;
+    protected var _tutorialCallback:Function;
 
     protected static var g:Vars = Vars.getInstance();
 
     public function WorldObject() {
+        _tutorialCallback = null;
     }
 
     public function get sizeX():uint {
@@ -169,6 +171,10 @@ public class WorldObject {
             _arrow.deleteIt();
             _arrow = null;
         }
+    }
+
+    public function set tutorialCallback(f:Function):void {
+        _tutorialCallback = f;
     }
 }
 }

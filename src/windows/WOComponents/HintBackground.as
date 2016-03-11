@@ -238,7 +238,7 @@ public class HintBackground extends Sprite {
 
     public function addTextField(size:int):void {
         deleteTextField();
-        _txt = new TextField(_bg.width - 10, _bg.height - 10,'',g.allData.fonts['BloggerBold'],size,ManagerFilters.TEXT_BLUE);
+        _txt = new TextField(_bg.width - 10, _bg.height - 20,'',g.allData.fonts['BloggerBold'],size,ManagerFilters.TEXT_BLUE);
         _txt.x = _bg.x + 5;
         _txt.y = _bg.y + 5;
         addChild(_txt);
