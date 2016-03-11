@@ -31,7 +31,8 @@ public class RepositoryBox {
     private var _arrItems:Array;
     private var count:int;
     private var _shift:int;
-
+    private var _number:int;
+    public var update:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function RepositoryBox() {
@@ -70,9 +71,11 @@ public class RepositoryBox {
         _rightBtn.y = 40;
         source.addChild(_rightBtn);
         _rightBtn.clickCallback = onRight;
+
     }
 
     public function showIt():void {
+        update = false;
         g.event.addEventListener(OwnEvent.UPDATE_REPOSITORY, updateItems);
         _shift = 0;
         showItems();
@@ -93,12 +96,13 @@ public class RepositoryBox {
         var ob:Object = g.userInventory.decorInventory;
         for (var id:String in ob) {
             item = new RepositoryItem();
-            item.fillIt(Utils.objectDeepCopy(g.dataBuilding.objectBuilding[id]), ob[id].count, (ob[id].ids as Array).slice(), this);
+            item.fillIt(Utils.objectDeepCopy(g.dataBuilding.objectBuilding[id]), ob[id].count, (ob[id].ids as Array).slice(), this,count);
             item.source.x = count * 64;
             _cont.addChild(item.source);
             _arrItems.push(item);
             count++;
         }
+
         checkBtns();
     }
 
@@ -154,5 +158,14 @@ public class RepositoryBox {
             _rightBtn.setEnabled = false;
         }
     }
+
+     public function arrNumber(num:int):void {
+        _number = num;
+     }
+
+    public function  updateThis():void {
+        _arrItems[_number].updateCount();
+    }
+
 }
 }

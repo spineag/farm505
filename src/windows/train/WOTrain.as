@@ -55,6 +55,7 @@ public class WOTrain extends Window {
     private var _txtXpAll:TextField;
     public var _imageItem:Image;
     private var _lock:int;
+    private var _isBigCount:Boolean;
 
     public function WOTrain() {
         super ();
@@ -265,15 +266,15 @@ public class WOTrain extends Window {
                 return;
             }
             _build = b;
-            var isBigCount:Boolean = list.length > 9;
+            _isBigCount = list.length > 9;
             var type:int;
             for (var i:int = 0; i<list.length; i++) {
-                if (isBigCount) type = int(i/4);
+                if (_isBigCount) type = int(i/4);
                 else type = int(i/3);
                 _arrItems[i].fillIt(list[i], i, type + 1);
                 _arrItems[i].clickCallback = onItemClick;
             }
-            if (!isBigCount) {
+            if (!_isBigCount) {
                 _arrItems[9].fillIt(null, 9, CELL_GRAY);
                 _arrItems[10].fillIt(null, 10, CELL_GRAY);
                 _arrItems[11].fillIt(null, 11, CELL_GRAY);
@@ -393,10 +394,18 @@ public class WOTrain extends Window {
 //        }
         _lock = 0;
         for (i = 0; i<_arrItems.length; i++) {
-            if (_arrItems[i].isResourceLoaded) {
+            if (!_isBigCount && i == 9 || i == 10 || i == 11){
+                _lock++;
+            } else if (_arrItems[i].isResourceLoaded) {
                 _lock++;
             }
         }
+
+//        if (!_isBigCount && _lock >= 9) {
+//            _btn.alpha = 1;
+//            _btn.clickCallback = fullTrain;
+//            return;
+//        }
         if (_lock >= _arrItems.length || _lock == 0) {
             _btn.alpha = 1;
         } else {

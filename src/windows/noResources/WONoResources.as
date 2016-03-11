@@ -153,6 +153,7 @@ public class WONoResources extends Window {
     }
 
     public function showItMenu(data:Object, count:int, f:Function = null, r:Ridge = null, params:Object = null):void {
+        hideIt();
         createList(data, count);
         showIt();
         _params = params;

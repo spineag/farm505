@@ -24,7 +24,7 @@ public class ToolsPanel {
     private var _repositoryBtn:CButton;
     private var _flipBtn:CButton;
     private var _moveBtn:CButton;
-    private var _repositoryBox:RepositoryBox;
+    public var repositoryBox:RepositoryBox;
     private var g:Vars = Vars.getInstance();
 
     public function ToolsPanel() {
@@ -35,8 +35,8 @@ public class ToolsPanel {
                 g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 204);
         _source.addChild(pl);
 
-        _repositoryBox = new RepositoryBox();
-        g.cont.interfaceCont.addChildAt(_repositoryBox.source, 0);
+        repositoryBox = new RepositoryBox();
+        g.cont.interfaceCont.addChildAt(repositoryBox.source, 0);
         createBtns();
         _source.visible = false;
         onResize();
@@ -101,13 +101,13 @@ public class ToolsPanel {
         } else {
             _source.x = Starling.current.nativeStage.stageWidth - 271;
         }
-        if (_repositoryBox.source.visible) {
-            _repositoryBox.source.y = Starling.current.nativeStage.stageHeight - 83;
+        if (repositoryBox.source.visible) {
+            repositoryBox.source.y = Starling.current.nativeStage.stageHeight - 83;
         } else {
-            _repositoryBox.source.y = Starling.current.nativeStage.stageHeight + 10;
+            repositoryBox.source.y = Starling.current.nativeStage.stageHeight + 10;
         }
 
-        _repositoryBox.source.x = Starling.current.nativeStage.stageWidth - 740;
+        repositoryBox.source.x = Starling.current.nativeStage.stageWidth - 740;
         _source.y = Starling.current.nativeStage.stageHeight - 83;
     }
 
@@ -118,7 +118,7 @@ public class ToolsPanel {
     }
 
     public function hideRepository():void {
-        _repositoryBox.hideIt();
+        repositoryBox.hideIt();
     }
 
     public function hideIt():void {
@@ -129,13 +129,17 @@ public class ToolsPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'repository':
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.toolsModifier.cancelMove();
+                }
                 if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                     if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
                         g.toolsModifier.modifierType = ToolsModifier.NONE;
                         hideRepository();
                     } else {
                         g.toolsModifier.modifierType = ToolsModifier.INVENTORY;
-                        _repositoryBox.showIt();
+                        repositoryBox.showIt();
                     }
                 }
                 if (g.buyHint.showThis) g.buyHint.hideIt();
@@ -168,7 +172,7 @@ public class ToolsPanel {
     }
 
     public function get repositoryBoxVisible():Boolean {
-        return _repositoryBox.source.visible;
+        return repositoryBox.source.visible;
     }
 }
 }

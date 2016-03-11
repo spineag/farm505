@@ -254,7 +254,8 @@ public class WOMarket  extends Window {
             _curUser = p;
             createMarketTabBtns(true);
         }else createMarketTabBtns();
-        fillItemsByUser(p);
+//        fillItemsByUser(p);
+        choosePerson(p);
         showIt();
 
     }
@@ -353,7 +354,8 @@ public class WOMarket  extends Window {
     private function addItemsFriend(callback:Boolean = false,_person:Someone = null):void {
 
         if (!callback)g.directServer.getFriendsMarketCell(int(_person.userSocialId),_person,addItemsFriend);
-        clearItems();
+        if (_arrItems == null) _arrItems = [];
+        else clearItems();
 
         if (_person.marketCell == 0) {
             _person.marketCell = 5;
@@ -448,18 +450,19 @@ public class WOMarket  extends Window {
 
     public function fillItemsByUser(p:Someone):void {
     _curUser = p;
-        if (p.marketItems) {
-            fillItems();
-        } else {
+//        if (p.marketItems) {
+//            fillItems();
+//        } else {
             if (p is NeighborBot) {
                 g.directServer.getUserNeighborMarket(fillItems);
             } else {
                 g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
             }
-        }
+//        }
     }
 
     public function unFillItems():void {
+        if (_arrItems == null) return;
         for (var i:int=0; i< _arrItems.length; i++) {
             if(!_arrItems[i].number) return;
             _arrItems[i].unFillIt();
@@ -532,6 +535,11 @@ public class WOMarket  extends Window {
         return _booleanPaper;
     }
 
+    public function startTimer():void {
+        _timer = 300;
+        g.gameDispatcher.addToTimer(onTimer);
+    }
+
     private function onTimer():void {
         _timer --;
         _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(_timer);
@@ -543,6 +551,7 @@ public class WOMarket  extends Window {
         } else {
             _booleanPaper = false;
             _imCheck.visible = false;
+            _btnPaper.visible = true;
         }
     }
 

@@ -203,10 +203,12 @@ public class MarketItem {
         _papper.visible = false;
 
         _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-        _imCheck.x = 15;
-        _imCheck.y = 15;
+        MCScaler.scale(_imCheck,20,20);
+//        _imCheck.x = 5;
+//        _imCheck.y = 5;
         source.addChild(_imCheck);
         _imCheck.visible = false;
+
         _delete = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
         _delete.addDisplayObject(im);
@@ -280,9 +282,10 @@ public class MarketItem {
 
     private function onPaper ():void {
         var b:Boolean = g.woMarket.booleanPaper;
-        if (_inPapper && b) return;
+        if (_inPapper || !b) return;
         _inPapper = true;
         _imCheck.visible = true;
+        g.woMarket.startTimer();
         g.directServer.updateMarketPapper(number,true,null);
     }
 
@@ -291,6 +294,9 @@ public class MarketItem {
             g.woBuyCurrency.showItMenu(true);
             return;
         }
+        _papper.visible = false;
+        _imCheck.visible = false;
+        _inPapper = false;
         g.userInventory.addMoney(1,-1);
         g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
         for (var i:int = 0; i < g.user.marketItems.length; i++) {
@@ -460,7 +466,7 @@ public class MarketItem {
         _plawkaLvl.visible = false;
         _txtPlawka.visible = false;
         _delete.visible = false;
-        _papper.visible = false;
+//        _papper.visible = false;
         g.marketHint.hideIt();
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
     }
@@ -470,11 +476,6 @@ public class MarketItem {
         _person = p;
         _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
-        _inPapper = _dataFromServer.inPapper;
-        if (_inPapper) {
-            _papper.visible = true;
-            _imCheck.visible = true;
-        }
         if (_dataFromServer.buyerId != '0') {
             if (_person.userSocialId == g.user.userSocialId) {
                 _plawkaSold.visible = false;
@@ -495,6 +496,11 @@ public class MarketItem {
             }
             isFill = 2;
         } else {
+            _inPapper = _dataFromServer.inPapper;
+            if (_inPapper) {
+                _papper.visible = true;
+                _imCheck.visible = true;
+            }
             isFill = 1;
             fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
             if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) {
