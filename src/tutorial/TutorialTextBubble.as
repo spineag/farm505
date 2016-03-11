@@ -45,7 +45,7 @@ public class TutorialTextBubble {
             _bubble.x = 46 * g.scaleFactor;
             _bubble.y = -100 * g.scaleFactor;
         } else {
-            _bubble = new HintBackground(500 * g.scaleFactor, 300 * g.scaleFactor, HintBackground.SMALL_TRIANGLE, HintBackground.RIGHT_TOP);
+            _bubble = new HintBackground(500 * g.scaleFactor, 300 * g.scaleFactor, HintBackground.SMALL_TRIANGLE, HintBackground.RIGHT_BOTTOM);
             _bubble.x = -46 * g.scaleFactor;
             _bubble.y = -100 * g.scaleFactor;
         }

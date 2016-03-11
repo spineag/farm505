@@ -139,7 +139,7 @@ public class ManagerCats {
                 g.woGameError.showIt();
                 return;
             }
-            (cat as HeroCat).killAllAnimations();
+            if (cat is HeroCat) (cat as HeroCat).killAllAnimations();
             if (cat.posX == p.x && cat.posY == p.y) {
                 cat.flipIt(false);
                 cat.showFront(true);

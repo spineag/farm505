@@ -15,7 +15,7 @@ import starling.display.Sprite;
 import starling.utils.Color;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = false;
+    private const TUTORIAL_ON:Boolean = true;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
@@ -231,10 +231,33 @@ public class ManagerTutorial {
 
     private function subStep4_2():void {
         cat.hideBubble();
+        _currentAction = TutorialAction.CHICKEN_FEED;
         tutorialObjects = g.townArea.getCityObjectsByType(BuildType.FARM);
         tutorialObjects = (tutorialObjects[0] as Farm).arrAnimals;
         (tutorialObjects[0] as Animal).playDirectIdle();
         (tutorialObjects[0] as Animal).addArrow();
+        (tutorialObjects[0] as Animal).tutorialCallback = subStep4_3;
+    }
+
+    private function subStep4_3(chick:Animal):void {
+        chick.hideArrow();
+        chick.tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        subStep = 3;
+        cat.flipIt(true);
+        cat.playDirectLabel('idle3', true, playCatIdle);
+        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep4_4);
+    }
+
+    private function subStep4_4():void {
+        cat.flipIt(false);
+        (tutorialObjects[0] as Animal).playDirectIdle();
+        (tutorialObjects[0] as Animal).addArrow();
+        (tutorialObjects[0] as Animal).tutorialCallback = subStep4_5;
+    }
+
+    private function subStep4_5():void {
+
     }
 
 

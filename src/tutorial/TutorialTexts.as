@@ -24,6 +24,7 @@ public class TutorialTexts {
 
         _objText[4] = {};
         _objText[4][1] = 'Снова куры все сожрали! Покорми их!';
+        _objText[4][3] = 'Чтобы курочка быстрее оплодилась - нажми на неё и выбери Ускорить';
     }
 
     public function get objText():Object { return _objText }

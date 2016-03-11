@@ -18,6 +18,8 @@ import resourceItem.RawItem;
 import starling.display.Sprite;
 import starling.textures.Texture;
 import tutorial.SimpleArrow;
+import tutorial.TutorialAction;
+
 import utils.CSprite;
 
 public class Animal {
@@ -37,6 +39,7 @@ public class Animal {
     public var animal_db_id:String;  // id в табличке user_animal
     private var _arrow:SimpleArrow;
     private var _rect:flash.geom.Rectangle;
+    private var _tutorialCallback:Function;
 
     private var armature:Armature;
     private var defaultLabel:String;
@@ -57,6 +60,7 @@ public class Animal {
         source = new CSprite();
         _data = data;
         _isOnHover = false;
+        _tutorialCallback = null;
 
         armature = g.allData.factory[_data.image].buildArmature("animal");
         if (!armature) {
@@ -131,6 +135,10 @@ public class Animal {
         }
     }
 
+    public function set tutorialCallback(f:Function):void {
+        _tutorialCallback = f;
+    }
+
     public function fillItFromServer(ob:Object):void {
         if (ob.id) animal_db_id = ob.id;
             else animal_db_id = '0';
@@ -173,6 +181,7 @@ public class Animal {
     }
 
     private function onClick(last:Boolean = false):void {
+        if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         if (_state == HUNGRY) {
             onOut();
@@ -207,6 +216,11 @@ public class Animal {
                     addRenderAnimation();
                 }
                 onOut();
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CHICKEN_FEED) {
+                    if (_tutorialCallback != null) {
+                        _tutorialCallback.apply(null, [this]);
+                    }
+                }
             } else {
                 onOut();
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
@@ -222,6 +236,7 @@ public class Animal {
     }
 
     private function onHover():void {
+        if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
@@ -237,6 +252,7 @@ public class Animal {
     }
 
     private function onOut():void {
+        if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         source.filter = null;
         _isOnHover = false;
@@ -297,7 +313,7 @@ public class Animal {
         armature.animation.gotoAndPlay(idleLabels[0]);
     }
 
-    private function completeDirectIdleAnimation():void {
+    private function completeDirectIdleAnimation(e:AnimationEvent):void {
         if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, completeDirectIdleAnimation);
         if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeDirectIdleAnimation);
         armature.addEventListener(AnimationEvent.COMPLETE, completeDirectIdleAnimation);
