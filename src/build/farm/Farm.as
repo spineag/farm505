@@ -48,8 +48,13 @@ public class Farm extends AreaObject{
         if (_dataAnimal.id != 6) {
             try {
                 _imageBottom = new Image(g.allData.atlas[_data.url].getTexture(_data.image + '2'));
-                _imageBottom.x = -338 * g.scaleFactor;
-                _imageBottom.y = 88 * g.scaleFactor;
+                if (_dataAnimal.id = 1) {
+                    _imageBottom.x = -290 * g.scaleFactor;
+                    _imageBottom.y = 67 * g.scaleFactor;
+                } else {
+                    _imageBottom.x = -338 * g.scaleFactor;
+                    _imageBottom.y = 88 * g.scaleFactor;
+                }
                 _imageBottom.touchable = false;
                 _source.addChild(_imageBottom);
             } catch (e:Error) {

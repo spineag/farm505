@@ -22,7 +22,7 @@ public class EmbedAssets {
     private const ResourceTexture:Class;
     [Embed(source="../../assets/x1/wildAtlas2.png")]
     private const WildTexture:Class;
-    [Embed(source="../../assets/x1/farmAtlas.png")]
+    [Embed(source="../../assets/x1/farmAtlas2.png")]
     private const FarmTexture:Class;
     [Embed(source="../../assets/x1/decorAtlas.png")]
     private const DecorTexture:Class;
@@ -40,7 +40,7 @@ public class EmbedAssets {
     private const ResourceTextureXML:Class;
     [Embed(source="../../assets/x1/wildAtlas2.xml", mimeType="application/octet-stream")]
     private const WildTextureXML:Class;
-    [Embed(source="../../assets/x1/farmAtlas.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/x1/farmAtlas2.xml", mimeType="application/octet-stream")]
     private const FarmTextureXML:Class;
     [Embed(source="../../assets/x1/decorAtlas.xml", mimeType="application/octet-stream")]
     private const DecorTextureXML:Class;

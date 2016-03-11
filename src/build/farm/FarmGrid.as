@@ -32,9 +32,10 @@ public class FarmGrid {
          return _matrix[0][0];
      }
 
-    public function getRandomPoint():Point {
-        var i:int = int(Math.random()*COUNT);
-        var j:int = int(Math.random()*COUNT);
+    public function getRandomPoint(count:int = 0):Point {
+        if (count <= 0) count = COUNT;
+        var i:int = int(Math.random()*count);
+        var j:int = int(Math.random()*count);
         return _matrix[i][j];
     }
 

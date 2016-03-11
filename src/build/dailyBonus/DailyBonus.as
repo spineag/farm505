@@ -53,7 +53,7 @@ public class DailyBonus extends AreaObject{
             }
             while (_build.numChildren) _build.removeChildAt(0);
         }
-        _armature = g.allData.factory[_dataBuild.image].buildArmature("building");
+        _armature = g.allData.factory[_dataBuild.image].buildArmature("cat");
         _build.addChild(_armature.display as Sprite);
         WorldClock.clock.add(_armature);
         _defaultScale = 1;

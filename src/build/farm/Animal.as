@@ -374,7 +374,12 @@ public class Animal {
     }
 
     private function walkAnimation():void {
-        var p:Point = g.farmGrid.getRandomPoint();
+        var p:Point;
+        if (_data.id == 1) {
+            g.farmGrid.getRandomPoint(7);
+        } else {
+            g.farmGrid.getRandomPoint();
+        }
         var dist:int = Math.sqrt((source.x - p.x)*(source.x - p.x) + (source.y - p.y)*(source.y - p.y));
         if (p.x > source.x) {
             source.scaleX = -1;
