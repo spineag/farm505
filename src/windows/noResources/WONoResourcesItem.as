@@ -15,27 +15,35 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 import utils.MCScaler;
 
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
 
 public class WONoResourcesItem {
-    public var source:Sprite;
+    public var source:CSprite;
     private var _image:Image;
     private var _txtCount:TextField;
+    private var _inHover:Boolean;
+    private var _dataId:int;
 
     private var g:Vars = Vars.getInstance();
 
     public function WONoResourcesItem() {
-        source = new Sprite();
+        source = new CSprite();
         var bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         MCScaler.scale(bg,66, 70);
         source.addChild(bg);
+        source.hoverCallback = onHover;
+        source.outCallback = onOut;
+        _inHover = false;
     }
 
     public function fillWithResource(id:int, count:int):void {
         var ob:Object = g.dataResource.objectResources[id];
+        _dataId = id;
         if (!ob) {
             Cc.error('WONoResourcesItem:: g.dataResource.objectResources[id] = null  for id = ' + id);
             g.woGameError.showIt();
@@ -108,6 +116,18 @@ public class WONoResourcesItem {
         while (source.numChildren) {
             source.removeChildAt(0);
         }
+    }
+
+    private function onHover():void {
+        if (_inHover) return;
+        _inHover = true;
+        g.marketHint.showIt(_dataId,source.x,source.y,source);
+
+    }
+
+    private function onOut():void {
+        _inHover = false;
+        g.marketHint.hideIt();
     }
 }
 }

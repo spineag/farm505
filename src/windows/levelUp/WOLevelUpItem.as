@@ -28,6 +28,7 @@ public class WOLevelUpItem {
     private var _data:Object;
     private var _onHover:Boolean;
     private var _bolHouse:Boolean;
+    private var _bolAnimal:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function WOLevelUpItem(ob:Object, boNew:Boolean, boCount:Boolean, count:int = 0) {
@@ -42,6 +43,7 @@ public class WOLevelUpItem {
         _data = ob;
         source = new CSprite();
         _onHover = false;
+        _bolAnimal = false;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _txtNew = new TextField(80,20,'',g.allData.fonts['BloggerBold'],16,Color.WHITE);
@@ -92,6 +94,17 @@ public class WOLevelUpItem {
                 _txtNew.text = '';
                 g.userInventory.addResource(ob.id,ob.count);
             }
+
+            if (ob.catCount) {
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
+                _txtCount.text = String(count);
+                _txtNew.text = '';
+            }
+            if (ob.ridgeCount) {
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
+                _txtCount.text = String(count);
+                _txtNew.text = '';
+            }
             if (ob.buildType == BuildType.FARM) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
@@ -128,6 +141,7 @@ public class WOLevelUpItem {
             } else if (ob.buildType == BuildType.ANIMAL) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
+                _bolAnimal = true;
             } else if (ob.buildType == BuildType.INSTRUMENT) {
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
@@ -166,6 +180,7 @@ public class WOLevelUpItem {
         _imageBg = null;
         source = null;
         _bolHouse = false;
+        _bolAnimal = false;
     }
 
     private function onHover():void {
@@ -174,7 +189,7 @@ public class WOLevelUpItem {
         if (_data.hard) return;
 
         _onHover = true;
-        g.levelUpHint.showIt(_data.id,source.x,source.y,source, _bolHouse);
+        g.levelUpHint.showIt(_data.id,source.x,source.y,source, _bolHouse,_bolAnimal);
     }
 
     private function onOut():void {

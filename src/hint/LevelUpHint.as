@@ -65,7 +65,7 @@ public class LevelUpHint {
         }
     }
 
-    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite, house:Boolean):void {
+    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite, house:Boolean,animal:Boolean):void {
         var wText:int = 0;
         var wName:int = 0;
 //        if (!g.dataResource.objectResources[_dataId]) {
@@ -78,7 +78,62 @@ public class LevelUpHint {
         start = source.parent.localToGlobal(start);
         _source.x = start.x + source.width/2;
         _source.y = start.y + source.height;
-
+        if (_dataId == -1) {
+            _txtName = new TextField(200, 30,'Кот', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName.x = -100;
+            _txtName.y = 25;
+            _txtText = new TextField(200,100,'Работает на ферме', g.allData.fonts['BloggerBold'],12,Color.WHITE);
+            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText.x = -100;
+            _txtText.y = 10;
+            wName = _txtText.textBounds.width + 40;
+            bg = new HintBackground(wName, 70, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            _source.addChild(bg);
+            _source.addChild(_txtName);
+            _source.addChild(_txtText);
+            _source.flatten();
+            g.cont.hintCont.addChild(_source);
+            return;
+        }
+        if (_dataId == -2) {
+            _txtName = new TextField(200, 30,'Грядка', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName.x = -100;
+            _txtName.y = 25;
+            _txtText = new TextField(200,100,'На ней растут растения', g.allData.fonts['BloggerBold'],12,Color.WHITE);
+            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText.x = -100;
+            _txtText.y = 10;
+            wName = _txtText.textBounds.width + 40;
+            bg = new HintBackground(wName, 70, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            _source.addChild(bg);
+            _source.addChild(_txtName);
+            _source.addChild(_txtText);
+            _source.flatten();
+            g.cont.hintCont.addChild(_source);
+            return;
+        }
+        if (animal) {
+            _txtName = new TextField(200, 30,String(g.dataAnimal.objectAnimal[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName.x = -100;
+            _txtName.y = 25;
+            _txtText = new TextField(200,100,'Производит: ' + g.dataResource.objectResources[g.dataAnimal.objectAnimal[_dataId].idResource].name, g.allData.fonts['BloggerBold'],12,Color.WHITE);
+            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText.x = -100;
+            _txtText.y = 10;
+            _txtTime = new TextField(200,100,'Место жительства: ' + g.dataBuilding.objectBuilding[g.dataAnimal.objectAnimal[_dataId].buildId].name, g.allData.fonts['BloggerBold'],12,Color.WHITE);
+            _txtTime.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtTime.x = -100;
+            _txtTime.y = 30;
+            wName = _txtTime.textBounds.width + 40;
+            bg = new HintBackground(wName, 90, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            _source.addChild(bg);
+            _source.addChild(_txtName);
+            _source.addChild(_txtText);
+            _source.addChild(_txtTime);
+            _source.flatten();
+            g.cont.hintCont.addChild(_source);
+            return;
+        }
         if (house) {
             if (g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.FARM || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.RIDGE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.FABRICA
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.TREE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_FULL_FENСE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_POST_FENCE
@@ -88,17 +143,6 @@ public class LevelUpHint {
                 _txtName = new TextField(200, 30, String(g.dataBuilding.objectBuilding[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
                 _txtName.x = -100;
                 _txtName.y = 25;
-                wName = _txtName.textBounds.width + 40;
-                bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                _source.addChild(bg);
-                _source.addChild(_txtName);
-                _source.flatten();
-                g.cont.hintCont.addChild(_source);
-                return;
-            } else if (g.dataAnimal.objectAnimal[_dataId].buildType == BuildType.ANIMAL) {
-                _txtName = new TextField(200, 30, String(g.dataAnimal.objectAnimal[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
-                _txtName.x = -100;
-                _txtName.y = 20;
                 wName = _txtName.textBounds.width + 40;
                 bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);

@@ -97,6 +97,8 @@ public class DirectServer {
                 for (k = 0; k < obj.countDecor.length; k++) obj.countDecor[k] = int(obj.countDecor[k]);
                 if (d.message[i].count_resource) obj.countResource = String(d.message[i].count_resource).split('&');
                 for (k = 0; k < obj.countResource.length; k++) obj.countResource[k] = int(obj.countResource[k]);
+                obj.catCount = int(d.message[i].cat_count);
+                obj.ridgeCount = int(d.message[i].ridge_count);
                 g.dataLevel.objectLevels[obj.id] = obj;
             }
             if (callback != null) {
