@@ -97,8 +97,7 @@ public class ShopList {
             } else if (arr[j].buildType == BuildType.RIDGE || arr[j].buildType == BuildType.FARM || arr[j].buildType == BuildType.PET_HOUSE || arr[j].buildType == BuildType.CAT) {
 
                 b = false;
-                if(arr[j].buildType == BuildType.FARM)
-                {
+                if(arr[j].buildType == BuildType.FARM) {
                     arLocked = g.townArea.getCityObjectsById(arr[j].id);
                     for (i = 0; arr[j].blockByLevel.length; i++) {
                         if (arr[j].blockByLevel[i] <= g.user.level) {
@@ -186,16 +185,23 @@ public class ShopList {
         while (_itemsSprite.numChildren) {
             _itemsSprite.removeChildAt(0);
         }
-        _itemsSprite.x = 0;
+//        _itemsSprite.x = 0;
+//        if (g.woShop.getAnimalClick) {
+//            _shift = 0;
+//            animList();
+//            g.woShop.activateTab(2);
+
         if (!b && !_decor) {
             _shift = 0;
             animList();
+            g.woShop.activateTab(1);
         } else if (b && _decor){
             animList();
 //            _decor = false;
-        } if (!b && _decor) {
+        } else if (!b && _decor) {
             _shift = 0;
             animList();
+            g.woShop.activateTab(1);
         }
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].clearIt();

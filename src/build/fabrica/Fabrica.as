@@ -33,6 +33,7 @@ public class Fabrica extends AreaObject {
     private var _count:int;
     private var _arrCrafted:Array;
     private var _armature:Armature;
+    private var _armatureOpen:Armature;
 
     public function Fabrica(_data:Object) {
         super(_data);
@@ -203,6 +204,7 @@ public class Fabrica extends AreaObject {
                 start = _source.parent.localToGlobal(start);
                 new XPStar(start.x, start.y, _dataBuild.xpForBuild);
             }
+            showBoom();
         }
     }
 
@@ -514,6 +516,24 @@ public class Fabrica extends AreaObject {
         } else {
             Cc.error('Fabrica changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
         }
+    }
+
+    private function showBoom():void {
+        _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
+        _source.addChild(_armatureOpen.display as Sprite);
+        WorldClock.clock.add(_armatureOpen);
+        _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
+        _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        _armatureOpen.animation.gotoAndPlay("start");
+    }
+
+    private function onBoom(e:AnimationEvent=null):void {
+        if (_armatureOpen.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.COMPLETE, onBoom);
+        if (_armatureOpen.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        WorldClock.clock.remove(_armatureOpen);
+        _source.removeChild(_armatureOpen.display as Sprite);
+        _armatureOpen.dispose();
+        _armatureOpen = null;
     }
 
 }

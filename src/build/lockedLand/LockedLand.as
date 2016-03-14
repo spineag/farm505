@@ -6,6 +6,11 @@ import build.AreaObject;
 import build.wild.Wild;
 import com.junkbyte.console.Cc;
 import data.DataMoney;
+
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
@@ -20,7 +25,8 @@ public class LockedLand extends AreaObject {
     private var _arrWilds:Array;
     private var _topRibbon:Sprite;
     private var _bottomRibbon:Sprite;
-
+    private var _armatureOpen:Armature;
+    private var _contOpen:Sprite;
     public function LockedLand(_data:Object) {
         super(_data);
         if (!_data) {
@@ -45,6 +51,7 @@ public class LockedLand extends AreaObject {
             _source.outCallback = onOut;
         }
         _source.releaseContDrag = true;
+        _contOpen = new Sprite();
 
         var s:Sprite = CreateTile.createSimpleTile(10);
         s.alpha = 0;
@@ -144,6 +151,8 @@ public class LockedLand extends AreaObject {
     }
 
     private function onClick():void {
+//        showBoom();
+//        return;
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
@@ -285,6 +294,27 @@ public class LockedLand extends AreaObject {
             _arrWilds[i].source.y -= _source.y;
             _build.addChild(_arrWilds[i].source);
         }
+    }
+
+    public function showBoom():void {
+        _build.addChild(_contOpen);
+        _contOpen.x = _contOpen.y =  _source.height/4;
+        _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
+        _contOpen.addChild(_armatureOpen.display as Sprite);
+        WorldClock.clock.add(_armatureOpen);
+        _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
+        _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        _armatureOpen.animation.gotoAndPlay("start");
+    }
+
+    private function onBoom(e:AnimationEvent=null):void {
+        if (_armatureOpen.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.COMPLETE, onBoom);
+        if (_armatureOpen.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        WorldClock.clock.remove(_armatureOpen);
+        _contOpen.removeChild(_armatureOpen.display as Sprite);
+        _armatureOpen.dispose();
+        _armatureOpen = null;
+        openIt();
     }
 }
 }
