@@ -38,6 +38,8 @@ import resourceItem.UseMoneyMessage;
 
 import starling.display.Sprite;
 
+import tutorial.TutorialAction;
+
 import user.Someone;
 
 import utils.CSprite;
@@ -478,11 +480,17 @@ public class TownArea extends Sprite {
         if (updateAfterMove) {
             if (g.isActiveMapEditor) {
                 if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Shop || worldObject is Market ||
-                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus) {
-                        g.directServer.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
+                        worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus) {
+                    g.directServer.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
                 }
             } else {
                 g.directServer.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
+            }
+        }
+
+        if (isNewAtMap && g.managerTutorial.isTutorial) {
+            if (worldObject is Fabrica && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA) {
+                g.managerTutorial.checkTutorialCallback();
             }
         }
 

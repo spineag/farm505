@@ -11,5 +11,8 @@ public class TutorialAction {
    public static const CHICKEN_CRAFT:int = 5;
    public static const LEVEL_UP:int = 6;
    public static const BUY_CHICKENS:int = 7;
+   public static const BUY_FABRICA:int = 8;
+   public static const PUT_FABRICA:int = 9;
+   public static const RAW_RECIPE:int = 10;
 }
 }

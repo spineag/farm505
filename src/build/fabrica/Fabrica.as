@@ -23,6 +23,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
 
+import tutorial.TutorialAction;
+
 import ui.xpPanel.XPStar;
 
 public class Fabrica extends AreaObject {
@@ -134,7 +136,13 @@ public class Fabrica extends AreaObject {
     }
 
     private function onClick():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE) {
+                g.managerTutorial.checkTutorialCallback();
+            } else if (g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) {
+                if (!g.managerTutorial.isTutorialBuilding(this)) return;
+            }
+        }
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
@@ -205,6 +213,9 @@ public class Fabrica extends AreaObject {
                 new XPStar(start.x, start.y, _dataBuild.xpForBuild);
             }
             showBoom();
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialBuilding(this)) {
+                g.managerTutorial.checkTutorialCallback();
+            }
         }
     }
 

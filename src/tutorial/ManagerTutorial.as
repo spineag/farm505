@@ -3,6 +3,7 @@
  */
 package tutorial {
 import build.WorldObject;
+import build.fabrica.Fabrica;
 import build.farm.Animal;
 import build.farm.Farm;
 import com.junkbyte.console.Cc;
@@ -15,7 +16,7 @@ import starling.display.Sprite;
 import starling.utils.Color;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = false;
+    private const TUTORIAL_ON:Boolean = true;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
@@ -84,6 +85,12 @@ public class ManagerTutorial {
                     break;
                 case 7:
                     curFunc = initScene_7;
+                    break;
+                case 8:
+                    curFunc = initScene_8;
+                    break;
+                case 9:
+                    curFunc = initScene_9;
                     break;
 //
 //
@@ -378,8 +385,8 @@ public class ManagerTutorial {
         if (!texts) texts = (new TutorialTexts()).objText;
         if (!cat) {
             addCatToPos(30, 11);
-            g.cont.moveCenterToPos(27, 14);
         }
+        g.cont.moveCenterToPos(27, 14);
         subStep = 0;
         playCatIdle();
         addBlack();
@@ -389,6 +396,92 @@ public class ManagerTutorial {
     private function subStep7_1():void {
         removeBlack();
         cutScene.hideIt(deleteCutScene);
+        _currentAction = TutorialAction.BUY_FABRICA;
+        g.woShop.activateTab(3);
+        g.woShop.showIt();
+        var ob:Object = g.woShop.getShopItemProperties(1);
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep7_2;
+        _tutorialResourceIDs = [3];
+    }
+
+    private function subStep7_2():void {
+        _tutorialCallback = subStep7_3;
+        _currentAction = TutorialAction.PUT_FABRICA;
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        g.woShop.activateTab(1);
+    }
+
+    private function subStep7_3():void {
+        _tutorialResourceIDs = [];
+        _tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        tutorialObjects = g.townArea.getCityObjectsByType(BuildType.FABRICA);
+        cat.flipIt(false);
+        g.managerCats.goCatToPoint(cat, new Point(tutorialObjects[0].posX + tutorialObjects[0].sizeX, tutorialObjects[0].posY), subStep7_4);
+    }
+
+    private function subStep7_4():void {
+        cat.flipIt(true);
+        _currentAction = TutorialAction.PUT_FABRICA;
+        subStep = 4;
+        cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        _tutorialCallback = subStep7_5;
+        (tutorialObjects[0] as Fabrica).showArrow();
+    }
+
+    private function subStep7_5():void {
+        g.cont.moveCenterToPos(tutorialObjects[0].posX, tutorialObjects[0].posY);
+        cat.hideBubble();
+        _currentAction = TutorialAction.NONE;
+        (tutorialObjects[0] as Fabrica).hideArrow();
+        g.user.tutorialStep = 8;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_8():void {
+        subStep = 1;
+        _currentAction = TutorialAction.RAW_RECIPE;
+        _tutorialResourceIDs = [21];
+        if (!tutorialObjects.length) {
+            tutorialObjects = g.townArea.getCityObjectsByType(BuildType.FABRICA);
+        }
+        if (!texts) texts = (new TutorialTexts()).objText;
+        if (!cat) {
+            addCatToPos(tutorialObjects[0].posX + tutorialObjects[0].sizeX, tutorialObjects[0].posY);
+        }
+        g.cont.moveCenterToPos(tutorialObjects[0].posX, tutorialObjects[0].posY);
+        cat.flipIt(true);
+        cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        (tutorialObjects[0] as Fabrica).showArrow();
+        _tutorialCallback = subStep8_1;
+    }
+
+    private function subStep8_1():void {
+        cat.hideBubble();
+        cat.flipIt(false);
+        (tutorialObjects[0] as Fabrica).hideArrow();
+        _tutorialCallback = subStep8_2;
+    }
+
+    private function subStep8_2():void {
+        _currentAction = TutorialAction.NONE;
+        cat.playDirectLabel('idle2', true, subStep8_3);
+    }
+
+    private function subStep8_3():void {
+        cat.playDirectLabel('idle3', true, playCatIdle);
+        g.woFabrica.hideIt();
+        g.user.tutorialStep = 9;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_9():void {
 
     }
 
