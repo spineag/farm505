@@ -30,9 +30,11 @@ public class WONoPlaces extends Window{
     private var _txtAdd:TextField;
     private var _woBG:WindowBackground;
     private var _price:int;
+    private var _cost:int;
     private var _buyCallback:Function;
     private var _exitCallback:Function;
-
+    private var _imageItem:Image;
+    private var _last:Boolean;
     public function WONoPlaces() {
         super();
         _woWidth = 400;
@@ -79,6 +81,7 @@ public class WONoPlaces extends Window{
         _txtAdd.y = -50;
         _source.addChild(_txtAdd);
         _txtAdd.visible = false;
+        _last = false;
     }
 
     private function onClickExit(e:Event=null):void {
@@ -88,21 +91,30 @@ public class WONoPlaces extends Window{
             _exitCallback = null;
         }
         _buyCallback = null;
+        _source.removeChild(_imageItem);
     }
 
-    public function showItWithParams(price:int, callback:Function, callbackExit:Function, last:Boolean = false):void {
+    public function showItWithParams(cost:int,price:int, callback:Function, callbackExit:Function, last:Boolean = false):void {
         _price = price;
-        _txtCost.text = String(price);
+
         _buyCallback = callback;
         _exitCallback = callbackExit;
         if (last) {
             _txtAdd.visible = false;
-            _txtText.text = 'У вас нет свободных ячеек. Подождите пока освободится ячейка.';
-            _contBtn.visible = false;
+            _txtText.text = 'У вас нет свободных ячеек. Подождите пока освободится ячейка или ускорьте изготовление текущего продукта.';
+            _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[price].url].getTexture(g.dataResource.objectResources[price].imageShop));
+            MCScaler.scale(_imageItem,80,80);
+            _imageItem.x = -40;
+            _imageItem.y = -40;
+            _source.addChild(_imageItem);
+            _last = true;
+            _cost = cost;
+            _txtCost.text = String(cost);
         } else {
             _txtAdd.visible = true;
             _txtText.text = 'У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.';
             _contBtn.visible = true;
+            _txtCost.text = String(price);
         }
 
         showIt();
@@ -110,12 +122,19 @@ public class WONoPlaces extends Window{
 
     private function onClick():void {
         hideIt();
+        if (_last && g.user.hardCurrency >= _cost) {
+            g.woFabrica.skipFirstCell();
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_cost);
+            onClickExit();
+            return;
+        }
         if (g.user.hardCurrency >= _price) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_price);
             if (_buyCallback != null) {
                 _buyCallback.apply();
                 _buyCallback = null;
             }
+
         } else {
             _buyCallback = null;
             g.woBuyCurrency.showItMenu(true);

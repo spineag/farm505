@@ -39,6 +39,7 @@ public class ManagerFilters {
     public static var TEXT_STROKE_GRAY:Array = [new GlowFilter(TEXT_GRAY_HARD, 1, 3, 3, 5)];
     public static var TEXT_STROKE_BROWN_BIG:Array = [new GlowFilter(TEXT_BROWN, 1, 4, 4, 5)];
     public static var TEXT_STROKE_BLUE_BIG:Array = [new GlowFilter(TEXT_BLUE, 1, 4, 4, 5)];
+    public static var TEXT_STROKE_GREEN_BIG:Array = [new GlowFilter(TEXT_GREEN, 1, 4, 4, 5)];
 
 
     public static var BUILDING_HOVER_FILTER:ColorMatrixFilter;

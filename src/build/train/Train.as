@@ -46,6 +46,7 @@ public class Train extends AreaObject{
     private var TIME_WAIT:int = 8*60*60;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _armature:Armature;
+    private var _armatureOpen:Armature;
     private var _arriveAnim:ArrivedAnimation;
 
     public function Train(_data:Object) {
@@ -357,6 +358,7 @@ public class Train extends AreaObject{
             _arriveAnim.visible = true;
             createBuild();
             arriveTrain();
+            showBoom();
         }
     }
 
@@ -508,6 +510,24 @@ public class Train extends AreaObject{
         list.length = 0;
         g.directServer.getTrainPack(g.user.userSocialId, fillList);
         render();
+    }
+
+    private function showBoom():void {
+        _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
+        _source.addChild(_armatureOpen.display as Sprite);
+        WorldClock.clock.add(_armatureOpen);
+        _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
+        _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        _armatureOpen.animation.gotoAndPlay("start");
+    }
+
+    private function onBoom(e:AnimationEvent=null):void {
+        if (_armatureOpen.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.COMPLETE, onBoom);
+        if (_armatureOpen.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        WorldClock.clock.remove(_armatureOpen);
+        _source.removeChild(_armatureOpen.display as Sprite);
+        _armatureOpen.dispose();
+        _armatureOpen = null;
     }
 }
 }

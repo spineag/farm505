@@ -23,6 +23,7 @@ public class Cave extends AreaObject{
     private var _count:int;
     private var _arrCraftItems:Array;
     private var _armature:Armature;
+    private var _armatureOpen:Armature;
     private var _isAnimate:Boolean;
 
     public function Cave(data:Object) {
@@ -279,6 +280,7 @@ public class Cave extends AreaObject{
             clearCraftSprite();
             _build.visible = true;
             _rect = _build.getBounds(_build);
+            showBoom();
         }
     }
 
@@ -397,6 +399,24 @@ public class Cave extends AreaObject{
         _stateBuild = STATE_WAIT_ACTIVATE;
         _leftBuildTime = 0;
         renderBuildProgress();
+    }
+
+    private function showBoom():void {
+        _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
+        _source.addChild(_armatureOpen.display as Sprite);
+        WorldClock.clock.add(_armatureOpen);
+        _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
+        _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        _armatureOpen.animation.gotoAndPlay("start");
+    }
+
+    private function onBoom(e:AnimationEvent=null):void {
+        if (_armatureOpen.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.COMPLETE, onBoom);
+        if (_armatureOpen.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        WorldClock.clock.remove(_armatureOpen);
+        _source.removeChild(_armatureOpen.display as Sprite);
+        _armatureOpen.dispose();
+        _armatureOpen = null;
     }
 
 }

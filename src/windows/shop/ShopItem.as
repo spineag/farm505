@@ -618,6 +618,9 @@ public class ShopItem {
             g.woShop.onClickExit();
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            if(_data.buildType == BuildType.FARM) {
+                g.woShop.setAnimalClick = true;
+            }
             if (build is Tree) (build as Tree).showShopView();
             if (build is Fabrica) (build as Fabrica).showShopView();
             if (_state == STATE_FROM_INVENTORY) {

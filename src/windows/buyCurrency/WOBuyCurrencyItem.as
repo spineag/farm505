@@ -70,8 +70,8 @@ public class WOBuyCurrencyItem {
 
         var btn:CButton = new CButton();
         btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        txt = new TextField(120, 38, String(cost) + ' голосов', g.allData.fonts['BloggerRegular'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        txt = new TextField(120, 38, String(cost) + ' голосов', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN_BIG;
         btn.addChild(txt);
         btn.x = 493;
         btn.y = 31;

@@ -48,6 +48,7 @@ public class WOShop extends Window{
     private var _txtGreenMoney:TextField;
     private var _txtYellowMoney:TextField;
     private var _txtRedMoney:TextField;
+    private var _animal:Boolean;
 
     public function WOShop() {
         super();
@@ -126,7 +127,8 @@ public class WOShop extends Window{
         _btnTab3.activateIt(false);
         _btnTab4.activateIt(false);
         _btnTab5.activateIt(false);
-
+        if (_animal) a = 2;
+        _animal = false;
         switch (a) {
             case 1: _btnTab1.activateIt(true);
                 obj = g.dataBuilding.objectBuilding;
@@ -323,6 +325,14 @@ public class WOShop extends Window{
         _txtGreenMoney.text = String(g.user.greenCouponCount);
         _txtRedMoney.text = String(g.user.redCouponCount);
         _txtYellowMoney.text = String(g.user.yellowCouponCount);
+    }
+
+    public function get getAnimalClick():Boolean {
+        return _animal;
+    }
+
+    public function set setAnimalClick(a:Boolean):void {
+        _animal = a;
     }
 
     public function getShopItemProperties(a:int):Object {
