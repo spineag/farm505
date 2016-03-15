@@ -7,6 +7,7 @@ import build.farm.Farm;
 import data.BuildType;
 
 import flash.filters.GlowFilter;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import manager.ManagerFilters;
@@ -245,6 +246,19 @@ public class ShopList {
         g.starling.juggler.add(tween);
         checkArrows();
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
+    }
+
+    public function getShopItemProperties(a:int):Object {
+        var ob:Object = {};
+        ob.x = (_arrItems[_shift + a-1] as ShopItem).source.x;
+        ob.y = (_arrItems[_shift + a-1] as ShopItem).source.y;
+        var p:Point = new Point(ob.x, ob.y);
+        p = _itemsSprite.localToGlobal(p);
+        ob.x = p.x;
+        ob.y = p.y;
+        ob.width = 145; //(_arrItems[_shift + a-1] as ShopItem).source.width;
+        ob.height = 221; //(_arrItems[_shift + a-1] as ShopItem).source.height;
+        return ob;
     }
 }
 }

@@ -5,6 +5,7 @@ package ui.bottomInterface {
 import com.junkbyte.console.Cc;
 
 import flash.display.Bitmap;
+import flash.geom.Point;
 
 import manager.ManagerFilters;
 import manager.Vars;
@@ -21,6 +22,8 @@ import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
+
+import tutorial.TutorialAction;
 
 import user.NeighborBot;
 
@@ -47,6 +50,7 @@ public class MainBottomPanel {
     private var _checkImage:Image;
     private var _person:Someone;
     private var _ava:Image;
+    private var _tutorialCallback:Function;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -187,8 +191,13 @@ public class MainBottomPanel {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
-                    g.toolsPanel.hideRepository();
+                g.toolsPanel.hideRepository();
                 g.woShop.showIt();
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CHICKENS) {
+                    if (_tutorialCallback != null) {
+                        _tutorialCallback.apply();
+                    }
+                }
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'cancel':
@@ -349,6 +358,23 @@ public class MainBottomPanel {
         _ava.x = 9;
         _ava.y = 8;
         _friendBoard.addChild(_ava);
+    }
+
+    public function getShopButtonProperties():Object {
+        var obj:Object = {};
+        obj.x = _shopBtn.x - _shopBtn.width/2;
+        obj.y = _shopBtn.y - _shopBtn.height/2;
+        var p:Point = new Point(obj.x, obj.y);
+        p = _source.localToGlobal(p);
+        obj.x = p.x;
+        obj.y = p.y;
+        obj.width = _shopBtn.width;
+        obj.height = _shopBtn.height;
+        return obj;
+    }
+
+    public function set tutorialCallback(f:Function):void {
+        _tutorialCallback = f;
     }
 }
 }

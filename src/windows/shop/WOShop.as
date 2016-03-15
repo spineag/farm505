@@ -324,5 +324,10 @@ public class WOShop extends Window{
         _txtRedMoney.text = String(g.user.redCouponCount);
         _txtYellowMoney.text = String(g.user.yellowCouponCount);
     }
+
+    public function getShopItemProperties(a:int):Object {
+        return _shopList.getShopItemProperties(a);
+
+    }
 }
 }
