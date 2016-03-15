@@ -182,7 +182,7 @@ public class Wild extends AreaObject{
         g.userInventory.addResource(_dataBuild.removeByResourceId,-1);
         var p:Point = new Point(_source.x, _source.y);
         p = _source.parent.localToGlobal(p);
-        if (_dataBuild.xp) new XPStar(p.x,p.y, _dataBuild.xp);
+        new XPStar(p.x,p.y, _dataBuild.xpForBuild);
         g.directServer.deleteUserWild(_dbBuildingId, null);
         g.townArea.deleteBuild(this);
     }

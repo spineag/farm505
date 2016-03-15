@@ -261,7 +261,30 @@ public class WOLevelUp extends Window{
                 arr.push(objDataLevel);
             }
         }
+
+        if (g.dataLevel.objectLevels[g.user.level].catCount > 0) {
+            objDataLevel = {};
+            objDataLevel.catCount = true;
+            objDataLevel.id = -1;
+            objDataLevel.count = g.dataLevel.objectLevels[g.user.level].catCount;
+            arr.push(objDataLevel);
+        }
+        if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
+            objDataLevel = {};
+            objDataLevel.ridgeCount = true;
+            objDataLevel.id = -2;
+            objDataLevel.count = g.dataLevel.objectLevels[g.user.level].ridgeCount;
+            arr.push(objDataLevel);
+        }
         for (i = 0; i < arr.length; i++) {
+            if (arr[i].buildType == BuildType.FARM) {
+                obj = g.dataAnimal.objectAnimal;
+                for (id in obj) {
+                    if (obj[id].buildId == arr[i].id){
+                       arr.push(obj[id]);
+                    }
+                }
+            }
             im = new WOLevelUpItem(arr[i],true, true, 3);
             im.source.x = int(i) * (90);
             _arrCells.push(im);

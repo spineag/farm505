@@ -15,7 +15,7 @@ public class WOFabricaWorkList {
     private var _maxCount:int;
     [ArrayElementType('windows.fabricaWindow.WOFabricaWorkListItem')]
     private var _arrItems:Array;
-    private var _arrRecipes:Array;
+    public var arrRecipes:Array;
     private var _parent:Sprite;
     private var _fabrica:Fabrica;
 
@@ -24,7 +24,7 @@ public class WOFabricaWorkList {
     public function WOFabricaWorkList(s:Sprite) {
         _parent = s;
         _arrItems = [];
-        _arrRecipes = [];
+        arrRecipes = [];
         createItems();
     }
 
@@ -88,14 +88,14 @@ public class WOFabricaWorkList {
         }
     }
 
-    private function onSkip():void {
+    public function onSkip():void {
         _fabrica.skipRecipe();
         updateList();
     }
 
     private function updateList():void {
-        var ar:Array = _arrRecipes.slice(1); // don't use first recipe, because it was just skipped
-        _arrRecipes.length = 0;
+        var ar:Array = arrRecipes.slice(1); // don't use first recipe, because it was just skipped
+        arrRecipes.length = 0;
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].unfillIt();
         }
@@ -103,7 +103,7 @@ public class WOFabricaWorkList {
     }
 
     public function get isFull():Boolean {
-        return _arrRecipes.length >= _maxCount;
+        return arrRecipes.length >= _maxCount;
     }
 
     public function get priceForNewCell():int {
@@ -111,9 +111,9 @@ public class WOFabricaWorkList {
     }
 
     public function addResource(resource:ResourceItem):void {
-        _arrItems[_arrRecipes.length].fillData(resource);
-        _arrRecipes.push(resource);
-        if (_arrRecipes.length == 1) {
+        _arrItems[arrRecipes.length].fillData(resource);
+        arrRecipes.push(resource);
+        if (arrRecipes.length == 1) {
             activateTimer();
             _arrItems[0].skipCallback = onSkip;
         }
@@ -130,17 +130,17 @@ public class WOFabricaWorkList {
 //            _arrItems[i].visibleSource(true);
             visibleSource();
         }
-        _arrRecipes.shift();
-        if (_arrRecipes.length) {
-            for (i=0; i<_arrRecipes.length; i++) {
-                _arrItems[i].fillData(_arrRecipes[i]);
+        arrRecipes.shift();
+        if (arrRecipes.length) {
+            for (i=0; i<arrRecipes.length; i++) {
+                _arrItems[i].fillData(arrRecipes[i]);
             }
             activateTimer();
         }
     }
 
     public function unfillIt():void {
-        _arrRecipes.length = 0;
+        arrRecipes.length = 0;
         if (_arrItems.length) _arrItems[0].destroyTimer();
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].unfillIt();

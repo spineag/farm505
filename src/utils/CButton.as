@@ -52,7 +52,7 @@ public class CButton extends Sprite {
         this.pivotY = this.height/2;
     }
 
-    public function set useFilters(v:Boolean) {
+    public function set useFilters(v:Boolean):void {
         _useFilters = v;
     }
 

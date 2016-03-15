@@ -122,16 +122,12 @@ public class SoftHardCurrency {
     }
 
     private function onClickSoft():void {
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-        }
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         g.woBuyCurrency.showItMenu(false);
     }
 
     private function onClickHard():void {
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-        }
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         g.woBuyCurrency.showItMenu(true);
     }
 

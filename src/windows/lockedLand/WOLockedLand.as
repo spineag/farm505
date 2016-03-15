@@ -161,7 +161,7 @@ public class WOLockedLand extends Window{
     }
 
     private function onBtnOpen():void {
-        _land.openIt();
+        _land.showBoom();
         onClickExit();
     }
 
@@ -188,6 +188,5 @@ public class WOLockedLand extends Window{
             case 4: _armature.animation.gotoAndPlay('idle_3'); break;
         }
     }
-
 }
 }

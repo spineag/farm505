@@ -127,10 +127,10 @@ public class WOFabrica extends Window {
                 var price:int = _list.priceForNewCell;
                 hideIt();
                 if (_fabrica.dataBuild.countCell >= 9) {
-                    g.woNoPlaces.showItWithParams(price, onBuyNewCellFromWO, onClickExit, true);
+                    g.woNoPlaces.showItWithParams(_list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, onBuyNewCellFromWO, onClickExit, true);
                     return;
                 }
-                g.woNoPlaces.showItWithParams(price, onBuyNewCellFromWO, onClickExit);
+                g.woNoPlaces.showItWithParams(0,price, onBuyNewCellFromWO, onClickExit);
                 return;
             }
 
@@ -188,6 +188,10 @@ public class WOFabrica extends Window {
     private function onBuyNewCellFromWO():void {
         showIt();
         _list.butNewCellFromWO();
+    }
+
+    public function skipFirstCell():void {
+        _list.onSkip();
     }
 
     private function createTopBG():void {

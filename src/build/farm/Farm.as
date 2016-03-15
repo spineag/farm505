@@ -48,7 +48,7 @@ public class Farm extends AreaObject{
         if (_dataAnimal.id != 6) {
             try {
                 _imageBottom = new Image(g.allData.atlas[_data.url].getTexture(_data.image + '2'));
-                if (_dataAnimal.id = 1) {
+                if (_dataAnimal.id == 1) {
                     _imageBottom.x = -290 * g.scaleFactor;
                     _imageBottom.y = 67 * g.scaleFactor;
                 } else {
