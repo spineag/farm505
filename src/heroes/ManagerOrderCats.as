@@ -151,8 +151,9 @@ public class ManagerOrderCats {
 
 
     // ------ new Cat arrived --------
-    public function getNewCatForOrder():OrderCat{
+    public function getNewCatForOrder(onArriveCallback:Function = null):OrderCat{
         var cat:OrderCat = new OrderCat(int(Math.random()*6 + 1));
+        cat.arriveCallback = onArriveCallback;
         cat.setPositionInQueue(getFreeQueuePosition());
         _arrCats.push(cat);
         arriveNewCat(cat);
@@ -219,6 +220,7 @@ public class ManagerOrderCats {
                 cat.walkPosition = OrderCat.STAY_IN_QUEUE;
             };
             cat.sayHIAnimation(onFinishArrive);
+            cat.checkArriveCallback();
         }
     }
 

@@ -101,7 +101,10 @@ public class Ridge extends AreaObject{
     }
 
     private function onHover():void {
-        if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
+        if (g.managerTutorial.isTutorial) {
+            if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_CORN) && g.managerTutorial.isTutorialBuilding(this)) {
+            } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
+        }
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor || g.isAway){
             return;
@@ -111,7 +114,7 @@ public class Ridge extends AreaObject{
             if (g.managerTutorial.isTutorial) return;
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             g.managerPlantRidge.checkFreeRidges();
-//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
+//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_WHEAT) {
 //                if (_tutorialCallback != null) {
 //                    _tutorialCallback.apply(null, [this]);
 //                }
@@ -120,7 +123,7 @@ public class Ridge extends AreaObject{
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
             _isOnHover = true;
             _count = 10;
-            _countMouse = 2;
+            _countMouse = 7;
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
@@ -137,7 +140,7 @@ public class Ridge extends AreaObject{
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             _source.filter = null;
             g.managerPlantRidge.checkFreeRidges();
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_WHEAT) {
                 if (_tutorialCallback != null) {
                     _tutorialCallback.apply(null, [this]);
                 }
@@ -146,7 +149,18 @@ public class Ridge extends AreaObject{
     }
 
     private function onEndClick():void {
-        if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
+//        if (g.managerTutorial.isTutorial) {
+//            if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE) {
+//                g.managerTutorial.checkTutorialCallback();
+//            } else if (g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) {
+//                if (!g.managerTutorial.isTutorialBuilding(this)) return;
+//            }
+//        }
+        if (g.managerTutorial.isTutorial) {
+            if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_CORN) && g.managerTutorial.isTutorialBuilding(this)) {
+                g.managerTutorial.checkTutorialCallback();
+            } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
+        }
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
             onOut();
@@ -234,7 +248,7 @@ public class Ridge extends AreaObject{
         g.toolsModifier.plantId = _dataPlant.id;
         g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
         g.managerPlantRidge.checkFreeRidges();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_WHEAT) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);
             }
@@ -242,12 +256,12 @@ public class Ridge extends AreaObject{
     }
 
     private function onOut():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor || g.isAway) return;
         _source.filter = null;
         _isOnHover = false;
-        g.mouseHint.hideIt();
-        g.timerHint.hideIt();
+        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+//        g.mouseHint.hideIt();
+//        g.timerHint.hideIt();
 
     }
 
@@ -303,8 +317,7 @@ public class Ridge extends AreaObject{
 
     public function countMouseEnterFrame():void {
         _countMouse--;
-        if(_countMouse <= 0){
-            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+        if (_countMouse <= 5) {
             if (_isOnHover == true) {
                 if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                     g.mouseHint.checkMouseHint(MouseHint.CLOCK);
@@ -312,9 +325,22 @@ public class Ridge extends AreaObject{
                     g.mouseHint.checkMouseHint(MouseHint.SERP);
                 }
             }
+        }
+        if(_countMouse <= 0){
+            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+            if (_isOnHover == true) {
+                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+                    g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut);
+                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
+                } else if (_stateRidge == GROWED) {
+                    g.mouseHint.checkMouseHint(MouseHint.SERP);
+                }
+            }
+
             if(_isOnHover == false){
                 _source.filter = null;
                 g.timerHint.hideIt();
+                g.mouseHint.hideIt();
              g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             }
         }
@@ -322,6 +348,10 @@ public class Ridge extends AreaObject{
 
     public function get plant():PlantOnRidge {
         return _plant;
+    }
+
+    public function get isFreeRidge():Boolean {
+        return _stateRidge == EMPTY;
     }
 
     override public function clearIt():void {

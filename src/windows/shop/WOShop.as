@@ -138,7 +138,6 @@ public class WOShop extends Window{
                         arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
-//                _animal = false;
                 break;
             case 2: _btnTab2.activateIt(true);
                 obj = g.dataAnimal.objectAnimal;
@@ -153,7 +152,6 @@ public class WOShop extends Window{
                         arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
-//                    _animal = false;
                 break;
             case 4: _btnTab4.activateIt(true);
                 obj = g.dataBuilding.objectBuilding;
@@ -162,7 +160,6 @@ public class WOShop extends Window{
                         arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
-//                _animal = false;
                 break;
             case 5: _btnTab5.activateIt(true);
                 obj = g.dataBuilding.objectBuilding;
@@ -172,7 +169,6 @@ public class WOShop extends Window{
                         arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
-//                _animal = false;
                 break;
         }
         if (a == 5) {
@@ -337,6 +333,11 @@ public class WOShop extends Window{
 
     public function set setAnimalClick(a:Boolean):void {
         _animal = a;
+    }
+
+    public function getShopItemProperties(a:int):Object {
+        return _shopList.getShopItemProperties(a);
+
     }
 }
 }

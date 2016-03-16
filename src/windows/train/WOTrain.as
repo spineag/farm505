@@ -406,7 +406,7 @@ public class WOTrain extends Window {
 //            _btn.clickCallback = fullTrain;
 //            return;
 //        }
-        if (_lock >= _arrItems.length || _lock == 0) {
+        if (_lock >= _arrItems.length || _lock == 0 || !_isBigCount && _lock <= 3) {
             _btn.alpha = 1;
         } else {
             _btn.alpha = .5;

@@ -38,6 +38,8 @@ import resourceItem.UseMoneyMessage;
 
 import starling.display.Sprite;
 
+import tutorial.TutorialAction;
+
 import user.Someone;
 
 import utils.CSprite;
@@ -478,17 +480,26 @@ public class TownArea extends Sprite {
         if (updateAfterMove) {
             if (g.isActiveMapEditor) {
                 if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Shop || worldObject is Market ||
-                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus) {
-                        g.directServer.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
+                        worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus) {
+                    g.directServer.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
                 }
             } else {
                 g.directServer.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
             }
         }
 
+        if (isNewAtMap && g.managerTutorial.isTutorial) {
+            if (worldObject is Fabrica && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA) {
+                g.managerTutorial.checkTutorialCallback();
+            } else if (worldObject is Ridge && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                g.managerTutorial.checkTutorialCallback();
+            }
+        }
+
         // временно полная сортировка, далее нужно будет дописать "умную"
         if (updateAfterMove) zSort();
 
+        if (g.managerTutorial.isTutorial) return;
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)) {
             var build:AreaObject;
             if (g.userInventory.decorInventory[worldObject.dataBuild.id]) {

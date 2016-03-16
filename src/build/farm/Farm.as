@@ -310,6 +310,18 @@ public class Farm extends AreaObject{
         checkForCraft();
     }
 
+    public function addArrowToCraftItem(f:Function):void {
+        if (_arrCrafted.length) {
+            (_arrCrafted[0] as CraftItem).addArrow(f);
+        }
+    }
+
+//    public function removeArrowFromCraftItem():void {
+//        if (_arrCrafted.length) {
+//            (_arrCrafted[0] as CraftItem).removeArrow();
+//        }
+//    }
+
     private function checkBeforeMove():void {
         g.managerAnimal.onFarmStartMove(_dbBuildingId);
     }

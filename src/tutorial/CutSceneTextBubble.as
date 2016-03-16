@@ -59,7 +59,7 @@ public class CutSceneTextBubble {
 
     public function hideBubble(f:Function):void {
         if (_bubble) {
-            TweenMax.to(_source, .3, {scaleX: .3, scaleY: .3, onComplete: directHide, onCompleteParams: [f]});
+            TweenMax.to(_source, .2, {scaleX: .3, scaleY: .3, onComplete: directHide, onCompleteParams: [f]});
         }
     }
 

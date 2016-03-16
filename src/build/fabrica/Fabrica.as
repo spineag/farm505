@@ -23,6 +23,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
 
+import tutorial.TutorialAction;
+
 import ui.xpPanel.XPStar;
 
 public class Fabrica extends AreaObject {
@@ -34,6 +36,7 @@ public class Fabrica extends AreaObject {
     private var _arrCrafted:Array;
     private var _armature:Armature;
     private var _armatureOpen:Armature;
+    private var _countTimer:int;
 
     public function Fabrica(_data:Object) {
         super(_data);
@@ -114,6 +117,8 @@ public class Fabrica extends AreaObject {
             }
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) buildingBuildFoundationOver();
+            _countTimer = 5;
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
         }
@@ -127,14 +132,36 @@ public class Fabrica extends AreaObject {
         _isOnHover = false;
         _source.filter = null;
         if (_stateBuild == STATE_BUILD) {
-            g.timerHint.hideIt();
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else {
             g.hint.hideIt();
         }
     }
 
+    private function countEnterFrame():void {
+        _countTimer--;
+        if (_countTimer <= 0) {
+            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+            if (_isOnHover == true) {
+                g.timerHint.needMoveCenter = true;
+                g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 3) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+            }
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.timerHint.hideIt();
+                g.gameDispatcher.removeEnterFrame(countEnterFrame);
+            }
+        }
+    }
+
     private function onClick():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE) {
+                g.managerTutorial.checkTutorialCallback();
+            } else if (g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) {
+                if (!g.managerTutorial.isTutorialBuilding(this)) return;
+            }
+        }
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
@@ -205,6 +232,9 @@ public class Fabrica extends AreaObject {
                 new XPStar(start.x, start.y, _dataBuild.xpForBuild);
             }
             showBoom();
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialBuilding(this)) {
+                g.managerTutorial.checkTutorialCallback();
+            }
         }
     }
 

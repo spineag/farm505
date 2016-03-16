@@ -176,7 +176,7 @@ public class Containers {
             gameCont.x = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s;
     }
 
-    public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false):void {  // (_x, _y) - координати в загальній системі gameCont
+    public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false, time:Number = .5):void {  // (_x, _y) - координати в загальній системі gameCont
         //переміщаємо ігрову область так, щоб вказана точка була по центру екрана
         var newX:int;
         var newY:int;
@@ -196,7 +196,7 @@ public class Containers {
             gameCont.x = newX;
             gameCont.y = newY;
         } else {
-            new TweenMax(gameCont, .5, {x:newX, y:newY, ease:Linear.easeOut});
+            new TweenMax(gameCont, time, {x:newX, y:newY, ease:Linear.easeOut});
 //            var tween:Tween = new Tween(gameCont, .5);
 //            tween.moveTo(newX, newY);
 //            tween.onComplete = function ():void {
@@ -206,10 +206,10 @@ public class Containers {
         }
     }
 
-    public function moveCenterToPos(posX:int, posY:int, needQuick:Boolean = false):void {
+    public function moveCenterToPos(posX:int, posY:int, needQuick:Boolean = false, time:Number = .5):void {
         var p:Point = new Point(posX, posY);
         p = g.matrixGrid.getXYFromIndex(p);
-        moveCenterToXY(p.x, p.y, needQuick);
+        moveCenterToXY(p.x, p.y, needQuick, time);
     }
 
     public function deltaMoveGameCont(deltaX:int, deltaY:int, time:Number = .5):void {

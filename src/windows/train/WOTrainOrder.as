@@ -147,7 +147,8 @@ public class WOTrainOrder extends Window{
             item3 = new WOTrainOrderItem();
             item3.source.x = 50;
             item3.source.y = -20;
-            item3.fillIt(list[9], 9);
+            if (list.length <= 9) item3.fillIt(list[8], 8);
+            else item3.fillIt(list[9], 9);
             _contItem.addChild(item3.source);
             _source.addChild(_contItem);
     }

@@ -8,6 +8,8 @@ import flash.filters.GlowFilter;
 import manager.ManagerFilters;
 
 import manager.Vars;
+
+import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
 import starling.text.TextField;
@@ -42,8 +44,10 @@ public class XPPanel {
         _source.addChild(_bar);
         _imageStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
         MCScaler.scale(_imageStar, 60, 60);
-        _imageStar.x = -27;
-        _imageStar.y = -12;
+        _imageStar.x = -10;
+        _imageStar.y = 5;
+        _imageStar.pivotX = _imageStar.width/2;
+        _imageStar.pivotY = _imageStar.height/2;
         _source.addChild(_imageStar);
         _txtLevel = new TextField(60, 60, '55', g.allData.fonts['BloggerBold'], 24, Color.WHITE);
         _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -106,22 +110,14 @@ public class XPPanel {
         g.hint.hideIt();
     }
     public function animationStar():void {
-        _count = 0;
-        _imageStar.width =_imageStar.height = 65;
-        _imageStar.x = -30;
-        _imageStar.y = -9;
-        g.gameDispatcher.addEnterFrame(onEnterFrame);
+        var tween:Tween = new Tween(_imageStar, 0.6);
+        tween.scaleTo(2);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+        };
+        tween.scaleTo(0.6);
+        g.starling.juggler.add(tween);
     }
 
-    private function onEnterFrame():void {
-        _count ++;
-        if (_count >= 5) {
-            _imageStar.width =_imageStar.height = 60;
-            _count = 0;
-            _imageStar.x = -27;
-            _imageStar.y = -12;
-            g.gameDispatcher.removeEnterFrame(onEnterFrame);
-        }
-    }
 }
 }

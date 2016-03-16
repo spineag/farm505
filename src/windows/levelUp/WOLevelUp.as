@@ -18,6 +18,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
 import utils.CButton;
 
 import utils.CSprite;
@@ -148,6 +150,9 @@ public class WOLevelUp extends Window{
         _leftArrow.setEnabled = true;
         _rightArrow.visible = false;
         _rightArrow.setEnabled = true;
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.LEVEL_UP) {
+            g.managerTutorial.initScenes();
+        }
     }
 
     private function onLeftClick():void {

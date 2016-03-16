@@ -17,6 +17,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import starling.animation.Tween;
+
 import starling.core.Starling;
 
 import starling.display.Image;
@@ -138,6 +140,14 @@ public class TreeHint {
         _isShowed = true;
         _source.x = x;
         _source.y = y;
+        _source.scaleX = _source.scaleY = 0;
+        var tween:Tween = new Tween(_source, 0.1);
+        tween.scaleTo(1);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+
+        };
+        g.starling.juggler.add(tween);
         _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[data.removeByResourceId].imageShop));
         if (!_imageItem) {
             Cc.error('TreeHint showIt:: no such image: ' + g.dataResource.objectResources[data.removeByResourceId].imageShop);

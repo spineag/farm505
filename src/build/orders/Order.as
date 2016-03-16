@@ -97,7 +97,11 @@ public class Order extends AreaObject{
     }
 
     private function onClick():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.isTutorialBuilding(this)) {
+                g.managerTutorial.checkTutorialCallback();
+            } else return;
+        }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
             if (g.selectedBuild) {

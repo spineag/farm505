@@ -4,6 +4,8 @@
 package manager {
 import com.junkbyte.console.Cc;
 
+import tutorial.TutorialAction;
+
 import utils.Utils;
 
 public class ManagerOrder {
@@ -48,16 +50,28 @@ public class ManagerOrder {
 
     public function checkOrders():void {
         updateMaxCounts();
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.ORDER) return;
         if (_arrOrders.length < _curMaxCountOrders) {
             addNewOrders(_curMaxCountOrders - _arrOrders.length);
             checkForNewCats();
         }
     }
 
-    private function checkForNewCats():void {
+    public function checkOrderForTutorial(onArriveCallback:Function = null):void {
+        if (g.managerTutorial.currentAction == TutorialAction.ORDER) {
+            updateMaxCounts();
+            if (_arrOrders.length < _curMaxCountOrders) {
+                addNewTutorialOrder();
+                checkForNewCats(onArriveCallback);
+            }
+        }
+        checkOrders();
+    }
+
+    private function checkForNewCats(onArriveCallback:Function = null):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (!_arrOrders[i].cat) {
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback);
             }
         }
     }
@@ -116,17 +130,6 @@ public class ManagerOrder {
         var countResources:int;
         var k:int;
 
-        for(var id:String in g.dataResource.objectResources) {
-            if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
-                if (g.dataResource.objectResources[id].orderType == 1) {
-                    arrOrderType1.push(int(id));
-                } else if (g.dataResource.objectResources[id].orderType == 2) {
-                    arrOrderType2.push(int(id));
-                } else if (g.dataResource.objectResources[id].orderType == 3) {
-                    arrOrderType3.push(int(id));
-                }
-            }
-        }
         for (var i:int=0; i<n; i++) {
             order = new ManagerOrderItem();
             order.resourceIds = [];
@@ -321,6 +324,20 @@ public class ManagerOrder {
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
             g.directServer.addUserOrder(order, delay, f);
         }
+    }
+
+    private function addNewTutorialOrder():void {
+        var order:ManagerOrderItem = new ManagerOrderItem();
+        order.resourceIds = [26];
+        order.resourceCounts = [2];
+        order.addCoupone = false;
+        order.catName = _arrNames[int(Math.random()*_arrNames.length)];
+        order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
+        order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
+        order.startTime = int(new Date().getTime()/1000);
+        order.placeNumber = 1;
+        _arrOrders.push(order);
+        g.directServer.addUserOrder(order, 0, null);
     }
 
     private function getFreePlace():int {
