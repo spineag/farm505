@@ -45,6 +45,7 @@ public class OrderCat {
     private var _queuePosition:int;
     private var _currentPath:Array;
     public var walkPosition:int;
+    private var _arriveCallback:Function;
     protected var g:Vars = Vars.getInstance();
 
     public function OrderCat(type:int) {
@@ -96,6 +97,17 @@ public class OrderCat {
 
     public function flipIt(v:Boolean):void {
         v ? _source.scaleX = -1: _source.scaleX = 1;
+    }
+
+    public function set arriveCallback(f:Function):void {
+        _arriveCallback = f;
+    }
+
+    public function checkArriveCallback():void {
+        if (_arriveCallback != null) {
+            _arriveCallback.apply(null, [this]);
+            _arriveCallback = null;
+        }
     }
 
     private function addShadow():void {

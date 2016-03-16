@@ -28,7 +28,12 @@ public class TutorialTextBubble {
         _parent.addChild(_source);
     }
 
-    public function showBubble(st:String, isFlip:Boolean, stBtn:String, callback:Function):void {
+    public function setXY(_x:int, _y:int):void {
+        _source.x = _x;
+        _source.y = _y;
+    }
+
+    public function showBubble(st:String, isFlip:Boolean, stBtn:String = '', callback:Function = null):void {
         _isFlip = isFlip;
         createBubble();
         _source.addChild(_bubble);

@@ -22,6 +22,9 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import tutorial.TutorialTextBubble;
+
 import ui.xpPanel.XPStar;
 import utils.CButton;
 import utils.CSprite;
@@ -53,6 +56,7 @@ public class WOOrder extends Window{
     private var _armatureSeller:Armature;
     private var _imCoup:Image;
     private var _txtCoupone:TextField;
+    private var _bubble:TutorialTextBubble;
     private var heroEyes:HeroEyesAnimation;
 
     public function WOOrder() {
@@ -607,6 +611,17 @@ public class WOOrder extends Window{
         _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
         _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
         animateCustomerCat();
+    }
+
+    public function setTextForCustomer(st:String):void {
+        if (_bubble) {
+            _bubble.hideBubble();
+            _bubble.deleteIt();
+        }
+
+        _bubble = new TutorialTextBubble(_source);
+        _bubble.showBubble(st, true);
+        _bubble.setXY(50, -100);
     }
 
 }

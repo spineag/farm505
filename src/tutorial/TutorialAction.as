@@ -16,5 +16,6 @@ public class TutorialAction {
    public static const RAW_RECIPE:int = 10;
    public static const NEW_RIDGE:int = 11;
    public static const PLANT_CORN:int = 12;
+   public static const ORDER:int = 13;
 }
 }
