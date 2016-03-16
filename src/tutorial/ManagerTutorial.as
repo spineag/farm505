@@ -104,11 +104,11 @@ public class ManagerTutorial {
                 case 11:
                     curFunc = initScene_11;
                     break;
-//
-//
-//                case 50:
-//                    curFunc = initScene0;
-//                    break;
+                case 12:
+                    curFunc = initScene_12;
+                    break;
+
+
             }
             if (curFunc != null) {
                 curFunc.apply();
@@ -606,7 +606,7 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.ORDER;
         subStep = 1;
         addBlack();
-        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep11_2, 1)
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep11_2, 1);
     }
 
     private function subStep11_2():void {
@@ -649,12 +649,72 @@ public class ManagerTutorial {
 
     private function subStep11_8():void {
         subStep = 8;
-        g.woOrder.setTextForCustomer(texts[g.user.tutorialStep][subStep]);
+        g.woOrder.setTextForCustomer(texts[g.user.tutorialStep][subStep], true);
         _tutorialCallback = subStep11_9;
+        var ob:Object = g.woOrder.getSellBtnProperties();
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
     }
 
     private function subStep11_9():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        g.woOrder.setTextForCustomer(texts[g.user.tutorialStep][subStep], false);
+        _currentAction = TutorialAction.LEVEL_UP;
+        _tutorialCallback = subStep11_10;
+    }
 
+    private function subStep11_10():void {
+        _tutorialObjects.length = 0;
+        _tutorialResourceIDs.length = 0;
+        _tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        g.user.tutorialStep = 12;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_12():void {
+        if (!cat) {
+            addCatToPos(31, 26);
+            g.cont.moveCenterToPos(31, 26, true);
+        }
+        if (!cutScene) cutScene = new CutScene();
+        if (!texts) texts = (new TutorialTexts()).objText;
+        addBlack();
+        subStep = 0;
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep12_1, 1);
+    }
+
+    private function subStep12_1():void {
+        _currentAction = TutorialAction.BUY_FABRICA;
+        _tutorialResourceIDs = [1];
+        g.woShop.activateTab(3);
+        g.woShop.showIt();
+        var ob:Object = g.woShop.getShopItemProperties(1);
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep12_2;
+    }
+
+    private function subStep12_2():void {
+        _currentAction = TutorialAction.PUT_FABRICA;
+        _tutorialCallback = subStep12_3;
+        g.woShop.activateTab(1);
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+    }
+
+    private function subStep12_3():void {
+        _tutorialObjects.length = 0;
+        _tutorialResourceIDs.length = 0;
+        _tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        g.user.tutorialStep = 13;
+        updateTutorialStep();
+        initScenes();
     }
 
 

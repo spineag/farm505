@@ -488,6 +488,19 @@ public class WOOrder extends Window{
         _txtTimer.text = TimeUtils.convertSecondsForOrders(c);
     }
 
+    public function getSellBtnProperties():Object {
+        var ob:Object = {};
+        ob.x = _btnCell.x - _btnCell.width/2;
+        ob.y = _btnCell.y - _btnCell.height/2;
+        var p:Point = new Point(ob.x, ob.y);
+        p = _source.localToGlobal(p);
+        ob.x = p.x;
+        ob.y = p.y;
+        ob.width = _btnCell.width;
+        ob.height = _btnCell.height;
+        return ob;
+    }
+
 
     // ------------------ ANIMATIONS ---------------------
 
@@ -613,15 +626,17 @@ public class WOOrder extends Window{
         animateCustomerCat();
     }
 
-    public function setTextForCustomer(st:String):void {
+    public function setTextForCustomer(st:String, isFlip:Boolean = false):void {
         if (_bubble) {
             _bubble.hideBubble();
             _bubble.deleteIt();
         }
 
-        _bubble = new TutorialTextBubble(_source);
-        _bubble.showBubble(st, true);
-        _bubble.setXY(50, -100);
+        if (st != '') {
+            _bubble = new TutorialTextBubble(_source);
+            _bubble.showBubble(st, isFlip);
+            _bubble.setXY(50, -100);
+        }
     }
 
 }
