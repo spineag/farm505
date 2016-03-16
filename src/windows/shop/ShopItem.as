@@ -594,6 +594,10 @@ public class ShopItem {
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
             g.woShop.onClickExit();
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                g.managerTutorial.addTutorialWorldObject(build);
+                g.managerTutorial.checkTutorialCallback();
+            }
             g.toolsModifier.startMove(build as AreaObject, afterMove);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
             build = g.townArea.createNewBuild(_data);

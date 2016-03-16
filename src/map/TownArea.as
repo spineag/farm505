@@ -491,12 +491,15 @@ public class TownArea extends Sprite {
         if (isNewAtMap && g.managerTutorial.isTutorial) {
             if (worldObject is Fabrica && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA) {
                 g.managerTutorial.checkTutorialCallback();
+            } else if (worldObject is Ridge && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                g.managerTutorial.checkTutorialCallback();
             }
         }
 
         // временно полная сортировка, далее нужно будет дописать "умную"
         if (updateAfterMove) zSort();
 
+        if (g.managerTutorial.isTutorial) return;
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)) {
             var build:AreaObject;
             if (g.userInventory.decorInventory[worldObject.dataBuild.id]) {
