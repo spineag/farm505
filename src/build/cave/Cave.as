@@ -20,7 +20,7 @@ import windows.cave.WOBuyCave;
 public class Cave extends AreaObject{
     private var _woBuy:WOBuyCave;
     private var _isOnHover:Boolean;
-    private var _count:int;
+    private var _countTimer:int;
     private var _arrCraftItems:Array;
     private var _armature:Armature;
     private var _armatureOpen:Armature;
@@ -189,6 +189,8 @@ public class Cave extends AreaObject{
             }
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) buildingBuildFoundationOver();
+            _countTimer = 7;
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
         }
@@ -202,7 +204,24 @@ public class Cave extends AreaObject{
         if (_isAnimate) return;
         g.hint.hideIt();
         if (_stateBuild == STATE_BUILD) {
-            g.timerHint.hideIt();
+            g.gameDispatcher.addEnterFrame(countEnterFrame);
+//            g.timerHint.hideIt();
+        }
+    }
+
+    private function countEnterFrame():void {
+        _countTimer--;
+        if (_countTimer <= 0) {
+            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+            if (_isOnHover == true) {
+                g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+                g.hint.hideIt();
+            }
+            if (_isOnHover == false) {
+                _source.filter = null;
+                g.timerHint.hideIt();
+                g.gameDispatcher.removeEnterFrame(countEnterFrame);
+            }
         }
     }
 

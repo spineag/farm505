@@ -11,6 +11,8 @@ import manager.Vars;
 
 import mouse.ToolsModifier;
 
+import starling.animation.Tween;
+
 import starling.display.Image;
 import starling.display.Sprite;
 
@@ -80,14 +82,18 @@ public class SoftHardCurrency {
         if (isSoft) {
             _imCoin = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
             MCScaler.scale(_imCoin, 50, 50);
-            _imCoin.x = -_imCoin.width/2;
-            _imCoin.y = -6;
+            _imCoin.x = -_imCoin.width/2 + 15;
+            _imCoin.y = 5;
+            _imCoin.pivotX = _imCoin.width/2;
+            _imCoin.pivotY = _imCoin.height/2;
             p.addChild(_imCoin);
         } else {
             _imHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             MCScaler.scale(_imHard, 50, 50);
-            _imHard.x = -_imHard.width/2;
-            _imHard.y = -6;
+            _imHard.x = -_imHard.width/2 + 15;
+            _imHard.y = 5;
+            _imHard.pivotX = _imHard.width/2;
+            _imHard.pivotY = _imHard.height/2;
             p.addChild(_imHard);
         }
         var btn:CButton = new CButton();
@@ -132,38 +138,20 @@ public class SoftHardCurrency {
     }
 
     public function animationBuy (hard:Boolean):void {
-        _count = 0;
-        _animation = hard;
+        var tween:Tween;
         if (hard) {
-            _imHard.width =_imHard.height = 55;
-            _imHard.x = -_imHard.width/2 - 3;
-            _imHard.y = -8;
-            g.gameDispatcher.addEnterFrame(onEnterFrame);
+            tween = new Tween(_imHard, 0.6);
         } else {
-            _imCoin.width =_imCoin.height = 55;
-            _imCoin.x = -_imCoin.width/2 - 3;
-            _imCoin.y = -8;
-            g.gameDispatcher.addEnterFrame(onEnterFrame);
+            tween = new Tween(_imCoin, 0.6);
         }
+        tween.scaleTo(2);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+        };
+        tween.scaleTo(0.5);
+        g.starling.juggler.add(tween);
 
     }
 
-    private function onEnterFrame():void {
-        _count ++;
-        if (_count >= 5) {
-            if (_animation) {
-                _imHard.width = _imHard.height = 50;
-                _count = 0;
-                _imHard.x = -_imHard.width/2;
-                _imHard.y = -6;
-            } else {
-                _imCoin.width = _imCoin.height = 50;
-                _count = 0;
-                _imCoin.x = -_imCoin.width/2;
-                _imCoin.y = -6;
-            }
-                g.gameDispatcher.removeEnterFrame(onEnterFrame);
-        }
-    }
 }
 }

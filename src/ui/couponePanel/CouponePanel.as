@@ -51,18 +51,12 @@ public class CouponePanel {
         _source.addChild(_contClipRect);
         _contClipRect.addChild(_contCoupone);
         _imCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coupons_icon"));
+        _imCoupone.x = 30;
+        _imCoupone.y = 30;
         MCScaler.scale(_imCoupone,69,75);
+        _imCoupone.pivotX = _imCoupone.width/2;
+        _imCoupone.pivotY = _imCoupone.width/2;
         _source.addChild(_imCoupone);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-        MCScaler.scale(im,35,35);
-        im.x = 40;
-        im.y = 40;
-        _source.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
-        MCScaler.scale(im,18,18);
-        im.x = 48;
-        im.y = 48;
-        _source.addChild(im);
         _imGreen = new Image(g.allData.atlas['interfaceAtlas'].getTexture("green_coupone"));
         MCScaler.scale(_imGreen,25,25);
         _imGreen.x = 70;
@@ -105,8 +99,6 @@ public class CouponePanel {
         _contCoupone.addChild(_txtRed);
         _source.x = 20;
         _source.y = 120;
-
-
 
         _contCoupone.visible = false;
         _contCoupone.x = -100;
@@ -168,12 +160,14 @@ public class CouponePanel {
     }
 
     public function animationBuy ():void {
-        _count = 0;
-        _imCoupone.width = 80;
-        _imCoupone.height = 74;
-        _source.x = 23;
-        _source.y = 123;
-        g.gameDispatcher.addEnterFrame(onEnterFrame);
+
+        var tween:Tween = new Tween(_imCoupone, 0.6);
+        tween.scaleTo(2);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+        };
+        tween.scaleTo(0.8);
+        g.starling.juggler.add(tween);
     }
 
     private function onEnterFrame():void {

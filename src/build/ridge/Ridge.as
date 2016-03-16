@@ -120,7 +120,7 @@ public class Ridge extends AreaObject{
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
             _isOnHover = true;
             _count = 10;
-            _countMouse = 2;
+            _countMouse = 7;
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
@@ -246,8 +246,9 @@ public class Ridge extends AreaObject{
         if (g.isActiveMapEditor || g.isAway) return;
         _source.filter = null;
         _isOnHover = false;
-        g.mouseHint.hideIt();
-        g.timerHint.hideIt();
+        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+//        g.mouseHint.hideIt();
+//        g.timerHint.hideIt();
 
     }
 
@@ -303,8 +304,7 @@ public class Ridge extends AreaObject{
 
     public function countMouseEnterFrame():void {
         _countMouse--;
-        if(_countMouse <= 0){
-            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+        if (_countMouse <= 5) {
             if (_isOnHover == true) {
                 if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                     g.mouseHint.checkMouseHint(MouseHint.CLOCK);
@@ -312,9 +312,22 @@ public class Ridge extends AreaObject{
                     g.mouseHint.checkMouseHint(MouseHint.SERP);
                 }
             }
+        }
+        if(_countMouse <= 0){
+            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+            if (_isOnHover == true) {
+                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+                    g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut);
+                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
+                } else if (_stateRidge == GROWED) {
+                    g.mouseHint.checkMouseHint(MouseHint.SERP);
+                }
+            }
+
             if(_isOnHover == false){
                 _source.filter = null;
                 g.timerHint.hideIt();
+                g.mouseHint.hideIt();
              g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             }
         }

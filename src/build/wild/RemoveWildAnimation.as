@@ -88,7 +88,7 @@ public class RemoveWildAnimation {
     }
 
     private function showBoom():void {
-        _armature = g.allData.factory['explode'].buildArmature("expl");
+        _armature = g.allData.factory['explode_gray'].buildArmature("expl");
         _parent.addChild(_armature.display as Sprite);
         WorldClock.clock.add(_armature);
         _armature.addEventListener(AnimationEvent.COMPLETE, onBoom);
