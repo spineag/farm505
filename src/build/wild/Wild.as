@@ -123,7 +123,7 @@ public class Wild extends AreaObject{
             }
             if (_isOnHover == false) {
                 _source.filter = null;
-                g.wildHint.hideIt();
+//                g.wildHint.hideIt();
                 g.gameDispatcher.removeEnterFrame(countEnterFrame);
             }
         }

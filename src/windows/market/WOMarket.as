@@ -231,6 +231,7 @@ public class WOMarket  extends Window {
 
     public function showItWithParams(f:Function):void {
         createMarketTabBtns();
+        _countPage = 1;
         _callbackState = f;
 //        fillItems();
         addItems(true);
@@ -244,6 +245,7 @@ public class WOMarket  extends Window {
     }
 
     public function showItPapper(p:Someone):void {
+        _countPage = 1;
         for (var i:int=0; i < _arrFriends.length; i++) {
             if (_arrFriends[i].userSocialId == p.userSocialId){
                 _shiftFriend = i;
@@ -257,7 +259,6 @@ public class WOMarket  extends Window {
 //        fillItemsByUser(p);
         choosePerson(p);
         showIt();
-
     }
 
     override public function hideIt():void {
@@ -363,8 +364,7 @@ public class WOMarket  extends Window {
         var item:MarketItem;
 
         for (var i:int=0; i < _person.marketCell; i++) {
-            if (i+1 > g.user.marketCell)  item = new MarketItem(i,true);
-            else  item = new MarketItem(i,false);
+            item = new MarketItem(i,false);
             if (i+1 <= 8) {
                 item.source.x = 125*(_arrItems.length%4) - 300;
             } else  if (i+1 <= 16) {
@@ -471,7 +471,9 @@ public class WOMarket  extends Window {
 
     private function fillItems():void {
         var i:int;
+
         try {
+        if (_curUser.marketItems == null) g.directServer.getUserMarketItem(_curUser.userSocialId, null);
             var n:int = 0;
             if (_curUser is NeighborBot) {
                 for (i = 0; i < _arrItems.length; i++) {
@@ -566,9 +568,12 @@ public class WOMarket  extends Window {
            g.woGameError.showItParams('Обнови сиды и сикреты');
             return;
         }
-
-        if (paper) _txtName.text = _curUser.name + ' продает:';
-        else _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
+        if (_curUser.userSocialId == g.user.userSocialId) {
+            _txtName.text = 'Вы продаете:';
+        } else {
+            if (paper) _txtName.text = _curUser.name + ' продает:';
+            else _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
+        }
         _source.addChild(_txtName);
 
         if (_arrFriends.length <= 2) {
@@ -722,7 +727,7 @@ public class WOMarket  extends Window {
     public function checkArrow():void {
         _txtNumberPage.text = String(_countPage);
         if (_shift == 0) {
-            _txtNumberPage.text = '1';
+//            _txtNumberPage.text = '1';
             _leftBtn.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         } else {
             _leftBtn.filter = null;
