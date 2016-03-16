@@ -610,7 +610,8 @@ public class MarketItem {
         if (isFill == 1) {
             if (_onHover) return;
             _onHover = true;
-            if (!_inPapper) _papper.visible = true;
+            var b:Boolean = g.woMarket.booleanPaper;
+            if (!_inPapper || !b) _papper.visible = true;
             _delete.visible = true;
             count = 0;
             g.gameDispatcher.addEnterFrame(onEnterFrame);

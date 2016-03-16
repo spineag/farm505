@@ -12,9 +12,11 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import starling.animation.Tween;
+
 import starling.core.Starling;
 
-
+import flash.geom.Rectangle;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -114,9 +116,19 @@ public class TimerHint {
         source.addChildAt(_quad,0);
         _callbackSkip = f;
         if(_isShow) return;
-        _isShow = true;
         source.x = x;// + 115;
         source.y = y;//+ 150;
+
+        source.scaleX = source.scaleY = 0;
+        var tween:Tween = new Tween(source, 0.1);
+        tween.scaleTo(1);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+
+        };
+        g.starling.juggler.add(tween);
+
+        _isShow = true;
         _timer = timer;
         _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
         _txtCost.text = String(cost);

@@ -10,6 +10,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import starling.animation.Tween;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -110,6 +112,14 @@ public class WildHint {
         _source.x = x;
         _source.y = y;
         g.cont.hintGameCont.addChild(_source);
+        _source.scaleX = _source.scaleY = 0;
+        var tween:Tween = new Tween(_source, 0.1);
+        tween.scaleTo(1);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+
+        };
+        g.starling.juggler.add(tween);
     }
 
     public function hideIt():void {
