@@ -23,6 +23,9 @@ import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import tutorial.SimpleArrow;
+import tutorial.TutorialAction;
+
 import ui.xpPanel.XPStar;
 
 import utils.CSprite;
@@ -36,6 +39,8 @@ public class CraftItem {
     public  var count:int;
     private var _txtNumber:TextField;
     private var _particle:CraftItemParticle;
+    private var _arrow:SimpleArrow;
+    private var _tutorialCallback:Function;
 
     private var g:Vars = Vars.getInstance();
 
@@ -101,6 +106,13 @@ public class CraftItem {
     }
 
     public function flyIt():void {
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CHICKEN_CRAFT) {
+            if (_tutorialCallback != null) {
+                _tutorialCallback.apply();
+                _tutorialCallback = null;
+                removeArrow();
+            }
+        }
         _image.filter = null;
         if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + count > g.user.ambarMaxCount) {
 //            g.flyMessage.showIt(_source,"Амбар заполнен");
@@ -182,6 +194,20 @@ public class CraftItem {
         if (_particle) {
             _particle.deleteIt();
             _particle = null;
+        }
+    }
+
+    public function addArrow(f:Function):void {
+        _tutorialCallback = f;
+        removeArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source, 1);
+        _arrow.animateAtPosition(0, -_image.height/2);
+    }
+
+    public function removeArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
         }
     }
 

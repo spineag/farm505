@@ -13,6 +13,9 @@ import manager.Vars;
 import starling.display.Image;
 import starling.text.TextField;
 
+import tutorial.SimpleArrow;
+import tutorial.TutorialAction;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -22,6 +25,7 @@ public class WOItemFabrica {
     private var _icon:Image;
     private var _dataRecipe:Object;
     private var _clickCallback:Function;
+    private var _arrow:SimpleArrow;
 
     private var g:Vars = Vars.getInstance();
 
@@ -54,6 +58,9 @@ public class WOItemFabrica {
             Cc.error("Warning woItemFabrica filldata:: _dataRecipe.blockByLevel > g.user.level + 1");
         }
         fillIcon(g.dataResource.objectResources[_dataRecipe.idResource].imageShop);
+        if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResoucre(_dataRecipe.id)) {
+            addArrow();
+        }
     }
 
     private function fillIcon(s:String):void {
@@ -74,6 +81,7 @@ public class WOItemFabrica {
     }
 
     public function unfillIt():void {
+        removeArrow();
         if (_icon) {
             source.removeChild(_icon);
             _icon = null;
@@ -90,6 +98,9 @@ public class WOItemFabrica {
             _clickCallback.apply(null, [_dataRecipe]);
         }
         g.fabricHint.hideIt();
+        if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResoucre(_dataRecipe.id)) {
+            g.managerTutorial.checkTutorialCallback();
+        }
     }
 
     private function onHover():void {
@@ -112,6 +123,19 @@ public class WOItemFabrica {
         source.filter = null;
         g.fabricHint.hideIt();
         g.resourceHint.hideIt();
+    }
+
+    private function addArrow():void {
+        removeArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source, 1);
+        _arrow.animateAtPosition(source.width/2, 0);
+    }
+
+    private function removeArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

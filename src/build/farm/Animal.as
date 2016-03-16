@@ -121,14 +121,18 @@ public class Animal {
         return _state;
     }
 
+    public function get farm():Farm {
+        return _farm;
+    }
+
     public function addArrow():void {
         _rect = source.getBounds(source);
-        hideArrow();
+        removeArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source, 1);
         _arrow.animateAtPosition(0, _rect.y);
     }
 
-    public function hideArrow():void {
+    public function removeArrow():void {
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
@@ -392,9 +396,9 @@ public class Animal {
     private function walkAnimation():void {
         var p:Point;
         if (_data.id == 1) {
-            g.farmGrid.getRandomPoint(7);
+            p = g.farmGrid.getRandomPoint(7);
         } else {
-            g.farmGrid.getRandomPoint();
+            p = g.farmGrid.getRandomPoint();
         }
         var dist:int = Math.sqrt((source.x - p.x)*(source.x - p.x) + (source.y - p.y)*(source.y - p.y));
         if (p.x > source.x) {
@@ -438,6 +442,11 @@ public class Animal {
         g.directServer.skipTimeOnAnimal(_timeToEnd,animal_db_id,null);
         _timeToEnd = 0;
         render();
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CHICKEN_SKIP) {
+            if (_tutorialCallback != null) {
+                _tutorialCallback.apply(null, [this]);
+            }
+        }
     }
 }
 }

@@ -32,6 +32,8 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
 import ui.xpPanel.XPStar;
 
 import utils.CButton;
@@ -69,9 +71,6 @@ public class ShopItem {
             Cc.error('ShopItem:: empty _data');
             g.woGameError.showIt();
             return;
-        }
-        if (_data.id == 42) {
-//            trace('asasd');
         }
         source = new CSprite();
         var bg:CartonBackgroundIn = new CartonBackgroundIn(145, 221);
@@ -236,7 +235,6 @@ public class ShopItem {
     }
 
     private function setInfo():void {
-//        if (_data.id == 68) return;
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
             if (!texture) {
@@ -596,6 +594,10 @@ public class ShopItem {
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
             g.woShop.onClickExit();
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                g.managerTutorial.addTutorialWorldObject(build);
+                g.managerTutorial.checkTutorialCallback();
+            }
             g.toolsModifier.startMove(build as AreaObject, afterMove);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
             build = g.townArea.createNewBuild(_data);
@@ -631,8 +633,22 @@ public class ShopItem {
             } else {
                 g.toolsModifier.startMove(build, afterMove, true);
             }
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA && g.managerTutorial.isTutorialResoucre(_data.id)) {
+                    g.managerTutorial.checkTutorialCallback();
+                } else {
+                    return;
+                }
+            }
         } else {
             //додаємо на відповідну ферму
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_CHICKENS && g.managerTutorial.isTutorialResoucre(_data.id)) {
+                    g.managerTutorial.checkTutorialCallback();
+                } else {
+                    return;
+                }
+            }
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;

@@ -17,7 +17,7 @@ public class DustParticle {
 
     public function DustParticle(color:int) {
         source = new Sprite();
-        _q = new Quad(1, 1, color);
+        _q = new Quad(3, 3, color);
         source.addChild(_q);
     }
 
