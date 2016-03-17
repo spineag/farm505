@@ -58,7 +58,7 @@ public class WOItemFabrica {
             Cc.error("Warning woItemFabrica filldata:: _dataRecipe.blockByLevel > g.user.level + 1");
         }
         fillIcon(g.dataResource.objectResources[_dataRecipe.idResource].imageShop);
-        if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResoucre(_dataRecipe.id)) {
+        if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResource(_dataRecipe.id)) {
             addArrow();
         }
     }
@@ -98,7 +98,8 @@ public class WOItemFabrica {
             _clickCallback.apply(null, [_dataRecipe]);
         }
         g.fabricHint.hideIt();
-        if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResoucre(_dataRecipe.id)) {
+        if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResource(_dataRecipe.id)) {
+            removeArrow();
             g.managerTutorial.checkTutorialCallback();
         }
     }

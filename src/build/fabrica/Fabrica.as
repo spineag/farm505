@@ -157,9 +157,13 @@ public class Fabrica extends AreaObject {
         }
     }
 
+    public function openFabricaWindow():void {
+        g.woFabrica.showItWithParams(_arrRecipes.slice(), _arrList.slice(), this, callbackOnChooseRecipe);
+    }
+
     private function onClick():void {
         if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE) {
+            if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
             } else if (g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) {
                 if (!g.managerTutorial.isTutorialBuilding(this)) return;

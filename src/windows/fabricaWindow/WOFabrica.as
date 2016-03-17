@@ -291,5 +291,9 @@ public class WOFabrica extends Window {
         _bottomBG.y = -_woHeight/2 + 260;
         _source.addChild(_bottomBG);
     }
+
+    public function getSkipBtnProperties():Object {
+        return _list.getSkipBtnProperties();
+    }
 }
 }

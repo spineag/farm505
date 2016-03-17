@@ -18,5 +18,7 @@ public class TutorialAction {
    public static const PLANT_CORN:int = 12;
    public static const ORDER:int = 13;
    public static const FABRICA_SKIP_FOUNDATION:int = 14;
+   public static const FABRICA_SKIP_RECIPE:int = 15;
+   public static const FABRICA_CRAFT:int = 16;
 }
 }
