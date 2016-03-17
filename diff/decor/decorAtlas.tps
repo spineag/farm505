@@ -218,6 +218,14 @@
             <filename>trampoline_yellow.png</filename>
             <filename>arbor.png</filename>
             <filename>fence</filename>
+            <filename>flower_1.png</filename>
+            <filename>flower_2.png</filename>
+            <filename>flower_3.png</filename>
+            <filename>flower_4.png</filename>
+            <filename>flower_5.png</filename>
+            <filename>flower_6.png</filename>
+            <filename>flower_7.png</filename>
+            <filename>flower_8.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

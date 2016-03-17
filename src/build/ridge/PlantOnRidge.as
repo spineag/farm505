@@ -19,6 +19,7 @@ public class PlantOnRidge {
     public var idFromServer:String; // в табличке user_plant_ridge
     private var armature:Armature;
     private var particles:PlantParticle;
+    private var _timerAnimationGrowed:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -78,7 +79,21 @@ public class PlantOnRidge {
                 _ridge.checkBuildRect(false);
 //                animateEndState(); !!!
                 addParticles();
+                growedAnimation();
                 break;
+        }
+    }
+    private function growedAnimation():void {
+        _timerAnimationGrowed = 7*Math.random();
+        g.gameDispatcher.addToTimer(timerAnimation);
+    }
+
+    private function timerAnimation():void {
+        _timerAnimationGrowed --;
+        if (_timerAnimationGrowed <=0) {
+            armature.animation.gotoAndPlay('state4',0);
+            g.gameDispatcher.removeFromTimer(timerAnimation);
+            growedAnimation();
         }
     }
 
@@ -162,8 +177,14 @@ public class PlantOnRidge {
         TweenMax.killTweensOf(_source);
         _source.rotation = 0;
         _source.removeChild(particles.source);
+        _timerAnimationGrowed = 0;
+        g.gameDispatcher.removeFromTimer(timerAnimation);
         particles.clearIt();
         particles = null;
+    }
+
+    public function hoverGrowed():void {
+        armature.animation.gotoAndPlay('state4',0);
     }
 }
 }

@@ -71,6 +71,8 @@ public class DailyBonus extends AreaObject{
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             makeOverAnimation();
         }
+        if(_isOnHover) return;
+        _armature.animation.gotoAndPlay('idle_2');
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
         showLights();

@@ -121,11 +121,11 @@ public class Wild extends AreaObject{
                 }
                 g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
             }
-            if (_isOnHover == false) {
-                _source.filter = null;
-//                g.wildHint.hideIt();
-                g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            }
+//            if (_isOnHover == false) {
+////                _source.filter = null;
+////                g.wildHint.hideIt();
+//                g.gameDispatcher.removeEnterFrame(countEnterFrame);
+//            }
         }
     }
 
