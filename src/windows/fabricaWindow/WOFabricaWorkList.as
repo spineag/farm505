@@ -153,5 +153,13 @@ public class WOFabricaWorkList {
 //        _arrItems[0].unfillIt();
 //        onFinishTimer();
 //    }
+
+    public function getSkipBtnProperties():Object {
+        if (_arrItems.length) {
+            return _arrItems[0].getSkipBtnProperties();
+        } else {
+            return {};
+        }
+    }
 }
 }

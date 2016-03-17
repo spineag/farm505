@@ -24,7 +24,7 @@ import starling.display.Sprite;
 import starling.utils.Color;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = false;
+    private const TUTORIAL_ON:Boolean = true;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
@@ -56,7 +56,7 @@ public class ManagerTutorial {
         return _currentAction;
     }
 
-    public function isTutorialResoucre(id:int):Boolean {
+    public function isTutorialResource(id:int):Boolean {
         return _tutorialResourceIDs.indexOf(id) > -1;
     }
 
@@ -120,6 +120,15 @@ public class ManagerTutorial {
                     break;
                 case 16:
                     curFunc = initScene_16;
+                    break;
+                case 17:
+                    curFunc = initScene_17;
+                    break;
+                case 18:
+                    curFunc = initScene_18;
+                    break;
+                case 19:
+                    curFunc = initScene_19;
                     break;
 
             }
@@ -848,6 +857,125 @@ public class ManagerTutorial {
     }
 
     private function initScene_16():void {
+        if (!texts) texts = (new TutorialTexts()).objText;
+        _tutorialObjects = g.townArea.getCityObjectsById(1);
+        if (!cat) {
+            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+            subStep16_1();
+        } else {
+            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY), subStep16_1);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY);
+        }
+    }
+
+    private function subStep16_1():void {
+        _tutorialResourceIDs = [6]; // recipeId
+        cat.flipIt(false);
+        subStep = 1;
+        cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        (_tutorialObjects[0] as WorldObject).showArrow();
+        _tutorialCallback = subStep16_2;
+        _currentAction = TutorialAction.RAW_RECIPE;
+    }
+
+    private function subStep16_2():void {
+        (_tutorialObjects[0] as WorldObject).hideArrow();
+        cat.hideBubble();
+        cat.flipIt(true);
+        _tutorialCallback = subStep16_3;
+    }
+
+    private function subStep16_3():void {
+        _tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        g.user.tutorialStep = 17;
+        _tutorialResourceIDs.length = 0;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_17():void {
+        if (!_tutorialObjects.length) {
+            _tutorialObjects = g.townArea.getCityObjectsById(1);
+        }
+        if (!cat) {
+            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+        }
+        if (g.currentOpenedWindow) {
+            if (g.currentOpenedWindow != g.woFabrica) {
+                g.currentOpenedWindow.hideIt();
+                (_tutorialObjects[0] as Fabrica).openFabricaWindow();
+            }
+        } else {
+            (_tutorialObjects[0] as Fabrica).openFabricaWindow();
+        }
+        addBlack();
+        if (!texts) texts = (new TutorialTexts()).objText;
+        if (!cutScene) cutScene = new CutScene();
+        subStep = 0;
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep17_1, 1);
+    }
+
+    private function subStep17_1():void {
+        _currentAction = TutorialAction.FABRICA_SKIP_RECIPE;
+        cutScene.hideIt(deleteCutScene);
+        removeBlack();
+        var ob:Object = g.woFabrica.getSkipBtnProperties();
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep17_2;
+    }
+
+    private function subStep17_2():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        g.woFabrica.hideIt();
+        _tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        g.user.tutorialStep = 18;
+        _tutorialResourceIDs.length = 0;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_18():void {
+        if (!_tutorialObjects.length) {
+            _tutorialObjects = g.townArea.getCityObjectsById(1);
+        }
+        if (!cat) {
+            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+        }
+        if (!texts) texts = (new TutorialTexts()).objText;
+        if (!cutScene) cutScene = new CutScene();
+        subStep = 0;
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep18_1, 1);
+    }
+
+    private function subStep18_1():void {
+        _currentAction = TutorialAction.FABRICA_CRAFT;
+        (_tutorialObjects[0] as WorldObject).showArrow();
+        _tutorialCallback = subStep18_2;
+    }
+
+    private function subStep18_2():void {
+        (_tutorialObjects[0] as WorldObject).hideArrow();
+        _currentAction = TutorialAction.LEVEL_UP;
+        _tutorialCallback = subStep18_3;
+        g.user.tutorialStep = 19;
+        _tutorialResourceIDs.length = 0;
+        _tutorialObjects.length = 0;
+        updateTutorialStep();
+    }
+
+    private function subStep18_3():void {
+        initScenes();
+    }
+
+    private function initScene_19():void {
 
     }
 

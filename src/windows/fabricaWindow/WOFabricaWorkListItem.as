@@ -256,5 +256,18 @@ public class WOFabricaWorkListItem {
         _skipCallback = f;
     }
 
+    public function getSkipBtnProperties():Object {
+        var ob:Object = {};
+        ob.x = _btnSkip.x - _btnSkip.width/2;
+        ob.y = _btnSkip.y - _btnSkip.height/2;
+        var p:Point = new Point(ob.x, ob.y);
+        p = _source.localToGlobal(p);
+        ob.x = p.x;
+        ob.y = p.y;
+        ob.width = _btnSkip.width;
+        ob.height = _btnSkip.height;
+        return ob;
+    }
+
 }
 }

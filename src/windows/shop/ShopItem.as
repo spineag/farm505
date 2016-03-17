@@ -634,7 +634,7 @@ public class ShopItem {
                 g.toolsModifier.startMove(build, afterMove, true);
             }
             if (g.managerTutorial.isTutorial) {
-                if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA && g.managerTutorial.isTutorialResoucre(_data.id)) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
                 } else {
                     return;
@@ -643,7 +643,7 @@ public class ShopItem {
         } else {
             //додаємо на відповідну ферму
             if (g.managerTutorial.isTutorial) {
-                if (g.managerTutorial.currentAction == TutorialAction.BUY_CHICKENS && g.managerTutorial.isTutorialResoucre(_data.id)) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_CHICKENS && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
                 } else {
                     return;
