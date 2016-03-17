@@ -191,7 +191,7 @@ public class Animal {
             onOut();
             if(g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
                 g.woNoResources.showItAnimal(_data,onClick);
-            return;
+                return;
             }
             if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {
                 g.woLastResource.showItMarket(_data.idResourceRaw,onClick);

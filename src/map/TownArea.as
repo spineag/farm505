@@ -514,8 +514,7 @@ public class TownArea extends Sprite {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.bottomPanel.cancelBoolean(false);
                 g.buyHint.hideIt();
-                g.toolsModifier.startMove(build, afterMove, true);
-                g.woShop.showIt();
+//                g.woShop.showIt();
                 return;
             }
             var arr:Array;
@@ -657,6 +656,7 @@ public class TownArea extends Sprite {
             g.woGameError.showIt();
             return;
         }
+
         if (!_contTail.contains(tail.source)) {
             tail.source.x = int(_x);
             tail.source.y = int(_y);

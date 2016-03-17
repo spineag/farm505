@@ -709,7 +709,14 @@ public class ShopItem {
         }else {
             if (_data.currency != DataMoney.SOFT_CURRENCY) {
                 g.userInventory.addMoney(_data.currency, -_countCost);
-                g.townArea.pasteBuild(build, _x, _y,true,false,true);
+                if (build is DecorTail) {
+                    g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
+                } else {
+                    g.townArea.pasteBuild(build, _x, _y,true,false,true);
+                }
+                showSmallBuildAnimations(build, DataMoney.HARD_CURRENCY, -_countCost);
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
                 return;
             } else {
                 g.userInventory.addMoney(_data.currency, -_countCost);
