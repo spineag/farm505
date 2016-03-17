@@ -12,6 +12,8 @@ import flash.geom.Point;
 
 import manager.Vars;
 
+import tutorial.TutorialAction;
+
 public class ManagerCats {
     protected var _townMatrix:Array;
     protected var _townAwayMatrix:Array;
@@ -187,12 +189,21 @@ public class ManagerCats {
     public function onBuyCatFromShop():void {
         var cat:HeroCat = new HeroCat(int(Math.random()*2) + 1);
         _catsArray.push(cat);
-        cat.setPosition(getRandomFreeCell());
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+            cat.setPosition(new Point(31, 28));
+        } else {
+            cat.setPosition(getRandomFreeCell());
+        }
         cat.addToMap();
         g.user.countCats++;
         g.directServer.buyHeroCat(null);
         g.catPanel.checkCat();
-        cat.makeFreeCatIdle();
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+            cat.playDirectLabel('idle', true, cat.makeFreeCatIdle);
+        } else {
+            cat.makeFreeCatIdle();
+        }
+
     }
 
     public function getFreeCat():HeroCat {

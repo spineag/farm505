@@ -494,6 +494,9 @@ public class TownArea extends Sprite {
                 g.managerTutorial.checkTutorialCallback();
             } else if (worldObject is Ridge && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
                 g.managerTutorial.checkTutorialCallback();
+            } else if (worldObject is Farm && g.managerTutorial.currentAction == TutorialAction.PUT_FARM) {
+                g.managerTutorial.addTutorialWorldObject(worldObject);
+                g.managerTutorial.checkTutorialCallback();
             }
         }
 

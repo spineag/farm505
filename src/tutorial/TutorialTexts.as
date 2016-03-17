@@ -78,6 +78,15 @@ public class TutorialTexts {
 
         _objText[19] = {};
         _objText[19][0] = 'Что-то мне надоело пахать, давай раба себе возьмем';
+
+        _objText[20] = {};
+        _objText[20][0] = 'А теперь можно и фазенду для перипончастокрылых соорудить!';
+
+        _objText[21] = {};
+        _objText[21][1] = 'Сюда бы еще пару сарайчиков для окоянных';
+
+        _objText[22] = {};
+        _objText[22][0] = 'Запомни: пчелы жрут клевер! O_O А теперь корми их!';
     }
 
     public function get objText():Object { return _objText }

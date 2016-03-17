@@ -220,7 +220,7 @@ public class Animal {
                     addRenderAnimation();
                 }
                 onOut();
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CHICKEN_FEED) {
+                if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.CHICKEN_FEED || g.managerTutorial.currentAction == TutorialAction.FEED_BEE)) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply(null, [this]);
                     }

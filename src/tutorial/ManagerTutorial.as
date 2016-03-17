@@ -130,6 +130,15 @@ public class ManagerTutorial {
                 case 19:
                     curFunc = initScene_19;
                     break;
+                case 20:
+                    curFunc = initScene_20;
+                    break;
+                case 21:
+                    curFunc = initScene_21;
+                    break;
+                case 22:
+                    curFunc = initScene_22;
+                    break;
 
             }
             if (curFunc != null) {
@@ -967,16 +976,176 @@ public class ManagerTutorial {
         _tutorialCallback = subStep18_3;
         g.user.tutorialStep = 19;
         _tutorialResourceIDs.length = 0;
-        _tutorialObjects.length = 0;
         updateTutorialStep();
     }
 
     private function subStep18_3():void {
+        _currentAction = TutorialAction.NONE;
+        _tutorialCallback = null;
         initScenes();
     }
 
     private function initScene_19():void {
+        if (!_tutorialObjects.length) {
+            _tutorialObjects = g.townArea.getCityObjectsById(1);
+        }
+        if (!cat) {
+            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+        }
+        if (!texts) texts = (new TutorialTexts()).objText;
+        if (!cutScene) cutScene = new CutScene();
+        subStep = 0;
+        addBlack();
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep19_1, 1);
+    }
 
+    private function subStep19_1():void {
+        cutScene.hideIt(deleteCutScene);
+        removeBlack();
+        _currentAction = TutorialAction.BUY_CAT;
+        g.woShop.activateTab(1);
+        g.woShop.showIt();
+        var ob:Object = g.woShop.getShopItemProperties(1);
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep19_2;
+        g.cont.moveCenterToPos(31, 28);
+    }
+
+    private function subStep19_2():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        _currentAction = TutorialAction.NONE;
+        _tutorialCallback = null;
+        g.woShop.hideIt();
+        g.user.tutorialStep = 20;
+        updateTutorialStep();
+        createDelay(3000, subStep19_3);
+    }
+
+    private function subStep19_3():void {
+        initScenes();
+    }
+
+    private function initScene_20():void {
+        if (!cat) {
+            addCatToPos(31, 26);
+            g.cont.moveCenterToPos(31, 26, true);
+        }
+        if (!cutScene) cutScene = new CutScene();
+        if (!texts) texts = (new TutorialTexts()).objText;
+        cat.flipIt(false);
+        subStep = 0;
+        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep20_1);
+    }
+
+    private function subStep20_1():void {
+        cat.hideBubble();
+        _currentAction = TutorialAction.BUY_FARM;
+        _tutorialResourceIDs = [39];
+        g.woShop.activateTab(1);
+        g.woShop.showIt();
+        var ob:Object = g.woShop.getShopItemProperties(3);
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep20_2;
+    }
+
+    private function subStep20_2():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        _currentAction = TutorialAction.PUT_FARM;
+        _tutorialCallback = subStep20_3;
+        g.woShop.activateTab(1);
+    }
+
+    private function subStep20_3():void {
+        _tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        g.user.tutorialStep = 21;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_21():void {
+        if (!_tutorialObjects.length) {
+            _tutorialObjects = g.townArea.getCityObjectsById(39);
+        }
+        if (!cat) {
+            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+            subStep21_1();
+        } else {
+            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY), subStep21_1);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY);
+        }
+    }
+
+    private function subStep21_1():void {
+        subStep = 1;
+        cat.flipIt(true);
+        if (!texts) texts = (new TutorialTexts()).objText;
+        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep21_2);
+    }
+
+    private function subStep21_2():void {
+        cat.hideBubble();
+        _tutorialResourceIDs = [6];
+        _currentAction = TutorialAction.BUY_BEE;
+        g.woShop.activateTab(2);
+        g.woShop.showIt();
+        var ob:Object = g.woShop.getShopItemProperties(1);
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep21_3;
+    }
+
+    private function subStep21_3():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        g.woShop.hideIt();
+        g.woShop.activateTab(1);
+        _tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        g.user.tutorialStep = 22;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_22():void {
+        if (!_tutorialObjects.length) {
+            _tutorialObjects = g.townArea.getCityObjectsById(39);
+        }
+        if (!cat) {
+            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+        }
+        subStep = 0;
+        cat.flipIt(true);
+        if (!texts) texts = (new TutorialTexts()).objText;
+        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep22_2);
+    }
+
+    private function subStep22_2():void {
+        cat.hideBubble();
+        _currentAction = TutorialAction.FEED_BEE;
+        _tutorialObjects = (_tutorialObjects[0] as Farm).arrAnimals;
+        (_tutorialObjects[0] as Animal).playDirectIdle();
+        (_tutorialObjects[0] as Animal).addArrow();
+        (_tutorialObjects[0] as Animal).tutorialCallback = subStep22_3;
+    }
+
+    private function subStep22_3(bee:Animal):void {
+        bee.removeArrow();
+        bee.tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        g.user.tutorialStep = 23;
+        updateTutorialStep();
+        initScenes();
     }
 
 

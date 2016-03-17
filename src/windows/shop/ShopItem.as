@@ -616,6 +616,11 @@ public class ShopItem {
             updateItem();
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(_data.cost));
             showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+                    g.managerTutorial.checkTutorialCallback();
+                }
+            }
         } else if (_data.buildType != BuildType.ANIMAL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
@@ -636,14 +641,16 @@ public class ShopItem {
             if (g.managerTutorial.isTutorial) {
                 if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
-                } else {
-                    return;
+                } else if (g.managerTutorial.currentAction == TutorialAction.BUY_FARM && g.managerTutorial.isTutorialResource(_data.id)) {
+                    g.managerTutorial.checkTutorialCallback();
                 }
             }
         } else {
             //додаємо на відповідну ферму
             if (g.managerTutorial.isTutorial) {
                 if (g.managerTutorial.currentAction == TutorialAction.BUY_CHICKENS && g.managerTutorial.isTutorialResource(_data.id)) {
+                    g.managerTutorial.checkTutorialCallback();
+                } else if (g.managerTutorial.currentAction == TutorialAction.BUY_BEE && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
                 } else {
                     return;

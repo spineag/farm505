@@ -167,6 +167,14 @@ public class HeroCat extends BasicCat{
         b.display = im;
     }
 
+
+// play Direct label
+    public function playDirectLabel(label:String, playOnce:Boolean, callback:Function):void {
+        showFront(true);
+        heroEyes.startAnimations();
+        _animation.playIt(label, playOnce, callback);
+    }
+
 // SIMPLE IDLE
     private var timer:int;
     public function makeFreeCatIdle():void {

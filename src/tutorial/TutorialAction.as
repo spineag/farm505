@@ -20,5 +20,10 @@ public class TutorialAction {
    public static const FABRICA_SKIP_FOUNDATION:int = 14;
    public static const FABRICA_SKIP_RECIPE:int = 15;
    public static const FABRICA_CRAFT:int = 16;
+   public static const BUY_CAT:int = 17;
+   public static const BUY_FARM:int = 18;
+   public static const PUT_FARM:int = 19;
+   public static const BUY_BEE:int = 20;
+   public static const FEED_BEE:int = 21;
 }
 }
