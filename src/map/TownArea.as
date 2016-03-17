@@ -490,6 +490,7 @@ public class TownArea extends Sprite {
 
         if (isNewAtMap && g.managerTutorial.isTutorial) {
             if (worldObject is Fabrica && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA) {
+                g.managerTutorial.addTutorialWorldObject(worldObject);
                 g.managerTutorial.checkTutorialCallback();
             } else if (worldObject is Ridge && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
                 g.managerTutorial.checkTutorialCallback();

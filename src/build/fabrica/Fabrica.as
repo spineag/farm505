@@ -118,7 +118,7 @@ public class Fabrica extends AreaObject {
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) buildingBuildFoundationOver();
             _countTimer = 5;
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
+            if (!g.managerTutorial.isTutorial) g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
         }
@@ -127,10 +127,13 @@ public class Fabrica extends AreaObject {
     }
 
     private function onOut():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        _source.filter = null;
+        if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) return;
+            if (!g.managerTutorial.isTutorialBuilding(this)) return;
+        }
         if (g.isActiveMapEditor) return;
         _isOnHover = false;
-        _source.filter = null;
         if (_stateBuild == STATE_BUILD) {
             g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else {
@@ -210,11 +213,14 @@ public class Fabrica extends AreaObject {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
         } else if (_stateBuild == STATE_BUILD) {
-            g.timerHint.needMoveCenter = true;
-            g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
                 onOut();
                 g.townArea.moveBuild(this);
+            } else {
+                g.timerHint.needMoveCenter = true;
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) g.timerHint.canHide = false;
+                g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
+                        _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             _stateBuild = STATE_ACTIVE;
@@ -437,6 +443,11 @@ public class Fabrica extends AreaObject {
         g.directServer.skipTimeOnFabricBuild(_leftBuildTime,dbBuildingId,null);
         _leftBuildTime = 0;
         renderBuildProgress();
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+            g.managerTutorial.checkTutorialCallback();
+            g.timerHint.canHide = true;
+            onOut();
+        }
     }
 
     public function onBuyNewCell():void {

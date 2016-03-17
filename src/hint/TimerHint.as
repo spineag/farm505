@@ -51,9 +51,11 @@ public class TimerHint {
     private var _callbackSkip:Function;
     private var _quad:Quad;
     private var _onOutCallback:Function;
+    private var _canHide:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function TimerHint() {
+        _canHide = true;
         source = new CSprite();
         _isOnHover = false;
         _isShow = false;
@@ -103,7 +105,11 @@ public class TimerHint {
     }
 
     public function isShow():Boolean {
-        return _isShow
+        return _isShow;
+    }
+
+    public function set canHide(v:Boolean):void {
+        _canHide = v;
     }
 
     public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String,f:Function, out:Function):void {
@@ -155,6 +161,7 @@ public class TimerHint {
     }
 
     public function hideIt(force:Boolean = false):void {
+        if (!_canHide) return;
         if (_isOnHover && !force) return;
         if (!_isShow) return;
         _isShow = false;
