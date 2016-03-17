@@ -126,14 +126,9 @@ public class MarketItem {
             btn.x = 55;
             btn.clickCallback = onClickBuy;
             buyCont.addChild(btn);
-//            buyCont.x = 25;
-//            buyCont.y = 30;
-//            var quad11 = new Quad(buyCont.width, buyCont.height,Color.WHITE ,false);
-//            buyCont.addChild(quad11);
             return;
         }
 
-        _txtAdditem.text = 'Добавить товар';
         _quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
         _quadGreen.y = 100;
         source.addChild(_quadGreen);
@@ -204,8 +199,6 @@ public class MarketItem {
 
         _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_imCheck,20,20);
-//        _imCheck.x = 5;
-//        _imCheck.y = 5;
         source.addChild(_imCheck);
         _imCheck.visible = false;
 
