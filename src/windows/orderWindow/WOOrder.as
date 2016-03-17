@@ -490,8 +490,8 @@ public class WOOrder extends Window{
 
     public function getSellBtnProperties():Object {
         var ob:Object = {};
-        ob.x = _btnCell.x - _btnCell.width/2;
-        ob.y = _btnCell.y - _btnCell.height/2;
+        ob.x = _btnCell.x;
+        ob.y = _btnCell.y;
         var p:Point = new Point(ob.x, ob.y);
         p = _source.localToGlobal(p);
         ob.x = p.x;
@@ -626,7 +626,7 @@ public class WOOrder extends Window{
         animateCustomerCat();
     }
 
-    public function setTextForCustomer(st:String, isFlip:Boolean = false):void {
+    public function setTextForCustomer(st:String):void {
         if (_bubble) {
             _bubble.hideBubble();
             _bubble.deleteIt();
@@ -634,8 +634,8 @@ public class WOOrder extends Window{
 
         if (st != '') {
             _bubble = new TutorialTextBubble(_source);
-            _bubble.showBubble(st, isFlip);
-            _bubble.setXY(50, -100);
+            _bubble.showBubble(st, true);
+            _bubble.setXY(120, -150);
         }
     }
 

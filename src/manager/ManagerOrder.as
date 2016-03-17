@@ -50,7 +50,7 @@ public class ManagerOrder {
 
     public function checkOrders():void {
         updateMaxCounts();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.ORDER) return;
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction <= TutorialAction.ORDER) return;
         if (_arrOrders.length < _curMaxCountOrders) {
             addNewOrders(_curMaxCountOrders - _arrOrders.length);
             checkForNewCats();
@@ -59,6 +59,7 @@ public class ManagerOrder {
 
     public function checkOrderForTutorial(onArriveCallback:Function = null):void {
         if (g.managerTutorial.currentAction == TutorialAction.ORDER) {
+            _arrOrders.length = 0;
             updateMaxCounts();
             if (_arrOrders.length < _curMaxCountOrders) {
                 addNewTutorialOrder();
@@ -129,6 +130,18 @@ public class ManagerOrder {
         var arr:Array;
         var countResources:int;
         var k:int;
+
+        for(var id:String in g.dataResource.objectResources) {
+            if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
+                if (g.dataResource.objectResources[id].orderType == 1) {
+                    arrOrderType1.push(int(id));
+                } else if (g.dataResource.objectResources[id].orderType == 2) {
+                    arrOrderType2.push(int(id));
+                } else if (g.dataResource.objectResources[id].orderType == 3) {
+                    arrOrderType3.push(int(id));
+                }
+            }
+        }
 
         for (var i:int=0; i<n; i++) {
             order = new ManagerOrderItem();

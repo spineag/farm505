@@ -41,6 +41,10 @@ public class PlantOnRidge {
         _data.timeToStateGwoned = _data.buildTime -  _data.timeToGrow2 -  _data.timeToGrow3;
     }
 
+    public function get dataPlant():Object {
+        return _data;
+    }
+
     public function activateRender():void {
         g.gameDispatcher.addToTimer(render);
     }
