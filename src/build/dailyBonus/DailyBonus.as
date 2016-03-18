@@ -53,7 +53,7 @@ public class DailyBonus extends AreaObject{
             }
             while (_build.numChildren) _build.removeChildAt(0);
         }
-        _armature = g.allData.factory[_dataBuild.image].buildArmature("cat");
+        _armature = g.allData.factory['daily_bonus'].buildArmature("cat");
         _build.addChild(_armature.display as Sprite);
         WorldClock.clock.add(_armature);
         _defaultScale = 1;
@@ -69,10 +69,8 @@ public class DailyBonus extends AreaObject{
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            makeOverAnimation();
+            _armature.animation.gotoAndPlay('idle_2');
         }
-        if(_isOnHover) return;
-        _armature.animation.gotoAndPlay('idle_2');
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
         showLights();

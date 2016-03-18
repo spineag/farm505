@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:1628edd422019123c285f81b91d25c33:6652837e23b51e68b0ed735d13a8f0f7:be598583fb5193bc69c6356aad498d4a$ -->
+<TextureAtlas imagePath="farmAtlas.png">
+    <SubTexture name="beehive" x="92" y="212" width="77" height="84" frameX="0" frameY="0" frameWidth="81" frameHeight="84"/>
+    <SubTexture name="chicken" x="429" y="211" width="43" height="46" frameX="-4" frameY="0" frameWidth="51" frameHeight="52"/>
+    <SubTexture name="cow" x="2" y="212" width="88" height="85"/>
+    <SubTexture name="farm_bee" x="1314" y="2" width="334" height="173" frameX="-3" frameY="-4" frameWidth="342" frameHeight="180"/>
+    <SubTexture name="farm_chicken" x="1014" y="2" width="298" height="184"/>
+    <SubTexture name="farm_chicken2" x="1014" y="188" width="291" height="112"/>
+    <SubTexture name="farm_cow" x="340" y="2" width="335" height="207" frameX="-1" frameY="0" frameWidth="339" frameHeight="209"/>
+    <SubTexture name="farm_cow2" x="1650" y="2" width="329" height="126" frameX="-5" frameY="0" frameWidth="339" frameHeight="126"/>
+    <SubTexture name="farm_goat" x="308" y="212" width="84" height="47"/>
+    <SubTexture name="farm_pig" x="677" y="2" width="335" height="207" frameX="-1" frameY="0" frameWidth="339" frameHeight="209"/>
+    <SubTexture name="farm_pig2" x="1650" y="130" width="329" height="126" frameX="-5" frameY="0" frameWidth="339" frameHeight="126"/>
+    <SubTexture name="farm_sheep" x="2" y="2" width="336" height="208" frameX="-1" frameY="0" frameWidth="339" frameHeight="209"/>
+    <SubTexture name="farm_sheep2" x="1314" y="177" width="329" height="126" frameX="-5" frameY="0" frameWidth="339" frameHeight="126"/>
+    <SubTexture name="goat" x="394" y="211" width="33" height="47"/>
+    <SubTexture name="pig" x="171" y="212" width="82" height="71"/>
+    <SubTexture name="sheep" x="255" y="212" width="51" height="52"/>
+</TextureAtlas>

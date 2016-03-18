@@ -6,6 +6,9 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+
 import flash.geom.Point;
 
 import hint.FlyMessage;
@@ -14,12 +17,16 @@ import manager.ManagerFilters;
 
 import mouse.ToolsModifier;
 
+import starling.display.Sprite;
+
 import starling.filters.BlurFilter;
 
 import starling.utils.Color;
 
 public class Paper extends AreaObject{
     private var _isOnHover:Boolean;
+    private var _armature:Armature;
+
     public function Paper(data:Object) {
         super (data);
         useIsometricOnly = false;
@@ -36,11 +43,31 @@ public class Paper extends AreaObject{
         _source.releaseContDrag = true;
     }
 
+    override public function createBuild(isImageClicked:Boolean = true):void {
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+        _armature = g.allData.factory['newspaper'].buildArmature('newspaper');
+        _build.addChild(_armature.display as Sprite);
+        WorldClock.clock.add(_armature);
+        _defaultScale = 1;
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        if (_flip) _build.scaleX = -_defaultScale;
+        _source.addChild(_build);
+        _armature.animation.gotoAndStop('idle', 0);
+    }
+
     private function onHover():void {
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            makeOverAnimation();
+            _armature.animation.gotoAndPlay('idle_2');
+            _armature.animation.gotoAndPlay('idle');
         }
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);

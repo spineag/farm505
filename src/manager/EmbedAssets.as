@@ -22,7 +22,7 @@ public class EmbedAssets {
     private const ResourceTexture:Class;
     [Embed(source="../../assets/x1/wildAtlas2.png")]
     private const WildTexture:Class;
-    [Embed(source="../../assets/x1/farmAtlas2.png")]
+    [Embed(source="../../assets/x1/farmAtlas.png")]
     private const FarmTexture:Class;
     [Embed(source="../../assets/x1/decorAtlas.png")]
     private const DecorTexture:Class;
@@ -40,7 +40,7 @@ public class EmbedAssets {
     private const ResourceTextureXML:Class;
     [Embed(source="../../assets/x1/wildAtlas2.xml", mimeType="application/octet-stream")]
     private const WildTextureXML:Class;
-    [Embed(source="../../assets/x1/farmAtlas2.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/x1/farmAtlas.xml", mimeType="application/octet-stream")]
     private const FarmTextureXML:Class;
     [Embed(source="../../assets/x1/decorAtlas.xml", mimeType="application/octet-stream")]
     private const DecorTextureXML:Class;
@@ -125,10 +125,14 @@ public class EmbedAssets {
     private const Sklad:Class;
     [Embed(source = "../../assets/animations/x1/wheel_of_fortune.png", mimeType = "application/octet-stream")]
     private const DailyBonus:Class;
+    [Embed(source = "../../assets/animations/x1/newspaper.png", mimeType = "application/octet-stream")]
+    private const Newspaper:Class;
     [Embed(source = "../../assets/animations/x1/aerial_tram.png", mimeType = "application/octet-stream")]
     private const AerialTram:Class;
     [Embed(source = "../../assets/animations/x1/orders.png", mimeType = "application/octet-stream")]
     private const Orders:Class;
+    [Embed(source = "../../assets/animations/x1/roadside_market.png", mimeType = "application/octet-stream")]
+    private const RoadsideMarket:Class;
     [Embed(source = "../../assets/animations/x1/explode.png", mimeType = "application/octet-stream")]
     private const Explode:Class;
     [Embed(source = "../../assets/animations/x1/explode_gray.png", mimeType = "application/octet-stream")]
@@ -139,8 +143,6 @@ public class EmbedAssets {
     private const CatTutorial:Class;
     [Embed(source = "../../assets/animations/cat_tutorial_big2.png", mimeType = "application/octet-stream")]
     private const CatTutorialBig:Class;
-    [Embed(source = "../../assets/animations/x1/trees_hover.png", mimeType = "application/octet-stream")]
-    private const TreesHover:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -193,8 +195,9 @@ public class EmbedAssets {
                 }
             }
         };
-        loadFactory('tree', BuildingTrees, checkCount);
-        loadFactory('trees_hover', TreesHover, checkCount);
+        loadFactory('market',RoadsideMarket,checkCount);
+        loadFactory('newspaper',Newspaper,checkCount);
+        loadFactory('trees', BuildingTrees, checkCount);
         loadFactory('plant', BuildingPlants, checkCount);
         loadFactory('cat', CatData, checkCount);
         loadFactory('cat_watering', CatWateringData, checkCount);

@@ -306,9 +306,6 @@
             <filename>cat_shadow.png</filename>
             <filename>basket_big.png</filename>
             <filename>currency_buy_window.png</filename>
-            <filename>market_l1.png</filename>
-            <filename>market_l2.png</filename>
-            <filename>market_l3.png</filename>
             <filename>add_friend_button.png</filename>
             <filename>sale.png</filename>
             <filename>refresh_icon.png</filename>

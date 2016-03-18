@@ -1,8 +1,15 @@
 
 package build.market {
+
+
 import build.AreaObject;
 
 import com.junkbyte.console.Cc;
+
+import dragonBones.Armature;
+import dragonBones.Bone;
+
+import dragonBones.animation.WorldClock;
 
 import flash.geom.Point;
 
@@ -15,6 +22,7 @@ import map.TownArea;
 import mouse.ToolsModifier;
 
 import starling.display.Image;
+import starling.display.Sprite;
 
 import starling.filters.BlurFilter;
 import starling.utils.Color;
@@ -29,6 +37,8 @@ public class Market extends AreaObject{
     private var _imItemTwo:Image;
     private var _arrItem:Array;
     private var _isOnHover:Boolean;
+    private var _armature:Armature;
+
     public function Market(_data:Object) {
         super(_data);
         _isOnHover = false;
@@ -44,33 +54,52 @@ public class Market extends AreaObject{
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
         _source.releaseContDrag = true;
-        _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('market_l1'));
-        _imCoins.x = 19;
-        _imCoins.y = 7;
-        MCScaler.scale(_imCoins,55,55);
-        _imItemOne = new Image(g.allData.atlas['interfaceAtlas'].getTexture('market_l2'));
-        _imItemOne.x = -12;
-        _imItemOne.y = -14;
-        MCScaler.scale(_imItemOne,55,55);
-        _imItemTwo = new Image(g.allData.atlas['interfaceAtlas'].getTexture('market_l3'));
-        _imItemTwo.x = -45;
-        _imItemTwo.y = -27;
-        MCScaler.scale(_imItemTwo,55,55);
-        _build.addChild(_imItemTwo);
-        _build.addChild(_imItemOne);
-        _build.addChild(_imCoins);
-        _imItemTwo.visible = false;
-        _imItemOne.visible = false;
-        _imCoins.visible = false;
+//        _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('market_l1'));
+//        _imCoins.x = 19;
+//        _imCoins.y = 7;
+//        MCScaler.scale(_imCoins,55,55);
+//        _imItemOne = new Image(g.allData.atlas['interfaceAtlas'].getTexture('market_l2'));
+//        _imItemOne.x = -12;
+//        _imItemOne.y = -14;
+//        MCScaler.scale(_imItemOne,55,55);
+//        _imItemTwo = new Image(g.allData.atlas['interfaceAtlas'].getTexture('market_l3'));
+//        _imItemTwo.x = -45;
+//        _imItemTwo.y = -27;
+//        MCScaler.scale(_imItemTwo,55,55);
+//        _build.addChild(_imItemTwo);
+//        _build.addChild(_imItemOne);
+//        _build.addChild(_imCoins);
+//        _imItemTwo.visible = false;
+//        _imItemOne.visible = false;
+//        _imCoins.visible = false;
         _arrItem = [];
         marketState();
+    }
+
+    override public function createBuild(isImageClicked:Boolean = true):void {
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+        _armature = g.allData.factory['market'].buildArmature('road_shop');
+        _build.addChild(_armature.display as Sprite);
+        WorldClock.clock.add(_armature);
+        _defaultScale = 1;
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        if (_flip) _build.scaleX = -_defaultScale;
+        _source.addChild(_build);
+        _armature.animation.gotoAndStop('idle', 0);
     }
 
     private function onHover():void {
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            makeOverAnimation();
+            _armature.animation.gotoAndPlay('idle_2');
         }
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
@@ -154,18 +183,25 @@ public class Market extends AreaObject{
                 res ++;
             }
         }
-
+    var b:Bone;
         if (coins > 0) {
-            _imCoins.visible = true;
+            b = _armature.getBone('coins');
+            b.visible = true;
+//            _imCoins.visible = true;
         } else {
-            _imCoins.visible = false;
+//            _imCoins.visible = false;
         }
         if (res > 0) {
-            _imItemOne.visible = true;
-            _imItemTwo.visible = true;
+            b = _armature.getBone('fr');
+            b.visible = true;
+
+//            b = _armature.getBone('fr2');
+//            b.visible = true;
+//            _imItemOne.visible = true;
+//            _imItemTwo.visible = true;
         } else {
-            _imItemOne.visible = false;
-            _imItemTwo.visible = false;
+//            _imItemOne.visible = false;
+//            _imItemTwo.visible = false;
         }
     }
 }

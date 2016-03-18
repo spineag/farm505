@@ -79,16 +79,16 @@ public class Tree extends AreaObject {
 
         switch (_data.id) {
             case 25:
-                armature = g.allData.factory['trees_hover'].buildArmature("apple");
+                armature = g.allData.factory['trees'].buildArmature("apple");
                 break;
             case 26:
-                armature = g.allData.factory['trees_hover'].buildArmature("cheery");
+                armature = g.allData.factory['trees'].buildArmature("cheery");
                 break;
             case 41:
-                armature = g.allData.factory['trees_hover'].buildArmature("raspberry");
+                armature = g.allData.factory['trees'].buildArmature("raspberry");
                 break;
             case 42:
-                armature = g.allData.factory['trees_hover'].buildArmature("blueberry");
+                armature = g.allData.factory['trees'].buildArmature("blueberry");
                 break;
         }
         armatureClip = armature.display as Sprite;
