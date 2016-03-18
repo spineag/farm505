@@ -26,6 +26,7 @@ public class WOOrderResourceItem {
     public var source:CSprite;
     private var _check:Image;
     private var _countTxt:TextField;
+    private var _countRed:TextField;
     private var _image:Image;
     private var _id:int;
     private var _onHover:Boolean;
@@ -47,9 +48,14 @@ public class WOOrderResourceItem {
         _countTxt = new TextField(80, 40, "10/10", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _countTxt.hAlign = HAlign.RIGHT;
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _countTxt.x = 12;
+
         _countTxt.y = 60;
         source.addChild(_countTxt);
+        _countRed = new TextField(30, 30, "", g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_ORANGE);
+        _countRed.hAlign = HAlign.RIGHT;
+        _countRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _countRed.y = 65;
+        source.addChild(_countRed);
         source.hoverCallback = onHover;
         source.outCallback = outCallback;
         source.visible = false;
@@ -64,6 +70,7 @@ public class WOOrderResourceItem {
             _image = null;
         }
         _countTxt.text = '';
+        _countRed.text = '';
     }
 
     public function fillIt(id:int, count:int):void {
@@ -80,8 +87,16 @@ public class WOOrderResourceItem {
         var curCount:int = g.userInventory.getCountResourceById(id);
         if (curCount >= count) {
             _check.visible = true;
+            _countTxt.text = String(curCount) + '/' + String(count);
+            _countTxt.x = 12;
+        } else {
+            _countRed.text = String(curCount);
+            _countTxt.text = '/' + String(count);
+
+            _countTxt.x = 12;
+            _countRed.x = 61 -_countTxt.textBounds.width ;
         }
-        _countTxt.text = String(curCount) + '/' + String(count);
+
         source.visible = true;
     }
 

@@ -39,7 +39,7 @@ public class FabricHintItem {
             txt = new TextField(50,50,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         } else {
-            txt = new TextField(50,51,'',g.allData.fonts['BloggerBold'],15,ManagerFilters.TEXT_ORANGE);
+            txt = new TextField(50,51,'',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_ORANGE);
         }
         txt.hAlign = HAlign.RIGHT;
         txt.y = 55;

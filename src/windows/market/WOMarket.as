@@ -13,6 +13,8 @@ import manager.ManagerFilters;
 
 import social.SocialNetworkEvent;
 
+import starling.animation.Tween;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -138,25 +140,29 @@ public class WOMarket  extends Window {
         _leftBtn = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
         _leftBtn.addChild(im);
-        MCScaler.scale(_leftBtn, 40, 40);
-        _leftBtn.x = -265;
-        _leftBtn.y = 160;
+        MCScaler.scale(_leftBtn, 50, 50);
+        _leftBtn.x = -268;
+        _leftBtn.y = 155;
         _source.addChild(_leftBtn);
         _leftBtn.endClickCallback = onLeft;
+        _leftBtn.hoverCallback = function():void { if (_leftBtn.filter == null)_leftBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER; };
+        _leftBtn.outCallback = function():void { if (_leftBtn.filter == ManagerFilters.BUILDING_HOVER_FILTER)_leftBtn.filter = null; };
 
         _rightBtn = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
         im.scaleX = -1;
         im.x = im.width;
         _rightBtn.addChild(im);
-        MCScaler.scale(_rightBtn, 40, 40);
-        _rightBtn.x = -210;
-        _rightBtn.y = 160;
+        MCScaler.scale(_rightBtn, 50, 50);
+        _rightBtn.x = -208;
+        _rightBtn.y = 155;
         _source.addChild(_rightBtn);
         _rightBtn.endClickCallback = onRight;
+        _rightBtn.hoverCallback = function():void { if (_rightBtn.filter == null) _rightBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER; };
+        _rightBtn.outCallback = function():void { if (_rightBtn.filter == ManagerFilters.BUILDING_HOVER_FILTER) _rightBtn.filter = null; };
 
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
-        MCScaler.scale(im,21,34);
+        MCScaler.scale(im,25,34);
         im.x = -245;
         im.y = 170;
         _source.addChild(im);
@@ -702,6 +708,13 @@ public class WOMarket  extends Window {
     }
 
     private function onLeft ():void {
+        var tween:Tween = new Tween(_leftBtn, 0.2);
+        tween.scaleTo(0.3);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+        };
+        tween.scaleTo(0.5);
+        g.starling.juggler.add(tween);
         if (_shift > 0) {
             _shift -= 4;
             if (_shift<0) _shift = 0;
@@ -714,6 +727,13 @@ public class WOMarket  extends Window {
 
     private function onRight ():void {
         if (_rightBtn.filter == ManagerFilters.BUTTON_DISABLE_FILTER) return;
+        var tween:Tween = new Tween(_rightBtn, 0.2);
+        tween.scaleTo(0.3);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+        };
+        tween.scaleTo(0.5);
+        g.starling.juggler.add(tween);
         var l:int = _arrItems.length;
         _shift += 4;
         if (_shift + 4 <= l - 1) {

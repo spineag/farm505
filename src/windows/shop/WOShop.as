@@ -32,6 +32,7 @@ import windows.WOComponents.WindowBackground;
 import windows.Window;
 
 public class WOShop extends Window{
+    private var _contCoupone:Sprite;
     private var _btnTab1:ShopTabBtn;
     private var _btnTab2:ShopTabBtn;
     private var _btnTab3:ShopTabBtn;
@@ -70,8 +71,11 @@ public class WOShop extends Window{
         _shopList = new ShopList(_contSprite);
         createShopTabBtns();
         curentTab = 1;
-
+        _contCoupone = new Sprite();
+        _source.addChild(_contCoupone);
         createMoneyBlock();
+        if (g.user.level < 17) _contCoupone.visible = false;
+        else _contCoupone.visible = true;
         new Birka('МАГАЗИН', _source, _woWidth, _woHeight);
     }
 
@@ -247,7 +251,7 @@ public class WOShop extends Window{
                 g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 310);
         pl.x = -_woWidth/2 + 380;
         pl.y = -_woHeight/2 + 509;
-        _source.addChild(pl);
+        _contCoupone.addChild(pl);
         btn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
         MCScaler.scale(im, 38, 38);
@@ -259,7 +263,7 @@ public class WOShop extends Window{
         btn.addChild(im);
         btn.x = -_woWidth/2 + 687;
         btn.y = -_woHeight/2 + 528;
-        _source.addChild(btn);
+        _contCoupone.addChild(btn);
         var f3:Function = function ():void {
             onClickExit();
             g.woBuyCoupone.showItWO();
@@ -269,22 +273,22 @@ public class WOShop extends Window{
         MCScaler.scale(im, 45, 45);
         im.x = -_woWidth/2 + 364;
         im.y = -_woHeight/2 + 505;
-        _source.addChild(im);
+        _contCoupone.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone'));
         MCScaler.scale(im, 45, 45);
         im.x = -_woWidth/2 + 439;
         im.y = -_woHeight/2 + 505;
-        _source.addChild(im);
+        _contCoupone.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone'));
         MCScaler.scale(im, 45, 45);
         im.x = -_woWidth/2 + 514;
         im.y = -_woHeight/2 + 505;
-        _source.addChild(im);
+        _contCoupone.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
         MCScaler.scale(im, 45, 45);
         im.x = -_woWidth/2 + 589;
         im.y = -_woHeight/2 + 505;
-        _source.addChild(im);
+        _contCoupone.addChild(im);
 
         _txtHardMoney = new TextField(63, 33, '88888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txtHardMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -300,22 +304,22 @@ public class WOShop extends Window{
         _txtRedMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtRedMoney.x = -_woWidth/2 + 400;
         _txtRedMoney.y = -_woHeight/2 + 512;
-        _source.addChild(_txtRedMoney);
+        _contCoupone.addChild(_txtRedMoney);
         _txtYellowMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txtYellowMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtYellowMoney.x = -_woWidth/2 + 475;
         _txtYellowMoney.y = -_woHeight/2 + 512;
-        _source.addChild(_txtYellowMoney);
+        _contCoupone.addChild(_txtYellowMoney);
         _txtGreenMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txtGreenMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtGreenMoney.x = -_woWidth/2 + 550;
         _txtGreenMoney.y = -_woHeight/2 + 512;
-        _source.addChild(_txtGreenMoney);
+        _contCoupone.addChild(_txtGreenMoney);
         _txtBlueMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         _txtBlueMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtBlueMoney.x = -_woWidth/2 + 625;
         _txtBlueMoney.y = -_woHeight/2 + 512;
-        _source.addChild(_txtBlueMoney);
+        _contCoupone.addChild(_txtBlueMoney);
     }
 
     public function updateMoneyCounts():void {
@@ -338,6 +342,10 @@ public class WOShop extends Window{
     public function getShopItemProperties(a:int):Object {
         return _shopList.getShopItemProperties(a);
 
+    }
+
+    public function openCoupone(b:Boolean):void {
+        _contCoupone.visible = b;
     }
 }
 }

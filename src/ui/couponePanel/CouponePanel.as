@@ -102,6 +102,8 @@ public class CouponePanel {
 
         _contCoupone.visible = false;
         _contCoupone.x = -100;
+        if(g.user.level < 17) _source.visible = false;
+        else _source.visible = true;
     }
 
     private function onHover():void {
@@ -180,6 +182,10 @@ public class CouponePanel {
             _source.y = 120;
             g.gameDispatcher.removeEnterFrame(onEnterFrame);
         }
+    }
+
+    public function openPanel(b:Boolean):void {
+        _source.visible = b;
     }
 }
 }

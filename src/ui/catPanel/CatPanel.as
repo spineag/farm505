@@ -24,6 +24,7 @@ import windows.WOComponents.HorizontalPlawka;
 public class CatPanel {
     private var _source:CSprite;
     private var _txtCount:TextField;
+    private var _txtZero:TextField;
 
     private var g:Vars = Vars.getInstance();
     public function CatPanel() {
@@ -40,9 +41,10 @@ public class CatPanel {
         im.y = -5;
         _source.addChild(im);
         _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BROWN);
-//        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtCount.x = 20;
+        _txtZero = new TextField(30, 40, '', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_ORANGE);
         _source.addChild(_txtCount);
+        _source.addChild(_txtZero);
+
         onResize();
         g.cont.interfaceCont.addChild(_source);
         checkCat();
@@ -52,7 +54,19 @@ public class CatPanel {
     }
 
     public function checkCat():void {
-        _txtCount.text = String(g.managerCats.countFreeCats + "/" + g.managerCats.curCountCats);
+        if (g.managerCats.countFreeCats <= 0) {
+            _txtZero.text = '0';
+            _txtCount.text = String("/" + g.managerCats.curCountCats);
+            _txtCount.x = 28;
+            _txtZero.x = 57 - _txtCount.textBounds.width;
+            _txtZero.visible = true;
+        } else {
+            _txtCount.text = String(g.managerCats.countFreeCats + "/" + g.managerCats.curCountCats);
+            _txtZero.visible = false;
+            _txtCount.x = 20;
+
+        }
+
     }
 
     public function onResize():void {
