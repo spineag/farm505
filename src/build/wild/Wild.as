@@ -242,7 +242,6 @@ public class Wild extends AreaObject{
     }
 
     private function onEndAnimationTotal():void {
-        g.userInventory.addResource(_dataBuild.removeByResourceId,-1);
         var p:Point = new Point(_source.x, _source.y);
         p = _source.parent.localToGlobal(p);
         new XPStar(p.x,p.y, _dataBuild.xpForBuild);

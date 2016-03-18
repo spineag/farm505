@@ -24,7 +24,7 @@ import starling.display.Sprite;
 import starling.utils.Color;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = true;
+    private const TUTORIAL_ON:Boolean = false;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
