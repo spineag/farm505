@@ -6,34 +6,21 @@ import com.junkbyte.console.Cc;
 
 import flash.display.Bitmap;
 import flash.geom.Point;
-
 import manager.ManagerFilters;
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
-import mouse.ToolsModifier;
-
 import starling.core.Starling;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
-
 import tutorial.TutorialAction;
-
 import user.NeighborBot;
-
 import user.Someone;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WOComponents.HorizontalPlawka;
 import windows.ambar.WOAmbars;
 
@@ -44,7 +31,7 @@ public class MainBottomPanel {
     private var _toolsBtn:CButton;
     private var _optionBtn:CSprite;
     private var _cancelBtn:CButton;
-    private var _doorBtn:CButton;
+    private var _homeBtn:CButton;
     private var _orderBtn:CButton;
     private var _ambarBtn:CButton;
     private var _checkImage:Image;
@@ -151,27 +138,27 @@ public class MainBottomPanel {
         _cancelBtn.clickCallback = function():void {onClick('cancel')};
         _cancelBtn.visible = false;
 
-        _doorBtn = new CButton();
+        _homeBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_home'));
         im.width = 260;
-        _doorBtn.addDisplayObject(im);
-        _doorBtn.setPivots();
+        _homeBtn.addDisplayObject(im);
+        _homeBtn.setPivots();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_home'));
         im.x = 60;
         im.y = 6;
-        _doorBtn.addDisplayObject(im);
+        _homeBtn.addDisplayObject(im);
         var txt:TextField = new TextField(100, 70, "Домой", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_ORANGE;
         txt.x = 105;
-        _doorBtn.addChild(txt);
-        _doorBtn.flatten();
-        _doorBtn.x = 0 + _doorBtn.width/2;
-        _doorBtn.y = 2 + _doorBtn.height/2;
-        _source.addChild(_doorBtn);
-        _doorBtn.hoverCallback = function():void { g.hint.showIt("Вернутся домой") };
-        _doorBtn.outCallback = function():void { g.hint.hideIt() };
-        _doorBtn.clickCallback = function():void {onClick('door')};
-        _doorBtn.visible = false;
+        _homeBtn.addChild(txt);
+        _homeBtn.flatten();
+        _homeBtn.x = 0 + _homeBtn.width/2;
+        _homeBtn.y = 2 + _homeBtn.height/2;
+        _source.addChild(_homeBtn);
+        _homeBtn.hoverCallback = function():void { g.hint.showIt("Вернутся домой") };
+        _homeBtn.outCallback = function():void { g.hint.hideIt() };
+        _homeBtn.clickCallback = function():void {onClick('door')};
+        _homeBtn.visible = false;
 
         _optionBtn = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('op_bt_opt'));
@@ -286,7 +273,7 @@ public class MainBottomPanel {
 
     public function doorBoolean(b:Boolean,person:Someone = null):void {
         _person = person;
-        _doorBtn.visible = b;
+        _homeBtn.visible = b;
         _shopBtn.visible = !b;
         _ambarBtn.visible = !b;
         _orderBtn.visible = !b;
@@ -375,6 +362,25 @@ public class MainBottomPanel {
 
     public function set tutorialCallback(f:Function):void {
         _tutorialCallback = f;
+    }
+
+    public function getBtnProperties(type:String):Object {
+        var ob:Object = {};
+        var p:Point = new Point();
+        switch (type) {
+            case 'home':
+                p.x = 0;
+                p.y = 0;
+                p = _homeBtn.localToGlobal(p);
+                ob.x = p.x;
+                ob.y = p.y;
+                ob.width = _homeBtn.width;
+                ob.height = _homeBtn.height;
+                return ob;
+                break;
+        }
+
+        return ob;
     }
 }
 }

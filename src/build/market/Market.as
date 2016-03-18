@@ -27,6 +27,8 @@ import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
 import utils.MCScaler;
 
 public class Market extends AreaObject{
@@ -140,6 +142,9 @@ public class Market extends AreaObject{
             g.woMarket.resetAll();
             if (g.isAway && g.visitedUser) {
                 g.woMarket.showItPapper(g.visitedUser);
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {
+                    g.managerTutorial.checkTutorialCallback();
+                }
             } else {
                 g.woMarket.curUser = g.user;
                 g.woMarket.showItWithParams(fillIt);

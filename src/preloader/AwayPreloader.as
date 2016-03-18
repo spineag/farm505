@@ -13,6 +13,8 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
 public class AwayPreloader {
     private var _source:Sprite;
     private var _bg:Quad;
@@ -61,6 +63,9 @@ public class AwayPreloader {
             _bg.dispose();
             _bg = null;
             g.cont.windowsCont.removeChild(_source);
+            if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR || g.managerTutorial.currentAction == TutorialAction.GO_HOME)) {
+                g.managerTutorial.checkTutorialCallback();
+            }
         }
     }
 

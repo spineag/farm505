@@ -3,6 +3,8 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
 
+import flash.geom.Point;
+
 import flash.geom.Rectangle;
 
 import manager.ManagerFilters;
@@ -16,6 +18,8 @@ import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+
+import tutorial.TutorialAction;
 
 import user.Someone;
 
@@ -36,6 +40,7 @@ public class FriendPanel {
     private var _maxFriend:int;
     private var _count:int;
     private var _shift:int;
+    private var _addFriendsBtn:CButton;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
@@ -69,15 +74,22 @@ public class FriendPanel {
     }
 
     private function createAddFriendBtn():void {
-        var bt:CButton = new CButton();
+        _addFriendsBtn = new CButton();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_bt_add'));
-        bt.addDisplayObject(im);
-        bt.setPivots();
-        bt.x = 13 + bt.width/2;
-        bt.y = 4 + bt.height/2;
-        _source.addChild(bt);
-//        bt.endClickCallback = inviteFriends();
+        _addFriendsBtn.addDisplayObject(im);
+        _addFriendsBtn.setPivots();
+        _addFriendsBtn.x = 13 + _addFriendsBtn.width/2;
+        _addFriendsBtn.y = 4 + _addFriendsBtn.height/2;
+        _source.addChild(_addFriendsBtn);
+       _addFriendsBtn.clickCallback = inviteFriends;
+    }
 
+    private function inviteFriends():void {
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {      // temp
+            g.managerTutorial.checkTutorialCallback();
+            g.townArea.goAway(g.user.neighbor);
+            g.catPanel.visibleCatPanel(false);
+        }
     }
 
     public function onResize():void {
@@ -163,7 +175,6 @@ public class FriendPanel {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
         _arrFriends = g.user.arrFriends.slice();
 
-
         for (var i:int = 0; i < _arrFriends.length; i++) {
             _maxFriend ++;
         }
@@ -245,6 +256,7 @@ public class FriendPanel {
         }
         createLevel();
     }
+
     private function sortFriend():void {
         var item:FriendItem;
         _arrItems = [];
@@ -264,16 +276,16 @@ public class FriendPanel {
             _cont.addChild(item.source);
         }
     }
+
     private function createLevel():void {
         if (_count == _maxFriend) {
             sortFriend();
             return;
         }
-        var p:Someone = new Someone();
-        p = _arrFriends[_count];
-        g.directServer.getFriendsInfo(int(p.userSocialId),p,createLevel);
+        g.directServer.getFriendsInfo(int(_arrFriends[_count].userSocialId), _arrFriends[_count], createLevel);
         _count++;
     }
+
     public function checkLevel():void {
         if (_arrFriends && _arrFriends.length) {
             for (var i:int = 0; i < _arrFriends.length; i++) {
@@ -281,6 +293,23 @@ public class FriendPanel {
                     _arrItems[i].txtLvl.text = String(g.user.level);
                 }
             }
+        }
+    }
+
+    public function getNeighborItemProperties():Object {
+        if (_arrItems && _arrItems.length) {
+            return (_arrItems[1] as FriendItem).getItemProperties();
+        } else {
+            var ob:Object = {};
+            ob.x = _addFriendsBtn.x - 30;
+            ob.y = _addFriendsBtn.y - 35;
+            var p:Point = new Point(ob.x, ob.y);
+            p = _source.localToGlobal(p);
+            ob.x = p.x;
+            ob.y = p.y;
+            ob.width = 60;
+            ob.height = 70;
+            return ob;
         }
     }
 }

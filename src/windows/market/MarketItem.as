@@ -27,6 +27,8 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
 import user.NeighborBot;
 
 import user.Someone;
@@ -360,6 +362,9 @@ public class MarketItem {
                     }
                 }
                 isFill = 2;
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {
+                    g.managerTutorial.checkTutorialCallback();
+                }
             }
         } else if (isFill == 0) { // пустая
             if (_isUser) {
@@ -677,6 +682,19 @@ public class MarketItem {
         _ava.x = 2;
         _ava.y = 102;
         source.addChild(_ava);
+    }
+
+    public function getItemProperties():Object {
+        var ob:Object = {};
+        ob.x = 0;
+        ob.y = 0;
+        var p:Point = new Point(ob.x, ob.y);
+        p = source.localToGlobal(p);
+        ob.x = p.x;
+        ob.y = p.y;
+        ob.width = _woWidth;
+        ob.height = _woHeight;
+        return ob;
     }
 }
 }

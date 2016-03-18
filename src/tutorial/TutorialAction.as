@@ -25,5 +25,7 @@ public class TutorialAction {
    public static const PUT_FARM:int = 19;
    public static const BUY_BEE:int = 20;
    public static const FEED_BEE:int = 21;
+   public static const VISIT_NEIGHBOR:int = 22;
+   public static const GO_HOME:int = 23;
 }
 }
