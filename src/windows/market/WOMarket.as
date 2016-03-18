@@ -42,7 +42,6 @@ public class WOMarket  extends Window {
 
     public var marketChoose:WOMarketChoose;
     private var _woBG:WindowBackground;
-
     private var _shopSprite:Sprite;
     private var _contRect:Sprite;
     private var _contItem:Sprite;
@@ -52,32 +51,24 @@ public class WOMarket  extends Window {
     private var _leftBtn:CSprite;
     private var _rightBtn:CSprite;
     private var _contPaper:Sprite;
-
     private var _btnFriends:CButton;
     private var _btnPaper:CButton;
-
     private var _arrItems:Array;
     private var _arrItemsFriend:Array;
     private var _arrFriends:Array;
-
     private var _txtName:TextField;
     private var _txtNumberPage:TextField;
     private var _txtTimerPaper:TextField;
-
     private var _imCheck:Image;
-
     private var _curUser:Someone;
-
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
     private var _item3:MarketFriendItem;
     private var ma:MarketAllFriend;
-
     private var _shiftFriend:int = 0;
     private var _shift:int;
     private var _countPage:int;
     private var _timer:int;
-
     private var _panelBool:Boolean;
     private var _booleanPaper:Boolean;
     private var _callbackState:Function;
@@ -252,10 +243,10 @@ public class WOMarket  extends Window {
             }
         }
 
+        _curUser = p;
         if(_shiftFriend == 0) {
-            _curUser = p;
             createMarketTabBtns(true);
-        }else createMarketTabBtns();
+        } else createMarketTabBtns();
 //        fillItemsByUser(p);
         choosePerson(p);
         showIt();
@@ -471,7 +462,6 @@ public class WOMarket  extends Window {
 
     private function fillItems():void {
         var i:int;
-
         try {
         if (_curUser.marketItems == null) g.directServer.getUserMarketItem(_curUser.userSocialId, null);
             var n:int = 0;
@@ -654,8 +644,7 @@ public class WOMarket  extends Window {
         if (_person.userSocialId == g.user.userSocialId) {
             addItems(true);
             _contPaper.visible = true;
-        }
-         else {
+        } else {
             addItemsFriend(false,_person);
             _contPaper.visible = false;
         }
@@ -736,6 +725,14 @@ public class WOMarket  extends Window {
             _rightBtn.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         } else {
             _rightBtn.filter = null;
+        }
+    }
+
+    public function getItemProperties(a:int):Object {
+        if (_arrItems && _arrItems.length) {
+            return (_arrItems[a-1] as MarketItem).getItemProperties();
+        } else {
+            return {};
         }
     }
 }

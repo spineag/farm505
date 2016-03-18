@@ -6,6 +6,7 @@ import build.WorldObject;
 import build.fabrica.Fabrica;
 import build.farm.Animal;
 import build.farm.Farm;
+import build.market.Market;
 import build.ridge.Ridge;
 
 import com.junkbyte.console.Cc;
@@ -24,7 +25,7 @@ import starling.display.Sprite;
 import starling.utils.Color;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = true;
+    private const TUTORIAL_ON:Boolean = false;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
@@ -39,6 +40,7 @@ public class ManagerTutorial {
     private var _dustOval:DustOval;
     private var _dustRectangle:DustRectangle;
     private var _tutorialCallback:Function;
+    private var _airBubble:AirTextBubble;
 
     public function ManagerTutorial() {
         _tutorialObjects = [];
@@ -138,6 +140,12 @@ public class ManagerTutorial {
                     break;
                 case 22:
                     curFunc = initScene_22;
+                    break;
+                case 23:
+                    curFunc = initScene_23;
+                    break;
+                case 24:
+                    curFunc = initScene_24;
                     break;
 
             }
@@ -1034,7 +1042,6 @@ public class ManagerTutorial {
             addCatToPos(31, 26);
             g.cont.moveCenterToPos(31, 26, true);
         }
-        if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTexts()).objText;
         cat.flipIt(false);
         subStep = 0;
@@ -1148,10 +1155,130 @@ public class ManagerTutorial {
         initScenes();
     }
 
+    private function initScene_23():void {
+        if (!cat) {
+            addCatToPos(31, 28);
+            g.cont.moveCenterToPos(31, 28, true);
+        }
+        subStep23_1();
+    }
 
-//    if (!cat) cat = new TutorialCat();
-//    if (!cutScene) cutScene = new CutScene();
-//    if (!texts) texts = (new TutorialTexts()).objText;
+    private function subStep23_1():void {
+        if (!texts) texts = (new TutorialTexts()).objText;
+        if (!cutScene) cutScene = new CutScene();
+        subStep = 1;
+        addBlack();
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep23_2, 1);
+    }
+
+    private function subStep23_2():void {
+        cutScene.hideIt(deleteCutScene);
+        removeBlack();
+        _currentAction = TutorialAction.VISIT_NEIGHBOR;
+        var ob:Object = g.friendPanel.getNeighborItemProperties();
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep23_3;
+    }
+
+    private function subStep23_3():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        _tutorialCallback = subStep23_4;
+    }
+
+    private function subStep23_4():void {
+        _tutorialCallback = null;
+        subStep = 4;
+        addBlack();
+        cutScene = new CutScene();
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep23_5, 1);
+    }
+
+    private function subStep23_5():void {
+        removeBlack();
+        if (cutScene) cutScene.hideIt(deleteCutScene);
+        _tutorialObjects = g.townArea.getAwayCityObjectsById(44);
+        (_tutorialObjects[0] as WorldObject).showArrow();
+        g.cont.moveCenterToXY((_tutorialObjects[0] as Market).source.x, (_tutorialObjects[0] as Market).source.y);
+        _tutorialCallback = subStep23_6;
+    }
+
+    private function subStep23_6():void {
+        subStep = 6;
+        (_tutorialObjects[0] as WorldObject).hideArrow();
+        _tutorialResourceIDs = [124, 1, 5, 6, 125];
+        _airBubble = new AirTextBubble();
+        _airBubble.showIt(texts[g.user.tutorialStep][subStep], g.cont.popupCont, 700, 200);
+        var ob:Object = g.woMarket.getItemProperties(1);
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep23_7;
+    }
+
+    private function subStep23_7():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        g.user.tutorialStep = 24;
+        updateTutorialStep();
+        _airBubble.hideIt();
+        subStep = 7;
+        g.user.tutorialStep = 23;
+        _airBubble.showIt(texts[g.user.tutorialStep][subStep], g.cont.popupCont, 700, 200, subStep23_8);
+    }
+
+    private function subStep23_8():void {
+        _airBubble.hideIt();
+        _airBubble.deleteIt();
+        _airBubble = null;
+        g.woMarket.hideIt();
+        _currentAction = TutorialAction.GO_HOME;
+        subStep = 8;
+        if (!cutScene) cutScene = new CutScene();
+        addBlack();
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep23_9, 1);
+    }
+
+    private function subStep23_9():void {
+        removeBlack();
+        if (cutScene) cutScene.hideIt(deleteCutScene);
+        var ob:Object = g.bottomPanel.getBtnProperties('home');
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep23_10;
+    }
+
+    private function subStep23_10():void {
+        _tutorialCallback = null;
+        g.user.tutorialStep = 24;
+        _tutorialResourceIDs = [];
+        initScenes();
+    }
+
+    private function initScene_24():void {
+        if (!cat) {
+            addCatToPos(31, 28);
+            g.cont.moveCenterToPos(31, 28, true);
+        }
+        if (cutScene) cutScene.hideIt(deleteCutScene);
+        if (!texts) texts = (new TutorialTexts()).objText;
+        addBlack();
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep24_1, 1);
+    }
+
+    private function subStep24_1():void {
+        removeBlack();
+        cutScene.hideIt(deleteCutScene);
+        g.user.tutorialStep = 101;
+        updateTutorialStep();
+
+        clearAll();
+    }
+
+    private function clearAll():void {
+
+    }
 
 
 

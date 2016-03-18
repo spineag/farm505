@@ -4,6 +4,8 @@
 package ui.friendPanel {
 import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
@@ -11,6 +13,9 @@ import starling.display.Image;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
+
+import tutorial.TutorialAction;
+
 import user.NeighborBot;
 import user.Someone;
 import utils.CSprite;
@@ -83,6 +88,13 @@ public class FriendItem {
     }
 
     private function visitPerson():void {
+        if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR && _person == g.user.neighbor) {
+                g.managerTutorial.checkTutorialCallback();
+            } else {
+                return;
+            }
+        }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) return;
         if (g.currentOpenedWindow && g.currentOpenedWindow == g.woMarket) g.woMarket.hideIt();
         if (_person == g.user) {
@@ -155,6 +167,18 @@ public class FriendItem {
 //        if (_person is NeighborBot) txtLvl.text = '10';
 //    }
 
+    public function getItemProperties():Object {
+        var ob:Object = {};
+        ob.x = source.x;
+        ob.y = source.y;
+        var p:Point = new Point(ob.x, ob.y);
+        p = source.parent.localToGlobal(p);
+        ob.x = p.x;
+        ob.y = p.y;
+        ob.width = 60; //(_arrItems[_shift + a-1] as ShopItem).source.width;
+        ob.height = 70; //(_arrItems[_shift + a-1] as ShopItem).source.height;
+        return ob;
+    }
 
 }
 }

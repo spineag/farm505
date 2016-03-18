@@ -1240,6 +1240,21 @@ public class TownArea extends Sprite {
         return null;
     }
 
+    public function getAwayCityObjectsById(id:int):Array {
+        var ar:Array = [];
+        try {
+            for (var i:int = 0; i < _cityAwayObjects.length; i++) {
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
+                if (_cityAwayObjects[i].dataBuild.id == id)
+                    ar.push(_cityAwayObjects[i]);
+            }
+        } catch (e:Error) {
+            Cc.error('TownArea getAwayCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
+            g.woGameError.showIt();
+        }
+        return ar;
+    }
+
 //   --------------------- END AWAY SECTION -----------------------------------
 
     public function onOpenMapEditor(value:Boolean):void {
