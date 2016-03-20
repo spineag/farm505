@@ -139,7 +139,7 @@ public class LevelUpHint {
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.TREE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_FULL_FENСE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_POST_FENCE
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_TAIL || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.MARKET
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.ORDER || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DAILY_BONUS
-                    || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.SHOP || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.CAVE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.PAPER || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.TRAIN) {
+                    || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.CAVE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.PAPER || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.TRAIN) {
                 _txtName = new TextField(200, 30, String(g.dataBuilding.objectBuilding[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
                 _txtName.x = -100;
                 _txtName.y = 25;

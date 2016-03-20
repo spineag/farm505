@@ -102,7 +102,7 @@ public class Ridge extends AreaObject{
 
     private function onHover():void {
         if (g.managerTutorial.isTutorial) {
-            if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_CORN) && g.managerTutorial.isTutorialBuilding(this)) {
+            if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialBuilding(this)) {
             } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }
         if (g.selectedBuild) return;
@@ -117,7 +117,7 @@ public class Ridge extends AreaObject{
             if (g.managerTutorial.isTutorial) return;
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             g.managerPlantRidge.checkFreeRidges();
-//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_WHEAT) {
+//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
 //                if (_tutorialCallback != null) {
 //                    _tutorialCallback.apply(null, [this]);
 //                }
@@ -152,7 +152,7 @@ public class Ridge extends AreaObject{
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             _source.filter = null;
             g.managerPlantRidge.checkFreeRidges();
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_WHEAT) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
                 if (_tutorialCallback != null) {
                     _tutorialCallback.apply(null, [this]);
                 }
@@ -169,7 +169,7 @@ public class Ridge extends AreaObject{
 //            }
 //        }
         if (g.managerTutorial.isTutorial) {
-            if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_CORN) && g.managerTutorial.isTutorialBuilding(this)) {
+            if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
             } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }
@@ -260,7 +260,7 @@ public class Ridge extends AreaObject{
         g.toolsModifier.plantId = _dataPlant.id;
         g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
         g.managerPlantRidge.checkFreeRidges();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_WHEAT) {
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);
             }

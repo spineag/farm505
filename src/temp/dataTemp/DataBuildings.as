@@ -469,7 +469,7 @@ public class DataBuildings {
         obj.innerY = -37;
         obj.url = "buildAtlas";
         obj.image = "shop";
-        obj.buildType = BuildType.SHOP;
+//        obj.buildType = BuildType.SHOP;
         obj.blockByLevel = [3];
         objectBuilding[obj.id ] = obj;
 

@@ -130,7 +130,7 @@ public class Wild extends AreaObject{
     }
 
     private function onClick():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.managerTutorial.isTutorial) return;
         if (_delete) return;
         if (g.selectedBuild) {
             if (g.selectedBuild == this && g.isActiveMapEditor) {

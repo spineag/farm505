@@ -17,7 +17,6 @@ import build.market.Market;
 import build.orders.Order;
 import build.paper.Paper;
 import build.ridge.Ridge;
-import build.shop.Shop;
 import build.testBuild.TestBuild;
 import build.train.Train;
 import build.tree.Tree;
@@ -363,9 +362,6 @@ public class TownArea extends Sprite {
             case BuildType.PAPER:
                 build = new Paper(_data);
                 break;
-            case BuildType.SHOP:
-                build = new Shop(_data);
-                break;
             case BuildType.TRAIN:
                 build = new Train(_data);
                 break;
@@ -479,7 +475,7 @@ public class TownArea extends Sprite {
 
         if (updateAfterMove) {
             if (g.isActiveMapEditor) {
-                if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Shop || worldObject is Market ||
+                if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
                         worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus) {
                     g.directServer.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
                 }
@@ -992,9 +988,6 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.PAPER:
                 build = new Paper(_data);
-                break;
-            case BuildType.SHOP:
-                build = new Shop(_data);
                 break;
             case BuildType.TRAIN:
                 build = new Train(_data);

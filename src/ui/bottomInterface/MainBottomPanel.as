@@ -180,7 +180,7 @@ public class MainBottomPanel {
                 }
                 g.toolsPanel.hideRepository();
                 g.woShop.showIt();
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CHICKENS) {
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply();
                     }

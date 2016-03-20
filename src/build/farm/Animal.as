@@ -220,7 +220,7 @@ public class Animal {
                     addRenderAnimation();
                 }
                 onOut();
-                if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.CHICKEN_FEED || g.managerTutorial.currentAction == TutorialAction.FEED_BEE)) {
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_FEED) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply(null, [this]);
                     }
@@ -442,7 +442,7 @@ public class Animal {
         g.directServer.skipTimeOnAnimal(_timeToEnd,animal_db_id,null);
         _timeToEnd = 0;
         render();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CHICKEN_SKIP) {
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);
             }

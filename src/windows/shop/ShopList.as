@@ -95,7 +95,7 @@ public class ShopList {
                 } else {
                     ar.push(arr[j]);
                 }
-            } else if (arr[j].buildType == BuildType.RIDGE || arr[j].buildType == BuildType.FARM || arr[j].buildType == BuildType.PET_HOUSE || arr[j].buildType == BuildType.CAT) {
+            } else if (arr[j].buildType == BuildType.RIDGE || arr[j].buildType == BuildType.FARM || arr[j].buildType == BuildType.CAT) {
 
                 b = false;
                 if(arr[j].buildType == BuildType.FARM) {

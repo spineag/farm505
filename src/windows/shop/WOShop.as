@@ -138,7 +138,7 @@ public class WOShop extends Window{
                 obj = g.dataBuilding.objectBuilding;
                 arr.push(g.managerCats.catInfo);
                 for (id in obj) {
-                    if (obj[id].buildType == BuildType.RIDGE || obj[id].buildType == BuildType.FARM || obj[id].buildType == BuildType.PET_HOUSE) {
+                    if (obj[id].buildType == BuildType.RIDGE || obj[id].buildType == BuildType.FARM) {
                         arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }

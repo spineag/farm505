@@ -242,7 +242,7 @@ public class ManagerTutorial {
         subStep = 1;
         cat.hideBubble();
         _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.RIDGE);
-        _currentAction = TutorialAction.PLANT_WHEAT;
+        _currentAction = TutorialAction.PLANT_RIDGE;
         _tutorialResourceIDs = [31];
         (_tutorialObjects[0] as WorldObject).showArrow();
         (_tutorialObjects[0] as WorldObject).tutorialCallback = subStep3_2;
@@ -299,7 +299,7 @@ public class ManagerTutorial {
 
     private function subStep4_2():void {
         cat.hideBubble();
-        _currentAction = TutorialAction.CHICKEN_FEED;
+        _currentAction = TutorialAction.ANIMAL_FEED;
         _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.FARM);
         _tutorialObjects = (_tutorialObjects[0] as Farm).arrAnimals;
         (_tutorialObjects[0] as Animal).playDirectIdle();
@@ -320,7 +320,7 @@ public class ManagerTutorial {
     private function subStep4_4():void {
         cat.hideBubble();
         cat.flipIt(false);
-        _currentAction = TutorialAction.CHICKEN_SKIP;
+        _currentAction = TutorialAction.ANIMAL_SKIP;
         (_tutorialObjects[0] as Animal).playDirectIdle();
         (_tutorialObjects[0] as Animal).addArrow();
         (_tutorialObjects[0] as Animal).tutorialCallback = subStep4_5;
@@ -339,7 +339,7 @@ public class ManagerTutorial {
     private function subStep4_6():void {
         cat.hideBubble();
         cat.flipIt(false);
-        _currentAction = TutorialAction.CHICKEN_CRAFT;
+        _currentAction = TutorialAction.ANIMAL_CRAFT;
         (_tutorialObjects[0] as Animal).farm.addArrowToCraftItem(subStep4_7);
     }
 
@@ -389,7 +389,7 @@ public class ManagerTutorial {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-        _currentAction = TutorialAction.BUY_CHICKENS;
+        _currentAction = TutorialAction.BUY_ANIMAL;
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         g.bottomPanel.tutorialCallback = subStep6_2;
@@ -607,7 +607,7 @@ public class ManagerTutorial {
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
         (_tutorialObjects[0] as WorldObject).showArrow();
         _tutorialCallback = subStep10_2;
-        _currentAction = TutorialAction.PLANT_CORN;
+        _currentAction = TutorialAction.PLANT_RIDGE;
     }
 
     private function subStep10_2():void {
@@ -1101,7 +1101,7 @@ public class ManagerTutorial {
     private function subStep21_2():void {
         cat.hideBubble();
         _tutorialResourceIDs = [6];
-        _currentAction = TutorialAction.BUY_BEE;
+        _currentAction = TutorialAction.BUY_ANIMAL;
         g.woShop.activateTab(2);
         g.woShop.showIt();
         var ob:Object = g.woShop.getShopItemProperties(1);
@@ -1139,7 +1139,7 @@ public class ManagerTutorial {
 
     private function subStep22_2():void {
         cat.hideBubble();
-        _currentAction = TutorialAction.FEED_BEE;
+        _currentAction = TutorialAction.ANIMAL_FEED;
         _tutorialObjects = (_tutorialObjects[0] as Farm).arrAnimals;
         (_tutorialObjects[0] as Animal).playDirectIdle();
         (_tutorialObjects[0] as Animal).addArrow();

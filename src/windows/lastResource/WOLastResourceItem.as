@@ -53,7 +53,7 @@ public class WOLastResourceItem {
             st = ob.imageShop;
             _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
-                || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.PET_HOUSE || ob.buildType == BuildType.DECOR) {
+                || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.DECOR) {
             st = ob.imageShop;
             _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.ANIMAL){
@@ -62,10 +62,8 @@ public class WOLastResourceItem {
         } else if (ob.buildType == BuildType.INSTRUMENT) {
             st = ob.imageShop;
             _image = new Image(g.allData.atlas[ob.url].getTexture(st));
-        } else if (ob.buildType == BuildType.PET) {
-
         } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
-                || ob.buildType == BuildType.SHOP || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
+                || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
             st = ob.image;
             _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         }

@@ -106,7 +106,7 @@ public class CraftItem {
     }
 
     public function flyIt():void {
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CHICKEN_CRAFT) {
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply();
                 _tutorialCallback = null;

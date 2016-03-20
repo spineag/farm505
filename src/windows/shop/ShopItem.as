@@ -648,9 +648,7 @@ public class ShopItem {
         } else {
             //додаємо на відповідну ферму
             if (g.managerTutorial.isTutorial) {
-                if (g.managerTutorial.currentAction == TutorialAction.BUY_CHICKENS && g.managerTutorial.isTutorialResource(_data.id)) {
-                    g.managerTutorial.checkTutorialCallback();
-                } else if (g.managerTutorial.currentAction == TutorialAction.BUY_BEE && g.managerTutorial.isTutorialResource(_data.id)) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
                 } else {
                     return;

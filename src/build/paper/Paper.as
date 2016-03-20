@@ -80,6 +80,7 @@ public class Paper extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.managerTutorial.isTutorial) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
             if (g.selectedBuild) {

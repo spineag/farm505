@@ -145,7 +145,7 @@ public class WOLevelUpItem {
             } else if (ob.buildType == BuildType.INSTRUMENT) {
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
-                    || ob.buildType == BuildType.SHOP || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
+                    || ob.buildType == BuildType.CAVE || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
                  _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
             }

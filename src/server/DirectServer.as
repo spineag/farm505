@@ -1005,7 +1005,7 @@ public class DirectServer {
             Cc.ch('server', 'addUserBuilding OK', 5);
             wObject.dbBuildingId = int(d.message);
             if (g.user.userBuildingData[wObject.dataBuild.id])
-                g.user.userBuildingData[wObject.dataBuild.id].dbId = int(d.message);
+                (g.user.userBuildingData[wObject.dataBuild.id] as Object).dbId = int(d.message);
             if (callback != null) {
                 callback.apply(null, [true, wObject]);
             }
@@ -1072,7 +1072,7 @@ public class DirectServer {
                     dataBuild.isFlip = int(d.message[i].is_flip);
                     if (d.message[i].count_cell) dataBuild.countCell = int(d.message[i].count_cell);
                     var p:Point = new Point(int(d.message[i].pos_x), int(d.message[i].pos_y));
-                    if (dataBuild.buildType == BuildType.CAVE || dataBuild.buildType == BuildType.MARKET || dataBuild.buildType == BuildType.SHOP ||
+                    if (dataBuild.buildType == BuildType.CAVE || dataBuild.buildType == BuildType.MARKET ||
                             dataBuild.buildType == BuildType.PAPER || dataBuild.buildType == BuildType.DAILY_BONUS || dataBuild.buildType == BuildType.TRAIN) {
                         //do nothing, use usual x and y from server
 //                        p.x *= g.scaleFactor;
