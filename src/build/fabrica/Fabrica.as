@@ -565,6 +565,7 @@ public class Fabrica extends AreaObject {
 
     private function showBoom():void {
         _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
+        _armatureOpen.display.scaleX = _armatureOpen.display.scaleY = 1.5;
         _source.addChild(_armatureOpen.display as Sprite);
         WorldClock.clock.add(_armatureOpen);
         _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);

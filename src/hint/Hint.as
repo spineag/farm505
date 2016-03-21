@@ -30,8 +30,10 @@ public class Hint {
         _isShow = false;
     }
 
-    public function showIt(st:String,xp:Boolean = false,newX:int = 0):void {
-        _txtHint.text = st;
+    public function showIt(st:String, ambar:Boolean = false, sklad:Boolean = false,  xp:Boolean = false, newX:int = 0):void {
+        if (ambar) _txtHint.text = String(st + ' ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount);
+        else if (sklad) _txtHint.text = String(st + ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount);
+        else  _txtHint.text = st;
         var rectangle:Rectangle = _txtHint.textBounds;
         _catXp = xp;
         _newX = newX;

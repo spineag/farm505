@@ -8,6 +8,7 @@ import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
 
 import flash.geom.Point;
 
@@ -69,11 +70,19 @@ public class DailyBonus extends AreaObject{
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            var fEndOver:Function = function():void {
+                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndStop('idle', 0);
+                showLights();
+
+            };
+            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
             _armature.animation.gotoAndPlay('idle_2');
         }
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
-        showLights();
     }
 
     private function onOut():void {

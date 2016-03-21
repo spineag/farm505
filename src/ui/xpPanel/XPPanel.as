@@ -27,7 +27,7 @@ public class XPPanel {
     private var _bar:ProgressBarComponent;
     private var _txtLevel:TextField;
     private var _txtXPCount:TextField;
-    private var _imageStar:Image;
+    public var _imageStar:Image;
     private var _count:int;
     private var g:Vars = Vars.getInstance();
 
@@ -103,15 +103,15 @@ public class XPPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt(_maxXP - g.user.xp + ' XP до ' + (g.user.level+1) + ' уровня',false, _source.x);
+        g.hint.showIt(_maxXP - g.user.xp + ' XP до ' + (g.user.level+1) + ' уровня',false,false,false, _source.x);
     }
 
     private function onOut():void {
         g.hint.hideIt();
     }
     public function animationStar():void {
-        var tween:Tween = new Tween(_imageStar, 0.6);
-        tween.scaleTo(2);
+        var tween:Tween = new Tween(_imageStar, 0.3);
+        tween.scaleTo(1.5);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };

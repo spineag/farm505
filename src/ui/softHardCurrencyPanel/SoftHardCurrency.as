@@ -84,16 +84,16 @@ public class SoftHardCurrency {
             MCScaler.scale(_imCoin, 50, 50);
             _imCoin.x = -_imCoin.width/2 + 15;
             _imCoin.y = 5;
-            _imCoin.pivotX = _imCoin.width/2;
-            _imCoin.pivotY = _imCoin.height/2;
+            _imCoin.pivotX = 25;
+            _imCoin.pivotY = 25;
             p.addChild(_imCoin);
         } else {
             _imHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             MCScaler.scale(_imHard, 50, 50);
             _imHard.x = -_imHard.width/2 + 15;
             _imHard.y = 5;
-            _imHard.pivotX = _imHard.width/2;
-            _imHard.pivotY = _imHard.height/2;
+            _imHard.pivotX = 25;
+            _imHard.pivotY = 25;
             p.addChild(_imHard);
         }
         var btn:CButton = new CButton();
@@ -120,11 +120,11 @@ public class SoftHardCurrency {
     }
 
     public function getHardCurrencyPoint():Point {
-        return _contHard.localToGlobal(new Point(5, 5));
+        return _contHard.localToGlobal(new Point(14, 30));
     }
 
     public function getSoftCurrencyPoint():Point {
-        return _contSoft.localToGlobal(new Point(5, 5));
+        return _contSoft.localToGlobal(new Point(14, 30));
     }
 
     private function onClickSoft():void {
@@ -140,11 +140,11 @@ public class SoftHardCurrency {
     public function animationBuy (hard:Boolean):void {
         var tween:Tween;
         if (hard) {
-            tween = new Tween(_imHard, 0.6);
+            tween = new Tween(_imHard, 0.3);
         } else {
-            tween = new Tween(_imCoin, 0.6);
+            tween = new Tween(_imCoin, 0.3);
         }
-        tween.scaleTo(2);
+        tween.scaleTo(1.5);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };

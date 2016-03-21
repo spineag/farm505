@@ -244,13 +244,12 @@ public class Animal {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
+        _frameCounterTimerHint = 7;
         if (_state == HUNGRY) {
             source.filter = ManagerFilters.BUILD_STROKE;
-            _frameCounterMouseHint = 2;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
         } else {
             source.filter = ManagerFilters.BUILD_STROKE;
-            _frameCounterTimerHint = 5;
             g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
         }
     }
@@ -266,6 +265,25 @@ public class Animal {
 
 
     private function countEnterFrameMouseHint():void {
+        _frameCounterMouseHint--;
+        if(_frameCounterMouseHint <= 5){
+            g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+            if (_isOnHover == true) {
+                if (_state == HUNGRY) {
+                    g.mouseHint.checkMouseHint('animal', _data);
+                }
+                if (_state == WORK){
+                    g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
+
+                }
+            }
+            if(_isOnHover == false){
+                g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+            }
+        }
+    }
+
+    private function countEnterFrameTimerHint():void {
         _frameCounterMouseHint--;
         if(_frameCounterMouseHint <= 0){
             g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);

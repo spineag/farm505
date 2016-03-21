@@ -52,17 +52,19 @@ public class XPStar {
     }
 
     private function flyItStar():void {
-        var endX:int = Starling.current.nativeStage.stageWidth - 200;
-        var endY:int = 50;
+        var endX:int = Starling.current.nativeStage.stageWidth - 168;
+        var endY:int = 35;
+//        var endX:int = g.xpPanel._imageStar.x;
+//        var endY:int = g.xpPanel._imageStar.y;
         _txtStar.text = '+' + String(_xp);
 
         var f1:Function = function():void {
-            g.xpPanel.animationStar();
             g.cont.animationsResourceCont.removeChild(_source);
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
             _source = null;
+            g.xpPanel.animationStar();
             g.xpPanel.addXP(_xp);
         };
         var tempX:int;

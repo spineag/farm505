@@ -12,6 +12,7 @@ import manager.Vars;
 
 import starling.display.Image;
 import starling.text.TextField;
+import starling.utils.Color;
 import starling.utils.HAlign;
 
 import tutorial.SimpleArrow;
@@ -42,7 +43,8 @@ public class WOBuyPlantItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         source.alpha = .5;
-        _txtNumber = new TextField(40,30,'',g.allData.fonts['BloggerMedium'],18, ManagerFilters.TEXT_BROWN);
+        _txtNumber = new TextField(40,30,'',g.allData.fonts['BloggerMedium'],18, Color.WHITE);
+        _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtNumber.hAlign = HAlign.RIGHT;
         _txtNumber.x = 52;
         _txtNumber.y = 68;

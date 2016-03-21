@@ -66,9 +66,9 @@ public class Paper extends AreaObject{
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            _armature.animation.gotoAndPlay('idle_2');
-            _armature.animation.gotoAndPlay('idle');
         }
+        if (_isOnHover) return;
+        _armature.animation.gotoAndPlay('idle_2');
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
     }

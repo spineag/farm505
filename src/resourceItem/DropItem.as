@@ -92,31 +92,31 @@ public class DropItem {
         g.cont.animationsResourceCont.addChild(_source);
 
         var f1:Function = function():void {
-            switch (prise.id) {
-                case DataMoney.HARD_CURRENCY:
-                     g.softHardCurrency.animationBuy(true);
-                    break;
-                case DataMoney.SOFT_CURRENCY:
-                    g.softHardCurrency.animationBuy(false);
-                    break;
-                case DataMoney.BLUE_COUPONE:
-                     g.couponePanel.animationBuy();
-                    break;
-                case DataMoney.GREEN_COUPONE:
-                   g.couponePanel.animationBuy();
-                    break;
-                case DataMoney.RED_COUPONE:
-                     g.couponePanel.animationBuy();
-                    break;
-                case DataMoney.YELLOW_COUPONE:
-                   g.couponePanel.animationBuy();
-                    break;
-            }
             g.cont.animationsResourceCont.removeChild(_source);
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
             _source = null;
+            switch (prise.id) {
+                case DataMoney.HARD_CURRENCY:
+                    g.softHardCurrency.animationBuy(true);
+                    break;
+                case DataMoney.SOFT_CURRENCY:
+                    g.softHardCurrency.animationBuy(false);
+                    break;
+                case DataMoney.BLUE_COUPONE:
+                    g.couponePanel.animationBuy();
+                    break;
+                case DataMoney.GREEN_COUPONE:
+                    g.couponePanel.animationBuy();
+                    break;
+                case DataMoney.RED_COUPONE:
+                    g.couponePanel.animationBuy();
+                    break;
+                case DataMoney.YELLOW_COUPONE:
+                    g.couponePanel.animationBuy();
+                    break;
+            }
             if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
                 g.userInventory.addResource(prise.id, prise.count);
                 var item:ResourceItem = new ResourceItem();

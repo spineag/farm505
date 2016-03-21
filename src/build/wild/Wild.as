@@ -56,6 +56,7 @@ public class Wild extends AreaObject{
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (_curLockedLand && !g.isActiveMapEditor) return;
+        if (_delete) return;
         if(_isOnHover) return;
         _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
@@ -65,6 +66,7 @@ public class Wild extends AreaObject{
 
     private function onOut():void {
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (_delete) return;
         _isOnHover = false;
 //            if (!_isOnHover) g.wildHint.hideIt();
         _source.filter = null;

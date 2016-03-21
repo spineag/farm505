@@ -301,46 +301,74 @@ public class ShopItem {
         _shopLimitSprite.visible = false;
 
         if (_data.buildType == BuildType.FABRICA ) {
-            if (_data.blockByLevel) {
+            if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
+                _lockedSprite.visible = true;
+                _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                _nameTxt.text = _data.name;
+            } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
-                if (_data.blockByLevel[0] > g.user.level) {
-                    _lockedSprite.visible = true;
-                    _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                for (i = 0; _data.blockByLevel.length; i++) {
+                    if (_data.blockByLevel[i] <= g.user.level) {
+                        maxCountAtCurrentLevel++;
+                        _countCost = _data.cost[i];
+                    } else break;
+                }
+                if (arr.length >= maxCountAtCurrentLevel) {
+                    _shopLimitSprite.visible = true;
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
+                    _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                 } else {
-                    if (_data.blockByLevel.length == 1) {
-                        if (arr.length == 0) {
-                            _nameTxt.text = _data.name;
-                            _countTxt.text = '0/1';
-                            _btnBuyBlue.visible = true;
-                            _txtBtnBuyBlue.text = String(_countCost);
-                        } else {
-                            _shopLimitSprite.visible = true;
-                            _nameTxt.text = _data.name;
-                            _countTxt.text = '1/1';
-                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                        }
-                    } else {
-                        for (i = 0; _data.blockByLevel.length; i++) {
-                            if (_data.blockByLevel[i] < g.user.level) {
-                                maxCountAtCurrentLevel++;
-                            } else break;
-                        }
-                        if (arr.length >= maxCountAtCurrentLevel) {
-                            _shopLimitSprite.visible = true;
-                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                            _nameTxt.text = _data.name;
-                            _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
-                        } else {
-                            _nameTxt.text = _data.name;
-                            _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
-                            _btnBuyBlue.visible = true;
-                            _txtBtnBuyBlue.text = String(_countCost);
-                        }
-                    }
+                    _nameTxt.text = _data.name;
+                    _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
+                    _btnBuyBlue.visible = true;
+                    _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
+//            if (_data.blockByLevel) {
+//                arr = g.townArea.getCityObjectsById(_data.id);
+//                for (i = 0; i < _data.blockByLevel.length; i++) {
+//
+//                }
+//                if (_data.blockByLevel[0] > g.user.level) {
+//                    _lockedSprite.visible = true;
+//                    _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+//                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//                    _nameTxt.text = _data.name;
+//                } else {
+//                    if (_data.blockByLevel.length == 1) {
+//                        if (arr.length == 0) {
+//                            _nameTxt.text = _data.name;
+//                            _countTxt.text = '0/1';
+//                            _btnBuyBlue.visible = true;
+//                            _txtBtnBuyBlue.text = String(_countCost);
+//                        } else {
+//                            _shopLimitSprite.visible = true;
+//                            _nameTxt.text = _data.name;
+//                            _countTxt.text = '1/1';
+//                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//                        }
+//                    } else {
+//                        for (i = 0; _data.blockByLevel.length; i++) {
+//                            if (_data.blockByLevel[i] < g.user.level) {
+//                                maxCountAtCurrentLevel++;
+//                            } else break;
+//                        }
+//                        if (arr.length >= maxCountAtCurrentLevel) {
+//                            _shopLimitSprite.visible = true;
+//                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//                            _nameTxt.text = _data.name;
+//                            _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
+//                        } else {
+//                            _nameTxt.text = _data.name;
+//                            _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
+//                            _btnBuyBlue.visible = true;
+//                            _txtBtnBuyBlue.text = String(_countCost);
+//                        }
+//                    }
+//                }
+//            }
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _lockedSprite.visible = true;

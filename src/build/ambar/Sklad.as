@@ -60,7 +60,7 @@ public class Sklad extends AreaObject{
             _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
             _armature.animation.gotoAndPlay('over');
             _isOnHover = true;
-            g.hint.showIt(_dataBuild.name);
+            g.hint.showIt(_dataBuild.name,false,true);
         }
     }
 
