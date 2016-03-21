@@ -226,7 +226,7 @@ public class WOFabricaWorkListItem {
                     new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
                     g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
                 } else {
-                    g.woFabrica.onClickExit();
+                    g.woFabrica.hideIt();
                     g.woBuyCurrency.showItMenu(true);
                 }
             };

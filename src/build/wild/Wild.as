@@ -69,7 +69,7 @@ public class Wild extends AreaObject{
         if (_delete) return;
         _isOnHover = false;
 //            if (!_isOnHover) g.wildHint.hideIt();
-        _source.filter = null;
+        if (_source) _source.filter = null;
         g.gameDispatcher.addEnterFrame(countEnterFrame);
     }
 

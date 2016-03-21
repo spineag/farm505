@@ -50,6 +50,7 @@ public class WOBuyPlant extends Window {
     }
 
     private function onClickExit(e:Event=null):void {
+        if (g.managerTutorial.isTutorial) return;
         hideIt();
     }
 

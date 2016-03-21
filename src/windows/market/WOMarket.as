@@ -210,6 +210,7 @@ public class WOMarket  extends Window {
     }
 
     private function onClickExit(e:Event=null):void {
+        if (g.managerTutorial.isTutorial) return;
         hideIt();
     }
 

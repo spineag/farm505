@@ -92,6 +92,11 @@ public class WOOrder extends Window{
     }
 
     private function onClickExit(e:Event=null):void {
+        if (g.managerTutorial.isTutorial) return;
+        hideIt();
+    }
+
+    override public function hideIt():void {
         g.gameDispatcher.removeFromTimer(onTimer);
         try {
             for (var i:int = 0; i < _arrItems.length; i++) {
@@ -113,7 +118,7 @@ public class WOOrder extends Window{
             Cc.error('WOOrder onClickExit error3:: ' + e.message);
         }
         _activeOrderItem = null;
-        hideIt();
+        super.hideIt();
         killCatsAnimations();
     }
 
@@ -430,7 +435,7 @@ public class WOOrder extends Window{
 
     private function skipDelete():void {
         if (g.user.hardCurrency < ManagerOrder.COST_SKIP_WAIT) {
-            onClickExit();
+            hideIt();
             g.woBuyCurrency.showItMenu(true);
             return;
         }
