@@ -174,6 +174,7 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_ANIMAL) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -188,6 +189,7 @@ public class MainBottomPanel {
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'cancel':
+                if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     _toolsBtn.visible = true;
                     _cancelBtn.visible = false;
@@ -209,6 +211,7 @@ public class MainBottomPanel {
                 }
                 break;
             case 'tools':
+                if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -220,6 +223,7 @@ public class MainBottomPanel {
                 g.toolsPanel.hideRepository();
                 break;
             case 'option':
+                if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -233,6 +237,7 @@ public class MainBottomPanel {
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'order':
+                if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -242,6 +247,7 @@ public class MainBottomPanel {
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'ambar':
+                if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -251,6 +257,7 @@ public class MainBottomPanel {
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'door':
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.GO_HOME) return;
                 if (g.isAway) g.townArea.backHome();
                     g.catPanel.visibleCatPanel(true);
                 break;

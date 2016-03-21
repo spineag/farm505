@@ -79,9 +79,14 @@ public class WOShop extends Window{
         new Birka('МАГАЗИН', _source, _woWidth, _woHeight);
     }
 
-    public function onClickExit(e:Event=null):void {
-        _shopList.clearIt(true);
+    private function onClickExit(e:Event=null):void {
+        if (g.managerTutorial.isTutorial) return;
         hideIt();
+    }
+
+    override public function hideIt():void {
+        _shopList.clearIt(true);
+        super.hideIt();
     }
 
     override public function showIt():void{
@@ -214,7 +219,7 @@ public class WOShop extends Window{
         btn.y = -_woHeight/2 + 528;
         _source.addChild(btn);
         var f1:Function = function ():void {
-            onClickExit();
+            hideIt();
             g.woBuyCurrency.showItMenu(true);
         };
         btn.clickCallback = f1;
@@ -242,7 +247,7 @@ public class WOShop extends Window{
         btn.y = -_woHeight/2 + 528;
         _source.addChild(btn);
         var f2:Function = function ():void {
-            onClickExit();
+            hideIt();
             g.woBuyCurrency.showItMenu(false);
         };
         btn.clickCallback = f2;
@@ -265,7 +270,7 @@ public class WOShop extends Window{
         btn.y = -_woHeight/2 + 528;
         _contCoupone.addChild(btn);
         var f3:Function = function ():void {
-            onClickExit();
+            hideIt();
             g.woBuyCoupone.showItWO();
         };
         btn.clickCallback = f3;

@@ -580,7 +580,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserTutorialStep', 1);
-        variables.userSocialId = g.user.userId;
+        variables.userId = g.user.userId;
         variables.step = g.user.tutorialStep;
         request.data = variables;
         request.method = URLRequestMethod.POST;

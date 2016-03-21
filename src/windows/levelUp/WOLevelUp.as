@@ -92,7 +92,7 @@ public class WOLevelUp extends Window{
         _contBtn.addChild(_txtHard);
         _contBtn.addChild(_txtContinue);
         _contBtn.y = _woHeight/2;
-        _contBtn.clickCallback = onClickExit;
+        _contBtn.clickCallback = hideIt;
 
         _leftArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
@@ -145,7 +145,12 @@ public class WOLevelUp extends Window{
     }
 
     private function onClickExit(e:Event=null):void {
+        if (g.managerTutorial.isTutorial) return;
         hideIt();
+    }
+
+    override public function hideIt():void {
+        super.hideIt();
         clearIt();
         _leftArrow.visible = false;
         _leftArrow.setEnabled = true;

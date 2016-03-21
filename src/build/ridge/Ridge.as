@@ -102,6 +102,7 @@ public class Ridge extends AreaObject{
 
     private function onHover():void {
         if (g.managerTutorial.isTutorial) {
+            if (_tutorialCallback == null) return;
             if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialBuilding(this)) {
             } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }

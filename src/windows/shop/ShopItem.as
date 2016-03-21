@@ -593,7 +593,7 @@ public class ShopItem {
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
-            g.woShop.onClickExit();
+            g.woShop.hideIt();
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
                 g.managerTutorial.addTutorialWorldObject(build);
                 g.managerTutorial.checkTutorialCallback();
@@ -604,7 +604,7 @@ public class ShopItem {
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.woShop.onClickExit();
+            g.woShop.hideIt();
             if (_state == STATE_FROM_INVENTORY) {
                 g.toolsModifier.startMoveTail(build, afterMoveFromInventory, true);
                 g.buyHint.hideIt();
@@ -624,7 +624,7 @@ public class ShopItem {
         } else if (_data.buildType != BuildType.ANIMAL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
-            g.woShop.onClickExit();
+            g.woShop.hideIt();
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if(_data.buildType == BuildType.FARM) {
@@ -632,18 +632,18 @@ public class ShopItem {
             }
             if (build is Tree) (build as Tree).showShopView();
             if (build is Fabrica) (build as Fabrica).showShopView();
-            if (_state == STATE_FROM_INVENTORY) {
-                g.toolsModifier.startMove(build, afterMoveFromInventory, true);
-                g.buyHint.hideIt();
-            } else {
-                g.toolsModifier.startMove(build, afterMove, true);
-            }
             if (g.managerTutorial.isTutorial) {
                 if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
                 } else if (g.managerTutorial.currentAction == TutorialAction.BUY_FARM && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
                 }
+            }
+            if (_state == STATE_FROM_INVENTORY) {
+                g.toolsModifier.startMove(build, afterMoveFromInventory, true);
+                g.buyHint.hideIt();
+            } else {
+                g.toolsModifier.startMove(build, afterMove, true);
             }
         } else {
             //додаємо на відповідну ферму
@@ -775,11 +775,13 @@ public class ShopItem {
     }
 
     private function showSmallAnimations(moneyType:int, count:int):void {
-        _imCont.scaleX = _imCont.scaleY = 1;
-        TweenMax.to(_imCont, .3, {scaleX: 1.3, scaleY:1.3, ease:Quad.easeOut, onComplete:showSmallAnimations2});
-        var p:Point = new Point(_imCont.x, _imCont.y + 20);
-        p = source.localToGlobal(p);
-        new UseMoneyMessage(p, moneyType, count, .3);
+        if (_imCont) {
+            _imCont.scaleX = _imCont.scaleY = 1;
+            TweenMax.to(_imCont, .3, {scaleX: 1.3, scaleY: 1.3, ease: Quad.easeOut, onComplete: showSmallAnimations2});
+            var p:Point = new Point(_imCont.x, _imCont.y + 20);
+            p = source.localToGlobal(p);
+            new UseMoneyMessage(p, moneyType, count, .3);
+        }
     }
 
     private function showSmallAnimations2():void {

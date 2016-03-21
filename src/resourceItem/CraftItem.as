@@ -198,8 +198,8 @@ public class CraftItem {
     }
 
     public function addArrow(f:Function):void {
-        _tutorialCallback = f;
         removeArrow();
+        _tutorialCallback = f;
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source, 1);
         _arrow.animateAtPosition(0, -_image.height/2);
     }

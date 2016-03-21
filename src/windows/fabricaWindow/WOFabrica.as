@@ -53,10 +53,14 @@ public class WOFabrica extends Window {
         createBottomBG();
         createFabricaItems();
         _list = new WOFabricaWorkList(_source);
-
     }
 
-    public function onClickExit(e:Event=null):void {
+    private function onClickExit(e:Event = null):void {
+        if (g.managerTutorial.isTutorial) return;
+        hideIt();
+    }
+
+    override public function hideIt():void {
         super.hideIt();
         clearShiftButtons();
         unfillFabricaItems();
@@ -127,15 +131,15 @@ public class WOFabrica extends Window {
                 var price:int = _list.priceForNewCell;
                 hideIt();
                 if (_fabrica.dataBuild.countCell >= 9) {
-                    g.woNoPlaces.showItWithParams(_list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, onBuyNewCellFromWO, onClickExit, true);
+                    g.woNoPlaces.showItWithParams(_list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, onBuyNewCellFromWO, hideIt, true);
                     return;
                 }
-                g.woNoPlaces.showItWithParams(0,price, onBuyNewCellFromWO, onClickExit);
+                g.woNoPlaces.showItWithParams(0,price, onBuyNewCellFromWO, hideIt);
                 return;
             }
 
             if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
-                onClickExit();
+                hideIt();
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                     g.woWaitFreeCats.showIt();
                 } else {
@@ -148,7 +152,7 @@ public class WOFabrica extends Window {
             var count:int = 0;
             if (!dataRecipe || !dataRecipe.ingridientsId) {
                 Cc.error('UserInventory checkRecipe:: bad _data');
-                onClickExit();
+                hideIt();
                 g.woGameError.showIt();
                 return;
             }
@@ -159,7 +163,7 @@ public class WOFabrica extends Window {
                     obj = {};
                     obj.fabrica = _fabrica;
                     obj.callback = _callbackOnClick;
-                    onClickExit();
+                    hideIt();
                     g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count, onBuyResource, null, obj);
                     return;
                 }
@@ -171,7 +175,7 @@ public class WOFabrica extends Window {
                     obj = {};
                     obj.fabrica = _fabrica;
                     obj.callback = _callbackOnClick;
-                    onClickExit();
+                    hideIt();
                     g.woLastResource.showItFabric(dataRecipe,obj,onBuyResource);
                     return;
                 }

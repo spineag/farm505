@@ -67,7 +67,7 @@ public class Wild extends AreaObject{
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         _isOnHover = false;
 //            if (!_isOnHover) g.wildHint.hideIt();
-        _source.filter = null;
+        if (_source) _source.filter = null;
         g.gameDispatcher.addEnterFrame(countEnterFrame);
     }
 

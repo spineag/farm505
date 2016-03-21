@@ -18,6 +18,9 @@ import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 
+import tutorial.ManagerTutorial;
+import tutorial.TutorialAction;
+
 public class Containers {
     public var SHIFT_MAP_X:int;
     public var SHIFT_MAP_Y:int;
@@ -161,6 +164,13 @@ public class Containers {
     }
 
     public function dragGameCont(mouseP:Point):void {
+        if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA || g.managerTutorial.currentAction == TutorialAction.PUT_FARM) {
+
+            } else {
+                return;
+            }
+        }
         g.hideAllHints(); // ??? not optimise
         var s:Number = gameCont.scaleX;
         if (_startDragPointCont == null || _startDragPoint == null) return;
