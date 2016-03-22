@@ -77,102 +77,110 @@ public class ShopList {
     }
 
     public function fillIt(arr:Array):void {
+        var maxCount:int;
+        var curCount:int;
         var item:ShopItem;
-        var arLocked:Array = [];
-        var ar:Array = [];
-        var ar2:Array = [];
-        var obj:Object;
-        var b:Boolean;
+        var arAdded:Array;
+        var i:int;
+        var j:int;
         _decor = false;
-        for (var j:int = 0; j < arr.length; j++) {
-            var maxCount:int = 0;
-            var curCount:int = 0;
-            if (arr[j].buildType == BuildType.FABRICA) {
-                arLocked = g.townArea.getCityObjectsById(arr[j].id);
-                b = true;
-                if (arLocked.length == 1) {
-                    ar2.push(arr[j]);
-                } else {
-                    ar.push(arr[j]);
-                }
-            } else if (arr[j].buildType == BuildType.RIDGE || arr[j].buildType == BuildType.FARM || arr[j].buildType == BuildType.CAT) {
-
-                b = false;
-                if(arr[j].buildType == BuildType.FARM) {
-                    arLocked = g.townArea.getCityObjectsById(arr[j].id);
-                    for (i = 0; arr[j].blockByLevel.length; i++) {
-                        if (arr[j].blockByLevel[i] <= g.user.level) {
-                            maxCount++;
-                        } else break;
-                    }
-                     if (arLocked.length != maxCount) {
-                        obj = {};
-                        obj = g.dataBuilding.objectBuilding[arr[j].id];
-                        obj.byLevel = arr[j].blockByLevel[0];
-                        ar2.unshift(obj);
-                        ar2.sortOn("byLevel", Array.NUMERIC);
-                    } else {
-                        ar2.push(arr[j]);
-                    }
-                }
-                if (arr[j].buildType == BuildType.RIDGE) ar.push(arr[j]);//ar.unshift(arr[j]);
-                if (arr[j].buildType == BuildType.CAT) ar.push(arr[j]);//ar.unshift(arr[j])
-            } else if (arr[j].buildType == BuildType.TREE) {
-                arLocked = g.townArea.getCityObjectsById(arr[j].id);
-                b = false;
+        if (arr[0].buildType == BuildType.FABRICA) {
+            for (j = 0; j < arr.length; j++) {
+                arAdded = g.townArea.getCityObjectsById(arr[j].id);
+                maxCount = 0;
                 for (i = 0; arr[j].blockByLevel.length; i++) {
                     if (arr[j].blockByLevel[i] <= g.user.level) {
                         maxCount++;
                     } else break;
                 }
-                maxCount = maxCount * arr[j].countUnblock;
-                if (arLocked.length == maxCount) {
-                    ar2.push(arr[j]);
+                curCount = arAdded.length;
+                if (curCount == arr[j].blockByLevel.length) {
+                    arr[j].indexQueue = arr[j].blockByLevel[0] + 1000;
+                } else if (curCount >= maxCount) {
+                    arr[j].indexQueue = arr[j].blockByLevel[maxCount] + 500;
                 } else {
-                    obj = {};
-                    obj = g.dataBuilding.objectBuilding[arr[j].id];
-                    obj.byLevel = arr[j].blockByLevel[0];
-                    ar.push(obj);
-                    ar.sortOn("byLevel", Array.NUMERIC);
+                    arr[j].indexQueue = arr[j].blockByLevel[curCount];
                 }
-
-            } else if (arr[j].buildType == BuildType.DECOR || arr[j].buildType == BuildType.DECOR_FULL_FENСE ||
-                    arr[j].buildType == BuildType.DECOR_POST_FENCE || arr[j].buildType == BuildType.DECOR_TAIL) {
-                b = true;
-                _decor = true;
-                ar.push(arr[j]);
-            } else if (arr[j].buildType == BuildType.ANIMAL) {
-                b = false;
-                var dataFarm:Object = g.dataBuilding.objectBuilding[arr[j].buildId];
-                    var ar3:Array;
-                    ar3=[];
-                    if (g.user.level < dataFarm.blockByLevel[0]) {
-                        ar2.push(arr[j]);
-                    } else {
-                        ar3 = g.townArea.getCityObjectsById(dataFarm.id);
-                        maxCount = ar3.length * dataFarm.maxAnimalsCount;
-                        curCount = 0;
-                        for (i = 0; i < ar3.length; i++) {
-                            curCount += (ar3[i] as Farm).arrAnimals.length;
-                        }
-                        if (maxCount == 0) {
-                            ar.push(arr[j])
-                        } else if (curCount >= maxCount) {
-                            ar2.push(arr[j])
-                        } else {
-                            ar.unshift(arr[j]);
-                        }
-                    }
             }
+            arr.sortOn("indexQueue", Array.NUMERIC);
+        } else if (arr[0].buildType == BuildType.TREE) {
+            for (j = 0; j < arr.length; j++) {
+                arAdded = g.townArea.getCityObjectsById(arr[j].id);
+                maxCount = 0;
+                for (i = 0; arr[j].blockByLevel.length; i++) {
+                    if (arr[j].blockByLevel[i] <= g.user.level) {
+                        maxCount += arr[j].countUnblock;
+                    } else break;
+                }
+                curCount = arAdded.length;
+                if (curCount >= maxCount) {
+                    if (i == arr[j].blockByLevel.length) {
+                        arr[j].indexQueue = arr[j].blockByLevel[0] + 1000;
+                    } else {
+                        arr[j].indexQueue = arr[j].blockByLevel[i] + 500;
+                    }
+                } else {
+                    arr[j].indexQueue = arr[j].blockByLevel[i];
+                }
+            }
+            arr.sortOn("indexQueue", Array.NUMERIC);
+        } else if (arr[0].buildType == BuildType.ANIMAL) {
+            var dataFarm:Object;
+            var arrFarm:Array;
+            for (j = 0; j < arr.length; j++) {
+                dataFarm = g.dataBuilding.objectBuilding[arr[j].buildId];
+                arrFarm = g.townArea.getCityObjectsById(dataFarm.id);
+                maxCount = arrFarm.length * dataFarm.maxAnimalsCount;
+                curCount = 0;
+                for (i = 0; i < arrFarm.length; i++) {
+                    curCount += (arrFarm[i] as Farm).arrAnimals.length;
+                }
+                if (curCount >= maxCount) {
+                    if (arrFarm.length >= dataFarm.blockByLevel.length) {
+                        arr[j].indexQueue = dataFarm.blockByLevel[0] + 1000;
+                    } else {
+                        arr[j].indexQueue = dataFarm.blockByLevel[arrFarm.length] + 500;
+                    }
+                } else {
+                    arr[j].indexQueue = dataFarm.blockByLevel[arrFarm.length];
+                }
+            }
+            arr.sortOn("indexQueue", Array.NUMERIC);
+        } else if (arr[0].buildType == BuildType.FARM || arr[0].buildType == BuildType.CAT || arr[0].buildType == BuildType.RIDGE) {
+            for (j = 0; j < arr.length; j++) {
+                if (arr[j].buildType == BuildType.FARM) {
+                    arAdded = g.townArea.getCityObjectsById(arr[j].id);
+                    maxCount = 0;
+                    for (i = 0; arr[j].blockByLevel.length; i++) {
+                        if (arr[j].blockByLevel[i] <= g.user.level) {
+                            maxCount++;
+                        } else break;
+                    }
+                    curCount = arAdded.length;
+                    if (curCount == arr[j].blockByLevel.length) {
+                        arr[j].indexQueue = arr[j].blockByLevel[0] + 1000;
+                    } else if (curCount >= maxCount) {
+                        arr[j].indexQueue = arr[j].blockByLevel[maxCount] + 500;
+                    } else {
+                        arr[j].indexQueue = arr[j].blockByLevel[curCount];
+                    }
+                } else if (arr[j].buildType == BuildType.CAT) {
+                    arr[j].indexQueue = 0;
+                } else {
+                    arr[j].indexQueue = 1;
+                }
+            }
+            arr.sortOn("indexQueue", Array.NUMERIC);
+        } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
+                arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL) {
+            for (j = 0; j < arr.length; j++) {
+                arr[j].indexQueue = arr[j].blockByLevel[0];
+            }
+            arr.sortOn("indexQueue", Array.NUMERIC);
         }
-        if (b) {
-            ar.sortOn("blockByLevel", Array.NUMERIC);
-            ar = ar.concat(ar2);
-        } else {
-            ar = ar.concat(ar2);
-        }
-        for (var i:int = 0; i < ar.length; i++) {
-            item = new ShopItem(ar[i]);
+
+        for (i = 0; i < arr.length; i++) {
+            item = new ShopItem(arr[i]);
             item.source.x = 153*i;
             _itemsSprite.addChild(item.source);
             _arrItems.push(item);
