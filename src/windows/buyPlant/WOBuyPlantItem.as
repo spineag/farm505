@@ -53,6 +53,7 @@ public class WOBuyPlantItem {
 
     public function fillData(ob:Object, f:Function):void {
         _dataPlant = ob;
+//        if (_dataPlant.id == 117) return;
         if (!_dataPlant) {
             Cc.error('WOBuyPlantItem:: empty _dataPlant');
             g.woGameError.showIt();

@@ -58,6 +58,7 @@ public class TreeHint {
     private var _quad:Quad;
     private var _bg:HintBackground;
     private var _onOutCallback:Function;
+    private var _closeTime:Number;
     private var g:Vars = Vars.getInstance();
 
     public function TreeHint() {
@@ -180,10 +181,42 @@ public class TreeHint {
     public function hideIt():void {
         if (_isOnHover) return;
         _isShowed = false;
-        _source.removeChild(_quad);
-        if (g.cont.hintCont.contains(_source)) {
-            g.cont.hintCont.removeChild(_source);
-            _contDelete.removeChild(_imageItem);
+        _closeTime = 1.5;
+        g.gameDispatcher.addToTimer(closeTimer);
+    }
+
+    public function managerHide():void {
+        var tween:Tween = new Tween(_source, 0.1);
+        tween.scaleTo(0);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+            _source.removeChild(_quad);
+            if (g.cont.hintCont.contains(_source)) {
+                g.cont.hintCont.removeChild(_source);
+                _contDelete.removeChild(_imageItem);
+            }
+        };
+        g.starling.juggler.add(tween);
+        g.gameDispatcher.removeFromTimer(closeTimer);
+    }
+
+    private function closeTimer():void {
+        _closeTime--;
+        if (_closeTime <= 0) {
+            if (!_isOnHover) {
+                var tween:Tween = new Tween(_source, 0.1);
+                tween.scaleTo(0);
+                tween.onComplete = function ():void {
+                    g.starling.juggler.remove(tween);
+                    _source.removeChild(_quad);
+                    if (g.cont.hintCont.contains(_source)) {
+                        g.cont.hintCont.removeChild(_source);
+                        _contDelete.removeChild(_imageItem);
+                    }
+                };
+                g.starling.juggler.add(tween);
+            }
+            g.gameDispatcher.removeFromTimer(closeTimer);
         }
     }
 
@@ -194,14 +227,14 @@ public class TreeHint {
     private function onOut():void {
         _isOnHover = false;
         hideIt();
-        if (_onOutCallback != null) {
-            _onOutCallback.apply();
-            _onOutCallback = null;
-        }
+//        if (_onOutCallback != null) {
+//            _onOutCallback.apply();
+//            _onOutCallback = null;
+//        }
     }
 
     private function onClickDelete():void {
-        onOut();
+        managerHide();
         if (g.userInventory.getCountResourceById(_data.removeByResourceId) <= 0){
             g.woNoResources.showItMenu(g.dataResource.objectResources[_data.removeByResourceId],1,onClickDelete);
         } else {
@@ -217,7 +250,7 @@ public class TreeHint {
     }
 
     private function onClickWatering():void {
-        onOut();
+        managerHide();
         if (_wateringCallback != null) {
             _wateringCallback.apply();
             _wateringCallback = null;

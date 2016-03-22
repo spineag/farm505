@@ -298,8 +298,10 @@ public class LockedLand extends AreaObject {
 
     public function showBoom():void {
         _build.addChild(_contOpen);
-        _contOpen.x = _contOpen.y =  _source.height/4;
         _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
+        _armatureOpen.display.scaleX = _armatureOpen.display.scaleY = 1.5;
+        _armatureOpen.display.x = 10;
+        _armatureOpen.display.y = _source.height/2 - 20;
         _contOpen.addChild(_armatureOpen.display as Sprite);
         WorldClock.clock.add(_armatureOpen);
         _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);

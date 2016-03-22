@@ -235,6 +235,8 @@ public class ShopItem {
     }
 
     private function setInfo():void {
+
+//        if(_data.id == 46) return;
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
             if (!texture) {

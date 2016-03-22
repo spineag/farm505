@@ -200,6 +200,13 @@ public class WOMarket  extends Window {
         _contPaper.addChild(_imCheck);
         _imCheck.visible = false;
 
+
+        txt = new TextField(200,30,'Выставить в газету:',g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt.x = 30;
+        txt.y = 135;
+        _contPaper.addChild(txt);
+
         _txtTimerPaper = new TextField(80,30,'',g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtTimerPaper.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtTimerPaper.x = 68;
@@ -318,7 +325,7 @@ public class WOMarket  extends Window {
             } else if (i+1 <= 24) {
                 item.source.x = 125*(_arrItems.length%4)+700;
             } else if (i+1 <= 40) {
-                item.source.x = 125*(_arrItems.length%4)+1200;
+                item.source.x = 125*(_arrItems.length%4)+1300;
             }
 
             if (i+1 <= 4) {
@@ -510,6 +517,7 @@ public class WOMarket  extends Window {
 
     public function refreshMarket():void {
         for (var i:int=0; i< _arrItems.length; i++) {
+            if(!_arrItems[i].number) break;
             _arrItems[i].unFillIt();
         }
         g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);

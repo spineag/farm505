@@ -40,6 +40,7 @@ public class WildHint {
     private var _deleteCallback:Function;
     private var _id:int;
     private var _height:int;
+    private var _closeTime:Number;
     private var bg:HintBackground;
     private var g:Vars = Vars.getInstance();
     private var _quad:Quad;
@@ -124,19 +125,34 @@ public class WildHint {
 
     public function hideIt():void {
         if (_isOnHover) return;
+        _closeTime = 1.5;
+        g.gameDispatcher.addToTimer(closeTimer);
+    }
 
-        _isShowed = false;
-        if (g.cont.hintGameCont.contains(_source))
-            g.cont.hintGameCont.removeChild(_source);
-        _source.removeChild(_quad);
-        _btn.removeChild(_iconResource);
-        _iconResource = null;
-        _height = 0;
-
+    private function closeTimer():void {
+        _closeTime--;
+        if (_closeTime <= 0) {
+            if (!_isOnHover) {
+                var tween:Tween = new Tween(_source, 0.1);
+                tween.scaleTo(0);
+                tween.onComplete = function ():void {
+                    g.starling.juggler.remove(tween);
+                    _isShowed = false;
+                    if (g.cont.hintGameCont.contains(_source))
+                        g.cont.hintGameCont.removeChild(_source);
+                    _source.removeChild(_quad);
+                    _btn.removeChild(_iconResource);
+                    _iconResource = null;
+                    _height = 0;
+                };
+                g.starling.juggler.add(tween);
+            }
+            g.gameDispatcher.removeFromTimer(closeTimer);
+        }
     }
 
     private function onClick():void {
-        onOutHint();
+        managerHide();
         if (g.userInventory.getCountResourceById(_id) <= 0){
             g.woNoResources.showItMenu(g.dataResource.objectResources[_id],1,onClick);
         } else {
@@ -154,11 +170,29 @@ public class WildHint {
 
 
     private function onOutHint():void {
+        _isOnHover = false;
         hideIt();
-        if (_onOutCallback != null) {
-            _onOutCallback.apply();
-            _onOutCallback = null;
-        }
+//        if (_onOutCallback != null) {
+//            _onOutCallback.apply();
+//            _onOutCallback = null;
+//        }
+    }
+
+    public function managerHide():void {
+        var tween:Tween = new Tween(_source, 0.1);
+        tween.scaleTo(0);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+            _isShowed = false;
+            if (g.cont.hintGameCont.contains(_source))
+                g.cont.hintGameCont.removeChild(_source);
+            _source.removeChild(_quad);
+            _btn.removeChild(_iconResource);
+            _iconResource = null;
+            _height = 0;
+        };
+        g.starling.juggler.add(tween);
+        g.gameDispatcher.removeFromTimer(closeTimer);
     }
 }
 }

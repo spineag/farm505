@@ -226,6 +226,7 @@
             <filename>flower_6.png</filename>
             <filename>flower_7.png</filename>
             <filename>flower_8.png</filename>
+            <filename>track_pink_small.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

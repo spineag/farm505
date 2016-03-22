@@ -394,7 +394,7 @@ public class WOTrain extends Window {
 //        }
         _lock = 0;
         for (i = 0; i<_arrItems.length; i++) {
-            if (!_isBigCount && i == 9 || i == 10 || i == 11){
+            if (!_isBigCount && i == 9 || !_isBigCount && i == 10 || !_isBigCount && i == 11){
                 _lock++;
             } else if (_arrItems[i].isResourceLoaded) {
                 _lock++;
@@ -418,7 +418,7 @@ public class WOTrain extends Window {
 
     private function fullTrain(b:Boolean = false):void {
         if (!b) {
-            if (_lock == 0) {
+            if (_lock == 0 || !_isBigCount && _lock <= 3) {
                 g.woTrainSend.showItTrain(fullTrain);
                 return;
             }
