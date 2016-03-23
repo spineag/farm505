@@ -162,16 +162,11 @@ public class Ridge extends AreaObject{
     }
 
     private function onEndClick():void {
-//        if (g.managerTutorial.isTutorial) {
-//            if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE) {
-//                g.managerTutorial.checkTutorialCallback();
-//            } else if (g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) {
-//                if (!g.managerTutorial.isTutorialBuilding(this)) return;
-//            }
-//        }
         if (g.managerTutorial.isTutorial) {
-            if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialBuilding(this)) {
+            if (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
+            } else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                if (g.selectedBuild != this) return;
             } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }
         if (g.isActiveMapEditor || g.isAway) return;

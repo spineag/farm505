@@ -92,6 +92,7 @@ public class WOItemFabrica {
     }
 
     private function onClick():void {
+        if (g.managerTutorial && g.managerTutorial.currentAction != TutorialAction.RAW_RECIPE) return;
         if (_dataRecipe.blockByLevel > g.user.level) return;
         source.filter = null;
         if (_clickCallback != null) {

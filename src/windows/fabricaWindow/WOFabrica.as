@@ -67,7 +67,7 @@ public class WOFabrica extends Window {
         _list.unfillIt();
         _fabrica = null;
         _callbackOnClick = null;
-        _arrAllRecipes.length = 0;
+        if (_arrAllRecipes) _arrAllRecipes.length = 0;
     }
 
     public function showItWithParams(arrRecipes:Array, arrList:Array, fabr:Fabrica, f:Function):void {

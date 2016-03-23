@@ -37,7 +37,7 @@ public class CutSceneTextBubble {
         _bubble.addTextField(18);
         _bubble.setText(st);
         if (callback != null) addButton(btnSt, callback);
-        TweenMax.to(_source, .3, {scaleX: 1, scaleY: 1});
+        TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1});
     }
 
     private function addButton(btnSt:String, callback:Function):void {
@@ -59,7 +59,7 @@ public class CutSceneTextBubble {
 
     public function hideBubble(f:Function):void {
         if (_bubble) {
-            TweenMax.to(_source, .2, {scaleX: .3, scaleY: .3, onComplete: directHide, onCompleteParams: [f]});
+            TweenMax.to(_source, .1, {scaleX: .1, scaleY: .1, onComplete: directHide, onCompleteParams: [f]});
         }
     }
 
@@ -76,7 +76,7 @@ public class CutSceneTextBubble {
 
     public function reChangeBubble(st:String, btnSt:String, callback:Function):void {
         if (_bubble) {
-            TweenMax.to(_source, .3, {scaleX: .3, scaleY: .3, onComplete: onReChange, onCompleteParams: [st, btnSt, callback]});
+            TweenMax.to(_source, .2, {scaleX: .1, scaleY: .1, onComplete: onReChange, onCompleteParams: [st, btnSt, callback]});
         } else {
             showBubble(st, btnSt, callback);
         }

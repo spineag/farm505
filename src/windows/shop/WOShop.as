@@ -95,6 +95,24 @@ public class WOShop extends Window{
         onTab(curentTab);
     }
 
+    public function openShopForResource(ob:Object):void {
+        if (ob.buildType == BuildType.CAT || ob.buildType == BuildType.RIDGE || ob.buildtype == BuildType.FARM) {
+            curentTab = 1;
+        } else if (ob.buildType == BuildType.ANIMAL) {
+            curentTab = 2;
+        } else if (ob.buildType == BuildType.FABRICA) {
+            curentTab = 3;
+        } else if (ob.buildType == BuildType.TREE) {
+            curentTab = 4;
+        } else {
+            curentTab = 5;
+        }
+        onTab(curentTab);
+        updateMoneyCounts();
+        super.showIt();
+        _shopList.openOnResource(ob);
+    }
+
     public function activateTab(a:int):void {
         curentTab = a;
     }
@@ -182,7 +200,6 @@ public class WOShop extends Window{
         }
         if (a == 5) {
             _shopList.clearIt(true);
-
         } else {
             _shopList.clearIt();
         }
@@ -344,8 +361,13 @@ public class WOShop extends Window{
         _animal = a;
     }
 
-    public function getShopItemProperties(a:int):Object {
-        return _shopList.getShopItemProperties(a);
+    public function getShopItemProperties(_id:int):Object {
+        return _shopList.getShopItemProperties(_id);
+
+    }
+
+    public function getShopDirectItemProperties(a:int):Object {
+        return _shopList.getShopDirectItemProperties(a);
 
     }
 

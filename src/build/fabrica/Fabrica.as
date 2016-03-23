@@ -164,7 +164,7 @@ public class Fabrica extends AreaObject {
     private function onClick():void {
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialBuilding(this)) {
-                g.managerTutorial.checkTutorialCallback();
+                if (g.managerTutorial.currentAction != TutorialAction.FABRICA_SKIP_FOUNDATION) g.managerTutorial.checkTutorialCallback();
             } else if (g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) {
                 if (!g.managerTutorial.isTutorialBuilding(this)) return;
             }
@@ -443,15 +443,15 @@ public class Fabrica extends AreaObject {
     }
 
     private function callbackSkip():void { // for building build
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+            g.managerTutorial.checkTutorialCallback();
+            g.timerHint.canHide = true;
+        }
         _stateBuild = STATE_WAIT_ACTIVATE;
         g.directServer.skipTimeOnFabricBuild(_leftBuildTime,dbBuildingId,null);
         _leftBuildTime = 0;
         renderBuildProgress();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
-            g.managerTutorial.checkTutorialCallback();
-            g.timerHint.canHide = true;
-            onOut();
-        }
+        onOut();
     }
 
     public function onBuyNewCell():void {
