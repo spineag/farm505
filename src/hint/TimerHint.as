@@ -41,6 +41,7 @@ public class TimerHint {
     private var _txtTimer:TextField;
     private var _txtText:TextField;
     private var _timer:int;
+    private var _closeTime:Number;
     private var _imageClock:Image;
     private var _bg:HintBackground;
     private var _btn:CButton;
@@ -164,12 +165,8 @@ public class TimerHint {
         if (!_canHide) return;
         if (_isOnHover && !force) return;
         if (!_isShow) return;
-        _isShow = false;
-        g.gameDispatcher.removeFromTimer(onTimer);
-        source.removeChild(_quad);
-        if (g.cont.hintContUnder.contains(source)) {
-            g.cont.hintContUnder.removeChild(source);
-        }
+        _closeTime = 1.5;
+        g.gameDispatcher.addToTimer(closeTimer);
     }
 
     private function onTimer():void {
@@ -180,6 +177,28 @@ public class TimerHint {
         }
     }
 
+    private function closeTimer():void {
+        _closeTime--;
+        if (_closeTime <= 0) {
+            if(!_isOnHover) {
+                var tween:Tween = new Tween(source, 0.1);
+                tween.scaleTo(0);
+                tween.onComplete = function ():void {
+                    g.starling.juggler.remove(tween);
+                    _isShow = false;
+                    g.gameDispatcher.removeFromTimer(onTimer);
+                    source.removeChild(_quad);
+                    if (g.cont.hintContUnder.contains(source)) {
+                        g.cont.hintContUnder.removeChild(source);
+                    }
+
+                };
+                g.starling.juggler.add(tween);
+            }
+            g.gameDispatcher.removeFromTimer(closeTimer);
+        }
+    }
+
     private function onHover():void {
         _isOnHover = true;
     }
@@ -187,10 +206,10 @@ public class TimerHint {
     private function outHover():void {
         _isOnHover = false;
         hideIt();
-        if (_onOutCallback != null) {
-            _onOutCallback.apply();
-            _onOutCallback = null;
-        }
+//        if (_onOutCallback != null) {
+//            _onOutCallback.apply();
+//            _onOutCallback = null;
+//        }
     }
 
     private function onClickBtn():void {
@@ -200,12 +219,31 @@ public class TimerHint {
             g.woBuyCurrency.showItMenu(true);
             return;
         }
+        g.userInventory.addMoney(1,-int(_txtCost.text));
+        _isOnHover = false;
+        managerHide();
         if (_callbackSkip != null) {
             _callbackSkip.apply(null);
         }
-        g.userInventory.addMoney(1,-int(_txtCost.text));
-        _isOnHover = false;
-        hideIt();
+
+    }
+
+    public function managerHide():void {
+        var tween:Tween = new Tween(source, 0.1);
+        tween.scaleTo(0);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+            _isShow = false;
+            g.gameDispatcher.removeFromTimer(onTimer);
+            source.removeChild(_quad);
+            if (g.cont.hintContUnder.contains(source)) {
+                g.cont.hintContUnder.removeChild(source);
+            }
+
+        };
+        g.starling.juggler.add(tween);
+        g.gameDispatcher.removeFromTimer(closeTimer);
+
     }
 }
 }

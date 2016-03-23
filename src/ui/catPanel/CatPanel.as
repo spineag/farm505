@@ -58,7 +58,7 @@ public class CatPanel {
             _txtZero.text = '0';
             _txtCount.text = String("/" + g.managerCats.curCountCats);
             _txtCount.x = 28;
-            _txtZero.x = 57 - _txtCount.textBounds.width;
+            _txtZero.x = 55 - _txtCount.textBounds.width;
             _txtZero.visible = true;
         } else {
             _txtCount.text = String(g.managerCats.countFreeCats + "/" + g.managerCats.curCountCats);

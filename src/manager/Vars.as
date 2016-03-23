@@ -529,12 +529,12 @@ public class Vars {
     }
 
     public function hideAllHints():void {
-        if (timerHint) timerHint.hideIt(true);
-        if (wildHint) wildHint.hideIt();
+        if (timerHint) timerHint.managerHide();
+        if (wildHint) wildHint.managerHide();
 //        if (farmHint) farmHint.hideIt();
         if (mouseHint) mouseHint.hideIt();
         if (fabricHint) fabricHint.hideIt();
-        if (treeHint) treeHint.hideIt();
+        if (treeHint) treeHint.managerHide();
         if (resourceHint) resourceHint.hideIt();
         if (hint) (hint as Hint).hideIt();
     }

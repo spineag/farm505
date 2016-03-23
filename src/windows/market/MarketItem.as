@@ -103,34 +103,6 @@ public class MarketItem {
         source.addChild(_txtAdditem);
         var im:Image;
 
-        if (close) {
-            buyCont = new Sprite();
-            if (numberCell == 5) _countBuyCell = 5;
-            else _countBuyCell = (numberCell - 5) * 2 + 5;
-            source.addChild(buyCont);
-            var txt:TextField = new TextField(100,90,'Докупить торговое место',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
-            txt.x = 5;
-            txt.y = 20;
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-            buyCont.addChild(txt);
-            var btn:CButton = new CButton();
-            btn.addButtonTexture(90,30,CButton.GREEN, true);
-            txt = new TextField(30,30,String(String(_countBuyCell)),g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-            txt.x = 10;
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-            btn.addChild(txt);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-            im.x = 55;
-            im.y = 3;
-            MCScaler.scale(im,25,25);
-            btn.addChild(im);
-            btn.y = 110;
-            btn.x = 55;
-            btn.clickCallback = onClickBuy;
-            buyCont.addChild(btn);
-            return;
-        }
-
         _quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
         _quadGreen.y = 100;
         source.addChild(_quadGreen);
@@ -173,8 +145,6 @@ public class MarketItem {
         _txtPlawka.visible = false;
         source.addChild(_txtPlawka);
 
-        source.endClickCallback = onClick;
-
         _plawkaCoins = new Sprite();
         source.addChild(_plawkaCoins);
         _plawkabuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_back'));
@@ -193,13 +163,14 @@ public class MarketItem {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
         _papper.addDisplayObject(im);
         _papper.setPivots();
-        _papper.x = 10;
+        _papper.x = 15;
         _papper.y = 10;
         source.addChild(_papper);
         _papper.clickCallback = onPaper;
         _papper.visible = false;
 
         _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _imCheck.x = 3;
         MCScaler.scale(_imCheck,20,20);
         source.addChild(_imCheck);
         _imCheck.visible = false;
@@ -208,11 +179,43 @@ public class MarketItem {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
         _delete.addDisplayObject(im);
         _delete.setPivots();
-        _delete.x = 10;
+        _delete.x = 15;
         _delete.y = 110;
         source.addChild(_delete);
         _delete.clickCallback = onDelete;
         _delete.visible = false;
+
+        if (close) {
+            buyCont = new Sprite();
+            if (numberCell == 5) _countBuyCell = 5;
+            else _countBuyCell = (numberCell - 5) * 2 + 5;
+            source.addChild(buyCont);
+            var txt:TextField = new TextField(100,90,'Докупить торговое место',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+            txt.x = 5;
+            txt.y = 20;
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+            buyCont.addChild(txt);
+            var btn:CButton = new CButton();
+            btn.addButtonTexture(90,30,CButton.GREEN, true);
+            txt = new TextField(30,30,String(String(_countBuyCell)),g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+            txt.x = 10;
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            btn.addChild(txt);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            im.x = 55;
+            im.y = 3;
+            MCScaler.scale(im,25,25);
+            btn.addChild(im);
+            btn.y = 110;
+            btn.x = 55;
+            btn.clickCallback = onClickBuy;
+            buyCont.addChild(btn);
+
+            _txtAdditem.text = '';
+            return;
+        }
+
+        source.endClickCallback = onClick;
     }
 
     private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
@@ -600,16 +603,15 @@ public class MarketItem {
     }
 
     private function onHover():void {
+        if (_onHover) return;
+        _onHover = true;
+
         if (isFill == 0 &&_isUser) {
-            if (_onHover) return;
-            _onHover = true;
             _bg.filter = ManagerFilters.BUILD_STROKE;
-        }
-        if (isFill == 1) {
-            if (_onHover) return;
-            _onHover = true;
+        } else if (isFill == 1 && _isUser) {
             var b:Boolean = g.woMarket.booleanPaper;
-            if (!_inPapper || !b) _papper.visible = true;
+            if (_inPapper || !b) _papper.visible = false;
+            else _papper.visible = true;
             _delete.visible = true;
             count = 0;
             g.gameDispatcher.addEnterFrame(onEnterFrame);
@@ -617,12 +619,10 @@ public class MarketItem {
     }
 
     private function onOut():void {
-        if (isFill == 0 &&_isUser) {
-            _onHover = false;
+        _onHover = false;
+        if (isFill == 0 && _isUser) {
             _bg.filter = null;
-        }
-        if (isFill == 1) {
-            _onHover = false;
+        } else if (isFill == 1 && _isUser) {
             if (!_inPapper) _papper.visible = false;
             _delete.visible = false;
             g.marketHint.hideIt();

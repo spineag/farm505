@@ -39,6 +39,8 @@ import starling.display.Sprite;
 
 import tutorial.TutorialAction;
 
+import ui.xpPanel.XPStar;
+
 import user.Someone;
 
 import utils.CSprite;
@@ -648,6 +650,7 @@ public class TownArea extends Sprite {
         var p:Point = new Point((b as WorldObject).source.x, (b as WorldObject).source.y);
         p = g.cont.contentCont.localToGlobal(p);
         new UseMoneyMessage(p, moneyType, count, .3);
+        if (b is Decor || b is DecorFence || b is DecorPostFence || b is DecorTail) new XPStar(p.x, p.y, (b as WorldObject).dataBuild.xpForBuild);
     }
 
     public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:fbb5e1b7e2b667d720ce8cbfeddf4c97:a6d3f8ce7c69614e2c9641fd8327ddc6:b31bb3fd388fd787e9b00954f0b80b18$ -->
+<!-- $TexturePacker:SmartUpdate:3f11a086af39608ce244177dbb418337:a6d3f8ce7c69614e2c9641fd8327ddc6:b31bb3fd388fd787e9b00954f0b80b18$ -->
 <TextureAtlas imagePath="resourceAtlas.png" width="1197" height="488">
     <SubTexture name="apple_icon" x="370" y="197" width="91" height="97" frameX="-6" frameY="-3" frameWidth="100" frameHeight="100"/>
     <SubTexture name="apple_juice_icon" x="162" y="301" width="85" height="100" frameX="-8" frameY="0" frameWidth="100" frameHeight="100"/>
@@ -49,7 +49,7 @@
     <SubTexture name="milk_bottle_icon" x="1057" y="93" width="46" height="95" frameX="-27" frameY="-4" frameWidth="100" frameHeight="100"/>
     <SubTexture name="omelette_icon" x="206" y="403" width="100" height="80" frameX="0" frameY="-8" frameWidth="100" frameHeight="100"/>
     <SubTexture name="pancake_icon" x="1091" y="2" width="100" height="88" frameX="0" frameY="-9" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="papper_icon" x="463" y="197" width="90" height="97" frameX="-3" frameY="-3" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="pepper_icon" x="463" y="197" width="90" height="97" frameX="-3" frameY="-3" frameWidth="100" frameHeight="100"/>
     <SubTexture name="pig_feed_icon" x="675" y="338" width="86" height="73" frameX="-8" frameY="-19" frameWidth="100" frameHeight="100"/>
     <SubTexture name="pizza_icon" x="963" y="413" width="96" height="62" frameX="0" frameY="-25" frameWidth="100" frameHeight="100"/>
     <SubTexture name="potato_icon" x="204" y="2" width="96" height="97" frameX="-2" frameY="-3" frameWidth="100" frameHeight="100"/>
