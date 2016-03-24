@@ -324,8 +324,10 @@ public class WOMarket  extends Window {
                 item.source.x = 125*(_arrItems.length%4)+200;
             } else if (i+1 <= 24) {
                 item.source.x = 125*(_arrItems.length%4)+700;
+            } else if (i+1 <= 32) {
+                item.source.x = 125*(_arrItems.length%4)+1200;
             } else if (i+1 <= 40) {
-                item.source.x = 125*(_arrItems.length%4)+1300;
+                item.source.x = 125*(_arrItems.length%4)+1700;
             }
 
             if (i+1 <= 4) {
@@ -376,8 +378,10 @@ public class WOMarket  extends Window {
                 item.source.x = 125*(_arrItems.length%4)+200;
             } else if (i+1 <= 24) {
                 item.source.x = 125*(_arrItems.length%4)+700;
-            } else if (i+1 <= 40) {
+            } else if (i+1 <= 32) {
                 item.source.x = 125*(_arrItems.length%4)+1200;
+            } else if (i+1 <= 40) {
+                item.source.x = 125*(_arrItems.length%4)+1700;
             }
 
             if (i+1 <= 4) {
@@ -420,8 +424,10 @@ public class WOMarket  extends Window {
             item.source.x = 125*(_arrItems.length%4)+200;
         } else if (_arrItems.length  <= 23) {
             item.source.x = 125*(_arrItems.length%4)+700;
-        } else if (_arrItems.length  <= 39) {
+        } else if (_arrItems.length  <= 31) {
             item.source.x = 125*(_arrItems.length%4)+1200;
+        } else if (_arrItems.length <= 39) {
+            item.source.x = 125*(_arrItems.length%4)+1700;
         }
 
         if (_arrItems.length  <= 3) {

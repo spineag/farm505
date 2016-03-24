@@ -311,9 +311,14 @@ public class WOAmbars extends Window {
                 else arr = g.userInventory.getResourcesForSklad();
             arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
             for (var i:int = 0; i < arr.length; i++) {
-                cell = new AmbarCell(arr[i]);
-                _arrCells.push(cell);
-                _scrollSprite.addNewCell(cell.source);
+                /////// AHTUNG AAAAAAAHHHHHHTUUUUUUNNGGGGGGGGGGGGGGGG_@#)#$@#)$@_#$)2#_$) Костыль минусовое число обнуляет !!!!!!!!!!!! АХТУНГГГГГГГГГГГГ
+                if(arr[i].count < 0) {
+                    g.userInventory.addResource(arr[i].id, -1*arr[i].count);
+                } else { //////////////////// ДО ЭТОГО МОМЕНТААААА АХТУУУУУУНННННГГГГ
+                    cell = new AmbarCell(arr[i]);
+                    _arrCells.push(cell);
+                    _scrollSprite.addNewCell(cell.source);
+                }
             }
         } catch(e:Error) {
             Cc.error('WOAmbar fillItems:: error ' + e.errorID + ' - ' + e.message);

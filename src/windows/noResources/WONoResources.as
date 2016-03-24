@@ -289,8 +289,10 @@ public class WONoResources extends Window {
     public function showItOrder(_data:Object, f:Function = null):void {
         _callbackBuy = f;
         _dataResource = _data;
+
         var item:WONoResourcesItem;
         for (var i:int=0; i<_data.resourceIds.length; i++) {
+
                 if (_data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]) > 0) {
                     item = new WONoResourcesItem();
                     item.fillWithResource(_data.resourceIds[i], _data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]));
@@ -342,8 +344,11 @@ public class WONoResources extends Window {
             return;
         }
         for (var i:int=0; i<_dataResource.resourceIds.length; i++) {
-            number = _dataResource.resourceCounts[i] - g.userInventory.getCountResourceById(_dataResource.resourceIds[i]);
-            if (number > 0) g.userInventory.addResource(_dataResource.resourceIds[i],number);
+            number = g.userInventory.getCountResourceById(_dataResource.resourceIds[i]);
+            if (number < _dataResource.resourceCounts[i]) g.userInventory.addResource(_dataResource.resourceIds[i], _dataResource.resourceCounts[i] - number);
+
+//            number = _dataResource.resourceCounts[i] - g.userInventory.getCountResourceById(_dataResource.resourceIds[i]);
+//            if (number > 0) g.userInventory.addResource(_dataResource.resourceIds[i],number);
         }
         onClickExit();
         if (_callbackBuy != null) {

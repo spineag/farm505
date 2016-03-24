@@ -317,11 +317,14 @@ public class ShopItem {
                         _countCost = _data.cost[i];
                     } else break;
                 }
-                if (arr.length >= maxCountAtCurrentLevel) {
+                if (arr.length == maxCountAtCurrentLevel) {
                     _shopLimitSprite.visible = true;
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
                     _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
+                    trace('lololo');
+                } else if (arr.length > maxCountAtCurrentLevel) {
+                        trace('kykykyk');
                 } else {
                     _nameTxt.text = _data.name;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
