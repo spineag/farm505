@@ -36,7 +36,7 @@ public class WOBuyCave extends Window {
         _wm = new WindowMine(_woWidth,_woHeight);
         _source.addChild(_wm);
         createExitButton(onClickExit);
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
 
         btn = new CButton();
         btn.addButtonTexture(250, 35, CButton.BLUE, true);

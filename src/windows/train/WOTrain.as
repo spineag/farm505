@@ -96,7 +96,7 @@ public class WOTrain extends Window {
         _txtCounter.x = 110;
         _txtCounter.y = 130;
         _source.addChild(_txtCounter);
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
         new Birka('Погрузка корзинки', _source, _woWidth, _woHeight);
     }
 

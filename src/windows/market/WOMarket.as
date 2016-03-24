@@ -86,7 +86,7 @@ public class WOMarket  extends Window {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
         _source.addChild(_contItem);
         _contItem.filter = ManagerFilters.SHADOW_LIGHT;
         _btnFriends = new CButton();
@@ -123,7 +123,7 @@ public class WOMarket  extends Window {
         _btnRefresh.y = 155;
         _source.addChild(_btnRefresh);
         _btnRefresh.endClickCallback = makeRefresh;
-        callbackClickBG = hideIt;
+        _callbackClickBG = hideIt;
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         new Birka('РЫНОК', _source, _woWidth, _woHeight);
         _panelBool = false;

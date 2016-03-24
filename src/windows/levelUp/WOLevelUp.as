@@ -131,7 +131,7 @@ public class WOLevelUp extends Window{
         _txtNewObject.y = 110;
         _txtLevel.x = -152;
         _txtLevel.y = -120;
-        callbackClickBG = null;
+        _callbackClickBG = null;
     }
 
     public function showLevelUp():void {

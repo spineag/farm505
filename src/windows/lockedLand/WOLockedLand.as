@@ -42,7 +42,7 @@ public class WOLockedLand extends Window{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
         new Birka('Новая территория', _source, _woWidth, _woHeight);
 
         var c:CartonBackground = new CartonBackground(460, 320);

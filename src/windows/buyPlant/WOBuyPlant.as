@@ -39,7 +39,7 @@ public class WOBuyPlant extends Window {
         _woHeight = 134;
         createBG();
         createPlantItems();
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
         _arrAllPlants = [];
 
         _birka = new Birka('Огород', _source, 455, 580);

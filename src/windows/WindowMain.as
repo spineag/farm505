@@ -8,11 +8,10 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
-
 import utils.CButton;
 import utils.CSprite;
 
-public class Window {
+public class WindowMain {
     protected var _source:Sprite;
     protected var _btnExit:CButton;
     protected var _bg:Image;
@@ -23,8 +22,9 @@ public class Window {
     protected var _callbackClickBG:Function;
     public var needAddToPool:Boolean = false;
     protected var closeOnBgClick:Boolean = true;
+    protected var _windowType:String;
 
-    public function Window() {
+    public function WindowMain() {
         _source = new Sprite();
         _source.x = g.stageWidth/2;
         _source.y = g.stageHeight/2;
@@ -39,9 +39,6 @@ public class Window {
         _source.y = Starling.current.nativeStage.stageHeight/2;
         g.cont.addGameContListener(false);
         if (g.currentOpenedWindow) {
-//            while (g.cont.windowsCont.numChildren) {
-//                g.cont.windowsCont.removeChildAt(0);
-//            }
             if (needAddToPool) {
                 g.windowsPool.push(this);
                 return;
@@ -51,7 +48,7 @@ public class Window {
         }
 
         g.cont.windowsCont.addChild(_source);
-        g.currentOpenedWindow = this;
+//        g.currentOpenedWindow = this;
     }
 
     public function hideIt():void {
@@ -65,6 +62,21 @@ public class Window {
         if (g.windowsPool.length) {
             g.windowsPool.shift().showIt();
         }
+    }
+
+    public function deleteIt():void {
+        if (_btnExit) {
+            _source.removeChild(_btnExit);
+            _btnExit.deleteIt();
+            _btnExit = null;
+        }
+        if (_black) {
+            _source.removeChild(_black);
+            _black.dispose();
+            _black = null;
+        }
+        _callbackClickBG = null;
+        _source.dispose();
     }
 
     protected function createExitButton(callback:Function):void {

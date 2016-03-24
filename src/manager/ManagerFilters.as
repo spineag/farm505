@@ -55,7 +55,7 @@ public class ManagerFilters {
         BUTTON_DISABLE_FILTER.adjustSaturation(-.95);
 
         BUTTON_HOVER_FILTER = new ColorMatrixFilter();
-        BUTTON_HOVER_FILTER.adjustBrightness(.07);
+        BUTTON_HOVER_FILTER.adjustBrightness(.04);
 
         BUTTON_CLICK_FILTER = new ColorMatrixFilter();
         BUTTON_CLICK_FILTER.adjustBrightness(-.07);
