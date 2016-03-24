@@ -37,6 +37,7 @@ public class AirTextBubble {
         _btnTxt = new TextField(60, 28, 'Далее', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(_btnTxt);
+        _source.addChild(_btn);
     }
 
     public function showIt(st:String, p:Sprite, _x:int, _y:int, callback:Function = null):void {

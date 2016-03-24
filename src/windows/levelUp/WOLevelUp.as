@@ -145,7 +145,6 @@ public class WOLevelUp extends Window{
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.managerTutorial.isTutorial) return;
         hideIt();
     }
 
@@ -157,7 +156,7 @@ public class WOLevelUp extends Window{
         _rightArrow.visible = false;
         _rightArrow.setEnabled = true;
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.LEVEL_UP) {
-            g.managerTutorial.initScenes();
+            g.managerTutorial.checkTutorialCallback();
         }
     }
 

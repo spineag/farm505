@@ -4,6 +4,8 @@
 package windows.shop {
 import build.farm.Farm;
 
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import flash.filters.GlowFilter;
@@ -23,6 +25,7 @@ import utils.CButton;
 import utils.CSprite;
 
 public class ShopList {
+    private var _currentShopArr:Array;
     private var _arrItems:Array;
     private var _decor:Boolean;
     private var _leftArrow:CButton;
@@ -179,8 +182,9 @@ public class ShopList {
             arr.sortOn("indexQueue", Array.NUMERIC);
         }
 
-        for (i = 0; i < arr.length; i++) {
-            item = new ShopItem(arr[i]);
+        _currentShopArr = arr;
+        for (i = 0; i < _currentShopArr.length; i++) {
+            item = new ShopItem(_currentShopArr[i]);
             item.source.x = 153*i;
             _itemsSprite.addChild(item.source);
             _arrItems.push(item);
@@ -262,7 +266,27 @@ public class ShopList {
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
     }
 
-    public function getShopItemProperties(a:int):Object {
+    public function getShopItemProperties(_id:int):Object {
+        var ob:Object = {};
+        var place:int=0;
+        for (var i:int=0; i<_currentShopArr.length; i++) {
+            if (_currentShopArr[i].id == _id) {
+                place = i;
+                break;
+            }
+        }
+        ob.x = (_arrItems[place] as ShopItem).source.x;
+        ob.y = (_arrItems[place] as ShopItem).source.y;
+        var p:Point = new Point(ob.x, ob.y);
+        p = _itemsSprite.localToGlobal(p);
+        ob.x = p.x;
+        ob.y = p.y;
+        ob.width = 145;
+        ob.height = 221;
+        return ob;
+    }
+
+    public function getShopDirectItemProperties(a:int):Object {
         var ob:Object = {};
         ob.x = (_arrItems[_shift + a-1] as ShopItem).source.x;
         ob.y = (_arrItems[_shift + a-1] as ShopItem).source.y;
@@ -273,6 +297,25 @@ public class ShopList {
         ob.width = 145; //(_arrItems[_shift + a-1] as ShopItem).source.width;
         ob.height = 221; //(_arrItems[_shift + a-1] as ShopItem).source.height;
         return ob;
+    }
+
+    public function openOnResource(ob:Object):void {
+        var place:int = -1;
+        for (var i:int=0; i<_currentShopArr.length; i++) {
+            if (_currentShopArr[i].id == ob.id) {
+                place = i;
+                break;
+            }
+        }
+        if (place != -1) {
+            _shift = int(place/4);
+            if (_shift >= _arrItems.length - 4) _shift = _arrItems.length - 4;
+            _itemsSprite.x = -_shift*153;
+            _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
+            checkArrows();
+        } else {
+            Cc.error();
+        }
     }
 }
 }

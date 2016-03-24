@@ -296,7 +296,7 @@ public class TownArea extends Sprite {
     }
 
     public function removeHero(c:BasicCat):void {
-        if (_cityObjects.indexOf(c) > -1) _cityObjects.slice(_cityObjects.indexOf(c), 1);
+        if (_cityObjects.indexOf(c) > -1) _cityObjects.splice(_cityObjects.indexOf(c), 1);
         if (_cont.contains(c.source))
             _cont.removeChild(c.source);
     }
@@ -491,6 +491,7 @@ public class TownArea extends Sprite {
                 g.managerTutorial.addTutorialWorldObject(worldObject);
                 g.managerTutorial.checkTutorialCallback();
             } else if (worldObject is Ridge && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                g.managerTutorial.addTutorialWorldObject(worldObject);
                 g.managerTutorial.checkTutorialCallback();
             } else if (worldObject is Farm && g.managerTutorial.currentAction == TutorialAction.PUT_FARM) {
                 g.managerTutorial.addTutorialWorldObject(worldObject);

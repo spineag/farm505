@@ -15,6 +15,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
 import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
@@ -241,6 +243,9 @@ public class WOFabricaWorkListItem {
 
     private function makeSkip():void {
         if (g.user.hardCurrency >= _resource.priceSkipHard) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
+                g.managerTutorial.checkTutorialCallback();
+            }
             if (_skipCallback != null) {
                 g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_resource.priceSkipHard);
                 destroyTimer();
