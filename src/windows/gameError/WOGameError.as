@@ -3,18 +3,12 @@
  */
 package windows.gameError {
 import flash.events.Event;
-
 import manager.ManagerFilters;
-
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
 import windows.WOComponents.Birka;
-
 import windows.WOComponents.WindowBackground;
-
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -22,13 +16,14 @@ public class WOGameError extends WindowMain {
     private var _txtError:TextField;
     private var _b:CButton;
     private var _birka:Birka;
+    private var _woBG:WindowBackground;
 
     public function WOGameError() {
         super();
         _windowType = WindowsManager.WO_GAME_ERROR;
         _woWidth = 390;
         _woHeight = 280;
-        var _woBG:WindowBackground = new WindowBackground(_woWidth, _woHeight);
+        _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
@@ -63,12 +58,10 @@ public class WOGameError extends WindowMain {
         showIt();
     }
 
-    override public function hideIt():void {
-        deleteIt();
-        super.hideIt();
-    }
-
     override protected function deleteIt():void {
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
         _source.removeChild(_b);
         _b.deleteIt();
         _b = null;

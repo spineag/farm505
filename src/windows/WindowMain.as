@@ -2,6 +2,8 @@
  * Created by user on 6/2/15.
  */
 package windows {
+import com.greensock.TweenMax;
+
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Image;
@@ -39,30 +41,34 @@ public class WindowMain {
     public function showItParams(callback:Function, params:Array):void { }
 
     public function showIt():void {
-        g.hideAllHints();
+        g.hideAllHints();//?
         createBlackBG();
         _source.x = Starling.current.nativeStage.stageWidth/2;
         _source.y = Starling.current.nativeStage.stageHeight/2;
         g.cont.addGameContListener(false);
-        if (g.currentOpenedWindow) {
-            if (needAddToPool) {
-                g.windowsPool.push(this);
-                return;
-            } else {
-                if (g.currentOpenedWindow) g.currentOpenedWindow.hideIt();
-            }
-        }
+//        if (g.currentOpenedWindow) {
+//            if (needAddToPool) {
+//                g.windowsPool.push(this);
+//                return;
+//            } else {
+//                if (g.currentOpenedWindow) g.currentOpenedWindow.hideIt();
+//            }
+//        }
 
         g.cont.windowsCont.addChild(_source);
+        _source.scaleX = _source.scaleY = .8;
+        TweenMax.to(_source, .2, {scaleX:1, scaleY:1});
     }
 
     public function hideIt():void {
-        while (g.cont.windowsCont.numChildren) {
-            g.cont.windowsCont.removeChildAt(0);
-        }
-        removeBlackBG();
+        TweenMax.to(_source, .1, {scaleX:.8, scaleY:.8, alpha:0, onComplete:onHideAnimation});
+    }
+
+    private function onHideAnimation():void {
+        if (g.cont.windowsCont.contains(_source)) g.cont.windowsCont.removeChild(_source);
         g.cont.addGameContListener(true);
         g.windowsManager.onHideWindow();
+        deleteIt();
     }
 
     protected function deleteIt():void {
@@ -71,11 +77,7 @@ public class WindowMain {
             _btnExit.deleteIt();
             _btnExit = null;
         }
-        if (_black) {
-            _source.removeChild(_black);
-            _black.dispose();
-            _black = null;
-        }
+        removeBlackBG();
         _callbackClickBG = null;
         _source.dispose();
         _source = null;
@@ -91,12 +93,12 @@ public class WindowMain {
         _btnExit.clickCallback = callback;
     }
 
-    protected function createTempBG():void {
-        var q:Quad = new Quad(_woWidth, _woHeight, Color.GRAY);
-        q.pivotX = _woWidth/2;
-        q.pivotY = _woHeight/2;
-        _source.addChild(q);
-    }
+//    protected function createTempBG():void {
+//        var q:Quad = new Quad(_woWidth, _woHeight, Color.GRAY);
+//        q.pivotX = _woWidth/2;
+//        q.pivotY = _woHeight/2;
+//        _source.addChild(q);
+//    }
 
     public function get source():Sprite {
         return _source;
@@ -112,20 +114,21 @@ public class WindowMain {
     private function createBlackBG():void {
         _black = new CSprite();
         _black.addChild(new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK));
-        _black.x = -Starling.current.nativeStage.stageWidth/2;
-        _black.y = -Starling.current.nativeStage.stageHeight/2;
-        _source.addChildAt(_black, 0);
-        _black.alpha = .3;
+        g.cont.windowsCont.addChildAt(_black, 0);
+        _black.alpha = .0;
         _black.endClickCallback = onBGClick;
+        TweenMax.to(_black, .2, {alpha:.3});
     }
 
     private function removeBlackBG():void {
         if (_black) {
             _black.endClickCallback = null;
-            while (_black.numChildren) _black.removeChildAt(0);
-            if (_source.contains(_black))_source.removeChild(_black);
-            _black.dispose();
-            _black = null;
+            var blackEnd:Function = function():void {
+                if (g.cont.windowsCont.contains(_black)) g.cont.windowsCont.removeChild(_black);
+                _black.dispose();
+                _black = null;
+            };
+            TweenMax.to(_black, .2, {alpha:0, onComplete:blackEnd});
         }
     }
 

@@ -15,7 +15,7 @@ public class WindowsManager {
     public static const WO_BUY_CAVE:String = 'buy_cave'; // -
     public static const WO_DAILY_BONUS:String = 'daily_bonus'; // -
     public static const WO_FABRICA:String = 'fabrica_recipe'; // -
-    public static const WO_GAME_ERROR:String = 'game_error'; // -
+    public static const WO_GAME_ERROR:String = 'game_error';
     public static const WO_LAST_RESOURCE:String = 'last_resource'; // -
     public static const WO_LEVEL_UP:String = 'level_up'; // -
     public static const WO_LOCKED_LAND:String = 'locked_land'; // -
