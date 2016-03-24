@@ -22,6 +22,7 @@ public class OwnScroll {
     private var _dragCallback:Function;
     private var _percentCallback:Function;
     private var _isVertical:Boolean;
+    private var _boxHeight:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -38,7 +39,8 @@ public class OwnScroll {
         _box = new CButton();
         _box.addDisplayObject(new Image(boxTexture));
         _box.setPivots();
-        _box.y = _box.height/2;
+        _boxHeight = _box.height;
+        _box.y = _boxHeight/2;
 
         source.addChild(_lineImage);
         source.addChild(_box);
@@ -49,7 +51,7 @@ public class OwnScroll {
 
     private function onStartDrag():void {
         if (_isVertical) {
-            _startDragSourcePoint = _box.y + _box.height/2;
+            _startDragSourcePoint = _box.y + _boxHeight/2;
             _startDragPoint = g.ownMouse.mouseY;
         } else {
             _startDragSourcePoint = _box.x;
@@ -75,7 +77,6 @@ public class OwnScroll {
     }
 
     private function callbackPercent():void {
-
         _startDragSourcePoint = _box.y + _box.height/2;
         _startDragPoint = g.ownMouse.mouseY;
         _delta = 6;
@@ -91,6 +92,17 @@ public class OwnScroll {
     public function resetPosition():void {
         _box.y = _box.height/2;
         _box.x = 0;
+    }
+
+    public function deleteIt():void {
+        _dragCallback = null;
+        _percentCallback = null;
+        source.removeChild(_box);
+        _box.deleteIt();
+        _box = null;
+        source.dispose();
+        _lineImage = null;
+        source = null;
     }
 
 }

@@ -73,7 +73,7 @@ public class ManagerTutorial {
 
     public function initScenes():void {
         var curFunc:Function;
-        trace('step: ' + g.user.tutorialStep);
+//        trace('step: ' + g.user.tutorialStep);
 //        try {
             switch (g.user.tutorialStep) {
                 case 1:

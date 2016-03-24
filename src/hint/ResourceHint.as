@@ -302,7 +302,7 @@ public class ResourceHint {
 
     public function hideIt():void {
         _source.unflatten();
-        if (bg) bg.clearIt();
+        if (bg) bg.deleteIt();
         while (_source.numChildren) {
             _source.removeChildAt(0);
         }

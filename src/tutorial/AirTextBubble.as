@@ -65,7 +65,7 @@ public class AirTextBubble {
         _txt.dispose();
         _btn = null;
         _btnTxt = null;
-        _bg.clearIt();
+        _bg.deleteIt();
         _bg = null;
         _source = null;
     }

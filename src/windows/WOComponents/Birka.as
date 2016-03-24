@@ -2,14 +2,11 @@
  * Created by user on 11/9/15.
  */
 package windows.WOComponents {
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
 
+import starling.display.BlendMode;
 import starling.display.Image;
-
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -90,6 +87,14 @@ public class Birka extends Sprite{
     public function flipIt():void {
         _bg.scaleX = -1;
         _bg.x = -_bg.width;
+    }
+
+    public function deleteIt():void {
+        _source.dispose();
+        _source = null;
+        _txt = null;
+        _bg = null;
+        g = null;
     }
 }
 }

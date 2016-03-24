@@ -4,8 +4,11 @@
 package windows.WOComponents {
 import manager.Vars;
 
+import starling.display.BlendMode;
+
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
 public class CartonBackgroundIn extends Sprite{
@@ -52,11 +55,13 @@ public class CartonBackgroundIn extends Sprite{
         arr.push(im);
 
         //top center and bottom center
-        im = new Image(tex.getTexture('shop_window_ct'));
+        var te1:Texture = tex.getTexture('shop_window_ct');
+        var te2:Texture = tex.getTexture('shop_window_dc');
+        im = new Image(te1);
         countW = Math.ceil((w - arr[0].width - arr[2].width)/im.width);
         if (countW*(im.width - delta) < w - arr[0].width - arr[2].width) countW++;
         for (i=0; i<=countW; i++) {
-            im = new Image(tex.getTexture('shop_window_ct'));
+            im = new Image(te1);
             if (i == countW) {
                 im.x = arr[2].x - im.width + 5;
             } else {
@@ -64,7 +69,7 @@ public class CartonBackgroundIn extends Sprite{
             }
             im.y = 0;
             addChildAt(im, 0);
-            im = new Image(tex.getTexture('shop_window_dc'));
+            im = new Image(te2);
             if (i == countW) {
                 im.x = arr[3].x - im.width + 5;
             } else {
@@ -75,11 +80,13 @@ public class CartonBackgroundIn extends Sprite{
         }
 
         // left and right
-        im = new Image(tex.getTexture('shop_window_cl'));
+        te1 = tex.getTexture('shop_window_cl');
+        te2 = tex.getTexture('shop_window_cr');
+        im = new Image(te1);
         countH = Math.ceil((h - arr[0].height - arr[1].height)/im.height);
         if (countH*(im.height - delta) < h - arr[0].height - arr[1].height) countH++;
         for (i=0; i<=countH; i++) {
-            im = new Image(tex.getTexture('shop_window_cl'));
+            im = new Image(te1);
             if (i == countH) {
                 im.y = arr[1].y - im.width + 5;
             } else {
@@ -87,7 +94,7 @@ public class CartonBackgroundIn extends Sprite{
             }
             im.x = 0;
             addChildAt(im, 0);
-            im = new Image(tex.getTexture('shop_window_cr'));
+            im = new Image(te2);
             if (i == countH) {
                 im.y = arr[3].y - im.width + 5;
             } else {
@@ -97,9 +104,11 @@ public class CartonBackgroundIn extends Sprite{
             addChildAt(im, 0);
         }
 
+        var j:int;
+        te1 = tex.getTexture('shop_window_cc');
         for (i=0; i<=countW; i++) {
-            for (var j:int=0; j<countH; j++) {
-                im = new Image(tex.getTexture('shop_window_cc'));
+            for (j=0; j<countH; j++) {
+                im = new Image(te1);
                 if (i == countW) {
                     im.x = arr[2].x - im.width;
                 } else {
@@ -117,6 +126,11 @@ public class CartonBackgroundIn extends Sprite{
         arr.length = 0;
         touchable = false;
         flatten();
+    }
+
+    public function deleteIt():void {
+        dispose();
+        g = null;
     }
 }
 }

@@ -2,6 +2,7 @@
  * Created by user on 11/26/15.
  */
 package windows.WOComponents {
+import starling.display.BlendMode;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -31,9 +32,10 @@ public class HorizontalPlawka extends Sprite{
         imC.x = w - imR.width - (imC.width-1);
         addChild(imC);
         flatten();
-        imC=null;
-        if (iL) iL=null;
-        imR=null;
+    }
+
+    public function deleteIt():void {
+        dispose();
     }
 }
 }

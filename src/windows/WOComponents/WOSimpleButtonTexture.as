@@ -4,6 +4,8 @@
 package windows.WOComponents {
 import manager.Vars;
 
+import starling.display.BlendMode;
+
 import starling.display.Image;
 import starling.display.Sprite;
 
@@ -84,6 +86,11 @@ public class WOSimpleButtonTexture  extends Sprite {
         height = h*1.2; // because we have shadow in pictures
         arr.length = 0;
         flatten();
+    }
+
+    public function deleteIt():void {
+        dispose();
+        g = null;
     }
 }
 }
