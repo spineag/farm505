@@ -21,6 +21,8 @@ import user.Someone;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class FriendItem {
     private var _person:Someone;
     public var source:CSprite;
@@ -34,7 +36,7 @@ public class FriendItem {
         _person = f;
         if (!_person) {
             Cc.error('FriendItem:: person == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'friendItem');
             return;
         }
 //        g.directServer.getFriendsInfo(int(_person.userSocialId),_person,newLevel);

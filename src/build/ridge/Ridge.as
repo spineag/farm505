@@ -39,6 +39,8 @@ import tutorial.TutorialAction;
 
 import utils.CSprite;
 
+import windows.WindowsManager;
+
 public class Ridge extends AreaObject{
     public static const EMPTY:int = 1;
     public static const GROW1:int = 2;
@@ -60,7 +62,7 @@ public class Ridge extends AreaObject{
         super(_data);
         if (!_data) {
             Cc.error('no data for Ridge');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Ridge');
             return;
         }
         createBuild(false);
@@ -270,7 +272,7 @@ public class Ridge extends AreaObject{
         }
         if (!data) {
             Cc.error('no data for fillPlant at Ridge');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for fillPlant');
             return;
         }
 

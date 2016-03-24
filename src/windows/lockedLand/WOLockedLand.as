@@ -25,6 +25,7 @@ import windows.WOComponents.HintBackground;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOLockedLand extends Window{
     private var _dataLand:Object;
@@ -87,7 +88,7 @@ public class WOLockedLand extends Window{
 
         if (!_dataLand || !_land) {
             Cc.error('WOLockedLand showIt:: bad _dataLand or _land');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woLockedLand');
             return;
         }
 

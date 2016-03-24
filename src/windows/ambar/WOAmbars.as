@@ -26,6 +26,7 @@ import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.Window;
 import windows.WOComponents.WindowBackground;
+import windows.WindowsManager;
 
 public class WOAmbars extends Window {
     public static const AMBAR:int = 1;
@@ -322,7 +323,7 @@ public class WOAmbars extends Window {
             }
         } catch(e:Error) {
             Cc.error('WOAmbar fillItems:: error ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woAmbar');
         }
     }
 

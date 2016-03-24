@@ -22,6 +22,8 @@ import tutorial.TutorialAction;
 
 import utils.CSprite;
 
+import windows.WindowsManager;
+
 public class Animal {
     public static var HUNGRY:int = 1;
     public static var WORK:int = 2;
@@ -53,7 +55,7 @@ public class Animal {
     public function Animal(data:Object, farm:Farm) {
         if (!data) {
             Cc.error('no data for Animal');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Animal');
             return;
         }
         _farm = farm;

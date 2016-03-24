@@ -23,6 +23,7 @@ import utils.MCScaler;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOLastResource extends Window{
     private var _contBtnYes:CButton;
@@ -92,7 +93,7 @@ public class WOLastResource extends Window{
         _callbackBuy = f;
         if (!_data) {
             Cc.error('WOLastResource showItMenu:: empty _data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'lastResource');
             return;
         }
         var item:WOLastResourceItem;

@@ -21,6 +21,8 @@ import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
+import windows.WindowsManager;
+
 import windows.ambar.WOAmbars;
 
 public class Sklad extends AreaObject{
@@ -32,7 +34,7 @@ public class Sklad extends AreaObject{
         _isOnHover = false;
         if (!_data) {
             Cc.error('no data for Sklad');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Sklad');
             return;
         }
         createBuild();

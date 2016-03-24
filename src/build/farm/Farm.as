@@ -21,6 +21,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import ui.xpPanel.XPStar;
 
+import windows.WindowsManager;
+
 public class Farm extends AreaObject{
     private var _dataAnimal:Object;
     private var _arrAnimals:Array;
@@ -32,7 +34,7 @@ public class Farm extends AreaObject{
         super(_data);
         if (!_data) {
             Cc.error('no data for Farm');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Farm');
             return;
         }
         setDataAnimal();
@@ -140,7 +142,7 @@ public class Farm extends AreaObject{
             }
         } catch (e:Error) {
             Cc.error('farm setDataAnimalError: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farm setDataAnimal');
         }
     }
 
@@ -185,7 +187,7 @@ public class Farm extends AreaObject{
             }
         } catch (e:Error) {
             Cc.error('farm addAnimal: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farm add animal');
         }
     }
 

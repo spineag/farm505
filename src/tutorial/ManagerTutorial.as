@@ -24,6 +24,8 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
 
+import windows.WindowsManager;
+
 public class ManagerTutorial {
     private const TUTORIAL_ON:Boolean = true;
 
@@ -154,7 +156,7 @@ public class ManagerTutorial {
                 curFunc.apply();
             }
         } catch (err:Error) {
-            g.woGameError.showItParams("Tutorial error");
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
             Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(subStep) + " with error message " + err.message);
         }
     }

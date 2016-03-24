@@ -39,6 +39,7 @@ import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOMarket  extends Window {
 
@@ -510,7 +511,7 @@ public class WOMarket  extends Window {
             }
         } catch (e:Error) {
             Cc.error('WOMarket fillItems:: error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woMarket');
         }
     }
 
@@ -576,7 +577,7 @@ public class WOMarket  extends Window {
 
     public function createMarketTabBtns(paper:Boolean = false):void {
         if (_arrFriends == null) {
-           g.woGameError.showItParams('Обнови сиды и сикреты');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Обнови сиды и сикреты');
             return;
         }
         if (_curUser.userSocialId == g.user.userSocialId) {

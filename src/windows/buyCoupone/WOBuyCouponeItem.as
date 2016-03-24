@@ -26,6 +26,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.CartonBackground;
+import windows.WindowsManager;
 
 public class WOBuyCouponeItem {
     public var source:Sprite;
@@ -75,7 +76,7 @@ public class WOBuyCouponeItem {
             source.addChild(_txtCount);
         } catch (e:Error) {
             Cc.error('WOBuyCouponeItem error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'buyCoupone');
         }
     }
 

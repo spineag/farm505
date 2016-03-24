@@ -31,6 +31,8 @@ import ui.xpPanel.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class CraftItem {
     private var _source:CSprite;
     private var _resourceItem:ResourceItem;
@@ -51,7 +53,7 @@ public class CraftItem {
         _resourceItem = resourceItem;
         if (!_resourceItem) {
             Cc.error('CraftItem:: resourceItem == null!');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'craftItem');
             return;
         }
         if (_resourceItem.buildType == BuildType.PLANT)
@@ -60,7 +62,7 @@ public class CraftItem {
             _image = new Image(g.allData.atlas[_resourceItem.url].getTexture(_resourceItem.imageShop));
         if (!_image) {
             Cc.error('CraftItem:: no such image: ' + _resourceItem.imageShop);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'craftItem');
             return;
         }
         MCScaler.scale(_image, 100*g.scaleFactor, 100*g.scaleFactor);

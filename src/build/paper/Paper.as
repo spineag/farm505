@@ -23,6 +23,8 @@ import starling.filters.BlurFilter;
 
 import starling.utils.Color;
 
+import windows.WindowsManager;
+
 public class Paper extends AreaObject{
     private var _isOnHover:Boolean;
     private var _armature:Armature;
@@ -33,7 +35,7 @@ public class Paper extends AreaObject{
         _isOnHover = false;
         if (!data) {
             Cc.error('no data for Paper');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Papper');
             return;
         }
         createBuild();

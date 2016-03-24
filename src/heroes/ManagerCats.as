@@ -14,6 +14,8 @@ import manager.Vars;
 
 import tutorial.TutorialAction;
 
+import windows.WindowsManager;
+
 public class ManagerCats {
     protected var _townMatrix:Array;
     protected var _townAwayMatrix:Array;
@@ -62,7 +64,7 @@ public class ManagerCats {
             return new Point(j, i);
         } catch (e:Error) {
             Cc.error('ManagerCats getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats getRandomFreeCell');
         }
         return new Point(0, 0);
     }
@@ -116,7 +118,7 @@ public class ManagerCats {
                 }
             } catch (e:Error) {
                 Cc.error('ManagerCats goCatToPoint f2 error: ' + e.errorID + ' - ' + e.message);
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCat2');
             }
         };
 
@@ -131,14 +133,14 @@ public class ManagerCats {
                 cat.goWithPath(arr, f2);
             } catch (e:Error) {
                 Cc.error('ManagerCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCat1');
             }
         };
 
         try {
             if (!cat) {
                 Cc.error('ManagerCats goCatToPoint error: cat == null');
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCatToPoint cat == null');
                 return;
             }
             if (cat is HeroCat) (cat as HeroCat).killAllAnimations();
@@ -154,7 +156,7 @@ public class ManagerCats {
             g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCatToPoint');
         }
     }
 
@@ -181,8 +183,8 @@ public class ManagerCats {
             };
             g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
-            Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            Cc.error('ManagerCats goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goIdleCatToPoint');
         }
     }
 

@@ -21,6 +21,7 @@ import starling.utils.Color;
 import utils.CSprite;
 import windows.WOComponents.Birka;
 import windows.Window;
+import windows.WindowsManager;
 import windows.fabricaWindow.WOFabricNumber;
 
 public class WOBuyPlant extends Window {
@@ -69,7 +70,7 @@ public class WOBuyPlant extends Window {
     public function showItWithParams(ridge:Ridge, f:Function):void {
         if (!ridge) {
             Cc.error('WOBuyPlant showItWithParams: ridge == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woBuyPlant');
             return;
         }
         _ridge = ridge;

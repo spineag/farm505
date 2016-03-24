@@ -45,6 +45,8 @@ import user.Someone;
 
 import utils.CSprite;
 
+import windows.WindowsManager;
+
 
 public class TownArea extends Sprite {
     private var _cityObjects:Array;
@@ -116,7 +118,7 @@ public class TownArea extends Sprite {
             }
         } catch (e:Error) {
             Cc.error('TownArea getCityObjectsByType:: error id: ' + e.errorID + ' - ' + e.message + '    for type: ' + buildType);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;
     }
@@ -131,7 +133,7 @@ public class TownArea extends Sprite {
             }
         } catch (e:Error) {
             Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;
     }
@@ -153,7 +155,7 @@ public class TownArea extends Sprite {
             }
         } catch (e:Error) {
             Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;
     }
@@ -167,7 +169,7 @@ public class TownArea extends Sprite {
             }
         } catch (e:Error) {
             Cc.error('TownArea getCityTailObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;
     }
@@ -181,7 +183,7 @@ public class TownArea extends Sprite {
                 }
             }
         } catch(e:Error) {
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
         }
     }
@@ -306,7 +308,7 @@ public class TownArea extends Sprite {
 
         if (!_data) {
             Cc.error('TownArea createNewBuild:: _data == nul for building');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return null;
         }
 
@@ -377,7 +379,7 @@ public class TownArea extends Sprite {
 
         if (!build) {
             Cc.error('TownArea:: BUILD is null for type: ' + _data.buildType);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return null;
         }
         (build as WorldObject).dbBuildingId = dbId;
@@ -393,7 +395,7 @@ public class TownArea extends Sprite {
         var point:Point;
         if (!worldObject) {
             Cc.error('TownArea pasteBuild:: empty worldObject');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
 
@@ -656,7 +658,7 @@ public class TownArea extends Sprite {
     public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
         if (!tail) {
             Cc.error('TownArea pasteTailBuild:: empty tail');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
 
@@ -692,7 +694,7 @@ public class TownArea extends Sprite {
     public function deleteBuild(worldObject:WorldObject):void{
         if (!worldObject) {
             Cc.error('TownArea deleteBuild:: empty worldObject');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
         if(_cont.contains(worldObject.source)){
@@ -718,7 +720,7 @@ public class TownArea extends Sprite {
     public function deleteTailBuild(tail:DecorTail):void{
         if (!tail) {
             Cc.error('TownArea deleteTailBuild:: empty tail');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
         if(_contTail.contains(tail.source)){
@@ -732,7 +734,7 @@ public class TownArea extends Sprite {
     public function moveBuild(worldObject:WorldObject):void{
         if (!worldObject) {
             Cc.error('TownArea moveBuild:: empty worldObject');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
         if(_cont.contains(worldObject.source)) {
@@ -761,7 +763,7 @@ public class TownArea extends Sprite {
     public function moveTailBuild(tail:DecorTail):void{// не сохраняется флип при муве
         if (!tail) {
             Cc.error('TownArea moveTailBuild:: empty tail');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
         if(_contTail.contains(tail.source)) {
@@ -945,7 +947,7 @@ public class TownArea extends Sprite {
 
         if (!_data) {
             Cc.error('TownArea createAwayNewBuild:: _data == nul for building');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
 
@@ -1007,7 +1009,7 @@ public class TownArea extends Sprite {
 
         if (!build) {
             Cc.error('TownArea:: BUILD is null for type: ' + _data.buildType);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
         (build as WorldObject).dbBuildingId = dbId;
@@ -1025,7 +1027,7 @@ public class TownArea extends Sprite {
     public function pasteAwayBuild(worldObject:WorldObject, posX:Number, posY:Number):void {
         if (!worldObject) {
             Cc.error('TownArea pasteAwayBuild:: empty worldObject');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
 
@@ -1103,7 +1105,7 @@ public class TownArea extends Sprite {
     public function pasteAwayTailBuild(tail:DecorTail, posX:Number, posY:Number):void {
         if (!tail) {
             Cc.error('TownArea pasteAWayTailBuild:: empty tail');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
         if (!_contTail.contains(tail.source)) {
@@ -1140,7 +1142,7 @@ public class TownArea extends Sprite {
                 _cont.setChildIndex(_cityAwayObjects[i].source, i);
             }
         } catch(e:Error) {
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
         }
     }
@@ -1247,7 +1249,7 @@ public class TownArea extends Sprite {
             }
         } catch (e:Error) {
             Cc.error('TownArea getAwayCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;
     }

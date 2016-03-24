@@ -8,6 +8,8 @@ import flash.geom.Point;
 
 import manager.Vars;
 
+import windows.WindowsManager;
+
 public class ManagerOrderCats {
     [ArrayElementType('heroes.OrderCat')]
     public var _arrCats:Array;
@@ -128,7 +130,7 @@ public class ManagerOrderCats {
                 }
             } catch (e:Error) {
                 Cc.error('ManagerOrderCats goCatToPoint f2 error: ' + e.errorID + ' - ' + e.message);
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerOrderCats goCatToPoint2');
             }
         };
 
@@ -137,7 +139,7 @@ public class ManagerOrderCats {
                 cat.goWithPath(arr, f2);
             } catch (e:Error) {
                 Cc.error('ManagerOrderCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerOrderCats goCatToPoint1');
             }
         };
 
@@ -145,7 +147,7 @@ public class ManagerOrderCats {
             g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerOrderCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerOrderCats goCatToPoint cat == null');
         }
     }
 

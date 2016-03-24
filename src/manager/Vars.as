@@ -210,7 +210,6 @@ public class Vars {
     public var woTrainSend:WOTrainSend;
     public var woLockedLand:WOLockedLand;
     public var windowsPool:Array;
-    public var woGameError:WOGameError;
     public var woNoFreeCats:WONoFreeCats;
     public var woWaitFreeCats:WOWaitFreeCats;
     public var woBuyForHardCurrency:WOBuyForHardCurrency;
@@ -265,7 +264,6 @@ public class Vars {
         gameDispatcher = new FarmDispatcher(mainStage);
 
         windowsPool = [];
-        woGameError = new WOGameError();
 
         matrixGrid = new MatrixGrid();
         matrixGrid.createMatrix();

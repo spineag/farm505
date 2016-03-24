@@ -28,6 +28,7 @@ import utils.MCScaler;
 
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.WOButtonTexture;
+import windows.WindowsManager;
 
 public class MarketFriendsPanelItem{
     private var _person:Someone;
@@ -63,7 +64,7 @@ public class MarketFriendsPanelItem{
         source.endClickCallback = chooseThis;
         if (!_person) {
             Cc.error('MarketFriendItem:: person == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketFriendsPanelItem');
             return;
         }
         _panel = p;

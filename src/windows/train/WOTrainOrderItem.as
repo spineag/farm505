@@ -16,6 +16,8 @@ import starling.display.Sprite;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class WOTrainOrderItem {
     public var source:CSprite;
     private var _im:Image;
@@ -36,13 +38,13 @@ public class WOTrainOrderItem {
         _info = t;
         if (!t || !g.dataResource.objectResources[_info.id]) {
             Cc.error('WOTrainOrderItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
         _im = _info.getImage();
         if (!_im) {
             Cc.error('WOTrainOrderItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
         var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_green'));

@@ -41,6 +41,7 @@ import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
+import windows.WindowsManager;
 
 public class ShopItem {
     public var source:CSprite;
@@ -69,7 +70,7 @@ public class ShopItem {
         _data = data;
         if (!_data) {
             Cc.error('ShopItem:: empty _data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
             return;
         }
         source = new CSprite();
@@ -245,7 +246,7 @@ public class ShopItem {
             _im = new Image(texture);
             if (!_im) {
                 Cc.error('ShopItem:: no such image: ' + _data.image);
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
                 return;
             }
             MCScaler.scale(_im, 120, 120);
@@ -258,7 +259,7 @@ public class ShopItem {
             source.addChildAt(_imCont, 1);
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
         }
 
         if (_data.buildType == BuildType.CAT) {

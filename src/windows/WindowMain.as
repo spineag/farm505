@@ -32,6 +32,12 @@ public class WindowMain {
         _woWidth = 0;
     }
 
+    public function get windowType():String {
+        return _windowType;
+    }
+
+    public function showItParams(callback:Function, params:Array):void { }
+
     public function showIt():void {
         g.hideAllHints();
         createBlackBG();
@@ -48,23 +54,18 @@ public class WindowMain {
         }
 
         g.cont.windowsCont.addChild(_source);
-//        g.currentOpenedWindow = this;
     }
 
     public function hideIt():void {
         while (g.cont.windowsCont.numChildren) {
             g.cont.windowsCont.removeChildAt(0);
         }
-        g.currentOpenedWindow = null;
         removeBlackBG();
         g.cont.addGameContListener(true);
-
-        if (g.windowsPool.length) {
-            g.windowsPool.shift().showIt();
-        }
+        g.windowsManager.onHideWindow();
     }
 
-    public function deleteIt():void {
+    protected function deleteIt():void {
         if (_btnExit) {
             _source.removeChild(_btnExit);
             _btnExit.deleteIt();
@@ -77,6 +78,7 @@ public class WindowMain {
         }
         _callbackClickBG = null;
         _source.dispose();
+        _source = null;
     }
 
     protected function createExitButton(callback:Function):void {

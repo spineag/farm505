@@ -23,6 +23,7 @@ import utils.MCScaler;
 import utils.TimeUtils;
 
 import windows.WOComponents.HintBackground;
+import windows.WindowsManager;
 
 public class MarketHint {
     private var _source:Sprite;
@@ -73,7 +74,7 @@ public class MarketHint {
         var wName:int = 0;
         if (!g.dataResource.objectResources[_dataId]) {
             Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'MarketHint');
             return;
         }
         isShowed = true;

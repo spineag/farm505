@@ -27,6 +27,8 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class RepositoryItem {
     public var source:CSprite;
     private var _data:Object;
@@ -47,7 +49,7 @@ public class RepositoryItem {
     public function fillIt(data:Object, count:int, arrIds:Array, box:RepositoryBox, countCell:int):void {
         if (!data) {
             Cc.error('RepoItem:: empty data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'repoItem');
             return;
         }
         _data = data;

@@ -4,8 +4,6 @@
 package windows.WOComponents {
 import manager.ManagerFilters;
 import manager.Vars;
-
-import starling.display.BlendMode;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -18,8 +16,10 @@ public class Birka extends Sprite{
     private var g:Vars = Vars.getInstance();
     private var _curH:int;
     private var _bg:Sprite;
+    private var _parent:Sprite;
 
-    public function Birka(text:String, woSource:Sprite, w:int, h:int) {
+    public function Birka(text:String, parent:Sprite, w:int, h:int) {
+        _parent = parent;
         _source = new Sprite();
         _txt = new TextField(300, 70, text, g.allData.fonts['BloggerBold'], 24, Color.WHITE);
         _txt.hAlign =  HAlign.LEFT;
@@ -32,7 +32,7 @@ public class Birka extends Sprite{
         _source.flatten();
         _source.y = -h/2 + _curH/2 + 180;
         _source.x = -w/2 + 14;
-        woSource.addChild(_source);
+        _parent.addChild(_source);
     }
 
     private function createAll():void {
@@ -90,6 +90,7 @@ public class Birka extends Sprite{
     }
 
     public function deleteIt():void {
+        if (_parent.contains(_source)) _parent.removeChild(_source);
         _source.dispose();
         _source = null;
         _txt = null;

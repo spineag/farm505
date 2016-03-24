@@ -22,6 +22,8 @@ import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
 
+import windows.WindowsManager;
+
 public class WOFabricaWorkListItem {
     public static const BIG_CELL:String = 'big';
     public static const SMALL_CELL:String = 'small';
@@ -101,7 +103,7 @@ public class WOFabricaWorkListItem {
         _resource = resource;
         if (!_resource) {
             Cc.error('WOFabricaWorkListItem fillData:: _resource == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'WoFabricaWorkListItem');
             return;
         }
         if (_type == BIG_CELL) {

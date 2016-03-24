@@ -17,6 +17,8 @@ import starling.utils.Color;
 
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class WOLastResourceItem {
     public var source:Sprite;
     private var _image:Image;
@@ -33,7 +35,7 @@ public class WOLastResourceItem {
         var ob:Object = g.dataResource.objectResources[id];
         if (!ob) {
             Cc.error('WONoResourcesItem:: g.dataResource.objectResources[id] = null  for id = ' + id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woLastResourceItem');
             return;
         }
         var st:String;

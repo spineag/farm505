@@ -15,6 +15,8 @@ import mouse.ToolsModifier;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
+import windows.WindowsManager;
+
 import windows.ambar.WOAmbars;
 
 public class Ambar extends AreaObject{
@@ -24,7 +26,7 @@ public class Ambar extends AreaObject{
         super(_data);
         if (!_data) {
             Cc.error('no data for Ambar');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Ambar');
             return;
         }
         createBuild();

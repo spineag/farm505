@@ -19,6 +19,8 @@ import starling.utils.Color;
 
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class RawItem {
     private var g:Vars = Vars.getInstance();
 
@@ -29,7 +31,7 @@ public class RawItem {
         var im:Image = new Image(texture);
         if (!im) {
             Cc.error('RawItem:: bad texture');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'rawItem');
             return;
         }
         MCScaler.scale(im, 50, 50);

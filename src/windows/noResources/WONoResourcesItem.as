@@ -21,6 +21,7 @@ import utils.MCScaler;
 
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
+import windows.WindowsManager;
 
 public class WONoResourcesItem {
     public var source:CSprite;
@@ -46,7 +47,7 @@ public class WONoResourcesItem {
         _dataId = id;
         if (!ob) {
             Cc.error('WONoResourcesItem:: g.dataResource.objectResources[id] = null  for id = ' + id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResourceItem');
             return;
         }
         var st:String;

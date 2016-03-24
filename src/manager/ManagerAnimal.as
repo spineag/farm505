@@ -10,6 +10,8 @@ import flash.geom.Point;
 
 import heroes.HeroCat;
 
+import windows.WindowsManager;
+
 public class ManagerAnimal {
     private var _arrFarm:Array;  // все фермы юзера, которые стоят на поляне и построенны
     private var _catsForFarm:Object;
@@ -66,7 +68,7 @@ public class ManagerAnimal {
             }
         } else {
             Cc.error('ManagerAnimal addCatToFarm:: cat = null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerAnimal');
         }
     }
 

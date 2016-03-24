@@ -18,6 +18,8 @@ import starling.utils.HAlign;
 
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class FabricHintItem {
     public var source:Sprite;
     private var _image:Image;
@@ -49,7 +51,7 @@ public class FabricHintItem {
 
         if (!g.dataResource.objectResources[obId]) {
             Cc.error('FabricHintItem error: g.dataResource.objectResources[obId] = null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHintItem');
             return;
         }
         if (g.dataResource.objectResources[obId].buildType == BuildType.PLANT) {
@@ -69,7 +71,7 @@ public class FabricHintItem {
             _image.y = 50 - _image.height / 2;
         } else {
             Cc.error('no such image: ' + g.dataResource.objectResources[obId].imageShop + ' for id: ' +  obId);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHintItem');
         }
     }
 }

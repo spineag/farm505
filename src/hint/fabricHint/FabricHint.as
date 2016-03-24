@@ -24,6 +24,7 @@ import utils.MCScaler;
 import utils.TimeUtils;
 
 import windows.WOComponents.HintBackground;
+import windows.WindowsManager;
 
 public class FabricHint {
     private var _imageItem:Image;
@@ -102,7 +103,7 @@ public class FabricHint {
                 _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[_data.idResource].url].getTexture(g.dataResource.objectResources[_data.idResource].imageShop));
             if (!_imageItem) {
                 Cc.error('FabricHint showIt:: no such image: ' + g.dataResource.objectResources[_data.idResource].imageShop);
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHint');
                 return;
             }
             _imageItem.x = 120;
@@ -130,7 +131,7 @@ public class FabricHint {
     private function createList():void {
         if (!_data) {
             Cc.error('FabricHint createList:: empty data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHint');
             return;
         }
         var im:FabricHintItem;

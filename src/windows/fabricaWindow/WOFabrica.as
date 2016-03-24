@@ -25,6 +25,7 @@ import utils.CButton;
 import utils.CSprite;
 import windows.WOComponents.Birka;
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOFabrica extends Window {
     private var _list:WOFabricaWorkList;
@@ -153,7 +154,7 @@ public class WOFabrica extends Window {
             if (!dataRecipe || !dataRecipe.ingridientsId) {
                 Cc.error('UserInventory checkRecipe:: bad _data');
                 hideIt();
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woFabrica');
                 return;
             }
             var i:int;

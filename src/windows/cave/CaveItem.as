@@ -11,6 +11,8 @@ import starling.text.TextField;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class CaveItem {
     public var source:CSprite;
     private var _bg:Image;
@@ -43,7 +45,7 @@ public class CaveItem {
         _data = ob;
         if (!_data) {
             Cc.error('CaveItem fillData:: empty _data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'caveItem');
             return;
         }
         _clickCallback = f;
@@ -58,7 +60,7 @@ public class CaveItem {
         _icon = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
         if (!_icon ) {
             Cc.error('CaveItem fillIcon:: no such image: ' + _data.imageShop);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'caveItem');
             return;
         }
         MCScaler.scale(_icon, 80, 80);

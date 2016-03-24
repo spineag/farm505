@@ -26,6 +26,8 @@ import temp.DropResourceVariaty;
 
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class DropItem {
     private var _source:Sprite;
     private var _image:Image;
@@ -36,7 +38,7 @@ public class DropItem {
         var endPoint:Point;
         if (!prise) {
             Cc.error('DropItem:: prise == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'dropItem');
             return;
         }
 
@@ -75,7 +77,7 @@ public class DropItem {
         }
         if (!_image) {
             Cc.error('DropItem:: no image for type: ' + prise.id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'dropItem');
             return;
         }
         MCScaler.scale(_image, 50, 50);

@@ -36,6 +36,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.HintBackground;
+import windows.WindowsManager;
 
 public class TreeHint {
     private var _source:CSprite;
@@ -115,12 +116,12 @@ public class TreeHint {
     public function showIt(height:int,data:Object, x:int, y:int, name:String, worldobject:WorldObject, out:Function):void {
         if (!data || !worldobject) {
             Cc.error('TreeHint show it:: empty data or worldObject');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'treeHint');
             return;
         }
         if (!g.dataResource.objectResources[data.removeByResourceId]) {
             Cc.error('TreeHint show it:: g.dataResource.objectResources[data.removeByResourceId] = null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'treeHint');
             return;
         }
         _onOutCallback = out;
@@ -152,7 +153,7 @@ public class TreeHint {
         _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[data.removeByResourceId].imageShop));
         if (!_imageItem) {
             Cc.error('TreeHint showIt:: no such image: ' + g.dataResource.objectResources[data.removeByResourceId].imageShop);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'treeHint');
             return;
         }
         MCScaler.scale(_imageItem,55,55);

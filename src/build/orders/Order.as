@@ -24,6 +24,8 @@ import starling.display.Sprite;
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
+import windows.WindowsManager;
+
 
 public class Order extends AreaObject{
     private var _armature:Armature;
@@ -34,7 +36,7 @@ public class Order extends AreaObject{
         _isOnHover = false;
         if (!data) {
             Cc.error('no data for Order');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Order');
             return;
         }
         createOrderBuild();

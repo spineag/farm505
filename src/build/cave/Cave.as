@@ -14,6 +14,8 @@ import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
 import starling.display.Sprite;
 import ui.xpPanel.XPStar;
+
+import windows.WindowsManager;
 import windows.cave.WOBuyCave;
 
 
@@ -32,7 +34,7 @@ public class Cave extends AreaObject{
         useIsometricOnly = false;
         if (!data) {
             Cc.error('no data for Cave');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Cave');
             return;
         }
         checkCaveState();
@@ -145,8 +147,8 @@ public class Cave extends AreaObject{
                 }
             }
         } catch (e:Error) {
-            Cc.error('cave error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            Cc.error('cave checkCaveState error: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Cave checkCaveState');
         }
     }
 

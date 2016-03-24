@@ -20,6 +20,8 @@ import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
 
+import windows.WindowsManager;
+
 public class Wild extends AreaObject{
     private var _isOnHover:Boolean;
     private var _curLockedLand:LockedLand;
@@ -29,7 +31,7 @@ public class Wild extends AreaObject{
         super(_data);
         if (!_data) {
             Cc.error('Wild:: no data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Wild');
             return;
         }
         createBuild();

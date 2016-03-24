@@ -22,6 +22,7 @@ import utils.CSprite;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WOComponents.WOButtonTexture;
+import windows.WindowsManager;
 
 public class LockedLandItem {
     public var source:Sprite;
@@ -81,7 +82,7 @@ public class LockedLandItem {
     public function fillWithResource(id:int, count:int):void {
         if (!g.dataResource.objectResources[id]) {
             Cc.error('LockedLandItem fillWithResource:: g.dataResource.objectResources[id] == null for id: ' + id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'LockedLandItem');
             return;
         }
         var icon:Image;
@@ -93,7 +94,7 @@ public class LockedLandItem {
             icon = new Image(g.allData.atlas[g.dataResource.objectResources[id].url].getTexture(g.dataResource.objectResources[id].imageShop));
         if (!icon) {
             Cc.error('LockedLandItem fillWithResource:: no such image: ' + g.dataResource.objectResources[id].imageShop);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'lockedLandItem');
             return;
         }
         MCScaler.scale(icon, 50, 50);
