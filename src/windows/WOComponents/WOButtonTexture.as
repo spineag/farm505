@@ -4,6 +4,8 @@
 package windows.WOComponents {
 import manager.Vars;
 
+import starling.display.BlendMode;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.TextureAtlas;
@@ -64,45 +66,52 @@ public class WOButtonTexture extends Sprite {
 
         //top center and bottom center
         im = new Image(tex.getTexture(st+'c'));
-        countW = Math.ceil((w - arr[0].width - arr[2].width)/im.width);
+        var imWidth:int = im.width;
+        var imHeight:int = im.height;
+        countW = Math.ceil((w - arr[0].width - arr[2].width)/imWidth);
         for (i=0; i<countW; i++) {
             im = new Image(tex.getTexture(st+'c'));
-            im.x = arr[0].x + arr[0].width + i*(im.width - delta);
+            im.x = arr[0].x + arr[0].width + i*(imWidth - delta);
             if (i == countW-1 && im.x > arr[2].x - 2) im.x = arr[2].x - 2;
             im.y = 0;
             addChildAt(im, 0);
             im = new Image(tex.getTexture(st+'c'));
-            im.x = arr[1].x + arr[1].width + i*(im.width - delta);
-            im.y = h - im.height;
+            im.x = arr[1].x + arr[1].width + i*(imWidth - delta);
+            im.y = h - imHeight;
             addChildAt(im, 0);
         }
 
         // left and right
         im = new Image(tex.getTexture(st+'c'));
-        countH = Math.ceil((h - arr[0].height - arr[1].height)/im.height);
-        if (countH*(im.height - delta) < h - arr[0].height - arr[1].height) countH++;
+        countH = Math.ceil((h - arr[0].height - arr[1].height)/imHeight);
+        if (countH*(imHeight - delta) < h - arr[0].height - arr[1].height) countH++;
         for (i=0; i<countH; i++) {
             im = new Image(tex.getTexture(st+'c'));
-            im.y = arr[0].y + arr[0].height + i*(im.height - delta);
+            im.y = arr[0].y + arr[0].height + i*(imHeight - delta);
             im.x = 0;
             addChildAt(im, 0);
             im = new Image(tex.getTexture(st+'c'));
-            im.y = arr[2].y + arr[2].height + i*(im.height - delta);
-            im.x = w - im.width;
+            im.y = arr[2].y + arr[2].height + i*(imHeight - delta);
+            im.x = w - imWidth;
             addChildAt(im, 0);
         }
 
         for (i=0; i<countW; i++) {
             for (var j:int=0; j<countH; j++) {
                 im = new Image(tex.getTexture(st+'c'));
-                im.x = arr[0].x + arr[0].width + i*(im.width - delta);
-                im.y = arr[0].y + arr[0].height + j*(im.height - delta);
+                im.x = arr[0].x + arr[0].width + i*(imWidth - delta);
+                im.y = arr[0].y + arr[0].height + j*(imHeight - delta);
                 addChildAt(im, 0);
             }
         }
 
         arr.length = 0;
         flatten();
+    }
+
+    public function deleteIt():void {
+        dispose();
+        g = null;
     }
 }
 }

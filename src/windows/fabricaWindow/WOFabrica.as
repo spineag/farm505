@@ -48,7 +48,7 @@ public class WOFabrica extends Window {
         _birka.source.rotation = Math.PI/2;
         _birka.source.x = -100;
         _birka.source.y = 257;
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
         createTopBG();
         createBottomBG();
         createFabricaItems();

@@ -73,8 +73,8 @@ public class ManagerTutorial {
 
     public function initScenes():void {
         var curFunc:Function;
-        trace('step: ' + g.user.tutorialStep);
-//        try {
+//        trace('step: ' + g.user.tutorialStep);
+        try {
             switch (g.user.tutorialStep) {
                 case 1:
                     curFunc = initScene_1;
@@ -153,9 +153,10 @@ public class ManagerTutorial {
             if (curFunc != null) {
                 curFunc.apply();
             }
-//        } catch (err:Error) {
-//            Cc.error("Tutorial crashed at step #" + g.user.tutorialStep + " with error message #" + err.errorID);
-//        }
+        } catch (err:Error) {
+            g.woGameError.showItParams("Tutorial error");
+            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(subStep) + " with error message " + err.message);
+        }
     }
 
     private function  initScene_1():void {
@@ -163,7 +164,7 @@ public class ManagerTutorial {
         if (!cat) cat = new TutorialCat();
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTexts()).objText;
-        subStep = 1;
+        subStep = 0;
         addCatToPos(30, 26);
         playCatIdle();
         cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['next'], subStep1_1, 1);
@@ -171,11 +172,12 @@ public class ManagerTutorial {
     }
 
     private function subStep1_1():void {
-        subStep = 2;
+        subStep = 1;
         cutScene.reChangeBubble(texts[g.user.tutorialStep][subStep], texts['lookAround'], subStep1_2);
     }
 
     private function subStep1_2():void {
+        subStep = 2;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
         g.optionPanel.makeFullScreen();
@@ -217,6 +219,7 @@ public class ManagerTutorial {
     }
 
     private function subStep2_2(wo:WorldObject):void {
+        subStep = 2;
         _counter--;
         wo.hideArrow();
         wo.tutorialCallback = null;
@@ -227,6 +230,7 @@ public class ManagerTutorial {
     }
 
     private function subStep2_3():void {
+        subStep = 3;
         _tutorialObjects = [];
         g.user.tutorialStep = 3;
         updateTutorialStep();
@@ -256,6 +260,7 @@ public class ManagerTutorial {
     }
 
     private function subStep3_2(r:WorldObject):void {
+        subStep = 2;
         _tutorialResourceIDs = [];
         _tutorialObjects.splice(_tutorialObjects.indexOf(r), 1);
         r.hideArrow();
@@ -265,6 +270,7 @@ public class ManagerTutorial {
     }
 
     private function subStep3_3(r:WorldObject):void {
+        subStep = 3;
         _tutorialObjects.splice(_tutorialObjects.indexOf(r), 1);
         r.hideArrow();
         r.tutorialCallback = null;
@@ -282,6 +288,7 @@ public class ManagerTutorial {
     }
 
     private function subStep3_5():void {
+        subStep = 5;
         cat.hideBubble();
         g.user.tutorialStep = 4;
         updateTutorialStep();
@@ -307,6 +314,7 @@ public class ManagerTutorial {
     }
 
     private function subStep4_2():void {
+        subStep = 2;
         cat.hideBubble();
         _currentAction = TutorialAction.ANIMAL_FEED;
         _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.FARM);
@@ -327,6 +335,7 @@ public class ManagerTutorial {
     }
 
     private function subStep4_4():void {
+        subStep = 4;
         cat.hideBubble();
         cat.flipIt(false);
         _currentAction = TutorialAction.ANIMAL_SKIP;
@@ -346,6 +355,7 @@ public class ManagerTutorial {
     }
 
     private function subStep4_6():void {
+        subStep = 6;
         cat.hideBubble();
         cat.flipIt(false);
         _currentAction = TutorialAction.ANIMAL_CRAFT;
@@ -353,6 +363,7 @@ public class ManagerTutorial {
     }
 
     private function subStep4_7():void {
+        subStep = 7;
         _tutorialObjects = [];
         _currentAction = TutorialAction.LEVEL_UP;
         g.user.tutorialStep = 5;
@@ -361,6 +372,7 @@ public class ManagerTutorial {
     }
 
     private function subStep4_8():void {
+        subStep = 8;
         initScenes();
     }
 
@@ -379,6 +391,7 @@ public class ManagerTutorial {
     }
 
     private function subStep5_1():void {
+        subStep = 1;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
         g.user.tutorialStep = 6;
@@ -399,6 +412,7 @@ public class ManagerTutorial {
     }
 
     private function subStep6_1():void {
+        subStep = 1;
         cat.hideBubble();
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -412,6 +426,7 @@ public class ManagerTutorial {
     }
 
     private function subStep6_2():void {
+        subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -440,6 +455,7 @@ public class ManagerTutorial {
     }
 
     private function subStep6_4():void {
+        subStep = 4;
         initScenes();
     }
 
@@ -462,6 +478,7 @@ public class ManagerTutorial {
     }
 
     private function subStep7_1():void {
+        subStep = 1;
         _tutorialResourceIDs = [3];
         removeBlack();
         cutScene.hideIt(deleteCutScene);
@@ -474,6 +491,7 @@ public class ManagerTutorial {
     }
 
     private function subStep7_2():void {
+        subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -483,6 +501,7 @@ public class ManagerTutorial {
     }
 
     private function subStep7_3():void {
+        subStep = 3;
         _tutorialResourceIDs = [];
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
@@ -499,6 +518,7 @@ public class ManagerTutorial {
     }
 
     private function subStep7_5():void {
+        subStep = 5;
         g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY);
         cat.hideBubble();
         _currentAction = TutorialAction.NONE;
@@ -527,6 +547,7 @@ public class ManagerTutorial {
     }
 
     private function subStep8_1():void {
+        subStep = 1;
         cat.hideBubble();
         cat.flipIt(false);
         (_tutorialObjects[0] as Fabrica).hideArrow();
@@ -534,6 +555,7 @@ public class ManagerTutorial {
     }
 
     private function subStep8_2():void {
+        subStep = 2;
         _tutorialCallback = null;
         _tutorialObjects = [];
         _tutorialResourceIDs = [];
@@ -543,6 +565,7 @@ public class ManagerTutorial {
     }
 
     private function subStep8_3():void {
+        subStep = 3;
         cat.playDirectLabel('idle3', true, playCatIdle);
         g.user.tutorialStep = 9;
         updateTutorialStep();
@@ -550,6 +573,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_9():void {
+        subStep = 0;
         _currentAction = TutorialAction.NONE;
         if (!cat) {
             addCatToPos(31, 26);
@@ -570,6 +594,7 @@ public class ManagerTutorial {
     }
 
     private function subStep9_2():void {
+        subStep = 2;
         removeBlack();
         cutScene.hideIt(deleteCutScene);
         _currentAction = TutorialAction.NEW_RIDGE;
@@ -592,6 +617,7 @@ public class ManagerTutorial {
     }
 
     private function subStep9_4():void {
+        subStep = 4;
         _tutorialCallback = null;
         cat.hideBubble();
         _currentAction = TutorialAction.NONE;
@@ -601,6 +627,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_10():void {
+        subStep = 0;
         _currentAction = TutorialAction.NONE;
         if (!_tutorialObjects.length) {
             _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.RIDGE);
@@ -630,6 +657,7 @@ public class ManagerTutorial {
     }
 
     private function subStep10_2():void {
+        subStep = 2;
         _tutorialCallback = null;
         cat.hideBubble();
         cat.flipIt(false);
@@ -638,6 +666,7 @@ public class ManagerTutorial {
     }
 
     private function subStep10_3(r:Ridge=null):void {
+        subStep = 3;
         _tutorialObjects.length = 0;
         _tutorialResourceIDs.length = 0;
         _tutorialCallback = null;
@@ -648,6 +677,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_11():void {
+        subStep = 0;
         _currentAction = TutorialAction.NONE;
         if (!cat) {
             addCatToPos(31, 26);
@@ -680,12 +710,14 @@ public class ManagerTutorial {
     }
 
     private function subStep11_3():void {
+        subStep = 3;
         cat.hideBubble();
         g.cont.moveCenterToPos(40, 1, false, 2);
         createDelay(3000, subStep11_4);
     }
 
     private function subStep11_4():void {
+        subStep = 4;
         g.cont.moveCenterToPos(31, 26, false, 2);
     }
 
@@ -695,6 +727,7 @@ public class ManagerTutorial {
     }
 
     private function subStep11_6():void {
+        subStep = 6;
         cat.hideBubble();
         cat.flipIt(false);
         _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.ORDER);
@@ -704,6 +737,7 @@ public class ManagerTutorial {
     }
 
     private function subStep11_7():void {
+        subStep = 7;
         (_tutorialObjects[0] as WorldObject).hideArrow();
         subStep11_8();
     }
@@ -729,11 +763,13 @@ public class ManagerTutorial {
     }
 
     private function subStep11_10():void {
+        subStep = 10;
         _currentAction = TutorialAction.LEVEL_UP;
         _tutorialCallback = subStep11_11;
     }
 
     private function subStep11_11():void {
+        subStep = 11;
         _tutorialObjects.length = 0;
         _tutorialResourceIDs.length = 0;
         _tutorialCallback = null;
@@ -755,6 +791,7 @@ public class ManagerTutorial {
     }
 
     private function subStep12_1():void {
+        subStep = 1;
         removeBlack();
         cutScene.hideIt(deleteCutScene);
         _currentAction = TutorialAction.BUY_FABRICA;
@@ -767,6 +804,7 @@ public class ManagerTutorial {
     }
 
     private function subStep12_2():void {
+        subStep = 2;
         _currentAction = TutorialAction.PUT_FABRICA;
         _tutorialCallback = subStep12_3;
         g.woShop.activateTab(1);
@@ -777,6 +815,7 @@ public class ManagerTutorial {
     }
 
     private function subStep12_3():void {
+        subStep = 3;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 13;
@@ -785,6 +824,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_13():void {
+        subStep = 0;
         _currentAction = TutorialAction.NONE;
         _tutorialResourceIDs = [1];
         if (!_tutorialObjects.length) {
@@ -811,6 +851,7 @@ public class ManagerTutorial {
     }
 
     private function subStep13_2():void {
+        subStep = 2;
         cat.hideBubble();
         (_tutorialObjects[0] as WorldObject).hideArrow();
 //        _tutorialCallback = subStep13_3;
@@ -818,6 +859,7 @@ public class ManagerTutorial {
     }
 
     private function subStep13_3():void {
+        subStep = 3;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 14;
@@ -844,6 +886,7 @@ public class ManagerTutorial {
     }
 
     private function initScene14_1():void {
+        subStep = 1;
         (_tutorialObjects[0] as WorldObject).hideArrow();
         cat.hideBubble();
         _tutorialCallback = null;
@@ -855,6 +898,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_15():void {
+        subStep = 0;
         _currentAction = TutorialAction.CRAFT_RIDGE;
         _tutorialResourceIDs = [31];
          var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
@@ -888,6 +932,7 @@ public class ManagerTutorial {
     }
 
     private function subScene15_2(r:WorldObject):void {
+        subStep = 2;
         cat.hideBubble();
         r.hideArrow();
         _tutorialObjects.splice(_tutorialObjects.indexOf(r), 1);
@@ -902,6 +947,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_16():void {
+        subStep = 0;
         _currentAction = TutorialAction.NONE;
         if (!texts) texts = (new TutorialTexts()).objText;
         _tutorialObjects = g.townArea.getCityObjectsById(1);
@@ -926,6 +972,7 @@ public class ManagerTutorial {
     }
 
     private function subStep16_2():void {
+        subStep = 2;
         (_tutorialObjects[0] as WorldObject).hideArrow();
         cat.hideBubble();
         cat.flipIt(true);
@@ -933,6 +980,7 @@ public class ManagerTutorial {
     }
 
     private function subStep16_3():void {
+        subStep = 3;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 17;
@@ -966,6 +1014,7 @@ public class ManagerTutorial {
     }
 
     private function subStep17_1():void {
+        subStep = 1;
         _currentAction = TutorialAction.FABRICA_SKIP_RECIPE;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
@@ -975,6 +1024,7 @@ public class ManagerTutorial {
     }
 
     private function subStep17_2():void {
+        subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1004,6 +1054,7 @@ public class ManagerTutorial {
     }
 
     private function subStep18_1():void {
+        subStep = 1;
         cutScene.hideIt(deleteCutScene);
         _currentAction = TutorialAction.FABRICA_CRAFT;
         (_tutorialObjects[0] as WorldObject).showArrow();
@@ -1011,6 +1062,7 @@ public class ManagerTutorial {
     }
 
     private function subStep18_2():void {
+        subStep = 2;
         (_tutorialObjects[0] as WorldObject).hideArrow();
         _currentAction = TutorialAction.LEVEL_UP;
         _tutorialCallback = subStep18_3;
@@ -1020,6 +1072,7 @@ public class ManagerTutorial {
     }
 
     private function subStep18_3():void {
+        subStep = 3;
         _currentAction = TutorialAction.NONE;
         _tutorialCallback = null;
         initScenes();
@@ -1042,6 +1095,7 @@ public class ManagerTutorial {
     }
 
     private function subStep19_1():void {
+        subStep = 1;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
         _currentAction = TutorialAction.BUY_CAT;
@@ -1054,6 +1108,7 @@ public class ManagerTutorial {
     }
 
     private function subStep19_2():void {
+        subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1067,6 +1122,7 @@ public class ManagerTutorial {
     }
 
     private function subStep19_3():void {
+        subStep = 3;
         initScenes();
     }
 
@@ -1083,6 +1139,7 @@ public class ManagerTutorial {
     }
 
     private function subStep20_1():void {
+        subStep = 1;
         cat.hideBubble();
         _currentAction = TutorialAction.BUY_FARM;
         _tutorialResourceIDs = [39];
@@ -1094,6 +1151,7 @@ public class ManagerTutorial {
     }
 
     private function subStep20_2():void {
+        subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1104,6 +1162,7 @@ public class ManagerTutorial {
     }
 
     private function subStep20_3():void {
+        subStep = 3;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 21;
@@ -1112,6 +1171,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_21():void {
+        subStep = 0;
         _currentAction = TutorialAction.NONE;
         if (!_tutorialObjects.length) {
             _tutorialObjects = g.townArea.getCityObjectsById(39);
@@ -1134,6 +1194,7 @@ public class ManagerTutorial {
     }
 
     private function subStep21_2():void {
+        subStep = 2;
         cat.hideBubble();
         _tutorialResourceIDs = [6];
         _currentAction = TutorialAction.BUY_ANIMAL;
@@ -1145,6 +1206,7 @@ public class ManagerTutorial {
     }
 
     private function subStep21_3():void {
+        subStep = 3;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1174,6 +1236,7 @@ public class ManagerTutorial {
     }
 
     private function subStep22_2():void {
+        subStep = 2;
         cat.hideBubble();
         _currentAction = TutorialAction.ANIMAL_FEED;
         _tutorialObjects = (_tutorialObjects[0] as Farm).arrAnimals;
@@ -1183,6 +1246,7 @@ public class ManagerTutorial {
     }
 
     private function subStep22_3(bee:Animal):void {
+        subStep = 3;
         bee.removeArrow();
         bee.tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
@@ -1192,6 +1256,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_23():void {
+        subStep = 0;
         _currentAction = TutorialAction.NONE;
         if (!cat) {
             addCatToPos(31, 28);
@@ -1209,6 +1274,7 @@ public class ManagerTutorial {
     }
 
     private function subStep23_2():void {
+        subStep = 2;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
         _currentAction = TutorialAction.VISIT_NEIGHBOR;
@@ -1218,6 +1284,7 @@ public class ManagerTutorial {
     }
 
     private function subStep23_3():void {
+        subStep = 3;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1235,6 +1302,7 @@ public class ManagerTutorial {
     }
 
     private function subStep23_5():void {
+        subStep = 5;
         removeBlack();
         if (cutScene) cutScene.hideIt(deleteCutScene);
         _tutorialObjects = g.townArea.getAwayCityObjectsById(44);
@@ -1280,6 +1348,7 @@ public class ManagerTutorial {
     }
 
     private function subStep23_9():void {
+        subStep = 9;
         removeBlack();
         if (cutScene) cutScene.hideIt(deleteCutScene);
         var ob:Object = g.bottomPanel.getBtnProperties('home');
@@ -1288,6 +1357,7 @@ public class ManagerTutorial {
     }
 
     private function subStep23_10():void {
+        subStep = 10;
         _tutorialCallback = null;
         g.user.tutorialStep = 24;
         _tutorialResourceIDs = [];
@@ -1295,6 +1365,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_24():void {
+        subStep = 0;
         _currentAction = TutorialAction.NONE;
         if (!cat) {
             addCatToPos(31, 28);
@@ -1307,6 +1378,7 @@ public class ManagerTutorial {
     }
 
     private function subStep24_1():void {
+        subStep = 1;
         removeBlack();
         cutScene.hideIt(deleteCutScene);
         g.user.tutorialStep = 101;

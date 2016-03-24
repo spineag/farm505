@@ -80,6 +80,7 @@ import user.UserInventory;
 import utils.FarmDispatcher;
 
 import windows.Window;
+import windows.WindowsManager;
 import windows.ambar.WOAmbars;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
@@ -213,6 +214,7 @@ public class Vars {
     public var woNoFreeCats:WONoFreeCats;
     public var woWaitFreeCats:WOWaitFreeCats;
     public var woBuyForHardCurrency:WOBuyForHardCurrency;
+    public var windowsManager:WindowsManager;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -440,6 +442,7 @@ public class Vars {
         }
         cont.moveCenterToXY(0, realGameTilesHeight/2 - 400*scaleFactor, true);
 
+        windowsManager = new WindowsManager();
         woCave = new WOCave();
         woTrain = new WOTrain();
         woNoResources = new WONoResources();

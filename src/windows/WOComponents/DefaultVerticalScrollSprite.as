@@ -4,9 +4,7 @@
 package windows.WOComponents {
 
 import flash.geom.Rectangle;
-
-import manager.Vars;
-
+import starling.display.BlendMode;
 import starling.display.Sprite;
 import starling.textures.Texture;
 
@@ -22,7 +20,6 @@ public class DefaultVerticalScrollSprite {
     private var _nextCellX:int;
     private var _nextCellY:int;
     private var _percent:int;
-
 
     public function DefaultVerticalScrollSprite(w:int, h:int, cellW:int, cellH:int) {
         _nextCellX = 0;
@@ -53,7 +50,6 @@ public class DefaultVerticalScrollSprite {
 
     private function percentNumber(percent:Number):void {
         _percent = -int(( _scrolledSprite.height - _height)*percent);
-
     }
 
     public function addNewCell(_cellSource:Sprite):void {
@@ -86,8 +82,20 @@ public class DefaultVerticalScrollSprite {
     public function get source():Sprite {
         return _source;
     }
+
     public function get scrolleSource():Sprite {
         return _scrolledSprite;
+    }
+
+    public function deleteIt():void {
+        _arrCell = [];
+        _source.removeChild(_scroll.source);
+        _scroll.deleteIt();
+        _scrolledSprite.dispose();
+        _source.dispose();
+        _scroll = null;
+        _scrolledSprite = null;
+        _source = null;
     }
 }
 }

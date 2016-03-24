@@ -60,7 +60,7 @@ public class WOAmbars extends Window {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
 
         createWOElements();
         createWOUpdateElements();

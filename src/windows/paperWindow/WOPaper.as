@@ -79,7 +79,7 @@ public class WOPaper extends Window{
         _btnRefreshBlue.y = 290;
         _btnRefreshBlue.setEnabled = false;
         _btnRefreshBlue.clickCallback = onRefresh;
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
         timerRefresh();
     }
 

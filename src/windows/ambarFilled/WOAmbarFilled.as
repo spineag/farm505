@@ -43,7 +43,7 @@ public class WOAmbarFilled extends Window{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
 
         _contBtn = new CButton();
         _contBtn.clickCallback = onClick;

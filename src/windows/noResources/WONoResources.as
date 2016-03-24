@@ -43,7 +43,7 @@ public class WONoResources extends Window {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
 
         var txt:TextField = new TextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ!", g.allData.fonts['BloggerBold'], 22, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

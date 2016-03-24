@@ -33,7 +33,7 @@ public class WODailyBonus extends Window{
         _woWidth = 538;
         _woHeight = 500;
         createExitButton(onClickExit);
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
         createKoleso();
     }
 

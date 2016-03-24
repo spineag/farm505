@@ -117,7 +117,7 @@ public class WOMarketChoose extends Window {
 //        _checkBox.source.y = 205;
 //        _source.addChild(_checkBox.source);
 
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
     }
 
     override public function showIt():void {

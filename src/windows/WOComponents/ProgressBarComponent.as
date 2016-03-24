@@ -2,8 +2,6 @@
  * Created by user on 11/24/15.
  */
 package windows.WOComponents {
-import manager.Vars;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -60,6 +58,14 @@ public class ProgressBarComponent extends Sprite {
             _center.addChild(im);
         }
         _center.flatten();
+    }
+
+    public function deleteIt():void {
+        _ct = null;
+        dispose();
+        _left = null;
+        _center = null;
+        _right = null;
     }
 }
 }

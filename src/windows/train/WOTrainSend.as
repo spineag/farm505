@@ -61,7 +61,7 @@ public class WOTrainSend extends Window{
         _source.addChild(_contNo);
         _contNo.clickCallback = onNo;
         _contYes.clickCallback = onYes;
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
 
     }
 

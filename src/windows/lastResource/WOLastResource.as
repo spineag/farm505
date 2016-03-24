@@ -74,7 +74,7 @@ public class WOLastResource extends Window{
         _contBtnYes.y = 80;
         _contBtnNo.x = -100;
         _contBtnNo.y = 80;
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
         _arrItems = [];
     }
 

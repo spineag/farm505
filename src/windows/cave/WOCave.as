@@ -20,7 +20,7 @@ public class WOCave extends Window {
         _woHeight = 134;
         createBG();
         createCaveItems();
-        callbackClickBG = onClickExit;
+        _callbackClickBG = onClickExit;
         _birka = new Birka('Шахта', _source, 455, 580);
         _birka.flipIt();
         _birka.source.rotation = Math.PI/2;

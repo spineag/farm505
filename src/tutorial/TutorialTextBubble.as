@@ -80,7 +80,7 @@ public class TutorialTextBubble {
         }
         if (_bubble) {
             if (_source && _source.contains(_bubble)) _source.removeChild(_bubble);
-            _bubble.clearIt();
+            _bubble.deleteIt();
             _bubble = null;
         }
     }

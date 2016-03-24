@@ -66,7 +66,7 @@ public class CutSceneTextBubble {
     private function directHide(f:Function = null):void {
         if (_bubble) {
             if (_source.contains(_bubble)) _source.removeChild(_bubble);
-            _bubble.clearIt();
+            _bubble.deleteIt();
             _bubble = null;
         }
         if (f != null) {
