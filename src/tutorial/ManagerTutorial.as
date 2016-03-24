@@ -27,7 +27,7 @@ import starling.utils.Color;
 import windows.WindowsManager;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = true;
+    private const TUTORIAL_ON:Boolean = false;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
@@ -201,7 +201,7 @@ public class ManagerTutorial {
         cat.flipIt(true);
         cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep2_1);
         g.optionPanel.makeScaling(1,false);
-        g.cont.moveCenterToPos(30, 30, 1);
+        g.cont.moveCenterToPos(30, 30,false, 1);
     }
 
     private function subStep2_1():void {
@@ -306,7 +306,7 @@ public class ManagerTutorial {
         if (!texts) texts = (new TutorialTexts()).objText;
         cat.flipIt(false);
         g.managerCats.goCatToPoint(cat, new Point(30, 11), subStep4_1);
-        g.cont.moveCenterToPos(27, 14, 2);
+        g.cont.moveCenterToPos(27, 14,false, 2);
     }
 
     private function subStep4_1():void {
@@ -541,7 +541,7 @@ public class ManagerTutorial {
         if (!cat) {
             addCatToPos(_tutorialObjects[0].posX + _tutorialObjects[0].sizeX, _tutorialObjects[0].posY);
         }
-        g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, 1.5);
+        g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY,false, 1.5);
         cat.flipIt(true);
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
         (_tutorialObjects[0] as Fabrica).showArrow();
@@ -583,7 +583,7 @@ public class ManagerTutorial {
             subStep9_1();
         } else {
             g.managerCats.goCatToPoint(cat, new Point(31, 26), subStep9_1);
-            g.cont.moveCenterToPos(31, 26, 1.5);
+            g.cont.moveCenterToPos(31, 26,false, 1.5);
         }
     }
 
@@ -959,7 +959,7 @@ public class ManagerTutorial {
             subStep16_1();
         } else {
             g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY), subStep16_1);
-            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, 1.5);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY,false, 1.5);
         }
     }
 
@@ -1300,7 +1300,7 @@ public class ManagerTutorial {
         addBlack();
         cutScene = new CutScene();
         cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep23_5, 1);
-        g.cont.moveCenterToPos(30, 30, 1);
+        g.cont.moveCenterToPos(30, 30,false, 1);
     }
 
     private function subStep23_5():void {

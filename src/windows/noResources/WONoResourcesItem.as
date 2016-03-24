@@ -11,6 +11,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -96,6 +97,9 @@ public class WONoResourcesItem {
         _txtCount.y = 40;
         _txtCount.x = 20;
         source.addChild(_txtCount);
+//        var quad:Quad = new Quad(source.width,source.height,Color.GREEN,false);
+//        quad.y = 100;
+//        source.addChild(quad);
     }
 
     public function fillWithMoney(count:int):void {

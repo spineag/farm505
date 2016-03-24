@@ -293,7 +293,7 @@ public class ShopItem {
         var maxCount:int;
         var curCount:int;
         var maxCountAtCurrentLevel:int = 0;
-
+        _shopLimitSprite.y = 150;
         _nameTxt.text = '';
         _countTxt.text = '';
         _countBoxTxt.text = '';
@@ -318,14 +318,17 @@ public class ShopItem {
                         _countCost = _data.cost[i];
                     } else break;
                 }
-                if (arr.length == maxCountAtCurrentLevel) {
+                if (arr.length == _data.blockByLevel.length) {
                     _shopLimitSprite.visible = true;
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
                     _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
-                    trace('lololo');
-                } else if (arr.length > maxCountAtCurrentLevel) {
-                        trace('kykykyk');
+                } else if (arr.length >=maxCountAtCurrentLevel) {
+                    _nameTxt.text = _data.name;
+                    _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[maxCountAtCurrentLevel]) + ' уровне';
+                    _countTxt.text = String(arr.length) + '/' + String(_data.blockByLevel.length);
+                    _shopLimitSprite.visible = true;
+                    _shopLimitSprite.y = 50;
                 } else {
                     _nameTxt.text = _data.name;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);

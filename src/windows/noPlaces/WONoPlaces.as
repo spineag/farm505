@@ -49,12 +49,12 @@ public class WONoPlaces extends Window{
         _contBtn.y = 120;
         _source.addChild(_contBtn);
         _contBtn.clickCallback = onClick;
-        _txtName = new TextField(200,100,"Недостаточно места",g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        _txtName = new TextField(300,30,"НЕДОСТАТОЧНО МЕСТА!",g.allData.fonts['BloggerBold'],22,Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -100;
         _txtName.y = -190;
         _source.addChild(_txtName);
-        _txtText = new TextField(300,100,"У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtText = new TextField(300,100,"У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtText.x = -150;
         _txtText.y = -150;
@@ -75,12 +75,11 @@ public class WONoPlaces extends Window{
         _txtCost.y = -3;
         _contBtn.addChild(_txtCost);
         _source.addChild(im);
-        _txtAdd = new TextField(100,100,"Добавить ячейку",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtAdd = new TextField(100,100,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtAdd.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtAdd.x = -47;
         _txtAdd.y = -50;
         _source.addChild(_txtAdd);
-        _txtAdd.visible = false;
         _last = false;
     }
 
@@ -100,8 +99,7 @@ public class WONoPlaces extends Window{
         _buyCallback = callback;
         _exitCallback = callbackExit;
         if (last) {
-            _txtAdd.visible = false;
-            _txtText.text = 'У вас нет свободных ячеек. Подождите пока освободится ячейка или ускорьте изготовление текущего продукта.';
+            _txtText.text = 'Подождите пока освободится ячейка или ускорьте изготовление текущего продукта.';
             _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[price].url].getTexture(g.dataResource.objectResources[price].imageShop));
             MCScaler.scale(_imageItem,80,80);
             _imageItem.x = -40;
@@ -110,11 +108,18 @@ public class WONoPlaces extends Window{
             _last = true;
             _cost = cost;
             _txtCost.text = String(cost);
+            _txtAdd.x = -47;
+            _txtAdd.y = -50;
+            _txtAdd.text = 'ускорить';
+            _txtAdd.x = -47;
+            _txtAdd.y = -80;
         } else {
-            _txtAdd.visible = true;
             _txtText.text = 'У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.';
             _contBtn.visible = true;
             _txtCost.text = String(price);
+            _txtAdd.x = -47;
+            _txtAdd.y = -50;
+            _txtAdd.text = 'Добавить ячейку';
         }
 
         showIt();
