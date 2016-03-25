@@ -3,35 +3,25 @@
  */
 package windows.ambarFilled {
 import manager.ManagerFilters;
-
-import starling.animation.Tween;
 import starling.display.Image;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WOComponents.ProgressBarComponent;
-
-import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.ambar.WOAmbars;
 
-public class WOAmbarFilled extends Window{
+public class WOAmbarFilled extends WindowMain {
 
-    private var _contBtn:CButton;
+    private var _btn:CButton;
     private var _woBG:WindowBackground;
     private var _imageAmbar:Image;
     private var _txtBtn:TextField;
     private var _txtAmbarFilled:TextField;
     private var _txtCount:TextField;
-    private var _bol:Boolean;
+    private var _isAmbar:Boolean;
     private var _imAmbarSklad:Image;
     private var _bar:ProgressBarComponent;
 
@@ -39,57 +29,50 @@ public class WOAmbarFilled extends Window{
         super ();
         _woWidth = 400;
         _woHeight = 300;
-//        createTempBG();
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
-        _callbackClickBG = onClickExit;
+        createExitButton(hideIt);
+        _callbackClickBG = hideIt;
 
-        _contBtn = new CButton();
-        _contBtn.clickCallback = onClick;
-//        var bg:WOButtonTexture = new WOButtonTexture(130, 40, WOButtonTexture.BLUE);
-//        bg.x = -10;
-        _contBtn.addButtonTexture(130, 40, CButton.YELLOW, true);
+        _btn = new CButton();
+        _btn.clickCallback = onClick;
+        _btn.addButtonTexture(130, 40, CButton.YELLOW, true);
         _txtBtn = new TextField(150,50,"",g.allData.fonts['BloggerBold'],12,Color.WHITE);
         _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         _txtBtn.y = -5;
         _txtBtn.x = -10;
-        _contBtn.addChild(_txtBtn);
-//        _contBtn.x = -50;
-        _contBtn.y = 90;
-        _source.addChild(_contBtn);
+        _txtBtn.touchable = false;
+        _btn.addChild(_txtBtn);
+        _btn.y = 90;
+        _source.addChild(_btn);
         _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("storage_window_pr"));
         _imageAmbar.x = -160;
-        _imageAmbar.y = -25;
+        _imageAmbar.y = -20;
+        _imageAmbar.touchable = false;
         MCScaler.scale(_imageAmbar,49,320);
         _txtAmbarFilled = new TextField(200,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtAmbarFilled.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtAmbarFilled.x = -90;
-        _txtAmbarFilled.y = -120;
+        _txtAmbarFilled.x = -100;
+        _txtAmbarFilled.y = -125;
+        _txtAmbarFilled.touchable = false;
+        _source.addChild(_txtAmbarFilled);
         _txtCount = new TextField(200,50,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCount.x = -95;
         _txtCount.y = 20;
-        _source.addChild(_txtAmbarFilled);
+        _txtCount.touchable = false;
         _source.addChild(_txtCount);
         _source.addChild(_imageAmbar);
         _bar = new ProgressBarComponent(g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_l'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_r'), 308);
         _bar.x = _imageAmbar.x + 5;
-        _bar.y = _imageAmbar.y + 5;
+        _bar.y = _imageAmbar.y + 9;
         _source.addChild(_bar);
-
-    }
-
-    private function onClickExit(e:Event=null):void {
-        hideIt();
-        _source.removeChild(_imAmbarSklad);
     }
 
     private function onClick():void {
         hideIt();
-        _source.removeChild(_imAmbarSklad);
-        if (_bol == true) {
+        if (_isAmbar) {
             g.woAmbars.showItWithParams(WOAmbars.AMBAR);
             g.woAmbars.showUpdateState();
         } else {
@@ -98,31 +81,42 @@ public class WOAmbarFilled extends Window{
         }
     }
 
-    public function showAmbarFilled(isAmbar:Boolean):void {
-        _bol = isAmbar;
-        if (isAmbar == true){
-            showIt();
+    override public function showItParams(callback:Function, params:Array):void {
+        _isAmbar = params[0];
+        if (_isAmbar) {
             _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount);
             _txtAmbarFilled.text = "АМБАР ЗАПОЛНЕН";
             _txtBtn.text = "Увеличить Амбар";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
-            _imAmbarSklad.x = -5;
-            _imAmbarSklad.y = _imageAmbar.y - 60;
-            MCScaler.scale(_imAmbarSklad, 60, 60);
-            _bar.progress = 1;
-            _source.addChild(_imAmbarSklad);
-        } else if(isAmbar == false) {
-            showIt();
+        } else {
             _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount);
             _txtAmbarFilled.text = "СКЛАД ЗАПОЛНЕН";
             _txtBtn.text = "Увеличить Склад";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
-            _imAmbarSklad.x = -15;
-            _imAmbarSklad.y = _imageAmbar.y - 60;
-            MCScaler.scale(_imAmbarSklad, 60, 60);
-            _bar.progress = 1;
-            _source.addChild(_imAmbarSklad);
         }
+        _bar.progress = 1;
+        MCScaler.scale(_imAmbarSklad, 60, 60);
+        _imAmbarSklad.x = -_imAmbarSklad.width/2;
+        _imAmbarSklad.y = _imageAmbar.y - 60;
+        _source.addChild(_imAmbarSklad);
+        super.showIt();
     }
+
+    override protected function deleteIt():void {
+        _txtAmbarFilled = null;
+        _txtBtn = null;
+        _txtCount = null;
+        _source.removeChild(_btn);
+        _btn.deleteIt();
+        _btn = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _source.removeChild(_bar);
+        _bar.deleteIt();
+        _bar = null;
+        super.deleteIt();
+    }
+
 }
 }

@@ -203,7 +203,6 @@ public class Vars {
     public var woDailyBonus:WODailyBonus;
     public var woPaper:WOPaper;
     public var woTrain:WOTrain;
-    public var woAmbarFilled:WOAmbarFilled;
     public var woLastResource:WOLastResource;
     public var woTrainOrder:WOTrainOrder;
     public var woTrainSend:WOTrainSend;
@@ -453,7 +452,6 @@ public class Vars {
         woMarket = new WOMarket();
         woDailyBonus = new WODailyBonus();
         woPaper = new WOPaper();
-        woAmbarFilled = new WOAmbarFilled();
         woTrainOrder = new WOTrainOrder();
         woTrainSend = new WOTrainSend();
         woLockedLand = new WOLockedLand();

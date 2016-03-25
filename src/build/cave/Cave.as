@@ -261,7 +261,7 @@ public class Cave extends AreaObject{
 //                            p = _source.parent.localToGlobal(p);
 //                            new FlyMessage(p, "Склад заполнен");
                             _source.filter = null;
-                            g.woAmbarFilled.showAmbarFilled(false);
+                            g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
                             return;
                         }
                         _arrCraftItems.pop().flyIt();

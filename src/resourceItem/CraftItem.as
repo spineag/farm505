@@ -118,7 +118,7 @@ public class CraftItem {
         _image.filter = null;
         if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + count > g.user.ambarMaxCount) {
 //            g.flyMessage.showIt(_source,"Амбар заполнен");
-            g.woAmbarFilled.showAmbarFilled(true);
+            g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, true);
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
@@ -129,7 +129,7 @@ public class CraftItem {
         if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + count > g.user.skladMaxCount) {
             var p:Point = new Point(_source.x, _source.y);
             p = _source.parent.localToGlobal(p);
-            g.woAmbarFilled.showAmbarFilled(false);
+            g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
 //            new FlyMessage(p,"Склад заполнен");
             return;
         }

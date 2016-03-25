@@ -27,6 +27,8 @@ import ui.xpPanel.XPStar;
 import user.Someone;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class Tree extends AreaObject {
     public static const GROW1:int = 1;
     public static const GROW_FLOWER1:int = 2;
@@ -455,10 +457,7 @@ public class Tree extends AreaObject {
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount) {
                         _source.filter = null;
-                        g.woAmbarFilled.showAmbarFilled(true);
-//                        var p:Point = new Point(_source.x, _source.y);
-//                        p = _source.parent.localToGlobal(p);
-//                        new FlyMessage(p,"Амбар заполнен");
+                        g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
                         return;
                     }
                     _arrCrafted.shift().flyIt();

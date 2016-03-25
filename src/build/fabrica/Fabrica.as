@@ -164,7 +164,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onClick():void {
-//        g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
+//        g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
 //        return;
 
         if (g.managerTutorial.isTutorial) {
@@ -207,7 +207,7 @@ public class Fabrica extends AreaObject {
                 }
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
-                        g.woAmbarFilled.showAmbarFilled(false);
+                        g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
                     } else {
                         var item:CraftItem = _arrCrafted.pop();
                         item.flyIt();
