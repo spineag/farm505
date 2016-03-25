@@ -39,12 +39,13 @@ import user.Someone;
 
 import utils.Utils;
 
+import windows.WindowsManager;
+
 import windows.serverError.WOServerError;
 
 
 public class DirectServer {
     private var g:Vars = Vars.getInstance();
-    private var woError:WOServerError = new WOServerError();
     private var iconMouse:ServerIconMouse = new ServerIconMouse();
 
     public function getDataLevel(callback:Function):void {
@@ -64,7 +65,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataLevel error:' + error.errorID);
-            woError.showItParams('getDataLevel error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataLevel error:' + error.errorID);
         }
     }
 
@@ -75,7 +76,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('loadLevels: wrong JSON:' + String(response));
-            woError.showItParams('loadLevels: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'loadLevels: wrong JSON:' + String(response));
             return;
         }
 
@@ -106,7 +107,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('loadLevels: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('loadLevels: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'loadLevels: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -123,7 +124,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataAnimal error:' + error.errorID);
-            woError.showItParams('getDataAnimal error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataAnimal error:' + error.errorID);
         }
     }
 
@@ -134,7 +135,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataAnimal: wrong JSON:' + String(response));
-            woError.showItParams('getDataAnimal: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataAnimal: wrong JSON:' + String(response));
             return;
         }
 
@@ -165,7 +166,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataAnimal: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getDataAnimal: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -182,7 +183,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataRecipe error:' + error.errorID);
-            woError.showItParams('getDataRecipe error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataRecipe error:' + error.errorID);
         }
     }
 
@@ -193,7 +194,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataRecipe: wrong JSON:' + String(response));
-            woError.showItParams('getDataRecipe: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataRecipe: wrong JSON:' + String(response));
             return;
         }
 
@@ -217,7 +218,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataRecipe: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getDataRecipe: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataRecipe: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -234,7 +235,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataResource error:' + error.errorID);
-            woError.showItParams('getDataResource error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataResource error:' + error.errorID);
         }
     }
 
@@ -245,7 +246,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataResource: wrong JSON:' + String(response));
-            woError.showItParams('getDataResource: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataResource: wrong JSON:' + String(response));
             return;
         }
 
@@ -281,7 +282,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataResource: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getDataResource: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataResource: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -298,7 +299,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataCats error:' + error.errorID);
-            woError.showItParams('getDataCats error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataCats error:' + error.errorID);
         }
     }
 
@@ -309,7 +310,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataCats: wrong JSON:' + String(response));
-            woError.showItParams('getDataCats: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataCats: wrong JSON:' + String(response));
             return;
         }
 
@@ -331,7 +332,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataResource: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getDataResource: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataResource: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -348,7 +349,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataBuilding error:' + error.errorID);
-            woError.showItParams('getDataBuilding error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataBuilding error:' + error.errorID);
         }
     }
 
@@ -359,7 +360,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataBuilding: wrong JSON:' + String(response));
-            woError.showItParams('getDataBuilding: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataBuilding: wrong JSON:' + String(response));
             return;
         }
 
@@ -450,7 +451,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataBuilding: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getDataBuilding: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataBuilding: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -473,7 +474,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('authUser error:' + error.errorID);
-            woError.showItParams('authUser error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'authUser error:' + error.errorID);
         }
     }
 
@@ -495,7 +496,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('authUser: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('authUser: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'authUser: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -516,7 +517,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('userInfo error:' + error.errorID);
-            woError.showItParams('userInfo error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userInfo error:' + error.errorID);
         }
     }
 
@@ -527,7 +528,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('userInfo: wrong JSON:' + String(response));
-            woError.showItParams('userInfo: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userInfo: wrong JSON:' + String(response));
             return;
         }
 
@@ -570,7 +571,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('userInfo: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userInfo: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -591,7 +592,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserTutorialStep error:' + error.errorID);
-            woError.showItParams('updateUserTutorialStep error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTutorialStep error:' + error.errorID);
         }
     }
 
@@ -602,7 +603,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserTutorialStep: wrong JSON:' + String(response));
-            woError.showItParams('updateUserTutorialStep: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTutorialStep: wrong JSON:' + String(response));
             return;
         }
 
@@ -613,7 +614,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -633,7 +634,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getFriendsInfo error:' + error.errorID);
-            woError.showItParams('getFriendsInfo error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsInfo error:' + error.errorID);
         }
     }
 
@@ -644,7 +645,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getFriendsInfo: wrong JSON:' + String(response));
-            woError.showItParams('getFriendsInfo: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsInfo: wrong JSON:' + String(response));
             return;
         }
 
@@ -656,7 +657,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -679,7 +680,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserMoney error:' + error.errorID);
-            woError.showItParams('addUserMoney error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserMoney error:' + error.errorID);
         }
     }
 
@@ -690,7 +691,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserMoney: wrong JSON:' + String(response));
-            woError.showItParams('addUserMoney: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserMoney: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -704,7 +705,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserMoney: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addUserMoney: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserMoney: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -729,7 +730,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserXP error:' + error.errorID);
-            woError.showItParams('addUserXP error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP error:' + error.errorID);
         }
     }
 
@@ -740,7 +741,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserXP: wrong JSON:' + String(response));
-            woError.showItParams('addUserXP: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -754,7 +755,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserXP: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addUserXP: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -779,7 +780,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserLevel error:' + error.errorID);
-            woError.showItParams('updateUserLevel error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserLevel error:' + error.errorID);
         }
     }
 
@@ -790,7 +791,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserLevel: wrong JSON:' + String(response));
-            woError.showItParams('updateUserLevel: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserLevel: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -804,7 +805,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -829,7 +830,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserTimerPaper error:' + error.errorID);
-            woError.showItParams('updateUserTimerPaper error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTimerPaper error:' + error.errorID);
         }
     }
 
@@ -840,7 +841,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserTimerPaper: wrong JSON:' + String(response));
-            woError.showItParams('updateUserTimerPaper: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTimerPaper: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -854,7 +855,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserTimerPaper: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateUserTimerPaper: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTimerPaper: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -878,7 +879,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserResource error:' + error.errorID);
-            woError.showItParams('GetUserResource error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserResource error:' + error.errorID);
         }
     }
 
@@ -892,7 +893,7 @@ public class DirectServer {
             }
         } catch (e:Error) {
             Cc.error('GetUserResource: wrong JSON:' + String(response));
-            woError.showItParams('GetUserResource: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserResource: wrong JSON:' + String(response));
             return;
         }
 
@@ -903,7 +904,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserResource: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('GetUserResource: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserResource: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -926,7 +927,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserResource error:' + error.errorID);
-            woError.showItParams('addUserResource error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserResource error:' + error.errorID);
         }
     }
 
@@ -937,7 +938,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserResource: wrong JSON:' + String(response));
-            woError.showItParams('addUserResource: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserResource: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -951,7 +952,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserResource: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addUserResource: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserResource: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -983,7 +984,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserBuilding error:' + error.errorID);
-            woError.showItParams('addUserBuilding error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserBuilding error:' + error.errorID);
         }
     }
 
@@ -994,7 +995,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserBuilding: wrong JSON:' + String(response));
-            woError.showItParams('addUserBuilding: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserBuilding: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1011,7 +1012,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1035,7 +1036,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserBuilding error:' + error.errorID);
-            woError.showItParams('GetUserBuilding error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserBuilding error:' + error.errorID);
         }
     }
 
@@ -1106,7 +1107,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1129,7 +1130,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('startBuildMapBuilding error:' + error.errorID);
-            woError.showItParams('startBuildMapBuilding error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'startBuildMapBuilding error:' + error.errorID);
         }
     }
 
@@ -1140,7 +1141,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('startBuildMapBuilding: wrong JSON:' + String(response));
-            woError.showItParams('startBuildMapBuilding: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'startBuildMapBuilding: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1154,7 +1155,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1180,7 +1181,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('openBuildMapBuilding error:' + error.errorID);
-            woError.showItParams('openBuildMapBuilding error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'openBuildMapBuilding error:' + error.errorID);
         }
     }
 
@@ -1191,7 +1192,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('openBuildMapBuilding: wrong JSON:' + String(response));
-            woError.showItParams('openBuildMapBuilding: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'openBuildMapBuilding: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1205,7 +1206,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1232,7 +1233,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addFabricaRecipe error:' + error.errorID);
-            woError.showItParams('addFabricaRecipe error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe error:' + error.errorID);
         }
     }
 
@@ -1243,7 +1244,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addFabricaRecipe: wrong JSON:' + String(response));
-            woError.showItParams('addFabricaRecipe: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1257,7 +1258,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1281,7 +1282,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserFabricaRecipe error:' + error.errorID);
-            woError.showItParams('GetUserFabricaRecipe error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserFabricaRecipe error:' + error.errorID);
         }
     }
 
@@ -1292,7 +1293,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserFabricaRecipe: wrong JSON:' + String(response));
-            woError.showItParams('GetUserFabricaRecipe: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserFabricaRecipe: wrong JSON:' + String(response));
             return;
         }
 
@@ -1308,7 +1309,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('GetUserFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1330,7 +1331,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('craftFabricaRecipe error:' + error.errorID);
-            woError.showItParams('craftFabricaRecipe error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftFabricaRecipe error:' + error.errorID);
         }
     }
 
@@ -1341,7 +1342,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('craftFabricaRecipe: wrong JSON:' + String(response));
-            woError.showItParams('craftFabricaRecipe: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftFabricaRecipe: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1355,7 +1356,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1381,7 +1382,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('rawPlantOnRidge error:' + error.errorID);
-            woError.showItParams('rawPlantOnRidge error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'rawPlantOnRidge error:' + error.errorID);
         }
     }
 
@@ -1392,7 +1393,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('rawPlantOnRidge: wrong JSON:' + String(response));
-            woError.showItParams('rawPlantOnRidge: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'rawPlantOnRidge: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1406,7 +1407,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('rawPlantOnRidge: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('rawPlantOnRidge: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'rawPlantOnRidge: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1430,7 +1431,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserPlantRidge error:' + error.errorID);
-            woError.showItParams('GetUserPlantRidge error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserPlantRidge error:' + error.errorID);
         }
     }
 
@@ -1441,7 +1442,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserPlantRidge: wrong JSON:' + String(response));
-            woError.showItParams('GetUserPlantRidge: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserPlantRidge: wrong JSON:' + String(response));
             return;
         }
 
@@ -1472,7 +1473,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserPlantRidge: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('GetUserPlantRidge: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserPlantRidge: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1494,7 +1495,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('craftPlantRidge error:' + error.errorID);
-            woError.showItParams('craftPlantRidge error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftPlantRidge error:' + error.errorID);
         }
     }
 
@@ -1505,7 +1506,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('craftPlantRidge: wrong JSON:' + String(response));
-            woError.showItParams('craftPlantRidge: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftPlantRidge: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1519,7 +1520,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('craftPlantRidge: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('craftPlantRidge: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftPlantRidge: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1544,7 +1545,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserTree error:' + error.errorID);
-            woError.showItParams('addUserTree error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTree error:' + error.errorID);
         }
     }
 
@@ -1555,7 +1556,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserTree: wrong JSON:' + String(response));
-            woError.showItParams('addUserTree: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTree: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1570,7 +1571,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addUserTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTree: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1594,7 +1595,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserTree error:' + error.errorID);
-            woError.showItParams('GetUserTree error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserTree error:' + error.errorID);
         }
     }
 
@@ -1605,7 +1606,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserTree: wrong JSON:' + String(response));
-            woError.showItParams('GetUserTree: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserTree: wrong JSON:' + String(response));
             return;
         }
 
@@ -1627,7 +1628,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserTree: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('GetUserTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1650,7 +1651,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserTreeState error:' + error.errorID);
-            woError.showItParams('updateUserTreeState error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTreeState error:' + error.errorID);
         }
     }
 
@@ -1661,7 +1662,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserTreeState: wrong JSON:' + String(response));
-            woError.showItParams('updateUserTreeState: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTreeState: wrong JSON:' + String(response));
             return;
         }
 
@@ -1672,7 +1673,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserTreeState: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateUserTreeState: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTreeState: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1695,7 +1696,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('deleteUserTree error:' + error.errorID);
-            woError.showItParams('deleteUserTree error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserTree error:' + error.errorID);
         }
     }
 
@@ -1706,7 +1707,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('deleteUserTree: wrong JSON:' + String(response));
-            woError.showItParams('deleteUserTree: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserTree: wrong JSON:' + String(response));
             return;
         }
 
@@ -1717,7 +1718,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1740,7 +1741,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserAnimal error:' + error.errorID);
-            woError.showItParams('addUserAnimal error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserAnimal error:' + error.errorID);
         }
     }
 
@@ -1751,7 +1752,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserAnimal: wrong JSON:' + String(response));
-            woError.showItParams('addUserAnimal: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserAnimal: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1766,7 +1767,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addUserTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTree: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1791,7 +1792,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('rawUserAnimal error:' + error.errorID);
-            woError.showItParams('rawUserAnimal error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'rawUserAnimal error:' + error.errorID);
         }
     }
 
@@ -1802,7 +1803,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('rawUserAnimal: wrong JSON:' + String(response));
-            woError.showItParams('rawUserAnimal: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'rawUserAnimal: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1816,7 +1817,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('rawUserTree: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('rawUserTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'rawUserTree: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1840,7 +1841,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserAnimal error:' + error.errorID);
-            woError.showItParams('GetUserAnimal error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserAnimal error:' + error.errorID);
         }
     }
 
@@ -1851,7 +1852,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserAnimal: wrong JSON:' + String(response));
-            woError.showItParams('GetUserAnimal: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserAnimal: wrong JSON:' + String(response));
             return;
         }
 
@@ -1874,7 +1875,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserAnimal: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('GetUserAnimal: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1896,7 +1897,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('craftUserAnimal error:' + error.errorID);
-            woError.showItParams('craftUserAnimal error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserAnimal error:' + error.errorID);
         }
     }
 
@@ -1907,7 +1908,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('craftUserAnimal: wrong JSON:' + String(response));
-            woError.showItParams('craftUserAnimal: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserAnimal: wrong JSON:' + String(response));
             return;
         }
 
@@ -1921,7 +1922,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('craftUserAnimal: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('craftUserAnimal: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -1942,7 +1943,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserTrain error:' + error.errorID);
-            woError.showItParams('addUserTrain error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTrain error:' + error.errorID);
         }
     }
 
@@ -1953,7 +1954,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserTrain: wrong JSON:' + String(response));
-            woError.showItParams('addUserTrain: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTrain: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [0]);
             }
@@ -1967,7 +1968,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserTrain: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addUserTrain: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTrain: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [0]);
             }
@@ -2007,7 +2008,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getUserTrain error:' + error.errorID);
-            woError.showItParams('getUserTrain error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserTrain error:' + error.errorID);
         }
     }
 
@@ -2018,7 +2019,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserTrain: wrong JSON:' + String(response));
-            woError.showItParams('GetUserTrain: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserTrain: wrong JSON:' + String(response));
         }
 
         if (d.id == 0) {
@@ -2026,7 +2027,7 @@ public class DirectServer {
             tr.fillFromServer(d.message);
         } else {
             Cc.error('GetUserTrain: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('GetUserTrain: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserTrain: id: ' + d.id + '  with message: ' + d.message);
         }
 
         if (callback != null) {
@@ -2053,7 +2054,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserTrainState error:' + error.errorID);
-            woError.showItParams('updateUserTrainState error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainState error:' + error.errorID);
         }
     }
 
@@ -2064,7 +2065,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserTrainState: wrong JSON:' + String(response));
-            woError.showItParams('updateUserTrainState: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainState: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -2078,7 +2079,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserTrainState: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateUserTrainState: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainState: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply();
             }
@@ -2102,7 +2103,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getTrainPack error:' + error.errorID);
-            woError.showItParams('getTrainPack error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getTrainPack error:' + error.errorID);
         }
     }
 
@@ -2113,7 +2114,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getTrainPack: wrong JSON:' + String(response));
-            woError.showItParams('getTrainPack: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getTrainPack: wrong JSON:' + String(response));
             return;
         }
 
@@ -2125,7 +2126,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('getTrainPack: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getTrainPack: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getTrainPack: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2147,7 +2148,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('releaseUserTrainPack error:' + error.errorID);
-            woError.showItParams('releaseUserTrainPack error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'releaseUserTrainPack error:' + error.errorID);
         }
     }
 
@@ -2158,7 +2159,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('releaseUserTrainPack: wrong JSON:' + String(response));
-            woError.showItParams('releaseUserTrainPack: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'releaseUserTrainPack: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -2172,7 +2173,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('releaseUserTrainPack: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('releaseUserTrainPack: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'releaseUserTrainPack: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply();
             }
@@ -2197,7 +2198,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserTrainPackItems error:' + error.errorID);
-            woError.showItParams('updateUserTrainPackItems error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainPackItems error:' + error.errorID);
         }
     }
 
@@ -2208,7 +2209,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserTrainPackItems: wrong JSON:' + String(response));
-            woError.showItParams('updateUserTrainPackItems: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainPackItems: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -2222,7 +2223,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserTrainPackItems: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateUserTrainPackItems: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainPackItems: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply();
             }
@@ -2246,7 +2247,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('deleteUser error:' + error.errorID);
-            woError.showItParams('deleteUser error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUser error:' + error.errorID);
         }
     }
 
@@ -2280,7 +2281,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserMarketItem error:' + error.errorID);
-            woError.showItParams('addUserMarketItem error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserMarketItem error:' + error.errorID);
         }
     }
 
@@ -2291,7 +2292,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserMarketItem: wrong JSON:' + String(response));
-            woError.showItParams('addUserMarketItem: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserMarketItem: wrong JSON:' + String(response));
             return;
         }
 
@@ -2303,7 +2304,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('addUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2325,7 +2326,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getUserMarketItem error:' + error.errorID);
-            woError.showItParams('getUserMarketItem error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserMarketItem error:' + error.errorID);
         }
     }
 
@@ -2336,7 +2337,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getUserMarketItem: wrong JSON:' + String(response));
-            woError.showItParams('getUserMarketItem: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserMarketItem: wrong JSON:' + String(response));
             return;
         }
 
@@ -2349,7 +2350,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('getUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2371,7 +2372,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('buyFromMarket error:' + error.errorID);
-            woError.showItParams('buyFromMarket error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyFromMarket error:' + error.errorID);
         }
     }
 
@@ -2382,7 +2383,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('buyFromMarket: wrong JSON:' + String(response));
-            woError.showItParams('buyFromMarket: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyFromMarket: wrong JSON:' + String(response));
             return;
         }
 
@@ -2394,7 +2395,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('buyFromMarket: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('buyFromMarket: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyFromMarket: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2416,7 +2417,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('deleteUserMarketItem error:' + error.errorID);
-            woError.showItParams('deleteUserMarketItem error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserMarketItem error:' + error.errorID);
         }
     }
 
@@ -2427,7 +2428,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('deleteUserMarketItem: wrong JSON:' + String(response));
-            woError.showItParams('deleteUserMarketItem: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserMarketItem: wrong JSON:' + String(response));
             return;
         }
 
@@ -2439,7 +2440,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('deleteUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('deleteUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2463,7 +2464,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserBuildPosition error:' + error.errorID);
-            woError.showItParams('updateUserBuildPosition error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserBuildPosition error:' + error.errorID);
         }
     }
 
@@ -2474,7 +2475,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserBuildPosition: wrong JSON:' + String(response));
-            woError.showItParams('updateUserBuildPosition: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserBuildPosition: wrong JSON:' + String(response));
             return;
         }
 
@@ -2485,7 +2486,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2506,7 +2507,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getPaperItems error:' + error.errorID);
-            woError.showItParams('getPaperItems error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getPaperItems error:' + error.errorID);
         }
     }
 
@@ -2517,7 +2518,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getPaperItems: wrong JSON:' + String(response));
-            woError.showItParams('getPaperItems: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getPaperItems: wrong JSON:' + String(response));
             return;
         }
 
@@ -2529,7 +2530,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getPaperItems: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getPaperItems: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getPaperItems: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2553,7 +2554,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserAmbar error:' + error.errorID);
-            woError.showItParams('updateUserAmbar error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar error:' + error.errorID);
         }
     }
 
@@ -2564,7 +2565,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserAmbar: wrong JSON:' + String(response));
-            woError.showItParams('updateUserAmbar: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: wrong JSON:' + String(response));
             return;
         }
 
@@ -2575,7 +2576,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2595,7 +2596,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataLockedLand error:' + error.errorID);
-            woError.showItParams('getDataLockedLand error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataLockedLand error:' + error.errorID);
         }
     }
 
@@ -2606,7 +2607,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataLockedLand: wrong JSON:' + String(response));
-            woError.showItParams('getDataLockedLand: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataLockedLand: wrong JSON:' + String(response));
             return;
         }
 
@@ -2630,7 +2631,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataLockedLand: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getDataLockedLand: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataLockedLand: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2650,7 +2651,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('removeUserLockedLand error:' + error.errorID);
-            woError.showItParams('removeUserLockedLand error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'removeUserLockedLand error:' + error.errorID);
         }
     }
 
@@ -2661,7 +2662,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('removeUserLockedLand: wrong JSON:' + String(response));
-            woError.showItParams('removeUserLockedLand: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'removeUserLockedLand: wrong JSON:' + String(response));
             return;
         }
 
@@ -2672,7 +2673,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2692,7 +2693,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addToInventory error:' + error.errorID);
-            woError.showItParams('addToInventory error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addToInventory error:' + error.errorID);
         }
     }
 
@@ -2703,7 +2704,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addToInventory: wrong JSON:' + String(response));
-            woError.showItParams('addToInventory: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addToInventory: wrong JSON:' + String(response));
             return;
         }
 
@@ -2714,7 +2715,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addToInventory: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addToInventory: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addToInventory: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2736,7 +2737,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('removeFromInventory error:' + error.errorID);
-            woError.showItParams('removeFromInventory error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'removeFromInventory error:' + error.errorID);
         }
     }
 
@@ -2747,7 +2748,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('removeFromInventory: wrong JSON:' + String(response));
-            woError.showItParams('removeFromInventory: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'removeFromInventory: wrong JSON:' + String(response));
             return;
         }
 
@@ -2758,7 +2759,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('removeFromInventory: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('removeFromInventory: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'removeFromInventory: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2779,7 +2780,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getUserMarketItem error:' + error.errorID);
-            woError.showItParams('getUserMarketItem error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserMarketItem error:' + error.errorID);
         }
     }
 
@@ -2790,7 +2791,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getUserNeighborMarket: wrong JSON:' + String(response));
-            woError.showItParams('getUserNeighborMarket: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserNeighborMarket: wrong JSON:' + String(response));
             return;
         }
 
@@ -2803,7 +2804,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('getUserNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getUserNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2825,7 +2826,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('buyFromNeighborMarket error:' + error.errorID);
-            woError.showItParams('buyFromNeighborMarket error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyFromNeighborMarket error:' + error.errorID);
         }
     }
 
@@ -2836,7 +2837,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('buyFromNeighborMarket: wrong JSON:' + String(response));
-            woError.showItParams('buyFromNeighborMarket: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyFromNeighborMarket: wrong JSON:' + String(response));
             return;
         }
 
@@ -2848,7 +2849,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2869,7 +2870,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getAllCityData error:' + error.errorID);
-            woError.showItParams('getAllCityData error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllCityData error:' + error.errorID);
         }
     }
 
@@ -2881,7 +2882,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getAllCityData: wrong JSON:' + String(response));
-            woError.showItParams('getAllCityData: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllCityData: wrong JSON:' + String(response));
             return;
         }
 
@@ -2953,7 +2954,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('getAllCityData: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getAllCityData: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllCityData: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -2974,7 +2975,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('buyFromHeroCat error:' + error.errorID);
-            woError.showItParams('buyHeroCat error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyHeroCat error:' + error.errorID);
         }
     }
 
@@ -2985,7 +2986,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('buyHeroCat: wrong JSON:' + String(response));
-            woError.showItParams('buyHeroCat: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyHeroCat: wrong JSON:' + String(response));
             return;
         }
 
@@ -2997,7 +2998,7 @@ public class DirectServer {
             return;
         } else {
             Cc.error('buyHeroCat: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('buyHeroCat: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyHeroCat: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3021,7 +3022,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('ME_addWild error:' + error.errorID);
-            woError.showItParams('ME_addWild error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_addWild error:' + error.errorID);
         }
     }
 
@@ -3032,7 +3033,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('ME_addWild: wrong JSON:' + String(response));
-            woError.showItParams('ME_addWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_addWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3047,7 +3048,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('ME_addWild: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('ME_addWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_addWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3072,7 +3073,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('ME_removeWild error:' + error.errorID);
-            woError.showItParams('ME_removeWild error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_removeWild error:' + error.errorID);
         }
     }
 
@@ -3083,7 +3084,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('ME_removeWild: wrong JSON:' + String(response));
-            woError.showItParams('ME_removeWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_removeWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3097,7 +3098,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('ME_removeWild: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('ME_removeWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_removeWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3124,7 +3125,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('ME_moveWild error:' + error.errorID);
-            woError.showItParams('ME_moveWild error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_moveWild error:' + error.errorID);
         }
     }
 
@@ -3135,7 +3136,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('ME_moveWild: wrong JSON:' + String(response));
-            woError.showItParams('ME_moveWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_moveWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3149,7 +3150,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('ME_moveWild: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('ME_moveWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_moveWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3175,7 +3176,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('ME_flipWild error:' + error.errorID);
-            woError.showItParams('ME_flipWild error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_flipWild error:' + error.errorID);
         }
     }
 
@@ -3186,7 +3187,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('ME_flipWild: wrong JSON:' + String(response));
-            woError.showItParams('ME_flipWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_flipWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3200,7 +3201,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('ME_flipWild: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('ME_flipWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_flipWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3224,7 +3225,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserWild error:' + error.errorID);
-            woError.showItParams('GetUserWild error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserWild error:' + error.errorID);
         }
     }
 
@@ -3266,7 +3267,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserWild: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('GetUserWild: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserWild: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3289,7 +3290,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('userBuildingFlip error:' + error.errorID);
-            woError.showItParams('userBuildingFlip error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip error:' + error.errorID);
         }
     }
 
@@ -3300,7 +3301,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('userBuildingFlip: wrong JSON:' + String(response));
-            woError.showItParams('userBuildingFlip: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3314,7 +3315,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('userBuildingFlip: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('userBuildingFlip: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3339,7 +3340,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('deleteUserWild error:' + error.errorID);
-            woError.showItParams('deleteUserWild error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserWild error:' + error.errorID);
         }
     }
 
@@ -3350,7 +3351,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('deleteUserWildp: wrong JSON:' + String(response));
-            woError.showItParams('deleteUserWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3364,7 +3365,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('deleteUserWild: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('deleteUserWild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserWild: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3391,7 +3392,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('ME_moveMapBuilding error:' + error.errorID);
-            woError.showItParams('ME_moveMapBuilding error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_moveMapBuilding error:' + error.errorID);
         }
     }
 
@@ -3402,7 +3403,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('ME_moveMapBuilding: wrong JSON:' + String(response));
-            woError.showItParams('ME_moveMapBuilding: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_moveMapBuilding: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3416,7 +3417,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('ME_moveMapBuilding: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('ME_moveMapBuilding: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_moveMapBuilding: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -3441,7 +3442,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('saveUserGameScale error:' + error.errorID);
-            woError.showItParams('saveUserGameScale error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'saveUserGameScale error:' + error.errorID);
         }
     }
 
@@ -3452,7 +3453,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('saveUserGameScale: wrong JSON:' + String(response));
-            woError.showItParams('saveUserGameScale: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'saveUserGameScale: wrong JSON:' + String(response));
             return;
         }
 
@@ -3463,7 +3464,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('saveUserGameScale: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('saveUserGameScale: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'saveUserGameScale: wrong JSON:' + String(response));
         }
     }
 
@@ -3486,7 +3487,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('buyNewCellOnFabrica error:' + error.errorID);
-            woError.showItParams('buyNewCellOnFabrica error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyNewCellOnFabrica error:' + error.errorID);
         }
     }
 
@@ -3497,7 +3498,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('buyNewCellOnFabrica: wrong JSON:' + String(response));
-            woError.showItParams('buyNewCellOnFabrica: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyNewCellOnFabrica: wrong JSON:' + String(response));
             return;
         }
 
@@ -3508,7 +3509,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3532,7 +3533,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('skipRecipeOnFabrica error:' + error.errorID);
-            woError.showItParams('skipRecipeOnFabrica error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipRecipeOnFabrica error:' + error.errorID);
         }
     }
 
@@ -3543,7 +3544,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('skipRecipeOnFabrica: wrong JSON:' + String(response));
-            woError.showItParams('skipRecipeOnFabrica: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipRecipeOnFabrica: wrong JSON:' + String(response));
             return;
         }
 
@@ -3554,7 +3555,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3578,7 +3579,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('skipTimeOnRidge error:' + error.errorID);
-            woError.showItParams('skipTimeOnRidge error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnRidge error:' + error.errorID);
         }
     }
 
@@ -3589,7 +3590,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('skipTimeOnRidge: wrong JSON:' + String(response));
-            woError.showItParams('skipTimeOnRidge: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnRidge: wrong JSON:' + String(response));
             return;
         }
 
@@ -3600,7 +3601,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('skipTimeOnRidge: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('skipTimeOnRidge: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnRidge: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3623,7 +3624,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('skipTimeOnTree error:' + error.errorID);
-            woError.showItParams('skipTimeOnTree error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnTree error:' + error.errorID);
         }
     }
 
@@ -3634,7 +3635,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('skipTimeOnTree: wrong JSON:' + String(response));
-            woError.showItParams('skipTimeOnTree: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnTree: wrong JSON:' + String(response));
             return;
         }
 
@@ -3645,7 +3646,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('skipTimeOnTree: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('skipTimeOnTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3668,7 +3669,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('skipTimeOnAnimal error:' + error.errorID);
-            woError.showItParams('skipTimeOnAnimal error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnAnimal error:' + error.errorID);
         }
     }
 
@@ -3679,7 +3680,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('skipTimeOnAnimal: wrong JSON:' + String(response));
-            woError.showItParams('skipTimeOnAnimal: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnAnimal: wrong JSON:' + String(response));
             return;
         }
 
@@ -3690,7 +3691,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('skipTimeOnAnimal: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('skipTimeOnAnimal: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3714,7 +3715,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('skipTimeOnFabricBuild error:' + error.errorID);
-            woError.showItParams('skipTimeOnFabricBuild error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnFabricBuild error:' + error.errorID);
         }
     }
 
@@ -3725,7 +3726,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('skipTimeOnFabricBuild: wrong JSON:' + String(response));
-            woError.showItParams('skipTimeOnFabricBuild: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnFabricBuild: wrong JSON:' + String(response));
             return;
         }
 
@@ -3736,7 +3737,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('skipTimeOnFabricBuild: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('skipTimeOnFabricBuild: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnFabricBuild: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3764,7 +3765,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserOrder error:' + error.errorID);
-            woError.showItParams('addUserOrder error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserOrder error:' + error.errorID);
         }
     }
 
@@ -3775,7 +3776,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserOrder: wrong JSON:' + String(response));
-            woError.showItParams('addUserOrder: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserOrder: wrong JSON:' + String(response));
             return;
         }
 
@@ -3787,7 +3788,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('addUserOrder: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('addUserOrder: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserOrder: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3808,7 +3809,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserOrder error:' + error.errorID);
-            woError.showItParams('GetUserOrder error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserOrder error:' + error.errorID);
         }
     }
 
@@ -3819,7 +3820,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserOrder: wrong JSON:' + String(response));
-            woError.showItParams('GetUserOrder: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserOrder: wrong JSON:' + String(response));
             return;
         }
 
@@ -3833,7 +3834,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('GetUserFOrder: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('GetUserOrder: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserOrder: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3855,7 +3856,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('deleteUserOrder error:' + error.errorID);
-            woError.showItParams('GetUserOrder error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserOrder error:' + error.errorID);
         }
     }
 
@@ -3866,7 +3867,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('deleteUserOrder: wrong JSON:' + String(response));
-            woError.showItParams('deleteUserOrder: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserOrder: wrong JSON:' + String(response));
             return;
         }
 
@@ -3877,7 +3878,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('deleteUserOrder: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('deleteUserOrder: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserOrder: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3900,7 +3901,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('askWateringUserTree error:' + error.errorID);
-            woError.showItParams('askWateringUserTree error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'askWateringUserTree error:' + error.errorID);
         }
     }
 
@@ -3911,7 +3912,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('askWateringUserTree: wrong JSON:' + String(response));
-            woError.showItParams('askWateringUserTree: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'askWateringUserTree: wrong JSON:' + String(response));
             return;
         }
 
@@ -3922,7 +3923,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('askWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('askWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'askWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3946,7 +3947,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('MakeWateringUserTree error:' + error.errorID);
-            woError.showItParams('MakeWateringUserTree error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'MakeWateringUserTree error:' + error.errorID);
         }
     }
 
@@ -3957,7 +3958,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('makeWateringUserTree: wrong JSON:' + String(response));
-            woError.showItParams('makeWateringUserTree: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'makeWateringUserTree: wrong JSON:' + String(response));
             return;
         }
 
@@ -3968,7 +3969,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('makeWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('makeWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'makeWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -3990,7 +3991,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('skipOrderTimer error:' + error.errorID);
-            woError.showItParams('skipOrderTimer error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipOrderTimer error:' + error.errorID);
         }
     }
 
@@ -4001,7 +4002,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('skipOrderTimer: wrong JSON:' + String(response));
-            woError.showItParams('addUserOrder: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserOrder: wrong JSON:' + String(response));
             return;
         }
 
@@ -4012,7 +4013,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('skipOrderTimer: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('skipOrderTimer: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipOrderTimer: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -4035,7 +4036,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('craftUserTree error:' + error.errorID);
-            woError.showItParams('craftUserTree error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserTree error:' + error.errorID);
         }
     }
 
@@ -4046,7 +4047,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('craftUserTree: wrong JSON:' + String(response));
-            woError.showItParams('craftUserTree: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserTree: wrong JSON:' + String(response));
             return;
         }
 
@@ -4057,7 +4058,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('craftUserTree: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('craftUserTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -4079,7 +4080,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('useDailyBonus error:' + error.errorID);
-            woError.showItParams('useDailyBonus error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useDailyBonus error:' + error.errorID);
         }
     }
 
@@ -4090,7 +4091,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('useDailyBonus: wrong JSON:' + String(response));
-            woError.showItParams('useDailyBonus: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useDailyBonus: wrong JSON:' + String(response));
             return;
         }
 
@@ -4101,7 +4102,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('useDailyBonus: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('useDailyBonus: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useDailyBonus: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -4126,7 +4127,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('buyAndAddToInventory error:' + error.errorID);
-            woError.showItParams('buyAndAddToInventory error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyAndAddToInventory error:' + error.errorID);
         }
     }
 
@@ -4137,7 +4138,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('buyAndAddToInventory: wrong JSON:' + String(response));
-            woError.showItParams('buyAndAddToInventory: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyAndAddToInventory: wrong JSON:' + String(response));
             return;
         }
 
@@ -4148,7 +4149,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('buyAndAddToInventory: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('buyAndAddToInventory: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyAndAddToInventory: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -4171,7 +4172,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('ME_addOutGameTile error:' + error.errorID);
-            woError.showItParams('ME_addOutGameTile error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_addOutGameTile error:' + error.errorID);
         }
     }
 
@@ -4182,7 +4183,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('ME_addOutGameTile: wrong JSON:' + String(response));
-            woError.showItParams('ME_addOutGameTile: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_addOutGameTile: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -4196,7 +4197,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('ME_addOutGameTile: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('ME_addOutGameTile: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_addOutGameTile: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -4222,7 +4223,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('ME_deleteOutGameTile error:' + error.errorID);
-            woError.showItParams('ME_deleteOutGameTile error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_deleteOutGameTile error:' + error.errorID);
         }
     }
 
@@ -4233,7 +4234,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('ME_deleteOutGameTile: wrong JSON:' + String(response));
-            woError.showItParams('ME_deleteOutGameTile: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_deleteOutGameTile: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -4247,7 +4248,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('ME_deleteOutGameTile: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('ME_deleteOutGameTile: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'ME_deleteOutGameTile: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -4271,7 +4272,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataOutGameTile error:' + error.errorID);
-            woError.showItParams('getDataOutGameTile error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataOutGameTile error:' + error.errorID);
         }
     }
 
@@ -4282,7 +4283,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataOutGameTile: wrong JSON:' + String(response));
-            woError.showItParams('getDataOutGameTile: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataOutGameTile: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -4299,7 +4300,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataOutGameTile: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getDataOutGameTile: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataOutGameTile: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -4323,7 +4324,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateUserMarketCell error:' + error.errorID);
-            woError.showItParams('updateUserMarketCell error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMarketCell error:' + error.errorID);
         }
     }
 
@@ -4334,7 +4335,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateUserMarketCell: wrong JSON:' + String(response));
-            woError.showItParams('updateUserMarketCell: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMarketCell: wrong JSON:' + String(response));
             return;
         }
 
@@ -4345,7 +4346,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateUserMarketCell: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateUserMarketCell: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMarketCell: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -4365,7 +4366,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getFriendsMarketCell error:' + error.errorID);
-            woError.showItParams('getFriendsMarketCell error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsMarketCell error:' + error.errorID);
         }
     }
 
@@ -4376,7 +4377,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getFriendsMarketCell: wrong JSON:' + String(response));
-            woError.showItParams('getFriendsMarketCell: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsMarketCell: wrong JSON:' + String(response));
             return;
         }
 
@@ -4388,7 +4389,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('getFriendsMarketCell: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('getFriendsMarketCell: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsMarketCell: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -4411,7 +4412,7 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('updateMarketPapper error:' + error.errorID);
-            woError.showItParams('updateMarketPapper error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateMarketPapper error:' + error.errorID);
         }
     }
 
@@ -4422,7 +4423,7 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('updateMarketPapper: wrong JSON:' + String(response));
-            woError.showItParams('updateMarketPapper: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateMarketPapper: wrong JSON:' + String(response));
             return;
         }
 
@@ -4433,7 +4434,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('updateMarketPapper: id: ' + d.id + '  with message: ' + d.message);
-            woError.showItParams('updateMarketPapper: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateMarketPapper: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

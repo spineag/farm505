@@ -2,22 +2,15 @@
  * Created by user on 9/29/15.
  */
 package windows.serverError {
-import flash.events.Event;
-
 import manager.ManagerFilters;
-
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
 import windows.WOComponents.Birka;
-
 import windows.WOComponents.WindowBackground;
+import windows.WindowMain;
 
-import windows.Window;
-
-public class WOServerError extends Window{
+public class WOServerError extends WindowMain {
     private var _txtError:TextField;
     public function WOServerError() {
         super();
@@ -25,8 +18,8 @@ public class WOServerError extends Window{
         _woHeight = 280;
         var _woBG:WindowBackground = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
-        _callbackClickBG = onClickExit;
+        createExitButton(hideIt);
+        _callbackClickBG = hideIt;
         new Birka('Ошибка', _source, _woWidth, _woHeight);
         var txt:TextField = new TextField(340,100,'Произошла ошибка в игре. Если подобное происходит часто, сообщите в службу поддержки.',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -48,13 +41,9 @@ public class WOServerError extends Window{
         b.addChild(txt);
     }
 
-    public function showItParams(st:String):void {
-        _txtError.text = st;
+    override public function showItParams(callback:Function, params:Array):void {
+        _txtError.text = params[0];
         showIt();
-    }
-
-    public function onClickExit(e:Event=null):void {
-        hideIt();
     }
 }
 }

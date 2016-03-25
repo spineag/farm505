@@ -10,6 +10,7 @@ import windows.gameError.WOGameError;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
 import windows.reloadPage.WOReloadGame;
+import windows.serverError.WOServerError;
 
 public class WindowsManager {
     public static const WO_AMBAR:String = 'ambar_and_sklad'; // -
@@ -34,7 +35,7 @@ public class WindowsManager {
     public static const WO_ORDERS:String = 'orders'; // -
     public static const WO_PAPPER:String = 'papper'; // -
     public static const WO_RELOAD_GAME:String = 'reload_game';
-    public static const WO_SERVER_ERROR:String = 'server_error'; // -
+    public static const WO_SERVER_ERROR:String = 'server_error';
     public static const WO_SHOP:String = 'shop'; // -
     public static const WO_TRAIN:String = 'train'; // -
     public static const WO_BUY_TRAIN:String = 'buy_train'; // -
@@ -73,6 +74,9 @@ public class WindowsManager {
                 break;
             case WO_RELOAD_GAME:
                 wo = new WOReloadGame();
+                break;
+            case WO_SERVER_ERROR:
+                wo = new WOServerError();
                 break;
 
 
