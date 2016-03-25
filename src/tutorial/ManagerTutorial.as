@@ -182,9 +182,9 @@ public class ManagerTutorial {
         subStep = 2;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
-        g.optionPanel.makeFullScreen();
-        g.optionPanel.makeResizeForGame();
-        onResize();
+//        g.optionPanel.makeFullScreen();
+//        g.optionPanel.makeResizeForGame();
+//        onResize();
         g.user.tutorialStep = 2;
         updateTutorialStep();
         initScenes();
