@@ -30,6 +30,7 @@ import windows.WOComponents.HorizontalPlawka;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOShop extends Window{
     private var _contCoupone:Sprite;
@@ -288,7 +289,7 @@ public class WOShop extends Window{
         _contCoupone.addChild(btn);
         var f3:Function = function ():void {
             hideIt();
-            g.woBuyCoupone.showItWO();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
         };
         btn.clickCallback = f3;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone'));

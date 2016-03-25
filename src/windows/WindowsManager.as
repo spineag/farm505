@@ -4,6 +4,8 @@
 package windows {
 import com.junkbyte.console.Cc;
 
+import windows.buyCoupone.WOBuyCoupone;
+
 import windows.gameError.WOGameError;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
@@ -34,6 +36,8 @@ public class WindowsManager {
     public static const WO_SERVER_ERROR:String = 'server_error'; // -
     public static const WO_SHOP:String = 'shop'; // -
     public static const WO_TRAIN:String = 'train'; // -
+    public static const WO_BUY_TRAIN:String = 'buy_train'; // -
+
 
     private var _currentWindow:WindowMain;
 
@@ -59,6 +63,9 @@ public class WindowsManager {
                 break;
             case WO_WAIT_FREE_CATS:
                 wo = new WOWaitFreeCats();
+                break;
+            case WO_BUY_COUPONE:
+                wo = new WOBuyCoupone();
                 break;
 
 

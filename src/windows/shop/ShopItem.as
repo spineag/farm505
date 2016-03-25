@@ -542,31 +542,31 @@ public class ShopItem {
                         return;
                     }
                 } else if (_data.currency == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _countCost) {
-                    g.woBuyCoupone.showItWO();
+                    g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                     return;
                 } else if (_data.currency == DataMoney.RED_COUPONE && g.user.redCouponCount < _countCost) {
-                    g.woBuyCoupone.showItWO();
+                    g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                     return;
                 } else if (_data.currency == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _countCost) {
-                    g.woBuyCoupone.showItWO();
+                    g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                 } else if (_data.currency == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _countCost) {
-                    g.woBuyCoupone.showItWO();
+                    g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                     return;
                 }
             } else {
                 for (i = 0; i < _data.currency.length; i++) {
                     if (_data.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _data.cost[i]) {
-                        g.woBuyCoupone.showItWO();
+                        g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     } else if (_data.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < _data.cost[i]) {
-                        g.woBuyCoupone.showItWO();
+                        g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     } else if (_data.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _data.cost[i]) {
-                        g.woBuyCoupone.showItWO();
+                        g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     } else if (_data.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _data.cost[i]) {
-                        g.woBuyCoupone.showItWO();
+                        g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     }
                 }

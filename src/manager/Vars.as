@@ -194,7 +194,6 @@ public class Vars {
     public var woAmbars:WOAmbars;
     public var woShop:WOShop;
     public var woLevelUp:WOLevelUp;
-    public var woBuyCoupone:WOBuyCoupone;
     public var woNoResources:WONoResources;
     public var woNoPlaces:WONoPlaces;
     public var woBuyCurrency:WOBuyCurrency;
@@ -449,7 +448,6 @@ public class Vars {
         woAmbars = new WOAmbars();
         woShop = new WOShop();
         woLevelUp = new WOLevelUp();
-        woBuyCoupone = new WOBuyCoupone();
         woBuyCurrency = new WOBuyCurrency();
         woOrder = new WOOrder();
         woMarket = new WOMarket();

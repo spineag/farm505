@@ -4,6 +4,8 @@
 package windows.buyCoupone {
 import data.DataMoney;
 
+import flashx.textLayout.elements.TCYElement;
+
 import manager.ManagerFilters;
 
 import starling.display.Image;
@@ -16,8 +18,9 @@ import utils.CSprite;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowMain;
 
-public class WOBuyCoupone extends Window{
+public class WOBuyCoupone extends WindowMain{
     private var _Green:WOBuyCouponeItem;
     private var _Blue:WOBuyCouponeItem;
     private var _Red:WOBuyCouponeItem;
@@ -29,7 +32,8 @@ public class WOBuyCoupone extends Window{
         _woHeight = 330;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
+        createExitButton(hideIt);
+        _callbackClickBG = hideIt;
         var txt:TextField = new TextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары', g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -200;
@@ -37,13 +41,7 @@ public class WOBuyCoupone extends Window{
         _source.addChild(txt);
     }
 
-    public function showItWO():void {
-        if (_Green){
-            _Blue.hideIt();
-            _Yellow.hideIt();
-            _Red.hideIt();
-            _Green.hideIt();
-        }
+    override public function showItParams(callback:Function, params:Array):void {
         _Green = new WOBuyCouponeItem("green_coupone", g.user.greenCouponCount,15,DataMoney.GREEN_COUPONE);
         _Green.source.x = -215;
         _Green.source.y = -20;
@@ -63,13 +61,23 @@ public class WOBuyCoupone extends Window{
         showIt();
     }
 
-//    public function hideItWO():void {
-//        hideIt();
-//    }
-
-    private function onClickExit(e:Event=null):void {
-
-        hideIt();
+    override protected function deleteIt():void {
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _source.removeChild(_Green.source);
+        _source.removeChild(_Red.source);
+        _source.removeChild(_Blue.source);
+        _source.removeChild(_Yellow.source);
+        _Green.deleteIt();
+        _Blue.deleteIt();
+        _Yellow.deleteIt();
+        _Red.deleteIt();
+        _Green = null;
+        _Blue = null;
+        _Yellow = null;
+        _Red = null;
+        super.deleteIt();
     }
 }
 }

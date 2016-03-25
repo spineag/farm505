@@ -30,6 +30,7 @@ import windows.WindowsManager;
 
 public class WOBuyCouponeItem {
     public var source:Sprite;
+    private var _carton:CartonBackground;
     private var _cost:int;
     private var _count:int;
     private var _imageCoupone:Image;
@@ -40,23 +41,20 @@ public class WOBuyCouponeItem {
 
     public function WOBuyCouponeItem(imageCopone:String, txtItemCoupone:int, txtCostCoupone:int,type:int) {
         try {
-            var im:Image;
-            var txt:TextField;
             _type = type;
-            var carton:CartonBackground = new CartonBackground(100, 150);
+            _carton = new CartonBackground(100, 150);
             _cost = txtCostCoupone;
             _count = txtItemCoupone;
-            carton.filter = ManagerFilters.SHADOW_LIGHT;
+            _carton.filter = ManagerFilters.SHADOW_LIGHT;
             source = new Sprite();
-            source.addChild(carton);
+            source.addChild(_carton);
             _btn = new CButton();
             _btn.addButtonTexture(80, 50, CButton.GREEN, true);
-            txt = new TextField(50,50,'+' + String(_cost),g.allData.fonts['BloggerBold'],16,Color.WHITE);
+            var txt:TextField = new TextField(50,50,'+' + String(_cost),g.allData.fonts['BloggerBold'],16,Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             txt.x = 5;
-//            txt.y = 20;
             _btn.addChild(txt);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             MCScaler.scale(im,30,30);
             im.x = 45;
             im.y = 10;
@@ -86,8 +84,6 @@ public class WOBuyCouponeItem {
             return;
         }
         g.userInventory.addMoney(1, -_cost);
-
-//        g.userInventory.addMoney(_type,1);
         _count++;
         _txtCount.text = String(_count);
         var obj:Object;
@@ -97,10 +93,21 @@ public class WOBuyCouponeItem {
         p = _imageCoupone.localToGlobal(p);
         obj.id = _type;
         new DropItem(p.x, p.y, obj);
-        }
+    }
 
-    public function hideIt():void {
-        while (source.numChildren) source.removeChildAt(0);
+    public function deleteIt():void {
+        source.removeChild(_btn);
+        _btn.deleteIt();
+        _btn = null;
+        source.removeChild(_imageCoupone);
+        _imageCoupone.dispose();
+        _imageCoupone = null;
+        source.removeChild(_txtCount);
+        _txtCount.dispose();
+        _txtCount = null;
+        source.removeChild(_carton);
+        _carton.deleteIt();
+        _carton = null;
     }
 }
 }

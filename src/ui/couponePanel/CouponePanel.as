@@ -22,6 +22,8 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class CouponePanel {
     private var _source:CSprite;
     private var _contClipRect:Sprite;
@@ -149,7 +151,7 @@ public class CouponePanel {
             _contCoupone.visible = false;
         };
         g.starling.juggler.add(tween);
-        g.woBuyCoupone.showItWO();
+        g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
         g.hint.hideIt();
     }
 
