@@ -5,25 +5,15 @@ package windows.noFreeCats {
 import manager.ManagerFilters;
 
 import starling.display.Image;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
-import utils.MCScaler;
-
-import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
+import windows.WindowMain;
 
-import windows.Window;
+public class WOWaitFreeCats extends WindowMain{
 
-public class WOWaitFreeCats extends Window{
-
-    private var _contBtn:CButton;
-    private var _txtText:TextField;
-    private var _txtBtn:TextField;
+    private var _btn:CButton;
     private var _woBG:WindowBackground;
 
     public function WOWaitFreeCats() {
@@ -32,39 +22,45 @@ public class WOWaitFreeCats extends Window{
         _woHeight = 308;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
-        _txtText = new TextField(300,100,"НЕТ СВОБОДНЫХ КОТОВ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
-        _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtText.touchable = false;
-        _txtText.x = -150;
-        _txtText.y = -155;
-        var txt:TextField = new TextField(310,100,'Все коты сейчас заняты! Подождите окончания другого производства!',g.allData.fonts['BloggerBold'],14,Color.WHITE);
-        txt.x = -160;
+        createExitButton(hideIt);
+        var txt:TextField = new TextField(400,100,"НЕТ СВОБОДНЫХ КОТОВ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.touchable = false;
+        txt.x = -200;
+        txt.y = -155;
+        _source.addChild(txt);
+        txt = new TextField(400,100,'Все коты сейчас заняты! Подождите окончания другого производства!',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt.x = -200;
         txt.y = -120;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.touchable = false;
         _source.addChild(txt);
-        _contBtn = new CButton();
-        _contBtn.addButtonTexture(130,40,CButton.GREEN, true);
-        _contBtn.clickCallback = onClick;
-//        _contBtn.x =-_contBtn.width/2;
-        _contBtn.y = 100;
-        _source.addChild(_contBtn);
-        _txtBtn = new TextField(_contBtn.width,_contBtn.height,"ОК",g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN
-        _contBtn.addChild(_txtBtn);
+        _btn = new CButton();
+        _btn.addButtonTexture(130,40,CButton.GREEN, true);
+        _btn.clickCallback = hideIt;
+        _btn.y = 100;
+        _source.addChild(_btn);
+        txt = new TextField(130, 40, "ОК",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
         im.x = -70;
-        im.y = -70;
+        im.y = -62;
         _source.addChild(im);
-        _source.addChild(_txtText);
     }
 
-    private function onClickExit(e:Event=null):void {
-        hideIt();
+    override public function showItParams(callback:Function, params:Array):void {
+        showIt();
     }
 
-    private function onClick():void {
-        hideIt();
+    override protected function deleteIt():void {
+        _source.removeChild(_btn);
+        _btn.deleteIt();
+        _btn = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        super.deleteIt();
     }
 }
 }

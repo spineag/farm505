@@ -164,7 +164,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onClick():void {
-//        g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'qweqweqwe');
+//        g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
 //        return;
 
         if (g.managerTutorial.isTutorial) {
@@ -288,9 +288,9 @@ public class Fabrica extends AreaObject {
 
         if (!_arrList.length && !_heroCat) {
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                g.woWaitFreeCats.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
             } else {
-                g.woNoFreeCats.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
             }
             return;
         }

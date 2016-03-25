@@ -142,9 +142,9 @@ public class WOFabrica extends Window {
             if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
                 hideIt();
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                    g.woWaitFreeCats.showIt();
+                    g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
                 } else {
-                    g.woNoFreeCats.showIt();
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
                 }
                 return;
             }

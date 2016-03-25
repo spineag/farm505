@@ -130,9 +130,9 @@ public class WOBuyPlant extends Window {
         } else {
             hideIt();
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                g.woWaitFreeCats.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
             } else {
-                g.woNoFreeCats.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
             }
         }
     }

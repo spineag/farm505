@@ -210,8 +210,6 @@ public class Vars {
     public var woTrainSend:WOTrainSend;
     public var woLockedLand:WOLockedLand;
     public var windowsPool:Array;
-    public var woNoFreeCats:WONoFreeCats;
-    public var woWaitFreeCats:WOWaitFreeCats;
     public var woBuyForHardCurrency:WOBuyForHardCurrency;
     public var windowsManager:WindowsManager;
 
@@ -461,8 +459,6 @@ public class Vars {
         woTrainOrder = new WOTrainOrder();
         woTrainSend = new WOTrainSend();
         woLockedLand = new WOLockedLand();
-        woNoFreeCats = new WONoFreeCats();
-        woWaitFreeCats = new WOWaitFreeCats();
         woBuyForHardCurrency = new WOBuyForHardCurrency();
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();

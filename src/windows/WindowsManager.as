@@ -2,7 +2,11 @@
  * Created by user on 3/24/16.
  */
 package windows {
+import com.junkbyte.console.Cc;
+
 import windows.gameError.WOGameError;
+import windows.noFreeCats.WONoFreeCats;
+import windows.noFreeCats.WOWaitFreeCats;
 
 public class WindowsManager {
     public static const WO_AMBAR:String = 'ambar_and_sklad'; // -
@@ -20,8 +24,8 @@ public class WindowsManager {
     public static const WO_LEVEL_UP:String = 'level_up'; // -
     public static const WO_LOCKED_LAND:String = 'locked_land'; // -
     public static const WO_MARKET:String = 'market'; // -
-    public static const WO_NO_FREE_CATS:String = 'no_free_cats'; // -
-    public static const WO_WAIT_FREE_CATS:String = 'wait_free_cats'; // -
+    public static const WO_NO_FREE_CATS:String = 'no_free_cats';
+    public static const WO_WAIT_FREE_CATS:String = 'wait_free_cats';
     public static const WO_NO_PLACES:String = 'no_places'; // -
     public static const WO_NO_RESOURCES:String = 'no_resources'; // -
     public static const WO_ORDERS:String = 'orders'; // -
@@ -49,6 +53,17 @@ public class WindowsManager {
         switch (type) {
             case WO_GAME_ERROR:
                 wo = new WOGameError();
+                break;
+            case WO_NO_FREE_CATS:
+                wo = new WONoFreeCats();
+                break;
+            case WO_WAIT_FREE_CATS:
+                wo = new WOWaitFreeCats();
+                break;
+
+
+            default:
+                Cc.error('WindowsManager:: unknown window type: ' + type);
                 break;
         }
 
