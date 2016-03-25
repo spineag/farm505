@@ -51,13 +51,12 @@ public class WONoPlaces extends Window{
         _contBtn.clickCallback = onClick;
         _txtName = new TextField(300,30,"НЕДОСТАТОЧНО МЕСТА!",g.allData.fonts['BloggerBold'],22,Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtName.x = -100;
-        _txtName.y = -190;
+        _txtName.x = -150;
+        _txtName.y = -150;
         _source.addChild(_txtName);
-        _txtText = new TextField(300,100,"У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        _txtText = new TextField(350,70,"",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtText.x = -150;
-        _txtText.y = -150;
+
         _source.addChild(_txtText);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
@@ -77,8 +76,6 @@ public class WONoPlaces extends Window{
         _source.addChild(im);
         _txtAdd = new TextField(100,100,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtAdd.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtAdd.x = -47;
-        _txtAdd.y = -50;
         _source.addChild(_txtAdd);
         _last = false;
     }
@@ -108,11 +105,11 @@ public class WONoPlaces extends Window{
             _last = true;
             _cost = cost;
             _txtCost.text = String(cost);
-            _txtAdd.x = -47;
-            _txtAdd.y = -50;
             _txtAdd.text = 'ускорить';
             _txtAdd.x = -47;
-            _txtAdd.y = -80;
+            _txtAdd.y = -15;
+            _txtText.x = -175;
+            _txtText.y = -130;
         } else {
             _txtText.text = 'У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.';
             _contBtn.visible = true;
@@ -120,6 +117,8 @@ public class WONoPlaces extends Window{
             _txtAdd.x = -47;
             _txtAdd.y = -50;
             _txtAdd.text = 'Добавить ячейку';
+            _txtText.x = -170;
+            _txtText.y = -115;
         }
 
         showIt();

@@ -12,7 +12,11 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Color;
 import starling.utils.HAlign;
+
+import utils.CSprite;
+
 
 import utils.DrawToBitmap;
 
@@ -24,9 +28,9 @@ public class WOPaperPage {
 
     public var source:Sprite;
     private var _arrItems:Array;
-    private var _bg:Sprite;
+    private var _bg:CSprite;
     private var _side:String;
-
+    private var _quad:Quad;
     private var g:Vars = Vars.getInstance();
 
     public function WOPaperPage(numberPage:int, maxNumberPage:int, side:String) {
@@ -37,7 +41,7 @@ public class WOPaperPage {
     }
 
     private function createBG(n:int, nMax:int):void {
-        _bg = new Sprite();
+        _bg = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_p1'));
         im.touchable = false;
         if (_side == RIGHT_SIDE) {
@@ -45,6 +49,9 @@ public class WOPaperPage {
             im.x = im.width;
         }
         _bg.addChild(im);
+        _quad = new Quad(im.width, im.height,Color.WHITE ,false);
+        _quad.alpha = 0;
+        source.addChild(_quad);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_cat'));
         MCScaler.scale(im, 30, 30);
         im.rotation = Math.PI/2;
@@ -55,7 +62,7 @@ public class WOPaperPage {
         q.x = 70;
         q.y = 38;
         _bg.addChild(q);
-        var txt:TextField = new TextField(300, 100, "НьюсМяу", g.allData.fonts['BloggerBold'], 26, ManagerFilters.TEXT_BROWN);
+        var txt:TextField = new TextField(300, 100, "НьюсМяу", g.allData.fonts['BloggerBold'], 26, ManagerFilters.TEXT_MAX_BLUE);
         txt.hAlign = HAlign.LEFT;
         txt.x = 66;
         txt.y = -23;
@@ -66,6 +73,7 @@ public class WOPaperPage {
         _bg.addChild(txt);
         _bg.flatten();
         source.addChild(_bg);
+
     }
 
     private function createItems():void {
