@@ -101,7 +101,7 @@ import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPaper;
-import windows.reloadPage.WOReloadPage;
+import windows.reloadPage.WOReloadGame;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
 import windows.train.WOTrainOrder;
@@ -473,7 +473,7 @@ public class Vars {
                 directServer.deleteUser(f2);
             };
             var f2:Function = function():void {
-                new WOReloadPage();
+                windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
             };
             Cc.addSlashCommand("deleteUser", f1);
         }

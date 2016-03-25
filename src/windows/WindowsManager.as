@@ -5,12 +5,11 @@ package windows {
 import com.junkbyte.console.Cc;
 
 import windows.ambarFilled.WOAmbarFilled;
-
 import windows.buyCoupone.WOBuyCoupone;
-
 import windows.gameError.WOGameError;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
+import windows.reloadPage.WOReloadGame;
 
 public class WindowsManager {
     public static const WO_AMBAR:String = 'ambar_and_sklad'; // -
@@ -34,7 +33,7 @@ public class WindowsManager {
     public static const WO_NO_RESOURCES:String = 'no_resources'; // -
     public static const WO_ORDERS:String = 'orders'; // -
     public static const WO_PAPPER:String = 'papper'; // -
-    public static const WO_RELOAD_GAME:String = 'reload_game'; // -
+    public static const WO_RELOAD_GAME:String = 'reload_game';
     public static const WO_SERVER_ERROR:String = 'server_error'; // -
     public static const WO_SHOP:String = 'shop'; // -
     public static const WO_TRAIN:String = 'train'; // -
@@ -71,6 +70,9 @@ public class WindowsManager {
                 break;
             case WO_AMBAR_FILLED:
                 wo = new WOAmbarFilled();
+                break;
+            case WO_RELOAD_GAME:
+                wo = new WOReloadGame();
                 break;
 
 
