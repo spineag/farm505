@@ -27,7 +27,7 @@ import starling.utils.Color;
 import windows.WindowsManager;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = false;
+    private const TUTORIAL_ON:Boolean = true;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
