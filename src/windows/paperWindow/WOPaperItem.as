@@ -125,7 +125,7 @@ public class WOPaperItem {
         source.addChild(_txtUserName);
 
         source.visible = false;
-        source.endClickCallback = onClickVisit;
+//        source.endClickCallback = onClickVisit;
     }
 
     public function updateAvatar():void {

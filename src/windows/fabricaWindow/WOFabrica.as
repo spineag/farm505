@@ -130,7 +130,6 @@ public class WOFabrica extends Window {
         if (!lastRes) {
             if (_list.isFull) {
                 var price:int = _list.priceForNewCell;
-                hideIt();
                 if (_fabrica.dataBuild.countCell >= 9) {
                     g.woNoPlaces.showItWithParams(_list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, onBuyNewCellFromWO, hideIt, true);
                     return;

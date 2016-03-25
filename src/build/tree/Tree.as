@@ -338,52 +338,52 @@ public class Tree extends AreaObject {
 
         switch (_state) {
             case GROW1:
-                armature.animation.gotoAndPlay('over');
+                armature.animation.gotoAndPlay('over_s');
                 break;
             case GROW_FLOWER1:
-                armature.animation.gotoAndPlay('over_2');
+                armature.animation.gotoAndPlay('over__sfl');
                 break;
             case GROWED1:
-                armature.animation.gotoAndPlay('over_3');
+                armature.animation.gotoAndPlay('over_sfr');
                 break;
             case GROW2:
-                armature.animation.gotoAndPlay('over_d2_1');
+                armature.animation.gotoAndPlay('over_m');
                 break;
             case GROW_FLOWER2:
-                armature.animation.gotoAndPlay('over_d2_2');
+                armature.animation.gotoAndPlay('over_mfl');
                 break;
             case GROWED2:
-                armature.animation.gotoAndPlay('over_d2_3');
+                armature.animation.gotoAndPlay('over_mfr');
                 break;
             case GROW3:
-                armature.animation.gotoAndPlay('over_d3');
+                armature.animation.gotoAndPlay('over_b');
                 break;
             case GROW_FLOWER3:
-                armature.animation.gotoAndPlay('over_d3_2');
+                armature.animation.gotoAndPlay('over_bfl');
                 break;
             case GROWED3:
-                armature.animation.gotoAndPlay('over_3_3');
+                armature.animation.gotoAndPlay('over_bfr');
                 break;
             case DEAD:
-                armature.animation.gotoAndPlay('over_4');
+                armature.animation.gotoAndPlay('over_d');
                 break;
             case FULL_DEAD:
-                armature.animation.gotoAndPlay('over_4');
+                armature.animation.gotoAndPlay('over_d');
                 break;
             case ASK_FIX:
-                armature.animation.gotoAndPlay('over_4');
+                armature.animation.gotoAndPlay('over_d');
                 break;
             case FIXED:
-                armature.animation.gotoAndPlay('over_4');
+                armature.animation.gotoAndPlay('over_d');
                 break;
             case GROW_FIXED:
-                armature.animation.gotoAndPlay('over_d3');
+                armature.animation.gotoAndPlay('over_b');
                 break;
             case GROW_FIXED_FLOWER:
-                armature.animation.gotoAndPlay('over_d3_2');
+                armature.animation.gotoAndPlay('over_bfl');
                 break;
             case GROWED_FIXED:
-                armature.animation.gotoAndPlay('over_3_3');
+                armature.animation.gotoAndPlay('over_bfr');
                 break;
             default:
                 Cc.error('tree state is WRONG');

@@ -71,6 +71,7 @@ public class WOMarket  extends Window {
     private var _shiftFriend:int = 0;
     private var _shift:int;
     private var _countPage:int;
+    private var _countAllPage:int;
     private var _timer:int;
     private var _panelBool:Boolean;
     private var _booleanPaper:Boolean;
@@ -132,9 +133,9 @@ public class WOMarket  extends Window {
         _leftBtn = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
         _leftBtn.addChild(im);
-        MCScaler.scale(_leftBtn, 50, 50);
-        _leftBtn.x = -268;
-        _leftBtn.y = 155;
+        MCScaler.scale(_leftBtn, 40, 40);
+        _leftBtn.x = -274;
+        _leftBtn.y = 158;
         _source.addChild(_leftBtn);
         _leftBtn.endClickCallback = onLeft;
         _leftBtn.hoverCallback = function():void { if (_leftBtn.filter == null)_leftBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER; };
@@ -145,23 +146,22 @@ public class WOMarket  extends Window {
         im.scaleX = -1;
         im.x = im.width;
         _rightBtn.addChild(im);
-        MCScaler.scale(_rightBtn, 50, 50);
-        _rightBtn.x = -208;
-        _rightBtn.y = 155;
+        MCScaler.scale(_rightBtn, 40, 40);
+        _rightBtn.x = -200;
+        _rightBtn.y = 158;
         _source.addChild(_rightBtn);
         _rightBtn.endClickCallback = onRight;
         _rightBtn.hoverCallback = function():void { if (_rightBtn.filter == null) _rightBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER; };
         _rightBtn.outCallback = function():void { if (_rightBtn.filter == ManagerFilters.BUILDING_HOVER_FILTER) _rightBtn.filter = null; };
-
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
-        MCScaler.scale(im,25,34);
-        im.x = -245;
-        im.y = 170;
+        MCScaler.scale(im,35,44);
+        im.x = -250;
+        im.y = 165;
         _source.addChild(im);
         _txtNumberPage = new TextField(50, 50, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtNumberPage.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN_BIG;
         _txtNumberPage.x = -253;
-        _txtNumberPage.y = 155;
+        _txtNumberPage.y = 153;
         _source.addChild(_txtNumberPage);
 
 //        var bg:CartonBackgroundIn = new CartonBackgroundIn(54, 36);
@@ -321,14 +321,19 @@ public class WOMarket  extends Window {
             else  item = new MarketItem(i,false);
             if (i+1 <= 8) {
              item.source.x = 125*(_arrItems.length%4) - 300;
+                _countAllPage = 1;
             } else  if (i+1 <= 16) {
                 item.source.x = 125*(_arrItems.length%4)+200;
+                _countAllPage = 2;
             } else if (i+1 <= 24) {
                 item.source.x = 125*(_arrItems.length%4)+700;
+                _countAllPage = 3;
             } else if (i+1 <= 32) {
                 item.source.x = 125*(_arrItems.length%4)+1200;
+                _countAllPage = 4;
             } else if (i+1 <= 40) {
                 item.source.x = 125*(_arrItems.length%4)+1700;
+                _countAllPage = 5;
             }
 
             if (i+1 <= 4) {
@@ -375,14 +380,19 @@ public class WOMarket  extends Window {
             item = new MarketItem(i,false);
             if (i+1 <= 8) {
                 item.source.x = 125*(_arrItems.length%4) - 300;
+                _countAllPage = 1;
             } else  if (i+1 <= 16) {
                 item.source.x = 125*(_arrItems.length%4)+200;
+                _countAllPage = 2;
             } else if (i+1 <= 24) {
                 item.source.x = 125*(_arrItems.length%4)+700;
+                _countAllPage = 3;
             } else if (i+1 <= 32) {
                 item.source.x = 125*(_arrItems.length%4)+1200;
+                _countAllPage = 4;
             } else if (i+1 <= 40) {
                 item.source.x = 125*(_arrItems.length%4)+1700;
+                _countAllPage = 5;
             }
 
             if (i+1 <= 4) {
@@ -421,14 +431,19 @@ public class WOMarket  extends Window {
 
         if (_arrItems.length  <= 7) {
             item.source.x = 125*(_arrItems.length%4) - 300;
+            _countAllPage = 1;
         } else  if (_arrItems.length  <= 15) {
             item.source.x = 125*(_arrItems.length%4)+200;
+            _countAllPage = 2;
         } else if (_arrItems.length  <= 23) {
             item.source.x = 125*(_arrItems.length%4)+700;
+            _countAllPage = 3;
         } else if (_arrItems.length  <= 31) {
             item.source.x = 125*(_arrItems.length%4)+1200;
+            _countAllPage = 4;
         } else if (_arrItems.length <= 39) {
             item.source.x = 125*(_arrItems.length%4)+1700;
+            _countAllPage = 5;
         }
 
         if (_arrItems.length  <= 3) {
@@ -714,11 +729,11 @@ public class WOMarket  extends Window {
 
     private function onLeft ():void {
         var tween:Tween = new Tween(_leftBtn, 0.2);
-        tween.scaleTo(0.3);
+        tween.scaleTo(0.2);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
-        tween.scaleTo(0.5);
+        tween.scaleTo(0.4);
         g.starling.juggler.add(tween);
         if (_shift > 0) {
             _shift -= 4;
@@ -733,11 +748,11 @@ public class WOMarket  extends Window {
     private function onRight ():void {
         if (_rightBtn.filter == ManagerFilters.BUTTON_DISABLE_FILTER) return;
         var tween:Tween = new Tween(_rightBtn, 0.2);
-        tween.scaleTo(0.3);
+        tween.scaleTo(0.2);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
-        tween.scaleTo(0.5);
+        tween.scaleTo(0.4);
         g.starling.juggler.add(tween);
         var l:int = _arrItems.length;
         _shift += 4;
@@ -750,7 +765,7 @@ public class WOMarket  extends Window {
     }
 
     public function checkArrow():void {
-        _txtNumberPage.text = String(_countPage);
+        _txtNumberPage.text = String(_countPage + '/' + _countAllPage);
         if (_shift == 0) {
 //            _txtNumberPage.text = '1';
             _leftBtn.filter = ManagerFilters.BUTTON_DISABLE_FILTER;

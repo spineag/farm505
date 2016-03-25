@@ -209,7 +209,8 @@ public class Ridge extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 onOut();
-                g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut);
+//                trace(dataBuild.image.height);
+                g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut);
             }
             if (_stateRidge == EMPTY) {
                 onOut();
@@ -323,6 +324,7 @@ public class Ridge extends AreaObject{
                     g.mouseHint.checkMouseHint(MouseHint.CLOCK);
                 } else if (_stateRidge == GROWED) {
                     g.mouseHint.checkMouseHint(MouseHint.SERP);
+                    g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
                 }
             }
         }

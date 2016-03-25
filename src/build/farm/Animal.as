@@ -247,13 +247,8 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         _isOnHover = true;
         _frameCounterTimerHint = 7;
-        if (_state == HUNGRY) {
-            source.filter = ManagerFilters.BUILD_STROKE;
-            g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
-        } else {
-            source.filter = ManagerFilters.BUILD_STROKE;
-            g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
-        }
+        source.filter = ManagerFilters.BUILD_STROKE;
+        g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
     }
 
     private function onOut():void {
@@ -261,48 +256,28 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         source.filter = null;
         _isOnHover = false;
-        g.timerHint.hideIt();
-        g.mouseHint.hideIt();
+        g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
     }
 
 
     private function countEnterFrameMouseHint():void {
         _frameCounterMouseHint--;
-        if(_frameCounterMouseHint <= 5){
-            g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
-            if (_isOnHover == true) {
+        if (_frameCounterMouseHint <= 5){
+            if (_isOnHover) {
                 if (_state == HUNGRY) {
                     g.mouseHint.checkMouseHint('animal', _data);
-                }
-                if (_state == WORK){
-                    g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
-
-                }
-            }
-            if(_isOnHover == false){
-                g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+                    g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+                } else if (_state == WORK) g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
+            } else g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+        }
+        if (_frameCounterMouseHint <= 0) {
+            g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+            if (_isOnHover && _state == WORK) {
+                g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
             }
         }
     }
 
-    private function countEnterFrameTimerHint():void {
-        _frameCounterMouseHint--;
-        if(_frameCounterMouseHint <= 0){
-            g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
-            if (_isOnHover == true) {
-                if (_state == HUNGRY) {
-                    g.mouseHint.checkMouseHint('animal', _data);
-                }
-                if (_state == WORK){
-                    g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
-
-                }
-            }
-            if(_isOnHover == false){
-                g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
-            }
-        }
-    }
 
     public function get animalData():Object {
         return _data;

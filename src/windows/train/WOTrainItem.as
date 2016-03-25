@@ -25,7 +25,8 @@ public class WOTrainItem {
     public var source:CSprite;
     private var _im:Image;
     private var _info:TrainCell;
-    private var _txt:TextField;
+    private var _txtWhite:TextField;
+    private var _txtRed:TextField;
     private var _index:int;
     private var _f:Function;
     private var _galo4ka:Image;
@@ -36,11 +37,15 @@ public class WOTrainItem {
     public function WOTrainItem() {
         _index = -1;
         source = new CSprite();
-        _txt = new TextField(60,30,'-3', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
-        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txt.hAlign = HAlign.RIGHT;
-        _txt.x = 23;
-        _txt.y = 60;
+        _txtWhite = new TextField(60,30,'-3', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtWhite.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtWhite.hAlign = HAlign.RIGHT;
+        _txtWhite.x = 23;
+        _txtWhite.y = 60;
+        _txtRed = new TextField(30,30,'', g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_ORANGE);
+        _txtRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtRed.hAlign = HAlign.RIGHT;
+        _txtRed.y = 60;
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
         _galo4ka.x = 65;
@@ -72,7 +77,8 @@ public class WOTrainItem {
             case (WOTrain.CELL_GRAY):
                 _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_gray'));
                 source.addChildAt(_bg, 0);
-                _txt.text = '';
+                _txtWhite.text = '';
+                _txtRed.text = '';
                 return;
                 break;
         }
@@ -82,8 +88,17 @@ public class WOTrainItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
+        var curCount:int = g.userInventory.getCountResourceById(_info.id);
+        if (curCount >= _info.count) {
+            _txtWhite.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
+            _txtWhite.x = 23;
+        } else {
+            _txtRed.text = String(curCount);
+            _txtWhite.text = '/' + String(_info.count);
 
-        _txt.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
+            _txtWhite.x = 23;
+            _txtRed.x = 50 -_txtWhite.textBounds.width ;
+        }
         _im = currentImage();
         if (!_im) {
             Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
@@ -94,12 +109,14 @@ public class WOTrainItem {
         _im.x = 45 - _im.width/2;
         _im.y = 45 - _im.height/2;
         source.addChild(_im);
-        source.addChild(_txt);
+        source.addChild(_txtWhite);
+        source.addChild(_txtRed);
         source.addChild(_galo4ka);
         source.endClickCallback = onClick;
         if (isResourceLoaded) {
             _galo4ka.visible = true;
-            _txt.text = '';
+            _txtWhite.text = '';
+            _txtRed.text = '';
         }
     }
 
@@ -131,7 +148,8 @@ public class WOTrainItem {
 
     public function fullIt():void {
         _galo4ka.visible = true;
-        _txt.text = '';
+        _txtWhite.text = '';
+        _txtRed.text = '';
         _info.fullIt(_im);
 
 //        var p:Point = new Point(source.width/2, source.height/2);
@@ -146,7 +164,8 @@ public class WOTrainItem {
 
     public function clearIt():void {
         _galo4ka.visible = false;
-        _txt.text = '';
+        _txtWhite.text = '';
+        _txtRed.text = '';
         _index = -1;
         if (_im) {
             source.removeChild(_im);
@@ -188,7 +207,11 @@ public class WOTrainItem {
     public function updateIt():void {
         if (_info) {
             if (!_galo4ka.visible) {
-                _txt.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
+                _txtRed.text = String(g.userInventory.getCountResourceById(_info.id));
+                _txtWhite.text = '/' + String(_info.count);
+
+                _txtWhite.x = 23;
+                _txtRed.x = 50 -_txtWhite.textBounds.width ;
             }
         }
     }

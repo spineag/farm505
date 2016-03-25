@@ -48,12 +48,12 @@ public class WONoResources extends Window {
         var txt:TextField = new TextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ!", g.allData.fonts['BloggerBold'], 22, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -150;
-        txt.y = -135;
+        txt.y = -130;
         _source.addChild(txt);
         txt = new TextField(350, 75, "Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.", g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -175;
-        txt.y = -110;
+        txt.y = -100;
         _source.addChild(txt);
 
         createBtn();

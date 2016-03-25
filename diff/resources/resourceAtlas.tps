@@ -192,7 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>part_products/apple_icon.png</filename>
             <filename>part_products/bacon_icon.png</filename>
             <filename>part_products/bacon_with_eggs_icon.png</filename>
             <filename>part_products/berry_pie_icon.png</filename>
@@ -248,6 +247,7 @@
             <filename>part_products/berry_juice _icon.png</filename>
             <filename>part_products/carrot_juice_icon.png</filename>
             <filename>part_products/grape_juice_icon.png</filename>
+            <filename>part_products/apple_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
