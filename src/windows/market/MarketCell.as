@@ -23,6 +23,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.CartonBackgroundIn;
+import windows.WindowsManager;
 
 public class MarketCell {
     public var source:CSprite;
@@ -43,7 +44,7 @@ public class MarketCell {
         _info = info;
         if (!_info) {
             Cc.error('MarketCell:: _info == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketCell');
             return;
         }
         _data = g.dataResource.objectResources[_info.id];
@@ -55,7 +56,7 @@ public class MarketCell {
             }
             if (!_image) {
                 Cc.error('MarketCell:: no such image: ' + _data.imageShop);
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketCell');
                 return;
             }
             MCScaler.scale(_image, 99, 99);
@@ -64,7 +65,7 @@ public class MarketCell {
             source.addChild(_image);
         } else {
             Cc.error('MarketCell:: _data == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketCell');
             return;
         }
 

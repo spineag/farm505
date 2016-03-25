@@ -17,6 +17,8 @@ import starling.textures.Texture;
 import utils.IsoUtils;
 import utils.Point3D;
 
+import windows.WindowsManager;
+
 public class BackgroundArea {
     private var _cont:Sprite;
     private var _additionalCont:Sprite;
@@ -113,7 +115,7 @@ public class BackgroundArea {
         }
         if (!b) {
             Cc.error('BackgroundArea: map bitmap is null for url: ' + url);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'backgroundArea');
             return;
         }
 

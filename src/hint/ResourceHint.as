@@ -15,6 +15,7 @@ import starling.utils.Color;
 import utils.TimeUtils;
 
 import windows.WOComponents.HintBackground;
+import windows.WindowsManager;
 
 public class ResourceHint {
     private var _source:Sprite;
@@ -64,7 +65,7 @@ public class ResourceHint {
         var wName:int = 0;
         if (!g.dataResource.objectResources[_dataId]) {
             Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'resourceHint');
             return;
         }
         isShowed = true;

@@ -8,6 +8,8 @@ import starling.display.Sprite;
 
 import utils.CSprite;
 
+import windows.WindowsManager;
+
 public class AreaObject extends WorldObject {
     protected var _leftBuildTime:int;                   // сколько осталось времени до окончания постройки здания
     private var _buildingBuild:BuildingBuild;
@@ -62,8 +64,8 @@ public class AreaObject extends WorldObject {
                 createBuild();
             }
         } catch (e:Error) {
-            Cc.error('AreaObject checkBuildstate:: error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            Cc.error('AreaObject checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject checkBuildState');
         }
     }
 
@@ -82,7 +84,7 @@ public class AreaObject extends WorldObject {
 
         if (!im) {
             Cc.error('AreaObject:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
             return;
         }
         _build.addChild(im);
@@ -109,7 +111,7 @@ public class AreaObject extends WorldObject {
             _source.addChildAt(_isoView, 0);
         } catch (e:Error) {
             Cc.error('AreaObject createIsoView error id: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject createIsoView ');
         }
     }
 

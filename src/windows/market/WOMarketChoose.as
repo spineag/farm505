@@ -28,6 +28,7 @@ import utils.CButton;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowsManager;
 import windows.ambar.AmbarCell;
 
 public class WOMarketChoose extends Window {
@@ -266,7 +267,7 @@ public class WOMarketChoose extends Window {
             }
         } catch(e:Error) {
             Cc.error('WOAmbar fillItems:: error ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woMarketChoose');
         }
     }
 

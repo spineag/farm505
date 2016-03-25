@@ -8,6 +8,7 @@ import starling.display.Sprite;
 
 import windows.WOComponents.Birka;
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOCave extends Window {
     private var _arrItems:Array;
@@ -76,7 +77,7 @@ public class WOCave extends Window {
             }
         } catch(e:Error) {
             Cc.error('WOCave fillIt error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woCave');
         }
     }
 

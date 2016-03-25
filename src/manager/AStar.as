@@ -9,6 +9,8 @@ import starling.display.Image;
 
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class AStar {
     protected var g:Vars = Vars.getInstance();
     private var matrix:Array;
@@ -48,7 +50,7 @@ public class AStar {
             makeSearch();
         } catch (e:Error) {
             Cc.error('Error with makeSearch at AStar');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'aStar');
             if (callback != null) {
                 callback.apply(null, [[new Point(startX, startY)]]);
                 callback = null;

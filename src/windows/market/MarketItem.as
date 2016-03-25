@@ -39,6 +39,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.CartonBackgroundIn;
+import windows.WindowsManager;
 
 
 public class MarketItem {
@@ -231,7 +232,7 @@ public class MarketItem {
             }
             if (!im) {
                 Cc.error('MarketItem fillIt:: no such image: ' + _data.imageShop);
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
                 return;
             }
             MCScaler.scale(im, 80, 80);
@@ -242,7 +243,7 @@ public class MarketItem {
             _imageCont.addChild(im);
         } else {
             Cc.error('MarketItem fillIt:: empty _data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
             return;
         }
         _txtAdditem.text = '';
@@ -526,7 +527,7 @@ public class MarketItem {
         var im:Image;
         if (!d) {
             Cc.error('MarketItem showFlyResource:: empty data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
             return;
         }
         if (_data.buildType == BuildType.PLANT) {
@@ -536,7 +537,7 @@ public class MarketItem {
         }
         if (!im) {
             Cc.error('MarketItem showFlyResource:: no such image: ' + d.imageShop);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
             return;
         }
         MCScaler.scale(im, 100, 100);

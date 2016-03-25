@@ -23,6 +23,8 @@ import starling.utils.Color;
 
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class ToolsModifier {
     public static var NONE:int = 0;
     public static var MOVE:int = 1;
@@ -213,7 +215,7 @@ public class ToolsModifier {
     public function  startMove(selectedBuild:AreaObject, callback:Function = null, isFromShop:Boolean = false):void {
         if (!selectedBuild) {
             Cc.error('ToolsModifier startMove:: empty selectedBuild');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'toolsModifier');
             return;
         }
         _spriteForMove = new Sprite();
@@ -255,7 +257,7 @@ public class ToolsModifier {
     public function startMoveTail(selectedBuild:AreaObject, callback:Function = null, isFromShop:Boolean = false):void {
         if (!selectedBuild) {
             Cc.error('ToolsModifier startMoveTail:: empty buildingData');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'toolsModifier');
             return;
         }
 

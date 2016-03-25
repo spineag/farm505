@@ -22,6 +22,8 @@ import temp.DropResourceVariaty;
 
 import ui.xpPanel.XPStar;
 
+import windows.WindowsManager;
+
 public class TrainCell {
     private var _dataResource:Object;
     private var _count:int;
@@ -35,13 +37,13 @@ public class TrainCell {
     public function TrainCell(d:Object) {
         if (!d) {
             Cc.error('no data for TrainCell');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for TrainCell');
             return;
         }
         _dataResource = g.dataResource.objectResources[int(d.resource_id)];
         if (!_dataResource) {
             Cc.error('TrainCell:: no _dataResource for id:' + d.resource_id);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'trainCell no _dataResource');
             return;
         }
         _count = int(d.count_resource);

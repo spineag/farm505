@@ -20,6 +20,7 @@ import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowMine;
 
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOBuyCave extends Window {
     private var btn:CButton;
@@ -70,7 +71,7 @@ public class WOBuyCave extends Window {
     public function showItWithParams(_data:Object, _t:String, f:Function,cave:Boolean):void {
         if (!_data) {
             Cc.error('WOBuyCave showItWithParams: empty _data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woBuyCave');
             return;
         }
         var im:Image;

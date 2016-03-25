@@ -31,6 +31,8 @@ import tutorial.TutorialAction;
 
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class Market extends AreaObject{
     private var _imCoins:Image;
     private var _imItemOne:Image;
@@ -45,7 +47,7 @@ public class Market extends AreaObject{
         useIsometricOnly = false;
         if (!_data) {
             Cc.error('no data for Market');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Market');
             return;
         }
         createBuild();

@@ -26,6 +26,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.HintBackground;
+import windows.WindowsManager;
 
 public class WildHint {
     private var _source:CSprite;
@@ -90,7 +91,7 @@ public class WildHint {
         _source.addChildAt(_quad,0);
         if (!g.dataResource.objectResources[idResourceForRemoving]) {
             Cc.error('WildHInt showIt:: no such g.dataResource.objectResources[idResourceForRemoving] for idResourceForRemoving: ' + idResourceForRemoving);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'wildHint');
             return;
         }
         _txtName.text = name;
@@ -102,7 +103,7 @@ public class WildHint {
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         if (!_iconResource) {
             Cc.error('WildHint showIt:: no such image: ' + g.dataResource.objectResources[idResourceForRemoving].imageShop);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'wildHint');
             return;
         }
         MCScaler.scale(_iconResource, 60, 60);

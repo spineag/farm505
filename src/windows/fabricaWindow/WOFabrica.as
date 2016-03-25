@@ -25,6 +25,7 @@ import utils.CButton;
 import utils.CSprite;
 import windows.WOComponents.Birka;
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOFabrica extends Window {
     private var _list:WOFabricaWorkList;
@@ -140,9 +141,9 @@ public class WOFabrica extends Window {
             if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
                 hideIt();
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                    g.woWaitFreeCats.showIt();
+                    g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
                 } else {
-                    g.woNoFreeCats.showIt();
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
                 }
                 return;
             }
@@ -152,7 +153,7 @@ public class WOFabrica extends Window {
             if (!dataRecipe || !dataRecipe.ingridientsId) {
                 Cc.error('UserInventory checkRecipe:: bad _data');
                 hideIt();
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woFabrica');
                 return;
             }
             var i:int;

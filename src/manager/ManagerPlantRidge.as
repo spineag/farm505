@@ -8,6 +8,8 @@ import flash.geom.Point;
 import heroes.HeroCat;
 import mouse.ToolsModifier;
 
+import windows.WindowsManager;
+
 public class ManagerPlantRidge {
     private var _arrRidge:Array; // список всех грядок юзера
     private var _catsForPlant:Object; // _catsForPlant['id plant'] = { cat: HeroCat, ridges: array(ridge1, ridge2..) };
@@ -76,7 +78,7 @@ public class ManagerPlantRidge {
                 _catsForPlant[plantId] = {cat: cat, ridges:[ridge]};
             } else {
                 Cc.error('ManagerPlantRidge addCatForPlant:: cat = null');
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerPlantRidge');
             }
         }
     }

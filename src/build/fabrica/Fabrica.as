@@ -27,6 +27,8 @@ import tutorial.TutorialAction;
 
 import ui.xpPanel.XPStar;
 
+import windows.WindowsManager;
+
 public class Fabrica extends AreaObject {
     private var _arrRecipes:Array;  // массив всех рецептов, которые можно изготовить на этой фабрике
     private var _arrList:Array; // массив заказанных для изготовления ресурсов
@@ -42,7 +44,7 @@ public class Fabrica extends AreaObject {
         super(_data);
         if (!_data) {
             Cc.error('no data for Fabrica');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Fabrica');
             return;
         }
         if (!_dataBuild.countCell) {
@@ -162,6 +164,9 @@ public class Fabrica extends AreaObject {
     }
 
     private function onClick():void {
+//        g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
+//        return;
+
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialBuilding(this)) {
                 if (g.managerTutorial.currentAction != TutorialAction.FABRICA_SKIP_FOUNDATION) g.managerTutorial.checkTutorialCallback();
@@ -270,7 +275,7 @@ public class Fabrica extends AreaObject {
             _arrRecipes.sortOn('blockByLevel', Array.NUMERIC);
         } catch (e:Error) {
             Cc.error('fabrica recipe error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabrica update recipe');
         }
     }
 
@@ -283,9 +288,9 @@ public class Fabrica extends AreaObject {
 
         if (!_arrList.length && !_heroCat) {
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                g.woWaitFreeCats.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
             } else {
-                g.woNoFreeCats.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
             }
             return;
         }

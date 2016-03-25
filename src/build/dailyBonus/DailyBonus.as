@@ -24,6 +24,8 @@ import starling.filters.BlurFilter;
 
 import starling.utils.Color;
 
+import windows.WindowsManager;
+
 public class DailyBonus extends AreaObject{
     private var _armature:Armature;
     private var _isOnHover:Boolean;
@@ -34,7 +36,7 @@ public class DailyBonus extends AreaObject{
         useIsometricOnly = false;
         if (!data) {
             Cc.error('no data for DailyBonus');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for DailyBonus');
             return;
         }
         createBuild();

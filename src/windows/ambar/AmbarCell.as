@@ -17,6 +17,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.CartonBackgroundIn;
+import windows.WindowsManager;
 
 public class AmbarCell {
     public var source:CSprite;
@@ -42,13 +43,13 @@ public class AmbarCell {
         _info = info;
         if (!_info) {
             Cc.error('AmbarCell:: _info == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ambarCell');
             return;
         }
         _data = g.dataResource.objectResources[_info.id];
         if (!_data) {
             Cc.error('AmbarCell:: _data == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ambarCell');
             return;
         }
         if (_data) {
@@ -59,7 +60,7 @@ public class AmbarCell {
             }
             if (!_image) {
                 Cc.error('AmbarCell:: no such image: ' + _data.imageShop);
-                g.woGameError.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ambarCell');
                 return;
             }
             MCScaler.scale(_image, 90, 90);

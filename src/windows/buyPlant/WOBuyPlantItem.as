@@ -21,6 +21,8 @@ import tutorial.TutorialAction;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class WOBuyPlantItem {
     public var source:CSprite;
     private var _bg:Image;
@@ -56,7 +58,7 @@ public class WOBuyPlantItem {
 //        if (_dataPlant.id == 117) return;
         if (!_dataPlant) {
             Cc.error('WOBuyPlantItem:: empty _dataPlant');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woBuyPlantItem');
             return;
         }
         _clickCallback = f;
@@ -85,7 +87,7 @@ public class WOBuyPlantItem {
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s + '_icon'));
         if (!_icon) {
             Cc.error('WOItemFabrica fillIcon:: no such image: ' + s);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woBuyPlantItem');
             return;
         }
         MCScaler.scale(_icon, 80, 80);

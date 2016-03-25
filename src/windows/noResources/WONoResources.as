@@ -91,7 +91,7 @@ public class WONoResources extends Window {
         _countCost = count;
         if (currency == DataMoney.HARD_CURRENCY) {
             Cc.error('hard currency can"t be in woNoResourceWindow');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
             return;
         }
         _txtHardCost.text = 'Купить ресурсы ' + String(_count);
@@ -169,7 +169,7 @@ public class WONoResources extends Window {
 
         if (!_data) {
             Cc.error('WONoResource createList:: empty _data');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
             return;
         }
         if (_data.buildType == BuildType.INSTRUMENT) {

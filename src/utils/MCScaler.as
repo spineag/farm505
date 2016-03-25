@@ -8,13 +8,15 @@ import manager.Vars;
 
 import starling.display.DisplayObject;
 
+import windows.WindowsManager;
+
 public class MCScaler {
     static public function scale(graphics:DisplayObject, heightMax:int, widthMax:int):void {
         var s:Number;
 
         if (!graphics) {
             Cc.error('MCScaler:: graphics == null');
-            Vars.getInstance().woGameError.showIt();
+            Vars.getInstance().windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'MCscaler');
             return;
         }
 
@@ -32,7 +34,7 @@ public class MCScaler {
 
         if (!graphics) {
             Cc.error('MCScaler:: graphics == null');
-            Vars.getInstance().woGameError.showIt();
+            Vars.getInstance().windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'MCScaler');
             return;
         }
 

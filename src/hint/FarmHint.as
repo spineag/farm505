@@ -15,6 +15,8 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class FarmHint {
     public var source:CSprite;
     private var _isOnHover:Boolean;
@@ -54,7 +56,7 @@ public class FarmHint {
 
         if (!dataAnimal) {
             Cc.error('FarmHint showIt:: empty dataAnimal');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farmHint');
             return;
         }
 
@@ -64,7 +66,7 @@ public class FarmHint {
         _animal = new Image(g.allData.atlas[dataAnimal.url].getTexture(dataAnimal.image));
         if (!_animal) {
             Cc.error('FarmHint showIt: no such image ' + dataAnimal.image);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farmHint');
             return;
         }
         _animal.scaleX = _animal.scaleY = 2;

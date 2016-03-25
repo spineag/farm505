@@ -11,6 +11,8 @@ import manager.Vars;
 
 import starling.display.Sprite;
 
+import windows.WindowsManager;
+
 public class WOFabricaWorkList {
     private var _maxCount:int;
     [ArrayElementType('windows.fabricaWindow.WOFabricaWorkListItem')]
@@ -60,7 +62,7 @@ public class WOFabricaWorkList {
             }
         } catch (e:Error) {
             Cc.error('WOFabricaWorkList fillit error: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woFabricaWorkList');
         }
     }
 

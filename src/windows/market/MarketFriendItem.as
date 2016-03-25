@@ -24,6 +24,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.CartonBackground;
+import windows.WindowsManager;
 
 public class MarketFriendItem {
     private var _person:Someone;
@@ -48,7 +49,7 @@ public class MarketFriendItem {
         _person = f;
         if (!_person) {
             Cc.error('MarketFriendItem:: person == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketFriendMarket');
             return;
         }
         _panel = p;

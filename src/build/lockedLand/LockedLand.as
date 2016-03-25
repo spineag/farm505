@@ -19,6 +19,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import utils.CreateTile;
 
+import windows.WindowsManager;
+
 
 public class LockedLand extends AreaObject {
     private var _dataLand:Object;
@@ -31,14 +33,14 @@ public class LockedLand extends AreaObject {
         super(_data);
         if (!_data) {
             Cc.error('no data for LockedLand');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for LockedLand');
             return;
         }
         _arrWilds = [];
         _dataLand = g.allData.lockedLandData[_data.dbId];
         if (!_dataLand) {
             Cc.error('no dataLand for LockedLand _data.dbId: ' + _data.dbId);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no dataLand');
             return;
         }
         _build.touchable = false;

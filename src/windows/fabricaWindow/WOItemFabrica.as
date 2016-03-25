@@ -19,6 +19,8 @@ import tutorial.TutorialAction;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class WOItemFabrica {
     public var source:CSprite;
     private var _bg:Image;
@@ -45,7 +47,7 @@ public class WOItemFabrica {
         _dataRecipe = ob;
         if (!_dataRecipe || !g.dataResource.objectResources[_dataRecipe.idResource]) {
             Cc.error('WOItemFabrica:: empty _dataRecipe or g.dataResource.objectResources[_dataRecipe.idResource] == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woItemFabrica');
             return;
         }
         _clickCallback = f;
@@ -71,7 +73,7 @@ public class WOItemFabrica {
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
         if (!_icon) {
             Cc.error('WOItemFabrica fillIcon:: no such image: ' + s);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woItemFabrica');
             return;
         }
         MCScaler.scale(_icon, 80, 80);

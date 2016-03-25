@@ -19,6 +19,8 @@ import utils.CSprite;
 
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class WOLevelUpItem {
     public var source:CSprite;
     private var _txtNew:TextField;
@@ -34,7 +36,7 @@ public class WOLevelUpItem {
     public function WOLevelUpItem(ob:Object, boNew:Boolean, boCount:Boolean, count:int = 0) {
         if (!ob) {
             Cc.error('WOLevelUpItem:: ob == null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woLevelUpItem');
             return;
         }
         var objAnimals:Object;

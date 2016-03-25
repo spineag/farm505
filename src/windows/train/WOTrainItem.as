@@ -19,6 +19,8 @@ import ui.xpPanel.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class WOTrainItem {
     public var source:CSprite;
     private var _im:Image;
@@ -83,7 +85,7 @@ public class WOTrainItem {
         _info = t;
         if (!t || !g.dataResource.objectResources[_info.id]) {
             Cc.error('WOTrainItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
         var curCount:int = g.userInventory.getCountResourceById(_info.id);
@@ -100,7 +102,7 @@ public class WOTrainItem {
         _im = currentImage();
         if (!_im) {
             Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
         MCScaler.scale(_im, 80, 80);

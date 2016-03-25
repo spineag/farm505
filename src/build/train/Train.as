@@ -32,6 +32,8 @@ import temp.DropResourceVariaty;
 
 import ui.xpPanel.XPStar;
 
+import windows.WindowsManager;
+
 import windows.cave.WOBuyCave;
 public class Train extends AreaObject{
     public static var STATE_WAIT_BACK:int = 5;   // поезд в данный момент где-то ездит с продуктамы
@@ -58,7 +60,7 @@ public class Train extends AreaObject{
         _counter = 0;
         if (!_data) {
             Cc.error('no data for Train');
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Train');
             return;
         }
 
@@ -210,7 +212,7 @@ public class Train extends AreaObject{
             }
         } catch (e:Error) {
             Cc.error('checkTrainState:: ' + e.errorID + ' - ' + e.message);
-            g.woGameError.showIt();
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'checkTrainState');
         }
     }
 
