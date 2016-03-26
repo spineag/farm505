@@ -35,6 +35,7 @@ import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.Window;
 import windows.WOComponents.WindowBackground;
+import windows.WindowsManager;
 
 public class WOOrder extends Window{
     private var _woBG:WindowBackground;
@@ -436,7 +437,7 @@ public class WOOrder extends Window{
     private function skipDelete():void {
         if (g.user.hardCurrency < ManagerOrder.COST_SKIP_WAIT) {
             hideIt();
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         _activeOrderItem.onSkipTimer();

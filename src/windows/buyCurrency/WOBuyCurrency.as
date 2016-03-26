@@ -24,198 +24,209 @@ import windows.WOComponents.CartonBackground;
 
 import windows.Window;
 import windows.WOComponents.WindowBackground;
+import windows.WindowMain;
+import windows.WindowsManager;
 
-public class WOBuyCurrency extends Window{
-    private var _tabSoft:Sprite;
-    private var _cloneTabSoft:CSprite;
-    private var _tabHard:Sprite;
-    private var _cloneTabHard:CSprite;
-    private var _contSoft:Sprite;
-    private var _contHard:Sprite;
+public class WOBuyCurrency extends WindowMain {
+    private var _tabHard:CSprite;
+    private var _tabSoft:CSprite;
     private var _woBG:WindowBackground;
     private var _cartonBG:CartonBackground;
     private var _contCarton:Sprite;
+    private var _birka:Birka;
+    private var _isHard:Boolean = false;
+    private var _cartonHardTab:CartonBackground;
+    private var _cartonSoftTab:CartonBackground;
+    private var _contItems:Sprite;
+    private var _arrItems:Array;
+    private var SHADOW:BlurFilter;
+    private var _defaultY:int;
 
     public function WOBuyCurrency() {
+        super();
+        _defaultY = -234;
+        _windowType = WindowsManager.WO_BUY_CURRENCY;
         _woWidth = 700;
         _woHeight = 560;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _contCarton = new Sprite();
-        createExitButton(onClickExit);
+        createExitButton(hideIt);
+        _callbackClickBG = hideIt;
 
-        createTabs();
+        SHADOW = ManagerFilters.getShadowFilter();
         _cartonBG = new CartonBackground(618, 398);
-        _cartonBG.x = -350 + 42;
-        _cartonBG.y = -280 + 114;
+        _cartonBG.x = -308;
+        _cartonBG.y = -166;
         _contCarton.addChild(_cartonBG);
-        _contCarton.filter = ManagerFilters.SHADOW;
+        _contCarton.filter = SHADOW;
         _source.addChild(_contCarton);
-        createLists();
 
-        new Birka('БАНК', _source, 700, 560);
+        _contItems = new Sprite();
+        _contItems.x = -305;
+        _contItems.y = -167;
+        _source.addChild(_contItems);
+
+        _birka = new Birka('БАНК', _source, 700, 560);
     }
 
     private function createTabs():void {
-        _tabHard = new Sprite();
-        var carton:CartonBackground = new CartonBackground(255, 80);
-        _tabHard.addChild(carton);
+        _tabHard = new CSprite();
+        _cartonHardTab = new CartonBackground(255, 80);
+        _cartonHardTab.touchable = true;
+        _tabHard.addChild(_cartonHardTab);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
+        var txt:TextField = new TextField(160, 67, 'Рубины', g.allData.fonts['BloggerBold'], 24, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt.x = 85;
+        txt.touchable = false;
+        _tabHard.addChild(txt);
+        _tabHard.x = -289;
+        _tabHard.y = _defaultY;
         MCScaler.scale(im, 55, 55);
         im.x = 27;
         im.y = 9;
         _tabHard.addChild(im);
-        var txt:TextField = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 85;
-        _tabHard.addChild(txt);
-        _tabHard.x = -350 + 61;
-        _tabHard.y = -280 + 46;
-        _tabHard.flatten();
-        _contCarton.addChild(_tabHard);
+        _tabHard.endClickCallback = onClick;
+        _tabHard.hoverCallback = onHover;
+        _tabHard.outCallback = onOut;
 
-        _cloneTabHard = new CSprite();
-        carton = new CartonBackground(255, 80);
-        _cloneTabHard.addChild(carton);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        MCScaler.scale(im, 55, 55);
-        im.x = 27;
-        im.y = 9;
-        _cloneTabHard.addChild(im);
-        txt = new TextField(160, 67, "Рубины", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 85;
-        _cloneTabHard.addChild(txt);
-        _cloneTabHard.x = -350 + 61;
-        _cloneTabHard.y = -280 + 49;
-        _cloneTabHard.flatten();
-        _cloneTabHard.endClickCallback = onClickHard;
-        _cloneTabHard.hoverCallback = onHoverHard;
-        _cloneTabHard.outCallback = onOutHard;
-        _source.addChild(_cloneTabHard);
-
-        _tabSoft = new Sprite();
-        carton = new CartonBackground(255, 80);
-        _tabSoft.addChild(carton);
+        _tabSoft = new CSprite();
+        _cartonSoftTab = new CartonBackground(255, 80);
+        _cartonSoftTab.touchable = true;
+        _tabSoft.addChild(_cartonSoftTab);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
+        txt= new TextField(160, 67, 'Монеты', g.allData.fonts['BloggerBold'], 24, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt.x = 85;
+        txt.touchable = false;
+        _tabSoft.addChild(txt);
+        _tabSoft.x = -9;
+        _tabSoft.y = _defaultY;
         MCScaler.scale(im, 55, 55);
         im.x = 27;
         im.y = 9;
         _tabSoft.addChild(im);
-        txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 85;
-        _tabSoft.addChild(txt);
-        _tabSoft.x = -350 + 341;
-        _tabSoft.y = -280 + 46;
-        _tabSoft.flatten();
-        _contCarton.addChild(_tabSoft);
-
-        _cloneTabSoft = new CSprite();
-        carton = new CartonBackground(255, 80);
-        _cloneTabSoft.addChild(carton);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
-        MCScaler.scale(im, 55, 55);
-        im.x = 27;
-        im.y = 9;
-        _cloneTabSoft.addChild(im);
-        txt = new TextField(160, 67, "Монеты", g.allData.fonts['BloggerBold'], 24, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 85;
-        _cloneTabSoft.addChild(txt);
-        _cloneTabSoft.x = -350 + 341;
-        _cloneTabSoft.y = -280 + 49;
-        _cloneTabSoft.flatten();
-        _cloneTabSoft.endClickCallback = onClickSoft;
-        _cloneTabSoft.hoverCallback = onHoverSoft;
-        _cloneTabSoft.outCallback = onOutSoft;
-        _source.addChild(_cloneTabSoft);
-    }
-
-    private function onClickHard():void {
-        _contHard.visible = true;
-        _contSoft.visible = false;
-        _tabHard.visible = true;
-        _cloneTabHard.visible = false;
-        _cloneTabHard.filter = null;
-        _tabSoft.visible = false;
-        _cloneTabSoft.visible = true;
-        _cloneTabSoft.filter = ManagerFilters.SHADOW;
-    }
-
-    private function onHoverHard():void {
-        _cloneTabHard.filter = ManagerFilters.BUTTON_HOVER_FILTER;
-    }
-
-    private function onOutHard():void {
-        _cloneTabHard.filter = null;
-        _cloneTabHard.filter = ManagerFilters.SHADOW;
-    }
-
-    private function onClickSoft():void {
-        _contHard.visible = false;
-        _contSoft.visible = true;
-        _tabHard.visible = false;
-        _cloneTabHard.visible = true;
-        _cloneTabHard.filter = ManagerFilters.SHADOW;
-        _tabSoft.visible = true;
-        _cloneTabSoft.visible = false;
-        _cloneTabSoft.filter = null;
-    }
-
-    private function onHoverSoft():void {
-        _cloneTabSoft.filter = ManagerFilters.BUTTON_HOVER_FILTER;
-    }
-
-    private function onOutSoft():void {
-        _cloneTabSoft.filter = null;
-        _cloneTabSoft.filter = ManagerFilters.SHADOW;
-    }
-
-    private function onClickExit(e:Event=null):void {
-        hideIt();
-    }
-
-    public function showItMenu(showHard:Boolean):void {
-        if (showHard) {
-            onClickHard();
-        } else {
-            onClickSoft();
-        }
-        showIt();
+        _tabSoft.endClickCallback = onClick;
+        _tabSoft.hoverCallback = onHover;
+        _tabSoft.outCallback = onOut;
     }
 
     private function createLists():void {
         var item:WOBuyCurrencyItem;
         var arrAdd:Array;
         var arrCost:Array;
+        var currency:int;
 
-        _contSoft = new Sprite();
-        _contSoft.x = -350 + 45;
-        _contSoft.y = -280 + 113;
-        _source.addChild(_contSoft);
-        _contHard = new Sprite();
-        _contHard.x = -350 + 45;
-        _contHard.y = -280 + 113;
-        _source.addChild(_contHard);
-
-        arrAdd = [220, 1100, 2500, 7000, 22000, 50000];
-        arrCost = [1, 4, 9, 24, 69, 149];
+        _arrItems = [];
+        if (_isHard) {
+            arrAdd = [15, 45, 95, 185, 515, 1115];
+            arrCost = [2, 5, 10, 19, 49, 99];
+            currency = DataMoney.HARD_CURRENCY;
+        } else {
+            arrAdd = [220, 1100, 2500, 7000, 22000, 50000];
+            arrCost = [1, 4, 9, 24, 69, 149];
+            currency = DataMoney.SOFT_CURRENCY;
+        }
         for (var i:int=0; i< arrAdd.length; i++) {
-            item = new WOBuyCurrencyItem(DataMoney.SOFT_CURRENCY,arrAdd[i],"",arrCost[i]);
+            item = new WOBuyCurrencyItem(currency, arrAdd[i], "", arrCost[i]);
             item.source.x = 13;
             item.source.y = 12 + i*64;
-            _contSoft.addChild(item.source);
+            _contItems.addChild(item.source);
+            _arrItems.push(item);
         }
+    }
 
-        arrAdd = [15, 45, 95, 185, 515, 1115];
-        arrCost = [2, 5, 10, 19, 49, 99];
-        for (i=0; i< arrAdd.length; i++) {
-            item = new WOBuyCurrencyItem(DataMoney.HARD_CURRENCY,arrAdd[i],"",arrCost[i]);
-            item.source.x = 13;
-            item.source.y = 12 + i*64;
-            _contHard.addChild(item.source);
+    private function deleteLists():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _contItems.removeChild(_arrItems[i].source);
+            (_arrItems[i] as WOBuyCurrencyItem).deleteIt();
         }
+        _arrItems.length = 0;
+    }
+
+    override public function showItParams(callback:Function, params:Array):void {
+        _isHard = params[0];
+        createTabs();
+        fillTabs();
+        createLists();
+        super.showIt();
+    }
+
+    private function fillTabs():void {
+        if (_isHard) {
+            _contCarton.addChild(_tabHard);
+            _tabHard.isTouchable = false;
+            _tabHard.y = _defaultY;
+            _source.addChildAt(_tabSoft, _source.getChildIndex(_contCarton)-1);
+            _tabSoft.filter = SHADOW;
+            _tabSoft.isTouchable = true;
+            _tabSoft.y = _defaultY + 10;
+        } else {
+            _source.addChildAt(_tabHard, _source.getChildIndex(_contCarton)-1);
+            _tabHard.isTouchable = true;
+            _tabHard.filter = SHADOW;
+            _tabHard.y = _defaultY + 10;
+            _contCarton.addChild(_tabSoft);
+            _tabSoft.isTouchable = false;
+            _tabSoft.y = _defaultY;
+        }
+    }
+
+    private function onClick():void {
+        deleteLists();
+        _tabHard.filter = null;
+        _tabSoft.filter = null;
+        if (_contCarton.contains(_tabHard)) _contCarton.removeChild(_tabHard);
+        if (_contCarton.contains(_tabSoft)) _contCarton.removeChild(_tabSoft);
+        if (_source.contains(_tabHard)) _source.removeChild(_tabHard);
+        if (_source.contains(_tabSoft)) _source.removeChild(_tabSoft);
+        _isHard = !_isHard;
+        fillTabs();
+        createLists();
+    }
+
+    private function onHover():void {
+        if (_isHard) {
+            _tabSoft.y = _defaultY + 3;
+        } else {
+            _tabHard.y = _defaultY + 3;
+        }
+    }
+
+    private function onOut():void {
+        if (_isHard) {
+            _tabSoft.y = _defaultY + 10;
+        } else {
+            _tabHard.y = _defaultY + 10;
+        }
+    }
+
+    override protected function deleteIt():void {
+        deleteLists();
+        _tabHard.filter = null;
+        _tabSoft.filter = null;
+        _contCarton.filter = null;
+        if (_contCarton.contains(_tabHard)) _contCarton.removeChild(_tabHard);
+        if (_contCarton.contains(_tabSoft)) _contCarton.removeChild(_tabSoft);
+        if (_source.contains(_tabHard)) _source.removeChild(_tabHard);
+        if (_source.contains(_tabSoft)) _source.removeChild(_tabSoft);
+        _tabHard.deleteIt();
+        _tabHard = null;
+        _tabSoft.deleteIt();
+        _tabSoft = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _contCarton.removeChild(_cartonBG);
+        _cartonBG.deleteIt();
+        _cartonBG = null;
+        _source.removeChild(_birka);
+        _birka.deleteIt();
+        _birka = null;
+        SHADOW.dispose();
+        SHADOW = null;
+        super.deleteIt();
     }
 
 }

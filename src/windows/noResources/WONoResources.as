@@ -111,7 +111,7 @@ public class WONoResources extends Window {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_count);
         } else {
             onClickExit();
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _countCost);
@@ -141,7 +141,7 @@ public class WONoResources extends Window {
     private function onClickAnimal():void {
         if (int(_txtHardCost.text) <= g.user.hardCurrency) {
             g.userInventory.addMoney(1, -_count);
-        } else {  g.woBuyCurrency.showItMenu(true);
+        } else {  g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         g.userInventory.addResource(_dataResource.idResourceRaw,1);
@@ -250,7 +250,7 @@ public class WONoResources extends Window {
         if (_count <= g.user.hardCurrency) {
             g.userInventory.addMoney(1, -_count);
         } else {
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         if (_dataResource.buildType == BuildType.INSTRUMENT) {
@@ -340,7 +340,7 @@ public class WONoResources extends Window {
             g.userInventory.addMoney(1, -_count);
         } else {
             onClickExit();
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         for (var i:int=0; i<_dataResource.resourceIds.length; i++) {
@@ -378,7 +378,7 @@ public class WONoResources extends Window {
         if (_count <= g.user.hardCurrency) {
             g.userInventory.addMoney(1, -_count);
         } else {
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
             g.userInventory.addResource(_dataResource.id,_countCost);

@@ -548,7 +548,7 @@ public class WOMarket  extends Window {
 
     private function onClickPaper():void {
         if (g.user.hardCurrency < 1) {
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         g.userInventory.addMoney(1,-1);

@@ -11,6 +11,7 @@ import utils.MCScaler;
 import windows.WOComponents.ProgressBarComponent;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
+import windows.WindowsManager;
 import windows.ambar.WOAmbars;
 
 public class WOAmbarFilled extends WindowMain {
@@ -26,7 +27,8 @@ public class WOAmbarFilled extends WindowMain {
     private var _bar:ProgressBarComponent;
 
     public function WOAmbarFilled() {
-        super ();
+        super();
+        _windowType = WindowsManager.WO_AMBAR_FILLED;
         _woWidth = 400;
         _woHeight = 300;
         _woBG = new WindowBackground(_woWidth, _woHeight);

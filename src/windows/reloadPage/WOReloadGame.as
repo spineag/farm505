@@ -7,12 +7,14 @@ import starling.utils.Color;
 
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
+import windows.WindowsManager;
 
 public class WOReloadGame extends WindowMain{
     private var _woBG:WindowBackground;
 
     public function WOReloadGame() {
         super();
+        _windowType = WindowsManager.WO_RELOAD_GAME;
         _woWidth = 300;
         _woHeight = 200;
         _woBG = new WindowBackground(_woWidth, _woHeight);

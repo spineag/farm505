@@ -20,6 +20,7 @@ import utils.MCScaler;
 
 import windows.Window;
 import windows.WOComponents.WindowBackground;
+import windows.WindowsManager;
 
 public class WONoPlaces extends Window{
 
@@ -141,7 +142,7 @@ public class WONoPlaces extends Window{
 
         } else {
             _buyCallback = null;
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         }
     }
 }

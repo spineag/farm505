@@ -8,6 +8,7 @@ import starling.utils.Color;
 import utils.CButton;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
+import windows.WindowsManager;
 
 public class WOServerError extends WindowMain {
     private var _txtError:TextField;
@@ -16,6 +17,7 @@ public class WOServerError extends WindowMain {
 
     public function WOServerError() {
         super();
+        _windowType = WindowsManager.WO_SERVER_ERROR;
         _woWidth = 390;
         _woHeight = 280;
         _woBG = new WindowBackground(_woWidth, _woHeight);

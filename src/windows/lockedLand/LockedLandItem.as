@@ -72,7 +72,7 @@ public class LockedLandItem {
             source.addChild(btn);
             var f1:Function = function ():void {
                 g.woLockedLand.onClickExit();
-                g.woBuyCurrency.showItMenu(false);
+                g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, false);
             };
             btn.clickCallback = f1;
             _isGood = false;

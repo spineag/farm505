@@ -21,6 +21,7 @@ import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOTrainOrder extends Window{
     private var _btn:CButton;
@@ -110,7 +111,7 @@ public class WOTrainOrder extends Window{
     }
     private function onClickBtn():void {
         if (g.user.hardCurrency < 30) {
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         g.userInventory.addMoney(1,-30);

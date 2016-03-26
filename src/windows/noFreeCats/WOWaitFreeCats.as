@@ -10,6 +10,7 @@ import starling.utils.Color;
 import utils.CButton;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
+import windows.WindowsManager;
 
 public class WOWaitFreeCats extends WindowMain{
 
@@ -18,6 +19,7 @@ public class WOWaitFreeCats extends WindowMain{
 
     public function WOWaitFreeCats() {
         super();
+        _windowType = WindowsManager.WO_WAIT_FREE_CATS;
         _woWidth = 460;
         _woHeight = 308;
         _woBG = new WindowBackground(_woWidth, _woHeight);

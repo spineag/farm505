@@ -197,7 +197,6 @@ public class CSprite extends Sprite {
         if (! getBounds(this).containsPoint(localPoint)) { return false; } // likewise if touch is outside bounds of the object
 
         var color:uint = _bmd.getPixel32(localPoint.x * _scale, localPoint.y * _scale);
-//        if (Color.getAlpha(color) > 1) {
         if (color) return true;
             else return false;
     }
@@ -211,6 +210,7 @@ public class CSprite extends Sprite {
         _outCallback = null;
         _onMovedCallback = null;
         if (_bmd) _bmd.dispose();
+        dispose();
     }
 }
 }

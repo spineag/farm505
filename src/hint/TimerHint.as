@@ -34,6 +34,7 @@ import utils.TimeUtils;
 import windows.WOComponents.HintBackground;
 
 import windows.WOComponents.WOButtonTexture;
+import windows.WindowsManager;
 
 public class TimerHint {
     public var source:CSprite;
@@ -216,7 +217,7 @@ public class TimerHint {
         if (g.user.hardCurrency < int(_txtCost.text)) {
             _isOnHover = false;
             hideIt();
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         g.userInventory.addMoney(1,-int(_txtCost.text));

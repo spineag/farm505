@@ -80,7 +80,7 @@ public class WOBuyCouponeItem {
 
     private function onClick():void {
         if (g.user.hardCurrency < _cost) {
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         g.userInventory.addMoney(1, -_cost);

@@ -231,7 +231,7 @@ public class WOFabricaWorkListItem {
                     g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
                 } else {
                     g.woFabrica.hideIt();
-                    g.woBuyCurrency.showItMenu(true);
+                    g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                 }
             };
             _proposeBtn.endClickCallback = f1;
@@ -255,7 +255,7 @@ public class WOFabricaWorkListItem {
                 _skipCallback.apply();
             }
         } else {
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         }
     }
 

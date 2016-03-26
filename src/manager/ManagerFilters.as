@@ -73,5 +73,9 @@ public class ManagerFilters {
         BUILDING_HOVER_FILTER = new ColorMatrixFilter();
         BUILDING_HOVER_FILTER.adjustBrightness(.1);
     }
+
+    public static function getShadowFilter():BlurFilter {
+        return BlurFilter.createDropShadow(2, .8, 0, 1, 1.0, 0.5);
+    }
 }
 }

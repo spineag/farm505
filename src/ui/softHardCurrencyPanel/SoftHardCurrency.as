@@ -25,6 +25,7 @@ import utils.CSprite;
 import utils.MCScaler;
 
 import windows.WOComponents.HorizontalPlawka;
+import windows.WindowsManager;
 
 public class SoftHardCurrency {
     private var _source:Sprite;
@@ -133,7 +134,7 @@ public class SoftHardCurrency {
             g.toolsModifier.cancelMove();
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         }
-        g.woBuyCurrency.showItMenu(false);
+        g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, false);
     }
 
     private function onClickHard():void {
@@ -142,7 +143,7 @@ public class SoftHardCurrency {
             g.toolsModifier.cancelMove();
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         }
-        g.woBuyCurrency.showItMenu(true);
+        g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
     }
 
     public function animationBuy (hard:Boolean):void {

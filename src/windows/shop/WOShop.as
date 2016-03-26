@@ -238,7 +238,7 @@ public class WOShop extends Window{
         _source.addChild(btn);
         var f1:Function = function ():void {
             hideIt();
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         };
         btn.clickCallback = f1;
 
@@ -266,7 +266,7 @@ public class WOShop extends Window{
         _source.addChild(btn);
         var f2:Function = function ():void {
             hideIt();
-            g.woBuyCurrency.showItMenu(false);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, false);
         };
         btn.clickCallback = f2;
 

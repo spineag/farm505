@@ -22,6 +22,7 @@ import utils.TimeUtils;
 
 import windows.WOComponents.WOButtonTexture;
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOPaper extends Window{
     private var _btnRefreshGreen:CButton;
@@ -254,7 +255,7 @@ public class WOPaper extends Window{
 
     private function makeRefresh():void {
         if (1 > g.user.hardCurrency){
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);

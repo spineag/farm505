@@ -22,6 +22,7 @@ import utils.MCScaler;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WOComponents.WOButtonTexture;
+import windows.WindowsManager;
 
 public class UpdateItem {
     public var source:CSprite;
@@ -143,7 +144,7 @@ public class UpdateItem {
             }
         } else {
             g.woAmbars.hideIt();
-            g.woBuyCurrency.showItMenu(true);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         }
     }
 

@@ -17,6 +17,7 @@ import utils.CButton;
 import utils.MCScaler;
 
 import windows.Window;
+import windows.WindowsManager;
 
 public class WODailyBonus extends Window{
     private var _koleso:Sprite;
@@ -134,7 +135,7 @@ public class WODailyBonus extends Window{
                 g.userInventory.addMoney(1, -g.managerDailyBonus.count);
             } else {
                 onClickExit();
-                g.woBuyCurrency.showItMenu(true);
+                g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                 return;
             }
         }
