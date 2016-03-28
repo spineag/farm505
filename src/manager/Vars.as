@@ -199,7 +199,6 @@ public class Vars {
     public var woOrder:WOOrder;
     public var woMarket:WOMarket;
     public var woCave:WOCave;
-    public var woDailyBonus:WODailyBonus;
     public var woPaper:WOPaper;
     public var woTrain:WOTrain;
     public var woLastResource:WOLastResource;
@@ -447,7 +446,6 @@ public class Vars {
         woLevelUp = new WOLevelUp();
         woOrder = new WOOrder();
         woMarket = new WOMarket();
-        woDailyBonus = new WODailyBonus();
         woPaper = new WOPaper();
         woTrainOrder = new WOTrainOrder();
         woTrainSend = new WOTrainSend();

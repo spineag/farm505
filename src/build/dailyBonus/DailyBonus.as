@@ -126,7 +126,7 @@ public class DailyBonus extends AreaObject{
                     return;
                 }
                 onOut();
-                g.woDailyBonus.showItMenu();
+                g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS, null);
             }
             g.hint.hideIt();
         } else {
