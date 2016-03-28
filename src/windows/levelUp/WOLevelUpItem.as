@@ -3,22 +3,14 @@
  */
 package windows.levelUp {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import starling.display.Image;
-import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CSprite;
-
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
 public class WOLevelUpItem {
@@ -172,17 +164,13 @@ public class WOLevelUpItem {
         }
     }
 
-    public function clearIt():void {
-        while (source.numChildren) source.removeChildAt(0);
-        if (_image) _image.dispose();
-        if (_txtCount) _txtCount.dispose();
-        if (_txtNew) _txtNew.dispose();
-        _imageBg.dispose();
+    public function deleteIt():void {
+       source.deleteIt();
+        _txtCount = null;
+        _txtNew = null;
         _image = null;
         _imageBg = null;
         source = null;
-        _bolHouse = false;
-        _bolAnimal = false;
     }
 
     private function onHover():void {

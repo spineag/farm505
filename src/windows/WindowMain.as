@@ -23,7 +23,6 @@ public class WindowMain {
     protected var g:Vars = Vars.getInstance();
     protected var _callbackClickBG:Function;
     public var needAddToPool:Boolean = false;
-    protected var closeOnBgClick:Boolean = true;
     protected var _windowType:String;
 
     public function WindowMain() {
@@ -135,8 +134,6 @@ public class WindowMain {
     private function onBGClick():void {
         if (_callbackClickBG != null) {
             _callbackClickBG.apply();
-        } else {
-            if (closeOnBgClick) hideIt();
         }
     }
 }

@@ -12,6 +12,7 @@ import windows.cave.WOBuyCave;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.gameError.WOGameError;
 import windows.lastResource.WOLastResource;
+import windows.levelUp.WOLevelUp;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
 import windows.reloadPage.WOReloadGame;
@@ -95,6 +96,9 @@ public class WindowsManager {
                 break;
             case WO_LAST_RESOURCE:
                 wo = new WOLastResource();
+                break;
+            case WO_LEVEL_UP:
+                wo = new WOLevelUp();
                 break;
 
 
