@@ -7,6 +7,7 @@ import com.junkbyte.console.Cc;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
+import windows.buyForHardCurrency.WOBuyForHardCurrency;
 import windows.cave.WOBuyCave;
 import windows.gameError.WOGameError;
 import windows.noFreeCats.WONoFreeCats;
@@ -22,7 +23,7 @@ public class WindowsManager {
     public static const WO_BUY_FOR_HARD:String = 'buy_for_hard_currency'; // -
     public static const WO_BUY_PLANT:String = 'buy_plant'; // -
     public static const WO_CAVE:String = 'cave'; // -
-    public static const WO_BUY_CAVE:String = 'buy_cave'; // -
+    public static const WO_BUY_CAVE:String = 'buy_cave';
     public static const WO_DAILY_BONUS:String = 'daily_bonus'; // -
     public static const WO_FABRICA:String = 'fabrica_recipe'; // -
     public static const WO_GAME_ERROR:String = 'game_error';
@@ -83,6 +84,9 @@ public class WindowsManager {
                 break;
             case WO_BUY_CAVE:
                 wo = new WOBuyCave();
+                break;
+            case WO_BUY_FOR_HARD:
+                wo = new WOBuyForHardCurrency();
                 break;
 
 

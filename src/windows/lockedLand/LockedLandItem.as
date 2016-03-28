@@ -195,7 +195,7 @@ public class LockedLandItem {
 
     private function buyItem():void {
         g.woLockedLand.onClickExit();
-        g.woBuyForHardCurrency.showItWO(_id,_count);
+        g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, null, _id, _count);
     }
 
 
