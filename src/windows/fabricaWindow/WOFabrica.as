@@ -176,7 +176,7 @@ public class WOFabrica extends Window {
                     obj.fabrica = _fabrica;
                     obj.callback = _callbackOnClick;
                     hideIt();
-                    g.woLastResource.showItFabric(dataRecipe,obj,onBuyResource);
+                    g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, onBuyResource, dataRecipe, 'fabrica', obj);
                     return;
                 }
             }

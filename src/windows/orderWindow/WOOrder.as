@@ -265,7 +265,7 @@ public class WOOrder extends Window{
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
                 if (_activeOrderItem.getOrder().resourceCounts[i] == g.userInventory.getCountResourceById(_activeOrderItem.getOrder().resourceIds[i])
                         && g.dataResource.objectResources[_activeOrderItem.getOrder().resourceIds[i]].buildType == BuildType.PLANT) {
-                    g.woLastResource.showItOrder(_activeOrderItem.getOrder(), sellOrder);
+                    g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, sellOrder, _activeOrderItem.getOrder(), 'order');
                     return;
                 }
             }

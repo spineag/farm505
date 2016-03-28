@@ -201,7 +201,6 @@ public class Vars {
     public var woCave:WOCave;
     public var woPaper:WOPaper;
     public var woTrain:WOTrain;
-    public var woLastResource:WOLastResource;
     public var woTrainOrder:WOTrainOrder;
     public var woTrainSend:WOTrainSend;
     public var woLockedLand:WOLockedLand;
@@ -437,7 +436,6 @@ public class Vars {
         woCave = new WOCave();
         woTrain = new WOTrain();
         woNoResources = new WONoResources();
-        woLastResource = new WOLastResource();
         woNoPlaces = new WONoPlaces();
         woBuyPlant = new WOBuyPlant();
         woFabrica = new WOFabrica();

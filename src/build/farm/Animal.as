@@ -196,7 +196,7 @@ public class Animal {
                 return;
             }
             if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {
-                g.woLastResource.showItMarket(_data.idResourceRaw,onClick);
+                g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, onClick, {id:_data.idResourceRaw}, 'market');
                 return;
             }
             if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {

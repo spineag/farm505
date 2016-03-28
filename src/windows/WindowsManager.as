@@ -11,6 +11,7 @@ import windows.buyForHardCurrency.WOBuyForHardCurrency;
 import windows.cave.WOBuyCave;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.gameError.WOGameError;
+import windows.lastResource.WOLastResource;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
 import windows.reloadPage.WOReloadGame;
@@ -28,7 +29,7 @@ public class WindowsManager {
     public static const WO_DAILY_BONUS:String = 'daily_bonus'; // -
     public static const WO_FABRICA:String = 'fabrica_recipe'; // -
     public static const WO_GAME_ERROR:String = 'game_error';
-    public static const WO_LAST_RESOURCE:String = 'last_resource'; // -
+    public static const WO_LAST_RESOURCE:String = 'last_resource';
     public static const WO_LEVEL_UP:String = 'level_up'; // -
     public static const WO_LOCKED_LAND:String = 'locked_land'; // -
     public static const WO_MARKET:String = 'market'; // -
@@ -91,6 +92,9 @@ public class WindowsManager {
                 break;
             case WO_DAILY_BONUS:
                 wo = new WODailyBonus();
+                break;
+            case WO_LAST_RESOURCE:
+                wo = new WOLastResource();
                 break;
 
 

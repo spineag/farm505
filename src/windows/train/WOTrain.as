@@ -26,6 +26,7 @@ import windows.WOComponents.CartonBackgroundIn;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowsManager;
 
 public class WOTrain extends Window {
 
@@ -354,7 +355,7 @@ public class WOTrain extends Window {
         if (_activeItemIndex == -1) return;
         if (!lastResource && _arrItems[_activeItemIndex].countFree == g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)
                 && g.dataResource.objectResources[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT ) {
-            g.woLastResource.showItMarket(_arrItems[_activeItemIndex].idFree,onResourceLoad);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, onResourceLoad, {id: _arrItems[_activeItemIndex].idFree}, 'market');
             return;
         }
         if (_arrItems[_activeItemIndex].canFull) {
