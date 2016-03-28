@@ -3,48 +3,43 @@
  */
 package windows.lockedLand {
 import build.lockedLand.LockedLand;
-
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import manager.ManagerFilters;
-
-import starling.display.Image;
 import starling.display.Sprite;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.HintBackground;
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOLockedLand extends Window{
+public class WOLockedLand extends WindowMain {
     private var _dataLand:Object;
     private var _land:LockedLand;
     private var _arrItems:Array;
     private var _btnOpen:CButton;
     private var _woBG:WindowBackground;
     private var _armature:Armature;
+    private var _birka:Birka;
+    private var _pl:HintBackground;
 
     public function WOLockedLand() {
         super();
+        _windowType = WindowsManager.WO_LOCKED_LAND;
         _arrItems = [];
         _woWidth = 550;
         _woHeight = 540;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
-        _callbackClickBG = onClickExit;
-        new Birka('Новая территория', _source, _woWidth, _woHeight);
+        createExitButton(hideIt);
+        _callbackClickBG = hideIt;
+        _birka = new Birka('Новая территория', _source, _woWidth, _woHeight);
 
         var c:CartonBackground = new CartonBackground(460, 320);
         c.filter =  ManagerFilters.SHADOW;
@@ -62,29 +57,19 @@ public class WOLockedLand extends Window{
         _btnOpen.y = -_woHeight/2 + 515;
         _source.addChild(_btnOpen);
 
-        var pl:HintBackground = new HintBackground(310, 97, HintBackground.LONG_TRIANGLE, HintBackground.LEFT_CENTER);
-        pl.x = -_woWidth/2 + 179;
-        pl.y = -_woHeight/2 + 109;
-        pl.addShadow();
-        _source.addChild(pl);
+        _pl = new HintBackground(310, 97, HintBackground.LONG_TRIANGLE, HintBackground.LEFT_CENTER);
+        _pl.x = -_woWidth/2 + 179;
+        _pl.y = -_woHeight/2 + 109;
+        _pl.addShadow();
+        _source.addChild(_pl);
         txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.fonts['BloggerMedium'], 18, ManagerFilters.TEXT_BLUE);
-        pl.inSprite.addChild(txt);
+        _pl.inSprite.addChild(txt);
         addAnimation();
     }
 
-    public function onClickExit(e:Event=null):void {
-        _armature.animation.gotoAndStop('idle1', 0);
-        WorldClock.clock.remove(_armature);
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
-        hideIt();
-        clearIt();
-        _btnOpen.clickCallback = null;
-    }
-
-    public function showItWithParams(dataLand:Object, land:LockedLand):void {
-        _dataLand = dataLand;
-        _land = land;
+    override public function showItParams(callback:Function, params:Array):void {
+        _dataLand = params[0];
+        _land = params[1];
 
         if (!_dataLand || !_land) {
             Cc.error('WOLockedLand showIt:: bad _dataLand or _land');
@@ -130,18 +115,9 @@ public class WOLockedLand extends Window{
             _arrItems.push(item);
         }
         checkBtn();
-        super.showIt();
-
         WorldClock.clock.add(_armature);
         showAnimation();
-    }
-
-    private function clearIt():void {
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].clearIt();
-            _source.removeChild(_arrItems[i].source);
-        }
-        _arrItems.length = 0;
+        super.showIt();
     }
 
     private function checkBtn():void {
@@ -163,7 +139,8 @@ public class WOLockedLand extends Window{
 
     private function onBtnOpen():void {
         _land.showBoom();
-        onClickExit();
+        _land = null;
+        hideIt();
     }
 
     private function addAnimation():void {
@@ -188,6 +165,33 @@ public class WOLockedLand extends Window{
             case 3: _armature.animation.gotoAndPlay('idle_2'); break;
             case 4: _armature.animation.gotoAndPlay('idle_3'); break;
         }
+    }
+
+    override protected function deleteIt():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].clearIt();
+            _source.removeChild(_arrItems[i].source);
+        }
+        _arrItems.length = 0;
+        WorldClock.clock.remove(_armature);
+        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
+        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+       _source.removeChild(_armature.display as Sprite);
+        _armature.dispose();
+        _armature = null;
+        _source.removeChild(_btnOpen);
+        _btnOpen.deleteIt();
+        _btnOpen = null;
+        _source.removeChild(_pl);
+        _pl.deleteIt();
+        _pl = null;
+        _source.removeChild(_birka);
+        _birka.deleteIt();
+        _birka = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        super.deleteIt();
     }
 }
 }

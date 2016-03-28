@@ -193,7 +193,6 @@ public class Vars {
     public var woFabrica:WOFabrica;
     public var woAmbars:WOAmbars;
     public var woShop:WOShop;
-    public var woLevelUp:WOLevelUp;
     public var woNoResources:WONoResources;
     public var woNoPlaces:WONoPlaces;
     public var woOrder:WOOrder;
@@ -441,7 +440,6 @@ public class Vars {
         woFabrica = new WOFabrica();
         woAmbars = new WOAmbars();
         woShop = new WOShop();
-        woLevelUp = new WOLevelUp();
         woOrder = new WOOrder();
         woMarket = new WOMarket();
         woPaper = new WOPaper();

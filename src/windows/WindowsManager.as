@@ -13,6 +13,7 @@ import windows.dailyBonusWindow.WODailyBonus;
 import windows.gameError.WOGameError;
 import windows.lastResource.WOLastResource;
 import windows.levelUp.WOLevelUp;
+import windows.lockedLand.WOLockedLand;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
 import windows.reloadPage.WOReloadGame;
@@ -99,6 +100,9 @@ public class WindowsManager {
                 break;
             case WO_LEVEL_UP:
                 wo = new WOLevelUp();
+                break;
+            case WO_LOCKED_LAND:
+                wo = new WOLockedLand();
                 break;
 
 
