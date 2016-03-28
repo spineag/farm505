@@ -16,6 +16,7 @@ import windows.levelUp.WOLevelUp;
 import windows.lockedLand.WOLockedLand;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
+import windows.noPlaces.WONoPlaces;
 import windows.reloadPage.WOReloadGame;
 import windows.serverError.WOServerError;
 
@@ -103,6 +104,9 @@ public class WindowsManager {
                 break;
             case WO_LOCKED_LAND:
                 wo = new WOLockedLand();
+                break;
+            case WO_NO_PLACES:
+                wo = new WONoPlaces();
                 break;
 
 

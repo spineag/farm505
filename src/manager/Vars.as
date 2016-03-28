@@ -194,7 +194,6 @@ public class Vars {
     public var woAmbars:WOAmbars;
     public var woShop:WOShop;
     public var woNoResources:WONoResources;
-    public var woNoPlaces:WONoPlaces;
     public var woOrder:WOOrder;
     public var woMarket:WOMarket;
     public var woCave:WOCave;
@@ -202,7 +201,6 @@ public class Vars {
     public var woTrain:WOTrain;
     public var woTrainOrder:WOTrainOrder;
     public var woTrainSend:WOTrainSend;
-    public var woLockedLand:WOLockedLand;
     public var windowsPool:Array;
     public var windowsManager:WindowsManager;
 
@@ -435,7 +433,6 @@ public class Vars {
         woCave = new WOCave();
         woTrain = new WOTrain();
         woNoResources = new WONoResources();
-        woNoPlaces = new WONoPlaces();
         woBuyPlant = new WOBuyPlant();
         woFabrica = new WOFabrica();
         woAmbars = new WOAmbars();
@@ -445,7 +442,6 @@ public class Vars {
         woPaper = new WOPaper();
         woTrainOrder = new WOTrainOrder();
         woTrainSend = new WOTrainSend();
-        woLockedLand = new WOLockedLand();
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         managerPaper.getPaperItems();
