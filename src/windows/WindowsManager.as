@@ -7,6 +7,7 @@ import com.junkbyte.console.Cc;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
+import windows.cave.WOBuyCave;
 import windows.gameError.WOGameError;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
@@ -39,8 +40,6 @@ public class WindowsManager {
     public static const WO_SERVER_ERROR:String = 'server_error';
     public static const WO_SHOP:String = 'shop'; // -
     public static const WO_TRAIN:String = 'train'; // -
-    public static const WO_BUY_TRAIN:String = 'buy_train'; // -
-
 
     private var _currentWindow:WindowMain;
 
@@ -81,6 +80,9 @@ public class WindowsManager {
                 break;
             case WO_BUY_CURRENCY:
                 wo = new WOBuyCurrency();
+                break;
+            case WO_BUY_CAVE:
+                wo = new WOBuyCave();
                 break;
 
 

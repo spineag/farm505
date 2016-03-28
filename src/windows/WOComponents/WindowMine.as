@@ -83,7 +83,7 @@ public class WindowMine extends Sprite {
             im = new Image(tex.getTexture('build_window_right'));
             im.y = arr[2].y + arr[2].height + i*(imHeight - delta);
             if (i == countH-1 && im.y > arr[3].y - 90) im.y = arr[3].y - 90;
-            im.x = w/2 - imWidth;
+            im.x = w/2 - imWidth - 5;
             addChildAt(im, 0);
         }
 

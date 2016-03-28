@@ -350,7 +350,7 @@ public class Train extends AreaObject{
                 return;
             }
             onOut();
-            _woBuy.showItWithParams(_dataBuild, "Откройте поезд", onBuy,false);
+            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, "Откройте поезд", false);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) {
