@@ -447,7 +447,7 @@ public class WOMarketChoose extends Window {
         if (_curResourceId > 0) {
             if (!resource) {
                 if (g.dataResource.objectResources[_curResourceId].buildType == BuildType.PLANT && _countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId)) {
-                    g.woLastResource.showItMarket(_curResourceId,onClickBtnSell);
+                    g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, onClickBtnSell, {id: _curResourceId}, 'market');
                 return;
                 }
             }

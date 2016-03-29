@@ -131,10 +131,10 @@ public class WOFabrica extends Window {
             if (_list.isFull) {
                 var price:int = _list.priceForNewCell;
                 if (_fabrica.dataBuild.countCell >= 9) {
-                    g.woNoPlaces.showItWithParams(_list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, onBuyNewCellFromWO, hideIt, true);
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, hideIt, true);
                     return;
                 }
-                g.woNoPlaces.showItWithParams(0,price, onBuyNewCellFromWO, hideIt);
+                g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.priceForNewCell, 0, hideIt, false);
                 return;
             }
 
@@ -176,7 +176,7 @@ public class WOFabrica extends Window {
                     obj.fabrica = _fabrica;
                     obj.callback = _callbackOnClick;
                     hideIt();
-                    g.woLastResource.showItFabric(dataRecipe,obj,onBuyResource);
+                    g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, onBuyResource, dataRecipe, 'fabrica', obj);
                     return;
                 }
             }
@@ -189,13 +189,13 @@ public class WOFabrica extends Window {
         }
     }
 
-    private function onBuyNewCellFromWO():void {
+    private function onBuyNewCellFromWO():void { // or skip first cell if we can't buy cell
+        if (_fabrica.dataBuild.countCell >= 9) {
+            _list.onSkip();
+        } else {
+            _list.butNewCellFromWO();
+        }
         showIt();
-        _list.butNewCellFromWO();
-    }
-
-    public function skipFirstCell():void {
-        _list.onSkip();
     }
 
     private function createTopBG():void {

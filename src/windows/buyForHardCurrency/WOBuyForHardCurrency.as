@@ -18,36 +18,40 @@ import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowMain;
+import windows.WindowsManager;
 
-public class WOBuyForHardCurrency extends Window{
-    private var _contBtnYes:CButton;
-    private var _contBtnNo:CButton;
+public class WOBuyForHardCurrency extends WindowMain {
+    private var _btnYes:CButton;
+    private var _btnNo:CButton;
     private var _id:int;
     private var _count:int;
     private var _woBG:WindowBackground;
 
     public function WOBuyForHardCurrency() {
         super();
+        _windowType = WindowsManager.WO_BUY_FOR_HARD;
         _woWidth = 460;
         _woHeight = 308;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
-        _contBtnNo = new CButton();
-        _contBtnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
-        _contBtnYes = new CButton();
-        _contBtnYes.addButtonTexture(80, 40, CButton.GREEN, true);
+        createExitButton(hideIt);
+        _callbackClickBG = hideIt;
+        _btnNo = new CButton();
+        _btnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
+        _btnYes = new CButton();
+        _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
         var txt:TextField;
         txt = new TextField(50,50,"Да",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 15;
         txt.y = -5;
-        _contBtnYes.addChild(txt);
+        _btnYes.addChild(txt);
         txt = new TextField(50,50,"Нет",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         txt.x = 15;
         txt.y = -5;
-        _contBtnNo.addChild(txt);
+        _btnNo.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("currency_buy_window"));
         _source.addChild(im);
         im.x = -50;
@@ -63,25 +67,15 @@ public class WOBuyForHardCurrency extends Window{
         txt.y = -115;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _source.addChild(txt);
-        _contBtnYes.clickCallback = onYes;
-        _contBtnNo.clickCallback = onNo;
-        _contBtnYes.x = 100;
-        _contBtnYes.y = 80;
-        _contBtnNo.x = -100;
-        _contBtnNo.y = 80;
+        _btnYes.clickCallback = onYes;
+        _btnNo.clickCallback = onNo;
+        _btnYes.x = 100;
+        _btnYes.y = 80;
+        _btnNo.x = -100;
+        _btnNo.y = 80;
 
-        _source.addChild(_contBtnYes);
-        _source.addChild(_contBtnNo);
-    }
-
-    private function onClickExit(e:Event=null):void {
-        hideIt();
-    }
-
-    public function showItWO(id:int,count:int):void {
-        _id = id;
-        _count = count - g.userInventory.getCountResourceById(id);
-        showIt();
+        _source.addChild(_btnYes);
+        _source.addChild(_btnNo);
     }
 
     private function onYes():void {
@@ -96,6 +90,25 @@ public class WOBuyForHardCurrency extends Window{
 
     private function onNo():void {
         hideIt();
+    }
+
+    override public function showItParams(callback:Function, params:Array):void {
+        _id = params[0];
+        _count = params[1] - g.userInventory.getCountResourceById(_id);
+        showIt();
+    }
+
+    override protected function deleteIt():void {
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _source.removeChild(_btnNo);
+        _btnNo.deleteIt();
+        _btnNo = null;
+        _source.removeChild(_btnYes);
+        _btnYes.deleteIt();
+        _btnYes = null;
+        super.deleteIt();
     }
 }
 }

@@ -179,7 +179,7 @@ public class LockedLand extends AreaObject {
                 return;
             } else {
                 onOut();
-                g.woLockedLand.showItWithParams(_dataLand, this);
+                g.windowsManager.openWindow(WindowsManager.WO_LOCKED_LAND, null, _dataLand, this);
                 return;
             }
         } else {

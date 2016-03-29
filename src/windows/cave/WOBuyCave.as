@@ -3,95 +3,69 @@
  */
 package windows.cave {
 import com.junkbyte.console.Cc;
-
 import manager.ManagerFilters;
-
 import starling.display.Image;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
 import utils.MCScaler;
-
-import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowMine;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOBuyCave extends Window {
-    private var btn:CButton;
-    private var txt:TextField;
-    private var priceTxt:TextField;
+public class WOBuyCave extends WindowMain {
+    private var _btn:CButton;
+    private var _txt:TextField;
+    private var _priceTxt:TextField;
     private var _callback:Function;
     private var _dataObject:Object;
-    private var _wm:WindowMine;
+    private var _woBG:WindowMine;
 
     public function WOBuyCave() {
         super();
+        _windowType = WindowsManager.WO_BUY_CAVE;
         _woWidth = 600;
         _woHeight = 350;
-        _wm = new WindowMine(_woWidth,_woHeight);
-        _source.addChild(_wm);
-        createExitButton(onClickExit);
-        _callbackClickBG = onClickExit;
+        _woBG = new WindowMine(_woWidth,_woHeight);
+        _source.addChild(_woBG);
+        createExitButton(hideIt);
+        _callbackClickBG = hideIt;
 
-        btn = new CButton();
-        btn.addButtonTexture(250, 35, CButton.BLUE, true);
-//        btn.x = -btn.width/2;
-        btn.y = 165;
+        _btn = new CButton();
+        _btn.addButtonTexture(250, 35, CButton.BLUE, true);
+        _btn.y = 165;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         im.x = 215;
         im.y = 7;
-        btn.addChild(im);
+        _btn.addChild(im);
         MCScaler.scale(im,25,25);
-        priceTxt = new TextField(217, 30, '',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        priceTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        priceTxt.y = 5;
-//        priceTxt.x = -20;
-        btn.addChild(priceTxt);
-        _source.addChild(btn);
-        btn.clickCallback = onClickBuy;
+        _priceTxt = new TextField(217, 30, '',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _priceTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _priceTxt.y = 5;
+        _btn.addChild(_priceTxt);
+        _source.addChild(_btn);
+        _btn.clickCallback = onClickBuy;
 
-        txt = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.x = -150;
-        txt.y = -20;
-        _source.addChild(txt);
-
-
+        _txt = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txt.x = -150;
+        _txt.y = -20;
+        _source.addChild(_txt);
     }
 
-    private function onClickExit(e:Event = null):void {
-        hideIt();
-    }
-
-    public function showItWithParams(_data:Object, _t:String, f:Function,cave:Boolean):void {
-        if (!_data) {
-            Cc.error('WOBuyCave showItWithParams: empty _data');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woBuyCave');
-            return;
-        }
+    override public function showItParams(callback:Function, params:Array):void {
+        _dataObject = params[0];
+        _priceTxt.text = 'Отремонтировать ' + String(_dataObject.cost);
+        _callback = callback;
         var im:Image;
-        if (cave){
+        if (params[2]) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('mine_picture'));
-            im.x = - 298;
-            im.y = - 175;
-            _source.addChildAt(im,0);
         } else {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('aerial_tram_all'));
-            im.x = - 298;
-            im.y = - 175;
-            _source.addChildAt(im,0);
         }
-
-        _dataObject = _data;
-        priceTxt.text = 'Отремонтировать ' + String(_data.cost);
-//        txt.text = _t;
-        _callback = f;
-        showIt();
+        im.x = - 298;
+        im.y = - 175;
+        _source.addChildAt(im,0);
+        super.showIt();
     }
 
     private function onClickBuy():void {
@@ -103,6 +77,17 @@ public class WOBuyCave extends Window {
             _callback.apply();
         }
         hideIt();
+    }
+
+    override protected function deleteIt():void {
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _source.removeChild(_btn);
+        _btn.deleteIt();
+        _btn = null;
+        _dataObject = null;
+        super.deleteIt();
     }
 }
 }

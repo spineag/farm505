@@ -7,9 +7,16 @@ import com.junkbyte.console.Cc;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
+import windows.buyForHardCurrency.WOBuyForHardCurrency;
+import windows.cave.WOBuyCave;
+import windows.dailyBonusWindow.WODailyBonus;
 import windows.gameError.WOGameError;
+import windows.lastResource.WOLastResource;
+import windows.levelUp.WOLevelUp;
+import windows.lockedLand.WOLockedLand;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
+import windows.noPlaces.WONoPlaces;
 import windows.reloadPage.WOReloadGame;
 import windows.serverError.WOServerError;
 
@@ -18,14 +25,14 @@ public class WindowsManager {
     public static const WO_AMBAR_FILLED:String = 'ambar_filled';
     public static const WO_BUY_COUPONE:String = 'buy_coupone'; 
     public static const WO_BUY_CURRENCY:String = 'buy_currency';
-    public static const WO_BUY_FOR_HARD:String = 'buy_for_hard_currency'; // -
+    public static const WO_BUY_FOR_HARD:String = 'buy_for_hard_currency';
     public static const WO_BUY_PLANT:String = 'buy_plant'; // -
     public static const WO_CAVE:String = 'cave'; // -
-    public static const WO_BUY_CAVE:String = 'buy_cave'; // -
+    public static const WO_BUY_CAVE:String = 'buy_cave';
     public static const WO_DAILY_BONUS:String = 'daily_bonus'; // -
     public static const WO_FABRICA:String = 'fabrica_recipe'; // -
     public static const WO_GAME_ERROR:String = 'game_error';
-    public static const WO_LAST_RESOURCE:String = 'last_resource'; // -
+    public static const WO_LAST_RESOURCE:String = 'last_resource';
     public static const WO_LEVEL_UP:String = 'level_up'; // -
     public static const WO_LOCKED_LAND:String = 'locked_land'; // -
     public static const WO_MARKET:String = 'market'; // -
@@ -39,8 +46,6 @@ public class WindowsManager {
     public static const WO_SERVER_ERROR:String = 'server_error';
     public static const WO_SHOP:String = 'shop'; // -
     public static const WO_TRAIN:String = 'train'; // -
-    public static const WO_BUY_TRAIN:String = 'buy_train'; // -
-
 
     private var _currentWindow:WindowMain;
 
@@ -81,6 +86,27 @@ public class WindowsManager {
                 break;
             case WO_BUY_CURRENCY:
                 wo = new WOBuyCurrency();
+                break;
+            case WO_BUY_CAVE:
+                wo = new WOBuyCave();
+                break;
+            case WO_BUY_FOR_HARD:
+                wo = new WOBuyForHardCurrency();
+                break;
+            case WO_DAILY_BONUS:
+                wo = new WODailyBonus();
+                break;
+            case WO_LAST_RESOURCE:
+                wo = new WOLastResource();
+                break;
+            case WO_LEVEL_UP:
+                wo = new WOLevelUp();
+                break;
+            case WO_LOCKED_LAND:
+                wo = new WOLockedLand();
+                break;
+            case WO_NO_PLACES:
+                wo = new WONoPlaces();
                 break;
 
 

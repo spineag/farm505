@@ -2,46 +2,35 @@
  * Created by user on 8/25/15.
  */
 package windows.lastResource {
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import manager.ManagerFilters;
-
-import starling.display.Image;
-import starling.events.Event;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
-import utils.MCScaler;
-
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOLastResource extends Window{
-    private var _contBtnYes:CButton;
-    private var _contBtnNo:CButton;
-    private var _data:Object;
+public class WOLastResource extends WindowMain {
+    private var _btnYes:CButton;
+    private var _btnNo:CButton;
     private var _callbackBuy:Function;
     private var _woBG:WindowBackground;
     private var _arrItems:Array;
     private var _dataResource:Object;
-    private var _params:Object;
+    private var _paramsFabrica:Object;
+
     public function WOLastResource() {
         super();
-        var txt:TextField;
+        _windowType = WindowsManager.WO_LAST_RESOURCE;
         _woWidth = 460;
         _woHeight = 308;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
+        createExitButton(hideIt);
+
+        var txt:TextField;
         txt = new TextField(150,50,"ВНИМАНИЕ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -80;
@@ -52,107 +41,163 @@ public class WOLastResource extends Window{
         txt.x = -170;
         txt.y = -90;
         _source.addChild(txt);
-        _contBtnYes = new CButton();
+        _btnYes = new CButton();
         txt = new TextField(50, 50, "ДА", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 15;
         txt.y = -5;
-        _contBtnYes.addButtonTexture(80, 40, CButton.GREEN, true);
-        _contBtnYes.addChild(txt);
-        _source.addChild(_contBtnYes);
+        _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
+        _btnYes.addChild(txt);
+        _source.addChild(_btnYes);
 
-        _contBtnNo = new CButton();
+        _btnNo = new CButton();
         txt = new TextField(50, 50, "НЕТ", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         txt.x = 15;
         txt.y = -5;
-        _contBtnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
-        _contBtnNo.addChild(txt);
-        _source.addChild(_contBtnNo);
-        _contBtnNo.clickCallback = onClickNo;
+        _btnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
+        _btnNo.addChild(txt);
+        _source.addChild(_btnNo);
+        _btnNo.clickCallback = onClickNo;
 
-        _contBtnYes.x = 100;
-        _contBtnYes.y = 80;
-        _contBtnNo.x = -100;
-        _contBtnNo.y = 80;
-        _callbackClickBG = onClickExit;
+        _btnYes.x = 100;
+        _btnYes.y = 80;
+        _btnNo.x = -100;
+        _btnNo.y = 80;
+        _callbackClickBG = hideIt;
         _arrItems = [];
     }
 
-    private function onClickExit():void {
-        _contBtnYes.clickCallback = null;
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].deleteIt();
-        }
-        _arrItems.length = 0;
-        hideIt();
-
-    }
-
-    public function showItOrder(_data:Object, f:Function):void {
-        _callbackBuy = f;
-        if (!_data) {
-            Cc.error('WOLastResource showItMenu:: empty _data');
+    override public function showItParams(callback:Function, params:Array):void {
+        _callbackBuy = callback;
+        _dataResource = params[0];
+        if (!_dataResource) {
+            Cc.error('WOLastResource showItParams:: empty _data');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'lastResource');
             return;
         }
         var item:WOLastResourceItem;
-        _dataResource = _data;
-        for (var i:int=0; i < _data.resourceIds.length; i++) {
-            if (_data.resourceCounts[i] == g.userInventory.getCountResourceById(_data.resourceIds[i]) && g.dataResource.objectResources[_data.resourceIds[i]].buildType == BuildType.PLANT) {
+        var i:int;
+        switch (params[1]) {
+            case 'order':
+                for (i=0; i < _dataResource.resourceIds.length; i++) {
+                    if (_dataResource.resourceCounts[i] == g.userInventory.getCountResourceById(_dataResource.resourceIds[i]) && g.dataResource.objectResources[_dataResource.resourceIds[i]].buildType == BuildType.PLANT) {
+                        item = new WOLastResourceItem();
+                        item.fillWithResource(_dataResource.resourceIds[i]);
+                        _source.addChild(item.source);
+                        _arrItems.push(item);
+                    }
+                }
+                switch (_arrItems.length) {
+                    case 1:
+                        _arrItems[0].source.x = - item.source.width/2;
+                        _arrItems[0].source.y =  -40;
+                        break;
+                    case 2:
+                        _arrItems[0].source.x = -200 + 117;
+                        _arrItems[0].source.y =  -40;
+                        _arrItems[1].source.x = -200 + 217;
+                        _arrItems[1].source.y =  -40;
+                        break;
+                    case 3:
+                        _arrItems[0].source.x = -200 + 77;
+                        _arrItems[0].source.y =  -40;
+                        _arrItems[1].source.x = -200 + 167;
+                        _arrItems[1].source.y =  -40;
+                        _arrItems[2].source.x = -200 + 257;
+                        _arrItems[2].source.y =  -40;
+                        break;
+                    case 4:
+                        _arrItems[0].source.x = -200 + 39;
+                        _arrItems[0].source.y =  -40;
+                        _arrItems[1].source.x = -200 + 124;
+                        _arrItems[1].source.y =  -40;
+                        _arrItems[2].source.x = -200 + 209;
+                        _arrItems[2].source.y =  -40;
+                        _arrItems[3].source.x = -200 + 294;
+                        _arrItems[3].source.y =  -40;
+                        break;
+                    case 5:
+                        _arrItems[0].source.x = -200 + 27;
+                        _arrItems[0].source.y =  -40;
+                        _arrItems[1].source.x = -200 + 97;
+                        _arrItems[1].source.y =  -40;
+                        _arrItems[2].source.x = -200 + 167;
+                        _arrItems[2].source.y =  -40;
+                        _arrItems[3].source.x = -200 + 237;
+                        _arrItems[3].source.y =  -40;
+                        _arrItems[4].source.x = -200 + 307;
+                        _arrItems[4].source.y =  -40;
+                        break;
+                }
+                _btnYes.clickCallback = onClickOrder;
+                break;
+            case 'market':
                 item = new WOLastResourceItem();
-                item.fillWithResource(_data.resourceIds[i]);
-//                item.source.x = -70 * i +50;
-//                item.source.y = -40;
+                item.fillWithResource(_dataResource.id);
+                item.source.x = -25;
+                item.source.y = -40;
                 _source.addChild(item.source);
                 _arrItems.push(item);
-            }
-        }
-        switch (_arrItems.length) {
-            case 1:
-                _arrItems[0].source.x = - item.source.width/2;
-                _arrItems[0].source.y =  -40;
+                _btnYes.clickCallback = onClickMarket;
                 break;
-            case 2:
-                _arrItems[0].source.x = -200 + 117;
-                _arrItems[0].source.y =  -40;
-                _arrItems[1].source.x = -200 + 217;
-                _arrItems[1].source.y =  -40;
-                break;
-            case 3:
-                _arrItems[0].source.x = -200 + 77;
-                _arrItems[0].source.y =  -40;
-                _arrItems[1].source.x = -200 + 167;
-                _arrItems[1].source.y =  -40;
-                _arrItems[2].source.x = -200 + 257;
-                _arrItems[2].source.y =  -40;
-                break;
-            case 4:
-                _arrItems[0].source.x = -200 + 39;
-                _arrItems[0].source.y =  -40;
-                _arrItems[1].source.x = -200 + 124;
-                _arrItems[1].source.y =  -40;
-                _arrItems[2].source.x = -200 + 209;
-                _arrItems[2].source.y =  -40;
-                _arrItems[3].source.x = -200 + 294;
-                _arrItems[3].source.y =  -40;
-                break;
-            case 5:
-                _arrItems[0].source.x = -200 + 27;
-                _arrItems[0].source.y =  -40;
-                _arrItems[1].source.x = -200 + 97;
-                _arrItems[1].source.y =  -40;
-                _arrItems[2].source.x = -200 + 167;
-                _arrItems[2].source.y =  -40;
-                _arrItems[3].source.x = -200 + 237;
-                _arrItems[3].source.y =  -40;
-                _arrItems[4].source.x = -200 + 307;
-                _arrItems[4].source.y =  -40;
-                break;
-        }
-        _contBtnYes.clickCallback = onClickOrder;
+            case 'fabrica':
+                _paramsFabrica = params[2];
+                for (i=0; i < _dataResource.ingridientsId.length; i++) {
+                    if (g.dataResource.objectResources[_dataResource.ingridientsId[i]].buildType == BuildType.PLANT && _dataResource.ingridientsCount[i] == g.userInventory.getCountResourceById(_dataResource.ingridientsId[i])) {
+                        item = new WOLastResourceItem();
+                        item.fillWithResource(_dataResource.ingridientsId[i]);
+                        _source.addChild(item.source);
+                        _arrItems.push(item);
+                    }
+                }
+                switch (_arrItems.length) {
+                    case 1:
+                        _arrItems[0].source.x = - item.source.width/2;
+                        _arrItems[0].source.y =  -40;
+                        break;
+                    case 2:
+                        _arrItems[0].source.x = -200 + 117;
+                        _arrItems[0].source.y =  -40;
+                        _arrItems[1].source.x = -200 + 217;
+                        _arrItems[1].source.y =  -40;
+                        break;
+                    case 3:
+                        _arrItems[0].source.x = -200 + 77;
+                        _arrItems[0].source.y =  -40;
+                        _arrItems[1].source.x = -200 + 167;
+                        _arrItems[1].source.y =  -40;
+                        _arrItems[2].source.x = -200 + 257;
+                        _arrItems[2].source.y =  -40;
+                        break;
+                    case 4:
+                        _arrItems[0].source.x = -200 + 39;
+                        _arrItems[0].source.y =  -40;
+                        _arrItems[1].source.x = -200 + 124;
+                        _arrItems[1].source.y =  -40;
+                        _arrItems[2].source.x = -200 + 209;
+                        _arrItems[2].source.y =  -40;
+                        _arrItems[3].source.x = -200 + 294;
+                        _arrItems[3].source.y =  -40;
+                        break;
+                    case 5:
+                        _arrItems[0].source.x = -200 + 27;
+                        _arrItems[0].source.y =  -40;
+                        _arrItems[1].source.x = -200 + 97;
+                        _arrItems[1].source.y =  -40;
+                        _arrItems[2].source.x = -200 + 167;
+                        _arrItems[2].source.y =  -40;
+                        _arrItems[3].source.x = -200 + 237;
+                        _arrItems[3].source.y =  -40;
+                        _arrItems[4].source.x = -200 + 307;
+                        _arrItems[4].source.y =  -40;
+                        break;
+                }
+                _btnYes.clickCallback = onClickFabric;
 
-        showIt();
+        }
+
+        super.showIt();
     }
 
     private function onClickOrder():void {
@@ -160,20 +205,7 @@ public class WOLastResource extends Window{
             _callbackBuy.apply(null,[true, _dataResource]);
             _callbackBuy = null;
         }
-        onClickExit();
-    }
-
-    public function showItMarket(id:int,f:Function):void {
-        _callbackBuy = f;
-        var item:WOLastResourceItem;
-        item = new WOLastResourceItem();
-        item.fillWithResource(id);
-        item.source.x = -25;
-        item.source.y = -40;
-        _source.addChild(item.source);
-        _arrItems.push(item);
-        _contBtnYes.clickCallback = onClickMarket;
-        showIt();
+        hideIt();
     }
 
     private function onClickMarket():void {
@@ -181,78 +213,38 @@ public class WOLastResource extends Window{
             _callbackBuy.apply(null,[true]);
             _callbackBuy = null;
         }
-        onClickExit();
-    }
-
-    public function showItFabric(data:Object, params:Object, f:Function):void {
-        _callbackBuy = f;
-        _dataResource = data;
-        _params = params;
-        var item:WOLastResourceItem;
-        for (var i:int=0; i < _dataResource.ingridientsId.length; i++) {
-            if (g.dataResource.objectResources[_dataResource.ingridientsId[i]].buildType == BuildType.PLANT && _dataResource.ingridientsCount[i] == g.userInventory.getCountResourceById(_dataResource.ingridientsId[i])) {
-                item = new WOLastResourceItem();
-                item.fillWithResource(_dataResource.ingridientsId[i]);
-                _source.addChild(item.source);
-                _arrItems.push(item);
-            }
-        }
-        switch (_arrItems.length) {
-            case 1:
-                _arrItems[0].source.x = - item.source.width/2;
-                _arrItems[0].source.y =  -40;
-                break;
-            case 2:
-                _arrItems[0].source.x = -200 + 117;
-                _arrItems[0].source.y =  -40;
-                _arrItems[1].source.x = -200 + 217;
-                _arrItems[1].source.y =  -40;
-                break;
-            case 3:
-                _arrItems[0].source.x = -200 + 77;
-                _arrItems[0].source.y =  -40;
-                _arrItems[1].source.x = -200 + 167;
-                _arrItems[1].source.y =  -40;
-                _arrItems[2].source.x = -200 + 257;
-                _arrItems[2].source.y =  -40;
-                break;
-            case 4:
-                _arrItems[0].source.x = -200 + 39;
-                _arrItems[0].source.y =  -40;
-                _arrItems[1].source.x = -200 + 124;
-                _arrItems[1].source.y =  -40;
-                _arrItems[2].source.x = -200 + 209;
-                _arrItems[2].source.y =  -40;
-                _arrItems[3].source.x = -200 + 294;
-                _arrItems[3].source.y =  -40;
-                break;
-            case 5:
-                _arrItems[0].source.x = -200 + 27;
-                _arrItems[0].source.y =  -40;
-                _arrItems[1].source.x = -200 + 97;
-                _arrItems[1].source.y =  -40;
-                _arrItems[2].source.x = -200 + 167;
-                _arrItems[2].source.y =  -40;
-                _arrItems[3].source.x = -200 + 237;
-                _arrItems[3].source.y =  -40;
-                _arrItems[4].source.x = -200 + 307;
-                _arrItems[4].source.y =  -40;
-                break;
-        }
-        _contBtnYes.clickCallback = onClickFabric;
-        showIt();
+        hideIt();
     }
 
     private function onClickFabric():void {
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[_dataResource,_params,true]);
+            _callbackBuy.apply(null,[_dataResource,_paramsFabrica,true]);
             _callbackBuy = null;
         }
-        onClickExit();
+        hideIt();
     }
 
     private function onClickNo():void {
-        onClickExit();
+        hideIt();
+    }
+
+    override protected function deleteIt():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].deleteIt();
+        }
+        _arrItems.length = 0;
+        _source.removeChild(_btnNo);
+        _btnNo.deleteIt();
+        _btnNo = null;
+        _source.removeChild(_btnYes);
+        _btnYes.deleteIt();
+        _btnYes = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _dataResource = null;
+        _paramsFabrica = null;
+        super.deleteIt();
     }
 }
 }

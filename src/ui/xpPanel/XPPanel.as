@@ -20,6 +20,7 @@ import utils.MCScaler;
 
 import windows.WOComponents.HorizontalPlawka;
 import windows.WOComponents.ProgressBarComponent;
+import windows.WindowsManager;
 
 public class XPPanel {
     private var _source:CSprite;
@@ -80,7 +81,7 @@ public class XPPanel {
             g.user.xp -= _maxXP;
             g.user.level++;
             _txtLevel.text = String(g.user.level);
-            g.woLevelUp.showLevelUp();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, null);
             g.friendPanel.checkLevel();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
             g.directServer.updateUserLevel(onUpdateUserLevel);

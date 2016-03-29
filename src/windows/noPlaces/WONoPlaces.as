@@ -3,28 +3,20 @@
  */
 package windows.noPlaces {
 import data.DataMoney;
-
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
 import utils.MCScaler;
-
-import windows.Window;
 import windows.WOComponents.WindowBackground;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WONoPlaces extends Window{
+public class WONoPlaces extends WindowMain {
 
-    private var _contBtn:CButton;
+    private var _btn:CButton;
     private var _txtName:TextField;
     private var _txtText:TextField;
     private var _txtCost:TextField;
@@ -36,20 +28,21 @@ public class WONoPlaces extends Window{
     private var _exitCallback:Function;
     private var _imageItem:Image;
     private var _last:Boolean;
+
     public function WONoPlaces() {
         super();
+        _windowType = WindowsManager.WO_NO_PLACES;
         _woWidth = 400;
         _woHeight = 380;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
+        createExitButton(hideIt);
 
-        _contBtn = new CButton();
-        _contBtn.addButtonTexture(120, 40, CButton.GREEN, true);
-//        _contBtn.x =-5;
-        _contBtn.y = 120;
-        _source.addChild(_contBtn);
-        _contBtn.clickCallback = onClick;
+        _btn = new CButton();
+        _btn.addButtonTexture(120, 40, CButton.GREEN, true);
+        _btn.y = 120;
+        _source.addChild(_btn);
+        _btn.clickCallback = onClick;
         _txtName = new TextField(300,30,"НЕДОСТАТОЧНО МЕСТА!",g.allData.fonts['BloggerBold'],22,Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -150;
@@ -64,7 +57,7 @@ public class WONoPlaces extends Window{
         MCScaler.scale(im,35,35);
         im.x = 80;
         im.y = 4;
-        _contBtn.addChild(im);
+        _btn.addChild(im);
         im.filter = ManagerFilters.SHADOW_TINY;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         im.x = -50;
@@ -73,7 +66,7 @@ public class WONoPlaces extends Window{
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtCost.x = 30;
         _txtCost.y = -3;
-        _contBtn.addChild(_txtCost);
+        _btn.addChild(_txtCost);
         _source.addChild(im);
         _txtAdd = new TextField(100,100,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtAdd.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -82,39 +75,37 @@ public class WONoPlaces extends Window{
     }
 
     private function onClickExit(e:Event=null):void {
-        hideIt();
         if (_exitCallback != null) {
             _exitCallback.apply();
             _exitCallback = null;
         }
-        _buyCallback = null;
-        _source.removeChild(_imageItem);
+        super.hideIt();
     }
 
-    public function showItWithParams(cost:int,price:int, callback:Function, callbackExit:Function, last:Boolean = false):void {
-        _price = price;
-
+    override public function showItParams(callback:Function, params:Array):void {
+        _price = params[0];
         _buyCallback = callback;
-        _exitCallback = callbackExit;
-        if (last) {
+        _exitCallback = params[2];
+        _last = params[3];
+        if (_last) {
             _txtText.text = 'Подождите пока освободится ячейка или ускорьте изготовление текущего продукта.';
-            _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[price].url].getTexture(g.dataResource.objectResources[price].imageShop));
+            _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[params[1]].url].getTexture(g.dataResource.objectResources[params[1]].imageShop));
             MCScaler.scale(_imageItem,80,80);
             _imageItem.x = -40;
             _imageItem.y = -40;
             _source.addChild(_imageItem);
             _last = true;
-            _cost = cost;
-            _txtCost.text = String(cost);
-            _txtAdd.text = 'ускорить';
+            _cost = params[0];
+            _txtCost.text = String(_price);
+            _txtAdd.text = 'Ускорить';
             _txtAdd.x = -47;
             _txtAdd.y = -15;
             _txtText.x = -175;
             _txtText.y = -130;
         } else {
             _txtText.text = 'У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.';
-            _contBtn.visible = true;
-            _txtCost.text = String(price);
+            _btn.visible = true;
+            _txtCost.text = String(_price);
             _txtAdd.x = -47;
             _txtAdd.y = -50;
             _txtAdd.text = 'Добавить ячейку';
@@ -122,14 +113,16 @@ public class WONoPlaces extends Window{
             _txtText.y = -115;
         }
 
-        showIt();
+        super.showIt();
     }
 
     private function onClick():void {
-        hideIt();
-        if (_last && g.user.hardCurrency >= _cost) {
-            g.woFabrica.skipFirstCell();
-            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_cost);
+        if (_last && g.user.hardCurrency >= _price) {
+            if (_buyCallback != null) {
+                _buyCallback.apply();
+                _buyCallback = null;
+            }
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_price);
             onClickExit();
             return;
         }
@@ -139,11 +132,23 @@ public class WONoPlaces extends Window{
                 _buyCallback.apply();
                 _buyCallback = null;
             }
-
         } else {
             _buyCallback = null;
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         }
+        super.hideIt();
+    }
+
+    override protected function deleteIt():void {
+        _source.removeChild(_btn);
+        _btn.deleteIt();
+        _btn = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _buyCallback = null;
+        _exitCallback = null;
+        super.deleteIt();
     }
 }
 }

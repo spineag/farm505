@@ -30,8 +30,10 @@ import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
 
 import windows.Window;
+import windows.WindowMain;
+import windows.WindowsManager;
 
-public class WOLevelUp extends Window{
+public class WOLevelUp extends WindowMain {
     private var _txtNewLvl:TextField;
     private var _txtNewObject:TextField;
     private var _txtLevel:TextField;
@@ -49,7 +51,7 @@ public class WOLevelUp extends Window{
 
     public function WOLevelUp() {
         super ();
-        closeOnBgClick = false;
+        _windowType = WindowsManager.WO_LEVEL_UP;
         _woWidth = 551;
         _woHeight = 409;
         _woBG = new WindowBackground(_woWidth, _woHeight);
@@ -59,7 +61,7 @@ public class WOLevelUp extends Window{
         bg.x = -_woWidth/2 + 10;
         bg.y = -_woHeight/2 + 15;
         _source.addChild(bg);
-        createExitButton(onClickExit);
+        createExitButton(hideIt);
 
         var im:Image;
         _contClipRect = new Sprite();
@@ -105,7 +107,6 @@ public class WOLevelUp extends Window{
         _source.addChild(_leftArrow);
         _leftArrow.clickCallback = onLeftClick;
 
-
         _rightArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
         MCScaler.scale(im,61,26);
@@ -116,7 +117,6 @@ public class WOLevelUp extends Window{
         _rightArrow.y = 75 + _rightArrow.height/2;
         _source.addChild(_rightArrow);
         _rightArrow.clickCallback = onRightClick;
-
 
         _source.addChild(_txtNewLvl);
         _source.addChild(_txtLevel);
@@ -134,30 +134,14 @@ public class WOLevelUp extends Window{
         _callbackClickBG = null;
     }
 
-    public function showLevelUp():void {
+    override public function showItParams(callback:Function, params:Array):void {
         if (g.user.level >= 17) g.couponePanel.openPanel(true);
         if (g.user.level >= 17) g.woShop.openCoupone(true);
-        showIt();
         _txtLevel.text = String(g.user.level);
         createList();
         _source.y -= 40;
         _black.y += 40;
-    }
-
-    private function onClickExit(e:Event=null):void {
-        hideIt();
-    }
-
-    override public function hideIt():void {
-        super.hideIt();
-        clearIt();
-        _leftArrow.visible = false;
-        _leftArrow.setEnabled = true;
-        _rightArrow.visible = false;
-        _rightArrow.setEnabled = true;
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.LEVEL_UP) {
-            g.managerTutorial.checkTutorialCallback();
-        }
+        super.showIt();
     }
 
     private function onLeftClick():void {
@@ -187,19 +171,6 @@ public class WOLevelUp extends Window{
                 _rightArrow.setEnabled = true;
             }
         }
-    }
-
-    private function clearIt():void {
-        while (_contImage.numChildren) {
-            _contImage.removeChildAt(0);
-        }
-        _shift = 0;
-        checkBtns();
-        animList();
-        for (var i:int=0; i<_arrCells.length; i++) {
-            _arrCells[i].clearIt();
-        }
-        _arrCells.length = 0;
     }
 
     private function animList():void {
@@ -253,7 +224,6 @@ public class WOLevelUp extends Window{
             objDataLevel.countSoft = g.dataLevel.objectLevels[g.user.level].countSoft;
             arr.push(objDataLevel);
         }
-
         if (g.dataLevel.objectLevels[g.user.level].decorId[0] > 0) {
             for (i = 0; i < g.dataLevel.objectLevels[g.user.level].decorId.length; i++) {
                 objDataLevel = {};
@@ -263,7 +233,6 @@ public class WOLevelUp extends Window{
                 arr.push(objDataLevel);
             }
         }
-
         if (g.dataLevel.objectLevels[g.user.level].resourceId[0] > 0) {
             for (i = 0; i < g.dataLevel.objectLevels[g.user.level].resourceId.length; i++) {
                 objDataLevel = {};
@@ -273,7 +242,6 @@ public class WOLevelUp extends Window{
                 arr.push(objDataLevel);
             }
         }
-
         if (g.dataLevel.objectLevels[g.user.level].catCount > 0) {
             objDataLevel = {};
             objDataLevel.catCount = true;
@@ -320,6 +288,29 @@ public class WOLevelUp extends Window{
             _leftArrow.setEnabled = false;
             _rightArrow.visible = true;
         }
+    }
+
+    override protected function deleteIt():void {
+        for (var i:int=0; i<_arrCells.length; i++) {
+            _arrCells[i].deleteIt();
+        }
+        _arrCells.length = 0;
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.LEVEL_UP) {
+            g.managerTutorial.checkTutorialCallback();
+        }
+        _source.removeChild(_contBtn);
+        _contBtn.deleteIt();
+        _contBtn = null;
+        _source.removeChild(_leftArrow);
+        _leftArrow.deleteIt();
+        _leftArrow = null;
+        _source.removeChild(_rightArrow);
+        _rightArrow.deleteIt();
+        _rightArrow = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        super.deleteIt();
     }
 
 }

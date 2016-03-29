@@ -167,7 +167,7 @@ public class Fabrica extends AreaObject {
     }
 
     private function onClick():void {
-//        g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
+//        g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, null, 32, 5);
 //        return;
 
         if (g.managerTutorial.isTutorial) {

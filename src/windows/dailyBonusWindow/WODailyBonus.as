@@ -4,22 +4,18 @@
 package windows.dailyBonusWindow {
 import com.greensock.TweenMax;
 import com.greensock.easing.Quad;
-
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
 import utils.MCScaler;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WODailyBonus extends Window{
+public class WODailyBonus extends WindowMain {
     private var _koleso:Sprite;
     private var _arrItems:Array;
     private var _btnFree:CButton;
@@ -30,7 +26,7 @@ public class WODailyBonus extends Window{
 
     public function WODailyBonus() {
         super();
-
+        _windowType = WindowsManager.WO_DAILY_BONUS;
         _woWidth = 538;
         _woHeight = 500;
         createExitButton(onClickExit);
@@ -40,16 +36,26 @@ public class WODailyBonus extends Window{
 
     private function onClickExit(e:Event=null):void {
         if (_isAnimate) return;
-        clearItems();
         super.hideIt();
     }
 
-    public function showItMenu():void {
+    override public function showItParams(callback:Function, params:Array):void {
         _koleso.rotation = 0;
         _curActivePosition = 0;
         fillItems();
         checkBtns();
         super.showIt();
+    }
+
+    override protected function deleteIt():void {
+        clearItems();
+        _source.removeChild(_btnBuy);
+        _btnBuy.deleteIt();
+        _btnBuy = null;
+        _source.removeChild(_btnFree);
+        _btnFree.deleteIt();
+        _btnFree = null;
+        super.deleteIt();
     }
 
     private function createKoleso():void {
