@@ -192,6 +192,9 @@ public class Cave extends AreaObject{
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) buildingBuildFoundationOver();
             _countTimer = 7;
+            g.timerHint.managerHide();
+            g.wildHint.managerHide();
+            g.treeHint.managerHide();
             g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();

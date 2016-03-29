@@ -326,6 +326,9 @@ public class Tree extends AreaObject {
         if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             _count = 20;
             _countMouse = 7;
+            g.timerHint.managerHide();
+            g.wildHint.managerHide();
+            g.treeHint.managerHide();
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         } else {
             g.mouseHint.hideIt();
@@ -343,7 +346,7 @@ public class Tree extends AreaObject {
                 armature.animation.gotoAndPlay('over_s');
                 break;
             case GROW_FLOWER1:
-                armature.animation.gotoAndPlay('over__sfl');
+                armature.animation.gotoAndPlay('over_sfl');
                 break;
             case GROWED1:
                 armature.animation.gotoAndPlay('over_sfr');

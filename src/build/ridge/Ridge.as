@@ -129,6 +129,11 @@ public class Ridge extends AreaObject{
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
             _count = 10;
             _countMouse = 7;
+            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+                g.timerHint.managerHide();
+                g.wildHint.managerHide();
+                g.treeHint.managerHide();
+            }
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
@@ -209,8 +214,7 @@ public class Ridge extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 onOut();
-//                trace(dataBuild.image.height);
-                g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut);
+                g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
             }
             if (_stateRidge == EMPTY) {
                 onOut();
@@ -332,7 +336,7 @@ public class Ridge extends AreaObject{
             g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             if (_isOnHover == true) {
                 if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                    g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut);
+                    g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut,true);
                     g.mouseHint.checkMouseHint(MouseHint.CLOCK);
                 } else if (_stateRidge == GROWED) {
                     g.mouseHint.checkMouseHint(MouseHint.SERP);

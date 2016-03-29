@@ -73,14 +73,41 @@ public class Market extends AreaObject{
         _sizeY = _dataBuild.height;
         if (_flip) _build.scaleX = -_defaultScale;
         _source.addChild(_build);
-        _armature.animation.gotoAndStop('idle', 0);
+        _armature.animation.gotoAndStop('work', 0);
     }
 
     private function onHover():void {
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+//            _armature.animation.gotoAndPlay('idle_2');
+            _arrItem = g.user.marketItems;
+            var coins:int = 0;
+            var res:int = 0;
+            for (var i:int = 0; i < _arrItem.length; i++) {
+                if (g.user.marketItems[i].buyerId != '0') {
+                    coins++;
+                } else {
+                    res ++;
+                }
+            }
+            var b:Bone;
+            var im:Image;
+            if (coins <= 0) {
+                b = _armature.getBone('coins');
+                b.display.dispose();
+                b.display.visible = false;
+            }
+            if (res <= 0) {
+                b = _armature.getBone('fr');
+                b.display.dispose();
+                b.display.visible = false;
+                b = _armature.getBone('fr2');
+                b.display.dispose();
+                b.display.visible = false;
+            }
             _armature.animation.gotoAndPlay('idle_2');
+
         }
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
@@ -166,31 +193,19 @@ public class Market extends AreaObject{
         }
         var b:Bone;
         var im:Image;
-        if (coins > 0) {
-//            im = g.allData.factory['market'].getTextureDisplay('coins') as Image;
+        _armature.animation.gotoAndStop('work', 0);
+        if (coins <= 0) {
             b = _armature.getBone('coins');
-//            b.display.dispose();
-        } else {
-//            b = null;
-//            b = _armature.getBone('coins');
-//            b.display.dispose();
+            b.display.dispose();
+            b.display.visible = false;
         }
-        if (res > 0) {
-//            im = g.allData.factory['market'].getTextureDisplay('fruits1') as Image;
-//            b = _armature.getBone('fr');
-//            b.display.dispose();
-//            b.display = true;
-//            im = g.allData.factory['market'].getTextureDisplay('fruits2') as Image;
-//            b = _armature.getBone('fr2');
-//            b.display.dispose();
-//            b.display = true;
-        } else {
-//            b.display.
-//            b = null;
-//            b = _armature.getBone('fr');
-//            b.display.dispose();
-//            b = _armature.getBone('fr2');
-//            b.display.dispose();
+        if (res <= 0) {
+            b = _armature.getBone('fr');
+            b.display.dispose();
+            b.display.visible = false;
+            b = _armature.getBone('fr2');
+            b.display.dispose();
+            b.display.visible = false;
         }
     }
 }
