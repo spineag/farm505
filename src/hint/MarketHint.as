@@ -73,7 +73,7 @@ public class MarketHint {
         var wText:int = 0;
         var wName:int = 0;
         if (!g.dataResource.objectResources[_dataId]) {
-            Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
+            Cc.error('MarketHint showIt:: empty g.dataResource.objectResources[_dataId]');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'MarketHint');
             return;
         }
@@ -309,7 +309,7 @@ public class MarketHint {
             return;
         }
 
-        Cc.error('Resource hint:: can"t find for resourceId= ' + _dataId);
+        Cc.error('Market Hint:: can"t find for resourceId= ' + _dataId);
     }
     public function hideIt():void {
         _source.unflatten();

@@ -9,7 +9,7 @@ import tutorial.TutorialAction;
 import utils.Utils;
 
 public class ManagerOrder {
-    public static const TIME_DELAY:int = 15 * 60;
+    public static const TIME_DELAY:int = 5;
     public static const COST_SKIP_WAIT:int = 8;
 
     private var _countCellOnLevel:Array;
@@ -382,12 +382,12 @@ public class ManagerOrder {
         var pl:int = order.placeNumber;
         g.directServer.deleteUserOrder(order.dbId, null);
         addNewOrders(1, TIME_DELAY, f, order.placeNumber);
-        for (i=0; i<_arrOrders.length; i++) {
-            if (_arrOrders[i].placeNumber == pl) {
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
-                break;
-            }
-        }
+//        for (i=0; i<_arrOrders.length; i++) {
+//            if (_arrOrders[i].placeNumber == pl) {
+//                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+//                break;
+//            }
+//        }
     }
 
     public function sellOrder(order:ManagerOrderItem, f:Function):void {
@@ -434,9 +434,17 @@ public class ManagerOrder {
         return false;
     }
 
-    public function onSkipTimer(orderDbId:String):void {
-        g.directServer.skipOrderTimer(orderDbId, null);
-        for (var i:int=0; i<_arrOrders.length; i++) {
+    public function onSkipTimer(order:ManagerOrderItem):void {
+        g.directServer.skipOrderTimer(order.dbId, null);
+        var pl:int = order.placeNumber;
+        var orderDbId:String = order.dbId;
+        for (var i:int = 0; i<_arrOrders.length; i++) {
+            if (_arrOrders[i].placeNumber == pl) {
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+                break;
+            }
+        }
+        for (i=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == orderDbId) {
                 _arrOrders[i].startTime -= 2*ManagerOrder.TIME_DELAY;
                 break;

@@ -71,7 +71,10 @@ public class WOBuyPlantItem {
         }
         fillIcon(_dataPlant.imageShop);
         _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
-        if (_countPlants <= 0) _txtNumber.color = ManagerFilters.TEXT_ORANGE;
+        if (_countPlants <= 0) {
+            _txtNumber.color = ManagerFilters.TEXT_ORANGE;
+            _txtNumber.nativeFilters = null;
+        }
         else {
             _txtNumber.color = Color.WHITE;
             _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;

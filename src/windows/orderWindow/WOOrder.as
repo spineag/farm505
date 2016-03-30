@@ -490,6 +490,16 @@ public class WOOrder extends Window{
         }
     }
 
+    public function timerSkip(order:ManagerOrderItem):void {
+        var pl:int = order.placeNumber;
+        for (var i:int = 0; i<_arrOrders.length; i++) {
+            if (_arrOrders[i].placeNumber == pl) {
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+                break;
+            }
+        }
+    }
+
     private function set setTimerText(c:int):void {
         _txtTimer.text = TimeUtils.convertSecondsForOrders(c);
     }

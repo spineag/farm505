@@ -7,6 +7,8 @@ import flash.geom.Rectangle;
 
 import manager.ManagerFilters;
 import manager.Vars;
+
+import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -39,7 +41,13 @@ public class Hint {
         _newX = newX;
         if (!xp )  {
             _txtHint.x = 0;
-            _txtHint.width = rectangle.width + 20;
+            _txtHint.width = rectangle.width + 20; var tween:Tween = new Tween(source, 0.1);
+            tween.scaleTo(1);
+            tween.onComplete = function ():void {
+                g.starling.juggler.remove(tween);
+
+            };
+            g.starling.juggler.add(tween);
         } else {
             _txtHint.width = 150;
         }
@@ -57,12 +65,21 @@ public class Hint {
         _isShow = true;
         g.cont.hintCont.addChild(source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
+        source.scaleX = source.scaleY = 0;
+        tween = new Tween(source, 0.4);
+        tween.scaleTo(1);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+
+        };
+        g.starling.juggler.add(tween);
     }
 
     private function onEnterFrame():void {
         if (_catXp || _newX > 0) {
-            source.x = _newX - 150;
-            source.y = g.ownMouse.mouseY - 30;
+            source.x = _newX;
+            source.y = g.ownMouse.mouseY + 20;
+            checkPosition();
             return;
         }
         source.x = g.ownMouse.mouseX + 20;
@@ -82,6 +99,10 @@ public class Hint {
         while (source.numChildren) source.removeChildAt(0);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
         g.cont.hintCont.removeChild(source);
+    }
+
+    private function timerClose():void {
+
     }
 }
 }

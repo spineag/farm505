@@ -29,6 +29,7 @@ public class WONoResourcesItem {
     private var _image:Image;
     private var _txtCount:TextField;
     private var _inHover:Boolean;
+    private var _money:Boolean;
     private var _dataId:int;
 
     private var g:Vars = Vars.getInstance();
@@ -41,6 +42,7 @@ public class WONoResourcesItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _inHover = false;
+        _money = false;
     }
 
     public function fillWithResource(id:int, count:int):void {
@@ -113,6 +115,7 @@ public class WONoResourcesItem {
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.y = 50;
         source.addChild(_txtCount);
+        _money = true;
     }
 
     public function deleteIt():void {
@@ -122,7 +125,7 @@ public class WONoResourcesItem {
     }
 
     private function onHover():void {
-        if (_inHover) return;
+        if (_inHover || _money) return;
         _inHover = true;
         g.marketHint.showIt(_dataId,source.x,source.y,source);
 

@@ -213,7 +213,7 @@ public class WOMarket  extends Window {
         _txtTimerPaper.x = 68;
         _txtTimerPaper.y = 165;
         _contPaper.addChild(_txtTimerPaper);
-        _timer = 300;
+        _timer = g.user.inPapperBtn;
         _contPaper.visible = false;
     }
 
@@ -468,7 +468,7 @@ public class WOMarket  extends Window {
             item.source.y = -10;
         }
         _contItemCell.addChild(item.source);
-        _arrItems.push(item.source);
+        _arrItems.push(item);
         item.callbackFill = callbackItem;
         checkArrow();
     }
@@ -544,6 +544,8 @@ public class WOMarket  extends Window {
         }
         g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
         createMarketTabBtns();
+        _countPage = 1;
+        checkArrow();
     }
 
     private function onClickPaper():void {
@@ -553,6 +555,7 @@ public class WOMarket  extends Window {
         }
         g.userInventory.addMoney(1,-1);
         _timer = 0;
+        g.directServer.skipUserInPaper(null);
         g.gameDispatcher.removeFromTimer(onTimer);
         _txtTimerPaper.text = '';
         _btnPaper.visible = false;

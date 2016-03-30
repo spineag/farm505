@@ -58,7 +58,7 @@ public class WOOrderItem {
         _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
         _starImage.x = 17;
         _starImage.y = 24;
-        MCScaler.scale(_starImage, 30, 30);
+        MCScaler.scale(_starImage, 31, 31);
         _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
         _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
@@ -70,7 +70,7 @@ public class WOOrderItem {
         _coinsImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         _coinsImage.x = 17;
         _coinsImage.y = 55;
-        MCScaler.scale(_coinsImage, 30, 30);
+        MCScaler.scale(_coinsImage, 31, 31);
         _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
         _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
@@ -165,6 +165,7 @@ public class WOOrderItem {
             _coinsImage.visible = true;
             _starImage.visible = true;
             _delImage.visible = false;
+            g.woOrder.timerSkip(_order);
         }
     }
 
@@ -174,7 +175,7 @@ public class WOOrderItem {
 
     public function onSkipTimer():void {
         _leftSeconds = 0;
-        g.managerOrder.onSkipTimer(_order.dbId);
+        g.managerOrder.onSkipTimer(_order);
         _check.visible = false;
         _order.startTime -= 2*ManagerOrder.TIME_DELAY;
     }

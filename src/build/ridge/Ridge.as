@@ -230,7 +230,7 @@ public class Ridge extends AreaObject{
                 }
                  if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
                      _source.filter = null;
-                     g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
+                     g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                  } else {
                      _stateRidge = EMPTY;
                      _plant.onCraftPlant();
@@ -280,7 +280,6 @@ public class Ridge extends AreaObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for fillPlant');
             return;
         }
-
         _stateRidge = GROW1;
         if (!isFromServer) g.userInventory.addResource(data.id, -1);
         if (!isFromServer) g.toolsModifier.updateCountTxt();

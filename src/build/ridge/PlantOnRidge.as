@@ -93,6 +93,7 @@ public class PlantOnRidge {
     private function timerAnimation():void {
         _timerAnimationGrowed --;
         if (_timerAnimationGrowed <=0) {
+            if(armature == null) return;
             armature.animation.gotoAndPlay('state4',0);
             g.gameDispatcher.removeFromTimer(timerAnimation);
             growedAnimation();

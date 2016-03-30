@@ -19,6 +19,7 @@ public class Consts {
     public static var INQ_ADD_USER_XP:String = 'addUserXP.php';
     public static var INQ_UPDATE_USER_LEVEL:String = 'updateUserLevel.php';
     public static var INQ_UPDATE_USER_TIMER_PAPER:String = 'updateUserTimerPaper.php';
+    public static var INQ_SKIP_USER_IN_PAPER:String = 'skipUserInPaper.php';
     public static var INQ_GET_USER_RESOURCE:String = 'getUserResource.php';
     public static var INQ_GET_USER_BUILDING:String = 'getUserBuilding.php';
     public static var INQ_GET_USER_FABRICA_RECIPE:String = 'getUserFabricaRecipe.php';

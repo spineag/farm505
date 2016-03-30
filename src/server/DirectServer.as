@@ -546,7 +546,8 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
-            g.user.timePaper = int (ob.time_paper);
+            g.user.timePaper = int(ob.time_paper);
+            g.user.inPapperBtn = int(ob.in_paper);
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);
             g.user.checkUserLevel();
@@ -4397,12 +4398,13 @@ public class DirectServer {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_MARKET_PAPPER);
         var variables:URLVariables = new URLVariables();
-
+        var time:Number = getTimer();
         Cc.ch('server', 'updateMarketPapper', 1);
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.numberCell = numberCell;
         variables.inPapper = inPapper ? 1 : 0;
+        variables.timePapper = time;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4435,6 +4437,56 @@ public class DirectServer {
         } else {
             Cc.error('updateMarketPapper: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateMarketPapper: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function skipUserInPaper(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_USER_IN_PAPER);
+        var variables:URLVariables = new URLVariables();
+        var time:Number = getTimer();
+        Cc.ch('server', 'skipUserInPaper', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.inPapper = 0;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteSkipUserInPaper);
+        function onCompleteSkipUserInPaper(e:Event):void { completeSkipUserInPaper(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('skipUserInPaper error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipUserInPaper error:' + error.errorID);
+        }
+    }
+
+    private function completeSkipUserInPaper(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('skipUserInPaper: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipUserInPaper: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'skipUserInPaper OK', 5);
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('skipUserInPaper: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipUserInPaper: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
         }
     }
 }

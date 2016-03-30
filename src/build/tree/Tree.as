@@ -222,7 +222,8 @@ public class Tree extends AreaObject {
                 armature.animation.gotoAndStop("middle_flower", 0);
                 break;
             case GROWED2:
-                armature.animation.gotoAndStop("middle_fruits", 0);
+                if (_dataBuild.id == 41) armature.animation.gotoAndStop("middle_flower_0", 0);
+               else armature.animation.gotoAndStop("middle_fruits", 0);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[1]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[1] for dbId: ' + tree_db_id);
                 }

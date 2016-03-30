@@ -8,6 +8,7 @@ import flash.utils.getTimer;
 
 import manager.ManagerFilters;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
@@ -25,6 +26,7 @@ import windows.Window;
 import windows.WindowsManager;
 
 public class WOPaper extends Window{
+    private var _contSprite:CSprite;
     private var _btnRefreshGreen:CButton;
     private var _btnRefreshBlue:CButton;
     private var _arrPaper:Array;
@@ -39,13 +41,18 @@ public class WOPaper extends Window{
     private var _flipPage:WOPaperFlipPage;
     private var _timer:int;
     private var _txtTimer:TextField;
+    private var _quad:Quad;
 
     public function WOPaper() {
         _woWidth = 842;
         _woHeight = 526;
         _shiftPages = 1;
         var im:Image;
-
+        _contSprite = new CSprite();
+        _source.addChild(_contSprite);
+//        _quad = new Quad(_woWidth, _woHeight,Color.WHITE ,false);
+//        _quad.alpha = 0;
+//        source.addChild(_quad);
         _btnRefreshGreen = new CButton();
         _btnRefreshGreen.addButtonTexture(130, 40, CButton.GREEN, true);
         var txt:TextField = new TextField(100, 40, "Обновить 1", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
