@@ -80,37 +80,11 @@ public class Market extends AreaObject{
         if (g.selectedBuild) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-//            _armature.animation.gotoAndPlay('idle_2');
-            _arrItem = g.user.marketItems;
-            var coins:int = 0;
-            var res:int = 0;
-            for (var i:int = 0; i < _arrItem.length; i++) {
-                if (g.user.marketItems[i].buyerId != '0') {
-                    coins++;
-                } else {
-                    res ++;
-                }
-            }
-            var b:Bone;
-            var im:Image;
-            if (coins <= 0) {
-                b = _armature.getBone('coins');
-                b.display.dispose();
-                b.display.visible = false;
-            }
-            if (res <= 0) {
-                b = _armature.getBone('fr');
-                b.display.dispose();
-                b.display.visible = false;
-                b = _armature.getBone('fr2');
-                b.display.dispose();
-                b.display.visible = false;
-            }
             _armature.animation.gotoAndPlay('idle_2');
-
         }
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
+        fillIt();
     }
 
     private function onClick():void {

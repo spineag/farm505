@@ -21,6 +21,7 @@ public class WONoPlaces extends WindowMain {
     private var _txtText:TextField;
     private var _txtCost:TextField;
     private var _txtAdd:TextField;
+//    private var _txtButton:TextField;
     private var _woBG:WindowBackground;
     private var _price:int;
     private var _cost:int;
@@ -39,7 +40,7 @@ public class WONoPlaces extends WindowMain {
         createExitButton(hideIt);
 
         _btn = new CButton();
-        _btn.addButtonTexture(120, 40, CButton.GREEN, true);
+        _btn.addButtonTexture(200, 40, CButton.GREEN, true);
         _btn.y = 120;
         _source.addChild(_btn);
         _btn.clickCallback = onClick;
@@ -48,23 +49,23 @@ public class WONoPlaces extends WindowMain {
         _txtName.x = -150;
         _txtName.y = -150;
         _source.addChild(_txtName);
-        _txtText = new TextField(350,70,"",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        _txtText = new TextField(350,70,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
 
         _source.addChild(_txtText);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         MCScaler.scale(im,35,35);
-        im.x = 80;
+        im.x = 155;
         im.y = 4;
         _btn.addChild(im);
         im.filter = ManagerFilters.SHADOW_TINY;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         im.x = -50;
         im.y = -50;
-        _txtCost = new TextField(50,50,"","g.allData.fonts['BloggerBold']",24,Color.WHITE);
+        _txtCost = new TextField(150,50,"","g.allData.fonts['BloggerBold']",14,Color.WHITE);
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-        _txtCost.x = 30;
+        _txtCost.x = 5;
         _txtCost.y = -3;
         _btn.addChild(_txtCost);
         _source.addChild(im);
@@ -72,6 +73,11 @@ public class WONoPlaces extends WindowMain {
         _txtAdd.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _source.addChild(_txtAdd);
         _last = false;
+
+//        _txtButton = new TextField(150,50,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+//        _txtButton.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+//        _btn.addChild(_txtButton);
+//        _txtButton.y = -2;
     }
 
     private function onClickExit(e:Event=null):void {
@@ -96,21 +102,23 @@ public class WONoPlaces extends WindowMain {
             _source.addChild(_imageItem);
             _last = true;
             _cost = params[0];
-            _txtCost.text = String(_price);
+            _txtCost.text = String('Ускорить за   ' + _price);
             _txtAdd.text = 'Ускорить';
             _txtAdd.x = -47;
             _txtAdd.y = -15;
             _txtText.x = -175;
-            _txtText.y = -130;
+            _txtText.y = -115;
+//            _txtButton.text = 'Ускорить за '
         } else {
             _txtText.text = 'У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.';
             _btn.visible = true;
-            _txtCost.text = String(_price);
+            _txtCost.text = String('Добавить ячейку за ' + _price);
             _txtAdd.x = -47;
             _txtAdd.y = -50;
             _txtAdd.text = 'Добавить ячейку';
             _txtText.x = -170;
             _txtText.y = -115;
+//            _txtButton.text = 'Добавить ячейку за '
         }
 
         super.showIt();
