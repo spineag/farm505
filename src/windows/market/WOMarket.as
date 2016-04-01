@@ -93,7 +93,6 @@ public class WOMarket  extends WindowMain {
         _btnFriends.addChild(txt);
         _source.addChild(_btnFriends);
         _btnFriends.clickCallback = btnFriend;
-        marketChoose = new WOMarketChoose();
         _countPage = 1;
         _contRect = new Sprite();
         _contRect.clipRect = new Rectangle(-305, -200, 500, 400);

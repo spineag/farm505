@@ -50,6 +50,8 @@ public class WOBuyPlantItem {
         source.alpha = .5;
         _txtNumber = new TextField(40,30,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
         _txtNumber.hAlign = HAlign.RIGHT;
+        _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+
         _txtNumber.x = 52;
         _txtNumber.y = 68;
         source.addChild(_txtNumber);
@@ -86,7 +88,6 @@ public class WOBuyPlantItem {
         }
         else {
             _txtNumber.color = Color.WHITE;
-            _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         }
         _txtNumber.text = String(_countPlants);
         if (g.managerTutorial && (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialResource(_dataPlant.id)) {
