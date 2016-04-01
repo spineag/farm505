@@ -240,6 +240,7 @@ public class Ridge extends AreaObject{
                      var f1:Function = function():void {
                          if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
                          _plant = null;
+                         trace('loll');
                      };
                      var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
                      item.flyIt();
@@ -289,6 +290,7 @@ public class Ridge extends AreaObject{
             if (!isFromServer) g.toolsModifier.updateCountTxt();
             _dataPlant = data;
             _plant = new PlantOnRidge(this, _dataPlant);
+
             if (timeWork < _dataPlant.buildTime) {
                 _plant.checkTimeGrowing(timeWork);
                 if (!g.isAway) {
@@ -301,6 +303,7 @@ public class Ridge extends AreaObject{
                 _plant.checkStateRidge();
             }
 
+
             if (!isFromServer) {
                 var f1:Function = function (s:String):void {
                     _plant.idFromServer = s;
@@ -311,10 +314,7 @@ public class Ridge extends AreaObject{
                 var rawItem:RawItem = new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
             }
 
-//        if (b) {
-//            g.directServer.craftPlantRidge(_plant.idFromServer, null);
-//            _plant = null;
-//        }
+
 
 //        } catch (e:Error) {
 //            if (_stateRidge != EMPTY) {

@@ -313,6 +313,7 @@
             <filename>tutorial_arrow_stroke.png</filename>
             <filename>coupons_icon.png</filename>
             <filename>coins.png</filename>
+            <filename>cat_blue.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
