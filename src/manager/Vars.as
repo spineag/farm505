@@ -100,7 +100,7 @@ import windows.noFreeCats.WOWaitFreeCats;
 import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
-import windows.paperWindow.WOPaper;
+import windows.paperWindow.WOPapper;
 import windows.reloadPage.WOReloadGame;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
@@ -191,7 +191,7 @@ public class Vars {
     public var currentOpenedWindow:Window;
     public var woShop:WOShop;
     public var woOrder:WOOrder;
-    public var woPaper:WOPaper;
+    public var woPaper:WOPapper;
     public var woTrain:WOTrain;
     public var woTrainOrder:WOTrainOrder;
     public var woTrainSend:WOTrainSend;
@@ -427,7 +427,7 @@ public class Vars {
         woTrain = new WOTrain();
         woShop = new WOShop();
         woOrder = new WOOrder();
-        woPaper = new WOPaper();
+        woPaper = new WOPapper();
         woTrainOrder = new WOTrainOrder();
         woTrainSend = new WOTrainSend();
         managerDropResources = new ManagerDropBonusResource();

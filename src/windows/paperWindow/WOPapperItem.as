@@ -3,13 +3,9 @@
  */
 package windows.paperWindow {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import flash.display.Bitmap;
-
 import flash.geom.Rectangle;
-
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
@@ -19,22 +15,19 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 import starling.utils.HAlign;
-
 import user.Someone;
-
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
-public class WOPaperItem {
+public class WOPapperItem {
     public var source:CSprite;
     private var _imageItem:Image;
     private var _txtCountResource:TextField;
     private var _txtCost:TextField;
     private var _data:Object;
     private var _dataResource:Object;
-    private var _bg:Sprite = new Sprite();
+    private var _bg:Sprite;
     private var _plawkaSold:Image;
     private var _ava:Sprite;
     private var _userAvatar:Image;
@@ -43,9 +36,8 @@ public class WOPaperItem {
     private var _p:Someone;
 
     private var g:Vars = Vars.getInstance();
-    public function WOPaperItem(i:int) {
+    public function WOPapperItem(i:int) {
         source = new CSprite();
-
         _bg = new Sprite();
         source.addChild(_bg);
         var q:Quad = new Quad(172, 134, Color.WHITE);
@@ -61,11 +53,8 @@ public class WOPaperItem {
         q.x = 172;
         _bg.addChild(q);
 
-        if (i%2) {
-            q = new Quad(160, 50, 0x8eb8b9);
-        } else {
-            q = new Quad(160, 50, 0x36bf1c);
-        }
+        if (i%2) q = new Quad(160, 50, 0x8eb8b9);
+            else q = new Quad(160, 50, 0x36bf1c);
         q.x = 7;
         q.y = 5;
         _bg.addChild(q);
@@ -137,7 +126,7 @@ public class WOPaperItem {
     public function fillIt(ob:Object):void {
         _data = ob;
         if (!_data) {
-            Cc.error('WOPaperItem fillIt:: empty _data');
+            Cc.error('WOPapperItem fillIt:: empty _data');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
             return;
         }
@@ -151,7 +140,7 @@ public class WOPaperItem {
         else
             _imageItem = new Image(g.allData.atlas[_dataResource.url].getTexture(_dataResource.imageShop));
         if (!_imageItem) {
-            Cc.error('WOPaperItem fillIt:: no such image: ' + _dataResource.imageShop);
+            Cc.error('WOPapperItem fillIt:: no such image: ' + _dataResource.imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
             return;
         }
@@ -179,7 +168,7 @@ public class WOPaperItem {
             bitmap = g.pBitmaps[_p.photo].create() as Bitmap;
         }
         if (!bitmap) {
-            Cc.error('WOPaperItem:: no photo for userId: ' + _p.userSocialId);
+            Cc.error('WOPapperItem:: no photo for userId: ' + _p.userSocialId);
             return;
         }
         _userAvatar = new Image(Texture.fromBitmap(bitmap));
@@ -190,106 +179,25 @@ public class WOPaperItem {
     private function onClickVisit():void {
         if (!_data) return;
         g.woPaper.hideIt();
-//        g.woMarket.addAdditionalUser(_data);
-//        g.woMarket.showIt();
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
     }
 
     public function deleteIt():void {
-        if (_plawkaSold) {
-            if (source.contains(_plawkaSold)) source.removeChild(_plawkaSold);
-            _plawkaSold.dispose();
-            _plawkaSold = null;
-        }
-        if (_imageItem) {
-            if (source.contains(_imageItem)) source.removeChild(_imageItem);
-            _imageItem.dispose();
-            _imageItem = null;
-        }
-        _txtCost.text = '';
-        _txtCountResource.text = '';
-        _txtResourceName.text = '';
-        _txtUserName.text = '';
-        source.visible = false;
-        while (source.numChildren) source.removeChildAt(0);
-        _txtCost = null;
+        _data = null;
+        _dataResource = null;
+        _imageItem = null;
         _txtCountResource = null;
-        _txtResourceName = null;
-        _txtUserName = null;
-        while (_ava.numChildren) _ava.removeChildAt(0);
-        _ava = null;
-        while (_bg.numChildren) _bg.removeChildAt(0);
+        _txtCost = null;
         _bg = null;
+        _plawkaSold = null;
+        _ava = null;
+        _userAvatar = null;
+        _txtUserName = null;
+        _txtResourceName = null;
+        _p = null;
+        source.dispose();
+        source = null;
     }
-
-
-//    private function onClickBuy():void {
-//        if (_data.isBuyed) return;
-//
-//        if (g.user.softCurrencyCount < _data.cost) {
-//            var p:Point = new Point(source.x, source.y);
-//            p = source.parent.localToGlobal(p);
-//            new FlyMessage(p, "Недостаточно денег");
-//            return;
-//        }
-//        if (_dataResource.placeBuild == BuildType.PLACE_AMBAR) {
-//            if (g.userInventory.currentCountInAmbar + _data.resourceCount > g.user.ambarMaxCount) {
-////                g.flyMessage.showIt(source, "Амбар заполнен");
-//                g.woAmbarFilled.showAmbarFilled(true);
-//                return;
-//            }
-//        } else if (_dataResource.placeBuild == BuildType.PLACE_SKLAD) {
-//            if (g.userInventory.currentCountInSklad + _data.resourceCount > g.user.skladMaxCount) {
-////                g.flyMessage.showIt(source, "Склад заполнен");
-//                g.woAmbarFilled.showAmbarFilled(false);
-//                return;
-//            }
-//        }
-//        _data.isBuyed = true;
-//        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_data.cost);
-//        showFlyResource(_dataResource, _data.resourceCount);
-//        g.directServer.buyFromMarket(_data.id, null);
-//        _txtCost.text= '';
-//        _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka_sold'));
-//        _plawkaSold.x = 10;
-//        _plawkaSold.y = 20;
-//        source.addChild(_plawkaSold);
-//    }
-
-
-//    private function showFlyResource(d:Object, count:int):void {
-//        var im:Image;
-//        if (!d) {
-//            Cc.error('WOPaperItem fillIt:: empty _data');
-//            g.woGameError.showIt();
-//            return;
-//        }
-//        im = new Image(g.allData.atlas[d.url].getTexture(d.imageShop));
-//        if (!im) {
-//            Cc.error('WOPaperItem fillIt:: no such image: ' + d.imageShop);
-//            g.woGameError.showIt();
-//            return;
-//        }
-//        MCScaler.scale(im, 50, 50);
-//        var p:Point = new Point(_bg.width/2, _bg.height/2);
-//        p = source.localToGlobal(p);
-//        im.pivotX = im.width/2;
-//        im.pivotY = im.height/2;
-//        im.x = p.x;
-//        im.y = p.y;
-//        g.cont.animationsResourceCont.addChild(im);
-//        g.craftPanel.showIt(d.placeBuild);
-//        p = g.craftPanel.pointXY();
-//        var f1:Function = function():void {
-//            g.cont.animationsResourceCont.removeChild(im);
-//            im.dispose();
-//            g.userInventory.addResource(d.id, count);
-//            var item:ResourceItem = new ResourceItem();
-//            item.fillIt(d);
-//            g.craftPanel.afterFly(item);
-//        };
-//        new TweenMax(im, .5, {x:p.x, y:p.y, ease:Linear.easeOut ,onComplete: f1});
-//    }
 
 }
 }

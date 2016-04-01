@@ -851,7 +851,7 @@ public class Tree extends AreaObject {
 //            bitmap = g.pBitmaps[p.photo].create() as Bitmap;
 //        }
 //        if (!bitmap) {
-//            Cc.error('WOPaperItem:: no photo for userId: ' + p.userSocialId);
+//            Cc.error('WOPapperItem:: no photo for userId: ' + p.userSocialId);
 //            return;
 //        }
 //        var ava:Image = new Image(Texture.fromBitmap(bitmap));

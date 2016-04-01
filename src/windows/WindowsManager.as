@@ -25,6 +25,7 @@ import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
 import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
+import windows.paperWindow.WOPapper;
 import windows.reloadPage.WOReloadGame;
 import windows.serverError.WOServerError;
 
@@ -146,6 +147,9 @@ public class WindowsManager {
                 break;
             case WO_MARKET_CHOOSE:
                 wo = new WOMarketChoose();
+                break;
+            case WO_PAPPER:
+                wo = new WOPapper();
                 break;
 
 
