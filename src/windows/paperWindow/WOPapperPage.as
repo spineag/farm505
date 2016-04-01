@@ -22,7 +22,7 @@ import utils.DrawToBitmap;
 
 import utils.MCScaler;
 
-public class WOPaperPage {
+public class WOPapperPage {
     public static const LEFT_SIDE:String = 'left_side';
     public static const RIGHT_SIDE:String = 'right_side';
 
@@ -33,7 +33,7 @@ public class WOPaperPage {
     private var _quad:Quad;
     private var g:Vars = Vars.getInstance();
 
-    public function WOPaperPage(numberPage:int, maxNumberPage:int, side:String) {
+    public function WOPapperPage(numberPage:int, maxNumberPage:int, side:String) {
         source = new Sprite();
         _side = side;
         createBG(numberPage, maxNumberPage);
@@ -73,14 +73,13 @@ public class WOPaperPage {
         _bg.addChild(txt);
         _bg.flatten();
         source.addChild(_bg);
-
     }
 
     private function createItems():void {
-        var item:WOPaperItem;
+        var item:WOPapperItem;
         _arrItems = [];
         for (var i:int = 0; i<6; i++) {
-            item = new WOPaperItem(i);
+            item = new WOPapperItem(i);
             item.source.x = 41 + (i%2)*178;
             item.source.y = 58 + int(i/2)*150;
             source.addChild(item.source);
@@ -101,8 +100,15 @@ public class WOPaperPage {
 
     public function deleteIt():void {
         for (var i:int=0; i<6; i++) {
+            source.removeChild(_arrItems[i].source);
             _arrItems[i].deleteIt();
         }
+        _arrItems.length = 0;
+        source.removeChild(_bg);
+        _bg.deleteIt();
+        _bg = null;
+        source.dispose();
+        source = null;
     }
 
     public function updateAvatars():void {

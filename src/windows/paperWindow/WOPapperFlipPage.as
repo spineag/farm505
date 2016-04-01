@@ -13,11 +13,11 @@ import starling.display.Image;
 import starling.display.Sprite3D;
 import starling.textures.Texture;
 
-public class WOPaperFlipPage extends Sprite3D{
+public class WOPapperFlipPage extends Sprite3D{
     private var _top:Image;
     private var _back:Image;
 
-    public function WOPaperFlipPage(top:Bitmap, back:Bitmap, isNext:Boolean, callback:Function) {
+    public function WOPapperFlipPage(top:Bitmap, back:Bitmap, isNext:Boolean, callback:Function) {
         var tex:Texture = Texture.fromBitmap(top);
         _top = new Image(tex);
         tex = Texture.fromBitmap(back);
@@ -52,18 +52,10 @@ public class WOPaperFlipPage extends Sprite3D{
         isNext ? angle = Math.PI : angle = 0;
         if (!isNext) this.rotationY = Math.PI;
         TweenMax.to(this, .8, {rotationY: angle, onComplete: f1, ease: Linear.ease});
-//        var t:Timer = new Timer(400, 1);
-//        var f2:Function = function():void {
-//            t.stop();
-//            t.removeEventListener(TimerEvent.TIMER, f2);
-//            t = null;
-//            _back.visible = true;
-//            _top.visible = false;
-//        };
-//        t.addEventListener(TimerEvent.TIMER, f2);
-//        _back.visible = true;
-//        _top.visible = false;
-//        t.start();
+    }
+
+    public function deleteIt():void {
+        dispose();
     }
 }
 }

@@ -3,63 +3,52 @@
  */
 package windows.paperWindow {
 import data.DataMoney;
-
 import flash.utils.getTimer;
-
 import manager.ManagerFilters;
 import starling.display.Image;
 import starling.display.Quad;
-import starling.display.Sprite;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import user.Someone;
-
 import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
-
-import windows.WOComponents.WOButtonTexture;
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOPaper extends Window{
+public class WOPapper extends WindowMain {
     private var _contSprite:CSprite;
     private var _btnRefreshGreen:CButton;
     private var _btnRefreshBlue:CButton;
     private var _arrPaper:Array;
-    private var _leftPage:WOPaperPage;
-    private var _rightPage:WOPaperPage;
+    private var _leftPage:WOPapperPage;
+    private var _rightPage:WOPapperPage;
     private var _shiftPages:int;
     private var _maxPages:int;
     private var _leftArrow:CButton;
     private var _rightArrow:CButton;
-    private var _tempLeftPage:WOPaperPage;
-    private var _tempRightPage:WOPaperPage;
-    private var _flipPage:WOPaperFlipPage;
+    private var _tempLeftPage:WOPapperPage;
+    private var _tempRightPage:WOPapperPage;
+    private var _flipPage:WOPapperFlipPage;
     private var _timer:int;
     private var _txtTimer:TextField;
-    private var _quad:Quad;
 
-    public function WOPaper() {
+    public function WOPapper() {
+        super();
+        _windowType = WindowsManager.WO_PAPPER;
         _woWidth = 842;
         _woHeight = 526;
         _shiftPages = 1;
-        var im:Image;
         _contSprite = new CSprite();
         _source.addChild(_contSprite);
-//        _quad = new Quad(_woWidth, _woHeight,Color.WHITE ,false);
-//        _quad.alpha = 0;
-//        source.addChild(_quad);
         _btnRefreshGreen = new CButton();
         _btnRefreshGreen.addButtonTexture(130, 40, CButton.GREEN, true);
         var txt:TextField = new TextField(100, 40, "Обновить 1", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 2;
         _btnRefreshGreen.addChild(txt);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         MCScaler.scale(im, 25, 25);
         im.x = 100;
         im.y = 8;
@@ -70,7 +59,7 @@ public class WOPaper extends Window{
         _source.addChild(_btnRefreshGreen);
         _btnRefreshGreen.clickCallback = makeRefresh;
         createBtns();
-        createExitButton(onClickExit);
+        createExitButton(hideIt);
         _btnExit.x += 30;
         _btnExit.y -= 25;
         _btnRefreshBlue = new CButton();
@@ -87,18 +76,36 @@ public class WOPaper extends Window{
         _btnRefreshBlue.y = 290;
         _btnRefreshBlue.setEnabled = false;
         _btnRefreshBlue.clickCallback = onRefresh;
-        _callbackClickBG = onClickExit;
+        _callbackClickBG = hideIt;
         timerRefresh();
     }
 
-    private function onClickExit():void {
-        _leftPage.deleteIt();
-        _rightPage.deleteIt();
+    override protected function deleteIt():void {
         _source.removeChild(_leftPage.source);
         _source.removeChild(_rightPage.source);
+        _leftPage.deleteIt();
+        _rightPage.deleteIt();
         _leftPage = null;
         _rightPage = null;
-        hideIt();
+        if (_source.contains(_btnRefreshBlue)) _source.removeChild(_btnRefreshBlue);
+        _btnRefreshBlue.deleteIt();
+        _btnRefreshBlue = null;
+        if (_source.contains(_btnRefreshGreen)) _source.removeChild(_btnRefreshGreen);
+        _btnRefreshGreen.deleteIt();
+        _btnRefreshGreen = null;
+        _arrPaper.length = 0;
+        if (_flipPage) {
+            if (_source.contains(_flipPage)) _source.removeChild(_flipPage);
+            _flipPage.deleteIt();
+            _flipPage = null;
+        }
+        _source.removeChild(_leftArrow);
+        _leftArrow.deleteIt();
+        _leftArrow = null;
+        _source.removeChild(_rightArrow);
+        _rightArrow.deleteIt();
+        _rightArrow = null;
+        super.deleteIt();
     }
 
     public function showItMenu():void {
@@ -113,15 +120,13 @@ public class WOPaper extends Window{
     }
 
     private function createPages():void {
-        _leftPage = new WOPaperPage(_shiftPages, _maxPages, WOPaperPage.LEFT_SIDE);
-        _rightPage = new WOPaperPage(_shiftPages + 1, _maxPages, WOPaperPage.RIGHT_SIDE);
+        _leftPage = new WOPapperPage(_shiftPages, _maxPages, WOPapperPage.LEFT_SIDE);
+        _rightPage = new WOPapperPage(_shiftPages + 1, _maxPages, WOPapperPage.RIGHT_SIDE);
         _leftPage.source.x = -_woWidth/2;
         _leftPage.source.y = -_woHeight/2;
         _rightPage.source.x = 0;
         _rightPage.source.y = -_woHeight/2;
         _source.addChild(_leftPage.source);
-//        _source.addChildAt(_leftPage.source,0);
-//        _source.addChildAt(_rightPage.source,0);
         _source.addChild(_rightPage.source);
         _source.addChild(_btnRefreshBlue);
 
@@ -157,14 +162,14 @@ public class WOPaper extends Window{
     private function moveNext():void {
         if (_isAnim) return;
         if (_shiftPages + 1>= _maxPages) return;
-        _tempLeftPage = new WOPaperPage(_shiftPages + 2, _maxPages, WOPaperPage.LEFT_SIDE);
-        _tempRightPage = new WOPaperPage(_shiftPages + 3, _maxPages, WOPaperPage.RIGHT_SIDE);
+        _tempLeftPage = new WOPapperPage(_shiftPages + 2, _maxPages, WOPapperPage.LEFT_SIDE);
+        _tempRightPage = new WOPapperPage(_shiftPages + 3, _maxPages, WOPapperPage.RIGHT_SIDE);
         var arr:Array = _arrPaper.slice((_shiftPages + 1)*6, (_shiftPages + 1)*6 + 6);
         _tempLeftPage.fillItems(arr);
         arr = _arrPaper.slice((_shiftPages+2)*6, (_shiftPages+2)*6 + 6);
         _tempRightPage.fillItems(arr);
         _isAnim = true;
-        _flipPage = new WOPaperFlipPage(_rightPage.getScreenshot, _tempLeftPage.getScreenshot, true, afterMoveNext);
+        _flipPage = new WOPapperFlipPage(_rightPage.getScreenshot, _tempLeftPage.getScreenshot, true, afterMoveNext);
         _flipPage.y = 28;
 //        checkArrows();
         _source.removeChild(_rightPage.source);
@@ -179,6 +184,7 @@ public class WOPaper extends Window{
     private function afterMoveNext():void {
         _shiftPages +=2;
         _source.removeChild(_flipPage);
+        _flipPage.deleteIt();
         _flipPage = null;
         _source.removeChild(_leftPage.source);
         _leftPage.deleteIt();
@@ -204,21 +210,19 @@ public class WOPaper extends Window{
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
         createPages();
-
-
     }
 
     private function movePrev():void {
         if (_isAnim) return;
         if (_shiftPages <= 1) return;
-        _tempLeftPage = new WOPaperPage(_shiftPages - 2, _maxPages, WOPaperPage.LEFT_SIDE);
-        _tempRightPage = new WOPaperPage(_shiftPages - 1, _maxPages, WOPaperPage.RIGHT_SIDE);
+        _tempLeftPage = new WOPapperPage(_shiftPages - 2, _maxPages, WOPapperPage.LEFT_SIDE);
+        _tempRightPage = new WOPapperPage(_shiftPages - 1, _maxPages, WOPapperPage.RIGHT_SIDE);
         var arr:Array = _arrPaper.slice((_shiftPages - 1)*6, (_shiftPages - 1)*6 + 6);
         _tempLeftPage.fillItems(arr);
         arr = _arrPaper.slice((_shiftPages)*6, (_shiftPages)*6 + 6);
         _tempRightPage.fillItems(arr);
         _isAnim = true;
-        _flipPage = new WOPaperFlipPage(_leftPage.getScreenshot, _tempRightPage.getScreenshot, false, afterMovePrev);
+        _flipPage = new WOPapperFlipPage(_leftPage.getScreenshot, _tempRightPage.getScreenshot, false, afterMovePrev);
         _flipPage.y = 28;
 //        checkArrows();
         _source.removeChild(_leftPage.source);
@@ -234,6 +238,7 @@ public class WOPaper extends Window{
     private function afterMovePrev():void {
         _shiftPages -=2;
         _source.removeChild(_flipPage);
+        _flipPage.deleteIt();
         _flipPage = null;
         _source.removeChild(_rightPage.source);
         _rightPage.deleteIt();
@@ -319,8 +324,6 @@ public class WOPaper extends Window{
         }
     }
     private function timerRefresh():void {
-        var time:Number = getTimer();
-//        _timer = g.user.timePaper - time;
         if (_timer <= 900) {
             _btnRefreshBlue.setEnabled = true;
             _btnRefreshGreen.setEnabled = false;
