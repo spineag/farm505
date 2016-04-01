@@ -2,45 +2,31 @@
  * Created by user on 6/24/15.
  */
 package windows.market {
-
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-
 import flash.display.Bitmap;
-
-import flash.filters.GlowFilter;
 import flash.geom.Point;
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
 import manager.Vars;
 import resourceItem.ResourceItem;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
-
 import tutorial.TutorialAction;
-
 import user.NeighborBot;
-
 import user.Someone;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WindowsManager;
-
 
 public class MarketItem {
     public var source:CSprite;
@@ -79,10 +65,13 @@ public class MarketItem {
     private var _inDelete:Boolean;
     private var _delete:CButton;
     private var _imCheck:Image;
+    private var _btnBuyCont:CButton;
+    private var _wo:WOMarket;
 
     private var g:Vars = Vars.getInstance();
 
-    public function MarketItem(numberCell:int, close:Boolean) {
+    public function MarketItem(numberCell:int, close:Boolean, wo:WOMarket) {
+        _wo = wo;
         _closeCell = close;
         number = numberCell;
         source = new CSprite();
@@ -102,13 +91,11 @@ public class MarketItem {
         _txtAdditem.y = 30;
         _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.addChild(_txtAdditem);
-        var im:Image;
 
         _quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
         _quadGreen.y = 100;
         source.addChild(_quadGreen);
         _quadGreen.visible = false;
-
 
         _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -152,7 +139,7 @@ public class MarketItem {
         _plawkabuy.x = 5;
         _plawkabuy.y = 100;
         _plawkaCoins.addChild(_plawkabuy);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         MCScaler.scale(im,25,25);
         im.y = 102;
         im.x = _bg.width/2 + 15;
@@ -186,7 +173,7 @@ public class MarketItem {
         _delete.clickCallback = onDelete;
         _delete.visible = false;
 
-        if (close) {
+        if (_closeCell) {
             buyCont = new Sprite();
             if (numberCell == 5) _countBuyCell = 5;
             else _countBuyCell = (numberCell - 5) * 2 + 5;
@@ -196,27 +183,26 @@ public class MarketItem {
             txt.y = 20;
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
             buyCont.addChild(txt);
-            var btn:CButton = new CButton();
-            btn.addButtonTexture(90,30,CButton.GREEN, true);
+            var _btnBuyCont:CButton = new CButton();
+            _btnBuyCont.addButtonTexture(90,30,CButton.GREEN, true);
             txt = new TextField(30,30,String(String(_countBuyCell)),g.allData.fonts['BloggerBold'], 16, Color.WHITE);
             txt.x = 10;
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-            btn.addChild(txt);
+            _btnBuyCont.addChild(txt);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             im.x = 55;
             im.y = 3;
             MCScaler.scale(im,25,25);
-            btn.addChild(im);
-            btn.y = 110;
-            btn.x = 55;
-            btn.clickCallback = onClickBuy;
-            buyCont.addChild(btn);
-
+            _btnBuyCont.addChild(im);
+            _btnBuyCont.y = 110;
+            _btnBuyCont.x = 55;
+            _btnBuyCont.clickCallback = onClickBuy;
+            buyCont.addChild(_btnBuyCont);
             _txtAdditem.text = '';
             return;
+        } else {
+            source.endClickCallback = onClick;
         }
-
-        source.endClickCallback = onClick;
     }
 
     private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
@@ -272,19 +258,19 @@ public class MarketItem {
         g.user.marketCell++;
         _txtAdditem.text = 'Добавить товар';
         source.endClickCallback = onClick;
-        g.woMarket.addItemsRefresh();
+        _wo.addItemsRefresh();
         _closeCell = false;
         while (buyCont.numChildren) {
             buyCont.removeChildAt(0);
         }
     }
 
-    private function onPaper ():void {
-        var b:Boolean = g.woMarket.booleanPaper;
+    private function onPaper():void {
+        var b:Boolean = _wo.booleanPaper;
         if (_inPapper || !b) return;
         _inPapper = true;
         _imCheck.visible = true;
-        g.woMarket.startTimer();
+        _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
     }
 
@@ -372,9 +358,7 @@ public class MarketItem {
             }
         } else if (isFill == 0) { // пустая
             if (_isUser) {
-                g.woMarket.hideIt();
-                g.woMarket.marketChoose.callback = onChoose;
-                g.woMarket.marketChoose.showIt();
+                _wo.onItemClickAndOpenWOChoose(this);
                 _onHover = false;
                 _bg.filter = null;
             }
@@ -396,14 +380,10 @@ public class MarketItem {
         }
     }
 
-    private var counter:int;
-    private function onChoose(a:int, count:int = 0, cost:int = 0, inPapper:Boolean = false):void {
-        g.woMarket.showIt();
-        if (a > 0) {
-            fillIt(g.dataResource.objectResources[a],count, cost);
-            _txtAdditem.text = '';
-            g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
-        }
+    public function onChoose(a:int, count:int, cost:int, inPapper:Boolean):void {
+        fillIt(g.dataResource.objectResources[a],count, cost);
+        _txtAdditem.text = '';
+        g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
     }
 
     private function onAddToServer(ob:Object):void {
@@ -449,7 +429,7 @@ public class MarketItem {
     }
 
     public function unFillIt():void {
-        if(_closeCell) return;
+        if (_closeCell) return;
         clearImageCont();
         isFill = 0;
         _countMoney = 0;
@@ -514,7 +494,6 @@ public class MarketItem {
                 _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
                 _txtAdditem.text = '';
                 isFill = 3;
-                return;
             }
         }
     }
@@ -610,7 +589,7 @@ public class MarketItem {
         if (isFill == 0 &&_isUser) {
             _bg.filter = ManagerFilters.BUILD_STROKE;
         } else if (isFill == 1 && _isUser) {
-            var b:Boolean = g.woMarket.booleanPaper;
+            var b:Boolean = _wo.booleanPaper;
             if (_inPapper || !b) _papper.visible = false;
             else _papper.visible = true;
             _delete.visible = true;
@@ -648,7 +627,7 @@ public class MarketItem {
         else {
             if (isFill == 1 ||  isFill == 2 ) {
                 _txtAdditem.text = '';
-            }else _txtAdditem.text = 'Добавить товар';
+            } else _txtAdditem.text = 'Добавить товар';
         }
     }
 
@@ -661,7 +640,6 @@ public class MarketItem {
             _personBuyer.photo = ar[0].photo_100;
             g.load.loadImage(_personBuyer.photo, onLoadPhoto);
         }
-
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
@@ -696,6 +674,44 @@ public class MarketItem {
         ob.width = _woWidth;
         ob.height = _woHeight;
         return ob;
+    }
+
+    public function deleteIt():void {
+        if (buyCont && _btnBuyCont) {
+            buyCont.removeChild(_btnBuyCont);
+            _btnBuyCont.deleteIt();
+            _btnBuyCont = null;
+            buyCont = null;
+        }
+        source.removeChild(_bg);
+        _bg.deleteIt();
+        _bg = null;
+        _callback = null;
+        _data = null;
+        _dataFromServer = null;
+        _person = null;
+        _personBuyer = null;
+        _personBuyerTemp = null;
+        _quadGreen = null;
+        _ava = null;
+        if (_papper) {
+            source.removeChild(_papper);
+            _papper.deleteIt();
+            _papper = null;
+        }
+        if (_delete) {
+            source.removeChild(_delete);
+            _delete.deleteIt();
+            _delete = null;
+        }
+        _imCheck = null;
+        _costTxt = null;
+        _countTxt = null;
+        _txtPlawka = null;
+        _txtAdditem = null;
+        _wo = null;
+        source.dispose();
+        source = null;
     }
 }
 }

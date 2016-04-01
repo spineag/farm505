@@ -160,7 +160,7 @@ public class Fabrica extends AreaObject {
     }
 
     public function openFabricaWindow():void {
-        g.woFabrica.showItWithParams(_arrRecipes.slice(), _arrList.slice(), this, callbackOnChooseRecipe);
+        g.windowsManager.openWindow(WindowsManager.WO_FABRICA, callbackOnChooseRecipe, _arrRecipes.slice(), _arrList.slice(), this);
     }
 
     private function onClick():void {
@@ -216,7 +216,8 @@ public class Fabrica extends AreaObject {
                     if (!_arrRecipes.length) updateRecipes();
                     g.cont.moveCenterToXY(_source.x, _source.y);
                     onOut();
-                    g.woFabrica.showItWithParams(_arrRecipes.slice(), _arrList.slice(), this, callbackOnChooseRecipe);
+                    openFabricaWindow();
+//                    g.woFabrica.showItWithParams(_arrRecipes.slice(), _arrList.slice(), this, callbackOnChooseRecipe);
                 }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')

@@ -37,10 +37,12 @@ public class UpdateItem {
     private var _buyCallback:Function;
     private var _countForBuy:int;
     private var _resourceImage:Image;
+    private var _wo:WOAmbars;
 
     private var g:Vars = Vars.getInstance();
 
-    public function UpdateItem() {
+    public function UpdateItem(wo:WOAmbars) {
+        _wo = wo;
         source = new CSprite();
         _contImage = new CSprite();
         _bg = new CartonBackgroundIn(100, 100);
@@ -138,12 +140,13 @@ public class UpdateItem {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
             g.userInventory.addResource(_resourceId, _countForBuy);
             updateIt(_resourceId, _isAmbarItem);
-            g.woAmbars.smallUpdate();
+            _wo.smallUpdate();
             if (_buyCallback != null) {
                 _buyCallback.apply();
             }
         } else {
-            g.woAmbars.hideIt();
+            _wo.isCashed = false;
+            _wo.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         }
     }
@@ -155,6 +158,15 @@ public class UpdateItem {
 
     private function onOut():void {
         g.resourceHint.hideIt();
+    }
+
+    public function deleteIt():void {
+        _wo = null;
+        source.removeChild(_btn);
+        _btn.deleteIt();
+        _btn = null;
+        source.dispose();
+        source = null;
     }
 }
 }

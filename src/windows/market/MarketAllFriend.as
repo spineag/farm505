@@ -26,7 +26,7 @@ public class MarketAllFriend {
 
     private var g:Vars = Vars.getInstance();
 
-    public function MarketAllFriend(_arrFriends:Array,_panel:WOMarket,f:Function) {
+    public function MarketAllFriend(_arrFriends:Array,_wo:WOMarket,f:Function) {
         source = new Sprite();
         source.x = -153;
         _callback = f;
@@ -61,7 +61,7 @@ public class MarketAllFriend {
         c.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(c);
         for (var i:int=0; i < _arrFriends.length; i++) {
-            var item:MarketFriendsPanelItem = new MarketFriendsPanelItem(_arrFriends[i],_panel, i);
+            var item:MarketFriendsPanelItem = new MarketFriendsPanelItem(_arrFriends[i], _wo, i);
             _scrollSprite.addNewCell(item.source);
         }
         source.addChild(_scrollSprite.source);
@@ -85,6 +85,18 @@ public class MarketAllFriend {
         if (_callback != null) {
             _callback.apply(null,[true]);
         }
+    }
+
+    public function deleteIt():void {
+        source.removeChild(_contTouch);
+        _contTouch.deleteIt();
+        _contTouch = null;
+        source.removeChild(_scrollSprite.source);
+        _scrollSprite.deleteIt();
+        _scrollSprite = null;
+        source.dispose();
+        source = null;
+        _callback = null;
     }
 }
 }

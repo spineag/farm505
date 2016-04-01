@@ -562,7 +562,7 @@ public class ManagerTutorial {
         _tutorialObjects = [];
         _tutorialResourceIDs = [];
         _currentAction = TutorialAction.NONE;
-        g.woFabrica.hideIt();
+        //g.woFabrica.hideIt(); need remake for new wo
         cat.playDirectLabel('idle2', true, subStep8_3);
     }
 
@@ -991,28 +991,28 @@ public class ManagerTutorial {
         initScenes();
     }
 
-    private function initScene_17():void {
-        _currentAction = TutorialAction.NONE;
-        if (!_tutorialObjects.length) {
-            _tutorialObjects = g.townArea.getCityObjectsById(1);
-        }
-        if (!cat) {
-            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
-            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
-        }
-        if (g.currentOpenedWindow) {
-            if (g.currentOpenedWindow != g.woFabrica) {
-                g.currentOpenedWindow.hideIt();
-                (_tutorialObjects[0] as Fabrica).openFabricaWindow();
-            }
-        } else {
-            (_tutorialObjects[0] as Fabrica).openFabricaWindow();
-        }
-        addBlack();
-        if (!texts) texts = (new TutorialTexts()).objText;
-        if (!cutScene) cutScene = new CutScene();
-        subStep = 0;
-        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep17_1, 1);
+    private function initScene_17():void {  // need remake for new fabrica window
+//        _currentAction = TutorialAction.NONE;
+//        if (!_tutorialObjects.length) {
+//            _tutorialObjects = g.townArea.getCityObjectsById(1);
+//        }
+//        if (!cat) {
+//            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+//            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+//        }
+//        if (g.currentOpenedWindow) {
+//            if (g.currentOpenedWindow != g.woFabrica) {
+//                g.currentOpenedWindow.hideIt();
+//                (_tutorialObjects[0] as Fabrica).openFabricaWindow();
+//            }
+//        } else {
+//            (_tutorialObjects[0] as Fabrica).openFabricaWindow();
+//        }
+//        addBlack();
+//        if (!texts) texts = (new TutorialTexts()).objText;
+//        if (!cutScene) cutScene = new CutScene();
+//        subStep = 0;
+//        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep17_1, 1);
     }
 
     private function subStep17_1():void {
@@ -1020,9 +1020,9 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.FABRICA_SKIP_RECIPE;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
-        var ob:Object = g.woFabrica.getSkipBtnProperties();
-        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _tutorialCallback = subStep17_2;
+//        var ob:Object = g.woFabrica.getSkipBtnProperties();   need remake for new wo
+//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+//        _tutorialCallback = subStep17_2;
     }
 
     private function subStep17_2():void {
@@ -1031,7 +1031,7 @@ public class ManagerTutorial {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-        g.woFabrica.hideIt();
+//        g.woFabrica.hideIt();     need remake for new wo
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 18;
@@ -1319,9 +1319,9 @@ public class ManagerTutorial {
         _tutorialResourceIDs = [124, 1, 5, 6, 125];
         _airBubble = new AirTextBubble();
         _airBubble.showIt(texts[g.user.tutorialStep][subStep], g.cont.popupCont, 700, 200);
-        var ob:Object = g.woMarket.getItemProperties(1);
-        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _tutorialCallback = subStep23_7;
+//        var ob:Object = g.woMarket.getItemProperties(1);   need remake for new wo
+//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+//        _tutorialCallback = subStep23_7;
     }
 
     private function subStep23_7():void {
@@ -1341,7 +1341,7 @@ public class ManagerTutorial {
         _airBubble.hideIt();
         _airBubble.deleteIt();
         _airBubble = null;
-        g.woMarket.hideIt();
+//        g.woMarket.hideIt();  need remake for new wo
         _currentAction = TutorialAction.GO_HOME;
         subStep = 8;
         if (!cutScene) cutScene = new CutScene();

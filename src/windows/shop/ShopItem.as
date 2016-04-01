@@ -533,12 +533,16 @@ public class ShopItem {
             if (_data.currency.length == 1) {
                 if (_data.currency == DataMoney.SOFT_CURRENCY) {
                     if (g.user.softCurrencyCount < _countCost) {
-                        g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY, _countCost - g.user.softCurrencyCount, onClick);
+//                        g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY, _countCost - g.user.softCurrencyCount, onClick);
+                        var ob:Object = {};
+                        ob.currency = DataMoney.SOFT_CURRENCY;
+                        ob.count = _countCost - g.user.softCurrencyCount;
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'money', ob);
                         return;
                     }
                 } else if (_data.currency == DataMoney.HARD_CURRENCY) {
                     if (g.user.hardCurrency < _countCost) {
-                        g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY, _countCost - g.user.softCurrencyCount, onClick);
+                        g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                         return;
                     }
                 } else if (_data.currency == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _countCost) {
@@ -573,7 +577,11 @@ public class ShopItem {
             }
         } else {
             if (g.user.softCurrencyCount < _countCost){
-                g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);
+//                g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);
+                var ob2:Object = {};
+                ob2.currency = DataMoney.SOFT_CURRENCY;
+                ob2.count = _countCost - g.user.softCurrencyCount;
+                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'money', ob2);
                 return;
             }
         }

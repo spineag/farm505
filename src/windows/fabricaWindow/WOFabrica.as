@@ -3,31 +3,17 @@
  */
 package windows.fabricaWindow {
 import build.fabrica.Fabrica;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
-import flash.filters.GlowFilter;
-
-import manager.ManagerFilters;
-
 import resourceItem.ResourceItem;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
-import starling.utils.Color;
-
-import utils.CButton;
-
-import utils.CSprite;
 import windows.WOComponents.Birka;
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOFabrica extends Window {
+public class WOFabrica extends WindowMain {
     private var _list:WOFabricaWorkList;
     private var _arrFabricaItems:Array;
     private var _callbackOnClick:Function;
@@ -41,6 +27,7 @@ public class WOFabrica extends Window {
 
     public function WOFabrica() {
         super();
+        _windowType = WindowsManager.WO_FABRICA;
         _arrShiftBtns = [];
         _woHeight = 455;
         _woWidth = 580;
@@ -61,30 +48,19 @@ public class WOFabrica extends Window {
         hideIt();
     }
 
-    override public function hideIt():void {
-        super.hideIt();
-        clearShiftButtons();
-        unfillFabricaItems();
-        _list.unfillIt();
-        _fabrica = null;
-        _callbackOnClick = null;
-        if (_arrAllRecipes) _arrAllRecipes.length = 0;
-    }
-
-    public function showItWithParams(arrRecipes:Array, arrList:Array, fabr:Fabrica, f:Function):void {
-        hideIt();
-        super.showIt();
-        unfillFabricaItems();
-        _fabrica = fabr;
-        _callbackOnClick = f;
-        _arrAllRecipes = arrRecipes;
+//    public function showItWithParams(arrRecipes:Array, arrList:Array, fabr:Fabrica, f:Function):void {
+    override public function showItParams(callback:Function, params:Array):void {
+        _fabrica = params[2];
+        _callbackOnClick = callback;
+        _arrAllRecipes = params[0];
         _shift = 0;
         fillFabricaItems();
         createShiftBtns();
         if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
-        _list.unfillIt();
-        _list.fillIt(arrList, _fabrica);
+        _list.fillIt(params[1], _fabrica);
         _birka.updateText(_fabrica.dataBuild.name);
+        showAnimateFabricaItems();
+        super.showIt();
     }
 
     private function createFabricaItems():void {
@@ -92,19 +68,12 @@ public class WOFabrica extends Window {
         _arrFabricaItems = [];
         for (var i:int = 0; i < 5; i++) {
             item = new WOItemFabrica();
-            item.source.x = -_woWidth/2 + 70 + i*107;
-            item.source.y = -_woHeight/2 + 115;
+            item.setCoordinates(-_woWidth/2 + 70 + i*107, -_woHeight/2 + 115);
             _source.addChild(item.source);
             _arrFabricaItems.push(item);
         }
     }
     
-    private function unfillFabricaItems():void {
-        for (var i:int = 0; i < _arrFabricaItems.length; i++) {
-            _arrFabricaItems[i].unfillIt();
-        }
-    }
-
     private function fillFabricaItems():void {
         var arr:Array = [];
         for (var i:int=0; i<5; i++) {
@@ -120,9 +89,37 @@ public class WOFabrica extends Window {
         }
     }
 
+    private function showAnimateFabricaItems():void {
+        var delay:Number = .1;
+        for (var i:int = 0; i < _arrFabricaItems.length; i++) {
+            (_arrFabricaItems[i] as WOItemFabrica).showAnimateIt(delay);
+            delay += .1;
+        }
+    }
+
+    private function animateChangeFabricaItems():void {
+        var arr:Array = [];
+        for (var i:int=0; i<5; i++) {
+            if (_arrAllRecipes[_shift*5 + i]) {
+                arr.push(_arrAllRecipes[_shift*5 + i]);
+            } else {
+                break;
+            }
+        }
+        var delay:Number = .1;
+        for (i = 0; i < _arrFabricaItems.length; i++) {
+            if (arr[i]) {
+                _arrFabricaItems[i].showChangeAnimate(delay, arr[i], onItemClick);
+            } else {
+                _arrFabricaItems[i].showChangeAnimate(delay, null, null);
+            }
+            delay += .1;
+        }
+    }
+
     private function onBuyResource(dataRecipe:Object, obj:Object, lastRes:Boolean = false):void {
-        showItWithParams((obj.fabrica as Fabrica).arrRecipes, (obj.fabrica as Fabrica).arrList, obj.fabrica as Fabrica, obj.callback);
-        onItemClick(dataRecipe,lastRes);
+//        showItWithParams((obj.fabrica as Fabrica).arrRecipes, (obj.fabrica as Fabrica).arrList, obj.fabrica as Fabrica, obj.callback);
+//        onItemClick(dataRecipe,lastRes);
     }
 
     private function onItemClick(dataRecipe:Object, lastRes:Boolean = false):void {
@@ -160,11 +157,14 @@ public class WOFabrica extends Window {
             for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
                 count = g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
                 if (count < int(dataRecipe.ingridientsCount[i])) {
+                    hideIt();
+//                    g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count, onBuyResource, null, obj);
                     obj = {};
+                    obj.data = dataRecipe;
+                    obj.count = int(dataRecipe.ingridientsCount[i]) - count;
                     obj.fabrica = _fabrica;
                     obj.callback = _callbackOnClick;
-                    hideIt();
-                    g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count, onBuyResource, null, obj);
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onBuyResource, 'menu', obj);
                     return;
                 }
             }
@@ -273,8 +273,7 @@ public class WOFabrica extends Window {
         _arrShiftBtns[n-1].source.y += 8;
         _shift = n-1;
         if (needUpdate) {
-            unfillFabricaItems();
-            fillFabricaItems();
+            animateChangeFabricaItems();
         }
     }
 
@@ -298,6 +297,27 @@ public class WOFabrica extends Window {
 
     public function getSkipBtnProperties():Object {
         return _list.getSkipBtnProperties();
+    }
+
+    override protected function deleteIt():void {
+        for (var i:int=0; i<_arrShiftBtns.length; i++) {
+            _source.removeChild(_arrShiftBtns[i]);
+            _arrShiftBtns[i].deleteIt();
+        }
+        _arrShiftBtns.length = 0;
+        for (i = 0; i < _arrFabricaItems.length; i++) {
+            _source.removeChild(_arrFabricaItems[i].source);
+            _arrFabricaItems[i].deleteIt();
+        }
+        _arrFabricaItems.length = 0;
+        _list.deleteIt();
+        _list = null;
+        _fabrica = null;
+        _topBG = null;
+        _bottomBG = null;
+        _callbackOnClick = null;
+        _arrAllRecipes.length = 0;
+        super.deleteIt();
     }
 }
 }

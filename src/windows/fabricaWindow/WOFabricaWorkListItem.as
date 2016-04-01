@@ -2,7 +2,6 @@
  * Created by user on 6/9/15.
  */
 package windows.fabricaWindow {
-
 import com.junkbyte.console.Cc;
 import data.DataMoney;
 import flash.geom.Point;
@@ -14,9 +13,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import tutorial.TutorialAction;
-
 import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
@@ -58,6 +55,7 @@ public class WOFabricaWorkListItem {
             _txtNumberCreate.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         }
         _source.addChild(_bg);
+
         if (type == SMALL_CELL) {
             _source.visible = false;
         }
@@ -149,28 +147,6 @@ public class WOFabricaWorkListItem {
         _source.addChild(_txtNumberCreate);
     }
 
-    public function unfillIt():void {
-        if (_icon) {
-            _txtNumberCreate.text = "";
-            _source.removeChild(_txtNumberCreate);
-            _source.removeChild(_icon);
-            _icon = null;
-        }
-        _resource = null;
-        _skipCallback = null;
-        if (_type == SMALL_CELL) {
-            _source.visible = false;
-            if (_proposeBtn) {
-                _source.removeChild(_proposeBtn);
-                _proposeBtn.deleteIt();
-                _proposeBtn = null;
-            }
-        } else {
-            _txtSkip.text = '';
-            _btnSkip.visible = false;
-        }
-    }
-
     public function destroyTimer():void {
         g.gameDispatcher.removeFromTimer(render);
         _timerFinishCallback = null;
@@ -230,7 +206,7 @@ public class WOFabricaWorkListItem {
                     new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
                     g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
                 } else {
-                    g.woFabrica.hideIt();
+                    g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                 }
             };
@@ -274,6 +250,49 @@ public class WOFabricaWorkListItem {
         ob.width = _btnSkip.width;
         ob.height = _btnSkip.height;
         return ob;
+    }
+
+    public function unfillIt():void {
+        if (_icon) {
+            _txtNumberCreate.text = "";
+            _source.removeChild(_txtNumberCreate);
+            _source.removeChild(_icon);
+            _icon = null;
+        }
+        _resource = null;
+        _skipCallback = null;
+        if (_type == SMALL_CELL) {
+            _source.visible = false;
+            if (_proposeBtn) {
+                _source.removeChild(_proposeBtn);
+                _proposeBtn.deleteIt();
+                _proposeBtn = null;
+            }
+        } else {
+            _txtSkip.text = '';
+            _btnSkip.visible = false;
+        }
+    }
+
+    public function deleteIt():void {
+        if (_proposeBtn) {
+            _source.removeChild(_proposeBtn);
+            _proposeBtn.deleteIt();
+            _proposeBtn = null;
+        }
+        if (_btnSkip) {
+            _source.removeChild(_btnSkip);
+            _btnSkip.deleteIt();
+            _btnSkip = null;
+        }
+        g.gameDispatcher.removeFromTimer(render);
+        _source.dispose();
+        _source = null;
+        _timerFinishCallback = null;
+        _skipCallback = null;
+        if (_resource) {
+            _resource = null;
+        }
     }
 
 }

@@ -120,15 +120,13 @@ public class Market extends AreaObject{
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
                 return;
             }
-            g.woMarket.resetAll();
             if (g.isAway && g.visitedUser) {
-                g.woMarket.showItPapper(g.visitedUser);
+                g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, g.visitedUser);
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {
                     g.managerTutorial.checkTutorialCallback();
                 }
             } else {
-                g.woMarket.curUser = g.user;
-                g.woMarket.showItWithParams(fillIt);
+                g.windowsManager.openWindow(WindowsManager.WO_MARKET, fillIt, g.user);
             }
 
             onOut();

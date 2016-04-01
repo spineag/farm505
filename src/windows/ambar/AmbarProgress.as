@@ -56,5 +56,13 @@ public class AmbarProgress {
         imAmbar.visible = v;
         imSklad.visible = !v;
     }
+
+    public function deleteIt():void {
+        source.removeChild(_bar);
+        _bar.deleteIt();
+        _bar = null;
+        source.dispose();
+        source = null;
+    }
 }
 }

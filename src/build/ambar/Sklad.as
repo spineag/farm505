@@ -91,7 +91,7 @@ public class Sklad extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             onOut();
-            if (!_source.wasGameContMoved) g.woAmbars.showItWithParams(WOAmbars.SKLAD);
+            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, WOAmbars.SKLAD);
         } else {
             Cc.error('Ambar:: unknown g.toolsModifier.modifierType')
         }

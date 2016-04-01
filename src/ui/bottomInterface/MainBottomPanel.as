@@ -22,6 +22,7 @@ import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WOComponents.HorizontalPlawka;
+import windows.WindowsManager;
 import windows.ambar.WOAmbars;
 
 public class MainBottomPanel {
@@ -252,7 +253,7 @@ public class MainBottomPanel {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
-                g.woAmbars.showItWithParams(WOAmbars.AMBAR);
+                g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, WOAmbars.AMBAR);
                 g.toolsPanel.hideRepository();
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;

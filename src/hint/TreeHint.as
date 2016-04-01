@@ -237,7 +237,11 @@ public class TreeHint {
     private function onClickDelete():void {
         managerHide();
         if (g.userInventory.getCountResourceById(_data.removeByResourceId) <= 0){
-            g.woNoResources.showItMenu(g.dataResource.objectResources[_data.removeByResourceId],1,onClickDelete);
+//            g.woNoResources.showItMenu(g.dataResource.objectResources[_data.removeByResourceId],1,onClickDelete);
+            var ob:Object = {};
+            ob.data = g.dataResource.objectResources[_data.removeByResourceId];
+            ob.count = 1;
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickDelete, 'menu', ob);
         } else {
             new XPStar(_source.x,_source.y,8);
             g.userInventory.addResource(_data.removeByResourceId,-1);

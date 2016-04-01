@@ -98,7 +98,6 @@ public class FriendItem {
             }
         }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) return;
-        if (g.currentOpenedWindow && g.currentOpenedWindow == g.woMarket) g.woMarket.hideIt();
         if (_person == g.user) {
             if (g.isAway) g.townArea.backHome();
             g.catPanel.visibleCatPanel(true);
@@ -107,6 +106,7 @@ public class FriendItem {
             g.townArea.goAway(_person);
             g.catPanel.visibleCatPanel(false);
         }
+        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
     }
 
     public function get person():Someone {

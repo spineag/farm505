@@ -270,8 +270,7 @@ public class Cave extends AreaObject{
                         }
                     } else {
                         onOut();
-                        g.woCave.fillIt(_dataBuild.idResourceRaw, onItemClick);
-                        g.woCave.showIt();
+                        g.windowsManager.openWindow(WindowsManager.WO_CAVE, onItemClick, _dataBuild.idResourceRaw);
                         g.hint.hideIt();
                     }
                 }

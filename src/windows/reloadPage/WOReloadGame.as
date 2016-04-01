@@ -15,11 +15,11 @@ public class WOReloadGame extends WindowMain{
     public function WOReloadGame() {
         super();
         _windowType = WindowsManager.WO_RELOAD_GAME;
-        _woWidth = 300;
-        _woHeight = 200;
+        _woWidth = 400;
+        _woHeight = 300;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        var txt:TextField = new TextField(300,100,"Перегрузите игру","Arial",30,Color.WHITE);
+        var txt:TextField = new TextField(400,300,"Перегрузите игру","Arial",30,Color.WHITE);
         txt.x = -150;
         txt.y = -50;
         _source.addChild(txt);

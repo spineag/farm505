@@ -3,27 +3,19 @@
  */
 package windows.market {
 import com.junkbyte.console.Cc;
-
 import flash.display.Bitmap;
 import manager.ManagerFilters;
 import manager.Vars;
-
 import starling.display.Image;
 import starling.display.Quad;
-import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
-
 import user.NeighborBot;
 import user.Someone;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.MCScaler;
-
-import windows.WOComponents.CartonBackground;
 import windows.WindowsManager;
 
 public class MarketFriendItem {
@@ -31,14 +23,13 @@ public class MarketFriendItem {
     public var source:CSprite;
     private var _ava:Image;
     private var _txt:TextField;
-    private var _panel:WOMarket;
+    private var _wo:WOMarket;
     public var _visitBtn:CButton;
     private var _shiftFriend:int;
 
     private var g:Vars = Vars.getInstance();
 
-    public function MarketFriendItem(f:Someone, p:WOMarket, _shift:int) {
-
+    public function MarketFriendItem(f:Someone, wo:WOMarket, _shift:int) {
         _shiftFriend = _shift;
         source = new CSprite();
         source.x = 218;
@@ -52,7 +43,7 @@ public class MarketFriendItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketFriendMarket');
             return;
         }
-        _panel = p;
+        _wo = wo;
         if (_person is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
@@ -93,7 +84,7 @@ public class MarketFriendItem {
 
     private function visitPerson():void {
         g.catPanel.visibleCatPanel(false);
-        g.woMarket.hideIt();
+        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
         g.townArea.goAway(_person);
     }
 
@@ -135,27 +126,21 @@ public class MarketFriendItem {
         _ava.y = 2;
         source.addChild(_ava);
     }
+
     private function chooseThis():void {
-        if (g.woMarket.curUser == _person) return;
-        _panel.choosePerson(_person);
-        _panel.deleteFriends();
-        _panel.shiftFriend = _shiftFriend;
-        _panel.createMarketTabBtns();
-        g.woMarket.closePanelFriend();
+        if (_wo.curUser == _person) return;
+        _wo.onChooseFriendOnPanel(_person, _shiftFriend);
     }
 
-    public function clearIt():void {
-        if (_visitBtn) {
-            _visitBtn.clickCallback = null;
-            _visitBtn.touchable = false;
-            _visitBtn = null;
-        }
-        while (source.numChildren) source.removeChildAt(0);
-        source.endClickCallback = null;
-        source.touchable = false;
-        _person = null;
+    public function deleteIt():void {
+        _wo = null;
         _ava = null;
         _txt = null;
+        _person = null;
+        source.removeChild(_visitBtn);
+        _visitBtn.deleteIt();
+        _visitBtn = null;
+        source.dispose();
         source = null;
     }
 }

@@ -192,7 +192,7 @@ public class WOPaperItem {
         g.woPaper.hideIt();
 //        g.woMarket.addAdditionalUser(_data);
 //        g.woMarket.showIt();
-        g.woMarket.showItPapper(_p);
+        g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
     }
 
     public function deleteIt():void {

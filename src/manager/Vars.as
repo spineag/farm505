@@ -189,14 +189,8 @@ public class Vars {
     public var catPanel:CatPanel;
 
     public var currentOpenedWindow:Window;
-    public var woBuyPlant:WOBuyPlant;
-    public var woFabrica:WOFabrica;
-    public var woAmbars:WOAmbars;
     public var woShop:WOShop;
-    public var woNoResources:WONoResources;
     public var woOrder:WOOrder;
-    public var woMarket:WOMarket;
-    public var woCave:WOCave;
     public var woPaper:WOPaper;
     public var woTrain:WOTrain;
     public var woTrainOrder:WOTrainOrder;
@@ -430,15 +424,9 @@ public class Vars {
         cont.moveCenterToXY(0, realGameTilesHeight/2 - 400*scaleFactor, true);
 
         windowsManager = new WindowsManager();
-        woCave = new WOCave();
         woTrain = new WOTrain();
-        woNoResources = new WONoResources();
-        woBuyPlant = new WOBuyPlant();
-        woFabrica = new WOFabrica();
-        woAmbars = new WOAmbars();
         woShop = new WOShop();
         woOrder = new WOOrder();
-        woMarket = new WOMarket();
         woPaper = new WOPaper();
         woTrainOrder = new WOTrainOrder();
         woTrainSend = new WOTrainSend();

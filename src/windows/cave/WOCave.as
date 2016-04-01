@@ -1,27 +1,25 @@
 
 package windows.cave {
-
 import com.junkbyte.console.Cc;
-
 import starling.display.Image;
 import starling.display.Sprite;
-
 import windows.WOComponents.Birka;
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOCave extends Window {
+public class WOCave extends WindowMain {
     private var _arrItems:Array;
     private var _topBG:Sprite;
     private var _birka:Birka;
 
     public function WOCave() {
         super();
+        _windowType = WindowsManager.WO_CAVE;
         _woWidth = 380;
         _woHeight = 134;
         createBG();
         createCaveItems();
-        _callbackClickBG = onClickExit;
+        _callbackClickBG = hideIt;
         _birka = new Birka('Шахта', _source, 455, 580);
         _birka.flipIt();
         _birka.source.rotation = Math.PI/2;
@@ -52,39 +50,43 @@ public class WOCave extends Window {
         _arrItems = [];
         for (var i:int = 0; i < 3; i++) {
             item = new CaveItem();
-            item.source.x = -_woWidth/2 + 77 + i*107;
-            item.source.y = -_woHeight/2 + 115;
+            item.setCoordinates(-_woWidth/2 + 77 + i*107, -_woHeight/2 + 115);
             _source.addChild(item.source);
             _arrItems.push(item);
         }
     }
 
-     public function onClickExit():void {
-        clearItems();
-        super.hideIt();
-    }
-
-    public function fillIt(arrIds:Array, f:Function):void {
+    override public function showItParams(callback:Function, params:Array):void {
         try {
             var f1:Function = function (id:int):void {
-                if (f != null) {
-                    f.apply(null, [id]);
+                if (callback != null) {
+                    callback.apply(null, [id]);
                 }
-                onClickExit();
+                hideIt();
             };
+            var arrIds:Array = params[0];
+            var delay:Number = .1;
             for (var i:int = 0; i < arrIds.length; i++) {
                 _arrItems[i].fillData(g.dataResource.objectResources[arrIds[i]], f1);
+                _arrItems[i].showAnimateIt(delay);
+                delay += .1;
             }
+            super.showIt();
         } catch(e:Error) {
             Cc.error('WOCave fillIt error: ' + e.errorID + ' - ' + e.message);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woCave');
         }
     }
 
-    private function clearItems():void {
+    override protected function deleteIt():void {
         for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].clearIt();
+            _arrItems[i].deleteIt();
         }
+        _arrItems.length = 0;
+        _source.removeChild(_birka);
+        _birka.deleteIt();
+        _birka = null;
+        super.deleteIt();
     }
 }
 }

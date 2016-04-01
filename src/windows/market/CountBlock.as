@@ -189,5 +189,17 @@ public class CountBlock {
             _btnMinus.filter = null;
         }
     }
+
+    public function deleteIt():void {
+        source.removeChild(_btnMinus);
+        _btnMinus.deleteIt();
+        _btnMinus = null;
+        source.removeChild(_btnPlus);
+        _btnPlus.deleteIt();
+        _btnPlus = null;
+        source.dispose();
+        source = null;
+    }
+
 }
 }

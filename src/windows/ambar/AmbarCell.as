@@ -78,7 +78,7 @@ public class AmbarCell {
         source.flatten();
     }
 
-    public function clearIt():void {
+    public function deleteIt():void {
         source.unflatten();
         while (source.numChildren) {
             source.removeChildAt(0);

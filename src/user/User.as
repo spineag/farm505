@@ -29,6 +29,7 @@ public class User extends Someone {
     public var neighbor:NeighborBot;
     public var countCats:int;
     public var timePaper:int;
+    public var papperTimerAtMarket:int;
     public var tutorialStep:int;
 
     private var g:Vars = Vars.getInstance();
@@ -190,6 +191,19 @@ public class User extends Someone {
                 p.lastName = ar[i].last_name;
                 p.photo = ar[i].photo_100;
             }
+        }
+    }
+
+    public function startUserPapperTimer():void {
+        papperTimerAtMarket = 300;
+        g.gameDispatcher.addToTimer(onPapperTimer);
+    }
+
+    private function onPapperTimer():void {
+        papperTimerAtMarket--;
+        if (papperTimerAtMarket <= 0) {
+            papperTimerAtMarket = 0;
+            g.gameDispatcher.removeFromTimer(onPapperTimer);
         }
     }
 }

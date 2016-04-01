@@ -2,26 +2,15 @@
  * Created by user on 6/17/15.
  */
 package windows.market {
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import starling.display.Image;
-import starling.display.Quad;
-
-import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CSprite;
-
 import utils.MCScaler;
-
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WindowsManager;
 
@@ -33,13 +22,14 @@ public class MarketCell {
     private var _countTxt:TextField;
     private var g:Vars = Vars.getInstance();
     private var _clickCallback:Function;
+    private var _carton:CartonBackgroundIn;
 
     public function MarketCell(info:Object) {
         _clickCallback = null;
         source = new CSprite();
         source.endClickCallback = onClick;
-        var s:CartonBackgroundIn = new CartonBackgroundIn(100, 100);
-        source.addChild(s);
+        _carton = new CartonBackgroundIn(100, 100);
+        source.addChild(_carton);
 
         _info = info;
         if (!_info) {
@@ -76,16 +66,6 @@ public class MarketCell {
         source.addChild(_countTxt);
     }
 
-    public function clearIt():void {
-        source.filter = null;
-        while (source.numChildren) {
-            source.removeChildAt(0);
-        }
-        source = null;
-        _image = null;
-        _countTxt = null;
-    }
-
     public function set clickCallback(f:Function):void {
         _clickCallback = f;
     }
@@ -104,6 +84,19 @@ public class MarketCell {
     public function activateIt(a:Boolean):void {
         if (a) source.filter = ManagerFilters.BUTTON_HOVER_FILTER;
          else source.filter = null;
+    }
+
+    public function deleteIt():void {
+        source.removeChild(_carton);
+        _carton.deleteIt();
+        _carton = null;
+        _clickCallback = null;
+        _info = null;
+        _data = null;
+        _image = null;
+        _countTxt = null;
+        source.dispose();
+        source = null;
     }
 }
 }

@@ -2,6 +2,7 @@
  * Created by user on 6/9/15.
  */
 package windows.buyPlant {
+import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
@@ -32,6 +33,8 @@ public class WOBuyPlantItem {
     private var _txtNumber:TextField;
     private var _countPlants:int;
     private var _arrow:SimpleArrow;
+    private var _defaultY:int;
+    private var _maxAlpha:Number;
 
     private var g:Vars = Vars.getInstance();
 
@@ -51,11 +54,17 @@ public class WOBuyPlantItem {
         _txtNumber.x = 52;
         _txtNumber.y = 68;
         source.addChild(_txtNumber);
+        source.alpha = 0;
+    }
+
+    public function setCoordinates(_x:int, _y:int):void {
+        _defaultY = _y;
+        source.x = _x;
+        source.y = _y;
     }
 
     public function fillData(ob:Object, f:Function):void {
         _dataPlant = ob;
-//        if (_dataPlant.id == 117) return;
         if (!_dataPlant) {
             Cc.error('WOBuyPlantItem:: empty _dataPlant');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woBuyPlantItem');
@@ -63,11 +72,11 @@ public class WOBuyPlantItem {
         }
         _clickCallback = f;
         if (_dataPlant.blockByLevel == g.user.level + 1) {
-            source.alpha = .5;
+            _maxAlpha = .5;
         } else if (_dataPlant.blockByLevel <= g.user.level) {
-            source.alpha = 1;
+            _maxAlpha = 1;
         } else {
-            source.alpha = 0;
+            _maxAlpha = 0;
             Cc.error("Warning woBuyPlantItem filldata:: _dataPlant.blockByLevel > g.user.level + 1");
         }
         fillIcon(_dataPlant.imageShop);
@@ -96,7 +105,34 @@ public class WOBuyPlantItem {
         source.addChildAt(_icon,1);
     }
 
-    public function unfillIt():void {
+    public function showAnimateIt(delay:Number):void {
+        source.y = _defaultY - 35;
+        source.scaleX = source.scaleY = .9;
+        source.alpha = 0;
+        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
+    }
+
+    public function showChangeAnimate(d:Number, ob:Object, f:Function):void {
+        if (_dataPlant) {
+            TweenMax.to(source, .3, {scaleX:.9, scaleY:.9, alpha:0, y: _defaultY - 35, onComplete: onChangeAnimationComplete, delay: d, onCompleteParams: [0, ob, f]});
+        } else {
+            onChangeAnimationComplete(.3 + d, ob, f);
+        }
+    }
+
+    private function onChangeAnimationComplete(d:Number, ob:Object, f:Function):void {
+        if (_dataPlant) {
+            unfillIt();
+            _dataPlant = null;
+            source.alpha = 0;
+        }
+        if (ob) {
+            fillData(ob, f);
+            TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d});
+        }
+    }
+
+    private function unfillIt():void {
         removeArrow();
         if (_icon) {
             source.removeChild(_icon);
@@ -112,12 +148,12 @@ public class WOBuyPlantItem {
 
     private function onClick():void {
         if (_dataPlant.blockByLevel > g.user.level) return;
-        if (_clickCallback != null) {
-            _clickCallback.apply(null, [_dataPlant]);
-        }
         source.filter = null;
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();
+        if (_clickCallback != null) {
+            _clickCallback.apply(null, [_dataPlant]);
+        }
     }
 
     private function onHover():void {
@@ -146,6 +182,14 @@ public class WOBuyPlantItem {
             _arrow.deleteIt();
             _arrow = null;
         }
+    }
+
+    public function deleteIt():void {
+        removeArrow();
+        _dataPlant = null;
+        _clickCallback = null;
+        source.deleteIt();
+        source = null;
     }
 }
 }

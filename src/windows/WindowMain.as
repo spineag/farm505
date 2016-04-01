@@ -24,6 +24,7 @@ public class WindowMain {
     protected var _callbackClickBG:Function;
     public var needAddToPool:Boolean = false;
     protected var _windowType:String;
+    public var isCashed:Boolean = false;
 
     public function WindowMain() {
         _source = new Sprite();
@@ -57,20 +58,25 @@ public class WindowMain {
         g.cont.windowsCont.addChild(_source);
         _source.scaleX = _source.scaleY = .8;
         TweenMax.to(_source, .2, {scaleX:1, scaleY:1});
+        trace('window showIt:: ' + _windowType);
     }
 
     public function hideIt():void {
-        TweenMax.to(_source, .1, {scaleX:.8, scaleY:.8, alpha:0, onComplete:onHideAnimation});
+        trace('window hideIt:: ' + _windowType);
+        if (g.cont.windowsCont.contains(_source))
+            TweenMax.to(_source, .1, {scaleX:.8, scaleY:.8, alpha:0, onComplete:onHideAnimation});
+        else onHideAnimation();
     }
 
     private function onHideAnimation():void {
         if (g.cont.windowsCont.contains(_source)) g.cont.windowsCont.removeChild(_source);
         g.cont.addGameContListener(true);
-        g.windowsManager.onHideWindow();
         deleteIt();
+        g.windowsManager.onHideWindow();
     }
 
     protected function deleteIt():void {
+        trace('window deleteIt:: ' + _windowType);
         if (_btnExit) {
             _source.removeChild(_btnExit);
             _btnExit.deleteIt();
@@ -136,5 +142,7 @@ public class WindowMain {
             _callbackClickBG.apply();
         }
     }
+
+    public function releaseFromCash():void {}
 }
 }

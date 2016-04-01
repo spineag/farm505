@@ -3,14 +3,10 @@
  */
 package windows.fabricaWindow {
 import build.fabrica.Fabrica;
-
 import com.junkbyte.console.Cc;
-
 import resourceItem.ResourceItem;
 import manager.Vars;
-
 import starling.display.Sprite;
-
 import windows.WindowsManager;
 
 public class WOFabricaWorkList {
@@ -66,16 +62,6 @@ public class WOFabricaWorkList {
         }
     }
 
-    public function visibleSource():void {
-        if (_maxCount < 9) {
-            var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
-            _arrItems[_maxCount].showBuyPropose(price, onBuyNewCell);
-        }
-        for (var i:int=1; i<_maxCount; i++) {
-            _arrItems[i].source.visible = true;
-        }
-    }
-
     public function butNewCellFromWO():void {
         _arrItems[_maxCount].removePropose();
         onBuyNewCell();
@@ -92,10 +78,6 @@ public class WOFabricaWorkList {
 
     public function onSkip():void {
         _fabrica.skipRecipe();
-        updateList();
-    }
-
-    private function updateList():void {
         var ar:Array = arrRecipes.slice(1); // don't use first recipe, because it was just skipped
         arrRecipes.length = 0;
         for (var i:int = 0; i < _arrItems.length; i++) {
@@ -129,7 +111,6 @@ public class WOFabricaWorkList {
         var i:int;
         for (i=0; i<_arrItems.length; i++) {
             _arrItems[i].unfillIt();
-//            _arrItems[i].visibleSource(true);
             visibleSource();
         }
         arrRecipes.shift();
@@ -141,20 +122,26 @@ public class WOFabricaWorkList {
         }
     }
 
-    public function unfillIt():void {
-        arrRecipes.length = 0;
-        if (_arrItems.length) _arrItems[0].destroyTimer();
-        for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].unfillIt();
+    private function visibleSource():void {
+        if (_maxCount < 9) {
+            var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+            _arrItems[_maxCount].showBuyPropose(price, onBuyNewCell);
         }
-        _fabrica = null;
+        for (var i:int=1; i<_maxCount; i++) {
+            _arrItems[i].source.visible = true;
+        }
     }
 
-//    public function skipIt():void {
-//        _arrItems[0].destroyTimer();
-//        _arrItems[0].unfillIt();
-//        onFinishTimer();
-//    }
+    public function deleteIt():void {
+        arrRecipes.length = 0;
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _parent.removeChild(_arrItems[i].source);
+            _arrItems[i].deleteIt();
+        }
+        _arrItems.length = 0;
+        _fabrica = null;
+        _parent = null;
+    }
 
     public function getSkipBtnProperties():Object {
         if (_arrItems.length) {

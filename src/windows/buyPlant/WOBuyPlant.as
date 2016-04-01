@@ -3,28 +3,17 @@
  */
 package windows.buyPlant {
 import build.ridge.Ridge;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
-import flash.filters.GlowFilter;
-
-import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
-import starling.utils.Color;
-
-import utils.CSprite;
 import windows.WOComponents.Birka;
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabricNumber;
 
-public class WOBuyPlant extends Window {
+public class WOBuyPlant extends WindowMain {
     private var _ridge:Ridge;
     private var _callback:Function;
     private var _topBG:Sprite;
@@ -55,30 +44,20 @@ public class WOBuyPlant extends Window {
         hideIt();
     }
 
-    override public function hideIt():void {
-        unfillPlantItems();
-        _callback = null;
-        _ridge = null;
-        super.hideIt();
-        if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
-        for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _source.removeChild(_arrShiftBtns[i]);
-            _arrShiftBtns[i].deleteIt();
-        }
-    }
-
-    public function showItWithParams(ridge:Ridge, f:Function):void {
-        if (!ridge) {
+    override public function showItParams(callback:Function, params:Array):void {
+        _ridge = params[0];
+        _callback = callback;
+        if (!_ridge) {
+            hideIt();
             Cc.error('WOBuyPlant showItWithParams: ridge == null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woBuyPlant');
             return;
         }
-        _ridge = ridge;
-        _callback = f;
         updatePlantArray();
         createShiftBtns();
         if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
         fillPlantItems();
+        showAnimatePlantItems();
         super.showIt();
     }
 
@@ -94,7 +73,6 @@ public class WOBuyPlant extends Window {
 
     private function fillPlantItems():void {
         var arr:Array = [];
-        unfillPlantItems();
         for (var i:int=0; i<5; i++) {
             if (_arrAllPlants[_shift*5 + i]) {
                 arr.push(_arrAllPlants[_shift*5 + i]);
@@ -108,15 +86,40 @@ public class WOBuyPlant extends Window {
         }
     }
 
-    private function unfillPlantItems():void {
+    private function showAnimatePlantItems():void {
+        var delay:Number = .1;
         for (var i:int = 0; i < _arrPlantItems.length; i++) {
-            _arrPlantItems[i].unfillIt();
+            _arrPlantItems[i].showAnimateIt(delay);
+            delay += .1;
+        }
+    }
+
+    private function animateChangePlantItems():void {
+        var arr:Array = [];
+        for (var i:int=0; i<5; i++) {
+            if (_arrAllPlants[_shift*5 + i]) {
+                arr.push(_arrAllPlants[_shift*5 + i]);
+            } else {
+                break;
+            }
+        }
+        var delay:Number = .1;
+        for (i = 0; i < _arrPlantItems.length; i++) {
+            if (arr[i]) {
+                _arrPlantItems[i].showChangeAnimate(delay, arr[i], onClickItem);
+            } else {
+                _arrPlantItems[i].showChangeAnimate(delay, null, null);
+            }
+            delay += .1;
         }
     }
 
     private function onClickItem(d:Object, r:Ridge = null):void {
         if (g.userInventory.getCountResourceById(d.id) <= 0) {
-            g.woNoResources.showItMenu(d,1,onClickItem,_ridge);
+            var ob:Object = {};
+            ob.data = g.dataResource.objectResources[d];
+            ob.count = 1;
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickItem, 'menu', ob);
             return;
         }
         if (!_ridge) _ridge = r;
@@ -160,8 +163,7 @@ public class WOBuyPlant extends Window {
         _arrPlantItems = [];
         for (var i:int = 0; i < 5; i++) {
             item = new WOBuyPlantItem();
-            item.source.x = -_woWidth/2 + 70 + i*107;
-            item.source.y = -_woHeight/2 + 115;
+            item.setCoordinates(-_woWidth/2 + 70 + i*107, -_woHeight/2 + 115);
             _source.addChild(item.source);
             _arrPlantItems.push(item);
         }
@@ -215,8 +217,28 @@ public class WOBuyPlant extends Window {
         _arrShiftBtns[n-1].y += 8;
         _shift = n-1;
         if (needUpdate) {
-            fillPlantItems();
+            animateChangePlantItems();
         }
+    }
+
+    override protected function deleteIt():void {
+        for (var i:int=0; i<_arrShiftBtns.length; i++) {
+            _source.removeChild(_arrShiftBtns[i]);
+            _arrShiftBtns[i].deleteIt();
+        }
+        _arrShiftBtns.length = 0;
+        for (i = 0; i < _arrPlantItems.length; i++) {
+            _source.removeChild(_arrPlantItems[i].source);
+            _arrPlantItems[i].deleteIt();
+        }
+        _arrAllPlants.length = 0;
+        _arrPlantItems.length = 0;
+        _callback = null;
+        _ridge = null;
+        _source.removeChild(_birka);
+        _birka.deleteIt();
+        _birka = null;
+        super.deleteIt();
     }
 }
 }

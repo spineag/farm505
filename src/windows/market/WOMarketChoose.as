@@ -1,37 +1,24 @@
 package windows.market {
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.filters.ColorMatrixFilter;
+import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
-import starling.utils.HAlign;
-
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WOComponents.Birka;
-
 import windows.WOComponents.CartonBackground;
-
 import windows.WOComponents.DefaultVerticalScrollSprite;
-
 import utils.CButton;
-
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
-import windows.ambar.AmbarCell;
 
-public class WOMarketChoose extends Window {
+public class WOMarketChoose extends WindowMain {
     public static const AMBAR:int = 1;
     public static const SKLAD:int = 2;
 
@@ -39,32 +26,33 @@ public class WOMarketChoose extends Window {
     private var _arrCells:Array;
     private var _callback:Function;
     private var _btnSell:CButton;
-
-    private var _cloneTabAmbar:CSprite;
-    private var _cloneTabSklad:CSprite;
-    private var _cartonSprite:Sprite;
+    private var _tabAmbar:CSprite;
+    private var _tabSklad:CSprite;
+    private var _mainSprite:Sprite;
     private var _type:int;
-    private var _tabAmbar:Sprite;
-    private var _tabSklad:Sprite;
     private var _birka:Birka;
-
-
     private var _countResourceBlock:CountBlock;
     private var _countMoneyBlock:CountBlock;
     private var _curResourceId:int;
-    private var _checkBox:MarketCheckBox;
     private var booleanPlus:Boolean;
     private var booleanMinus:Boolean;
     private var _woBG:WindowBackground;
+    private var _defaultY:int = -232;
+    private var _SHADOW:BlurFilter;
+    private var _cartonAmbar:CartonBackground;
+    private var _cartonSklad:CartonBackground;
+    private var _carton:CartonBackground;
+    private var _activetedItem:MarketItem;
 
     public function WOMarketChoose() {
         super();
-
-        _woHeight = 570;
+        _windowType = WindowsManager.WO_MARKET_CHOOSE;
         _woWidth = 534;
+        _woHeight = 570;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
+        _SHADOW = ManagerFilters.getShadowFilter();
+        createExitButton(hideIt);
         booleanPlus = true;
         booleanMinus = true;
         createWOElements();
@@ -110,18 +98,13 @@ public class WOMarketChoose extends Window {
         _btnSell.x = 160;
         _btnSell.y = 190;
         _source.addChild(_btnSell);
-//        _btnSell.filter = filter;
         _btnSell.clickCallback = onClickBtnSell;
-
-//        _checkBox = new MarketCheckBox();
-//        _checkBox.source.x = -180;
-//        _checkBox.source.y = 205;
-//        _source.addChild(_checkBox.source);
-
         _callbackClickBG = onClickExit;
     }
 
-    override public function showIt():void {
+    override public function showItParams(callback:Function, params:Array):void {
+        _callback = callback;
+        _activetedItem = params[0];
         _type = AMBAR;
         checkTypes();
         fillItems();
@@ -129,86 +112,40 @@ public class WOMarketChoose extends Window {
     }
 
     private function createWOElements():void {
-        _cloneTabAmbar = new CSprite();
-        carton = new CartonBackground(122, 80);
-        _cloneTabAmbar.addChild(carton);
+        _tabAmbar = new CSprite();
+        _cartonAmbar = new CartonBackground(122, 80);
+        _tabAmbar.addChild(_cartonAmbar);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));
         MCScaler.scale(im, 41, 41);
         im.x = 12;
         im.y = 1;
-        _cloneTabAmbar.addChild(im);
+        _tabAmbar.addChild(im);
         var txt:TextField = new TextField(90, 40, "Амбар", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 31;
         txt.y = 2;
-        _cloneTabAmbar.addChild(txt);
-        _cloneTabAmbar.x = -_woWidth/2 + 73;
-        _cloneTabAmbar.y = -_woHeight/2 + 51;
-        carton.filter = ManagerFilters.SHADOW;
-        _cloneTabAmbar.flatten();
-        _source.addChild(_cloneTabAmbar);
+        _tabAmbar.addChild(txt);
+        _tabAmbar.x = -205;
+        _tabAmbar.y = _defaultY;
+        _tabAmbar.flatten();
         var fAmbar:Function = function():void {
             _type = AMBAR;
             updateItems();
             checkTypes();
-//            updateItemsForUpdate();
         };
-        _cloneTabAmbar.endClickCallback = fAmbar;
-
-        _cloneTabSklad = new CSprite();
-        carton = new CartonBackground(122, 80);
-        _cloneTabSklad.addChild(carton);
-        im = new Image(g.allData.atlas['iconAtlas'].getTexture("sklad_icon"));
-        MCScaler.scale(im, 40, 40);
-        im.x = 12;
-        im.y = 2;
-        _cloneTabSklad.addChild(im);
-        txt = new TextField(90, 40, "Склад", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 34;
-        txt.y = 2;
-        _cloneTabSklad.addChild(txt);
-        _cloneTabSklad.x = -_woWidth/2 + 202;
-        _cloneTabSklad.y = -_woHeight/2 + 51;
-        carton.filter = ManagerFilters.SHADOW;
-        _cloneTabSklad.flatten();
-        _source.addChild(_cloneTabSklad);
-        var fSklad:Function = function():void {
-            _type = SKLAD;
-            updateItems();
-            checkTypes();
-//            updateItemsForUpdate();
+        var hAmbar:Function = function():void {
+            _tabAmbar.y = _defaultY + 3;
         };
-        _cloneTabSklad.endClickCallback = fSklad;
+        var oAmbar:Function = function():void {
+            _tabAmbar.y = _defaultY + 10;
+        };
+        _tabAmbar.endClickCallback = fAmbar;
+        _tabAmbar.hoverCallback = hAmbar;
+        _tabAmbar.outCallback = oAmbar;
 
-        _cartonSprite = new Sprite();
-        var carton:CartonBackground = new CartonBackground(454, 435);
-        _cartonSprite.addChild(carton);
-        _cartonSprite.filter = ManagerFilters.SHADOW;
-        _cartonSprite.x = -_woWidth/2 + 43;
-        _cartonSprite.y = -_woHeight/2 + 96;
-
-        _tabAmbar = new Sprite();
-        carton = new CartonBackground(122, 80);
-        _tabAmbar.addChild(carton);
-        im = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));
-        MCScaler.scale(im, 40, 40);
-        im.x = 12;
-        im.y = 2;
-        _tabAmbar.addChild(im);
-        txt = new TextField(90, 40, "Амбар", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 31;
-        txt.y = 2;
-        _tabAmbar.addChild(txt);
-        _tabAmbar.x = 30;
-        _tabAmbar.y = -48;
-        _tabAmbar.flatten();
-        _cartonSprite.addChild(_tabAmbar);
-
-        _tabSklad = new Sprite();
-        carton = new CartonBackground(122, 80);
-        _tabSklad.addChild(carton);
+        _tabSklad = new CSprite();
+        _cartonSklad = new CartonBackground(122, 80);
+        _tabSklad.addChild(_cartonSklad);
         im = new Image(g.allData.atlas['iconAtlas'].getTexture("sklad_icon"));
         MCScaler.scale(im, 40, 40);
         im.x = 12;
@@ -219,12 +156,32 @@ public class WOMarketChoose extends Window {
         txt.x = 34;
         txt.y = 2;
         _tabSklad.addChild(txt);
-        _tabSklad.x = 159;
-        _tabSklad.y = -48;
+        _tabSklad.x = -75;
+        _tabSklad.y = _defaultY;
         _tabSklad.flatten();
-        _cartonSprite.addChild(_tabSklad);
+        var fSklad:Function = function():void {
+            _type = SKLAD;
+            updateItems();
+            checkTypes();
+        };
+        var hSklad:Function = function():void {
+            _tabSklad.y = _defaultY + 3;
+        };
+        var oSklad:Function = function():void {
+            _tabSklad.y = _defaultY + 10;
+        };
+        _tabSklad.endClickCallback = fSklad;
+        _tabSklad.hoverCallback = hSklad;
+        _tabSklad.outCallback = oSklad;
 
-        _source.addChild(_cartonSprite);
+        _mainSprite = new Sprite();
+        _carton = new CartonBackground(454, 435);
+        _mainSprite.addChild(_carton);
+        _mainSprite.filter = _SHADOW;
+        _mainSprite.x = -_woWidth/2 + 43;
+        _mainSprite.y = -_woHeight/2 + 96;
+
+        _source.addChild(_mainSprite);
 
         _scrollSprite = new DefaultVerticalScrollSprite(405, 303, 101, 101);
         _scrollSprite.source.x = 55 - _woWidth/2;
@@ -234,19 +191,35 @@ public class WOMarketChoose extends Window {
     }
 
     private function checkTypes():void {
+        _tabAmbar.filter = null;
+        _tabSklad.filter = null;
+        if (_source.contains(_tabAmbar)) _source.removeChild(_tabAmbar);
+        if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
+        if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
+        if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
         switch (_type) {
             case AMBAR:
-                _cloneTabAmbar.visible = false;
-                _tabAmbar.visible = true;
-                _cloneTabSklad.visible = true;
-                _tabSklad.visible = false;
+                _mainSprite.addChild(_tabAmbar);
+                _tabAmbar.x = -205 - _mainSprite.x;
+                _tabAmbar.y = _defaultY - _mainSprite.y;
+                _tabAmbar.isTouchable = false;
+                _source.addChildAt(_tabSklad, _source.getChildIndex(_mainSprite)-1);
+                _tabSklad.x = -75;
+                _tabSklad.y = _defaultY + 10;
+                _tabSklad.isTouchable = true;
+                _tabSklad.filter = _SHADOW;
                 _birka.updateText('Амбар');
                 break;
             case SKLAD:
-                _cloneTabSklad.visible = false;
-                _tabSklad.visible = true;
-                _cloneTabAmbar.visible = true;
-                _tabAmbar.visible = false;
+                _mainSprite.addChild(_tabSklad);
+                _tabSklad.x = -75 - _mainSprite.x;
+                _tabSklad.y = _defaultY - _mainSprite.y;
+                _tabSklad.isTouchable = false;
+                _source.addChildAt(_tabAmbar, _source.getChildIndex(_mainSprite)-1);
+                _tabAmbar.x = -205;
+                _tabAmbar.y = _defaultY + 10;
+                _tabAmbar.isTouchable = true;
+                _tabAmbar.filter = _SHADOW;
                 _birka.updateText('Склад');
                 break;
         }
@@ -257,7 +230,7 @@ public class WOMarketChoose extends Window {
         try {
             var arr:Array;
             if (_type == AMBAR) arr = g.userInventory.getResourcesForAmbar();
-            else arr = g.userInventory.getResourcesForSklad();
+                else arr = g.userInventory.getResourcesForSklad();
             arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
             for (var i:int = 0; i < arr.length; i++) {
                 cell = new MarketCell(arr[i]);
@@ -274,7 +247,7 @@ public class WOMarketChoose extends Window {
     private function unfillItems():void {
         _scrollSprite.resetAll();
         for (var i:int = 0; i < _arrCells.length; i++) {
-            _arrCells[i].clearIt();
+            _arrCells[i].deleteIt();
         }
         _arrCells.length = 0;
     }
@@ -284,71 +257,13 @@ public class WOMarketChoose extends Window {
         fillItems();
     }
 
-//    private function updateItemsForUpdate():void {
-//        if (_type == AMBAR) {
-//            _item1.updateIt(g.dataBuilding.objectBuilding[12].upInstrumentId1, true);
-//            _item2.updateIt(g.dataBuilding.objectBuilding[12].upInstrumentId2, true);
-//            _item3.updateIt(g.dataBuilding.objectBuilding[12].upInstrumentId3, true);
-//        } else {
-//            _item1.updateIt(g.dataBuilding.objectBuilding[13].upInstrumentId1, false);
-//            _item2.updateIt(g.dataBuilding.objectBuilding[13].upInstrumentId2, false);
-//            _item3.updateIt(g.dataBuilding.objectBuilding[13].upInstrumentId3, false);
-//        }
-//        checkUpdateBtn();
-//    }
-//
-//    private function showUsualState():void {
-//        _scrollSprite.source.visible = true;
-//        _btnShowUpdate.visible = true;
-//        _updateSprite.visible = false;
-//        _btnBackFromUpdate.visible = false;
-//    }
-//
-//    private function checkUpdateBtn():void {
-//        if (_item1.isFull && _item2.isFull && _item3.isFull) {
-//            _btnMakeUpdate.setEnabled = true;
-//        } else {
-//            _btnMakeUpdate.setEnabled = false;
-//        }
-//    }
-
-    public function set callback(f:Function):void {
-        _callback = f;
-    }
-
     private function onClickExit(e:Event=null):void {
-        g.woMarket.refreshMarket();
-//        _btnSell.filter = filter;
-        _countResourceBlock.btnFilter();
-        _countMoneyBlock.btnFilter();
-        _countResourceBlock.count = 0;
-        _countMoneyBlock.count = 0;
-        _curResourceId = 0;
-        unfillItems();
-        _scrollSprite.resetAll();
-        hideIt();
         if (_callback != null) {
-            _callback.apply(null, [0]);
+            _callback.apply(null, [_activetedItem, 0]);
             _callback = null;
         }
+        hideIt();
     }
-
-
-
-//    private function fillItems():void {
-//        var cell:MarketCell;
-//        var arr:Array = g.userInventory.getResourcesForAmbar();
-//        var arr2:Array = g.userInventory.getResourcesForSklad();
-//        arr = arr.concat(arr2);
-//        arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
-//        for (var i:int = 0; i < arr.length; i++) {
-//            cell = new MarketCell(arr[i]);
-//            cell.clickCallback = onCellClick;
-//            _arrCells.push(cell);
-//            _scrollSprite.addNewCell(cell.source);
-//        }
-//    }
-//
 
     private function onCellClick(a:int):void {
         _curResourceId = a;
@@ -439,11 +354,9 @@ public class WOMarketChoose extends Window {
             booleanMinus = true;
             _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costDefault;
         }
-
     }
 
     private function onClickBtnSell(resource:Boolean = false):void {
-        g.woMarket.refreshMarket();
         if (_curResourceId > 0) {
             if (!resource) {
                 if (g.dataResource.objectResources[_curResourceId].buildType == BuildType.PLANT && _countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId)) {
@@ -451,16 +364,56 @@ public class WOMarketChoose extends Window {
                 return;
                 }
             }
-            unfillItems();
-            _scrollSprite.resetAll();
-            hideIt();
             if (_callback != null) {
-                _callback.apply(null, [_curResourceId, _countResourceBlock.count, _countMoneyBlock.count]);
+                _callback.apply(null, [_activetedItem, _curResourceId, _countResourceBlock.count, _countMoneyBlock.count]);
                 _callback = null;
             }
-            _countResourceBlock.count = 0;
-            _countMoneyBlock.count = 0;
+            hideIt();
         }
+    }
+
+    override protected function deleteIt():void {
+        if (isCashed) return;
+        unfillItems();
+        _tabAmbar.filter = null;
+        _tabSklad.filter = null;
+        _mainSprite.filter = null;
+        if (_source.contains(_tabAmbar)) _source.removeChild(_tabAmbar);
+        if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
+        if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
+        if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
+        _mainSprite.removeChild(_carton);
+        _carton.deleteIt();
+        _carton = null;
+        _source.removeChild(_btnSell);
+        _btnSell.deleteIt();
+        _btnSell = null;
+        _source.removeChild(_countMoneyBlock.source);
+        _countMoneyBlock.deleteIt();
+        _countMoneyBlock = null;
+        _source.removeChild(_countResourceBlock.source);
+        _countResourceBlock.deleteIt();
+        _countResourceBlock = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _tabAmbar.removeChild(_cartonAmbar);
+        _cartonAmbar.deleteIt();
+        _cartonAmbar = null;
+        _tabAmbar.deleteIt();
+        _tabAmbar = null;
+        _tabSklad.removeChild(_cartonSklad);
+        _cartonSklad.deleteIt();
+        _cartonSklad = null;
+        _tabSklad.deleteIt();
+        _tabSklad = null;
+        _source.removeChild(_scrollSprite.source);
+        _scrollSprite.deleteIt();
+        _scrollSprite = null;
+        _source.removeChild(_birka);
+        _birka.deleteIt();
+        _birka = null;
+        super.deleteIt();
     }
 
 }

@@ -40,12 +40,7 @@ public class WOFabricNumber {
     }
 
     public function deleteIt():void {
-        source.filter = null;
-        source.endClickParams = -1;
-        source.endClickCallback = null;
-        source.unflatten();
-        while (source.numChildren) source.removeChildAt(0);
-        source.dispose();
+        source.deleteIt();
         source = null;
     }
 

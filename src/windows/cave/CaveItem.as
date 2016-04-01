@@ -1,5 +1,6 @@
 package windows.cave {
 
+import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 
 import manager.ManagerFilters;
@@ -21,6 +22,8 @@ public class CaveItem {
     private var _clickCallback:Function;
     private var _txtCount:TextField;
     private var _countResource:int;
+    private var _defaultY:int;
+    private var _maxAlpha:Number = 1;
 
     private var g:Vars = Vars.getInstance();
 
@@ -39,6 +42,12 @@ public class CaveItem {
         _txtCount.x = 52;
         _txtCount.y = 68;
         source.addChild(_txtCount);
+    }
+
+    public function setCoordinates(_x:int, _y:int):void {
+        _defaultY = _y;
+        source.x = _x;
+        source.y = _y;
     }
 
     public function fillData(ob:Object, f:Function):void {
@@ -69,15 +78,22 @@ public class CaveItem {
         source.addChild(_icon);
         _countResource = g.userInventory.getCountResourceById(_data.id);
         _txtCount.text = String(_countResource);
-//        if (_countResource <=0) {
-//            source.alpha = .7;
-//        }
+    }
+
+    public function showAnimateIt(delay:Number):void {
+        source.y = _defaultY - 35;
+        source.scaleX = source.scaleY = .9;
+        source.alpha = 0;
+        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
     }
 
     private function onClick():void {
         source.filter = null;
         if (g.userInventory.getCountResourceById(_data.id) <= 0) {
-            g.woNoResources.showItMenu(_data,1,onClick);
+            var ob:Object = {};
+            ob.data = _data;
+            ob.count = 1;
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'menu', ob);
             return;
         }
         if (_clickCallback != null) {
@@ -85,13 +101,11 @@ public class CaveItem {
         }
     }
 
-    public function clearIt():void {
-        _clickCallback = null;
+    public function deleteIt():void {
         _data = null;
-        source.removeChild(_icon);
-        _icon.dispose();
-        _icon = null;
-        _txtCount.text = '';
+        _clickCallback = null;
+        source.deleteIt();
+        source = null;
     }
 }
 }

@@ -155,7 +155,11 @@ public class WildHint {
     private function onClick():void {
         managerHide();
         if (g.userInventory.getCountResourceById(_id) <= 0){
-            g.woNoResources.showItMenu(g.dataResource.objectResources[_id],1,onClick);
+//            g.woNoResources.showItMenu(g.dataResource.objectResources[_id],1,onClick);
+            var ob:Object = {};
+            ob.data = g.dataResource.objectResources[_id];
+            ob.count = 1;
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'menu', ob);
         } else {
             if (_deleteCallback != null) {
                 _deleteCallback.apply();

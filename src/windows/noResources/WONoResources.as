@@ -2,10 +2,6 @@
  * Created by user on 6/29/15.
  */
 package windows.noResources {
-
-
-import build.ridge.Ridge;
-
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
@@ -13,30 +9,24 @@ import manager.ManagerFilters;
 import utils.CButton;
 import utils.MCScaler;
 import windows.*;
-
 import starling.display.Image;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import windows.WOComponents.WindowBackground;
 
-public class WONoResources extends Window {
+public class WONoResources extends WindowMain {
     private var _btnBuy:CButton;
     private var _woBG:WindowBackground;
-
     private var _txtHardCost:TextField;
     private var _arrItems:Array;
-
     private var _count:int;
     private var _countCost:int;
-    private var _dataResource:Object;
     private var _callbackBuy:Function;
-    private var _ridge:Ridge;
-    private var _params:Object;
+    private var _paramData:Object;
 
     public function WONoResources() {
         super();
+        _windowType = WindowsManager.WO_NO_RESOURCES;
         _woWidth = 400;
         _woHeight = 340;
         _arrItems = [];
@@ -56,10 +46,6 @@ public class WONoResources extends Window {
         txt.y = -100;
         _source.addChild(txt);
 
-        createBtn();
-    }
-
-    private function createBtn():void {
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(210, 34, CButton.GREEN, true);
         _btnBuy.x = 0;
@@ -76,90 +62,102 @@ public class WONoResources extends Window {
         im.filter = ManagerFilters.SHADOW_TINY;
     }
 
-    private function onClickExit(e:Event = null):void {
-        _btnBuy.clickCallback = null;
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].deleteIt();
+    override public function showItParams(callback:Function, params:Array):void {
+        var item:WONoResourcesItem;
+        _paramData = params[1];
+        _callbackBuy = callback;
+        switch (params[0]) {
+            case 'animal':
+                _count = g.dataResource.objectResources[_paramData.idResourceRaw].priceHard;
+                _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
+                item = new WONoResourcesItem();
+                item.fillWithResource(_paramData.idResourceRaw, 1);
+                item.source.x =  - item.source.width/2;
+                item.source.y = 0;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _btnBuy.clickCallback = onClickAnimal;
+                break;
+            case 'menu':
+//            public function showItMenu(data:Object, count:int, f:Function = null, r:Ridge = null, params:Object = null):void {
+                _callbackBuy = callback;
+                _count = _paramData.count;
+                createList(_paramData.data, _count);
+                break;
+            case 'money':
+                _count = _paramData.count;
+                _count = Math.ceil(_count / g.HARD_IN_SOFT);
+                _countCost = _count;
+                if (_paramData.currency == DataMoney.HARD_CURRENCY) {
+                    Cc.error('hard currency can"t be in woNoResourceWindow');
+                    g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
+                    return;
+                }
+                _txtHardCost.text = 'Купить ресурсы ' + String(_count);
+                item = new WONoResourcesItem();
+                item.fillWithMoney(_count);
+                item.source.x = - item.source.width/2;
+                item.source.y = 0;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _btnBuy.clickCallback = onClickMoney;
+                break;
+            case 'order':
+                _count = 0;
+                for (var i:int=0; i<_paramData.resourceIds.length; i++) {
+                    if (_paramData.resourceCounts[i] - g.userInventory.getCountResourceById(_paramData.resourceIds[i]) > 0) {
+                        item = new WONoResourcesItem();
+                        item.fillWithResource(_paramData.resourceIds[i], _paramData.resourceCounts[i] - g.userInventory.getCountResourceById(_paramData.resourceIds[i]));
+                        _count += g.dataResource.objectResources[_paramData.resourceIds[i]].priceHard * (_paramData.resourceCounts[i] - g.userInventory.getCountResourceById(_paramData.resourceIds[i]));
+                        _source.addChild(item.source);
+                        _arrItems.push(item);
+                    }
+                }
+                switch (_arrItems.length) {
+                    case 1:
+                        _arrItems[0].source.x = - item.source.width/2;
+                        break;
+                    case 2:
+                        _arrItems[0].source.x = -200 + 117;
+                        _arrItems[1].source.x = -200 + 217;
+                        break;
+                    case 3:
+                        _arrItems[0].source.x = -200 + 77;
+                        _arrItems[1].source.x = -200 + 167;
+                        _arrItems[2].source.x = -200 + 257;
+                        break;
+                    case 4:
+                        _arrItems[0].source.x = -200 + 39;
+                        _arrItems[1].source.x = -200 + 124;
+                        _arrItems[2].source.x = -200 + 209;
+                        _arrItems[3].source.x = -200 + 294;
+                        break;
+                    case 5:
+                        _arrItems[0].source.x = -200 + 27;
+                        _arrItems[1].source.x = -200 + 97;
+                        _arrItems[2].source.x = -200 + 167;
+                        _arrItems[3].source.x = -200 + 237;
+                        _arrItems[4].source.x = -200 + 307;
+                        break;
+                }
+                _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
+                _btnBuy.clickCallback = onClickOrder;
+                break;
+            case 'train':
+                item = new WONoResourcesItem();
+                item.fillWithResource(_paramData.data.id, _paramData.count);
+                item.source.x =  - item.source.width/2;
+                item.source.y = 0;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _count = int(_paramData.data.priceHard);
+                _countCost = _count;
+                _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
+                _btnBuy.clickCallback = onClickTrain;
+                showIt();
         }
-        _arrItems.length = 0;
-        _count = 0;
-        hideIt();
-    }
 
-    public function showItMoney(currency:int, count:int, f:Function):void {
-        _count = Math.ceil(count / g.HARD_IN_SOFT);
-        _countCost = count;
-        if (currency == DataMoney.HARD_CURRENCY) {
-            Cc.error('hard currency can"t be in woNoResourceWindow');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
-            return;
-        }
-        _txtHardCost.text = 'Купить ресурсы ' + String(_count);
-        var item:WONoResourcesItem = new WONoResourcesItem();
-        item.fillWithMoney(count);
-        item.source.x = - item.source.width/2;
-        item.source.y = 0;
-        _source.addChild(item.source);
-        _arrItems.push(item);
-        _callbackBuy = f;
-        _btnBuy.clickCallback = onClickMoney;
-        showIt();
-    }
-
-    private function onClickMoney():void {
-        if (_count <= g.user.hardCurrency) {
-            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_count);
-        } else {
-            onClickExit();
-            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
-            return;
-        }
-        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _countCost);
-        onClickExit();
-        if (_callbackBuy != null) {
-            _callbackBuy.apply(null);
-            _callbackBuy = null;
-        }
-    }
-
-    public function showItAnimal(data:Object, f:Function = null):void {
-        _dataResource = data;
-        _callbackBuy = f;
-        _count = g.dataResource.objectResources[_dataResource.idResourceRaw].priceHard;
-        _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
-        var item:WONoResourcesItem = new WONoResourcesItem();
-        item.fillWithResource(_dataResource.idResourceRaw, 1);
-        item.source.x =  - item.source.width/2;
-        item.source.y = 0;
-        _source.addChild(item.source);
-        _arrItems.push(item);
-        _callbackBuy = f;
-        _btnBuy.clickCallback = onClickAnimal;
-        showIt();
-    }
-
-    private function onClickAnimal():void {
-        if (int(_txtHardCost.text) <= g.user.hardCurrency) {
-            g.userInventory.addMoney(1, -_count);
-        } else {  g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
-            return;
-        }
-        g.userInventory.addResource(_dataResource.idResourceRaw,1);
-        onClickExit();
-        if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[true]);
-            _callbackBuy = null;
-        }
-    }
-
-    public function showItMenu(data:Object, count:int, f:Function = null, r:Ridge = null, params:Object = null):void {
-        hideIt();
-        createList(data, count);
-        showIt();
-        _params = params;
-        _dataResource = data;
-        _callbackBuy = f;
-        _ridge = r;
+        super.showIt();
     }
 
     private function createList(_data:Object, count:int):void {
@@ -240,10 +238,39 @@ public class WONoResources extends Window {
             }
             _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
         }
-
         _btnBuy.clickCallback = onClickResource;
-
     }
+
+
+    private function onClickMoney():void {
+        if (_count <= g.user.hardCurrency) {
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_count);
+        } else {
+            g.windowsManager.uncasheWindow();
+            hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            return;
+        }
+        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _countCost);
+        hideIt();
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null);
+            _callbackBuy = null;
+        }
+    }
+
+    private function onClickAnimal():void {
+        if (_count <= g.user.hardCurrency) {
+            g.userInventory.addMoney(1, -_count);
+        } else {
+            hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            return;
+        }
+        g.userInventory.addResource(_paramData.idResourceRaw,1);
+        hideIt();
+    }
+
 
     private function onClickResource():void {
         var countRes:int = 0;
@@ -253,85 +280,36 @@ public class WONoResources extends Window {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        if (_dataResource.buildType == BuildType.INSTRUMENT) {
-            g.userInventory.addResource(_dataResource.id,1);
+        if (_paramData.buildType == BuildType.INSTRUMENT) {
+            g.userInventory.addResource(_paramData.id,1);
             if (_callbackBuy != null) {
                 _callbackBuy.apply(null);
                 _callbackBuy = null;
             }
-        } else if (_dataResource.buildType == BuildType.PLANT) {
-            g.userInventory.addResource(_dataResource.id,1);
-
+        } else if (_paramData.buildType == BuildType.PLANT) {
+            g.userInventory.addResource(_paramData.id,1);
             if (_callbackBuy != null) {
-                _callbackBuy.apply(null, [_dataResource, _ridge]);
+                _callbackBuy.apply(null, [_paramData, _paramData.ridge]);
                 _callbackBuy = null;
             }
-        } else if (_dataResource.ingridientsId) {
-            for (var i:int = 0; i < _dataResource.ingridientsId.length; i++) {
-                countRes = g.userInventory.getCountResourceById(_dataResource.ingridientsId[i]);
-                if (countRes < _dataResource.ingridientsCount[i]) {
-                    g.userInventory.addResource(_dataResource.ingridientsId[i], _dataResource.ingridientsCount[i] - countRes);
+        } else if (_paramData.ingridientsId) {
+            for (var i:int = 0; i < _paramData.ingridientsId.length; i++) {
+                countRes = g.userInventory.getCountResourceById(_paramData.ingridientsId[i]);
+                if (countRes < _paramData.ingridientsCount[i]) {
+                    g.userInventory.addResource(_paramData.ingridientsId[i], _paramData.ingridientsCount[i] - countRes);
                 }
             }
 
-            if (_callbackBuy != null) {
-                if (_params) {
-                    _callbackBuy.apply(null, [_dataResource, _params, true]);
-                    _params = null;
-                } else {
-                    _callbackBuy.apply(null, [_dataResource]);
-                }
-            }
+//            if (_callbackBuy != null) {
+//                if (_params) {
+//                    _callbackBuy.apply(null, [_paramData, _params, true]);
+//                    _params = null;
+//                } else {
+//                    _callbackBuy.apply(null, [_paramData]);
+//                }
+//            }
         }
-        onClickExit();
-    }
-
-    public function showItOrder(_data:Object, f:Function = null):void {
-        _callbackBuy = f;
-        _dataResource = _data;
-
-        var item:WONoResourcesItem;
-        for (var i:int=0; i<_data.resourceIds.length; i++) {
-
-                if (_data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]) > 0) {
-                    item = new WONoResourcesItem();
-                    item.fillWithResource(_data.resourceIds[i], _data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]));
-                    _count += g.dataResource.objectResources[_data.resourceIds[i]].priceHard * (_data.resourceCounts[i] - g.userInventory.getCountResourceById(_data.resourceIds[i]));
-                    _source.addChild(item.source);
-                    _arrItems.push(item);
-                }
-        }
-        switch (_arrItems.length) {
-            case 1:
-                _arrItems[0].source.x = - item.source.width/2;
-                break;
-            case 2:
-                _arrItems[0].source.x = -200 + 117;
-                _arrItems[1].source.x = -200 + 217;
-                break;
-            case 3:
-                _arrItems[0].source.x = -200 + 77;
-                _arrItems[1].source.x = -200 + 167;
-                _arrItems[2].source.x = -200 + 257;
-                break;
-            case 4:
-                _arrItems[0].source.x = -200 + 39;
-                _arrItems[1].source.x = -200 + 124;
-                _arrItems[2].source.x = -200 + 209;
-                _arrItems[3].source.x = -200 + 294;
-                break;
-            case 5:
-                _arrItems[0].source.x = -200 + 27;
-                _arrItems[1].source.x = -200 + 97;
-                _arrItems[2].source.x = -200 + 167;
-                _arrItems[3].source.x = -200 + 237;
-                _arrItems[4].source.x = -200 + 307;
-                break;
-        }
-
-        _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
-        _btnBuy.clickCallback = onClickOrder;
-        showIt();
+        hideIt();
     }
 
     private function onClickOrder():void {
@@ -339,39 +317,19 @@ public class WONoResources extends Window {
         if (_count <= g.user.hardCurrency) {
             g.userInventory.addMoney(1, -_count);
         } else {
-            onClickExit();
+            hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        for (var i:int=0; i<_dataResource.resourceIds.length; i++) {
-            number = g.userInventory.getCountResourceById(_dataResource.resourceIds[i]);
-            if (number < _dataResource.resourceCounts[i]) g.userInventory.addResource(_dataResource.resourceIds[i], _dataResource.resourceCounts[i] - number);
-
-//            number = _dataResource.resourceCounts[i] - g.userInventory.getCountResourceById(_dataResource.resourceIds[i]);
-//            if (number > 0) g.userInventory.addResource(_dataResource.resourceIds[i],number);
+        for (var i:int=0; i<_paramData.resourceIds.length; i++) {
+            number = g.userInventory.getCountResourceById(_paramData.resourceIds[i]);
+            if (number < _paramData.resourceCounts[i]) g.userInventory.addResource(_paramData.resourceIds[i], _paramData.resourceCounts[i] - number);
         }
-        onClickExit();
-        if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[true, _dataResource]);
-            _callbackBuy = null;
-        }
-    }
-
-    public function showItTrain(data:Object, count:int, f:Function = null):void {
-        _dataResource = data;
-        _callbackBuy = f;
-        var im:WONoResourcesItem;
-        im = new WONoResourcesItem();
-        im.fillWithResource(_dataResource.id, count);
-        im.source.x =  - im.source.width/2;
-        im.source.y = 0;
-        _source.addChild(im.source);
-        _arrItems.push(im);
-        _count = int(_dataResource.priceHard);
-        _countCost = count;
-        _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
-        _btnBuy.clickCallback = onClickTrain;
-        showIt();
+        hideIt();
+//        if (_callbackBuy != null) {
+//            _callbackBuy.apply(null,[true, _dataResource]);
+//            _callbackBuy = null;
+//        }
     }
 
     private function onClickTrain():void {
@@ -381,13 +339,27 @@ public class WONoResources extends Window {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-            g.userInventory.addResource(_dataResource.id,_countCost);
-            onClickExit();
+        g.userInventory.addResource(_paramData.id,_countCost);
+        hideIt();
 
-            if (_callbackBuy != null) {
-                _callbackBuy.apply(null,[true]);
-                _callbackBuy = null;
-            }
+//        if (_callbackBuy != null) {
+//            _callbackBuy.apply(null,[true]);
+//            _callbackBuy = null;
+//        }
+    }
+
+    override protected function deleteIt():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].deleteIt();
+        }
+        _arrItems.length = 0;
+
+        super.deleteIt();
+    }
+
+    private function onClickExit():void {
+        g.windowsManager.uncasheWindow();
+        hideIt();
     }
 }
 }

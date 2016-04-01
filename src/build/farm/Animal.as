@@ -192,7 +192,7 @@ public class Animal {
         if (_state == HUNGRY) {
             onOut();
             if(g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
-                g.woNoResources.showItAnimal(_data,onClick);
+                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
                 return;
             }
             if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {

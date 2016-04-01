@@ -217,7 +217,7 @@ public class Ridge extends AreaObject{
                 if (g.managerTutorial.isTutorial && _tutorialCallback != null) {
                     hideArrow();
                 }
-                g.woBuyPlant.showItWithParams(this, onBuy);
+                g.windowsManager.openWindow(WindowsManager.WO_BUY_PLANT, onBuy, this);
             } else if (_stateRidge == GROWED) {
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
                     if (_tutorialCallback != null) {

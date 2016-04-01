@@ -52,5 +52,15 @@ public class MarketCheckBox {
     public function get isChecked():Boolean {
         return _stateChecked;
     }
+
+    public function deleteIt():void {
+        source.removeChild(_bg);
+        _bg.deleteIt();
+        _bg = null;
+        _galo4ka = null;
+        _txt = null;
+        source.dispose();
+        source = null;
+    }
 }
 }

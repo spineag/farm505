@@ -5,45 +5,29 @@ package windows.market {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import flash.filters.GlowFilter;
 import flash.geom.Rectangle;
-
 import manager.ManagerFilters;
-
 import social.SocialNetworkEvent;
-
 import starling.animation.Tween;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import user.NeighborBot;
-
 import user.Someone;
-import starling.display.Quad;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
-
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
-import windows.WOComponents.CartonBackgroundIn;
-import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOMarket  extends Window {
-
-    public var marketChoose:WOMarketChoose;
+public class WOMarket  extends WindowMain {
     private var _woBG:WindowBackground;
     private var _shopSprite:Sprite;
     private var _contRect:Sprite;
@@ -67,18 +51,19 @@ public class WOMarket  extends Window {
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
     private var _item3:MarketFriendItem;
-    private var ma:MarketAllFriend;
+    private var _ma:MarketAllFriend;
     private var _shiftFriend:int = 0;
     private var _shift:int;
     private var _countPage:int;
     private var _countAllPage:int;
-    private var _timer:int;
     private var _panelBool:Boolean;
     private var _booleanPaper:Boolean;
-    private var _callbackState:Function;
+    private var _callback:Function;
+    private var _birka:Birka;
 
     public function WOMarket() {
-        super ();
+        super();
+        _windowType = WindowsManager.WO_MARKET;
         _cont = new Sprite();
         _contItem = new CSprite();
         _arrItemsFriend = [];
@@ -108,16 +93,13 @@ public class WOMarket  extends Window {
         _btnFriends.addChild(txt);
         _source.addChild(_btnFriends);
         _btnFriends.clickCallback = btnFriend;
-        marketChoose = new WOMarketChoose();
         _countPage = 1;
         _contRect = new Sprite();
         _contRect.clipRect = new Rectangle(-305, -200, 500, 400);
-
         _source.addChild(_contRect);
         _contItemCell = new Sprite();
         _contRect.addChild(_contItemCell);
-//        addItems();
-//        _friendsPanel = new MarketFriendsPanelItem(this,_source);
+
         _btnRefresh = new CSprite();
         var ref:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
         _btnRefresh.addChild(ref);
@@ -126,8 +108,8 @@ public class WOMarket  extends Window {
         _source.addChild(_btnRefresh);
         _btnRefresh.endClickCallback = makeRefresh;
         _callbackClickBG = hideIt;
-        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
-        new Birka('РЫНОК', _source, _woWidth, _woHeight);
+//        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
+        _birka = new Birka('РЫНОК', _source, _woWidth, _woHeight);
         _panelBool = false;
 
         _leftBtn = new CSprite();
@@ -164,10 +146,6 @@ public class WOMarket  extends Window {
         _txtNumberPage.y = 153;
         _source.addChild(_txtNumberPage);
 
-//        var bg:CartonBackgroundIn = new CartonBackgroundIn(54, 36);
-//        bg.x = 80;
-//        bg.y = 164;
-//        _source.addChild(bg);
         _contPaper = new Sprite();
         _source.addChild(_contPaper);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
@@ -201,7 +179,6 @@ public class WOMarket  extends Window {
         _contPaper.addChild(_imCheck);
         _imCheck.visible = false;
 
-
         txt = new TextField(200,30,'Выставить в газету:',g.allData.fonts['BloggerBold'], 12, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 30;
@@ -213,17 +190,12 @@ public class WOMarket  extends Window {
         _txtTimerPaper.x = 68;
         _txtTimerPaper.y = 165;
         _contPaper.addChild(_txtTimerPaper);
-        _timer = 300;
         _contPaper.visible = false;
     }
 
-    private function onClickExit(e:Event=null):void {
-        if (g.managerTutorial.isTutorial) return;
-        hideIt();
-    }
 
-    private function fillFriends(e:SocialNetworkEvent):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
+    private function fillFriends(e:SocialNetworkEvent=null):void {
+//        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         _arrFriends = g.user.arrFriends.slice();
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
@@ -231,57 +203,34 @@ public class WOMarket  extends Window {
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
         _txtName.x = -195;
-        ma = new MarketAllFriend(_arrFriends,this,btnFriend);
-        _source.addChild(ma.source);
+        _ma = new MarketAllFriend(_arrFriends,this,btnFriend);
+        _source.addChild(_ma.source);
     }
 
-    public function showItWithParams(f:Function):void {
-        createMarketTabBtns();
+    override public function showItParams(f:Function, params:Array):void {
+        _arrFriends = [];
+        fillFriends();
         _countPage = 1;
-        _callbackState = f;
-//        fillItems();
-        addItems(true);
-        fillItemsByUser(g.user);
-        _contPaper.visible = true;
-        g.gameDispatcher.addToTimer(onTimer);
-        showIt();
-//        _shift = 0;
-//        new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
-//        checkArrow();
-    }
-
-    public function showItPapper(p:Someone):void {
-        _countPage = 1;
-        for (var i:int=0; i < _arrFriends.length; i++) {
-            if (_arrFriends[i].userSocialId == p.userSocialId){
-                _shiftFriend = i;
+        _callback = f;
+        if (params[0]) {
+            for (var i:int=0; i < _arrFriends.length; i++) {
+                if (_arrFriends[i].userSocialId == params[0].userSocialId){
+                    _shiftFriend = i;
+                }
             }
+            _curUser = params[0];
+            if(_shiftFriend == 0) {
+                createMarketTabBtns(true);
+            } else createMarketTabBtns();
+            choosePerson(params[0]);
+            checkPapperTimer();
         }
-
-        _curUser = p;
-        if(_shiftFriend == 0) {
-            createMarketTabBtns(true);
-        } else createMarketTabBtns();
-//        fillItemsByUser(p);
-        choosePerson(p);
-        showIt();
+        super.showIt();
     }
 
-    override public function hideIt():void {
-        _panelBool = false;
-//        g.gameDispatcher.removeFromTimer(onTimer);
-        _shift = 0;
-        new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
-        deleteFriends();
-        unFillItems();
-        super.hideIt();
-        closePanelFriend();
-        _shiftFriend = 0;
-        callbackState();
-    }
-
-    public function resetAll():void {
-//        _friendsPanel.resetIt();
+    private function onClickExit(e:Event=null):void {
+        if (g.managerTutorial.isTutorial) return;
+        hideIt();
     }
 
     public function set curUser(p:Someone):void {
@@ -312,13 +261,13 @@ public class WOMarket  extends Window {
             g.user.marketCell = 5;
         }
 
-        var marketCell:int;
-        if (g.user.marketCell == 40) marketCell = g.user.marketCell;
-        else  marketCell = g.user.marketCell + 2;
+        var marketCellCount:int;
+        if (g.user.marketCell == 40) marketCellCount = g.user.marketCell;
+            else  marketCellCount = g.user.marketCell + 2;
 
-        for (var i:int=0; i < marketCell; i++) {
-            if (i+1 > g.user.marketCell)  item = new MarketItem(i,true);
-            else  item = new MarketItem(i,false);
+        for (var i:int=0; i < marketCellCount; i++) {
+            if (i+1 > g.user.marketCell)  item = new MarketItem(i,true, this);
+                else  item = new MarketItem(i,false, this);
             if (i+1 <= 8) {
              item.source.x = 125*(_arrItems.length%4) - 300;
                 _countAllPage = 1;
@@ -364,11 +313,9 @@ public class WOMarket  extends Window {
         if (newVisit) checkArrow();
     }
 
-
     private function addItemsFriend(callback:Boolean = false,_person:Someone = null):void {
-
-        if (!callback)g.directServer.getFriendsMarketCell(int(_person.userSocialId),_person,addItemsFriend);
-        if (_arrItems == null) _arrItems = [];
+        if (!callback) g.directServer.getFriendsMarketCell(int(_person.userSocialId),_person, addItemsFriend);
+        if (!_arrItems) _arrItems = [];
         else clearItems();
 
         if (_person.marketCell == 0) {
@@ -377,7 +324,7 @@ public class WOMarket  extends Window {
         var item:MarketItem;
 
         for (var i:int=0; i < _person.marketCell; i++) {
-            item = new MarketItem(i,false);
+            item = new MarketItem(i,false, this);
             if (i+1 <= 8) {
                 item.source.x = 125*(_arrItems.length%4) - 300;
                 _countAllPage = 1;
@@ -421,13 +368,12 @@ public class WOMarket  extends Window {
             _arrItems.push(item);
         }
         checkArrow();
-
     }
 
     public function addItemsRefresh():void {
         if (_arrItems.length == 40) return;
         var item:MarketItem;
-        item = new MarketItem(_arrItems.length + 1,true);
+        item = new MarketItem(_arrItems.length + 1, true, this);
 
         if (_arrItems.length  <= 7) {
             item.source.x = 125*(_arrItems.length%4) - 300;
@@ -476,22 +422,18 @@ public class WOMarket  extends Window {
     private function callbackItem():void { }
 
     public function fillItemsByUser(p:Someone):void {
-    _curUser = p;
-//        if (p.marketItems) {
-//            fillItems();
-//        } else {
-            if (p is NeighborBot) {
-                g.directServer.getUserNeighborMarket(fillItems);
-            } else {
-                g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
-            }
-//        }
+        _curUser = p;
+        if (p is NeighborBot) {
+            g.directServer.getUserNeighborMarket(fillItems);
+        } else {
+            g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
+        }
     }
 
     public function unFillItems():void {
-        if (_arrItems == null) return;
+        if (!_arrItems) return;
         for (var i:int=0; i< _arrItems.length; i++) {
-            if(!_arrItems[i].number) return;
+            if (!_arrItems[i].number) return;
             _arrItems[i].unFillIt();
         }
     }
@@ -552,8 +494,7 @@ public class WOMarket  extends Window {
             return;
         }
         g.userInventory.addMoney(1,-1);
-        _timer = 0;
-        g.gameDispatcher.removeFromTimer(onTimer);
+        g.user.papperTimerAtMarket = 0;
         _txtTimerPaper.text = '';
         _btnPaper.visible = false;
         _booleanPaper = true;
@@ -564,19 +505,14 @@ public class WOMarket  extends Window {
         return _booleanPaper;
     }
 
-    public function startTimer():void {
-        _timer = 300;
-        g.gameDispatcher.addToTimer(onTimer);
+    public function startPapperTimer():void {
+        g.user.startUserPapperTimer();
     }
 
-    private function onTimer():void {
-        _timer --;
-        _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(_timer);
-        if(_timer <= 0){
-            _btnPaper.visible = false;
-            _booleanPaper = true;
-            _imCheck.visible = true;
-            _txtTimerPaper.text = '';
+    private function checkPapperTimer():void {
+        if (g.user.papperTimerAtMarket > 0) {
+            _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.user.papperTimerAtMarket);
+            g.gameDispatcher.addToTimer(onTimer);
         } else {
             _booleanPaper = false;
             _imCheck.visible = false;
@@ -584,13 +520,23 @@ public class WOMarket  extends Window {
         }
     }
 
+    private function onTimer():void {
+        if (g.user.papperTimerAtMarket > 0) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.user.papperTimerAtMarket);
+        else {
+            _btnPaper.visible = false;
+            _booleanPaper = true;
+            _imCheck.visible = true;
+            _txtTimerPaper.text = '';
+            g.gameDispatcher.removeFromTimer(onTimer);
+        }
+    }
+
     public function addAdditionalUser(ob:Object):void {
         _curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
-//        _friendsPanel.addAdditionalUser(_curUser);
-//        g.woMarket.refreshMarket();
     }
 
     public function createMarketTabBtns(paper:Boolean = false):void {
+        var c:CartonBackground;
         if (_arrFriends == null) {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Обнови сиды и сикреты');
             return;
@@ -609,7 +555,7 @@ public class WOMarket  extends Window {
             if (_arrFriends[_shiftFriend] == g.user) {
                 _item._visitBtn.visible = false;
             } else _item._visitBtn.visible = true;
-            var c:CartonBackground = new CartonBackground(125, 115);
+            c = new CartonBackground(125, 115);
             c.x = 208 - 5;
             c.y = -185;
             _cont.addChild(c);
@@ -676,7 +622,7 @@ public class WOMarket  extends Window {
     public function choosePerson(_person:Someone):void {
         unFillItems();
         _shift = 0;
-        new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
+        new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone});
         _countPage = 1;
         if (_person.userSocialId == g.user.userSocialId) {
             addItems(true);
@@ -685,8 +631,15 @@ public class WOMarket  extends Window {
             addItemsFriend(false,_person);
             _contPaper.visible = false;
         }
-
         fillItemsByUser(_person);
+    }
+
+    public function onChooseFriendOnPanel(p:Someone, shift:int):void {
+        choosePerson(p);
+        _shiftFriend = shift;
+        deleteFriends();
+        createMarketTabBtns();
+        closePanelFriend();
     }
 
     public function set shiftFriend(a:int):void  {
@@ -694,36 +647,48 @@ public class WOMarket  extends Window {
     }
 
     public function deleteFriends():void {
-        if (_item) _source.removeChild(_item.source);
-        if (_item2)_source.removeChild(_item2.source);
-        if (_item3)_source.removeChild(_item3.source);
+        if (_item) {
+            _source.removeChild(_item.source);
+            _item.deleteIt();
+            _item = null;
+        }
+        if (_item2) {
+            _source.removeChild(_item2.source);
+            _item2.deleteIt();
+            _item2 = null;
+        }
+        if (_item3) {
+            _source.removeChild(_item3.source);
+            _item3.deleteIt();
+            _item3 = null;
+        }
         _source.removeChild(_txtName);
     }
 
     private function btnFriend (hideCallback:Boolean = false):void {
         if (hideCallback) {
-            ma.hideIt();
+            _ma.hideIt();
             _panelBool = false;
             return;
         }
         if (!_panelBool){
-            ma.showIt();
+            _ma.showIt();
             _panelBool = true;
         } else if (_panelBool) {
-            ma.hideIt();
+            _ma.hideIt();
             _panelBool = false;
         }
     }
 
     public function closePanelFriend():void {
-        if (ma) ma.hideIt();
+        if (_ma) _ma.hideIt();
         _panelBool = false;
     }
 
     public function callbackState():void {
-        if (_callbackState != null) {
-            _callbackState.apply(null);
-            _callbackState = null;
+        if (_callback != null) {
+            _callback.apply(null);
+            _callback = null;
         }
     }
 
@@ -761,7 +726,6 @@ public class WOMarket  extends Window {
             _countPage++;
         }
         checkArrow();
-
     }
 
     public function checkArrow():void {
@@ -785,6 +749,39 @@ public class WOMarket  extends Window {
         } else {
             return {};
         }
+    }
+
+    public function onItemClickAndOpenWOChoose(item:MarketItem):void {
+        isCashed = true;
+        hideIt();
+        g.windowsManager.openWindow(WindowsManager.WO_MARKET_CHOOSE, callbackFromMarketChoose, item);
+    }
+
+    private function callbackFromMarketChoose(item:MarketItem, a:int, count:int = 0, cost:int = 0, inPapper:Boolean = false):void {
+        super.showIt();
+        isCashed = false;
+        if (a>0) {
+            item.onChoose(a, count, cost, inPapper);
+        }
+    }
+
+    override protected function deleteIt():void {
+        var i:int;
+        deleteFriends();
+        if (_arrItems) {
+            for (i=0; i< _arrItems.length; i++) {
+                _contItemCell.removeChild(_arrItems[i].source);
+                _arrItems[i].deleteIt();
+            }
+            _arrItems.length = 0;
+        }
+        if (_ma) {
+            _source.removeChild(_ma.source);
+            _ma.deleteIt();
+            _ma = null;
+        }
+        callbackState();
+        super.deleteIt();
     }
 }
 }

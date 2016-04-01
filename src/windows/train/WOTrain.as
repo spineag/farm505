@@ -374,7 +374,11 @@ public class WOTrain extends Window {
 
     private function onClickBuy():void {
         onClickExit();
-        g.woNoResources.showItTrain(g.dataResource.objectResources[_idFree],_countFree - g.userInventory.getCountResourceById(_idFree),onResourceLoad);
+//        g.woNoResources.showItTrain(g.dataResource.objectResources[_idFree],_countFree - g.userInventory.getCountResourceById(_idFree),onResourceLoad);
+        var ob:Object = {};
+        ob.data = g.dataResource.objectResources[_idFree];
+        ob.count = _countFree - g.userInventory.getCountResourceById(_idFree);
+        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onResourceLoad, 'train', ob);
 //        checkBtn();
     }
 

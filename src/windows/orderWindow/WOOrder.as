@@ -258,7 +258,8 @@ public class WOOrder extends Window{
         if (!b) {
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
                 if (!_arrResourceItems[i].isChecked()) {
-                    g.woNoResources.showItOrder(_activeOrderItem.getOrder(), sellOrder);
+//                    g.woNoResources.showItOrder(_activeOrderItem.getOrder(), sellOrder);
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, sellOrder, 'order', _activeOrderItem.getOrder());
                     return;
                 }
             }

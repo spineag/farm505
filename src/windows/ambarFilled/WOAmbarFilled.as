@@ -75,11 +75,9 @@ public class WOAmbarFilled extends WindowMain {
     private function onClick():void {
         hideIt();
         if (_isAmbar) {
-            g.woAmbars.showItWithParams(WOAmbars.AMBAR);
-            g.woAmbars.showUpdateState();
+            g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, WOAmbars.AMBAR, true);
         } else {
-            g.woAmbars.showItWithParams(WOAmbars.SKLAD);
-            g.woAmbars.showUpdateState();
+            g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, WOAmbars.SKLAD, true);
         }
     }
 

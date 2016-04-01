@@ -70,16 +70,26 @@ public class WOBuyCave extends WindowMain {
 
     private function onClickBuy():void {
         if (g.user.softCurrencyCount < _dataObject.cost) {
-            g.woNoResources.showItMoney(2,_dataObject.cost - g.user.softCurrencyCount,onClickBuy);
+            var ob:Object = {};
+            ob.currency = 2;
+            ob.count = _dataObject.cost - g.user.softCurrencyCount;
+            g.windowsManager.cashWindow = this;
+            hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickBuy, 'money', ob);
             return;
         }
         if (_callback != null) {
             _callback.apply();
         }
-        hideIt();
+        if (isCashed) {
+            g.windowsManager.uncasheWindow();
+        } else {
+            hideIt();
+        }
     }
 
     override protected function deleteIt():void {
+        if (isCashed) return;
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;
@@ -88,6 +98,11 @@ public class WOBuyCave extends WindowMain {
         _btn = null;
         _dataObject = null;
         super.deleteIt();
+    }
+
+    override public function releaseFromCash():void {
+        isCashed = false;
+        deleteIt();
     }
 }
 }
