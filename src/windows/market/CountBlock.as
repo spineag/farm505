@@ -2,6 +2,7 @@
  * Created by user on 8/25/15.
  */
 package windows.market {
+import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.display.Image;
@@ -66,8 +67,8 @@ public class CountBlock {
     }
 
     public function btnFilter():void {
-//        _btnMinus.filter = filter;
-//        _btnPlus.filter = filter;
+        _btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+        _btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
     }
 
     public function set setWidth(a:int):void {
@@ -128,6 +129,7 @@ public class CountBlock {
         if (_callback != null) {
             _callback.apply(null, [true]);
         }
+        checkPlusBtn();
     }
 
     private function plusRender():void {
@@ -139,7 +141,6 @@ public class CountBlock {
                 _curCount = _max;
             }
             _txt.text = String(_curCount);
-            checkPlusBtn();
         }
     }
 
@@ -159,6 +160,7 @@ public class CountBlock {
         if (_callback != null) {
             _callback.apply(null, [false]);
         }
+        checkMinusBtn();
     }
 
     private function minusRender():void {
@@ -170,13 +172,12 @@ public class CountBlock {
                 _curCount = _min;
             }
             _txt.text = String(_curCount);
-            checkMinusBtn();
         }
     }
 
     private function checkPlusBtn():void {
         if (_curCount >= _max) {
-//            _btnPlus.filter = filter;
+            _btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         } else {
             _btnPlus.filter = null;
         }
@@ -184,7 +185,7 @@ public class CountBlock {
 
     private function checkMinusBtn():void {
         if (_curCount <= _min) {
-//            _btnMinus.filter = filter;
+            _btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         } else {
             _btnMinus.filter = null;
         }

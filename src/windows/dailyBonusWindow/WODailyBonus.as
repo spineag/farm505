@@ -123,6 +123,7 @@ public class WODailyBonus extends WindowMain {
 
     private function checkBtns():void {
         _isAnimate = false;
+        grayExitButton(false);
         if (g.managerDailyBonus.count <= 0) {
             _btnBuy.visible = false;
             _btnFree.visible = true;
@@ -157,11 +158,13 @@ public class WODailyBonus extends WindowMain {
         _btnBuy.clickCallback = null;
         _btnFree.clickCallback = null;
         _isAnimate = true;
+        grayExitButton(true);
     }
 
     private function completeRotateKoleso(delta:Number):void {
         TweenMax.to(_koleso, 1, {rotation: _koleso.rotation + delta, ease: Quad.easeInOut, onComplete:showGiftAnimation, delay:.2});
         _isAnimate = false;
+        grayExitButton(false);
     }
 
     private function showGiftAnimation():void {

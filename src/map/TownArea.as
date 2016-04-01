@@ -944,13 +944,13 @@ public class TownArea extends Sprite {
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
         var build:WorldObject;
         var isFlip:Boolean;
-
+            if (_data.id == 1) trace();
         if (!_data) {
             Cc.error('TownArea createAwayNewBuild:: _data == nul for building');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
-
+        _data.isFlip = flip;
         isFlip = Boolean(flip);
         switch (_data.buildType) {
             case BuildType.RIDGE:

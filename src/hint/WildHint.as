@@ -76,6 +76,7 @@ public class WildHint {
 
 
         _source.outCallback = onOutHint;
+        _source.hoverCallback = onHover;
     }
 
     public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function):void {
@@ -171,6 +172,10 @@ public class WildHint {
 
     public function set onDelete(f:Function):void {
         _deleteCallback = f;
+    }
+
+    private function onHover():void {
+        _isOnHover = true;
     }
 
 

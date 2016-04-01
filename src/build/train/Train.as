@@ -257,6 +257,9 @@ public class Train extends AreaObject{
         } else if (_stateBuild == STATE_BUILD) {
             buildingBuildFoundationOver();
             _countTimer = 5;
+            g.timerHint.managerHide();
+            g.wildHint.managerHide();
+            g.treeHint.managerHide();
             g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             buildingBuildDoneOver();

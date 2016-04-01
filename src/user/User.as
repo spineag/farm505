@@ -31,7 +31,7 @@ public class User extends Someone {
     public var timePaper:int;
     public var papperTimerAtMarket:int;
     public var tutorialStep:int;
-
+    public var inPapperBtn:int;
     private var g:Vars = Vars.getInstance();
 
     public function User() {

@@ -194,17 +194,14 @@
         <array>
             <filename>alive_fence_icon.png</filename>
             <filename>ambar_icon.png</filename>
-            <filename>apple_tree_icon.png</filename>
             <filename>arbor_icon.png</filename>
             <filename>bakery_icon.png</filename>
             <filename>barrel_icon.png</filename>
             <filename>bbq_grill_icon.png</filename>
             <filename>beehive_icon.png</filename>
             <filename>blue_fence_icon.png</filename>
-            <filename>blueberry_icon.png</filename>
             <filename>bridge_icon.png</filename>
             <filename>cat_icon.png</filename>
-            <filename>cheery2_icon.png</filename>
             <filename>chicken_icon.png</filename>
             <filename>cow_icon.png</filename>
             <filename>dairy_icon.png</filename>
@@ -224,7 +221,6 @@
             <filename>pig_icon.png</filename>
             <filename>pink_fence_icon.png</filename>
             <filename>pizza_maker_icon.png</filename>
-            <filename>raspberry_icon.png</filename>
             <filename>ridge_icon.png</filename>
             <filename>sheep_icon.png</filename>
             <filename>sklad_icon.png</filename>
@@ -246,6 +242,10 @@
             <filename>track_pink_icon.png</filename>
             <filename>umbrella_green_icon.png</filename>
             <filename>trampoline_yellow_icon.png</filename>
+            <filename>apple_tree_icon.png</filename>
+            <filename>blueberry_icon.png</filename>
+            <filename>cheery2_icon.png</filename>
+            <filename>raspberry_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

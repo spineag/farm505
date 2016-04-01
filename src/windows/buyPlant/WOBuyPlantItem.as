@@ -48,8 +48,7 @@ public class WOBuyPlantItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         source.alpha = .5;
-        _txtNumber = new TextField(40,30,'',g.allData.fonts['BloggerMedium'],18, Color.WHITE);
-        _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtNumber = new TextField(40,30,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
         _txtNumber.hAlign = HAlign.RIGHT;
         _txtNumber.x = 52;
         _txtNumber.y = 68;
@@ -81,6 +80,14 @@ public class WOBuyPlantItem {
         }
         fillIcon(_dataPlant.imageShop);
         _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
+        if (_countPlants <= 0) {
+            _txtNumber.color = ManagerFilters.TEXT_ORANGE;
+            if (_txtNumber.nativeFilters == ManagerFilters.TEXT_STROKE_LIGHT_BLUE) _txtNumber.nativeFilters = null;
+        }
+        else {
+            _txtNumber.color = Color.WHITE;
+            _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        }
         _txtNumber.text = String(_countPlants);
         if (g.managerTutorial && (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialResource(_dataPlant.id)) {
             addArrow();

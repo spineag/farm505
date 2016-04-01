@@ -205,7 +205,6 @@
             <filename>cave</filename>
             <filename>check.png</filename>
             <filename>circle.png</filename>
-            <filename>coins.png</filename>
             <filename>cross.png</filename>
             <filename>default_avatar_big.png</filename>
             <filename>friends_panel_ar.png</filename>
@@ -313,6 +312,8 @@
             <filename>neighbor.png</filename>
             <filename>tutorial_arrow_stroke.png</filename>
             <filename>coupons_icon.png</filename>
+            <filename>coins.png</filename>
+            <filename>cat_blue.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

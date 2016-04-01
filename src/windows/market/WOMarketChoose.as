@@ -289,10 +289,10 @@ public class WOMarketChoose extends WindowMain {
         _countMoneyBlock.minValue = 1;
         _countMoneyBlock.count =  count * g.dataResource.objectResources[_curResourceId].costDefault;
         if (countRes == 1) {
-//            _countResourceBlock._btnMinus.filter = filter;
-//            _countResourceBlock._btnPlus.filter = filter;
+            _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+            _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         } else if (_countResourceBlock.count == 10) {
-//            _countResourceBlock._btnPlus.filter = filter;
+            _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         }
         if ( _countMoneyBlock.count <= 0){
             _countMoneyBlock.count = 1;
@@ -309,15 +309,15 @@ public class WOMarketChoose extends WindowMain {
             booleanMinus = true;
             _countMoneyBlock._btnPlus.filter = null;
             if (countRes == 1) {
-//                _countResourceBlock._btnMinus.filter = filter;
-//                _countResourceBlock._btnPlus.filter = filter;
+                _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 return;
             }
             if (booleanPlus == false) return; else {
                 if (_countResourceBlock.count == 10 || _countResourceBlock.count == countRes) {
                     booleanPlus = false;
                     _countMoneyBlock.count = _countMoneyBlock.count + g.dataResource.objectResources[_curResourceId].costDefault;
-//                    _countResourceBlock._btnPlus.filter = filter;
+                    _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     return;
                 } else _countResourceBlock._btnPlus.filter = null;
             }
@@ -326,12 +326,12 @@ public class WOMarketChoose extends WindowMain {
         } else {
             booleanPlus = true;
             if (_countMoneyBlock.count == _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costMax) {
-//                _countMoneyBlock._btnPlus.filter = filter;
+                _countMoneyBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 return;
             }
             if (countRes == 1) {
-//                _countResourceBlock._btnMinus.filter = filter;
-//                _countResourceBlock._btnPlus.filter = filter;
+                _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 return;
             }
             if (booleanMinus == false) return; else {
@@ -339,11 +339,11 @@ public class WOMarketChoose extends WindowMain {
                     booleanMinus = false;
                     if (_countMoneyBlock.count == 1 || 0 >= _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costDefault) {
                         _countMoneyBlock.count = 1;
-//                        _countResourceBlock._btnMinus.filter = filter;
+                        _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         return;
                     }
                     _countMoneyBlock.count = _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costDefault;
-//                    _countResourceBlock._btnMinus.filter = filter;
+                    _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     return;
                 } else _countResourceBlock._btnMinus.filter = null;
             }
@@ -360,7 +360,7 @@ public class WOMarketChoose extends WindowMain {
         if (_curResourceId > 0) {
             if (!resource) {
                 if (g.dataResource.objectResources[_curResourceId].buildType == BuildType.PLANT && _countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId)) {
-                    g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, onClickBtnSell, {id: _curResourceId}, 'market');
+                    g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBtnSell, {id: _curResourceId}, 'market');
                 return;
                 }
             }

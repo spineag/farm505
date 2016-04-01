@@ -81,7 +81,7 @@ public class DailyBonus extends AreaObject{
             };
             _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlay('idle_2');
+            hoverIdle();
         }
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
@@ -91,6 +91,7 @@ public class DailyBonus extends AreaObject{
         _source.filter = null;
         _isOnHover = false;
         g.hint.hideIt();
+        hoverout();
         if (g.managerDailyBonus.count > 0) hideLights();
     }
 
@@ -147,9 +148,21 @@ public class DailyBonus extends AreaObject{
         _armature.animation.gotoAndPlay('work');
     }
 
+    private function hoverIdle():void {
+        WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlay('idle_2');
+    }
+
+    private function hoverout():void {
+        _armature.animation.gotoAndStop('idle', 0);
+        WorldClock.clock.remove(_armature);
+    }
+
     public function hideLights():void {
         _armature.animation.gotoAndStop('idle', 0);
         WorldClock.clock.remove(_armature);
     }
+
+
 }
 }

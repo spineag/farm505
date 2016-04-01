@@ -222,7 +222,8 @@ public class Tree extends AreaObject {
                 armature.animation.gotoAndStop("middle_flower", 0);
                 break;
             case GROWED2:
-                armature.animation.gotoAndStop("middle_fruits", 0);
+//                if (_dataBuild.id == 41) armature.animation.gotoAndStop("middle_flower_0", 0);
+               armature.animation.gotoAndStop("middle_fruits", 0);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[1]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[1] for dbId: ' + tree_db_id);
                 }
@@ -326,6 +327,9 @@ public class Tree extends AreaObject {
         if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             _count = 20;
             _countMouse = 7;
+            g.timerHint.managerHide();
+            g.wildHint.managerHide();
+            g.treeHint.managerHide();
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         } else {
             g.mouseHint.hideIt();
@@ -343,7 +347,7 @@ public class Tree extends AreaObject {
                 armature.animation.gotoAndPlay('over_s');
                 break;
             case GROW_FLOWER1:
-                armature.animation.gotoAndPlay('over__sfl');
+                armature.animation.gotoAndPlay('over_sfl');
                 break;
             case GROWED1:
                 armature.animation.gotoAndPlay('over_sfr');

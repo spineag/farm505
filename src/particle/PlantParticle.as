@@ -17,20 +17,20 @@ public class PlantParticle {
     public function PlantParticle(h:int) {
         source = new Sprite();
         _height = h - 20;
-        _counter = 0;
-        g.gameDispatcher.addEnterFrame(onEnterFrame);
+        _counter = int(4 + Math.random()*15);
+        g.gameDispatcher.addToTimer(onEnterFrame);
     }
 
     private function onEnterFrame():void {
-        _counter++;
-        if (_counter >= 25) {
-            _counter = 0;
+        _counter--;
+        if (_counter <=0) {
+            _counter = int(4 + Math.random()*10);
             new Particle(_height, source);
         }
     }
 
     public function clearIt():void {
-        g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        g.gameDispatcher.removeFromTimer(onEnterFrame);
         _counter = 0;
         while (source.numChildren) {
             TweenMax.killTweensOf(source.getChildAt(0));
@@ -58,8 +58,8 @@ internal class Particle {
         height = h;
         _source = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_particle'));
-        im.pivotX = im.width/2;
-        im.pivotY = im.height/2;
+//        im.pivotX = im.width/2;
+//        im.pivotY = im.height/2;
         _source.addChild(im);
         _source.y = -int(h/2*Math.random());
         _source.x = int((-60 + Math.random()*120) * g.scaleFactor);

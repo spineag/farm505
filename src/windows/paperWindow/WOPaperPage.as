@@ -43,15 +43,15 @@ public class WOPaperPage {
     private function createBG(n:int, nMax:int):void {
         _bg = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_p1'));
+        _quad = new Quad(im.width, im.height,Color.WHITE ,false);
+        _quad.alpha = 0;
+        source.addChild(_quad);
         im.touchable = false;
         if (_side == RIGHT_SIDE) {
             im.scaleX = -1;
             im.x = im.width;
         }
         _bg.addChild(im);
-        _quad = new Quad(im.width, im.height,Color.WHITE ,false);
-        _quad.alpha = 0;
-        source.addChild(_quad);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_cat'));
         MCScaler.scale(im, 30, 30);
         im.rotation = Math.PI/2;

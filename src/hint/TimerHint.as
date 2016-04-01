@@ -114,10 +114,16 @@ public class TimerHint {
         _canHide = v;
     }
 
-    public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String,f:Function, out:Function):void {
+    public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false):void {
         if (timer <=0) return;
         _onOutCallback = out;
-        _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE ,false);
+        if (ridge) {
+            _quad = new Quad(_bg.width, _bg.height,Color.WHITE ,false);
+            var quad:Quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
+            quad.pivotX = quad.width/2;
+            source.addChildAt(quad,0);
+            quad.alpha = 0;
+        } else _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE ,false);
         _quad.alpha = 0;
         _quad.x = -_bg.width/2;
         _quad.y = -_bg.height;

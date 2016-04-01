@@ -63,6 +63,9 @@ public class Wild extends AreaObject{
         _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
         _countTimer = 7;
+        g.timerHint.managerHide();
+        g.wildHint.managerHide();
+        g.treeHint.managerHide();
         g.gameDispatcher.addEnterFrame(countEnterFrame);
     }
 

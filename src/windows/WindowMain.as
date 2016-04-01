@@ -98,6 +98,11 @@ public class WindowMain {
         _btnExit.clickCallback = callback;
     }
 
+    protected function grayExitButton(b:Boolean):void {
+        if (b) _btnExit.alpha = .5;
+        else _btnExit.alpha = 1;
+    }
+
 //    protected function createTempBG():void {
 //        var q:Quad = new Quad(_woWidth, _woHeight, Color.GRAY);
 //        q.pivotX = _woWidth/2;

@@ -2,31 +2,45 @@
  * Created by user on 6/24/15.
  */
 package windows.market {
+
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
+
 import data.BuildType;
 import data.DataMoney;
+
 import flash.display.Bitmap;
+
+import flash.filters.GlowFilter;
 import flash.geom.Point;
 import hint.FlyMessage;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import resourceItem.ResourceItem;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
+
 import tutorial.TutorialAction;
+
 import user.NeighborBot;
+
 import user.Someone;
+
 import utils.CButton;
+
 import utils.CSprite;
 import utils.MCScaler;
+
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WindowsManager;
+
 
 public class MarketItem {
     public var source:CSprite;
@@ -257,7 +271,7 @@ public class MarketItem {
         g.directServer.updateUserMarketCell(1,null);
         g.user.marketCell++;
         _txtAdditem.text = 'Добавить товар';
-        source.endClickCallback = onClick;
+//???        source.endClickCallback = onClick;
         _wo.addItemsRefresh();
         _closeCell = false;
         while (buyCont.numChildren) {
@@ -294,6 +308,7 @@ public class MarketItem {
     }
 
     private function onClick():void {
+        if (_closeCell) return;
         _onHover = false;
         g.marketHint.hideIt();
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
@@ -590,8 +605,10 @@ public class MarketItem {
             _bg.filter = ManagerFilters.BUILD_STROKE;
         } else if (isFill == 1 && _isUser) {
             var b:Boolean = _wo.booleanPaper;
-            if (_inPapper || !b) _papper.visible = false;
-            else _papper.visible = true;
+            if (_inPapper || b) _papper.visible = true;
+            else if (!b)  _papper.visible = false;
+//            if (_inPapper || !b) _papper.visible = false;
+//            else _papper.visible = true;
             _delete.visible = true;
             count = 0;
             g.gameDispatcher.addEnterFrame(onEnterFrame);

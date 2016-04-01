@@ -73,7 +73,7 @@ public class Market extends AreaObject{
         _sizeY = _dataBuild.height;
         if (_flip) _build.scaleX = -_defaultScale;
         _source.addChild(_build);
-        _armature.animation.gotoAndStop('idle', 0);
+        _armature.animation.gotoAndStop('work', 0);
     }
 
     private function onHover():void {
@@ -84,6 +84,7 @@ public class Market extends AreaObject{
         }
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
+        fillIt();
     }
 
     private function onClick():void {
@@ -164,31 +165,19 @@ public class Market extends AreaObject{
         }
         var b:Bone;
         var im:Image;
-        if (coins > 0) {
-//            im = g.allData.factory['market'].getTextureDisplay('coins') as Image;
+        _armature.animation.gotoAndStop('work', 0);
+        if (coins <= 0) {
             b = _armature.getBone('coins');
-//            b.display.dispose();
-        } else {
-//            b = null;
-//            b = _armature.getBone('coins');
-//            b.display.dispose();
+            b.display.dispose();
+            b.display.visible = false;
         }
-        if (res > 0) {
-//            im = g.allData.factory['market'].getTextureDisplay('fruits1') as Image;
-//            b = _armature.getBone('fr');
-//            b.display.dispose();
-//            b.display = true;
-//            im = g.allData.factory['market'].getTextureDisplay('fruits2') as Image;
-//            b = _armature.getBone('fr2');
-//            b.display.dispose();
-//            b.display = true;
-        } else {
-//            b.display.
-//            b = null;
-//            b = _armature.getBone('fr');
-//            b.display.dispose();
-//            b = _armature.getBone('fr2');
-//            b.display.dispose();
+        if (res <= 0) {
+            b = _armature.getBone('fr');
+            b.display.dispose();
+            b.display.visible = false;
+            b = _armature.getBone('fr2');
+            b.display.dispose();
+            b.display.visible = false;
         }
     }
 }

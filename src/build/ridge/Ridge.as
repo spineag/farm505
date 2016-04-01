@@ -129,6 +129,11 @@ public class Ridge extends AreaObject{
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
             _count = 10;
             _countMouse = 7;
+            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+                g.timerHint.managerHide();
+                g.wildHint.managerHide();
+                g.treeHint.managerHide();
+            }
             g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
@@ -209,8 +214,7 @@ public class Ridge extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 onOut();
-//                trace(dataBuild.image.height);
-                g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut);
+                g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
             }
             if (_stateRidge == EMPTY) {
                 onOut();
@@ -226,7 +230,7 @@ public class Ridge extends AreaObject{
                 }
                  if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
                      _source.filter = null;
-                     g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
+                     g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                  } else {
                      _stateRidge = EMPTY;
                      _plant.onCraftPlant();
@@ -236,6 +240,7 @@ public class Ridge extends AreaObject{
                      var f1:Function = function():void {
                          if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
                          _plant = null;
+                         trace('loll');
                      };
                      var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
                      item.flyIt();
@@ -267,42 +272,56 @@ public class Ridge extends AreaObject{
     }
 
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
-        if (_stateRidge != EMPTY) {
-            Cc.error('Try to plant already planted ridge');
-            return;
-        }
-        if (!data) {
-            Cc.error('no data for fillPlant at Ridge');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for fillPlant');
-            return;
-        }
-
-        _stateRidge = GROW1;
-        if (!isFromServer) g.userInventory.addResource(data.id, -1);
-        if (!isFromServer) g.toolsModifier.updateCountTxt();
-        _dataPlant = data;
-        _plant = new PlantOnRidge(this, _dataPlant);
-        if (timeWork < _dataPlant.buildTime) {
-            _plant.checkTimeGrowing(timeWork);
-            if (!g.isAway) {
-                _plant.activateRender();
-                g.managerPlantRidge.addCatForPlant(_dataPlant.id, this);
+//        try {
+        var b:Boolean = false;
+            if (_stateRidge != EMPTY) {
+                Cc.error('Try to plant already planted ridge');
+                Cc.error(data.name);
+                b = true;
+                return;
             }
-            _plant.checkStateRidge(false);
-        } else {
-            _stateRidge = GROWED;
-            _plant.checkStateRidge();
-        }
+            if (!data) {
+                Cc.error('no data for fillPlant at Ridge');
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for fillPlant');
+                return;
+            }
+            _stateRidge = GROW1;
+            if (!isFromServer) g.userInventory.addResource(data.id, -1);
+            if (!isFromServer) g.toolsModifier.updateCountTxt();
+            _dataPlant = data;
+            _plant = new PlantOnRidge(this, _dataPlant);
 
-        if (!isFromServer) {
-            var f1:Function = function(s:String):void {
-                _plant.idFromServer = s;
-            };
-            g.directServer.rawPlantOnRidge(_dataPlant.id, _dbBuildingId, f1);
-            var p:Point = new Point(_source.x, _source.y);
-            p = _source.parent.localToGlobal(p);
-            var rawItem:RawItem = new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
-        }
+            if (timeWork < _dataPlant.buildTime) {
+                _plant.checkTimeGrowing(timeWork);
+                if (!g.isAway) {
+                    _plant.activateRender();
+                    g.managerPlantRidge.addCatForPlant(_dataPlant.id, this);
+                }
+                _plant.checkStateRidge(false);
+            } else {
+                _stateRidge = GROWED;
+                _plant.checkStateRidge();
+            }
+
+
+            if (!isFromServer) {
+                var f1:Function = function (s:String):void {
+                    _plant.idFromServer = s;
+                };
+                g.directServer.rawPlantOnRidge(_dataPlant.id, _dbBuildingId, f1);
+                var p:Point = new Point(_source.x, _source.y);
+                p = _source.parent.localToGlobal(p);
+                var rawItem:RawItem = new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
+            }
+
+
+
+//        } catch (e:Error) {
+//            if (_stateRidge != EMPTY) {
+//                Cc.error('Try to plant already planted ridge');
+//                return;
+//            }
+//        }
     }
 
     public function get stateRidge():int {
@@ -332,7 +351,7 @@ public class Ridge extends AreaObject{
             g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             if (_isOnHover == true) {
                 if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                    g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut);
+                    g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut,true);
                     g.mouseHint.checkMouseHint(MouseHint.CLOCK);
                 } else if (_stateRidge == GROWED) {
                     g.mouseHint.checkMouseHint(MouseHint.SERP);

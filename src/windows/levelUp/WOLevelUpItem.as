@@ -8,6 +8,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
 import utils.CSprite;
 import utils.MCScaler;
@@ -127,10 +128,13 @@ public class WOLevelUpItem {
                 _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
             } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
                     || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.DECOR) {
-                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
-                if (!_image) {
-                    _image = new Image(g.allData.atlas[ob.url].getTexture(ob.image));
+                if (ob.image) {
+                    var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon');
+                    if (!texture) {
+                        texture = g.allData.atlas[_data.url].getTexture(_data.image);
+                    }
                 }
+                _image = new Image(texture);
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.ANIMAL) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
