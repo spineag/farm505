@@ -92,10 +92,10 @@ public class Order extends AreaObject{
     }
 
     private function onOut():void {
+        g.hint.hideIt();
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         _source.filter = null;
         _isOnHover = false;
-        g.hint.hideIt();
     }
 
     private function onClick():void {
@@ -131,8 +131,7 @@ public class Order extends AreaObject{
                 return;
             }
             onOut();
-            g.woOrder.showIt();
-            g.hint.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }

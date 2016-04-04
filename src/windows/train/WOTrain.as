@@ -3,32 +3,26 @@
  */
 package windows.train {
 import build.train.Train;
-
 import data.BuildType;
-
 import flash.geom.Point;
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 import starling.utils.HAlign;
-
 import utils.CButton;
 import utils.MCScaler;
 import utils.TimeUtils;
-
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOTrain extends Window {
+public class WOTrain extends WindowMain {
 
     public static var CELL_RED:int = 1;
     public static var CELL_GREEN:int = 2;
@@ -39,7 +33,7 @@ public class WOTrain extends Window {
     private var _rightBlock:Sprite;
     private var _leftBlock:Sprite;
     private var _arrItems:Array;
-    private var _btn:CButton;
+    private var _btnSend:CButton;
     private var _btnLoad:CButton;
     private var _btnHelp:CButton;
     private var _activeItemIndex: int;
@@ -57,35 +51,41 @@ public class WOTrain extends Window {
     public var _imageItem:Image;
     private var _lock:int;
     private var _isBigCount:Boolean;
+    private var _birka:Birka;
+    private var _rightBlockBG:CartonBackground;
+    private var _rightBlockCarton:CartonBackgroundIn;
+    private var _rightBlockCarton2:CartonBackgroundIn;
+    private var _leftBlockBG:CartonBackground;
 
     public function WOTrain() {
         super ();
+        _windowType = WindowsManager.WO_TRAIN;
         _woWidth = 727;
         _woHeight = 529;
         _activeItemIndex = -1;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
+        createExitButton(hideIt);
         createRightBlock();
         createLeftBlock();
         _arrItems = [];
         addItems();
 
-        _btn = new CButton();
-        _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        _btn.x = _woWidth/2 - 180;
-        _btn.y = 205;
+        _btnSend = new CButton();
+        _btnSend.addButtonTexture(120, 40, CButton.GREEN, true);
+        _btnSend.x = _woWidth/2 - 180;
+        _btnSend.y = 205;
         var txt:TextField = new TextField(89,62,"Отправить",g.allData.fonts['BloggerBold'],16,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 5;
         txt.y = -10;
-        _btn.addChild(txt);
+        _btnSend.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
         im.y = -15;
         im.x = 88;
-        _btn.addDisplayObject(im);
-        _source.addChild(_btn);
-        _btn.alpha = .5;
+        _btnSend.addDisplayObject(im);
+        _source.addChild(_btnSend);
+        _btnSend.alpha = .5;
 
         _txt = new TextField(150, 40, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -97,21 +97,20 @@ public class WOTrain extends Window {
         _txtCounter.x = 110;
         _txtCounter.y = 130;
         _source.addChild(_txtCounter);
-        _callbackClickBG = onClickExit;
-        new Birka('Погрузка корзинки', _source, _woWidth, _woHeight);
+        _callbackClickBG = hideIt;
+        _birka = new Birka('Корзинка', _source, _woWidth, _woHeight);
     }
 
     private function createRightBlock():void {
         var txt:TextField;
         var im:Image;
-        var carton:CartonBackgroundIn;
         _rightBlock = new Sprite();
         _rightBlock.y = -205;
         _rightBlock.x = 35;
         _source.addChild(_rightBlock);
-        var bg:CartonBackground = new CartonBackground(287, 375);
-        bg.filter = ManagerFilters.SHADOW;
-        _rightBlock.addChild(bg);
+        _rightBlockBG = new CartonBackground(287, 375);
+        _rightBlockBG .filter = ManagerFilters.SHADOW;
+        _rightBlock.addChild(_rightBlockBG);
 
         txt = new TextField(240, 50, 'Загрузите корзинку товаром и получите награду', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -119,10 +118,10 @@ public class WOTrain extends Window {
         txt.y = 5;
         txt.touchable = false;
         _rightBlock.addChild(txt);
-        carton = new CartonBackgroundIn(267, 68);
-        carton.y = 250;
-        carton.x = 10;
-        _rightBlock.addChild(carton);
+        _rightBlockCarton = new CartonBackgroundIn(267, 68);
+        _rightBlockCarton.y = 250;
+        _rightBlockCarton.x = 10;
+        _rightBlock.addChild(_rightBlockCarton);
 
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
         im.y = 325;
@@ -219,18 +218,18 @@ public class WOTrain extends Window {
         txt.x = 225;
         txt.y = 283;
         _rightBlock.addChild(txt);
-        carton = new CartonBackgroundIn(90, 90);
-        carton.x = 20;
-        carton.y = 70;
-        _rightBlock.addChild(carton);
 
+        _rightBlockCarton2 = new CartonBackgroundIn(90, 90);
+        _rightBlockCarton2.x = 20;
+        _rightBlockCarton2.y = 70;
+        _rightBlock.addChild(_rightBlockCarton2);
     }
 
     private function createLeftBlock():void {
         _leftBlock = new Sprite();
-        var bg:CartonBackground = new CartonBackground(325, 430);
-        bg.filter = ManagerFilters.SHADOW;
-        _leftBlock.addChild(bg);
+        _leftBlockBG = new CartonBackground(325, 430);
+        _leftBlockBG.filter = ManagerFilters.SHADOW;
+        _leftBlock.addChild(_leftBlockBG);
         _leftBlock.y = -205;
         _leftBlock.x = -_woWidth/2 + 40;
         _source.addChild(_leftBlock);
@@ -241,32 +240,11 @@ public class WOTrain extends Window {
         _leftBlock.addChild(txt);
     }
 
-    public function onClickExit(e:Event=null):void {
-        _txt.text = '';
-        _counter = 0;
-        _txtCounter.text = '';
-        g.gameDispatcher.removeFromTimer(checkCounter);
-        hideIt();
-        clearItems();
-        if (_imageItem) {
-            _rightBlock.removeChild(_imageItem);
-            _imageItem.dispose();
-            _imageItem = null;
-        }
-    }
-
-    public function showItWithParams(list:Array, b:Train, state:int, counter:int):void {
-        if (!g.isAway) {
-            if (state == Train.STATE_READY) {
-                _txt.text = 'До отправления';
-
-            } else {
-//                _txt.text = 'До прибытия';
-
-                g.woTrainOrder.showItWO(list, counter);
-                return;
-            }
-            _build = b;
+    override public function showItParams(callback:Function, params:Array):void {
+        var list:Array = params[0];
+        _build = params[1];
+        _counter = params[3];
+            _txt.text = 'До отправления';
             _isBigCount = list.length > 9;
             var type:int;
             for (var i:int = 0; i<list.length; i++) {
@@ -283,13 +261,11 @@ public class WOTrain extends Window {
 
             _txtCostAll.text = String(_build.allCoinsCount);
             _txtXpAll.text = String(_build.allXPCount);
-            showIt();
             onItemClick(0);
             checkBtn();
-            _counter = counter;
             _txtCounter.text = TimeUtils.convertSecondsForOrders(_counter);
             g.gameDispatcher.addToTimer(checkCounter);
-        }
+            super.showIt();
     }
 
     private function checkCounter():void {
@@ -369,34 +345,25 @@ public class WOTrain extends Window {
         for (var i:int=0; i<_arrItems.length; i++) {
             _arrItems[i].updateIt();
         }
-
     }
 
     private function onClickBuy():void {
-        onClickExit();
-//        g.woNoResources.showItTrain(g.dataResource.objectResources[_idFree],_countFree - g.userInventory.getCountResourceById(_idFree),onResourceLoad);
+        g.windowsManager.cashWindow = this;
         var ob:Object = {};
         ob.data = g.dataResource.objectResources[_idFree];
         ob.count = _countFree - g.userInventory.getCountResourceById(_idFree);
+        super.hideIt();
         g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onResourceLoad, 'train', ob);
-//        checkBtn();
     }
 
     private function checkBtn():void {
         if (g.isAway) {
-            _btn.visible = false;
+            _btnSend.visible = false;
             return;
         }
-        _btn.visible = true;
-        _btn.clickCallback = null;
+        _btnSend.visible = true;
+        _btnSend.clickCallback = null;
         var i:int;
-//        for (var i:int = 0; i<_arrItems.length; i++) {
-//            if (_arrItems[i].canFull) {
-//                _btn.alpha = 1;
-//                _btn.clickCallback = onClickExit;
-//                return;
-//            }
-//        }
         _lock = 0;
         for (i = 0; i<_arrItems.length; i++) {
             if (!_isBigCount && i == 9 || !_isBigCount && i == 10 || !_isBigCount && i == 11){
@@ -405,39 +372,77 @@ public class WOTrain extends Window {
                 _lock++;
             }
         }
-
-//        if (!_isBigCount && _lock >= 9) {
-//            _btn.alpha = 1;
-//            _btn.clickCallback = fullTrain;
-//            return;
-//        }
         if (_lock >= _arrItems.length || _lock == 0 || !_isBigCount && _lock <= 3) {
-            _btn.alpha = 1;
+            _btnSend.alpha = 1;
         } else {
-            _btn.alpha = .5;
+            _btnSend.alpha = .5;
             return;
         }
-        _btn.alpha = 1;
-        _btn.clickCallback = fullTrain;
+        _btnSend.alpha = 1;
+        _btnSend.clickCallback = fullTrain;
     }
 
     private function fullTrain(b:Boolean = false):void {
         if (!b) {
             if (_lock == 0 || !_isBigCount && _lock <= 3) {
-                g.woTrainSend.showItTrain(fullTrain);
+                g.windowsManager.cashWindow = this;
+                super.hideIt();
+                g.windowsManager.openWindow(WindowsManager.WO_TRAIN_SEND, fullTrain);
                 return;
             }
         }
-        var p:Point = new Point(_btn.x, _btn.y);
-        p = _btn.localToGlobal(p);
+        var p:Point = new Point(_btnSend.x, _btnSend.y);
+        p = _btnSend.localToGlobal(p);
         (_build as Train).fullTrain(p,b);
-        onClickExit();
+        super.hideIt();
     }
 
     public function clearItems():void {
         for (var i:int = 0; i<_arrItems.length; i++) {
             _arrItems[i].clearIt();
         }
+    }
+
+    override protected function deleteIt():void {
+        if (isCashed) return;
+        g.gameDispatcher.removeFromTimer(checkCounter);
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _source.removeChild(_arrItems[i].source);
+            _arrItems[i].deleteIt();
+        }
+        _rightBlock.removeChild(_rightBlockBG);
+        _rightBlockBG.deleteIt();
+        _rightBlockBG = null;
+        _rightBlock.removeChild(_rightBlockCarton);
+        _rightBlockCarton.deleteIt();
+        _rightBlockCarton = null;
+        _rightBlock.removeChild(_rightBlockCarton2);
+        _rightBlockCarton2.deleteIt();
+        _rightBlockCarton2 = null;
+        _leftBlock.removeChild(_leftBlockBG);
+        _leftBlockBG.deleteIt();
+        _leftBlockBG = null;
+        _arrItems.length = 0;
+        _build = null;
+        _txt = _txtCostAll = _txtCostItem = _txtCounter = _txtHelp = _txtXpAll = _txtXpItem = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _source.removeChild(_btnSend);
+        _btnSend.deleteIt();
+        _btnSend = null;
+        _rightBlock.removeChild(_btnLoad);
+        _btnLoad.deleteIt();
+        _btnLoad = null;
+        _rightBlock.removeChild(_btnHelp);
+        _btnHelp.deleteIt();
+        _btnHelp = null;
+        _rightBlock = null;
+        _leftBlock = null;
+        _source.removeChild(_birka);
+        _birka.deleteIt();
+        _birka = null;
+        super.deleteIt();
     }
 
 }

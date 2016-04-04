@@ -34,9 +34,12 @@ public class WOPapperItem {
     private var _txtUserName:TextField;
     private var _txtResourceName:TextField;
     private var _p:Someone;
+    private var _wo:WOPapper;
 
     private var g:Vars = Vars.getInstance();
-    public function WOPapperItem(i:int) {
+
+    public function WOPapperItem(i:int, wo:WOPapper) {
+        _wo = wo;
         source = new CSprite();
         _bg = new Sprite();
         source.addChild(_bg);
@@ -178,11 +181,12 @@ public class WOPapperItem {
 
     private function onClickVisit():void {
         if (!_data) return;
-        g.woPaper.hideIt();
+        _wo.hideIt();
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
     }
 
     public function deleteIt():void {
+        _wo = null;
         _data = null;
         _dataResource = null;
         _imageItem = null;

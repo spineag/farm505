@@ -31,9 +31,11 @@ public class WOPapperPage {
     private var _bg:CSprite;
     private var _side:String;
     private var _quad:Quad;
+    private var _wo:WOPapper;
     private var g:Vars = Vars.getInstance();
 
-    public function WOPapperPage(numberPage:int, maxNumberPage:int, side:String) {
+    public function WOPapperPage(numberPage:int, maxNumberPage:int, side:String, wo:WOPapper) {
+        _wo = wo;
         source = new Sprite();
         _side = side;
         createBG(numberPage, maxNumberPage);
@@ -79,7 +81,7 @@ public class WOPapperPage {
         var item:WOPapperItem;
         _arrItems = [];
         for (var i:int = 0; i<6; i++) {
-            item = new WOPapperItem(i);
+            item = new WOPapperItem(i, _wo);
             item.source.x = 41 + (i%2)*178;
             item.source.y = 58 + int(i/2)*150;
             source.addChild(item.source);
@@ -99,6 +101,7 @@ public class WOPapperPage {
     }
 
     public function deleteIt():void {
+        _wo = null;
         for (var i:int=0; i<6; i++) {
             source.removeChild(_arrItems[i].source);
             _arrItems[i].deleteIt();

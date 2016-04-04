@@ -25,9 +25,11 @@ import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
 import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
+import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPapper;
 import windows.reloadPage.WOReloadGame;
 import windows.serverError.WOServerError;
+import windows.train.WOTrain;
 
 public class WindowsManager {
     public static const WO_AMBAR:String = 'ambar_and_sklad';
@@ -50,12 +52,14 @@ public class WindowsManager {
     public static const WO_WAIT_FREE_CATS:String = 'wait_free_cats';
     public static const WO_NO_PLACES:String = 'no_places';
     public static const WO_NO_RESOURCES:String = 'no_resources';
-    public static const WO_ORDERS:String = 'orders'; // -
-    public static const WO_PAPPER:String = 'papper'; // -
+    public static const WO_ORDERS:String = 'orders';
+    public static const WO_PAPPER:String = 'papper';
     public static const WO_RELOAD_GAME:String = 'reload_game';
     public static const WO_SERVER_ERROR:String = 'server_error';
-    public static const WO_SHOP:String = 'shop'; // -
-    public static const WO_TRAIN:String = 'train'; // -
+    public static const WO_SHOP:String = 'shop';
+    public static const WO_TRAIN:String = 'train';
+    public static const WO_TRAIN_ORDER:String = 'train_order';
+    public static const WO_TRAIN_SEND:String = 'train_send';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -74,11 +78,16 @@ public class WindowsManager {
 
     public function openWindow(type:String, callback:Function=null, ...params):void {
         if (_currentWindow) {
-            _nextWindow = {};
-            _nextWindow.type = type;
-            _nextWindow.callback = callback;
-            _nextWindow.paramsArray = params;
-            return;
+            if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR) {
+                uncasheWindow();
+                _currentWindow.hideItQuick();
+            } else {
+                _nextWindow = {};
+                _nextWindow.type = type;
+                _nextWindow.callback = callback;
+                _nextWindow.paramsArray = params;
+                return;
+            }
         }
         var wo:WindowMain;
         switch (type) {
@@ -151,7 +160,12 @@ public class WindowsManager {
             case WO_PAPPER:
                 wo = new WOPapper();
                 break;
-
+            case WO_ORDERS:
+                wo = new WOOrder();
+                break;
+            case WO_TRAIN:
+                wo = new WOTrain();
+                break;
 
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);
@@ -169,8 +183,12 @@ public class WindowsManager {
         }
     }
 
-    public function onHideWindow():void {
+    public function onHideWindow(hiddenWindow:WindowMain):void {
         _currentWindow = null;
+        if (_cashWindow && _cashWindow != hiddenWindow) {
+            releaseCashWindow();
+            return;
+        }
         if (_nextWindow) {
             openWindow.apply(null, [_nextWindow.type, _nextWindow.callback].concat(_nextWindow.paramsArray));
             _nextWindow = null;

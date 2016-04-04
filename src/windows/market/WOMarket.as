@@ -13,6 +13,7 @@ import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
+import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 import user.NeighborBot;
@@ -60,6 +61,7 @@ public class WOMarket  extends WindowMain {
     private var _booleanPaper:Boolean;
     private var _callback:Function;
     private var _birka:Birka;
+    private var _SHADOW:BlurFilter;
 
     public function WOMarket() {
         super();
@@ -75,7 +77,8 @@ public class WOMarket  extends WindowMain {
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
         _source.addChild(_contItem);
-        _contItem.filter = ManagerFilters.SHADOW_LIGHT;
+        _SHADOW = ManagerFilters.getShadowFilter();
+        _contItem.filter = _SHADOW;
         _btnFriends = new CButton();
         _btnFriends.addButtonTexture(96, 40, CButton.GREEN, true);
         _btnFriends.x = _woWidth/2 - 97;
@@ -84,7 +87,7 @@ public class WOMarket  extends WindowMain {
         var c:CartonBackground = new CartonBackground(550, 445);
         c.x = -_woWidth/2 + 43;
         c.y = -_woHeight/2 + 40;
-        _cont.filter = ManagerFilters.SHADOW_LIGHT;
+        _cont.filter = _SHADOW;
         _cont.addChild(c);
         var txt:TextField = new TextField(80, 25, 'Все друзья', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
@@ -194,7 +197,6 @@ public class WOMarket  extends WindowMain {
         _contPaper.visible = false;
     }
 
-
     private function fillFriends(e:SocialNetworkEvent=null):void {
 //        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         _arrFriends = g.user.arrFriends.slice();
@@ -231,7 +233,7 @@ public class WOMarket  extends WindowMain {
 
     private function onClickExit(e:Event=null):void {
         if (g.managerTutorial.isTutorial) return;
-        hideIt();
+        super.hideIt();
     }
 
     public function set curUser(p:Someone):void {
@@ -697,7 +699,7 @@ public class WOMarket  extends WindowMain {
         }
     }
 
-    private function onLeft ():void {
+    private function onLeft():void {
         var tween:Tween = new Tween(_leftBtn, 0.2);
         tween.scaleTo(0.2);
         tween.onComplete = function ():void {
@@ -715,7 +717,7 @@ public class WOMarket  extends WindowMain {
         checkArrow();
     }
 
-    private function onRight ():void {
+    private function onRight():void {
         if (_rightBtn.filter == ManagerFilters.BUTTON_DISABLE_FILTER) return;
         var tween:Tween = new Tween(_rightBtn, 0.2);
         tween.scaleTo(0.2);
@@ -757,20 +759,19 @@ public class WOMarket  extends WindowMain {
     }
 
     public function onItemClickAndOpenWOChoose(item:MarketItem):void {
-        isCashed = true;
-        hideIt();
+        g.windowsManager.cashWindow = this;
+        super.hideIt();
         g.windowsManager.openWindow(WindowsManager.WO_MARKET_CHOOSE, callbackFromMarketChoose, item);
     }
 
     private function callbackFromMarketChoose(item:MarketItem, a:int, count:int = 0, cost:int = 0, inPapper:Boolean = false):void {
-        super.showIt();
-        isCashed = false;
         if (a>0) {
             item.onChoose(a, count, cost, inPapper);
         }
     }
 
     override protected function deleteIt():void {
+        if (isCashed) return;
         var i:int;
         deleteFriends();
         if (_arrItems) {
@@ -787,6 +788,8 @@ public class WOMarket  extends WindowMain {
         }
         callbackState();
         super.deleteIt();
+        _SHADOW.dispose();
+        _SHADOW = null;
     }
 }
 }

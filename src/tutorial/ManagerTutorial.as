@@ -746,10 +746,10 @@ public class ManagerTutorial {
 
     private function subStep11_8():void {
         subStep = 8;
-        g.woOrder.setTextForCustomer(texts[g.user.tutorialStep][subStep]);
-        _tutorialCallback = subStep11_9;
-        var ob:Object = g.woOrder.getSellBtnProperties();
-        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x + 55, ob.y);
+//        g.woOrder.setTextForCustomer(texts[g.user.tutorialStep][subStep]);
+//        _tutorialCallback = subStep11_9;
+//        var ob:Object = g.woOrder.getSellBtnProperties();
+//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x + 55, ob.y);
     }
 
     private function subStep11_9():void {
@@ -758,7 +758,7 @@ public class ManagerTutorial {
             _dustRectangle = null;
         }
         subStep = 9;
-        g.woOrder.setTextForCustomer(texts[g.user.tutorialStep][subStep]);
+//        g.woOrder.setTextForCustomer(texts[g.user.tutorialStep][subStep]);
         _tutorialCallback = subStep11_10;
         g.user.tutorialStep = 12;
         updateTutorialStep();

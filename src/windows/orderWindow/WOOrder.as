@@ -15,16 +15,13 @@ import heroes.OrderCat;
 import manager.ManagerFilters;
 import manager.ManagerOrder;
 import manager.ManagerOrderItem;
-
 import resourceItem.DropItem;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import tutorial.TutorialTextBubble;
-
 import ui.xpPanel.XPStar;
 import utils.CButton;
 import utils.CSprite;
@@ -33,15 +30,15 @@ import utils.TimeUtils;
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
-import windows.Window;
 import windows.WOComponents.WindowBackground;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOOrder extends Window{
+public class WOOrder extends WindowMain{
     private var _woBG:WindowBackground;
     private var _arrItems:Array;
     private var _arrResourceItems:Array;
-    private var _btnCell:CButton;
+    private var _btnSell:CButton;
     private var _btnDeleteOrder:CSprite;
     private var _txtXP:TextField;
     private var _txtCoins:TextField;
@@ -58,10 +55,11 @@ public class WOOrder extends Window{
     private var _imCoup:Image;
     private var _txtCoupone:TextField;
     private var _bubble:TutorialTextBubble;
-    private var heroEyes:HeroEyesAnimation;
+    private var _birka:Birka;
 
     public function WOOrder() {
         super ();
+        _windowType = WindowsManager.WO_ORDERS;
         _woWidth = 764;
         _woHeight = 570;
         _woBG = new WindowBackground(_woWidth, _woHeight);
@@ -79,48 +77,22 @@ public class WOOrder extends Window{
         _waitForAnswer = false;
         _rightBlock.visible = false;
 
-        new Birka('ЛАВКА', _source, 764, 570);
+        _birka = new Birka('ЛАВКА', _source, 764, 570);
     }
 
-    override public function showIt():void {
+    override public function showItParams(callback:Function, params:Array):void {
         _arrOrders = g.managerOrder.arrOrders.slice();
         fillList();
         onItemClick(_arrItems[0]);
-        super.showIt();
         _waitForAnswer = false;
         changeCatTexture(0);
         startAnimationCats();
+        super.showIt();
     }
 
     private function onClickExit(e:Event=null):void {
         if (g.managerTutorial.isTutorial) return;
         hideIt();
-    }
-
-    override public function hideIt():void {
-        g.gameDispatcher.removeFromTimer(onTimer);
-        try {
-            for (var i:int = 0; i < _arrItems.length; i++) {
-                _arrItems[i].activateIt(false);
-            }
-        } catch (e:Error) {
-            Cc.error('WOOrder onClickExit error1:: ' + e.message);
-        }
-        try {
-            clearResourceItems();
-        } catch (e:Error) {
-            Cc.error('WOOrder onClickExit error2:: ' + e.message);
-        }
-        try {
-            for (i = 0; i < _arrOrders.length; i++) {
-                _arrItems[i].clearIt();
-            }
-        } catch (e:Error) {
-            Cc.error('WOOrder onClickExit error3:: ' + e.message);
-        }
-        _activeOrderItem = null;
-        super.hideIt();
-        killCatsAnimations();
     }
 
     private function createRightBlock():void {
@@ -204,7 +176,7 @@ public class WOOrder extends Window{
         var item:WOOrderItem;
         _arrItems = [];
         for (var i:int=0; i<9; i++) {
-            item = new WOOrderItem();
+            item = new WOOrderItem(this);
             item.source.x = -382 + 40 + (i%3)*120;
             item.source.y = -285 + 185 + int(i/3)*94;
             _source.addChild(item.source);
@@ -213,22 +185,22 @@ public class WOOrder extends Window{
     }
 
     private function createButtonCell():void {
-        _btnCell = new CButton();
-        _btnCell.addButtonTexture(120, 40, CButton.GREEN, true);
+        _btnSell = new CButton();
+        _btnSell.addButtonTexture(120, 40, CButton.GREEN, true);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_left'));
         MCScaler.scale(im, 66, 66);
         im.x = 98;
         im.y = -15;
-        _btnCell.addDisplayObject(im);
+        _btnSell.addDisplayObject(im);
         var txt:TextField = new TextField(110, 60, "Оформить заказ", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.y = -9;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-        _btnCell.addChild(txt);
-        _btnCell.registerTextField(txt, ManagerFilters.TEXT_STROKE_GREEN);
-        _btnCell.x = 547;
-        _btnCell.y = 500;
-        _rightBlock.addChild(_btnCell);
-        _btnCell.clickCallback = sellOrder;
+        _btnSell.addChild(txt);
+        _btnSell.registerTextField(txt, ManagerFilters.TEXT_STROKE_GREEN);
+        _btnSell.x = 547;
+        _btnSell.y = 500;
+        _rightBlock.addChild(_btnSell);
+        _btnSell.clickCallback = sellOrder;
     }
 
     private function createButtonSkipDelete():void {
@@ -291,8 +263,8 @@ public class WOOrder extends Window{
         prise.count = _activeOrderItem.getOrder().coins;
         new DropItem(p.x, p.y, prise);
         if (_activeOrderItem.getOrder().addCoupone) {
-            p.x = _btnCell.x + _btnCell.width * 4 / 5;
-            p.y = _btnCell.y + _btnCell.height / 2;
+            p.x = _btnSell.x + _btnSell.width * 4 / 5;
+            p.y = _btnSell.y + _btnSell.height / 2;
             prise.id = int(Math.random() * 4) + 3;
             prise.count = 1;
             new DropItem(p.x, p.y, prise);
@@ -310,7 +282,7 @@ public class WOOrder extends Window{
 
     private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
-        if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
+        if (_isShowed) {
             var b:Boolean = true;
             for (var k:int=0; k<order.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
@@ -415,7 +387,7 @@ public class WOOrder extends Window{
     }
 
     private function afterDeleteOrder(order:ManagerOrderItem, orderItem:WOOrderItem):void {
-        if (g.currentOpenedWindow && g.currentOpenedWindow == this) {
+        if (_isShowed) {
             order.startTime += ManagerOrder.TIME_DELAY;
             _waitForAnswer = false;
             setTimerText = ManagerOrder.TIME_DELAY;
@@ -507,15 +479,52 @@ public class WOOrder extends Window{
 
     public function getSellBtnProperties():Object {
         var ob:Object = {};
-        ob.x = _btnCell.x;
-        ob.y = _btnCell.y;
+        ob.x = _btnSell.x;
+        ob.y = _btnSell.y;
         var p:Point = new Point(ob.x, ob.y);
         p = _source.localToGlobal(p);
         ob.x = p.x;
         ob.y = p.y;
-        ob.width = _btnCell.width;
-        ob.height = _btnCell.height;
+        ob.width = _btnSell.width;
+        ob.height = _btnSell.height;
         return ob;
+    }
+
+    override protected function deleteIt():void {
+        deleteCats();
+        _activeOrderItem = null;
+        g.gameDispatcher.removeFromTimer(onTimer);
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _source.removeChild(_arrItems[i].source);
+            _arrItems[i].deleteIt();
+        }
+        _arrItems.length = 0;
+        for (i=0; i<_arrResourceItems.length; i++) {
+            _source.removeChild(_arrResourceItems[i].source);
+            _arrResourceItems[i].deleteIt();
+        }
+        _arrResourceItems.length = 0;
+        _txtName = null;
+        _txtXP = null;
+        _txtCoins.text = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _source.removeChild(_birka);
+        _birka.deleteIt();
+        _birka = null;
+        _rightBlock.removeChild(_btnDeleteOrder);
+        _btnDeleteOrder.deleteIt();
+        _btnDeleteOrder = null;
+        _rightBlock.removeChild(_btnSell);
+        _btnSell.deleteIt();
+        _btnSell = null;
+        if (_bubble) {
+            _bubble.hideBubble();
+            _bubble.deleteIt();
+            _bubble = null;
+        }
+        super.deleteIt();
     }
 
 
@@ -654,6 +663,16 @@ public class WOOrder extends Window{
             _bubble.showBubble(st, true);
             _bubble.setXY(120, -150);
         }
+    }
+
+    private function deleteCats():void {
+        killCatsAnimations();
+        _source.removeChild(_armatureCustomer.display as Sprite);
+        _source.removeChild(_armatureSeller.display as Sprite);
+        _armatureCustomer.dispose();
+        _armatureCustomer = null;
+        _armatureSeller.dispose();
+        _armatureSeller = null;
     }
 
 }

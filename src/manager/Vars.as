@@ -190,11 +190,6 @@ public class Vars {
 
     public var currentOpenedWindow:Window;
     public var woShop:WOShop;
-    public var woOrder:WOOrder;
-    public var woPaper:WOPapper;
-    public var woTrain:WOTrain;
-    public var woTrainOrder:WOTrainOrder;
-    public var woTrainSend:WOTrainSend;
     public var windowsPool:Array;
     public var windowsManager:WindowsManager;
 
@@ -424,12 +419,7 @@ public class Vars {
         cont.moveCenterToXY(0, realGameTilesHeight/2 - 400*scaleFactor, true);
 
         windowsManager = new WindowsManager();
-        woTrain = new WOTrain();
         woShop = new WOShop();
-        woOrder = new WOOrder();
-        woPaper = new WOPapper();
-        woTrainOrder = new WOTrainOrder();
-        woTrainSend = new WOTrainSend();
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         managerPaper.getPaperItems();

@@ -243,7 +243,7 @@ public class MainBottomPanel {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
-                g.woOrder.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
                 g.toolsPanel.hideRepository();
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;

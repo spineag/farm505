@@ -113,7 +113,7 @@ public class Paper extends AreaObject{
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
                 return;
             }
-            g.woPaper.showItMenu();
+            g.windowsManager.openWindow(WindowsManager.WO_PAPPER, null);
             onOut();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')

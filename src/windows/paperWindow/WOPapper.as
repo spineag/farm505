@@ -108,7 +108,7 @@ public class WOPapper extends WindowMain {
         super.deleteIt();
     }
 
-    public function showItMenu():void {
+    override public function showItParams(callback:Function, params:Array):void {
         _arrPaper = g.managerPaper.arr;
         if (_arrPaper.length > 60) _arrPaper.length = 60;
         _maxPages = Math.ceil(_arrPaper.length/6);
@@ -116,12 +116,12 @@ public class WOPapper extends WindowMain {
 
         createPages();
         checkArrows();
-        showIt();
+        super.showIt();
     }
 
     private function createPages():void {
-        _leftPage = new WOPapperPage(_shiftPages, _maxPages, WOPapperPage.LEFT_SIDE);
-        _rightPage = new WOPapperPage(_shiftPages + 1, _maxPages, WOPapperPage.RIGHT_SIDE);
+        _leftPage = new WOPapperPage(_shiftPages, _maxPages, WOPapperPage.LEFT_SIDE, this);
+        _rightPage = new WOPapperPage(_shiftPages + 1, _maxPages, WOPapperPage.RIGHT_SIDE, this);
         _leftPage.source.x = -_woWidth/2;
         _leftPage.source.y = -_woHeight/2;
         _rightPage.source.x = 0;
@@ -162,8 +162,8 @@ public class WOPapper extends WindowMain {
     private function moveNext():void {
         if (_isAnim) return;
         if (_shiftPages + 1>= _maxPages) return;
-        _tempLeftPage = new WOPapperPage(_shiftPages + 2, _maxPages, WOPapperPage.LEFT_SIDE);
-        _tempRightPage = new WOPapperPage(_shiftPages + 3, _maxPages, WOPapperPage.RIGHT_SIDE);
+        _tempLeftPage = new WOPapperPage(_shiftPages + 2, _maxPages, WOPapperPage.LEFT_SIDE, this);
+        _tempRightPage = new WOPapperPage(_shiftPages + 3, _maxPages, WOPapperPage.RIGHT_SIDE, this);
         var arr:Array = _arrPaper.slice((_shiftPages + 1)*6, (_shiftPages + 1)*6 + 6);
         _tempLeftPage.fillItems(arr);
         arr = _arrPaper.slice((_shiftPages+2)*6, (_shiftPages+2)*6 + 6);
@@ -171,7 +171,6 @@ public class WOPapper extends WindowMain {
         _isAnim = true;
         _flipPage = new WOPapperFlipPage(_rightPage.getScreenshot, _tempLeftPage.getScreenshot, true, afterMoveNext);
         _flipPage.y = 28;
-//        checkArrows();
         _source.removeChild(_rightPage.source);
         _rightPage.deleteIt();
         _rightPage = null;
@@ -215,8 +214,8 @@ public class WOPapper extends WindowMain {
     private function movePrev():void {
         if (_isAnim) return;
         if (_shiftPages <= 1) return;
-        _tempLeftPage = new WOPapperPage(_shiftPages - 2, _maxPages, WOPapperPage.LEFT_SIDE);
-        _tempRightPage = new WOPapperPage(_shiftPages - 1, _maxPages, WOPapperPage.RIGHT_SIDE);
+        _tempLeftPage = new WOPapperPage(_shiftPages - 2, _maxPages, WOPapperPage.LEFT_SIDE, this);
+        _tempRightPage = new WOPapperPage(_shiftPages - 1, _maxPages, WOPapperPage.RIGHT_SIDE, this);
         var arr:Array = _arrPaper.slice((_shiftPages - 1)*6, (_shiftPages - 1)*6 + 6);
         _tempLeftPage.fillItems(arr);
         arr = _arrPaper.slice((_shiftPages)*6, (_shiftPages)*6 + 6);
@@ -224,7 +223,6 @@ public class WOPapper extends WindowMain {
         _isAnim = true;
         _flipPage = new WOPapperFlipPage(_leftPage.getScreenshot, _tempRightPage.getScreenshot, false, afterMovePrev);
         _flipPage.y = 28;
-//        checkArrows();
         _source.removeChild(_leftPage.source);
         _leftPage.deleteIt();
         _leftPage = null;

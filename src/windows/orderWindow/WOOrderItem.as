@@ -33,9 +33,12 @@ public class WOOrderItem {
     private var _check:Image;
     private var _clickCallback:Function;
     private var _act:Boolean;
+    private var _wo:WOOrder;
 
     private var g:Vars = Vars.getInstance();
-    public function WOOrderItem() {
+
+    public function WOOrderItem(wo:WOOrder) {
+        _wo = wo;
         source = new CSprite();
         _bgCarton = new CartonBackground(112, 90);
         _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
@@ -165,7 +168,7 @@ public class WOOrderItem {
             _coinsImage.visible = true;
             _starImage.visible = true;
             _delImage.visible = false;
-            g.woOrder.timerSkip(_order);
+            _wo.timerSkip(_order);
         }
     }
 
@@ -200,6 +203,26 @@ public class WOOrderItem {
             _bgCarton.filter = null;
             _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
         }
+    }
+
+    public function deleteIt():void {
+        _order = null;
+        source.removeChild(_bgCarton);
+        _bgCarton.deleteIt();
+        _bgCarton = null;
+        source.removeChild(_bgCartonIn);
+        _bgCartonIn.deleteIt();
+        _bgCarton = null;
+        _clickCallback = null;
+        _txtName = null;
+        _txtXP = null;
+        _txtCoins = null;
+        _starImage = null;
+        _coinsImage = null;
+        _delImage = null;
+        _check = null;
+        source.deleteIt();
+        source = null;
     }
 }
 }

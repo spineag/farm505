@@ -2,28 +2,21 @@
  * Created by user on 9/11/15.
  */
 package windows.train {
-
+import build.train.Train;
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
-
-import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOTrainOrder extends Window{
+public class WOTrainOrder extends WindowMain{
     private var _btn:CButton;
     private var _contItem:Sprite;
     private var _txtTime:TextField;
@@ -34,10 +27,11 @@ public class WOTrainOrder extends Window{
     private var item1:WOTrainOrderItem;
     private var item2:WOTrainOrderItem;
     private var item3:WOTrainOrderItem;
-
+    private var _train:Train;
 
     public function WOTrainOrder() {
         super ();
+        _windowType = WindowsManager.WO_TRAIN_ORDER;
         var txt:TextField;
         var im:Image;
         _contItem = new Sprite();
@@ -106,16 +100,13 @@ public class WOTrainOrder extends Window{
         super.hideIt();
     }
 
-    public function callbackTrain(callback:Function = null):void {
-        _callback = callback;
-    }
     private function onClickBtn():void {
         if (g.user.hardCurrency < 30) {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         g.userInventory.addMoney(1,-30);
-        g.woTrain.clearItems();
+//        g.woTrain.clearItems();
         if (_callback != null) {
             _callback.apply(null);
             _callback = null;
@@ -126,12 +117,14 @@ public class WOTrainOrder extends Window{
         item3.clearIt();
     }
 
-    public function showItWO(list:Array,time:int):void {
-        _timer = time;
+    override public function showItParams(callback:Function, params:Array):void {
+        _callback = callback;
+        _timer = params[2];
+        _train = params[1];
         _txtTime.text = TimeUtils.convertSecondsForOrders(_timer);
         g.gameDispatcher.addToTimer(timerCheck);
-        fillList(list);
-        showIt();
+        fillList(params[0]);
+        super.showIt();
     }
 
     private function fillList(list:Array):void {
