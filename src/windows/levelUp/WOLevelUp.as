@@ -136,7 +136,7 @@ public class WOLevelUp extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         if (g.user.level >= 17) g.couponePanel.openPanel(true);
-        if (g.user.level >= 17) g.woShop.openCoupone(true);
+//        if (g.user.level >= 17) g.woShop.openCoupone(true);
         _txtLevel.text = String(g.user.level);
         createList();
         _source.y -= 40;

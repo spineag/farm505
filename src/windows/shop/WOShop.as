@@ -3,36 +3,30 @@
  */
 package windows.shop {
 import data.BuildType;
-
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
-
 import utils.MCScaler;
 import utils.Utils;
-
 import windows.WOComponents.Birka;
-
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.HorizontalPlawka;
-
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
+import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOShop extends Window{
+public class WOShop extends WindowMain {
+    public static const VILLAGE:int=1;
+    public static const ANIMAL:int=2;
+    public static const FABRICA:int=3;
+    public static const PLANT:int=4;
+    public static const DECOR:int=5;
+
     private var _contCoupone:Sprite;
     private var _btnTab1:ShopTabBtn;
     private var _btnTab2:ShopTabBtn;
@@ -51,9 +45,13 @@ public class WOShop extends Window{
     private var _txtYellowMoney:TextField;
     private var _txtRedMoney:TextField;
     private var _animal:Boolean;
+    private var _birka:Birka;
+    private var _shopCartonBackground:CartonBackground;
+    private var _SHADOW:BlurFilter;
 
     public function WOShop() {
         super();
+        _windowType = WindowsManager.WO_SHOP;
         _woWidth = 750;
         _woHeight = 590;
         _woBG = new WindowBackground(_woWidth, _woHeight);
@@ -63,7 +61,7 @@ public class WOShop extends Window{
         _shopSprite = new Sprite();
         _shopSprite.x = -_woWidth/2 + 41;
         _shopSprite.y = -_woHeight/2 + 141;
-        _shopSprite.filter = ManagerFilters.SHADOW;
+        _SHADOW = ManagerFilters.getShadowFilter();
         _source.addChild(_shopSprite);
         _contSprite = new Sprite();
         _contSprite.x = -_woWidth/2 + 41;
@@ -76,18 +74,13 @@ public class WOShop extends Window{
         _source.addChild(_contCoupone);
         createMoneyBlock();
         if (g.user.level < 17) _contCoupone.visible = false;
-        else _contCoupone.visible = true;
-        new Birka('МАГАЗИН', _source, _woWidth, _woHeight);
+            else _contCoupone.visible = true;
+        _birka = new Birka('МАГАЗИН', _source, _woWidth, _woHeight);
     }
 
     private function onClickExit(e:Event=null):void {
         if (g.managerTutorial.isTutorial) return;
         hideIt();
-    }
-
-    override public function hideIt():void {
-        _shopList.clearIt(true);
-        super.hideIt();
     }
 
     override public function showIt():void{
@@ -114,34 +107,60 @@ public class WOShop extends Window{
         _shopList.openOnResource(ob);
     }
 
-    public function activateTab(a:int):void {
-        curentTab = a;
+    private function activateTabBtn():void {
+        switch (curentTab) {
+            case VILLAGE:
+                _btnTab1.activateIt(true);
+                _btnTab2.activateIt(false);
+                _btnTab3.activateIt(false);
+                _btnTab4.activateIt(false);
+                _btnTab5.activateIt(false);
+                break;
+            case ANIMAL:
+                _btnTab1.activateIt(false);
+                _btnTab2.activateIt(true);
+                _btnTab3.activateIt(false);
+                _btnTab4.activateIt(false);
+                _btnTab5.activateIt(false);
+                break;
+            case FABRICA:
+                _btnTab1.activateIt(false);
+                _btnTab2.activateIt(false);
+                _btnTab3.activateIt(true);
+                _btnTab4.activateIt(false);
+                _btnTab5.activateIt(false);
+                break;
+            case PLANT:
+                _btnTab1.activateIt(false);
+                _btnTab2.activateIt(false);
+                _btnTab3.activateIt(false);
+                _btnTab4.activateIt(true);
+                _btnTab5.activateIt(false);
+                break;
+            case DECOR:
+                _btnTab1.activateIt(false);
+                _btnTab2.activateIt(false);
+                _btnTab3.activateIt(false);
+                _btnTab4.activateIt(false);
+                _btnTab5.activateIt(true);
+                break;
+        }
     }
 
     public function createShopTabBtns():void {
-        var c:CartonBackground = new CartonBackground(666, 320);
-        _shopSprite.addChild(c);
+        _shopCartonBackground = new CartonBackground(666, 320);
+        _shopSprite.addChild(_shopCartonBackground);
 
-        _btnTab1 = new ShopTabBtn(ShopTabBtn.VILLAGE, function():void {onTab(1)});
-        _btnTab1.setPosition(7, - 81, _shopSprite.x, _shopSprite.y);
-        _shopSprite.addChild(_btnTab1.source);
-        _source.addChildAt(_btnTab1.cloneSource, 2);
-        _btnTab2 = new ShopTabBtn(ShopTabBtn.ANIMAL, function():void {onTab(2)});
-        _btnTab2.setPosition(7 + 133, - 81, _shopSprite.x, _shopSprite.y);
-        _shopSprite.addChild(_btnTab2.source);
-        _source.addChildAt(_btnTab2.cloneSource, 2);
-        _btnTab3 = new ShopTabBtn(ShopTabBtn.FABRICA, function():void {onTab(3)});
-        _btnTab3.setPosition(7 + 133*2, - 81, _shopSprite.x, _shopSprite.y);
-        _shopSprite.addChild(_btnTab3.source);
-        _source.addChildAt(_btnTab3.cloneSource, 2);
-        _btnTab4 = new ShopTabBtn(ShopTabBtn.PLANT, function():void {onTab(4)});
-        _btnTab4.setPosition(7 + 133*3, - 81, _shopSprite.x, _shopSprite.y);
-        _shopSprite.addChild(_btnTab4.source);
-        _source.addChildAt(_btnTab4.cloneSource, 2);
-        _btnTab5 = new ShopTabBtn(ShopTabBtn.DECOR, function():void {onTab(5)});
-        _btnTab5.setPosition(7 + 133*4, - 81, _shopSprite.x, _shopSprite.y);
-        _shopSprite.addChild(_btnTab5.source);
-        _source.addChildAt(_btnTab5.cloneSource, 2);
+        _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _source, _SHADOW);
+        _btnTab1.setPosition(7, -81);
+        _btnTab2 = new ShopTabBtn(ANIMAL, function():void {onTab(ANIMAL)}, _shopSprite, _source, _SHADOW);
+        _btnTab2.setPosition(7 + 133, -81);
+        _btnTab3 = new ShopTabBtn(FABRICA, function():void {onTab(FABRICA)}, _shopSprite, _source, _SHADOW);
+        _btnTab3.setPosition(7 + 133*2, -81);
+        _btnTab4 = new ShopTabBtn(PLANT, function():void {onTab(PLANT)}, _shopSprite, _source, _SHADOW);
+        _btnTab4.setPosition(7 + 133*3, -81);
+        _btnTab5 = new ShopTabBtn(DECOR, function():void {onTab(DECOR)}, _shopSprite, _source, _SHADOW);
+        _btnTab5.setPosition(7 + 133*4, -81);
     }
 
     private function onTab(a:int):void {
@@ -150,15 +169,11 @@ public class WOShop extends Window{
         var id:String;
 
         curentTab = a;
-        _btnTab1.activateIt(false);
-        _btnTab2.activateIt(false);
-        _btnTab3.activateIt(false);
-        _btnTab4.activateIt(false);
-        _btnTab5.activateIt(false);
+        activateTabBtn();
         if (_animal) a = 2;
         _animal = false;
         switch (a) {
-            case 1: _btnTab1.activateIt(true);
+            case VILLAGE:
                 obj = g.dataBuilding.objectBuilding;
                 arr.push(g.managerCats.catInfo);
                 for (id in obj) {
@@ -167,13 +182,13 @@ public class WOShop extends Window{
                     }
                 }
                 break;
-            case 2: _btnTab2.activateIt(true);
+            case ANIMAL:
                 obj = g.dataAnimal.objectAnimal;
                 for (id in obj) {
                         arr.push(Utils.objectDeepCopy(obj[id]));
                 }
                 break;
-            case 3: _btnTab3.activateIt(true);
+            case FABRICA:
                 obj = g.dataBuilding.objectBuilding;
                 for (id in obj) {
                     if (obj[id].buildType == BuildType.FABRICA) {
@@ -181,7 +196,7 @@ public class WOShop extends Window{
                     }
                 }
                 break;
-            case 4: _btnTab4.activateIt(true);
+            case PLANT:
                 obj = g.dataBuilding.objectBuilding;
                 for (id in obj) {
                     if (obj[id].buildType == BuildType.TREE) {
@@ -189,7 +204,7 @@ public class WOShop extends Window{
                     }
                 }
                 break;
-            case 5: _btnTab5.activateIt(true);
+            case DECOR:
                 obj = g.dataBuilding.objectBuilding;
                 for (id in obj) {
                     if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_FULL_FENСE ||
@@ -374,6 +389,11 @@ public class WOShop extends Window{
 
     public function openCoupone(b:Boolean):void {
         _contCoupone.visible = b;
+    }
+
+    override protected function deleteIt():void {
+
+        super.deleteIt();
     }
 }
 }

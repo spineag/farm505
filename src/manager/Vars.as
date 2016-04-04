@@ -189,7 +189,6 @@ public class Vars {
     public var catPanel:CatPanel;
 
     public var currentOpenedWindow:Window;
-    public var woShop:WOShop;
     public var windowsPool:Array;
     public var windowsManager:WindowsManager;
 
@@ -419,7 +418,6 @@ public class Vars {
         cont.moveCenterToXY(0, realGameTilesHeight/2 - 400*scaleFactor, true);
 
         windowsManager = new WindowsManager();
-        woShop = new WOShop();
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         managerPaper.getPaperItems();

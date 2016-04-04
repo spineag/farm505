@@ -29,6 +29,7 @@ import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPapper;
 import windows.reloadPage.WOReloadGame;
 import windows.serverError.WOServerError;
+import windows.shop.WOShop;
 import windows.train.WOTrain;
 
 public class WindowsManager {
@@ -165,6 +166,9 @@ public class WindowsManager {
                 break;
             case WO_TRAIN:
                 wo = new WOTrain();
+                break;
+            case WO_SHOP:
+                wo = new WOShop();
                 break;
 
             default:
