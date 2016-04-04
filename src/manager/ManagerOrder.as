@@ -9,7 +9,7 @@ import tutorial.TutorialAction;
 import utils.Utils;
 
 public class ManagerOrder {
-    public static const TIME_DELAY:int = 5;
+    public static const TIME_DELAY:int = 15 * 60;
     public static const COST_SKIP_WAIT:int = 8;
 
     private var _countCellOnLevel:Array;
