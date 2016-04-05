@@ -3,9 +3,7 @@
  */
 package windows {
 import com.junkbyte.console.Cc;
-
 import windows.ambar.WOAmbars;
-
 import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
@@ -167,6 +165,12 @@ public class WindowsManager {
             case WO_TRAIN:
                 wo = new WOTrain();
                 break;
+            case WO_TRAIN_ORDER:
+                wo = new WOTrain();
+                break;
+            case WO_TRAIN_SEND:
+                wo = new WOTrain();
+                break;
             case WO_SHOP:
                 wo = new WOShop();
                 break;
@@ -219,6 +223,11 @@ public class WindowsManager {
             _currentWindow.isCashed = false;
             _cashWindow = null;
         }
+    }
+
+    public function onResize():void {
+        if (_currentWindow) _currentWindow.onResize();
+        if (_cashWindow) _cashWindow.onResize();
     }
 
 

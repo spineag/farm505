@@ -3,7 +3,6 @@
  */
 package windows {
 import com.greensock.TweenMax;
-
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Image;

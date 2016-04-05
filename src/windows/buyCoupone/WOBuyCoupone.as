@@ -3,21 +3,10 @@
  */
 package windows.buyCoupone {
 import data.DataMoney;
-
-import flashx.textLayout.elements.TCYElement;
-
 import manager.ManagerFilters;
-
-import starling.display.Image;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
-import utils.CSprite;
-
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
 import windows.WindowMain;
 
 public class WOBuyCoupone extends WindowMain{

@@ -3,33 +3,17 @@
  */
 package windows.levelUp {
 import data.BuildType;
-
 import flash.geom.Rectangle;
-
 import manager.ManagerFilters;
-
-import manager.Vars;
-
 import starling.animation.Tween;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import tutorial.TutorialAction;
-
 import utils.CButton;
-
-import utils.CSprite;
 import utils.MCScaler;
-
-import windows.WOComponents.WOButtonTexture;
-
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
 import windows.WindowMain;
 import windows.WindowsManager;
 

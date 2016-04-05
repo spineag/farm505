@@ -5,22 +5,14 @@ package manager {
 import build.WorldObject;
 import build.ambar.Ambar;
 import build.farm.FarmGrid;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import dragonBones.animation.WorldClock;
-
-import heroes.HeroCat;
 import heroes.ManagerCats;
 import heroes.ManagerOrderCats;
-
 import hint.BuyHint;
 import hint.LevelUpHint;
-
 import hint.MarketHint;
-
 import hint.ResourceHint;
 import hint.TreeHint;
 import hint.fabricHint.FabricHint;
@@ -28,29 +20,20 @@ import hint.Hint;
 import hint.MouseHint;
 import hint.TimerHint;
 import hint.WildHint;
-
 import map.BackgroundArea;
 import map.MatrixGrid;
 import map.TownArea;
-
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
-
 import preloader.AwayPreloader;
-
 import preloader.StartPreloader;
-
 import server.DirectServer;
 import server.Server;
-
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
-
 import starling.core.Starling;
 import starling.display.Stage;
-import starling.events.Event;
-
 import temp.dataTemp.DataAnimal;
 import temp.dataTemp.DataLevel;
 import temp.dataTemp.DataRecipe;
@@ -59,9 +42,7 @@ import temp.dataTemp.DataBuildings;
 import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
-
 import tutorial.ManagerTutorial;
-
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
@@ -71,41 +52,11 @@ import ui.optionPanel.OptionPanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
 import ui.toolsPanel.ToolsPanel;
 import ui.xpPanel.XPPanel;
-
 import user.Someone;
-
 import user.User;
 import user.UserInventory;
-
 import utils.FarmDispatcher;
-
-import windows.Window;
 import windows.WindowsManager;
-import windows.ambar.WOAmbars;
-import windows.ambarFilled.WOAmbarFilled;
-import windows.buyCoupone.WOBuyCoupone;
-import windows.buyCurrency.WOBuyCurrency;
-import windows.buyForHardCurrency.WOBuyForHardCurrency;
-import windows.buyPlant.WOBuyPlant;
-import windows.cave.WOCave;
-import windows.dailyBonusWindow.WODailyBonus;
-import windows.fabricaWindow.WOFabrica;
-import windows.gameError.WOGameError;
-import windows.lastResource.WOLastResource;
-import windows.levelUp.WOLevelUp;
-import windows.lockedLand.WOLockedLand;
-import windows.market.WOMarket;
-import windows.noFreeCats.WONoFreeCats;
-import windows.noFreeCats.WOWaitFreeCats;
-import windows.noPlaces.WONoPlaces;
-import windows.noResources.WONoResources;
-import windows.orderWindow.WOOrder;
-import windows.paperWindow.WOPapper;
-import windows.reloadPage.WOReloadGame;
-import windows.shop.WOShop;
-import windows.train.WOTrain;
-import windows.train.WOTrainOrder;
-import windows.train.WOTrainSend;
 
 public class Vars {
     private static var _instance:Vars;
@@ -188,8 +139,6 @@ public class Vars {
     public var toolsPanel:ToolsPanel;
     public var catPanel:CatPanel;
 
-    public var currentOpenedWindow:Window;
-    public var windowsPool:Array;
     public var windowsManager:WindowsManager;
 
     public var server:Server;
@@ -239,8 +188,6 @@ public class Vars {
         user = new User();
         userInventory = new UserInventory();
         gameDispatcher = new FarmDispatcher(mainStage);
-
-        windowsPool = [];
 
         matrixGrid = new MatrixGrid();
         matrixGrid.createMatrix();
@@ -449,12 +396,8 @@ public class Vars {
         townArea.zSort();
         townArea.sortAtLockedLands();
         bottomPanel.checkIsFullOrder();
-        if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel)
-            managerDailyBonus.generateDailyBonusItems();
-
-        if (managerTutorial.isTutorial) {
-            managerTutorial.initScenes();
-        }
+        if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
+        if (managerTutorial.isTutorial) managerTutorial.initScenes();
     }
 
     private function onEnterFrameGlobal():void {
@@ -498,7 +441,6 @@ public class Vars {
         var a:WorldObject = townArea.getCityObjectsByType(BuildType.AMBAR)[0];
         if (a) (a as Ambar).updateIndicatorProgress();
     }
-
 }
 }
 

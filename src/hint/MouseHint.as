@@ -72,7 +72,6 @@ public class MouseHint {
     }
 
     public function checkMouseHint(s:String, dat:Object = null):void {
-        if (g.currentOpenedWindow == true) return;
         if (_isShowed) return;
         _isShowed = true;
         _imageCircle.visible = false;
