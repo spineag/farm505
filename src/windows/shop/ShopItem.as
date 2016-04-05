@@ -72,34 +72,50 @@ public class ShopItem {
         _nameTxt = new TextField(145, 60, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _nameTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_nameTxt);
-        source.endClickCallback = onClick;
+        _nameTxt.touchable = false;
 
         _countTxt = new TextField(145, 60, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _countTxt.y = 120;
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_countTxt);
+        _countTxt.visible = false;
+        _countTxt.touchable = false;
 
         _countBoxTxt = new TextField(100, 30, '', g.allData.fonts['BloggerBold'], 12, Color.YELLOW);
         _countBoxTxt.y = 130;
         _countBoxTxt.x = 20;
         _countBoxTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_countBoxTxt);
-
-        _lockedSprite = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_lock'));
-        _lockedSprite.addChild(im);
-        _lockedSprite.x = 1;
-        _lockedSprite.y = 75;
-        source.addChild(_lockedSprite);
-        _lockedSprite.visible = false;
+        _countBoxTxt.visible = false;
+        _countBoxTxt.touchable = false;
 
         _txtAvailable = new TextField(145, 80, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtAvailable.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtAvailable.y = 135;
         source.addChild(_txtAvailable);
+        _txtAvailable.visible = false;
+        _txtAvailable.touchable = false;
 
+        source.endClickCallback = onClick;
+        setInfo();
+    }
+
+    private function createLockedSprite():void {
+        if (_lockedSprite) return;
+        _lockedSprite = new Sprite();
+        _lockedSprite.touchable = false;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_lock'));
+        _lockedSprite.addChild(im);
+        _lockedSprite.x = 1;
+        _lockedSprite.y = 75;
+        source.addChild(_lockedSprite);
+    }
+
+    private function createShopLimitSprite():void {
+        if (_shopLimitSprite) return;
         _shopLimitSprite = new Sprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_limit'));
+        _shopLimitSprite.touchable = false;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_limit'));
         im.x = -7;
         _shopLimitSprite.addChild(im);
         var txt:TextField = new TextField(145, 26, 'Достигнут лимит', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
@@ -108,57 +124,60 @@ public class ShopItem {
         _shopLimitSprite.addChild(txt);
         _shopLimitSprite.y = 150;
         source.addChild(_shopLimitSprite);
-        _shopLimitSprite.visible = false;
-
-        createButtons();
-        setInfo();
     }
 
-    private function createButtons():void {
-        _btnBuyBlue = new CButton();
-        _btnBuyBlue.addButtonTexture(126, 40, CButton.BLUE, true);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-        MCScaler.scale(im, 35, 35);
-        im.x = 85;
-        im.y = 4;
-        _btnBuyBlue.addChild(im);
-        im.filter = ManagerFilters.SHADOW_TINY;
-        _txtBtnBuyBlue = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _txtBtnBuyBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _btnBuyBlue.addChild(_txtBtnBuyBlue);
-        _btnBuyBlue.x = 74;
-        _btnBuyBlue.y = 190;
-        source.addChild(_btnBuyBlue);
-        _btnBuyBlue.visible = false;
-        _btnBuyBlue.clickCallback = onClick;
-
-        _btnBuyGreen = new CButton();
-        _btnBuyGreen.addButtonTexture(126, 40, CButton.GREEN, true);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-        MCScaler.scale(im, 35, 35);
-        im.x = 85;
-        im.y = 4;
-        _btnBuyGreen.addChild(im);
-        im.filter = ManagerFilters.SHADOW_TINY;
-        _txtBtnBuyGreen = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _txtBtnBuyGreen.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-        _btnBuyGreen.addChild(_txtBtnBuyGreen);
-        _btnBuyGreen.x = 74;
-        _btnBuyGreen.y = 190;
-        source.addChild(_btnBuyGreen);
-        _btnBuyGreen.visible = false;
-        _btnBuyGreen.clickCallback = onClick;
-
-        _btnActivationYellow = new CButton();
-        _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
-        var txt:TextField = new TextField(125, 40, 'УСТАНОВИТЬ', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
-        _btnActivationYellow.addChild(txt);
-        _btnActivationYellow.x = 74;
-        _btnActivationYellow.y = 190;
-        source.addChild(_btnActivationYellow);
-        _btnActivationYellow.visible = false;
-        _btnActivationYellow.clickCallback = onClick;
+    private function createButtons(type:String):void {
+        var im:Image;
+        switch (type) {
+            case 'blue':
+                if (_btnBuyBlue) return;
+                _btnBuyBlue = new CButton();
+                _btnBuyBlue.addButtonTexture(126, 40, CButton.BLUE, true);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+                MCScaler.scale(im, 35, 35);
+                im.x = 85;
+                im.y = 4;
+                _btnBuyBlue.addChild(im);
+                im.filter = ManagerFilters.SHADOW_TINY;
+                _txtBtnBuyBlue = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                _txtBtnBuyBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+                _btnBuyBlue.addChild(_txtBtnBuyBlue);
+                _btnBuyBlue.x = 74;
+                _btnBuyBlue.y = 190;
+                source.addChild(_btnBuyBlue);
+                _btnBuyBlue.clickCallback = onClick;
+                break;
+            case 'green':
+                if (_btnBuyGreen) return;
+                _btnBuyGreen = new CButton();
+                _btnBuyGreen.addButtonTexture(126, 40, CButton.GREEN, true);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+                MCScaler.scale(im, 35, 35);
+                im.x = 85;
+                im.y = 4;
+                _btnBuyGreen.addChild(im);
+                im.filter = ManagerFilters.SHADOW_TINY;
+                _txtBtnBuyGreen = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                _txtBtnBuyGreen.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+                _btnBuyGreen.addChild(_txtBtnBuyGreen);
+                _btnBuyGreen.x = 74;
+                _btnBuyGreen.y = 190;
+                source.addChild(_btnBuyGreen);
+                _btnBuyGreen.clickCallback = onClick;
+                break;
+            case 'yellow':
+                if (_btnActivationYellow) return;
+                _btnActivationYellow = new CButton();
+                _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
+                var txt:TextField = new TextField(125, 40, 'УСТАНОВИТЬ', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+                _btnActivationYellow.addChild(txt);
+                _btnActivationYellow.x = 74;
+                _btnActivationYellow.y = 190;
+                source.addChild(_btnActivationYellow);
+                _btnActivationYellow.clickCallback = onClick;
+                break;
+        }
     }
 
     private function createCouponeButtons():void {
@@ -246,6 +265,7 @@ public class ShopItem {
             _imCont.addChild(_im);
             _imCont.x = 72;
             _imCont.y = 90;
+            _imCont.touchable = false;
             source.addChildAt(_imCont, 1);
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
@@ -253,9 +273,7 @@ public class ShopItem {
         }
 
         if (_data.buildType == BuildType.CAT) {
-            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                _shopLimitSprite.visible = true;
-            } else {
+            if (g.managerCats.curCountCats < g.managerCats.maxCountCats) {
                 _countCost = g.dataCats[g.managerCats.curCountCats].cost;
                 _data.cost = _countCost;
             }
@@ -267,7 +285,7 @@ public class ShopItem {
             _state = STATE_FROM_INVENTORY;
             _countCost = 0;
             _nameTxt.text = String(_data.name);
-            _btnActivationYellow.visible = true;
+           createButtons('yellow');
         } else {
             _state = STATE_BUY;
         }
@@ -280,20 +298,15 @@ public class ShopItem {
         var maxCount:int;
         var curCount:int;
         var maxCountAtCurrentLevel:int = 0;
-        _shopLimitSprite.y = 150;
         _nameTxt.text = '';
         _countTxt.text = '';
         _countBoxTxt.text = '';
-        if (_lockedSprite) _lockedSprite.visible = false;
-        if (_btnActivationYellow) _btnActivationYellow.visible = false;
-        if (_btnBuyBlue) _btnBuyBlue.visible = false;
-        if (_btnBuyGreen) _btnBuyGreen.visible = false;
-        if (_shopLimitSprite) _shopLimitSprite.visible = false;
 
         if (!_data) return;
         if (_data.buildType == BuildType.FABRICA ) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                _lockedSprite.visible = true;
+                createLockedSprite();
+                _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _nameTxt.text = _data.name;
@@ -306,26 +319,31 @@ public class ShopItem {
                     } else break;
                 }
                 if (arr.length == _data.blockByLevel.length) {
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
-                } else if (arr.length >=maxCountAtCurrentLevel) {
+                } else if (arr.length >= maxCountAtCurrentLevel) {
                     _nameTxt.text = _data.name;
+                    _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[maxCountAtCurrentLevel]) + ' уровне';
+                    _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(_data.blockByLevel.length);
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _shopLimitSprite.y = 50;
                 } else {
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
-                    _btnBuyBlue.visible = true;
+                    createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                _lockedSprite.visible = true;
+                createLockedSprite();
+                _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _nameTxt.text = _data.name;
@@ -337,14 +355,16 @@ public class ShopItem {
                     } else break;
                 }
                 if (arr.length >= maxCountAtCurrentLevel) {
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                 } else {
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
-                    _btnBuyBlue.visible = true;
+                    createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
@@ -356,7 +376,8 @@ public class ShopItem {
                     arr = g.townArea.getCityObjectsById(_data.id);
                 }
                 if (_data.blockByLevel[0] > g.user.level) {
-                    _lockedSprite.visible = true;
+                    createLockedSprite();
+                    _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
@@ -364,16 +385,17 @@ public class ShopItem {
                     if (_state == STATE_FROM_INVENTORY) {
                         _countCost = 0;
                         _nameTxt.text = _data.name;
+                        _countBoxTxt.visible = true;
                         _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(g.userInventory.decorInventory[_data.id].count);
-                        _btnActivationYellow.visible = true;
+                        createButtons('yellow');
                     } else {
                         _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
                             if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
-                                _btnBuyBlue.visible = true;
+                                createButtons('blue');
                                 _txtBtnBuyBlue.text = String(_countCost);
                             } else if(_data.currency[0] == DataMoney.HARD_CURRENCY) {
                                 _countCost = _data.cost;
-                                _btnBuyGreen.visible = true;
+                                createButtons('green');
                                 _txtBtnBuyGreen.text = String(_countCost);
                             } else {
                                 createCouponeButtons();
@@ -386,7 +408,8 @@ public class ShopItem {
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
-                    _lockedSprite.visible = true;
+                    createLockedSprite();
+                    _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(dataFarm.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
@@ -398,18 +421,21 @@ public class ShopItem {
                         curCount += (arr[i] as Farm).arrAnimals.length;
                     }
                     if (maxCount == 0) {
+                        _txtAvailable.visible = true;
                         _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
                         _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         _nameTxt.text = _data.name;
                     } else if (curCount >= maxCount) {
-                        _shopLimitSprite.visible = true;
+                        createShopLimitSprite();
                         _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         _nameTxt.text = _data.name;
+                        _countTxt.visible = true;
                         _countTxt.text = String(maxCount) + '/' + String(maxCount);
                         _countCost = 0;
                     } else {
-                        _btnBuyBlue.visible = true;
+                        createButtons('blue');
                         _nameTxt.text = _data.name;
+                        _countTxt.visible = true;
                         _countTxt.text = String(curCount) + '/' + String(maxCount);
                         if (curCount < dataFarm.maxAnimalsCount) {
                             _txtBtnBuyBlue.text = _data.cost;
@@ -423,7 +449,8 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.TREE) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                _lockedSprite.visible = true;
+                createLockedSprite();
+                _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
             } else {
@@ -436,14 +463,16 @@ public class ShopItem {
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(maxCount) + '/' + String(maxCount);
                 } else {
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(curCount) + '/' + String(maxCount);
-                    _btnBuyBlue.visible = true;
+                    createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
@@ -458,14 +487,16 @@ public class ShopItem {
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(maxCount) + '/' + String(maxCount);
                 } else {
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(curCount) + '/' + String(maxCount);
-                    _btnBuyBlue.visible = true;
+                    createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
@@ -473,14 +504,16 @@ public class ShopItem {
             curCount = g.managerCats.curCountCats;
             maxCount = g.managerCats.maxCountCats;
             if (curCount >= maxCount) {
-                _shopLimitSprite.visible = true;
+                createShopLimitSprite();
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _nameTxt.text = _data.name;
+                _countTxt.visible = true;
                 _countTxt.text = String(maxCount) + '/' + String(maxCount);
             } else {
                 _nameTxt.text = _data.name;
+                _countTxt.visible = true;
                 _countTxt.text = String(curCount) + '/' + String(maxCount);
-                _btnBuyBlue.visible = true;
+                createButtons('blue');
                 _txtBtnBuyBlue.text = String(_countCost);
             }
         }
@@ -488,23 +521,9 @@ public class ShopItem {
         if (_nameTxt.text == '') _nameTxt.text = _data.name;
     }
 
-    public function clearIt():void {
-        _im.filter = null;
-        while (_imCont.numChildren) _imCont.removeChildAt(0);
-        while (source.numChildren)  source.removeChildAt(0);
-        if (_lockedSprite){
-            while (_lockedSprite.numChildren) {
-                _lockedSprite.removeChildAt(0);
-            }
-        }
-        _imCont = null;
-        _lockedSprite = null;
-        source = null;
-    }
-
     private function onClick():void {
         var i:int;
-        if (_shopLimitSprite.visible) return;
+        if (_shopLimitSprite) return;
 
         if (_data.buildType == BuildType.CAT) {
             _countCost = g.dataCats[g.managerCats.curCountCats].cost;
@@ -564,7 +583,6 @@ public class ShopItem {
             }
         } else {
             if (g.user.softCurrencyCount < _countCost){
-//                g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);
                 var ob2:Object = {};
                 ob2.currency = DataMoney.SOFT_CURRENCY;
                 ob2.count = _countCost - g.user.softCurrencyCount;
@@ -687,7 +705,7 @@ public class ShopItem {
             curCount = g.managerCats.curCountCats;
             maxCount = g.managerCats.maxCountCats;
             if (curCount == maxCount) {
-                _shopLimitSprite.visible = true;
+                createShopLimitSprite();
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _btnBuyBlue.visible = false;
                 _nameTxt.text = _data.name;
@@ -724,7 +742,6 @@ public class ShopItem {
         _countBoxTxt = null;
         _data = null;
         _lockedSprite = null;
-        _countCost = null;
         if (_btnBuyGreen) {
             source.removeChild(_btnBuyGreen);
             _btnBuyGreen.deleteIt();

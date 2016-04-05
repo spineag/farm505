@@ -64,7 +64,7 @@ public class WOShop extends WindowMain {
         createExitButton(onClickExit);
 
         _shopTabBtnCont = new Sprite();
-        _source.addChild(_shopTabBtnCont)
+        _source.addChild(_shopTabBtnCont);
         _shopSprite = new Sprite();
         _shopSprite.x = -_woWidth/2 + 41;
         _shopSprite.y = -_woHeight/2 + 141;

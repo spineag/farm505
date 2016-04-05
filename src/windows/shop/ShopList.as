@@ -219,8 +219,9 @@ public class ShopList {
             animList();
 //            _wo.activateTab(1);
         }
-        for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].clearIt();
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _itemsSprite.removeChild(_arrItems[i].source);
+            _arrItems[i].deleteIt();
         }
         _arrItems.length = 0;
     }
