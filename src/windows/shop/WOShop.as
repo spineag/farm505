@@ -48,6 +48,11 @@ public class WOShop extends WindowMain {
     private var _birka:Birka;
     private var _shopCartonBackground:CartonBackground;
     private var _SHADOW:BlurFilter;
+    private var _SHADOW2:BlurFilter;
+    private var _pl1:HorizontalPlawka;
+    private var _pl2:HorizontalPlawka;
+    private var _pl3:HorizontalPlawka;
+    private var _shopTabBtnCont:Sprite;
 
     public function WOShop() {
         super();
@@ -58,16 +63,20 @@ public class WOShop extends WindowMain {
         _source.addChild(_woBG);
         createExitButton(onClickExit);
 
+        _shopTabBtnCont = new Sprite();
+        _source.addChild(_shopTabBtnCont)
         _shopSprite = new Sprite();
         _shopSprite.x = -_woWidth/2 + 41;
         _shopSprite.y = -_woHeight/2 + 141;
         _SHADOW = ManagerFilters.getShadowFilter();
+        _SHADOW2 = ManagerFilters.getShadowFilter();
+        _shopSprite.filter = _SHADOW;
         _source.addChild(_shopSprite);
         _contSprite = new Sprite();
         _contSprite.x = -_woWidth/2 + 41;
         _contSprite.y = -_woHeight/2 + 141;
         _source.addChild(_contSprite);
-        _shopList = new ShopList(_contSprite);
+        _shopList = new ShopList(_contSprite, this);
         createShopTabBtns();
         curentTab = 1;
         _contCoupone = new Sprite();
@@ -83,10 +92,11 @@ public class WOShop extends WindowMain {
         hideIt();
     }
 
-    override public function showIt():void{
-        super.showIt();
+    override public function showItParams(callback:Function, params:Array):void{
         updateMoneyCounts();
+        curentTab = params[0];
         onTab(curentTab);
+        super.showIt();
     }
 
     public function openShopForResource(ob:Object):void {
@@ -151,15 +161,15 @@ public class WOShop extends WindowMain {
         _shopCartonBackground = new CartonBackground(666, 320);
         _shopSprite.addChild(_shopCartonBackground);
 
-        _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _source, _SHADOW);
+        _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
         _btnTab1.setPosition(7, -81);
-        _btnTab2 = new ShopTabBtn(ANIMAL, function():void {onTab(ANIMAL)}, _shopSprite, _source, _SHADOW);
+        _btnTab2 = new ShopTabBtn(ANIMAL, function():void {onTab(ANIMAL)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
         _btnTab2.setPosition(7 + 133, -81);
-        _btnTab3 = new ShopTabBtn(FABRICA, function():void {onTab(FABRICA)}, _shopSprite, _source, _SHADOW);
+        _btnTab3 = new ShopTabBtn(FABRICA, function():void {onTab(FABRICA)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
         _btnTab3.setPosition(7 + 133*2, -81);
-        _btnTab4 = new ShopTabBtn(PLANT, function():void {onTab(PLANT)}, _shopSprite, _source, _SHADOW);
+        _btnTab4 = new ShopTabBtn(PLANT, function():void {onTab(PLANT)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
         _btnTab4.setPosition(7 + 133*3, -81);
-        _btnTab5 = new ShopTabBtn(DECOR, function():void {onTab(DECOR)}, _shopSprite, _source, _SHADOW);
+        _btnTab5 = new ShopTabBtn(DECOR, function():void {onTab(DECOR)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
         _btnTab5.setPosition(7 + 133*4, -81);
     }
 
@@ -229,11 +239,11 @@ public class WOShop extends WindowMain {
         txt.y = -_woHeight/2 + 461;
         _source.addChild(txt);
 
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
+        _pl1 = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
             g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 104);
-        pl.x = -_woWidth/2 + 63;
-        pl.y = -_woHeight/2 + 509;
-        _source.addChild(pl);
+        _pl1.x = -_woWidth/2 + 63;
+        _pl1.y = -_woHeight/2 + 509;
+        _source.addChild(_pl1);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         MCScaler.scale(im, 46, 46);
         im.x = -_woWidth/2 + 41;
@@ -257,11 +267,11 @@ public class WOShop extends WindowMain {
         };
         btn.clickCallback = f1;
 
-        pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
+        _pl2 = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 104);
-        pl.x = -_woWidth/2 + 218;
-        pl.y = -_woHeight/2 + 509;
-        _source.addChild(pl);
+        _pl2.x = -_woWidth/2 + 218;
+        _pl2.y = -_woHeight/2 + 509;
+        _source.addChild(_pl2);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         MCScaler.scale(im, 48, 48);
         im.x = -_woWidth/2 + 196;
@@ -285,11 +295,11 @@ public class WOShop extends WindowMain {
         };
         btn.clickCallback = f2;
 
-        pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
+        _pl3 = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 310);
-        pl.x = -_woWidth/2 + 380;
-        pl.y = -_woHeight/2 + 509;
-        _contCoupone.addChild(pl);
+        _pl3.x = -_woWidth/2 + 380;
+        _pl3.y = -_woHeight/2 + 509;
+        _contCoupone.addChild(_pl3);
         btn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
         MCScaler.scale(im, 38, 38);
@@ -304,7 +314,7 @@ public class WOShop extends WindowMain {
         _contCoupone.addChild(btn);
         var f3:Function = function ():void {
             hideIt();
-            g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE, null);
         };
         btn.clickCallback = f3;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone'));
@@ -384,7 +394,6 @@ public class WOShop extends WindowMain {
 
     public function getShopDirectItemProperties(a:int):Object {
         return _shopList.getShopDirectItemProperties(a);
-
     }
 
     public function openCoupone(b:Boolean):void {
@@ -392,7 +401,40 @@ public class WOShop extends WindowMain {
     }
 
     override protected function deleteIt():void {
-
+        _contCoupone = null;
+        _btnTab1.deleteIt();
+        _btnTab2.deleteIt();
+        _btnTab3.deleteIt();
+        _btnTab4.deleteIt();
+        _btnTab5.deleteIt();
+        _btnTab1 = _btnTab2 = _btnTab3 = _btnTab4 = _btnTab5 = null;
+        _shopList.deleteIt();
+        _shopList = null;
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _txtBlueMoney = _txtGreenMoney = _txtHardMoney = _txtRedMoney = _txtSoftMoney = _txtYellowMoney = null;
+        _SHADOW.dispose();
+        _SHADOW = null;
+        _SHADOW2.dispose();
+        _SHADOW2 = null;
+        _source.removeChild(_pl1);
+        _pl1.deleteIt();
+        _pl1 = null;
+        _source.removeChild(_pl2);
+        _pl2.deleteIt();
+        _pl2 = null;
+        _source.removeChild(_pl3);
+        _pl3.deleteIt();
+        _pl3 = null;
+        _shopSprite.removeChild(_shopCartonBackground);
+        _shopCartonBackground.deleteIt();
+        _shopCartonBackground = null;
+        _source.removeChild(_birka);
+        _birka.deleteIt();
+        _birka = null;
+        _shopSprite = null;
+        _contSprite = null;
         super.deleteIt();
     }
 }

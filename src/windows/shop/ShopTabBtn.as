@@ -33,7 +33,7 @@ public class ShopTabBtn {
         var _txt:TextField = new TextField(123, 100, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txt.y = 10;
-        _source.endClickCallback = callback;
+        _source.endClickCallback = f;
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
 
@@ -72,16 +72,16 @@ public class ShopTabBtn {
             _source.filter = null;
             if (_shopSource.contains(_source)) _shopSource.removeChild(_source);
             if (!_shopSprite.contains(_source)) _shopSprite.addChild(_source);
-            _source.x = _shopSprite.x + _defaultX;
-            _source.y = _shopSprite.y + _defaultY;
+            _source.x = _defaultX;
+            _source.y = _defaultY;
             _source.isTouchable = false;
         } else {
             if (_shopSprite.contains(_source)) _shopSprite.removeChild(_source);
             if (!_shopSource.contains(_source)) _shopSource.addChild(_source);
             _source.filter = _SHADOW;
             _shopSource.setChildIndex(_source, _shopSource.getChildIndex(_shopSprite));
-            _source.x = _defaultX + 10;
-            _source.y = _defaultY + 10;
+            _source.x = _defaultX + _shopSprite.x;
+            _source.y = _defaultY +_shopSprite.y + 10;
             _source.isTouchable = true;
         }
     }
@@ -91,14 +91,12 @@ public class ShopTabBtn {
         _defaultY = y;
     }
 
-    private function onHover():void {
-        _source.x = _defaultX + 10;
-        _source.y = _defaultY + 10;
+    private function onOut():void {
+        _source.y = _defaultY + _shopSprite.y + 10;
     }
 
-    private function onOut():void {
-        _source.x = _defaultX + 3;
-        _source.y = _defaultY + 3;
+    private function onHover():void {
+        _source.y = _defaultY + _shopSprite.y + 3;
     }
 
     public function deleteIt():void {

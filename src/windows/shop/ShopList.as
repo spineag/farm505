@@ -34,16 +34,20 @@ public class ShopList {
     private var _source:Sprite;
     private var _itemsSprite:Sprite;
     private var _txtPageNumber:TextField;
+    private var _wo:WOShop;
+    private var _parent:Sprite;
 
     private var g:Vars = Vars.getInstance();
 
-    public function ShopList(parent:Sprite) {
+    public function ShopList(parent:Sprite, wo:WOShop) {
+        _wo = wo;
         _arrItems = [];
         _source = new Sprite();
         _source.x = 32;
         _source.y = 23;
         _source.clipRect = new Rectangle(0, 0, 605, 245);
-        parent.addChild(_source);
+        _parent = parent;
+        _parent.addChild(_source);
         _itemsSprite = new Sprite();
         _source.addChild(_itemsSprite);
         addArrows(parent);
@@ -184,7 +188,7 @@ public class ShopList {
 
         _currentShopArr = arr;
         for (i = 0; i < _currentShopArr.length; i++) {
-            item = new ShopItem(_currentShopArr[i]);
+            item = new ShopItem(_currentShopArr[i], _wo);
             item.source.x = 153*i;
             _itemsSprite.addChild(item.source);
             _arrItems.push(item);
@@ -194,7 +198,7 @@ public class ShopList {
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
     }
 
-    public function clearIt(b:Boolean = false):void {
+    public function clearIt(b:Boolean = false):void {  // need remake
         while (_itemsSprite.numChildren) {
             _itemsSprite.removeChildAt(0);
         }
@@ -207,14 +211,13 @@ public class ShopList {
         if (!b && !_decor) {
             _shift = 0;
             animList();
-            g.woShop.activateTab(1);
+//            _wo.activateTab(1);
         } else if (b && _decor){
             animList();
-//            _decor = false;
         } else if (!b && _decor) {
             _shift = 0;
             animList();
-            g.woShop.activateTab(1);
+//            _wo.activateTab(1);
         }
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].clearIt();
@@ -316,6 +319,26 @@ public class ShopList {
         } else {
             Cc.error();
         }
+    }
+
+    public function deleteIt():void {
+        _wo = null;
+        _currentShopArr.length = 0;
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _itemsSprite.removeChild(_arrItems[i].source);
+            _arrItems[i].deleteIt();
+        }
+        _arrItems.length = 0;
+        _source.removeChild(_leftArrow);
+        _leftArrow.deleteIt();
+        _leftArrow = null;
+        _source.removeChild(_rightArrow);
+        _rightArrow.deleteIt();
+        _rightArrow = null;
+        _parent.removeChild(_source);
+        _source.dispose();
+        _parent = null;
+        _source = null;
     }
 }
 }

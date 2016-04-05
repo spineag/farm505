@@ -13,6 +13,7 @@ import windows.WindowsManager;
 public class AreaObject extends WorldObject {
     protected var _leftBuildTime:int;                   // сколько осталось времени до окончания постройки здания
     private var _buildingBuild:BuildingBuild;
+    public var countShopCost:int;
 
     public function AreaObject(dataBuild:Object) {
         _source = new CSprite();
@@ -183,7 +184,6 @@ public class AreaObject extends WorldObject {
             _stateBuild = STATE_WAIT_ACTIVATE;
         }
     }
-
 
     protected function makeOverAnimation():void {
         var time:Number = .15;

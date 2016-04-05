@@ -212,7 +212,7 @@ public class ToolsModifier {
         _mouseCont.y = g.ownMouse.mouseY + 5;
     }
 
-    public function  startMove(selectedBuild:AreaObject, callback:Function = null, isFromShop:Boolean = false):void {
+    public function  startMove(selectedBuild:AreaObject, callback:Function=null, isFromShop:Boolean = false):void {
         if (!selectedBuild) {
             Cc.error('ToolsModifier startMove:: empty selectedBuild');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'toolsModifier');
