@@ -117,7 +117,7 @@ public class CouponePanel {
         _txtBlue.text = String(g.user.blueCouponCount);
         _txtRed.text = String(g.user.redCouponCount);
         _txtYellow.text = String(g.user.yellowCouponCount);
-        g.hint.showIt("Ваучеры");
+        g.hint.showIt("Ваучеры",false,false,false,1);
        _contClipRect.clipRect = new Rectangle(15,0,400,400);
 
         var tween:Tween = new Tween(_contCoupone, 0.2);

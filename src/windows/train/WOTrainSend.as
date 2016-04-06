@@ -25,15 +25,15 @@ public class WOTrainSend extends Window{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         var txt:TextField;
-        txt = new TextField(300,200,"ПОГРУЗКА НЕ ЗАВЕРШЕНА!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        txt = new TextField(300,200,"ПОГРУЗКА НЕ ЗАВЕРШЕНА!",g.allData.fonts['BloggerBold'],22,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -150;
         txt.y = -210;
         _source.addChild(txt);
-        txt = new TextField(300,200,"Отправить корзину не загрузив полностью?",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        txt = new TextField(350,50,"Отправить корзину не загрузив полностью?",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txt.x = -150;
-        txt.y = -185;
+        txt.x = -180;
+        txt.y = -110;
         _source.addChild(txt);
         _contNo = new CButton();
         _contNo.addButtonTexture(80, 40, CButton.YELLOW, true);
@@ -45,7 +45,7 @@ public class WOTrainSend extends Window{
         txt.y = -5;
         _contYes.addChild(txt);
         txt = new TextField(50,50,"Нет",g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW
         txt.x = 15;
         txt.y = -5;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('basket_big'));

@@ -177,7 +177,7 @@ public class CraftItem {
         _source.x < endPoint.x ? tempX = _source.x + 50 : tempX = _source.x - 50;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
         var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        var v:Number = 250;
+        var v:Number = 300;
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
         new XPStar(_source.x,_source.y,_resourceItem.craftXP);
         if (count > 0) {

@@ -4,6 +4,8 @@
 package windows.ambar {
 import manager.Vars;
 
+import starling.animation.Tween;
+
 import starling.display.Image;
 import starling.display.Sprite;
 
@@ -36,13 +38,17 @@ public class AmbarProgress {
         if (addImages) {
             imAmbar = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
             MCScaler.scale(imAmbar, 50, 50);
-            imAmbar.x = 416;
-            imAmbar.y = -2;
+            imAmbar.x = 430;
+            imAmbar.y = 13;
+            imAmbar.pivotX = imAmbar.width;
+            imAmbar.pivotY = imAmbar.height;
             source.addChild(imAmbar);
             imSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
             MCScaler.scale(imSklad, 50, 50);
-            imSklad.x = 410;
-            imSklad.y = 2;
+            imSklad.x = 430;
+            imSklad.y = 15;
+            imSklad.pivotX = imSklad.width;
+            imSklad.pivotY = imSklad.height;
             source.addChild(imSklad);
         }
     }
@@ -50,6 +56,15 @@ public class AmbarProgress {
     public function setProgress(a:Number):void {
         _bar.progress = a;
 //        imSklad.x = 430;
+        var tween:Tween;
+        if (imAmbar && imAmbar.visible) tween = new Tween(imAmbar, 0.6);
+        else tween = new Tween(imSklad, 0.6);
+        tween.scaleTo(1);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+        };
+        tween.scaleTo(0.5);
+        g.starling.juggler.add(tween);
     }
 
     public function showAmbarIcon(v:Boolean):void {

@@ -10,6 +10,7 @@ import dragonBones.Armature;
 import dragonBones.Bone;
 
 import dragonBones.animation.WorldClock;
+import dragonBones.events.AnimationEvent;
 
 import flash.geom.Point;
 
@@ -78,13 +79,19 @@ public class Market extends AreaObject{
 
     private function onHover():void {
         if (g.selectedBuild) return;
-        if (!_isOnHover) {
-            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            _armature.animation.gotoAndPlay('idle_2');
-        }
+        if (_isOnHover)  return;
+        var fEndOver:Function = function():void {
+            _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+//            fillIt();
+        };
+        _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+        _armature.animation.gotoAndPlay('idle_2');
+        _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
-        fillIt();
+
     }
 
     private function onClick():void {
@@ -168,16 +175,31 @@ public class Market extends AreaObject{
         _armature.animation.gotoAndStop('work', 0);
         if (coins <= 0) {
             b = _armature.getBone('coins');
+            if (b == null) return;
             b.display.dispose();
             b.display.visible = false;
+            _armature.getBones(false);
+            _armature.removeBoneByName('coins');
+        } else {
+            b = _armature.getBone('coins');
+            _armature.addBone(b);
+
         }
         if (res <= 0) {
             b = _armature.getBone('fr');
+            if (b == null) return;
             b.display.dispose();
             b.display.visible = false;
             b = _armature.getBone('fr2');
             b.display.dispose();
             b.display.visible = false;
+            _armature.removeBoneByName('fr');
+            _armature.removeBoneByName('fr2');
+        } else {
+            b = _armature.getBone('fr');
+            _armature.addBone(b);
+            b = _armature.getBone('fr2');
+            _armature.addBone(b);
         }
     }
 }

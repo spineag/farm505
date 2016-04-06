@@ -203,11 +203,9 @@
             <filename>part_products/cheese_icon.png</filename>
             <filename>part_products/cheeseburger_icon.png</filename>
             <filename>part_products/cherry_icon.png</filename>
-            <filename>part_products/chicken_feed_icon.png</filename>
             <filename>part_products/cookie_icon.png</filename>
             <filename>part_products/corn_bread_icon.png</filename>
             <filename>part_products/cotton_fabric_icon.png</filename>
-            <filename>part_products/cow_feed_icon.png</filename>
             <filename>part_products/egg_icon.png</filename>
             <filename>part_products/french_fries_icon.png</filename>
             <filename>part_products/goat_milk_icon.png</filename>
@@ -218,13 +216,11 @@
             <filename>part_products/meat_pie_icon.png</filename>
             <filename>part_products/omelette_icon.png</filename>
             <filename>part_products/pancake_icon.png</filename>
-            <filename>part_products/pig_feed_icon.png</filename>
             <filename>part_products/pizza_icon.png</filename>
             <filename>part_products/powdered_sugar_icon.png</filename>
             <filename>part_products/raisin_bun_icon.png</filename>
             <filename>part_products/raspberry_icon.png</filename>
             <filename>part_products/raspberry_muffin_icon.png</filename>
-            <filename>part_products/sheep_feed_icon.png</filename>
             <filename>part_products/socks_icon.png</filename>
             <filename>part_products/sugar_icon.png</filename>
             <filename>part_products/sweater_icon.png</filename>
@@ -248,6 +244,10 @@
             <filename>part_products/gold_ore_icon.png</filename>
             <filename>part_products/iron_bar_icon.png</filename>
             <filename>part_products/iron_ore_icon.png</filename>
+            <filename>part_products/chicken_feed_icon.png</filename>
+            <filename>part_products/cow_feed_icon.png</filename>
+            <filename>part_products/pig_feed_icon.png</filename>
+            <filename>part_products/sheep_feed_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

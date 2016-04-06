@@ -240,7 +240,6 @@ public class Ridge extends AreaObject{
                      var f1:Function = function():void {
                          if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
                          _plant = null;
-                         trace('loll');
                      };
                      var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
                      item.flyIt();

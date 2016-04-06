@@ -115,6 +115,7 @@ public class WorldObject {
             _source.scaleX = _defaultScale;
             if (_craftSprite) _craftSprite.scaleX = _defaultScale;
         }
+
     }
 
     public function releaseFlip():void {

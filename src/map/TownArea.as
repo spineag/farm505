@@ -305,7 +305,6 @@ public class TownArea extends Sprite {
 
     public function createNewBuild(_data:Object, dbId:int = 0):AreaObject {
         var build:AreaObject;
-
         if (!_data) {
             Cc.error('TownArea createNewBuild:: _data == nul for building');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
@@ -384,6 +383,10 @@ public class TownArea extends Sprite {
         }
         (build as WorldObject).dbBuildingId = dbId;
 
+        if (_data.buildType == BuildType.SKLAD) {
+            (build as AreaObject).makeFlipBuilding();
+            return build;
+        }
         if (_data.isFlip) {
             (build as AreaObject).makeFlipBuilding();
         }

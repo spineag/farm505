@@ -51,6 +51,7 @@ public class Train extends AreaObject{
     private var _armatureOpen:Armature;
     private var _arriveAnim:ArrivedAnimation;
     private var _countTimer:int;
+    private var _bolAnimation:Boolean;
 
     public function Train(_data:Object) {
         super(_data);
@@ -139,6 +140,7 @@ public class Train extends AreaObject{
         if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
         _armature.animation.gotoAndPlay('work');
         _arriveAnim.makeArriveKorzina(afterWork);
+        _bolAnimation = true;
     }
 
     private function leaveTrain():void {
@@ -146,6 +148,7 @@ public class Train extends AreaObject{
         if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
         _armature.animation.gotoAndPlay('work');
         _arriveAnim.makeAwayKorzina(afterWork);
+        _bolAnimation = true;
     }
 
     private function afterWork():void {
@@ -167,6 +170,7 @@ public class Train extends AreaObject{
         } else {
             _armature.animation.gotoAndPlay('idle_4');
         }
+        _bolAnimation = false;
     }
 
     private function checkTrainState():void {
@@ -285,6 +289,7 @@ public class Train extends AreaObject{
     }
 
     private function onClick():void {
+        if (_bolAnimation) return;
         if (g.isAway) {
             if (_stateBuild == STATE_READY) {
                 onOut();

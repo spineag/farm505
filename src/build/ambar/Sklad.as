@@ -46,7 +46,7 @@ public class Sklad extends AreaObject{
         }
         _source.releaseContDrag = true;
         _dbBuildingId = _data.dbId;
-        _dataBuild.isFlip = _flip;
+//        _dataBuild.isFlip = _flip;
     }
 
     private function onHover():void {
@@ -120,11 +120,11 @@ public class Sklad extends AreaObject{
         _armature = g.allData.factory['sklad'].buildArmature("fabrica");
         _build.addChild(_armature.display as Sprite);
         WorldClock.clock.add(_armature);
-        _defaultScale = 1;
+//        _defaultScale = 1;
         _rect = _build.getBounds(_build);
         _sizeX = _dataBuild.width;
         _sizeY = _dataBuild.height;
-        if (_flip) _build.scaleX = -_defaultScale;
+//        if (_flip) _build.scaleX = -_defaultScale;
         _source.addChild(_build);
     }
 
