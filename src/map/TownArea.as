@@ -24,6 +24,8 @@ import build.wild.Wild;
 
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.DataMoney;
+
 import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.OrderCat;
@@ -655,7 +657,82 @@ public class TownArea extends Sprite {
         var p:Point = new Point((b as WorldObject).source.x, (b as WorldObject).source.y);
         p = g.cont.contentCont.localToGlobal(p);
         new UseMoneyMessage(p, moneyType, count, .3);
-        if (b is Decor || b is DecorFence || b is DecorPostFence || b is DecorTail) new XPStar(p.x, p.y, (b as WorldObject).dataBuild.xpForBuild);
+        if (b is Decor || b is DecorFence || b is DecorPostFence || b is DecorTail)
+            new XPStar(p.x, p.y, (b as WorldObject).dataBuild.xpForBuild);
+    }
+
+    public function startMoveAfterShop(build:AreaObject, isFromInventory:Boolean = false):void {
+        if (build is DecorTail) {
+            if (isFromInventory) g.toolsModifier.startMoveTail(build, endMoveFromInventoryAfterShop, true);
+            else g.toolsModifier.startMoveTail(build, endMoveAfterShop, true);
+        } else {
+            if (isFromInventory) g.toolsModifier.startMove(build, endMoveFromInventoryAfterShop, true);
+            else g.toolsModifier.startMove(build, endMoveAfterShop, true);
+        }
+    }
+
+    private function endMoveAfterShop(build:AreaObject,_x:Number, _y:Number):void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {//_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+            g.bottomPanel.cancelBoolean(false);
+        }
+        if ((build as WorldObject).dataBuild.buildType == BuildType.DECOR || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_TAIL || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_POST_FENCE) {
+            var cont:Sprite = new Sprite();
+            cont.x = _x;
+            cont.y = _y;
+            g.cont.gameCont.addChild(cont);
+            var localPoint:Point = new Point( cont.x,cont.y);
+            localPoint = cont.parent.localToGlobal(localPoint);
+            new XPStar(localPoint.x, localPoint.y, (build as WorldObject).dataBuild.xpForBuild);
+        }
+        (build as WorldObject).source.filter = null;
+        if ((build as WorldObject).dataBuild.currency.length > 1) {
+            for (var i:int = 0; i< (build as WorldObject).dataBuild.currency.length; i++){
+                g.userInventory.addMoney((build as WorldObject).dataBuild.currency[i], -(build as WorldObject).dataBuild.cost[i]);
+            }
+            if (build is DecorTail) {
+                g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
+            } else {
+                g.townArea.pasteBuild(build, _x, _y,true,false,true);
+            }
+            return;
+        } else {
+            if ((build as WorldObject).dataBuild.currency != DataMoney.SOFT_CURRENCY) {
+                g.userInventory.addMoney((build as WorldObject).dataBuild.currency, - (build as AreaObject).countShopCost);
+                if (build is DecorTail) {
+                    g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
+                } else {
+                    g.townArea.pasteBuild(build, _x, _y,true,false,true);
+                }
+                showSmallBuildAnimations(build, DataMoney.HARD_CURRENCY, - (build as AreaObject).countShopCost);
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                return;
+            } else {
+                g.userInventory.addMoney((build as WorldObject).dataBuild.currency, - (build as AreaObject).countShopCost);
+            }
+        }
+        if (build is Tree) (build as Tree).removeShopView();
+        if (build is Fabrica) (build as Fabrica).removeShopView();
+        if (build is DecorTail) {
+            pasteTailBuild(build as DecorTail, _x, _y);
+        } else {
+            pasteBuild(build, _x, _y);
+        }
+        showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, - (build as AreaObject).countShopCost);
+    }
+
+    private function endMoveFromInventoryAfterShop(build:AreaObject, _x:Number, _y:Number):void {
+//        g.bottomPanel.cancelBoolean(false);
+        var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
+        var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+        (build as WorldObject).dbBuildingId = dbId;
+        g.directServer.removeFromInventory(dbId, p.x, p.y, null);
+        if (build is DecorTail) {
+            pasteTailBuild(build as DecorTail, _x, _y);
+        } else {
+            pasteBuild(build, _x, _y);
+        }
     }
 
     public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {

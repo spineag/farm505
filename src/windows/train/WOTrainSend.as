@@ -3,23 +3,23 @@
  */
 package windows.train {
 import manager.ManagerFilters;
-
 import starling.display.Image;
-
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
 import windows.WOComponents.WindowBackground;
-import windows.Window;
+import windows.WindowMain;
+import windows.WindowsManager;
 
-public class WOTrainSend extends Window{
+public class WOTrainSend extends WindowMain {
     private var _woBG:WindowBackground;
-    private var _contYes:CButton;
-    private var _contNo:CButton;
+    private var _btnYes:CButton;
+    private var _btnNo:CButton;
     private var _callback:Function;
+
     public function WOTrainSend() {
+        super();
+        _windowType = WindowsManager.WO_TRAIN_SEND;
         _woWidth = 460;
         _woHeight = 308;
         _woBG = new WindowBackground(_woWidth, _woHeight);
@@ -35,15 +35,15 @@ public class WOTrainSend extends Window{
         txt.x = -180;
         txt.y = -110;
         _source.addChild(txt);
-        _contNo = new CButton();
-        _contNo.addButtonTexture(80, 40, CButton.YELLOW, true);
-        _contYes = new CButton();
-        _contYes.addButtonTexture(80, 40, CButton.GREEN, true);
+        _btnNo = new CButton();
+        _btnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
+        _btnYes = new CButton();
+        _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
         txt = new TextField(50,50,"Да",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 15;
         txt.y = -5;
-        _contYes.addChild(txt);
+        _btnYes.addChild(txt);
         txt = new TextField(50,50,"Нет",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW
         txt.x = 15;
@@ -52,26 +52,21 @@ public class WOTrainSend extends Window{
         im.y = -70;
         im.x = -65;
         _source.addChild(im);
-        _contYes.x = 100;
-        _contYes.y = 80;
-        _contNo.x = -100;
-        _contNo.y = 80;
-        _contNo.addChild(txt);
-        _source.addChild(_contYes);
-        _source.addChild(_contNo);
-        _contNo.clickCallback = onNo;
-        _contYes.clickCallback = onYes;
-        _callbackClickBG = onClickExit;
-
+        _btnYes.x = 100;
+        _btnYes.y = 80;
+        _btnNo.x = -100;
+        _btnNo.y = 80;
+        _btnNo.addChild(txt);
+        _source.addChild(_btnYes);
+        _source.addChild(_btnNo);
+        _btnNo.clickCallback = onNo;
+        _btnYes.clickCallback = onYes;
+        _callbackClickBG = onNo;
     }
 
-    public function showItTrain(f:Function):void {
+    override public function showItParams(f:Function, params:Array):void {
         _callback = f;
-        showIt();
-
-    }
-    private function onClickExit():void {
-        hideIt();
+        super.showIt();
     }
 
     private function onYes():void {
@@ -79,11 +74,26 @@ public class WOTrainSend extends Window{
             _callback.apply(null,[true]);
             _callback = null;
         }
-        onClickExit();
+        super.hideIt();
     }
 
     private function onNo():void {
-        onClickExit();
+        g.windowsManager.uncasheWindow();
+        super.hideIt();
+    }
+
+    override protected function deleteIt():void {
+        _source.removeChild(_woBG);
+        _woBG.deleteIt();
+        _woBG = null;
+        _callback = null;
+        _source.removeChild(_btnNo);
+        _btnNo.deleteIt();
+        _btnNo = null;
+        _source.removeChild(_btnYes);
+        _btnYes.deleteIt();
+        _btnYes = null;
+        super.deleteIt();
     }
 }
 }

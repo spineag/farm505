@@ -57,9 +57,8 @@ public class WONoFreeCats extends WindowMain {
     }
 
     private function onClick():void {
-        hideIt();
-        g.woShop.activateTab(1);
-        g.woShop.showIt();
+        super.hideIt();
+        g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, 1);
     }
 
     override protected function deleteIt():void {

@@ -151,15 +151,6 @@ public class WOTrainItem {
         _txtWhite.text = '';
         _txtRed.text = '';
         _info.fullIt(_im);
-
-//        var p:Point = new Point(source.width/2, source.height/2);
-//        p = source.localToGlobal(p);
-//        new XPStar(p.x, p.y, 100);
-//        var prise:Object = {};
-//        prise.id = DataMoney.SOFT_CURRENCY;
-//        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
-//        prise.count = 100;
-//        new DropItem(p.x, p.y, prise);
     }
 
     public function clearIt():void {
@@ -209,11 +200,22 @@ public class WOTrainItem {
             if (!_galo4ka.visible) {
                 _txtRed.text = String(g.userInventory.getCountResourceById(_info.id));
                 _txtWhite.text = '/' + String(_info.count);
-
                 _txtWhite.x = 23;
                 _txtRed.x = 50 -_txtWhite.textBounds.width ;
             }
         }
+    }
+
+    public function deleteIt():void {
+        _im = null;
+        _info = null;
+        _txtWhite = null;
+        _txtRed = null;
+        _f = null;
+        _galo4ka = null;
+        _bg = null;
+        source.deleteIt();
+        source = null;
     }
 }
 }

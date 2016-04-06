@@ -3,7 +3,6 @@
  */
 package windows {
 import com.greensock.TweenMax;
-
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Image;
@@ -24,6 +23,7 @@ public class WindowMain {
     protected var _callbackClickBG:Function;
     public var needAddToPool:Boolean = false;
     protected var _windowType:String;
+    protected var _isShowed:Boolean = false;
     public var isCashed:Boolean = false;
 
     public function WindowMain() {
@@ -57,8 +57,9 @@ public class WindowMain {
 
         g.cont.windowsCont.addChild(_source);
         _source.scaleX = _source.scaleY = .8;
-        TweenMax.to(_source, .2, {scaleX:1, scaleY:1});
+        TweenMax.to(_source, .2, {scaleX:1, scaleY:1, alpha: 1});
         trace('window showIt:: ' + _windowType);
+        _isShowed = true;
     }
 
     public function hideIt():void {
@@ -68,11 +69,17 @@ public class WindowMain {
         else onHideAnimation();
     }
 
+    public function hideItQuick():void {
+        onHideAnimation();
+    }
+
     private function onHideAnimation():void {
+        _isShowed = false;
         if (g.cont.windowsCont.contains(_source)) g.cont.windowsCont.removeChild(_source);
         g.cont.addGameContListener(true);
-        deleteIt();
-        g.windowsManager.onHideWindow();
+        removeBlackBG();
+        if (!isCashed) deleteIt();
+        g.windowsManager.onHideWindow(this);
     }
 
     protected function deleteIt():void {
@@ -82,7 +89,6 @@ public class WindowMain {
             _btnExit.deleteIt();
             _btnExit = null;
         }
-        removeBlackBG();
         _callbackClickBG = null;
         _source.dispose();
         _source = null;
@@ -148,6 +154,8 @@ public class WindowMain {
         }
     }
 
-    public function releaseFromCash():void {}
+    public function releaseFromCash():void {
+        showIt();
+    }
 }
 }

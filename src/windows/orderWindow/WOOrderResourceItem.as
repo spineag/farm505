@@ -24,6 +24,7 @@ import windows.WOComponents.CartonBackgroundIn;
 
 public class WOOrderResourceItem {
     public var source:CSprite;
+    private var _bg:CartonBackgroundIn;
     private var _check:Image;
     private var _countTxt:TextField;
     private var _countRed:TextField;
@@ -34,9 +35,8 @@ public class WOOrderResourceItem {
 
     public function WOOrderResourceItem() {
         source = new CSprite();
-        var bg:CartonBackgroundIn = new CartonBackgroundIn(93, 93);
-        source.addChild(bg);
-//        source.touchable = false;
+        _bg = new CartonBackgroundIn(93, 93);
+        source.addChild(_bg);
         _onHover = false;
         _check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _check.x = 69;
@@ -113,6 +113,18 @@ public class WOOrderResourceItem {
     private function outCallback():void {
         _onHover = false;
         g.resourceHint.hideIt();
+    }
+
+    public function deleteIt():void {
+        source.removeChild(_bg);
+        _bg.deleteIt();
+        _bg = null;
+        source.deleteIt();
+        _countTxt = null;
+        _countRed = null;
+        _image = null;
+        _check = null;
+        source = null;
     }
 }
 }

@@ -3,41 +3,30 @@
  */
 package windows.shop {
 import build.AreaObject;
-import build.AreaObject;
 import build.WorldObject;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.tree.Tree;
-
 import com.greensock.TweenMax;
 import com.greensock.easing.Quad;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
-
 import resourceItem.UseMoneyMessage;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
-
 import tutorial.TutorialAction;
-
 import ui.xpPanel.XPStar;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
@@ -64,9 +53,12 @@ public class ShopItem {
     private var _txtBtnBuyGreen:TextField;
     private var _txtAvailable:TextField;
     private var _shopLimitSprite:Sprite;
+    private var _wo:WOShop;
+    private var _bg:CartonBackgroundIn;
     private var g:Vars = Vars.getInstance();
 
-    public function ShopItem(data:Object) {
+    public function ShopItem(data:Object, wo:WOShop) {
+        _wo = wo;
         _data = data;
         if (!_data) {
             Cc.error('ShopItem:: empty _data');
@@ -74,40 +66,56 @@ public class ShopItem {
             return;
         }
         source = new CSprite();
-        var bg:CartonBackgroundIn = new CartonBackgroundIn(145, 221);
-        source.addChild(bg);
+        _bg = new CartonBackgroundIn(145, 221);
+        source.addChild(_bg);
 
         _nameTxt = new TextField(145, 60, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _nameTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_nameTxt);
-        source.endClickCallback = onClick;
+        _nameTxt.touchable = false;
 
         _countTxt = new TextField(145, 60, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _countTxt.y = 120;
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_countTxt);
+        _countTxt.visible = false;
+        _countTxt.touchable = false;
 
         _countBoxTxt = new TextField(100, 30, '', g.allData.fonts['BloggerBold'], 12, Color.YELLOW);
         _countBoxTxt.y = 130;
         _countBoxTxt.x = 20;
         _countBoxTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_countBoxTxt);
-
-        _lockedSprite = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_lock'));
-        _lockedSprite.addChild(im);
-        _lockedSprite.x = 1;
-        _lockedSprite.y = 75;
-        source.addChild(_lockedSprite);
-        _lockedSprite.visible = false;
+        _countBoxTxt.visible = false;
+        _countBoxTxt.touchable = false;
 
         _txtAvailable = new TextField(145, 80, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtAvailable.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtAvailable.y = 135;
         source.addChild(_txtAvailable);
+        _txtAvailable.visible = false;
+        _txtAvailable.touchable = false;
 
+        source.endClickCallback = onClick;
+        setInfo();
+    }
+
+    private function createLockedSprite():void {
+        if (_lockedSprite) return;
+        _lockedSprite = new Sprite();
+        _lockedSprite.touchable = false;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_lock'));
+        _lockedSprite.addChild(im);
+        _lockedSprite.x = 1;
+        _lockedSprite.y = 75;
+        source.addChild(_lockedSprite);
+    }
+
+    private function createShopLimitSprite():void {
+        if (_shopLimitSprite) return;
         _shopLimitSprite = new Sprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_limit'));
+        _shopLimitSprite.touchable = false;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_limit'));
         im.x = -7;
         _shopLimitSprite.addChild(im);
         var txt:TextField = new TextField(145, 26, 'Достигнут лимит', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
@@ -116,57 +124,60 @@ public class ShopItem {
         _shopLimitSprite.addChild(txt);
         _shopLimitSprite.y = 150;
         source.addChild(_shopLimitSprite);
-        _shopLimitSprite.visible = false;
-
-        createButtons();
-        setInfo();
     }
 
-    private function createButtons():void {
-        _btnBuyBlue = new CButton();
-        _btnBuyBlue.addButtonTexture(126, 40, CButton.BLUE, true);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-        MCScaler.scale(im, 35, 35);
-        im.x = 85;
-        im.y = 4;
-        _btnBuyBlue.addChild(im);
-        im.filter = ManagerFilters.SHADOW_TINY;
-        _txtBtnBuyBlue = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _txtBtnBuyBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _btnBuyBlue.addChild(_txtBtnBuyBlue);
-        _btnBuyBlue.x = 74;
-        _btnBuyBlue.y = 190;
-        source.addChild(_btnBuyBlue);
-        _btnBuyBlue.visible = false;
-        _btnBuyBlue.clickCallback = onClick;
-
-        _btnBuyGreen = new CButton();
-        _btnBuyGreen.addButtonTexture(126, 40, CButton.GREEN, true);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-        MCScaler.scale(im, 35, 35);
-        im.x = 85;
-        im.y = 4;
-        _btnBuyGreen.addChild(im);
-        im.filter = ManagerFilters.SHADOW_TINY;
-        _txtBtnBuyGreen = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _txtBtnBuyGreen.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-        _btnBuyGreen.addChild(_txtBtnBuyGreen);
-        _btnBuyGreen.x = 74;
-        _btnBuyGreen.y = 190;
-        source.addChild(_btnBuyGreen);
-        _btnBuyGreen.visible = false;
-        _btnBuyGreen.clickCallback = onClick;
-
-        _btnActivationYellow = new CButton();
-        _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
-        var txt:TextField = new TextField(125, 40, 'УСТАНОВИТЬ', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
-        _btnActivationYellow.addChild(txt);
-        _btnActivationYellow.x = 74;
-        _btnActivationYellow.y = 190;
-        source.addChild(_btnActivationYellow);
-        _btnActivationYellow.visible = false;
-        _btnActivationYellow.clickCallback = onClick;
+    private function createButtons(type:String):void {
+        var im:Image;
+        switch (type) {
+            case 'blue':
+                if (_btnBuyBlue) return;
+                _btnBuyBlue = new CButton();
+                _btnBuyBlue.addButtonTexture(126, 40, CButton.BLUE, true);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+                MCScaler.scale(im, 35, 35);
+                im.x = 85;
+                im.y = 4;
+                _btnBuyBlue.addChild(im);
+                im.filter = ManagerFilters.SHADOW_TINY;
+                _txtBtnBuyBlue = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                _txtBtnBuyBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+                _btnBuyBlue.addChild(_txtBtnBuyBlue);
+                _btnBuyBlue.x = 74;
+                _btnBuyBlue.y = 190;
+                source.addChild(_btnBuyBlue);
+                _btnBuyBlue.clickCallback = onClick;
+                break;
+            case 'green':
+                if (_btnBuyGreen) return;
+                _btnBuyGreen = new CButton();
+                _btnBuyGreen.addButtonTexture(126, 40, CButton.GREEN, true);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+                MCScaler.scale(im, 35, 35);
+                im.x = 85;
+                im.y = 4;
+                _btnBuyGreen.addChild(im);
+                im.filter = ManagerFilters.SHADOW_TINY;
+                _txtBtnBuyGreen = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                _txtBtnBuyGreen.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+                _btnBuyGreen.addChild(_txtBtnBuyGreen);
+                _btnBuyGreen.x = 74;
+                _btnBuyGreen.y = 190;
+                source.addChild(_btnBuyGreen);
+                _btnBuyGreen.clickCallback = onClick;
+                break;
+            case 'yellow':
+                if (_btnActivationYellow) return;
+                _btnActivationYellow = new CButton();
+                _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
+                var txt:TextField = new TextField(125, 40, 'УСТАНОВИТЬ', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+                _btnActivationYellow.addChild(txt);
+                _btnActivationYellow.x = 74;
+                _btnActivationYellow.y = 190;
+                source.addChild(_btnActivationYellow);
+                _btnActivationYellow.clickCallback = onClick;
+                break;
+        }
     }
 
     private function createCouponeButtons():void {
@@ -254,6 +265,7 @@ public class ShopItem {
             _imCont.addChild(_im);
             _imCont.x = 72;
             _imCont.y = 90;
+            _imCont.touchable = false;
             source.addChildAt(_imCont, 1);
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
@@ -261,27 +273,22 @@ public class ShopItem {
         }
 
         if (_data.buildType == BuildType.CAT) {
-            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                _shopLimitSprite.visible = true;
-            } else {
+            if (g.managerCats.curCountCats < g.managerCats.maxCountCats) {
                 _countCost = g.dataCats[g.managerCats.curCountCats].cost;
                 _data.cost = _countCost;
             }
-
         } else {
             _countCost = _data.cost;
         }
-
         if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE)
                 && g.userInventory.decorInventory[_data.id]) {
             _state = STATE_FROM_INVENTORY;
             _countCost = 0;
             _nameTxt.text = String(_data.name);
-            _btnActivationYellow.visible = true;
+           createButtons('yellow');
         } else {
             _state = STATE_BUY;
         }
-
         checkState();
     }
 
@@ -291,20 +298,15 @@ public class ShopItem {
         var maxCount:int;
         var curCount:int;
         var maxCountAtCurrentLevel:int = 0;
-        _shopLimitSprite.y = 150;
         _nameTxt.text = '';
         _countTxt.text = '';
         _countBoxTxt.text = '';
-        if (_lockedSprite) _lockedSprite.visible = false;
-        if (_btnActivationYellow) _btnActivationYellow.visible = false;
-        if (_btnBuyBlue) _btnBuyBlue.visible = false;
-        if (_btnBuyGreen) _btnBuyGreen.visible = false;
-        if (_shopLimitSprite) _shopLimitSprite.visible = false;
 
         if (!_data) return;
         if (_data.buildType == BuildType.FABRICA ) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                _lockedSprite.visible = true;
+                createLockedSprite();
+                _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _nameTxt.text = _data.name;
@@ -317,26 +319,31 @@ public class ShopItem {
                     } else break;
                 }
                 if (arr.length == _data.blockByLevel.length) {
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
-                } else if (arr.length >=maxCountAtCurrentLevel) {
+                } else if (arr.length >= maxCountAtCurrentLevel) {
                     _nameTxt.text = _data.name;
+                    _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[maxCountAtCurrentLevel]) + ' уровне';
+                    _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(_data.blockByLevel.length);
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _shopLimitSprite.y = 50;
                 } else {
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
-                    _btnBuyBlue.visible = true;
+                    createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                _lockedSprite.visible = true;
+                createLockedSprite();
+                _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _nameTxt.text = _data.name;
@@ -348,14 +355,16 @@ public class ShopItem {
                     } else break;
                 }
                 if (arr.length >= maxCountAtCurrentLevel) {
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                 } else {
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
-                    _btnBuyBlue.visible = true;
+                    createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
@@ -367,7 +376,8 @@ public class ShopItem {
                     arr = g.townArea.getCityObjectsById(_data.id);
                 }
                 if (_data.blockByLevel[0] > g.user.level) {
-                    _lockedSprite.visible = true;
+                    createLockedSprite();
+                    _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
@@ -375,16 +385,17 @@ public class ShopItem {
                     if (_state == STATE_FROM_INVENTORY) {
                         _countCost = 0;
                         _nameTxt.text = _data.name;
+                        _countBoxTxt.visible = true;
                         _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(g.userInventory.decorInventory[_data.id].count);
-                        _btnActivationYellow.visible = true;
+                        createButtons('yellow');
                     } else {
                         _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
                             if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
-                                _btnBuyBlue.visible = true;
+                                createButtons('blue');
                                 _txtBtnBuyBlue.text = String(_countCost);
                             } else if(_data.currency[0] == DataMoney.HARD_CURRENCY) {
                                 _countCost = _data.cost;
-                                _btnBuyGreen.visible = true;
+                                createButtons('green');
                                 _txtBtnBuyGreen.text = String(_countCost);
                             } else {
                                 createCouponeButtons();
@@ -397,7 +408,8 @@ public class ShopItem {
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
-                    _lockedSprite.visible = true;
+                    createLockedSprite();
+                    _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(dataFarm.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
@@ -409,18 +421,21 @@ public class ShopItem {
                         curCount += (arr[i] as Farm).arrAnimals.length;
                     }
                     if (maxCount == 0) {
+                        _txtAvailable.visible = true;
                         _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
                         _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         _nameTxt.text = _data.name;
                     } else if (curCount >= maxCount) {
-                        _shopLimitSprite.visible = true;
+                        createShopLimitSprite();
                         _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         _nameTxt.text = _data.name;
+                        _countTxt.visible = true;
                         _countTxt.text = String(maxCount) + '/' + String(maxCount);
                         _countCost = 0;
                     } else {
-                        _btnBuyBlue.visible = true;
+                        createButtons('blue');
                         _nameTxt.text = _data.name;
+                        _countTxt.visible = true;
                         _countTxt.text = String(curCount) + '/' + String(maxCount);
                         if (curCount < dataFarm.maxAnimalsCount) {
                             _txtBtnBuyBlue.text = _data.cost;
@@ -434,7 +449,8 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.TREE) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                _lockedSprite.visible = true;
+                createLockedSprite();
+                _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
             } else {
@@ -447,14 +463,16 @@ public class ShopItem {
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(maxCount) + '/' + String(maxCount);
                 } else {
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(curCount) + '/' + String(maxCount);
-                    _btnBuyBlue.visible = true;
+                    createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
@@ -469,14 +487,16 @@ public class ShopItem {
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
-                    _shopLimitSprite.visible = true;
+                    createShopLimitSprite();
                     _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(maxCount) + '/' + String(maxCount);
                 } else {
                     _nameTxt.text = _data.name;
+                    _countTxt.visible = true;
                     _countTxt.text = String(curCount) + '/' + String(maxCount);
-                    _btnBuyBlue.visible = true;
+                    createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
@@ -484,14 +504,16 @@ public class ShopItem {
             curCount = g.managerCats.curCountCats;
             maxCount = g.managerCats.maxCountCats;
             if (curCount >= maxCount) {
-                _shopLimitSprite.visible = true;
+                createShopLimitSprite();
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _nameTxt.text = _data.name;
+                _countTxt.visible = true;
                 _countTxt.text = String(maxCount) + '/' + String(maxCount);
             } else {
                 _nameTxt.text = _data.name;
+                _countTxt.visible = true;
                 _countTxt.text = String(curCount) + '/' + String(maxCount);
-                _btnBuyBlue.visible = true;
+                createButtons('blue');
                 _txtBtnBuyBlue.text = String(_countCost);
             }
         }
@@ -499,23 +521,9 @@ public class ShopItem {
         if (_nameTxt.text == '') _nameTxt.text = _data.name;
     }
 
-    public function clearIt():void {
-        _im.filter = null;
-        while (_imCont.numChildren) _imCont.removeChildAt(0);
-        while (source.numChildren)  source.removeChildAt(0);
-        if (_lockedSprite){
-            while (_lockedSprite.numChildren) {
-                _lockedSprite.removeChildAt(0);
-            }
-        }
-        _imCont = null;
-        _lockedSprite = null;
-        source = null;
-    }
-
     private function onClick():void {
         var i:int;
-        if (_shopLimitSprite.visible) return;
+        if (_shopLimitSprite) return;
 
         if (_data.buildType == BuildType.CAT) {
             _countCost = g.dataCats[g.managerCats.curCountCats].cost;
@@ -575,7 +583,6 @@ public class ShopItem {
             }
         } else {
             if (g.user.softCurrencyCount < _countCost){
-//                g.woNoResources.showItMoney(DataMoney.SOFT_CURRENCY,_countCost-g.user.softCurrencyCount,onClick);
                 var ob2:Object = {};
                 ob2.currency = DataMoney.SOFT_CURRENCY;
                 ob2.count = _countCost - g.user.softCurrencyCount;
@@ -597,19 +604,23 @@ public class ShopItem {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
                 g.managerTutorial.checkTutorialCallback();
             }
-            g.woShop.hideIt();
-            g.toolsModifier.startMove(build as AreaObject, afterMove);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
+            (build as AreaObject).countShopCost = _countCost;
+            g.townArea.startMoveAfterShop(build as AreaObject);
+//            g.toolsModifier.startMove(build as AreaObject, _countCost);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.woShop.hideIt();
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             if (_state == STATE_FROM_INVENTORY) {
-                g.toolsModifier.startMoveTail(build, afterMoveFromInventory, true);
+                g.townArea.startMoveAfterShop(build as AreaObject, true);
                 g.buyHint.hideIt();
             } else {
-                g.toolsModifier.startMoveTail(build, afterMove, true);
+                (build as AreaObject).countShopCost = _countCost;
+                g.townArea.startMoveAfterShop(build as AreaObject);
+//                g.toolsModifier.startMoveTail(build, _countCost, true);
             }
         } else if (_data.buildType == BuildType.CAT) {
             g.managerCats.onBuyCatFromShop();
@@ -624,11 +635,11 @@ public class ShopItem {
         } else if (_data.buildType != BuildType.ANIMAL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
-            g.woShop.hideIt();
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if(_data.buildType == BuildType.FARM) {
-                g.woShop.setAnimalClick = true;
+                _wo.setAnimalClick = true;
             }
             if (build is Tree) (build as Tree).showShopView();
             if (build is Fabrica) (build as Fabrica).showShopView();
@@ -640,10 +651,12 @@ public class ShopItem {
                 }
             }
             if (_state == STATE_FROM_INVENTORY) {
-                g.toolsModifier.startMove(build, afterMoveFromInventory, true);
+                g.townArea.startMoveAfterShop(build as AreaObject, true);
                 g.buyHint.hideIt();
             } else {
-                g.toolsModifier.startMove(build, afterMove, true);
+                (build as AreaObject).countShopCost = _countCost;
+                g.townArea.startMoveAfterShop(build as AreaObject);
+//                g.toolsModifier.startMove(build, _countCost, true);
             }
         } else {
             //додаємо на відповідну ферму
@@ -676,78 +689,11 @@ public class ShopItem {
                     (arr[i] as Farm).addAnimal();
                     checkState();
                     g.bottomPanel.cancelBoolean(false);
-                    g.woShop.updateMoneyCounts();
+                    _wo.updateMoneyCounts();
                     return;
                 }
             }
-
             Cc.error('ShopItem:: no such Farm :(');
-
-        }
-    }
-
-    private function afterMove(build:AreaObject,_x:Number, _y:Number):void {
-        g.toolsModifier.modifierType = ToolsModifier.NONE;
-        if (_data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.FARM || _data.buildType == BuildType.FABRICA) {//_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
-            g.bottomPanel.cancelBoolean(false);
-        }
-        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
-            var cont:Sprite = new Sprite();
-            cont.x = _x;
-            cont.y = _y;
-            g.cont.gameCont.addChild(cont);
-            var localPoint:Point = new Point( cont.x,cont.y);
-            localPoint = cont.parent.localToGlobal(localPoint);
-            new XPStar(localPoint.x, localPoint.y, _data.xpForBuild);
-        }
-        (build as WorldObject).source.filter = null;
-        if (_data.currency.length > 1) {
-            for (var i:int = 0; i< _data.currency.length; i++){
-                g.userInventory.addMoney(_data.currency[i], -_data.cost[i]);
-            }
-            if (build is DecorTail) {
-                g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
-            } else {
-                g.townArea.pasteBuild(build, _x, _y,true,false,true);
-            }
-            return;
-        }else {
-            if (_data.currency != DataMoney.SOFT_CURRENCY) {
-                g.userInventory.addMoney(_data.currency, -_countCost);
-                if (build is DecorTail) {
-                    g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
-                } else {
-                    g.townArea.pasteBuild(build, _x, _y,true,false,true);
-                }
-                showSmallBuildAnimations(build, DataMoney.HARD_CURRENCY, -_countCost);
-                g.bottomPanel.cancelBoolean(false);
-                g.buyHint.hideIt();
-                return;
-            } else {
-                g.userInventory.addMoney(_data.currency, -_countCost);
-            }
-
-        }
-        if (build is Tree) (build as Tree).removeShopView();
-        if (build is Fabrica) (build as Fabrica).removeShopView();
-        if (build is DecorTail) {
-            g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
-        } else {
-            g.townArea.pasteBuild(build, _x, _y);
-        }
-        showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, -_countCost);
-    }
-
-    private function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void {
-//        g.bottomPanel.cancelBoolean(false);
-        var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
-        var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
-        (build as WorldObject).dbBuildingId = dbId;
-        g.directServer.removeFromInventory(dbId, p.x, p.y, null);
-        if (build is DecorTail) {
-            g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
-        } else {
-            g.townArea.pasteBuild(build, _x, _y);
         }
     }
 
@@ -759,7 +705,7 @@ public class ShopItem {
             curCount = g.managerCats.curCountCats;
             maxCount = g.managerCats.maxCountCats;
             if (curCount == maxCount) {
-                _shopLimitSprite.visible = true;
+                createShopLimitSprite();
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _btnBuyBlue.visible = false;
                 _nameTxt.text = _data.name;
@@ -771,7 +717,7 @@ public class ShopItem {
                 _txtBtnBuyBlue.text = String(g.dataCats[g.managerCats.curCountCats].cost);
             }
         }
-        g.woShop.updateMoneyCounts();
+        _wo.updateMoneyCounts();
     }
 
     private function showSmallAnimations(moneyType:int, count:int):void {
@@ -788,10 +734,44 @@ public class ShopItem {
         TweenMax.to(_imCont, .3, {scaleX: 1, scaleY:1, ease:Quad.easeIn});
     }
 
-    private function showSmallBuildAnimations(b:AreaObject, moneyType:int, count:int):void {
-        var p:Point = new Point((b as WorldObject).source.x, (b as WorldObject).source.y);
-        p = g.cont.contentCont.localToGlobal(p);
-        new UseMoneyMessage(p, moneyType, count, .3);
+    public function deleteIt():void {
+        _im = null;
+        _imCont = null;
+        _nameTxt = null;
+        _countTxt = null;
+        _countBoxTxt = null;
+        _data = null;
+        _lockedSprite = null;
+        if (_btnBuyGreen) {
+            source.removeChild(_btnBuyGreen);
+            _btnBuyGreen.deleteIt();
+            _btnBuyGreen = null;
+        }
+        if (_btnBuyBlue) {
+            source.removeChild(_btnBuyBlue);
+            _btnBuyBlue.deleteIt();
+            _btnBuyBlue = null;
+        }
+        if (_btnBuyCoupone) {
+            source.removeChild(_btnBuyCoupone);
+            _btnBuyCoupone.deleteIt();
+            _btnBuyCoupone = null;
+        }
+        if (_btnActivationYellow) {
+            source.removeChild(_btnActivationYellow);
+            _btnActivationYellow.deleteIt();
+            _btnActivationYellow = null;
+        }
+        _txtBtnBuyBlue = null;
+        _txtBtnBuyGreen = null;
+        _txtAvailable = null;
+        _shopLimitSprite = null;
+        _wo = null;
+        source.removeChild(_bg);
+        _bg.deleteIt();
+        _bg = null;
+        source.deleteIt();
+        source = null;
     }
 }
 }

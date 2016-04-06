@@ -3,26 +3,16 @@
  */
 package windows.buyCurrency {
 import data.DataMoney;
-
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.events.Event;
 import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WOComponents.Birka;
-
 import windows.WOComponents.CartonBackground;
-
-import windows.Window;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;

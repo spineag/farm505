@@ -181,7 +181,7 @@ public class MainBottomPanel {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
                 g.toolsPanel.hideRepository();
-                g.woShop.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, 1);
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply();
@@ -243,7 +243,7 @@ public class MainBottomPanel {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
-                g.woOrder.showIt();
+                g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
                 g.toolsPanel.hideRepository();
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;

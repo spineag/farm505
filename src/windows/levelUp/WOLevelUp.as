@@ -3,33 +3,17 @@
  */
 package windows.levelUp {
 import data.BuildType;
-
 import flash.geom.Rectangle;
-
 import manager.ManagerFilters;
-
-import manager.Vars;
-
 import starling.animation.Tween;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import tutorial.TutorialAction;
-
 import utils.CButton;
-
-import utils.CSprite;
 import utils.MCScaler;
-
-import windows.WOComponents.WOButtonTexture;
-
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -136,7 +120,7 @@ public class WOLevelUp extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         if (g.user.level >= 17) g.couponePanel.openPanel(true);
-        if (g.user.level >= 17) g.woShop.openCoupone(true);
+//        if (g.user.level >= 17) g.woShop.openCoupone(true);
         _txtLevel.text = String(g.user.level);
         createList();
         _source.y -= 40;

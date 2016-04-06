@@ -294,11 +294,19 @@ public class Train extends AreaObject{
             if (_stateBuild == STATE_READY) {
                 onOut();
                 if (list.length) {
-                    g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
+                    if (_stateBuild == Train.STATE_READY) {
+                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
+                    } else {
+                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, null, list, this, _counter);
+                    }
                 } else {
                     var f1:Function = function(ob:Object):void {
                         fillList(ob);
-                        g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
+                        if (_stateBuild == Train.STATE_READY) {
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
+                        } else {
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
+                        }
                     };
                     g.directServer.getTrainPack(g.visitedUser.userSocialId, f1);
                 }
@@ -319,29 +327,35 @@ public class Train extends AreaObject{
             return;
         }
         if (_stateBuild == STATE_BUILD) {
-//                        g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + _source.y * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
-//
             g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/9) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
             g.hint.hideIt();
         }
         if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_READY || _stateBuild == STATE_WAIT_BACK) {
             if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-//                g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                onClickTrainBack();
-
                 if (list.length) {
                         onOut();
-                        g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
+                    if (_stateBuild == Train.STATE_READY) {
+                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
+                    } else {
+                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
+                    }
                     } else {
                         onOut();
-                        g.directServer.getTrainPack(g.user.userSocialId, fillList);
-                        g.woTrain.showItWithParams(list, this, _stateBuild, _counter);
+                        var f2:Function = function(ob:Object):void {
+                            fillList(ob);
+                            if (_stateBuild == Train.STATE_READY) {
+                                g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
+                            } else {
+                                g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
+                            }
+                        };
+                        g.directServer.getTrainPack(g.user.userSocialId, f2);
                     }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -491,13 +505,13 @@ public class Train extends AreaObject{
                 g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                 _counter = TIME_WAIT;
                 leaveTrain();
-                if (g.woTrain) g.woTrain.onClickExit();
+                g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
             } else if (_stateBuild == STATE_WAIT_BACK) {
                 _stateBuild = STATE_READY;
                 g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                 _counter = TIME_READY;
                 arriveTrain();
-                g.woTrain.onClickExit();
+                g.windowsManager.hideWindow(WindowsManager.WO_TRAIN_ORDER);
             } else {
                 Cc.error('renderTrainWork:: wrong _stateBuild');
             }
@@ -529,10 +543,6 @@ public class Train extends AreaObject{
     private function onArrivedKorzina():void {
         _arriveAnim.showKorzina();
         _armature.animation.gotoAndStop('work', 0);
-    }
-
-    private function onClickTrainBack():void {
-        g.woTrainOrder.callbackTrain(backTrain);
     }
 
     private function backTrain():void {

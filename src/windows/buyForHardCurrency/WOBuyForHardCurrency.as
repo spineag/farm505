@@ -3,21 +3,11 @@
  */
 package windows.buyForHardCurrency {
 import manager.ManagerFilters;
-
 import starling.display.Image;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
-import utils.MCScaler;
-
-import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WindowBackground;
-
-import windows.Window;
 import windows.WindowMain;
 import windows.WindowsManager;
 
