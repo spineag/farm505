@@ -4,25 +4,30 @@
 package tutorial {
 import com.greensock.TweenMax;
 
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 import manager.Vars;
+import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
 
-import windows.WOComponents.HintBackground;
-
 public class CutSceneTextBubble {
+    public static var SMALL:int = 1;
+    public static var MIDDLE:int = 2;
+    public static var BIG:int = 3;
+
     private var _source:Sprite;
-    private var _bubble:HintBackground;
     private var _parent:Sprite;
     private var _btn:CButton;
-    private var _btnTxt:TextField;
+    private var _type:int;
+    private var _dustRectangle:DustRectangle;
     private var g:Vars = Vars.getInstance();
 
-    public function CutSceneTextBubble(p:Sprite) {
+    public function CutSceneTextBubble(p:Sprite, type:int) {
+        _type = type;
         _parent = p;
         _source = new Sprite();
         _source.y = -130;
@@ -31,70 +36,93 @@ public class CutSceneTextBubble {
     }
 
     public function showBubble(st:String, btnSt:String, callback:Function):void {
-        createBubble();
-        _source.addChild(_bubble);
-        _source.scaleX = _source.scaleY = .3;
-        _bubble.addTextField(18);
-        _bubble.setText(st);
         if (callback != null) addButton(btnSt, callback);
-        TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1});
+        createBubble(st);
+        _source.scaleX = _source.scaleY = .3;
+        TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete:addParticles});
     }
 
     private function addButton(btnSt:String, callback:Function):void {
         _btn = new CButton();
         _btn.addButtonTexture(200, 30, CButton.BLUE, true);
-        _btn.x = 170;
-        _btn.y = 40;
-        _source.addChild(_btn);
         _btn.clickCallback = callback;
-        _btnTxt = new TextField(200, 30, btnSt, g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        var _btnTxt:TextField = new TextField(200, 30, btnSt, g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(_btnTxt);
     }
 
-    private function createBubble():void {
-        directHide();
-        _bubble = new HintBackground(300, 150, HintBackground.SMALL_TRIANGLE, HintBackground.LEFT_BOTTOM);
+    private function createBubble(st:String):void {
+        var im:Image;
+        var txt:TextField;
+        switch (_type) {
+            case BIG:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
+                im.x = -12;
+                im.y = -210;
+                txt = new TextField(278, 132, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+                txt.x = 62;
+                txt.y = -180;
+                if (_btn) {
+                    _btn.x = 203;
+                    _btn.y = -10;
+                }
+                break;
+            case MIDDLE:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_2'));
+                im.x = -12;
+                im.y = -169;
+                txt = new TextField(270, 106, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+                txt.x = 62;
+                txt.y = -142;
+                if (_btn) {
+                    _btn.x = 203;
+                    _btn.y = -10;
+                }
+                break;
+            case SMALL:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
+                im.x = -15;
+                im.y = -116;
+                txt = new TextField(268, 80, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+                txt.x = 62;
+                txt.y = -94;
+                if (_btn) {
+                    _btn.x = 203;
+                    _btn.y = 0;
+                }
+                break;
+        }
+        _source.addChild(im);
+        _source.addChild(txt);
+        if (_btn) _source.addChild(_btn);
     }
 
     public function hideBubble(f:Function):void {
-        if (_bubble) {
-            TweenMax.to(_source, .1, {scaleX: .1, scaleY: .1, onComplete: directHide, onCompleteParams: [f]});
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
         }
+        TweenMax.to(_source, .2, {scaleX: .1, scaleY: .1, onComplete: directHide, onCompleteParams: [f]});
     }
 
     private function directHide(f:Function = null):void {
-        if (_bubble) {
-            if (_source.contains(_bubble)) _source.removeChild(_bubble);
-            _bubble.deleteIt();
-            _bubble = null;
-        }
+        deleteIt();
         if (f != null) {
             f.apply();
         }
     }
 
-    public function reChangeBubble(st:String, btnSt:String, callback:Function):void {
-        if (_bubble) {
-            TweenMax.to(_source, .2, {scaleX: .1, scaleY: .1, onComplete: onReChange, onCompleteParams: [st, btnSt, callback]});
-        } else {
-            showBubble(st, btnSt, callback);
+    private function addParticles():void {
+        if (_btn) {
+            var p:Point = new Point();
+            p.x = _btn.x - _btn.width/2 - 5;
+            p.y = _btn.y - _btn.height/2 - 5;
+            p = _source.localToGlobal(p);
+            _dustRectangle = new DustRectangle(g.cont.popupCont, _btn.width + 10, _btn.height + 10, p.x, p.y);
         }
     }
 
-    private function onReChange(st:String, btnSt:String, callback:Function):void {
-        if (!_btn) {
-            addButton(btnSt, callback);
-        } else {
-            _btnTxt.text = btnSt;
-            _btn.clickCallback = callback;
-        }
-        _bubble.setText(st);
-        TweenMax.to(_source, .3, {scaleX: 1, scaleY: 1});
-    }
-
-    public function deleteIt():void {
-        directHide();
+    private function deleteIt():void {
         if (_parent.contains(_source)) _parent.removeChild(_source);
         if (_btn) {
             if (_source.contains(_btn)) _source.removeChild(_btn);

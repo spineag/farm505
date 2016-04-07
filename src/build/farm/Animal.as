@@ -130,7 +130,7 @@ public class Animal {
     public function addArrow():void {
         _rect = source.getBounds(source);
         removeArrow();
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source, 1);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.animateAtPosition(0, _rect.y);
     }
 
@@ -238,6 +238,11 @@ public class Animal {
         } else {
             source.filter = null;
             g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
+                removeArrow();
+                g.mouseHint.hideIt();
+                g.timerHint.addArrow();
+            }
         }
     }
 
@@ -259,7 +264,6 @@ public class Animal {
         g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
     }
 
-
     private function countEnterFrameMouseHint():void {
         _frameCounterMouseHint--;
         if (_frameCounterMouseHint <= 5){
@@ -270,14 +274,18 @@ public class Animal {
                 } else if (_state == WORK) g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
             } else g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
         }
-        if (_frameCounterMouseHint <= 0) {
+        if (_frameCounterMouseHint <= 0) {  // will be goon not use showing timerHint on hover
             g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
             if (_isOnHover && _state == WORK) {
                 g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
+                    removeArrow();
+                    g.mouseHint.hideIt();
+                    g.timerHint.addArrow();
+                }
             }
         }
     }
-
 
     public function get animalData():Object {
         return _data;
@@ -439,6 +447,8 @@ public class Animal {
         render();
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
             if (_tutorialCallback != null) {
+                g.timerHint.hideArrow();
+                g.timerHint.hideIt(true);
                 _tutorialCallback.apply(null, [this]);
             }
         }

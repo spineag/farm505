@@ -24,6 +24,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
+
+import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
 import ui.xpPanel.XPStar;
 import utils.CButton;
@@ -55,6 +57,7 @@ public class ShopItem {
     private var _shopLimitSprite:Sprite;
     private var _wo:WOShop;
     private var _bg:CartonBackgroundIn;
+    private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
 
     public function ShopItem(data:Object, wo:WOShop) {
@@ -98,6 +101,14 @@ public class ShopItem {
 
         source.endClickCallback = onClick;
         setInfo();
+
+        if (g.managerTutorial.isTutorial) {
+            if (_data.buildType == BuildType.ANIMAL && g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) {
+                if (g.managerTutorial.isTutorialResource(_data.id)) {
+                    addArrow();
+                }
+            }
+        }
     }
 
     private function createLockedSprite():void {
@@ -735,6 +746,10 @@ public class ShopItem {
     }
 
     public function deleteIt():void {
+        if (_imCont) {
+            TweenMax.killTweensOf(_imCont);
+        }
+        deleteArrow();
         _im = null;
         _imCont = null;
         _nameTxt = null;
@@ -772,6 +787,19 @@ public class ShopItem {
         _bg = null;
         source.deleteIt();
         source = null;
+    }
+
+    public function addArrow():void {
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
+        _arrow.animateAtPosition(73, 10);
+        _arrow.scaleIt(.7);
+    }
+
+    public function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

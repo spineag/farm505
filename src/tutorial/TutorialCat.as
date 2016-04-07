@@ -56,15 +56,28 @@ public class TutorialCat extends BasicCat {
         _source.addChildAt(im, 0);
     }
 
-    public function showBubble(st:String, stBtn:String = '', callback:Function = null, delay:Number=0):void {
+    public function showBubble(st:String, delay:Number=0):void {
+        var type:int;
+        if (st.length > 140) {
+            type = TutorialTextBubble.BIG;
+        } else if (st.length > 60) {
+            type = TutorialTextBubble.MIDDLE;
+        } else {
+            type = TutorialTextBubble.SMALL;
+        }
         if (_bubble) {
-            _bubble.showBubble(st, _isFlip, stBtn, callback);
+            _bubble.showBubble(st, _isFlip, type);
+            if (_isFlip) {
+                _bubble.setXY(20, -50);
+            } else {
+                _bubble.setXY(-20, -50);
+            }
         }
     }
 
     public function hideBubble():void {
         if (_bubble) {
-            _bubble.hideBubble();
+            _bubble.clearIt();
         }
     }
 

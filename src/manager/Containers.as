@@ -204,12 +204,6 @@ public class Containers {
             gameCont.y = newY;
         } else {
             new TweenMax(gameCont, time, {x:newX, y:newY, ease:Linear.easeOut});
-//            var tween:Tween = new Tween(gameCont, .5);
-//            tween.moveTo(newX, newY);
-//            tween.onComplete = function ():void {
-//                g.starling.juggler.remove(tween);
-//            };
-//            g.starling.juggler.add(tween);
         }
     }
 

@@ -23,7 +23,6 @@ public class CutScene {
     public function CutScene() {
         _cont = g.cont.popupCont;
         _source = new Sprite();
-        _bubble = new CutSceneTextBubble(_source);
         _xStart = -65;
         _xEnd = 85;
         _armature = g.allData.factory['tutorialCatBig'].buildArmature('cat');
@@ -41,15 +40,26 @@ public class CutScene {
     }
 
     private function showBubble(st:String, stBtn:String, callback:Function):void {
+        if (st.length < 100) {
+            _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE);
+        } else {
+            _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG);
+        }
         _bubble.showBubble(st, stBtn, callback);
     }
 
     public function reChangeBubble(st:String, stBtn:String, callback:Function):void {
-        _bubble.reChangeBubble(st, stBtn, callback);
+        var f:Function = function():void {
+            showBubble(st, stBtn, callback);
+        };
+        _bubble.hideBubble(f);
+        _bubble = null;
     }
 
     public function hideIt(f:Function):void {
         _bubble.hideBubble(f);
+        _bubble = null;
+        TweenMax.to(_source, .3, {x:_xStart});
     }
 
     private var label:String;
@@ -72,10 +82,7 @@ public class CutScene {
     }
 
     public function deleteIt():void {
-        if (_bubble) {
-            _bubble.deleteIt();
-            _bubble = null;
-        }
+        _bubble = null;
         if (_source) {
             _cont.removeChild(_source);
             _source.removeChild(_armature.display as Sprite);

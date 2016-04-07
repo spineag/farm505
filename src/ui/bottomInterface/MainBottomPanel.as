@@ -15,6 +15,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
+
+import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
 import user.NeighborBot;
 import user.Someone;
@@ -24,6 +26,7 @@ import utils.MCScaler;
 import windows.WOComponents.HorizontalPlawka;
 import windows.WindowsManager;
 import windows.ambar.WOAmbars;
+import windows.shop.WOShop;
 
 public class MainBottomPanel {
     private var _source:Sprite;
@@ -39,6 +42,7 @@ public class MainBottomPanel {
     private var _person:Someone;
     private var _ava:Image;
     private var _tutorialCallback:Function;
+    private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -181,7 +185,11 @@ public class MainBottomPanel {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
                 g.toolsPanel.hideRepository();
-                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, 1);
+                var shopTab:int = WOShop.VILLAGE;
+                if(g.managerTutorial.isTutorial) {
+                    if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) shopTab = WOShop.ANIMAL;
+                }
+                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply();
@@ -389,6 +397,23 @@ public class MainBottomPanel {
         }
 
         return ob;
+    }
+
+    public function addArrow(btnName:String):void {
+        switch (btnName) {
+            case 'shop':
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
+                _arrow.animateAtPosition(_shopBtn.x, _shopBtn.y - _shopBtn.height/2 - 10);
+                _arrow.scaleIt(.7);
+                break;
+        }
+    }
+
+    public function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

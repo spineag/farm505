@@ -20,8 +20,8 @@ public class WOReloadGame extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         var txt:TextField = new TextField(400,300,"Перегрузите игру","Arial",30,Color.WHITE);
-        txt.x = -150;
-        txt.y = -50;
+        txt.x = -200;
+        txt.y = -150;
         _source.addChild(txt);
     }
 

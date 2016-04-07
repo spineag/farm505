@@ -109,17 +109,17 @@ public class ManagerCats {
 
     public function goCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
         var f2:Function = function ():void {
-            try {
+//            try {
                 cat.flipIt(false);
                 cat.showFront(true);
                 cat.idleAnimation();
                 if (callback != null) {
                     callback.apply(null, callbackParams);
                 }
-            } catch (e:Error) {
-                Cc.error('ManagerCats goCatToPoint f2 error: ' + e.errorID + ' - ' + e.message);
-                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCat2');
-            }
+//            } catch (e:Error) {
+//                Cc.error('ManagerCats goCatToPoint f2 error: ' + e.errorID + ' - ' + e.message);
+//                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCat2');
+//            }
         };
 
         var f1:Function = function (arr:Array):void {

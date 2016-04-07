@@ -520,7 +520,6 @@ public class WOOrder extends WindowMain{
         _btnSell.deleteIt();
         _btnSell = null;
         if (_bubble) {
-            _bubble.hideBubble();
             _bubble.deleteIt();
             _bubble = null;
         }
@@ -654,13 +653,12 @@ public class WOOrder extends WindowMain{
 
     public function setTextForCustomer(st:String):void {
         if (_bubble) {
-            _bubble.hideBubble();
             _bubble.deleteIt();
         }
 
         if (st != '') {
             _bubble = new TutorialTextBubble(_source);
-            _bubble.showBubble(st, true);
+            _bubble.showBubble(st, true, TutorialTextBubble.BIG);
             _bubble.setXY(120, -150);
         }
     }

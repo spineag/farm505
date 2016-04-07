@@ -159,7 +159,7 @@ public class WOItemFabrica {
 
     private function addArrow():void {
         removeArrow();
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source, 1);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.animateAtPosition(source.width/2, 0);
     }
 

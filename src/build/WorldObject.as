@@ -162,7 +162,7 @@ public class WorldObject {
 //            q.y = _rect.y;
 //            q.alpha = .4;
 //            _source.addChild(q);
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source, 1);
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
             _arrow.animateAtPosition(0, _rect.y);
         }
     }
