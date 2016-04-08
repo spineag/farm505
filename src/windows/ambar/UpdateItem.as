@@ -51,7 +51,7 @@ public class UpdateItem {
         _contImage.hoverCallback = onHover;
         _contImage.outCallback = onOut;
 
-        _txtCount = new TextField(50,20,'',g.allData.fonts['BloggerBold'],14, Color.WHITE);
+        _txtCount = new TextField(80,40,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.x = 60;
         _txtCount.y = 80;

@@ -49,7 +49,6 @@ public class BuyHint {
         g.cont.hintCont.addChild(_source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
         _open = true;
-
     }
 
     private function onEnterFrame():void {

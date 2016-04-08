@@ -35,10 +35,12 @@ public class WOPapperItem {
     private var _txtResourceName:TextField;
     private var _p:Someone;
     private var _wo:WOPapper;
+    private var number:int;
 
     private var g:Vars = Vars.getInstance();
 
     public function WOPapperItem(i:int, wo:WOPapper) {
+        number = i;
         _wo = wo;
         source = new CSprite();
         _bg = new Sprite();
@@ -182,6 +184,7 @@ public class WOPapperItem {
     private function onClickVisit():void {
         if (!_data) return;
         _wo.hideIt();
+        if (_p.marketItems != null) _p.marketItems[number].visitItem = true;
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
     }
 

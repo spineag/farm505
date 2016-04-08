@@ -69,7 +69,7 @@ public class MarketHint {
         }
     }
 
-    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite): void {
+    public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,noResource:Boolean = false): void {
         var wText:int = 0;
         var wName:int = 0;
         if (!g.dataResource.objectResources[_dataId]) {
@@ -78,8 +78,14 @@ public class MarketHint {
             return;
         }
         isShowed = true;
-        var start:Point = new Point(int(sX), int(sY - 15));
-        start = source.parent.localToGlobal(start);
+        var start:Point;
+        if (!noResource) {
+            start = new Point(int(sX - 5), int(sY - 23));
+            start = source.parent.localToGlobal(start);
+        } else {
+            start = new Point(int(sX-8), int(sY-5));
+            start = source.parent.localToGlobal(start);
+        }
         _source.x = start.x + source.width/2;
         _source.y = start.y + source.height;
         if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
@@ -225,8 +231,8 @@ public class MarketHint {
                 _txtSklad.y = 75;
                 wText = _txtText.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
-                if (wText > wName) bg = new HintBackground(wText, 65, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                else bg = new HintBackground(wName, 65, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);

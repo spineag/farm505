@@ -44,7 +44,7 @@ public class LockedLandItem {
         icon.y = 12;
         icon.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(icon);
-        var txt:TextField = new TextField(150,40,String(g.user.softCurrencyCount) + '/' + String(count),g.allData.fonts['BloggerMedium'],16,Color.WHITE);
+        var txt:TextField = new TextField(150,40,String(count),g.allData.fonts['BloggerBold'],16,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         txt.x = -30;
@@ -101,7 +101,7 @@ public class LockedLandItem {
         icon.x = 41 - icon.width/2;
         icon.y = 34 - icon.height/2;
         source.addChild(icon);
-        var txt:TextField = new TextField(150,40,String(g.userInventory.getCountResourceById(id)) + '/' + String(count),g.allData.fonts['BloggerMedium'],16,Color.WHITE);
+        var txt:TextField = new TextField(150,40,String(g.userInventory.getCountResourceById(id)) + '/' + String(count),g.allData.fonts['BloggerBold'],16,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         txt.x = -40;

@@ -221,6 +221,7 @@ public class WOMarket  extends WindowMain {
                     _shiftFriend = i;
                 }
             }
+
             _curUser = params[0];
             if(_shiftFriend == 0) {
                 createMarketTabBtns(true);
@@ -229,6 +230,36 @@ public class WOMarket  extends WindowMain {
             checkPapperTimer();
         }
         super.showIt();
+        if (params[0].marketItems != null) {
+            for (i = 0; i < params[0].marketItems.length; i++) {
+                if (params[0].marketItems[i].visitItem) {
+                    if (params[0].marketItems[i].numberCell <= 8) {
+                        _countPage = 1;
+                        _shift = 0;
+                    } else if (params[0].marketItems[i].numberCell <= 16) {
+                        _countPage = 2;
+                        _shift = 4;
+                    } else if (params[0].marketItems[i].numberCell <= 24) {
+                        _countPage = 3;
+                        _shift = 8;
+                    } else if (params[0].marketItems[i].numberCell <= 32) {
+                        _countPage = 4;
+                        _shift = 12;
+                    } else if (params[0].marketItems[i].numberCell <= 40) {
+                        _shift = 16;
+                        _countPage = 5;
+                    }
+                    new TweenMax(_contItemCell, .5, {
+                        x: -_shift * 125,
+                        ease: Linear.easeNone,
+                        onComplete: function ():void {
+                        }
+                    });
+                    checkArrow();
+                    break;
+                }
+            }
+        }
     }
 
     private function onClickExit(e:Event=null):void {
@@ -507,6 +538,9 @@ public class WOMarket  extends WindowMain {
         _btnPaper.visible = false;
         _booleanPaper = true;
         _imCheck.visible = true;
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _arrItems[i].visiblePaper(true);
+        }
     }
 
     public function get booleanPaper():Boolean {
@@ -515,6 +549,9 @@ public class WOMarket  extends WindowMain {
 
     public function startPapperTimer():void {
         g.user.startUserPapperTimer();
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _arrItems[i].visiblePaper(false);
+        }
     }
 
     private function checkPapperTimer():void {
@@ -536,6 +573,9 @@ public class WOMarket  extends WindowMain {
             _imCheck.visible = true;
             _txtTimerPaper.text = '';
             g.gameDispatcher.removeFromTimer(onTimer);
+            for (var i:int = 0; i < _arrItems.length; i++) {
+                _arrItems[i].visiblePaper(true);
+            }
         }
     }
 

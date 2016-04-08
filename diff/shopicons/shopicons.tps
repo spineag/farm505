@@ -199,6 +199,10 @@
             <filename>ambar_icon.png</filename>
             <filename>apple_tree_icon.png</filename>
             <filename>arbor_icon.png</filename>
+            <filename>arch_alive_icon.png</filename>
+            <filename>arch_blue_icon.png</filename>
+            <filename>arch_pink_icon.png</filename>
+            <filename>arch_white_icon.png</filename>
             <filename>bakery_icon.png</filename>
             <filename>balabas_blue_icon.png</filename>
             <filename>barrel_icon.png</filename>
@@ -226,6 +230,10 @@
             <filename>feed_mill_icon.png</filename>
             <filename>fir_1_icon.png</filename>
             <filename>fir_2_icon.png</filename>
+            <filename>gate_alive_closed_icon.png</filename>
+            <filename>gate_blue_closed_icon.png</filename>
+            <filename>gate_pink_closed_icon.png</filename>
+            <filename>gate_white_closed_icon.png</filename>
             <filename>juice_press_icon.png</filename>
             <filename>loom_icon.png</filename>
             <filename>picnic_pink_icon.png</filename>
