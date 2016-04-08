@@ -331,6 +331,8 @@ public class WOTrain extends WindowMain {
         if (_activeItemIndex == -1) return;
         if (!lastResource && _arrItems[_activeItemIndex].countFree == g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)
                 && g.dataResource.objectResources[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT ) {
+            g.windowsManager.cashWindow = this;
+            super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, onResourceLoad, {id: _arrItems[_activeItemIndex].idFree}, 'market');
             return;
         }
@@ -352,6 +354,7 @@ public class WOTrain extends WindowMain {
         var ob:Object = {};
         ob.data = g.dataResource.objectResources[_idFree];
         ob.count = _countFree - g.userInventory.getCountResourceById(_idFree);
+        g.windowsManager.cashWindow = this;
         super.hideIt();
         g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onResourceLoad, 'train', ob);
     }

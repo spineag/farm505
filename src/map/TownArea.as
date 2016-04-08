@@ -20,6 +20,7 @@ import build.ridge.Ridge;
 import build.testBuild.TestBuild;
 import build.train.Train;
 import build.tree.Tree;
+import build.tutorialPlace.TutorialPlace;
 import build.wild.Wild;
 
 import com.junkbyte.console.Cc;
@@ -376,6 +377,9 @@ public class TownArea extends Sprite {
             case BuildType.DECOR_TAIL:
                 build = new DecorTail(_data);
                 break;
+            case BuildType.TUTORIAL_PLACE:
+                build = new TutorialPlace(_data);
+                break;
         }
 
         if (!build) {
@@ -454,7 +458,7 @@ public class TownArea extends Sprite {
             }
 
         }
-        if (!updateAfterMove) _cityObjects.push(worldObject);
+        if (!updateAfterMove && !(worldObject is TutorialPlace)) _cityObjects.push(worldObject);
         worldObject.updateDepth();
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
             fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
@@ -494,6 +498,7 @@ public class TownArea extends Sprite {
         }
 
         if (isNewAtMap && g.managerTutorial.isTutorial) {
+            if (worldObject is TutorialPlace) return;
             if (worldObject is Fabrica && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA) {
                 g.managerTutorial.addTutorialWorldObject(worldObject);
                 g.managerTutorial.checkTutorialCallback();

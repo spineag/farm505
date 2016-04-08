@@ -31,7 +31,7 @@ public class CutScene {
         onResize();
     }
 
-    public function showIt(st:String, stBtn:String, callback:Function, delay:Number):void {
+    public function showIt(st:String, stBtn:String='', callback:Function=null, delay:Number=0):void {
         _cont.addChild(_source);
         _source.x = _xStart;
         TweenMax.to(_source, .5, {x:_xEnd, onComplete:showBubble, onCompleteParams: [st, stBtn, callback], delay:delay});
@@ -48,7 +48,7 @@ public class CutScene {
         _bubble.showBubble(st, stBtn, callback);
     }
 
-    public function reChangeBubble(st:String, stBtn:String, callback:Function):void {
+    public function reChangeBubble(st:String, stBtn:String='', callback:Function=null):void {
         var f:Function = function():void {
             showBubble(st, stBtn, callback);
         };

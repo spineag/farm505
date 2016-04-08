@@ -120,7 +120,7 @@ public class Farm extends AreaObject{
             if (_arrCrafted.length) {
                 if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
                     onOut();
-                    g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
+                    g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                 } else {
                     var item:CraftItem = _arrCrafted.pop();
                     item.flyIt();

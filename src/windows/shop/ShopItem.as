@@ -107,6 +107,10 @@ public class ShopItem {
                 if (g.managerTutorial.isTutorialResource(_data.id)) {
                     addArrow();
                 }
+            } else if (_data.buildType == BuildType.FABRICA && g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA) {
+                if (g.managerTutorial.isTutorialResource(_data.id)) {
+                    addArrow();
+                }
             }
         }
     }
@@ -554,39 +558,51 @@ public class ShopItem {
                         var ob:Object = {};
                         ob.currency = DataMoney.SOFT_CURRENCY;
                         ob.count = _countCost - g.user.softCurrencyCount;
+                        g.windowsManager.cashWindow = _wo;
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'money', ob);
                         return;
                     }
                 } else if (_data.currency == DataMoney.HARD_CURRENCY) {
                     if (g.user.hardCurrency < _countCost) {
+                        g.windowsManager.cashWindow = _wo;
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                         return;
                     }
                 } else if (_data.currency == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _countCost) {
+                    _wo.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                     return;
                 } else if (_data.currency == DataMoney.RED_COUPONE && g.user.redCouponCount < _countCost) {
+                    _wo.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                     return;
                 } else if (_data.currency == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _countCost) {
+                    _wo.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                 } else if (_data.currency == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _countCost) {
+                    _wo.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                     return;
                 }
             } else {
                 for (i = 0; i < _data.currency.length; i++) {
                     if (_data.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _data.cost[i]) {
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     } else if (_data.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < _data.cost[i]) {
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     } else if (_data.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _data.cost[i]) {
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     } else if (_data.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _data.cost[i]) {
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     }
@@ -597,6 +613,8 @@ public class ShopItem {
                 var ob2:Object = {};
                 ob2.currency = DataMoney.SOFT_CURRENCY;
                 ob2.count = _countCost - g.user.softCurrencyCount;
+                g.windowsManager.cashWindow = _wo;
+                _wo.hideIt();
                 g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'money', ob2);
                 return;
             }
@@ -646,7 +664,6 @@ public class ShopItem {
         } else if (_data.buildType != BuildType.ANIMAL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if(_data.buildType == BuildType.FARM) {
@@ -669,6 +686,7 @@ public class ShopItem {
                 g.townArea.startMoveAfterShop(build as AreaObject);
 //                g.toolsModifier.startMove(build, _countCost, true);
             }
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else {
             //додаємо на відповідну ферму
             if (g.managerTutorial.isTutorial) {

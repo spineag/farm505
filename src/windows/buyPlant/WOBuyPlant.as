@@ -116,9 +116,11 @@ public class WOBuyPlant extends WindowMain {
 
     private function onClickItem(d:Object, r:Ridge = null):void {
         if (g.userInventory.getCountResourceById(d.id) <= 0) {
+            g.windowsManager.cashWindow = this;
             var ob:Object = {};
             ob.data = g.dataResource.objectResources[d];
             ob.count = 1;
+            super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickItem, 'menu', ob);
             return;
         }
@@ -129,14 +131,15 @@ public class WOBuyPlant extends WindowMain {
                 _callback.apply();
                 _callback = null;
             }
-            hideIt();
+            super.hideIt();
         } else {
-            hideIt();
+            isCashed = false;
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                 g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
             } else {
                 g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
             }
+            super.hideIt();
         }
     }
 

@@ -142,6 +142,7 @@ public class WONoPlaces extends WindowMain {
             }
         } else {
             _buyCallback = null;
+            g.windowsManager.uncasheWindow();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         }
         super.hideIt();

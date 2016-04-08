@@ -264,6 +264,7 @@ public class MarketItem {
 
     private function onClickBuy():void {
         if (_countBuyCell > g.user.hardCurrency) {
+            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
@@ -290,6 +291,7 @@ public class MarketItem {
 
     private function onDelete ():void {
         if (g.user.hardCurrency < 1) {
+            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }

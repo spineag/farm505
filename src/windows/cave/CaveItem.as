@@ -24,10 +24,12 @@ public class CaveItem {
     private var _countResource:int;
     private var _defaultY:int;
     private var _maxAlpha:Number = 1;
+    private var _wo:WOCave;
 
     private var g:Vars = Vars.getInstance();
 
-    public function CaveItem() {
+    public function CaveItem(wo:WOCave) {
+        _wo = wo;
         source = new CSprite();
         _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
         source.addChild(_bg);
@@ -93,6 +95,8 @@ public class CaveItem {
             var ob:Object = {};
             ob.data = _data;
             ob.count = 1;
+            g.windowsManager.cashWindow = _wo;
+            _wo.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'menu', ob);
             return;
         }
@@ -102,6 +106,7 @@ public class CaveItem {
     }
 
     public function deleteIt():void {
+        _wo = null;
         _data = null;
         _clickCallback = null;
         source.deleteIt();

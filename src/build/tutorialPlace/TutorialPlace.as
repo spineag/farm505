@@ -6,6 +6,8 @@ import build.AreaObject;
 
 import com.junkbyte.console.Cc;
 
+import flash.geom.Rectangle;
+
 public class TutorialPlace extends AreaObject{
 
     public function TutorialPlace(_data:Object) {
@@ -14,11 +16,22 @@ public class TutorialPlace extends AreaObject{
             Cc.error('TutorialPlace:: no data');
             return;
         }
-//        createBuild();
-
+        _source.touchable = false;
+        useIsometricOnly = true;
         _source.releaseContDrag = true;
     }
 
-
+    public function activateIt(v:Boolean):void {
+        if (v) {
+            createIsoView();
+            _rect = new flash.geom.Rectangle(0, 0, 10, 10);
+            showArrow();
+        } else {
+            g.cont.contentCont.removeChild(_source);
+            hideArrow();
+            deleteIsoView();
+            clearIt();
+        }
+    }
 }
 }

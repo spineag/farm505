@@ -218,13 +218,14 @@ public class WOLastResource extends WindowMain {
 
     private function onClickFabric():void {
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[_dataResource,_paramsFabrica,true]);
+            _callbackBuy.apply(null,[_paramsFabrica,true]);
             _callbackBuy = null;
         }
         hideIt();
     }
 
     private function onClickNo():void {
+        g.windowsManager.uncasheWindow();
         hideIt();
     }
 

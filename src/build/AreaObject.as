@@ -5,9 +5,7 @@ import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import starling.display.Image;
 import starling.display.Sprite;
-
 import utils.CSprite;
-
 import windows.WindowsManager;
 
 public class AreaObject extends WorldObject {

@@ -265,6 +265,7 @@ public class WOPapper extends WindowMain {
 
     private function makeRefresh():void {
         if (1 > g.user.hardCurrency){
+            super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }

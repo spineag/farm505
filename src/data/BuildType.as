@@ -12,7 +12,7 @@ public class BuildType {
     public static const TREE:int = 3;
     public static const DECOR:int = 4;
     public static const PLANT:int = 5;  // получаемые с грядки
-//    public static const FREE:int = 6;  // не використовується поки
+    public static const TUTORIAL_PLACE:int = 6;
     public static const INSTRUMENT:int = 7;
     public static const RESOURCE:int = 8;
     public static const DECOR_FULL_FENСE:int = 9;  // полная секция забора - возможно сюда занести ворота в заборе

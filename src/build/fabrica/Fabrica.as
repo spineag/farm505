@@ -167,9 +167,6 @@ public class Fabrica extends AreaObject {
     }
 
     private function onClick():void {
-//        g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, null, 32, 5);
-//        return;
-
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialBuilding(this)) {
                 if (g.managerTutorial.currentAction != TutorialAction.FABRICA_SKIP_FOUNDATION) g.managerTutorial.checkTutorialCallback();
@@ -210,7 +207,7 @@ public class Fabrica extends AreaObject {
                 }
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
-                        g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
+                        g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                     } else {
                         var item:CraftItem = _arrCrafted.pop();
                         item.flyIt();
