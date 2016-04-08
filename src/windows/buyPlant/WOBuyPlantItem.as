@@ -35,6 +35,7 @@ public class WOBuyPlantItem {
     private var _arrow:SimpleArrow;
     private var _defaultY:int;
     private var _maxAlpha:Number;
+    private var _isOnHover:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
@@ -56,6 +57,7 @@ public class WOBuyPlantItem {
         _txtNumber.y = 68;
         source.addChild(_txtNumber);
         source.alpha = 0;
+        _isOnHover = false;
     }
 
     public function setCoordinates(_x:int, _y:int):void {
@@ -168,13 +170,15 @@ public class WOBuyPlantItem {
     private function onHover():void {
         if (!_dataPlant) return;
         source.filter = ManagerFilters.YELLOW_STROKE;
-        if (_dataPlant) {
+        if (!_isOnHover) {
+            _isOnHover = true;
             g.resourceHint.hideIt();
             g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source, true);
         }
     }
 
     private function onOut():void {
+        _isOnHover = false;
         source.filter = null;
         g.resourceHint.hideIt();
     }
@@ -194,6 +198,8 @@ public class WOBuyPlantItem {
     }
 
     public function deleteIt():void {
+        g.resourceHint.hideIt();
+        g.fabricHint.hideIt();
         removeArrow();
         _dataPlant = null;
         _clickCallback = null;

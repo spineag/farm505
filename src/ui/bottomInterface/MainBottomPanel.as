@@ -197,7 +197,8 @@ public class MainBottomPanel {
                     else if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA) shopTab = WOShop.FABRICA;
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) {
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL
+                        || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply();
                     }
