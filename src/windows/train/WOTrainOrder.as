@@ -102,6 +102,8 @@ public class WOTrainOrder extends WindowMain{
 
     private function onClickBtn():void {
         if (g.user.hardCurrency < 30) {
+            g.windowsManager.cashWindow = this;
+            super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }

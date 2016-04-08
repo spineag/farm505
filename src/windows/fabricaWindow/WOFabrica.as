@@ -48,7 +48,6 @@ public class WOFabrica extends WindowMain {
         hideIt();
     }
 
-//    public function showItWithParams(arrRecipes:Array, arrList:Array, fabr:Fabrica, f:Function):void {
     override public function showItParams(callback:Function, params:Array):void {
         _fabrica = params[2];
         _callbackOnClick = callback;
@@ -117,25 +116,30 @@ public class WOFabrica extends WindowMain {
         }
     }
 
-    private function onBuyResource(dataRecipe:Object, obj:Object, lastRes:Boolean = false):void {
-//        showItWithParams((obj.fabrica as Fabrica).arrRecipes, (obj.fabrica as Fabrica).arrList, obj.fabrica as Fabrica, obj.callback);
-//        onItemClick(dataRecipe,lastRes);
+    private function onBuyResource(obj:Object, lastRes:Boolean = false):void {
+        super.showIt();
+        onItemClick(obj.data, lastRes);
     }
 
     private function onItemClick(dataRecipe:Object, lastRes:Boolean = false):void {
         var obj:Object;
         if (!lastRes) {
             if (_list.isFull) {
-                var price:int = _list.priceForNewCell;
+                g.windowsManager.cashWindow = this;
+                hideIt();
+                var fExit:Function = function():void {
+                    g.windowsManager.uncasheWindow();
+                };
                 if (_fabrica.dataBuild.countCell >= 9) {
-                    g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, hideIt, true);
-                    return;
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, fExit, true);
+                } else {
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.priceForNewCell, 0, fExit, false);
                 }
-                g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.priceForNewCell, 0, hideIt, false);
                 return;
             }
 
             if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
+                isCashed = false;
                 hideIt();
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                     g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
@@ -149,6 +153,7 @@ public class WOFabrica extends WindowMain {
             var count:int = 0;
             if (!dataRecipe || !dataRecipe.ingridientsId) {
                 Cc.error('UserInventory checkRecipe:: bad _data');
+                isCashed = false;
                 hideIt();
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woFabrica');
                 return;
@@ -157,6 +162,7 @@ public class WOFabrica extends WindowMain {
             for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
                 count = g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
                 if (count < int(dataRecipe.ingridientsCount[i])) {
+                    isCashed = true;
                     hideIt();
 //                    g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count, onBuyResource, null, obj);
                     obj = {};
@@ -173,10 +179,12 @@ public class WOFabrica extends WindowMain {
                 count = g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
                 if (g.dataResource.objectResources[dataRecipe.ingridientsId[i]].buildType == BuildType.PLANT && count == int(dataRecipe.ingridientsCount[i])) {
                     obj = {};
+                    obj.data = dataRecipe;
                     obj.fabrica = _fabrica;
                     obj.callback = _callbackOnClick;
+                    isCashed = true;
                     hideIt();
-                    g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, onBuyResource, dataRecipe, 'fabrica', obj);
+                    g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onBuyResource, dataRecipe, 'fabrica', obj);
                     return;
                 }
             }

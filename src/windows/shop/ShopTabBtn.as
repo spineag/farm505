@@ -33,7 +33,11 @@ public class ShopTabBtn {
         var _txt:TextField = new TextField(123, 100, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txt.y = 10;
-        _source.endClickCallback = f;
+        var f1:Function = function():void {
+            if (g.managerTutorial.isTutorial) return;
+            if (f!=null) f.apply();
+        };
+        _source.endClickCallback = f1;
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
 

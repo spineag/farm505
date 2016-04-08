@@ -71,6 +71,7 @@ public class LockedLandItem {
             btn.y = 50;
             source.addChild(btn);
             var f1:Function = function ():void {
+                g.windowsManager.hideWindow(WindowsManager.WO_LOCKED_LAND);
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, false);
             };
             btn.clickCallback = f1;
@@ -193,6 +194,7 @@ public class LockedLandItem {
     }
 
     private function buyItem():void {
+        g.windowsManager.hideWindow(WindowsManager.WO_LOCKED_LAND);
         g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, null, _id, _count);
     }
 

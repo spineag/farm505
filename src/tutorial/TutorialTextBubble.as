@@ -4,22 +4,22 @@
 package tutorial {
 import manager.ManagerFilters;
 import manager.Vars;
+import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
-import starling.utils.Color;
-
-import utils.CButton;
-
-import windows.WOComponents.HintBackground;
 
 public class TutorialTextBubble {
+    public static var SMALL:int = 1;
+    public static var MIDDLE:int = 2;
+    public static var BIG:int = 3;
+
     private var _source:Sprite;
-    private var _bubble:HintBackground;
     private var _parent:Sprite;
     private var g:Vars = Vars.getInstance();
     private var _isFlip:Boolean;
-    private var _st:String;
-    private var _btn:CButton;
+    private var _type:int;
+    private var _im:Image;
+    private var _txt:TextField;
 
     public function TutorialTextBubble(p:Sprite) {
         _parent = p;
@@ -33,62 +33,81 @@ public class TutorialTextBubble {
         _source.y = _y;
     }
 
-    public function showBubble(st:String, isFlip:Boolean, stBtn:String = '', callback:Function = null):void {
+    public function showBubble(st:String, isFlip:Boolean, type:int):void {
         _isFlip = isFlip;
-        createBubble();
-        _source.addChild(_bubble);
-        _bubble.addTextField(20);
-        _bubble.setText(st);
-        _st = st;
-        if (callback != null && stBtn != '') addButton(stBtn, callback);
+        _type = type;
+        createBubble(st);
     }
 
-    private function createBubble():void {
-        hideBubble();
-        if (_isFlip) {
-            _bubble = new HintBackground(500 * g.scaleFactor, 300 * g.scaleFactor, HintBackground.SMALL_TRIANGLE, HintBackground.LEFT_BOTTOM);
-            _bubble.x = 46 * g.scaleFactor;
-            _bubble.y = -100 * g.scaleFactor;
-        } else {
-            _bubble = new HintBackground(500 * g.scaleFactor, 300 * g.scaleFactor, HintBackground.SMALL_TRIANGLE, HintBackground.RIGHT_BOTTOM);
-            _bubble.x = -46 * g.scaleFactor;
-            _bubble.y = -100 * g.scaleFactor;
+    private function createBubble(st:String):void {
+        switch (_type) {
+            case BIG:
+                _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
+                _txt = new TextField(278, 180, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+                if (_isFlip) {
+                    _im.x = -12;
+                    _im.y = -210;
+                    _txt.x = 62;
+                    _txt.y = -178;
+                } else {
+                    _im.scaleX = -1;
+                    _im.x = 12;
+                    _im.y = -210;
+                    _txt.x = -334;
+                    _txt.y = -178;
+                }
+                break;
+            case MIDDLE:
+                _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_2'));
+                _txt = new TextField(270, 134, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+//                    txt.border = 10;
+                if (_isFlip) {
+                    _im.x = -12;
+                    _im.y = -169;
+                    _txt.x = 67;
+                    _txt.y = -135;
+                } else {
+                    _im.scaleX = -1;
+                    _im.x = 12;
+                    _im.y = -169;
+                    _txt.x = -333;
+                    _txt.y = -135;
+                }
+                break;
+            case SMALL:
+                _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
+                _txt = new TextField(270, 90, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+//                _txt.border = 10;
+                if (_isFlip) {
+                    _im.x = -15;
+                    _im.y = -116;
+                    _txt.x = 60;
+                    _txt.y = -85;
+                } else {
+                    _im.scaleX = -1;
+                    _im.x = 15;
+                    _im.y = -116;
+                    _txt.x = -335;
+                    _txt.y = -85;
+                }
+                break;
         }
+        _source.addChild(_im);
+        _source.addChild(_txt);
     }
 
-    private function addButton(btnSt:String, callback:Function):void {
-        _btn = new CButton();
-        _btn.useFilters = false;
-        _btn.addButtonTexture(100, 32, CButton.BLUE, true);
-        if (_isFlip) {
-            _btn.x = _bubble.x + 150;
-        } else {
-            _btn.x = _bubble.x - 150;
-        }
-        _btn.y = _bubble.y + 40;
-        _source.addChild(_btn);
-        _btn.clickCallback = callback;
-        var btnTxt:TextField = new TextField(100, 32, btnSt, g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _btn.addChild(btnTxt);
-    }
-
-    public function hideBubble():void {
-        if (_btn) {
-            if (_source.contains(_btn)) _source.removeChild(_btn);
-            _btn.dispose();
-            _btn = null;
-        }
-        if (_bubble) {
-            if (_source && _source.contains(_bubble)) _source.removeChild(_bubble);
-            _bubble.deleteIt();
-            _bubble = null;
-        }
+    public function clearIt():void {
+        _source.removeChild(_txt);
+        _txt.dispose();
+        _txt = null;
+        _source.removeChild(_im);
+        _im.dispose();
+        _im = null;
     }
 
     public function deleteIt():void {
-        hideBubble();
         if (_parent && _parent.contains(_source)) _parent.removeChild(_source);
-        _source.dispose();
+        if (_source) _source.dispose();
         _source = null;
         _parent = null;
     }

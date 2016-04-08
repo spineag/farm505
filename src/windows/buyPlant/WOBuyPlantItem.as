@@ -150,6 +150,7 @@ public class WOBuyPlantItem {
     }
 
     private function onClick():void {
+        if (!_dataPlant) return;
         if (_dataPlant.blockByLevel > g.user.level) return;
         source.filter = null;
         g.resourceHint.hideIt();
@@ -169,15 +170,15 @@ public class WOBuyPlantItem {
     }
 
     private function onOut():void {
-        if (!_dataPlant) return;
         source.filter = null;
         g.resourceHint.hideIt();
     }
 
     private function addArrow():void {
         removeArrow();
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source, 1);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.animateAtPosition(source.width/2, 0);
+        _arrow.scaleIt(.5);
     }
 
     private function removeArrow():void {

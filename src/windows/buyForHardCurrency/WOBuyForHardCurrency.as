@@ -25,8 +25,8 @@ public class WOBuyForHardCurrency extends WindowMain {
         _woHeight = 308;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(hideIt);
-        _callbackClickBG = hideIt;
+        createExitButton(onClickExit);
+        _callbackClickBG = onClickExit;
         _btnNo = new CButton();
         _btnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
         _btnYes = new CButton();
@@ -58,7 +58,7 @@ public class WOBuyForHardCurrency extends WindowMain {
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _source.addChild(txt);
         _btnYes.clickCallback = onYes;
-        _btnNo.clickCallback = onNo;
+        _btnNo.clickCallback = onClickExit;
         _btnYes.x = 100;
         _btnYes.y = 80;
         _btnNo.x = -100;
@@ -78,7 +78,8 @@ public class WOBuyForHardCurrency extends WindowMain {
         hideIt();
     }
 
-    private function onNo():void {
+    private function onClickExit():void {
+        g.windowsManager.uncasheWindow();
         hideIt();
     }
 

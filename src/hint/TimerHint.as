@@ -2,42 +2,26 @@
  * Created by user on 6/9/15.
  */
 package hint {
-
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
-
-import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import starling.animation.Tween;
-
 import starling.core.Starling;
-
-import flash.geom.Rectangle;
 import starling.display.Image;
 import starling.display.Quad;
-import starling.display.Sprite;
-
 import starling.text.TextField;
-
 import starling.utils.Color;
-
+import tutorial.SimpleArrow;
 import utils.CButton;
-
 import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
-
 import windows.WOComponents.HintBackground;
-
-import windows.WOComponents.WOButtonTexture;
 import windows.WindowsManager;
 
 public class TimerHint {
-    public var source:CSprite;
+    private var _source:CSprite;
     private var _txtName:TextField;
     private var _txtTimer:TextField;
     private var _txtText:TextField;
@@ -54,15 +38,16 @@ public class TimerHint {
     private var _quad:Quad;
     private var _onOutCallback:Function;
     private var _canHide:Boolean;
+    private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
 
     public function TimerHint() {
         _canHide = true;
-        source = new CSprite();
+        _source = new CSprite();
         _isOnHover = false;
         _isShow = false;
         _bg = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-        source.addChild(_bg);
+        _source.addChild(_bg);
         _btn = new CButton();
         _btn.addButtonTexture(78, 46, CButton.GREEN, true);
         _txtCost = new TextField(50,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
@@ -91,14 +76,14 @@ public class TimerHint {
         _btn.addChild(_txtCost);
         _btn.y = -60;
         _btn.x = 36;
-        source.addChild(_btn);
-        source.addChild(_txtName);
-        source.addChild(_imageClock);
-        source.addChild(_txtText);
-        source.addChild(_txtTimer);
+        _source.addChild(_btn);
+        _source.addChild(_txtName);
+        _source.addChild(_imageClock);
+        _source.addChild(_txtText);
+        _source.addChild(_txtTimer);
 
-        source.hoverCallback = onHover;
-        source.outCallback = outHover;
+        _source.hoverCallback = onHover;
+        _source.outCallback = outHover;
         _btn.clickCallback = onClickBtn;
     }
 
@@ -121,20 +106,20 @@ public class TimerHint {
             _quad = new Quad(_bg.width, _bg.height,Color.WHITE ,false);
             var quad:Quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
             quad.pivotX = quad.width/2;
-            source.addChildAt(quad,0);
+            _source.addChildAt(quad,0);
             quad.alpha = 0;
         } else _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE ,false);
         _quad.alpha = 0;
         _quad.x = -_bg.width/2;
         _quad.y = -_bg.height;
-        source.addChildAt(_quad,0);
+        _source.addChildAt(_quad,0);
         _callbackSkip = f;
         if(_isShow) return;
-        source.x = x;// + 115;
-        source.y = y;//+ 150;
+        _source.x = x;// + 115;
+        _source.y = y;//+ 150;
 
-        source.scaleX = source.scaleY = 0;
-        var tween:Tween = new Tween(source, 0.1);
+        _source.scaleX = _source.scaleY = 0;
+        var tween:Tween = new Tween(_source, 0.1);
         tween.scaleTo(1);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
@@ -147,22 +132,22 @@ public class TimerHint {
         _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
         _txtCost.text = String(cost);
         _txtName.text = name;
-        g.cont.hintContUnder.addChild(source);
+        g.cont.hintContUnder.addChild(_source);
         g.gameDispatcher.addToTimer(onTimer);
 
         if (_needMoveCenter) {
-            if (source.y < source.height + 50 || source.x < source.width / 2 + 50 || source.x > Starling.current.nativeStage.stageWidth - source.width / 2 - 50) {
+            if (_source.y < _source.height + 50 || _source.x < _source.width / 2 + 50 || _source.x > Starling.current.nativeStage.stageWidth - _source.width / 2 - 50) {
                 var dY:int = 0;
-                if (source.y < source.height + 50)
-                    dY = source.height + 50 - source.y;
+                if (_source.y < _source.height + 50)
+                    dY = _source.height + 50 - _source.y;
                 var dX:int = 0;
-                if (source.x < source.width / 2 + 50) {
-                    dX = source.width / 2 + 50 - source.x;
-                } else if (source.x > Starling.current.nativeStage.stageWidth - source.width / 2 - 50) {
-                    dX = Starling.current.nativeStage.stageWidth - source.width / 2 - 50 - source.x;
+                if (_source.x < _source.width / 2 + 50) {
+                    dX = _source.width / 2 + 50 - _source.x;
+                } else if (_source.x > Starling.current.nativeStage.stageWidth - _source.width / 2 - 50) {
+                    dX = Starling.current.nativeStage.stageWidth - _source.width / 2 - 50 - _source.x;
                 }
                 g.cont.deltaMoveGameCont(dX, dY, .5);
-                new TweenMax(source, .5, {x: source.x + dX, y: source.y + dY, ease: Linear.easeOut});
+                new TweenMax(_source, .5, {x: _source.x + dX, y: _source.y + dY, ease: Linear.easeOut});
             }
             _needMoveCenter = false;
         }
@@ -188,15 +173,15 @@ public class TimerHint {
         _closeTime--;
         if (_closeTime <= 0) {
             if(!_isOnHover) {
-                var tween:Tween = new Tween(source, 0.1);
+                var tween:Tween = new Tween(_source, 0.1);
                 tween.scaleTo(0);
                 tween.onComplete = function ():void {
                     g.starling.juggler.remove(tween);
                     _isShow = false;
                     g.gameDispatcher.removeFromTimer(onTimer);
-                    source.removeChild(_quad);
-                    if (g.cont.hintContUnder.contains(source)) {
-                        g.cont.hintContUnder.removeChild(source);
+                    _source.removeChild(_quad);
+                    if (g.cont.hintContUnder.contains(_source)) {
+                        g.cont.hintContUnder.removeChild(_source);
                     }
 
                 };
@@ -236,21 +221,38 @@ public class TimerHint {
     }
 
     public function managerHide():void {
-        var tween:Tween = new Tween(source, 0.1);
+        var tween:Tween = new Tween(_source, 0.1);
         tween.scaleTo(0);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
             _isShow = false;
             g.gameDispatcher.removeFromTimer(onTimer);
-            source.removeChild(_quad);
-            if (g.cont.hintContUnder.contains(source)) {
-                g.cont.hintContUnder.removeChild(source);
+            _source.removeChild(_quad);
+            if (g.cont.hintContUnder.contains(_source)) {
+                g.cont.hintContUnder.removeChild(_source);
             }
 
         };
         g.starling.juggler.add(tween);
         g.gameDispatcher.removeFromTimer(closeTimer);
+    }
 
+    public function addArrow():void {
+        _canHide = false;
+        if (_btn) {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source
+            );
+            _arrow.animateAtPosition(_btn.x, _btn.y - _btn.height/2 - 2);
+            _arrow.scaleIt(.7);
+        }
+    }
+
+    public function hideArrow():void {
+        _canHide = true;
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

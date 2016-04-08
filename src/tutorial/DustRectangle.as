@@ -2,10 +2,6 @@
  * Created by user on 2/29/16.
  */
 package tutorial {
-import manager.Vars;
-
-import starling.display.Quad;
-
 import starling.display.Sprite;
 
 public class DustRectangle {
@@ -20,12 +16,12 @@ public class DustRectangle {
     private const SIDE_LEFT:int = 3;
     private const SIDE_TOP:int = 4;
 
+    private var _arrParticleImages:Array = ['p_1', 'p_2', 'p_3', 'p_4', 'p_5', 'p_6', 'p_7', 'p_8', 'p_9', 'p_10', 'p_11', 'p_12'];
     private var _source:Sprite;
     private var _arrDustsTop:Vector.<DustParticle>;
     private var _arrDustsBottom:Vector.<DustParticle>;
     private var _arrDustsRight:Vector.<DustParticle>;
     private var _arrDustsLeft:Vector.<DustParticle>;
-    private var _arrColors:Array = [0xe8eecf, 0xffffff, 0xc3ec1d, 0xfbc92f, 0xd6c6ff, 0xffa6d8, 0xe9a6ff, 0xa6fffa, 0xa6ffce];
     private var SHIFT_DUST_MOVING:int = 20;
     private var PADDING:int = 5;
     private var _width:int;
@@ -46,31 +42,23 @@ public class DustRectangle {
 
         createParticles();
         startTweenIt();
-
-//        var q:Quad = new Quad(w, h);
-//        q.x = _x;
-//        q.y = _y;
-//        p.addChild(q);
     }
 
     private function createParticles():void {
         // arrTop.length/arrRight.length == w/h  !!!!!
         var i:int;
         var dust:DustParticle;
-        var color:int;
         var count:int = int(_width/10);
         _arrDustsTop = new Vector.<DustParticle>(count);
         for (i=0; i<count; i++) {
-            color = _arrColors[int(9*Math.random())];  // 9 == _arrColors.length
-            dust = new DustParticle(color);
+            dust = new DustParticle(_arrParticleImages[int(12*Math.random())]);
             dust.side = SIDE_TOP;
             _source.addChild(dust.source);
             _arrDustsTop[i] = dust;
         }
         _arrDustsBottom = new Vector.<DustParticle>(count);
         for (i=0; i<count; i++) {
-            color = _arrColors[int(9*Math.random())];
-            dust = new DustParticle(color);
+            dust = new DustParticle(_arrParticleImages[int(12*Math.random())]);
             dust.side = SIDE_BOTTOM;
             _source.addChild(dust.source);
             _arrDustsBottom[i] = dust;
@@ -78,16 +66,14 @@ public class DustRectangle {
         count = int(_height/10);
         _arrDustsLeft = new Vector.<DustParticle>(count);
         for (i=0; i<count; i++) {
-            color = _arrColors[int(9*Math.random())];
-            dust = new DustParticle(color);
+            dust = new DustParticle(_arrParticleImages[int(12*Math.random())]);
             dust.side = SIDE_LEFT;
             _source.addChild(dust.source);
             _arrDustsLeft[i] = dust;
         }
         _arrDustsRight = new Vector.<DustParticle>(count);
         for (i=0; i<count; i++) {
-            color = _arrColors[int(9*Math.random())];
-            dust = new DustParticle(color);
+            dust = new DustParticle(_arrParticleImages[int(12*Math.random())]);
             dust.side = SIDE_RIGHT;
             _source.addChild(dust.source);
             _arrDustsRight[i] = dust;
@@ -104,7 +90,7 @@ public class DustRectangle {
         var count:int = _arrDustsTop.length;
         max = _width + 2*PADDING - SHIFT_DUST_MOVING;
         for (i=0; i<count; i++){
-            time = (Math.random() + 1)*.5;
+            time = (Math.random() + .2)*.3;
             _x = -PADDING + int(Math.random() * max);
             _y = -int(Math.random()*PADDING);
             _arrDustsTop[i].setDefaults(_x, _y);
@@ -116,7 +102,7 @@ public class DustRectangle {
         count = _arrDustsBottom.length;
         max = _width + 2*PADDING - SHIFT_DUST_MOVING;
         for (i=0; i<count; i++){
-            time = (Math.random() + 1)*.5;
+            time = (Math.random() + .2)*.3;
             _x = _width + PADDING - int(Math.random() * max);
             _y = _height + int(Math.random()*PADDING);
             _arrDustsBottom[i].setDefaults(_x, _y);
@@ -128,7 +114,7 @@ public class DustRectangle {
         count = _arrDustsRight.length;
         max = _height + 2*PADDING - SHIFT_DUST_MOVING;
         for (i=0; i<count; i++){
-            time = (Math.random() + 1)*.5;
+            time = (Math.random() + .2)*.3;
             _x = _width + PADDING*Math.random();
             _y = -PADDING + int(Math.random()*max);
             _arrDustsRight[i].setDefaults(_x, _y);
@@ -140,7 +126,7 @@ public class DustRectangle {
         count = _arrDustsLeft.length;
         max = _height + 2*PADDING - SHIFT_DUST_MOVING;
         for (i=0; i<count; i++){
-            time = (Math.random() + 1)*.5;
+            time = (Math.random() + .2)*.3;
             _x = PADDING*(Math.random() - 1);
             _y = _height + PADDING - int(Math.random()*max);
             _arrDustsLeft[i].setDefaults(_x, _y);
@@ -229,7 +215,6 @@ public class DustRectangle {
 
         _source.dispose();
         _source = null;
-        _arrColors.length = 0;
         _parent = null;
     }
 

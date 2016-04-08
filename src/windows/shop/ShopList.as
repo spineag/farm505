@@ -45,7 +45,7 @@ public class ShopList {
         _source = new Sprite();
         _source.x = 32;
         _source.y = 23;
-        _source.clipRect = new Rectangle(0, 0, 605, 245);
+        _source.clipRect = new Rectangle(0, -200, 605, 450);
         _parent = parent;
         _parent.addChild(_source);
         _itemsSprite = new Sprite();

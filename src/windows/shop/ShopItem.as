@@ -24,6 +24,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
+
+import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
 import ui.xpPanel.XPStar;
 import utils.CButton;
@@ -55,6 +57,7 @@ public class ShopItem {
     private var _shopLimitSprite:Sprite;
     private var _wo:WOShop;
     private var _bg:CartonBackgroundIn;
+    private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
 
     public function ShopItem(data:Object, wo:WOShop) {
@@ -98,6 +101,18 @@ public class ShopItem {
 
         source.endClickCallback = onClick;
         setInfo();
+
+        if (g.managerTutorial.isTutorial) {
+            if (_data.buildType == BuildType.ANIMAL && g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) {
+                if (g.managerTutorial.isTutorialResource(_data.id)) {
+                    addArrow();
+                }
+            } else if (_data.buildType == BuildType.FABRICA && g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA) {
+                if (g.managerTutorial.isTutorialResource(_data.id)) {
+                    addArrow();
+                }
+            }
+        }
     }
 
     private function createLockedSprite():void {
@@ -543,39 +558,51 @@ public class ShopItem {
                         var ob:Object = {};
                         ob.currency = DataMoney.SOFT_CURRENCY;
                         ob.count = _countCost - g.user.softCurrencyCount;
+                        g.windowsManager.cashWindow = _wo;
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'money', ob);
                         return;
                     }
                 } else if (_data.currency == DataMoney.HARD_CURRENCY) {
                     if (g.user.hardCurrency < _countCost) {
+                        g.windowsManager.cashWindow = _wo;
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                         return;
                     }
                 } else if (_data.currency == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _countCost) {
+                    _wo.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                     return;
                 } else if (_data.currency == DataMoney.RED_COUPONE && g.user.redCouponCount < _countCost) {
+                    _wo.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                     return;
                 } else if (_data.currency == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _countCost) {
+                    _wo.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                 } else if (_data.currency == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _countCost) {
+                    _wo.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                     return;
                 }
             } else {
                 for (i = 0; i < _data.currency.length; i++) {
                     if (_data.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _data.cost[i]) {
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     } else if (_data.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < _data.cost[i]) {
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     } else if (_data.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _data.cost[i]) {
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     } else if (_data.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _data.cost[i]) {
+                        _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
                         return;
                     }
@@ -586,6 +613,8 @@ public class ShopItem {
                 var ob2:Object = {};
                 ob2.currency = DataMoney.SOFT_CURRENCY;
                 ob2.count = _countCost - g.user.softCurrencyCount;
+                g.windowsManager.cashWindow = _wo;
+                _wo.hideIt();
                 g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'money', ob2);
                 return;
             }
@@ -635,7 +664,6 @@ public class ShopItem {
         } else if (_data.buildType != BuildType.ANIMAL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if(_data.buildType == BuildType.FARM) {
@@ -658,6 +686,7 @@ public class ShopItem {
                 g.townArea.startMoveAfterShop(build as AreaObject);
 //                g.toolsModifier.startMove(build, _countCost, true);
             }
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else {
             //додаємо на відповідну ферму
             if (g.managerTutorial.isTutorial) {
@@ -735,6 +764,10 @@ public class ShopItem {
     }
 
     public function deleteIt():void {
+        if (_imCont) {
+            TweenMax.killTweensOf(_imCont);
+        }
+        deleteArrow();
         _im = null;
         _imCont = null;
         _nameTxt = null;
@@ -772,6 +805,19 @@ public class ShopItem {
         _bg = null;
         source.deleteIt();
         source = null;
+    }
+
+    public function addArrow():void {
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
+        _arrow.animateAtPosition(73, 10);
+        _arrow.scaleIt(.7);
+    }
+
+    public function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

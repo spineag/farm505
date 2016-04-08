@@ -10,7 +10,7 @@ public class DustOval {
     private var _radiusV:int;
     private var _radiusH:int;
     private var _arrDusts:Vector.<DustParticle>;
-    private var _arrColors:Array = [0xe8eecf, 0xffffff, 0xc3ec1d, 0xfbc92f, 0xd6c6ff, 0xffa6d8, 0xe9a6ff, 0xa6fffa, 0xa6ffce];
+    private var _arrParticleImages:Array = ['p_1', 'p_2', 'p_3', 'p_4', 'p_5', 'p_6', 'p_7', 'p_8', 'p_9', 'p_10', 'p_11', 'p_12'];
     private var PADDING:int = 20;
 
     public function DustOval(p:Sprite, rVertical:int, rHorizontal:int, _x:int, _y:int):void {
@@ -31,11 +31,9 @@ public class DustOval {
     private function createParticles():void {
         var i:int;
         var dust:DustParticle;
-        var color:int;
         _arrDusts = new Vector.<DustParticle>(2*_radiusH + 2*_radiusV);
         for (i = 0; i < 2*_radiusH + 2*_radiusV; i++) {
-            color = _arrColors[int(9 * Math.random())];  // 9 == _arrColors.length
-            dust = new DustParticle(color);
+            dust = new DustParticle(_arrParticleImages[int(12*Math.random())]);
             _source.addChild(dust.source);
             _arrDusts[i] = dust;
         }

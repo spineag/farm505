@@ -2,6 +2,8 @@
  * Created by user on 3/1/16.
  */
 package tutorial {
+import com.greensock.TweenMax;
+
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 
@@ -19,19 +21,22 @@ public class SimpleArrow {
     private var _armature:Armature;
     private var g:Vars = Vars.getInstance();
 
-    public function SimpleArrow(posType:int, parent:Sprite, scale:Number = 1) {
+    public function SimpleArrow(posType:int, parent:Sprite) {
         _parent = parent;
         _source = new Sprite();
         _source.visible = false;
-        _source.scaleX = _source.scaleY = scale;
         _armature = g.allData.factory['arrow'].buildArmature("arrow");
         _source.addChild(_armature.display as Sprite);
         switch (posType) {
             case POSITION_TOP: _source.rotation = 0; break;
-            case POSITION_BOTTOM: _source.rotation = Math.PI/2; break;
-            case POSITION_RIGHT: _source.rotation = Math.PI/4; break;
-            case POSITION_LEFT: _source.rotation = -Math.PI/4; break;
+            case POSITION_BOTTOM: _source.rotation = Math.PI; break;
+            case POSITION_RIGHT: _source.rotation = Math.PI/2; break;
+            case POSITION_LEFT: _source.rotation = -Math.PI/2; break;
         }
+    }
+
+    public function scaleIt(n:Number):void {
+        _source.scaleX = _source.scaleY = n;
     }
 
     public function animateAtPosition(_x:int, _y:int):void {
@@ -39,6 +44,8 @@ public class SimpleArrow {
         _source.y = _y;
         _source.visible = true;
         _parent.addChild(_source);
+        _source.alpha = 0;
+        TweenMax.to(_source, .5, {alpha:1});
         animateIt();
     }
 
@@ -48,6 +55,7 @@ public class SimpleArrow {
     }
 
     public function deleteIt():void {
+        TweenMax.killTweensOf(_source);
         if (_parent.contains(_source)) _parent.removeChild(_source);
         WorldClock.clock.remove(_armature);
         _armature.dispose();

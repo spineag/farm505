@@ -230,6 +230,8 @@ public class WOOrder extends WindowMain{
         if (!b) {
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
                 if (!_arrResourceItems[i].isChecked()) {
+                    g.windowsManager.cashWindow = this;
+                    super.hideIt();
 //                    g.woNoResources.showItOrder(_activeOrderItem.getOrder(), sellOrder);
                     g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, sellOrder, 'order', _activeOrderItem.getOrder());
                     return;
@@ -238,6 +240,8 @@ public class WOOrder extends WindowMain{
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
                 if (_activeOrderItem.getOrder().resourceCounts[i] == g.userInventory.getCountResourceById(_activeOrderItem.getOrder().resourceIds[i])
                         && g.dataResource.objectResources[_activeOrderItem.getOrder().resourceIds[i]].buildType == BuildType.PLANT) {
+                    g.windowsManager.cashWindow = this;
+                    super.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, sellOrder, _activeOrderItem.getOrder(), 'order');
                     return;
                 }
@@ -409,7 +413,8 @@ public class WOOrder extends WindowMain{
 
     private function skipDelete():void {
         if (g.user.hardCurrency < ManagerOrder.COST_SKIP_WAIT) {
-            hideIt();
+            isCashed = false;
+            super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
@@ -520,7 +525,6 @@ public class WOOrder extends WindowMain{
         _btnSell.deleteIt();
         _btnSell = null;
         if (_bubble) {
-            _bubble.hideBubble();
             _bubble.deleteIt();
             _bubble = null;
         }
@@ -654,13 +658,12 @@ public class WOOrder extends WindowMain{
 
     public function setTextForCustomer(st:String):void {
         if (_bubble) {
-            _bubble.hideBubble();
             _bubble.deleteIt();
         }
 
         if (st != '') {
             _bubble = new TutorialTextBubble(_source);
-            _bubble.showBubble(st, true);
+            _bubble.showBubble(st, true, TutorialTextBubble.BIG);
             _bubble.setXY(120, -150);
         }
     }

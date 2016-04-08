@@ -526,6 +526,7 @@ public class WOMarket  extends WindowMain {
 
     private function onClickPaper():void {
         if (g.user.hardCurrency < 1) {
+            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }

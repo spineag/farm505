@@ -240,6 +240,7 @@ public class WOMarketChoose extends WindowMain {
             }
         } catch(e:Error) {
             Cc.error('WOAmbar fillItems:: error ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.uncasheWindow();
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woMarketChoose');
         }
     }

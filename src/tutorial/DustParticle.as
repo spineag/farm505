@@ -4,21 +4,33 @@
 package tutorial {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
-
-import starling.display.Quad;
+import manager.Vars;
+import starling.display.Image;
 import starling.display.Sprite;
 
 public class DustParticle {
-    private var _q:Quad;
+    private var _q:Sprite;
     public var source:Sprite;
     private var _side:int;
     private var _rV:int;
     private var _rH:int;
+    private var g:Vars = Vars.getInstance();
 
-    public function DustParticle(color:int) {
+    public function DustParticle(imageName:String) {
         source = new Sprite();
-        _q = new Quad(3, 3, color);
+        _q = getRandomParticle(imageName);
         source.addChild(_q);
+    }
+
+    private function getRandomParticle(imageName):Sprite {
+        var sp:Sprite = new Sprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(imageName));
+        im.x = -im.width/2;
+        im.y = -im.height/2;
+        sp.addChild(im);
+        sp.touchable = false;
+        sp.flatten();
+        return sp;
     }
 
     public function set side(s:int):void {
@@ -28,7 +40,7 @@ public class DustParticle {
     public function setDefaults(_x:int, _y:int):void {
         source.x = _x;
         source.y = _y;
-        _q.scaleX = _q.scaleY = 1;
+        _q.scaleX = _q.scaleY = .2;
     }
 
     public function moveIt(_newX:int, _newY:int, time:Number, f:Function):void {
@@ -40,12 +52,12 @@ public class DustParticle {
     }
 
     public function scaleIt(time:Number, f:Function):void {
-        var scale:Number = 1 + 1.5*Math.random();
+        var scale:Number = .5 + .8*Math.random();
         TweenMax.to(_q, time, {scaleX:scale, scaleY:scale, ease:Linear.easeNone, onComplete:scaleIt2, onCompleteParams: [time, f]});
     }
 
     private function scaleIt2(time:Number, f:Function):void {
-        TweenMax.to(_q, time, {scaleX:1, scaleY:1, ease:Linear.easeNone, onComplete:scaleIt3, onCompleteParams: [f]});
+        TweenMax.to(_q, time, {scaleX:.2, scaleY:.2, ease:Linear.easeNone, onComplete:scaleIt3, onCompleteParams: [f]});
     }
 
     private function scaleIt3(f:Function):void {

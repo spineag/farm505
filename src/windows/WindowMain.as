@@ -157,5 +157,9 @@ public class WindowMain {
     public function releaseFromCash():void {
         showIt();
     }
+
+    public function get isShowed():Boolean {
+        return _isShowed;
+    }
 }
 }

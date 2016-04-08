@@ -80,14 +80,12 @@ public class WONoResources extends WindowMain {
                 break;
             case 'menu':
 //            public function showItMenu(data:Object, count:int, f:Function = null, r:Ridge = null, params:Object = null):void {
-                _callbackBuy = callback;
                 _count = _paramData.count;
                 createList(_paramData.data, _count);
                 break;
             case 'money':
                 _count = _paramData.count;
-                _count = Math.ceil(_count / g.HARD_IN_SOFT);
-                _countCost = _count;
+                _countCost = Math.ceil(_count / g.HARD_IN_SOFT);
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
                     Cc.error('hard currency can"t be in woNoResourceWindow');
                     g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
@@ -154,7 +152,6 @@ public class WONoResources extends WindowMain {
                 _countCost = _count;
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_count);
                 _btnBuy.clickCallback = onClickTrain;
-                showIt();
         }
 
         super.showIt();
@@ -244,14 +241,14 @@ public class WONoResources extends WindowMain {
 
     private function onClickMoney():void {
         if (_count <= g.user.hardCurrency) {
-            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_count);
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countCost);
         } else {
             g.windowsManager.uncasheWindow();
             hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _countCost);
+        g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _count);
         hideIt();
         if (_callbackBuy != null) {
             _callbackBuy.apply(null);
@@ -277,6 +274,8 @@ public class WONoResources extends WindowMain {
         if (_count <= g.user.hardCurrency) {
             g.userInventory.addMoney(1, -_count);
         } else {
+            hideIt();
+            g.windowsManager.uncasheWindow();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
@@ -300,14 +299,9 @@ public class WONoResources extends WindowMain {
                 }
             }
 
-//            if (_callbackBuy != null) {
-//                if (_params) {
-//                    _callbackBuy.apply(null, [_paramData, _params, true]);
-//                    _params = null;
-//                } else {
-//                    _callbackBuy.apply(null, [_paramData]);
-//                }
-//            }
+            if (_callbackBuy != null) {
+                _callbackBuy.apply(null, [_paramData, true]);
+            }
         }
         hideIt();
     }

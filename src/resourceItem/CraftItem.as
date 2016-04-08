@@ -118,7 +118,7 @@ public class CraftItem {
         _image.filter = null;
         if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + count > g.user.ambarMaxCount) {
 //            g.flyMessage.showIt(_source,"Амбар заполнен");
-            g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, true);
+            g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
@@ -129,7 +129,7 @@ public class CraftItem {
         if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + count > g.user.skladMaxCount) {
             var p:Point = new Point(_source.x, _source.y);
             p = _source.parent.localToGlobal(p);
-            g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
+            g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
 //            new FlyMessage(p,"Склад заполнен");
             return;
         }
@@ -202,7 +202,7 @@ public class CraftItem {
     public function addArrow(f:Function):void {
         removeArrow();
         _tutorialCallback = f;
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source, 1);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
         _arrow.animateAtPosition(0, -_image.height/2);
     }
 
