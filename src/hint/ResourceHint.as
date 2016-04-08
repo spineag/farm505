@@ -63,6 +63,7 @@ public class ResourceHint {
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,bol:Boolean = false, fabr:Boolean = false):void {
         var wText:int = 0;
         var wName:int = 0;
+        var hText:int = 0;
         if (!g.dataResource.objectResources[_dataId]) {
             Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'resourceHint');
@@ -242,23 +243,35 @@ public class ResourceHint {
 
         if (objRecipes[_dataId]) {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
-            _imageClock.y = 70;
             _imageClock.x = -30;
             _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
-            _txtTime.x = -10;
-            _txtTime.y = 60;
+            _txtTime = new TextField(100, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtTime.x = -20;
+
             _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_dataId].buildingId].name, g.allData.fonts['BloggerBold'], 12, Color.WHITE);
             _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
-            _txtText.y = 5;
-
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
-            if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            hText = _txtText.textBounds.height;
+             if ( hText >= 25) {
+                 if (wText > wName) bg = new HintBackground(wText, 110, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                 else bg = new HintBackground(wName, 110, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                 _imageClock.y = 85;
+                 _txtTime.y = 75;
+                 _txtText.y = 15;
+                 _txtTime.x = -35;
+                 _imageClock.x = -45;
+             } else {
+                 if (wText > wName) bg = new HintBackground(wText, 105, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                 else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                 _imageClock.y = 70;
+                 _txtTime.y = 60;
+                 _txtText.y = 5;
+             }
+
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);

@@ -200,6 +200,7 @@ public class Animal {
                 return;
             }
             if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
+                g.mouseHint.hideIt();
                 g.userInventory.addResource(_data.idResourceRaw, -1);
                 _timeToEnd = _data.timeCraft;
                 g.gameDispatcher.addToTimer(render);
@@ -257,6 +258,7 @@ public class Animal {
         source.filter = null;
         _isOnHover = false;
         g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
+        g.mouseHint.hideIt();
     }
 
 

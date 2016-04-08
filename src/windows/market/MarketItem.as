@@ -117,7 +117,7 @@ public class MarketItem {
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2;
 
-        _countTxt = new TextField(30, 30, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        _countTxt = new TextField(30, 30, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _countTxt.x = 77;
         _countTxt.y = 7;
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -271,9 +271,10 @@ public class MarketItem {
         g.directServer.updateUserMarketCell(1,null);
         g.user.marketCell++;
         _txtAdditem.text = 'Добавить товар';
-//???        source.endClickCallback = onClick;
+        source.endClickCallback = onClick;
         _wo.addItemsRefresh();
         _closeCell = false;
+        _isUser = true;
         while (buyCont.numChildren) {
             buyCont.removeChildAt(0);
         }
@@ -286,6 +287,11 @@ public class MarketItem {
         _imCheck.visible = true;
         _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
+    }
+
+    public function visiblePaper(b:Boolean):void {
+        if (_inPapper) return;
+        _papper.visible = b;
     }
 
     private function onDelete ():void {
@@ -463,7 +469,6 @@ public class MarketItem {
         _plawkaLvl.visible = false;
         _txtPlawka.visible = false;
         _delete.visible = false;
-//        _papper.visible = false;
         g.marketHint.hideIt();
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
     }
@@ -604,11 +609,6 @@ public class MarketItem {
         if (isFill == 0 &&_isUser) {
             _bg.filter = ManagerFilters.BUILD_STROKE;
         } else if (isFill == 1 && _isUser) {
-            var b:Boolean = _wo.booleanPaper;
-            if (_inPapper || b) _papper.visible = true;
-            else if (!b)  _papper.visible = false;
-//            if (_inPapper || !b) _papper.visible = false;
-//            else _papper.visible = true;
             _delete.visible = true;
             count = 0;
             g.gameDispatcher.addEnterFrame(onEnterFrame);
@@ -620,7 +620,6 @@ public class MarketItem {
         if (isFill == 0 && _isUser) {
             _bg.filter = null;
         } else if (isFill == 1 && _isUser) {
-            if (!_inPapper) _papper.visible = false;
             _delete.visible = false;
             g.marketHint.hideIt();
             g.gameDispatcher.removeEnterFrame(onEnterFrame);

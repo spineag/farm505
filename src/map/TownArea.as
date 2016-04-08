@@ -519,11 +519,35 @@ public class TownArea extends Sprite {
                 g.toolsModifier.startMove(build, afterMoveFromInventory, true);
                 return;
             }
-            if (decorCost) {
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
-                g.bottomPanel.cancelBoolean(false);
-                g.buyHint.hideIt();
-//                g.woShop.showIt();
+            if (worldObject.dataBuild.currency[i] != DataMoney.SOFT_CURRENCY || worldObject.dataBuild.currency[i] != DataMoney.HARD_CURRENCY ) {
+                for (i = 0; i < worldObject.dataBuild.currency.length; i++){
+                    if (worldObject.dataBuild.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < worldObject.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if (worldObject.dataBuild.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < worldObject.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if (worldObject.dataBuild.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < worldObject.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if (worldObject.dataBuild.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < worldObject.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    }
+                }
+                g.toolsModifier.modifierType = ToolsModifier.MOVE;
+                build = createNewBuild(worldObject.dataBuild);
+                g.selectedBuild = build;
+                (build as WorldObject).source.filter = null;
+                g.toolsModifier.startMove(build, afterMoveReturn, true);
                 return;
             }
             var arr:Array;
@@ -596,6 +620,7 @@ public class TownArea extends Sprite {
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         (build as WorldObject).dbBuildingId = dbId;
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
+
         if (build is DecorTail) {
             pasteTailBuild(build as DecorTail, _x, _y);
         } else {
@@ -604,7 +629,7 @@ public class TownArea extends Sprite {
         g.toolsPanel.repositoryBox.updateThis();
     }
 
-    private function afterMoveReturn(build:AreaObject, _x:Number, _y:Number):void {   // юзали для автоматической покупки грядок и деревьев
+    private function afterMoveReturn(build:AreaObject, _x:Number, _y:Number):void {// юзали для автоматической покупки грядок и деревьев
         (build as WorldObject).source.filter = null;
         var cost:int;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -628,7 +653,8 @@ public class TownArea extends Sprite {
                 return;
             }
         }
-        pasteBuild(build, _x, _y);
+        if (build is DecorTail) pasteTailBuild(build as DecorTail, _x, _y,true);
+        else pasteBuild(build, _x, _y);
         if (build is Ridge) showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,-(build as WorldObject).dataBuild.cost);
         var arr:Array;
         if (build is Decor || build is DecorFence || build is DecorPostFence) {
@@ -657,8 +683,8 @@ public class TownArea extends Sprite {
         var p:Point = new Point((b as WorldObject).source.x, (b as WorldObject).source.y);
         p = g.cont.contentCont.localToGlobal(p);
         new UseMoneyMessage(p, moneyType, count, .3);
-        if (b is Decor || b is DecorFence || b is DecorPostFence || b is DecorTail)
-            new XPStar(p.x, p.y, (b as WorldObject).dataBuild.xpForBuild);
+//        if (b is Decor || b is DecorFence || b is DecorPostFence || b is DecorTail)
+//            new XPStar(p.x, p.y, (b as WorldObject).dataBuild.xpForBuild);
     }
 
     public function startMoveAfterShop(build:AreaObject, isFromInventory:Boolean = false):void {
@@ -709,6 +735,11 @@ public class TownArea extends Sprite {
                 g.buyHint.hideIt();
                 return;
             } else {
+                if ((build as AreaObject).countShopCost == 0) {
+                     var arr:Array = getCityTailObjectsById((build as WorldObject).dataBuild.id);
+                    (build as AreaObject).countShopCost = (arr.length * (build as WorldObject).dataBuild.deltaCost) + int((build as WorldObject).dataBuild.cost);
+                    g.buyHint.showIt((build as AreaObject).countShopCost);
+                }
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency, - (build as AreaObject).countShopCost);
             }
         }
@@ -761,6 +792,21 @@ public class TownArea extends Sprite {
             }
         }
         g.selectedBuild = null;
+        if (isNewAtMap){
+            var arr:Array = getCityTailObjectsById(tail.dataBuild.id);
+            if (g.user.softCurrencyCount < (arr.length * tail.dataBuild.deltaCost) + int(tail.dataBuild.cost)) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                return;
+            }
+            var build:AreaObject;
+            build = g.townArea.createNewBuild(tail.dataBuild);
+            g.selectedBuild = build;
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            startMoveAfterShop(build);
+        }
     }
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
@@ -1024,7 +1070,6 @@ public class TownArea extends Sprite {
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
         var build:WorldObject;
         var isFlip:Boolean;
-            if (_data.id == 1) trace();
         if (!_data) {
             Cc.error('TownArea createAwayNewBuild:: _data == nul for building');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');

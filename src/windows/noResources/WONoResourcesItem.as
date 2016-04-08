@@ -31,6 +31,7 @@ public class WONoResourcesItem {
     private var _inHover:Boolean;
     private var _money:Boolean;
     private var _dataId:int;
+    private var _countTimer:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -94,7 +95,7 @@ public class WONoResourcesItem {
             source.addChild(_image);
         }
 
-        _txtCount = new TextField(66, 20, String(count), g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        _txtCount = new TextField(66, 20, String(count), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.y = 40;
         _txtCount.x = 20;
@@ -127,13 +128,23 @@ public class WONoResourcesItem {
     private function onHover():void {
         if (_inHover || _money) return;
         _inHover = true;
-        g.marketHint.showIt(_dataId,source.x,source.y,source);
+        _countTimer = 1;
+        g.gameDispatcher.addToTimer(timer)
 
     }
 
     private function onOut():void {
         _inHover = false;
         g.marketHint.hideIt();
+        g.gameDispatcher.removeFromTimer(timer);
+    }
+
+    private function timer():void {
+        _countTimer--;
+        if (_countTimer <= 0) {
+            g.marketHint.showIt(_dataId,source.x,source.y,source,true);
+            g.gameDispatcher.removeFromTimer(timer);
+        }
     }
 }
 }

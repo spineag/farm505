@@ -82,13 +82,8 @@ public class WOBuyPlantItem {
         }
         fillIcon(_dataPlant.imageShop);
         _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
-        if (_countPlants <= 0) {
-            _txtNumber.color = ManagerFilters.TEXT_ORANGE;
-            if (_txtNumber.nativeFilters == ManagerFilters.TEXT_STROKE_LIGHT_BLUE) _txtNumber.nativeFilters = null;
-        }
-        else {
-            _txtNumber.color = Color.WHITE;
-        }
+        if (_countPlants <= 0) _txtNumber.color = ManagerFilters.TEXT_ORANGE;
+        else _txtNumber.color = Color.WHITE;
         _txtNumber.text = String(_countPlants);
         if (g.managerTutorial && (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialResource(_dataPlant.id)) {
             addArrow();

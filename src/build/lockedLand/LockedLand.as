@@ -4,6 +4,8 @@
 package build.lockedLand {
 import build.AreaObject;
 import build.wild.Wild;
+
+import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.DataMoney;
 
@@ -299,6 +301,7 @@ public class LockedLand extends AreaObject {
     }
 
     public function showBoom():void {
+        onEndAnimation();
         _build.addChild(_contOpen);
         _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
         _armatureOpen.display.scaleX = _armatureOpen.display.scaleY = 1.5;
@@ -309,6 +312,11 @@ public class LockedLand extends AreaObject {
         _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
         _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
         _armatureOpen.animation.gotoAndPlay("start");
+    }
+
+    private function onEndAnimation():void {
+        TweenMax.to(_bottomRibbon, 1, {alpha: 0, delay: .3});
+        TweenMax.to(_topRibbon, 1, {alpha: 0, delay: .3});
     }
 
     private function onBoom(e:AnimationEvent=null):void {

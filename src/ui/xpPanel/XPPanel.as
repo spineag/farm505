@@ -81,7 +81,7 @@ public class XPPanel {
             g.user.xp -= _maxXP;
             g.user.level++;
             _txtLevel.text = String(g.user.level);
-            g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, null);
+            g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             g.friendPanel.checkLevel();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
             g.directServer.updateUserLevel(onUpdateUserLevel);
