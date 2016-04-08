@@ -539,8 +539,8 @@ public class ManagerTutorial {
         var dataPlace:Object = {};
         dataPlace.dataBuild = -1;
         dataPlace.buildType = BuildType.TUTORIAL_PLACE;
-        dataPlace.width = g.dataBuilding.objectBuilding[_tutorialResourceIDs[0]].sizeX;
-        dataPlace.height = g.dataBuilding.objectBuilding[_tutorialResourceIDs[0]].sizeY;
+        dataPlace.width = g.dataBuilding.objectBuilding[_tutorialResourceIDs[0]].width;
+        dataPlace.height = g.dataBuilding.objectBuilding[_tutorialResourceIDs[0]].height;
         _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
         var p:Point = new Point(10, 25);
         p = g.matrixGrid.getXYFromIndex(p);

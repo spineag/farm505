@@ -425,9 +425,11 @@ public class ToolsModifier {
                 if (g.isActiveMapEditor && _activeBuilding is Wild) return;
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
                 if (_moveGrid.isFree) {
-                    _spriteForMove.filter = null;
+//                    _spriteForMove.filter = null;
+                    _activeBuilding.source.filter = null;
                 } else {
-                    _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
+//                    _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
+                    _activeBuilding.source.filter = ManagerFilters.RED_TINT_FILTER;
                 }
             }
         }
@@ -441,6 +443,13 @@ public class ToolsModifier {
             for (j = posX; j < posX + width; j++) {
                 if (i < 0 || j < 0 || i > 80 || j > 80) return false;
                 obj = _townMatrix[i][j];
+                if (g.managerTutorial.isTutorial) {
+                    if (obj.isTutorialBuilding) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
                 if (!obj.inGame) return false;
                 if (obj.isFull) return false;
                 if (obj.isBlocked) return false;

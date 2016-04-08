@@ -22,7 +22,7 @@ public class DustParticle {
         source.addChild(_q);
     }
 
-    private function getRandomParticle(imageName):Sprite {
+    private function getRandomParticle(imageName:String):Sprite {
         var sp:Sprite = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(imageName));
         im.x = -im.width/2;
