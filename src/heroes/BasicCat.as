@@ -23,7 +23,7 @@ public class BasicCat {
     public static const WALK:int = 1;
     public static const WALK_IDLE:int = 2;
     public static const RUN:int = 3;
-    public static const STOP:int = 3;
+    public static const STOP:int = 4;
 
     protected var _posX:int;
     protected var _posY:int;

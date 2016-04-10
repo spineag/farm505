@@ -37,6 +37,7 @@ public class OrderCat {
     protected var _source:Sprite;
     protected var _typeCat:int;
     protected var _speedWalk:int = 2;
+    protected var _speedRun:int = 8;
     private var _catImage:Sprite;
     private var _catBackImage:Sprite;
     private var heroEyes:HeroEyesAnimation;
@@ -395,7 +396,12 @@ public class OrderCat {
             _source.scaleX = 1;
             Cc.error('OrderCat gotoPoint:: wrong front-back logic');
         }
-        new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+        if (g.managerTutorial.isTutorial) {
+            new TweenMax(_source, koef/_speedRun, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+        } else {
+            new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+        }
+
     }
 
     public function goCatToXYPoint(p:Point, time:int, callbackOnWalking:Function):void {

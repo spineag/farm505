@@ -199,11 +199,16 @@ public class ManagerOrderCats {
     private function arrivePart1(cat:OrderCat):void {
         cat.flipIt(false);
         cat.showFront(true);
-        cat.walkAnimation();
         var p:Point = new Point(30, 0);
         p = g.matrixGrid.getXYFromIndex(p);
         cat.walkPosition = OrderCat.SHORT_OUTTILE_WALKING;
-        cat.goCatToXYPoint(p, 2, arrivePart2);
+        if (g.managerTutorial.isTutorial) {
+            cat.runAnimation();
+            cat.goCatToXYPoint(p, 1, arrivePart2);
+        } else {
+            cat.walkAnimation();
+            cat.goCatToXYPoint(p, 2, arrivePart2);
+        }
     }
 
     private function arrivePart2(cat:OrderCat):void {
