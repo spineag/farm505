@@ -24,30 +24,36 @@ public class FabricHintItem {
     public var source:Sprite;
     private var _image:Image;
     private var _imageBg:Image;
-
+    private var _txtOrange:TextField;
+    private var _txtWhite:TextField;
+    private var _needCount:int;
+    private var _id:int;
     private var g:Vars = Vars.getInstance();
 
     public function FabricHintItem(obId:int, needCount:int) {
         source = new Sprite();
-        var txt:TextField = new TextField(50,50,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
-        txt.hAlign = HAlign.LEFT;
-        txt.y = 55;
-        txt.x = 45;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
-        txt.text = String("/" + String(needCount));
-        source.addChild(txt);
+        _needCount = needCount;
+        _id = obId;
+        _txtWhite = new TextField(50,50,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtWhite.hAlign = HAlign.LEFT;
+        _txtWhite.y = 55;
+        _txtWhite.x = 43;
+        _txtWhite.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtWhite.text = String("/" + String(_needCount));
+        source.addChild(_txtWhite);
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[obId].id);
         if (userCount >= needCount) {
-            txt = new TextField(50,50,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+           _txtWhite.text = String(userCount) + '/' + String(_needCount);
+            _txtWhite.x = 30;
         } else {
-            txt = new TextField(50,51,'',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_ORANGE);
+            _txtOrange = new TextField(50,51,'',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_ORANGE);
+            _txtOrange.hAlign = HAlign.RIGHT;
+            _txtOrange.y = 55;
+            _txtOrange.x = -1;
+            _txtOrange.text = String(userCount);
+            source.addChild(_txtOrange);
         }
-        txt.hAlign = HAlign.RIGHT;
-        txt.y = 55;
-        txt.x = -1;
-        txt.text = String(userCount);
-        source.addChild(txt);
+
 
         if (!g.dataResource.objectResources[obId]) {
             Cc.error('FabricHintItem error: g.dataResource.objectResources[obId] = null');
@@ -73,6 +79,20 @@ public class FabricHintItem {
             Cc.error('no such image: ' + g.dataResource.objectResources[obId].imageShop + ' for id: ' +  obId);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHintItem');
         }
+    }
+
+    public function updateCount():void {
+        _txtWhite.text = String("/" + String(_needCount));
+        var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[_id].id);
+        userCount -= _needCount;
+        if (userCount >= _needCount) {
+            _txtWhite.text = String(userCount) + '/' + String(_needCount);
+            _txtWhite.x = 35;
+        } else {
+            _txtOrange.text = String(userCount);
+        }
+        trace(_needCount + '_needCount');
+        trace(userCount + 'userCount');
     }
 }
 }

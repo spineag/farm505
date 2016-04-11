@@ -205,7 +205,7 @@ public class Vars {
         managerCats = new ManagerCats();
         managerOrderCats = new ManagerOrderCats();
         catPanel = new CatPanel();
-        awayPreloader = new AwayPreloader();
+//        awayPreloader = new AwayPreloader();
 
         if (useDataFromServer) {
             socialNetwork = new SocialNetwork(flashVars);
