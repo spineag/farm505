@@ -23,7 +23,7 @@ public class WOItemFabrica {
     private var _arrow:SimpleArrow;
     private var _defaultY:int;
     private var _maxAlpha:Number;
-
+    private var _isOnHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function WOItemFabrica() {
@@ -36,6 +36,8 @@ public class WOItemFabrica {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         source.alpha = .5;
+        _isOnHover = false;
+
     }
 
     public function setCoordinates(_x:int, _y:int):void {
@@ -124,30 +126,33 @@ public class WOItemFabrica {
     private function onClick():void {
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.RAW_RECIPE) return;
         if (_dataRecipe.blockByLevel > g.user.level) return;
+
         source.filter = null;
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataRecipe]);
         }
-        g.fabricHint.hideIt();
+        g.resourceHint.hideIt();
         if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResource(_dataRecipe.id)) {
             removeArrow();
             g.managerTutorial.checkTutorialCallback();
         }
+        g.fabricHint.updateItem();
+//        var point:Point = new Point(0, 0);
+//        var pointGlobal:Point = source.localToGlobal(point);
+//        g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
+
     }
 
     private function onHover():void {
         if (!_dataRecipe) return;
+        if (_isOnHover) return;
         source.filter = ManagerFilters.YELLOW_STROKE;
-        g.fabricHint.hideIt();
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
-        if (_dataRecipe.blockByLevel > g.user.level) {
-            g.resourceHint.showIt(_dataRecipe.id,source.x,source.y,source,false,true);
-            //resourcehint
-        } else {
-            g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
+        if (_dataRecipe.blockByLevel > g.user.level) g.resourceHint.showIt(_dataRecipe.id,source.x,source.y,source,false,true);
+         else g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
 
-        }
+        _isOnHover = true;
     }
 
     private function onOut():void {
@@ -155,6 +160,7 @@ public class WOItemFabrica {
         source.filter = null;
         g.fabricHint.hideIt();
         g.resourceHint.hideIt();
+        _isOnHover = false;
     }
 
     private function addArrow():void {

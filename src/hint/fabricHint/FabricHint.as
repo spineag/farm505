@@ -118,6 +118,12 @@ public class FabricHint {
         }
     }
 
+    public function updateItem():void {
+        for (var i:int = 0; i < _arrCells.length; i++) {
+            _arrCells[i].updateCount();
+        }
+    }
+
     public function hideIt():void {
         _source.removeChild(_imageItem);
         g.cont.hintCont.removeChild(_source);
