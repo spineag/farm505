@@ -295,7 +295,7 @@ public class ShopList {
         ob.x = (_arrItems[_shift + a-1] as ShopItem).source.x;
         ob.y = (_arrItems[_shift + a-1] as ShopItem).source.y;
         var p:Point = new Point(ob.x, ob.y);
-        p = _itemsSprite.localToGlobal(p);
+        p = _source.localToGlobal(p);
         ob.x = p.x;
         ob.y = p.y;
         ob.width = 145; //(_arrItems[_shift + a-1] as ShopItem).source.width;

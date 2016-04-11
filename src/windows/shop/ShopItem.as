@@ -111,6 +111,8 @@ public class ShopItem {
                 if (g.managerTutorial.isTutorialResource(_data.id)) {
                     addArrow();
                 }
+            } else if (_data.buildType == BuildType.CAT && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+                addArrow();
             }
         }
     }

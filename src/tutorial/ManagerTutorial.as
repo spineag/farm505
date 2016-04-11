@@ -26,6 +26,7 @@ import starling.display.Sprite;
 import starling.utils.Color;
 
 import windows.WindowsManager;
+import windows.fabricaWindow.WOFabrica;
 import windows.orderWindow.WOOrder;
 import windows.shop.WOShop;
 
@@ -47,6 +48,7 @@ public class ManagerTutorial {
     private var _airBubble:AirTextBubble;
     private var _counter:int;
     private var _tutorialPlaceBuilding:TutorialPlace;
+    private var _arrow:SimpleArrow;
 
     public function ManagerTutorial() {
         _tutorialObjects = [];
@@ -543,7 +545,7 @@ public class ManagerTutorial {
         dataPlace.width = g.dataBuilding.objectBuilding[_tutorialResourceIDs[0]].width;
         dataPlace.height = g.dataBuilding.objectBuilding[_tutorialResourceIDs[0]].height;
         _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
-        var p:Point = new Point(10, 25);
+        var p:Point = new Point(10, 7);
         p = g.matrixGrid.getXYFromIndex(p);
         g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
     }
@@ -931,37 +933,63 @@ public class ManagerTutorial {
         }
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTexts()).objText;
-        addBlack();
         subStep = 0;
-        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep12_1, 1);
+        cutScene.showIt(texts[g.user.tutorialStep][subStep]);
+        _tutorialResourceIDs = [1];
+        _currentAction = TutorialAction.BUY_FABRICA;
+        var ob:Object = g.bottomPanel.getShopButtonProperties();
+        g.bottomPanel.addArrow('shop');
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        g.bottomPanel.tutorialCallback = subStep12_1;
     }
 
     private function subStep12_1():void {
         subStep = 1;
-        removeBlack();
+        g.bottomPanel.deleteArrow();
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
         cutScene.hideIt(deleteCutScene);
-        _currentAction = TutorialAction.BUY_FABRICA;
-        _tutorialResourceIDs = [1];
-//        g.woShop.activateTab(3);
-//        g.woShop.showIt();
-//        var ob:Object = g.woShop.getShopItemProperties(_tutorialResourceIDs[0]);
-//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _tutorialCallback = subStep12_2;
+        createDelay(1, subStep12_2);
     }
 
     private function subStep12_2():void {
         subStep = 2;
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            _tutorialCallback = subStep12_3;
+        } else {
+            Cc.error('wo_SHOP is not opened');
+        }
+        var dataPlace:Object = {};
+        dataPlace.dataBuild = -1;
+        dataPlace.buildType = BuildType.TUTORIAL_PLACE;
+        dataPlace.width = 5;
+        dataPlace.height = 5;
+        _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
+        var p:Point = new Point(3, 6);
+        p = g.matrixGrid.getXYFromIndex(p);
+        g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
+    }
+
+    private function subStep12_3():void {
+        _tutorialPlaceBuilding.activateIt(true);
+        subStep = 3;
+        g.cont.moveCenterToPos(3, 6);
         _currentAction = TutorialAction.PUT_FABRICA;
-        _tutorialCallback = subStep12_3;
-//        g.woShop.activateTab(1);
+        _tutorialCallback = subStep12_4;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
     }
 
-    private function subStep12_3():void {
-        subStep = 3;
+    private function subStep12_4():void {
+        _tutorialPlaceBuilding.activateIt(false);
+        _tutorialPlaceBuilding = null;
+        subStep = 4;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 13;
@@ -977,18 +1005,18 @@ public class ManagerTutorial {
             _tutorialObjects = g.townArea.getCityObjectsById(1);
         }
         if (!cat) {
-            addCatToPos(_tutorialObjects[0].posX + _tutorialObjects[0].sizeX, _tutorialObjects[0].posY);
+            addCatToPos(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 5);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
             subStep13_1();
         } else {
-            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX + _tutorialObjects[0].sizeX, _tutorialObjects[0].posY), subStep13_1);
+            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 5), subStep13_1);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY);
         }
     }
 
     private function subStep13_1():void {
         _currentAction = TutorialAction.FABRICA_SKIP_FOUNDATION;
-        cat.flipIt(true);
+        cat.flipIt(false);
         if (!texts) texts = (new TutorialTexts()).objText;
         subStep = 1;
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
@@ -1000,8 +1028,7 @@ public class ManagerTutorial {
         subStep = 2;
         cat.hideBubble();
         (_tutorialObjects[0] as WorldObject).hideArrow();
-//        _tutorialCallback = subStep13_3;
-        subStep13_3();
+        _tutorialCallback = subStep13_3;
     }
 
     private function subStep13_3():void {
@@ -1020,11 +1047,11 @@ public class ManagerTutorial {
             _tutorialObjects = g.townArea.getCityObjectsById(1);
         }
         if (!cat) {
-            addCatToPos(_tutorialObjects[0].posX + _tutorialObjects[0].sizeX, _tutorialObjects[0].posY);
+            addCatToPos(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 5);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
         }
         if (!texts) texts = (new TutorialTexts()).objText;
-        cat.flipIt(true);
+        cat.flipIt(false);
         subStep = 0;
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
         (_tutorialObjects[0] as WorldObject).showArrow();
@@ -1057,18 +1084,17 @@ public class ManagerTutorial {
         _tutorialObjects.sortOn('depth', Array.NUMERIC);
 
         if (!cat) {
-            addCatToPos(_tutorialObjects[0].posX  + _tutorialObjects[0].sizeX, _tutorialObjects[0].posY);
+            addCatToPos(_tutorialObjects[0].posX - 2, _tutorialObjects[0].posY + 1);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
             subStep15_1();
         } else {
-            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX + _tutorialObjects[0].sizeX, _tutorialObjects[0].posY), subStep15_1);
-            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY);
+            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX - 2, _tutorialObjects[0].posY + 1), subStep15_1);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, false, 2);
         }
     }
 
     private function subStep15_1():void {
         if (!texts) texts = (new TutorialTexts()).objText;
-        cat.flipIt(false);
         subStep = 1;
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
         for (var i:int=0; i<_tutorialObjects.length; i++) {
@@ -1098,18 +1124,17 @@ public class ManagerTutorial {
         if (!texts) texts = (new TutorialTexts()).objText;
         _tutorialObjects = g.townArea.getCityObjectsById(1);
         if (!cat) {
-            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+            addCatToPos(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 5);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
             subStep16_1();
         } else {
-            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY), subStep16_1);
+            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 5), subStep16_1);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY,false, 1.5);
         }
     }
 
     private function subStep16_1():void {
         _tutorialResourceIDs = [6]; // recipeId
-        cat.flipIt(false);
         subStep = 1;
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
         (_tutorialObjects[0] as WorldObject).showArrow();
@@ -1136,27 +1161,27 @@ public class ManagerTutorial {
     }
 
     private function initScene_17():void {  // need remake for new fabrica window
-//        _currentAction = TutorialAction.NONE;
-//        if (!_tutorialObjects.length) {
-//            _tutorialObjects = g.townArea.getCityObjectsById(1);
-//        }
-//        if (!cat) {
-//            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
-//            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
-//        }
-//        if (g.currentOpenedWindow) {
-//            if (g.currentOpenedWindow != g.woFabrica) {
-//                g.currentOpenedWindow.hideIt();
-//                (_tutorialObjects[0] as Fabrica).openFabricaWindow();
-//            }
-//        } else {
-//            (_tutorialObjects[0] as Fabrica).openFabricaWindow();
-//        }
-//        addBlack();
-//        if (!texts) texts = (new TutorialTexts()).objText;
-//        if (!cutScene) cutScene = new CutScene();
-//        subStep = 0;
-//        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep17_1, 1);
+        _currentAction = TutorialAction.NONE;
+        if (!_tutorialObjects.length) {
+            _tutorialObjects = g.townArea.getCityObjectsById(1);
+        }
+        if (!cat) {
+            addCatToPos(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 5);
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+        }
+        if (g.windowsManager.currentWindow) {
+            if (g.windowsManager.currentWindow.windowType != WindowsManager.WO_FABRICA) {
+                g.windowsManager.currentWindow.hideIt();
+                (_tutorialObjects[0] as Fabrica).openFabricaWindow();
+            }
+        } else {
+            (_tutorialObjects[0] as Fabrica).openFabricaWindow();
+        }
+        addBlack();
+        if (!texts) texts = (new TutorialTexts()).objText;
+        if (!cutScene) cutScene = new CutScene();
+        subStep = 0;
+        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep17_1, 0);
     }
 
     private function subStep17_1():void {
@@ -1164,18 +1189,25 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.FABRICA_SKIP_RECIPE;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
-//        var ob:Object = g.woFabrica.getSkipBtnProperties();   need remake for new wo
-//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-//        _tutorialCallback = subStep17_2;
+        var ob:Object = (g.windowsManager.currentWindow as WOFabrica).getSkipBtnProperties();
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(ob.x, ob.y);
+        _tutorialCallback = subStep17_2;
     }
 
     private function subStep17_2():void {
         subStep = 2;
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-//        g.woFabrica.hideIt();     need remake for new wo
+        (g.windowsManager.currentWindow as WOFabrica).hideIt();
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 18;
@@ -1203,13 +1235,13 @@ public class ManagerTutorial {
         subStep = 1;
         cutScene.hideIt(deleteCutScene);
         _currentAction = TutorialAction.FABRICA_CRAFT;
-        (_tutorialObjects[0] as WorldObject).showArrow();
+        (_tutorialObjects[0] as Fabrica).addArrowToCraftItem(subStep18_2);
         _tutorialCallback = subStep18_2;
     }
 
     private function subStep18_2():void {
         subStep = 2;
-        (_tutorialObjects[0] as WorldObject).hideArrow();
+        _tutorialObjects = [];
         _currentAction = TutorialAction.LEVEL_UP;
         _tutorialCallback = subStep18_3;
         g.user.tutorialStep = 19;
@@ -1225,35 +1257,39 @@ public class ManagerTutorial {
     }
 
     private function initScene_19():void {
-        _currentAction = TutorialAction.NONE;
-        if (!_tutorialObjects.length) {
-            _tutorialObjects = g.townArea.getCityObjectsById(1);
-        }
+        _currentAction = TutorialAction.BUY_CAT;
         if (!cat) {
-            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
-            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+            addCatToPos(31, 28);
+            g.cont.moveCenterToPos(31, 28, true);
         }
         if (!texts) texts = (new TutorialTexts()).objText;
         if (!cutScene) cutScene = new CutScene();
         subStep = 0;
-        addBlack();
-        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep19_1, 1);
+        cutScene.showIt(texts[g.user.tutorialStep][subStep]);
+        var ob:Object = g.bottomPanel.getShopButtonProperties();
+        g.bottomPanel.addArrow('shop');
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        g.bottomPanel.tutorialCallback = subStep19_1;
     }
 
     private function subStep19_1():void {
+        g.bottomPanel.deleteArrow();
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
         subStep = 1;
         cutScene.hideIt(deleteCutScene);
-        removeBlack();
-        _currentAction = TutorialAction.BUY_CAT;
-//        g.woShop.activateTab(1);
-//        g.woShop.showIt();
-//        var ob:Object = g.woShop.getShopDirectItemProperties(1);
-//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _tutorialCallback = subStep19_2;
-        g.cont.moveCenterToPos(31, 28);
+        createDelay(1, subStep19_2);
     }
 
     private function subStep19_2():void {
+        var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopDirectItemProperties(1);
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep19_3;
+    }
+
+    private function subStep19_3():void {
         subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -1261,56 +1297,95 @@ public class ManagerTutorial {
         }
         _currentAction = TutorialAction.NONE;
         _tutorialCallback = null;
-//        g.woShop.hideIt();
         g.user.tutorialStep = 20;
         updateTutorialStep();
-        createDelay(3000, subStep19_3);
+        createDelay(3, subStep19_4);
     }
 
-    private function subStep19_3():void {
+    private function subStep19_4():void {
         subStep = 3;
         initScenes();
     }
 
     private function initScene_20():void {
-        _currentAction = TutorialAction.NONE;
+        _currentAction = TutorialAction.BUY_FARM;
         if (!cat) {
             addCatToPos(31, 26);
             g.cont.moveCenterToPos(31, 26, true);
         }
         if (!texts) texts = (new TutorialTexts()).objText;
-        cat.flipIt(false);
+        if (!cutScene) cutScene = new CutScene();
         subStep = 0;
-//        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep20_1);
-        cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        if (g.windowsManager.currentWindow) {
+            if (g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                addBlack();
+                cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep20_1b);
+            } else {
+                g.windowsManager.currentWindow.hideIt();
+                createDelay(1, subStep20_1a);
+            }
+        } else {
+            subStep20_1a();
+        }
     }
 
-    private function subStep20_1():void {
-        subStep = 1;
-        cat.hideBubble();
-        _currentAction = TutorialAction.BUY_FARM;
+    private function subStep20_1a():void {
+        cutScene.showIt(texts[g.user.tutorialStep][subStep]);
+        var ob:Object = g.bottomPanel.getShopButtonProperties();
+        g.bottomPanel.addArrow('shop');
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        g.bottomPanel.tutorialCallback = subStep20_2a;
+    }
+
+    private function subStep20_2a():void {
+        cutScene.hideIt(deleteCutScene);
+        g.bottomPanel.deleteArrow();
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        createDelay(1, subStep20_4);
+    }
+
+    private function subStep20_1b():void {
+        removeBlack();
+        cutScene.hideIt(deleteCutScene);
+        subStep20_4();
+    }
+
+    private function subStep20_4():void {
         _tutorialResourceIDs = [39];
-//        g.woShop.activateTab(1);
-//        g.woShop.showIt();
-//        var ob:Object = g.woShop.getShopItemProperties(_tutorialResourceIDs[0]);
-//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _tutorialCallback = subStep20_2;
+        var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _tutorialCallback = subStep20_5;
+        var dataPlace:Object = {};
+        dataPlace.dataBuild = -1;
+        dataPlace.buildType = BuildType.TUTORIAL_PLACE;
+        dataPlace.width = 8;
+        dataPlace.height = 8;
+        _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
+        var p:Point = new Point(6, 19);
+        p = g.matrixGrid.getXYFromIndex(p);
+        g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
     }
 
-    private function subStep20_2():void {
-        subStep = 2;
+    private function subStep20_5():void {
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
         _currentAction = TutorialAction.PUT_FARM;
-        _tutorialCallback = subStep20_3;
-//        g.woShop.activateTab(1);
+        _tutorialPlaceBuilding.activateIt(true);
+        _tutorialCallback = subStep20_6;
+        g.cont.moveCenterToPos(6, 19, false, 1);
     }
 
-    private function subStep20_3():void {
-        subStep = 3;
+    private function subStep20_6():void {
+        _tutorialPlaceBuilding.activateIt(false);
+        _tutorialPlaceBuilding = null;
         _tutorialCallback = null;
+        _tutorialObjects = [];
+        _tutorialResourceIDs = [];
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 21;
         updateTutorialStep();
@@ -1324,45 +1399,57 @@ public class ManagerTutorial {
             _tutorialObjects = g.townArea.getCityObjectsById(39);
         }
         if (!cat) {
-            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+            addCatToPos(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 8);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
             subStep21_1();
         } else {
-            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY), subStep21_1);
+            g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 8), subStep21_1);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY);
         }
     }
 
     private function subStep21_1():void {
         subStep = 1;
-        cat.flipIt(true);
+        cat.flipIt(false);
         if (!texts) texts = (new TutorialTexts()).objText;
-//        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep21_2);
+        _tutorialResourceIDs = [6];
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        var ob:Object = g.bottomPanel.getShopButtonProperties();
+        g.bottomPanel.addArrow('shop');
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        g.bottomPanel.tutorialCallback = subStep21_2;
+        _currentAction = TutorialAction.BUY_ANIMAL;
     }
 
     private function subStep21_2():void {
-        subStep = 2;
+        g.bottomPanel.deleteArrow();
         cat.hideBubble();
-        _tutorialResourceIDs = [6];
-        _currentAction = TutorialAction.BUY_ANIMAL;
-//        g.woShop.activateTab(2);
-//        g.woShop.showIt();
-//        var ob:Object = g.woShop.getShopItemProperties(_tutorialResourceIDs[0]);
-//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _tutorialCallback = subStep21_3;
-    }
-
-    private function subStep21_3():void {
-        subStep = 3;
+        subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-//        g.woShop.hideIt();
-//        g.woShop.activateTab(1);
+        createDelay(1, subStep21_3);
+    }
+
+    private function subStep21_3():void {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            _tutorialCallback = subStep21_4;
+        } else {
+            Cc.error('wo_SHOP is not opened');
+        }
+    }
+
+    private function subStep21_4():void {
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         g.user.tutorialStep = 22;
         updateTutorialStep();
         initScenes();
@@ -1381,7 +1468,7 @@ public class ManagerTutorial {
         cat.flipIt(true);
         if (!texts) texts = (new TutorialTexts()).objText;
 //        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep22_2);
-        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok']);
+        cat.showBubble(texts[g.user.tutorialStep][subStep]);
     }
 
     private function subStep22_2():void {

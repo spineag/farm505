@@ -181,7 +181,8 @@ public class MainBottomPanel {
             case 'shop':
                 if (g.managerTutorial.isTutorial) {
                     if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA
-                            || g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                            || g.managerTutorial.currentAction == TutorialAction.BUY_FARM || g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE
+                            || g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
 
                     } else {
                         return;
@@ -197,10 +198,11 @@ public class MainBottomPanel {
                     if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) shopTab = WOShop.ANIMAL;
                     else if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA) shopTab = WOShop.FABRICA;
                     else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) shopTab = WOShop.VILLAGE;
+                    else if (g.managerTutorial.currentAction == TutorialAction.BUY_CAT) shopTab = WOShop.VILLAGE;
+                    else if (g.managerTutorial.currentAction == TutorialAction.BUY_FARM) shopTab = WOShop.VILLAGE;
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL
-                        || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA || g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                if (g.managerTutorial.isTutorial) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply();
                     }

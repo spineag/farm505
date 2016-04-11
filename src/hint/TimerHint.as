@@ -100,6 +100,7 @@ public class TimerHint {
     }
 
     public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false):void {
+        if(_isShow) return;
         if (timer <=0) return;
         _onOutCallback = out;
         if (ridge) {
@@ -114,7 +115,6 @@ public class TimerHint {
         _quad.y = -_bg.height;
         _source.addChildAt(_quad,0);
         _callbackSkip = f;
-        if(_isShow) return;
         _source.x = x;// + 115;
         _source.y = y;//+ 150;
 
