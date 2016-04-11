@@ -21,6 +21,8 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import tutorial.TutorialAction;
 import tutorial.TutorialTextBubble;
 import ui.xpPanel.XPStar;
 import utils.CButton;
@@ -282,6 +284,9 @@ public class WOOrder extends WindowMain{
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
         g.bottomPanel.checkIsFullOrder();
         animateCatsOnSell();
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
+            g.managerTutorial.checkTutorialCallback();
+        }
     }
 
     private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {
@@ -663,7 +668,7 @@ public class WOOrder extends WindowMain{
 
         if (st != '') {
             _bubble = new TutorialTextBubble(_source);
-            _bubble.showBubble(st, true, TutorialTextBubble.BIG);
+            _bubble.showBubble(st, true, TutorialTextBubble.SMALL);
             _bubble.setXY(120, -150);
         }
     }

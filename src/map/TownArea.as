@@ -211,6 +211,7 @@ public class TownArea extends Sprite {
                 _townMatrix[i][j].inGame = true;
                 _townMatrix[i][j].isBlocked = false; // ? propably it's old not used properties
                 _townMatrix[i][j].isWall = false;
+                _townMatrix[i][j].isTutorialBuilding = false;
             }
         }
     }
@@ -228,8 +229,13 @@ public class TownArea extends Sprite {
                 if (_townMatrix[i][j].build && _townMatrix[i][j].build is LockedLand && source is Wild) {
                     continue;
                 }
-                _townMatrix[i][j].build = source;
-                _townMatrix[i][j].isFull = true;
+                if (source is TutorialPlace) {
+                    _townMatrix[i][j].isTutorialBuilding = true;
+                } else {
+                    _townMatrix[i][j].isTutorialBuilding = false;
+                    _townMatrix[i][j].build = source;
+                    _townMatrix[i][j].isFull = true;
+                }
                 if (sizeX > 1 && sizeY > 1) {
                     if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
                         _townMatrix[i][j].isWall = true;
@@ -251,6 +257,7 @@ public class TownArea extends Sprite {
                 _townMatrix[i][j].build = null;
                 _townMatrix[i][j].isFull = false;
                 _townMatrix[i][j].isWall = false;
+                _townMatrix[i][j].isTutorialBuilding = false;
             }
         }
 
@@ -458,7 +465,7 @@ public class TownArea extends Sprite {
             }
 
         }
-        if (!updateAfterMove && !(worldObject is TutorialPlace)) _cityObjects.push(worldObject);
+        if (!updateAfterMove) _cityObjects.push(worldObject);
         worldObject.updateDepth();
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
             fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
@@ -514,7 +521,6 @@ public class TownArea extends Sprite {
         // временно полная сортировка, далее нужно будет дописать "умную"
         if (updateAfterMove) zSort();
 
-        if (g.managerTutorial.isTutorial) return;
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)) {
             var build:AreaObject;
             if (g.userInventory.decorInventory[worldObject.dataBuild.id]) {

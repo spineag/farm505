@@ -38,7 +38,6 @@ public class MatrixGrid {
     public function createMatrix():void {
         _matrix = [];
         _matrixSize = 80;
-
         _offsetY = g.realGameHeight/2 - g.realGameTilesHeight/2;
 
         for (var i:int = 0; i < _matrixSize; i++) {

@@ -123,9 +123,9 @@ public class WOLevelUp extends WindowMain {
 //        if (g.user.level >= 17) g.woShop.openCoupone(true);
         _txtLevel.text = String(g.user.level);
         createList();
+        super.showIt();
         _source.y -= 40;
         _black.y += 40;
-        super.showIt();
     }
 
     private function onLeftClick():void {

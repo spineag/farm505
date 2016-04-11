@@ -125,6 +125,7 @@ public class WOItemFabrica {
 
     private function onClick():void {
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.RAW_RECIPE) return;
+        if (!_dataRecipe) return;
         if (_dataRecipe.blockByLevel > g.user.level) return;
 
         source.filter = null;
@@ -167,6 +168,7 @@ public class WOItemFabrica {
         removeArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.animateAtPosition(source.width/2, 0);
+        _arrow.scaleIt(.5);
     }
 
     private function removeArrow():void {
@@ -177,6 +179,8 @@ public class WOItemFabrica {
     }
 
     public function deleteIt():void {
+        g.resourceHint.hideIt();
+        g.fabricHint.hideIt();
         removeArrow();
         source.deleteIt();
         source = null;

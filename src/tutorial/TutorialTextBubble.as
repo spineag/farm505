@@ -98,10 +98,10 @@ public class TutorialTextBubble {
 
     public function clearIt():void {
         _source.removeChild(_txt);
-        _txt.dispose();
+        if (_txt) _txt.dispose();
         _txt = null;
         _source.removeChild(_im);
-        _im.dispose();
+        if (_im) _im.dispose();
         _im = null;
     }
 

@@ -23,6 +23,8 @@ public class TutorialCat extends BasicCat {
 
     public function TutorialCat() {
         super();
+        _speedWalk = 4;
+        _speedRun = 12;
 
         _source = new CSprite();
         _catImage = new Sprite();

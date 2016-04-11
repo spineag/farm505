@@ -90,6 +90,13 @@ public class BuildMoveGrid {
         if (!_townMatrix[posX] || !_townMatrix[posX][posY]) return false;
         var obj:Object = _townMatrix[posX][posY];
         if (!obj) return false;
+        if (g.managerTutorial.isTutorial) {
+            if (obj.isTutorialBuilding) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         if (!obj.inGame) return false;
         if (obj.isFull) return false;
         if (obj.isBlocked) return false;

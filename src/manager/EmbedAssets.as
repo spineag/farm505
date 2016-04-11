@@ -185,7 +185,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 36;
+        var count:int = 39;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
