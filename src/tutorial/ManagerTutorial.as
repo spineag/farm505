@@ -1449,6 +1449,10 @@ public class ManagerTutorial {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
+        createDelay(1, subStep21_5);
+    }
+
+    private function subStep21_5():void {
         g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         g.user.tutorialStep = 22;
         updateTutorialStep();
@@ -1456,33 +1460,31 @@ public class ManagerTutorial {
     }
 
     private function initScene_22():void {
-        _currentAction = TutorialAction.NONE;
+        _currentAction = TutorialAction.ANIMAL_FEED;
         if (!_tutorialObjects.length) {
             _tutorialObjects = g.townArea.getCityObjectsById(39);
         }
         if (!cat) {
-            addCatToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY + _tutorialObjects[0].sizeY);
+            addCatToPos(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 8);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
         }
         subStep = 0;
-        cat.flipIt(true);
         if (!texts) texts = (new TutorialTexts()).objText;
-//        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep22_2);
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        subStep22_1();
     }
 
-    private function subStep22_2():void {
-        subStep = 2;
-        cat.hideBubble();
-        _currentAction = TutorialAction.ANIMAL_FEED;
+    private function subStep22_1():void {
+        subStep = 1;
         _tutorialObjects = (_tutorialObjects[0] as Farm).arrAnimals;
         (_tutorialObjects[0] as Animal).playDirectIdle();
         (_tutorialObjects[0] as Animal).addArrow();
-        (_tutorialObjects[0] as Animal).tutorialCallback = subStep22_3;
+        (_tutorialObjects[0] as Animal).tutorialCallback = subStep22_2;
     }
 
-    private function subStep22_3(bee:Animal):void {
-        subStep = 3;
+    private function subStep22_2(bee:Animal):void {
+        cat.hideBubble();
+        subStep = 2;
         bee.removeArrow();
         bee.tutorialCallback = null;
         _currentAction = TutorialAction.NONE;

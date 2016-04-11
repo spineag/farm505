@@ -691,13 +691,6 @@ public class ShopItem {
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else {
             //додаємо на відповідну ферму
-            if (g.managerTutorial.isTutorial) {
-                if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(_data.id)) {
-                    g.managerTutorial.checkTutorialCallback();
-                } else {
-                    return;
-                }
-            }
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;
@@ -721,6 +714,12 @@ public class ShopItem {
                     checkState();
                     g.bottomPanel.cancelBoolean(false);
                     _wo.updateMoneyCounts();
+                }
+            }
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(_data.id)) {
+                    g.managerTutorial.checkTutorialCallback();
+                } else {
                     return;
                 }
             }
