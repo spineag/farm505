@@ -21,7 +21,6 @@ public class WindowMain {
     protected var _black:CSprite;
     protected var g:Vars = Vars.getInstance();
     protected var _callbackClickBG:Function;
-    public var needAddToPool:Boolean = false;
     protected var _windowType:String;
     protected var _isShowed:Boolean = false;
     public var isCashed:Boolean = false;
@@ -46,24 +45,13 @@ public class WindowMain {
         _source.x = Starling.current.nativeStage.stageWidth/2;
         _source.y = Starling.current.nativeStage.stageHeight/2;
         g.cont.addGameContListener(false);
-//        if (g.currentOpenedWindow) {
-//            if (needAddToPool) {
-//                g.windowsPool.push(this);
-//                return;
-//            } else {
-//                if (g.currentOpenedWindow) g.currentOpenedWindow.hideIt();
-//            }
-//        }
-
         g.cont.windowsCont.addChild(_source);
         _source.scaleX = _source.scaleY = .8;
         TweenMax.to(_source, .2, {scaleX:1, scaleY:1, alpha: 1});
-        trace('window showIt:: ' + _windowType);
         _isShowed = true;
     }
 
     public function hideIt():void {
-        trace('window hideIt:: ' + _windowType);
         if (g.cont.windowsCont.contains(_source))
             TweenMax.to(_source, .1, {scaleX:.8, scaleY:.8, alpha:0, onComplete:onHideAnimation});
         else onHideAnimation();
@@ -83,7 +71,6 @@ public class WindowMain {
     }
 
     protected function deleteIt():void {
-        trace('window deleteIt:: ' + _windowType);
         if (_btnExit) {
             _source.removeChild(_btnExit);
             _btnExit.deleteIt();
@@ -108,13 +95,6 @@ public class WindowMain {
         if (b) _btnExit.alpha = .5;
         else _btnExit.alpha = 1;
     }
-
-//    protected function createTempBG():void {
-//        var q:Quad = new Quad(_woWidth, _woHeight, Color.GRAY);
-//        q.pivotX = _woWidth/2;
-//        q.pivotY = _woHeight/2;
-//        _source.addChild(q);
-//    }
 
     public function get source():Sprite {
         return _source;

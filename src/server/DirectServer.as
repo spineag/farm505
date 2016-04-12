@@ -2344,7 +2344,7 @@ public class DirectServer {
 
         if (d.id == 0) {
             Cc.ch('server', 'getUserMarketItem OK', 5);
-            g.user.fillSomeoneMarketItems(d.message, socialId);
+            g.user.fillSomeoneMarketItems(d.message.items, socialId);
             if (callback != null) {
                 callback.apply();
             }
