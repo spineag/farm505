@@ -19,6 +19,9 @@ import resourceItem.ResourceItem;
 
 import starling.display.Image;
 import starling.display.Sprite;
+
+import tutorial.TutorialAction;
+
 import ui.xpPanel.XPStar;
 
 import windows.WindowsManager;
@@ -77,6 +80,7 @@ public class Farm extends AreaObject{
     }
 
     private function onHover():void {
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -95,6 +99,11 @@ public class Farm extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.managerTutorial.isTutorial) {
+             if (g.managerTutorial.currentAction != TutorialAction.PUT_FARM) {
+                if (!g.managerTutorial.isTutorialBuilding(this)) return;
+            }
+        }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {

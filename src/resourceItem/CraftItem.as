@@ -108,7 +108,7 @@ public class CraftItem {
     }
 
     public function flyIt():void {
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT) {
+        if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT || g.managerTutorial.currentAction == TutorialAction.FABRICA_CRAFT)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply();
                 _tutorialCallback = null;
@@ -200,7 +200,6 @@ public class CraftItem {
     }
 
     public function addArrow(f:Function):void {
-        removeArrow();
         _tutorialCallback = f;
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
         _arrow.animateAtPosition(0, -_image.height/2);

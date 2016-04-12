@@ -317,8 +317,11 @@ public class WOMarket  extends WindowMain {
         if (newVisit) checkArrow();
     }
 
-    private function addItemsFriend(callback:Boolean = false,_person:Someone = null):void {
-        if (!callback) g.directServer.getFriendsMarketCell(int(_person.userSocialId),_person, addItemsFriend);
+    private function addItemsFriend(_person:Someone = null):void {
+        if (!_person.marketCell) {
+            g.directServer.getFriendsMarketCell(int(_person.userSocialId), _person, addItemsFriend);
+            return;
+        }
         if (!_arrItems) _arrItems = [];
         else clearItems();
 
@@ -686,7 +689,7 @@ public class WOMarket  extends WindowMain {
             fillItemsByUser(_person);
 
         } else {
-            addItemsFriend(false,_person);
+            addItemsFriend(_person);
             _contPaper.visible = false;
         }
     }

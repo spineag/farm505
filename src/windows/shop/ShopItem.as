@@ -111,6 +111,8 @@ public class ShopItem {
                 if (g.managerTutorial.isTutorialResource(_data.id)) {
                     addArrow();
                 }
+            } else if (_data.buildType == BuildType.CAT && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+                addArrow();
             }
         }
     }
@@ -280,7 +282,7 @@ public class ShopItem {
             _imCont.addChild(_im);
             _imCont.x = 72;
             _imCont.y = 90;
-            _imCont.touchable = false;
+//            _imCont.touchable = false;
             source.addChildAt(_imCont, 1);
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
@@ -689,13 +691,6 @@ public class ShopItem {
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else {
             //додаємо на відповідну ферму
-            if (g.managerTutorial.isTutorial) {
-                if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(_data.id)) {
-                    g.managerTutorial.checkTutorialCallback();
-                } else {
-                    return;
-                }
-            }
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;
@@ -719,6 +714,12 @@ public class ShopItem {
                     checkState();
                     g.bottomPanel.cancelBoolean(false);
                     _wo.updateMoneyCounts();
+                }
+            }
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(_data.id)) {
+                    g.managerTutorial.checkTutorialCallback();
+                } else {
                     return;
                 }
             }
