@@ -418,6 +418,10 @@ public class MainBottomPanel {
                 _arrow.animateAtPosition(_shopBtn.x, _shopBtn.y - _shopBtn.height/2 - 10);
                 _arrow.scaleIt(.7);
                 break;
+            case 'home':
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
+                _arrow.animateAtPosition(_homeBtn.x, _homeBtn.y - _homeBtn.height/2 - 10);
+                _arrow.scaleIt(.7);
         }
     }
 

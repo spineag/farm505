@@ -101,12 +101,13 @@ public class User extends Someone {
         f.photo = ob.photo_100;
     }
 
-    public function fillSomeoneMarketItems(arr:Array, socId:String):void {
+    public function fillSomeoneMarketItems(arr:Array, socId:String, marketCell:int):void {
         var p:Someone;
         var i:int;
         var obj:Object;
 
         p = getSomeoneBySocialId(socId);
+        p.marketCell = marketCell;
         p.marketItems = [];
         for (i=0; i<arr.length; i++) {
             obj = {};
@@ -130,6 +131,7 @@ public class User extends Someone {
         var i:int;
         var obj:Object;
 
+        neighbor.marketCell = 8;
         neighbor.marketItems = [];
         for (i=0; i < 6; i++) {
             obj = {};

@@ -35,6 +35,8 @@ import manager.Vars;
 
 import mouse.ToolsModifier;
 
+import preloader.AwayPreloader;
+
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
 
@@ -64,6 +66,7 @@ public class TownArea extends Sprite {
     private var _townTailMatrix:Array;
     private var _objBuildingsDiagonals:Object; // object of building diagonals for aStar
     private var _objAwayBuildingsDiagonals:Object; // object of away building diagonals for aStar
+    private var _awayPreloader:AwayPreloader;
 
     protected var g:Vars = Vars.getInstance();
 
@@ -977,7 +980,8 @@ public class TownArea extends Sprite {
      // ---------------------------------------------------- AWAY SECTION -------------------------------------------------------
 
     public function goAway(person:Someone):void {
-        g.awayPreloader.showIt(false);
+        _awayPreloader = new AwayPreloader();
+        _awayPreloader.showIt(false);
         g.visitedUser = person;
         if (g.isAway) {
             clearAwayCity();
@@ -1075,7 +1079,8 @@ public class TownArea extends Sprite {
         g.managerCats.makeAwayCats();
         zAwaySort();
         sortAwayAtLockedLands();
-        g.awayPreloader.hideIt();
+        _awayPreloader.deleteIt();
+        _awayPreloader = null;
     }
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
@@ -1290,7 +1295,8 @@ public class TownArea extends Sprite {
     }
 
     public function backHome():void {
-        g.awayPreloader.showIt(true);
+        _awayPreloader = new AwayPreloader();
+        _awayPreloader.showIt(true);
         clearAwayCity();
         g.isAway = false;
         g.visitedUser = null;
@@ -1302,7 +1308,8 @@ public class TownArea extends Sprite {
         for (i = 0; i < _cityTailObjects.length; i++) {
             _contTail.addChild(_cityTailObjects[i].source);
         }
-        g.awayPreloader.hideIt();
+        _awayPreloader.deleteIt();
+        _awayPreloader = null;
     }
 
     private function clearAwayCity():void {
