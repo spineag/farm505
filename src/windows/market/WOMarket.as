@@ -230,36 +230,6 @@ public class WOMarket  extends WindowMain {
             checkPapperTimer();
         }
         super.showIt();
-        if (params[0].marketItems != null) {
-            for (i = 0; i < params[0].marketItems.length; i++) {
-                if (params[0].marketItems[i].visitItem) {
-                    if (params[0].marketItems[i].numberCell <= 8) {
-                        _countPage = 1;
-                        _shift = 0;
-                    } else if (params[0].marketItems[i].numberCell <= 16) {
-                        _countPage = 2;
-                        _shift = 4;
-                    } else if (params[0].marketItems[i].numberCell <= 24) {
-                        _countPage = 3;
-                        _shift = 8;
-                    } else if (params[0].marketItems[i].numberCell <= 32) {
-                        _countPage = 4;
-                        _shift = 12;
-                    } else if (params[0].marketItems[i].numberCell <= 40) {
-                        _shift = 16;
-                        _countPage = 5;
-                    }
-                    new TweenMax(_contItemCell, .5, {
-                        x: -_shift * 125,
-                        ease: Linear.easeNone,
-                        onComplete: function ():void {
-                        }
-                    });
-                    checkArrow();
-                    break;
-                }
-            }
-        }
     }
 
     private function onClickExit(e:Event=null):void {
@@ -474,7 +444,7 @@ public class WOMarket  extends WindowMain {
 
     private function fillItems():void {
         var i:int;
-        try {
+//        try {
         if (_curUser.marketItems == null) g.directServer.getUserMarketItem(_curUser.userSocialId, null);
             var n:int = 0;
             if (_curUser is NeighborBot) {
@@ -487,24 +457,62 @@ public class WOMarket  extends WindowMain {
                 }
                 return;
             }
-            for (i=0; i < _arrItems.length; i++) {
-                if (_curUser.marketItems[i]) {
-                    n = 0;
-                    if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
-                    n = _curUser.marketItems[i].numberCell;
-                    _arrItems[n].fillFromServer(_curUser.marketItems[i], _curUser);
-                    _arrItems[i].isUser = _curUser == g.user;
-                } else {
-                    _arrItems[i].isUser = _curUser == g.user;
-                }
-                if (_curUser != g.user) _arrItems[i].friendAdd();
-                if (_curUser == g.user)  _arrItems[i].friendAdd(true);
+//            for (i=0; i < _arrItems.length; i++) {
+//                if (_curUser.marketItems[i]) {
+//                    n = 0;
+//                    if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
+//                    n = _curUser.marketItems[i].numberCell;
+//                    _arrItems[n].fillFromServer(_curUser.marketItems[i], _curUser);
+//                    _arrItems[i].isUser = _curUser == g.user;
+//                } else {
+//                    _arrItems[i].isUser = _curUser == g.user;
+//                }
+//                if (_curUser != g.user) _arrItems[i].friendAdd();
+//                if (_curUser == g.user)  _arrItems[i].friendAdd(true);
+//            }
+            for (i = 0; i <_curUser.marketItems.length; i++) {
+                _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
             }
-        } catch (e:Error) {
-            Cc.error('WOMarket fillItems:: error: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woMarket');
-        }
+            if (_shiftFriend != 0) goToItemFromPaper();
+
+
+//        } catch (e:Error) {
+//            Cc.error('WOMarket fillItems:: error: ' + e.errorID + ' - ' + e.message);
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woMarket');
+//        }
     }
+
+        private function goToItemFromPaper():void {
+            for (var i:int = 0; i < _curUser.marketItems.length; i++) {
+                if (_curUser.marketItems[i].visitItem) {
+                    if (_curUser.marketItems[i].numberCell <= 8) {
+                        _countPage = 1;
+                        _shift = 0;
+                    } else if (_curUser.marketItems[i].numberCell <= 16) {
+                        _countPage = 2;
+                        _shift = 4;
+                    } else if (_curUser.marketItems[i].numberCell <= 24) {
+                        _countPage = 3;
+                        _shift = 8;
+                    } else if (_curUser.marketItems[i].numberCell <= 32) {
+                        _countPage = 4;
+                        _shift = 12;
+                    } else if (_curUser.marketItems[i].numberCell <= 40) {
+                        _shift = 16;
+                        _countPage = 5;
+                    }
+
+                    break;
+                }
+            }
+            new TweenMax(_contItemCell, .5, {
+                x: -_shift * 125,
+                ease: Linear.easeNone,
+                onComplete: function ():void {
+                }
+            });
+            checkArrow();
+        }
 
     private function makeRefresh():void {
         for (var i:int=0; i< _arrItems.length; i++) {
@@ -675,11 +683,12 @@ public class WOMarket  extends WindowMain {
         if (_person.userSocialId == g.user.userSocialId) {
             addItems(true);
             _contPaper.visible = true;
+            fillItemsByUser(_person);
+
         } else {
             addItemsFriend(false,_person);
             _contPaper.visible = false;
         }
-        fillItemsByUser(_person);
     }
 
     public function onChooseFriendOnPanel(p:Someone, shift:int):void {
