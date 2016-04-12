@@ -55,14 +55,19 @@ public class AwayPreloader {
         g.gameDispatcher.addToTimer(onTimer);
     }
 
-    public function hideIt():void {
+    public function deleteIt():void {
         isShowing = false;
         if (afterTimer) {
+            g.cont.windowsCont.removeChild(_source);
             WorldClock.clock.remove(_armature);
             _source.removeChild(_bg);
             _bg.dispose();
             _bg = null;
-            g.cont.windowsCont.removeChild(_source);
+            _source.removeChild(_armature as Sprite);
+            _armature.dispose();
+            _armature = null;
+            _source.dispose();
+            _source = null;
             if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR || g.managerTutorial.currentAction == TutorialAction.GO_HOME)) {
                 g.managerTutorial.checkTutorialCallback();
             }
@@ -72,7 +77,7 @@ public class AwayPreloader {
     private function onTimer():void {
         g.gameDispatcher.removeFromTimer(onTimer);
         afterTimer = true;
-        if (!isShowing) hideIt();
+        if (!isShowing) deleteIt();
     }
 }
 }

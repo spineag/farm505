@@ -49,6 +49,8 @@ public class TutorialCat extends BasicCat {
         addShadow();
     }
 
+    public function get isFree():Boolean { return true; }
+
     private function addShadow():void {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_shadow'));
         im.scaleX = im.scaleY = g.scaleFactor;

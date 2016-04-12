@@ -145,7 +145,6 @@ public class Vars {
     public var directServer:DirectServer;
     public var useHttps:Boolean;
     public var startPreloader:StartPreloader;
-    public var awayPreloader:AwayPreloader;
     public var useDataFromServer:Boolean;
     public var dataPath:DataPath;
     public var event:OwnEvent;
@@ -205,7 +204,6 @@ public class Vars {
         managerCats = new ManagerCats();
         managerOrderCats = new ManagerOrderCats();
         catPanel = new CatPanel();
-//        awayPreloader = new AwayPreloader();
 
         if (useDataFromServer) {
             socialNetwork = new SocialNetwork(flashVars);
