@@ -4386,7 +4386,7 @@ public class DirectServer {
             Cc.ch('server', 'getFriendsMarketCell OK', 5);
             _person.marketCell = d.message.market_cell;
             if (callback != null) {
-                callback.apply(null,[true,_person]);
+                callback.apply(null,[_person]);
             }
         } else {
             Cc.error('getFriendsMarketCell: id: ' + d.id + '  with message: ' + d.message);
