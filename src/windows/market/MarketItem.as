@@ -290,8 +290,8 @@ public class MarketItem {
         g.directServer.updateMarketPapper(number,true,null);
     }
 
-    public function visiblePaper(b:Boolean):void {
-        if (_inPapper) return;
+    public function visiblePaper(b:Boolean = false):void {
+        if (_inPapper || isFill == 0 || isFill == 2) return;
         _papper.visible = b;
     }
 
@@ -489,8 +489,8 @@ public class MarketItem {
                 showSaleImage();
                 _plawkabuy.visible = false;
                 _txtAdditem.text = '';
-            }
-            else {
+                if (_wo.booleanPaper) visiblePaper(true);
+            } else {
                 _txtAdditem.text = '';
                 fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
                 _plawkaCoins.visible = false;
