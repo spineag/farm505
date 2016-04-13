@@ -119,7 +119,7 @@ public class WOFabricaWorkListItem {
         }
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
         if (_type == BIG_CELL) {
-            MCScaler.scale(_icon, 100, 100);
+            MCScaler.scale(_icon, 85, 100);
             _icon.x = 53 - _icon.width/2;
             _icon.y = 53 - _icon.height/2;
         } else {
@@ -136,7 +136,7 @@ public class WOFabricaWorkListItem {
                 else _txtNumberCreate.text = "";
             }
         }
-        _source.addChild(_icon);
+        _source.addChildAt(_icon,1);
         if (_type == BIG_CELL) {
             _txtNumberCreate.x = 75;
             _txtNumberCreate.y = 70;

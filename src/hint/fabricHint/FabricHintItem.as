@@ -40,16 +40,16 @@ public class FabricHintItem {
         _txtWhite.x = 43;
         _txtWhite.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtWhite.text = String("/" + String(_needCount));
+        _txtOrange = new TextField(50,51,'',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_ORANGE);
+        _txtOrange.hAlign = HAlign.RIGHT;
+        _txtOrange.y = 55;
+        _txtOrange.x = -1;
         source.addChild(_txtWhite);
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[obId].id);
         if (userCount >= needCount) {
            _txtWhite.text = String(userCount) + '/' + String(_needCount);
             _txtWhite.x = 30;
         } else {
-            _txtOrange = new TextField(50,51,'',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_ORANGE);
-            _txtOrange.hAlign = HAlign.RIGHT;
-            _txtOrange.y = 55;
-            _txtOrange.x = -1;
             _txtOrange.text = String(userCount);
             source.addChild(_txtOrange);
         }
@@ -90,9 +90,8 @@ public class FabricHintItem {
             _txtWhite.x = 35;
         } else {
             _txtOrange.text = String(userCount);
+            source.addChild(_txtOrange);
         }
-        trace(_needCount + '_needCount');
-        trace(userCount + 'userCount');
     }
 }
 }

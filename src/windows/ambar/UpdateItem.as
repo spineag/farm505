@@ -53,8 +53,8 @@ public class UpdateItem {
 
         _txtCount = new TextField(80,40,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtCount.x = 60;
-        _txtCount.y = 80;
+        _txtCount.x = 40;
+        _txtCount.y = 65;
         source.addChild(_txtCount);
 
         _btn = new CButton();
