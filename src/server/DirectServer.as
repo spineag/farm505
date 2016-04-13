@@ -4351,49 +4351,6 @@ public class DirectServer {
         }
     }
 
-    public function getFriendsMarketCell(userSocialId:int,_person:Someone,callback:Function):void {
-        var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_FRIENDS_MARKET_CELL);
-        var variables:URLVariables = new URLVariables();
-
-        Cc.ch('server', 'getFriendsMarketCell', 1);
-        variables.userSocialId = userSocialId;
-        request.data = variables;
-        request.method = URLRequestMethod.POST;
-        iconMouse.startConnect();
-        loader.addEventListener(Event.COMPLETE, onCompleteFriendsMarketCell);
-        function onCompleteFriendsMarketCell(e:Event):void { completeFriendsMarketCell(e.target.data,_person, callback); }
-        try {
-            loader.load(request);
-        } catch (error:Error) {
-            Cc.error('getFriendsMarketCell error:' + error.errorID);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsMarketCell error:' + error.errorID);
-        }
-    }
-
-    private function completeFriendsMarketCell(response:String,_person:Someone, callback:Function = null):void {
-        iconMouse.endConnect();
-        var d:Object;
-        try {
-            d = JSON.parse(response);
-        } catch (e:Error) {
-            Cc.error('getFriendsMarketCell: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsMarketCell: wrong JSON:' + String(response));
-            return;
-        }
-
-        if (d.id == 0) {
-            Cc.ch('server', 'getFriendsMarketCell OK', 5);
-            _person.marketCell = d.message.market_cell;
-            if (callback != null) {
-                callback.apply(null,[true,_person]);
-            }
-        } else {
-            Cc.error('getFriendsMarketCell: id: ' + d.id + '  with message: ' + d.message);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsMarketCell: id: ' + d.id + '  with message: ' + d.message);
-        }
-    }
-
     public function updateMarketPapper(numberCell:int,  inPapper:Boolean, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_MARKET_PAPPER);
