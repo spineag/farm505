@@ -32,8 +32,8 @@ public class AirTextBubble {
         _source.addChild(_txt);
         _btn = new CButton();
         _btn.addButtonTexture(60, 30, CButton.BLUE, true);
-        _btn.x = 75;
-        _btn.y = 90;
+        _btn.x = 125;
+        _btn.y = 150;
         _btnTxt = new TextField(60, 28, 'Далее', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(_btnTxt);

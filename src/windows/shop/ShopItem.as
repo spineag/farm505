@@ -113,6 +113,8 @@ public class ShopItem {
                 }
             } else if (_data.buildType == BuildType.CAT && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
                 addArrow();
+            } else if (_data.buildType == BuildType.RIDGE && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                addArrow();
             }
         }
     }

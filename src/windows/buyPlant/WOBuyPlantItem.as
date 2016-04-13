@@ -87,7 +87,7 @@ public class WOBuyPlantItem {
         if (_countPlants <= 0) _txtNumber.color = ManagerFilters.TEXT_ORANGE;
         else _txtNumber.color = Color.WHITE;
         _txtNumber.text = String(_countPlants);
-        if (g.managerTutorial && (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialResource(_dataPlant.id)) {
+        if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialResource(_dataPlant.id)) {
             addArrow();
         }
     }

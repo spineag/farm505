@@ -108,9 +108,13 @@ public class FriendPanel {
         new TweenMax(_source, .5, {y:Starling.current.nativeStage.stageHeight - 89, ease:Back.easeOut, delay:.2});
     }
 
-    public function hideIt():void {
-        TweenMax.killTweensOf(_source);
-        new TweenMax(_source, .5, {y:Starling.current.nativeStage.stageHeight + 100, ease:Back.easeOut, onComplete: function():void {_source.visible = false}});
+    public function hideIt(direct:Boolean = false):void {
+        if (!direct) {
+            TweenMax.killTweensOf(_source);
+            new TweenMax(_source, .5, {y: Starling.current.nativeStage.stageHeight + 100, ease: Back.easeOut, onComplete: function ():void { _source.visible = false } });
+        } else {
+            _source.y = Starling.current.nativeStage.stageHeight + 100;
+        }
     }
 
     private function createArrows():void {

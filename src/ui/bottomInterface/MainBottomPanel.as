@@ -2,6 +2,8 @@
  * Created by user on 6/24/15.
  */
 package ui.bottomInterface {
+import com.greensock.TweenMax;
+import com.greensock.easing.Back;
 import com.junkbyte.console.Cc;
 
 import flash.display.Bitmap;
@@ -431,5 +433,17 @@ public class MainBottomPanel {
             _arrow = null;
         }
     }
+
+    public function hideMainPanel():void { // for tutorial
+        _source.x = Starling.current.nativeStage.stageWidth - 271;
+        _source.y = Starling.current.nativeStage.stageHeight + 83;
+        _source.visible = false;
+    }
+
+    public function animateShowingMainPanel():void { // for tutorial
+        _source.visible = true;
+        new TweenMax(_source, 1, {y:Starling.current.nativeStage.stageHeight - 83, ease:Back.easeOut});
+    }
+
 }
 }

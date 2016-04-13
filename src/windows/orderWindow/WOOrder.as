@@ -22,6 +22,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import tutorial.SimpleArrow;
+
 import tutorial.TutorialAction;
 import tutorial.TutorialTextBubble;
 import ui.xpPanel.XPStar;
@@ -489,10 +491,8 @@ public class WOOrder extends WindowMain{
 
     public function getSellBtnProperties():Object {
         var ob:Object = {};
-        ob.x = _btnSell.x;
-        ob.y = _btnSell.y;
-        var p:Point = new Point(ob.x, ob.y);
-        p = _source.localToGlobal(p);
+        var p:Point = new Point(0, 0);
+        p = _btnSell.localToGlobal(p);
         ob.x = p.x;
         ob.y = p.y;
         ob.width = _btnSell.width;

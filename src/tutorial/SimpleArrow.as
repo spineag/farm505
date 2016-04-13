@@ -25,6 +25,7 @@ public class SimpleArrow {
         _parent = parent;
         _source = new Sprite();
         _source.visible = false;
+        _source.touchable = false;
         _armature = g.allData.factory['arrow'].buildArmature("arrow");
         _source.addChild(_armature.display as Sprite);
         switch (posType) {

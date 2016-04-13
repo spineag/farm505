@@ -122,11 +122,7 @@ public class TutorialCat extends BasicCat {
         super.stopAnimation();
     }
     override public function idleAnimation():void {
-        if (Math.random() > .2) {
-            showFront(true);
-        } else {
-            showFront(false);
-        }
+        showFront(true);
         heroEyes.startAnimations();
         _animation.playIt('idle');
         super.idleAnimation();

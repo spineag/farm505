@@ -395,7 +395,10 @@ public class Vars {
         townArea.sortAtLockedLands();
         bottomPanel.checkIsFullOrder();
         if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
-        if (managerTutorial.isTutorial) managerTutorial.initScenes();
+        if (managerTutorial.isTutorial) {
+            managerTutorial.initScenes();
+            managerTutorial.checkDefaults();
+        }
     }
 
     private function onEnterFrameGlobal():void {

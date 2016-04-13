@@ -125,7 +125,6 @@ public class WOLevelUp extends WindowMain {
         createList();
         super.showIt();
         _source.y -= 40;
-        _black.y += 40;
     }
 
     private function onLeftClick():void {

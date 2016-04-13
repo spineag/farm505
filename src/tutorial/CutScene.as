@@ -52,14 +52,19 @@ public class CutScene {
         var f:Function = function():void {
             showBubble(st, stBtn, callback);
         };
-        _bubble.hideBubble(f);
-        _bubble = null;
+        if (_bubble) {
+            _bubble.hideBubble(f);
+            _bubble = null;
+        }
     }
 
     public function hideIt(f:Function):void {
-        _bubble.hideBubble(f);
-        _bubble = null;
+        if (_bubble) {
+            _bubble.hideBubble(f);
+            _bubble = null;
+        }
         TweenMax.to(_source, .3, {x:_xStart});
+
     }
 
     private var label:String;

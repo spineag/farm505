@@ -92,7 +92,7 @@ public class HeroCat extends BasicCat{
     }
 
     override public function flipIt(v:Boolean):void {
-        v ? _source.scaleX = -1: _source.scaleX = 1;
+        _animation.flipIt(v);
     }
 
     public function get isFree():Boolean {

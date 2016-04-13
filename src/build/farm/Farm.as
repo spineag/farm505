@@ -100,7 +100,9 @@ public class Farm extends AreaObject{
 
     private function onClick():void {
         if (g.managerTutorial.isTutorial) {
-             if (g.managerTutorial.currentAction != TutorialAction.PUT_FARM) {
+            if (g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT) {
+
+            } else if (g.managerTutorial.currentAction != TutorialAction.PUT_FARM) {
                 if (!g.managerTutorial.isTutorialBuilding(this)) return;
             }
         }
