@@ -69,6 +69,7 @@ public class WOMarket  extends WindowMain {
         _cont = new Sprite();
         _contItem = new CSprite();
         _arrItemsFriend = [];
+        _arrItems = [];
         _shopSprite = new Sprite();
         _woWidth = 750;
         _woHeight = 520;
@@ -206,7 +207,7 @@ public class WOMarket  extends WindowMain {
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
         _txtName.x = -195;
-        _ma = new MarketAllFriend(_arrFriends,this,btnFriend);
+        _ma = new MarketAllFriend(_arrFriends, this, btnFriend);
         _source.addChild(_ma.source);
     }
 
@@ -216,16 +217,14 @@ public class WOMarket  extends WindowMain {
         _countPage = 1;
         _callback = f;
         if (params[0]) {
+            _curUser = params[0];
             for (var i:int=0; i < _arrFriends.length; i++) {
-                if (_arrFriends[i].userSocialId == params[0].userSocialId){
+                if (_arrFriends[i].userSocialId == _curUser.userSocialId){
                     _shiftFriend = i;
                 }
             }
-
-            _curUser = params[0];
-            if(_shiftFriend == 0) {
-                createMarketTabBtns(true);
-            } else createMarketTabBtns();
+            if(_shiftFriend == 0) createMarketTabBtns(true);
+                else createMarketTabBtns();
             choosePerson(params[0]);
             checkPapperTimer();
         }
@@ -237,11 +236,6 @@ public class WOMarket  extends WindowMain {
         super.hideIt();
     }
 
-    public function set curUser(p:Someone):void {
-        _curUser = p;
-        fillItemsByUser(_curUser);
-    }
-
     public function get curUser():Someone {
         return _curUser;
     }
@@ -250,92 +244,34 @@ public class WOMarket  extends WindowMain {
         while (_contItemCell.numChildren) {
             _contItemCell.removeChildAt(0);
         }
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].deleteIt();
+        }
         _arrItems.length = 0;
     }
 
-    private function addItems(newVisit:Boolean = false):void {
+    private function addItems():void {
         var item:MarketItem;
-        _arrItems = [];
-        if (newVisit) {
-            clearItems();
+        clearItems();
+
+        if (_curUser.marketCell <= 0) {
+            _curUser.marketCell = 5;
+            if (_curUser == g.user) g.directServer.updateUserMarketCell(5, null);
         }
 
-        if (g.user.marketCell == 0) {
-            g.directServer.updateUserMarketCell(5, null);
-            g.user.marketCell = 5;
+        var marketCellCount:int = _curUser.marketCell;
+        if (g.user == _curUser) {
+            marketCellCount += 2;
+            if (_curUser.marketCell > 40) marketCellCount = 40;
         }
-
-        var marketCellCount:int;
-        if (g.user.marketCell == 40) marketCellCount = g.user.marketCell;
-            else  marketCellCount = g.user.marketCell + 2;
 
         for (var i:int=0; i < marketCellCount; i++) {
-            if (i+1 > g.user.marketCell)  item = new MarketItem(i,true, this);
-                else  item = new MarketItem(i,false, this);
-            if (i+1 <= 8) {
-             item.source.x = 125*(_arrItems.length%4) - 300;
-                _countAllPage = 1;
-            } else  if (i+1 <= 16) {
-                item.source.x = 125*(_arrItems.length%4)+200;
-                _countAllPage = 2;
-            } else if (i+1 <= 24) {
-                item.source.x = 125*(_arrItems.length%4)+700;
-                _countAllPage = 3;
-            } else if (i+1 <= 32) {
-                item.source.x = 125*(_arrItems.length%4)+1200;
-                _countAllPage = 4;
-            } else if (i+1 <= 40) {
-                item.source.x = 125*(_arrItems.length%4)+1700;
-                _countAllPage = 5;
-            }
-
-            if (i+1 <= 4) {
-                item.source.y = -160;
-            }  else if (i+1 <= 8) {
-                item.source.y = -10;
-            } else if (i+1 <= 12) {
-                item.source.y = -160;
-            } else if (i+1 <= 16) {
-                item.source.y = -10;
-            } else if (i+1 <= 20) {
-                item.source.y = -160;
-            } else if (i+1 <= 24) {
-                item.source.y = -10;
-            } else if (i+1 <= 28) {
-                item.source.y = -160;
-            } else if (i+1 <= 32) {
-                item.source.y = -10;
-            } else if (i+1 <= 36) {
-                item.source.y = -160;
-            } else if (i+1 <= 40) {
-                item.source.y = -10;
-            }
-            _contItemCell.addChild(item.source);
-            item.callbackFill = callbackItem;
-            _arrItems.push(item);
-        }
-        if (newVisit) checkArrow();
-    }
-
-    private function addItemsFriend(_person:Someone = null):void {
-        if (!_person.marketCell) {
-            g.directServer.getFriendsMarketCell(int(_person.userSocialId), _person, addItemsFriend);
-            return;
-        }
-        if (!_arrItems) _arrItems = [];
-        else clearItems();
-
-        if (_person.marketCell == 0) {
-            _person.marketCell = 5;
-        }
-        var item:MarketItem;
-
-        for (var i:int=0; i < _person.marketCell; i++) {
-            item = new MarketItem(i,false, this);
+            if (i+1 > _curUser.marketCell) item = new MarketItem(i, true, this);
+                else item = new MarketItem(i, false, this);
             if (i+1 <= 8) {
                 item.source.x = 125*(_arrItems.length%4) - 300;
                 _countAllPage = 1;
-            } else  if (i+1 <= 16) {
+            } else if (i+1 <= 16) {
                 item.source.x = 125*(_arrItems.length%4)+200;
                 _countAllPage = 2;
             } else if (i+1 <= 24) {
@@ -371,7 +307,6 @@ public class WOMarket  extends WindowMain {
                 item.source.y = -10;
             }
             _contItemCell.addChild(item.source);
-            item.callbackFill = callbackItem;
             _arrItems.push(item);
         }
         checkArrow();
@@ -422,100 +357,52 @@ public class WOMarket  extends WindowMain {
         }
         _contItemCell.addChild(item.source);
         _arrItems.push(item);
-        item.callbackFill = callbackItem;
         checkArrow();
-    }
-
-    private function callbackItem():void { }
-
-    public function fillItemsByUser(p:Someone):void {
-        _curUser = p;
-        if (p is NeighborBot) {
-            g.directServer.getUserNeighborMarket(fillItems);
-        } else {
-            g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
-        }
-    }
-
-    public function unFillItems():void {
-        if (!_arrItems) return;
-        for (var i:int=0; i< _arrItems.length; i++) {
-            if (!_arrItems[i].number) return;
-            _arrItems[i].unFillIt();
-        }
     }
 
     private function fillItems():void {
         var i:int;
-//        try {
-        if (_curUser.marketItems == null) g.directServer.getUserMarketItem(_curUser.userSocialId, null);
-            var n:int = 0;
-            if (_curUser is NeighborBot) {
-                for (i = 0; i < _arrItems.length; i++) {
-                    _arrItems[i].friendAdd();
-                    if (_curUser.marketItems[i]) {
-                        if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
-                        _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser);
-                    }
+        if (_curUser is NeighborBot) {
+            for (i = 0; i < _arrItems.length; i++) {
+                _arrItems[i].friendAdd();
+                if (_curUser.marketItems[i]) {
+                    if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
+                    _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser);
                 }
-                return;
             }
-//            for (i=0; i < _arrItems.length; i++) {
-//                if (_curUser.marketItems[i]) {
-//                    n = 0;
-//                    if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
-//                    n = _curUser.marketItems[i].numberCell;
-//                    _arrItems[n].fillFromServer(_curUser.marketItems[i], _curUser);
-//                    _arrItems[i].isUser = _curUser == g.user;
-//                } else {
-//                    _arrItems[i].isUser = _curUser == g.user;
-//                }
-//                if (_curUser != g.user) _arrItems[i].friendAdd();
-//                if (_curUser == g.user)  _arrItems[i].friendAdd(true);
-//            }
-            for (i = 0; i <_curUser.marketItems.length; i++) {
+        } else {
+            for (i = 0; i < _curUser.marketItems.length; i++) {
                 _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
             }
             if (_shiftFriend != 0) goToItemFromPaper();
-
-
-//        } catch (e:Error) {
-//            Cc.error('WOMarket fillItems:: error: ' + e.errorID + ' - ' + e.message);
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woMarket');
-//        }
+        }
     }
 
-        private function goToItemFromPaper():void {
-            for (var i:int = 0; i < _curUser.marketItems.length; i++) {
-                if (_curUser.marketItems[i].visitItem) {
-                    if (_curUser.marketItems[i].numberCell <= 8) {
-                        _countPage = 1;
-                        _shift = 0;
-                    } else if (_curUser.marketItems[i].numberCell <= 16) {
-                        _countPage = 2;
-                        _shift = 4;
-                    } else if (_curUser.marketItems[i].numberCell <= 24) {
-                        _countPage = 3;
-                        _shift = 8;
-                    } else if (_curUser.marketItems[i].numberCell <= 32) {
-                        _countPage = 4;
-                        _shift = 12;
-                    } else if (_curUser.marketItems[i].numberCell <= 40) {
-                        _shift = 16;
-                        _countPage = 5;
-                    }
-
-                    break;
+    private function goToItemFromPaper():void {
+        for (var i:int = 0; i < _curUser.marketItems.length; i++) {
+            if (_curUser.marketItems[i].visitItem) {
+                if (_curUser.marketItems[i].numberCell <= 8) {
+                    _countPage = 1;
+                    _shift = 0;
+                } else if (_curUser.marketItems[i].numberCell <= 16) {
+                    _countPage = 2;
+                    _shift = 4;
+                } else if (_curUser.marketItems[i].numberCell <= 24) {
+                    _countPage = 3;
+                    _shift = 8;
+                } else if (_curUser.marketItems[i].numberCell <= 32) {
+                    _countPage = 4;
+                    _shift = 12;
+                } else if (_curUser.marketItems[i].numberCell <= 40) {
+                    _shift = 16;
+                    _countPage = 5;
                 }
+                break;
             }
-            new TweenMax(_contItemCell, .5, {
-                x: -_shift * 125,
-                ease: Linear.easeNone,
-                onComplete: function ():void {
-                }
-            });
-            checkArrow();
         }
+        new TweenMax(_contItemCell, .5, {x: -_shift * 125});
+        checkArrow();
+    }
 
     private function makeRefresh():void {
         for (var i:int=0; i< _arrItems.length; i++) {
@@ -679,19 +566,26 @@ public class WOMarket  extends WindowMain {
     }
 
     public function choosePerson(_person:Someone):void {
-        unFillItems();
+        clearItems();
         _shift = 0;
-        new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone});
+        new TweenMax(_contItemCell, .5, {x: -_shift * 125, ease: Linear.easeNone});
         _countPage = 1;
-        if (_person.userSocialId == g.user.userSocialId) {
-            addItems(true);
-            _contPaper.visible = true;
-            fillItemsByUser(_person);
-
+        _curUser = _person;
+        if (_curUser.marketCell < 0) {
+            if (_curUser is NeighborBot) {
+                g.directServer.getUserNeighborMarket(onChoosePerson);
+            } else {
+                g.directServer.getUserMarketItem(_curUser.userSocialId, onChoosePerson);
+            }
         } else {
-            addItemsFriend(_person);
-            _contPaper.visible = false;
+            onChoosePerson();
         }
+    }
+
+    private function onChoosePerson():void {
+        _contPaper.visible = _curUser == g.user;
+        addItems();
+        fillItems();
     }
 
     public function onChooseFriendOnPanel(p:Someone, shift:int):void {
