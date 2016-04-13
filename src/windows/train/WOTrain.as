@@ -245,20 +245,19 @@ public class WOTrain extends WindowMain {
         _build = params[1];
         _counter = params[3];
             _txt.text = 'До отправления';
-            _isBigCount = list.length > 9;
-            var type:int;
-            for (var i:int = 0; i<list.length; i++) {
-                if (_isBigCount) type = int(i/4);
-                else type = int(i/3);
-                _arrItems[i].fillIt(list[i], i, type + 1);
-                _arrItems[i].clickCallback = onItemClick;
-            }
-            if (!_isBigCount) {
-                _arrItems[9].fillIt(null, 9, CELL_GRAY);
-                _arrItems[10].fillIt(null, 10, CELL_GRAY);
-                _arrItems[11].fillIt(null, 11, CELL_GRAY);
-            }
-
+                _isBigCount = list.length > 9;
+                var type:int;
+                for (var i:int = 0; i < list.length; i++) {
+                    if (_isBigCount) type = int(i / 4);
+                    else type = int(i / 3);
+                    _arrItems[i].fillIt(list[i], i, type + 1);
+                    _arrItems[i].clickCallback = onItemClick;
+                }
+                if (!_isBigCount) {
+                    _arrItems[9].fillIt(null, 9, CELL_GRAY);
+                    _arrItems[10].fillIt(null, 10, CELL_GRAY);
+                    _arrItems[11].fillIt(null, 11, CELL_GRAY);
+                }
             _txtCostAll.text = String(_build.allCoinsCount);
             _txtXpAll.text = String(_build.allXPCount);
             onItemClick(0);
@@ -390,6 +389,7 @@ public class WOTrain extends WindowMain {
             if (_lock == 0 || !_isBigCount && _lock <= 3) {
                 g.windowsManager.cashWindow = this;
                 super.hideIt();
+//                deleteIt();
                 g.windowsManager.openWindow(WindowsManager.WO_TRAIN_SEND, fullTrain);
                 return;
             }

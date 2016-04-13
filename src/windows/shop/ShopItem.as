@@ -439,7 +439,7 @@ public class ShopItem {
                     for (i=0; i<arr.length; i++) {
                         curCount += (arr[i] as Farm).arrAnimals.length;
                     }
-                    if (maxCount == 0) {
+                    if (maxCount == 0 || maxCount == 5 ||  maxCount == 10 ||  maxCount == 15 ||  maxCount == 20) {
                         _txtAvailable.visible = true;
                         _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
                         _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;

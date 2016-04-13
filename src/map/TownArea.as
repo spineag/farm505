@@ -194,6 +194,20 @@ public class TownArea extends Sprite {
         }
     }
 
+    public function decorTailSort():void {
+        try {
+            _cityTailObjects.sortOn("depth", Array.NUMERIC);
+            for (var i:int = 0; i < _cityTailObjects.length; i++) {
+                if (_contTail.contains(_cityTailObjects[i].source)) {
+                    _contTail.setChildIndex(_cityTailObjects[i].source, i);
+                }
+            }
+        } catch(e:Error) {
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+            Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
+        }
+    }
+
     public function sortAtLockedLands():void {
         for (var i:int = 0; i < _cityObjects.length; i++) {
             if (_cityObjects[i] is LockedLand) (_cityObjects[i] as LockedLand).sortWilds();
@@ -533,7 +547,7 @@ public class TownArea extends Sprite {
                 g.toolsModifier.startMove(build, afterMoveFromInventory, true);
                 return;
             }
-            if (worldObject.dataBuild.currency[i] != DataMoney.SOFT_CURRENCY || worldObject.dataBuild.currency[i] != DataMoney.HARD_CURRENCY ) {
+            if (worldObject.dataBuild.currency[0] != DataMoney.SOFT_CURRENCY && worldObject.dataBuild.currency[0] != DataMoney.HARD_CURRENCY ) {
                 for (i = 0; i < worldObject.dataBuild.currency.length; i++){
                     if (worldObject.dataBuild.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < worldObject.dataBuild.cost[i]) {
                         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -574,7 +588,7 @@ public class TownArea extends Sprite {
                     return;
                 }
 
-            } else {
+            } else if (worldObject is Decor ||worldObject is DecorFence || worldObject is DecorPostFence){
                 arr = getCityObjectsById(worldObject.dataBuild.id);
                     if (g.user.softCurrencyCount < (arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost)) {
                         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -593,8 +607,8 @@ public class TownArea extends Sprite {
                 g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
             } else if (worldObject is Tree) {
                 g.toolsModifier.modifierType = ToolsModifier.PLANT_TREES;
-            } else if (worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail) {
-                g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            } else if (worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence) {
+                    g.toolsModifier.modifierType = ToolsModifier.MOVE;
                     g.buyHint.showIt((arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
                     build = createNewBuild(worldObject.dataBuild);
                     g.selectedBuild = build;
@@ -629,8 +643,16 @@ public class TownArea extends Sprite {
 
     public function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void { // для декора из инвентаря
         (build as WorldObject).source.filter = null;
+
         g.bottomPanel.cancelBoolean(true);
         var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
+        if (!g.userInventory.decorInventory[(build as WorldObject).dataBuild.id]) {
+            var arr:Array;
+            if (build is DecorTail) arr = getCityTailObjectsById((build as WorldObject).dataBuild.id);
+            else arr = getCityObjectsById((build as WorldObject).dataBuild.id);
+            var cost:int = arr.length * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
+            g.buyHint.showIt(cost);
+        }
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         (build as WorldObject).dbBuildingId = dbId;
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
@@ -707,7 +729,10 @@ public class TownArea extends Sprite {
             else g.toolsModifier.startMoveTail(build, endMoveAfterShop, true);
         } else {
             if (isFromInventory) g.toolsModifier.startMove(build, endMoveFromInventoryAfterShop, true);
-            else g.toolsModifier.startMove(build, endMoveAfterShop, true);
+            else {
+//                g.buyHint.showIt((build as WorldObject).dataBuild.currency)
+                g.toolsModifier.startMove(build, endMoveAfterShop, true);
+            }
         }
     }
 
@@ -732,6 +757,7 @@ public class TownArea extends Sprite {
             }
             if (build is DecorTail) {
                 g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
+//                decorTailSort();
             } else {
                 g.townArea.pasteBuild(build, _x, _y,true,false,true);
             }
@@ -799,8 +825,8 @@ public class TownArea extends Sprite {
             if (isNewAtMap) {
                 g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
                 tail.addXP();
+                decorTailSort();
             }
-
             if (updateAfterMove) {
                 g.directServer.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
             }

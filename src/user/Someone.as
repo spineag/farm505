@@ -10,6 +10,7 @@ public class Someone {
     public var globalXP:int;
     public var photo:String;
     public var marketItems:Array;
+    public var idVisitItemFromPaper:int;
     public var marketCell:int = -1;
     public var userDataCity:UserDataCity;
 

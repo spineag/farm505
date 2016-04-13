@@ -184,7 +184,7 @@ public class WOPapperItem {
     private function onClickVisit():void {
         if (!_data) return;
         _wo.hideIt();
-        if (_p.marketItems != null) _p.marketItems[number].visitItem = true;
+         _p.idVisitItemFromPaper = _data.resourceId;
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
     }
 

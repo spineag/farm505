@@ -118,10 +118,10 @@ public class WOMarket  extends WindowMain {
         _panelBool = false;
 
         _leftBtn = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left_mini'));
         _leftBtn.addChild(im);
         MCScaler.scale(_leftBtn, 40, 40);
-        _leftBtn.x = -274;
+        _leftBtn.x = -280;
         _leftBtn.y = 158;
         _source.addChild(_leftBtn);
         _leftBtn.endClickCallback = onLeft;
@@ -129,7 +129,7 @@ public class WOMarket  extends WindowMain {
         _leftBtn.outCallback = function():void { if (_leftBtn.filter == ManagerFilters.BUILDING_HOVER_FILTER)_leftBtn.filter = null; };
 
         _rightBtn = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left_mini'));
         im.scaleX = -1;
         im.x = im.width;
         _rightBtn.addChild(im);
@@ -146,7 +146,7 @@ public class WOMarket  extends WindowMain {
         im.y = 165;
         _source.addChild(im);
         _txtNumberPage = new TextField(50, 50, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        _txtNumberPage.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN_BIG;
+        _txtNumberPage.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtNumberPage.x = -253;
         _txtNumberPage.y = 153;
         _source.addChild(_txtNumberPage);
@@ -371,29 +371,34 @@ public class WOMarket  extends WindowMain {
                 }
             }
         } else {
+            for (i = 0; i < _arrItems.length; i++) {
+                if (_curUser == g.user) _arrItems[i].friendAdd(true);
+                else _arrItems[i].friendAdd(false);
+            }
             for (i = 0; i < _curUser.marketItems.length; i++) {
                 _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
             }
+
             if (_shiftFriend != 0) goToItemFromPaper();
         }
     }
 
     private function goToItemFromPaper():void {
         for (var i:int = 0; i < _curUser.marketItems.length; i++) {
-            if (_curUser.marketItems[i].visitItem) {
+            if (_curUser.marketItems[i].resourceId == _curUser.idVisitItemFromPaper && _curUser.marketItems[i].inPapper) {
                 if (_curUser.marketItems[i].numberCell <= 8) {
                     _countPage = 1;
                     _shift = 0;
-                } else if (_curUser.marketItems[i].numberCell <= 16) {
+                } else if (_curUser.marketItems[i].numberCell+1 <= 16) {
                     _countPage = 2;
                     _shift = 4;
-                } else if (_curUser.marketItems[i].numberCell <= 24) {
+                } else if (_curUser.marketItems[i].numberCell+1 <= 24) {
                     _countPage = 3;
                     _shift = 8;
-                } else if (_curUser.marketItems[i].numberCell <= 32) {
+                } else if (_curUser.marketItems[i].numberCell+1 <= 32) {
                     _countPage = 4;
                     _shift = 12;
-                } else if (_curUser.marketItems[i].numberCell <= 40) {
+                } else if (_curUser.marketItems[i].numberCell+1 <= 40) {
                     _shift = 16;
                     _countPage = 5;
                 }
@@ -648,11 +653,11 @@ public class WOMarket  extends WindowMain {
 
     private function onLeft():void {
         var tween:Tween = new Tween(_leftBtn, 0.2);
-        tween.scaleTo(0.2);
+        tween.scaleTo(.6);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
-        tween.scaleTo(0.4);
+        tween.scaleTo(1);
         g.starling.juggler.add(tween);
         if (_shift > 0) {
             _shift -= 4;
@@ -667,11 +672,11 @@ public class WOMarket  extends WindowMain {
     private function onRight():void {
         if (_rightBtn.filter == ManagerFilters.BUTTON_DISABLE_FILTER) return;
         var tween:Tween = new Tween(_rightBtn, 0.2);
-        tween.scaleTo(0.2);
+        tween.scaleTo(.6);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
-        tween.scaleTo(0.4);
+        tween.scaleTo(1);
         g.starling.juggler.add(tween);
         var l:int = _arrItems.length;
         _shift += 4;

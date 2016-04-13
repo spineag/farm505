@@ -29,6 +29,8 @@ import windows.reloadPage.WOReloadGame;
 import windows.serverError.WOServerError;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
+import windows.train.WOTrainOrder;
+import windows.train.WOTrainSend;
 
 public class WindowsManager {
     public static const WO_AMBAR:String = 'ambar_and_sklad';
@@ -166,10 +168,10 @@ public class WindowsManager {
                 wo = new WOTrain();
                 break;
             case WO_TRAIN_ORDER:
-                wo = new WOTrain();
+                wo = new WOTrainOrder();
                 break;
             case WO_TRAIN_SEND:
-                wo = new WOTrain();
+                wo = new WOTrainSend();
                 break;
             case WO_SHOP:
                 wo = new WOShop();
@@ -179,6 +181,7 @@ public class WindowsManager {
                 Cc.error('WindowsManager:: unknown window type: ' + type);
                 break;
         }
+        trace('open window:: ' + wo.windowType);
         wo.showItParams(callback, params);
         _currentWindow = wo;
     }

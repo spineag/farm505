@@ -478,7 +478,6 @@ public class MarketItem {
     public function fillFromServer(obj:Object, p:Someone):void {
         if (_closeCell) return;
         _person = p;
-        _isUser = Boolean(p == g.user);
         _dataFromServer = obj;
         if (_dataFromServer.buyerId != '0') {
             if (_person.userSocialId == g.user.userSocialId) {
@@ -612,8 +611,8 @@ public class MarketItem {
             _bg.filter = ManagerFilters.BUILD_STROKE;
         } else if (isFill == 1 && _isUser) {
             _delete.visible = true;
-            count = 0;
-            g.gameDispatcher.addEnterFrame(onEnterFrame);
+            count = 1;
+            g.gameDispatcher.addToTimer(onEnterFrame);
         }
     }
 
@@ -624,18 +623,17 @@ public class MarketItem {
         } else if (isFill == 1 && _isUser) {
             _delete.visible = false;
             g.marketHint.hideIt();
-            g.gameDispatcher.removeEnterFrame(onEnterFrame);
+            g.gameDispatcher.removeFromTimer(onEnterFrame);
         }
     }
 
     private var count:int;
     private function onEnterFrame():void {
-        count++;
-        if (count >= 10) {
+        count--;
+        if (count >= 0) {
+            g.gameDispatcher.removeFromTimer(onEnterFrame);
             if (!g.resourceHint.isShowed && _onHover)
                 g.marketHint.showIt(_data.id,source.x,source.y,source);
-            g.gameDispatcher.removeEnterFrame(onEnterFrame);
-            count = 0;
         }
     }
 
@@ -647,6 +645,7 @@ public class MarketItem {
                 _txtAdditem.text = '';
             } else _txtAdditem.text = 'Добавить товар';
         }
+        _isUser = user;
     }
 
     private function onGettingUserInfo(ar:Array):void {

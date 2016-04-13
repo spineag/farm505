@@ -120,8 +120,7 @@ public class User extends Someone {
             obj.resourceId = int(arr[i].resource_id);
             obj.timeSold = arr[i].time_sold;
             obj.timeStart = arr[i].time_start;
-            obj.numberCell = arr[i].number_cell;
-            obj.visitItem = false;
+            obj.numberCell = int(arr[i].number_cell);
 //            obj.photo = '';
             p.marketItems.push(obj);
         }

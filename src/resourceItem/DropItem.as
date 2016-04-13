@@ -11,11 +11,15 @@ import data.BuildType;
 
 import data.DataMoney;
 
+import flash.display.StageDisplayState;
+
 import flash.geom.Point;
 
 import manager.ManagerFilters;
 
 import manager.Vars;
+
+import starling.core.Starling;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -130,8 +134,11 @@ public class DropItem {
         };
         var tempX:int = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
+        var v:Number;
+        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;
+        else v = 430;
         var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        new TweenMax(_source, dist/350, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay:.3});
+        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay:.3});
     }
 }
 }

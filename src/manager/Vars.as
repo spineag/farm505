@@ -392,6 +392,7 @@ public class Vars {
         gameDispatcher.addEnterFrame(onEnterFrameGlobal);
         updateAmbarIndicator();
         townArea.zSort();
+        townArea.decorTailSort();
         townArea.sortAtLockedLands();
         bottomPanel.checkIsFullOrder();
         if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
