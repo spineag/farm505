@@ -12,6 +12,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import starling.animation.Tween;
+
 import starling.display.Image;
 
 import starling.display.Sprite;
@@ -88,6 +90,14 @@ public class MarketHint {
         }
         _source.x = start.x + source.width/2;
         _source.y = start.y + source.height;
+        _source.scaleX = _source.scaleY = 0;
+        var tween:Tween = new Tween(_source, 0.2);
+        tween.scaleTo(1);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+
+        };
+        g.starling.juggler.add(tween);
         if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop + '_icon'));
             MCScaler.scale(_imageItem,30,30);

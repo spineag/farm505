@@ -58,7 +58,7 @@ public class WOBuyCurrencyItem {
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
         txt = new TextField(120, 38, String(cost) + ' голосов', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN_BIG;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btn.addChild(txt);
         _btn.x = 493;
         _btn.y = 31;

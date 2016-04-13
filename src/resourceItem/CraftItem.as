@@ -7,6 +7,8 @@ import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
+
+import flash.display.StageDisplayState;
 import flash.geom.Point;
 
 import hint.FlyMessage;
@@ -16,6 +18,8 @@ import manager.ManagerFilters;
 import manager.Vars;
 
 import particle.CraftItemParticle;
+
+import starling.core.Starling;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -177,7 +181,11 @@ public class CraftItem {
         _source.x < endPoint.x ? tempX = _source.x + 50 : tempX = _source.x - 50;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
         var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        var v:Number = 300;
+        var v:Number;
+        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
+        else v = 400;
+
+
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
         new XPStar(_source.x,_source.y,_resourceItem.craftXP);
         if (count > 0) {

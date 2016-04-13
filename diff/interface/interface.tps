@@ -318,6 +318,7 @@
             <filename>baloon_2.png</filename>
             <filename>baloon_3.png</filename>
             <filename>particles</filename>
+            <filename>button_yel_left_mini.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
