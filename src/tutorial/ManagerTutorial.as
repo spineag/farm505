@@ -561,17 +561,23 @@ public class ManagerTutorial {
             g.cont.moveCenterToPos(27, 14);
         }
         subStep = 0;
-        playCatIdle();
-        if (!cutScene) {
-            cutScene = new CutScene();
-            cutScene.showIt(texts[g.user.tutorialStep][subStep]);
-        }
         _tutorialResourceIDs = [3];
-        _currentAction = TutorialAction.BUY_FABRICA;
-        var ob:Object = g.bottomPanel.getShopButtonProperties();
-        g.bottomPanel.addArrow('shop');
-        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        g.bottomPanel.tutorialCallback = subStep7_1;
+        _tutorialObjects = g.townArea.getCityObjectsById(_tutorialResourceIDs[0]);
+        if (_tutorialObjects.length) {
+            g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY);
+            subStep7_4();
+        } else {
+            playCatIdle();
+            if (!cutScene) {
+                cutScene = new CutScene();
+                cutScene.showIt(texts[g.user.tutorialStep][subStep]);
+            }
+            _currentAction = TutorialAction.BUY_FABRICA;
+            var ob:Object = g.bottomPanel.getShopButtonProperties();
+            g.bottomPanel.addArrow('shop');
+            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            g.bottomPanel.tutorialCallback = subStep7_1;
+        }
     }
 
     private function subStep7_1():void {
@@ -618,13 +624,15 @@ public class ManagerTutorial {
     }
 
     private function subStep7_4():void {
-        _tutorialPlaceBuilding.activateIt(false);
-        _tutorialPlaceBuilding = null;
+        if (_tutorialPlaceBuilding) {
+            _tutorialPlaceBuilding.activateIt(false);
+            _tutorialPlaceBuilding = null;
+        }
         subStep = 4;
         _tutorialResourceIDs = [];
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
-        g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX - 1,  _tutorialObjects[0].posY + _tutorialObjects[0].sizeY + 1), subStep7_5);
+        g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX - 1,  _tutorialObjects[0].posY + 6), subStep7_5);
     }
 
     private function subStep7_5():void {
@@ -734,50 +742,85 @@ public class ManagerTutorial {
 
     private function subStep9_4():void {
         subStep = 4;
+        _tutorialObjects.length = 0;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-            _tutorialCallback = subStep9_5;
+            var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+            for (var i:int=0; i<arr.length; i++) {
+                if (arr[i].posY == 35) {
+                    _tutorialObjects.push(arr[i]);
+                }
+            }
+            if (!_tutorialObjects.length) {
+                _tutorialCallback = subStep9_4a;
+            } else if (_tutorialObjects.length == 1) {
+                _tutorialCallback = subStep9_6a;
+            } else {
+                _tutorialCallback = subStep9_7a;
+            }
+
+            _tutorialObjects.length = 0;
+            var dataPlace:Object = {};
+            dataPlace.dataBuild = -1;
+            dataPlace.buildType = BuildType.TUTORIAL_PLACE;
+            dataPlace.width = 2;
+            dataPlace.height = 2;
+            _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
+            var p:Point = new Point(21, 35);
+            p = g.matrixGrid.getXYFromIndex(p);
+            g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
+            _tutorialObjects.push(_tutorialPlaceBuilding);
+
+            _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
+            p = new Point(23, 35);
+            p = g.matrixGrid.getXYFromIndex(p);
+            g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
+            _tutorialObjects.push(_tutorialPlaceBuilding);
+
+            _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
+            p = new Point(25, 35);
+            p = g.matrixGrid.getXYFromIndex(p);
+            g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
+            _tutorialObjects.push(_tutorialPlaceBuilding);
         } else {
             Cc.error('wo_SHOP is not opened');
         }
-        var dataPlace:Object = {};
-        dataPlace.dataBuild = -1;
-        dataPlace.buildType = BuildType.TUTORIAL_PLACE;
-        dataPlace.width = 2;
-        dataPlace.height = 2;
-        _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
-        var p:Point = new Point(21, 35);
-        p = g.matrixGrid.getXYFromIndex(p);
-        g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
     }
 
-    private function subStep9_5():void {
-        subStep = 5;
-        cat.showBubble(texts[g.user.tutorialStep][subStep]);
+    private function subStep9_4a():void {
+        _tutorialPlaceBuilding = _tutorialObjects[0];
         g.cont.moveCenterToPos(21, 35);
         _tutorialPlaceBuilding.activateIt(true);
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
+        subStep9_5();
+    }
+
+    private function subStep9_5():void {
+        subStep = 5;
+        cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        g.cont.moveCenterToPos(21, 35);
         _tutorialCallback = subStep9_6;
     }
 
     private function subStep9_6():void {
         subStep = 6;
-        cat.hideBubble();
         _tutorialPlaceBuilding.activateIt(false);
         _tutorialPlaceBuilding = null;
-        var dataPlace:Object = {};
-        dataPlace.dataBuild = -1;
-        dataPlace.buildType = BuildType.TUTORIAL_PLACE;
-        dataPlace.width = 2;
-        dataPlace.height = 2;
-        _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
-        var p:Point = new Point(23, 35);
-        p = g.matrixGrid.getXYFromIndex(p);
-        g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
+        subStep9_6a();
+    }
+
+    private function subStep9_6a():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        if (!cat.isShowingBubble) cat.showBubble(texts[g.user.tutorialStep][5]);
+        _tutorialPlaceBuilding = _tutorialObjects[1];
+        g.cont.moveCenterToPos(23, 35);
         _tutorialPlaceBuilding.activateIt(true);
         _tutorialCallback = subStep9_7;
     }
@@ -786,20 +829,23 @@ public class ManagerTutorial {
         subStep = 7;
         _tutorialPlaceBuilding.activateIt(false);
         _tutorialPlaceBuilding = null;
-        var dataPlace:Object = {};
-        dataPlace.dataBuild = -1;
-        dataPlace.buildType = BuildType.TUTORIAL_PLACE;
-        dataPlace.width = 2;
-        dataPlace.height = 2;
-        _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
-        var p:Point = new Point(25, 35);
-        p = g.matrixGrid.getXYFromIndex(p);
-        g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
+        subStep9_7a();
+    }
+
+    private function subStep9_7a():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        if (!cat.isShowingBubble) cat.showBubble(texts[g.user.tutorialStep][5]);
+        g.cont.moveCenterToPos(25, 35);
+        _tutorialPlaceBuilding = _tutorialObjects[2];
         _tutorialPlaceBuilding.activateIt(true);
         _tutorialCallback = subStep9_8;
     }
 
     private function subStep9_8():void {
+        cat.hideBubble();
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         _tutorialPlaceBuilding.activateIt(false);
         _tutorialPlaceBuilding = null;
@@ -818,9 +864,13 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
         for (var i:int=0; i<arr.length; i++) {
-            if (arr[i].posY == 35) {
+            if (arr[i].posY == 35 && (arr[i] as Ridge).isFreeRidge) {
                 _tutorialObjects.push(arr[i]);
             }
+        }
+        if (!_tutorialObjects.length) {
+            subStep10_4();
+            return;
         }
         _tutorialObjects.sortOn('dbBuildingId', Array.NUMERIC);
         if (!cat) {
@@ -842,7 +892,6 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.PLANT_RIDGE;
         (_tutorialObjects[0] as WorldObject).showArrow();
         (_tutorialObjects[0] as Ridge).tutorialCallback = subStep10_2;
-//        _tutorialCallback = subStep10_2;
     }
 
     private function subStep10_2(r:Ridge=null):void {
@@ -852,21 +901,29 @@ public class ManagerTutorial {
         cat.flipIt(true);
         (_tutorialObjects[0] as WorldObject).hideArrow();
         _tutorialObjects.shift();
-        (_tutorialObjects[0] as WorldObject).showArrow();
-        (_tutorialObjects[0] as Ridge).tutorialCallback = subStep10_3;
+        if (!_tutorialObjects.length) {
+            subStep10_4();
+        } else {
+            (_tutorialObjects[0] as WorldObject).showArrow();
+            (_tutorialObjects[0] as Ridge).tutorialCallback = subStep10_3;
+        }
     }
 
     private function subStep10_3(r:Ridge=null):void {
         subStep = 3;
         (_tutorialObjects[0] as WorldObject).hideArrow();
         _tutorialObjects.shift();
-        (_tutorialObjects[0] as WorldObject).showArrow();
-        (_tutorialObjects[0] as Ridge).tutorialCallback = subStep10_4;
+        if (!_tutorialObjects.length) {
+            subStep10_4();
+        } else {
+            (_tutorialObjects[0] as WorldObject).showArrow();
+            (_tutorialObjects[0] as Ridge).tutorialCallback = subStep10_4;
+        }
     }
 
     private function subStep10_4(r:Ridge=null):void {
         subStep = 4;
-        (_tutorialObjects[0] as WorldObject).hideArrow();
+        if (_tutorialObjects.length) (_tutorialObjects[0] as WorldObject).hideArrow();
         _tutorialObjects.length = 0;
         _tutorialResourceIDs.length = 0;
         _tutorialCallback = null;
@@ -904,9 +961,13 @@ public class ManagerTutorial {
         cat.flipIt(true);
         subStep = 2;
         cat.playDirectLabel('idle3', true, playCatIdle);
-        cat.showBubble(texts[g.user.tutorialStep][subStep]);
-        g.managerOrder.checkOrderForTutorial(subStep11_5);
-        createDelay(3, subStep11_3);
+        if (g.managerOrder.countOrders) {
+
+        } else {
+            cat.showBubble(texts[g.user.tutorialStep][subStep]);
+            g.managerOrder.checkOrderForTutorial(subStep11_5);
+            createDelay(3, subStep11_3);
+        }
     }
 
     private function subStep11_3():void {

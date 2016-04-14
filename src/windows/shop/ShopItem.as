@@ -640,7 +640,6 @@ public class ShopItem {
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             (build as AreaObject).countShopCost = _countCost;
             g.townArea.startMoveAfterShop(build as AreaObject);
-//            g.toolsModifier.startMove(build as AreaObject, _countCost);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;

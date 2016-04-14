@@ -60,6 +60,11 @@ public class TutorialCat extends BasicCat {
         _source.addChildAt(im, 0);
     }
 
+    public function get isShowingBubble():Boolean {
+        if (_bubble) return true;
+        else return false;
+    }
+
     public function showBubble(st:String, delay:Number=0):void {
         var type:int;
         if (st.length > 140) {
