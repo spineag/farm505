@@ -199,7 +199,7 @@ public class Train extends AreaObject{
                         _stateBuild = STATE_ACTIVE;
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
-                        _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                        _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
                         if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                             _stateBuild = STATE_WAIT_ACTIVATE;
                             _build.visible = false;
@@ -428,7 +428,7 @@ public class Train extends AreaObject{
         g.directServer.startBuildBuilding(this, null);
         addFoundationBuilding();
         g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
-        _leftBuildTime = _dataBuild.buildTime;
+        _leftBuildTime = _dataBuild.buildTime[0];
         g.gameDispatcher.addToTimer(renderBuildTrainProgress);
     }
 

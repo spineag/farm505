@@ -45,8 +45,10 @@ public class AreaObject extends WorldObject {
                     _stateBuild = STATE_ACTIVE;
                     createBuild();                                           // уже построенно и открыто
                 } else {
-                    _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
-                    _leftBuildTime = int(_dataBuild.buildTime) - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                    _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);// сколько времени уже строится
+                    var arr:Array = g.townArea.getCityObjectsById(_dataBuild.id);
+
+                    _leftBuildTime = int(_dataBuild.buildTime[arr.length]) - _leftBuildTime;                                 // сколько времени еще до конца стройки
                     if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                         _stateBuild = STATE_WAIT_ACTIVATE;
 //                    createBuild();

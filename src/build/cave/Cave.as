@@ -108,7 +108,7 @@ public class Cave extends AreaObject{
                     _armature.animation.gotoAndStop('open', 0);
                 } else if (ob.isBuilded) {
                     _leftBuildTime = Number(ob.timeBuildBuilding);  // сколько времени уже строится
-                    _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                    _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
                     if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                         _stateBuild = STATE_WAIT_ACTIVATE;
                         addDoneBuilding();
@@ -129,7 +129,7 @@ public class Cave extends AreaObject{
                         _armature.animation.gotoAndStop('open', 0);
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
-                        _leftBuildTime = _dataBuild.buildTime - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                        _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
                         if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                             _stateBuild = STATE_WAIT_ACTIVATE;
                             addDoneBuilding();

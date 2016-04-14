@@ -413,7 +413,10 @@ public class DirectServer {
                     for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
                 }
                 if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
-                if (d.message[i].build_time) obj.buildTime = int(d.message[i].build_time);
+                if (d.message[i].build_time) {
+                    obj.buildTime = String(d.message[i].build_time).split('&');
+                    for (k = 0; k < obj.buildTime.length; k++) obj.buildTime[k] = int(obj.buildTime[k]);
+                }
                 if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
 
                 if (d.message[i].craft_resource_id) obj.craftIdResource = int(d.message[i].craft_resource_id);
