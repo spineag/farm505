@@ -37,7 +37,7 @@ import windows.orderWindow.WOOrder;
 import windows.shop.WOShop;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = false;
+    private const TUTORIAL_ON:Boolean = true;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
@@ -88,84 +88,84 @@ public class ManagerTutorial {
         var curFunc:Function;
 //        trace('step: ' + g.user.tutorialStep);
 //        try {
-            switch (g.user.tutorialStep) {
-                case 1:
-                    curFunc = initScene_1;
-                    break;
-                case 2:
-                    curFunc = initScene_2;
-                    break;
-                case 3:
-                    curFunc = initScene_3;
-                    break;
-                case 4:
-                    curFunc = initScene_4;
-                    break;
-                case 5:
-                    curFunc = initScene_5;
-                    break;
-                case 6:
-                    curFunc = initScene_6;
-                    break;
-                case 7:
-                    curFunc = initScene_7;
-                    break;
-                case 8:
-                    curFunc = initScene_8;
-                    break;
-                case 9:
-                    curFunc = initScene_9;
-                    break;
-                case 10:
-                    curFunc = initScene_10;
-                    break;
-                case 11:
-                    curFunc = initScene_11;
-                    break;
-                case 12:
-                    curFunc = initScene_12;
-                    break;
-                case 13:
-                    curFunc = initScene_13;
-                    break;
-                case 14:
-                    curFunc = initScene_14;
-                    break;
-                case 15:
-                    curFunc = initScene_15;
-                    break;
-                case 16:
-                    curFunc = initScene_16;
-                    break;
-                case 17:
-                    curFunc = initScene_17;
-                    break;
-                case 18:
-                    curFunc = initScene_18;
-                    break;
-                case 19:
-                    curFunc = initScene_19;
-                    break;
-                case 20:
-                    curFunc = initScene_20;
-                    break;
-                case 21:
-                    curFunc = initScene_21;
-                    break;
-                case 22:
-                    curFunc = initScene_22;
-                    break;
-                case 23:
-                    curFunc = initScene_23;
-                    break;
-                case 24:
-                    curFunc = initScene_24;
-                    break;
+        switch (g.user.tutorialStep) {
+            case 1:
+                curFunc = initScene_1;
+                break;
+            case 2:
+                curFunc = initScene_2;
+                break;
+            case 3:
+                curFunc = initScene_3;
+                break;
+            case 4:
+                curFunc = initScene_4;
+                break;
+            case 5:
+                curFunc = initScene_5;
+                break;
+            case 6:
+                curFunc = initScene_6;
+                break;
+            case 7:
+                curFunc = initScene_7;
+                break;
+            case 8:
+                curFunc = initScene_8;
+                break;
+            case 9:
+                curFunc = initScene_9;
+                break;
+            case 10:
+                curFunc = initScene_10;
+                break;
+            case 11:
+                curFunc = initScene_11;
+                break;
+            case 12:
+                curFunc = initScene_12;
+                break;
+            case 13:
+                curFunc = initScene_13;
+                break;
+            case 14:
+                curFunc = initScene_14;
+                break;
+            case 15:
+                curFunc = initScene_15;
+                break;
+            case 16:
+                curFunc = initScene_16;
+                break;
+            case 17:
+                curFunc = initScene_17;
+                break;
+            case 18:
+                curFunc = initScene_18;
+                break;
+            case 19:
+                curFunc = initScene_19;
+                break;
+            case 20:
+                curFunc = initScene_20;
+                break;
+            case 21:
+                curFunc = initScene_21;
+                break;
+            case 22:
+                curFunc = initScene_22;
+                break;
+            case 23:
+                curFunc = initScene_23;
+                break;
+            case 24:
+                curFunc = initScene_24;
+                break;
 
-            }
-            if (curFunc != null) {
-                curFunc.apply();
-            }
+        }
+        if (curFunc != null) {
+            curFunc.apply();
+        }
 //        } catch (err:Error) {
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
 //            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(subStep) + " with error message " + err.message);
@@ -261,6 +261,12 @@ public class ManagerTutorial {
             for (var i:int=0; i< arr.length; i++) {
                 if ((arr[i] as Ridge).isFreeRidge) _tutorialObjects.push(arr[i]);
             }
+            if (!_tutorialObjects.length) {
+                g.user.tutorialStep = 4;
+                updateTutorialStep();
+                initScenes();
+                return;
+            }
         }
         if (!cat) {
             addCatToPos((_tutorialObjects[0] as WorldObject).posX - 1, (_tutorialObjects[0] as WorldObject).posY + 2);
@@ -337,8 +343,6 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         subStep = 0;
         if (!texts) texts = (new TutorialTexts()).objText;
-        _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.FARM);
-        _tutorialObjects = (_tutorialObjects[0] as Farm).arrAnimals;
         if (!cat) {
             addCatToPos(30, 11);
             g.cont.moveCenterToPos(27, 14, true);
@@ -350,11 +354,34 @@ public class ManagerTutorial {
     }
 
     private function subStep4_1():void {
+        var i:int;
         subStep = 1;
-        cat.flipIt(true);
-        cat.playDirectLabel('idle3', true, playCatIdle);
-        cat.showBubble(texts[g.user.tutorialStep][subStep]);
-        subStep4_2();
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
+        if ((arr[0] as Farm).hasAnyCraftedResource) {
+            arr = (arr[0] as Farm).arrAnimals;
+            for (i = 0; i<arr.length; i++) {
+                if ((arr[i] as Animal).state == Animal.CRAFT) {
+                    _tutorialObjects.push(arr[i]);
+                    subStep4_6();
+                    return;
+                }
+            }
+        } else {
+            arr = (arr[0] as Farm).arrAnimals;
+            for (i = 0; i<arr.length; i++) {
+                if ((arr[i] as Animal).state == Animal.WORK) {
+                    _tutorialObjects.push(arr[i]);
+                    subStep4_3a();
+                    return;
+                }
+            }
+
+            _tutorialObjects.push(arr[0]);
+            cat.flipIt(true);
+            cat.playDirectLabel('idle3', true, playCatIdle);
+            cat.showBubble(texts[g.user.tutorialStep][subStep]);
+            subStep4_2();
+        }
     }
 
     private function subStep4_2():void {
@@ -369,6 +396,10 @@ public class ManagerTutorial {
         cat.hideBubble();
         chick.removeArrow();
         chick.tutorialCallback = null;
+        subStep4_3a();
+    }
+
+    private function subStep4_3a():void {
         _currentAction = TutorialAction.NONE;
         subStep = 3;
         cat.playDirectLabel('idle3', true, playCatIdle);
@@ -395,6 +426,7 @@ public class ManagerTutorial {
 
     private function subStep4_6():void {
         subStep = 6;
+        cat.flipIt(true);
         cat.playDirectLabel('idle3', true, playCatIdle);
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
         _currentAction = TutorialAction.ANIMAL_CRAFT;
@@ -448,7 +480,6 @@ public class ManagerTutorial {
         subStep = 0;
         cat.flipIt(true);
         cat.playDirectLabel('idle3', true, playCatIdle);
-//        cat.showBubble(texts[g.user.tutorialStep][subStep], texts['ok'], subStep6_1);
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
         g.bottomPanel.animateShowingMainPanel();
         createDelay(1, subStep6_1);
@@ -490,7 +521,13 @@ public class ManagerTutorial {
     }
 
     private function subStep6_4():void {
-        _tutorialCallback = subStep6_5;
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
+        if ((arr[0] as Farm).arrAnimals.length >= 5) {
+            _tutorialCallback = null;
+            subStep6_5();
+        } else {
+            _tutorialCallback = subStep6_5;
+        }
     }
 
     private function subStep6_5():void {
@@ -1103,7 +1140,7 @@ public class ManagerTutorial {
         subStep = 0;
         _currentAction = TutorialAction.CRAFT_RIDGE;
         _tutorialResourceIDs = [31];
-         var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
         for (var i:int=0; i<arr.length; i++) {
             if ((arr[i] as Ridge).isFreeRidge) continue;
             if ((arr[i] as Ridge).plant.dataPlant.id == _tutorialResourceIDs[0]) {

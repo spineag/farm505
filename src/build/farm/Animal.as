@@ -127,6 +127,10 @@ public class Animal {
         return _farm;
     }
 
+    public function get depth():Number {
+        return source.y;
+    }
+
     public function addArrow():void {
         _rect = source.getBounds(source);
         removeArrow();
@@ -420,10 +424,6 @@ public class Animal {
         if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, playHungry);
         armature.animation.gotoAndStop(defaultLabel, 0);
         TweenMax.killTweensOf(source);
-    }
-
-    public function get depth():Number {
-        return source.y;
     }
 
     public function clearIt():void {
