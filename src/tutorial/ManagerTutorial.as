@@ -937,11 +937,11 @@ public class ManagerTutorial {
         subStep = 0;
         _currentAction = TutorialAction.NONE;
         if (!cat) {
-            addCatToPos(32, 27);
+            addCatToPos(34, 28);
             g.cont.moveCenterToPos(31, 26, true);
             subStep11_1();
         } else {
-            g.managerCats.goCatToPoint(cat, new Point(32, 27), subStep11_1);
+            g.managerCats.goCatToPoint(cat, new Point(34, 28), subStep11_1);
             g.cont.moveCenterToPos(31, 26, false, 2);
         }
     }
@@ -951,8 +951,13 @@ public class ManagerTutorial {
         if (!texts) texts = (new TutorialTexts()).objText;
         _currentAction = TutorialAction.ORDER;
         subStep = 1;
-        addBlack();
-        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep11_2, 1);
+        if (g.managerOrder.countOrders) {
+            cat.flipIt(true);
+            subStep11_5();
+        } else {
+            addBlack();
+            cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep11_2, 1);
+        }
     }
 
     private function subStep11_2():void {
@@ -961,13 +966,9 @@ public class ManagerTutorial {
         cat.flipIt(true);
         subStep = 2;
         cat.playDirectLabel('idle3', true, playCatIdle);
-        if (g.managerOrder.countOrders) {
-
-        } else {
-            cat.showBubble(texts[g.user.tutorialStep][subStep]);
-            g.managerOrder.checkOrderForTutorial(subStep11_5);
-            createDelay(3, subStep11_3);
-        }
+        cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        g.managerOrder.checkOrderForTutorial(subStep11_5);
+        createDelay(3, subStep11_3);
     }
 
     private function subStep11_3():void {
@@ -982,7 +983,7 @@ public class ManagerTutorial {
         g.cont.moveCenterToPos(31, 26, false, 2);
     }
 
-    private function subStep11_5(rCat:OrderCat):void {
+    private function subStep11_5(rCat:OrderCat=null):void {
         subStep = 5;
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
         subStep11_6();
