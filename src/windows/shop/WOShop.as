@@ -391,8 +391,8 @@ public class WOShop extends WindowMain {
         _animal = a;
     }
 
-    public function getShopItemProperties(_id:int):Object {
-        return _shopList.getShopItemProperties(_id);
+    public function getShopItemProperties(_id:int, addArrow:Boolean = false):Object {
+        return _shopList.getShopItemProperties(_id, addArrow);
 
     }
 

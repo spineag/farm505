@@ -492,6 +492,10 @@ public class Fabrica extends AreaObject {
         }
     }
 
+    public function get isAnyCrafted():Boolean {
+        return _arrCrafted.length > 0;
+    }
+
     private function releaseHeroCatWoman():void {
         if (_heroCat) {
             if (_heroCat.typeMan == BasicCat.MAN) {

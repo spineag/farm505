@@ -270,7 +270,7 @@ public class ShopList {
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
     }
 
-    public function getShopItemProperties(_id:int):Object {
+    public function getShopItemProperties(_id:int, addArrow:Boolean):Object {
         var ob:Object = {};
         var place:int=0;
         for (var i:int=0; i<_currentShopArr.length; i++) {
@@ -281,6 +281,7 @@ public class ShopList {
         }
         ob.x = (_arrItems[place] as ShopItem).source.x;
         ob.y = (_arrItems[place] as ShopItem).source.y;
+        if (addArrow && g.managerTutorial.isTutorial) (_arrItems[place] as ShopItem).addArrow();
         var p:Point = new Point(ob.x, ob.y);
         p = _itemsSprite.localToGlobal(p);
         ob.x = p.x;

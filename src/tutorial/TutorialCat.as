@@ -44,7 +44,7 @@ public class TutorialCat extends BasicCat {
         _source.addChild(_catBackImage);
         _animation.catImage = _catImage;
         _animation.catBackImage = _catBackImage;
-        _bubble = new TutorialTextBubble(_source);
+        _bubble = new TutorialTextBubble(g.cont.animationsCont);
         showFront(true);
         addShadow();
     }
@@ -77,9 +77,9 @@ public class TutorialCat extends BasicCat {
         if (_bubble) {
             _bubble.showBubble(st, _isFlip, type);
             if (_isFlip) {
-                _bubble.setXY(20, -50);
+                _bubble.setXY(20 + _source.x, -50 + _source.y);
             } else {
-                _bubble.setXY(-20, -50);
+                _bubble.setXY(-20 + _source.x, -50 + _source.y);
             }
         }
     }

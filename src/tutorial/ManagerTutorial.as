@@ -86,90 +86,89 @@ public class ManagerTutorial {
 
     public function initScenes():void {
         var curFunc:Function;
-//        trace('step: ' + g.user.tutorialStep);
-//        try {
-        switch (g.user.tutorialStep) {
-            case 1:
-                curFunc = initScene_1;
-                break;
-            case 2:
-                curFunc = initScene_2;
-                break;
-            case 3:
-                curFunc = initScene_3;
-                break;
-            case 4:
-                curFunc = initScene_4;
-                break;
-            case 5:
-                curFunc = initScene_5;
-                break;
-            case 6:
-                curFunc = initScene_6;
-                break;
-            case 7:
-                curFunc = initScene_7;
-                break;
-            case 8:
-                curFunc = initScene_8;
-                break;
-            case 9:
-                curFunc = initScene_9;
-                break;
-            case 10:
-                curFunc = initScene_10;
-                break;
-            case 11:
-                curFunc = initScene_11;
-                break;
-            case 12:
-                curFunc = initScene_12;
-                break;
-            case 13:
-                curFunc = initScene_13;
-                break;
-            case 14:
-                curFunc = initScene_14;
-                break;
-            case 15:
-                curFunc = initScene_15;
-                break;
-            case 16:
-                curFunc = initScene_16;
-                break;
-            case 17:
-                curFunc = initScene_17;
-                break;
-            case 18:
-                curFunc = initScene_18;
-                break;
-            case 19:
-                curFunc = initScene_19;
-                break;
-            case 20:
-                curFunc = initScene_20;
-                break;
-            case 21:
-                curFunc = initScene_21;
-                break;
-            case 22:
-                curFunc = initScene_22;
-                break;
-            case 23:
-                curFunc = initScene_23;
-                break;
-            case 24:
-                curFunc = initScene_24;
-                break;
+        try {
+            switch (g.user.tutorialStep) {
+                case 1:
+                    curFunc = initScene_1;
+                    break;
+                case 2:
+                    curFunc = initScene_2;
+                    break;
+                case 3:
+                    curFunc = initScene_3;
+                    break;
+                case 4:
+                    curFunc = initScene_4;
+                    break;
+                case 5:
+                    curFunc = initScene_5;
+                    break;
+                case 6:
+                    curFunc = initScene_6;
+                    break;
+                case 7:
+                    curFunc = initScene_7;
+                    break;
+                case 8:
+                    curFunc = initScene_8;
+                    break;
+                case 9:
+                    curFunc = initScene_9;
+                    break;
+                case 10:
+                    curFunc = initScene_10;
+                    break;
+                case 11:
+                    curFunc = initScene_11;
+                    break;
+                case 12:
+                    curFunc = initScene_12;
+                    break;
+                case 13:
+                    curFunc = initScene_13;
+                    break;
+                case 14:
+                    curFunc = initScene_14;
+                    break;
+                case 15:
+                    curFunc = initScene_15;
+                    break;
+                case 16:
+                    curFunc = initScene_16;
+                    break;
+                case 17:
+                    curFunc = initScene_17;
+                    break;
+                case 18:
+                    curFunc = initScene_18;
+                    break;
+                case 19:
+                    curFunc = initScene_19;
+                    break;
+                case 20:
+                    curFunc = initScene_20;
+                    break;
+                case 21:
+                    curFunc = initScene_21;
+                    break;
+                case 22:
+                    curFunc = initScene_22;
+                    break;
+                case 23:
+                    curFunc = initScene_23;
+                    break;
+                case 24:
+                    curFunc = initScene_24;
+                    break;
 
+            }
+            if (curFunc != null) {
+                curFunc.apply();
+            }
+        } catch (err:Error) {
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
+            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(subStep) + " with error message " + err.message);
         }
-        if (curFunc != null) {
-            curFunc.apply();
-        }
-//        } catch (err:Error) {
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
-//            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(subStep) + " with error message " + err.message);
-//        }
     }
 
     private function  initScene_1():void {
@@ -482,7 +481,7 @@ public class ManagerTutorial {
         cat.playDirectLabel('idle3', true, playCatIdle);
         cat.showBubble(texts[g.user.tutorialStep][subStep]);
         g.bottomPanel.animateShowingMainPanel();
-        createDelay(1, subStep6_1);
+        createDelay(.7, subStep6_1);
     }
 
     private function subStep6_1():void {
@@ -507,7 +506,7 @@ public class ManagerTutorial {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-        createDelay(1, subStep6_3);
+        createDelay(.7, subStep6_3);
     }
 
     private function subStep6_3():void {
@@ -550,7 +549,7 @@ public class ManagerTutorial {
     private function subStep6_6():void {
         cutScene.hideIt(deleteCutScene);
         removeBlack();
-        createDelay(1, initScenes);
+        createDelay(.7, initScenes);
     }
 
     private function initScene_7():void {
@@ -588,7 +587,7 @@ public class ManagerTutorial {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-        createDelay(1, subStep7_2);
+        createDelay(.7, subStep7_2);
     }
 
     private function subStep7_2():void {
@@ -652,7 +651,7 @@ public class ManagerTutorial {
         (_tutorialObjects[0] as Fabrica).hideArrow();
         g.user.tutorialStep = 8;
         updateTutorialStep();
-        createDelay(1, initScenes);
+        createDelay(.7, initScenes);
     }
 
     private function initScene_8():void {
@@ -737,7 +736,7 @@ public class ManagerTutorial {
             _dustRectangle = null;
         }
         subStep = 3;
-        createDelay(1, subStep9_4);
+        createDelay(.7, subStep9_4);
     }
 
     private function subStep9_4():void {
@@ -1002,7 +1001,7 @@ public class ManagerTutorial {
         cat.hideBubble();
         cat.flipIt(false);
         (_tutorialObjects[0] as WorldObject).hideArrow();
-        createDelay(1, subStep11_8);
+        createDelay(.7, subStep11_8);
     }
 
     private function subStep11_8():void {
@@ -1013,7 +1012,7 @@ public class ManagerTutorial {
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y - 5);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
             _arrow.scaleIt(.5);
-            _arrow.animateAtPosition(ob.x, ob.y + ob.height/2);
+            _arrow.animateAtPosition(ob.x, ob.y + ob.height/2 - 3);
             _tutorialCallback = subStep11_9;
         } else {
             Cc.error('wo_order is not opened');
@@ -1079,7 +1078,7 @@ public class ManagerTutorial {
             _dustRectangle = null;
         }
         cutScene.hideIt(deleteCutScene);
-        createDelay(1, subStep12_2);
+        createDelay(.7, subStep12_2);
     }
 
     private function subStep12_2():void {
@@ -1131,6 +1130,10 @@ public class ManagerTutorial {
         _tutorialResourceIDs = [1];
         if (!_tutorialObjects.length) {
             _tutorialObjects = g.townArea.getCityObjectsById(1);
+        }
+        if ((_tutorialObjects[0] as Fabrica).stateBuild == WorldObject.STATE_WAIT_ACTIVATE) {
+            subStep13_3();
+            return;
         }
         if (!cat) {
             addCatToPos(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 5);
@@ -1293,6 +1296,9 @@ public class ManagerTutorial {
         if (!_tutorialObjects.length) {
             _tutorialObjects = g.townArea.getCityObjectsById(1);
         }
+        if ((_tutorialObjects[0] as Fabrica).isAnyCrafted) {
+            subStep17_3();
+        }
         if (!cat) {
             addCatToPos(_tutorialObjects[0].posX - 1, _tutorialObjects[0].posY + 5);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
@@ -1336,6 +1342,10 @@ public class ManagerTutorial {
             _dustRectangle = null;
         }
         (g.windowsManager.currentWindow as WOFabrica).hideIt();
+        subStep17_3();
+    }
+
+    private function subStep17_3():void {
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 18;
@@ -1408,7 +1418,7 @@ public class ManagerTutorial {
         }
         subStep = 1;
         cutScene.hideIt(deleteCutScene);
-        createDelay(1, subStep19_2);
+        createDelay(.7, subStep19_2);
     }
 
     private function subStep19_2():void {
@@ -1450,7 +1460,7 @@ public class ManagerTutorial {
                 cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep20_1b);
             } else {
                 g.windowsManager.currentWindow.hideIt();
-                createDelay(1, subStep20_1a);
+                createDelay(.7, subStep20_1a);
             }
         } else {
             subStep20_1a();
@@ -1472,7 +1482,7 @@ public class ManagerTutorial {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-        createDelay(1, subStep20_4);
+        createDelay(.7, subStep20_4);
     }
 
     private function subStep20_1b():void {
@@ -1483,7 +1493,7 @@ public class ManagerTutorial {
 
     private function subStep20_4():void {
         _tutorialResourceIDs = [39];
-        var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+        var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0], true);
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         _tutorialCallback = subStep20_5;
         var dataPlace:Object = {};
@@ -1557,7 +1567,7 @@ public class ManagerTutorial {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-        createDelay(1, subStep21_3);
+        createDelay(.7, subStep21_3);
     }
 
     private function subStep21_3():void {
@@ -1577,7 +1587,7 @@ public class ManagerTutorial {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-        createDelay(1, subStep21_5);
+        createDelay(.7, subStep21_5);
     }
 
     private function subStep21_5():void {
@@ -1634,7 +1644,7 @@ public class ManagerTutorial {
         cutScene.showIt(texts[g.user.tutorialStep][subStep]);
         _currentAction = TutorialAction.VISIT_NEIGHBOR;
         g.friendPanel.showIt();
-        createDelay(1, subStep23_1);
+        createDelay(.7, subStep23_1);
     }
 
     private function subStep23_1():void {
@@ -1682,7 +1692,7 @@ public class ManagerTutorial {
         subStep = 5;
         (_tutorialObjects[0] as WorldObject).hideArrow();
         _tutorialResourceIDs = [124, 1, 5, 6, 125];
-        createDelay(1, subStep23_6);
+        createDelay(.7, subStep23_6);
     }
 
     private function subStep23_6():void {
@@ -1745,7 +1755,7 @@ public class ManagerTutorial {
         _tutorialCallback = null;
         g.user.tutorialStep = 24;
         _tutorialResourceIDs = [];
-        createDelay(1, initScenes);
+        createDelay(.7, initScenes);
     }
 
     private function initScene_24():void {
