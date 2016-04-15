@@ -28,7 +28,6 @@ public class Animal {
     public static var HUNGRY:int = 1;
     public static var WORK:int = 2;
     public static var CRAFT:int = 3;
-    private const WALK_SPEED:int = 20;
 
     public var source:CSprite;
     private var _data:Object;
