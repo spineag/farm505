@@ -444,6 +444,11 @@ public class ShopItem {
                         _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
                         _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                         _nameTxt.text = _data.name;
+                        if (_btnBuyBlue) {
+                            source.removeChild(_btnBuyBlue);
+                            _btnBuyBlue.deleteIt();
+                            _btnBuyBlue = null;
+                        }
                     } else if (curCount > maxCount) {
                         createShopLimitSprite();
                         _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
@@ -543,17 +548,24 @@ public class ShopItem {
     private function onClick():void {
         var i:int;
         if (_shopLimitSprite) return;
-
+        if (_txtAvailable.visible) {
+            if (_data.blockByLevel) {
+                for (i = 0; i < _data.blockByLevel.length; i++) {
+                    if (g.user.level < _data.blockByLevel[i]) {
+                        var p:Point = new Point(source.x, source.y);
+                        p = source.parent.localToGlobal(p);
+                        new FlyMessage(p, "откроется на " + String(_data.blockByLevel[i]) + " уровне");
+                        return;
+                    }
+                }
+            } else return;
+        }
         if (_data.buildType == BuildType.CAT) {
             _countCost = g.dataCats[g.managerCats.curCountCats].cost;
             _data.cost = _countCost;
         }
-        if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-            var p:Point = new Point(source.x, source.y);
-            p = source.parent.localToGlobal(p);
-            new FlyMessage(p,"откроется на " + String(_data.blockByLevel) + " уровне");
-            return;
-        }
+
+
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (_data.currency.length == 1) {
                 if (_data.currency == DataMoney.SOFT_CURRENCY) {

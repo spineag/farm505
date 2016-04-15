@@ -244,10 +244,10 @@
             <filename>part_products/cotton_fabric_icon.png</filename>
             <filename>part_products/chicken_feed_icon.png</filename>
             <filename>part_products/cow_feed_icon.png</filename>
-            <filename>part_products/egg_icon.png</filename>
             <filename>part_products/pig_feed_icon.png</filename>
             <filename>part_products/sheep_feed_icon.png</filename>
             <filename>part_products/wool_icon.png</filename>
+            <filename>part_products/egg_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

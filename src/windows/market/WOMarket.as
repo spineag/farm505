@@ -225,8 +225,8 @@ public class WOMarket  extends WindowMain {
             }
             if(_shiftFriend == 0) createMarketTabBtns(true);
                 else createMarketTabBtns();
-            choosePerson(params[0]);
             checkPapperTimer();
+            choosePerson(params[0]);
         }
         super.showIt();
     }
@@ -451,20 +451,27 @@ public class WOMarket  extends WindowMain {
     }
 
     public function startPapperTimer():void {
-        g.user.startUserPapperTimer();
+        g.user.startUserPapperTimer(300);
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].visiblePaper(false);
         }
+        checkPapperTimer();
     }
 
     private function checkPapperTimer():void {
         if (g.user.papperTimerAtMarket > 0) {
             _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.user.papperTimerAtMarket);
+            g.user.startUserPapperTimer(g.user.papperTimerAtMarket);
             g.gameDispatcher.addToTimer(onTimer);
-        } else {
             _booleanPaper = false;
             _imCheck.visible = false;
             _btnPaper.visible = true;
+        } else {
+            _booleanPaper = true;
+            _imCheck.visible = true;
+            _btnPaper.visible = false;
+            _txtTimerPaper.text = '';
+            g.gameDispatcher.removeFromTimer(onTimer);
         }
     }
 
@@ -527,7 +534,9 @@ public class WOMarket  extends WindowMain {
         if (paper) {
             _item = new MarketFriendItem(_curUser, this, 0);
             _item.source.y = -180;
-            _item._visitBtn.visible = true;
+            if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
+             else _item._visitBtn.visible = true;
+
             c = new CartonBackground(125, 115);
             c.x = 208 - 5;
             c.y = -185;
@@ -539,9 +548,8 @@ public class WOMarket  extends WindowMain {
         } else {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
             _item.source.y = -180;
-            if (_arrFriends[_shiftFriend] == g.user) {
-                _item._visitBtn.visible = false;
-            } else _item._visitBtn.visible = true;
+            if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
+            else _item._visitBtn.visible = true;
             c = new CartonBackground(125, 115);
             c.x = 208 - 5;
             c.y = -185;
@@ -690,7 +698,6 @@ public class WOMarket  extends WindowMain {
     public function checkArrow():void {
         _txtNumberPage.text = String(_countPage + '/' + _countAllPage);
         if (_shift == 0) {
-//            _txtNumberPage.text = '1';
             _leftBtn.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         } else {
             _leftBtn.filter = null;

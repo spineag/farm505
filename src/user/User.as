@@ -31,7 +31,6 @@ public class User extends Someone {
     public var timePaper:int;
     public var papperTimerAtMarket:int;
     public var tutorialStep:int;
-    public var inPapperBtn:int;
     private var g:Vars = Vars.getInstance();
 
     public function User() {
@@ -196,8 +195,8 @@ public class User extends Someone {
         }
     }
 
-    public function startUserPapperTimer():void {
-        papperTimerAtMarket = 300;
+    public function startUserPapperTimer(time:int):void {
+        papperTimerAtMarket = time;
         g.gameDispatcher.addToTimer(onPapperTimer);
     }
 

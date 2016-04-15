@@ -69,10 +69,10 @@ public class AmbarCell {
             source.addChild(_image);
         }
 
-        _countTxt = new TextField(30,20,'',g.allData.fonts['BloggerBold'],16, Color.WHITE);
+        _countTxt = new TextField(60,20,'',g.allData.fonts['BloggerBold'],16, Color.WHITE);
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.text = String(g.userInventory.getCountResourceById(_data.id));
-        _countTxt.x = 75;
+        _countTxt.x = 50;
         _countTxt.y = 77;
         source.addChild(_countTxt);
         source.flatten();
