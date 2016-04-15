@@ -23,10 +23,12 @@ public class TutorialPlace extends AreaObject{
         useIsometricOnly = true;
         _source.releaseContDrag = true;
         createPlaceBuild();
+        _source.visible = false;
     }
 
     public function activateIt(v:Boolean):void {
         if (v) {
+            _source.visible = true;
             _rect = new flash.geom.Rectangle(0, 0, 10, 10);
             showArrow();
         } else {
@@ -43,6 +45,9 @@ public class TutorialPlace extends AreaObject{
             for (var i:int = 0; i < _dataBuild.width; i++) {
                 for (j = 0; j < _dataBuild.height; j++) {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_tile'));
+                    if (!im) {
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_tile'));
+                    }
                     im.scaleX = im.scaleY = g.scaleFactor;
                     im.pivotX = im.width/2;
                     im.alpha = .5;

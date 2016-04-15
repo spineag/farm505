@@ -652,7 +652,6 @@ public class ShopItem {
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             (build as AreaObject).countShopCost = _countCost;
             g.townArea.startMoveAfterShop(build as AreaObject);
-//            g.toolsModifier.startMove(build as AreaObject, _countCost);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
@@ -677,6 +676,7 @@ public class ShopItem {
                     g.managerTutorial.checkTutorialCallback();
                 }
             }
+            deleteArrow();
         } else if (_data.buildType != BuildType.ANIMAL) {
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
@@ -823,9 +823,11 @@ public class ShopItem {
     }
 
     public function addArrow():void {
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
-        _arrow.animateAtPosition(73, 10);
-        _arrow.scaleIt(.7);
+        if (!_arrow) {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
+            _arrow.animateAtPosition(73, 10);
+            _arrow.scaleIt(.7);
+        }
     }
 
     public function deleteArrow():void {

@@ -173,7 +173,7 @@ public class Ridge extends AreaObject{
             if (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
             } else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
-                if (g.selectedBuild != this) return;
+//                if (g.selectedBuild != this) return;
             } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }
         if (g.isActiveMapEditor || g.isAway) return;

@@ -77,6 +77,10 @@ public class ManagerOrder {
         }
     }
 
+    public function get countOrders():int {
+        return _arrOrders.length;
+    }
+
     public function get maxCountOrders():int {
         return _curMaxCountOrders;
     }
