@@ -550,7 +550,9 @@ public class DirectServer {
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
             g.user.timePaper = int(ob.time_paper);
-            g.user.inPapperBtn = int(ob.in_paper);
+            var time:Number = getTimer();
+            if (int(ob.in_papper) == 0) g.user.papperTimerAtMarket = 0;
+            else g.user.papperTimerAtMarket = 300 - Number(time/100 - ob.in_papper/1000);
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);
             g.user.checkUserLevel();

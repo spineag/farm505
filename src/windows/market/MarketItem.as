@@ -14,6 +14,8 @@ import flash.display.Bitmap;
 
 import flash.filters.GlowFilter;
 import flash.geom.Point;
+import flash.utils.getTimer;
+
 import hint.FlyMessage;
 
 import manager.ManagerFilters;
@@ -253,6 +255,8 @@ public class MarketItem {
         _countTxt.text = String(_countResource);
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
+        var b:Boolean = _wo.booleanPaper;
+        visiblePaper(b);
     }
 
     public function clearImageCont():void {
@@ -288,6 +292,8 @@ public class MarketItem {
         _imCheck.visible = true;
         _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
+        var time:Number = getTimer();
+        trace(time + ' time');
     }
 
     public function visiblePaper(b:Boolean = false):void {
@@ -305,6 +311,7 @@ public class MarketItem {
         _imCheck.visible = false;
         _inPapper = false;
         g.userInventory.addMoney(1,-1);
+        g.gameDispatcher.removeFromTimer(onEnterFrame);
         g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
         for (var i:int = 0; i < g.user.marketItems.length; i++) {
             if (g.user.marketItems[i].id == _dataFromServer.id) {

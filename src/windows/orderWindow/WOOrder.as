@@ -246,7 +246,7 @@ public class WOOrder extends WindowMain{
                         && g.dataResource.objectResources[_activeOrderItem.getOrder().resourceIds[i]].buildType == BuildType.PLANT) {
                     g.windowsManager.cashWindow = this;
                     super.hideIt();
-                    g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, sellOrder, _activeOrderItem.getOrder(), 'order');
+                    g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, sellOrder, _activeOrderItem.getOrder(), 'order');
                     return;
                 }
             }
