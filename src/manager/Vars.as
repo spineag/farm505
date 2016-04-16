@@ -400,6 +400,7 @@ public class Vars {
             managerTutorial.initScenes();
             managerTutorial.checkDefaults();
         }
+        townArea.addTownAreaSortCheking();
     }
 
     private function onEnterFrameGlobal():void {

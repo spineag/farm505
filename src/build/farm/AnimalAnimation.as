@@ -2,6 +2,8 @@
  * Created by user on 4/15/16.
  */
 package build.farm {
+import com.junkbyte.console.Cc;
+
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
@@ -9,8 +11,6 @@ import dragonBones.events.AnimationEvent;
 import starling.display.Sprite;
 
 public class AnimalAnimation {
-    private const WALK_SPEED:int = 20;
-
     private var _source:Sprite;
     private var _armature:Armature;
     private var _callback:Function;
@@ -22,12 +22,16 @@ public class AnimalAnimation {
     }
 
     public function get source():Sprite { return _source; }
-    public function set animalArmature(a:Armature):void {
+    public function animalArmature(a:Armature):void {
+        if (!a) {
+            Cc.error('Animal:: no armature for animalId');
+            return;
+        }
         _armature = a;
-        _source.addChild(_armature.animation as Sprite);
+        _source.addChild(_armature.display as Sprite);
     }
 
-    public function playIt(label:String, playOnce:Boolean = false, callback:Function = null, ...params):void {
+    public function playIt(label:String, playOnce:Boolean = false, callback:Function = null):void {
         _callback = callback;
         _playOnce = playOnce;
         _label = label;
@@ -36,6 +40,11 @@ public class AnimalAnimation {
         removeListener();
         addListener();
         startAnimation();
+    }
+
+    public function stopItAtLabel(label:String):void {
+        _label = label;
+        _armature.animation.gotoAndStop(_label, 0);
     }
 
     private function startAnimation():void {
@@ -72,7 +81,7 @@ public class AnimalAnimation {
         WorldClock.clock.remove(_armature);
     }
 
-    public function clearIt():void {
+    public function deleteIt():void {
         _source.removeChild(_armature.display as Sprite);
         _armature.dispose();
         _armature = null;

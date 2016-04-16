@@ -162,7 +162,7 @@ public class Farm extends AreaObject{
     }
 
     public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
-        try {
+//        try {
             var p:Point;
             var an:Animal = new Animal(_dataAnimal, this);
             _arrAnimals.push(an);
@@ -196,10 +196,10 @@ public class Farm extends AreaObject{
             if (_dataAnimal.id != 6) {
                 sortAnimals();
             }
-        } catch (e:Error) {
-            Cc.error('farm addAnimal: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farm add animal');
-        }
+//        } catch (e:Error) {
+//            Cc.error('farm addAnimal: ' + e.errorID + ' - ' + e.message);
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farm add animal');
+//        }
     }
 
     public function get isFull():Boolean {

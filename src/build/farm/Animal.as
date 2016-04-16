@@ -6,8 +6,6 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import data.BuildType;
-import dragonBones.Armature;
-import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 import flash.geom.Point;
 import hint.MouseHint;
@@ -15,7 +13,6 @@ import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
 import resourceItem.RawItem;
-import starling.display.Sprite;
 import starling.textures.Texture;
 import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
@@ -25,6 +22,7 @@ import utils.CSprite;
 import windows.WindowsManager;
 
 public class Animal {
+    private const WALK_SPEED:int = 20;
     public static var HUNGRY:int = 1;
     public static var WORK:int = 2;
     public static var CRAFT:int = 3;
@@ -42,7 +40,7 @@ public class Animal {
     private var _rect:flash.geom.Rectangle;
     private var _tutorialCallback:Function;
 
-    private var armature:Armature;
+    private var animation:AnimalAnimation;
     private var defaultLabel:String;
     private var hungryLabel:String;
     private var feedLabel:String;
@@ -63,13 +61,9 @@ public class Animal {
         _isOnHover = false;
         _tutorialCallback = null;
 
-        armature = g.allData.factory[_data.image].buildArmature("animal");
-        if (!armature) {
-            Cc.error('Animal:: no armature for animalId: ' + _data.id);
-            return;
-        }
-        WorldClock.clock.add(armature);
-        source.addChild(armature.display as Sprite);
+        animation = new AnimalAnimation();
+        animation.animalArmature(g.allData.factory[_data.image].buildArmature("animal"));
+        source.addChild(animation.source);
 
         _state = HUNGRY;
 
@@ -298,15 +292,7 @@ public class Animal {
 
     private function showFeedingAnimation():void {
         stopAnimation();
-        armature.addEventListener(AnimationEvent.COMPLETE, completeFeedingAnimation);
-        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, completeFeedingAnimation);
-        armature.animation.gotoAndPlay('feed');
-    }
-
-    private function completeFeedingAnimation(e:AnimationEvent):void {
-        armature.removeEventListener(AnimationEvent.COMPLETE, completeFeedingAnimation);
-        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeFeedingAnimation);
-        addRenderAnimation();
+        animation.playIt('feed', true, addRenderAnimation);
     }
 
     public function addRenderAnimation():void {
@@ -320,33 +306,23 @@ public class Animal {
 
     public function playDirectIdle():void {
         stopAnimation();
-        armature.addEventListener(AnimationEvent.COMPLETE, completeDirectIdleAnimation);
-        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, completeDirectIdleAnimation);
-        armature.animation.gotoAndPlay(idleLabels[0]);
+        animation.playIt(idleLabels[0]);
     }
 
     private function completeDirectIdleAnimation(e:AnimationEvent):void {
-        if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, completeDirectIdleAnimation);
-        if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeDirectIdleAnimation);
-        armature.addEventListener(AnimationEvent.COMPLETE, completeDirectIdleAnimation);
-        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, completeDirectIdleAnimation);
-        armature.animation.gotoAndPlay(idleLabels[0]);
+        animation.playIt(idleLabels[0]);
     }
 
     private function showHungryAnimations():void {
         if (_data.id == 6) {
-            armature.animation.gotoAndPlay(hungryLabel, 0);
+            animation.stopItAtLabel(hungryLabel);
         } else {
-            armature.animation.gotoAndPlay(hungryLabel);
-            if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, completeIdleAnimation);
-            if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeIdleAnimation);
-            armature.addEventListener(AnimationEvent.COMPLETE, playHungry);
-            armature.addEventListener(AnimationEvent.LOOP_COMPLETE, playHungry);
+            animation.playIt(hungryLabel);
         }
     }
 
     private function playHungry(e:AnimationEvent):void {
-        armature.animation.gotoAndPlay(hungryLabel);
+        animation.playIt(hungryLabel);
     }
 
     private function chooseAnimation():void {
@@ -369,36 +345,27 @@ public class Animal {
         }
         try {
             if (idleLabels.length == 1) {
-                armature.animation.gotoAndPlay(idleLabels[0]);
+                animation.playIt(idleLabels[0]);
             } else if (idleLabels.length == 2) {
                 if (Math.random()<.75) {
-                    armature.animation.gotoAndPlay(idleLabels[0]);
+                    animation.playIt(idleLabels[0], true, chooseAnimation);
                 } else {
-                    armature.animation.gotoAndPlay(idleLabels[1]);
+                    animation.playIt(idleLabels[1], true, chooseAnimation);
                 }
             } else {
                 var r:Number = Math.random();
                 if (r < .75) {
-                    armature.animation.gotoAndPlay(idleLabels[0]);
+                    animation.playIt(idleLabels[0], true, chooseAnimation);
                 } else if (r < .95) {
-                    armature.animation.gotoAndPlay(idleLabels[1]);
+                    animation.playIt(idleLabels[1], true, chooseAnimation);
                 } else {
-                    armature.animation.gotoAndPlay(idleLabels[2]);
+                    animation.playIt(idleLabels[2], true, chooseAnimation);
                 }
             }
         } catch(e:Error) {
             Cc.error('Animal idleAnimation:: error with animalId: ' + _data.id);
             return;
         }
-
-        armature.addEventListener(AnimationEvent.COMPLETE, completeIdleAnimation);
-        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, completeIdleAnimation);
-    }
-
-    private function completeIdleAnimation(e:AnimationEvent):void {
-        armature.removeEventListener(AnimationEvent.COMPLETE, completeIdleAnimation);
-        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeIdleAnimation);
-        chooseAnimation();
     }
 
     private function walkAnimation():void {
@@ -414,22 +381,19 @@ public class Animal {
         } else {
             source.scaleX = 1;
         }
-        armature.animation.gotoAndPlay(walkLabel);
+        animation.playIt(walkLabel);
         new TweenMax(source, dist/WALK_SPEED, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
     }
 
     private function stopAnimation():void {
-        if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, playHungry);
-        if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, playHungry);
-        armature.animation.gotoAndStop(defaultLabel, 0);
+        animation.stopIt();
         TweenMax.killTweensOf(source);
     }
 
     public function clearIt():void {
-        if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, completeIdleAnimation);
-        if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, completeIdleAnimation);
-        WorldClock.clock.remove(armature);
-        armature.dispose();
+        animation.stopIt();
+        animation.deleteIt();
+        animation = null;
         _farm = null;
         g.mouseHint.hideIt();
         source.filter = null;
@@ -437,7 +401,7 @@ public class Animal {
         g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
         g.timerHint.hideIt();
         _data = null;
-        while (source.numChildren) source.removeChildAt(0);
+        source.dispose();
         source = null;
     }
 

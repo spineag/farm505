@@ -238,7 +238,8 @@
 		public function advanceTime(passedTime:Number):void
 		{
 			_lockDispose = true;
-			
+
+			if (!_animation) return;
 			_animation.advanceTime(passedTime);
 			
 			passedTime *= _animation.timeScale;    //_animation's time scale will impact childArmature

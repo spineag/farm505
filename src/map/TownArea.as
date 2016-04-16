@@ -67,6 +67,9 @@ public class TownArea extends Sprite {
     private var _objBuildingsDiagonals:Object; // object of building diagonals for aStar
     private var _objAwayBuildingsDiagonals:Object; // object of away building diagonals for aStar
     private var _awayPreloader:AwayPreloader;
+    private var _needTownAreaSort:Boolean = false;
+    private var _zSortCounter:int;
+    private var SORT_COUNTER_MAX:int = 15;
 
     protected var g:Vars = Vars.getInstance();
 
@@ -180,17 +183,32 @@ public class TownArea extends Sprite {
         return ar;
     }
 
-    public function zSort():void{
-        try {
-            _cityObjects.sortOn("depth", Array.NUMERIC);
-            for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cont.contains(_cityObjects[i].source)) {
-                    _cont.setChildIndex(_cityObjects[i].source, i);
+    public function addTownAreaSortCheking():void {
+        _zSortCounter = SORT_COUNTER_MAX;
+        g.gameDispatcher.addEnterFrame(zSortMain); }
+    public function removeTownAreaSortCheking():void { g.gameDispatcher.removeEnterFrame(zSortMain); }
+
+    public function zSort():void {
+        _needTownAreaSort = true;
+    }
+
+    private function zSortMain():void{
+        if (_needTownAreaSort) {
+            _zSortCounter--;
+            if (_zSortCounter > 0) return;
+            try {
+                _cityObjects.sortOn("depth", Array.NUMERIC);
+                for (var i:int = 0; i < _cityObjects.length; i++) {
+                    if (_cont.contains(_cityObjects[i].source)) {
+                        _cont.setChildIndex(_cityObjects[i].source, i);
+                    }
                 }
+            } catch (e:Error) {
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+                Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
             }
-        } catch(e:Error) {
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
-            Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
+            _needTownAreaSort = false;
+            _zSortCounter = SORT_COUNTER_MAX;
         }
     }
 
@@ -1009,8 +1027,10 @@ public class TownArea extends Sprite {
         _awayPreloader.showIt(false);
         g.visitedUser = person;
         if (g.isAway) {
+            removeAwayTownAreaSortCheking();
             clearAwayCity();
         } else {
+            removeTownAreaSortCheking();
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 _cont.removeChild(_cityObjects[i].source);
             }
@@ -1027,6 +1047,7 @@ public class TownArea extends Sprite {
         } else {
             g.directServer.getAllCityData(person, setAwayCity);
         }
+        addAwayTownAreaSortCheking();
     }
 
     private function setDefaultAwayMatrix():void {
@@ -1301,15 +1322,29 @@ public class TownArea extends Sprite {
             _cont.removeChild(c.source);
     }
 
+    public function addAwayTownAreaSortCheking():void {
+        _zSortCounter = SORT_COUNTER_MAX;
+        g.gameDispatcher.addEnterFrame(zSortAwayMain); }
+    public function removeAwayTownAreaSortCheking():void { g.gameDispatcher.removeEnterFrame(zSortAwayMain); }
+
     public function zAwaySort():void {
-        try {
-            _cityAwayObjects.sortOn("depth", Array.NUMERIC);
-            for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                _cont.setChildIndex(_cityAwayObjects[i].source, i);
+        _needTownAreaSort = true;
+    }
+
+    public function zSortAwayMain():void {
+        if (_needTownAreaSort) {
+            _zSortCounter--;
+            if (_zSortCounter > 0) return;
+            try {
+                _cityAwayObjects.sortOn("depth", Array.NUMERIC);
+                for (var i:int = 0; i < _cityAwayObjects.length; i++) {
+                    _cont.setChildIndex(_cityAwayObjects[i].source, i);
+                }
+            } catch (e:Error) {
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+                Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
             }
-        } catch(e:Error) {
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
-            Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
+            _needTownAreaSort = false;
         }
     }
 
@@ -1320,6 +1355,7 @@ public class TownArea extends Sprite {
     }
 
     public function backHome():void {
+        removeAwayTownAreaSortCheking();
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(true);
         clearAwayCity();
@@ -1335,6 +1371,7 @@ public class TownArea extends Sprite {
         }
         _awayPreloader.deleteIt();
         _awayPreloader = null;
+        addTownAreaSortCheking();
     }
 
     private function clearAwayCity():void {
