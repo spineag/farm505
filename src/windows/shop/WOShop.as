@@ -228,7 +228,7 @@ public class WOShop extends WindowMain {
                 }
                 break;
         }
-        if (a == 5) {
+        if (curentTab == DECOR) {
             _shopList.clearIt(true);
         } else {
             _shopList.clearIt();

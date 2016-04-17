@@ -92,7 +92,7 @@ public class ShopList {
         var j:int;
         _decor = false;
         if (arr[0].buildType == BuildType.FABRICA) {
-            for (j = 0; j < arr.length; j++) {
+            for (j = 0; j < arr; j++) {
                 arAdded = g.townArea.getCityObjectsById(arr[j].id);
                 maxCount = 0;
                 for (i = 0; arr[j].blockByLevel.length; i++) {
@@ -111,7 +111,7 @@ public class ShopList {
             }
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.TREE) {
-            for (j = 0; j < arr.length; j++) {
+            for (j = 0; j < arr; j++) {
                 arAdded = g.townArea.getCityObjectsById(arr[j].id);
                 maxCount = 0;
                 for (i = 0; arr[j].blockByLevel.length; i++) {
@@ -134,7 +134,7 @@ public class ShopList {
         } else if (arr[0].buildType == BuildType.ANIMAL) {
             var dataFarm:Object;
             var arrFarm:Array;
-            for (j = 0; j < arr.length; j++) {
+            for (j = 0; j < arr; j++) {
                 dataFarm = g.dataBuilding.objectBuilding[arr[j].buildId];
                 arrFarm = g.townArea.getCityObjectsById(dataFarm.id);
                 maxCount = arrFarm.length * dataFarm.maxAnimalsCount;
@@ -154,7 +154,7 @@ public class ShopList {
             }
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.FARM || arr[0].buildType == BuildType.CAT || arr[0].buildType == BuildType.RIDGE) {
-            for (j = 0; j < arr.length; j++) {
+            for (j = 0; j < arr; j++) {
                 if (arr[j].buildType == BuildType.FARM) {
                     arAdded = g.townArea.getCityObjectsById(arr[j].id);
                     maxCount = 0;
@@ -180,14 +180,16 @@ public class ShopList {
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL) {
-            for (j = 0; j < arr.length; j++) {
+            for (j = 0; j < arr; j++) {
                 arr[j].indexQueue = arr[j].blockByLevel[0];
             }
             arr.sortOn("indexQueue", Array.NUMERIC);
         }
 
         _currentShopArr = arr;
-        for (i = 0; i < _currentShopArr.length; i++) {
+        var l:int = _currentShopArr.length;
+        if (l>4) l=4;
+        for (i = 0; i < l; i++) {
             item = new ShopItem(_currentShopArr[i], _wo);
             item.source.x = 153*i;
             _itemsSprite.addChild(item.source);
@@ -202,22 +204,15 @@ public class ShopList {
         while (_itemsSprite.numChildren) {
             _itemsSprite.removeChildAt(0);
         }
-//        _itemsSprite.x = 0;
-//        if (g.woShop.getAnimalClick) {
-//            _shift = 0;
-//            animList();
-//            g.woShop.activateTab(2);
 
         if (!b && !_decor) {
             _shift = 0;
             animList();
-//            _wo.activateTab(1);
         } else if (b && _decor){
             animList();
         } else if (!b && _decor) {
             _shift = 0;
             animList();
-//            _wo.activateTab(1);
         }
         for (var i:int=0; i<_arrItems.length; i++) {
             _itemsSprite.removeChild(_arrItems[i].source);
@@ -254,16 +249,29 @@ public class ShopList {
     }
 
     private function onRightClick():void {
-        _shift += 4;
-        if (_shift >= _arrItems.length - 4) _shift = _arrItems.length - 4;
-        animList();
+        var newCount:int = 4;
+        if (_shift + newCount >= _currentShopArr.length) newCount = _currentShopArr.length - _shift;
+        _shift += newCount;
+
+        var item:ShopItem;
+        for (var i:int=0; i<newCount; i++) {
+            item = new ShopItem(_currentShopArr[_shift + i], _wo);
+            item.source.x = 153*(_shift + i);
+            _itemsSprite.addChild(item.source);
+            _arrItems.push(item);
+        }
+        var f:Function = function():void {
+
+        };
+        animList(f);
     }
 
-    private function animList():void {
+    private function animList(callback:Function = null):void {
         var tween:Tween = new Tween(_itemsSprite, .5);
         tween.moveTo(-_shift*153, _itemsSprite.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
+            if (callback != null) callback.apply();
         };
         g.starling.juggler.add(tween);
         checkArrows();
