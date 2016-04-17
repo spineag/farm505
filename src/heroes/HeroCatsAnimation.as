@@ -63,15 +63,19 @@ public class HeroCatsAnimation {
     }
 
     private function startAnimation():void {
+        WorldClock.clock.remove(_armature);
+        WorldClock.clock.remove(_armatureBack);
+        if (_armatureWorker) WorldClock.clock.remove(_armatureWorker);
+
         if (_state == STATE_FRONT) {
-            if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
+            WorldClock.clock.add(_armature);
             _armature.animation.gotoAndPlay(_label);
         } else if (_state == STATE_BACK) {
-            if (!WorldClock.clock.contains(_armatureBack)) WorldClock.clock.add(_armatureBack);
+            WorldClock.clock.add(_armatureBack);
             _armatureBack.animation.gotoAndPlay(_label);
-        } else if (_state == STATE_WORKER) {
-            if (!WorldClock.clock.contains(_armatureWorker)) WorldClock.clock.add(_armatureWorker);
-            if (_armatureWorker) _armatureWorker.animation.gotoAndPlay(_label);
+        } else if (_state == STATE_WORKER && _armatureWorker) {
+            WorldClock.clock.add(_armatureWorker);
+            _armatureWorker.animation.gotoAndPlay(_label);
         }
     }
 
@@ -146,13 +150,17 @@ public class HeroCatsAnimation {
             stopIt();
             _state = STATE_FRONT;
             _catImage.visible = true;
+            WorldClock.clock.add(_armature);
             _catBackImage.visible = false;
+            WorldClock.clock.remove(_armatureBack);
         } else {
             if (_state == STATE_BACK) return;
             stopIt();
             _state = STATE_BACK;
             _catBackImage.visible = true;
+            WorldClock.clock.add(_armatureBack);
             _catImage.visible = false;
+            WorldClock.clock.remove(_armature);
         }
         if (_label) {
             addListener();
@@ -182,7 +190,7 @@ public class HeroCatsAnimation {
             while (_catWorkerImage.numChildren) _catWorkerImage.removeChildAt(0);
             deleteArmature(_armatureWorker);
             _catWorkerImage.visible = false;
-            _state = 0;
+            _state = STATE_FRONT;
             _label = '';
             showFront(true);
         }
