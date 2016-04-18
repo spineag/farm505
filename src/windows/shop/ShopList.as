@@ -244,6 +244,7 @@ public class ShopList {
     }
 
     private function onLeftClick():void {
+        if (g.managerTutorial.isTutorial) return;
         var newCount:int = 4;
         if (_shift - newCount < 0) newCount = _shift;
         _shift -= newCount;
@@ -267,6 +268,7 @@ public class ShopList {
     }
 
     private function onRightClick():void {
+        if (g.managerTutorial.isTutorial) return;
         var newCount:int = 4;
         if (_shift + newCount + 4 >= _currentShopArr.length) newCount = _currentShopArr.length - _shift - 4;
 

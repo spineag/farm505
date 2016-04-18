@@ -223,11 +223,6 @@ public class Ridge extends AreaObject{
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_PLANT, onBuy, this);
             } else if (_stateRidge == GROWED) {
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
-                    if (_tutorialCallback != null) {
-                        _tutorialCallback.apply(null, [this]);
-                    }
-                }
                  if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
                      _source.filter = null;
                      g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
@@ -245,6 +240,11 @@ public class Ridge extends AreaObject{
                      item.flyIt();
                      onOut();
                  }
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
+                    if (_tutorialCallback != null) {
+                        _tutorialCallback.apply(null, [this]);
+                    }
+                }
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -271,8 +271,8 @@ public class Ridge extends AreaObject{
     }
 
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
-//        try {
-        var b:Boolean = false;
+        try {
+            var b:Boolean = false;
             if (_stateRidge != EMPTY) {
                 Cc.error('Try to plant already planted ridge');
                 Cc.error(data.name);
@@ -313,14 +313,12 @@ public class Ridge extends AreaObject{
                 var rawItem:RawItem = new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
             }
 
-
-
-//        } catch (e:Error) {
-//            if (_stateRidge != EMPTY) {
-//                Cc.error('Try to plant already planted ridge');
-//                return;
-//            }
-//        }
+        } catch (e:Error) {
+            if (_stateRidge != EMPTY) {
+                Cc.error('Try to plant already planted ridge');
+                return;
+            }
+        }
     }
 
     public function get stateRidge():int {
@@ -411,6 +409,11 @@ public class Ridge extends AreaObject{
     public function checkAfterMove():void {
         if (_plant)
             g.managerPlantRidge.onRidgeFinishMove(_dataPlant.id, this);
+    }
+
+    override public function showArrow():void {
+        super.showArrow();
+        if (_arrow) _arrow.scaleIt(.7);
     }
 }
 }

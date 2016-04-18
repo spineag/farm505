@@ -180,7 +180,7 @@ public class Fabrica extends AreaObject {
         }
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            onOut();
+            if (!g.managerTutorial.isTutorial) onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
@@ -243,6 +243,7 @@ public class Fabrica extends AreaObject {
 
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) return;
             _stateBuild = STATE_ACTIVE;
             g.user.userBuildingData[_dataBuild.id].isOpen = 1;
             if (g.useDataFromServer) {

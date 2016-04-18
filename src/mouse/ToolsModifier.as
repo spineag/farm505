@@ -444,9 +444,7 @@ public class ToolsModifier {
                 if (i < 0 || j < 0 || i > 80 || j > 80) return false;
                 obj = _townMatrix[i][j];
                 if (g.managerTutorial.isTutorial) {
-                    if (obj.isTutorialBuilding) {
-                        return true;
-                    } else {
+                    if (!obj.isTutorialBuilding) {
                         return false;
                     }
                 }
