@@ -58,9 +58,11 @@ public class ShopItem {
     private var _wo:WOShop;
     private var _bg:CartonBackgroundIn;
     private var _arrow:SimpleArrow;
+    private var _positionInList:int;
     private var g:Vars = Vars.getInstance();
 
-    public function ShopItem(data:Object, wo:WOShop) {
+    public function ShopItem(data:Object, wo:WOShop, pos:int) {
+        _positionInList = pos;
         _wo = wo;
         _data = data;
         if (!_data) {
@@ -117,6 +119,10 @@ public class ShopItem {
                 addArrow();
             }
         }
+    }
+
+    public function get position():int {
+        return _positionInList;
     }
 
     private function createLockedSprite():void {

@@ -121,7 +121,7 @@ public class WindowMain {
             _black.endClickCallback = null;
             var blackEnd:Function = function():void {
                 if (g.cont.windowsCont.contains(_black)) g.cont.windowsCont.removeChild(_black);
-                _black.dispose();
+                if (_black) _black.dispose();
                 _black = null;
             };
             TweenMax.to(_black, .2, {alpha:0, onComplete:blackEnd});
