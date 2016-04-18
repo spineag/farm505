@@ -90,9 +90,10 @@ public class ShopList {
         var arAdded:Array;
         var i:int;
         var j:int;
+        _currentShopArr = [];
         _decor = false;
         if (arr[0].buildType == BuildType.FABRICA) {
-            for (j = 0; j < arr; j++) {
+            for (j = 0; j < arr.length; j++) {
                 arAdded = g.townArea.getCityObjectsById(arr[j].id);
                 maxCount = 0;
                 for (i = 0; arr[j].blockByLevel.length; i++) {
@@ -111,7 +112,7 @@ public class ShopList {
             }
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.TREE) {
-            for (j = 0; j < arr; j++) {
+            for (j = 0; j < arr.length; j++) {
                 arAdded = g.townArea.getCityObjectsById(arr[j].id);
                 maxCount = 0;
                 for (i = 0; arr[j].blockByLevel.length; i++) {
@@ -134,7 +135,7 @@ public class ShopList {
         } else if (arr[0].buildType == BuildType.ANIMAL) {
             var dataFarm:Object;
             var arrFarm:Array;
-            for (j = 0; j < arr; j++) {
+            for (j = 0; j < arr.length; j++) {
                 dataFarm = g.dataBuilding.objectBuilding[arr[j].buildId];
                 arrFarm = g.townArea.getCityObjectsById(dataFarm.id);
                 maxCount = arrFarm.length * dataFarm.maxAnimalsCount;
@@ -154,7 +155,7 @@ public class ShopList {
             }
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.FARM || arr[0].buildType == BuildType.CAT || arr[0].buildType == BuildType.RIDGE) {
-            for (j = 0; j < arr; j++) {
+            for (j = 0; j < arr.length; j++) {
                 if (arr[j].buildType == BuildType.FARM) {
                     arAdded = g.townArea.getCityObjectsById(arr[j].id);
                     maxCount = 0;
@@ -180,7 +181,7 @@ public class ShopList {
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL) {
-            for (j = 0; j < arr; j++) {
+            for (j = 0; j < arr.length; j++) {
                 arr[j].indexQueue = arr[j].blockByLevel[0];
             }
             arr.sortOn("indexQueue", Array.NUMERIC);
@@ -190,7 +191,7 @@ public class ShopList {
         var l:int = _currentShopArr.length;
         if (l>4) l=4;
         for (i = 0; i < l; i++) {
-            item = new ShopItem(_currentShopArr[i], _wo);
+            item = new ShopItem(_currentShopArr[i], _wo, i);
             item.source.x = 153*i;
             _itemsSprite.addChild(item.source);
             _arrItems.push(item);
@@ -225,13 +226,13 @@ public class ShopList {
         _leftArrow.visible = true;
         _rightArrow.visible = true;
 
-        if (_arrItems.length > 4) {
+        if (_currentShopArr && _currentShopArr.length > 4) {
             if (_shift <= 0) {
                 _leftArrow.setEnabled = false;
             } else {
                 _leftArrow.setEnabled = true;
             }
-            if (_shift >= _arrItems.length - 4){
+            if (_shift >= _currentShopArr.length - 4) {
                 _rightArrow.setEnabled = false;
             } else {
                 _rightArrow.setEnabled = true;
@@ -243,25 +244,49 @@ public class ShopList {
     }
 
     private function onLeftClick():void {
-        _shift -= 4;
-        if (_shift < 0) _shift = 0;
-        animList();
+        var newCount:int = 4;
+        if (_shift - newCount < 0) newCount = _shift;
+        _shift -= newCount;
+
+        var item:ShopItem;
+        for (var i:int=0; i<newCount; i++) {
+            item = new ShopItem(_currentShopArr[_shift + i], _wo, _shift + i);
+            item.source.x = 153*(_shift + i);
+            _itemsSprite.addChild(item.source);
+            _arrItems.unshift(item);
+        }
+        _arrItems.sortOn('position', Array.NUMERIC);
+        var f:Function = function():void {
+            for (i=0; i<newCount; i++) {
+                item = _arrItems.pop();
+                _itemsSprite.removeChild(item.source);
+                item.deleteIt();
+            }
+        };
+        animList(f);
     }
 
     private function onRightClick():void {
         var newCount:int = 4;
-        if (_shift + newCount >= _currentShopArr.length) newCount = _currentShopArr.length - _shift;
-        _shift += newCount;
+        if (_shift + newCount + 4 >= _currentShopArr.length) newCount = _currentShopArr.length - _shift - 4;
 
         var item:ShopItem;
         for (var i:int=0; i<newCount; i++) {
-            item = new ShopItem(_currentShopArr[_shift + i], _wo);
-            item.source.x = 153*(_shift + i);
-            _itemsSprite.addChild(item.source);
-            _arrItems.push(item);
+            if (_currentShopArr[_shift + 4 + i]) {
+                item = new ShopItem(_currentShopArr[_shift + 4 + i], _wo, _shift + 4 + i);
+                item.source.x = 153 * (_shift + 4 + i);
+                _itemsSprite.addChild(item.source);
+                _arrItems.push(item);
+            }
         }
+        _shift += newCount;
+        _arrItems.sortOn('position', Array.NUMERIC);
         var f:Function = function():void {
-
+            for (i=0; i<newCount; i++) {
+                item = _arrItems.shift();
+                _itemsSprite.removeChild(item.source);
+                item.deleteIt();
+            }
         };
         animList(f);
     }
