@@ -79,6 +79,7 @@ public class Ambar extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             onOut();
+            g.user.visitAmbar = true;
             if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, WOAmbars.AMBAR);
         } else {
             Cc.error('Ambar:: unknown g.toolsModifier.modifierType')

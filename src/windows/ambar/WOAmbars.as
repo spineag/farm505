@@ -101,6 +101,7 @@ public class WOAmbars extends WindowMain {
             updateItems();
             checkTypes();
             updateItemsForUpdate();
+            g.user.visitAmbar = true;
         };
         var hAmbar:Function = function():void {
             _tabAmbar.y = _defaultY + 3;
@@ -133,6 +134,7 @@ public class WOAmbars extends WindowMain {
             updateItems();
             checkTypes();
             updateItemsForUpdate();
+            g.user.visitAmbar = false;
         };
 
         var hSklad:Function = function():void {

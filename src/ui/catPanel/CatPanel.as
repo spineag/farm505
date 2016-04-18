@@ -20,6 +20,7 @@ import starling.utils.Color;
 import utils.CSprite;
 
 import windows.WOComponents.HorizontalPlawka;
+import windows.WindowsManager;
 
 public class CatPanel {
     private var _source:CSprite;
@@ -90,7 +91,7 @@ public class CatPanel {
 
 //    private function onClick():void {
 //        g.user.level ++;
-//        g.woLevelUp.showLevelUp();
+//        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
 //    }
 }
 }

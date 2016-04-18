@@ -105,7 +105,8 @@ public class WOMarketChoose extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         _callback = callback;
         _activetedItem = params[0];
-        _type = AMBAR;
+        if (g.user.lastVisitAmbar) _type = AMBAR;
+        else _type = SKLAD;
         checkTypes();
         fillItems();
         super.showIt();
@@ -132,6 +133,7 @@ public class WOMarketChoose extends WindowMain {
             _type = AMBAR;
             updateItems();
             checkTypes();
+            g.user.visitAmbar = true;
         };
         var hAmbar:Function = function():void {
             _tabAmbar.y = _defaultY + 3;
@@ -163,6 +165,7 @@ public class WOMarketChoose extends WindowMain {
             _type = SKLAD;
             updateItems();
             checkTypes();
+            g.user.visitAmbar = false;
         };
         var hSklad:Function = function():void {
             _tabSklad.y = _defaultY + 3;
