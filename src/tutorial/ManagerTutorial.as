@@ -862,7 +862,7 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
         for (var i:int=0; i<arr.length; i++) {
-            if (arr[i].posY == 35 && (arr[i] as Ridge).isFreeRidge) {
+            if (arr[i].posY == 35) {
                 _tutorialObjects.push(arr[i]);
             }
         }
@@ -870,7 +870,7 @@ public class ManagerTutorial {
             subStep10_4();
             return;
         }
-        _tutorialObjects.sortOn('dbBuildingId', Array.NUMERIC);
+        _tutorialObjects.sortOn('posX', Array.NUMERIC);
         if (!cat) {
             addCatToPos(_tutorialObjects[0].posX - 2, _tutorialObjects[0].posY + 1);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
@@ -926,6 +926,7 @@ public class ManagerTutorial {
         _tutorialResourceIDs.length = 0;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.user.tutorialStep = 11;
         updateTutorialStep();
         initScenes();
@@ -1008,10 +1009,10 @@ public class ManagerTutorial {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
             (g.windowsManager.currentWindow as WOOrder).setTextForCustomer(texts[g.user.tutorialStep][subStep]);
             var ob:Object = (g.windowsManager.currentWindow as WOOrder).getSellBtnProperties();
-            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y - 5);
+            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height - 20, ob.x, ob.y + 3);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
             _arrow.scaleIt(.5);
-            _arrow.animateAtPosition(ob.x, ob.y + ob.height/2 - 3);
+            _arrow.animateAtPosition(ob.x, ob.y + 25);
             _tutorialCallback = subStep11_9;
         } else {
             Cc.error('wo_order is not opened');
