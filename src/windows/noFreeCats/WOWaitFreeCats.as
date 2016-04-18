@@ -46,8 +46,8 @@ public class WOWaitFreeCats extends WindowMain{
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
-        im.x = -70;
-        im.y = -62;
+        im.x = -40;
+        im.y = -55;
         _source.addChild(im);
     }
 

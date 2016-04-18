@@ -202,7 +202,6 @@
             <filename>trampoline_yellow_icon.png</filename>
             <filename>umbrella_green_icon.png</filename>
             <filename>white_fence_icon.png</filename>
-            <filename>cat_icon.png</filename>
             <filename>chair_1_icon.png</filename>
             <filename>chair_2_icon.png</filename>
             <filename>cheery2_icon.png</filename>
@@ -217,7 +216,6 @@
             <filename>farm_pig_icon.png</filename>
             <filename>farm_sheep_icon.png</filename>
             <filename>farming_table_icon.png</filename>
-            <filename>feed_mill_icon.png</filename>
             <filename>fir_1_icon.png</filename>
             <filename>fir_2_icon.png</filename>
             <filename>gate_alive_closed_icon.png</filename>
@@ -254,6 +252,8 @@
             <filename>blue_fence_icon.png</filename>
             <filename>blueberry_icon.png</filename>
             <filename>bridge_icon.png</filename>
+            <filename>cat_icon.png</filename>
+            <filename>feed_mill_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

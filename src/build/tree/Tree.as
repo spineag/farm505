@@ -627,7 +627,7 @@ public class Tree extends AreaObject {
                 if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                     g.mouseHint.checkMouseHint(MouseHint.KORZINA);
                 } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
-                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER || _state == FULL_DEAD || _state == ASK_FIX || _state == DEAD) {
                 var time:int = _timeToEndState;
                 time += int(_resourceItem.buildTime / 2 + .5);
                 var newX:int;
@@ -670,8 +670,7 @@ public class Tree extends AreaObject {
                      g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip,onOut);
                 }
                 }
-            }
-            if (_isOnHover == false) {
+            } else {
 //                _source.filter = null;
                 g.mouseHint.hideIt();
                 g.timerHint.hideIt();

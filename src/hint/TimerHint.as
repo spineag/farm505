@@ -129,7 +129,7 @@ public class TimerHint {
 
         _isShow = true;
         _timer = timer;
-        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
+        _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
         _txtCost.text = String(cost);
         _txtName.text = name;
         g.cont.hintContUnder.addChild(_source);
@@ -163,7 +163,7 @@ public class TimerHint {
 
     private function onTimer():void {
         _timer --;
-        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
+        _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
         if(_timer <=0){
             hideIt();
         }

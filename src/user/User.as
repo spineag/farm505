@@ -31,6 +31,7 @@ public class User extends Someone {
     public var timePaper:int;
     public var papperTimerAtMarket:int;
     public var tutorialStep:int;
+    public var lastVisitAmbar:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function User() {
@@ -53,14 +54,16 @@ public class User extends Someone {
         userBuildingData = {};
         arrFriends = [];
         arrTempUsers = [];
-
+        lastVisitAmbar = true;
         neighbor = new NeighborBot();
 
 //        for (var i:int = 0; i < arrFriends.length; i++) {
 //            g.directServer.getFriendsInfo(int(arrFriends[i].userSocialId),arrFriends[i],null);
 //        }
     }
-
+    public function set visitAmbar(b:Boolean):void  {
+        lastVisitAmbar = b;
+    }
     public function checkUserLevel():void {
         var levels:Object = g.dataLevel.objectLevels;
         var txp:int = 0;

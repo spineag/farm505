@@ -62,7 +62,10 @@ public class TimeUtils {
             strCaption += hour + 'ч ';
         }
         if (minutes > 0) {
-            strCaption += minutes + 'м ';
+            if (day <= 0) strCaption += minutes + 'м ';
+        }
+        if (sec > 0) {
+            if (day <= 0 && hour <= 0) strCaption += sec + 'с ';
         }
 
         return strCaption;
