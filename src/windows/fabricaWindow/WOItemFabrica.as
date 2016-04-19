@@ -37,7 +37,6 @@ public class WOItemFabrica {
         source.outCallback = onOut;
         source.alpha = .5;
         _isOnHover = false;
-
     }
 
     public function setCoordinates(_x:int, _y:int):void {
@@ -148,11 +147,11 @@ public class WOItemFabrica {
         if (!_dataRecipe) return;
         if (_isOnHover) return;
         source.filter = ManagerFilters.YELLOW_STROKE;
+        if (g.managerTutorial.isTutorial) return;
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
         if (_dataRecipe.blockByLevel > g.user.level) g.resourceHint.showIt(_dataRecipe.id,source.x,source.y,source,false,true);
          else g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
-
         _isOnHover = true;
     }
 

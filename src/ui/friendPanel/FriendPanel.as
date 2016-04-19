@@ -140,6 +140,7 @@ public class FriendPanel {
 
     private var isAnimated:Boolean = false;
     private function leftArrow():void {
+        if (g.managerTutorial.isTutorial) return;
         if (isAnimated || !_arrFriends.length) return;
         if (_shift > 0) {
             _shift -= 5;
@@ -151,6 +152,7 @@ public class FriendPanel {
     }
 
     private function rightArrow():void {
+        if (g.managerTutorial.isTutorial) return;
         if (isAnimated || !_arrFriends.length) return;
         var l:int = _arrFriends.length;
         if (_shift +1 < l) {
@@ -301,12 +303,12 @@ public class FriendPanel {
     }
 
     public function getNeighborItemProperties():Object {
-        if (_arrItems && _arrItems.length) {
-            return (_arrItems[1] as FriendItem).getItemProperties();
-        } else {
+//        if (_arrItems && _arrItems.length) {
+//            return (_arrItems[1] as FriendItem).getItemProperties();
+//        } else {
             var ob:Object = {};
-            ob.x = _addFriendsBtn.x - 30;
-            ob.y = _addFriendsBtn.y - 35;
+            ob.x = 173;
+            ob.y = 7;
             var p:Point = new Point(ob.x, ob.y);
             p = _source.localToGlobal(p);
             ob.x = p.x;
@@ -314,7 +316,7 @@ public class FriendPanel {
             ob.width = 60;
             ob.height = 70;
             return ob;
-        }
+//        }
     }
 }
 }

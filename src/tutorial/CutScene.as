@@ -39,18 +39,18 @@ public class CutScene {
         animateCat();
     }
 
-    private function showBubble(st:String, stBtn:String, callback:Function):void {
+    private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null):void {
         if (st.length < 100) {
             _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE);
         } else {
             _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG);
         }
-        _bubble.showBubble(st, stBtn, callback);
+        _bubble.showBubble(st, stBtn, callback, callbackNo);
     }
 
-    public function reChangeBubble(st:String, stBtn:String='', callback:Function=null):void {
+    public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null):void {
         var f:Function = function():void {
-            showBubble(st, stBtn, callback);
+            showBubble(st, stBtn, callback, callbackNo);
         };
         if (_bubble) {
             _bubble.hideBubble(f);

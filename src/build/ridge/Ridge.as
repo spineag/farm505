@@ -185,7 +185,7 @@ public class Ridge extends AreaObject{
                 } else return;
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            onOut();
+            if (!g.managerTutorial.isTutorial) onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();

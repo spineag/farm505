@@ -103,24 +103,6 @@ public class WOShop extends WindowMain {
         super.showIt();
     }
 
-    public function openShopForResource(ob:Object):void {
-        if (ob.buildType == BuildType.CAT || ob.buildType == BuildType.RIDGE || ob.buildtype == BuildType.FARM) {
-            curentTab = 1;
-        } else if (ob.buildType == BuildType.ANIMAL) {
-            curentTab = 2;
-        } else if (ob.buildType == BuildType.FABRICA) {
-            curentTab = 3;
-        } else if (ob.buildType == BuildType.TREE) {
-            curentTab = 4;
-        } else {
-            curentTab = 5;
-        }
-        onTab(curentTab);
-        updateMoneyCounts();
-        super.showIt();
-        _shopList.openOnResource(ob);
-    }
-
     private function activateTabBtn():void {
         switch (curentTab) {
             case VILLAGE:
@@ -393,7 +375,10 @@ public class WOShop extends WindowMain {
 
     public function getShopItemProperties(_id:int, addArrow:Boolean = false):Object {
         return _shopList.getShopItemProperties(_id, addArrow);
+    }
 
+    public function openOnResource(_id:int):void {
+        _shopList.openOnResource(_id);
     }
 
     public function getShopDirectItemProperties(a:int):Object {
