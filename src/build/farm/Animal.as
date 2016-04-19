@@ -128,7 +128,8 @@ public class Animal {
         _rect = source.getBounds(source);
         removeArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
-        _arrow.animateAtPosition(0, _rect.y);
+        _arrow.scaleIt(.7);
+        _arrow.animateAtPosition(0, _rect.y + 30);
     }
 
     public function removeArrow():void {

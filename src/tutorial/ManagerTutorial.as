@@ -37,7 +37,7 @@ import windows.orderWindow.WOOrder;
 import windows.shop.WOShop;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = false;
+    private const TUTORIAL_ON:Boolean = true;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
@@ -256,10 +256,7 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         subStep = 0;
         if (!_tutorialObjects.length) {
-            var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
-            for (var i:int=0; i< arr.length; i++) {
-                if ((arr[i] as Ridge).isFreeRidge) _tutorialObjects.push(arr[i]);
-            }
+            _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.RIDGE);
             if (!_tutorialObjects.length) {
                 g.user.tutorialStep = 4;
                 updateTutorialStep();
@@ -267,6 +264,7 @@ public class ManagerTutorial {
                 return;
             }
         }
+        _tutorialObjects.sortOn('posX', Array.NUMERIC);
         if (!cat) {
             addCatToPos((_tutorialObjects[0] as WorldObject).posX - 1, (_tutorialObjects[0] as WorldObject).posY + 2);
             g.cont.moveCenterToPos((_tutorialObjects[0] as WorldObject).posX, (_tutorialObjects[0] as WorldObject).posY, false, 2);
@@ -333,6 +331,7 @@ public class ManagerTutorial {
         removeBlack();
         subStep = 6;
         cutScene.hideIt(deleteCutScene);
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.user.tutorialStep = 4;
         updateTutorialStep();
         initScenes();
@@ -581,7 +580,7 @@ public class ManagerTutorial {
 
     private function subStep7_1():void {
         subStep = 1;
-        cutScene.hideIt(deleteCutScene);
+        if (cutScene) cutScene.hideIt(deleteCutScene);
         g.bottomPanel.deleteArrow();
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -863,7 +862,7 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
         for (var i:int=0; i<arr.length; i++) {
-            if (arr[i].posY == 35 && (arr[i] as Ridge).isFreeRidge) {
+            if (arr[i].posY == 35) {
                 _tutorialObjects.push(arr[i]);
             }
         }
@@ -871,7 +870,7 @@ public class ManagerTutorial {
             subStep10_4();
             return;
         }
-        _tutorialObjects.sortOn('dbBuildingId', Array.NUMERIC);
+        _tutorialObjects.sortOn('posX', Array.NUMERIC);
         if (!cat) {
             addCatToPos(_tutorialObjects[0].posX - 2, _tutorialObjects[0].posY + 1);
             g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
@@ -927,6 +926,7 @@ public class ManagerTutorial {
         _tutorialResourceIDs.length = 0;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.user.tutorialStep = 11;
         updateTutorialStep();
         initScenes();
@@ -1009,10 +1009,10 @@ public class ManagerTutorial {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
             (g.windowsManager.currentWindow as WOOrder).setTextForCustomer(texts[g.user.tutorialStep][subStep]);
             var ob:Object = (g.windowsManager.currentWindow as WOOrder).getSellBtnProperties();
-            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y - 5);
+            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height - 20, ob.x, ob.y + 3);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
             _arrow.scaleIt(.5);
-            _arrow.animateAtPosition(ob.x, ob.y + ob.height/2 - 3);
+            _arrow.animateAtPosition(ob.x, ob.y + 25);
             _tutorialCallback = subStep11_9;
         } else {
             Cc.error('wo_order is not opened');
