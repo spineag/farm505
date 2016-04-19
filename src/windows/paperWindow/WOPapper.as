@@ -77,7 +77,6 @@ public class WOPapper extends WindowMain {
         _btnRefreshBlue.setEnabled = false;
         _btnRefreshBlue.clickCallback = onRefresh;
         _callbackClickBG = hideIt;
-        timerRefresh();
     }
 
     override protected function deleteIt():void {
@@ -270,8 +269,9 @@ public class WOPapper extends WindowMain {
         }
         g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
-        _timer = 900;
-        g.gameDispatcher.addToTimer(renderPaperProgress);
+//        _timer = 900;
+//        g.gameDispatcher.addToTimer(renderPaperProgress);
+        startPapperTimer();
         g.directServer.getPaperItems(fillAfterRefresh);
     }
 
@@ -321,35 +321,66 @@ public class WOPapper extends WindowMain {
             _rightArrow.setEnabled = true;
         }
     }
-    private function timerRefresh():void {
-        if (_timer <= 900) {
+//    private function timerRefresh():void {
+//        if (_timer <= 900) {
+//            _btnRefreshBlue.setEnabled = true;
+//            _btnRefreshGreen.setEnabled = false;
+//            _txtTimer.text = 'Обновить';
+//            _txtTimer.x = 25;
+//        } else {
+//            g.gameDispatcher.addToTimer(renderPaperProgress);
+//        }
+//    }
+
+//    private function renderPaperProgress():void {
+//        _timer--;
+//        _txtTimer.x = 20;
+//        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
+//        if (_timer <= 0) {
+//            _btnRefreshBlue.setEnabled = true;
+//            _btnRefreshGreen.setEnabled = false;
+//            _txtTimer.text = 'Обновить';
+//            _txtTimer.x = 25;
+//            g.gameDispatcher.removeFromTimer(renderPaperProgress);
+//            g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
+//        }
+//    }
+
+    public function startPapperTimer():void {
+        g.user.startUserMarketTimer(5);
+        checkPapperTimer();
+    }
+
+    private function checkPapperTimer():void {
+        if (g.user.timePaper > 0) {
+            _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.user.timerAtPapper);
+            g.user.startUserPapperTimer(g.user.timerAtPapper);
+            g.gameDispatcher.addToTimer(onTimer);
+        } else {
             _btnRefreshBlue.setEnabled = true;
             _btnRefreshGreen.setEnabled = false;
             _txtTimer.text = 'Обновить';
             _txtTimer.x = 25;
-        } else {
-            g.gameDispatcher.addToTimer(renderPaperProgress);
+            g.gameDispatcher.removeFromTimer(onTimer);
         }
     }
 
-    private function renderPaperProgress():void {
-        _timer--;
-        _txtTimer.x = 20;
-        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
-        if (_timer <= 0) {
+    private function onTimer():void {
+        if (g.user.timePaper > 0) _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.user.timerAtPapper);
+        else {
             _btnRefreshBlue.setEnabled = true;
             _btnRefreshGreen.setEnabled = false;
             _txtTimer.text = 'Обновить';
             _txtTimer.x = 25;
-            g.gameDispatcher.removeFromTimer(renderPaperProgress);
+            g.gameDispatcher.removeFromTimer(onTimer);
             g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
+
         }
     }
 
     private function onRefresh():void {
         g.directServer.getPaperItems(fillAfterRefresh);
-        _timer = 900;
-        g.gameDispatcher.addToTimer(renderPaperProgress);
+        startPapperTimer();
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         _btnRefreshBlue.setEnabled = false;
         _btnRefreshGreen.setEnabled = true;

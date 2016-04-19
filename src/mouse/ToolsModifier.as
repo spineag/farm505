@@ -286,8 +286,13 @@ public class ToolsModifier {
         if (_activeBuilding.isContDrag() || isFromShop) {
             _needMoveGameCont = true;
         }
+
+
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
-        _moveGrid = null;
+//        _moveGrid = null;
+
+        _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height);
+
         g.gameDispatcher.addEnterFrame(moveIt);
     }
 
@@ -421,6 +426,8 @@ public class ToolsModifier {
                 } else {
                     _spriteForMove.filter = null;
                 }
+                _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
+
             } else {
                 if (g.isActiveMapEditor && _activeBuilding is Wild) return;
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);

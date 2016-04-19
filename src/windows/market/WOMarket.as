@@ -451,7 +451,7 @@ public class WOMarket  extends WindowMain {
     }
 
     public function startPapperTimer():void {
-        g.user.startUserPapperTimer(300);
+        g.user.startUserMarketTimer(300);
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].visiblePaper(false);
         }
@@ -461,7 +461,7 @@ public class WOMarket  extends WindowMain {
     private function checkPapperTimer():void {
         if (g.user.papperTimerAtMarket > 0) {
             _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.user.papperTimerAtMarket);
-            g.user.startUserPapperTimer(g.user.papperTimerAtMarket);
+            g.user.startUserMarketTimer(g.user.papperTimerAtMarket);
             g.gameDispatcher.addToTimer(onTimer);
             _booleanPaper = false;
             _imCheck.visible = false;

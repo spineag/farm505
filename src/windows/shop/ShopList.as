@@ -150,7 +150,7 @@ public class ShopList {
                         arr[j].indexQueue = dataFarm.blockByLevel[arrFarm.length] + 500;
                     }
                 } else {
-                    arr[j].indexQueue = dataFarm.blockByLevel[arrFarm.length];
+                    arr[j].indexQueue = int(dataFarm.blockByLevel[arrFarm.length]);
                 }
             }
             arr.sortOn("indexQueue", Array.NUMERIC);

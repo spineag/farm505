@@ -30,6 +30,7 @@ public class User extends Someone {
     public var countCats:int;
     public var timePaper:int;
     public var papperTimerAtMarket:int;
+    public var timerAtPapper:int;
     public var tutorialStep:int;
     public var lastVisitAmbar:Boolean;
     private var g:Vars = Vars.getInstance();
@@ -198,15 +199,28 @@ public class User extends Someone {
         }
     }
 
-    public function startUserPapperTimer(time:int):void {
+    public function startUserMarketTimer(time:int):void {
         papperTimerAtMarket = time;
+        g.gameDispatcher.addToTimer(onMarketTimer);
+    }
+
+    private function onMarketTimer():void {
+        papperTimerAtMarket--;
+        if (papperTimerAtMarket <= 0) {
+            papperTimerAtMarket = 0;
+            g.gameDispatcher.removeFromTimer(onMarketTimer);
+        }
+    }
+
+    public function startUserPapperTimer(time:int):void {
+        timerAtPapper = time;
         g.gameDispatcher.addToTimer(onPapperTimer);
     }
 
     private function onPapperTimer():void {
-        papperTimerAtMarket--;
-        if (papperTimerAtMarket <= 0) {
-            papperTimerAtMarket = 0;
+        timerAtPapper--;
+        if (timerAtPapper <= 0) {
+            timerAtPapper = 0;
             g.gameDispatcher.removeFromTimer(onPapperTimer);
         }
     }
