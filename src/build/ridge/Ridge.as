@@ -225,7 +225,7 @@ public class Ridge extends AreaObject{
             } else if (_stateRidge == GROWED) {
                  if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
                      _source.filter = null;
-                     g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
+                     g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
                  } else {
                      _stateRidge = EMPTY;
                      _plant.onCraftPlant();

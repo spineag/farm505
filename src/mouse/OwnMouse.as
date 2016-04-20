@@ -67,7 +67,14 @@ public class OwnMouse {
         cursorData.push(bitMap.bitmapData);
 
         return cursorData;
+    }
 
+    public function showUsualCursor():void {
+        Mouse.cursor = USUAL_CURSOR;
+    }
+
+    public function showClickCursor():void {
+        Mouse.cursor = CLICK_CURSOR;
     }
 }
 }
