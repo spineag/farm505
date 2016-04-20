@@ -1649,7 +1649,7 @@ public class ManagerTutorial {
         cutScene.showIt(texts[g.user.tutorialStep][subStep]);
         _currentAction = TutorialAction.VISIT_NEIGHBOR;
         g.friendPanel.showIt();
-        createDelay(.7, subStep23_1);
+        createDelay(1, subStep23_1);
     }
 
     private function subStep23_1():void {
@@ -1703,7 +1703,7 @@ public class ManagerTutorial {
         subStep = 6;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
             _airBubble = new AirTextBubble();
-            _airBubble.showIt(texts[g.user.tutorialStep][subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 + 20, Starling.current.nativeStage.stageHeight/2 + 50);
+            _airBubble.showIt(texts[g.user.tutorialStep][subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 50, Starling.current.nativeStage.stageHeight/2 + 50);
             var ob:Object = (g.windowsManager.currentWindow as WOMarket).getItemProperties(1);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _tutorialCallback = subStep23_7;
