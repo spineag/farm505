@@ -226,7 +226,7 @@ public class WOBuyPlant extends WindowMain {
 
     override protected function deleteIt():void {
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _source.removeChild(_arrShiftBtns[i]);
+            _source.removeChild(_arrShiftBtns[i].source);
             _arrShiftBtns[i].deleteIt();
         }
         _arrShiftBtns.length = 0;

@@ -2,24 +2,15 @@
  * Created by user on 5/21/15.
  */
 package utils {
-
-import flash.display.Bitmap;
 import flash.ui.Mouse;
-
 import manager.ManagerFilters;
 import mouse.OwnMouse;
-
 import starling.display.DisplayObject;
-
-import starling.display.Image;
-
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
+import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
-import starling.textures.Texture;
-
-import windows.WOComponents.WOButtonTexture;
 import windows.WOComponents.WOSimpleButtonTexture;
 
 public class CButton extends Sprite {
@@ -36,7 +27,9 @@ public class CButton extends Sprite {
     private var _scale:Number;
     private var _bg:Sprite;
     private var _arrTextFields:Array;
-    private var _useFilters:Boolean = true;
+    private var BUTTON_CLICK_FILTER:ColorMatrixFilter;
+    private var BUTTON_HOVER_FILTER:ColorMatrixFilter;
+    private var BUTTON_DISABLE_FILTER:ColorMatrixFilter;
 
     public function CButton() {
         super();
@@ -52,19 +45,10 @@ public class CButton extends Sprite {
         this.pivotY = this.height/2;
     }
 
-    public function set useFilters(v:Boolean):void {
-        _useFilters = v;
-    }
-
-    public function addButtonTexture(w:int, h:int, type:int, needMakeSimpleShadow:Boolean = false):void {
+    public function addButtonTexture(w:int, h:int, type:int, setP:Boolean = false):void {
         var t:Sprite = new WOSimpleButtonTexture(w, h, type);
-//        var t:Sprite = new WOButtonTexture(w, h, type);
         _bg.addChild(t);
-        if (needMakeSimpleShadow) {
-            setPivots();
-//            makeSimpleShadow(w, h, type);
-//            addCloneShadow();
-        }
+        if (setP) setPivots();
         _bg.flatten();
     }
 
@@ -162,7 +146,8 @@ public class CButton extends Sprite {
                 _arrTextFields[i].t.nativeFilters = _arrTextFields[i].c;
             }
         } else {
-            _bg.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+            if (!BUTTON_DISABLE_FILTER) BUTTON_DISABLE_FILTER = ManagerFilters.getButtonDisableFilter();
+            _bg.filter = BUTTON_DISABLE_FILTER;
             for (i=0; i<_arrTextFields.length; i++) {
                 _arrTextFields[i].t.nativeFilters = ManagerFilters.TEXT_STROKE_GRAY;
             }
@@ -170,13 +155,18 @@ public class CButton extends Sprite {
     }
 
     public function deleteIt():void {
-        deleteShadow();
         _bg.unflatten();
         _bg.filter = null;
-        while (_bg.numChildren) _bg.removeChildAt(0);
+        if (BUTTON_CLICK_FILTER) BUTTON_CLICK_FILTER.dispose();
+        if (BUTTON_HOVER_FILTER) BUTTON_HOVER_FILTER.dispose();
+        if (BUTTON_DISABLE_FILTER) BUTTON_DISABLE_FILTER.dispose();
+        BUTTON_CLICK_FILTER = null;
+        BUTTON_DISABLE_FILTER = null;
+        BUTTON_HOVER_FILTER = null;
         if (this.hasEventListener(TouchEvent.TOUCH)) this.removeEventListener(TouchEvent.TOUCH, onTouch);
-        while (this.numChildren) this.removeChildAt(0);
+        _bg.dispose();
         _bg = null;
+        dispose();
         _arrTextFields.length = 0;
         _clickCallback = null;
         _hoverCallback = null;
@@ -186,7 +176,8 @@ public class CButton extends Sprite {
     }
 
     private function onBeganClickAnimation():void {
-        if (_useFilters) _bg.filter = ManagerFilters.BUTTON_CLICK_FILTER;
+        if (!BUTTON_CLICK_FILTER) BUTTON_CLICK_FILTER = ManagerFilters.getButtonClickFilter();
+        _bg.filter = BUTTON_CLICK_FILTER;
         this.scaleX = this.scaleY = _scale*.95;
     }
 
@@ -196,44 +187,13 @@ public class CButton extends Sprite {
     }
 
     private function onHoverAnimation():void {
-        if (_useFilters) _bg.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+        if (!BUTTON_HOVER_FILTER) BUTTON_HOVER_FILTER = ManagerFilters.getButtonHoverFilter();
+        _bg.filter = BUTTON_HOVER_FILTER;
     }
 
     private function onOutAnimation():void {
         this.scaleX = this.scaleY = _scale;
         _bg.filter = null;
-    }
-
-    private var _clone:Sprite;
-    public function makeShadowFromBitmap():void {
-        if (_clone) return;
-        var bitmap:Bitmap = DrawToBitmap.drawToBitmap(_bg);
-        var im:Image = new Image(Texture.fromBitmap(bitmap));
-        _clone = new Sprite();
-        _clone.addChild(im);
-        _clone.flatten();
-    }
-
-    public function makeSimpleShadow(w:int, h:int, type:int):void {
-        var t:Sprite = new WOButtonTexture(w, h, type);
-        _clone = new Sprite();
-        _clone.addChild(t);
-        _clone.flatten();
-    }
-
-    public function addCloneShadow():void {
-        if (!_clone) return;
-        this.addChildAt(_clone, 0);
-        _clone.filter = ManagerFilters.SHADOW_LIGHT;
-    }
-
-    public function deleteShadow():void {
-        if (!_clone) return;
-        _clone.unflatten();
-        _clone.filter = null;
-        if (this.contains(_clone)) this.removeChild(_clone);
-        _clone.dispose();
-        _clone = null;
     }
 
 }

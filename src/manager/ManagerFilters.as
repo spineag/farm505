@@ -6,6 +6,7 @@ import flash.filters.GlowFilter;
 
 import starling.filters.BlurFilter;
 import starling.filters.ColorMatrixFilter;
+import starling.filters.ColorMatrixFilter;
 import starling.utils.Color;
 
 public class ManagerFilters {
@@ -76,6 +77,24 @@ public class ManagerFilters {
 
     public static function getShadowFilter():BlurFilter {
         return BlurFilter.createDropShadow(2, .8, 0, 1, 1.0, 0.5);
+    }
+
+    public static function getButtonClickFilter():ColorMatrixFilter {
+        var f:ColorMatrixFilter = new ColorMatrixFilter();
+        f.adjustBrightness(-.07);
+        return f;
+    }
+
+    public static function getButtonHoverFilter():ColorMatrixFilter {
+        var f:ColorMatrixFilter = new ColorMatrixFilter();
+        f.adjustBrightness(.04);
+        return f;
+    }
+
+    public static function getButtonDisableFilter():ColorMatrixFilter {
+        var f:ColorMatrixFilter = new ColorMatrixFilter();
+        f.adjustSaturation(-.95);
+        return f;
     }
 }
 }
