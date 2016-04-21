@@ -66,12 +66,7 @@ public class WindowsManager {
     private var _cashWindow:WindowMain;
     private var _nextWindow:Object;
 
-    public function WindowsManager() {
-    }
-
-    public function set currentWindow(wo:WindowMain):void {
-        _currentWindow = wo;
-    }
+    public function WindowsManager() {}
 
     public function get currentWindow():WindowMain {
         return _currentWindow;
@@ -213,6 +208,7 @@ public class WindowsManager {
     }
 
     public function set cashWindow(wo:WindowMain):void {
+        if (_cashWindow) uncasheWindow();
         _cashWindow = wo;
         wo.isCashed = true;
     }

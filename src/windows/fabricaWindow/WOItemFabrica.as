@@ -136,7 +136,6 @@ public class WOItemFabrica {
             removeArrow();
             g.managerTutorial.checkTutorialCallback();
         }
-        g.fabricHint.updateItem();
 //        var point:Point = new Point(0, 0);
 //        var pointGlobal:Point = source.localToGlobal(point);
 //        g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);

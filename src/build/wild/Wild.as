@@ -82,7 +82,7 @@ public class Wild extends AreaObject{
         _countTimer--;
         if (_countTimer <= 0) {
             g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            if (_isOnHover == true) {
+            if (_isOnHover) {
                 g.wildHint.onDelete = wildDelete;
                 var newX:int;
                 var newY:int;
@@ -126,13 +126,8 @@ public class Wild extends AreaObject{
                     newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
                 }
-                g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
+                g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut);
             }
-//            if (_isOnHover == false) {
-////                _source.filter = null;
-////                g.wildHint.hideIt();
-//                g.gameDispatcher.removeEnterFrame(countEnterFrame);
-//            }
         }
     }
 
@@ -234,6 +229,7 @@ public class Wild extends AreaObject{
     }
 
     private function wildDelete():void {
+        _source.filter = null;
         for (var i:int=0; i< g.user.userDataCity.objects.length; i++) {
             if (int(g.user.userDataCity.objects[i].dbId) == _dbBuildingId) {
                 g.user.userDataCity.objects.splice(i, 1);
@@ -242,6 +238,7 @@ public class Wild extends AreaObject{
         }
         new RemoveWildAnimation(_source, onEndAnimation, onEndAnimationTotal, _dataBuild.removeByResourceId);
         _delete = true;
+        g.wildHint.managerHide();
     }
 
     private function onEndAnimation():void {
