@@ -28,6 +28,7 @@ public class TutorialPlace extends AreaObject{
 
     public function activateIt(v:Boolean):void {
         if (v) {
+            g.townArea.fillMatrixWithTutorialBuildings(posX, posY, _sizeX, _sizeY, this);
             _source.visible = true;
             _rect = new flash.geom.Rectangle(0, 0, 10, 10);
             showArrow();

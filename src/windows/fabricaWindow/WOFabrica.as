@@ -126,7 +126,7 @@ public class WOFabrica extends WindowMain {
         if (!lastRes) {
             if (_list.isFull) {
                 g.windowsManager.cashWindow = this;
-                hideIt();
+                super.hideIt();
                 var fExit:Function = function():void {
                     g.windowsManager.uncasheWindow();
                 };
@@ -139,7 +139,7 @@ public class WOFabrica extends WindowMain {
             }
             if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
                 isCashed = false;
-                hideIt();
+                super.hideIt();
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                     g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
                 } else {

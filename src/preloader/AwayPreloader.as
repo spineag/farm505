@@ -23,6 +23,7 @@ public class AwayPreloader {
     private var g:Vars = Vars.getInstance();
     private var isShowing:Boolean;
     private var afterTimer:Boolean;
+    private var counter:int;
 
     public function AwayPreloader() {
         _source = new Sprite();
@@ -52,6 +53,7 @@ public class AwayPreloader {
 
         isShowing = true;
         afterTimer = false;
+        counter = 2;
         g.gameDispatcher.addToTimer(onTimer);
     }
 
@@ -75,9 +77,12 @@ public class AwayPreloader {
     }
 
     private function onTimer():void {
-        g.gameDispatcher.removeFromTimer(onTimer);
-        afterTimer = true;
-        if (!isShowing) deleteIt();
+        counter--;
+        if (counter <0) {
+            g.gameDispatcher.removeFromTimer(onTimer);
+            afterTimer = true;
+            if (!isShowing) deleteIt();
+        }
     }
 }
 }

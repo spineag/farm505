@@ -69,7 +69,7 @@ public class TownArea extends Sprite {
     private var _awayPreloader:AwayPreloader;
     private var _needTownAreaSort:Boolean = false;
     private var _zSortCounter:int;
-    private var SORT_COUNTER_MAX:int = 15;
+    private var SORT_COUNTER_MAX:int = 10;
 
     protected var g:Vars = Vars.getInstance();
 
@@ -208,7 +208,11 @@ public class TownArea extends Sprite {
                 Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
             }
             _needTownAreaSort = false;
-            _zSortCounter = SORT_COUNTER_MAX;
+            if (g.managerTutorial.isTutorial) {
+                _zSortCounter = 3;
+            } else {
+                _zSortCounter = SORT_COUNTER_MAX;
+            }
         }
     }
 
@@ -259,18 +263,16 @@ public class TownArea extends Sprite {
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
 //		if (source is WorldObject) g.matrixGrid.drawDebugPartGrid(posX, posY, sizeX, sizeY);
 
+        if (source is TutorialPlace) return;
+        var j:int;
         for (var i:int = posY; i < (posY + sizeY); i++) {
-            for (var j:int = posX; j < (posX + sizeX); j++) {
+            for (j = posX; j < (posX + sizeX); j++) {
                 if (_townMatrix[i][j].build && _townMatrix[i][j].build is LockedLand && source is Wild) {
                     continue;
                 }
-                if (source is TutorialPlace) {
-                    _townMatrix[i][j].isTutorialBuilding = true;
-                } else {
-                    _townMatrix[i][j].isTutorialBuilding = false;
-                    _townMatrix[i][j].build = source;
-                    _townMatrix[i][j].isFull = true;
-                }
+                _townMatrix[i][j].isTutorialBuilding = false;
+                _townMatrix[i][j].build = source;
+                _townMatrix[i][j].isFull = true;
                 if (sizeX > 1 && sizeY > 1) {
                     if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
                         _townMatrix[i][j].isWall = true;
@@ -283,6 +285,27 @@ public class TownArea extends Sprite {
             _objBuildingsDiagonals[String(posX+sizeX-1) + '-' + String(posY) + '-' + String(posX+sizeX) + '-' + String(posY+1)] = true;
             _objBuildingsDiagonals[String(posX) + '-' + String(posY+sizeY-1) + '-' + String(posX+1) + '-' + String(posY+sizeY)] = true;
             _objBuildingsDiagonals[String(posX+sizeX-1) + '-' + String(posY+sizeY) + '-' + String(posX+sizeX) + '-' + String(posY+sizeY-1)] = true;
+        }
+    }
+
+    public function fillMatrixWithTutorialBuildings(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
+        if (source is TutorialPlace) {
+            var j:int;
+            for (var i:int = posY; i < (posY + sizeY); i++) {
+                for (j = posX; j < (posX + sizeX); j++) {
+                    _townMatrix[i][j].isTutorialBuilding = true;
+                    if (sizeX > 1 && sizeY > 1) {
+                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
+                            _townMatrix[i][j].isWall = true;
+                    }
+                }
+            }
+            if (sizeX > 1 && sizeY > 1) {  // write coordinates left->right && top->down
+                _objBuildingsDiagonals[String(posX) + '-' + String(posY + 1) + '-' + String(posX + 1) + '-' + String(posY)] = true;
+                _objBuildingsDiagonals[String(posX + sizeX - 1) + '-' + String(posY) + '-' + String(posX + sizeX) + '-' + String(posY + 1)] = true;
+                _objBuildingsDiagonals[String(posX) + '-' + String(posY + sizeY - 1) + '-' + String(posX + 1) + '-' + String(posY + sizeY)] = true;
+                _objBuildingsDiagonals[String(posX + sizeX - 1) + '-' + String(posY + sizeY) + '-' + String(posX + sizeX) + '-' + String(posY + sizeY - 1)] = true;
+            }
         }
     }
 
@@ -1324,7 +1347,8 @@ public class TownArea extends Sprite {
 
     public function addAwayTownAreaSortCheking():void {
         _zSortCounter = SORT_COUNTER_MAX;
-        g.gameDispatcher.addEnterFrame(zSortAwayMain); }
+        g.gameDispatcher.addEnterFrame(zSortAwayMain);
+    }
     public function removeAwayTownAreaSortCheking():void { g.gameDispatcher.removeEnterFrame(zSortAwayMain); }
 
     public function zAwaySort():void {
@@ -1334,17 +1358,23 @@ public class TownArea extends Sprite {
     public function zSortAwayMain():void {
         if (_needTownAreaSort) {
             _zSortCounter--;
-            if (_zSortCounter > 0) return;
-            try {
-                _cityAwayObjects.sortOn("depth", Array.NUMERIC);
-                for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                    _cont.setChildIndex(_cityAwayObjects[i].source, i);
+            if (_zSortCounter <= 0) {
+                try {
+                    _cityAwayObjects.sortOn("depth", Array.NUMERIC);
+                    for (var i:int = 0; i < _cityAwayObjects.length; i++) {
+                        _cont.setChildIndex(_cityAwayObjects[i].source, i);
+                    }
+                } catch (e:Error) {
+                    g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+                    Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
                 }
-            } catch (e:Error) {
-                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
-                Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
+                _needTownAreaSort = false;
+                if (g.managerTutorial.isTutorial) {
+                    _zSortCounter = 3;
+                } else {
+                    _zSortCounter = SORT_COUNTER_MAX;
+                }
             }
-            _needTownAreaSort = false;
         }
     }
 

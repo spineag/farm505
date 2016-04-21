@@ -37,7 +37,7 @@ import windows.orderWindow.WOOrder;
 import windows.shop.WOShop;
 
 public class ManagerTutorial {
-    private const TUTORIAL_ON:Boolean = true;
+    private var TUTORIAL_ON:Boolean = true;
 
     private const MAX_STEPS:uint = 100;
     private var g:Vars = Vars.getInstance();
@@ -572,8 +572,8 @@ public class ManagerTutorial {
             playCatIdle();
             if (!cutScene) {
                 cutScene = new CutScene();
-                cutScene.showIt(texts[g.user.tutorialStep][subStep]);
             }
+            cutScene.showIt(texts[g.user.tutorialStep][subStep]);
             _currentAction = TutorialAction.BUY_FABRICA;
             var ob:Object = g.bottomPanel.getShopButtonProperties();
             g.bottomPanel.addArrow('shop');
@@ -584,7 +584,7 @@ public class ManagerTutorial {
 
     private function subStep7_1():void {
         subStep = 1;
-        if (cutScene) cutScene.hideIt(deleteCutScene);
+        cutScene.hideIt(deleteCutScene);
         g.bottomPanel.deleteArrow();
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -631,7 +631,6 @@ public class ManagerTutorial {
             _tutorialPlaceBuilding = null;
         }
         subStep = 4;
-        _tutorialResourceIDs = [];
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.managerCats.goCatToPoint(cat, new Point(_tutorialObjects[0].posX - 1,  _tutorialObjects[0].posY + 6), subStep7_5);
@@ -653,6 +652,7 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         (_tutorialObjects[0] as Fabrica).hideArrow();
         g.user.tutorialStep = 8;
+        _tutorialResourceIDs = [];
         updateTutorialStep();
         createDelay(.7, initScenes);
     }
@@ -959,7 +959,7 @@ public class ManagerTutorial {
             subStep11_5();
         } else {
             addBlack();
-            cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep11_2, 1);
+            cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep11_2);
         }
     }
 
@@ -988,7 +988,6 @@ public class ManagerTutorial {
 
     private function subStep11_5(rCat:OrderCat=null):void {
         subStep = 5;
-        cat.showBubble(texts[g.user.tutorialStep][subStep]);
         subStep11_6();
     }
 
@@ -1002,7 +1001,6 @@ public class ManagerTutorial {
 
     private function subStep11_7():void {
         subStep = 7;
-        cat.hideBubble();
         cat.flipIt(false);
         (_tutorialObjects[0] as WorldObject).hideArrow();
         createDelay(.7, subStep11_8);
@@ -1370,12 +1368,13 @@ public class ManagerTutorial {
         if (!texts) texts = (new TutorialTexts()).objText;
         if (!cutScene) cutScene = new CutScene();
         subStep = 0;
-        cutScene.showIt(texts[g.user.tutorialStep][subStep], texts['ok'], subStep18_1, 1);
+        cat.flipIt(false);
+        cat.showBubble(texts[g.user.tutorialStep][subStep]);
+        subStep18_1();
     }
 
     private function subStep18_1():void {
         subStep = 1;
-        cutScene.hideIt(deleteCutScene);
         _currentAction = TutorialAction.FABRICA_CRAFT;
         (_tutorialObjects[0] as Fabrica).addArrowToCraftItem(subStep18_2);
         _tutorialCallback = subStep18_2;
@@ -1383,6 +1382,7 @@ public class ManagerTutorial {
 
     private function subStep18_2():void {
         subStep = 2;
+        cat.hideBubble();
         _tutorialObjects = [];
         _currentAction = TutorialAction.LEVEL_UP;
         _tutorialCallback = subStep18_3;
@@ -1703,7 +1703,7 @@ public class ManagerTutorial {
         subStep = 6;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
             _airBubble = new AirTextBubble();
-            _airBubble.showIt(texts[g.user.tutorialStep][subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 50, Starling.current.nativeStage.stageHeight/2 + 50);
+            _airBubble.showIt(texts[g.user.tutorialStep][subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2);
             var ob:Object = (g.windowsManager.currentWindow as WOMarket).getItemProperties(1);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _tutorialCallback = subStep23_7;
@@ -1729,7 +1729,8 @@ public class ManagerTutorial {
         _airBubble.hideIt();
         subStep = 7;
         g.user.tutorialStep = 23;
-        _airBubble.showIt(texts[g.user.tutorialStep][subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 + 20, Starling.current.nativeStage.stageHeight/2 + 50, subStep23_8);
+        _airBubble.showIt(texts[g.user.tutorialStep][subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, subStep23_8);
+        _airBubble.showBtnParticles();
     }
 
     private function subStep23_8():void {
@@ -1802,6 +1803,7 @@ public class ManagerTutorial {
             cat.deleteIt();
             cat = null;
         }
+        TUTORIAL_ON = false;
     }
 
     private function addCatToPos(_x:int, _y:int):void {

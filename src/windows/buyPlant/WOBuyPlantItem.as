@@ -165,13 +165,12 @@ public class WOBuyPlantItem {
 
     private function onHover():void {
         if (!_dataPlant) return;
+        if (_isOnHover) return;
         source.filter = ManagerFilters.YELLOW_STROKE;
         if (g.managerTutorial.isTutorial) return;
-        if (!_isOnHover) {
-            _isOnHover = true;
-            g.resourceHint.hideIt();
-            g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source, true);
-        }
+        _isOnHover = true;
+        g.resourceHint.hideIt();
+        g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source, true);
     }
 
     private function onOut():void {

@@ -174,9 +174,11 @@ public class Fabrica extends AreaObject {
                 g.managerTutorial.checkTutorialCallback();
             } else if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION && g.managerTutorial.isTutorialBuilding(this)) {
 
-            } else if (g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) {
-                if (!g.managerTutorial.isTutorialBuilding(this)) return;
-            }
+            } else if (g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialResource(_dataBuild.id)) {
+
+            } else if (g.managerTutorial.currentAction == TutorialAction.FABRICA_CRAFT && g.managerTutorial.isTutorialBuilding(this)) {
+
+            } else return;
         }
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
@@ -221,7 +223,6 @@ public class Fabrica extends AreaObject {
                     g.cont.moveCenterToXY(_source.x, _source.y);
                     onOut();
                     openFabricaWindow();
-//                    g.woFabrica.showItWithParams(_arrRecipes.slice(), _arrList.slice(), this, callbackOnChooseRecipe);
                 }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -460,12 +461,6 @@ public class Fabrica extends AreaObject {
     }
 
     private function callbackSkip():void { // for building build
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
-            g.timerHint.canHide = true;
-            g.timerHint.hideArrow();
-            g.timerHint.hideIt(true);
-            g.managerTutorial.checkTutorialCallback();
-        }
         _stateBuild = STATE_WAIT_ACTIVATE;
         g.directServer.skipTimeOnFabricBuild(_leftBuildTime, dbBuildingId, null);
         _leftBuildTime = 0;
