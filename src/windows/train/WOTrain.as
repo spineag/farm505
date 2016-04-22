@@ -349,7 +349,6 @@ public class WOTrain extends WindowMain {
     }
 
     private function onClickBuy():void {
-        g.windowsManager.cashWindow = this;
         var ob:Object = {};
         ob.data = g.dataResource.objectResources[_idFree];
         ob.count = _countFree - g.userInventory.getCountResourceById(_idFree);

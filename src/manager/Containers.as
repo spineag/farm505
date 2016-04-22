@@ -118,10 +118,12 @@ public class Containers {
             p.y -= gameCont.y;
             p = g.matrixGrid.getStrongIndexFromXY(p);
             g.deactivatedAreaManager.deactivateArea(p.x, p.y);
+            g.ownMouse.showUsualCursor();
             return;
         }
 
         if (te.getTouch(gameCont, TouchPhase.ENDED)) {
+            g.ownMouse.showUsualCursor();
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE && !_isDragged && g.selectedBuild) {
                 g.toolsModifier.onTouchEnded();
                 _isDragged = false;
@@ -152,6 +154,7 @@ public class Containers {
         } else if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
             _startDragPointCont = new Point(gameCont.x, gameCont.y);
+            g.ownMouse.showClickCursor();
         }
     }
 

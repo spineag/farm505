@@ -171,6 +171,13 @@ public class Animal {
             craftResource();
             _farm.readyAnimal();
             addRenderAnimation();
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
+                if (_tutorialCallback != null) {
+                    g.timerHint.hideArrow();
+                    g.timerHint.hideIt(true);
+                    _tutorialCallback.apply(null, [this]);
+                }
+            }
         }
     }
 
@@ -411,13 +418,6 @@ public class Animal {
         g.directServer.skipTimeOnAnimal(_timeToEnd,animal_db_id,null);
         _timeToEnd = 0;
         render();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
-            if (_tutorialCallback != null) {
-                g.timerHint.hideArrow();
-                g.timerHint.hideIt(true);
-                _tutorialCallback.apply(null, [this]);
-            }
-        }
     }
 }
 }

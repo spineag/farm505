@@ -107,7 +107,7 @@ public class ShopList {
                 } else if (curCount >= maxCount) {
                     arr[j].indexQueue = arr[j].blockByLevel[maxCount] + 500;
                 } else {
-                    arr[j].indexQueue = arr[j].blockByLevel[curCount];
+                    arr[j].indexQueue = int(arr[j].blockByLevel[curCount]);
                 }
             }
             arr.sortOn("indexQueue", Array.NUMERIC);
@@ -128,7 +128,7 @@ public class ShopList {
                         arr[j].indexQueue = arr[j].blockByLevel[i] + 500;
                     }
                 } else {
-                    arr[j].indexQueue = arr[j].blockByLevel[i];
+                    arr[j].indexQueue = int(arr[j].blockByLevel[i]);
                 }
             }
             arr.sortOn("indexQueue", Array.NUMERIC);
@@ -170,7 +170,7 @@ public class ShopList {
                     } else if (curCount >= maxCount) {
                         arr[j].indexQueue = arr[j].blockByLevel[maxCount] + 500;
                     } else {
-                        arr[j].indexQueue = arr[j].blockByLevel[curCount];
+                        arr[j].indexQueue = int(arr[j].blockByLevel[curCount]);
                     }
                 } else if (arr[j].buildType == BuildType.CAT) {
                     arr[j].indexQueue = 0;
@@ -182,7 +182,7 @@ public class ShopList {
         } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL) {
             for (j = 0; j < arr.length; j++) {
-                arr[j].indexQueue = arr[j].blockByLevel[0];
+                arr[j].indexQueue = int(arr[j].blockByLevel[0]);
             }
             arr.sortOn("indexQueue", Array.NUMERIC);
         }
@@ -339,17 +339,34 @@ public class ShopList {
         return ob;
     }
 
-    public function openOnResource(ob:Object):void {
+    public function openOnResource(_id:int):void {
         var place:int = -1;
         for (var i:int=0; i<_currentShopArr.length; i++) {
-            if (_currentShopArr[i].id == ob.id) {
+            if (_currentShopArr[i].id == _id) {
                 place = i;
                 break;
             }
         }
         if (place != -1) {
             _shift = int(place/4);
-            if (_shift >= _arrItems.length - 4) _shift = _arrItems.length - 4;
+            if (_shift >= _currentShopArr.length - 4) _shift = _currentShopArr.length - 4;
+            if (_shift < 0) _shift = 0;
+            var item:ShopItem;
+            for (i=0; i< _arrItems.length; i++) {
+                item = _arrItems[i];
+                _itemsSprite.removeChild(item.source);
+                item.deleteIt();
+            }
+            _arrItems.length = 0;
+            for (i=0; i<4; i++) {
+                if (_currentShopArr[_shift + i]) {
+                    item = new ShopItem(_currentShopArr[_shift + i], _wo, _shift + i);
+                    item.source.x = 153 * (_shift + i);
+                    _itemsSprite.addChild(item.source);
+                    _arrItems.push(item);
+                }
+            }
+
             _itemsSprite.x = -_shift*153;
             _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
             checkArrows();

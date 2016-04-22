@@ -283,7 +283,7 @@ public class MainBottomPanel {
             case 'door':
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.GO_HOME) return;
                 if (g.isAway) g.townArea.backHome();
-                    g.catPanel.visibleCatPanel(true);
+                g.catPanel.visibleCatPanel(true);
                 break;
         }
     }

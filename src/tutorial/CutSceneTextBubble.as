@@ -22,6 +22,7 @@ public class CutSceneTextBubble {
     private var _source:Sprite;
     private var _parent:Sprite;
     private var _btn:CButton;
+    private var _btnNo:CButton;
     private var _type:int;
     private var _dustRectangle:DustRectangle;
     private var g:Vars = Vars.getInstance();
@@ -35,8 +36,9 @@ public class CutSceneTextBubble {
         _parent.addChild(_source);
     }
 
-    public function showBubble(st:String, btnSt:String, callback:Function):void {
+    public function showBubble(st:String, btnSt:String, callback:Function, callbackNo:Function=null):void {
         if (callback != null) addButton(btnSt, callback);
+        if (callbackNo != null) addNoButton(callbackNo);
         createBubble(st);
         _source.scaleX = _source.scaleY = .3;
         TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete:addParticles});
@@ -49,6 +51,13 @@ public class CutSceneTextBubble {
         var _btnTxt:TextField = new TextField(200, 30, btnSt, g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(_btnTxt);
+    }
+
+    private function addNoButton(callback:Function):void {
+        _btnNo = new CButton();
+        _btnNo.addDisplayObject(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
+        _btnNo.setPivots();
+        _btnNo.clickCallback = callback;
     }
 
     private function createBubble(st:String):void {
@@ -95,6 +104,11 @@ public class CutSceneTextBubble {
         _source.addChild(im);
         _source.addChild(txt);
         if (_btn) _source.addChild(_btn);
+        if (_btnNo) {
+            _btnNo.x = im.x + im.width - 20;
+            _btnNo.y = im.y + 35;
+            _source.addChild(_btnNo);
+        }
     }
 
     public function hideBubble(f:Function):void {

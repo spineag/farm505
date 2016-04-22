@@ -118,8 +118,9 @@ public class WOBuyPlant extends WindowMain {
         if (g.userInventory.getCountResourceById(d.id) <= 0) {
             g.windowsManager.cashWindow = this;
             var ob:Object = {};
-            ob.data = g.dataResource.objectResources[d];
+            ob.data = d;
             ob.count = 1;
+            ob.ridge = r;
             super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickItem, 'menu', ob);
             return;
@@ -186,7 +187,7 @@ public class WOBuyPlant extends WindowMain {
                 item.source.x = -_woWidth / 2 + 180 + i * (42);
                 item.source.y = -_woHeight / 2 + 117;
                 _source.addChildAt(item.source,0);
-                _arrShiftBtns.push(item.source);
+                _arrShiftBtns.push(item);
                 item.source.endClickParams = i + 1;
                 item.source.endClickCallback = activateShiftBtn;
             }
@@ -196,7 +197,7 @@ public class WOBuyPlant extends WindowMain {
                 item.source.x = -_woWidth / 2 + 180 + i * (42);
                 item.source.y = -_woHeight / 2 + 117;
                 _source.addChildAt(item.source,0);
-                _arrShiftBtns.push(item.source);
+                _arrShiftBtns.push(item);
                 item.source.endClickParams = i + 1;
                 item.source.endClickCallback = activateShiftBtn;
             }
@@ -206,7 +207,7 @@ public class WOBuyPlant extends WindowMain {
                 item.source.x = -_woWidth / 2 + 180 + i * (42);
                 item.source.y = -_woHeight / 2 + 117;
                 _source.addChildAt(item.source,0);
-                _arrShiftBtns.push(item.source);
+                _arrShiftBtns.push(item);
                 item.source.endClickParams = i + 1;
                 item.source.endClickCallback = activateShiftBtn;
             }
@@ -215,9 +216,9 @@ public class WOBuyPlant extends WindowMain {
 
     private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _arrShiftBtns[i].y = -_woHeight/2 + 117;
+            _arrShiftBtns[i].source.y = -_woHeight/2 + 117;
         }
-        _arrShiftBtns[n-1].y += 8;
+        _arrShiftBtns[n-1].source.y += 8;
         _shift = n-1;
         if (needUpdate) {
             animateChangePlantItems();
@@ -226,7 +227,7 @@ public class WOBuyPlant extends WindowMain {
 
     override protected function deleteIt():void {
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _source.removeChild(_arrShiftBtns[i]);
+            _source.removeChild(_arrShiftBtns[i].source);
             _arrShiftBtns[i].deleteIt();
         }
         _arrShiftBtns.length = 0;

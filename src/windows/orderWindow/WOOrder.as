@@ -251,7 +251,7 @@ public class WOOrder extends WindowMain{
                 }
             }
         } else {
-            showIt();
+            if (!_isShowed) super.showIt();
             for (i=0; i< _arrItems.length; i++) {
                 if (_arrItems[i].getOrder().dbId == _order.dbId) {
                     onItemClick(_arrItems[i]);
@@ -556,6 +556,9 @@ public class WOOrder extends WindowMain{
     }
 
     private function changeCatTexture(pos:int):void {
+        if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction != TutorialAction.ORDER) return;
+        }
         var st:String;
         var isWoman:Boolean;
         if (!_arrOrders[pos] || !_arrOrders[pos].cat) return;

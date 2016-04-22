@@ -118,7 +118,7 @@ public class WOFabrica extends WindowMain {
 
     private function onBuyResource(obj:Object, lastRes:Boolean = false):void {
         super.showIt();
-        onItemClick(obj.data, lastRes);
+        onItemClick(obj, lastRes);
     }
 
     private function onItemClick(dataRecipe:Object, lastRes:Boolean = false):void {
@@ -126,7 +126,7 @@ public class WOFabrica extends WindowMain {
         if (!lastRes) {
             if (_list.isFull) {
                 g.windowsManager.cashWindow = this;
-                hideIt();
+                super.hideIt();
                 var fExit:Function = function():void {
                     g.windowsManager.uncasheWindow();
                 };
@@ -137,10 +137,9 @@ public class WOFabrica extends WindowMain {
                 }
                 return;
             }
-
             if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
                 isCashed = false;
-                hideIt();
+                super.hideIt();
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                     g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
                 } else {
@@ -149,12 +148,11 @@ public class WOFabrica extends WindowMain {
                 return;
             }
 
-
             var count:int = 0;
             if (!dataRecipe || !dataRecipe.ingridientsId) {
                 Cc.error('UserInventory checkRecipe:: bad _data');
                 isCashed = false;
-                hideIt();
+                super.hideIt();
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woFabrica');
                 return;
             }
@@ -162,14 +160,13 @@ public class WOFabrica extends WindowMain {
             for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
                 count = g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
                 if (count < int(dataRecipe.ingridientsCount[i])) {
-                    isCashed = true;
-                    hideIt();
-//                    g.woNoResources.showItMenu(dataRecipe, int(dataRecipe.ingridientsCount[i]) - count, onBuyResource, null, obj);
+                    g.windowsManager.cashWindow = this;
+                    super.hideIt();
                     obj = {};
                     obj.data = dataRecipe;
                     obj.count = int(dataRecipe.ingridientsCount[i]) - count;
-                    obj.fabrica = _fabrica;
-                    obj.callback = _callbackOnClick;
+//                    obj.fabrica = _fabrica;
+//                    obj.callback = _callbackOnClick;
                     g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onBuyResource, 'menu', obj);
                     return;
                 }
@@ -182,8 +179,8 @@ public class WOFabrica extends WindowMain {
                     obj.data = dataRecipe;
                     obj.fabrica = _fabrica;
                     obj.callback = _callbackOnClick;
-                    isCashed = true;
-                    hideIt();
+                    g.windowsManager.cashWindow = this;
+                    super.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onBuyResource, dataRecipe, 'fabrica', obj);
                     return;
                 }
@@ -192,6 +189,7 @@ public class WOFabrica extends WindowMain {
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);
         _list.addResource(resource);
+        g.fabricHint.updateItem();
         if (_callbackOnClick != null) {
             _callbackOnClick.apply(null, [resource, dataRecipe]);
         }
@@ -247,7 +245,6 @@ public class WOFabrica extends WindowMain {
                 item.source.x = -_woWidth / 2 + 220 + i * (42);
                 item.source.y = -_woHeight / 2 + 117;
                 _source.addChildAt(item.source,1);
-
                 _arrShiftBtns.push(item);
                 item.source.endClickParams = i + 1;
                 item.source.endClickCallback = activateShiftBtn;
@@ -263,14 +260,6 @@ public class WOFabrica extends WindowMain {
                 item.source.endClickCallback = activateShiftBtn;
             }
         }
-    }
-
-    private function clearShiftButtons():void {
-        for (var i:int=0; i< _arrShiftBtns.length; i++) {
-            _source.removeChild(_arrShiftBtns[i].source);
-            _arrShiftBtns[i].deleteIt();
-        }
-        _arrShiftBtns.length = 0;
     }
 
     private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {
@@ -309,7 +298,7 @@ public class WOFabrica extends WindowMain {
 
     override protected function deleteIt():void {
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _source.removeChild(_arrShiftBtns[i]);
+            _source.removeChild(_arrShiftBtns[i].source);
             _arrShiftBtns[i].deleteIt();
         }
         _arrShiftBtns.length = 0;

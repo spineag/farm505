@@ -154,6 +154,7 @@ public class WOBuyPlantItem {
     private function onClick():void {
         if (!_dataPlant) return;
         if (_dataPlant.blockByLevel > g.user.level) return;
+        if (g.managerTutorial && !g.managerTutorial.isTutorialResource(_dataPlant.id)) return;
         source.filter = null;
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();
@@ -164,12 +165,12 @@ public class WOBuyPlantItem {
 
     private function onHover():void {
         if (!_dataPlant) return;
+        if (_isOnHover) return;
         source.filter = ManagerFilters.YELLOW_STROKE;
-        if (!_isOnHover) {
-            _isOnHover = true;
-            g.resourceHint.hideIt();
-            g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source, true);
-        }
+        if (g.managerTutorial.isTutorial) return;
+        _isOnHover = true;
+        g.resourceHint.hideIt();
+        g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source, true);
     }
 
     private function onOut():void {

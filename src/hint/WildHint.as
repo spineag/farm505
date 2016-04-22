@@ -73,8 +73,6 @@ public class WildHint {
 
         _source.addChild(_txtName);
         _btn.clickCallback = onClick;
-
-
         _source.outCallback = onOutHint;
         _source.hoverCallback = onHover;
     }
@@ -154,19 +152,17 @@ public class WildHint {
     }
 
     private function onClick():void {
-        managerHide();
         if (g.userInventory.getCountResourceById(_id) <= 0){
-//            g.woNoResources.showItMenu(g.dataResource.objectResources[_id],1,onClick);
             var ob:Object = {};
             ob.data = g.dataResource.objectResources[_id];
             ob.count = 1;
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'menu', ob);
         } else {
+            g.userInventory.addResource(_id, -1);
             if (_deleteCallback != null) {
                 _deleteCallback.apply();
                 _deleteCallback = null;
             }
-            g.userInventory.addResource(_id,-1);
         }
     }
 

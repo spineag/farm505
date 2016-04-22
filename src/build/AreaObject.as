@@ -1,5 +1,7 @@
 package build {
 
+import build.fabrica.Fabrica;
+
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 
@@ -8,6 +10,9 @@ import data.BuildType;
 import flash.geom.Point;
 import starling.display.Image;
 import starling.display.Sprite;
+
+import tutorial.TutorialAction;
+
 import utils.CSprite;
 import windows.WindowsManager;
 
@@ -185,6 +190,12 @@ public class AreaObject extends WorldObject {
             clearCraftSprite();
             addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
+            if (g.managerTutorial.isTutorial && _dataBuild.buildType == BuildType.FABRICA && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+                g.timerHint.canHide = true;
+                g.timerHint.hideArrow();
+                g.timerHint.hideIt(true);
+                g.managerTutorial.checkTutorialCallback();
+            }
         }
     }
 

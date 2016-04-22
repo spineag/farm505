@@ -37,7 +37,6 @@ public class WOItemFabrica {
         source.outCallback = onOut;
         source.alpha = .5;
         _isOnHover = false;
-
     }
 
     public function setCoordinates(_x:int, _y:int):void {
@@ -137,28 +136,23 @@ public class WOItemFabrica {
             removeArrow();
             g.managerTutorial.checkTutorialCallback();
         }
-        g.fabricHint.updateItem();
-//        var point:Point = new Point(0, 0);
-//        var pointGlobal:Point = source.localToGlobal(point);
-//        g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
-
     }
 
     private function onHover():void {
         if (!_dataRecipe) return;
         if (_isOnHover) return;
+        _isOnHover = true;
         source.filter = ManagerFilters.YELLOW_STROKE;
+        if (g.managerTutorial.isTutorial) return;
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
         if (_dataRecipe.blockByLevel > g.user.level) g.resourceHint.showIt(_dataRecipe.id,source.x,source.y,source,false,true);
-         else g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
-
-        _isOnHover = true;
+            else g.fabricHint.showIt(_dataRecipe,pointGlobal.x, pointGlobal.y);
     }
 
     private function onOut():void {
-        if (!_dataRecipe) return;
         source.filter = null;
+        if (!_dataRecipe) return;
         g.fabricHint.hideIt();
         g.resourceHint.hideIt();
         _isOnHover = false;

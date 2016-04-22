@@ -173,6 +173,9 @@ public class WOFabricaWorkListItem {
             _txtTimer.text = '';
             _timerBlock.visible = false;
             _btnSkip.visible = false;
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
+                g.managerTutorial.checkTutorialCallback();
+            }
             if (_timerFinishCallback != null) {
                 _timerFinishCallback.apply();
             }
@@ -221,14 +224,14 @@ public class WOFabricaWorkListItem {
 
     private function makeSkip():void {
         if (g.user.hardCurrency >= _resource.priceSkipHard) {
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
-                g.managerTutorial.checkTutorialCallback();
-            }
             if (_skipCallback != null) {
                 g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_resource.priceSkipHard);
                 destroyTimer();
                 _btnSkip.visible = false;
                 _skipCallback.apply();
+            }
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
+                g.managerTutorial.checkTutorialCallback();
             }
         } else {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
