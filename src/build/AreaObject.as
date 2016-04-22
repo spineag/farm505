@@ -2,6 +2,9 @@ package build {
 
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
+
 import flash.geom.Point;
 import starling.display.Image;
 import starling.display.Sprite;

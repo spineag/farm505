@@ -187,7 +187,15 @@ public class Animal {
     private function onClick(last:Boolean = false):void {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
-        if (_state == HUNGRY) {
+        if (_state == WORK) {
+            source.filter = null;
+            g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
+                removeArrow();
+                g.mouseHint.hideIt();
+                g.timerHint.addArrow();
+            }
+        } else if (_state == HUNGRY) {
             onOut();
             if(g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
                 g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
@@ -234,14 +242,6 @@ public class Animal {
                     g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
                 }
             }
-        } else {
-            source.filter = null;
-            g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
-                removeArrow();
-                g.mouseHint.hideIt();
-                g.timerHint.addArrow();
-            }
         }
     }
 
@@ -252,7 +252,7 @@ public class Animal {
         _isOnHover = true;
         _frameCounterTimerHint = 7;
         source.filter = ManagerFilters.BUILD_STROKE;
-        g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
+        g.gameDispatcher.addToTimer(countEnterFrameMouseHint);
     }
 
     private function onOut():void {
@@ -260,7 +260,7 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         source.filter = null;
         _isOnHover = false;
-        g.gameDispatcher.addEnterFrame(countEnterFrameMouseHint);
+        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
         g.mouseHint.hideIt();
     }
 
@@ -270,12 +270,12 @@ public class Animal {
             if (_isOnHover) {
                 if (_state == HUNGRY) {
                     g.mouseHint.checkMouseHint('animal', _data);
-                    g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+                    g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
                 } else if (_state == WORK) g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
-            } else g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+            } else g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
         }
         if (_frameCounterMouseHint <= 0) {  // will be goon not use showing timerHint on hover
-            g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+            g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
             if (_isOnHover && _state == WORK) {
                 g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
@@ -399,7 +399,7 @@ public class Animal {
         g.mouseHint.hideIt();
         source.filter = null;
         TweenMax.killTweensOf(source);
-        g.gameDispatcher.removeEnterFrame(countEnterFrameMouseHint);
+        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
         g.timerHint.hideIt();
         _data = null;
         source.dispose();

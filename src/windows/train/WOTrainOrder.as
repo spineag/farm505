@@ -107,6 +107,7 @@ public class WOTrainOrder extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        g.windowsManager.cashWindow = this;
         g.userInventory.addMoney(1,-30);
 //        g.woTrain.clearItems();
         if (_callback != null) {
@@ -114,16 +115,13 @@ public class WOTrainOrder extends WindowMain{
             _callback = null;
         }
         hideIt();
-        item1.clearIt();
-        item2.clearIt();
-        item3.clearIt();
     }
 
     override public function showItParams(callback:Function, params:Array):void {
         _callback = callback;
         _timer = params[2];
         _train = params[1];
-        _txtTime.text = TimeUtils.convertSecondsForOrders(_timer);
+        _txtTime.text = TimeUtils.convertSecondsForHint(_timer);
         g.gameDispatcher.addToTimer(timerCheck);
         fillList(params[0]);
         super.showIt();
@@ -151,7 +149,7 @@ public class WOTrainOrder extends WindowMain{
 
     private function timerCheck():void {
         --_timer;
-        _txtTime.text = TimeUtils.convertSecondsForOrders(_timer);
+        _txtTime.text = TimeUtils.convertSecondsForHint(_timer);
     }
 }
 }

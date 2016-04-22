@@ -116,7 +116,7 @@ public class WOOrderItem {
         _txtCoins.text = String(_order.coins);
         source.visible = true;
         if (b) _check.visible = true;
-            else _check.visible = false;
+        else _check.visible = false;
         source.endClickCallback = onClick;
 
         _leftSeconds = _order.startTime - int(new Date().getTime()/1000);
@@ -126,6 +126,7 @@ public class WOOrderItem {
             _txtCoins.visible = false;
             _coinsImage.visible = false;
             _starImage.visible = false;
+            g.userTimer.setOrder(_order);
             g.gameDispatcher.addToTimer(renderLeftTime);
             _delImage.visible = true;
         } else {
@@ -162,13 +163,14 @@ public class WOOrderItem {
         if (_leftSeconds <= 0) {
             _leftSeconds = -1;
             g.gameDispatcher.removeFromTimer(renderLeftTime);
-            _txtName.visible = true;
-            _txtXP.visible = true;
-            _txtCoins.visible = true;
-            _coinsImage.visible = true;
-            _starImage.visible = true;
-            _delImage.visible = false;
-            _wo.timerSkip(_order);
+            if(_txtName)_txtName.visible = true;
+            if(_txtXP)_txtXP.visible = true;
+            if(_txtCoins)_txtCoins.visible = true;
+            if(_coinsImage)_coinsImage.visible = true;
+            if(_starImage)_starImage.visible = true;
+            if(_delImage)_delImage.visible = false;
+            if(_txtName)_wo.timerSkip(_order);
+            else g.userTimer.newCatOrder();
         }
     }
 

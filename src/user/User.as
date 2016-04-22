@@ -28,9 +28,6 @@ public class User extends Someone {
     public var arrTempUsers:Array;     // users that not your friends, but you interact with them
     public var neighbor:NeighborBot;
     public var countCats:int;
-    public var timePaper:int;
-    public var papperTimerAtMarket:int;
-    public var timerAtPapper:int;
     public var tutorialStep:int;
     public var lastVisitAmbar:Boolean;
     private var g:Vars = Vars.getInstance();
@@ -196,32 +193,6 @@ public class User extends Someone {
                 p.lastName = ar[i].last_name;
                 p.photo = ar[i].photo_100;
             }
-        }
-    }
-
-    public function startUserMarketTimer(time:int):void {
-        papperTimerAtMarket = time;
-        g.gameDispatcher.addToTimer(onMarketTimer);
-    }
-
-    private function onMarketTimer():void {
-        papperTimerAtMarket--;
-        if (papperTimerAtMarket <= 0) {
-            papperTimerAtMarket = 0;
-            g.gameDispatcher.removeFromTimer(onMarketTimer);
-        }
-    }
-
-    public function startUserPapperTimer(time:int):void {
-        timerAtPapper = time;
-        g.gameDispatcher.addToTimer(onPapperTimer);
-    }
-
-    private function onPapperTimer():void {
-        timerAtPapper--;
-        if (timerAtPapper <= 0) {
-            timerAtPapper = 0;
-            g.gameDispatcher.removeFromTimer(onPapperTimer);
         }
     }
 }

@@ -55,6 +55,8 @@ import ui.xpPanel.XPPanel;
 import user.Someone;
 import user.User;
 import user.UserInventory;
+import user.UserTimer;
+
 import utils.FarmDispatcher;
 import windows.WindowsManager;
 
@@ -75,6 +77,7 @@ public class Vars {
     public var gameDispatcher:FarmDispatcher;
     public var user:User;
     public var userInventory:UserInventory;
+    public var userTimer:UserTimer;
     public var managerDropResources:ManagerDropBonusResource;
 
     public var isAway:Boolean = false;
@@ -186,6 +189,7 @@ public class Vars {
 
         user = new User();
         userInventory = new UserInventory();
+        userTimer = new UserTimer();
         gameDispatcher = new FarmDispatcher(mainStage);
 
         matrixGrid = new MatrixGrid();

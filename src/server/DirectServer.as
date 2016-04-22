@@ -549,10 +549,9 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
-            g.user.timePaper = int(ob.time_paper);
-            var time:Number = getTimer();
-            if (int(ob.in_papper) == 0) g.user.papperTimerAtMarket = 0;
-            else g.user.papperTimerAtMarket = 300 - Number(time/100 - ob.in_papper/1000);
+            g.userTimer.timerAtPapper = int(ob.time_paper);
+            if (int(ob.in_papper) == 0) g.userTimer.papperTimerAtMarket = 0;
+            else g.userTimer.papperTimerAtMarket = 300 - (ob.in_papper - int(new Date().getTime()/1000)) * (-1);
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);
             g.user.checkUserLevel();
@@ -822,11 +821,11 @@ public class DirectServer {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TIMER_PAPER);
         var variables:URLVariables = new URLVariables();
-        var time:Number = getTimer();
+//        var time:Number = getTimer();
         Cc.ch('server', 'updateUserTimerPaper', 1);
 //        variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.timePaper = time;
+        variables.timePaper = int(new Date().getTime()/1000);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();

@@ -356,7 +356,7 @@ public class TownArea extends Sprite {
             return null;
         }
 
-        if (dbId == 0 && _data.buildType == BuildType.FABRICA && !g.user.userBuildingData[_data.id]) {    // что означает, что через магазин купили и поставили новую фабрику
+        if (dbId == 0 && _data.buildType == BuildType.FABRICA) {    // что означает, что через магазин купили и поставили новую фабрику
             var ob:Object = {};
             ob.dbId = int(Math.random()*100000);
             ob.timeBuildBuilding = 0;
@@ -662,6 +662,7 @@ public class TownArea extends Sprite {
     public function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void { // для декора из инвентаря
         (build as WorldObject).source.filter = null;
         g.bottomPanel.cancelBoolean(true);
+        var b:Boolean = false;
         var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
         if (!g.userInventory.decorInventory[(build as WorldObject).dataBuild.id]) {
             var arr:Array;
@@ -669,6 +670,7 @@ public class TownArea extends Sprite {
             else arr = getCityObjectsById((build as WorldObject).dataBuild.id);
             var cost:int = arr.length * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
             g.buyHint.showIt(cost);
+            b = true;
         }
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         (build as WorldObject).dbBuildingId = dbId;
@@ -679,7 +681,7 @@ public class TownArea extends Sprite {
         } else {
             pasteBuild(build, _x, _y);
         }
-        g.toolsPanel.repositoryBox.updateThis();
+       if(!b) g.toolsPanel.repositoryBox.updateThis();
     }
 
     private function afterMoveReturn(build:AreaObject, _x:Number, _y:Number):void {// юзали для автоматической покупки грядок и деревьев

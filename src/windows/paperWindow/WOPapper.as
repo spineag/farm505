@@ -114,6 +114,7 @@ public class WOPapper extends WindowMain {
         if (_maxPages <2) _maxPages = 2;
         createPages();
         checkArrows();
+        checkPapperTimer();
         super.showIt();
     }
 
@@ -202,7 +203,7 @@ public class WOPapper extends WindowMain {
         _source.removeChild(_rightPage.source);
         _leftPage = null;
         _rightPage = null;
-        _arrPaper = g.managerPaper.arr;
+        _arrPaper = g.managerPaper.arr.slice();
         if (_arrPaper.length > 60) _arrPaper.length = 60;
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
@@ -253,7 +254,7 @@ public class WOPapper extends WindowMain {
         _source.removeChild(_rightPage.source);
         _leftPage = null;
         _rightPage = null;
-        _arrPaper = g.managerPaper.arr;
+        _arrPaper = g.managerPaper.arr.slice();
         if (_arrPaper.length > 60) _arrPaper.length = 60;
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
@@ -301,7 +302,7 @@ public class WOPapper extends WindowMain {
         _source.removeChild(_rightPage.source);
         _rightPage = null;
         _arrPaper = [];
-        _arrPaper = g.managerPaper.arr;
+        _arrPaper = g.managerPaper.arr.slice();
         if (_arrPaper.length > 60) _arrPaper.length = 60;
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
@@ -347,15 +348,15 @@ public class WOPapper extends WindowMain {
 //    }
 
     public function startPapperTimer():void {
-        g.user.startUserMarketTimer(5);
+        g.userTimer.startUserPapperTimer(300);
         checkPapperTimer();
     }
 
     private function checkPapperTimer():void {
-        if (g.user.timePaper > 0) {
-            _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.user.timerAtPapper);
-            g.user.startUserPapperTimer(g.user.timerAtPapper);
+        if (g.userTimer.timerAtPapper > 0) {
+            _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
             g.gameDispatcher.addToTimer(onTimer);
+            _txtTimer.x = 20;
         } else {
             _btnRefreshBlue.setEnabled = true;
             _btnRefreshGreen.setEnabled = false;
@@ -366,7 +367,7 @@ public class WOPapper extends WindowMain {
     }
 
     private function onTimer():void {
-        if (g.user.timePaper > 0) _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.user.timerAtPapper);
+        if (g.userTimer.timerAtPapper > 0) _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
         else {
             _btnRefreshBlue.setEnabled = true;
             _btnRefreshGreen.setEnabled = false;

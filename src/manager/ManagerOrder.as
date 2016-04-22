@@ -440,15 +440,15 @@ public class ManagerOrder {
 
     public function onSkipTimer(order:ManagerOrderItem):void {
         g.directServer.skipOrderTimer(order.dbId, null);
-        var pl:int = order.placeNumber;
+//        var pl:int = order.placeNumber;
         var orderDbId:String = order.dbId;
-        for (var i:int = 0; i<_arrOrders.length; i++) {
-            if (_arrOrders[i].placeNumber == pl) {
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
-                break;
-            }
-        }
-        for (i=0; i<_arrOrders.length; i++) {
+//        for (var i:int = 0; i<_arrOrders.length; i++) {
+//            if (_arrOrders[i].placeNumber == pl) {
+//                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+//                break;
+//            }
+//        }
+        for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == orderDbId) {
                 _arrOrders[i].startTime -= 2*ManagerOrder.TIME_DELAY;
                 break;

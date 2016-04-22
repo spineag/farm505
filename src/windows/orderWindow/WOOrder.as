@@ -386,6 +386,7 @@ public class WOOrder extends WindowMain{
         if (_activeOrderItem) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
+//            g.userTimer.setOrder(_activeOrderItem.getOrder());
             setTimerText = ManagerOrder.TIME_DELAY;
             _waitForAnswer = true;
             _arrOrders[_activeOrderItem.position] = null;
