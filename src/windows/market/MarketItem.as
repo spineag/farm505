@@ -293,7 +293,6 @@ public class MarketItem {
         _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
         var time:Number = getTimer();
-        trace(time + ' time');
     }
 
     public function visiblePaper(b:Boolean = false):void {
@@ -331,7 +330,6 @@ public class MarketItem {
         if (isFill == 1) {//заполненная
             if (_isUser) {
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
-//                    trace(_dataFromServer.numberCell)
             } else {
                 if (_plawkaSold.visible == true) return;
                 var p:Point;

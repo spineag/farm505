@@ -54,16 +54,16 @@ public class BackgroundArea {
         loadBG();
     }
 
-    private function setTileFromIndex(tile:BackgroundTile, point:Point):void {
-        var pos:Point3D = new Point3D();
-        pos.x = point.x * g.matrixGrid.FACTOR;
-        pos.z = point.y * g.matrixGrid.FACTOR;
-        var isoPoint:Point = IsoUtils.isoToScreen(pos);
-        tile.graphicsSource.x = isoPoint.x;
-        tile.graphicsSource.y = isoPoint.y;
-        tile.posX = point.x;
-        tile.posY = point.y;
-    }
+//    private function setTileFromIndex(tile:BackgroundTile, point:Point):void {
+//        var pos:Point3D = new Point3D();
+//        pos.x = point.x * g.matrixGrid.FACTOR;
+//        pos.z = point.y * g.matrixGrid.FACTOR;
+//        var isoPoint:Point = IsoUtils.isoToScreen(pos);
+//        tile.graphicsSource.x = isoPoint.x;
+//        tile.graphicsSource.y = isoPoint.y;
+//        tile.posX = point.x;
+//        tile.posY = point.y;
+//    }
 
     private function loadBG():void {
         var st:String;

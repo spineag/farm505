@@ -434,7 +434,7 @@ public class WOMarket  extends WindowMain {
             return;
         }
         g.userInventory.addMoney(1,-1);
-        g.user.papperTimerAtMarket = 0;
+        g.userTimer.papperTimerAtMarket = 0;
         g.directServer.skipUserInPaper(null);
         g.gameDispatcher.removeFromTimer(onTimer);
         _txtTimerPaper.text = '';
@@ -451,7 +451,7 @@ public class WOMarket  extends WindowMain {
     }
 
     public function startPapperTimer():void {
-        g.user.startUserMarketTimer(300);
+        g.userTimer.startUserMarketTimer(300);
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].visiblePaper(false);
         }
@@ -459,9 +459,9 @@ public class WOMarket  extends WindowMain {
     }
 
     private function checkPapperTimer():void {
-        if (g.user.papperTimerAtMarket > 0) {
-            _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.user.papperTimerAtMarket);
-            g.user.startUserMarketTimer(g.user.papperTimerAtMarket);
+        if (g.userTimer.papperTimerAtMarket > 0) {
+            _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
+            g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
             g.gameDispatcher.addToTimer(onTimer);
             _booleanPaper = false;
             _imCheck.visible = false;
@@ -476,7 +476,7 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onTimer():void {
-        if (g.user.papperTimerAtMarket > 0) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.user.papperTimerAtMarket);
+        if (g.userTimer.papperTimerAtMarket > 0) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
         else {
             _btnPaper.visible = false;
             _booleanPaper = true;

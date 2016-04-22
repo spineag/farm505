@@ -33,13 +33,13 @@ public class WOLastResource extends WindowMain {
         var txt:TextField;
         txt = new TextField(150,50,"ВНИМАНИЕ!",g.allData.fonts['BloggerBold'],22,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txt.x = -80;
+        txt.x = -75;
         txt.y = -130;
         _source.addChild(txt);
-        txt = new TextField(350,60,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        txt = new TextField(420,60,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txt.x = -170;
-        txt.y = -85;
+        txt.x = -210;
+        txt.y = -90;
         _source.addChild(txt);
         _btnYes = new CButton();
         txt = new TextField(50, 50, "ДА", g.allData.fonts['BloggerBold'], 18, Color.WHITE);

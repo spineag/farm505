@@ -22,16 +22,20 @@ public class ManagerOrderCats {
     public function addCatsOnStartGame():void {
         var arr:Array = g.managerOrder.arrOrders;
         var cat:OrderCat;
+        var leftSeconds:int;
         for (var i:int=0; i<arr.length; i++) {
-            cat = new OrderCat(int(Math.random()*6 + 1));
-            cat.setTailPositions(30, 25 - i*2);
-            cat.walkPosition = OrderCat.STAY_IN_QUEUE;
-            cat.setPositionInQueue(i);
-            g.townArea.addOrderCatToCont(cat);
-            g.townArea.addOrderCatToCityObjects(cat);
-            _arrCats.push(cat);
-            arr[i].cat = cat;
-            cat.idleFrontAnimation();
+            leftSeconds = arr[i].startTime - int(new Date().getTime()/1000);
+            if (leftSeconds <= 0) {
+                cat = new OrderCat(int(Math.random()*6 + 1));
+                cat.setTailPositions(30, 25 - i*2);
+                cat.walkPosition = OrderCat.STAY_IN_QUEUE;
+                cat.setPositionInQueue(i);
+                g.townArea.addOrderCatToCont(cat);
+                g.townArea.addOrderCatToCityObjects(cat);
+                _arrCats.push(cat);
+                arr[i].cat = cat;
+                cat.idleFrontAnimation();
+            }
         }
     }
 
