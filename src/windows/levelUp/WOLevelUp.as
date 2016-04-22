@@ -274,13 +274,13 @@ public class WOLevelUp extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.LEVEL_UP) {
+            g.managerTutorial.checkTutorialCallback();
+        }
         for (var i:int=0; i<_arrCells.length; i++) {
             _arrCells[i].deleteIt();
         }
         _arrCells.length = 0;
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.LEVEL_UP) {
-            g.managerTutorial.checkTutorialCallback();
-        }
         _source.removeChild(_contBtn);
         _contBtn.deleteIt();
         _contBtn = null;

@@ -3,9 +3,7 @@
  */
 package tutorial {
 import com.greensock.TweenMax;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
@@ -24,16 +22,20 @@ public class CutSceneTextBubble {
     private var _btn:CButton;
     private var _btnNo:CButton;
     private var _type:int;
+    private var _innerImage:Image;
     private var _dustRectangle:DustRectangle;
     private var g:Vars = Vars.getInstance();
 
-    public function CutSceneTextBubble(p:Sprite, type:int) {
+    public function CutSceneTextBubble(p:Sprite, type:int, stURL:String = '') {
         _type = type;
         _parent = p;
         _source = new Sprite();
         _source.y = -130;
         _source.x = 65;
         _parent.addChild(_source);
+        if (stURL != '') {
+            _innerImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture(stURL));
+        }
     }
 
     public function showBubble(st:String, btnSt:String, callback:Function, callbackNo:Function=null):void {
@@ -68,9 +70,17 @@ public class CutSceneTextBubble {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
                 im.x = -12;
                 im.y = -210;
-                txt = new TextField(278, 132, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
-                txt.x = 62;
-                txt.y = -180;
+                if (_innerImage) {
+                    _innerImage.x = 201 - _innerImage.width/2;
+                    _innerImage.y = -75 - _innerImage.height/2;
+                    txt = new TextField(278, 60, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+                    txt.x = 62;
+                    txt.y = -180;
+                } else {
+                    txt = new TextField(278, 132, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+                    txt.x = 62;
+                    txt.y = -180;
+                }
                 if (_btn) {
                     _btn.x = 203;
                     _btn.y = -10;
@@ -102,6 +112,7 @@ public class CutSceneTextBubble {
                 break;
         }
         _source.addChild(im);
+        if (_innerImage) _source.addChild(_innerImage);
         _source.addChild(txt);
         if (_btn) _source.addChild(_btn);
         if (_btnNo) {
@@ -111,18 +122,21 @@ public class CutSceneTextBubble {
         }
     }
 
-    public function hideBubble(f:Function):void {
+    public function hideBubble(f:Function, f2:Function):void {
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-        TweenMax.to(_source, .2, {scaleX: .1, scaleY: .1, onComplete: directHide, onCompleteParams: [f]});
+        TweenMax.to(_source, .2, {scaleX: .1, scaleY: .1, onComplete: directHide, onCompleteParams: [f, f2]});
     }
 
-    private function directHide(f:Function = null):void {
+    private function directHide(f:Function = null, f2:Function = null):void {
         deleteIt();
         if (f != null) {
             f.apply();
+        }
+        if (f2 != null) {
+            f2.apply();
         }
     }
 
@@ -146,6 +160,7 @@ public class CutSceneTextBubble {
         _source.dispose();
         _source = null;
         _parent = null;
+        _innerImage = null;
     }
 }
 }

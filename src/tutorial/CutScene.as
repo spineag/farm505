@@ -31,36 +31,36 @@ public class CutScene {
         onResize();
     }
 
-    public function showIt(st:String, stBtn:String='', callback:Function=null, delay:Number=0):void {
+    public function showIt(st:String, stBtn:String='', callback:Function=null, delay:Number=0, stURL:String = ''):void {
         _cont.addChild(_source);
         _source.x = _xStart;
-        TweenMax.to(_source, .5, {x:_xEnd, onComplete:showBubble, onCompleteParams: [st, stBtn, callback], delay:delay});
+        TweenMax.to(_source, .5, {x:_xEnd, onComplete:showBubble, onCompleteParams: [st, stBtn, callback, null, stURL], delay:delay});
         WorldClock.clock.add(_armature);
         animateCat();
     }
 
-    private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null):void {
-        if (st.length < 100) {
-            _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE);
+    private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String=''):void {
+        if (st.length > 100 || stURL != '') {
+            _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG, stURL);
         } else {
-            _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG);
+            _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE);
         }
         _bubble.showBubble(st, stBtn, callback, callbackNo);
     }
 
     public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null):void {
         var f:Function = function():void {
-            showBubble(st, stBtn, callback, callbackNo);
+            showBubble(st, stBtn, callback, callbackNo, '');
         };
         if (_bubble) {
-            _bubble.hideBubble(f);
+            _bubble.hideBubble(f, null);
             _bubble = null;
         }
     }
 
-    public function hideIt(f:Function):void {
+    public function hideIt(f:Function, f2:Function = null):void {
         if (_bubble) {
-            _bubble.hideBubble(f);
+            _bubble.hideBubble(f, f2);
             _bubble = null;
         }
         TweenMax.to(_source, .3, {x:_xStart});

@@ -220,7 +220,7 @@ public class Fabrica extends AreaObject {
                     }
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
-                    g.cont.moveCenterToXY(_source.x, _source.y);
+                    if (!g.managerTutorial.isTutorial) g.cont.moveCenterToXY(_source.x, _source.y);
                     onOut();
                     openFabricaWindow();
                 }

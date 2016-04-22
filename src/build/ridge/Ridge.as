@@ -106,6 +106,7 @@ public class Ridge extends AreaObject{
         if (g.managerTutorial.isTutorial) {
             if (_tutorialCallback == null) return;
             if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialBuilding(this)) {
+
             } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }
         if (g.selectedBuild) return;
@@ -170,7 +171,7 @@ public class Ridge extends AreaObject{
 
     private function onEndClick():void {
         if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialBuilding(this)) {
+            if (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialBuilding(this) && _tutorialCallback != null) {
                 g.managerTutorial.checkTutorialCallback();
             } else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
 //                if (g.selectedBuild != this) return;

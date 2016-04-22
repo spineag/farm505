@@ -316,6 +316,8 @@
             <filename>particles</filename>
             <filename>button_yel_left_mini.png</filename>
             <filename>yellow_tile.png</filename>
+            <filename>tutorial_nyam.png</filename>
+            <filename>tutorial_ko.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
