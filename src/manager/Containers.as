@@ -130,7 +130,7 @@ public class Containers {
                 return;
             }
             if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
-                if (!_isDragged) {
+                if (!_isDragged && !g.managerTutorial.isTutorial) {
                     g.bottomPanel.cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }

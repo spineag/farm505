@@ -281,7 +281,11 @@ public class MainBottomPanel {
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'door':
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.GO_HOME) return;
+                if (g.managerTutorial.isTutorial) {
+                    if (g.managerTutorial.currentAction == TutorialAction.GO_HOME) {
+                        g.managerTutorial.checkTutorialCallback();
+                    } else return;
+                }
                 if (g.isAway) g.townArea.backHome();
                 g.catPanel.visibleCatPanel(true);
                 break;
