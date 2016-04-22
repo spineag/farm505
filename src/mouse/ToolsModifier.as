@@ -289,7 +289,6 @@ public class ToolsModifier {
 
 
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
-//        _moveGrid = null;
 
         _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height);
 
@@ -308,6 +307,7 @@ public class ToolsModifier {
         _spriteForMove.removeChild(_activeBuilding.source);
         _spriteForMove = null;
         if (_activeBuilding is DecorTail) {
+            g.townArea.pasteTailBuild((_activeBuilding as DecorTail), _startMoveX, _startMoveY, false, false);
             g.cont.contentCont.touchable = true;
         }
         if (_activeBuilding) {
@@ -368,16 +368,16 @@ public class ToolsModifier {
         }
         x = _spriteForMove.x;
         y = _spriteForMove.y;
-        if (_activeBuilding is DecorTail) {
-            if (g.townArea.townTailMatrix[point.y][point.x].build) {
-                g.gameDispatcher.addEnterFrame(moveIt);
-                return;
-            } else {
-                g.cont.contentCont.alpha = 1;
-                g.cont.contentCont.touchable = true;
-            }
-        }
-        if (!g.isActiveMapEditor && _activeBuilding.useIsometricOnly && !(_activeBuilding is DecorTail)) {
+//        if (_activeBuilding is DecorTail) {
+//            if (g.townArea.townTailMatrix[point.y][point.x].build) {
+//                g.gameDispatcher.addEnterFrame(moveIt);
+//                return;
+//            } else {
+//                g.cont.contentCont.alpha = 1;
+//                g.cont.contentCont.touchable = true;
+//            }
+//        }
+        if (!g.isActiveMapEditor && _activeBuilding.useIsometricOnly ){//&& !(_activeBuilding is DecorTail)) {
             if (!checkFreeGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
                 g.gameDispatcher.addEnterFrame(moveIt);
                 return;
@@ -419,24 +419,29 @@ public class ToolsModifier {
         if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {
             spriteForMoveIndexX = point.x;
             spriteForMoveIndexY = point.y;
-            if (_activeBuilding is DecorTail) {
-                if (!g.townArea.townTailMatrix[spriteForMoveIndexY] || !g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX]) return;
-                if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
-                    _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
-                } else {
-                    _spriteForMove.filter = null;
-                }
-                _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
-
-            } else {
+//            if (_activeBuilding is DecorTail) {
+//                if (!g.townArea.townTailMatrix[spriteForMoveIndexY] || !g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX]) return;
+//                if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
+//                    _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
+//                } else {
+//                    _spriteForMove.filter = null;
+//                }
+//                _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
+//
+//            } else {
                 if (g.isActiveMapEditor && _activeBuilding is Wild) return;
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
                 if (_moveGrid.isFree) {
                     _activeBuilding.source.filter = null;
                 } else {
+//                    if (_startMoveX == int(_spriteForMove.x) && _startMoveY == int(_spriteForMove.y))  _activeBuilding.source.filter = null;
                     _activeBuilding.source.filter = ManagerFilters.RED_TINT_FILTER;
+//                    trace(_startMoveX + ' _startMoveX');
+//                    trace(_startMoveY + ' _startMoveY');
+//                    trace(_spriteForMove.x + ' spriteForMoveIndexY');
+//                    trace(_spriteForMove.y + ' spriteForMoveIndexY');
                 }
-            }
+//            }
         }
     }
 

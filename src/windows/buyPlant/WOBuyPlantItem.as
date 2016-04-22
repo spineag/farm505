@@ -154,7 +154,7 @@ public class WOBuyPlantItem {
     private function onClick():void {
         if (!_dataPlant) return;
         if (_dataPlant.blockByLevel > g.user.level) return;
-        if (g.managerTutorial && !g.managerTutorial.isTutorialResource(_dataPlant.id)) return;
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialResource(_dataPlant.id)) return;
         source.filter = null;
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();

@@ -215,6 +215,7 @@ public class WOBuyPlant extends WindowMain {
     }
 
     private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {
+        if (needUpdate && _shift == n-1) return;
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
             _arrShiftBtns[i].source.y = -_woHeight/2 + 117;
         }

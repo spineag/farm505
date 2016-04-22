@@ -92,7 +92,7 @@ public class WOLevelUpItem {
 
             if (ob.catCount) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
-                _txtCount.text = String(count);
+                _txtCount.text = String(ob.count);
                 _txtNew.text = '';
             }
             if (ob.ridgeCount) {

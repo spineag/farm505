@@ -105,6 +105,10 @@ public class AreaObject extends WorldObject {
         _source.addChild(_build);
     }
 
+    public function createBuildTail():void {
+
+    }
+
     protected function createIsoView():void {
         var im:Image;
         _isoView = new Sprite();

@@ -863,16 +863,19 @@ public class TownArea extends Sprite {
             tail.posX = point.x;
             tail.posY = point.y;
             _cityTailObjects.push(tail);
-            fillTailMatrix(tail.posX, tail.posY, tail as WorldObject);
+//            fillTailMatrix(tail.posX, tail.posY, tail as WorldObject);
+            fillMatrix(tail.posX, tail.posY,tail.sizeX, tail.sizeY, this);
             if (isNewAtMap) {
                 g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
                 tail.addXP();
-                decorTailSort();
+//                decorTailSort();
             }
             if (updateAfterMove) {
                 g.directServer.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
             }
         }
+        (tail as WorldObject).updateDepth();
+        decorTailSort();
         g.selectedBuild = null;
         if (isNewAtMap){
             var arr:Array = getCityTailObjectsById(tail.dataBuild.id);
@@ -977,7 +980,7 @@ public class TownArea extends Sprite {
         if(_contTail.contains(tail.source)) {
             g.selectedBuild = tail;
             _contTail.removeChild(tail.source);
-            unFillTailMatrix(tail.posX, tail.posY);
+            unFillMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY);
             g.toolsModifier.startMoveTail(tail as AreaObject, afterMoveTail);
         }
     }
