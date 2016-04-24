@@ -5,12 +5,16 @@ package mouse {
 import manager.Vars;
 
 import starling.display.Image;
+import starling.display.Sprite;
+
 import utils.MCScaler;
 
 public class ServerIconMouse {
     private var countConnectToServer:int;
     private var g:Vars = Vars.getInstance();
-    private var im:Image;
+    private var clock:Sprite;
+    private var arrowSmall:Image;
+    private var arrowBig:Image;
 
     public function ServerIconMouse() {
         countConnectToServer = 0;
@@ -37,24 +41,28 @@ public class ServerIconMouse {
     }
 
     private function onEnterframe():void {
-        im.x = g.ownMouse.mouseX + 15;
-        im.y = g.ownMouse.mouseY - 20;
+        clock.x = g.ownMouse.mouseX + 15;
+        clock.y = g.ownMouse.mouseY - 20;
     }
 
     private function addIcon():void {
-        if (im) removeIcon();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
+        if (clock) return;
+        clock = new Sprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
         MCScaler.scale(im, 24, 24);
-        g.cont.mouseCont.addChild(im);
-        im.x = g.ownMouse.mouseX + 15;
-        im.y = g.ownMouse.mouseY - 20;
+        im.x = -im.width/2;
+        im.y = -im.height/2;
+//        arrowSmall =
+        g.cont.mouseCont.addChild(clock);
+        clock.x = g.ownMouse.mouseX + 27;
+        clock.y = g.ownMouse.mouseY - 32;
     }
 
     private function removeIcon():void {
-        if (!im) return;
-        g.cont.mouseCont.removeChild(im);
-        im.dispose();
-        im = null;
+        if (!clock) return;
+        g.cont.mouseCont.removeChild(clock);
+        clock.dispose();
+        clock = null;
     }
 }
 }

@@ -232,10 +232,12 @@ public class Fabrica extends AreaObject {
                 onOut();
                 g.townArea.moveBuild(this);
             } else {
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
-                    g.timerHint.canHide = false;
-                    g.timerHint.addArrow();
-                    g.managerTutorial.checkTutorialCallback();
+                if (g.managerTutorial.isTutorial) {
+                    if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+                        g.timerHint.canHide = false;
+                        g.timerHint.addArrow();
+                        g.managerTutorial.checkTutorialCallback();
+                    } else return;
                 } else {
                     g.timerHint.needMoveCenter = true;
                 }

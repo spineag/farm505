@@ -32,7 +32,7 @@ public class AirTextBubble {
         _bg.scaleX = -1;
         _bg.x = _bg.width;
         _source.addChild(_bg);
-        _txt = new TextField(260, 90, "", g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BROWN);
+        _txt = new TextField(260, 90, "", g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
         _txt.x = 36;
         _txt.y = 27;
         _source.addChild(_txt);

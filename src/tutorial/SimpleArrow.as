@@ -28,6 +28,7 @@ public class SimpleArrow {
         _source.touchable = false;
         _armature = g.allData.factory['arrow'].buildArmature("arrow");
         _source.addChild(_armature.display as Sprite);
+        _source.scaleX = _source.scaleY = .7;
         switch (posType) {
             case POSITION_TOP: _source.rotation = 0; break;
             case POSITION_BOTTOM: _source.rotation = Math.PI; break;

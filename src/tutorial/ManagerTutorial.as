@@ -285,10 +285,15 @@ public class ManagerTutorial {
         _tutorialResourceIDs = [31];
         (_tutorialObjects[0] as WorldObject).showArrow();
         (_tutorialObjects[0] as WorldObject).tutorialCallback = subStep3_2;
+        _tutorialCallback = subStep3_1a;
+    }
+
+    private function subStep3_1a():void {
+        cat.hideBubble();
+        _tutorialCallback = null;
     }
 
     private function subStep3_2(r:WorldObject):void {
-        cat.hideBubble();
         subStep = 2;
         _tutorialResourceIDs = [];
         r.hideArrow();
@@ -563,7 +568,7 @@ public class ManagerTutorial {
         _tutorialResourceIDs = [3];
         _tutorialObjects = g.townArea.getCityObjectsById(_tutorialResourceIDs[0]);
         if (_tutorialObjects.length) {
-            g.cont.moveCenterToPos(30, 11, 2);
+            g.cont.moveCenterToPos(30, 11, false, 2);
             subStep7_4();
         } else {
             playCatIdle();
@@ -890,13 +895,18 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.PLANT_RIDGE;
         (_tutorialObjects[0] as WorldObject).showArrow();
         (_tutorialObjects[0] as Ridge).tutorialCallback = subStep10_2;
+        _tutorialCallback = subStep10_2a;
+    }
+
+    private function subStep10_2a():void {
+        cat.hideBubble();
+        cat.flipIt(true);
+        _tutorialCallback = null;
     }
 
     private function subStep10_2(r:Ridge=null):void {
         subStep = 2;
         _tutorialCallback = null;
-        cat.hideBubble();
-        cat.flipIt(true);
         (_tutorialObjects[0] as WorldObject).hideArrow();
         _tutorialObjects.shift();
         if (!_tutorialObjects.length) {
