@@ -187,18 +187,21 @@ public class TreeHint {
     }
 
     public function managerHide():void {
-        var tween:Tween = new Tween(_source, 0.1);
-        tween.scaleTo(0);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
-            _source.removeChild(_quad);
-            if (g.cont.hintCont.contains(_source)) {
-                g.cont.hintCont.removeChild(_source);
-                _contDelete.removeChild(_imageItem);
-            }
-        };
-        g.starling.juggler.add(tween);
-        g.gameDispatcher.removeFromTimer(closeTimer);
+        if (_isShowed) {
+            var tween:Tween = new Tween(_source, 0.1);
+            tween.scaleTo(0);
+            tween.onComplete = function ():void {
+                g.starling.juggler.remove(tween);
+                _source.removeChild(_quad);
+                _isShowed = false;
+                if (g.cont.hintCont.contains(_source)) {
+                    g.cont.hintCont.removeChild(_source);
+                    _contDelete.removeChild(_imageItem);
+                }
+            };
+            g.starling.juggler.add(tween);
+            g.gameDispatcher.removeFromTimer(closeTimer);
+        }
     }
 
     private function closeTimer():void {

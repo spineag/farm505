@@ -217,31 +217,31 @@ public class TimerHint {
         if (_callbackSkip != null) {
             _callbackSkip.apply(null);
         }
-
     }
 
     public function managerHide():void {
-        var tween:Tween = new Tween(_source, 0.1);
-        tween.scaleTo(0);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
-            _isShow = false;
-            g.gameDispatcher.removeFromTimer(onTimer);
-            _source.removeChild(_quad);
-            if (g.cont.hintContUnder.contains(_source)) {
-                g.cont.hintContUnder.removeChild(_source);
-            }
+        if (_isShow) {
+            var tween:Tween = new Tween(_source, 0.1);
+            tween.scaleTo(0);
+            tween.onComplete = function ():void {
+                g.starling.juggler.remove(tween);
+                _isShow = false;
+                g.gameDispatcher.removeFromTimer(onTimer);
+                _source.removeChild(_quad);
+                if (g.cont.hintContUnder.contains(_source)) {
+                    g.cont.hintContUnder.removeChild(_source);
+                }
 
-        };
-        g.starling.juggler.add(tween);
-        g.gameDispatcher.removeFromTimer(closeTimer);
+            };
+            g.starling.juggler.add(tween);
+            g.gameDispatcher.removeFromTimer(closeTimer);
+        }
     }
 
     public function addArrow():void {
         _canHide = false;
-        if (_btn) {
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source
-            );
+        if (_btn && !_arrow) {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
             _arrow.animateAtPosition(_btn.x, _btn.y - _btn.height/2 - 2);
             _arrow.scaleIt(.7);
         }

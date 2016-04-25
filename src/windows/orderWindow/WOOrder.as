@@ -230,6 +230,7 @@ public class WOOrder extends WindowMain{
 
     private function sellOrder(b:Boolean = false, _order:ManagerOrderItem = null):void {
         if (_waitForAnswer) return;
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.ORDER) return;
         var i:int;
         if (!b) {
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {

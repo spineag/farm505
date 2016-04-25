@@ -427,7 +427,7 @@ public class ManagerTutorial {
         chick.tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         subStep = 5;
-        createDelay(1, subStep4_6);
+        createDelay(.3, subStep4_6);
     }
 
     private function subStep4_6():void {
@@ -984,12 +984,12 @@ public class ManagerTutorial {
         subStep = 3;
         cat.hideBubble();
         g.cont.moveCenterToPos(40, 1, false, 2);
-        createDelay(3, subStep11_4);
+        createDelay(4, subStep11_4);
     }
 
     private function subStep11_4():void {
         subStep = 4;
-        g.cont.moveCenterToPos(31, 26, false, 2);
+        g.cont.moveCenterToPos(31, 26, false, 3);
     }
 
     private function subStep11_5(rCat:OrderCat=null):void {

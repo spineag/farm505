@@ -185,20 +185,22 @@ public class WildHint {
     }
 
     public function managerHide():void {
-        var tween:Tween = new Tween(_source, 0.1);
-        tween.scaleTo(0);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
-            _isShowed = false;
-            if (g.cont.hintGameCont.contains(_source))
-                g.cont.hintGameCont.removeChild(_source);
-            _source.removeChild(_quad);
-            _btn.removeChild(_iconResource);
-            _iconResource = null;
-            _height = 0;
-        };
-        g.starling.juggler.add(tween);
-        g.gameDispatcher.removeFromTimer(closeTimer);
+        if (_isShowed) {
+            var tween:Tween = new Tween(_source, 0.1);
+            tween.scaleTo(0);
+            tween.onComplete = function ():void {
+                g.starling.juggler.remove(tween);
+                _isShowed = false;
+                if (g.cont.hintGameCont.contains(_source))
+                    g.cont.hintGameCont.removeChild(_source);
+                _source.removeChild(_quad);
+                _btn.removeChild(_iconResource);
+                _iconResource = null;
+                _height = 0;
+            };
+            g.starling.juggler.add(tween);
+            g.gameDispatcher.removeFromTimer(closeTimer);
+        }
     }
 }
 }
