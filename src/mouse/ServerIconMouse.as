@@ -34,8 +34,8 @@ public class ServerIconMouse {
         if (g.isGameLoaded) {
             countConnectToServer--;
             if (countConnectToServer <= 0) {
+                g.gameDispatcher.removeEnterFrame(onEnterframe);
                 removeIcon();
-//                g.gameDispatcher.removeEnterFrame(onEnterframe);
             }
         }
     }

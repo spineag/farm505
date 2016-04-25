@@ -64,6 +64,7 @@ public class WindowsManager {
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
+    private var _secondCashWindow:WindowMain;
     private var _nextWindow:Object;
 
     public function WindowsManager() {}
@@ -76,6 +77,7 @@ public class WindowsManager {
         if (_currentWindow) {
             if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR) {
                 uncasheWindow();
+                uncasheSecondWindow();
                 _currentWindow.hideItQuick();
             } else {
                 _nextWindow = {};
@@ -189,13 +191,17 @@ public class WindowsManager {
 
     public function onHideWindow(hiddenWindow:WindowMain):void {
         _currentWindow = null;
-        if (_cashWindow && _cashWindow != hiddenWindow) {
-            releaseCashWindow();
-            return;
-        }
         if (_nextWindow) {
             openWindow.apply(null, [_nextWindow.type, _nextWindow.callback].concat(_nextWindow.paramsArray));
             _nextWindow = null;
+            return;
+        }
+        if (_secondCashWindow && _secondCashWindow != hiddenWindow) {
+            releaseSecondCashWindow();
+            return;
+        }
+        if (_cashWindow && _cashWindow != hiddenWindow) {
+            releaseCashWindow();
         }
     }
 
@@ -207,10 +213,28 @@ public class WindowsManager {
         }
     }
 
+    public function uncasheSecondWindow():void {
+        if (_secondCashWindow) {
+            _secondCashWindow.isCashed = false;
+            _secondCashWindow.hideIt();
+            _secondCashWindow = null;
+        }
+    }
+
     public function set cashWindow(wo:WindowMain):void {
         if (_cashWindow) uncasheWindow();
         _cashWindow = wo;
         wo.isCashed = true;
+    }
+
+    public function set secondCashWindow(wo:WindowMain):void {
+        if (_secondCashWindow) {
+            _secondCashWindow.isCashed = false;
+            _secondCashWindow.hideIt();
+            _secondCashWindow = null;
+        }
+        _secondCashWindow = wo;
+        if (wo) wo.isCashed = true;
     }
 
     public function releaseCashWindow():void {
@@ -219,6 +243,15 @@ public class WindowsManager {
             _currentWindow = _cashWindow;
             _currentWindow.isCashed = false;
             _cashWindow = null;
+        }
+    }
+
+    public function releaseSecondCashWindow():void {
+        if (_secondCashWindow) {
+            _secondCashWindow.releaseFromCash();
+            _currentWindow = _secondCashWindow;
+            _currentWindow.isCashed = false;
+            _secondCashWindow = null;
         }
     }
 

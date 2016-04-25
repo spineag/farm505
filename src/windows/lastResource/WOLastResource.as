@@ -205,7 +205,7 @@ public class WOLastResource extends WindowMain {
             _callbackBuy.apply(null,[true, _dataResource]);
             _callbackBuy = null;
         }
-        hideIt();
+        super.hideIt();
     }
 
     private function onClickMarket():void {
@@ -213,20 +213,21 @@ public class WOLastResource extends WindowMain {
             _callbackBuy.apply(null,[true]);
             _callbackBuy = null;
         }
-        hideIt();
+        super.hideIt();
     }
 
     private function onClickFabric():void {
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[_paramsFabrica,true]);
+            _callbackBuy.apply(null,[_paramsFabrica.data, true]);
             _callbackBuy = null;
         }
-        hideIt();
+        super.hideIt();
     }
 
     private function onClickNo():void {
         g.windowsManager.uncasheWindow();
-        hideIt();
+        g.windowsManager.uncasheSecondWindow();
+        super.hideIt();
     }
 
     override protected function deleteIt():void {
