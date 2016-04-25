@@ -318,6 +318,7 @@
             <filename>yellow_tile.png</filename>
             <filename>tutorial_nyam.png</filename>
             <filename>tutorial_ko.png</filename>
+            <filename>server_clock</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -2,12 +2,12 @@
  * Created by user on 1/26/16.
  */
 package mouse {
-import manager.Vars;
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
 
+import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
-
-import utils.MCScaler;
 
 public class ServerIconMouse {
     private var countConnectToServer:int;
@@ -35,34 +35,55 @@ public class ServerIconMouse {
             countConnectToServer--;
             if (countConnectToServer <= 0) {
                 removeIcon();
-                g.gameDispatcher.removeEnterFrame(onEnterframe);
+//                g.gameDispatcher.removeEnterFrame(onEnterframe);
             }
         }
     }
 
     private function onEnterframe():void {
-        clock.x = g.ownMouse.mouseX + 15;
-        clock.y = g.ownMouse.mouseY - 20;
+        clock.x = g.ownMouse.mouseX + 27;
+        clock.y = g.ownMouse.mouseY + 32;
     }
 
     private function addIcon():void {
         if (clock) return;
         clock = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
-        MCScaler.scale(im, 24, 24);
+        clock.touchable = false;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('clock_1'));
         im.x = -im.width/2;
         im.y = -im.height/2;
-//        arrowSmall =
+        clock.addChild(im);
+        arrowSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('clock_2'));
+        arrowSmall.pivotY = arrowSmall.height/2;
+        arrowBig = new Image(g.allData.atlas['interfaceAtlas'].getTexture('clock_3'));
+        arrowBig.pivotX = arrowBig.width/2;
+        arrowBig.pivotY = arrowBig.height;
+        clock.addChild(arrowSmall);
+        clock.addChild(arrowBig);
         g.cont.mouseCont.addChild(clock);
         clock.x = g.ownMouse.mouseX + 27;
-        clock.y = g.ownMouse.mouseY - 32;
+        clock.y = g.ownMouse.mouseY + 32;
+        animateBig();
+        animateSmall();
+    }
+
+    private function animateBig():void {
+        TweenMax.to(arrowBig, 3, {rotation: 6.28, repeat: 50, ease:Linear.easeNone});
+    }
+
+    private function animateSmall():void {
+        TweenMax.to(arrowSmall, 1, {rotation: 6.28, repeat: 50, ease:Linear.easeNone});
     }
 
     private function removeIcon():void {
+        TweenMax.killTweensOf(arrowBig);
+        TweenMax.killTweensOf(arrowSmall);
         if (!clock) return;
         g.cont.mouseCont.removeChild(clock);
         clock.dispose();
         clock = null;
+        arrowBig = null;
+        arrowSmall = null;
     }
 }
 }
