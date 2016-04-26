@@ -179,7 +179,7 @@ public class Ridge extends AreaObject{
         }
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
-            onOut();
+            if (!g.managerTutorial.isTutorial) onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
