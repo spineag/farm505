@@ -152,7 +152,7 @@ public class Ridge extends AreaObject{
     private function onStartClick():void {
         if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
         if (g.isActiveMapEditor || g.isAway) return;
-        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             if (g.toolsModifier.plantId <= 0 || _stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
@@ -214,6 +214,7 @@ public class Ridge extends AreaObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+                if (g.managerTutorial.isTutorial) return;
                 onOut();
                 g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
             }
@@ -224,23 +225,24 @@ public class Ridge extends AreaObject{
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_PLANT, onBuy, this);
             } else if (_stateRidge == GROWED) {
-                 if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
-                     _source.filter = null;
-                     g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
-                 } else {
-                     _stateRidge = EMPTY;
-                     _plant.onCraftPlant();
-                     _plant.checkStateRidge();
-                     _resourceItem = new ResourceItem();
-                     _resourceItem.fillIt(_dataPlant);
-                     var f1:Function = function():void {
-                         if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
-                         _plant = null;
-                     };
-                     var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
-                     item.flyIt();
-                     onOut();
-                 }
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.CRAFT_RIDGE) return;
+                if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
+                    _source.filter = null;
+                    g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
+                } else {
+                    _stateRidge = EMPTY;
+                    _plant.onCraftPlant();
+                    _plant.checkStateRidge();
+                    _resourceItem = new ResourceItem();
+                    _resourceItem.fillIt(_dataPlant);
+                    var f1:Function = function():void {
+                        if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
+                        _plant = null;
+                    };
+                    var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
+                    item.flyIt();
+                    onOut();
+                }
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply(null, [this]);

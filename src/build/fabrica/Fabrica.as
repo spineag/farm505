@@ -120,11 +120,15 @@ public class Fabrica extends AreaObject {
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) {
                 buildingBuildFoundationOver();
-                _countTimer = 5;
-                g.timerHint.managerHide();
-                g.wildHint.managerHide();
-                g.treeHint.managerHide();
-                if (!g.managerTutorial.isTutorial) g.gameDispatcher.addEnterFrame(countEnterFrame);
+                if (g.managerTutorial.isTutorial) {
+                    return;
+                } else {
+                    _countTimer = 5;
+                    g.timerHint.managerHide();
+                    g.wildHint.managerHide();
+                    g.treeHint.managerHide();
+                    g.gameDispatcher.addEnterFrame(countEnterFrame);
+                }
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
@@ -237,13 +241,14 @@ public class Fabrica extends AreaObject {
                         g.timerHint.canHide = false;
                         g.timerHint.addArrow();
                         g.managerTutorial.checkTutorialCallback();
+                        g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
+                                _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                     } else return;
                 } else {
                     g.timerHint.needMoveCenter = true;
+                    g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
+                            _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                 }
-                g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
-                        _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
-
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) return;

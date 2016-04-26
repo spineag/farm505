@@ -292,7 +292,6 @@ public class MarketItem {
         _imCheck.visible = true;
         _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
-        var time:Number = getTimer();
     }
 
     public function visiblePaper(b:Boolean = false):void {

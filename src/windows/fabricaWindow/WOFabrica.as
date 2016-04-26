@@ -307,7 +307,7 @@ public class WOFabrica extends WindowMain {
             _arrFabricaItems[i].deleteIt();
         }
         _arrFabricaItems.length = 0;
-        _list.deleteIt();
+        if (_list) _list.deleteIt();
         _list = null;
         _fabrica = null;
         _topBG = null;
