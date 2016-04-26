@@ -360,6 +360,7 @@ public class MarketItem {
                 _plawkaCoins.visible = false;
                 _plawkaSold.visible = true;
                 _txtPlawka.visible = true;
+                _papper.visible = false;
                 if (_person == g.user.neighbor) {
                     g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
                     _dataFromServer.resourceId = -1;

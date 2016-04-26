@@ -38,7 +38,9 @@ public class Market extends AreaObject{
     private var _arrItem:Array;
     private var _isOnHover:Boolean;
     private var _armature:Armature;
-
+    private var _fruits1:Bone;
+    private var _fruits2:Bone;
+    private var _coins:Bone;
     public function Market(_data:Object) {
         super(_data);
         _isOnHover = false;
@@ -75,6 +77,9 @@ public class Market extends AreaObject{
         if (_flip) _build.scaleX = -_defaultScale;
         _source.addChild(_build);
         _armature.animation.gotoAndStop('work', 0);
+        _fruits1 = _armature.getBone('fr');
+        _fruits2 = _armature.getBone('fr2');
+        _coins = _armature.getBone('coins');
     }
 
     private function onHover():void {
@@ -175,31 +180,30 @@ public class Market extends AreaObject{
         _armature.animation.gotoAndStop('work', 0);
         if (coins <= 0) {
             b = _armature.getBone('coins');
-            if (b == null) return;
-            b.display.dispose();
-            b.display.visible = false;
-            _armature.getBones(false);
-            _armature.removeBoneByName('coins');
-        } else {
-            b = _armature.getBone('coins');
-            _armature.addBone(b);
+            if (b != null) _armature.removeBone(b,true);
+//            b.display.visible = false;
+//            _armature.getBones(false);
 
+        } else {
+//            b = _armature.getBone('coins');
+            _armature.addBone(_coins);
         }
         if (res <= 0) {
-            b = _armature.getBone('fr');
-            if (b == null) return;
-            b.display.dispose();
-            b.display.visible = false;
-            b = _armature.getBone('fr2');
-            b.display.dispose();
-            b.display.visible = false;
-            _armature.removeBoneByName('fr');
-            _armature.removeBoneByName('fr2');
+                b = _armature.getBone('fr');
+            if (b != null) {
+                _armature.removeBone(b,true);
+
+                b = _armature.getBone('fr2');
+                _armature.removeBone(b,true);
+            }
+//            b.display.visible = false;
+//            b = _armature.getBone('fr2');
+//            b.display.dispose();
+//            b.display.visible = false;
+
         } else {
-            b = _armature.getBone('fr');
-            _armature.addBone(b);
-            b = _armature.getBone('fr2');
-            _armature.addBone(b);
+            _armature.addBone(_fruits1);
+            _armature.addBone(_fruits2);
         }
     }
 }

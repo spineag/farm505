@@ -25,7 +25,7 @@ public class UseMoneyMessage {
         source.touchable = false;
         var st:String = String(count) + ' ';
         if (typeMoney == DataMoney.HARD_CURRENCY) st += 'рубинов';
-        else if (typeMoney == DataMoney.BLUE_COUPONE || typeMoney == DataMoney.GREEN_COUPONE || typeMoney == DataMoney.RED_COUPONE || typeMoney == DataMoney.YELLOW_COUPONE) st += 'ваучеров';
+        else if (typeMoney == DataMoney.BLUE_COUPONE || typeMoney == DataMoney.GREEN_COUPONE || typeMoney == DataMoney.RED_COUPONE || typeMoney == DataMoney.YELLOW_COUPONE) st += 'ваучера';
         else st += 'монет';
 
         var txt:TextField = new TextField(150,50, st, g.allData.fonts['BloggerBold'], 14, Color.WHITE);

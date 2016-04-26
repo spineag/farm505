@@ -368,15 +368,15 @@ public class ToolsModifier {
         }
         x = _spriteForMove.x;
         y = _spriteForMove.y;
-//        if (_activeBuilding is DecorTail) {
+        if (_activeBuilding is DecorTail) {
 //            if (g.townArea.townTailMatrix[point.y][point.x].build) {
 //                g.gameDispatcher.addEnterFrame(moveIt);
 //                return;
 //            } else {
-//                g.cont.contentCont.alpha = 1;
-//                g.cont.contentCont.touchable = true;
+                g.cont.contentCont.alpha = 1;
+                g.cont.contentCont.touchable = true;
 //            }
-//        }
+        }
         if (!g.isActiveMapEditor && _activeBuilding.useIsometricOnly ){//&& !(_activeBuilding is DecorTail)) {
             if (!checkFreeGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
                 g.gameDispatcher.addEnterFrame(moveIt);
@@ -436,10 +436,6 @@ public class ToolsModifier {
                 } else {
 //                    if (_startMoveX == int(_spriteForMove.x) && _startMoveY == int(_spriteForMove.y))  _activeBuilding.source.filter = null;
                     _activeBuilding.source.filter = ManagerFilters.RED_TINT_FILTER;
-//                    trace(_startMoveX + ' _startMoveX');
-//                    trace(_startMoveY + ' _startMoveY');
-//                    trace(_spriteForMove.x + ' spriteForMoveIndexY');
-//                    trace(_spriteForMove.y + ' spriteForMoveIndexY');
                 }
 //            }
         }
