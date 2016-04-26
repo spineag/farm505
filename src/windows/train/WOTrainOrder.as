@@ -93,27 +93,28 @@ public class WOTrainOrder extends WindowMain{
         hideIt();
     }
 
-     override public function hideIt():void {
-         item1.clearIt();
-         item2.clearIt();
-         item3.clearIt();
-        super.hideIt();
-    }
+//     override public function hideIt():void {
+////         item1.clearIt();
+////         item2.clearIt();
+////         item3.clearIt();
+//        super.hideIt();
+//    }
 
     private function onClickBtn():void {
         if (g.user.hardCurrency < 30) {
             g.windowsManager.cashWindow = this;
-            super.hideIt();
+            hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        g.windowsManager.cashWindow = this;
+
         g.userInventory.addMoney(1,-30);
 //        g.woTrain.clearItems();
         if (_callback != null) {
             _callback.apply(null);
             _callback = null;
         }
+//        g.windowsManager.cashWindow = this;
         hideIt();
     }
 

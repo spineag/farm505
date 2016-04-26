@@ -45,7 +45,7 @@ public class WOTrainSend extends WindowMain {
         txt.y = -5;
         _btnYes.addChild(txt);
         txt = new TextField(50,50,"Нет",g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         txt.x = 15;
         txt.y = -5;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('basket_big'));

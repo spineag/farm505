@@ -465,7 +465,7 @@ public class TownArea extends Sprite {
         return build;
     }
 
-    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false, decorCost:Boolean = false):void {
+    public function pasteBuild(worldObject:WorldObject, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
         var point:Point;
         if (!worldObject) {
             Cc.error('TownArea pasteBuild:: empty worldObject');
@@ -578,67 +578,10 @@ public class TownArea extends Sprite {
 
         // временно полная сортировка, далее нужно будет дописать "умную"
         if (updateAfterMove) zSort();
-
-        if (isNewAtMap && (worldObject is Ridge || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)) {
-            var build:AreaObject;
-            if (g.userInventory.decorInventory[worldObject.dataBuild.id]) {
-                build = createNewBuild(worldObject.dataBuild);
-                g.selectedBuild = build;
-                (build as WorldObject).source.filter = null;
-                g.toolsModifier.startMove(build, afterMoveFromInventory, true);
-                return;
-            }
-            if (worldObject.dataBuild.currency[0] != DataMoney.SOFT_CURRENCY && worldObject.dataBuild.currency[0] != DataMoney.HARD_CURRENCY ) {
-                for (i = 0; i < worldObject.dataBuild.currency.length; i++){
-                    if (worldObject.dataBuild.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < worldObject.dataBuild.cost[i]) {
-                        g.toolsModifier.modifierType = ToolsModifier.NONE;
-                        g.bottomPanel.cancelBoolean(false);
-                        g.buyHint.hideIt();
-                        return;
-                    } else if (worldObject.dataBuild.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < worldObject.dataBuild.cost[i]) {
-                        g.toolsModifier.modifierType = ToolsModifier.NONE;
-                        g.bottomPanel.cancelBoolean(false);
-                        g.buyHint.hideIt();
-                        return;
-                    } else if (worldObject.dataBuild.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < worldObject.dataBuild.cost[i]) {
-                        g.toolsModifier.modifierType = ToolsModifier.NONE;
-                        g.bottomPanel.cancelBoolean(false);
-                        g.buyHint.hideIt();
-                        return;
-                    } else if (worldObject.dataBuild.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < worldObject.dataBuild.cost[i]) {
-                        g.toolsModifier.modifierType = ToolsModifier.NONE;
-                        g.bottomPanel.cancelBoolean(false);
-                        g.buyHint.hideIt();
-                        return;
-                    }
-                }
-                g.toolsModifier.modifierType = ToolsModifier.MOVE;
-                build = createNewBuild(worldObject.dataBuild);
-                g.selectedBuild = build;
-                (build as WorldObject).source.filter = null;
-                g.toolsModifier.startMove(build, afterMoveReturn, true);
-                return;
-            }
-            var arr:Array;
-            if (worldObject is DecorTail) {
-                arr = getCityTailObjectsById(worldObject.dataBuild.id);
-                if (g.user.softCurrencyCount < (arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost)) {
-                    g.toolsModifier.modifierType = ToolsModifier.NONE;
-                    g.bottomPanel.cancelBoolean(false);
-                    g.buyHint.hideIt();
-                    return;
-                }
-
-            } else if (worldObject is Decor ||worldObject is DecorFence || worldObject is DecorPostFence){
-                arr = getCityObjectsById(worldObject.dataBuild.id);
-                    if (g.user.softCurrencyCount < (arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost)) {
-                        g.toolsModifier.modifierType = ToolsModifier.NONE;
-                        g.bottomPanel.cancelBoolean(false);
-                        g.buyHint.hideIt();
-                        return;
-                    }
-            }
-            if (g.user.softCurrencyCount < worldObject.dataBuild.cost) {
+        var build:AreaObject;
+        var arr:Array;
+        if (isNewAtMap && (worldObject is Ridge || worldObject is Tree)) {
+            if (g.user.softCurrencyCount <  worldObject.dataBuild.cost) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.bottomPanel.cancelBoolean(false);
                 return;
@@ -648,121 +591,143 @@ public class TownArea extends Sprite {
                 g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
             } else if (worldObject is Tree) {
                 g.toolsModifier.modifierType = ToolsModifier.PLANT_TREES;
-            } else if (worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence) {
-                    g.toolsModifier.modifierType = ToolsModifier.MOVE;
-                    g.buyHint.showIt((arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
-                    build = createNewBuild(worldObject.dataBuild);
-                    g.selectedBuild = build;
-                    (build as WorldObject).source.filter = null;
-                    g.toolsModifier.startMove(build, afterMoveReturn, true);
-                    return;
             }
             var curCount:int;
             var maxCount:int;
             var maxCountAtCurrentLevel:int = 0;
-            arr = getCityObjectsById(worldObject.dataBuild.id);
+            arr = getCityObjectsById( worldObject.dataBuild.id);
             curCount = arr.length;
-            for (i = 0; worldObject.dataBuild.blockByLevel.length; i++) {
-                if (worldObject.dataBuild.blockByLevel[i] <= g.user.level) {
+            for (i = 0;  worldObject.dataBuild.blockByLevel.length; i++) {
+                if ( worldObject.dataBuild.blockByLevel[i] <= g.user.level) {
                     maxCountAtCurrentLevel++;
                 } else break;
             }
-            maxCount = maxCountAtCurrentLevel * worldObject.dataBuild.countUnblock;
+            maxCount = maxCountAtCurrentLevel *  worldObject.dataBuild.countUnblock;
             if (curCount >= maxCount) {
                 g.bottomPanel.cancelBoolean(false);
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
             }
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            build = createNewBuild(worldObject.dataBuild);
+            build = createNewBuild( worldObject.dataBuild);
             g.selectedBuild = build;
             if (build is Tree) (build as Tree).showShopView();
             (build as WorldObject).source.filter = null;
             g.toolsModifier.startMove(build, afterMoveReturn, true);
+
+        } else if (isNewAtMap &&(worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence)) {
+            if (g.userInventory.decorInventory[ worldObject.dataBuild.id]) {
+                build = createNewBuild( worldObject.dataBuild);
+                g.selectedBuild = build;
+                (build as WorldObject).source.filter = null;
+                g.toolsModifier.startMove(build, afterMoveFromInventory, true);
+                return;
+            }
+            if ( worldObject.dataBuild.currency[0] != DataMoney.SOFT_CURRENCY && worldObject.dataBuild.currency[0] != DataMoney.HARD_CURRENCY ) {
+                for (i = 0; i <  worldObject.dataBuild.currency.length; i++){
+                    if ( worldObject.dataBuild.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount <  worldObject.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if ( worldObject.dataBuild.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount <  worldObject.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if ( worldObject.dataBuild.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount <  worldObject.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if ( worldObject.dataBuild.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount <  worldObject.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    }
+                }
+                g.toolsModifier.modifierType = ToolsModifier.MOVE;
+                build = createNewBuild( worldObject.dataBuild);
+                g.selectedBuild = build;
+                (build as WorldObject).source.filter = null;
+                g.toolsModifier.startMove(build, afterMoveReturn, true);
+                return;
+            }
+            arr = getCityObjectsById( worldObject.dataBuild.id);
+            if (worldObject.dataBuild.currency[0] == DataMoney.SOFT_CURRENCY && g.user.softCurrencyCount < (arr.length *  worldObject.dataBuild.deltaCost) + int( worldObject.dataBuild.cost)) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                return;
+            } else if (worldObject.dataBuild.currency[0] == DataMoney.HARD_CURRENCY && g.user.hardCurrency < int( worldObject.dataBuild.cost)) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                return;
+            }
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            g.buyHint.showIt((arr.length *  worldObject.dataBuild.deltaCost) + int( worldObject.dataBuild.cost));
+            build = createNewBuild( worldObject.dataBuild);
+            g.selectedBuild = build;
+            (build as WorldObject).source.filter = null;
+            arr = getCityObjectsById( worldObject.dataBuild.id);
+            g.toolsModifier.startMove(build, afterMoveReturn, true);
+            return;
+
+        } else if (isNewAtMap && worldObject is DecorTail){
+            Cc.error('TownArea.PasteBuild -- DecorTail wtf you do this');
         }
+    }
+    private function afterMoveReturn(build:AreaObject, _x:Number, _y:Number):void {// для ridge, tree, decorFence, decor,decorPostFence
+        (build as WorldObject).source.filter = null;
+        var cost:int;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        if (build is Tree) (build as Tree).removeShopView();
+        if (build is Ridge) cost = (build as WorldObject).dataBuild.cost;
+        var arr:Array;
+        if (build is Decor || build is DecorFence || build is DecorPostFence) {
+            arr = getCityObjectsById((build as WorldObject).dataBuild.id);
+            if ((build as WorldObject).dataBuild.currency.length > 1) {
+                for (var i:int = 0; i < (build as WorldObject).dataBuild.currency.length; i++) {
+                    g.userInventory.addMoney((build as WorldObject).dataBuild.currency[i], -(build as WorldObject).dataBuild.cost[i]);
+                }
+                cost = (build as WorldObject).dataBuild.cost[0];
+            } else if ((build as WorldObject).dataBuild.currency != DataMoney.SOFT_CURRENCY) {
+                cost = (build as WorldObject).dataBuild.cost;
+                g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
+            } else {
+                cost = (arr.length-1) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
+                g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
+            }
+        } else {
+            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);
+        }
+        pasteBuild(build, _x, _y);
+        showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,-cost);
+
     }
 
     public function afterMoveFromInventory(build:AreaObject, _x:Number, _y:Number):void { // для декора из инвентаря
         (build as WorldObject).source.filter = null;
         g.bottomPanel.cancelBoolean(true);
-        var b:Boolean = false;
         var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
-        if (!g.userInventory.decorInventory[(build as WorldObject).dataBuild.id]) {
-            var arr:Array;
-            if (build is DecorTail) arr = getCityTailObjectsById((build as WorldObject).dataBuild.id);
-            else arr = getCityObjectsById((build as WorldObject).dataBuild.id);
-            var cost:int = arr.length * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
-            g.buyHint.showIt(cost);
-            b = true;
-        }
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         (build as WorldObject).dbBuildingId = dbId;
         g.directServer.removeFromInventory(dbId, p.x, p.y, null);
-
         if (build is DecorTail) {
             pasteTailBuild(build as DecorTail, _x, _y);
         } else {
             pasteBuild(build, _x, _y);
         }
-       if(!b) g.toolsPanel.repositoryBox.updateThis();
+        if (g.toolsPanel.repositoryBox.source.visible) g.toolsPanel.repositoryBox.updateThis();
     }
 
-    private function afterMoveReturn(build:AreaObject, _x:Number, _y:Number):void {// юзали для автоматической покупки грядок и деревьев
-        (build as WorldObject).source.filter = null;
-        var cost:int;
-        g.toolsModifier.modifierType = ToolsModifier.NONE;
-        if (build is Tree) (build as Tree).removeShopView();
-        if (build is Decor || build is DecorFence || build is DecorPostFence) {
-            arr = getCityObjectsById((build as WorldObject).dataBuild.id);
-            cost = arr.length * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
-            if (g.user.softCurrencyCount < cost) {
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
-                g.bottomPanel.cancelBoolean(false);
-                g.buyHint.hideIt();
-                return;
-            }
-        } else if (build is DecorTail) {
-            arr = getCityTailObjectsById((build as WorldObject).dataBuild.id);
-            cost = arr.length * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
-            if (g.user.softCurrencyCount < cost ) {
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
-                g.bottomPanel.cancelBoolean(false);
-                g.buyHint.hideIt();
-                return;
-            }
-        }
-        if (build is DecorTail) pasteTailBuild(build as DecorTail, _x, _y,true);
-        else pasteBuild(build, _x, _y);
-        if (build is Ridge) showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,-(build as WorldObject).dataBuild.cost);
-        var arr:Array;
-        if (build is Decor || build is DecorFence || build is DecorPostFence) {
-            arr = getCityObjectsById((build as WorldObject).dataBuild.id);
-            cost = (arr.length-1) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
-            if (g.user.softCurrencyCount < cost) {
-                return;
-            }
-            showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,-cost);
-            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
-        } else if (build is DecorTail) {
-            arr = getCityTailObjectsById((build as WorldObject).dataBuild.id);
-            cost = (arr.length-1) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
-            if (g.user.softCurrencyCount < cost) {
-                return;
-            }
-            showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,-cost);
-            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
-
-        } else {
-            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);
-        }
-    }
-
-    private function showSmallBuildAnimations(b:AreaObject, moneyType:int, count:int):void {
-        var p:Point = new Point((b as WorldObject).source.x, (b as WorldObject).source.y);
+    private function showSmallBuildAnimations(build:AreaObject, moneyType:int, count:int):void {
+        var p:Point = new Point((build as WorldObject).source.x, (build as WorldObject).source.y);
         p = g.cont.contentCont.localToGlobal(p);
         new UseMoneyMessage(p, moneyType, count, .3);
-//        if (b is Decor || b is DecorFence || b is DecorPostFence || b is DecorTail)
-//            new XPStar(p.x, p.y, (b as WorldObject).dataBuild.xpForBuild);
+        if ((build as WorldObject).dataBuild.xpForBuild > 0) new XPStar(p.x, p.y, (build as WorldObject).dataBuild.xpForBuild);
     }
 
     public function startMoveAfterShop(build:AreaObject, isFromInventory:Boolean = false):void {
@@ -771,16 +736,13 @@ public class TownArea extends Sprite {
             else g.toolsModifier.startMoveTail(build, endMoveAfterShop, true);
         } else {
             if (isFromInventory) g.toolsModifier.startMove(build, endMoveFromInventoryAfterShop, true);
-            else {
-//                g.buyHint.showIt((build as WorldObject).dataBuild.currency)
-                g.toolsModifier.startMove(build, endMoveAfterShop, true);
-            }
+            else g.toolsModifier.startMove(build, endMoveAfterShop, true);
         }
     }
 
     private function endMoveAfterShop(build:AreaObject,_x:Number, _y:Number):void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {//_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {
             g.bottomPanel.cancelBoolean(false);
         }
         if ((build as WorldObject).dataBuild.buildType == BuildType.DECOR || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_TAIL || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_POST_FENCE) {
@@ -788,9 +750,6 @@ public class TownArea extends Sprite {
             cont.x = _x;
             cont.y = _y;
             g.cont.gameCont.addChild(cont);
-            var localPoint:Point = new Point( cont.x,cont.y);
-            localPoint = cont.parent.localToGlobal(localPoint);
-            new XPStar(localPoint.x, localPoint.y, (build as WorldObject).dataBuild.xpForBuild);
         }
         (build as WorldObject).source.filter = null;
         if ((build as WorldObject).dataBuild.currency.length > 1) {
@@ -798,21 +757,20 @@ public class TownArea extends Sprite {
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency[i], -(build as WorldObject).dataBuild.cost[i]);
             }
             if (build is DecorTail) {
-                g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
-//                decorTailSort();
+                pasteTailBuild(build as DecorTail, _x, _y);
             } else {
-                g.townArea.pasteBuild(build, _x, _y,true,false,true);
+                pasteBuild(build, _x, _y,true,false);
             }
             return;
         } else {
             if ((build as WorldObject).dataBuild.currency != DataMoney.SOFT_CURRENCY) {
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency, - (build as AreaObject).countShopCost);
                 if (build is DecorTail) {
-                    g.townArea.pasteTailBuild(build as DecorTail, _x, _y);
+                    pasteTailBuild(build as DecorTail, _x, _y);
                 } else {
-                    g.townArea.pasteBuild(build, _x, _y,true,false,true);
+                    pasteBuild(build, _x, _y,true,false);
                 }
-                showSmallBuildAnimations(build, DataMoney.HARD_CURRENCY, - (build as AreaObject).countShopCost);
+                showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency, - (build as AreaObject).countShopCost);
                 g.bottomPanel.cancelBoolean(false);
                 g.buyHint.hideIt();
                 return;
@@ -836,7 +794,6 @@ public class TownArea extends Sprite {
     }
 
     private function endMoveFromInventoryAfterShop(build:AreaObject, _x:Number, _y:Number):void {
-//        g.bottomPanel.cancelBoolean(false);
         var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         (build as WorldObject).dbBuildingId = dbId;
@@ -865,32 +822,115 @@ public class TownArea extends Sprite {
             _cityTailObjects.push(tail);
 //            fillTailMatrix(tail.posX, tail.posY, tail as WorldObject);
             fillMatrix(tail.posX, tail.posY,tail.sizeX, tail.sizeY, this);
+            (tail as WorldObject).updateDepth();
+            decorTailSort();
             if (isNewAtMap) {
                 g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
                 tail.addXP();
-//                decorTailSort();
             }
             if (updateAfterMove) {
                 g.directServer.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
             }
         }
-        (tail as WorldObject).updateDepth();
-        decorTailSort();
+
         g.selectedBuild = null;
         if (isNewAtMap){
-            var arr:Array = getCityTailObjectsById(tail.dataBuild.id);
-                if (g.user.softCurrencyCount < (arr.length * tail.dataBuild.deltaCost) + int(tail.dataBuild.cost)) {
-                    g.toolsModifier.modifierType = ToolsModifier.NONE;
-                    g.bottomPanel.cancelBoolean(false);
-                    g.buyHint.hideIt();
-                    return;
-                }
+            if (g.userInventory.decorInventory[tail.dataBuild.id]) {
             var build:AreaObject;
-            build = g.townArea.createNewBuild(tail.dataBuild);
+            build = createNewBuild(tail.dataBuild);
+            g.selectedBuild = build;
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.startMoveTail(build,afterMoveFromInventory);
+            return;
+            }
+            var arr:Array = getCityTailObjectsById(tail.dataBuild.id);
+            if (tail.dataBuild.currency[0] != DataMoney.SOFT_CURRENCY && tail.dataBuild.currency[0] != DataMoney.HARD_CURRENCY ) {
+                for (var i:int = 0; i <  tail.dataBuild.currency.length; i++){
+                    if ( tail.dataBuild.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount <  tail.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if (tail.dataBuild.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount <  tail.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if (tail.dataBuild.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount <  tail.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if (tail.dataBuild.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount <  tail.dataBuild.cost[i]) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    }
+                }
+            }
+            if (tail.dataBuild.currency[0] == DataMoney.SOFT_CURRENCY && g.user.softCurrencyCount < (arr.length *  tail.dataBuild.deltaCost) + int( tail.dataBuild.cost)) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                return;
+            } else if (tail.dataBuild.currency[0] == DataMoney.HARD_CURRENCY && g.user.hardCurrency < int( tail.dataBuild.cost)) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                return;
+            }
+            if (g.user.softCurrencyCount < (arr.length * tail.dataBuild.deltaCost) + int(tail.dataBuild.cost)) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+                return;
+            }
+            var build:AreaObject;
+            g.buyHint.showIt((arr.length * tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
+            build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.toolsModifier.startMove(build,afterMoveFromInventory);
+            g.toolsModifier.startMoveTail(build,afterMoveTail);
+        }
+    }
+
+    private function afterMoveTail(build:AreaObject,_x:Number, _y:Number):void { // только для DecorTile
+        g.selectedBuild = null;
+        (build as WorldObject).source.filter = null;
+        var cost:int;
+        var arr:Array;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        arr = getCityTailObjectsById((build as WorldObject).dataBuild.id);
+        if ((build as WorldObject).dataBuild.currency.length > 1) {
+            for (var i:int = 0; i < (build as WorldObject).dataBuild.currency.length; i++) {
+                g.userInventory.addMoney((build as WorldObject).dataBuild.currency[i], -(build as WorldObject).dataBuild.cost[i]);
+            }
+            cost = (build as WorldObject).dataBuild.cost[0];
+        } else if ((build as WorldObject).dataBuild.currency != DataMoney.SOFT_CURRENCY) {
+            cost = (build as WorldObject).dataBuild.cost;
+            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
+        } else {
+            cost = (arr.length-1) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
+            g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
+        }
+
+        pasteTailBuild(build as DecorTail, _x, _y);
+        showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,-cost);
+    }
+
+    public function moveTailBuild(tail:DecorTail):void{// не сохраняется флип при муве
+        if (!tail) {
+            Cc.error('TownArea moveTailBuild:: empty tail');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+            return;
+        }
+        if(_contTail.contains(tail.source)) {
+            g.selectedBuild = tail;
+            _contTail.removeChild(tail.source);
+            unFillMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY);
+            g.toolsModifier.startMoveTail(tail as AreaObject, afterMove);
         }
     }
 
@@ -937,7 +977,8 @@ public class TownArea extends Sprite {
         if(_contTail.contains(tail.source)){
             _contTail.removeChild(tail.source);
         }
-        unFillTailMatrix(tail.posX, tail.posY);
+        unFillMatrix(tail.posX, tail.posY, tail.sizeX, tail.sizeY);
+//        unFillTailMatrix(tail.posX, tail.posY);
         if (_cityTailObjects.indexOf(tail) > -1) _cityTailObjects.splice(_cityTailObjects.indexOf(tail), 1);
         tail.clearIt();
     }
@@ -965,29 +1006,11 @@ public class TownArea extends Sprite {
 
 
     private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
+        if (build is DecorTail) pasteTailBuild(build as DecorTail, _x, _y, false, true);
         pasteBuild(build, _x, _y, false, true);
         g.selectedBuild = null;
         if (build is Farm) (build as Farm).checkAfterMove();
         if (build is Ridge) (build as Ridge).checkAfterMove();
-    }
-
-    public function moveTailBuild(tail:DecorTail):void{// не сохраняется флип при муве
-        if (!tail) {
-            Cc.error('TownArea moveTailBuild:: empty tail');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
-            return;
-        }
-        if(_contTail.contains(tail.source)) {
-            g.selectedBuild = tail;
-            _contTail.removeChild(tail.source);
-            unFillMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY);
-            g.toolsModifier.startMoveTail(tail as AreaObject, afterMoveTail);
-        }
-    }
-
-    private function afterMoveTail(build:AreaObject,_x:Number, _y:Number):void {
-        pasteTailBuild(build as DecorTail, _x, _y, false, true);
-        g.selectedBuild = null;
     }
 
     private function addFenceLenta(d:DecorPostFence):void {

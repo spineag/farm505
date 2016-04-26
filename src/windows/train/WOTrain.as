@@ -244,7 +244,7 @@ public class WOTrain extends WindowMain {
         var list:Array = params[0];
         _build = params[1];
         _counter = params[3];
-            _txt.text = 'До отправления';
+            _txt.text = 'До отправления:';
                 _isBigCount = list.length > 9;
                 var type:int;
                 for (var i:int = 0; i < list.length; i++) {
