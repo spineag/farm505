@@ -237,7 +237,7 @@ public class Fabrica extends AreaObject {
                 g.townArea.moveBuild(this);
             } else {
                 if (g.managerTutorial.isTutorial) {
-                    if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+                    if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION && g.managerTutorial.subStep == 1) {
                         g.timerHint.canHide = false;
                         g.timerHint.addArrow();
                         g.managerTutorial.checkTutorialCallback();

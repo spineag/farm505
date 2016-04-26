@@ -248,6 +248,7 @@ public class WOShop extends WindowMain {
         btn.y = -_woHeight/2 + 528;
         _source.addChild(btn);
         var f1:Function = function ():void {
+            if (g.managerTutorial.isTutorial) return;
             hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         };
@@ -276,6 +277,7 @@ public class WOShop extends WindowMain {
         btn.y = -_woHeight/2 + 528;
         _source.addChild(btn);
         var f2:Function = function ():void {
+            if (g.managerTutorial.isTutorial) return;
             hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, false);
         };
@@ -299,6 +301,7 @@ public class WOShop extends WindowMain {
         btn.y = -_woHeight/2 + 528;
         _contCoupone.addChild(btn);
         var f3:Function = function ():void {
+            if (g.managerTutorial.isTutorial) return;
             hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE, null);
         };

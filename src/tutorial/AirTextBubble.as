@@ -24,6 +24,7 @@ public class AirTextBubble {
     private var _btnTxt:TextField;
     private var _catHead:Sprite;
     private var _dust:DustRectangle;
+    private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
 
     public function AirTextBubble() {
@@ -90,7 +91,24 @@ public class AirTextBubble {
         _dust = new DustRectangle(_source, 120, 40, 120, 120);
     }
 
+    public function showBtnArrow():void {
+        deleteArrow();
+        if (_btn && _btn.visible) {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _source);
+            _arrow.scaleIt(.5);
+            _arrow.animateAtPosition(_btn.x, _btn.y + 20);
+        }
+    }
+
+    private function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+    }
+
     public function hideIt():void {
+        deleteArrow();
         _parent.removeChild(_source);
         _parent = null;
     }

@@ -2,6 +2,7 @@
  * Created by user on 5/21/15.
  */
 package utils {
+import flash.geom.Point;
 import flash.ui.Mouse;
 import manager.ManagerFilters;
 import mouse.OwnMouse;
@@ -72,6 +73,9 @@ public class CButton extends Sprite {
     }
 
     private function onTouch(te:TouchEvent):void {
+//        var localPos:Point = te.data[0].getLocation(this);
+//        if (!hitTest(localPos, true)) return;
+
         te.stopImmediatePropagation();
         te.stopPropagation();
 

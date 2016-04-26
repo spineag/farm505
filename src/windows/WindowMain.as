@@ -47,8 +47,12 @@ public class WindowMain {
         g.cont.addGameContListener(false);
         g.cont.windowsCont.addChild(_source);
         _source.scaleX = _source.scaleY = .8;
-        TweenMax.to(_source, .2, {scaleX:1, scaleY:1, alpha: 1});
+        TweenMax.to(_source, .2, {scaleX:1, scaleY:1, alpha: 1, onComplete:onShowingWindow});
         _isShowed = true;
+    }
+
+    private function onShowingWindow():void {
+        if (g.managerTutorial.isTutorial) g.managerTutorial.checkTutorialCallbackOnShowWindow();
     }
 
     public function hideIt():void {

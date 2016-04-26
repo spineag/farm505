@@ -316,7 +316,6 @@ public class ShopList {
         }
         ob.x = (_arrItems[place] as ShopItem).source.x;
         ob.y = (_arrItems[place] as ShopItem).source.y;
-        if (addArrow && g.managerTutorial.isTutorial) (_arrItems[place] as ShopItem).addArrow();
         var p:Point = new Point(ob.x, ob.y);
         p = _itemsSprite.localToGlobal(p);
         ob.x = p.x;
