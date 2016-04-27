@@ -62,7 +62,7 @@ public class WOOrder extends WindowMain{
     private var _birka:Birka;
 
     public function WOOrder() {
-        super ();
+        super();
         _windowType = WindowsManager.WO_ORDERS;
         _woWidth = 764;
         _woHeight = 570;
@@ -305,7 +305,7 @@ public class WOOrder extends WindowMain{
             orderItem.fillIt(order, order.placeNumber, onItemClick, b);
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {
-                onItemClick(_activeOrderItem);
+                onItemClick(_activeOrderItem, true);
             }
         }
         g.bottomPanel.checkIsFullOrder();
@@ -334,17 +334,19 @@ public class WOOrder extends WindowMain{
         }
     }
 
-    private function onItemClick(item:WOOrderItem):void {
+    private function onItemClick(item:WOOrderItem, isAfterSell:Boolean = false):void {
         if (_waitForAnswer) return;
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
         clearResourceItems();
         _activeOrderItem = item;
-        fillResourceItems(item.getOrder());
+        fillResourceItems(_activeOrderItem.getOrder());
         _activeOrderItem.activateIt(true);
-        stopCatsAnimations();
-        changeCatTexture(item.position);
-        animateCustomerCat();
-        animateSellerCat();
+        if (!isAfterSell) {
+            stopCatsAnimations();
+            changeCatTexture(_activeOrderItem.position);
+            animateCustomerCat();
+            animateSellerCat();
+        }
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
@@ -663,7 +665,12 @@ public class WOOrder extends WindowMain{
     private function animateCustomerOnSell(e:AnimationEvent):void {
         _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
         _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
-        animateCustomerCat();
+        if (g.managerTutorial.isTutorial) {
+            g.managerTutorial.checkTutorialCallback();
+        } else {
+            changeCatTexture(_activeOrderItem.position);
+            animateCustomerCat();
+        }
     }
 
     public function setTextForCustomer(st:String):void {

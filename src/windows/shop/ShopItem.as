@@ -169,7 +169,6 @@ public class ShopItem {
                 _btnBuyBlue.x = 74;
                 _btnBuyBlue.y = 190;
                 source.addChild(_btnBuyBlue);
-                _btnBuyBlue.clickCallback = onClick;
                 break;
             case 'green':
                 if (_btnBuyGreen) return;
@@ -187,7 +186,6 @@ public class ShopItem {
                 _btnBuyGreen.x = 74;
                 _btnBuyGreen.y = 190;
                 source.addChild(_btnBuyGreen);
-                _btnBuyGreen.clickCallback = onClick;
                 break;
             case 'yellow':
                 if (_btnActivationYellow) return;
@@ -199,7 +197,6 @@ public class ShopItem {
                 _btnActivationYellow.x = 74;
                 _btnActivationYellow.y = 190;
                 source.addChild(_btnActivationYellow);
-                _btnActivationYellow.clickCallback = onClick;
                 break;
         }
     }
@@ -712,7 +709,10 @@ public class ShopItem {
             }
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else {
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_ANIMAL) return;
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction != TutorialAction.BUY_ANIMAL) return;
+                if (!g.managerTutorial.isTutorialResource(_data.id)) return;
+            }
             //додаємо на відповідну ферму
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             var curCount:int = 0;

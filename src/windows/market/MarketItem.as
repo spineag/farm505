@@ -328,6 +328,7 @@ public class MarketItem {
         var i:int;
         if (isFill == 1) {//заполненная
             if (_isUser) {
+                if (g.managerTutorial.isTutorial) return;
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
             } else {
                 if (_plawkaSold.visible == true) return;
@@ -385,6 +386,7 @@ public class MarketItem {
                 }
             }
         } else if (isFill == 0) { // пустая
+            if (g.managerTutorial.isTutorial) return;
             if (_isUser) {
                 _wo.onItemClickAndOpenWOChoose(this);
                 _onHover = false;
@@ -393,6 +395,7 @@ public class MarketItem {
         } else if (isFill == 3){ // недоступна по лвлу
 
         } else {
+            if (g.managerTutorial.isTutorial) return;
             if (_isUser) { // купленная
                 g.userInventory.addMoney(2,_dataFromServer.cost);
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);

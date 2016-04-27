@@ -86,8 +86,6 @@ public class CButton extends Sprite {
         } else {
             hitAreaState = 1; //state -> don't have hitArea
         }
-//        te.stopImmediatePropagation();  // need use this in come case, please remake
-//        te.stopPropagation();
 
         if (te.getTouch(this, TouchPhase.MOVED)) {
             if (_onMovedCallback != null) {
@@ -95,6 +93,8 @@ public class CButton extends Sprite {
             }
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
             if (hitAreaState != 3) {
+                te.stopImmediatePropagation();
+                te.stopPropagation();
                 onBeganClickAnimation();
                 if (_startClickCallback != null) {
                     _startClickCallback.apply();
@@ -102,13 +102,18 @@ public class CButton extends Sprite {
                 Mouse.cursor = OwnMouse.CLICK_CURSOR;
             }
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
-            Mouse.cursor = OwnMouse.USUAL_CURSOR;
-            onEndClickAnimation();
             if (_clickCallback != null) {
+                te.stopImmediatePropagation();
+                te.stopPropagation();
+                onEndClickAnimation();
                 _clickCallback.apply();
+
             }
+            Mouse.cursor = OwnMouse.USUAL_CURSOR;
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
             if (hitAreaState != 3) {
+                te.stopImmediatePropagation();
+                te.stopPropagation();
                 Mouse.cursor = OwnMouse.HOVER_CURSOR;
                 onHoverAnimation();
                 if (_hoverCallback != null) {

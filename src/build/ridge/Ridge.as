@@ -418,5 +418,11 @@ public class Ridge extends AreaObject{
         super.showArrow();
         if (_arrow) _arrow.scaleIt(.7);
     }
+
+    public function forceGrowPlant():void {
+        if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+            _plant.renderSkip();
+        }
+    }
 }
 }
