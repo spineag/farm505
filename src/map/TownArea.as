@@ -727,7 +727,7 @@ public class TownArea extends Sprite {
         var p:Point = new Point((build as WorldObject).source.x, (build as WorldObject).source.y);
         p = g.cont.contentCont.localToGlobal(p);
         new UseMoneyMessage(p, moneyType, count, .3);
-        if ((build as WorldObject).dataBuild.xpForBuild > 0) new XPStar(p.x, p.y, (build as WorldObject).dataBuild.xpForBuild);
+        if (build  is Decor || build is DecorFence || build is DecorPostFence || build is DecorTail) new XPStar(p.x, p.y, (build as WorldObject).dataBuild.xpForBuild);
     }
 
     public function startMoveAfterShop(build:AreaObject, isFromInventory:Boolean = false):void {

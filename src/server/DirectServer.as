@@ -549,7 +549,9 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
-            g.userTimer.timerAtPapper = int(ob.time_paper);
+//            g.userTimer.timerAtPapper = int(ob.time_paper);
+            if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
+            else g.userTimer.timerAtPapper = 300 - (ob.time_paper- int(new Date().getTime()/1000)) * (-1);
             if (int(ob.in_papper) == 0) g.userTimer.papperTimerAtMarket = 0;
             else g.userTimer.papperTimerAtMarket = 300 - (ob.in_papper - int(new Date().getTime()/1000)) * (-1);
             g.user.tutorialStep = int(ob.tutorial_step);

@@ -322,30 +322,6 @@ public class WOPapper extends WindowMain {
             _rightArrow.setEnabled = true;
         }
     }
-//    private function timerRefresh():void {
-//        if (_timer <= 900) {
-//            _btnRefreshBlue.setEnabled = true;
-//            _btnRefreshGreen.setEnabled = false;
-//            _txtTimer.text = 'Обновить';
-//            _txtTimer.x = 25;
-//        } else {
-//            g.gameDispatcher.addToTimer(renderPaperProgress);
-//        }
-//    }
-
-//    private function renderPaperProgress():void {
-//        _timer--;
-//        _txtTimer.x = 20;
-//        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_timer);
-//        if (_timer <= 0) {
-//            _btnRefreshBlue.setEnabled = true;
-//            _btnRefreshGreen.setEnabled = false;
-//            _txtTimer.text = 'Обновить';
-//            _txtTimer.x = 25;
-//            g.gameDispatcher.removeFromTimer(renderPaperProgress);
-//            g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
-//        }
-//    }
 
     public function startPapperTimer():void {
         g.userTimer.startUserPapperTimer(300);
@@ -355,6 +331,7 @@ public class WOPapper extends WindowMain {
     private function checkPapperTimer():void {
         if (g.userTimer.timerAtPapper > 0) {
             _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
+            g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
             g.gameDispatcher.addToTimer(onTimer);
             _txtTimer.x = 20;
         } else {
