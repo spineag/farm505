@@ -20,6 +20,9 @@ import hint.Hint;
 import hint.MouseHint;
 import hint.TimerHint;
 import hint.WildHint;
+
+import manager.hitArea.ManagerHitArea;
+
 import map.BackgroundArea;
 import map.MatrixGrid;
 import map.TownArea;
@@ -143,6 +146,7 @@ public class Vars {
     public var catPanel:CatPanel;
 
     public var windowsManager:WindowsManager;
+    public var managerHitArea:ManagerHitArea;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -198,6 +202,7 @@ public class Vars {
         farmGrid = new FarmGrid();
         managerDailyBonus = new ManagerDailyBonus();
         managerTutorial = new ManagerTutorial();
+        managerHitArea = new ManagerHitArea();
 
         new ManagerFilters();
         ownMouse = new OwnMouse();

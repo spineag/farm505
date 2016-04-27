@@ -40,7 +40,6 @@ public class Train extends AreaObject{
     public static var STATE_READY:int = 6;  //  поезд ожидает загрузки продуктов
 
     private var list:Array;
-    private var _woBuy:WOBuyCave;
     private var _counter:int;
     private var _dataPack:Object;
     private var _train_db_id:String; // id для поезда юзера в табличке user_train
@@ -78,9 +77,6 @@ public class Train extends AreaObject{
             WorldClock.clock.remove(_armature);
         }
 
-        if (!g.isAway) {
-            _woBuy = new WOBuyCave();
-        }
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
