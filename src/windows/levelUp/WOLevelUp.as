@@ -177,7 +177,7 @@ public class WOLevelUp extends WindowMain {
         arr = [];
         obj = g.dataResource.objectResources;
         for (id in obj) {
-            if (obj[id].buildType == BuildType.TEST || obj[id].buildType == BuildType.INSTRUMENT) continue;
+            if (obj[id].buildType == BuildType.INSTRUMENT) continue;
             if (g.user.level == obj[id].blockByLevel) {
                 arr.push(obj[id]);
             }
@@ -191,7 +191,6 @@ public class WOLevelUp extends WindowMain {
                     }
                 }
             } else if (g.user.level == obj[id].blockByLevel) {
-                if (obj[id].buildType == BuildType.TEST) continue;
                 arr.push(obj[id]);
             }
         }

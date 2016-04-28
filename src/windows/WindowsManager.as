@@ -11,6 +11,7 @@ import windows.buyForHardCurrency.WOBuyForHardCurrency;
 import windows.buyPlant.WOBuyPlant;
 import windows.cave.WOBuyCave;
 import windows.cave.WOCave;
+import windows.chestWindow.WOChest;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.fabricaWindow.WOFabrica;
 import windows.gameError.WOGameError;
@@ -61,6 +62,7 @@ public class WindowsManager {
     public static const WO_TRAIN:String = 'train';
     public static const WO_TRAIN_ORDER:String = 'train_order';
     public static const WO_TRAIN_SEND:String = 'train_send';
+    public static const WO_CHEST:String = 'chest';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -172,6 +174,9 @@ public class WindowsManager {
                 break;
             case WO_SHOP:
                 wo = new WOShop();
+                break;
+            case WO_CHEST:
+                wo = new WOChest();
                 break;
 
             default:

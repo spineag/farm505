@@ -221,7 +221,6 @@ public class WODailyBonusCraftItem {
         new TweenMax(_source, dist/300, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
     }
 
-
     private function deleteIt():void {
         TweenMax.killTweensOf(_source);
         _parent.removeChild(_source);

@@ -86,6 +86,7 @@ public class Consts {
     public static var INQ_GET_USER_ORDER:String = 'getUserOrder.php';
     public static var INQ_DELETE_USER_ORDER:String = 'deleteUserOrder.php';
     public static var INQ_USE_DAILY_BONUS:String = 'useDailyBonus.php';
+    public static var INQ_USE_CHEST:String = 'useChest.php';
     public static var INQ_BUY_AND_ADD_TO_INVENTORY:String = 'buyAndAddToInventory.php';
     public static var INQ_GET_DATA_OUT_GAME_TILES:String = 'getDataOutGameTiles.php';
     public static var INQ_UPDATE_USER_MARKET_CELL:String = 'updateUserMarketCell.php';

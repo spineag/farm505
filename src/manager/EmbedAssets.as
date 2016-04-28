@@ -143,7 +143,10 @@ public class EmbedAssets {
     private const CatTutorial:Class;
     [Embed(source = "../../assets/animations/cat_tutorial_big2.png", mimeType = "application/octet-stream")]
     private const CatTutorialBig:Class;
-
+    [Embed(source = "../../assets/animations/x1/chest_mini.png", mimeType = "application/octet-stream")]
+    private const ChestMini:Class;
+    [Embed(source = "../../assets/animations/chest_interface1.png", mimeType = "application/octet-stream")]
+    private const ChestInterface:Class;
     private var g:Vars = Vars.getInstance();
 
     public function EmbedAssets(onLoadCallback:Function) {
@@ -234,6 +237,8 @@ public class EmbedAssets {
         loadFactory('arrow', Arrow, checkCount);
         loadFactory('tutorialCat', CatTutorial, checkCount);
         loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
+        loadFactory('chest_mini', ChestMini, checkCount);
+        loadFactory('chest_interface', ChestInterface, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

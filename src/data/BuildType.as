@@ -7,7 +7,7 @@ public class BuildType {
     public static const PLACE_SKLAD:int = 2;
     public static const PLACE_NONE:int = 3;
 
-    public static const TEST:int = 1;
+    public static const CHEST:int = 1;
     public static const RIDGE:int = 2;
     public static const TREE:int = 3;
     public static const DECOR:int = 4;

@@ -552,12 +552,15 @@ public class DirectServer {
 //            g.userTimer.timerAtPapper = int(ob.time_paper);
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
             else g.userTimer.timerAtPapper = 300 - (ob.time_paper- int(new Date().getTime()/1000)) * (-1);
+            if ( g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
             if (int(ob.in_papper) == 0) g.userTimer.papperTimerAtMarket = 0;
             else g.userTimer.papperTimerAtMarket = 300 - (ob.in_papper - int(new Date().getTime()/1000)) * (-1);
+            if ( g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);
             g.user.checkUserLevel();
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
+            g.managerChest.fillFromServer(ob.chest_day, int(ob.count_chest));
 //            g.user.level = int(ob.level);
             g.user.countCats = int(ob.count_cats);
             if (ob.scale) {
@@ -1081,7 +1084,7 @@ public class DirectServer {
                     if (d.message[i].count_cell) dataBuild.countCell = int(d.message[i].count_cell);
                     var p:Point = new Point(int(d.message[i].pos_x), int(d.message[i].pos_y));
                     if (dataBuild.buildType == BuildType.CAVE || dataBuild.buildType == BuildType.MARKET ||
-                            dataBuild.buildType == BuildType.PAPER || dataBuild.buildType == BuildType.DAILY_BONUS || dataBuild.buildType == BuildType.TRAIN) {
+                            dataBuild.buildType == BuildType.PAPER || dataBuild.buildType == BuildType.DAILY_BONUS || dataBuild.buildType == BuildType.TRAIN ||  dataBuild.buildType == BuildType.CHEST) {
                         //do nothing, use usual x and y from server
 //                        p.x *= g.scaleFactor;
 //                        p.y *= g.scaleFactor;  // scaleFactor will use at pasteBuild
@@ -4450,6 +4453,50 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [false]);
             }
+        }
+    }
+
+    public function useChest(count:int, callback:Function=null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USE_CHEST);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'useChest', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.count = count;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUseChest);
+        function onCompleteUseChest(e:Event):void { completeUseChest(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('useChest error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useChest error:' + error.errorID);
+        }
+    }
+
+    private function completeUseChest(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('useChest: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useChest: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'useChest OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('useChest: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useChest: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

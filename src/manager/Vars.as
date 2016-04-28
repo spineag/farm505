@@ -96,6 +96,7 @@ public class Vars {
     public var managerTree:ManagerTree;
     public var managerAnimal:ManagerAnimal;
     public var managerPaper:ManagerPaper;
+    public var managerChest:ManagerChest;
     public var load:LoaderManager;
     public var pBitmaps:Object;
     public var managerOrder:ManagerOrder;
@@ -198,6 +199,7 @@ public class Vars {
         farmGrid = new FarmGrid();
         managerDailyBonus = new ManagerDailyBonus();
         managerTutorial = new ManagerTutorial();
+        managerChest = new ManagerChest();
 
         new ManagerFilters();
         ownMouse = new OwnMouse();
@@ -356,7 +358,7 @@ public class Vars {
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
-
+        managerChest.createBuild();
         background = new BackgroundArea(afterCreateMapBackground);
     }
 

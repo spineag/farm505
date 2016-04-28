@@ -55,7 +55,7 @@ public class WONoResourcesItem {
             return;
         }
         var st:String;
-        if (ob.buildType == BuildType.FARM || ob.buildType == BuildType.TEST){
+        if (ob.buildType == BuildType.FARM){
             st = ob.image;
             _image = new Image(g.allData.atlas[ob.url].getTexture(st));
         } else if (ob.buildType == BuildType.FABRICA || ob.buildType == BuildType.RIDGE) {

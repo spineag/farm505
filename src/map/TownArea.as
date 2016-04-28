@@ -5,6 +5,7 @@ import build.WorldObject;
 import build.ambar.Ambar;
 import build.ambar.Sklad;
 import build.cave.Cave;
+import build.chestBonus.Chest;
 import build.dailyBonus.DailyBonus;
 import build.decor.Decor;
 import build.decor.DecorFence;
@@ -388,8 +389,8 @@ public class TownArea extends Sprite {
         }
 
         switch (_data.buildType) {
-            case BuildType.TEST:
-                build = new TestBuild(_data);
+            case BuildType.CHEST:
+                build = new Chest(_data);
                 break;
             case BuildType.RIDGE:
                 build = new Ridge(_data);
@@ -683,7 +684,10 @@ public class TownArea extends Sprite {
         (build as WorldObject).source.filter = null;
         var cost:int;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        if (build is Tree) (build as Tree).removeShopView();
+        if (build is Tree) {
+            (build as Tree).removeShopView();
+            cost = (build as WorldObject).dataBuild.cost;
+        }
         if (build is Ridge) cost = (build as WorldObject).dataBuild.cost;
         var arr:Array;
         if (build is Decor || build is DecorFence || build is DecorPostFence) {
@@ -887,7 +891,7 @@ public class TownArea extends Sprite {
                 return;
             }
             var build:AreaObject;
-            g.buyHint.showIt((arr.length * tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
+            g.buyHint.showIt((arr.length* tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
@@ -912,7 +916,7 @@ public class TownArea extends Sprite {
             cost = (build as WorldObject).dataBuild.cost;
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
         } else {
-            cost = (arr.length-1) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
+            cost = (arr.length) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
         }
 
@@ -1099,6 +1103,7 @@ public class TownArea extends Sprite {
             g.directServer.getAllCityData(person, setAwayCity);
         }
         addAwayTownAreaSortCheking();
+        g.managerChest.createBuild(true);
     }
 
     private function setDefaultAwayMatrix():void {
@@ -1242,6 +1247,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.DECOR_TAIL:
                 build = new DecorTail(_data);
+                break;
+            case BuildType.CHEST:
+                build = new Chest(_data);
                 break;
         }
 
@@ -1404,6 +1412,32 @@ public class TownArea extends Sprite {
                 }
             }
         }
+    }
+
+    public function deleteAwayBuild(worldObject:WorldObject):void{
+        if (!worldObject) {
+            Cc.error('TownArea deleteBuild:: empty worldObject');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+            return;
+        }
+        if(_cont.contains(worldObject.source)){
+            _cont.removeChild(worldObject.source);
+        }
+        if (worldObject is DecorFence || worldObject is DecorPostFence) {
+            if (worldObject is DecorPostFence) removeFenceLenta(worldObject as DecorPostFence);
+            unFillMatrixWithFence(worldObject.posX, worldObject.posY);
+        } else {
+            unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+        }
+        if (worldObject is Wild || worldObject is LockedLand) {
+            for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
+                for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
+                    unFillTailMatrix(jk, ik);
+                }
+            }
+        }
+        if (_cityAwayObjects.indexOf(worldObject) > -1) _cityAwayObjects.splice(_cityAwayObjects.indexOf(worldObject), 1);
+        (worldObject as AreaObject).clearIt();
     }
 
     public function sortAwayAtLockedLands():void {
