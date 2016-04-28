@@ -114,6 +114,7 @@ public class CutSceneTextBubble {
         }
         _source.addChild(im);
         if (_innerImage) _source.addChild(_innerImage);
+        txt.autoScale = true;
         _source.addChild(txt);
         if (_btn) _source.addChild(_btn);
         if (_btnExit) {

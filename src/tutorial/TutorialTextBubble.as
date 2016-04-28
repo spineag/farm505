@@ -93,6 +93,7 @@ public class TutorialTextBubble {
                 break;
         }
         _source.addChild(_im);
+        _txt.autoScale = true;
         _source.addChild(_txt);
     }
 

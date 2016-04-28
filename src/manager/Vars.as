@@ -46,6 +46,8 @@ import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 import tutorial.ManagerTutorial;
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
@@ -104,6 +106,7 @@ public class Vars {
     public var managerOrder:ManagerOrder;
     public var managerOrderCats:ManagerOrderCats;
     public var managerDailyBonus:ManagerDailyBonus;
+    public var managerCutScenes:ManagerCutScenes;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
@@ -203,6 +206,7 @@ public class Vars {
         managerDailyBonus = new ManagerDailyBonus();
         managerTutorial = new ManagerTutorial();
         managerHitArea = new ManagerHitArea();
+        managerCutScenes = new ManagerCutScenes();
 
         new ManagerFilters();
         ownMouse = new OwnMouse();
