@@ -710,7 +710,8 @@ public class ManagerTutorial {
         _tutorialResourceIDs = [];
         _currentAction = TutorialAction.NONE;
         g.windowsManager.hideWindow(WindowsManager.WO_FABRICA);
-        cat.playDirectLabel('idle2', true, subStep8_3);
+//        cat.playDirectLabel('idle2', true, subStep8_3);
+        subStep8_3();
     }
 
     private function subStep8_3():void {

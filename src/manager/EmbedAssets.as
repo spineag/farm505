@@ -94,7 +94,7 @@ public class EmbedAssets {
     private const VisitPreloader:Class;
     [Embed(source = "../../assets/animations/plot_seller.png", mimeType = "application/octet-stream")]
     private const CatCustomer:Class;
-    [Embed(source = "../../assets/animations/order_window.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/order_window2.png", mimeType = "application/octet-stream")]
     private const OrderWindow:Class;
 
     [Embed(source = "../../assets/animations/x1/bakery.png", mimeType = "application/octet-stream")]
