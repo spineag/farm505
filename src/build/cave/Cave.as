@@ -20,7 +20,6 @@ import windows.cave.WOBuyCave;
 
 
 public class Cave extends AreaObject{
-    private var _woBuy:WOBuyCave;
     private var _isOnHover:Boolean;
     private var _countTimer:int;
     private var _arrCraftItems:Array;
@@ -41,7 +40,6 @@ public class Cave extends AreaObject{
         _isAnimate = false;
         _source.releaseContDrag = true;
         if (!g.isAway) {
-            _woBuy = new WOBuyCave();
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;

@@ -710,7 +710,8 @@ public class ManagerTutorial {
         _tutorialResourceIDs = [];
         _currentAction = TutorialAction.NONE;
         g.windowsManager.hideWindow(WindowsManager.WO_FABRICA);
-        cat.playDirectLabel('idle2', true, subStep8_3);
+//        cat.playDirectLabel('idle2', true, subStep8_3);
+        subStep8_3();
     }
 
     private function subStep8_3():void {
@@ -1045,7 +1046,7 @@ public class ManagerTutorial {
         _subStep = 7;
         cat.flipIt(false);
         (_tutorialObjects[0] as WorldObject).hideArrow();
-        createDelay(.7, subStep11_8);
+        _onShowWindowCallback = subStep11_8;
     }
 
     private function subStep11_8():void {
@@ -1077,7 +1078,7 @@ public class ManagerTutorial {
         (g.windowsManager.currentWindow as WOOrder).setTextForCustomer(texts[g.user.tutorialStep][_subStep]);
         g.user.tutorialStep = 12;
         updateTutorialStep();
-        createDelay(3, subStep11_10);
+        _tutorialCallback = subStep11_10;
     }
 
     private function subStep11_10():void {
@@ -1265,6 +1266,9 @@ public class ManagerTutorial {
             }
         }
         _tutorialObjects.sortOn('depth', Array.NUMERIC);
+        for (i=0; i<_tutorialObjects.length; i++) {
+            (_tutorialObjects[i] as Ridge).forceGrowPlant();
+        }
 
         if (!cat) {
             addCatToPos(_tutorialObjects[0].posX - 2, _tutorialObjects[0].posY + 1);

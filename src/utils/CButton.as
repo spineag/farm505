@@ -5,6 +5,9 @@ package utils {
 import flash.geom.Point;
 import flash.ui.Mouse;
 import manager.ManagerFilters;
+import manager.Vars;
+import manager.hitArea.OwnHitArea;
+
 import mouse.OwnMouse;
 import starling.display.DisplayObject;
 import starling.display.Sprite;
@@ -31,6 +34,9 @@ public class CButton extends Sprite {
     private var BUTTON_CLICK_FILTER:ColorMatrixFilter;
     private var BUTTON_HOVER_FILTER:ColorMatrixFilter;
     private var BUTTON_DISABLE_FILTER:ColorMatrixFilter;
+    private var _hitArea:OwnHitArea;
+    private var hitAreaState:int;
+    private var g:Vars = Vars.getInstance();
 
     public function CButton() {
         super();
@@ -50,13 +56,13 @@ public class CButton extends Sprite {
         var t:Sprite = new WOSimpleButtonTexture(w, h, type);
         _bg.addChild(t);
         if (setP) setPivots();
-        _bg.flatten();
+//        _bg.flatten();
     }
 
     public function addDisplayObject(d:DisplayObject):void {
-        _bg.unflatten();
+//        _bg.unflatten();
         _bg.addChild(d);
-        _bg.flatten();
+//        _bg.flatten();
     }
 
     public function registerTextField(tx:TextField, strokeFilter:Array):void {
@@ -73,39 +79,60 @@ public class CButton extends Sprite {
     }
 
     private function onTouch(te:TouchEvent):void {
-//        var localPos:Point = te.data[0].getLocation(this);
-//        if (!hitTest(localPos, true)) return;
-
-        te.stopImmediatePropagation();
-        te.stopPropagation();
+        if (_hitArea) {
+            var localPos:Point = te.data[0].getLocation(this);
+            if (_hitArea.isTouchablePoint(localPos.x, localPos.y)) hitAreaState = 2; // state -> mouse is under visible point
+                else hitAreaState = 3; // state -> mouse is not under visible point
+        } else {
+            hitAreaState = 1; //state -> don't have hitArea
+        }
 
         if (te.getTouch(this, TouchPhase.MOVED)) {
             if (_onMovedCallback != null) {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
             }
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
-            onBeganClickAnimation();
-            if (_startClickCallback != null) {
-                _startClickCallback.apply();
+            if (hitAreaState != 3) {
+                te.stopImmediatePropagation();
+                te.stopPropagation();
+                onBeganClickAnimation();
+                if (_startClickCallback != null) {
+                    _startClickCallback.apply();
+                }
+                Mouse.cursor = OwnMouse.CLICK_CURSOR;
             }
-            Mouse.cursor = OwnMouse.CLICK_CURSOR;
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
-            Mouse.cursor = OwnMouse.USUAL_CURSOR;
-            onEndClickAnimation();
             if (_clickCallback != null) {
+                te.stopImmediatePropagation();
+                te.stopPropagation();
+                onEndClickAnimation();
                 _clickCallback.apply();
+
             }
+            Mouse.cursor = OwnMouse.USUAL_CURSOR;
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
-            Mouse.cursor = OwnMouse.HOVER_CURSOR;
-            onHoverAnimation();
-            if (_hoverCallback != null) {
-                _hoverCallback.apply();
+            if (hitAreaState != 3) {
+                te.stopImmediatePropagation();
+                te.stopPropagation();
+                Mouse.cursor = OwnMouse.HOVER_CURSOR;
+                onHoverAnimation();
+                if (_hoverCallback != null) {
+                    _hoverCallback.apply();
+                }
+            } else {
+                Mouse.cursor = OwnMouse.USUAL_CURSOR;
+                onOutAnimation();
+                if (_outCallback != null) {
+                    _outCallback.apply();
+                }
             }
         } else {
-            Mouse.cursor = OwnMouse.USUAL_CURSOR;
-            onOutAnimation();
-            if (_outCallback != null) {
-                _outCallback.apply();
+            if (hitAreaState != 2) {
+                Mouse.cursor = OwnMouse.USUAL_CURSOR;
+                onOutAnimation();
+                if (_outCallback != null) {
+                    _outCallback.apply();
+                }
             }
         }
     }
@@ -159,7 +186,8 @@ public class CButton extends Sprite {
     }
 
     public function deleteIt():void {
-        _bg.unflatten();
+//        _bg.unflatten();
+        _hitArea = null;
         _bg.filter = null;
         if (BUTTON_CLICK_FILTER) BUTTON_CLICK_FILTER.dispose();
         if (BUTTON_HOVER_FILTER) BUTTON_HOVER_FILTER.dispose();
@@ -198,6 +226,11 @@ public class CButton extends Sprite {
     private function onOutAnimation():void {
         this.scaleX = this.scaleY = _scale;
         _bg.filter = null;
+    }
+
+    public function createHitArea(name:String):void {
+        _hitArea = g.managerHitArea.getHitArea(this, name);
+//        _hitArea.createTestSprite();
     }
 
 }

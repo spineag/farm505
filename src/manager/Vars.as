@@ -20,6 +20,9 @@ import hint.Hint;
 import hint.MouseHint;
 import hint.TimerHint;
 import hint.WildHint;
+
+import manager.hitArea.ManagerHitArea;
+
 import map.BackgroundArea;
 import map.MatrixGrid;
 import map.TownArea;
@@ -43,6 +46,8 @@ import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 import tutorial.ManagerTutorial;
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
@@ -102,6 +107,7 @@ public class Vars {
     public var managerOrder:ManagerOrder;
     public var managerOrderCats:ManagerOrderCats;
     public var managerDailyBonus:ManagerDailyBonus;
+    public var managerCutScenes:ManagerCutScenes;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
@@ -144,6 +150,7 @@ public class Vars {
     public var catPanel:CatPanel;
 
     public var windowsManager:WindowsManager;
+    public var managerHitArea:ManagerHitArea;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -200,6 +207,8 @@ public class Vars {
         managerDailyBonus = new ManagerDailyBonus();
         managerTutorial = new ManagerTutorial();
         managerChest = new ManagerChest();
+        managerHitArea = new ManagerHitArea();
+        managerCutScenes = new ManagerCutScenes();
 
         new ManagerFilters();
         ownMouse = new OwnMouse();

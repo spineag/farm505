@@ -20,7 +20,7 @@ public class CutSceneTextBubble {
     private var _source:Sprite;
     private var _parent:Sprite;
     private var _btn:CButton;
-    private var _btnNo:CButton;
+    private var _btnExit:CButton;
     private var _type:int;
     private var _innerImage:Image;
     private var _dustRectangle:DustRectangle;
@@ -56,10 +56,11 @@ public class CutSceneTextBubble {
     }
 
     private function addNoButton(callback:Function):void {
-        _btnNo = new CButton();
-        _btnNo.addDisplayObject(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
-        _btnNo.setPivots();
-        _btnNo.clickCallback = callback;
+        _btnExit = new CButton();
+        _btnExit.addDisplayObject(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
+        _btnExit.setPivots();
+        _btnExit.createHitArea('bt_close');
+        _btnExit.clickCallback = callback;
     }
 
     private function createBubble(st:String):void {
@@ -113,12 +114,13 @@ public class CutSceneTextBubble {
         }
         _source.addChild(im);
         if (_innerImage) _source.addChild(_innerImage);
+        txt.autoScale = true;
         _source.addChild(txt);
         if (_btn) _source.addChild(_btn);
-        if (_btnNo) {
-            _btnNo.x = im.x + im.width - 20;
-            _btnNo.y = im.y + 35;
-            _source.addChild(_btnNo);
+        if (_btnExit) {
+            _btnExit.x = im.x + im.width - 20;
+            _btnExit.y = im.y + 35;
+            _source.addChild(_btnExit);
         }
     }
 

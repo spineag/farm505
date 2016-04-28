@@ -11,6 +11,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 import tutorial.TutorialAction;
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import utils.CButton;
 import utils.MCScaler;
 import windows.WOComponents.WindowBackground;
@@ -276,6 +278,7 @@ public class WOLevelUp extends WindowMain {
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.LEVEL_UP) {
             g.managerTutorial.checkTutorialCallback();
         }
+        g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
         for (var i:int=0; i<_arrCells.length; i++) {
             _arrCells[i].deleteIt();
         }
