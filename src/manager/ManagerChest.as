@@ -94,12 +94,12 @@ public class ManagerChest {
             generateDailyBonusItems();
             var id:String;
             var p :Point;
-            p = g.managerCats.getRandomFreeCell();
-            p = g.matrixGrid.getXYFromIndex(p);
+            p = g.townArea.getRandomFreeCell();
             for(id in g.dataBuilding.objectBuilding) {
                 if (g.dataBuilding.objectBuilding[id].buildType == BuildType.CHEST) {
                     if (away) g.townArea.createAwayNewBuild(g.dataBuilding.objectBuilding[id], p.x , p.y, 0);
                     else {
+                        p = g.matrixGrid.getXYFromIndex(p);
                         var build:AreaObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[id], 0);
                         g.townArea.pasteBuild(build, p.x, p.y, false);
                     }

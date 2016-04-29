@@ -809,6 +809,31 @@ public class TownArea extends Sprite {
         }
     }
 
+    public function getRandomFreeCell():Point {
+        var i:int;
+        var j:int;
+        var b:int = 0;
+        var arr:Array;
+        if (g.isAway) {
+            arr = _townAwayMatrix;
+        } else {
+            arr = _townMatrix;
+        }
+        try {
+            do {
+                i = int(Math.random() * arr.length);
+                j = int(Math.random() * arr[0].length);
+                b++;
+                if (b>30) return new Point(0, 0);
+            } while (arr[i][j].isFull || !arr[i][j].inGame);
+            return new Point(j, i);
+        } catch (e:Error) {
+            Cc.error('ManagerCats getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats getRandomFreeCell');
+        }
+        return new Point(0, 0);
+    }
+
     public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
         if (!tail) {
             Cc.error('TownArea pasteTailBuild:: empty tail');
