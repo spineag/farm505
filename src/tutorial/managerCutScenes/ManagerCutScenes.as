@@ -82,13 +82,13 @@ public class ManagerCutScenes {
 
 
     private function addCatToPos(_x:int, _y:int):void {
-        if (!cat) cat = new TutorialCat();
-        cat.setPosition(new Point(_x, _y));
-        cat.addToMap();
+        if (!_cat) _cat = new TutorialCat();
+        _cat.setPosition(new Point(_x, _y));
+        _cat.addToMap();
     }
 
     private function playCatIdle():void {
-        if (cat) cat.playDirectLabel('idle', false, null);
+        if (_cat) _cat.playDirectLabel('idle', false, null);
     }
 
     private function addBlack():void {
