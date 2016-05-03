@@ -4,6 +4,7 @@
 package tutorial.managerCutScenes {
 import build.WorldObject;
 import build.market.Market;
+import build.paper.Paper;
 
 import data.BuildType;
 
@@ -30,8 +31,8 @@ public class ManagerCutScenes {
     public static const REASON_NEW_LEVEL:int = 1;  // use after getting new level
     public static const REASON_STUPID_USER:int = 2;  // use if user do nothing at 4-9 levels during 30 seconds
 
-    public static const ID_ACTION_SHOW_ORDER:int=0;
-    public static const ID_ACTION_SHOW_PAPPER:int=1;
+    public static const ID_ACTION_SHOW_MARKET:int = 0;
+    public static const ID_ACTION_SHOW_PAPPER:int = 1;
     private var countActions:int = 2;
 
     private var g:Vars = Vars.getInstance();
@@ -50,6 +51,10 @@ public class ManagerCutScenes {
 
     public function ManagerCutScenes() {
         _properties = (new CutSceneProperties(this)).properties;
+    }
+
+    private function saveUserCutScenesData():void {
+        g.directServer.updateUserCutScenesData();
     }
 
     public function checkAvailableCutScenes():void { // use this function only once at game start
@@ -83,7 +88,7 @@ public class ManagerCutScenes {
         switch (reason) {
             case REASON_NEW_LEVEL:
                 for (i=0; i<_properties.length; i++) {
-                    if (_properties[i].reason == REASON_NEW_LEVEL && g.user.level == _properties[i].level) {
+                    if (_properties[i].reason == REASON_NEW_LEVEL && g.user.level == _properties[i].level && g.user.cutScenes[_properties[i].id_action] == 0) {
                         _curCutScenePropertie = _properties[i];
                         checkTypeFunctions();
                         return;
@@ -94,32 +99,89 @@ public class ManagerCutScenes {
     }
 
     public function isType(id:int):Boolean {
-        return isCutScene && id == _curCutScenePropertie.id_action;
+        return id == _curCutScenePropertie.id_action;
     }
 
     private function checkTypeFunctions():void {
         switch (_curCutScenePropertie.id_action) {
-            case ID_ACTION_SHOW_ORDER: releaseOrderAndPapper(); break;
+            case ID_ACTION_SHOW_MARKET: releaseMarket(); break;
+            case ID_ACTION_SHOW_PAPPER: releasePapper(); break;
         }
     }
 
-    public function releaseOrderAndPapper():void {
+    public function releaseMarket():void {
         isCutScene = true;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.MARKET);
         addCatToPos(20, 22);
-        g.managerCats.goCatToPoint(_cat, new Point(46, 0), order_1);
-        g.cont.moveCenterToPos(_cutSceneBuildings[0].source.x - 100, _cutSceneBuildings[0].source.y + 300, false, 2);
+        g.managerCats.goCatToPoint(_cat, new Point(44, 0), market_1);
+        g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 3);
     }
 
-    private function order_1():void {
-        _cat.flipIt(true);
+    private function market_1():void {
+        _cat.flipIt(false);
         _cat.showBubble(_curCutScenePropertie.text);
-        (_cutSceneBuildings as Market).showArrow();
+        (_cutSceneBuildings[0] as Market).showArrow();
+        _cutSceneCallback = market_2;
+    }
 
+    private function market_2():void {
+        _cat.hideBubble();
+        (_cutSceneBuildings[0] as Market).hideArrow();
+        _cutSceneCallback = market_3;
+    }
+
+    private function market_3():void {
+        _cutSceneCallback = null;
+        g.user.cutScenes[0] = 1;
+        saveUserCutScenesData();
+        checkCutScene(REASON_NEW_LEVEL);
+    }
+
+    private function releasePapper():void {
+        isCutScene = true;
+        _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.PAPER);
+        if (_cat) {
+            g.managerCats.goCatToPoint(_cat, new Point(41, 0), papper_1);
+            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 1);
+        } else {
+            addCatToPos(20, 22);
+            g.managerCats.goCatToPoint(_cat, new Point(41, 0), papper_1);
+            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 3);
+        }
+    }
+
+    private function papper_1():void {
+        _cat.flipIt(false);
+        _cat.showBubble(_curCutScenePropertie.text);
+        (_cutSceneBuildings[0] as Paper).showArrow();
+        _cutSceneCallback = papper_2;
+    }
+
+    private function papper_2():void {
+        _cat.hideBubble();
+        (_cutSceneBuildings[0] as Paper).hideArrow();
+        papper_3();
+    }
+
+    private function papper_3():void {
+        _cutSceneCallback = null;
+        g.user.cutScenes[1] = 1;
+        saveUserCutScenesData();
+        if (_cat) {
+            _cat.removeFromMap();
+            _cat.deleteIt();
+            _cat = null;
+        }
+        isCutScene = false;
     }
 
 
 
+    public function checkCutSceneCallback():void {
+        if (_cutSceneCallback != null) {
+            _cutSceneCallback.apply();
+        }
+    }
 
     private function addCatToPos(_x:int, _y:int):void {
         if (!_cat) _cat = new TutorialCat();

@@ -4508,5 +4508,45 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useChest: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function updateUserCutScenesData():void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_CUT_SCENE_DATA);
+        var variables:URLVariables = new URLVariables();
+        Cc.ch('server', 'updateUserCutScenesData', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.cutScene = g.user.cutScenes.join('&');
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCutScenesData);
+        function onCompleteUpdateUserCutScenesData(e:Event):void { completeUpdateUserCutScenesData(e.target.data); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserCutScenesData error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCutScenesData error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserCutScenesData(response:String):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserCutScenesData: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateMarketPapper: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserCutScenesData OK', 5);
+        } else {
+            Cc.error('updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

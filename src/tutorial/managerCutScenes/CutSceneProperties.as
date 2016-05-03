@@ -22,7 +22,7 @@ public class CutSceneProperties {
 
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
         obj.level = 5;
-        obj.id_action = ManagerCutScenes.ID_ACTION_SHOW_ORDER;
+        obj.id_action = ManagerCutScenes.ID_ACTION_SHOW_MARKET;
         obj.cat = ManagerCutScenes.CAT_SMALL;
         obj.text = "Ура! Теперь ты можешь продавать продукты по желаемой цене, а также выставлять объявления об этом в газету. Попробуй!"
         _prop.push(obj);

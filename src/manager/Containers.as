@@ -171,6 +171,7 @@ public class Containers {
                 return;
             }
         }
+        if (g.managerCutScenes.isCutScene) return;
         g.hideAllHints(); // ??? not optimise
         var s:Number = gameCont.scaleX;
         if (_startDragPointCont == null || _startDragPoint == null) return;

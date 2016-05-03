@@ -91,5 +91,6 @@ public class Consts {
     public static var INQ_GET_DATA_OUT_GAME_TILES:String = 'getDataOutGameTiles.php';
     public static var INQ_UPDATE_USER_MARKET_CELL:String = 'updateUserMarketCell.php';
     public static var INQ_UPDATE_MARKET_PAPPER:String = 'updateMarketPapper.php';
+    public static var INQ_UPDATE_USER_CUT_SCENE_DATA:String = 'updateUserCutScene.php';
 }
 }
