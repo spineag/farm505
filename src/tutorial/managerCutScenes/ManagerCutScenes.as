@@ -3,6 +3,9 @@
  */
 package tutorial.managerCutScenes {
 import build.WorldObject;
+import build.market.Market;
+
+import data.BuildType;
 
 import flash.events.TimerEvent;
 import flash.geom.Point;
@@ -25,9 +28,11 @@ public class ManagerCutScenes {
     public static const CAT_AIR:String = 'air';         // use class AirTextBubble
 
     public static const REASON_NEW_LEVEL:int = 1;  // use after getting new level
-    public static const REASON_STUPID_USER:int = 2;  // use if user do nothing at 4-9 levels 30 seconds
+    public static const REASON_STUPID_USER:int = 2;  // use if user do nothing at 4-9 levels during 30 seconds
 
-    public static const TYPE_ACTION_SHOW_ORDER_AND_PAPPER:String = 'order_and_papper';
+    public static const ID_ACTION_SHOW_ORDER:int=0;
+    public static const ID_ACTION_SHOW_PAPPER:int=1;
+    private var countActions:int = 2;
 
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
@@ -47,13 +52,38 @@ public class ManagerCutScenes {
         _properties = (new CutSceneProperties(this)).properties;
     }
 
+    public function checkAvailableCutScenes():void { // use this function only once at game start
+        if (g.user.cutScenes.length < countActions) {
+            var l:int = countActions - g.user.cutScenes.length;
+            while (l>0) {
+                g.user.cutScenes.push(0);
+                l--;
+            }
+        }
+        for (l=0; l<countActions; l++) {
+            if (g.user.cutScenes[l] == 0) { // if == 1 - its mean, that cutScene was showed
+                if (_properties[l].level) {
+                    if (_properties[l].level == g.user.level) {
+                        _curCutScenePropertie = _properties[l];
+                        checkTypeFunctions();
+                        return;
+                    } else {
+                        continue;
+                    }
+                } else {
+                    // ?? as example, maybe check by getting new building
+                }
+            }
+        }
+    }
+
     public function checkCutScene(reason:int):void {
         if (g.user.level < 5) return;
         var i:int;
         switch (reason) {
             case REASON_NEW_LEVEL:
                 for (i=0; i<_properties.length; i++) {
-                    if (_properties[i].raeson == REASON_NEW_LEVEL && g.user.level == _properties[i].level) {
+                    if (_properties[i].reason == REASON_NEW_LEVEL && g.user.level == _properties[i].level) {
                         _curCutScenePropertie = _properties[i];
                         checkTypeFunctions();
                         return;
@@ -63,18 +93,28 @@ public class ManagerCutScenes {
         }
     }
 
-    public function isType(type:String):Boolean {
-        return isCutScene && type == _curCutScenePropertie.type;
+    public function isType(id:int):Boolean {
+        return isCutScene && id == _curCutScenePropertie.id_action;
     }
 
     private function checkTypeFunctions():void {
-        switch (_curCutScenePropertie.type) {
-            case TYPE_ACTION_SHOW_ORDER_AND_PAPPER: releaseOrderAndPapper(); break;
+        switch (_curCutScenePropertie.id_action) {
+            case ID_ACTION_SHOW_ORDER: releaseOrderAndPapper(); break;
         }
     }
 
     public function releaseOrderAndPapper():void {
         isCutScene = true;
+        _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.MARKET);
+        addCatToPos(20, 22);
+        g.managerCats.goCatToPoint(_cat, new Point(46, 0), order_1);
+        g.cont.moveCenterToPos(_cutSceneBuildings[0].source.x - 100, _cutSceneBuildings[0].source.y + 300, false, 2);
+    }
+
+    private function order_1():void {
+        _cat.flipIt(true);
+        _cat.showBubble(_curCutScenePropertie.text);
+        (_cutSceneBuildings as Market).showArrow();
 
     }
 

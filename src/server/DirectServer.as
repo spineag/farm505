@@ -536,6 +536,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            var i:int;
             Cc.ch('server', 'getUserInfo OK', 5);
             var ob:Object = d.message;
             g.user.ambarLevel = int(ob.ambar_level);
@@ -565,6 +566,14 @@ public class DirectServer {
             g.user.countCats = int(ob.count_cats);
             if (ob.scale) {
                 g.currentGameScale = int(ob.scale)/100;
+            }
+            if (ob.cut_scene) {
+                g.user.cutScenes = String(ob.cut_scene).split('&');
+                for (i=0; i<g.user.cutScenes.length; i++) {
+                    g.user.cutScenes[i] = int(g.user.cutScenes[i]);
+                }
+            } else {
+                g.user.cutScenes = [];
             }
             if (ob.is_tester && int(ob.is_tester) > 0) {
                 g.user.isTester = true;
