@@ -261,6 +261,7 @@ public class ToolsModifier {
             return;
         }
 
+        g.townArea.onActivateMoveModifier(false);
         g.cont.contentCont.alpha = .5;
         g.cont.contentCont.touchable = false;
 
@@ -269,8 +270,14 @@ public class ToolsModifier {
         _activeBuilding = selectedBuild;
         _activeBuilding.source.filter = null;
 
-        _startMoveX = _activeBuilding.source.x;
-        _startMoveY = _activeBuilding.source.y;
+        if (!isFromShop) {
+            _startMoveX = _activeBuilding.source.x;
+            _startMoveY = _activeBuilding.source.y;
+        } else {
+            _startMoveX = -1;
+            _startMoveY = -1;
+        }
+
         _activeBuilding.source.x = 0;
         _activeBuilding.source.y = 0;
         _spriteForMove.addChild(_activeBuilding.source);
@@ -297,7 +304,7 @@ public class ToolsModifier {
 
     public function cancelMove():void {
         if (!_spriteForMove) return;
-        g.cont.contentCont.alpha = 1;
+       g.cont.contentCont.alpha = 1;
         g.gameDispatcher.removeEnterFrame(moveIt);
         while (_spriteForMove.numChildren) {
              _spriteForMove.removeChildAt(0);
@@ -307,7 +314,12 @@ public class ToolsModifier {
         _spriteForMove.removeChild(_activeBuilding.source);
         _spriteForMove = null;
         if (_activeBuilding is DecorTail) {
-            g.townArea.pasteTailBuild((_activeBuilding as DecorTail), _startMoveX, _startMoveY, false, false);
+            if (_startMoveX == -1 && _startMoveY == -1) {
+                _activeBuilding.clearIt();
+                _activeBuilding = null;
+            } else {
+                g.townArea.pasteTailBuild((_activeBuilding as DecorTail), _startMoveX, _startMoveY, false, false);
+            }
             g.cont.contentCont.touchable = true;
         }
         if (_activeBuilding) {
@@ -369,6 +381,13 @@ public class ToolsModifier {
         x = _spriteForMove.x;
         y = _spriteForMove.y;
         if (_activeBuilding is DecorTail) {
+            if (_modifierType == MOVE) {
+                g.townArea.onActivateMoveModifier(true);
+                g.cont.contentCont.touchable = true;
+                g.cont.contentCont.alpha = 1;
+            }
+        } else g.cont.contentCont.alpha = 1;
+        if (_activeBuilding is DecorTail) {
 //            if (g.townArea.townTailMatrix[point.y][point.x].build) {
 //                g.gameDispatcher.addEnterFrame(moveIt);
 //                return;
@@ -419,16 +438,16 @@ public class ToolsModifier {
         if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {
             spriteForMoveIndexX = point.x;
             spriteForMoveIndexY = point.y;
-//            if (_activeBuilding is DecorTail) {
-//                if (!g.townArea.townTailMatrix[spriteForMoveIndexY] || !g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX]) return;
-//                if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
-//                    _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
-//                } else {
-//                    _spriteForMove.filter = null;
-//                }
-//                _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
-//
-//            } else {
+            if (_activeBuilding is DecorTail) {
+                if (!g.townArea.townTailMatrix[spriteForMoveIndexY] || !g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX]) return;
+                if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
+                    _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
+                } else {
+                    _spriteForMove.filter = null;
+                }
+                _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
+
+            } else {
                 if (g.isActiveMapEditor && _activeBuilding is Wild) return;
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
                 if (_moveGrid.isFree) {
@@ -437,7 +456,7 @@ public class ToolsModifier {
 //                    if (_startMoveX == int(_spriteForMove.x) && _startMoveY == int(_spriteForMove.y))  _activeBuilding.source.filter = null;
                     _activeBuilding.source.filter = ManagerFilters.RED_TINT_FILTER;
                 }
-//            }
+            }
         }
     }
 
