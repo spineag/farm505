@@ -329,12 +329,55 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function fillTailMatrix(posX:int, posY:int, source:WorldObject):void {
-         _townTailMatrix[posY][posX].build = source;
+    public function fillTailMatrix(posX:int, posY:int, sizeX:int,sizeY:int, source:WorldObject):void {
+
+        if (source.dataBuild.buildType == BuildType.DECOR_TAIL) {
+            if (source is TutorialPlace) return;
+            var j:int;
+            for (var i:int = posY; i < (posY + sizeY); i++) {
+                for (j = posX; j < (posX + sizeX); j++) {
+                    if (_townTailMatrix[i][j].build && _townTailMatrix[i][j].build is LockedLand && source is Wild) {
+                        continue;
+                    }
+                    _townTailMatrix[i][j].isTutorialBuilding = false;
+                    _townTailMatrix[i][j].build = source;
+                    _townTailMatrix[i][j].isFull = true;
+                    if (sizeX > 1 && sizeY > 1) {
+                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
+                            _townTailMatrix[i][j].isWall = true;
+                    }
+                }
+            }
+
+            if (sizeX > 1 && sizeY > 1) {  // write coordinates left->right && top->down
+                _objBuildingsDiagonals[String(posX) + '-' + String(posY + 1) + '-' + String(posX + 1) + '-' + String(posY)] = true;
+                _objBuildingsDiagonals[String(posX + sizeX - 1) + '-' + String(posY) + '-' + String(posX + sizeX) + '-' + String(posY + 1)] = true;
+                _objBuildingsDiagonals[String(posX) + '-' + String(posY + sizeY - 1) + '-' + String(posX + 1) + '-' + String(posY + sizeY)] = true;
+                _objBuildingsDiagonals[String(posX + sizeX - 1) + '-' + String(posY + sizeY) + '-' + String(posX + sizeX) + '-' + String(posY + sizeY - 1)] = true;
+            }
+        } else _townTailMatrix[posY][posX].build = source;
+
     }
 
-    public function unFillTailMatrix(posX:int, posY:int):void {
-        _townTailMatrix[posY][posX].build = null;
+    public function unFillTailMatrix(posX:int, posY:int, sizeX:int, sizeY:int):void {
+        if (sizeX == 0) _townTailMatrix[posY][posX].build = null;
+        else {
+            for (var i:int = posY; i < (posY + sizeY); i++) {
+                for (var j:int = posX; j < (posX + sizeX); j++) {
+                    _townTailMatrix[i][j].build = null;
+                    _townTailMatrix[i][j].isFull = false;
+                    _townTailMatrix[i][j].isWall = false;
+                    _townTailMatrix[i][j].isTutorialBuilding = false;
+                }
+            }
+
+            if (sizeX > 1 && sizeY > 1) {  // write coordinate left->right && top->down
+                delete _objBuildingsDiagonals[String(posX) + '-' + String(posY + 1) + '-' + String(posX + 1) + '-' + String(posY)];
+                delete _objBuildingsDiagonals[String(posX + sizeX - 1) + '-' + String(posY) + '-' + String(posX + sizeX) + '-' + String(posY + 1)];
+                delete _objBuildingsDiagonals[String(posX) + '-' + String(posY + sizeY - 1) + '-' + String(posX + 1) + '-' + String(posY + sizeY)];
+                delete _objBuildingsDiagonals[String(posX + sizeX - 1) + '-' + String(posY + sizeY) + '-' + String(posX + sizeX) + '-' + String(posY + sizeY - 1)];
+            }
+        }
     }
 
     public function fillMatrixWithFence(posX:int, posY:int, source:*):void {
@@ -496,7 +539,7 @@ public class TownArea extends Sprite {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
                 for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
                     for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
-                        fillTailMatrix(jk, ik, worldObject);
+                        fillTailMatrix(jk, ik,0,0, worldObject);
                     }
                 }
             }
@@ -537,7 +580,7 @@ public class TownArea extends Sprite {
             if (worldObject is Order || worldObject is LockedLand) {
                 for (var i:int = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
                     for (var j:int = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
-                        fillTailMatrix(j, i, worldObject);
+                        fillTailMatrix(j, i,0,0, worldObject);
                     }
                 }
             }
@@ -861,10 +904,8 @@ public class TownArea extends Sprite {
             tail.posX = point.x;
             tail.posY = point.y;
             _cityTailObjects.push(tail);
-//            fillTailMatrix(tail.posX, tail.posY, tail as WorldObject);
-            fillMatrix(tail.posX, tail.posY,tail.sizeX, tail.sizeY, this);
-            (tail as WorldObject).updateDepth();
-            decorTailSort();
+            fillTailMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY, tail as WorldObject);
+//            fillMatrix(tail.posX, tail.posY,tail.sizeX, tail.sizeY, this);
             if (isNewAtMap) {
                 g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
                 tail.addXP();
@@ -873,11 +914,13 @@ public class TownArea extends Sprite {
                 g.directServer.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
             }
         }
+        (tail as WorldObject).updateDepth();
+        if (updateAfterMove) decorTailSort();
 
         g.selectedBuild = null;
         if (isNewAtMap){
-            var build:AreaObject;
             if (g.userInventory.decorInventory[tail.dataBuild.id]) {
+            var build:AreaObject;
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
@@ -927,6 +970,7 @@ public class TownArea extends Sprite {
                 g.buyHint.hideIt();
                 return;
             }
+            var build:AreaObject;
             g.buyHint.showIt((arr.length* tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;
@@ -969,7 +1013,8 @@ public class TownArea extends Sprite {
         if(_contTail.contains(tail.source)) {
             g.selectedBuild = tail;
             _contTail.removeChild(tail.source);
-            unFillMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY);
+//            unFillMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY);
+            unFillTailMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY);
             g.toolsModifier.startMoveTail(tail as AreaObject, afterMove);
         }
     }
@@ -1000,7 +1045,7 @@ public class TownArea extends Sprite {
         if (worldObject is Wild || worldObject is LockedLand) {
             for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
                 for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
-                    unFillTailMatrix(jk, ik);
+                    unFillTailMatrix(jk, ik,0,0);
                 }
             }
         }
@@ -1017,8 +1062,8 @@ public class TownArea extends Sprite {
         if(_contTail.contains(tail.source)){
             _contTail.removeChild(tail.source);
         }
-        unFillMatrix(tail.posX, tail.posY, tail.sizeX, tail.sizeY);
-//        unFillTailMatrix(tail.posX, tail.posY);
+//        unFillMatrix(tail.posX, tail.posY, tail.sizeX, tail.sizeY);
+        unFillTailMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY);
         if (_cityTailObjects.indexOf(tail) > -1) _cityTailObjects.splice(_cityTailObjects.indexOf(tail), 1);
         tail.clearIt();
     }
@@ -1468,7 +1513,7 @@ public class TownArea extends Sprite {
         if (worldObject is Wild || worldObject is LockedLand) {
             for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
                 for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
-                    unFillTailMatrix(jk, ik);
+                    unFillTailMatrix(jk, ik,0,0);
                 }
             }
         }
