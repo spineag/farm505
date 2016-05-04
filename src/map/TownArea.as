@@ -907,8 +907,9 @@ public class TownArea extends Sprite {
 
         g.selectedBuild = null;
         if (isNewAtMap) {
-            if (g.userInventory.decorInventory[tail.dataBuild.id]) {
             var build:AreaObject;
+            if (g.userInventory.decorInventory[tail.dataBuild.id]) {
+            if (g.userInventory.decorInventory[tail.dataBuild.id]) {
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
@@ -958,7 +959,6 @@ public class TownArea extends Sprite {
                 g.buyHint.hideIt();
                 return;
             }
-            var build:AreaObject;
             g.buyHint.showIt((arr.length* tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;

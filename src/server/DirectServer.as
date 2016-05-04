@@ -536,6 +536,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            var i:int;
             Cc.ch('server', 'getUserInfo OK', 5);
             var ob:Object = d.message;
             g.user.ambarLevel = int(ob.ambar_level);
@@ -565,6 +566,14 @@ public class DirectServer {
             g.user.countCats = int(ob.count_cats);
             if (ob.scale) {
                 g.currentGameScale = int(ob.scale)/100;
+            }
+            if (ob.cut_scene) {
+                g.user.cutScenes = String(ob.cut_scene).split('&');
+                for (i=0; i<g.user.cutScenes.length; i++) {
+                    g.user.cutScenes[i] = int(g.user.cutScenes[i]);
+                }
+            } else {
+                g.user.cutScenes = [];
             }
             if (ob.is_tester && int(ob.is_tester) > 0) {
                 g.user.isTester = true;
@@ -4497,6 +4506,46 @@ public class DirectServer {
         } else {
             Cc.error('useChest: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useChest: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserCutScenesData():void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_CUT_SCENE_DATA);
+        var variables:URLVariables = new URLVariables();
+        Cc.ch('server', 'updateUserCutScenesData', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.cutScene = g.user.cutScenes.join('&');
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCutScenesData);
+        function onCompleteUpdateUserCutScenesData(e:Event):void { completeUpdateUserCutScenesData(e.target.data); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserCutScenesData error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCutScenesData error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserCutScenesData(response:String):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserCutScenesData: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateMarketPapper: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserCutScenesData OK', 5);
+        } else {
+            Cc.error('updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 }

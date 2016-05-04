@@ -416,6 +416,7 @@ public class Vars {
             managerTutorial.checkDefaults();
         }
         townArea.addTownAreaSortCheking();
+        managerCutScenes.checkAvailableCutScenes();
     }
 
     private function onEnterFrameGlobal():void {

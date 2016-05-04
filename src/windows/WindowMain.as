@@ -9,6 +9,9 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
+
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import utils.CButton;
 import utils.CSprite;
 
@@ -53,6 +56,11 @@ public class WindowMain {
 
     private function onShowingWindow():void {
         if (g.managerTutorial.isTutorial) g.managerTutorial.checkTutorialCallbackOnShowWindow();
+        if (g.managerCutScenes.isCutScene) {
+            if ((g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET) && _windowType == WindowsManager.WO_MARKET) ||
+                (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_PAPPER) && _windowType == WindowsManager.WO_PAPPER) )
+                g.managerCutScenes.checkCutSceneCallback();
+        }
     }
 
     public function hideIt():void {

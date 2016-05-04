@@ -16,6 +16,9 @@ import starling.events.Event;
 import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import user.NeighborBot;
 import user.Someone;
 import utils.CButton;
@@ -730,6 +733,7 @@ public class WOMarket  extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET)) g.managerCutScenes.checkCutSceneCallback();
         if (isCashed) return;
         var i:int;
         deleteFriends();

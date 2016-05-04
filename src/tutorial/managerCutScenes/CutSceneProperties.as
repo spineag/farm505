@@ -22,10 +22,17 @@ public class CutSceneProperties {
 
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
         obj.level = 5;
-        obj.type = ManagerCutScenes.TYPE_ACTION_SHOW_ORDER_AND_PAPPER;
-        obj.cat = ManagerCutScenes.CAT_BIG;
-        obj.text_1 = "Ура! Теперь ты можешь продавать продукты по желаемой цене, а также выставлять объявления об этом в газету. Попробуй!"
-        obj.text_2 = "Открой газету, посмотри что продают другие!";
+        obj.id_action = ManagerCutScenes.ID_ACTION_SHOW_MARKET;
+        obj.cat = ManagerCutScenes.CAT_SMALL;
+        obj.text = "Ура! Теперь ты можешь продавать продукты по желаемой цене, а также выставлять объявления об этом в газету. Попробуй!"
+        _prop.push(obj);
+
+        obj = {};
+        obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
+        obj.level = 5;
+        obj.id_action = ManagerCutScenes.ID_ACTION_SHOW_PAPPER;
+        obj.cat = ManagerCutScenes.CAT_SMALL;
+        obj.text = "Открой газету, посмотри что продают другие!";
         _prop.push(obj);
     }
 }
