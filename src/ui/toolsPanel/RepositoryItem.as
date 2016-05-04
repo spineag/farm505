@@ -3,30 +3,17 @@
  */
 package ui.toolsPanel {
 import build.AreaObject;
-import build.AreaObject;
-import build.WorldObject;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
-import flash.geom.Point;
-
 import manager.ManagerFilters;
-import manager.OwnEvent;
-
 import manager.Vars;
-
 import starling.display.Image;
-import starling.display.Quad;
-import starling.events.Event;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
-import starling.utils.Color;
+
+import tutorial.managerCutScenes.ManagerCutScenes;
 
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
 public class RepositoryItem {
@@ -89,6 +76,7 @@ public class RepositoryItem {
             g.toolsModifier.startMove(build, g.townArea.afterMoveFromInventory, true);
         }
         _box.arrNumber(_countCell);
+        if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) g.managerCutScenes.checkCutSceneCallback();
     }
 
     public function updateCount():void {

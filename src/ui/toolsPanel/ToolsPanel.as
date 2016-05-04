@@ -2,20 +2,15 @@
  * Created by user on 8/14/15.
  */
 package ui.toolsPanel {
-
 import com.greensock.TweenMax;
 import com.greensock.easing.Back;
-import com.greensock.easing.Linear;
-
-import manager.ManagerFilters;
+import flash.geom.Point;
 import manager.Vars;
 import mouse.ToolsModifier;
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
-
 import utils.CButton;
-import utils.CSprite;
 import windows.WOComponents.HorizontalPlawka;
 
 public class ToolsPanel {
@@ -25,10 +20,10 @@ public class ToolsPanel {
     private var _flipBtn:CButton;
     private var _moveBtn:CButton;
     public var repositoryBox:RepositoryBox;
+    private var _cutSceneCallback:Function;
     private var g:Vars = Vars.getInstance();
 
     public function ToolsPanel() {
-        _source = new Sprite();
         _source = new Sprite();
         g.cont.interfaceCont.addChildAt(_source, 0);
         var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
@@ -143,6 +138,9 @@ public class ToolsPanel {
                     }
                 }
                 if (g.buyHint.showThis) g.buyHint.hideIt();
+                if (_cutSceneCallback != null) {
+                    _cutSceneCallback.apply();
+                }
                 break;
             case 'move':
                     if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -173,6 +171,27 @@ public class ToolsPanel {
 
     public function get repositoryBoxVisible():Boolean {
         return repositoryBox.source.visible;
+    }
+
+    public function getRepositoryBoxProperties():Object {
+        var obj:Object = {};
+        obj.x = _repositoryBtn.x - _repositoryBtn.width/2;
+        obj.y = _repositoryBtn.y - _repositoryBtn.height/2;
+        var p:Point = new Point(obj.x, obj.y);
+        p = _source.localToGlobal(p);
+        obj.x = p.x;
+        obj.y = p.y;
+        obj.width = _repositoryBtn.width;
+        obj.height = _repositoryBtn.height;
+        return obj;
+    }
+
+    public function getRepositoryBoxFirstItemProperties():Object {
+        return repositoryBox.getRepositoryBoxPropertiesFirstItem();
+    }
+
+    public function set cutSceneCallback(f:Function):void {
+        _cutSceneCallback = f;
     }
 }
 }

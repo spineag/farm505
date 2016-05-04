@@ -27,6 +27,8 @@ import starling.utils.Color;
 
 import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import ui.xpPanel.XPStar;
 import utils.CButton;
 import utils.CSprite;
@@ -102,22 +104,6 @@ public class ShopItem {
 
         source.endClickCallback = onClick;
         setInfo();
-
-//        if (g.managerTutorial.isTutorial) {
-//            if (_data.buildType == BuildType.ANIMAL && g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) {
-//                if (g.managerTutorial.isTutorialResource(_data.id)) {
-//                    addArrow();
-//                }
-//            } else if (_data.buildType == BuildType.FABRICA && g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA) {
-//                if (g.managerTutorial.isTutorialResource(_data.id)) {
-//                    addArrow();
-//                }
-//            } else if (_data.buildType == BuildType.CAT && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-//                addArrow();
-//            } else if (_data.buildType == BuildType.RIDGE && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
-//                addArrow();
-//            }
-//        }
     }
 
     public function get position():int {
@@ -567,9 +553,13 @@ public class ShopItem {
             _data.cost = _countCost;
         }
 
-
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (g.managerTutorial.isTutorial) return;
+            if (g.managerCutScenes.isCutScene) {
+                if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && g.managerCutScenes.isCutSceneResource(_data.id)) {
+                    g.managerCutScenes.checkCutSceneCallback();
+                } else return;
+            } else return;
             if (_data.currency.length == 1) {
                 if (_data.currency == DataMoney.SOFT_CURRENCY) {
                     if (g.user.softCurrencyCount < _countCost) {

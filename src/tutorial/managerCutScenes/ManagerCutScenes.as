@@ -3,8 +3,11 @@
  */
 package tutorial.managerCutScenes {
 import build.WorldObject;
+import build.decor.Decor;
 import build.market.Market;
 import build.paper.Paper;
+
+import com.junkbyte.console.Cc;
 
 import data.BuildType;
 
@@ -13,6 +16,9 @@ import flash.geom.Point;
 import flash.utils.Timer;
 
 import manager.Vars;
+
+import mouse.ToolsModifier;
+
 import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -22,6 +28,9 @@ import tutorial.CutScene;
 import tutorial.DustRectangle;
 import tutorial.SimpleArrow;
 import tutorial.TutorialCat;
+
+import windows.WindowsManager;
+import windows.shop.WOShop;
 
 public class ManagerCutScenes {
     public static const CAT_BIG:String = 'big';         // use class CatScene
@@ -33,7 +42,9 @@ public class ManagerCutScenes {
 
     public static const ID_ACTION_SHOW_MARKET:int = 0;
     public static const ID_ACTION_SHOW_PAPPER:int = 1;
-    private var countActions:int = 2;
+    public static const ID_ACTION_BUY_DECOR:int = 2;
+    public static const ID_ACTION_TO_INVENTORY_DECOR:int = 3;
+    public static const ID_ACTION_FROM_INVENTORY_DECOR:int = 4;
 
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
@@ -58,6 +69,7 @@ public class ManagerCutScenes {
     }
 
     public function checkAvailableCutScenes():void { // use this function only once at game start
+        var countActions:int = _properties.length;
         if (g.user.cutScenes.length < countActions) {
             var l:int = countActions - g.user.cutScenes.length;
             while (l>0) {
@@ -106,6 +118,9 @@ public class ManagerCutScenes {
         switch (_curCutScenePropertie.id_action) {
             case ID_ACTION_SHOW_MARKET: releaseMarket(); break;
             case ID_ACTION_SHOW_PAPPER: releasePapper(); break;
+            case ID_ACTION_BUY_DECOR: releaseDecor(); break;
+            case ID_ACTION_TO_INVENTORY_DECOR: releaseToInventoryDecor(); break;
+            case ID_ACTION_FROM_INVENTORY_DECOR: releaseFromInventoryDecor(); break;
         }
     }
 
@@ -121,17 +136,24 @@ public class ManagerCutScenes {
         _cat.flipIt(false);
         _cat.showBubble(_curCutScenePropertie.text);
         (_cutSceneBuildings[0] as Market).showArrow();
+        _airBubble = new AirTextBubble();
         _cutSceneCallback = market_2;
     }
 
     private function market_2():void {
+        _cutSceneCallback = null;
         _cat.hideBubble();
         (_cutSceneBuildings[0] as Market).hideArrow();
-        _cutSceneCallback = market_3;
+        _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, market_3);
+        _airBubble.showBtnParticles();
+        _airBubble.showBtnArrow();
     }
 
     private function market_3():void {
-        _cutSceneCallback = null;
+        _airBubble.hideIt();
+        _airBubble.deleteIt();
+        _airBubble = null;
+        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
         g.user.cutScenes[0] = 1;
         saveUserCutScenesData();
         checkCutScene(REASON_NEW_LEVEL);
@@ -175,7 +197,184 @@ public class ManagerCutScenes {
         isCutScene = false;
     }
 
+    private function releaseDecor():void {
+        isCutScene = true;
+        _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text);
+        var ob:Object = g.bottomPanel.getShopButtonProperties();
+        g.bottomPanel.addArrow('shop');
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _cutSceneCallback = decor_1;
+    }
 
+    private function decor_1():void {
+        g.bottomPanel.deleteArrow();
+        _cutScene.hideIt(deleteCutScene);
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        _cutSceneCallback = decor_2;
+    }
+
+    private function decor_2():void {
+        _cutSceneResourceIDs = [28];
+        var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_cutSceneResourceIDs[0], true);
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow.scaleIt(.7);
+        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+        _cutSceneCallback = decor_3;
+    }
+
+    private function decor_3():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        _cutSceneCallback = decor_4;
+    }
+
+    private function decor_4():void {
+        _cutSceneCallback = null;
+        g.user.cutScenes[2] = 1;
+        saveUserCutScenesData();
+        checkCutScene(REASON_NEW_LEVEL);
+    }
+
+    private function releaseToInventoryDecor():void {
+        isCutScene = true;
+        _cutSceneResourceIDs = [28];
+        _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
+        if (!_cutSceneBuildings.length) {
+            Cc.error('no decor for CutScene');
+            return;
+        }
+        g.bottomPanel.showToolsForCutScene();
+        createDelay(.7, toInventory_1);
+    }
+
+    private function toInventory_1():void {
+        if (!_cutScene) _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text);
+        var ob:Object = g.toolsPanel.getRepositoryBoxProperties();
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow.scaleIt(.7);
+        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+        g.toolsPanel.cutSceneCallback = toInventory_2;
+    }
+
+    private function toInventory_2():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        var pX:int = _cutSceneBuildings[0].posX - 2;
+        var pY:int = _cutSceneBuildings[0].posY - 2;
+        if (pX < 0 || pY < 0) {
+            pX += 2;
+            pY += 2;
+        }
+        g.cont.moveCenterToPos(pX, pY, false, .5);
+        (_cutSceneBuildings[0] as Decor).showArrow();
+        _cutSceneCallback = toInventory_3;
+    }
+
+    private function toInventory_3():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        (_cutSceneBuildings[0] as Decor).hideArrow();
+        _cutSceneBuildings = [];
+        g.toolsPanel.hideRepository();
+        _cutSceneCallback = null;
+        g.user.cutScenes[3] = 1;
+        saveUserCutScenesData();
+        createDelay(.7, toInventory_4);
+    }
+
+    private function toInventory_4():void {
+        checkCutScene(REASON_NEW_LEVEL);
+    }
+
+    private function releaseFromInventoryDecor():void {
+        isCutScene = true;
+        if (g.toolsPanel.isShowed) {
+            fromInventory_1();
+        } else {
+            g.bottomPanel.showToolsForCutScene();
+            createDelay(.7, fromInventory_1);
+        }
+    }
+
+    private function fromInventory_1():void {
+        if (!_cutScene) _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text);
+        var ob:Object = g.toolsPanel.getRepositoryBoxProperties();
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow.scaleIt(.7);
+        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+        g.toolsPanel.cutSceneCallback = fromInventory_2;
+    }
+
+    private function fromInventory_2():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        _cutScene.hideIt(deleteCutScene);
+        createDelay(.5, fromInventory_3);
+    }
+
+    private function fromInventory_3():void {
+        var ob:Object = g.toolsPanel.getRepositoryBoxFirstItemProperties();
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow.scaleIt(.7);
+        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+        _cutSceneCallback = fromInventory_4;
+    }
+
+    private function fromInventory_4():void {
+        g.toolsPanel.hideRepository();
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        _cutSceneCallback = fromInventory_5;
+    }
+
+    private function fromInventory_5():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        _cutSceneBuildings = [];
+        _cutSceneResourceIDs = [];
+        _cutSceneCallback = null;
+        g.user.cutScenes[4] = 1;
+        saveUserCutScenesData();
+        isCutScene = false;
+    }
+
+
+
+    public function isCutSceneResource(id:int):Boolean {
+        return _cutSceneResourceIDs.indexOf(id) > -1;
+    }
 
     public function checkCutSceneCallback():void {
         if (_cutSceneCallback != null) {
@@ -222,7 +421,7 @@ public class ManagerCutScenes {
         return _cutSceneBuildings.indexOf(wo) > -1;
     }
 
-    private function createDelay(delay:int, f:Function):void {
+    private function createDelay(delay:Number, f:Function):void {
         var func:Function = function():void {
             timer.removeEventListener(TimerEvent.TIMER, func);
             timer = null;
