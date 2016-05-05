@@ -72,7 +72,5 @@ public class WOGameError extends WindowMain {
         _b = null;
         super.deleteIt();
     }
-
-
 }
 }

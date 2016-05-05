@@ -305,6 +305,13 @@ public class MarketItem {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        g.windowsManager.cashWindow = _wo;
+//        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+        _wo.hideIt();
+        g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, true);
+    }
+
+    private function deleteCallback():void {
         _papper.visible = false;
         _imCheck.visible = false;
         _inPapper = false;
@@ -640,8 +647,8 @@ public class MarketItem {
         count--;
         if (count >= 0) {
             g.gameDispatcher.removeFromTimer(onEnterFrame);
-            if (!g.resourceHint.isShowed && _onHover)
-                g.marketHint.showIt(_data.id,source.x,source.y,source);
+//            if (!g.resourceHint.isShowed && _onHover)
+//                g.marketHint.showIt(_data.id,source.x,source.y,source);
         }
     }
 

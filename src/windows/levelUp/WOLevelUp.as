@@ -186,14 +186,16 @@ public class WOLevelUp extends WindowMain {
         }
         obj = g.dataBuilding.objectBuilding;
         for (id in obj) {
-            if (obj[id].buildType == BuildType.TREE || obj[id].buildType == BuildType.FARM || obj[id].buildType == BuildType.FABRICA) {
-                for (i = 0; i < obj[id].blockByLevel.length; i++) {
-                    if (g.user.level == obj[id].blockByLevel[i]) {
-                        arr.push(obj[id]);
+            if (obj[id].buildType != BuildType.CHEST) {
+                if (obj[id].buildType == BuildType.TREE || obj[id].buildType == BuildType.FARM || obj[id].buildType == BuildType.FABRICA) {
+                    for (i = 0; i < obj[id].blockByLevel.length; i++) {
+                        if (g.user.level == obj[id].blockByLevel[i]) {
+                            arr.push(obj[id]);
+                        }
                     }
+                } else if (g.user.level == obj[id].blockByLevel) {
+                    arr.push(obj[id]);
                 }
-            } else if (g.user.level == obj[id].blockByLevel) {
-                arr.push(obj[id]);
             }
         }
         if (g.dataLevel.objectLevels[g.user.level].countHard > 0) {

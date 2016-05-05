@@ -198,7 +198,7 @@ public class ShopList {
         }
 
         checkArrows();
-        _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
+        _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
     }
 
     public function clearIt(b:Boolean = false):void {  // need remake
@@ -211,7 +211,7 @@ public class ShopList {
             animList();
         } else if (b && _decor){
             animList();
-        } else if (!b && _decor) {
+        } else if (b && !_decor) {
             _shift = 0;
             animList();
         }
@@ -302,7 +302,7 @@ public class ShopList {
         };
         g.starling.juggler.add(tween);
         checkArrows();
-        _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
+        if(_currentShopArr)_txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
     }
 
     public function getShopItemProperties(_id:int, addArrow:Boolean):Object {
@@ -367,7 +367,7 @@ public class ShopList {
             }
 
             _itemsSprite.x = -_shift*153;
-            _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_arrItems.length/4));
+            _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
             checkArrows();
         } else {
             Cc.error();
