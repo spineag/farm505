@@ -23,7 +23,6 @@ import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOTrain extends WindowMain {
-
     public static var CELL_RED:int = 1;
     public static var CELL_GREEN:int = 2;
     public static var CELL_BLUE:int = 3;
@@ -443,6 +442,50 @@ public class WOTrain extends WindowMain {
         _birka.deleteIt();
         _birka = null;
         super.deleteIt();
+    }
+
+    public function getBoundsProperties(type:String):Object {
+        var obj:Object = {};
+        var p:Point = new Point();
+        switch (type) {
+            case 'firstItem':
+                p.x = _arrItems[0].source.x;
+                p.y = _arrItems[0].source.y;
+                p = _source.localToGlobal(p);
+                obj.x = p.x;
+                obj.y = p.y;
+                obj.width = _arrItems[0].source.width;
+                obj.height = _arrItems[0].source.height;
+                break;
+            case 'loadBtn':
+                p.x = _btnLoad.x - _btnLoad.width/2;
+                p.y = _btnLoad.y - _btnLoad.height/2;
+                p = _rightBlock.localToGlobal(p);
+                obj.x = p.x;
+                obj.y = p.y - 3;
+                obj.width = _btnLoad.width;
+                obj.height = _btnLoad.height;
+                break;
+            case 'priseCont':
+                p.x = _txtCostItem.x + _txtCostItem.width;
+                p.y = _txtCostItem.y + _txtCostItem.height/2;
+                p = _rightBlock.localToGlobal(p);
+                obj.x = p.x - 50;
+                obj.y = p.y - 2;
+                obj.width = 1;
+                obj.height = 1;
+                break;
+            case 'mainLoadBtn':
+                p.x = _btnSend.x - _btnSend.width/2 + 10;
+                p.y = _btnSend.y - _btnSend.height/2;
+                p = _source.localToGlobal(p);
+                obj.x = p.x;
+                obj.y = p.y - 5;
+                obj.width = _btnSend.width;
+                obj.height = _btnSend.height;
+                break;
+        }
+        return obj;
     }
 
 }

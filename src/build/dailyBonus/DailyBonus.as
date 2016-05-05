@@ -97,6 +97,7 @@ public class DailyBonus extends AreaObject{
 
     private function onClick():void {
         if (g.managerTutorial.isTutorial) return;
+        if (g.managerCutScenes.isCutScene) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {

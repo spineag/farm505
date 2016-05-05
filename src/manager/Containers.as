@@ -20,6 +20,7 @@ import starling.events.TouchPhase;
 
 import tutorial.ManagerTutorial;
 import tutorial.TutorialAction;
+import tutorial.managerCutScenes.ManagerCutScenes;
 
 public class Containers {
     public var SHIFT_MAP_X:int;
@@ -171,7 +172,7 @@ public class Containers {
                 return;
             }
         }
-        if (g.managerCutScenes.isCutScene) return;
+        if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) return;
         g.hideAllHints(); // ??? not optimise
         var s:Number = gameCont.scaleX;
         if (_startDragPointCont == null || _startDragPoint == null) return;

@@ -42,6 +42,7 @@ public class Chest extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {

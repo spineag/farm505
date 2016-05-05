@@ -150,6 +150,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onStartClick():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
@@ -170,6 +171,7 @@ public class Ridge extends AreaObject{
     }
 
     private function onEndClick():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialBuilding(this) && _tutorialCallback != null) {
                 g.managerTutorial.checkTutorialCallback();

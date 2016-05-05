@@ -132,6 +132,7 @@ public class Wild extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) return;
         if (_delete) return;
         if (g.selectedBuild) {

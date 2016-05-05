@@ -155,9 +155,8 @@ public class LockedLand extends AreaObject {
     }
 
     private function onClick():void {
-//        showBoom();
-//        return;
         if (g.managerTutorial.isTutorial) return;
+        if (g.managerCutScenes.isCutScene) return;
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
