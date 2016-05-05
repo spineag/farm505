@@ -20,6 +20,7 @@ import windows.levelUp.WOLevelUp;
 import windows.lockedLand.WOLockedLand;
 import windows.market.WOMarket;
 import windows.market.WOMarketChoose;
+import windows.market.WOMarketDeleteItem;
 import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
 import windows.noPlaces.WONoPlaces;
@@ -50,6 +51,7 @@ public class WindowsManager {
     public static const WO_LOCKED_LAND:String = 'locked_land';
     public static const WO_MARKET:String = 'market';
     public static const WO_MARKET_CHOOSE:String = 'market_choose';
+    public static const WO_MARKET_DELETE_ITEM:String = 'market_delete_item';
     public static const WO_NO_FREE_CATS:String = 'no_free_cats';
     public static const WO_WAIT_FREE_CATS:String = 'wait_free_cats';
     public static const WO_NO_PLACES:String = 'no_places';
@@ -156,6 +158,9 @@ public class WindowsManager {
                 break;
             case WO_MARKET_CHOOSE:
                 wo = new WOMarketChoose();
+                break;
+            case WO_MARKET_DELETE_ITEM:
+                wo = new WOMarketDeleteItem();
                 break;
             case WO_PAPPER:
                 wo = new WOPapper();
