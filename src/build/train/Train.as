@@ -30,6 +30,8 @@ import starling.utils.Color;
 
 import temp.DropResourceVariaty;
 
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import ui.xpPanel.XPStar;
 
 import windows.WindowsManager;
@@ -69,7 +71,7 @@ public class Train extends AreaObject{
         _source.addChild(_craftSprite);
         if (_stateBuild == STATE_WAIT_ACTIVATE) {
             addDoneBuilding();
-            _arriveAnim.visible = false;
+            if (_arriveAnim) _arriveAnim.visible = false;
             WorldClock.clock.remove(_armature);
         } else if (_stateBuild == STATE_BUILD) {
             addFoundationBuilding();
@@ -152,6 +154,7 @@ public class Train extends AreaObject{
     }
 
     private function makeIdleAnimation(e:AnimationEvent=null):void {
+        _bolAnimation = false;
         if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
         if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
         _armature.addEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
@@ -166,7 +169,6 @@ public class Train extends AreaObject{
         } else {
             _armature.animation.gotoAndPlay('idle_4');
         }
-        _bolAnimation = false;
     }
 
     private function checkTrainState():void {
@@ -338,21 +340,23 @@ public class Train extends AreaObject{
                         onOut();
                     if (_stateBuild == Train.STATE_READY) {
                         g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
+                        if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_OPEN_TRAIN)) g.managerCutScenes.checkCutSceneCallback();
                     } else {
                         g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
                     }
-                    } else {
-                        onOut();
-                        var f2:Function = function(ob:Object):void {
-                            fillList(ob);
-                            if (_stateBuild == Train.STATE_READY) {
-                                g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
-                            } else {
-                                g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
-                            }
-                        };
-                        g.directServer.getTrainPack(g.user.userSocialId, f2);
-                    }
+                } else {
+                    onOut();
+                    var f2:Function = function(ob:Object):void {
+                        fillList(ob);
+                        if (_stateBuild == Train.STATE_READY) {
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
+                            if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_OPEN_TRAIN)) g.managerCutScenes.checkCutSceneCallback();
+                        } else {
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
+                        }
+                    };
+                    g.directServer.getTrainPack(g.user.userSocialId, f2);
+                 }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
@@ -370,6 +374,7 @@ public class Train extends AreaObject{
             onOut();
             if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, "Откройте поезд", false);
             g.hint.hideIt();
+            if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TRAIN_AVAILABLE)) g.managerCutScenes.checkCutSceneCallback();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) {
                 onOut();
@@ -530,8 +535,6 @@ public class Train extends AreaObject{
 
     private function callbackSkip():void {
         _stateBuild = STATE_WAIT_ACTIVATE;
-//        clearCraftSprite();
-//        addTempGiftIcon();
         _leftBuildTime = 0;
         renderBuildProgress();
     }
@@ -539,6 +542,8 @@ public class Train extends AreaObject{
     private function onArrivedKorzina():void {
         _arriveAnim.showKorzina();
         _armature.animation.gotoAndStop('work', 0);
+        g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_OPEN_TRAIN);
+        _bolAnimation = false;
     }
 
     private function backTrain():void {

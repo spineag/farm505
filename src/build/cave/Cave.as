@@ -229,6 +229,7 @@ public class Cave extends AreaObject{
     }
 
     private function onClick():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (_isAnimate) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();

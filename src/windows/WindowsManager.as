@@ -78,9 +78,7 @@ public class WindowsManager {
     public function openWindow(type:String, callback:Function=null, ...params):void {
         if (_currentWindow) {
             if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR) {
-                uncasheWindow();
-                uncasheSecondWindow();
-                _currentWindow.hideItQuick();
+                closeAllWindows();
             } else {
                 _nextWindow = {};
                 _nextWindow.type = type;
@@ -263,6 +261,12 @@ public class WindowsManager {
     public function onResize():void {
         if (_currentWindow) _currentWindow.onResize();
         if (_cashWindow) _cashWindow.onResize();
+    }
+
+    public function closeAllWindows():void {
+        uncasheWindow();
+        uncasheSecondWindow();
+        _currentWindow.hideItQuick();
     }
 
 

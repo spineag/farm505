@@ -189,5 +189,18 @@ public class CouponePanel {
     public function openPanel(b:Boolean):void {
         _source.visible = b;
     }
+
+    public function getContPropertie():Object {
+        var obj:Object = {};
+        var p:Point = new Point();
+        p.x = _source.x;
+        p.y = _source.y;
+        p = g.cont.interfaceCont.localToGlobal(p);
+        obj.x = p.x - 50;
+        obj.y = p.y;
+        obj.width = _source.width;
+        obj.height = _source.height;
+        return obj;
+    }
 }
 }

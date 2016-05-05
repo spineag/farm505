@@ -104,6 +104,7 @@ public class Order extends AreaObject{
                 g.managerTutorial.checkTutorialCallback();
             } else return;
         }
+        if (g.managerCutScenes.isCutScene) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
             if (g.selectedBuild) {

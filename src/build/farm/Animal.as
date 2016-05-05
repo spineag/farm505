@@ -192,6 +192,7 @@ public class Animal {
     }
 
     private function onClick(last:Boolean = false):void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         if (_state == WORK) {

@@ -54,6 +54,25 @@ public class CutSceneProperties {
         obj.id_action = ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR;
         obj.text = 'Декор всегда можно достать из инвентаря и вернуть на поляну.';
         _prop.push(obj);
+
+        obj = {};
+        obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
+        obj.level = 17;
+        obj.id_action = ManagerCutScenes.ID_ACTION_TRAIN_AVAILABLE;
+        obj.text = 'Мы уже многому научились и вырабатываем отличные продукты. Теперь можно открыть канатную дорожку для доставки в самые отдаленные места!';
+        _prop.push(obj);
+
+        obj = {};
+        obj.reason = ManagerCutScenes.REASON_OPEN_TRAIN;
+        obj.level = 0;
+        obj.id_action = ManagerCutScenes.ID_ACTION_OPEN_TRAIN;
+        obj.text = 'Первая корзинка уже прибыла. Давай посмотрим, что заказывают.';
+        obj.text2 = 'Сначала выбираем ячейку с запрашиваемым продуктом';
+        obj.text3 = 'Затем загружаем продукт нажав “загрузить”';
+        obj.text4 = 'За загрузку ячейки ты получаешь очки опыта и монеты, а загрузив все ячейки - еще и дополнительную награду.';
+        obj.text5 = 'После полной загрузки корзинку можно отправить или подождать пока она отправиться сама.';
+        obj.text6 = 'Также за полную загрузку корзинки ты получаешь один случайный ваучер. Их можно обменять в магазине на особые покупки.';
+        _prop.push(obj);
     }
 }
 }

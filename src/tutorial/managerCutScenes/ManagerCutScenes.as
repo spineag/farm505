@@ -6,19 +6,15 @@ import build.WorldObject;
 import build.decor.Decor;
 import build.market.Market;
 import build.paper.Paper;
+import build.train.Train;
 
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
-
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
 import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -28,9 +24,9 @@ import tutorial.CutScene;
 import tutorial.DustRectangle;
 import tutorial.SimpleArrow;
 import tutorial.TutorialCat;
-
 import windows.WindowsManager;
 import windows.shop.WOShop;
+import windows.train.WOTrain;
 
 public class ManagerCutScenes {
     public static const CAT_BIG:String = 'big';         // use class CatScene
@@ -39,12 +35,15 @@ public class ManagerCutScenes {
 
     public static const REASON_NEW_LEVEL:int = 1;  // use after getting new level
     public static const REASON_STUPID_USER:int = 2;  // use if user do nothing at 4-9 levels during 30 seconds
+    public static const REASON_OPEN_TRAIN:int = 2;  // use if user open Train, cap
 
     public static const ID_ACTION_SHOW_MARKET:int = 0;
     public static const ID_ACTION_SHOW_PAPPER:int = 1;
     public static const ID_ACTION_BUY_DECOR:int = 2;
     public static const ID_ACTION_TO_INVENTORY_DECOR:int = 3;
     public static const ID_ACTION_FROM_INVENTORY_DECOR:int = 4;
+    public static const ID_ACTION_TRAIN_AVAILABLE:int = 5;
+    public static const ID_ACTION_OPEN_TRAIN:int = 6;
 
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
@@ -70,8 +69,9 @@ public class ManagerCutScenes {
 
     public function checkAvailableCutScenes():void { // use this function only once at game start
         var countActions:int = _properties.length;
+        var l:int;
         if (g.user.cutScenes.length < countActions) {
-            var l:int = countActions - g.user.cutScenes.length;
+            l = countActions - g.user.cutScenes.length;
             while (l>0) {
                 g.user.cutScenes.push(0);
                 l--;
@@ -79,7 +79,7 @@ public class ManagerCutScenes {
         }
         for (l=0; l<countActions; l++) {
             if (g.user.cutScenes[l] == 0) { // if == 1 - its mean, that cutScene was showed
-                if (_properties[l].level) {
+                if (_properties[l].reason == REASON_NEW_LEVEL) {
                     if (_properties[l].level == g.user.level) {
                         _curCutScenePropertie = _properties[l];
                         checkTypeFunctions();
@@ -87,8 +87,6 @@ public class ManagerCutScenes {
                     } else {
                         continue;
                     }
-                } else {
-                    // ?? as example, maybe check by getting new building
                 }
             }
         }
@@ -101,6 +99,15 @@ public class ManagerCutScenes {
             case REASON_NEW_LEVEL:
                 for (i=0; i<_properties.length; i++) {
                     if (_properties[i].reason == REASON_NEW_LEVEL && g.user.level == _properties[i].level && g.user.cutScenes[_properties[i].id_action] == 0) {
+                        _curCutScenePropertie = _properties[i];
+                        checkTypeFunctions();
+                        return;
+                    }
+                }
+                break;
+            case REASON_OPEN_TRAIN:
+                for (i=0; i<_properties.length; i++) {
+                    if (_properties[i].reason == REASON_OPEN_TRAIN && g.user.cutScenes[_properties[i].id_action] == 0) {
                         _curCutScenePropertie = _properties[i];
                         checkTypeFunctions();
                         return;
@@ -121,11 +128,15 @@ public class ManagerCutScenes {
             case ID_ACTION_BUY_DECOR: releaseDecor(); break;
             case ID_ACTION_TO_INVENTORY_DECOR: releaseToInventoryDecor(); break;
             case ID_ACTION_FROM_INVENTORY_DECOR: releaseFromInventoryDecor(); break;
+            case ID_ACTION_FROM_INVENTORY_DECOR: releaseFromInventoryDecor(); break;
+            case ID_ACTION_TRAIN_AVAILABLE: releaseAvailableTrain(); break;
+            case ID_ACTION_OPEN_TRAIN: releaseOpenTrain(); break;
         }
     }
 
     public function releaseMarket():void {
         isCutScene = true;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.MARKET);
         addCatToPos(20, 22);
         g.managerCats.goCatToPoint(_cat, new Point(44, 0), market_1);
@@ -198,6 +209,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseDecor():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
@@ -367,6 +379,167 @@ public class ManagerCutScenes {
         _cutSceneCallback = null;
         g.user.cutScenes[4] = 1;
         saveUserCutScenesData();
+        isCutScene = false;
+    }
+
+    private function releaseAvailableTrain():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        g.hideAllHints();
+        isCutScene = true;
+        _cutSceneResourceIDs = [49];
+        _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
+        if (!_cutSceneBuildings.length) {
+            Cc.error('no train build for CutScene');
+            return;
+        }
+        g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80, false, 1);
+        createDelay(1, availableTrain_1);
+    }
+
+    private function availableTrain_1():void {
+        if (!_cutScene) _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text);
+        (_cutSceneBuildings[0] as Train).showArrow();
+        _cutSceneCallback = availableTrain_2;
+    }
+
+    private function availableTrain_2():void {
+        _cutSceneCallback = null;
+        _cutScene.hideIt(deleteCutScene);
+        (_cutSceneBuildings[0] as Train).hideArrow();
+        _cutSceneBuildings = [];
+        g.user.cutScenes[5] = 1;
+        saveUserCutScenesData();
+        isCutScene = false;
+    }
+
+    private function releaseOpenTrain():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
+        g.hideAllHints();
+        isCutScene = true;
+        _cutSceneResourceIDs = [49];
+        _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
+        if (!_cutSceneBuildings.length) {
+            Cc.error('no train build for CutScene');
+            return;
+        }
+        g.user.cutScenes[6] = 1;
+        saveUserCutScenesData();
+        if (g.windowsManager.currentWindow != null) {
+            if (g.windowsManager.currentWindow.windowType != WindowsManager.WO_TRAIN) {
+                g.windowsManager.closeAllWindows();
+            } else {
+                openTrain_2();
+                return;
+            }
+        }
+        g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80, false, .7);
+        createDelay(.7, openTrain_1);
+    }
+
+    private function openTrain_1():void {
+        if (!_cutScene) _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text);
+        (_cutSceneBuildings[0] as Train).showArrow();
+        _cutSceneCallback = openTrain_2;
+    }
+
+    private function openTrain_2():void {
+        (_cutSceneBuildings[0] as Train).hideArrow();
+        _cutSceneBuildings = [];
+        _cutSceneCallback = null;
+        if (_cutScene) _cutScene.hideIt(deleteCutScene);
+        createDelay(.5, openTrain_2a);
+    }
+
+    private function openTrain_2a():void {
+        _airBubble = new AirTextBubble();
+        _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, openTrain_3);
+        _airBubble.showBtnParticles();
+        var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('firstItem');
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+    }
+
+    private function openTrain_3():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        _airBubble.hideIt();
+        _airBubble.deleteIt();
+        _airBubble = null;
+
+        _airBubble = new AirTextBubble();
+        _airBubble.showIt(_curCutScenePropertie.text3, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 300, Starling.current.nativeStage.stageHeight/2 - 100, openTrain_4);
+        _airBubble.showBtnParticles();
+        var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('loadBtn');
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(ob.x + ob.width, ob.y + ob.height/2);
+    }
+
+    private function openTrain_4():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        _airBubble.hideIt();
+        _airBubble.deleteIt();
+        _airBubble = null;
+
+        _airBubble = new AirTextBubble();
+        _airBubble.showIt(_curCutScenePropertie.text4, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 300, Starling.current.nativeStage.stageHeight/2 - 200, openTrain_5);
+        _airBubble.showBtnParticles();
+        var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('priseCont');
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(ob.x + ob.width, ob.y + ob.height/2);
+    }
+
+    private function openTrain_5():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        _airBubble.hideIt();
+        _airBubble.deleteIt();
+        _airBubble = null;
+
+        _airBubble = new AirTextBubble();
+        _airBubble.showIt(_curCutScenePropertie.text5, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 300, Starling.current.nativeStage.stageHeight/2 + 100, openTrain_6);
+        _airBubble.showBtnParticles();
+        var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('mainLoadBtn');
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(ob.x + ob.width, ob.y + ob.height/2);
+    }
+
+    private function openTrain_6():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        _airBubble.hideIt();
+        _airBubble.deleteIt();
+        _airBubble = null;
+        g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
+
+        if (!_cutScene) _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text6, 'Далее', openTrain_7);
+        var ob:Object = g.couponePanel.getContPropertie();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(ob.x + ob.width, ob.y + ob.height/2);
+    }
+
+    private function openTrain_7():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        _cutScene.hideIt(deleteCutScene);
         isCutScene = false;
     }
 
