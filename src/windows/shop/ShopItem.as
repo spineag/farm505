@@ -559,7 +559,7 @@ public class ShopItem {
                 if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && g.managerCutScenes.isCutSceneResource(_data.id)) {
                     g.managerCutScenes.checkCutSceneCallback();
                 } else return;
-            } else return;
+            }
             if (_data.currency.length == 1) {
                 if (_data.currency == DataMoney.SOFT_CURRENCY) {
                     if (g.user.softCurrencyCount < _countCost) {
