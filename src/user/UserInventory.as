@@ -117,7 +117,7 @@ public class UserInventory {
         return count;
     }
 
-    public function addMoney(typeCurrency:int, count:int):void {
+    public function addMoney(typeCurrency:int, count:int,needSendToServer:Boolean = true):void {
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
                 g.user.hardCurrency += count;
@@ -141,7 +141,7 @@ public class UserInventory {
                 break;
         }
 
-        if (count)
+        if (count && needSendToServer)
             g.directServer.addUserMoney(typeCurrency, count, onAddUserMoney);
     }
 

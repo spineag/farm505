@@ -461,7 +461,7 @@ public class Train extends AreaObject{
         }
     }
 
-    public function fullTrain(p:Point,free:Boolean):void {
+    public function fullTrain(free:Boolean):void {
         //fillList(_dataPack);
         //g.woTrain.showItWithParams(list, this);
         onOut();

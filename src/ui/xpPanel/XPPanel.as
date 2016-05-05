@@ -76,7 +76,6 @@ public class XPPanel {
         g.user.xp += count;
         g.user.globalXP += count;
         if (count && g.useDataFromServer)
-            g.directServer.addUserXP(count, onAddUserXP);
         if (g.user.xp >= _maxXP){
             g.user.xp -= _maxXP;
             g.user.level++;
@@ -94,7 +93,7 @@ public class XPPanel {
         checkXP();
     }
 
-    private function onAddUserXP(b:Boolean = true):void {}
+
     private function onUpdateUserLevel(b:Boolean = true):void {}
 
     public function checkXP():void{
