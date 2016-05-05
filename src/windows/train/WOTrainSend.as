@@ -74,6 +74,7 @@ public class WOTrainSend extends WindowMain {
             _callback.apply(null,[true]);
             _callback = null;
         }
+        g.windowsManager.uncasheWindow();
         super.hideIt();
     }
 

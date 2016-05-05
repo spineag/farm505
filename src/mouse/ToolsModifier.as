@@ -273,9 +273,11 @@ public class ToolsModifier {
         if (!isFromShop) {
             _startMoveX = _activeBuilding.source.x;
             _startMoveY = _activeBuilding.source.y;
+            trace('!isFromShop');
         } else {
             _startMoveX = -1;
             _startMoveY = -1;
+            trace('isFromShop');
         }
 
         _activeBuilding.source.x = 0;

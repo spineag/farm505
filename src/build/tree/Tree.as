@@ -629,7 +629,8 @@ public class Tree extends AreaObject {
                 } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
                         _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER || _state == FULL_DEAD || _state == ASK_FIX || _state == DEAD) {
                 var time:int = _timeToEndState;
-                time += int(_resourceItem.buildTime / 2 + .5);
+                if (_timeToEndState == 0) time += int(_resourceItem.buildTime +.5);
+                else time += int(_resourceItem.buildTime /2 + .5);
                 var newX:int;
                 var newY:int;
 //                    var rect:flash.geom.Rectangle = armatureClip.getBounds(armatureClip);

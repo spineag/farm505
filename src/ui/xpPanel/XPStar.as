@@ -59,6 +59,7 @@ public class XPStar {
 //        var endX:int = g.xpPanel._imageStar.x;
 //        var endY:int = g.xpPanel._imageStar.y;
         _txtStar.text = '+' + String(_xp);
+        g.directServer.addUserXP(_xp, onAddUserXP);
 
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
@@ -78,5 +79,7 @@ public class XPStar {
         else v = 430;
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], ease:Linear.easeOut ,onComplete: f1, delay:.5});
     }
+
+    private function onAddUserXP(b:Boolean = true):void {}
 }
 }

@@ -393,9 +393,7 @@ public class WOTrain extends WindowMain {
                 return;
             }
         }
-        var p:Point = new Point(_btnSend.x, _btnSend.y);
-        p = _btnSend.localToGlobal(p);
-        (_build as Train).fullTrain(p,b);
+        (_build as Train).fullTrain(b);
         super.hideIt();
     }
 

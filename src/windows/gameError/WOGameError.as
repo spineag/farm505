@@ -4,6 +4,8 @@
 package windows.gameError {
 import flash.events.Event;
 import manager.ManagerFilters;
+
+import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
@@ -15,38 +17,41 @@ import windows.WindowsManager;
 public class WOGameError extends WindowMain {
     private var _txtError:TextField;
     private var _b:CButton;
-    private var _birka:Birka;
     private var _woBG:WindowBackground;
 
     public function WOGameError() {
         super();
         _windowType = WindowsManager.WO_GAME_ERROR;
-        _woWidth = 390;
-        _woHeight = 280;
+        _woWidth = 460;
+        _woHeight = 340;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-        _birka = new Birka('Ошибка', _source, _woWidth, _woHeight);
-        var txt:TextField = new TextField(340,100,'Произошла ошибка в игре. Если подобное происходит часто, сообщите в службу поддержки.',g.allData.fonts['BloggerMedium'],20,Color.WHITE);
+        var txt:TextField = new TextField(420,80,'Произошла ошибка в игре. Если подобное происходит часто, обратитесь в службу поддержки.',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        txt.autoScale = true;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txt.x = -170;
-        txt.y = -45;
+        txt.x = -210;
+        txt.y = -120;
         txt.touchable = false;
         _source.addChild(txt);
-        _txtError = new TextField(340,100,'Ошибка',g.allData.fonts['BloggerMedium'],24,Color.WHITE);
+        _txtError = new TextField(340,100,'Ошибка',g.allData.fonts['BloggerBold'],22,Color.WHITE);
         _txtError.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtError.x = -170;
-        _txtError.y = -110;
+        _txtError.y = -170;
         _source.addChild(_txtError);
         _txtError.touchable = false;
         _b = new CButton();
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
-        _b.y = 85;
+        _b.y = 120;
         _source.addChild(_b);
         txt = new TextField(200, 34, "Перезагрузить", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _b.addChild(txt);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
+        im.x = -35;
+        im.y = -50;
+        _source.addChild(im);
     }
 
     private function onClickExit(e:Event=null):void {
@@ -54,7 +59,7 @@ public class WOGameError extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        _txtError.text = params[0];
+//        _txtError.text = params[0];
         showIt();
     }
 

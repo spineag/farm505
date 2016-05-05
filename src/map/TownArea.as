@@ -924,7 +924,7 @@ public class TownArea extends Sprite {
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
-            g.toolsModifier.startMoveTail(build,afterMoveFromInventory);
+            g.toolsModifier.startMoveTail(build,afterMoveFromInventory,true);
             return;
             }
             var arr:Array = getCityTailObjectsById(tail.dataBuild.id);
@@ -976,7 +976,7 @@ public class TownArea extends Sprite {
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.toolsModifier.startMoveTail(build,afterMoveTail);
+            g.toolsModifier.startMoveTail(build,afterMoveTail,true);
         }
     }
 
@@ -1654,7 +1654,7 @@ public class TownArea extends Sprite {
     public function onActivateMoveModifier(v:Boolean):void {
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand || _cityObjects[i] is Paper || _cityObjects[i] is Cave
-                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market) {
+                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest) {
                 if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as CSprite).isTouchable = !v;
@@ -1668,7 +1668,7 @@ public class TownArea extends Sprite {
     public function onActivateRotateModifier(v:Boolean):void {
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand || _cityObjects[i] is Paper || _cityObjects[i] is Cave
-                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market) {
+                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest) {
                 if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as CSprite).isTouchable = !v;
@@ -1683,7 +1683,7 @@ public class TownArea extends Sprite {
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is Ridge || _cityObjects[i] is Farm ||
                 _cityObjects[i] is Fabrica || _cityObjects[i] is Tree || _cityObjects[i] is Ambar || _cityObjects[i] is Sklad  ||
-                    _cityObjects[i] is Paper || _cityObjects[i] is Cave || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is LockedLand) {
+                    _cityObjects[i] is Paper || _cityObjects[i] is Cave || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is LockedLand || _cityObjects[i] is Chest) {
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as CSprite).isTouchable = !v;
             }
