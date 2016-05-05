@@ -1939,7 +1939,7 @@ public class ManagerTutorial {
         _tutorialObjects.push(w);
     }
 
-    private function createDelay(delay:int, f:Function):void {
+    private function createDelay(delay:Number, f:Function):void {
         var func:Function = function():void {
             timer.removeEventListener(TimerEvent.TIMER, func);
             timer = null;

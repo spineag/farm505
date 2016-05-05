@@ -733,7 +733,6 @@ public class WOMarket  extends WindowMain {
     }
 
     override protected function deleteIt():void {
-        if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET)) g.managerCutScenes.checkCutSceneCallback();
         if (isCashed) return;
         var i:int;
         deleteFriends();

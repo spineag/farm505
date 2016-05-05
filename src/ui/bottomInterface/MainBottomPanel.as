@@ -20,6 +20,8 @@ import starling.utils.Color;
 
 import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import user.NeighborBot;
 import user.Someone;
 import utils.CButton;
@@ -186,10 +188,14 @@ public class MainBottomPanel {
                             || g.managerTutorial.currentAction == TutorialAction.BUY_FARM || g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
 
                     } else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE && g.managerTutorial.subStep == 2) {
-
+                        g.managerCutScenes.checkCutSceneCallback();
                     } else {
                         return;
                     }
+                } else if (g.managerCutScenes.isCutScene) {
+                    if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) {
+
+                    } else return;
                 }
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
@@ -197,13 +203,17 @@ public class MainBottomPanel {
                 }
                 g.toolsPanel.hideRepository();
                 var shopTab:int = WOShop.VILLAGE;
-                if(g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.isTutorial) {
                     if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) shopTab = WOShop.ANIMAL;
                     else if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA) shopTab = WOShop.FABRICA;
                     else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) shopTab = WOShop.VILLAGE;
                     else if (g.managerTutorial.currentAction == TutorialAction.BUY_CAT) shopTab = WOShop.VILLAGE;
                     else if (g.managerTutorial.currentAction == TutorialAction.BUY_FARM) shopTab = WOShop.VILLAGE;
+                } else if (g.managerCutScenes.isCutScene) {
+                    shopTab = WOShop.DECOR;
+                    g.managerCutScenes.checkCutSceneCallback();
                 }
+
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerTutorial.isTutorial) {
                     if (_tutorialCallback != null) {
@@ -291,6 +301,10 @@ public class MainBottomPanel {
                 g.catPanel.visibleCatPanel(true);
                 break;
         }
+    }
+
+    public function showToolsForCutScene():void {
+        onClick('tools');
     }
 
     public function onResize():void {

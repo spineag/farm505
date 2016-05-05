@@ -57,6 +57,9 @@ public class Decor extends AreaObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             onOut();
             if (!g.selectedBuild) {
+                if (g.managerCutScenes && g.managerCutScenes.isCutSceneBuilding(this)) {
+                    g.managerCutScenes.checkCutSceneCallback();
+                }
                 g.directServer.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 g.townArea.deleteBuild(this);

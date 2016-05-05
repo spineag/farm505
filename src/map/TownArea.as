@@ -44,6 +44,7 @@ import resourceItem.UseMoneyMessage;
 import starling.display.Sprite;
 
 import tutorial.TutorialAction;
+import tutorial.managerCutScenes.ManagerCutScenes;
 
 import ui.xpPanel.XPStar;
 
@@ -622,6 +623,8 @@ public class TownArea extends Sprite {
 
         // временно полная сортировка, далее нужно будет дописать "умную"
         if (updateAfterMove) zSort();
+
+        if (g.managerCutScenes.isCutScene) return;
         var build:AreaObject;
         var arr:Array;
         if (isNewAtMap && (worldObject is Ridge || worldObject is Tree)) {
@@ -768,6 +771,7 @@ public class TownArea extends Sprite {
             pasteBuild(build, _x, _y);
         }
         if (g.toolsPanel.repositoryBox.source.visible) g.toolsPanel.repositoryBox.updateThis();
+        if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) g.managerCutScenes.checkCutSceneCallback();
     }
 
     private function showSmallBuildAnimations(build:AreaObject, moneyType:int, count:int):void {
@@ -789,6 +793,7 @@ public class TownArea extends Sprite {
 
     private function endMoveAfterShop(build:AreaObject,_x:Number, _y:Number):void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
+        (build as WorldObject).source.filter = null;
         if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {
             g.bottomPanel.cancelBoolean(false);
         }
@@ -798,36 +803,36 @@ public class TownArea extends Sprite {
             cont.y = _y;
             g.cont.gameCont.addChild(cont);
         }
-        (build as WorldObject).source.filter = null;
+
         if ((build as WorldObject).dataBuild.currency.length > 1) {
-            for (var i:int = 0; i< (build as WorldObject).dataBuild.currency.length; i++){
+            for (var i:int = 0; i < (build as WorldObject).dataBuild.currency.length; i++) {
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency[i], -(build as WorldObject).dataBuild.cost[i]);
             }
             if (build is DecorTail) {
                 pasteTailBuild(build as DecorTail, _x, _y);
             } else {
-                pasteBuild(build, _x, _y,true,false);
+                pasteBuild(build, _x, _y, true, false);
             }
             return;
         } else {
             if ((build as WorldObject).dataBuild.currency != DataMoney.SOFT_CURRENCY) {
-                g.userInventory.addMoney((build as WorldObject).dataBuild.currency, - (build as AreaObject).countShopCost);
+                g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as AreaObject).countShopCost);
                 if (build is DecorTail) {
                     pasteTailBuild(build as DecorTail, _x, _y);
                 } else {
-                    pasteBuild(build, _x, _y,true,false);
+                    pasteBuild(build, _x, _y, true, false);
                 }
-                showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency, - (build as AreaObject).countShopCost);
+                showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency, -(build as AreaObject).countShopCost);
                 g.bottomPanel.cancelBoolean(false);
                 g.buyHint.hideIt();
                 return;
             } else {
                 if ((build as AreaObject).countShopCost == 0) {
-                     var arr:Array = getCityTailObjectsById((build as WorldObject).dataBuild.id);
+                    var arr:Array = getCityTailObjectsById((build as WorldObject).dataBuild.id);
                     (build as AreaObject).countShopCost = (arr.length * (build as WorldObject).dataBuild.deltaCost) + int((build as WorldObject).dataBuild.cost);
                     g.buyHint.showIt((build as AreaObject).countShopCost);
                 }
-                g.userInventory.addMoney((build as WorldObject).dataBuild.currency, - (build as AreaObject).countShopCost);
+                g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as AreaObject).countShopCost);
             }
         }
         if (build is Tree) (build as Tree).removeShopView();
@@ -838,6 +843,13 @@ public class TownArea extends Sprite {
             pasteBuild(build, _x, _y);
         }
         showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, - (build as AreaObject).countShopCost);
+        if (g.managerCutScenes.isCutScene && (build as WorldObject).dataBuild.buildType == BuildType.DECOR) {
+            if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) {
+                g.managerCutScenes.checkCutSceneCallback();
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
+            }
+        }
     }
 
     private function endMoveFromInventoryAfterShop(build:AreaObject, _x:Number, _y:Number):void {

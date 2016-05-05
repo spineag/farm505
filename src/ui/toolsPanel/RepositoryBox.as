@@ -5,21 +5,16 @@ package ui.toolsPanel {
 import com.greensock.TweenMax;
 import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
-
+import flash.geom.Point;
 import flash.geom.Rectangle;
-
 import manager.OwnEvent;
 import manager.Vars;
-
-import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
-
 import utils.CButton;
 import utils.MCScaler;
 import utils.Utils;
-
 import windows.WOComponents.HorizontalPlawka;
 
 public class RepositoryBox {
@@ -165,6 +160,19 @@ public class RepositoryBox {
 
     public function  updateThis():void {
         _arrItems[_number].updateCount();
+    }
+
+    public function getRepositoryBoxPropertiesFirstItem():Object {
+        var obj:Object = {};
+        obj.x = _arrItems[0].source.x;
+        obj.y = _arrItems[0].source.y;
+        var p:Point = new Point(obj.x, obj.y);
+        p = _cont.localToGlobal(p);
+        obj.x = p.x;
+        obj.y = p.y;
+        obj.width = _arrItems[0].source.width;
+        obj.height = _arrItems[0].source.height;
+        return obj;
     }
 
 }
