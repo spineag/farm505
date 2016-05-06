@@ -39,10 +39,12 @@ public class Paper extends AreaObject{
             return;
         }
         createBuild();
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
+        _source.hoverCallback = onHover;
+        _source.endClickCallback = onClick;
+        _source.outCallback = onOut;
         _source.releaseContDrag = true;
+        _hitArea = g.managerHitArea.getHitArea(_source, 'paperBuild');
+        _source.registerHitArea(_hitArea);
     }
 
     override public function createBuild(isImageClicked:Boolean = true):void {

@@ -87,6 +87,8 @@ public class Ridge extends AreaObject{
             _bgClicked.endClickCallback = onEndClick;
             _bgClicked.startClickCallback = onStartClick;
             _bgClicked.outCallback = onOut;
+            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild');
+            _bgClicked.registerHitArea(_hitArea);
         }
         _bgClicked.releaseContDrag = true;
 

@@ -22,6 +22,7 @@ import windows.ambar.WOAmbars;
 public class Ambar extends AreaObject{
     private var _isOnHover:Boolean;
     private var _ambarIndicator:AmbarIndicator;
+
     public function Ambar(_data:Object) {
         super(_data);
         if (!_data) {

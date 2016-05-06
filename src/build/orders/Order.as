@@ -26,7 +26,6 @@ import starling.utils.Color;
 
 import windows.WindowsManager;
 
-
 public class Order extends AreaObject{
     private var _armature:Armature;
     private var _isOnHover:Boolean;
@@ -44,8 +43,10 @@ public class Order extends AreaObject{
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
+            _source.releaseContDrag = true;
+            _hitArea = g.managerHitArea.getHitArea(_source, 'orderBuild');
+            _source.registerHitArea(_hitArea);
         }
-        _source.releaseContDrag = true;
     }
 
     public function createOrderBuild():void {

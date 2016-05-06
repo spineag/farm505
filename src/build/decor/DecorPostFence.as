@@ -32,6 +32,8 @@ public class DecorPostFence extends AreaObject{
             _source.endClickCallback = onClick;
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
+            _hitArea = g.managerHitArea.getHitArea(_source, 'decorPostFence' + _dataBuild.image);
+            _source.registerHitArea(_hitArea);
         }
         _source.releaseContDrag = true;
     }

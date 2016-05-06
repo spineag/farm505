@@ -45,6 +45,8 @@ public class DailyBonus extends AreaObject{
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
+            _hitArea = g.managerHitArea.getHitArea(_source, 'dailyBonusBuild');
+            _source.registerHitArea(_hitArea);
         }
         _source.releaseContDrag = true;
     }

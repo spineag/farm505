@@ -49,11 +49,6 @@ public class LockedLand extends AreaObject {
         _sizeX = _dataBuild.width;
         _sizeY = _dataBuild.height;
 
-        if (!g.isAway) {
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
-        }
         _source.releaseContDrag = true;
         _contOpen = new Sprite();
 
@@ -67,6 +62,12 @@ public class LockedLand extends AreaObject {
         _bottomRibbon = new Sprite();
         _source.addChild(_bottomRibbon);
         createRibbons();
+
+        if (!g.isAway) {
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+        }
     }
 
     private function createRibbons():void {

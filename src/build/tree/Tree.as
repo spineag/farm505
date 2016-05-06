@@ -195,12 +195,18 @@ public class Tree extends AreaObject {
         switch (_state) {
             case GROW1:
                 armature.animation.gotoAndStop("small", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
+                _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER1:
                 armature.animation.gotoAndStop("small_flower", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
+                _source.registerHitArea(_hitArea);
                 break;
             case GROWED1:
                 armature.animation.gotoAndStop("small_fruits", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
+                _source.registerHitArea(_hitArea);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[0]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[0] for dbId: ' + tree_db_id);
                 }
@@ -217,13 +223,19 @@ public class Tree extends AreaObject {
                 break;
             case GROW2:
                 armature.animation.gotoAndStop("middle", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
+                _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER2:
                 armature.animation.gotoAndStop("middle_flower", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
+                _source.registerHitArea(_hitArea);
                 break;
             case GROWED2:
 //                if (_dataBuild.id == 41) armature.animation.gotoAndStop("middle_flower_0", 0);
                armature.animation.gotoAndStop("middle_fruits", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
+                _source.registerHitArea(_hitArea);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[1]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[1] for dbId: ' + tree_db_id);
                 }
@@ -240,12 +252,18 @@ public class Tree extends AreaObject {
                 break;
             case GROW3:
                 armature.animation.gotoAndStop("big", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER3:
                 armature.animation.gotoAndStop("big_flower", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 break;
             case GROWED3:
                 armature.animation.gotoAndStop("big_fruits", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[2] for dbId: ' + tree_db_id);
                 }
@@ -262,24 +280,38 @@ public class Tree extends AreaObject {
                 break;
             case DEAD:
                 armature.animation.gotoAndStop("dead", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 break;
             case FULL_DEAD:
                 armature.animation.gotoAndStop("dead", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 break;
             case ASK_FIX:
                 armature.animation.gotoAndStop("dead", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 break;
             case FIXED:
                 armature.animation.gotoAndStop("dead", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED:
                 armature.animation.gotoAndStop("big", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED_FLOWER:
                 armature.animation.gotoAndStop("big_flower", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 break;
             case GROWED_FIXED:
                 armature.animation.gotoAndStop("big_fruits", 0);
+                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
+                _source.registerHitArea(_hitArea);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
                     Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[2] for dbId: ' + tree_db_id);
                 }

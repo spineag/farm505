@@ -25,6 +25,8 @@ public class DecorTail extends AreaObject{
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
         _source.releaseContDrag = true;
+        _hitArea = g.managerHitArea.getHitArea(_source, 'decorTail' + _dataBuild.image);
+        _source.registerHitArea(_hitArea);
     }
 
     private function onHover():void {

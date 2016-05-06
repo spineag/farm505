@@ -47,6 +47,8 @@ public class Farm extends AreaObject{
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         _source.releaseContDrag = true;
+        _hitArea = g.managerHitArea.getHitArea(_source, 'farm' + _dataBuild.image);
+        _source.registerHitArea(_hitArea);
 
         _contAnimals = new Sprite();
         source.addChild(_contAnimals);

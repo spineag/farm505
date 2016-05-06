@@ -35,7 +35,7 @@ public class CButton extends Sprite {
     private var BUTTON_HOVER_FILTER:ColorMatrixFilter;
     private var BUTTON_DISABLE_FILTER:ColorMatrixFilter;
     private var _hitArea:OwnHitArea;
-    private var hitAreaState:int;
+    private var _hitAreaState:int;
     private var g:Vars = Vars.getInstance();
 
     public function CButton() {
@@ -81,10 +81,10 @@ public class CButton extends Sprite {
     private function onTouch(te:TouchEvent):void {
         if (_hitArea) {
             var localPos:Point = te.data[0].getLocation(this);
-            if (_hitArea.isTouchablePoint(localPos.x, localPos.y)) hitAreaState = 2; // state -> mouse is under visible point
-                else hitAreaState = 3; // state -> mouse is not under visible point
+            if (_hitArea.isTouchablePoint(localPos.x, localPos.y)) _hitAreaState = 2; // state -> mouse is under visible point
+                else _hitAreaState = 3; // state -> mouse is not under visible point
         } else {
-            hitAreaState = 1; //state -> don't have hitArea
+            _hitAreaState = 1; //state -> don't have hitArea
         }
 
         if (te.getTouch(this, TouchPhase.MOVED)) {
@@ -92,7 +92,7 @@ public class CButton extends Sprite {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
             }
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
-            if (hitAreaState != 3) {
+            if (_hitAreaState != 3) {
                 te.stopImmediatePropagation();
                 te.stopPropagation();
                 onBeganClickAnimation();
@@ -102,16 +102,16 @@ public class CButton extends Sprite {
                 Mouse.cursor = OwnMouse.CLICK_CURSOR;
             }
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
-            if (_clickCallback != null) {
-                te.stopImmediatePropagation();
-                te.stopPropagation();
-                onEndClickAnimation();
-                _clickCallback.apply();
-
+            if (_hitAreaState != 3) {
+                if (_clickCallback != null) {
+                    te.stopImmediatePropagation();
+                    te.stopPropagation();
+                    onEndClickAnimation();
+                    _clickCallback.apply();
+                }
             }
-            Mouse.cursor = OwnMouse.USUAL_CURSOR;
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
-            if (hitAreaState != 3) {
+            if (_hitAreaState != 3) {
                 te.stopImmediatePropagation();
                 te.stopPropagation();
                 Mouse.cursor = OwnMouse.HOVER_CURSOR;
@@ -127,7 +127,7 @@ public class CButton extends Sprite {
                 }
             }
         } else {
-            if (hitAreaState != 2) {
+            if (_hitAreaState != 2) {
                 Mouse.cursor = OwnMouse.USUAL_CURSOR;
                 onOutAnimation();
                 if (_outCallback != null) {

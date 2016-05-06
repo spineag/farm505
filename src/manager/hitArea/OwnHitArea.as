@@ -29,7 +29,8 @@ public class OwnHitArea {
     }
 
     private function createBitmapData(sp:Sprite):void {
-        var bm:Bitmap = DrawToBitmap.drawToBitmap(sp);
+//        var bm:Bitmap = DrawToBitmap.drawToBitmap(sp);
+        var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapScale(sp));
         var bitmapScaling:Number = 1; // use for minimise memory, try smaller number for that, max = 1
         _w = int(bm.width * bitmapScaling);
         _h = int(bm.height * bitmapScaling);

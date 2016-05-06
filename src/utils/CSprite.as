@@ -2,23 +2,16 @@
  * Created by user on 5/21/15.
  */
 package utils {
-import com.junkbyte.console.Cc;
-
 import flash.display.BitmapData;
 import flash.geom.Point;
-import flash.geom.Rectangle;
 import flash.ui.Mouse;
-import flash.utils.ByteArray;
-
 import manager.Vars;
-
+import manager.hitArea.OwnHitArea;
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
-
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
-import starling.textures.Texture;
 
 public class CSprite extends Sprite {
     private var _endClickCallback:Function;
@@ -32,6 +25,8 @@ public class CSprite extends Sprite {
     private var _scale:Number;
     private var _useContDrag:Boolean = false;
     private var _params:*;
+    private var _hitArea:OwnHitArea;
+    private var _hitAreaState:int;
 
     private var g:Vars = Vars.getInstance();
     public function CSprite() {
@@ -52,25 +47,18 @@ public class CSprite extends Sprite {
         return _useContDrag;
     }
 
-//    private var b:Boolean;
-//    private var p:Point;
     private var _startDragPoint:Point;
     private function onTouch(te:TouchEvent):void {
-        te.stopImmediatePropagation();
-        te.stopPropagation();
-//        if (_needStrongCheckHitTest && te.getTouch(this, TouchPhase.ENDED)) {
-//            p = new Point(te.touches[0].globalX, te.touches[0].globalY);
-//            p = this.globalToLocal(p);
-//            b = hitTestOwn(p, true);
-//            if (!b) return;
-//        }
+//        te.stopImmediatePropagation();    ???
+//        te.stopPropagation();   ???
 
-//        if (_needStrongCheckByteArray && te.getTouch(this, TouchPhase.ENDED)) {
-//            p = new Point(te.touches[0].globalX, te.touches[0].globalY);
-//            p = this.globalToLocal(p);
-//            b = checkTransparent(p);
-//            if (!b) return;
-//        }
+        if (_hitArea) {
+            var localPos:Point = te.data[0].getLocation(this);
+            if (_hitArea.isTouchablePoint(localPos.x, localPos.y)) _hitAreaState = 2; // state -> mouse is under visible point
+            else _hitAreaState = 3; // state -> mouse is not under visible point
+        } else {
+            _hitAreaState = 1; //state -> don't have hitArea
+        }
 
         if (te.getTouch(this, TouchPhase.MOVED)) {
             if (_useContDrag) {
@@ -81,37 +69,57 @@ public class CSprite extends Sprite {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
             }
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
-            if (_useContDrag) {
-                _startDragPoint = new Point();
-                _startDragPoint.x = g.cont.gameCont.x;
-                _startDragPoint.y = g.cont.gameCont.y;
-            }
-            Mouse.cursor = OwnMouse.CLICK_CURSOR;
-            if (_startClickCallback != null) {
-                _startClickCallback.apply();
-            }
-            if (_useContDrag) {
-                g.cont.setDragPoints(te.touches[0].getLocation(g.mainStage));
-            }
-        } else if (te.getTouch(this, TouchPhase.ENDED)) {
-            Mouse.cursor = OwnMouse.USUAL_CURSOR;
-            if (wasGameContMoved) return;
-            if (_endClickCallback != null) {
-                if (_params) {
-                    _endClickCallback.apply(null, [_params]);
-                } else {
-                    _endClickCallback.apply();
+            if (_hitAreaState != 3) {
+                te.stopImmediatePropagation();
+                te.stopPropagation();
+                if (_useContDrag) {
+                    _startDragPoint = new Point();
+                    _startDragPoint.x = g.cont.gameCont.x;
+                    _startDragPoint.y = g.cont.gameCont.y;
+                }
+                Mouse.cursor = OwnMouse.CLICK_CURSOR;
+                if (_startClickCallback != null) {
+                    _startClickCallback.apply();
+                }
+                if (_useContDrag) {
+                    g.cont.setDragPoints(te.touches[0].getLocation(g.mainStage));
                 }
             }
+        } else if (te.getTouch(this, TouchPhase.ENDED)) {
+            if (_hitAreaState != 3) {
+                te.stopImmediatePropagation();
+                te.stopPropagation();
+
+                if (wasGameContMoved) return;
+                if (_endClickCallback != null) {
+                    if (_params) {
+                        _endClickCallback.apply(null, [_params]);
+                    } else {
+                        _endClickCallback.apply();
+                    }
+                }
+            }
+            Mouse.cursor = OwnMouse.USUAL_CURSOR;
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
-            Mouse.cursor = OwnMouse.HOVER_CURSOR;
-            if (_hoverCallback != null) {
-                _hoverCallback.apply();
+            if (_hitAreaState != 3) {
+                te.stopImmediatePropagation();
+                te.stopPropagation();
+                Mouse.cursor = OwnMouse.HOVER_CURSOR;
+                if (_hoverCallback != null) {
+                    _hoverCallback.apply();
+                }
+            } else {
+                Mouse.cursor = OwnMouse.USUAL_CURSOR;
+                if (_outCallback != null) {
+                    _outCallback.apply();
+                }
             }
         } else {
-            Mouse.cursor = OwnMouse.USUAL_CURSOR;
-            if (_outCallback != null) {
-                _outCallback.apply();
+            if (_hitAreaState != 2) {
+                Mouse.cursor = OwnMouse.USUAL_CURSOR;
+                if (_outCallback != null) {
+                    _outCallback.apply();
+                }
             }
         }
     }
@@ -163,42 +171,8 @@ public class CSprite extends Sprite {
         this.removeEventListener(TouchEvent.TOUCH, onTouch);
     }
 
-    // method via byteArray ------------------------------------------------------------------------
-//    public function createOwnHitAreaViaBitmap():void {
-//        if (!this.numChildren) {
-//            Cc.error('CSprite:: empty source1');
-//            return;
-//        }
-//        _needStrongCheckByteArray = true;
-//        _bmd = Screenshot.copyToBitmap(this, _scale);                     // all this function need remake
-//        _byteArray = _bmd.getPixels(_bmd.rect);
-//        _bmd = null;
-//    }
-//
-//    private function checkTransparent(_p:Point):Boolean {
-//        var pos:int = int(_p.y) * this.height + int(_p.x);
-//        _byteArray.position = pos;
-//        return _byteArray.readBoolean();
-//    }
-
-    // method via hitTest --------------------------------------------------------------------------
-    public function createStrongCheckHitTest():void {
-        if (!this.numChildren) {
-            Cc.error('CSprite:: empty source2');
-            return;
-        }
-        _needStrongCheckHitTest = true;
-        _bmd = DrawToBitmap.drawToBitmap(this).bitmapData;
-    }
-
-    private function hitTestOwn(localPoint:Point, forTouch:Boolean=false):Boolean { // some analogy to hitTest logic
-        if (forTouch && (!visible || !touchable)) { return false; } // test fails if the object is invisible or not touchable
-
-        if (! getBounds(this).containsPoint(localPoint)) { return false; } // likewise if touch is outside bounds of the object
-
-        var color:uint = _bmd.getPixel32(localPoint.x * _scale, localPoint.y * _scale);
-        if (color) return true;
-            else return false;
+    public function registerHitArea(hArea:OwnHitArea):void {
+        _hitArea = hArea;
     }
 
     public function deleteIt():void {
@@ -211,6 +185,7 @@ public class CSprite extends Sprite {
         _onMovedCallback = null;
         if (_bmd) _bmd.dispose();
         dispose();
+        _hitArea = null;
     }
 }
 }

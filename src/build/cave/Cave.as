@@ -39,11 +39,6 @@ public class Cave extends AreaObject{
         checkCaveState();
         _isAnimate = false;
         _source.releaseContDrag = true;
-        if (!g.isAway) {
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
-        }
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         _arrCraftItems = [];
@@ -54,6 +49,11 @@ public class Cave extends AreaObject{
             } else if (_stateBuild == STATE_BUILD) {
                 addFoundationBuilding();
             }
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+            _hitArea = g.managerHitArea.getHitArea(_source, 'caveBuild');
+            _source.registerHitArea(_hitArea);
         }
     }
 

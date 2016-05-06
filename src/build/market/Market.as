@@ -51,13 +51,14 @@ public class Market extends AreaObject{
             return;
         }
         createBuild();
-
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
+        _source.hoverCallback = onHover;
+        _source.endClickCallback = onClick;
+        _source.outCallback = onOut;
         _source.releaseContDrag = true;
         _arrItem = [];
         marketState();
+        _hitArea = g.managerHitArea.getHitArea(_source, 'marketBuild');
+        _source.registerHitArea(_hitArea);
     }
 
     override public function createBuild(isImageClicked:Boolean = true):void {

@@ -4,6 +4,8 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import manager.Vars;
+import manager.hitArea.OwnHitArea;
+
 import starling.display.DisplayObject;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -38,6 +40,7 @@ public class WorldObject {
     protected var _stateBuild:int;  // состояние постройки (активное, в процесе стройки..)
     protected var _arrow:SimpleArrow;
     protected var _tutorialCallback:Function;
+    protected var _hitArea:OwnHitArea;
 
     protected static var g:Vars = Vars.getInstance();
 

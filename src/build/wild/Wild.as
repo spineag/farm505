@@ -40,6 +40,8 @@ public class Wild extends AreaObject{
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
+            _hitArea = g.managerHitArea.getHitArea(_source, 'lockedLand' + _dataBuild.image);
+            _source.registerHitArea(_hitArea);
         }
         _source.releaseContDrag = true;
         _isOnHover = false;
