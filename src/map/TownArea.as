@@ -330,7 +330,6 @@ public class TownArea extends Sprite {
     }
 
     public function fillTailMatrix(posX:int, posY:int, sizeX:int,sizeY:int, source:WorldObject):void {
-
         if (source.dataBuild.buildType == BuildType.DECOR_TAIL) {
             if (source is TutorialPlace) return;
             var j:int;
@@ -341,11 +340,11 @@ public class TownArea extends Sprite {
                     }
                     _townTailMatrix[i][j].isTutorialBuilding = false;
                     _townTailMatrix[i][j].build = source;
-                    _townTailMatrix[i][j].isFull = true;
-                    if (sizeX > 1 && sizeY > 1) {
-                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
-                            _townTailMatrix[i][j].isWall = true;
-                    }
+//                    _townTailMatrix[i][j].isFull = true;
+//                    if (sizeX > 1 && sizeY > 1) {
+//                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
+//                            _townTailMatrix[i][j].isWall = true;
+//                    }
                 }
             }
 
@@ -365,8 +364,8 @@ public class TownArea extends Sprite {
             for (var i:int = posY; i < (posY + sizeY); i++) {
                 for (var j:int = posX; j < (posX + sizeX); j++) {
                     _townTailMatrix[i][j].build = null;
-                    _townTailMatrix[i][j].isFull = false;
-                    _townTailMatrix[i][j].isWall = false;
+//                    _townTailMatrix[i][j].isFull = false;
+//                    _townTailMatrix[i][j].isWall = false;
                     _townTailMatrix[i][j].isTutorialBuilding = false;
                 }
             }
@@ -903,8 +902,8 @@ public class TownArea extends Sprite {
             var point:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
             tail.posX = point.x;
             tail.posY = point.y;
-            _cityTailObjects.push(tail);
-            fillTailMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY, tail as WorldObject);
+            if (!updateAfterMove)_cityTailObjects.push(tail);
+            fillTailMatrix(tail.posX, tail.posY, tail.sizeX, tail.sizeY, tail as WorldObject);
 //            fillMatrix(tail.posX, tail.posY,tail.sizeX, tail.sizeY, this);
             if (isNewAtMap) {
                 g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
@@ -1004,7 +1003,7 @@ public class TownArea extends Sprite {
         showSmallBuildAnimations(build,(build as WorldObject).dataBuild.currency,-cost);
     }
 
-    public function moveTailBuild(tail:DecorTail):void{// не сохраняется флип при муве
+    public function moveTailBuild(tail:DecorTail):void {// не сохраняется флип при муве
         if (!tail) {
             Cc.error('TownArea moveTailBuild:: empty tail');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
@@ -1062,7 +1061,6 @@ public class TownArea extends Sprite {
         if(_contTail.contains(tail.source)){
             _contTail.removeChild(tail.source);
         }
-//        unFillMatrix(tail.posX, tail.posY, tail.sizeX, tail.sizeY);
         unFillTailMatrix(tail.posX, tail.posY,tail.sizeX,tail.sizeY);
         if (_cityTailObjects.indexOf(tail) > -1) _cityTailObjects.splice(_cityTailObjects.indexOf(tail), 1);
         tail.clearIt();
@@ -1092,7 +1090,7 @@ public class TownArea extends Sprite {
 
     private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
         if (build is DecorTail) pasteTailBuild(build as DecorTail, _x, _y, false, true);
-        pasteBuild(build, _x, _y, false, true);
+        else pasteBuild(build, _x, _y, false, true);
         g.selectedBuild = null;
         if (build is Farm) (build as Farm).checkAfterMove();
         if (build is Ridge) (build as Ridge).checkAfterMove();
