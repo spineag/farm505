@@ -195,6 +195,7 @@ public class Animal {
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
+        if(_farm.hasAnyCraftedResource) return;
         if (_state == WORK) {
             source.filter = null;
             g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
@@ -257,6 +258,7 @@ public class Animal {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         if (g.isActiveMapEditor) return;
+        if (_state == HUNGRY && _farm.hasAnyCraftedResource) return;
         _isOnHover = true;
         _frameCounterTimerHint = 7;
         source.filter = ManagerFilters.BUILD_STROKE;
@@ -266,6 +268,7 @@ public class Animal {
     private function onOut():void {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
+        if (_state == HUNGRY && _farm.hasAnyCraftedResource) return;
         source.filter = null;
         _isOnHover = false;
         g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);

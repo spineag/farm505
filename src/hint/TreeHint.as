@@ -187,7 +187,7 @@ public class TreeHint {
     }
 
     public function managerHide():void {
-        if (_isShowed) {
+//        if (_isShowed) {
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);
             tween.onComplete = function ():void {
@@ -201,7 +201,7 @@ public class TreeHint {
             };
             g.starling.juggler.add(tween);
             g.gameDispatcher.removeFromTimer(closeTimer);
-        }
+//        }
     }
 
     private function closeTimer():void {

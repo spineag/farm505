@@ -78,7 +78,7 @@ public class FriendPanel {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_bt_add'));
         _addFriendsBtn.addDisplayObject(im);
         _addFriendsBtn.setPivots();
-        _addFriendsBtn.x = 13 + _addFriendsBtn.width/2;
+        _addFriendsBtn.x = 5 + _addFriendsBtn.width/2;
         _addFriendsBtn.y = 4 + _addFriendsBtn.height/2;
         _source.addChild(_addFriendsBtn);
        _addFriendsBtn.clickCallback = inviteFriends;

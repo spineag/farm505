@@ -462,7 +462,7 @@ public class Tree extends AreaObject {
                 if (_arrCrafted.length) {
                     if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount) {
                         _source.filter = null;
-                        g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS, null, false);
+                        g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
                         return;
                     }
                     _arrCrafted.shift().flyIt();

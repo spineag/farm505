@@ -129,10 +129,10 @@ public class Market extends AreaObject{
             if (_source.wasGameContMoved) return;
             var isNotAway:int = 1;
             if (g.isAway) isNotAway = 0;
-            if (g.user.level < _dataBuild.blockByLevel + isNotAway) {
+            if (g.user.level < int(_dataBuild.blockByLevel) + isNotAway) {
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel + isNotAway) + ' уровне');
+                new FlyMessage(p,"Будет доступно на " + String(int(_dataBuild.blockByLevel) + isNotAway) + ' уровне');
                 return;
             }
             if (g.isAway && g.visitedUser) {

@@ -362,11 +362,19 @@ public class ShopItem {
                     } else break;
                 }
                 if (arr.length >= maxCountAtCurrentLevel) {
-                    createShopLimitSprite();
-                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                    _nameTxt.text = _data.name;
-                    _countTxt.visible = true;
-                    _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
+                    if (g.user.level < _data.blockByLevel[arr.length]) {
+                        createLockedSprite();
+                        _txtAvailable.visible = true;
+                        _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[arr.length]) + ' уровне';
+                        _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                        _nameTxt.text = _data.name;
+                    } else {
+                        createShopLimitSprite();
+                        _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                        _nameTxt.text = _data.name;
+                        _countTxt.visible = true;
+                        _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
+                    }
                 } else {
                     _nameTxt.text = _data.name;
                     _countTxt.visible = true;
@@ -427,23 +435,26 @@ public class ShopItem {
                     for (i=0; i<arr.length; i++) {
                         curCount += (arr[i] as Farm).arrAnimals.length;
                     }
+
                     if (maxCount == curCount) {
-                        _txtAvailable.visible = true;
-                        _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
-                        _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                        _nameTxt.text = _data.name;
-                        if (_btnBuyBlue) {
-                            source.removeChild(_btnBuyBlue);
-                            _btnBuyBlue.deleteIt();
-                            _btnBuyBlue = null;
+                        if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
+                            createShopLimitSprite();
+                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                            _nameTxt.text = _data.name;
+                            _countTxt.visible = true;
+                            _countTxt.text = String(maxCount) + '/' + String(maxCount);
+                            _countCost = 0;
+                        } else {
+                            _txtAvailable.visible = true;
+                            _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
+                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                            _nameTxt.text = _data.name;
+                            if (_btnBuyBlue) {
+                                source.removeChild(_btnBuyBlue);
+                                _btnBuyBlue.deleteIt();
+                                _btnBuyBlue = null;
+                            }
                         }
-                    } else if (curCount > maxCount) {
-                        createShopLimitSprite();
-                        _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-                        _nameTxt.text = _data.name;
-                        _countTxt.visible = true;
-                        _countTxt.text = String(maxCount) + '/' + String(maxCount);
-                        _countCost = 0;
                     } else {
                         createButtons('blue');
                         _nameTxt.text = _data.name;
