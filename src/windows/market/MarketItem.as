@@ -300,13 +300,7 @@ public class MarketItem {
     }
 
     private function onDelete ():void {
-        if (g.user.hardCurrency < 1) {
-            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
-            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
-            return;
-        }
         g.windowsManager.cashWindow = _wo;
-//        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
         _wo.hideIt();
         g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, true);
     }

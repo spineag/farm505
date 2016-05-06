@@ -311,6 +311,7 @@ public class Farm extends AreaObject{
         } else {
             for (i=0; i<_arrAnimals.length; i++) {
                 (_arrAnimals[i] as Animal).source.isTouchable = true;
+                _craftSprite.filter = null;
             }
         }
     }

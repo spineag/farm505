@@ -16,6 +16,8 @@ import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import starling.events.Event;
 
+import windows.WindowsManager;
+
 public class WOMarketDeleteItem extends WindowMain{
     private var _woBG:WindowBackground;
     private var _b:CButton;
@@ -67,6 +69,11 @@ public class WOMarketDeleteItem extends WindowMain{
     }
 
     private function onClick():void {
+        if (g.user.hardCurrency < 1) {
+            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            return;
+        }
         if (_callback != null) {
             _callback.apply(null,[]);
         }

@@ -40,6 +40,7 @@ public class WOTrain extends WindowMain {
     private var _txt:TextField;
     private var _txtCounter:TextField;
     private var _txtHelp:TextField;
+    private var _txtLoad:TextField;
     private var _counter:int;
     private var _idFree:int;
     private var _countFree:int;
@@ -79,12 +80,13 @@ public class WOTrain extends WindowMain {
         txt.x = 5;
         txt.y = -10;
         _btnSend.addChild(txt);
+        _btnSend.registerTextField(txt, ManagerFilters.TEXT_STROKE_GREEN);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
         im.y = -15;
         im.x = 88;
         _btnSend.addDisplayObject(im);
         _source.addChild(_btnSend);
-        _btnSend.alpha = .5;
+        _btnSend.setEnabled = false;
 
         _txt = new TextField(150, 40, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -111,12 +113,12 @@ public class WOTrain extends WindowMain {
         _rightBlockBG .filter = ManagerFilters.SHADOW;
         _rightBlock.addChild(_rightBlockBG);
 
-        txt = new TextField(240, 50, 'Загрузите корзинку товаром и получите награду', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 25;
-        txt.y = 5;
-        txt.touchable = false;
-        _rightBlock.addChild(txt);
+        _txtLoad = new TextField(240, 50, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtLoad.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtLoad.x = 25;
+        _txtLoad.y = 5;
+        _txtLoad.touchable = false;
+        _rightBlock.addChild(_txtLoad);
         _rightBlockCarton = new CartonBackgroundIn(267, 68);
         _rightBlockCarton.y = 250;
         _rightBlockCarton.x = 10;
@@ -259,11 +261,18 @@ public class WOTrain extends WindowMain {
                 }
             _txtCostAll.text = String(_build.allCoinsCount);
             _txtXpAll.text = String(_build.allXPCount);
-            onItemClick(0);
-            checkBtn();
-            _txtCounter.text = TimeUtils.convertSecondsForHint(_counter);
-            g.gameDispatcher.addToTimer(checkCounter);
-            super.showIt();
+        var num:int = 0;
+        for(i = 0; i< list.length; i++) {
+            if (!list[i].isFull && g.userInventory.getCountResourceById(list[i].id) >= list[i].count){
+                num = i;
+                break;
+            } else num = 0;
+        }
+        onItemClick(num);
+        checkBtn();
+        _txtCounter.text = TimeUtils.convertSecondsForHint(_counter);
+        g.gameDispatcher.addToTimer(checkCounter);
+        super.showIt();
     }
 
     private function checkCounter():void {
@@ -301,7 +310,9 @@ public class WOTrain extends WindowMain {
         if (_arrItems[k].isResourceLoaded) {
             _btnLoad.visible = false;
             _btnHelp.visible = false;
+            _txtLoad.text = 'Вы уже загрузили ячейку и получили награду';
         } else {
+            _txtLoad.text = 'Загрузите корзинку товаром и получите награду';
             if (_arrItems[k].canFull()) {
                 _btnLoad.clickCallback = onResourceLoad;
             } else  {
@@ -339,6 +350,7 @@ public class WOTrain extends WindowMain {
         }
         updateItems();
         _btnLoad.visible = false;
+        checkBtn();
     }
 
     private function updateItems():void {
@@ -373,12 +385,12 @@ public class WOTrain extends WindowMain {
             }
         }
         if (_lock >= _arrItems.length || _lock == 0 || !_isBigCount && _lock <= 3) {
-            _btnSend.alpha = 1;
+            _btnSend.setEnabled = true;
         } else {
-            _btnSend.alpha = .5;
+            _btnSend.setEnabled = false;
             return;
         }
-        _btnSend.alpha = 1;
+        _btnSend.setEnabled = true;
         _btnSend.clickCallback = fullTrain;
     }
 

@@ -87,9 +87,26 @@ public class WOOrder extends WindowMain{
     override public function showItParams(callback:Function, params:Array):void {
         _arrOrders = g.managerOrder.arrOrders.slice();
         fillList();
-        onItemClick(_arrItems[0]);
+        var num:int;
+        var delay:int;
+        for (var i:int = 0; i < _arrOrders.length; i++){
+            delay = 0;
+            num = 0;
+            for (var k:int = 0; k<_arrOrders[i].resourceIds.length; k++) {
+                if (g.userInventory.getCountResourceById(_arrOrders[i].resourceIds[k]) >= _arrOrders[i].resourceCounts[k]) {
+                   num++;
+                }
+            }
+            if (num == _arrOrders[i].resourceIds.length) {
+                break;
+            } else {
+                delay++;
+            }
+        }
+        if (delay > 0) i = 0;
+        onItemClick(_arrItems[i]);
         _waitForAnswer = false;
-        changeCatTexture(0);
+        changeCatTexture(i);
         startAnimationCats();
         super.showIt();
     }
@@ -172,8 +189,8 @@ public class WOOrder extends WindowMain{
         _btnDeleteOrder.y = 414;
         _rightBlock.addChild(_btnDeleteOrder);
         _btnDeleteOrder.endClickCallback = deleteOrder;
-        _btnDeleteOrder.hoverCallback = function():void { _btnDeleteOrder.filter = ManagerFilters.BUTTON_HOVER_FILTER; };
-        _btnDeleteOrder.outCallback = function():void { _btnDeleteOrder.filter = null; };
+//        _btnDeleteOrder.hoverCallback = function():void {_btnDeleteOrder.filter = ManagerFilters.BUTTON_HOVER_FILTER; };
+//        _btnDeleteOrder.outCallback = function():void {_btnDeleteOrder.filter = null; };
     }
 
     private function createItems():void {
