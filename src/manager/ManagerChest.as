@@ -16,13 +16,23 @@ public class ManagerChest {
     public static const HARD_MONEY:int = 4;
     public static const INSTRUMENT:int = 6;
     public static const MAX_CHEST:int = 5;
-    public var data:Object;
+    private var _data:Object;
     private var _arrItems:Array;
     private var _count:int;
+    private var _chestBuildID:int = -1;
     private var g:Vars = Vars.getInstance();
-    public function ManagerChest() {
-        super ();
+
+    public function ManagerChest() {}
+
+    private function findChestID():void {
+        for (var id:String in g.dataBuilding.objectBuilding) {
+            if (g.dataBuilding.objectBuilding[id].buildType == BuildType.CHEST) {
+                _chestBuildID = int(id);
+                break;
+            }
+        }
     }
+
     public function fillFromServer(day:String, lastCount:int):void {
         var lastDayNumber:int = int(day);
         var curDayNumber:int = new Date().date;
@@ -32,7 +42,7 @@ public class ManagerChest {
             _count = int(lastCount);
     }
 
-    private function generateDailyBonusItems():void {
+    private function generateChestItems():void {
         _arrItems = [];
         var arr:Array = [];
         for(var id:String in g.dataResource.objectResources) {
@@ -85,34 +95,43 @@ public class ManagerChest {
         obj.type = INSTRUMENT;
         _arrItems.push(obj);
         var lol:int =  Math.random() * _arrItems.length;
-        data = _arrItems[lol];
+        _data = _arrItems[lol];
     }
 
-    public function createBuild(away:Boolean = false):void {
+    public function createChest(away:Boolean = false):void {
         if (_count >= MAX_CHEST) return;
         if (g.user.level < 5) return;
-            generateDailyBonusItems();
-            var id:String;
-            var p :Point;
-            p = g.townArea.getRandomFreeCell();
-            for(id in g.dataBuilding.objectBuilding) {
-                if (g.dataBuilding.objectBuilding[id].buildType == BuildType.CHEST) {
-                    if (away) g.townArea.createAwayNewBuild(g.dataBuilding.objectBuilding[id], p.x , p.y, 0);
-                    else {
-                        p = g.matrixGrid.getXYFromIndex(p);
-                        var build:AreaObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[id], 0);
-                        g.townArea.pasteBuild(build, p.x, p.y, false);
-                    }
-                    break;
-                }
+        generateChestItems();
+        if (_chestBuildID == -1) findChestID();
+        var p:Point = g.townArea.getRandomFreeCell();
+        if (away) {
+            g.townArea.createAwayNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], p.x, p.y, 0);
+        } else {
+            p = g.matrixGrid.getXYFromIndex(p);
+            var build:AreaObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], 0);
+            g.townArea.pasteBuild(build, p.x, p.y, false);
         }
+    }
+
+    public function get dataPriseChest():Object {
+        return _data;
     }
 
     public function get getCount():int {
         return _count;
     }
+
     public function set setCount(count:int):void {
         _count += count;
+    }
+
+    public function makeTutorialChest():WorldObject {
+        var p:Point = new Point(33, 33);
+        p = g.matrixGrid.getXYFromIndex(p);
+        if (_chestBuildID == -1) findChestID();
+        var build:AreaObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], 0);
+        g.townArea.pasteBuild(build, p.x, p.y, false);
+        return build;
     }
 }
 }

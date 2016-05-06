@@ -3,19 +3,16 @@
  */
 package build.chestBonus {
 import build.AreaObject;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-
 import mouse.ToolsModifier;
-
 import starling.display.Sprite;
-
 import windows.WindowsManager;
 
 public class Chest extends AreaObject{
     private var _armature:Armature;
     private var _timerAnimation:int;
+
     public function Chest(data:Object) {
         super (data);
         _source.endClickCallback = onClick;
@@ -43,6 +40,9 @@ public class Chest extends AreaObject{
 
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isTutorial) {
+            if (!g.managerTutorial.isTutorialBuilding(this)) return;
+        }
         if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
@@ -51,11 +51,15 @@ public class Chest extends AreaObject{
                 || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            g.windowsManager.openWindow(WindowsManager.WO_CHEST, null, 1);
+            g.windowsManager.openWindow(WindowsManager.WO_CHEST, null);
             if (g.isAway) g.townArea.deleteAwayBuild(this);
-            g.townArea.deleteBuild(this);
-            g.managerChest.setCount = 1;
-            g.directServer.useChest(g.managerChest.getCount);
+                else g.townArea.deleteBuild(this);
+            if (g.managerTutorial.isTutorial && g.managerTutorial.isTutorialBuilding(this)) {
+                g.managerTutorial.checkTutorialCallback();
+            } else {
+                g.managerChest.setCount = 1;
+                g.directServer.useChest(g.managerChest.getCount);
+            }
         }
     }
 

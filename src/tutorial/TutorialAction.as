@@ -24,5 +24,6 @@ public class TutorialAction {
    public static const PUT_FARM:int = 19;
    public static const VISIT_NEIGHBOR:int = 22;
    public static const GO_HOME:int = 23;
+   public static const TAKE_CHEST:int = 24;
 }
 }

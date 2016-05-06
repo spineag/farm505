@@ -3,6 +3,7 @@
  */
 package tutorial {
 import build.WorldObject;
+import build.chestBonus.Chest;
 import build.fabrica.Fabrica;
 import build.farm.Animal;
 import build.farm.Farm;
@@ -161,6 +162,9 @@ public class ManagerTutorial {
                     break;
                 case 24:
                     curFunc = initScene_24;
+                    break;
+                case 25:
+                    curFunc = initScene_25;
                     break;
 
             }
@@ -1859,12 +1863,50 @@ public class ManagerTutorial {
         g.cont.moveCenterToPos(31, 28, true);
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTexts()).objText;
+        addBlack();
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['ok'], subStep24_1, 1);
     }
 
     private function subStep24_1():void {
+        removeBlack();
+        if (cutScene) cutScene.hideIt(deleteCutScene);
+        g.user.tutorialStep = 25;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_25():void {
+        var chest:WorldObject = g.managerChest.makeTutorialChest();
+        _tutorialObjects.push(chest);
+        if (!cat) {
+            addCatToPos(31, 35);
+            g.cont.moveCenterToPos(31, 31, true);
+            subStep25_1();
+        } else {
+            g.managerCats.goCatToPoint(cat, new Point(31, 35), subStep25_1);
+            g.cont.moveCenterToPos(31, 31, false, 1);
+        }
+    }
+
+    private function subStep25_1():void {
         _subStep = 1;
-        cutScene.hideIt(deleteCutScene);
+        _currentAction = TutorialAction.TAKE_CHEST;
+        if (!texts) texts = (new TutorialTexts()).objText;
+        cat.flipIt(false);
+        cat.showBubble(texts[g.user.tutorialStep][_subStep]);
+        (_tutorialObjects[0] as Chest).showArrow();
+        _tutorialCallback = subStep25_2;
+    }
+
+    private function subStep25_2():void {
+        _subStep = 2;
+        cat.hideBubble();
+        (_tutorialObjects[0] as Chest).hideArrow();
+        _tutorialCallback = subStep25_3;
+    }
+
+    private function subStep25_3():void {
+        _subStep = 3;
         g.user.tutorialStep = 101;
         updateTutorialStep();
 

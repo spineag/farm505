@@ -80,8 +80,7 @@ public class WOChestItem {
         _source.addChildAt(_particle, 0);
         _particle.flatten();
         _particle.touchable = false;
-        new TweenMax(_particle, .3, {scaleX:g.scaleFactor*4, scaleY:g.scaleFactor*4, ease:Linear.easeIn});
-        makeTweenParticle();
+        new TweenMax(_particle, .3, {scaleX:g.scaleFactor*4, scaleY:g.scaleFactor*4, ease:Linear.easeIn, onComplete: makeTweenParticle});
     }
 
     private function makeTweenParticle():void {
@@ -94,7 +93,7 @@ public class WOChestItem {
 
     private function removeParticle():void {
         if (_particle) {
-            if (_source.contains(_parent))_source.removeChild(_particle);
+            if (_source.contains(_particle))_source.removeChild(_particle);
             TweenMax.killTweensOf(_particle);
             _particle.dispose();
             _particle = null;

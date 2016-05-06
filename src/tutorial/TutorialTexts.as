@@ -96,6 +96,9 @@ public class TutorialTexts {
 
         _objText[24] = {};
         _objText[24][0] = 'Красава! Теперь все сам, а я пойду в Танки играть. Пока';
+
+        _objText[25] = {};
+        _objText[25][1] = 'А, чуть не забыл. Вот тебе небольшая награда!';
     }
 
     public function get objText():Object { return _objText }

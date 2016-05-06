@@ -206,7 +206,6 @@ public class Vars {
         farmGrid = new FarmGrid();
         managerDailyBonus = new ManagerDailyBonus();
         managerTutorial = new ManagerTutorial();
-        managerChest = new ManagerChest();
         managerHitArea = new ManagerHitArea();
         managerCutScenes = new ManagerCutScenes();
 
@@ -219,6 +218,7 @@ public class Vars {
         managerCats = new ManagerCats();
         managerOrderCats = new ManagerOrderCats();
         catPanel = new CatPanel();
+        managerChest = new ManagerChest();
 
         if (useDataFromServer) {
             socialNetwork = new SocialNetwork(flashVars);
@@ -367,7 +367,6 @@ public class Vars {
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
-        managerChest.createBuild();
         background = new BackgroundArea(afterCreateMapBackground);
     }
 
@@ -411,12 +410,15 @@ public class Vars {
         townArea.sortAtLockedLands();
         bottomPanel.checkIsFullOrder();
         if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
+        townArea.addTownAreaSortCheking();
+
+        managerChest.createChest();
         if (managerTutorial.isTutorial) {
             managerTutorial.initScenes();
             managerTutorial.checkDefaults();
+        } else {
+            managerCutScenes.checkAvailableCutScenes();
         }
-        townArea.addTownAreaSortCheking();
-        managerCutScenes.checkAvailableCutScenes();
     }
 
     private function onEnterFrameGlobal():void {

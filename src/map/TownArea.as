@@ -1184,7 +1184,7 @@ public class TownArea extends Sprite {
             g.directServer.getAllCityData(person, setAwayCity);
         }
         addAwayTownAreaSortCheking();
-        g.managerChest.createBuild(true);
+        g.managerChest.createChest(true);
     }
 
     private function setDefaultAwayMatrix():void {
