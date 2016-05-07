@@ -15,25 +15,24 @@ import utils.DrawToBitmap;
 
 public class OwnHitArea {
     private var _source:Sprite; // use only for test
-    private var _pixelsArr:Vector.< Vector.<Boolean> >;
+    private var _pixelsArr:Vector.< Vector.<int> >;
     private var _w:int;
     private var _h:int;
     private var _rect:flash.geom.Rectangle;
+    private var bitmapScaling:Number = .25; // use for minimise memory, try smaller number for that, max = 1
 
     public function OwnHitArea(sp:Sprite) {
         _source = sp;
         _rect = sp.getBounds(sp);
-        _rect.x = int(_rect.x);
-        _rect.y = int(_rect.y);
         createBitmapData(sp);
     }
 
     private function createBitmapData(sp:Sprite):void {
-//        var bm:Bitmap = DrawToBitmap.drawToBitmap(sp);
         var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapScale(sp));
-        var bitmapScaling:Number = 1; // use for minimise memory, try smaller number for that, max = 1
         _w = int(bm.width * bitmapScaling);
         _h = int(bm.height * bitmapScaling);
+        _rect.x = int(_rect.x * bitmapScaling);
+        _rect.y = int(_rect.y * bitmapScaling);
         var tempBitmapData:BitmapData = new BitmapData(bm.width, bm.height, true, 0x00000000);
         bitmapScaling < 1 ? tempBitmapData.draw(bm.bitmapData, new Matrix(bitmapScaling, 0, 0, bitmapScaling, 0, 0)) : tempBitmapData = bm.bitmapData.clone();
         bm.bitmapData.dispose();
@@ -86,15 +85,16 @@ public class OwnHitArea {
 
     private function createPixelArray(bData:BitmapData):void {
         var j:int;
-        var pixels:Vector.<Boolean>;
-        var isFullPixel:Boolean;
+        var pixels:Vector.<int>;
+        var isFullPixel:int;
         var color:uint;
-        _pixelsArr = new Vector.<Vector.<Boolean>>(_w);
+        _pixelsArr = new Vector.<Vector.<int>>(_w);
         for (var i:int=0; i<_w; i++) {
-            pixels = new Vector.<Boolean>;
+            pixels = new Vector.<int>;
             for (j=0; j<_h; j++) {
                 color = bData.getPixel32(i, j);
-                isFullPixel = Color.getAlpha(color) > 30;
+                if (Color.getAlpha(color) > 30) isFullPixel = 2;
+                    else isFullPixel = 1;
                 pixels[j] = isFullPixel;
             }
             _pixelsArr[i] = pixels;
@@ -102,14 +102,18 @@ public class OwnHitArea {
     }
 
     public function isTouchablePoint(x:int, y:int):Boolean {
-        var isFullPixel:Boolean;
+        var isFullPixel:int;
         try {
-            isFullPixel = _pixelsArr[x - _rect.x][y - _rect.y];
+            x = int(x*bitmapScaling);
+            y = int(y*bitmapScaling);
+            if (_pixelsArr[x - _rect.x] && _pixelsArr[x - _rect.x][y - _rect.y])
+                isFullPixel = _pixelsArr[x - _rect.x][y - _rect.y] - 1;
+            else isFullPixel = 0;
         } catch (e:Error) {
             return false;
         }
 
-        return isFullPixel;
+        return Boolean(isFullPixel);
     }
 
     public function deleteIt():void {
