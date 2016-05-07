@@ -63,10 +63,38 @@ public class Fabrica extends AreaObject {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'fabrica' + _dataBuild.image);
-            _source.registerHitArea(_hitArea);
         }
         updateRecipes();
+    }
+
+    private function checkBuildState():void {
+        try {
+            if (g.user.userBuildingData[_dataBuild.id]) {
+                if (g.user.userBuildingData[_dataBuild.id].isOpen) {
+                    _stateBuild = STATE_ACTIVE;
+                    createBuild();                                                                  // уже построенно и открыто
+                } else {
+                    _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding); // сколько времени уже строится
+                    var arr:Array = g.townArea.getCityObjectsById(_dataBuild.id);
+
+                    _leftBuildTime = int(_dataBuild.buildTime[arr.length]) - _leftBuildTime;        // сколько времени еще до конца стройки
+                    if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                        _stateBuild = STATE_WAIT_ACTIVATE;
+                        addDoneBuilding();
+                    } else {  // еще строится
+                        _stateBuild = STATE_BUILD;
+                        addFoundationBuilding();
+                        g.gameDispatcher.addToTimer(renderBuildProgress);
+                    }
+                }
+            } else {
+                _stateBuild = STATE_ACTIVE;
+                createBuild();
+            }
+        } catch (e:Error) {
+            Cc.error('AreaObject checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject checkBuildState');
+        }
     }
 
     override public function createBuild(isImageClicked:Boolean = true):void {
@@ -85,6 +113,8 @@ public class Fabrica extends AreaObject {
         _source.addChild(_build);
         WorldClock.clock.add(_armature);
         stopAnimation();
+        _hitArea = g.managerHitArea.getHitArea(_source, 'fabrica' + _dataBuild.image);
+        _source.registerHitArea(_hitArea);
     }
 
     public function showShopView():void {

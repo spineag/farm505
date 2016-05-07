@@ -969,7 +969,6 @@ public class TownArea extends Sprite {
                 g.buyHint.hideIt();
                 return;
             }
-            var build:AreaObject;
             g.buyHint.showIt((arr.length* tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;

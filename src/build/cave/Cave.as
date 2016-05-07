@@ -18,7 +18,6 @@ import ui.xpPanel.XPStar;
 import windows.WindowsManager;
 import windows.cave.WOBuyCave;
 
-
 public class Cave extends AreaObject{
     private var _isOnHover:Boolean;
     private var _countTimer:int;
@@ -52,8 +51,6 @@ public class Cave extends AreaObject{
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'caveBuild');
-            _source.registerHitArea(_hitArea);
         }
     }
 
@@ -82,6 +79,8 @@ public class Cave extends AreaObject{
         _sizeY = _dataBuild.height;
         if (_flip) _build.scaleX = -_defaultScale;
         _source.addChild(_build);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'caveBuild');
+        _source.registerHitArea(_hitArea);
     }
 
     private function checkCaveState():void {

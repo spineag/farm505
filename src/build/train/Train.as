@@ -235,6 +235,8 @@ public class Train extends AreaObject{
         _source.addChild(_build);
         WorldClock.clock.add(_armature);
         makeIdleAnimation();
+        _hitArea = g.managerHitArea.getHitArea(_build, 'trainBuild');
+        _source.registerHitArea(_hitArea);
     }
 
     private function createBrokenTrain():void {
