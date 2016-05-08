@@ -2,14 +2,12 @@
  * Created by user on 6/9/15.
  */
 package build.fabrica {
-import build.AreaObject;
-
+import build.WorldObject;
 import data.BuildType;
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.HeroCat;
@@ -22,14 +20,11 @@ import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
-
 import tutorial.TutorialAction;
-
 import ui.xpPanel.XPStar;
-
 import windows.WindowsManager;
 
-public class Fabrica extends AreaObject {
+public class Fabrica extends WorldObject {
     private var _arrRecipes:Array;  // массив всех рецептов, которые можно изготовить на этой фабрике
     private var _arrList:Array; // массив заказанных для изготовления ресурсов
     private var _isOnHover:Boolean;

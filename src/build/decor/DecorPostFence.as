@@ -2,24 +2,17 @@
  * Created by user on 6/8/15.
  */
 package build.decor {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import manager.ManagerFilters;
-
 import manager.OwnEvent;
-
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
 import starling.display.Image;
-
 import starling.display.Sprite;
 import starling.events.Event;
 
-public class DecorPostFence extends AreaObject{
+public class DecorPostFence extends WorldObject{
     private var _rightLenta:Sprite;
     private var _leftLenta:Sprite;
     private var g:Vars = Vars.getInstance();

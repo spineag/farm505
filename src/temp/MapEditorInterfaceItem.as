@@ -2,8 +2,7 @@
  * Created by user on 5/20/15.
  */
 package temp {
-
-import build.AreaObject;
+import build.WorldObject;
 import manager.Vars;
 import mouse.ToolsModifier;
 import starling.display.Image;
@@ -47,12 +46,12 @@ public class MapEditorInterfaceItem {
         if(g.toolsModifier.modifierType !== ToolsModifier.NONE) return;
         // это условие только для включенного режима передвижения, нужно добавить и на остальные
         g.toolsModifier.modifierType = ToolsModifier.MOVE;
-        var build:AreaObject = g.townArea.createNewBuild(_data);
+        var build:WorldObject = g.townArea.createNewBuild(_data);
         g.selectedBuild = build;
         g.toolsModifier.startMove(build, afterMove);
     }
 
-    private function afterMove(build:AreaObject, _x:Number, _y:Number):void {
+    private function afterMove(build:WorldObject, _x:Number, _y:Number):void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.townArea.pasteBuild(build, _x, _y);
     }

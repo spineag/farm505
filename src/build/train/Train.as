@@ -1,43 +1,23 @@
 package build.train {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import data.DataMoney;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import flash.geom.Point;
-
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
-
-
 import mouse.ToolsModifier;
-
 import resourceItem.DropItem;
-
 import starling.core.Starling;
-
-import starling.display.Image;
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
-import starling.utils.Color;
-
 import temp.DropResourceVariaty;
-
 import tutorial.managerCutScenes.ManagerCutScenes;
-
 import ui.xpPanel.XPStar;
-
 import windows.WindowsManager;
 
-import windows.cave.WOBuyCave;
-public class Train extends AreaObject{
+public class Train extends WorldObject{
     public static var STATE_WAIT_BACK:int = 5;   // поезд в данный момент где-то ездит с продуктамы
     public static var STATE_READY:int = 6;  //  поезд ожидает загрузки продуктов
 

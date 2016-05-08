@@ -2,14 +2,14 @@
  * Created by user on 4/27/16.
  */
 package build.chestBonus {
-import build.AreaObject;
+import build.WorldObject;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import mouse.ToolsModifier;
 import starling.display.Sprite;
 import windows.WindowsManager;
 
-public class Chest extends AreaObject{
+public class Chest extends WorldObject{
     private var _armature:Armature;
     private var _timerAnimation:int;
 

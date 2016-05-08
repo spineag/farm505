@@ -2,30 +2,18 @@
  * Created by user on 7/24/15.
  */
 package build.paper {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-
 import flash.geom.Point;
-
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
-
 import mouse.ToolsModifier;
-
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
-
-import starling.utils.Color;
-
 import windows.WindowsManager;
 
-public class Paper extends AreaObject{
+public class Paper extends WorldObject{
     private var _isOnHover:Boolean;
     private var _armature:Armature;
 

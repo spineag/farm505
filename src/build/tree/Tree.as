@@ -2,17 +2,13 @@
  * Created by user on 6/11/15.
  */
 package build.tree {
-import build.AreaObject;
+import build.WorldObject;
 import build.wild.RemoveWildAnimation;
-
 import com.greensock.TweenMax;
-
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
-import flash.display.Bitmap;
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
@@ -22,14 +18,11 @@ import resourceItem.ResourceItem;
 import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.textures.Texture;
 import ui.xpPanel.XPStar;
-import user.Someone;
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
-public class Tree extends AreaObject {
+public class Tree extends WorldObject {
     public static const GROW1:int = 1;
     public static const GROW_FLOWER1:int = 2;
     public static const GROWED1:int = 3;

@@ -2,17 +2,14 @@
  * Created by user on 9/29/15.
  */
 package build.lockedLand {
-import build.AreaObject;
+import build.WorldObject;
 import build.wild.Wild;
-
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.DataMoney;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
@@ -20,11 +17,9 @@ import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
 import utils.CreateTile;
-
 import windows.WindowsManager;
 
-
-public class LockedLand extends AreaObject {
+public class LockedLand extends WorldObject {
     private var _dataLand:Object;
     private var _arrWilds:Array;
     private var _topRibbon:Sprite;

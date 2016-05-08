@@ -1,40 +1,21 @@
 
 package build.market {
-
-
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
 import dragonBones.Bone;
-
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import flash.geom.Point;
-
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
-
-import map.TownArea;
-
 import mouse.ToolsModifier;
-
 import starling.display.Image;
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
-import starling.utils.Color;
-
 import tutorial.TutorialAction;
-
-import utils.MCScaler;
-
 import windows.WindowsManager;
 
-public class Market extends AreaObject{
+public class Market extends WorldObject{
     private var _arrItem:Array;
     private var _isOnHover:Boolean;
     private var _armature:Armature;

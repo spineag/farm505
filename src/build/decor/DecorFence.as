@@ -2,13 +2,12 @@
  * Created by user on 6/8/15.
  */
 package build.decor {
-import build.AreaObject;
+import build.WorldObject;
 
 import manager.ManagerFilters;
 
-
 // для забора как в Птичем Городке
-public class DecorFence extends AreaObject {
+public class DecorFence extends WorldObject {
     public function DecorFence(_data:Object) {
         super(_data);
         createBuild();

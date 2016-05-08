@@ -2,46 +2,23 @@
  * Created by user on 6/2/15.
  */
 package build.ridge {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
 import hint.MouseHint;
-
-
-import hint.TimerHint;
-
 import manager.ManagerFilters;
-
-import map.MatrixGrid;
-
 import mouse.ToolsModifier;
-
 import resourceItem.CraftItem;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
-
-import starling.display.BlendMode;
-
 import starling.display.Quad;
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
 import starling.utils.Color;
-
 import tutorial.TutorialAction;
-
-import tutorial.TutorialAction;
-
-import tutorial.TutorialAction;
-
 import utils.CSprite;
-
 import windows.WindowsManager;
 
-public class Ridge extends AreaObject{
+public class Ridge extends WorldObject{
     public static const EMPTY:int = 1;
     public static const GROW1:int = 2;
     public static const GROW2:int = 3;

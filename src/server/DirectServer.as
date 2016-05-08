@@ -2,10 +2,7 @@
  * Created by user on 7/16/15.
  */
 package server {
-import build.AreaObject;
 import build.WorldObject;
-import build.WorldObject;
-import build.cave.Cave;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
 import build.farm.Animal;
@@ -15,34 +12,22 @@ import build.tree.Tree;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
-
 import flash.events.Event;
 import flash.geom.Point;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
-import flash.net.URLRequestHeader;
 import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
 import flash.utils.getTimer;
-
 import manager.ManagerAnimal;
 import manager.ManagerFabricaRecipe;
 import manager.ManagerPlantRidge;
 import manager.ManagerTree;
 import manager.Vars;
-
 import mouse.ServerIconMouse;
-
 import user.Someone;
-
-import user.Someone;
-
 import utils.Utils;
-
 import windows.WindowsManager;
-
-import windows.serverError.WOServerError;
-
 
 public class DirectServer {
     private var g:Vars = Vars.getInstance();
@@ -1113,7 +1098,7 @@ public class DirectServer {
                         ob.isOpen = Boolean(int(d.message[i].is_open));
                     }
                     g.user.userDataCity.objects.push(ob);
-                    var build:AreaObject = g.townArea.createNewBuild(dataBuild, dbId);
+                    var build:WorldObject = g.townArea.createNewBuild(dataBuild, dbId);
                     if (build is DecorTail) {
                         g.townArea.pasteTailBuild(build as DecorTail, p.x, p.y, false);
                     } else {
@@ -3278,7 +3263,7 @@ public class DirectServer {
                 ob.dbId = dbId;
                 g.user.userDataCity.objects.push(ob);
 
-                var build:AreaObject = g.townArea.createNewBuild(dataBuild, dbId);
+                var build:WorldObject = g.townArea.createNewBuild(dataBuild, dbId);
                 g.townArea.pasteBuild(build, p.x, p.y, false);
             }
             if (callback != null) {

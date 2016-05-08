@@ -2,11 +2,8 @@
  * Created by user on 4/27/16.
  */
 package manager {
-import build.AreaObject;
 import build.WorldObject;
-
 import data.BuildType;
-
 import flash.geom.Point;
 
 public class ManagerChest {
@@ -108,7 +105,7 @@ public class ManagerChest {
             g.townArea.createAwayNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], p.x, p.y, 0);
         } else {
             p = g.matrixGrid.getXYFromIndex(p);
-            var build:AreaObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], 0);
+            var build:WorldObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], 0);
             g.townArea.pasteBuild(build, p.x, p.y, false);
         }
     }
@@ -129,7 +126,7 @@ public class ManagerChest {
         var p:Point = new Point(33, 33);
         p = g.matrixGrid.getXYFromIndex(p);
         if (_chestBuildID == -1) findChestID();
-        var build:AreaObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], 0);
+        var build:WorldObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], 0);
         g.townArea.pasteBuild(build, p.x, p.y, false);
         return build;
     }

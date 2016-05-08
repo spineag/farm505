@@ -2,7 +2,8 @@
  * Created by user on 10/9/15.
  */
 package ui.toolsPanel {
-import build.AreaObject;
+import build.WorldObject;
+
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import manager.ManagerFilters;
@@ -68,7 +69,7 @@ public class RepositoryItem {
     }
 
     private function onClick():void {
-        var build:AreaObject = g.townArea.createNewBuild(_data, _arrDbIds[0]);
+        var build:WorldObject = g.townArea.createNewBuild(_data, _arrDbIds[0]);
         g.selectedBuild = build;
         if (_data.buildType == BuildType.DECOR_TAIL) {
             g.toolsModifier.startMoveTail(build, g.townArea.afterMoveFromInventory, true);

@@ -2,27 +2,20 @@
  * Created by user on 5/20/15.
  */
 package mouse {
-import build.AreaObject;
+import build.WorldObject;
 import build.decor.DecorTail;
 import build.wild.Wild;
-
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
-import map.MatrixGrid;
-
 import starling.display.Image;
-import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
 public class ToolsModifier {
@@ -38,7 +31,7 @@ public class ToolsModifier {
     public static var ADD_NEW_RIDGE:int = 9;
     public static var ADD_NEW_DECOR:int = 10;
 
-    private var _activeBuilding:AreaObject;
+    private var _activeBuilding:WorldObject;
     private var _startMoveX:int;
     private var _startMoveY:int;
     private var _spriteForMove:Sprite;
@@ -212,7 +205,7 @@ public class ToolsModifier {
         _mouseCont.y = g.ownMouse.mouseY + 5;
     }
 
-    public function  startMove(selectedBuild:AreaObject, callback:Function=null, isFromShop:Boolean = false):void {
+    public function  startMove(selectedBuild:WorldObject, callback:Function=null, isFromShop:Boolean = false):void {
         if (!selectedBuild) {
             Cc.error('ToolsModifier startMove:: empty selectedBuild');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'toolsModifier');
@@ -254,7 +247,7 @@ public class ToolsModifier {
         g.gameDispatcher.addEnterFrame(moveIt);
     }
 
-    public function startMoveTail(selectedBuild:AreaObject, callback:Function = null, isFromShop:Boolean = false):void {
+    public function startMoveTail(selectedBuild:WorldObject, callback:Function = null, isFromShop:Boolean = false):void {
         if (!selectedBuild) {
             Cc.error('ToolsModifier startMoveTail:: empty buildingData');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'toolsModifier');

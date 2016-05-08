@@ -2,30 +2,18 @@
  * Created by andy on 5/28/15.
  */
 package build.ambar {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import manager.ManagerFilters;
-
-import map.TownArea;
-
 import mouse.ToolsModifier;
-
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
-import starling.utils.Color;
-
 import windows.WindowsManager;
-
 import windows.ambar.WOAmbars;
 
-public class Sklad extends AreaObject{
+public class Sklad extends WorldObject{
     private var _armature:Armature;
     private var _isOnHover:Boolean;
 

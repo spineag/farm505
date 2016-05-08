@@ -2,31 +2,19 @@
  * Created by user on 7/23/15.
  */
 package build.dailyBonus {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
-
 import flash.geom.Point;
-
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
-
 import mouse.ToolsModifier;
-
 import starling.display.Sprite;
-
-import starling.filters.BlurFilter;
-
-import starling.utils.Color;
-
 import windows.WindowsManager;
 
-public class DailyBonus extends AreaObject{
+public class DailyBonus extends WorldObject{
     private var _armature:Armature;
     private var _isOnHover:Boolean;
 

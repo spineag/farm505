@@ -2,31 +2,21 @@
  * Created by andy on 5/28/15.
  */
 package build.farm {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import mouse.ToolsModifier;
-
 import particle.FarmFeedParticles;
-
 import resourceItem.CraftItem;
-
 import resourceItem.ResourceItem;
-
 import starling.display.Image;
 import starling.display.Sprite;
-
 import tutorial.TutorialAction;
-
 import ui.xpPanel.XPStar;
-
 import windows.WindowsManager;
 
-public class Farm extends AreaObject{
+public class Farm extends WorldObject{
     private var _dataAnimal:Object;
     private var _arrAnimals:Array;
     private var _contAnimals:Sprite;

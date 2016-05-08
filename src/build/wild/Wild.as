@@ -2,27 +2,17 @@
  * Created by user on 6/11/15.
  */
 package build.wild {
-import build.AreaObject;
+import build.WorldObject;
 import build.lockedLand.LockedLand;
-
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import mouse.ToolsModifier;
-
-import starling.filters.BlurFilter;
-import starling.filters.ColorMatrixFilter;
-import starling.utils.Color;
-
 import ui.xpPanel.XPStar;
-
 import windows.WindowsManager;
 
-public class Wild extends AreaObject{
+public class Wild extends WorldObject{
     private var _isOnHover:Boolean;
     private var _curLockedLand:LockedLand;
     private var _delete:Boolean;

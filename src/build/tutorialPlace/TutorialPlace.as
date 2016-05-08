@@ -2,14 +2,14 @@
  * Created by user on 4/7/16.
  */
 package build.tutorialPlace {
-import build.AreaObject;
+import build.WorldObject;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import starling.display.Image;
 import windows.WindowsManager;
 
-public class TutorialPlace extends AreaObject{
+public class TutorialPlace extends WorldObject{
 
     public function TutorialPlace(_data:Object) {
         super(_data);

@@ -2,19 +2,13 @@
  * Created by andy on 5/28/15.
  */
 package build.testBuild {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
-import map.TownArea;
-
 import mouse.ToolsModifier;
-
 import starling.filters.BlurFilter;
 import starling.utils.Color;
 
-public class TestBuild extends AreaObject{
-
+public class TestBuild extends WorldObject{
 
     public function TestBuild(_data:Object) {
         super(_data);

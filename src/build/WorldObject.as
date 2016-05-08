@@ -1,20 +1,20 @@
 package build {
-
+import com.greensock.TweenMax;
+import com.junkbyte.console.Cc;
+import data.BuildType;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-
 import manager.Vars;
 import manager.hitArea.OwnHitArea;
-
 import starling.display.DisplayObject;
-import starling.display.Quad;
+import starling.display.Image;
 import starling.display.Sprite;
-
 import tutorial.SimpleArrow;
-
+import tutorial.TutorialAction;
 import utils.IsoUtils;
 import utils.Point3D;
 import utils.CSprite;
+import windows.WindowsManager;
 
 public class WorldObject {
     public static var STATE_UNACTIVE:int = 1;       // только для стандартных зданий
@@ -41,11 +41,22 @@ public class WorldObject {
     protected var _arrow:SimpleArrow;
     protected var _tutorialCallback:Function;
     protected var _hitArea:OwnHitArea;
+    protected var _leftBuildTime:int;                   // сколько осталось времени до окончания постройки здания
+    private var _buildingBuild:BuildingBuild;
+    public var countShopCost:int;
 
     protected static var g:Vars = Vars.getInstance();
 
-    public function WorldObject() {
+    public function WorldObject(dataBuildObject:Object) {
         _tutorialCallback = null;
+        _source = new CSprite();
+        _build = new Sprite();
+        _dataBuild = dataBuildObject;
+        _defaultScale = 1;
+        _flip = _dataBuild.isFlip || false;
+        _dataBuild.isFlip = _flip;
+        _sizeX = 0;
+        _sizeY = 0;
     }
 
     public function get sizeX():uint {
@@ -159,11 +170,6 @@ public class WorldObject {
     public function showArrow():void {
         hideArrow();
         if (_rect) {
-//            var q:Quad = new Quad(_rect.width, _rect.height);
-//            q.x = _rect.x;
-//            q.y = _rect.y;
-//            q.alpha = .4;
-//            _source.addChild(q);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
             _arrow.animateAtPosition(0, _rect.y);
         }
@@ -178,6 +184,158 @@ public class WorldObject {
 
     public function set tutorialCallback(f:Function):void {
         _tutorialCallback = f;
+    }
+
+    public function clearIt():void {
+//        if (_isoView) {
+//            while (_isoView.numChildren) _isoView.removeChildAt(0);
+//            _isoView = null;
+//        }
+        if (_craftSprite) while (_craftSprite.numChildren) _craftSprite.removeChildAt(0);
+        if (_build) while (_build.numChildren) _build.removeChildAt(0);
+        if (_source) while (_source.numChildren) _source.removeChildAt(0);
+        _dataBuild = null;
+        _build = null;
+        _source = null;
+        _rect = null;
+        _hitArea = null;
+    }
+
+    public function createBuild(isImageClicked:Boolean = true):void {
+        var im:Image;
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+
+        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
+        im.x = _dataBuild.innerX;
+        im.y = _dataBuild.innerY;
+
+        if (!im) {
+            Cc.error('AreaObject:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
+            return;
+        }
+        _build.addChild(im);
+        if (!isImageClicked) im.touchable = false;
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        (_build as Sprite).alpha = 1;
+        _source.addChild(_build);
+    }
+
+    protected function createIsoView():void {
+        var im:Image;
+        _isoView = new Sprite();
+        try {
+            for (var i:int = 0; i < _dataBuild.width; i++) {
+                for (var j:int = 0; j < _dataBuild.height; j++) {
+                    im = new Image(g.matrixGrid.buildUnderTexture);
+                    im.pivotX = im.width/2;
+                    g.matrixGrid.setSpriteFromIndex(im, new Point(i, j));
+                    _isoView.addChild(im);
+                }
+            }
+            _source.addChildAt(_isoView, 0);
+        } catch (e:Error) {
+            Cc.error('AreaObject createIsoView error id: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject createIsoView ');
+        }
+    }
+
+    protected function deleteIsoView():void {
+        while (_isoView.numChildren) _isoView.removeChildAt(0);
+        _source.removeChild(_isoView);
+        _isoView = null;
+    }
+
+    protected function addDoneBuilding():void {
+        if (_craftSprite) {
+            if (!_buildingBuild) {
+                _buildingBuild = new BuildingBuild('done');
+            } else {
+                _buildingBuild.doneAnimation();
+            }
+            _craftSprite.addChild(_buildingBuild.source);
+            _rect = _craftSprite.getBounds(_craftSprite);
+            _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
+            _source.registerHitArea(_hitArea);
+        } else {
+            Cc.error('_craftSprite == null  :(')
+        }
+    }
+
+    protected function addFoundationBuilding():void {
+        if (_craftSprite) {
+            if (!_buildingBuild) {
+                _buildingBuild = new BuildingBuild('work');
+            } else {
+                _buildingBuild.workAnimation();
+            }
+            _craftSprite.addChild(_buildingBuild.source);
+            _rect = _craftSprite.getBounds(_craftSprite);
+            _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
+            _source.registerHitArea(_hitArea);
+        } else {
+            Cc.error('_craftSprite == null  :(')
+        }
+    }
+
+    protected function buildingBuildDoneOver():void {
+        if (_buildingBuild) {
+            _buildingBuild.overItDone();
+        }
+    }
+
+    protected function buildingBuildFoundationOver():void {
+        if (_buildingBuild) {
+            _buildingBuild.overItFoundation();
+        }
+    }
+
+    protected function clearCraftSprite():void {
+        if (_craftSprite) {
+            while (_craftSprite.numChildren) _craftSprite.removeChildAt(0);
+            if (_buildingBuild) {
+                _buildingBuild.deleteIt();
+                _buildingBuild = null;
+            }
+        }
+    }
+
+    protected function renderBuildProgress():void {
+        _leftBuildTime--;
+        if (_leftBuildTime <= 0) {
+            g.gameDispatcher.removeFromTimer(renderBuildProgress);
+            clearCraftSprite();
+            addDoneBuilding();
+            _stateBuild = STATE_WAIT_ACTIVATE;
+            if (g.managerTutorial.isTutorial && _dataBuild.buildType == BuildType.FABRICA && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+                g.timerHint.canHide = true;
+                g.timerHint.hideArrow();
+                g.timerHint.hideIt(true);
+                g.managerTutorial.checkTutorialCallback();
+            }
+        }
+    }
+
+    protected function makeOverAnimation():void {
+        var time:Number = .15;
+        TweenMax.killTweensOf(_build);
+        _build.scaleX = _build.scaleY = 1;
+        _build.y = 0;
+
+        var f1:Function = function ():void {
+            TweenMax.to(_build, time, {scaleX: 1.02, scaleY: 0.98, y: 0, onComplete: f2});
+        };
+        var f2:Function = function ():void {
+            TweenMax.to(_build, time, {scaleX: 1, scaleY: 1});
+        };
+        TweenMax.to(_build, time, {scaleX: 0.98, scaleY: 1.02, y: -6*g.scaleFactor, onComplete: f1});
     }
 }
 }

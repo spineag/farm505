@@ -1,6 +1,5 @@
 package build.cave {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
 import data.DataMoney;
 import dragonBones.Armature;
@@ -14,11 +13,9 @@ import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
 import starling.display.Sprite;
 import ui.xpPanel.XPStar;
-
 import windows.WindowsManager;
-import windows.cave.WOBuyCave;
 
-public class Cave extends AreaObject{
+public class Cave extends WorldObject{
     private var _isOnHover:Boolean;
     private var _countTimer:int;
     private var _arrCraftItems:Array;

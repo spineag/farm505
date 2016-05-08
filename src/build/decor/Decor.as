@@ -2,21 +2,14 @@
  * Created by user on 6/8/15.
  */
 package build.decor {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import manager.ManagerFilters;
 import manager.OwnEvent;
-
 import mouse.ToolsModifier;
-
 import starling.events.Event;
 
-import starling.filters.BlurFilter;
-import starling.utils.Color;
-
-public class Decor extends AreaObject{
+public class Decor extends WorldObject{
     public function Decor(_data:Object) {
         super(_data);
         createBuild();

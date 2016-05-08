@@ -2,24 +2,14 @@
  * Created by andy on 5/28/15.
  */
 package build.ambar {
-import build.AreaObject;
-
+import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import manager.ManagerFilters;
-
-import map.TownArea;
-
 import mouse.ToolsModifier;
-
-import starling.filters.BlurFilter;
-import starling.utils.Color;
-
 import windows.WindowsManager;
-
 import windows.ambar.WOAmbars;
 
-public class Ambar extends AreaObject{
+public class Ambar extends WorldObject{
     private var _isOnHover:Boolean;
     private var _ambarIndicator:AmbarIndicator;
 

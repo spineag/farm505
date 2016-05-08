@@ -2,9 +2,7 @@
  * Created by user on 6/24/15.
  */
 package windows.shop {
-import build.AreaObject;
 import build.WorldObject;
-import build.decor.DecorTail;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.tree.Tree;
@@ -24,12 +22,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
-
-import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
-
-import ui.xpPanel.XPStar;
 import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
@@ -643,7 +637,7 @@ public class ShopItem {
                 g.buyHint.showIt(_countCost);
             }
         }
-        var build:AreaObject;
+        var build:WorldObject;
         if (_data.buildType == BuildType.RIDGE) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.NEW_RIDGE) return;
             build = g.townArea.createNewBuild(_data);
@@ -654,8 +648,8 @@ public class ShopItem {
                 g.managerTutorial.checkTutorialCallback();
             }
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
-            (build as AreaObject).countShopCost = _countCost;
-            g.townArea.startMoveAfterShop(build as AreaObject);
+            (build as WorldObject).countShopCost = _countCost;
+            g.townArea.startMoveAfterShop(build);
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
             if (g.managerTutorial.isTutorial) return;
             build = g.townArea.createNewBuild(_data);
@@ -664,11 +658,11 @@ public class ShopItem {
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             if (_state == STATE_FROM_INVENTORY) {
-                g.townArea.startMoveAfterShop(build as AreaObject, true);
+                g.townArea.startMoveAfterShop(build, true);
                 g.buyHint.hideIt();
             } else {
-                (build as AreaObject).countShopCost = _countCost;
-                g.townArea.startMoveAfterShop(build as AreaObject);
+                (build as WorldObject).countShopCost = _countCost;
+                g.townArea.startMoveAfterShop(build);
 //                g.toolsModifier.startMoveTail(build, _countCost, true);
             }
         } else if (_data.buildType == BuildType.CAT) {
@@ -701,11 +695,11 @@ public class ShopItem {
                 }
             }
             if (_state == STATE_FROM_INVENTORY) {
-                g.townArea.startMoveAfterShop(build as AreaObject, true);
+                g.townArea.startMoveAfterShop(build, true);
                 g.buyHint.hideIt();
             } else {
-                (build as AreaObject).countShopCost = _countCost;
-                g.townArea.startMoveAfterShop(build as AreaObject);
+                (build as WorldObject).countShopCost = _countCost;
+                g.townArea.startMoveAfterShop(build);
 //                g.toolsModifier.startMove(build, _countCost, true);
             }
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
