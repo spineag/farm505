@@ -48,10 +48,9 @@ public class CSprite extends Sprite {
     }
 
     private var _startDragPoint:Point;
-    private function onTouch(te:TouchEvent):void {
-//        te.stopImmediatePropagation();    ???
-//        te.stopPropagation();   ???
-
+    public function onTouch(te:TouchEvent):void {
+        te.stopPropagation();
+        te.stopImmediatePropagation();
         if (_hitArea) {
             var localPos:Point = te.data[0].getLocation(this);
             if (_hitArea.isTouchablePoint(localPos.x, localPos.y)) _hitAreaState = 2; // state -> mouse is under visible point
@@ -70,26 +69,22 @@ public class CSprite extends Sprite {
             }
         } else if (te.getTouch(this, TouchPhase.BEGAN)) {
             if (_hitAreaState != 3) {
-                te.stopImmediatePropagation();
                 te.stopPropagation();
                 if (_useContDrag) {
                     _startDragPoint = new Point();
                     _startDragPoint.x = g.cont.gameCont.x;
                     _startDragPoint.y = g.cont.gameCont.y;
+                    g.cont.setDragPoints(te.touches[0].getLocation(g.mainStage));
                 }
                 Mouse.cursor = OwnMouse.CLICK_CURSOR;
                 if (_startClickCallback != null) {
                     _startClickCallback.apply();
                 }
-                if (_useContDrag) {
-                    g.cont.setDragPoints(te.touches[0].getLocation(g.mainStage));
-                }
             }
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
+            Mouse.cursor = OwnMouse.USUAL_CURSOR;
             if (_hitAreaState != 3) {
-                te.stopImmediatePropagation();
                 te.stopPropagation();
-
                 if (wasGameContMoved) return;
                 if (_endClickCallback != null) {
                     if (_params) {
@@ -99,10 +94,8 @@ public class CSprite extends Sprite {
                     }
                 }
             }
-            Mouse.cursor = OwnMouse.USUAL_CURSOR;
         } else if (te.getTouch(this, TouchPhase.HOVER)) {
             if (_hitAreaState != 3) {
-                te.stopImmediatePropagation();
                 te.stopPropagation();
                 Mouse.cursor = OwnMouse.HOVER_CURSOR;
                 if (_hoverCallback != null) {

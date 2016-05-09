@@ -15,7 +15,7 @@ public class ManagerHitArea {
         if (_areas[name]) {
             return _areas[name];
         } else {
-            var area:OwnHitArea = new OwnHitArea(sp);
+            var area:OwnHitArea = new OwnHitArea(sp, name);
             _areas[name] = area;
             return area;
         }
