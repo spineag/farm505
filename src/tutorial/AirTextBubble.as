@@ -5,13 +5,17 @@ package tutorial {
 import manager.ManagerFilters;
 import manager.Vars;
 
+import starling.core.Starling;
+
 import starling.display.Image;
+import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CButton;
+import utils.CSprite;
 
 import windows.WOComponents.HintBackground;
 
@@ -25,6 +29,8 @@ public class AirTextBubble {
     private var _catHead:Sprite;
     private var _dust:DustRectangle;
     private var _arrow:SimpleArrow;
+    private var _fonClickable:CSprite;
+    private var _callback:Function
     private var g:Vars = Vars.getInstance();
 
     public function AirTextBubble() {
@@ -54,21 +60,38 @@ public class AirTextBubble {
         _txt.text = st;
         _source.x = _x;
         _source.y = _y;
-        _parent.addChild(_source);
-        if (callback != null) {
+        _callback = callback;
+        if (_callback != null) {
             _btn.visible = true;
-            var f:Function = function():void {
-                if (_dust) {
-                    _dust.deleteIt();
-                    _dust = null;
-                }
-                if (callback != null) {
-                    callback.apply();
-                }
-            };
-            _btn.clickCallback = f;
+            _btn.clickCallback = onCallback;
+            createClickableFon();
         } else {
             _btn.visible = false;
+        }
+        _parent.addChild(_source);
+    }
+
+    private function onCallback():void {
+        if (_callback != null) {
+            _callback.apply();
+            _callback = null;
+        }
+    }
+
+    private function createClickableFon():void {
+        if (_fonClickable) return;
+        _fonClickable = new CSprite();
+        _fonClickable.addChild(new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK));
+        _parent.addChild(_fonClickable);
+        _fonClickable.alpha = 0;
+        _fonClickable.endClickCallback = onCallback;
+    }
+
+    private function deleteFonClickable():void {
+        if (_fonClickable) {
+            _parent.addChildAt(_fonClickable, 0);
+            _fonClickable.deleteIt();
+            _fonClickable = null;
         }
     }
 
@@ -110,12 +133,18 @@ public class AirTextBubble {
 
     public function hideIt():void {
         deleteArrow();
+        deleteFonClickable();
+        if (_dust) {
+            _dust.deleteIt();
+            _dust = null;
+        }
         _parent.removeChild(_source);
         _parent = null;
     }
 
     public function deleteIt():void {
         while (_source.numChildren) _source.removeChildAt(0);
+        _callback = null;
         _catHead.dispose();
         _catHead = null;
         _btn.deleteIt();

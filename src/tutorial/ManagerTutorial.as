@@ -256,6 +256,11 @@ public class ManagerTutorial {
     private function subStep2_3():void {
         _subStep = 3;
         _tutorialObjects = [];
+        cat.playDirectLabel('idle4', true, subStep2_4);
+    }
+
+    private function subStep2_4():void {
+        _subStep = 4;
         g.user.tutorialStep = 3;
         updateTutorialStep();
         initScenes();
@@ -469,6 +474,7 @@ public class ManagerTutorial {
             g.cont.moveCenterToPos(28, 11);
         }
         _subStep = 0;
+        cat.playDirectLabel('aplouse', true, null);
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep5_1, 0);
         addBlack();
     }
@@ -672,14 +678,18 @@ public class ManagerTutorial {
 
     private function subStep7_6():void {
         _subStep = 6;
-//        g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY);
-        cat.hideBubble();
+        _tutorialResourceIDs = [];
         _currentAction = TutorialAction.NONE;
         (_tutorialObjects[0] as Fabrica).hideArrow();
+        cat.hideBubble();
+        cat.playDirectLabel('idle4', true, subStep7_7);
+    }
+
+    private function subStep7_7():void {
+        _subStep = 7;
         g.user.tutorialStep = 8;
-        _tutorialResourceIDs = [];
         updateTutorialStep();
-        createDelay(.5, initScenes);
+        initScenes();
     }
 
     private function initScene_8():void {
@@ -978,6 +988,11 @@ public class ManagerTutorial {
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
+        cat.playDirectLabel('idle4', true, subStep10_5);
+    }
+
+    private function subStep10_5():void {
+        _subStep = 5;
         g.user.tutorialStep = 11;
         updateTutorialStep();
         initScenes();
@@ -1252,6 +1267,10 @@ public class ManagerTutorial {
         cat.hideBubble();
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
+        cat.playDirectLabel('idle4', true, subStep14_2);
+    }
+
+    private function subStep14_2():void {
         g.user.tutorialStep = 15;
         _tutorialObjects.length = 0;
         updateTutorialStep();
@@ -1453,6 +1472,10 @@ public class ManagerTutorial {
         _subStep = 3;
         _currentAction = TutorialAction.NONE;
         _tutorialCallback = null;
+        cat.playDirectLabel('idle4', true, subStep18_4);
+    }
+
+    private function subStep18_4():void {
         initScenes();
     }
 
@@ -1713,6 +1736,10 @@ public class ManagerTutorial {
         bee.removeArrow();
         bee.tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
+        cat.playDirectLabel('idle4', true, subStep22_3);
+    }
+
+    private function subStep22_3():void {
         g.user.tutorialStep = 23;
         updateTutorialStep();
         initScenes();
@@ -1820,8 +1847,8 @@ public class ManagerTutorial {
         _airBubble.hideIt();
         _airBubble.deleteIt();
         _airBubble = null;
-        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
         _currentAction = TutorialAction.GO_HOME;
+        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
         _subStep = 8;
         if (!cutScene) cutScene = new CutScene();
         cutScene.showIt(texts[g.user.tutorialStep][_subStep]);
@@ -1851,6 +1878,7 @@ public class ManagerTutorial {
         _tutorialCallback = null;
         g.user.tutorialStep = 24;
         _tutorialResourceIDs = [];
+        _tutorialObjects = [];
         createDelay(.5, initScenes);
     }
 
@@ -1876,6 +1904,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_25():void {
+        _tutorialObjects = [];
         var chest:WorldObject = g.managerChest.makeTutorialChest();
         _tutorialObjects.push(chest);
         if (!cat) {
@@ -1890,11 +1919,11 @@ public class ManagerTutorial {
 
     private function subStep25_1():void {
         _subStep = 1;
+        (_tutorialObjects[0] as Chest).showArrow();
         _currentAction = TutorialAction.TAKE_CHEST;
         if (!texts) texts = (new TutorialTexts()).objText;
         cat.flipIt(false);
         cat.showBubble(texts[g.user.tutorialStep][_subStep]);
-        (_tutorialObjects[0] as Chest).showArrow();
         _tutorialCallback = subStep25_2;
     }
 

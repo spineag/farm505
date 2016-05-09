@@ -3,6 +3,9 @@
  */
 package build.chestBonus {
 import build.WorldObject;
+
+import com.junkbyte.console.Cc;
+
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import mouse.ToolsModifier;
@@ -20,12 +23,6 @@ public class Chest extends WorldObject{
     }
 
     override public function createBuild(isImageClicked:Boolean = true):void {
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
         _armature = g.allData.factory['chest_mini'].buildArmature("cat");
         _build.addChild(_armature.display as Sprite);
         WorldClock.clock.add(_armature);
@@ -51,14 +48,18 @@ public class Chest extends WorldObject{
                 || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            g.windowsManager.openWindow(WindowsManager.WO_CHEST, null);
-            if (g.isAway) g.townArea.deleteAwayBuild(this);
-                else g.townArea.deleteBuild(this);
-            if (g.managerTutorial.isTutorial && g.managerTutorial.isTutorialBuilding(this)) {
-                g.managerTutorial.checkTutorialCallback();
-            } else {
-                g.managerChest.setCount = 1;
-                g.directServer.useChest(g.managerChest.getCount);
+            try {
+                g.windowsManager.openWindow(WindowsManager.WO_CHEST, null);
+                if (g.managerTutorial.isTutorial && g.managerTutorial.isTutorialBuilding(this)) {
+                    g.managerTutorial.checkTutorialCallback();
+                } else {
+                    g.managerChest.setCount = 1;
+                    g.directServer.useChest(g.managerChest.getCount);
+                }
+                if (g.isAway) g.townArea.deleteAwayBuild(this);
+                    else g.townArea.deleteBuild(this);
+            } catch (e:Error) {
+                Cc.error('Chest onClick error: ' + e.message);
             }
         }
     }
