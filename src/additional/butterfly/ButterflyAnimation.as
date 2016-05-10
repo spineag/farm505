@@ -21,9 +21,9 @@ public class ButterflyAnimation {
     public function ButterflyAnimation(type:int) {
         _source = new Sprite();
         _armature = g.allData.factory['butterfly'].buildArmature("bfly");
-//        if (type != Butterfly.TYPE_PINK) {
-//            changeTexture(type);
-//        }
+        if (type != Butterfly.TYPE_PINK) {
+            changeTexture(type);
+        }
         _source.addChild(_armature.display as Sprite);
     }
 
