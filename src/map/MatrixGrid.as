@@ -76,7 +76,7 @@ public class MatrixGrid {
     }
 
     public function getLengthMatrix():int {
-        return _matrix.length;
+        return _matrixSize;
     }
 
     public function get offsetY():int {

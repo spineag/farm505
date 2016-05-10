@@ -8,8 +8,10 @@ import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 import manager.Vars;
 import starling.display.Image;
+import starling.display.Sprite;
 
 public class ButterflyAnimation {
+    private var _source:Sprite;
     private var _armature:Armature;
     private var _callback:Function;
     private var _playOnce:Boolean;
@@ -17,10 +19,16 @@ public class ButterflyAnimation {
     private var g:Vars = Vars.getInstance();
 
     public function ButterflyAnimation(type:int) {
+        _source = new Sprite();
         _armature = g.allData.factory['butterfly'].buildArmature("bfly");
-        if (type != Butterfly.TYPE_PINK) {
-            changeTexture(type);
-        }
+//        if (type != Butterfly.TYPE_PINK) {
+//            changeTexture(type);
+//        }
+        _source.addChild(_armature.display as Sprite);
+    }
+
+    public function get source():Sprite {
+        return _source;
     }
 
     private function changeTexture(type:int):void {
@@ -29,7 +37,7 @@ public class ButterflyAnimation {
             changeBoneTexture("wing1", "blue1");
             changeBoneTexture("wing2", "blue1");
         } else {
-            changeBoneTexture("body", "yellow2");
+            changeBoneTexture("body", "yellow");
             changeBoneTexture("wing1", "yellow1");
             changeBoneTexture("wing2", "yellow1");
         }
@@ -38,8 +46,15 @@ public class ButterflyAnimation {
     private function changeBoneTexture(oldName:String, newName:String):void {
         var im:Image = g.allData.factory['butterfly'].getTextureDisplay(newName) as Image;
         var b:Bone = _armature.getBone(oldName);
-        b.display.dispose();
-        b.display = im;
+        if (im) {
+            im.x = b.display.x;
+            im.y = b.display.y;
+            im.scaleX = b.display.scaleX;
+            im.scaleY = b.display.scaleY;
+            im.rotation = b.display.rotation;
+            b.display.dispose();
+            b.display = im;
+        }
     }
 
     public function playIt(label:String, playOnce:Boolean = false, callback:Function = null):void {
@@ -51,6 +66,7 @@ public class ButterflyAnimation {
         removeListener();
         addListener();
         WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlay(_label);
     }
 
     private function addListener():void {
@@ -69,6 +85,8 @@ public class ButterflyAnimation {
             if (_callback != null) {
                 _callback.apply();
             }
+        } else {
+            _armature.animation.gotoAndPlay(_label);
         }
     }
 

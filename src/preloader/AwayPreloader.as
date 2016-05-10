@@ -55,6 +55,7 @@ public class AwayPreloader {
         afterTimer = false;
         counter = 2;
         g.gameDispatcher.addToTimer(onTimer);
+        g.managerButterfly.hideButterfly(true);
     }
 
     public function deleteIt():void {
@@ -73,6 +74,7 @@ public class AwayPreloader {
             if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR || g.managerTutorial.currentAction == TutorialAction.GO_HOME)) {
                 g.managerTutorial.checkTutorialCallback();
             }
+            g.managerButterfly.hideButterfly(false);
         }
     }
 
