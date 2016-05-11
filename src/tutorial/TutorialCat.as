@@ -15,7 +15,7 @@ import windows.WOComponents.HintBackground;
 public class TutorialCat extends BasicCat {
     private var _catImage:Sprite;
     private var _catBackImage:Sprite;
-    private var heroEyes:HeroEyesAnimation;
+//    private var heroEyes:HeroEyesAnimation;
     private var freeIdleGo:Boolean;
     private var _animation:HeroCatsAnimation;
     private var _bubble:TutorialTextBubble;
@@ -39,7 +39,7 @@ public class TutorialCat extends BasicCat {
         _catImage.addChild(_animation.catArmature.display as Sprite);
         _catBackImage.addChild(_animation.catBackArmature.display as Sprite);
 
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], _animation.catArmature, 'heads/head', '', false);
+//        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], _animation.catArmature, 'heads/head', '', false);
         _source.addChild(_catImage);
         _source.addChild(_catBackImage);
         _animation.catImage = _catImage;
@@ -92,8 +92,8 @@ public class TutorialCat extends BasicCat {
 
     override public function showFront(v:Boolean):void {
         _animation.showFront(v);
-        if (v) heroEyes.startAnimations();
-        else heroEyes.stopAnimations();
+//        if (v) heroEyes.startAnimations();
+//        else heroEyes.stopAnimations();
     }
 
     override public function set visible(value:Boolean):void {
@@ -107,35 +107,35 @@ public class TutorialCat extends BasicCat {
     }
 
     override public function walkAnimation():void {
-        heroEyes.startAnimations();
+//        heroEyes.startAnimations();
         _animation.playIt('walk');
         super.walkAnimation();
     }
     override public function walkIdleAnimation():void {
-        heroEyes.startAnimations();
+//        heroEyes.startAnimations();
         _animation.playIt('walk');
         super.walkIdleAnimation();
     }
     override public function runAnimation():void {
-        heroEyes.startAnimations();
+//        heroEyes.startAnimations();
         _animation.playIt('run');
         super.runAnimation();
     }
     override public function stopAnimation():void {
-        heroEyes.stopAnimations();
+//        heroEyes.stopAnimations();
         _animation.stopIt();
         super.stopAnimation();
     }
     override public function idleAnimation():void {
         showFront(true);
-        heroEyes.startAnimations();
+//        heroEyes.startAnimations();
         _animation.playIt('idle');
         super.idleAnimation();
     }
 
     public function playDirectLabel(label:String, playOnce:Boolean, callback:Function):void {
         showFront(true);
-        heroEyes.startAnimations();
+//        heroEyes.startAnimations();
         _animation.playIt(label, playOnce, callback);
     }
 
@@ -146,10 +146,10 @@ public class TutorialCat extends BasicCat {
         }
         killAllAnimations();
         removeFromMap();
-        if (heroEyes) {
-            heroEyes.stopAnimations();
-            heroEyes = null;
-        }
+//        if (heroEyes) {
+//            heroEyes.stopAnimations();
+//            heroEyes = null;
+//        }
         _catImage.removeChild(_animation.catArmature.display as Sprite);
         _catBackImage.removeChild(_animation.catBackArmature.display as Sprite);
         _animation.deleteArmature(_animation.catArmature);

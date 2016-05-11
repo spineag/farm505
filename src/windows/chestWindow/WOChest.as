@@ -33,7 +33,7 @@ public class WOChest  extends WindowMain{
         var fEndOver:Function = function():void {
             _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlay('item',0);
+            _armature.animation.gotoAndPlay('item');
             if (g.managerChest.getCount <= 2) {
                 if (g.managerTutorial.isTutorial) _woChestItemsTutorial = new WOChestItemsTutorial(_source, hideItTutorial);
                     else  _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, hideIt);
@@ -41,11 +41,11 @@ public class WOChest  extends WindowMain{
         };
         _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-        _armature.animation.gotoAndPlay('idle_1',0);
+        _armature.animation.gotoAndPlay('idle_1');
     }
 
     override public function hideIt():void {
-        _armature.animation.gotoAndPlay('idle_2',0);
+        _armature.animation.gotoAndPlay('idle_2');
         super.hideIt();
     }
 

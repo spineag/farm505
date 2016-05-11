@@ -118,10 +118,9 @@ public class Market extends WorldObject{
                 return;
             }
             if (g.isAway && g.visitedUser) {
+                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.VISIT_NEIGHBOR) return;
                 g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, g.visitedUser);
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {
-                    g.managerTutorial.checkTutorialCallback();
-                }
+                if (g.managerTutorial.isTutorial) g.managerTutorial.checkTutorialCallback();
             } else {
                 g.windowsManager.openWindow(WindowsManager.WO_MARKET, fillIt, g.user);
             }

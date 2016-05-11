@@ -147,6 +147,9 @@ public class EmbedAssets {
     private const ChestMini:Class;
     [Embed(source = "../../assets/animations/chest_interface1.png", mimeType = "application/octet-stream")]
     private const ChestInterface:Class;
+    [Embed(source = "../../assets/animations/x1/bfly.png", mimeType = "application/octet-stream")]
+    private const ButterFly:Class;
+
     private var g:Vars = Vars.getInstance();
 
     public function EmbedAssets(onLoadCallback:Function) {
@@ -188,7 +191,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 39;
+        var count:int = 40;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -239,6 +242,7 @@ public class EmbedAssets {
         loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
         loadFactory('chest_mini', ChestMini, checkCount);
         loadFactory('chest_interface', ChestInterface, checkCount);
+        loadFactory('butterfly', ButterFly, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

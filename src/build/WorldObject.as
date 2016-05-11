@@ -171,7 +171,7 @@ public class WorldObject {
         hideArrow();
         if (_rect) {
             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
-            _arrow.animateAtPosition(0, _rect.y);
+            _arrow.animateAtPosition(_rect.x + _rect.width/2, _rect.y);
         }
     }
 

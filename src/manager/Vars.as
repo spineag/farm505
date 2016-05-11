@@ -2,6 +2,8 @@
  * Created by user on 5/13/15.
  */
 package manager {
+import additional.butterfly.ManagerButterfly;
+
 import build.WorldObject;
 import build.ambar.Ambar;
 import build.farm.FarmGrid;
@@ -163,6 +165,7 @@ public class Vars {
     public var managerCats:ManagerCats;
     public var aStar:AStar;
     public var managerTutorial:ManagerTutorial;
+    public var managerButterfly:ManagerButterfly;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -419,6 +422,10 @@ public class Vars {
         } else {
             managerCutScenes.checkAvailableCutScenes();
         }
+
+        managerButterfly = new ManagerButterfly();
+        managerButterfly.createBFlyes();
+        managerButterfly.startButterflyFly();
     }
 
     private function onEnterFrameGlobal():void {

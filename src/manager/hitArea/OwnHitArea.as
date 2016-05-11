@@ -20,8 +20,10 @@ public class OwnHitArea {
     private var _h:int;
     private var _rect:flash.geom.Rectangle;
     private var bitmapScaling:Number = .25; // use for minimise memory, try smaller number for that, max = 1
+    private var _name:String;
 
-    public function OwnHitArea(sp:Sprite) {
+    public function OwnHitArea(sp:Sprite, nm:String) {
+        _name = nm;
         _source = sp;
         _rect = sp.getBounds(sp);
         createBitmapData(sp);
