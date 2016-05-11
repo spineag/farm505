@@ -4533,5 +4533,138 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+    public function addUserPapperBuy(buyerId:int,resourceId:int,resourceCount:int,xp:int,cost:int,visible:int):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_PAPPER_BUY);
+        var variables:URLVariables = new URLVariables();
+        Cc.ch('server', 'addUserPapperBuy', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buyerId = buyerId;
+        variables.resourceId = resourceId;
+        variables.resourceCount = resourceCount;
+        variables.xp = xp;
+        variables.cost = cost;
+        variables.visible = visible;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();3
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserPapperBuy);
+        function onCompleteAddUserPapperBuy(e:Event):void { completeAddUserPapperBuy(e.target.data); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserPapperBuy error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserPapperBuy error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserPapperBuy(response:String):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserPapperBuy: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserPapperBuy: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'addUserPapperBuy OK', 5);
+        } else {
+            Cc.error('addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserPapperBuy(buyerId:int,resourceId:int,rsourceCount:int,xp:int,cost:int,visible:int):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_PAPPER_BUY);
+        var variables:URLVariables = new URLVariables();
+        Cc.ch('server', 'updateUserPapperBuy', 1);
+        variables.userId = g.user.userId;
+        variables.buyerId = buyerId;
+        variables.resourceId = resourceId;
+        variables.rsourceCount = rsourceCount;
+        variables.xp = xp;
+        variables.cost = cost;
+        variables.vsisble = visible;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserPapperBuy);
+        function onCompleteUpdateUserPapperBuy(e:Event):void { completeUpdateUserPapperBuy(e.target.data); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserPapperBuy error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserPapperBuy error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserPapperBuy(response:String):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserPapperBuy: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserPapperBuy: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserPapperBuy OK', 5);
+        } else {
+            Cc.error('updateUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getUserPapperBuy(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_PAPPER_BUY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserPapperBuy', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserPapperBuy);
+        function onCompleteGetUserPapperBuy(e:Event):void { completeGetUserPapperBuy(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserPapperBuy error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserPapperBuy error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserPapperBuy(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserPapperBuy: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserPapperBuy: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserPapperBuy OK', 5);
+            g.managerPaper.fillBot(d.message);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 }
 }

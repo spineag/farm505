@@ -92,5 +92,8 @@ public class Consts {
     public static var INQ_UPDATE_USER_MARKET_CELL:String = 'updateUserMarketCell.php';
     public static var INQ_UPDATE_MARKET_PAPPER:String = 'updateMarketPapper.php';
     public static var INQ_UPDATE_USER_CUT_SCENE_DATA:String = 'updateUserCutScene.php';
+    public static var INQ_ADD_USER_PAPPER_BUY:String = 'addUserPapperBuy.php';
+    public static var INQ_UPDATE_USER_PAPPER_BUY:String = 'updateUserPapperBuyer.php';
+    public static var INQ_GET_USER_PAPPER_BUY:String = 'getUserPapperBuy.php';
 }
 }

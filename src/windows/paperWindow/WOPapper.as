@@ -273,7 +273,10 @@ public class WOPapper extends WindowMain {
 //        _timer = 900;
 //        g.gameDispatcher.addToTimer(renderPaperProgress);
         startPapperTimer();
+        g.directServer.getUserPapperBuy(null);
         g.directServer.getPaperItems(fillAfterRefresh);
+
+
     }
 
     private function checkSocialInfoForArray(ar:Array):void {
@@ -346,7 +349,7 @@ public class WOPapper extends WindowMain {
     private function onTimer():void {
         if (g.userTimer.timerAtPapper > 0) _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
         else {
-            _btnRefreshBlue.setEnabled = true;
+       _btnRefreshBlue.setEnabled = true;
             _btnRefreshGreen.setEnabled = false;
             _txtTimer.text = 'Обновить';
             _txtTimer.x = 25;
@@ -357,7 +360,9 @@ public class WOPapper extends WindowMain {
     }
 
     private function onRefresh():void {
+        g.directServer.getUserPapperBuy(null);
         g.directServer.getPaperItems(fillAfterRefresh);
+
         startPapperTimer();
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         _btnRefreshBlue.setEnabled = false;

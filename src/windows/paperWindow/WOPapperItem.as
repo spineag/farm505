@@ -4,10 +4,18 @@
 package windows.paperWindow {
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.DataMoney;
+
 import flash.display.Bitmap;
+import flash.geom.Point;
 import flash.geom.Rectangle;
+
+import manager.ManagerFilters;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import resourceItem.DropItem;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -16,12 +24,15 @@ import starling.textures.Texture;
 import starling.utils.Color;
 import starling.utils.HAlign;
 import user.Someone;
+
+import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;
 
 public class WOPapperItem {
     public var source:CSprite;
+    public var isBotBuy:Boolean;
     private var _imageItem:Image;
     private var _txtCountResource:TextField;
     private var _txtCost:TextField;
@@ -29,6 +40,7 @@ public class WOPapperItem {
     private var _dataResource:Object;
     private var _bg:Sprite;
     private var _plawkaSold:Image;
+    private var _imageCoins:Image;
     private var _ava:Sprite;
     private var _userAvatar:Image;
     private var _txtUserName:TextField;
@@ -36,6 +48,8 @@ public class WOPapperItem {
     private var _p:Someone;
     private var _wo:WOPapper;
     private var number:int;
+    private var _btnBuyBot:CButton;
+    private var _btnDelete:CButton;
 
     private var g:Vars = Vars.getInstance();
 
@@ -84,11 +98,11 @@ public class WOPapperItem {
         _ava.addChild(im);
         source.addChild(_ava);
 
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
-        MCScaler.scale(im, 25, 25);
-        im.x = 143;
-        im.y = 60;
-        source.addChild(im);
+        _imageCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
+        MCScaler.scale(_imageCoins, 25, 25);
+        _imageCoins.x = 143;
+        _imageCoins.y = 60;
+        source.addChild(_imageCoins);
 
         _txtCost = new TextField(84, 62, "1500", g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
         _txtCost.hAlign = HAlign.RIGHT;
@@ -130,6 +144,7 @@ public class WOPapperItem {
 
     public function fillIt(ob:Object):void {
         _data = ob;
+        isBotBuy = false;
         if (!_data) {
             Cc.error('WOPapperItem fillIt:: empty _data');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
@@ -167,6 +182,78 @@ public class WOPapperItem {
         }
     }
 
+    public function fillItBot(ob:Object):void {
+        _data = ob;
+        isBotBuy = true;
+        source.endClickCallback = null;
+        if (!_data) {
+            Cc.error('WOPapperItem fillIt:: empty _data');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
+            return;
+        }
+        source.visible = true;
+        _txtCost.text = 'за ' + String(_data.cost);
+        _txtCost.y = 55;
+        _imageCoins.y = 75;
+        _txtCountResource.text = String(_data.resourceCount) + ' шт.';
+        _txtCountResource.x = 40;
+        _txtCountResource.y = 40;
+        _dataResource = g.dataResource.objectResources[_data.resourceId];
+        _txtResourceName.text = _dataResource.name;
+        _txtUserName.text = '';
+        if (_dataResource.buildType == BuildType.PLANT)
+            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
+        else
+            _imageItem = new Image(g.allData.atlas[_dataResource.url].getTexture(_dataResource.imageShop));
+        if (!_imageItem) {
+            Cc.error('WOPapperItem fillIt:: no such image: ' + _dataResource.imageShop);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
+            return;
+        }
+        MCScaler.scale(_imageItem,50,50);
+        _imageItem.x = 30 - _imageItem.width/2;
+        _imageItem.y = 100 - +_imageItem.height/2;
+        source.addChild(_imageItem);
+        if (_data.buyerId == 1) {
+            _userAvatar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
+            MCScaler.scaleMin(_userAvatar, 46, 46);
+            _ava.addChild(_userAvatar);
+        }
+
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
+        MCScaler.scale(im,80,115);
+        im.x = 50;
+        im.y = 5;
+        source.addChild(im);
+        var txt:TextField = new TextField(60,30,'я куплю', g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BLUE);
+        txt.x = 80;
+        txt.y = 10;
+        source.addChild(txt);
+
+        _btnBuyBot = new CButton();
+        _btnBuyBot.addButtonTexture(60, 30, CButton.GREEN, true);
+        txt = new TextField(60,30,'продать', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+//        txt.x = 85;
+//        txt.y = 4;
+        _btnBuyBot.addChild(txt);
+        source.addChild(_btnBuyBot);
+        _btnBuyBot.x = 95;
+        _btnBuyBot.y = 115;
+        _btnBuyBot.clickCallback = onClickBuyBot;
+        _btnDelete = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
+        _btnDelete.addChild(im);
+        _btnDelete.x = 130;
+        _btnDelete.y = 97;
+        _btnDelete.clickCallback = onClickDelete;
+        source.addChild(_btnDelete);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('visitor_back'));
+        source.addChildAt(im,1);
+        _txtResourceName.x = -135;
+        _txtResourceName.y = 50;
+    }
+
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!_ava) return;
         if (!bitmap) {
@@ -188,6 +275,27 @@ public class WOPapperItem {
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
     }
 
+    private function onClickBuyBot():void {
+        if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
+            return;
+        }
+        var p:Point = new Point(_btnBuyBot.x, _btnBuyBot.y);
+        p = _btnBuyBot.localToGlobal(p);
+        var ob:Object = {};
+        ob.id = DataMoney.SOFT_CURRENCY;
+        ob.count = _data.resourceCount;
+        new DropItem(p.x,p.y,ob);
+        g.userInventory.addResource(_data.resourceId,-_data.resourceCount);
+        g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
+        _btnBuyBot.clickCallback = null;
+        source.alpha = .5;
+    }
+
+    private function onClickDelete():void {
+        g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
+        source.alpha = .5;
+    }
+
     public function deleteIt():void {
         _wo = null;
         _data = null;
@@ -195,6 +303,7 @@ public class WOPapperItem {
         _imageItem = null;
         _txtCountResource = null;
         _txtCost = null;
+        _imageCoins = null;
         _bg = null;
         _plawkaSold = null;
         _ava = null;

@@ -323,6 +323,7 @@
             <filename>tutorial_ko.png</filename>
             <filename>server_clock</filename>
             <filename>cat_blue.png</filename>
+            <filename>visitor_back.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -78,6 +78,16 @@ public class WOPapperPage {
     }
 
     private function createItems():void {
+//        var item:WOPapperBuyerItem;
+//        _arrItems = [];
+//        for (var i:int = 0; i<6; i++) {
+//            item = new WOPapperBuyerItem(i, _wo);
+//            item.source.x = 41 + (i%2)*178;
+//            item.source.y = 58 + int(i/2)*150;
+//            source.addChild(item.source);
+//            _arrItems.push(item);
+//        }
+
         var item:WOPapperItem;
         _arrItems = [];
         for (var i:int = 0; i<6; i++) {
@@ -91,7 +101,8 @@ public class WOPapperPage {
 
     public function fillItems(ar:Array):void {
         for (var i:int=0; i< ar.length; i++) {
-            _arrItems[i].fillIt(ar[i]);
+            if (ar[i].isBotBuy) _arrItems[i].fillItBot(ar[i]);
+            else _arrItems[i].fillIt(ar[i]);
         }
     }
 
@@ -116,7 +127,7 @@ public class WOPapperPage {
 
     public function updateAvatars():void {
         for (var i:int=0; i< _arrItems.length; i++) {
-            _arrItems[i].updateAvatar();
+            if(!_arrItems[i].isBotBuy) _arrItems[i].updateAvatar();
         }
     }
 }
