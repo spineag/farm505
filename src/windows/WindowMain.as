@@ -90,7 +90,7 @@ public class WindowMain {
             _btnExit = null;
         }
         _callbackClickBG = null;
-        _source.dispose();
+        if (_source) _source.dispose();
         _source = null;
     }
 

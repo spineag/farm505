@@ -236,7 +236,17 @@ public class Train extends WorldObject{
 
     private function onHover():void {
         if (g.selectedBuild || _isOnHover) return;
-        if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_UNACTIVE) {
+        if (_stateBuild == STATE_ACTIVE) {
+            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+        } else if (_stateBuild == STATE_UNACTIVE) {
+            var fEndOver:Function = function():void {
+                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndStop('close', 0);
+            };
+            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlay('over');
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         } else if (_stateBuild == STATE_BUILD) {
             buildingBuildFoundationOver();

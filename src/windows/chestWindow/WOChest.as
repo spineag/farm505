@@ -119,9 +119,12 @@ public class WOChest  extends WindowMain{
     }
 
     override protected function deleteIt():void {
-        _source.removeChild(_armature.display as Sprite);
-        WorldClock.clock.remove(_armature);
-        _armature.dispose();
+        if (!_source) return;
+        if (_armature) {
+            _source.removeChild(_armature.display as Sprite);
+            WorldClock.clock.remove(_armature);
+            _armature.dispose();
+        }
         _armature = null;
         _woChestItem = null;
         _btnOpen = null;
