@@ -49,19 +49,19 @@ public class Chest extends WorldObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             try {
-                g.windowsManager.openWindow(WindowsManager.WO_CHEST, null);
+                g.windowsManager.openWindow(WindowsManager.WO_CHEST, deleteThisBuild);
                 if (g.managerTutorial.isTutorial && g.managerTutorial.isTutorialBuilding(this)) {
                     g.managerTutorial.checkTutorialCallback();
-                } else {
-                    g.managerChest.setCount = 1;
-                    g.directServer.useChest(g.managerChest.getCount);
                 }
-                if (g.isAway) g.townArea.deleteAwayBuild(this);
-                    else g.townArea.deleteBuild(this);
             } catch (e:Error) {
                 Cc.error('Chest onClick error: ' + e.message);
             }
         }
+    }
+
+    private function deleteThisBuild():void {
+        if (g.isAway) g.townArea.deleteAwayBuild(this);
+        else g.townArea.deleteBuild(this);
     }
 
     private function animation():void {

@@ -13,6 +13,7 @@ public class ManagerChest {
     public static const HARD_MONEY:int = 4;
     public static const INSTRUMENT:int = 6;
     public static const MAX_CHEST:int = 5;
+    public static const COST_OPEN:int = 5;
     private var _data:Object;
     private var _arrItems:Array;
     private var _count:int;

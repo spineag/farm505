@@ -206,6 +206,8 @@ public class WOMarket  extends WindowMain {
         _arrFriends = g.user.arrFriends.slice();
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
+//        for ()
+        if (_arrFriends)
         _txtName = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;

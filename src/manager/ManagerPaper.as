@@ -34,8 +34,7 @@ public class ManagerPaper {
         _arr = [];
         if (ar.length > 0) {
             for (var i:int = 0; i < ar.length; i++) {
-//                trace((1800 - (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1)) + '(1800 - (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1))');
-                trace(ar[i].time_to_new - int(new Date().getTime()/1000 * (-1)));
+//                trace(1800 - ar[i].time_to_new - int(new Date().getTime()/1000 * (-1)));
                 if (ar[i].visible == true) {
                     if (int(ar[i].user_id == g.user.userId)) continue;
                     ob = {};
@@ -49,7 +48,7 @@ public class ManagerPaper {
                     ob.isBotBuy = true;
                     ob.visible = Boolean(ar[i].visible);
                     _arr.push(ob);
-                } else if (ar[i].visible == false && ar[i].time_to_new - int(new Date().getTime()/1000 * (-1) >= 1800)) {
+                } else if (ar[i].visible == false && ar[i].time_to_new - int(new Date().getTime()/1000 >= 1800)) {
                     newBot(false,ar[i]);
                 }
             }
@@ -65,6 +64,7 @@ public class ManagerPaper {
         var arrMax:Array = [];
         var ob:Object;
         var ra:int;
+        var nu:Number;
         var i:int;
         if (firstBot) {
             for (id in obData) {
@@ -91,10 +91,11 @@ public class ManagerPaper {
             _arr.push(ob);
 
             ra = Math.random() * arrMax.length;
+            nu = Math.random();
             ob = {};
             ob.buyerId = 2;
             ob.resourceId = arrMax[ra].id;
-            ob.resourceCount = 1;
+            ob.resourceCount = nu * arrMax[ra].count;
             ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
             ob.xp = 5;
             ob.timeToNext = int(new Date().getTime()/1000);
@@ -129,10 +130,11 @@ public class ManagerPaper {
                     if (g.dataResource.objectResources[arr[i].id].buildType != BuildType.INSTRUMENT) arrMax.push(arr[i]);
                 }
                 ra = Math.random() * arrMax.length;
+                nu = Math.random();
                 ob = {};
                 ob.buyerId = 2;
                 ob.resourceId = arrMax[ra].id;
-                ob.resourceCount = 1;
+                ob.resourceCount = int(arrMax[ra].count * nu);
                 ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
                 ob.xp = 5;
                 ob.timeToNext = int(new Date().getTime()/1000);

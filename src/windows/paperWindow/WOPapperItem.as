@@ -276,6 +276,7 @@ public class WOPapperItem {
     }
 
     private function onClickBuyBot():void {
+        if (source.alpha == .5) return;
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
             return;
         }
@@ -292,6 +293,7 @@ public class WOPapperItem {
     }
 
     private function onClickDelete():void {
+        if (source.alpha == .5) return;
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
         source.alpha = .5;
     }

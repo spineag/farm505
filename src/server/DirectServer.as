@@ -4587,10 +4587,10 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.buyerId = buyerId;
         variables.resourceId = resourceId;
-        variables.rsourceCount = rsourceCount;
+        variables.resourceCount = rsourceCount;
         variables.xp = xp;
         variables.cost = cost;
-        variables.vsisble = visible;
+        variables.visible = visible;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();

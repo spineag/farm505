@@ -145,7 +145,7 @@ public class EmbedAssets {
     private const CatTutorialBig:Class;
     [Embed(source = "../../assets/animations/x1/chest_mini.png", mimeType = "application/octet-stream")]
     private const ChestMini:Class;
-    [Embed(source = "../../assets/animations/chest_interface1.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/chest_interface.png", mimeType = "application/octet-stream")]
     private const ChestInterface:Class;
     [Embed(source = "../../assets/animations/x1/bfly.png", mimeType = "application/octet-stream")]
     private const ButterFly:Class;

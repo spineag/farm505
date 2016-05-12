@@ -431,6 +431,11 @@ public class ShopItem {
                     }
 
                     if (maxCount == curCount) {
+                        if (_btnBuyBlue) {
+                            source.removeChild(_btnBuyBlue);
+                            _btnBuyBlue.deleteIt();
+                            _btnBuyBlue = null;
+                        }
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
                             createShopLimitSprite();
                             _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
@@ -443,11 +448,6 @@ public class ShopItem {
                             _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
                             _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                             _nameTxt.text = _data.name;
-                            if (_btnBuyBlue) {
-                                source.removeChild(_btnBuyBlue);
-                                _btnBuyBlue.deleteIt();
-                                _btnBuyBlue = null;
-                            }
                         }
                     } else {
                         createButtons('blue');

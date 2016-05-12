@@ -505,16 +505,27 @@ public class MarketItem {
                 _plawkaLvl.visible = false;
                 _plawkaSold.visible = true;
                 _txtPlawka.visible = true;
+                _inPapper = _dataFromServer.inPapper;
+                if (_inPapper) {
+                    _papper.visible = true;
+                    _imCheck.visible = true;
+                } else {
+                    _papper.visible = false;
+                    _imCheck.visible = false;
+                }
             }
             isFill = 2;
         } else {
+            isFill = 1;
+            fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
             _inPapper = _dataFromServer.inPapper;
             if (_inPapper) {
                 _papper.visible = true;
                 _imCheck.visible = true;
+            } else {
+                _papper.visible = false;
+                _imCheck.visible = false;
             }
-            isFill = 1;
-            fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
             if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) {
                 _plawkaCoins.visible = false;
                 _plawkaLvl.visible = true;

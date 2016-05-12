@@ -372,6 +372,7 @@ public class MainBottomPanel {
         MCScaler.scale(im,45,45);
         _friendBoard.addChild(im);
         txt = new TextField(50,50,String(_person.level),g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        if (_person is NeighborBot) txt.text = '10';
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 57;
         txt.y = 49;
