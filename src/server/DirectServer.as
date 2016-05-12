@@ -665,6 +665,49 @@ public class DirectServer {
         }
     }
 
+    public function getAllFriendsInfo(userSocialIdArr:Array, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ALL_FRIENDS_INFO);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getAllFriendsInfo', 1);
+        variables.userSocialIds = userSocialIdArr.join('&');
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteAllFriendsInfo);
+        function onCompleteAllFriendsInfo(e:Event):void { completeAllFriendsInfo(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getAllFriendsInfo error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllFriendsInfo error:' + error.errorID);
+        }
+    }
+
+    private function completeAllFriendsInfo(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getAllFriendsInfo: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllFriendsInfo: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getAllFriendsInfo OK', 5);
+            g.user.addInfoAboutFriendsFromServer(d.message);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getAllFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
     public function addUserMoney(type:int, count:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_MONEY);

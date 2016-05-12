@@ -267,7 +267,8 @@ public class FriendPanel {
         var item:FriendItem;
         _arrItems = [];
         _shift = 0;
-        _arrFriends.sortOn("level",  Array.DESCENDING);
+        _arrFriends.sortOn("level",  Array.NUMERIC);
+        _arrFriends.reverse();
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
         if (_arrFriends.length > 5) {
@@ -283,13 +284,21 @@ public class FriendPanel {
         }
     }
 
+//    private function createLevel():void {
+//        if (_count == _maxFriend) {
+//            sortFriend();
+//            return;
+//        }
+//        g.directServer.getFriendsInfo(int(_arrFriends[_count].userSocialId), _arrFriends[_count], createLevel);
+//        _count++;
+//    }
+
     private function createLevel():void {
-        if (_count == _maxFriend) {
-            sortFriend();
-            return;
+        var arr:Array = [];
+        for (var i:int=0; i<_arrFriends.length; i++) {
+            arr.push(_arrFriends[i].userSocialId);
         }
-        g.directServer.getFriendsInfo(int(_arrFriends[_count].userSocialId), _arrFriends[_count], createLevel);
-        _count++;
+        g.directServer.getAllFriendsInfo(arr, sortFriend);
     }
 
     public function checkLevel():void {

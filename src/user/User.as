@@ -55,14 +55,12 @@ public class User extends Someone {
         arrTempUsers = [];
         lastVisitAmbar = true;
         neighbor = new NeighborBot();
-
-//        for (var i:int = 0; i < arrFriends.length; i++) {
-//            g.directServer.getFriendsInfo(int(arrFriends[i].userSocialId),arrFriends[i],null);
-//        }
     }
+
     public function set visitAmbar(b:Boolean):void  {
         lastVisitAmbar = b;
     }
+
     public function checkUserLevel():void {
         var levels:Object = g.dataLevel.objectLevels;
         var txp:int = 0;
@@ -77,7 +75,6 @@ public class User extends Someone {
                 txp += levels[st].xp;
             }
         }
-//        if (level <= 0) level = 1;
     }
 
     public function friendAppUser():void {
@@ -194,6 +191,14 @@ public class User extends Someone {
                 p.lastName = ar[i].last_name;
                 p.photo = ar[i].photo_100;
             }
+        }
+    }
+
+    public function addInfoAboutFriendsFromServer(d:Array):void {
+        var someOne:Someone;
+        for (var i:int=0; i<d.length; i++) {
+            someOne = getSomeoneBySocialId(d[i].social_id);
+            someOne.level = int(d[i].level);
         }
     }
 }
