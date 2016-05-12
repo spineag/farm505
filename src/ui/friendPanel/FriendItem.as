@@ -9,6 +9,9 @@ import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import preloader.miniPreloader.CatViewPreloader;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.textures.Texture;
@@ -29,6 +32,7 @@ public class FriendItem {
     private var _ava:Image;
     private var _txt:TextField;
     public var txtLvl:TextField;
+    private var _preloader:CatViewPreloader;
 
     private var g:Vars = Vars.getInstance();
 
@@ -49,6 +53,11 @@ public class FriendItem {
         source.addChildAt(_ava,0);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_panel_bt_fr"));
         source.addChildAt(im,1);
+        _preloader = new CatViewPreloader();
+        _preloader.source.x = 30;
+        _preloader.source.y = 37;
+        source.addChild(_preloader.source);
+        _preloader.source.scaleX = _preloader.source.scaleY = .3;
         if (_person is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
@@ -140,6 +149,11 @@ public class FriendItem {
     }
 
     private function photoFromTexture(tex:Texture):void {
+        if (_preloader) {
+            source.removeChild(_preloader.source);
+            _preloader.deleteIt();
+            _preloader = null;
+        }
         _ava = new Image(tex);
         MCScaler.scale(_ava, 50, 50);
         _ava.x = 5;
