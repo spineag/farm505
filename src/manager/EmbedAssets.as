@@ -14,7 +14,7 @@ import starling.textures.TextureAtlas;
 
 public class EmbedAssets {
     // Texture
-    [Embed(source="../../assets/interfaceAtlas1.png")]
+    [Embed(source="../../assets/interfaceAtlas.png")]
     private const InterfaceTexture:Class;
     [Embed(source="../../assets/instrumentAtlas.png")]
     private const InstrumentTexture:Class;
