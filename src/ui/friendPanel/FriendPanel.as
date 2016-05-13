@@ -13,6 +13,8 @@ import manager.Vars;
 
 import social.SocialNetworkEvent;
 
+import starling.animation.Tween;
+
 import starling.core.Starling;
 
 import starling.display.Image;
@@ -125,7 +127,7 @@ public class FriendPanel {
         _leftArrow.x = 78 + _leftArrow.width/2;
         _leftArrow.y = 15 + _leftArrow.height/2;
         _source.addChild(_leftArrow);
-        _leftArrow.clickCallback = leftArrow;
+        _leftArrow.clickCallback = onLeftClick;
 
         _rightArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
@@ -135,33 +137,7 @@ public class FriendPanel {
         _rightArrow.x = 485 - _rightArrow.width/2;
         _rightArrow.y = 15 + _rightArrow.height/2;
         _source.addChild(_rightArrow);
-        _rightArrow.clickCallback = rightArrow;
-    }
-
-    private var isAnimated:Boolean = false;
-    private function leftArrow():void {
-        if (g.managerTutorial.isTutorial) return;
-        if (isAnimated || !_arrFriends.length) return;
-        if (_shift > 0) {
-            _shift -= 5;
-            if (_shift<0) _shift = 0;
-            isAnimated = true;
-            new TweenMax(_cont, .5, {x:-_shift*66, ease:Linear.easeNone ,onComplete: function():void {isAnimated = false}});
-        }
-        checkArrows();
-    }
-
-    private function rightArrow():void {
-        if (g.managerTutorial.isTutorial) return;
-        if (isAnimated || !_arrFriends.length) return;
-        var l:int = _arrFriends.length;
-        if (_shift +1 < l) {
-            _shift += 5;
-            if (_shift > l-5) _shift = l-5;
-            isAnimated = true;
-            new TweenMax(_cont, .5, {x:-_shift*66, ease:Linear.easeNone ,onComplete: function():void {isAnimated = false}});
-        }
-        checkArrows();
+        _rightArrow.clickCallback = onRightClick;
     }
 
     private function checkArrows():void {
@@ -275,7 +251,10 @@ public class FriendPanel {
             createArrows();
             checkArrows();
         }
-        for (var i:int = 0; i < _arrFriends.length; i++) {
+
+        var l:int = _arrFriends.length;
+        if (l>5) l = 5;
+        for (var i:int = 0; i < l; i++) {
             item = new FriendItem(_arrFriends[i]);
             _arrItems.push(item);
             item.source.x = i*66;
@@ -284,14 +263,64 @@ public class FriendPanel {
         }
     }
 
-//    private function createLevel():void {
-//        if (_count == _maxFriend) {
-//            sortFriend();
-//            return;
-//        }
-//        g.directServer.getFriendsInfo(int(_arrFriends[_count].userSocialId), _arrFriends[_count], createLevel);
-//        _count++;
-//    }
+    private function onLeftClick():void {
+        if (g.managerTutorial.isTutorial) return;
+        var newCount:int = 5;
+        if (_shift - newCount < 0) newCount = _shift;
+        _shift -= newCount;
+
+        var item:FriendItem;
+        for (var i:int=0; i<newCount; i++) {
+            item = new FriendItem(_arrFriends[_shift + i]);
+            _arrItems.unshift(item);
+            item.source.x = 66 * (_shift + i);
+            item.source.y = -1;
+            _cont.addChild(item.source);
+        }
+        var f:Function = function():void {
+            for (i=0; i<newCount; i++) {
+                item = _arrItems.pop();
+                _cont.removeChild(item.source);
+                item.deleteIt();
+            }
+        };
+        animList(f);
+    }
+
+    private function onRightClick():void {
+        if (g.managerTutorial.isTutorial) return;
+        var newCount:int = 5;
+        if (_shift + newCount + 5 >= _arrFriends.length) newCount = _arrFriends.length - _shift - 5;
+        var item:FriendItem;
+        for (var i:int=0; i<newCount; i++) {
+            if (_arrFriends[_shift + 4 + i]) {
+                item = new FriendItem(_arrFriends[_shift + 5 + i]);
+                item.source.x = 66 * (_shift + 5 + i);
+                _cont.addChild(item.source);
+                _arrItems.push(item);
+            }
+        }
+        _shift += newCount;
+        var f:Function = function():void {
+            for (i=0; i<newCount; i++) {
+                item = _arrItems.shift();
+                _cont.removeChild(item.source);
+                item.deleteIt();
+            }
+        };
+        animList(f);
+    }
+
+    private function animList(callback:Function = null):void {
+        var tween:Tween = new Tween(_cont, .5);
+        tween.moveTo(-_shift*66, _cont.y);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+            if (callback != null) callback.apply();
+        };
+        g.starling.juggler.add(tween);
+        checkArrows();
+    }
 
     private function createLevel():void {
         var arr:Array = [];
@@ -312,9 +341,6 @@ public class FriendPanel {
     }
 
     public function getNeighborItemProperties():Object {
-//        if (_arrItems && _arrItems.length) {
-//            return (_arrItems[1] as FriendItem).getItemProperties();
-//        } else {
             var ob:Object = {};
             ob.x = 173;
             ob.y = 7;
@@ -325,7 +351,6 @@ public class FriendPanel {
             ob.width = 60;
             ob.height = 70;
             return ob;
-//        }
     }
 }
 }

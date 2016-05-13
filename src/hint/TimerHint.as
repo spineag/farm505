@@ -165,7 +165,11 @@ public class TimerHint {
         _timer --;
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
         if(_timer <=0){
+            _isOnHover = false;
             hideIt();
+            managerHide();
+            g.gameDispatcher.removeFromTimer(closeTimer);
+            g.mouseHint.hideIt();
         }
     }
 

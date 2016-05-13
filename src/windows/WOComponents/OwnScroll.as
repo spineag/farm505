@@ -64,10 +64,17 @@ public class OwnScroll {
     private function onDrag(_globalX:int, _globalY:int):void {
         if (_isVertical) {
             _delta = _globalY - _startDragPoint;
+//            _delta = 0;
             _box.y = _startDragSourcePoint + _delta  - _box.height/2;
-            if (_box.y > _size - _box.height/2) _box.y = _size - _box.height/2;
-            if (_box.y <_box.height/2) _box.y = _box.height/2;
-            _percent = _box.y / (_size - _box.height);
+            if (_box.y > _size - _box.height/2) {
+                _box.y = _size - _box.height/2;
+                trace('_box.y > _size - _box.height/2');
+            }
+            if (_box.y <_box.height/2) {
+                _box.y = _box.height/2;
+                trace('_box.y <_box.height/2');
+            }
+            _percent = _box.y / (_size - _box.height - 8);
         } else {
             // для горизонталього скролла
         }
@@ -79,7 +86,8 @@ public class OwnScroll {
     private function callbackPercent():void {
         _startDragSourcePoint = _box.y + _box.height/2;
         _startDragPoint = g.ownMouse.mouseY;
-        _delta = 6;
+        _delta = 0;
+//        _delta = 6;
         _box.y = _startDragSourcePoint + _delta  - _box.height/2;
         if (_box.y > _size - _box.height/2) _box.y = _size - _box.height/2;
         if (_box.y <_box.height/2) _box.y = _box.height/2;

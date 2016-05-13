@@ -188,5 +188,16 @@ public class FriendItem {
         return ob;
     }
 
+    public function deleteIt():void {
+        _person = null;
+        _ava = null;
+        _txt = null;
+        txtLvl = null;
+        if (_preloader) _preloader = null;
+        source.deleteIt();
+        source = null;
+
+    }
+
 }
 }

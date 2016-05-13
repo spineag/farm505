@@ -677,6 +677,7 @@ public class TownArea extends Sprite {
                         return;
                     }
                 }
+                g.bottomPanel.cancelBoolean(true);
                 g.toolsModifier.modifierType = ToolsModifier.MOVE;
                 build = createNewBuild( worldObject.dataBuild);
                 g.selectedBuild = build;
@@ -703,6 +704,8 @@ public class TownArea extends Sprite {
             (build as WorldObject).source.filter = null;
 //            arr = getCityObjectsById( worldObject.dataBuild.id);
             g.toolsModifier.startMove(build, afterMoveReturn, true);
+            g.bottomPanel.cancelBoolean(true);
+            g.buyHint.hideIt();
             return;
 
         } else if (isNewAtMap && worldObject is DecorTail){
@@ -806,7 +809,6 @@ public class TownArea extends Sprite {
                     pasteBuild(build, _x, _y, true, false);
                 }
                 showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency, -(build as WorldObject).countShopCost);
-                g.bottomPanel.cancelBoolean(false);
                 g.buyHint.hideIt();
                 return;
             } else {

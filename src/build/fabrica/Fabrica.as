@@ -188,7 +188,7 @@ public class Fabrica extends WorldObject {
                 g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 3) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
             }
             if (_isOnHover == false) {
-                _source.filter = null;
+                if(_source)_source.filter = null;
                 g.timerHint.hideIt();
                 g.gameDispatcher.removeEnterFrame(countEnterFrame);
             }
