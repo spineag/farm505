@@ -381,13 +381,13 @@ public class ToolsModifier {
             }
         } else g.cont.contentCont.alpha = 1;
         if (_activeBuilding is DecorTail) {
-//            if (g.townArea.townTailMatrix[point.y][point.x].build) {
-//                g.gameDispatcher.addEnterFrame(moveIt);
-//                return;
-//            } else {
+            if (g.townArea.townTailMatrix[point.y][point.x].build) {
+                g.gameDispatcher.addEnterFrame(moveIt);
+                return;
+            } else {
                 g.cont.contentCont.alpha = 1;
                 g.cont.contentCont.touchable = true;
-//            }
+            }
         }
         if (!g.isActiveMapEditor && _activeBuilding.useIsometricOnly ){//&& !(_activeBuilding is DecorTail)) {
             if (!checkFreeGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {

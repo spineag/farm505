@@ -255,8 +255,10 @@ public class MarketItem {
         _countTxt.text = String(_countResource);
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
-        var b:Boolean = _wo.booleanPaper;
-        visiblePaper(b);
+        if (_isUser) {
+            var b:Boolean = _wo.booleanPaper;
+            visiblePaper(b);
+        }
     }
 
     public function clearImageCont():void {
@@ -489,7 +491,7 @@ public class MarketItem {
         _person = p;
         _dataFromServer = obj;
         if (_dataFromServer.buyerId != '0') {
-            if (_person.userSocialId == g.user.userSocialId) {
+            if (_person.userSocialId == g.user.userSocialId) { //sale yours item
                 _plawkaSold.visible = false;
                 _txtPlawka.visible = false;
                 _quadGreen.visible = true;
@@ -498,7 +500,7 @@ public class MarketItem {
                 _plawkabuy.visible = false;
                 _txtAdditem.text = '';
                 if (_wo.booleanPaper) visiblePaper(true);
-            } else {
+            } else { // sale anyway item
                 _txtAdditem.text = '';
                 fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
                 _plawkaCoins.visible = false;
@@ -515,18 +517,10 @@ public class MarketItem {
                 }
             }
             isFill = 2;
-        } else {
+        } else { //have Item
             isFill = 1;
             fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
-            _inPapper = _dataFromServer.inPapper;
-            if (_inPapper) {
-                _papper.visible = true;
-                _imCheck.visible = true;
-            } else {
-                _papper.visible = false;
-                _imCheck.visible = false;
-            }
-            if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) {
+            if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) { //have item but your level so small
                 _plawkaCoins.visible = false;
                 _plawkaLvl.visible = true;
                 _plawkaLvl.y = 50;
@@ -535,6 +529,14 @@ public class MarketItem {
                 _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
                 _txtAdditem.text = '';
                 isFill = 3;
+                _inPapper = _dataFromServer.inPapper;
+                if (_inPapper) {
+                    _papper.visible = true;
+                    _imCheck.visible = true;
+                } else {
+                    _papper.visible = false;
+                    _imCheck.visible = false;
+                }
             }
         }
     }
