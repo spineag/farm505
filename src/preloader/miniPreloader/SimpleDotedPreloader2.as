@@ -2,13 +2,18 @@
  * Created by andy on 5/12/16.
  */
 package preloader.miniPreloader {
+import manager.Vars;
+
 import starling.display.Sprite;
 
-public class SimpleDotedPreloader {
+public class SimpleDotedPreloader2 {
     private var _source:Sprite;
     private var _arrDots:Array;
+    private var _counter:int;
+    private var _curr:int;
+    private var g:Vars = Vars.getInstance();
 
-    public function SimpleDotedPreloader() {
+    public function SimpleDotedPreloader2() {
         _source = new Sprite();
         _source.touchable = false;
         _arrDots = [];
@@ -17,6 +22,21 @@ public class SimpleDotedPreloader {
             dot = new Particle(i, _source);
             _arrDots.push(dot);
         }
+        _curr = 0;
+        _arrDots[_curr].showIt(true);
+        _counter = 0;
+        g.gameDispatcher.addEnterFrame(onEnterFrame);
+    }
+
+    private function onEnterFrame():void {
+        _counter++;
+        if (_counter > 5) {
+            _counter = 0;
+            _arrDots[_curr].showIt(false);
+            _curr++;
+            if (_curr >= 8) _curr = 0;
+            _arrDots[_curr].showIt(true);
+        }
     }
 
     public function get source():Sprite {
@@ -24,6 +44,7 @@ public class SimpleDotedPreloader {
     }
 
     public function deleteIt():void {
+        g.gameDispatcher.removeEnterFrame(onEnterFrame);
         for (var i:int=0; i<_arrDots.length; i++) {
             _arrDots[i].deleteIt();
         }
@@ -86,12 +107,12 @@ internal class Particle {
         im.y = -im.height/2;
         _source.addChild(im);
         _parent.addChild(_source);
-        animateIt(i*.125);
+        _source.alpha = .4;
     }
 
-    private function animateIt(d:Number=0):void {
-        _source.scaleX = _source.scaleY = .2;
-        TweenMax.to(_source, 1, {scaleX:1.2, scaleY:1.5, onComplete:animateIt, delay:d});
+    public function showIt(v:Boolean):void {
+        if (v) _source.alpha = .8;
+            else _source.alpha = .4;
     }
 
     public function deleteIt():void {
