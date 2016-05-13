@@ -146,13 +146,14 @@ public class WONoResources extends WindowMain {
                 _btnBuy.clickCallback = onClickOrder;
                 break;
             case 'train':
+                _countOfResources = _paramData.count;
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.data.id, _paramData.count);
                 item.source.x =  - item.source.width/2;
                 item.source.y = 0;
                 _source.addChild(item.source);
                 _arrItems.push(item);
-                _countCost = int(_paramData.data.priceHard);
+                _countCost = _paramData.count * int(_paramData.data.priceHard);
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
                 _btnBuy.clickCallback = onClickTrain;
         }
@@ -339,10 +340,10 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        g.userInventory.addResource(_paramData.id, _countOfResources);
+        g.userInventory.addResource(_paramData.data.id, _countOfResources);
         super.hideIt();
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[true, _paramData]);
+            _callbackBuy.apply(null,[]);
             _callbackBuy = null;
         }
     }

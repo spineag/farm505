@@ -204,10 +204,14 @@ public class WOMarket  extends WindowMain {
     private function fillFriends(e:SocialNetworkEvent=null):void {
 //        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         _arrFriends = g.user.arrFriends.slice();
+
+        for (var i:int = 0; i <_arrFriends.length; i++) {
+            if (_arrFriends[i].level < 5) {
+                _arrFriends.splice(i,1);
+            }
+        }
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
-//        for ()
-        if (_arrFriends)
         _txtName = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;

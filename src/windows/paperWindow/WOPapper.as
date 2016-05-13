@@ -349,8 +349,8 @@ public class WOPapper extends WindowMain {
     private function onTimer():void {
         if (g.userTimer.timerAtPapper > 0) _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
         else {
-       _btnRefreshBlue.setEnabled = true;
-            _btnRefreshGreen.setEnabled = false;
+            if (_btnRefreshGreen)_btnRefreshBlue.setEnabled = true;
+            if (_btnRefreshGreen)_btnRefreshGreen.setEnabled = false;
             _txtTimer.text = 'Обновить';
             _txtTimer.x = 25;
             g.gameDispatcher.removeFromTimer(onTimer);
