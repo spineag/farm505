@@ -8,7 +8,7 @@ import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
-import preloader.miniPreloader.SimpleDotedPreloader2;
+import preloader.miniPreloader.FlashAnimatedPreloader;
 import starling.display.Image;
 import starling.text.TextField;
 import starling.textures.Texture;
@@ -26,7 +26,7 @@ public class FriendItem {
     private var _ava:Image;
     private var _txt:TextField;
     public var txtLvl:TextField;
-    private var _preloader:SimpleDotedPreloader2;
+    private var _preloader:FlashAnimatedPreloader;
 
     private var g:Vars = Vars.getInstance();
 
@@ -47,10 +47,10 @@ public class FriendItem {
         source.addChildAt(_ava,0);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_panel_bt_fr"));
         source.addChildAt(im,1);
-        _preloader = new SimpleDotedPreloader2();
+        _preloader = new FlashAnimatedPreloader();
         _preloader.source.x = 30;
         _preloader.source.y = 40;
-        _preloader.source.scaleX = _preloader.source.scaleY = .7;
+//        _preloader.source.scaleX = _preloader.source.scaleY = .7;
         source.addChild(_preloader.source);
         if (_person is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
@@ -141,11 +141,11 @@ public class FriendItem {
     }
 
     private function photoFromTexture(tex:Texture):void {
-        if (_preloader) {
-            source.removeChild(_preloader.source);
-            _preloader.deleteIt();
-            _preloader = null;
-        }
+//        if (_preloader) {
+//            source.removeChild(_preloader.source);
+//            _preloader.deleteIt();
+//            _preloader = null;
+//        }
         _ava = new Image(tex);
         MCScaler.scale(_ava, 50, 50);
         _ava.x = 5;

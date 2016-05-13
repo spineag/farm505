@@ -96,6 +96,8 @@ public class EmbedAssets {
     private const CatCustomer:Class;
     [Embed(source = "../../assets/animations/order_window2.png", mimeType = "application/octet-stream")]
     private const OrderWindow:Class;
+    [Embed(source = "../../assets/animations/preloader_2.png", mimeType = "application/octet-stream")]
+    private const MiniPreloader2:Class;
 
     [Embed(source = "../../assets/animations/x1/bakery.png", mimeType = "application/octet-stream")]
     private const BakeryFabrica:Class;
@@ -191,7 +193,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 40;
+        var count:int = 41;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -243,6 +245,7 @@ public class EmbedAssets {
         loadFactory('chest_mini', ChestMini, checkCount);
         loadFactory('chest_interface', ChestInterface, checkCount);
         loadFactory('butterfly', ButterFly, checkCount);
+        loadFactory('preloader_2', MiniPreloader2, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

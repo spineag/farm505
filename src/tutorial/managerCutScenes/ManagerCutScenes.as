@@ -144,6 +144,7 @@ public class ManagerCutScenes {
     }
 
     private function market_1():void {
+        g.optionPanel.makeScaling(1);
         _cat.flipIt(false);
         _cat.showBubble(_curCutScenePropertie.text);
         (_cutSceneBuildings[0] as Market).showArrow();
@@ -184,6 +185,7 @@ public class ManagerCutScenes {
     }
 
     private function papper_1():void {
+        g.optionPanel.makeScaling(1);
         _cat.flipIt(false);
         _cat.showBubble(_curCutScenePropertie.text);
         (_cutSceneBuildings[0] as Paper).showArrow();
@@ -397,6 +399,7 @@ public class ManagerCutScenes {
     }
 
     private function availableTrain_1():void {
+        g.optionPanel.makeScaling(1);
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
         (_cutSceneBuildings[0] as Train).showArrow();
@@ -490,7 +493,7 @@ public class ManagerCutScenes {
         _airBubble = null;
 
         _airBubble = new AirTextBubble();
-        _airBubble.showIt(_curCutScenePropertie.text4, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 300, Starling.current.nativeStage.stageHeight/2 - 200, openTrain_5);
+        _airBubble.showIt(_curCutScenePropertie.text4, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 330, Starling.current.nativeStage.stageHeight/2 - 200, openTrain_5);
         _airBubble.showBtnParticles();
         var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('priseCont');
         _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);

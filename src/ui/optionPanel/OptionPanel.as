@@ -327,10 +327,11 @@ public class OptionPanel {
         var pNew:Point;
         var oldScale:Number;
         var cont:Sprite = g.cont.gameCont;
+        oldScale = cont.scaleX;
+        if (oldScale > s-.05 && oldScale < s+.05) return;
         p = new Point();
         p.x = g.stageWidth/2;
         p.y = g.stageHeight/2;
-        oldScale = cont.scaleX;
         p = cont.globalToLocal(p);
         cont.scaleX = cont.scaleY = s;
         p = cont.localToGlobal(p);

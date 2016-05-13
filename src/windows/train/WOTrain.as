@@ -65,7 +65,8 @@ public class WOTrain extends WindowMain {
         _activeItemIndex = -1;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(hideIt);
+        createExitButton(onClickExit);
+        _callbackClickBG = onClickExit;
         createRightBlock();
         createLeftBlock();
         _arrItems = [];
@@ -100,6 +101,11 @@ public class WOTrain extends WindowMain {
         _source.addChild(_txtCounter);
         _callbackClickBG = hideIt;
         _birka = new Birka('Корзинка', _source, _woWidth, _woHeight);
+    }
+
+    private function onClickExit(e:Event=null):void {
+        if (g.managerCutScenes.isCutScene) return;
+        super.hideIt();
     }
 
     private function createRightBlock():void {
@@ -300,6 +306,7 @@ public class WOTrain extends WindowMain {
     }
 
     private function onItemClick(k:int):void {
+        if (g.managerCutScenes.isCutScene) return;
         _activeItemIndex = k;
         _btnLoad.visible = true;
         _btnHelp.visible = true;
@@ -360,6 +367,7 @@ public class WOTrain extends WindowMain {
     }
 
     private function onClickBuy():void {
+        if (g.managerCutScenes.isCutScene) return;
         var ob:Object = {};
         ob.data = g.dataResource.objectResources[_idFree];
         ob.count = _countFree - g.userInventory.getCountResourceById(_idFree);
@@ -395,6 +403,7 @@ public class WOTrain extends WindowMain {
     }
 
     private function fullTrain(b:Boolean = false):void {
+        if (g.managerCutScenes.isCutScene) return;
         if (!b) {
             if (_lock == 0 || !_isBigCount && _lock <= 3) {
                 g.windowsManager.cashWindow = this;
