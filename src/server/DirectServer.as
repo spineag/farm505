@@ -388,7 +388,6 @@ public class DirectServer {
                     for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
                 }
                 if (d.message[i].cost) {
-//                    obj.cost = String(d.message[i].cost).split('&');
                     obj.cost = String(d.message[i].cost).split('&');
                     for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
                 }
