@@ -141,11 +141,11 @@ public class FriendItem {
     }
 
     private function photoFromTexture(tex:Texture):void {
-//        if (_preloader) {
-//            source.removeChild(_preloader.source);
-//            _preloader.deleteIt();
-//            _preloader = null;
-//        }
+        if (_preloader) {
+            source.removeChild(_preloader.source);
+            _preloader.deleteIt();
+            _preloader = null;
+        }
         _ava = new Image(tex);
         MCScaler.scale(_ava, 50, 50);
         _ava.x = 5;
