@@ -490,7 +490,7 @@ public class ManagerCutScenes {
         _airBubble = null;
 
         _airBubble = new AirTextBubble();
-        _airBubble.showIt(_curCutScenePropertie.text4, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 300, Starling.current.nativeStage.stageHeight/2 - 200, openTrain_5);
+        _airBubble.showIt(_curCutScenePropertie.text4, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 330, Starling.current.nativeStage.stageHeight/2 - 200, openTrain_5);
         _airBubble.showBtnParticles();
         var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('priseCont');
         _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);

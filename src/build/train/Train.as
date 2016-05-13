@@ -29,7 +29,7 @@ public class Train extends WorldObject{
     private var TIME_WAIT:int = 8*60*60;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _armature:Armature;
-    private var _armatureOpen:Armature;
+    private var _armatureOpenBoom:Armature;
     private var _arriveAnim:ArrivedAnimation;
     private var _countTimer:int;
     private var _bolAnimation:Boolean;
@@ -46,25 +46,14 @@ public class Train extends WorldObject{
             return;
         }
 
-       checkTrainState();
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
-        if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            addDoneBuilding();
-            if (_arriveAnim) _arriveAnim.visible = false;
-            WorldClock.clock.remove(_armature);
-        } else if (_stateBuild == STATE_BUILD) {
-            addFoundationBuilding();
-//            _arriveAnim.visible = false;
-            WorldClock.clock.remove(_armature);
-        }
+       checkTrainState();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
         _source.releaseContDrag = true;
-
-        _arriveAnim = new ArrivedAnimation(_source);
     }
 
     public function fillFromServer(ob:Object):void {
@@ -153,8 +142,8 @@ public class Train extends WorldObject{
 
     private function checkTrainState():void {
         try {
-            createBuild();
             if (g.isAway) {
+                createBuild();
                 if (g.visitedUser) {
                     var ar:Array = g.visitedUser.userDataCity.objects;
                     for (var i:int=0; i<ar.length; i++) {
@@ -175,20 +164,27 @@ public class Train extends WorldObject{
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
+                        createBuild();
+                        makeIdleAnimation();
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
                         _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
                         if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                             _stateBuild = STATE_WAIT_ACTIVATE;
                             _build.visible = false;
+                            addDoneBuilding();
+                            if (_arriveAnim) _arriveAnim.visible = false;
                         } else {  // еще строится
                             _stateBuild = STATE_BUILD;
+                            addFoundationBuilding();
+                            if (_arriveAnim) _arriveAnim.visible = false;
                             _build.visible = false;
                             g.gameDispatcher.addToTimer(renderBuildTrainProgress);
                         }
                     }
                 } else {
                     _stateBuild = STATE_UNACTIVE;
+                    createBuild();
                     createBrokenTrain();
                 }
             }
@@ -214,9 +210,9 @@ public class Train extends WorldObject{
         if (_flip) _build.scaleX = -_defaultScale;
         _source.addChild(_build);
         WorldClock.clock.add(_armature);
-        makeIdleAnimation();
         _hitArea = g.managerHitArea.getHitArea(_build, 'trainBuild');
         _source.registerHitArea(_hitArea);
+        if (!_arriveAnim) _arriveAnim = new ArrivedAnimation(_source);
     }
 
     private function createBrokenTrain():void {
@@ -236,9 +232,8 @@ public class Train extends WorldObject{
 
     private function onHover():void {
         if (g.selectedBuild || _isOnHover) return;
-        if (_stateBuild == STATE_ACTIVE) {
-            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-        } else if (_stateBuild == STATE_UNACTIVE) {
+        _build.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+        if (_stateBuild == STATE_UNACTIVE) {
             var fEndOver:Function = function():void {
                 _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
                 _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
@@ -247,8 +242,8 @@ public class Train extends WorldObject{
             _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
             _armature.animation.gotoAndPlay('over');
-            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         } else if (_stateBuild == STATE_BUILD) {
+            _craftSprite.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             buildingBuildFoundationOver();
             _countTimer = 5;
             g.timerHint.managerHide();
@@ -256,6 +251,7 @@ public class Train extends WorldObject{
             g.treeHint.managerHide();
             g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            _craftSprite.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             buildingBuildDoneOver();
         }
         g.hint.showIt(_dataBuild.name);
@@ -391,7 +387,7 @@ public class Train extends WorldObject{
                 _source.removeChildAt(0);
             }
             _build.visible = true;
-            _arriveAnim.visible = true;
+            if (_arriveAnim) _arriveAnim.visible = true;
             createBuild();
             arriveTrain();
             showBoom();
@@ -413,6 +409,7 @@ public class Train extends WorldObject{
     }
 
     private function onBuy():void {
+        if (_arriveAnim) _arriveAnim.visible = false;
         _build.visible = false;
         g.hint.hideIt();
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
@@ -426,7 +423,8 @@ public class Train extends WorldObject{
     }
 
     private function onOut():void {
-        _source.filter = null;
+        _craftSprite.filter = null;
+        _build.filter = null;
         g.hint.hideIt();
         _isOnHover = false;
         if (_stateBuild == STATE_BUILD) {
@@ -533,7 +531,7 @@ public class Train extends WorldObject{
 
     private function onArrivedKorzina():void {
         _arriveAnim.showKorzina();
-        _armature.animation.gotoAndStop('work', 0);
+        makeIdleAnimation();
         g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_OPEN_TRAIN);
         _bolAnimation = false;
     }
@@ -546,21 +544,21 @@ public class Train extends WorldObject{
     }
 
     private function showBoom():void {
-        _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
-        _source.addChild(_armatureOpen.display as Sprite);
-        WorldClock.clock.add(_armatureOpen);
-        _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
-        _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
-        _armatureOpen.animation.gotoAndPlay("start");
+        _armatureOpenBoom = g.allData.factory['explode'].buildArmature("expl");
+        _source.addChild(_armatureOpenBoom.display as Sprite);
+        WorldClock.clock.add(_armatureOpenBoom);
+        _armatureOpenBoom.addEventListener(AnimationEvent.COMPLETE, onBoom);
+        _armatureOpenBoom.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        _armatureOpenBoom.animation.gotoAndPlay("start");
     }
 
     private function onBoom(e:AnimationEvent=null):void {
-        if (_armatureOpen.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.COMPLETE, onBoom);
-        if (_armatureOpen.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
-        WorldClock.clock.remove(_armatureOpen);
-        _source.removeChild(_armatureOpen.display as Sprite);
-        _armatureOpen.dispose();
-        _armatureOpen = null;
+        if (_armatureOpenBoom.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpenBoom.removeEventListener(AnimationEvent.COMPLETE, onBoom);
+        if (_armatureOpenBoom.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpenBoom.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        WorldClock.clock.remove(_armatureOpenBoom);
+        _source.removeChild(_armatureOpenBoom.display as Sprite);
+        _armatureOpenBoom.dispose();
+        _armatureOpenBoom = null;
     }
 }
 }

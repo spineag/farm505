@@ -479,6 +479,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'authUser OK', 5);
             g.user.userId = int(d.message);
+            Cc.info('userID:: ' + g.user.userId);
             if (callback != null) {
                 callback.apply();
             }
