@@ -4,11 +4,7 @@
 package manager {
 public class DataPath {
     public const MAIN_PATH:String = 'farm505-spineag.c9.io/public/';
-    public const MAIN_PATH_GRAPHICS:String = 'farm505temp.16mb.com/';
-//    public const MAIN_PATH_GRAPHICS:String = 'farm505-spineag.c9.io/graphics/';
-
-    public const CONTENT_PATH:String = 'content/';
-    public const XML_DIRECT:String = 'xml/';
+    public const MAIN_PATH_GRAPHICS:String = '505.ninja/content/';
 
     public static const API_VERSION:String = "api-v1-0/";
 
@@ -25,7 +21,7 @@ public class DataPath {
         return g.useHttps ? 'https://' + MAIN_PATH : 'http://' + MAIN_PATH;
     }
 
-    public function getTempGraphicsPath():String {
+    public function getGraphicsPath():String {
         return 'http://' + MAIN_PATH_GRAPHICS;
     }
 
