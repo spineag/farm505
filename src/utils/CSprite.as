@@ -2,6 +2,8 @@
  * Created by user on 5/21/15.
  */
 package utils {
+import build.WorldObject;
+
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.ui.Mouse;
@@ -27,6 +29,7 @@ public class CSprite extends Sprite {
     private var _params:*;
     private var _hitArea:OwnHitArea;
     private var _hitAreaState:int;
+    public var woObject:WorldObject;
 
     private var g:Vars = Vars.getInstance();
     public function CSprite() {
@@ -49,17 +52,17 @@ public class CSprite extends Sprite {
 
     private var _startDragPoint:Point;
     public function onTouch(te:TouchEvent):void {
-        te.stopPropagation();
-        te.stopImmediatePropagation();
+        if (!te.touches.length) return;
         if (_hitArea) {
-            var localPos:Point = te.data[0].getLocation(this);
-            if (_hitArea.isTouchablePoint(localPos.x, localPos.y)) _hitAreaState = 2; // state -> mouse is under visible point
+            var p:Point = new Point(te.touches[0].globalX, te.touches[0].globalY);
+            p = this.globalToLocal(p);
+            if (_hitArea.isTouchablePoint(p.x, p.y)) _hitAreaState = 2; // state -> mouse is under visible point
             else _hitAreaState = 3; // state -> mouse is not under visible point
         } else {
             _hitAreaState = 1; //state -> don't have hitArea
         }
 
-        if (te.getTouch(this, TouchPhase.MOVED)) {
+        if (te.touches[0].phase == TouchPhase.MOVED) {
             if (_useContDrag) {
                 if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) return;
                 g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
@@ -67,7 +70,7 @@ public class CSprite extends Sprite {
             if (_onMovedCallback != null) {
                 _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
             }
-        } else if (te.getTouch(this, TouchPhase.BEGAN)) {
+        } else if (te.touches[0].phase == TouchPhase.BEGAN) {
             if (_hitAreaState != 3) {
                 te.stopPropagation();
                 if (_useContDrag) {
@@ -80,8 +83,10 @@ public class CSprite extends Sprite {
                 if (_startClickCallback != null) {
                     _startClickCallback.apply();
                 }
+            } else {
+                g.buildTouchManager.checkForTouches(te.touches[0].globalX, te.touches[0].globalY, woObject, te);
             }
-        } else if (te.getTouch(this, TouchPhase.ENDED)) {
+        } else if (te.touches[0].phase == TouchPhase.ENDED) {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
             if (_hitAreaState != 3) {
                 te.stopPropagation();
@@ -93,8 +98,10 @@ public class CSprite extends Sprite {
                         _endClickCallback.apply();
                     }
                 }
+            } else {
+                g.buildTouchManager.checkForTouches(te.touches[0].globalX, te.touches[0].globalY, woObject, te);
             }
-        } else if (te.getTouch(this, TouchPhase.HOVER)) {
+        } else if (te.touches[0].phase == TouchPhase.HOVER) {
             if (_hitAreaState != 3) {
                 te.stopPropagation();
                 Mouse.cursor = OwnMouse.HOVER_CURSOR;
@@ -106,6 +113,7 @@ public class CSprite extends Sprite {
                 if (_outCallback != null) {
                     _outCallback.apply();
                 }
+                g.buildTouchManager.checkForTouches(te.touches[0].globalX, te.touches[0].globalY, woObject, te);
             }
         } else {
             if (_hitAreaState != 2) {
@@ -113,6 +121,8 @@ public class CSprite extends Sprite {
                 if (_outCallback != null) {
                     _outCallback.apply();
                 }
+            } else {
+                g.buildTouchManager.checkForTouches(te.touches[0].globalX, te.touches[0].globalY, woObject, te);
             }
         }
     }

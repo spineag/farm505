@@ -79,6 +79,8 @@ public class CButton extends Sprite {
     }
 
     private function onTouch(te:TouchEvent):void {
+        te.stopPropagation();
+        te.stopImmediatePropagation();
         if (_hitArea) {
             var localPos:Point = te.data[0].getLocation(this);
             if (_hitArea.isTouchablePoint(localPos.x, localPos.y)) _hitAreaState = 2; // state -> mouse is under visible point

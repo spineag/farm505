@@ -57,6 +57,7 @@ public class WorldObject {
         _dataBuild.isFlip = _flip;
         _sizeX = 0;
         _sizeY = 0;
+        _source.woObject = this;
     }
 
     public function get sizeX():uint {
@@ -73,6 +74,10 @@ public class WorldObject {
 
     public function get build():DisplayObject {
         return _build;
+    }
+
+    public function get rect():Rectangle {
+        return _rect;
     }
 
     public function get depth():Number {

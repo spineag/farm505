@@ -4,6 +4,8 @@
 package manager {
 import additional.butterfly.ManagerButterfly;
 
+import build.BuildTouchManager;
+
 import build.WorldObject;
 import build.ambar.Ambar;
 import build.farm.FarmGrid;
@@ -153,6 +155,7 @@ public class Vars {
 
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
+    public var buildTouchManager:BuildTouchManager;
 
     public var server:Server;
     public var directServer:DirectServer;
@@ -422,6 +425,8 @@ public class Vars {
         } else {
             managerCutScenes.checkAvailableCutScenes();
         }
+
+        buildTouchManager = new BuildTouchManager();
 
         managerButterfly = new ManagerButterfly();
         managerButterfly.createBFlyes();

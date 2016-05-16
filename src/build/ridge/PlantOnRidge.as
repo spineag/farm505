@@ -34,7 +34,6 @@ public class PlantOnRidge {
         _ridge = ridge;
         _data = data;
         _source = new Sprite();
-        _source.touchable = false;
         _ridge.addChildPlant(_source);
         armature = g.allData.factory[_data.url].buildArmature(_data.imageShop);
         _source.addChild(armature.display as Sprite);

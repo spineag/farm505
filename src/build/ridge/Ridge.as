@@ -77,6 +77,10 @@ public class Ridge extends WorldObject{
         return _bgClicked.isContDrag;
     }
 
+    public function get bgClicked():CSprite {
+        return _bgClicked;
+    }
+
     public function addChildPlant(s:Sprite):void {
         _plantSprite.addChild(s);
     }
