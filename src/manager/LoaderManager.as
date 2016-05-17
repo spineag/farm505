@@ -4,8 +4,12 @@ import com.deadreckoned.assetmanager.AssetManager;
 import com.deadreckoned.assetmanager.AssetQueue;
 import com.junkbyte.console.Cc;
 
+import dragonBones.factories.StarlingFactory;
+
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.events.Event;
+import flash.utils.ByteArray;
 
 
 public class LoaderManager {
@@ -40,7 +44,7 @@ public class LoaderManager {
         _loaders = [];
         _callbacks = {};
         _loader.loadSequentially = true;
-        _loaderImages = _loader.createQueue('loaderImages');
+        _loaderImages = _loader.createQueue('loader');
         _loaderImages.loadSequentially = false;
         for (var i:int = 0; i < COUNT_PARALEL_LOADERS; i++) {
             _loaders.push(_loader.createQueue('loader' + String(i)));
@@ -50,7 +54,7 @@ public class LoaderManager {
     public function loadImage(url:String, callback:Function = null, ...callbackParams):void {
         if (url == '') return;
 
-        Cc.ch('load', 'try to load: ' + url);
+        Cc.ch('load', 'try to load image: ' + url);
         if (g.pBitmaps[url]) {
             setCallback(url, callback, callbackParams);
             getCallback(url);
@@ -71,11 +75,7 @@ public class LoaderManager {
         var image:Bitmap;
         bitmapData = _loader.get(url).asset;
         image = new Bitmap(bitmapData, 'auto', true);
-        Cc.ch('load', 'on load: ' + url);
-        // for analytics
-//        var _asset:Asset = _loader.get(url);
-//        g.analyticsManager.sendActivity("loading", "loading_image", {uids: g.currentUser.uid, typeObj: url, idObj: int(_asset.bytesLoaded / 1024)});
-//        Cc.ch('load', 'Loaded url: ' + url + '    has size ' + String(int(_asset.bytesLoaded / 1024)));
+        Cc.ch('load', 'on load image: ' + url);
 
         g.pBitmaps[url] = new PBitmap(image);
         if (callback != null) {
@@ -96,6 +96,81 @@ public class LoaderManager {
 
         if (additionalQueue[url]) additionalQueue[url] = null;
     }
+
+    public function loadXML(url:String, callback:Function = null, ...callbackParams):void {
+        if (url == '') return;
+
+        Cc.ch('load', 'try to load xml: ' + url);
+        if (g.pXMLs[url]) {
+            setCallback(url, callback, callbackParams);
+            getCallback(url);
+            return;
+        }
+
+        if (!additionalQueue[url]) {
+            additionalQueue[url] = new Array();  // первый элемент пропускаем, чтобы не было двойного колбека на него
+        } else {
+            additionalQueue[url].push({callback: callback, callbackParams: callbackParams});
+        }
+
+        _loaderImages.add(url, {type: AssetManager.TYPE_XML, priority: 8, onComplete: loadedXML, onCompleteParams: [url, callback, callbackParams], onError: errorHandler, onErrorParams: [url]});
+    }
+
+    private function loadedXML(url:String, callback:Function, callbackParams:Array):void {
+        var xml:XML = XML(_loader.get(url).asset);
+        Cc.ch('load', 'on load xml: ' + url);
+
+        g.pXMLs[url] = xml;
+        if (callback != null) {
+            callback.apply(null, callbackParams);
+        }
+
+        if (additionalQueue[url] && additionalQueue[url].length) {
+            for (var i:int = 0; i < additionalQueue[url].length; i++) {
+                if (additionalQueue[url][i].callback != null) {
+                    additionalQueue[url][i].callback.apply(null, additionalQueue[url][i].callbackParams);
+                }
+            }
+        }
+
+        if (additionalQueue[url]) additionalQueue[url] = null;
+    }
+
+//    public function loadDB_PNG(url:String, name:String, callback:Function = null, ...callbackParams):void {
+//        if (url == '') return;
+//        Cc.ch('load', 'try to load DB_PNG: ' + url);
+//        if (!additionalQueue[url]) {
+//            additionalQueue[url] = new Array();  // первый элемент пропускаем, чтобы не было двойного колбека на него
+//        } else {
+//            additionalQueue[url].push({callback: callback, callbackParams: callbackParams});
+//        }
+//
+//        _loaderImages.add(url, {type: AssetManager.TYPE_IMAGE, priority: 8, onComplete: loadedDB_PNG, onCompleteParams: [url, name, callback, callbackParams], onError: errorHandler, onErrorParams: [url]});
+//    }
+//
+//    private function loadedDB_PNG(url:String, name:String, callback:Function, callbackParams:Array):void {
+//        var ba:ByteArray = _loader.get(url).asset;
+//        var factory:StarlingFactory = new StarlingFactory();
+//        var f:Function = function (e:Event):void {
+//            factory.removeEventListener(Event.COMPLETE, f);
+//            g.allData.factory[name] = factory;
+//            if (callback != null) {
+//                callback.apply(null, callbackParams);
+//            }
+//            if (additionalQueue[url] && additionalQueue[url].length) {
+//                for (var i:int = 0; i < additionalQueue[url].length; i++) {
+//                    if (additionalQueue[url][i].callback != null) {
+//                        additionalQueue[url][i].callback.apply(null, additionalQueue[url][i].callbackParams)
+//                    }
+//                }
+//            }
+//
+//            if (additionalQueue[url]) additionalQueue[url] = null;
+//        };
+//        factory.addEventListener(Event.COMPLETE, f);
+//        factory.parseData(ba);
+//        Cc.ch('load', 'on load image: ' + url);
+//    }
 
     private function errorHandler(url:String):void {
         Cc.error('LoaderManager:: error at ' + url);

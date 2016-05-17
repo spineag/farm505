@@ -14,40 +14,40 @@ import starling.textures.TextureAtlas;
 
 public class EmbedAssets {
     // Texture
-    [Embed(source="../../assets/interfaceAtlas.png")]
-    private const InterfaceTexture:Class;
-    [Embed(source="../../assets/instrumentAtlas.png")]
-    private const InstrumentTexture:Class;
-    [Embed(source="../../assets/resourceAtlas.png")]
-    private const ResourceTexture:Class;
-    [Embed(source="../../assets/x1/wildAtlas2.png")]
-    private const WildTexture:Class;
-    [Embed(source="../../assets/x1/farmAtlas.png")]
-    private const FarmTexture:Class;
-    [Embed(source="../../assets/x1/decorAtlas.png")]
-    private const DecorTexture:Class;
-    [Embed(source="../../assets/x1/buildAtlas.png")]
-    private const BuildTexture:Class;
-    [Embed(source="../../assets/iconAtlas.png")]
-    private const IconTexture:Class;
+//    [Embed(source="../../assets/interfaceAtlas.png")]
+//    private const InterfaceTexture:Class;
+//    [Embed(source="../../assets/instrumentAtlas.png")]
+//    private const InstrumentTexture:Class;
+//    [Embed(source="../../assets/resourceAtlas.png")]
+//    private const ResourceTexture:Class;
+//    [Embed(source="../../assets/x1/wildAtlas2.png")]
+//    private const WildTexture:Class;
+//    [Embed(source="../../assets/x1/farmAtlas.png")]
+//    private const FarmTexture:Class;
+//    [Embed(source="../../assets/x1/decorAtlas.png")]
+//    private const DecorTexture:Class;
+//    [Embed(source="../../assets/x1/buildAtlas.png")]
+//    private const BuildTexture:Class;
+//    [Embed(source="../../assets/iconAtlas.png")]
+//    private const IconTexture:Class;
 
     // XML
-    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
-    private const InterfaceTextureXML:Class;
-    [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
-    private const InstrumentTextureXML:Class;
-    [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
-    private const ResourceTextureXML:Class;
-    [Embed(source="../../assets/x1/wildAtlas2.xml", mimeType="application/octet-stream")]
-    private const WildTextureXML:Class;
-    [Embed(source="../../assets/x1/farmAtlas.xml", mimeType="application/octet-stream")]
-    private const FarmTextureXML:Class;
-    [Embed(source="../../assets/x1/decorAtlas.xml", mimeType="application/octet-stream")]
-    private const DecorTextureXML:Class;
-    [Embed(source="../../assets/x1/buildAtlas.xml", mimeType="application/octet-stream")]
-    private const BuildTextureXML:Class;
-    [Embed(source="../../assets/iconAtlas.xml", mimeType="application/octet-stream")]
-    private const IconTextureXML:Class;
+//    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
+//    private const InterfaceTextureXML:Class;
+//    [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
+//    private const InstrumentTextureXML:Class;
+//    [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
+//    private const ResourceTextureXML:Class;
+//    [Embed(source="../../assets/x1/wildAtlas2.xml", mimeType="application/octet-stream")]
+//    private const WildTextureXML:Class;
+//    [Embed(source="../../assets/x1/farmAtlas.xml", mimeType="application/octet-stream")]
+//    private const FarmTextureXML:Class;
+//    [Embed(source="../../assets/x1/decorAtlas.xml", mimeType="application/octet-stream")]
+//    private const DecorTextureXML:Class;
+//    [Embed(source="../../assets/x1/buildAtlas.xml", mimeType="application/octet-stream")]
+//    private const BuildTextureXML:Class;
+//    [Embed(source="../../assets/iconAtlas.xml", mimeType="application/octet-stream")]
+//    private const IconTextureXML:Class;
 
     [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
     private const BloggerBold:Class;
@@ -161,30 +161,30 @@ public class EmbedAssets {
     private function createTexture(onLoadCallback:Function):void {
         g.allData = new AllData();
 
-        var texture:Texture = Texture.fromBitmap(new ResourceTexture());
-        var xml:XML= XML(new ResourceTextureXML());
-        g.allData.atlas['resourceAtlas'] = new TextureAtlas(texture, xml);
-        texture = Texture.fromBitmap(new BuildTexture());
-        xml= XML(new BuildTextureXML());
-        g.allData.atlas['buildAtlas'] = new TextureAtlas(texture, xml);
-        texture = Texture.fromBitmap(new InterfaceTexture());
-        xml= XML(new InterfaceTextureXML());
-        g.allData.atlas['interfaceAtlas'] = new TextureAtlas(texture, xml);
-        texture = Texture.fromBitmap(new InstrumentTexture());
-        xml= XML(new InstrumentTextureXML());
-        g.allData.atlas['instrumentAtlas'] = new TextureAtlas(texture, xml);
-        texture = Texture.fromBitmap(new WildTexture());
-        xml= XML(new WildTextureXML());
-        g.allData.atlas['wildAtlas'] = new TextureAtlas(texture, xml);
-        texture = Texture.fromBitmap(new FarmTexture());
-        xml= XML(new FarmTextureXML());
-        g.allData.atlas['farmAtlas'] = new TextureAtlas(texture, xml);
-        texture = Texture.fromBitmap(new DecorTexture());
-        xml= XML(new DecorTextureXML());
-        g.allData.atlas['decorAtlas'] = new TextureAtlas(texture, xml);
-        texture = Texture.fromBitmap(new IconTexture());
-        xml= XML(new IconTextureXML());
-        g.allData.atlas['iconAtlas'] = new TextureAtlas(texture, xml);
+//        var texture:Texture = Texture.fromBitmap(new ResourceTexture());
+//        var xml:XML= XML(new ResourceTextureXML());
+//        g.allData.atlas['resourceAtlas'] = new TextureAtlas(texture, xml);
+//        texture = Texture.fromBitmap(new BuildTexture());
+//        xml= XML(new BuildTextureXML());
+//        g.allData.atlas['buildAtlas'] = new TextureAtlas(texture, xml);
+//        texture = Texture.fromBitmap(new InterfaceTexture());
+//        xml= XML(new InterfaceTextureXML());
+//        g.allData.atlas['interfaceAtlas'] = new TextureAtlas(texture, xml);
+//        texture = Texture.fromBitmap(new InstrumentTexture());
+//        xml= XML(new InstrumentTextureXML());
+//        g.allData.atlas['instrumentAtlas'] = new TextureAtlas(texture, xml);
+//        texture = Texture.fromBitmap(new WildTexture());
+//        xml= XML(new WildTextureXML());
+//        g.allData.atlas['wildAtlas'] = new TextureAtlas(texture, xml);
+//        texture = Texture.fromBitmap(new FarmTexture());
+//        xml= XML(new FarmTextureXML());
+//        g.allData.atlas['farmAtlas'] = new TextureAtlas(texture, xml);
+//        texture = Texture.fromBitmap(new DecorTexture());
+//        xml= XML(new DecorTextureXML());
+//        g.allData.atlas['decorAtlas'] = new TextureAtlas(texture, xml);
+//        texture = Texture.fromBitmap(new IconTexture());
+//        xml= XML(new IconTextureXML());
+//        g.allData.atlas['iconAtlas'] = new TextureAtlas(texture, xml);
 
         g.allData.fonts['BloggerBold'] = (new BloggerBold() as Font).fontName;
         g.allData.fonts['BloggerItalic'] = (new BloggerItalic() as Font).fontName;

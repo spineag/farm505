@@ -108,6 +108,7 @@ public class Vars {
     public var managerChest:ManagerChest;
     public var load:LoaderManager;
     public var pBitmaps:Object;
+    public var pXMLs:Object;
     public var managerOrder:ManagerOrder;
     public var managerOrderCats:ManagerOrderCats;
     public var managerDailyBonus:ManagerDailyBonus;
@@ -191,9 +192,6 @@ public class Vars {
         event = new OwnEvent();
         useDataFromServer = true;
         directServer = new DirectServer();
-        dataPath = new DataPath();
-        pBitmaps = {};
-        load = LoaderManager.getInstance();
 
         dataBuilding = new DataBuildings();
         dataRecipe = new DataRecipe();
