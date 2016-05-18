@@ -191,9 +191,16 @@ public class WOLevelUp extends WindowMain {
                     for (i = 0; i < obj[id].blockByLevel.length; i++) {
                         if (g.user.level == obj[id].blockByLevel[i]) {
                             arr.push(obj[id]);
+                            if (obj[id].buildType == BuildType.TREE) g.user.plantNotification++;
+                            if (obj[id].buildType == BuildType.FARM) g.user.villageNotification++;
+                            if (obj[id].buildType == BuildType.FABRICA) g.user.fabricaNotification++;
                         }
                     }
                 } else if (g.user.level == obj[id].blockByLevel) {
+                    if (obj[id].buildType != BuildType.CAVE && obj[id].buildType != BuildType.TRAIN && obj[id].buildType != BuildType.PAPER && obj[id].buildType != BuildType.DAILY_BONUS
+                            && obj[id].buildType != BuildType.ORDER && obj[id].buildType != BuildType.MARKET) {
+                        g.user.decorNotification++;
+                    }
                     arr.push(obj[id]);
                 }
             }
@@ -234,6 +241,7 @@ public class WOLevelUp extends WindowMain {
             objDataLevel.id = -1;
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].catCount;
             arr.push(objDataLevel);
+            g.user.villageNotification++
         }
         if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
             objDataLevel = {};
@@ -241,6 +249,7 @@ public class WOLevelUp extends WindowMain {
             objDataLevel.id = -2;
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].ridgeCount;
             arr.push(objDataLevel);
+            g.user.villageNotification++
         }
         for (i = 0; i < arr.length; i++) {
             if (arr[i].buildType == BuildType.FARM) {
@@ -267,7 +276,8 @@ public class WOLevelUp extends WindowMain {
         } else if (_arrCells.length == 5) {
             _contImage.x = 3;
         }
-
+        g.bottomPanel.notification();
+        g.directServer.updateUserNotification(null);
         if (_arrCells.length > 5) {
             _contImage.x = 3;
             _leftArrow.visible = true;

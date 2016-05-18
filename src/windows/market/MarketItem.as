@@ -298,7 +298,20 @@ public class MarketItem {
 
     public function visiblePaper(b:Boolean = false):void {
         if (_inPapper || isFill == 0 || isFill == 2) return;
-        _papper.visible = b;
+        if (!_dataFromServer) {
+            _papper.visible = b;
+        } else {
+            if (_dataFromServer.timeInPapper == 0) {
+                _papper.visible = b;
+            } else if (b && int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper <= 10800) {
+                _papper.visible = b;
+                _imCheck.visible = b;
+            } else {
+                _papper.visible = false;
+                _imCheck.visible = false;
+                g.directServer.updateMarketPapper(number,false,null);
+            }
+        }
     }
 
     private function onDelete ():void {

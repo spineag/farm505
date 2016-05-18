@@ -78,7 +78,7 @@ public class WOShop extends WindowMain {
         _source.addChild(_contSprite);
         _shopList = new ShopList(_contSprite, this);
         createShopTabBtns();
-        curentTab = 1;
+        curentTab = 0;
         _contCoupone = new Sprite();
         _source.addChild(_contCoupone);
         createMoneyBlock();
@@ -89,17 +89,35 @@ public class WOShop extends WindowMain {
 
     private function onClickExit(e:Event=null):void {
         if (g.managerTutorial.isTutorial) return;
+        if (g.user.allNotification > 0) {
+            switch (curentTab) {
+                case VILLAGE:
+                    _btnTab1.closeNotification();
+                    break;
+                case ANIMAL:
+                    break;
+                case FABRICA:
+                    _btnTab3.closeNotification();
+                    break;
+                case PLANT:
+                    _btnTab4.closeNotification();
+                    break;
+                case DECOR:
+                    _btnTab5.closeNotification();
+                    break;
+            }
+        }
+        g.bottomPanel.updateTextNotification();
         hideIt();
     }
 
     override public function showItParams(callback:Function, params:Array):void{
         updateMoneyCounts();
-        if (params.length) {
-            curentTab = params[0];
-        } else {
-            curentTab = VILLAGE;
-        }
-        onTab(curentTab);
+//        if (params.length) {
+//            curentTab = params[0];
+//        }
+        if (curentTab > 0) onTab(curentTab);
+        else onTab(VILLAGE);
         super.showIt();
     }
 
@@ -146,7 +164,7 @@ public class WOShop extends WindowMain {
     public function createShopTabBtns():void {
         _shopCartonBackground = new CartonBackground(666, 320);
         _shopSprite.addChild(_shopCartonBackground);
-
+        var b:Boolean = g.user.allNotification > 0 ;
         _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
         _btnTab1.setPosition(7, -81);
         _btnTab2 = new ShopTabBtn(ANIMAL, function():void {onTab(ANIMAL)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
@@ -163,7 +181,24 @@ public class WOShop extends WindowMain {
         var arr:Array = [];
         var obj:Object;
         var id:String;
-
+        if (g.user.allNotification > 0) {
+            switch (curentTab) {
+                case VILLAGE:
+                    _btnTab1.closeNotification();
+                    break;
+                case ANIMAL:
+                    break;
+                case FABRICA:
+                    _btnTab3.closeNotification();
+                    break;
+                case PLANT:
+                    _btnTab4.closeNotification();
+                    break;
+                case DECOR:
+                    _btnTab5.closeNotification();
+                    break;
+            }
+        }
         curentTab = a;
         activateTabBtn();
         if (_animal) a = 2;

@@ -36,9 +36,9 @@ public class ManagerOrder {
         _countResourceOnLevelAtCell = [
             {level: 1, count: 1},
             {level: 2, count: 2},
-            {level: 4, count: 3},
+            {level: 6, count: 3},
             {level: 8, count: 4},
-            {level: 15, count: 5}
+            {level: 17, count: 5}
         ];
         _arrOrders = [];
         _arrNames = ['Жозефина', 'Катаракта', 'Мария', 'Педретто', 'Хуан Пискуан', 'Доздроперма', 'Всеволод', 'Мздюк', 'Варан'];
@@ -128,9 +128,9 @@ public class ManagerOrder {
     // 3 - resource plants
     private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1):void {
         var order:ManagerOrderItem;
-        var arrOrderType1:Array = new Array();
-        var arrOrderType2:Array = new Array();
-        var arrOrderType3:Array = new Array();
+        var arrOrderType1:Array = new Array(); //products
+        var arrOrderType2:Array = new Array(); //cave res
+        var arrOrderType3:Array = new Array(); // plants
         var arr:Array;
         var countResources:int;
         var k:int;
@@ -190,16 +190,233 @@ public class ManagerOrder {
                 countResources = int(Math.random()*_curMaxCountResoureAtOrder) + 1;
                 switch (countResources) {
                     case 1:
+                    if (g.user.level == 4) {
                         if (Math.random() < .6) {
                             order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
-                            order.resourceCounts.push( int(Math.random()*3)+2 );
+                            order.resourceCounts.push( int(Math.random()*2) + 2 );
                         } else {
                             order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
-                            order.resourceCounts.push( int(Math.random()*18)+7 );
+                            order.resourceCounts.push( int(Math.random()*4) + 4 );
                         }
+                    } else if (g.user.level == 5) {
+                        if (Math.random() < .6) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2) + 2 );
+                        } else {
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*6) + 4 );
+                        }
+                    } else if (g.user.level == 6) {
+                        if (Math.random() < .6) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2) + 2 );
+                        } else {
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*5) + 6 );
+                        }
+                    } else if (g.user.level == 7) {
+                        if (Math.random() < .6) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2) + 2);
+                        } else {
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*7) + 6);
+                        }
+                    } else if (g.user.level == 8) {
+                        if (Math.random() < .6) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*3) + 2 );
+                        } else {
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*12) + 6 );
+                        }
+                    } else if (g.user.level == 9) {
+                        if (Math.random() < .6) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*3) + 2 );
+                        } else {
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*13) + 7 );
+                        }
+                    } else if (g.user.level == 10) {
+                        if (Math.random() < .6) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*4) + 2 );
+                        } else {
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*13) + 7 );
+                        }
+                    } else if (g.user.level == 11) {
+                        if (Math.random() < .6) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*4) + 2 );
+                        } else {
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*14) + 7 );
+                        }
+                    } else  {
+                        if (Math.random() < .6) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*4) + 2 );
+                        } else {
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*18) + 7 );
+                        }
+                    }
                         break;
                     case 2:
                         k = Math.random();
+                    if (g.user.level <= 4) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                        } else if (Math.random() < .3) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+1 );
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+2 );
+                        } else {
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*3) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*3) + 2);
+                        }
+                    } else if (g.user.level <= 5) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                        } else if (Math.random() < .3) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+1 );
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+3 );
+                        } else {
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*5) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*5) + 2);
+                        }
+                    } else if (g.user.level <= 6) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                        } else if (Math.random() < .3) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+1 );
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*7)+3 );
+                        } else {
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*5) + 3);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*5) + 3);
+                        }
+                    } else if (g.user.level <= 7) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                        } else if (Math.random() < .3) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+1 );
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*7)+3 );
+                        } else {
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*6) + 4);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*6) + 4);
+                        }
+                    } else if (g.user.level <= 8) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                        } else if (Math.random() < .3) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+1 );
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*7)+3 );
+                        } else {
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*5) + 6);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*5) + 6);
+                        }
+                    } else if (g.user.level <= 9) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 1);
+                        } else if (Math.random() < .3) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+1 );
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*7)+3 );
+                        } else {
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*5) + 6);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*5) + 6);
+                        }
+                    } else if (g.user.level <= 10) {
                         if (k > .5) {
                             arr = arrOrderType1.slice();
                             k = int(Math.random()*arr.length);
@@ -211,94 +428,402 @@ public class ManagerOrder {
                             order.resourceCounts.push(int(Math.random()*2) + 2);
                         } else if (Math.random() < .3) {
                             order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
-                            order.resourceCounts.push( int(Math.random()*3)+2 );
+                            order.resourceCounts.push( int(Math.random()*2)+1 );
                             order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
-                            order.resourceCounts.push( int(Math.random()*14)+7 );
+                            order.resourceCounts.push( int(Math.random()*7)+6 );
                         } else {
                             arr = arrOrderType3.slice();
                             k = int(Math.random()*arr.length);
                             order.resourceIds.push(arr[k]);
                             arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*16) + 7);
+                            order.resourceCounts.push(int(Math.random()*9) + 7);
                             k = int(Math.random()*arr.length);
                             order.resourceIds.push(arr[k]);
-                            order.resourceCounts.push(int(Math.random()*16) + 7);
+                            order.resourceCounts.push(int(Math.random()*9) + 7);
                         }
+                    } else if (g.user.level <= 11) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                        } else if (Math.random() < .3) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+2 );
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*12)+7 );
+                        } else {
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*12) + 7);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*12) + 7);
+                        }
+                    } else  {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                        } else if (Math.random() < .3) {
+                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                            order.resourceCounts.push( int(Math.random()*2)+2 );
+                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+                            order.resourceCounts.push( int(Math.random()*12)+7 );
+                        } else {
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k,1);
+                            order.resourceCounts.push(int(Math.random()*12) + 7);
+                            k = int(Math.random()*arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random()*12) + 7);
+                        }
+                    }
                         break;
                     case 3:
                         k = Math.random();
+                    if (g.user.level == 6) {
                         if (k > .5) {
                             arr = arrOrderType1.slice();
-                            k = int(Math.random()*arr.length);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*2) + 2);
-                            k = int(Math.random()*arr.length);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*2) + 2);
-                            k = int(Math.random()*arr.length);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
                         } else if (Math.random() < .3) {
                             arr = arrOrderType1.slice();
-                            k = int(Math.random()*arr.length);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*2) + 2);
-                            k = int(Math.random()*arr.length);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            order.resourceCounts.push(int(Math.random()*2) + 2);
-                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
-                            order.resourceCounts.push( int(Math.random()*8)+5 );
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
+                            order.resourceCounts.push(int(Math.random() * 5) + 3);
                         } else {
-                            order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
-                            order.resourceCounts.push( int(Math.random()*2)+2 );
+                            order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
                             arr = arrOrderType3.slice();
-                            k = int(Math.random()*arr.length);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*8) + 5);
-                            k = int(Math.random()*arr.length);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 5) + 3);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            order.resourceCounts.push(int(Math.random()*8) + 5);
+                            order.resourceCounts.push(int(Math.random() * 5) + 3);
                         }
+                    } else if (g.user.level == 7) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                        } else if (Math.random() < .3) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
+                            order.resourceCounts.push(int(Math.random() * 5) + 3);
+                        } else {
+                            order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 5) + 3);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 5) + 3);
+                        }
+                    } else if (g.user.level == 8) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                        } else if (Math.random() < .3) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
+                            order.resourceCounts.push(int(Math.random() * 6) + 3);
+                        } else {
+                            order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 6) + 3);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 6) + 3);
+                        }
+                    } else if (g.user.level == 9) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                        } else if (Math.random() < .3) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
+                            order.resourceCounts.push(int(Math.random() * 6) + 3);
+                        } else {
+                            order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 6) + 3);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 6) + 3);
+                        }
+                    }else if (g.user.level == 10) {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                        } else if (Math.random() < .3) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
+                            order.resourceCounts.push(int(Math.random() * 8) + 4);
+                        } else {
+                            order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 8) + 4);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 8) + 4);
+                        }
+                    } else {
+                        if (k > .5) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                        } else if (Math.random() < .3) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
+                            order.resourceCounts.push(int(Math.random() * 8) + 5);
+                        } else {
+                            order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            arr = arrOrderType3.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 8) + 5);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 8) + 5);
+                        }
+                    }
                         break;
                     case 4:
                         k = Math.random();
+                    if (g.user.level == 8) {
                         if (k < .7) {
                             arr = arrOrderType1.slice();
-                            k = int(Math.random()*arr.length);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*2) + 2);
-                            k = int(Math.random()*arr.length);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*2) + 2);
-                            k = int(Math.random()*arr.length);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*2) + 2);
-                            k = int(Math.random()*arr.length);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            order.resourceCounts.push(int(Math.random()*2) + 2);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
                         } else {
                             arr = arrOrderType1.slice();
-                            k = int(Math.random()*arr.length);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*2) + 1);
-                            k = int(Math.random()*arr.length);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            arr.splice(k,1);
-                            order.resourceCounts.push(int(Math.random()*2) + 1);
-                            k = int(Math.random()*arr.length);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
                             order.resourceIds.push(arr[k]);
-                            order.resourceCounts.push(int(Math.random()*2) + 1);
-                            order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
-                            order.resourceCounts.push( int(Math.random()*5)+3 );
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
+                            order.resourceCounts.push(int(Math.random() * 5) + 3);
                         }
+                    } else if (g.user.level == 9) {
+                        if (k < .7) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                        } else {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
+                            order.resourceCounts.push(int(Math.random() * 5) + 3);
+                        }
+                    } else {
+                        if (k < .7) {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 2);
+                        } else {
+                            arr = arrOrderType1.slice();
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            arr.splice(k, 1);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            k = int(Math.random() * arr.length);
+                            order.resourceIds.push(arr[k]);
+                            order.resourceCounts.push(int(Math.random() * 2) + 1);
+                            order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
+                            order.resourceCounts.push(int(Math.random() * 5) + 3);
+                        }
+                    }
                         break;
                     case 5:
                         arr = arrOrderType1.slice();

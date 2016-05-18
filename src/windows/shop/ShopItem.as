@@ -298,6 +298,7 @@ public class ShopItem {
         var i:int;
         var maxCount:int;
         var curCount:int;
+        var im:Image;
         var maxCountAtCurrentLevel:int = 0;
         _nameTxt.text = '';
         _countTxt.text = '';
@@ -337,6 +338,11 @@ public class ShopItem {
                     _nameTxt.text = _data.name;
                     _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
+                    if (g.user.allNotification > 0 && g.user.fabricaNotification > 0 && g.user.level == _data.blockByLevel[maxCountAtCurrentLevel-1]) {
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+                        im.x = 102;
+                        source.addChild(im);
+                    }
                     createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
@@ -374,6 +380,11 @@ public class ShopItem {
                     _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
                     createButtons('blue');
+                    if (g.user.allNotification > 0 && g.user.villageNotification > 0 && g.user.level == _data.blockByLevel[maxCountAtCurrentLevel-1]) {
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+                        im.x = 102;
+                        source.addChild(im);
+                    }
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
@@ -398,6 +409,11 @@ public class ShopItem {
                         _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(g.userInventory.decorInventory[_data.id].count);
                         createButtons('yellow');
                     } else {
+                        if (g.user.allNotification > 0 && g.user.decorNotification > 0 && g.user.level == _data.blockByLevel[0]) {
+                            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+                            im.x = 102;
+                            source.addChild(im);
+                        }
                         _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
                             if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
                                 createButtons('blue');
@@ -490,6 +506,11 @@ public class ShopItem {
                     _countTxt.visible = true;
                     _countTxt.text = String(curCount) + '/' + String(maxCount);
                     createButtons('blue');
+                    if (g.user.allNotification > 0 && g.user.plantNotification > 0 && g.user.level == _data.blockByLevel[maxCountAtCurrentLevel-1]) {
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+                        im.x = 102;
+                        source.addChild(im);
+                    }
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
@@ -513,6 +534,11 @@ public class ShopItem {
                     _nameTxt.text = _data.name;
                     _countTxt.visible = true;
                     _countTxt.text = String(curCount) + '/' + String(maxCount);
+                    if (g.user.allNotification > 0 && g.user.villageNotification > 0 && g.user.level == _data.blockByLevel[maxCountAtCurrentLevel-1]) {
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+                        im.x = 102;
+                        source.addChild(im);
+                    }
                     createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
@@ -530,6 +556,18 @@ public class ShopItem {
                 _nameTxt.text = _data.name;
                 _countTxt.visible = true;
                 _countTxt.text = String(curCount) + '/' + String(maxCount);
+                var b:Boolean;
+                for (i = 0; i <g.dataCats.length; i++) {
+                    if (g.dataCats[i].blockByLevel[0] == g.user.level) {
+                        b = true;
+                        break;
+                    } else b = false;
+                }
+                if (g.user.allNotification > 0 && g.user.villageNotification > 0 && b) {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+                    im.x = 102;
+                    source.addChild(im);
+                }
                 createButtons('blue');
                 _txtBtnBuyBlue.text = String(_countCost);
             }

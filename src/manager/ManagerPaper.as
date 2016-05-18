@@ -108,7 +108,7 @@ public class ManagerPaper {
         } else  {
             if (objectNew.buyer_id == 1) {
                 for (id in obData) {
-                    if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].buildType != BuildType.INSTRUMENT) {
+                    if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].visitorPrice > 0) {
                         arrMin.push(obData[id]);
                     }
                 }

@@ -261,7 +261,7 @@ public class WOMarket  extends WindowMain {
 
     private function addItems():void {
         var item:MarketItem;
-        clearItems();
+//        clearItems();
 
         if (_curUser.marketCell <= 0) {
             _curUser.marketCell = 5;
@@ -271,7 +271,7 @@ public class WOMarket  extends WindowMain {
         var marketCellCount:int = _curUser.marketCell;
         if (g.user == _curUser) {
             marketCellCount += 2;
-            if (_curUser.marketCell > 40) marketCellCount = 40;
+            if (marketCellCount > 40) marketCellCount = 40;
         }
 
         for (var i:int=0; i < marketCellCount; i++) {

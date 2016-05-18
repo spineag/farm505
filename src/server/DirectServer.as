@@ -535,6 +535,7 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
+            g.user.allNotification = int(ob.notification_new);
 //            g.userTimer.timerAtPapper = int(ob.time_paper);
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
             else g.userTimer.timerAtPapper = 300 - (ob.time_paper- int(new Date().getTime()/1000)) * (-1);
@@ -2319,6 +2320,7 @@ public class DirectServer {
         variables.cost = cost;
         variables.numberCell = numberCell;
         variables.inPapper = inPapper ? 1 : 0;
+        variables.timeInPapper = 0;
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -4707,6 +4709,56 @@ public class DirectServer {
         } else {
             Cc.error('getUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserNotification(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_NOTIFICATION);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserNotification', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.notificationNew = g.user.allNotification;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserNotification);
+        function onCompleteUpdateUserNotification(e:Event):void { completeUpdateUserNotification(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserNotification error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserNotification error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserNotification(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserNotification: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserNotification: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserNotification OK', 5);
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else {
+            Cc.error('updateUserNotification: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserNotification: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
         }
     }
 }
