@@ -70,7 +70,7 @@ public class EmbedAssets {
     private const CatWateringData:Class;
     [Embed(source = "../../assets/animations/x1/cat_feed.png", mimeType = "application/octet-stream")]
     private const CatFeedData:Class;
-    [Embed(source = "../../assets/animations/x1/buildingBuild.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/building.png", mimeType = "application/octet-stream")]
     private const BuildingBuild:Class;
     [Embed(source = "../../assets/animations/x1/trees.png", mimeType = "application/octet-stream")]
     private const BuildingTrees:Class;
@@ -193,7 +193,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 41;
+        var count:int = 34;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {

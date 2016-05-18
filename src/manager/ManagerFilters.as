@@ -6,7 +6,6 @@ import flash.filters.GlowFilter;
 
 import starling.filters.BlurFilter;
 import starling.filters.ColorMatrixFilter;
-import starling.filters.ColorMatrixFilter;
 import starling.utils.Color;
 
 public class ManagerFilters {

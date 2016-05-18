@@ -3,17 +3,11 @@ package manager {
 import com.deadreckoned.assetmanager.AssetManager;
 import com.deadreckoned.assetmanager.AssetQueue;
 import com.junkbyte.console.Cc;
-
-import dragonBones.factories.StarlingFactory;
-
 import flash.display.Bitmap;
 import flash.display.BitmapData;
-import flash.events.Event;
-import flash.utils.ByteArray;
-
 
 public class LoaderManager {
-    private static const COUNT_PARALEL_LOADERS:int = 25;
+    private static const COUNT_PARALEL_LOADERS:int = 1;
 
     [ArrayElementType('com.deadreckoned.assetmanager.AssetQueue')]
     private var _loaders:Array;
@@ -135,42 +129,6 @@ public class LoaderManager {
 
         if (additionalQueue[url]) additionalQueue[url] = null;
     }
-
-//    public function loadDB_PNG(url:String, name:String, callback:Function = null, ...callbackParams):void {
-//        if (url == '') return;
-//        Cc.ch('load', 'try to load DB_PNG: ' + url);
-//        if (!additionalQueue[url]) {
-//            additionalQueue[url] = new Array();  // первый элемент пропускаем, чтобы не было двойного колбека на него
-//        } else {
-//            additionalQueue[url].push({callback: callback, callbackParams: callbackParams});
-//        }
-//
-//        _loaderImages.add(url, {type: AssetManager.TYPE_IMAGE, priority: 8, onComplete: loadedDB_PNG, onCompleteParams: [url, name, callback, callbackParams], onError: errorHandler, onErrorParams: [url]});
-//    }
-//
-//    private function loadedDB_PNG(url:String, name:String, callback:Function, callbackParams:Array):void {
-//        var ba:ByteArray = _loader.get(url).asset;
-//        var factory:StarlingFactory = new StarlingFactory();
-//        var f:Function = function (e:Event):void {
-//            factory.removeEventListener(Event.COMPLETE, f);
-//            g.allData.factory[name] = factory;
-//            if (callback != null) {
-//                callback.apply(null, callbackParams);
-//            }
-//            if (additionalQueue[url] && additionalQueue[url].length) {
-//                for (var i:int = 0; i < additionalQueue[url].length; i++) {
-//                    if (additionalQueue[url][i].callback != null) {
-//                        additionalQueue[url][i].callback.apply(null, additionalQueue[url][i].callbackParams)
-//                    }
-//                }
-//            }
-//
-//            if (additionalQueue[url]) additionalQueue[url] = null;
-//        };
-//        factory.addEventListener(Event.COMPLETE, f);
-//        factory.parseData(ba);
-//        Cc.ch('load', 'on load image: ' + url);
-//    }
 
     private function errorHandler(url:String):void {
         Cc.error('LoaderManager:: error at ' + url);

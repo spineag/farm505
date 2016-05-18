@@ -79,16 +79,34 @@ public class LoadComponents {
         delete  g.pBitmaps[st + 'x1/wildAtlas2.png'];
         delete  g.pXMLs[st + 'x1/wildAtlas2.xml'];
 
-//        loadDBAnimations();
-        if (_callback != null) _callback.apply();
+        loadDBAnimations();
     }
 
-//    private function loadDBAnimations():void {
-//        count = 0;
-//    }
-//
-//    private function onLoadDBAnimation(smth:*=null):void {
-//
-//    }
+    private function loadDBAnimations():void {
+        count = -1;
+
+//        g.load.loadImage(st + 'animations/arrow.png', onLoadDB);
+//        g.load.loadXML(st + 'animations/arrow.xml', onLoadDB);
+//        g.load.loadDB_PNG(st + 'animations/chest_interface.png', 'chest_interface', onLoadDB);
+//        g.load.loadDB_PNG(st + 'animations/order_window2.png', 'orderWindow', onLoadDB);
+//        g.load.loadDB_PNG(st + 'animations/plot_seller.png', 'catCustomer', onLoadDB);
+//        g.load.loadDB_PNG(st + 'animations/preloader_2.png', 'preloader_2', onLoadDB);
+//        g.load.loadDB_PNG(st + 'animations/visit_preloader.png', 'visitPreloader', onLoadDB);
+//        g.load.loadDB_PNG(st + 'animations/x1/aerial_tram.png', 'train', onLoadDB);
+//                                                          g.load.loadDB_PNG(st + 'animations/x1/bfly.png', 'butterfly', onLoadDB);
+//        g.load.loadDB_PNG(st + 'animations/x1/building.png', 'buildingBuild', onLoadDB);
+    }
+
+    private function onLoadDB():void {
+        count--;
+        if (count <=0) createFabricas();
+    }
+
+    private function createFabricas():void {
+//        var tex:Texture = Texture.fromBitmap(g.pBitmaps[st + 'animations/arrow.png'].create() as Bitmap);
+//        var xml:XML = g.pXMLs[st + 'animations/arrow.xml'];
+
+        if (_callback != _callback) _callback.apply();
+    }
 }
 }
