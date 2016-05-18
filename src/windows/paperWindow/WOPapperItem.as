@@ -23,6 +23,9 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 import starling.utils.HAlign;
+
+import ui.xpPanel.XPStar;
+
 import user.Someone;
 
 import utils.CButton;
@@ -280,12 +283,13 @@ public class WOPapperItem {
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
             return;
         }
-        var p:Point = new Point(_btnBuyBot.x, _btnBuyBot.y);
-        p = _btnBuyBot.localToGlobal(p);
+        var p:Point = new Point(_ava.x, _ava.y);
+        p = _ava.localToGlobal(p);
         var ob:Object = {};
         ob.id = DataMoney.SOFT_CURRENCY;
         ob.count = _data.resourceCount;
         new DropItem(p.x,p.y,ob);
+        new XPStar(p.x,p.y, 5);
         g.userInventory.addResource(_data.resourceId,-_data.resourceCount);
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
         _btnBuyBot.clickCallback = null;

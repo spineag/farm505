@@ -31,6 +31,11 @@ public class User extends Someone {
     public var tutorialStep:int;
     public var lastVisitAmbar:Boolean;
     public var cutScenes:Array;
+    public var villageNotification:int;
+    public var fabricaNotification:int;
+    public var plantNotification:int;
+    public var decorNotification:int;
+    public var allNotification:int;
     private var g:Vars = Vars.getInstance();
 
     public function User() {
@@ -119,6 +124,7 @@ public class User extends Someone {
             obj.timeSold = arr[i].time_sold;
             obj.timeStart = arr[i].time_start;
             obj.numberCell = int(arr[i].number_cell);
+            obj.timeInPapper = int(arr[i].time_in_papper);
 //            obj.photo = '';
             p.marketItems.push(obj);
         }

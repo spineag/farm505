@@ -6,6 +6,8 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Back;
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import flash.display.Bitmap;
 import flash.geom.Point;
 import manager.ManagerFilters;
@@ -47,6 +49,9 @@ public class MainBottomPanel {
     private var _ava:Image;
     private var _tutorialCallback:Function;
     private var _arrow:SimpleArrow;
+    private var _imNotification:Image;
+    private var _txtNotification:TextField;
+
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -59,7 +64,19 @@ public class MainBottomPanel {
         var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 260);
         _source.addChild(pl);
+
         createBtns();
+        _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+        _imNotification.x = 40;
+        _imNotification.y = -5;
+        _shopBtn.addChild(_imNotification);
+        _txtNotification = new TextField(30,30,'',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtNotification.x = 38;
+        _txtNotification.y = -7;
+        _shopBtn.addChild(_txtNotification);
+        _imNotification.visible = false;
+        _txtNotification.visible = false;
+        notification();
     }
 
     private function createBtns():void {
@@ -466,5 +483,65 @@ public class MainBottomPanel {
         new TweenMax(_source, 1, {y:Starling.current.nativeStage.stageHeight - 83, ease:Back.easeOut});
     }
 
+    public function notification():void {
+        if (g.user.allNotification == 0 && g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification > 0) {
+            _imNotification.visible = true;
+            _txtNotification.visible = true;
+            g.user.allNotification = g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification;
+            _txtNotification.text = String(g.user.allNotification);
+
+        } else if (g.user.allNotification > 0 && g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification <= 0) {
+            _imNotification.visible = true;
+            _txtNotification.visible = true;
+            _txtNotification.text = String(g.user.allNotification);
+            createNotificateionItem();
+        } else {
+            _imNotification.visible = false;
+            _txtNotification.visible = false;
+        }
+    }
+
+    public function updateTextNotification():void {
+        _txtNotification.text = String(g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification);
+        if (g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification <= 0) {
+            _imNotification.visible = false;
+            _txtNotification.visible = false;
+            g.user.allNotification = 0;
+            g.directServer.updateUserNotification(null);
+        }
+    }
+
+    private function createNotificateionItem():void {
+        var obj:Object;
+        var id:String;
+        var i:int;
+
+        obj = g.dataBuilding.objectBuilding;
+        for (id in obj) {
+            if (obj[id].buildType != BuildType.CHEST) {
+                if (obj[id].buildType == BuildType.TREE || obj[id].buildType == BuildType.FARM || obj[id].buildType == BuildType.FABRICA) {
+                    for (i = 0; i < obj[id].blockByLevel.length; i++) {
+                        if (g.user.level == obj[id].blockByLevel[i]) {
+                            if (obj[id].buildType == BuildType.TREE) g.user.plantNotification++;
+                            if (obj[id].buildType == BuildType.FARM) g.user.villageNotification++;
+                            if (obj[id].buildType == BuildType.FABRICA) g.user.fabricaNotification++;
+                        }
+                    }
+                } else if (g.user.level == obj[id].blockByLevel) {
+                    if (obj[id].buildType != BuildType.CAVE && obj[id].buildType != BuildType.TRAIN && obj[id].buildType != BuildType.PAPER && obj[id].buildType != BuildType.DAILY_BONUS
+                            && obj[id].buildType != BuildType.ORDER && obj[id].buildType != BuildType.MARKET) {
+                        g.user.decorNotification++;
+                    }
+                }
+            }
+        }
+
+        if (g.dataLevel.objectLevels[g.user.level].catCount > 0) {
+            g.user.villageNotification++
+        }
+        if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
+            g.user.villageNotification++
+        }
+    }
 }
 }
