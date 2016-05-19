@@ -4,7 +4,13 @@
 package {
 import com.junkbyte.console.Cc;
 
+import manager.AllData;
+
+import manager.DataPath;
+
 import manager.EmbedAssets;
+import manager.LoadComponents;
+import manager.LoaderManager;
 import manager.Vars;
 
 import starling.display.Sprite;
@@ -20,24 +26,40 @@ public class MainStarling extends Sprite {
 
     public function start() : void
     {
+        g.dataPath = new DataPath();
+        g.allData = new AllData();
+        g.load = LoaderManager.getInstance();
+        g.pBitmaps = {};
+        g.pXMLs = {};
+
         sAssets = new AssetManager();
         sAssets.verbose = true;
         sAssets.enqueue(EmbedAssets);
 
-        var max:int = 86;
+        var max:int = 80;
         var cur:int;
         sAssets.loadQueue(function (ratio:Number):void {
             cur = int(max * ratio);
             g.startPreloader.setProgress(cur);
             if (ratio == 1.0){
-                dispatchEventWith(MainStarling.LOADED);
                 initGame();
             }
         });
     }
 
     private function initGame():void {
-        new EmbedAssets(g.initInterface);
+        new EmbedAssets(loadComponents);
+    }
+
+    private function loadComponents():void {
+        trace('start LoadComponents');
+        new LoadComponents(onAllLoaded);
+    }
+
+    private function onAllLoaded():void {
+        trace('onAllLoaded');
+        dispatchEventWith(MainStarling.LOADED);
+        g.initInterface();
     }
 
 }

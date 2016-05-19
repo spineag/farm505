@@ -43,10 +43,12 @@ public class LoadComponents {
 
     private function onLoad(smth:*=null):void {
         count--;
+        trace('count on loaded Atlases: ' + count);
         if (count <=0) createAtlases();
     }
 
     private function createAtlases():void {
+        trace('createAtlases');
         g.allData.atlas['iconAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'iconAtlas.png'].create() as Bitmap), g.pXMLs[st + 'iconAtlas.xml']);
         delete  g.pBitmaps[st + 'iconAtlas.png'];
         delete  g.pXMLs[st + 'iconAtlas.xml'];
@@ -79,7 +81,8 @@ public class LoadComponents {
         delete  g.pBitmaps[st + 'x1/wildAtlas2.png'];
         delete  g.pXMLs[st + 'x1/wildAtlas2.xml'];
 
-        loadDBAnimations();
+//        loadDBAnimations();
+        if (_callback != null) _callback.apply();
     }
 
     private function loadDBAnimations():void {
@@ -106,7 +109,7 @@ public class LoadComponents {
 //        var tex:Texture = Texture.fromBitmap(g.pBitmaps[st + 'animations/arrow.png'].create() as Bitmap);
 //        var xml:XML = g.pXMLs[st + 'animations/arrow.xml'];
 
-        if (_callback != _callback) _callback.apply();
+
     }
 }
 }
