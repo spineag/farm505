@@ -124,7 +124,7 @@ public class MarketFriendItem {
         MCScaler.scale(_ava, 98, 98);
         _ava.x = 4;
         _ava.y = 2;
-        source.addChild(_ava);
+        if (source) source.addChild(_ava);
     }
 
     private function chooseThis():void {

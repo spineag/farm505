@@ -349,7 +349,7 @@ public class WOTrain extends WindowMain {
                 && g.dataResource.objectResources[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT ) {
             g.windowsManager.cashWindow = this;
             super.hideIt();
-            g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, onResourceLoad, {id: _arrItems[_activeItemIndex].idFree}, 'market');
+            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onResourceLoad, {id: _arrItems[_activeItemIndex].idFree}, 'market');
             return;
         }
         if (_arrItems[_activeItemIndex].canFull) {

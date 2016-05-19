@@ -115,6 +115,7 @@ public class WOChest  extends WindowMain{
         _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
         _armature.animation.gotoAndPlay('idle_5');
+        _btnOpen.visible = false;
 
     }
 
