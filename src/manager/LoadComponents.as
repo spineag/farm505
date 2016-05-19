@@ -102,9 +102,18 @@ public class LoadComponents {
     }
 
     private function loadDBX():void {
-        count = 1;
+        count = 10;
 
         g.loadAnimation.load('animations/x1/bfly/', 'butterfly', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/cat_main/', 'cat', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/cat_watering_can/', 'cat_watering', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/cat_feed/', 'cat_feed', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/cat_queue/', 'cat_queue', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/explode/', 'explode', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/explode_gray/', 'explode_gray', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/plants/', 'plant', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/tools/', 'removeWild', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/trees/', 'trees', onLoadDB_X);
     }
 
     private function onLoadDB_X():void {

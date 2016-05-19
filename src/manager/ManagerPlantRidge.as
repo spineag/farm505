@@ -47,7 +47,11 @@ public class ManagerPlantRidge {
             return;
         }
         curRidge.fillPlant(g.dataResource.objectResources[int(ob.plant_id)], true, int(ob.time_work));
-        curRidge.plant.idFromServer = ob.id;
+        if (curRidge.plant) {
+            curRidge.plant.idFromServer = ob.id;
+        } else {
+            Cc.error('ManagerPlantRidge:: plant = null');
+        }
     }
 
     public function onCraft(plantIdFromServer:String):void {
@@ -198,7 +202,7 @@ public class ManagerPlantRidge {
     public function onRidgeStartMove(plantId:int, r:Ridge):void {
         if (_catsForPlant[plantId] && _catsForPlant[plantId].ridges && _catsForPlant[plantId].ridges.indexOf(r) > -1) {
             var f:Function = function ():void {
-                takePlantForWork(plantId, _catsForPlant[plantId].cat);
+                takePlantForWork(plantId, _catsForPlant[plantId].cat as HeroCat);
             };
 
             _movingRidgePlantId = plantId;
@@ -215,7 +219,7 @@ public class ManagerPlantRidge {
             _movingRidgePlantId = -1;
             _catsForPlant[plantId].ridges.push(r);
             if (_catsForPlant[plantId].ridges.length == 1) {
-                takePlantForWork(plantId, _catsForPlant[plantId].cat);
+                takePlantForWork(plantId, _catsForPlant[plantId].cat as HeroCat);
             }
         }
     }

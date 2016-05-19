@@ -62,22 +62,8 @@ public class EmbedAssets {
     [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
     private const HouschkaBold:Class;
 
-    [Embed(source = "../../assets/animations/x1/cat_main2.png", mimeType = "application/octet-stream")]
-    private const CatData:Class;
-    [Embed(source = "../../assets/animations/x1/cat_queue.png", mimeType = "application/octet-stream")]
-    private const CatQueue:Class;
-    [Embed(source = "../../assets/animations/x1/cat_watering_can.png", mimeType = "application/octet-stream")]
-    private const CatWateringData:Class;
-    [Embed(source = "../../assets/animations/x1/cat_feed.png", mimeType = "application/octet-stream")]
-    private const CatFeedData:Class;
     [Embed(source = "../../assets/animations/x1/building.png", mimeType = "application/octet-stream")]
     private const BuildingBuild:Class;
-    [Embed(source = "../../assets/animations/x1/trees.png", mimeType = "application/octet-stream")]
-    private const BuildingTrees:Class;
-    [Embed(source = "../../assets/animations/x1/plants.png", mimeType = "application/octet-stream")]
-    private const BuildingPlants:Class;
-    [Embed(source = "../../assets/animations/x1/tools.png", mimeType = "application/octet-stream")]
-    private const RemoveWild:Class;
 
     [Embed(source = "../../assets/animations/x1/beehive.png", mimeType = "application/octet-stream")]
     private const Beehive:Class;
@@ -126,10 +112,6 @@ public class EmbedAssets {
     private const Orders:Class;
     [Embed(source = "../../assets/animations/x1/roadside_market.png", mimeType = "application/octet-stream")]
     private const RoadsideMarket:Class;
-    [Embed(source = "../../assets/animations/x1/explode.png", mimeType = "application/octet-stream")]
-    private const Explode:Class;
-    [Embed(source = "../../assets/animations/x1/explode_gray.png", mimeType = "application/octet-stream")]
-    private const ExplodeGray:Class;
     [Embed(source = "../../assets/animations/x1/cat_tutorial.png", mimeType = "application/octet-stream")]
     private const CatTutorial:Class;
     [Embed(source = "../../assets/animations/cat_tutorial_big2.png", mimeType = "application/octet-stream")]
@@ -178,7 +160,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 30;
+        var count:int = 27;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -190,12 +172,6 @@ public class EmbedAssets {
         };
         loadFactory('market',RoadsideMarket,checkCount);
         loadFactory('newspaper',Newspaper,checkCount);
-        loadFactory('trees', BuildingTrees, checkCount);
-        loadFactory('plant', BuildingPlants, checkCount);
-        loadFactory('cat', CatData, checkCount);
-        loadFactory('cat_watering', CatWateringData, checkCount);
-        loadFactory('cat_feed', CatFeedData, checkCount);
-        loadFactory('cat_queue', CatQueue, checkCount);
         loadFactory('buildingBuild', BuildingBuild, checkCount);
         loadFactory('beehive', Beehive, checkCount);
         loadFactory('chicken', Chicken, checkCount);
@@ -218,9 +194,6 @@ public class EmbedAssets {
         loadFactory('daily_bonus', DailyBonus, checkCount);
         loadFactory('train', AerialTram, checkCount);
         loadFactory('order', Orders, checkCount);
-        loadFactory('removeWild', RemoveWild, checkCount);
-        loadFactory('explode', Explode, checkCount);
-        loadFactory('explode_gray', ExplodeGray, checkCount);
         loadFactory('tutorialCat', CatTutorial, checkCount);
         loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
         loadFactory('chest_mini', ChestMini, checkCount);

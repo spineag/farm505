@@ -1,0 +1,5 @@
+<TextureAtlas name="explode_gray" imagePath="texture.png">
+ <SubTexture name="light" x="0" y="0" width="171" height="161"/>
+ <SubTexture name="smog" x="0" y="163" width="99" height="90"/>
+ <SubTexture name="star" x="173" y="0" width="3" height="3"/>
+</TextureAtlas>

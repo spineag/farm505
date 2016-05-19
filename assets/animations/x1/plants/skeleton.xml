@@ -1,0 +1,1401 @@
+<dragonBones name="plants" frameRate="30" version="2.3">
+ <armature name="cabbage">
+  <bone name="Layer 2">
+   <transform x="0" y="1.63" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state1">
+   <transform x="-0.75" y="-6.35" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-1.25" y="-9.35" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="0" y="-10.67" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="6.25" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 2" parent="Layer 2" z="0">
+    <display name="Green_1.png" type="image">
+     <transform x="-9.75" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Green_4.png" type="image">
+     <transform x="-20.75" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state1" parent="state1" z="1">
+    <display name="cabbage_stage_1.png" type="image">
+     <transform x="-19.5" y="-10.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="2">
+    <display name="cabbage_stage_2.png" type="image">
+     <transform x="-19.5" y="-17.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="3">
+    <display name="cabbage_stage_3.png" type="image">
+     <transform x="-23.75" y="-19.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="cabagem" type="image">
+     <transform x="0" y="-19.1" skX="0" skY="0" scX="1" scY="1" pX="27" pY="21.75"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="0" y="1.63" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-0.75" y="-6.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="1">
+     <transform x="0" y="5.4" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="-1.25" y="-9.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="1">
+     <transform x="0" y="5.4" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="0" y="-10.67" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="17">
+     <transform x="0" y="5.4" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="6.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="6.25" skX="0" skY="0" scX="1" scY="0.91" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="6.23" skX="0" skY="0" scX="1" scY="1.09" pX="0" pY="0.05"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="6.25" skX="0" skY="0" scX="1" scY="0.91" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0" y="6.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="carrot">
+  <bone name="state1">
+   <transform x="-0.12" y="-6.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="v">
+   <transform x="-0.47" y="2.08" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="0" y="-11.45" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="0.4" y="-13.82" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="state1" parent="state1" z="0">
+    <display name="carrot_stage_1.png" type="image">
+     <transform x="-10" y="-10.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="v" parent="v" z="4">
+    <display name="Green_1_1.png" type="image">
+     <transform x="-11.25" y="-6.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Green_1_2.png" type="image">
+     <transform x="-19.25" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Green_1_3.png" type="image">
+     <transform x="-19.25" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Green_1_4.png" type="image">
+     <transform x="-13.75" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="1">
+    <display name="carrot_stage_2.png" type="image">
+     <transform x="-14.25" y="-16.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="2">
+    <display name="carrot_stage_3.png" type="image">
+     <transform x="-14.25" y="-18.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="3">
+    <display name="carrotm" type="image">
+     <transform x="0.2" y="-19.87" skX="0" skY="0" scX="1" scY="1" pX="14.25" pY="24.25"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-0.12" y="-6.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="v" scale="1" offset="0">
+    <frame z="4" duration="1">
+     <transform x="-0.47" y="2.08" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="0" y="-11.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="v" scale="1" offset="0">
+    <frame z="4" displayIndex="1" duration="1">
+     <transform x="-0.52" y="0.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="0.4" y="-13.82" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="v" scale="1" offset="0">
+    <frame z="4" displayIndex="2" duration="1">
+     <transform x="-1.42" y="0.9" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="3" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="1" duration="4">
+     <transform x="0" y="0.53" skX="0" skY="0" scX="1" scY="0.92" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="3" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1.07" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="0.94" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="1" duration="1">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="v" scale="1" offset="0">
+    <frame z="4" displayIndex="3" duration="17">
+     <transform x="0.23" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="clover">
+  <bone name="v">
+   <transform x="0.35" y="2.6" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state1">
+   <transform x="1.05" y="-4" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="0.7" y="-5.45" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="0" y="-5.92" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="v" parent="v" z="0">
+    <display name="Pink_lignt_1.png" type="image">
+     <transform x="-9.25" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Pink_lignt_2.png" type="image">
+     <transform x="-11.75" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state1" parent="state1" z="1">
+    <display name="clover_stage_1.png" type="image">
+     <transform x="-14.75" y="-10.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="2">
+    <display name="clover_stage_2.png" type="image">
+     <transform x="-14.75" y="-10.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="3">
+    <display name="clover_stage_3.png" type="image">
+     <transform x="-24.25" y="-19.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="cloverm" type="image">
+     <transform x="-0.7" y="-9.22" skX="0" skY="0" scX="1" scY="1" pX="26.75" pY="22"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="v" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="0.35" y="2.6" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="1.05" y="-4" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="v" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="1">
+     <transform x="-0.37" y="1.9" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="0.7" y="-5.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="0" y="-5.92" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.48" skX="0" skY="0" scX="1" scY="0.93" pX="0" pY="0.05"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.53" skX="0" skY="0" scX="1" scY="1.07" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="0.95" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="corn">
+  <bone name="v1">
+   <transform x="0.3" y="1.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state1">
+   <transform x="-1.62" y="-15.57" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-1.37" y="-20.8" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="-2.62" y="-21.12" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="v1" parent="v1" z="0">
+    <display name="Pink_1.png" type="image">
+     <transform x="-11.5" y="-8" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state1" parent="state1" z="1">
+    <display name="corn_stage_1.png" type="image">
+     <transform x="-11.75" y="-17.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="2">
+    <display name="corn_stage_2.png" type="image">
+     <transform x="-14.75" y="-22.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="3">
+    <display name="corn_stage_3.png" type="image">
+     <transform x="-16.5" y="-23.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="cornm" type="image">
+     <transform x="-2.65" y="-24" skX="0" skY="0" scX="1" scY="1" pX="16.5" pY="26"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="v1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="0.3" y="1.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-1.62" y="-15.57" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="v1" scale="1" offset="0">
+    <frame z="0" duration="19">
+     <transform x="0.3" y="1.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="-1.37" y="-20.8" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="v1" scale="1" offset="0">
+    <frame z="0" duration="18">
+     <transform x="0.3" y="1.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="-2.62" y="-21.12" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="v1" scale="1" offset="0">
+    <frame z="0" duration="17">
+     <transform x="0.3" y="1.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="0.95" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.53" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="cotton">
+  <bone name="state1">
+   <transform x="-1.12" y="-4.03" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 2">
+   <transform x="0" y="4.55" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-0.75" y="-8.07" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="-1.5" y="-12.22" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="3.7" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="state1" parent="state1" z="0">
+    <display name="cotone_stage_1.png" type="image">
+     <transform x="-9.25" y="-9.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 2" parent="Layer 2" z="3">
+    <display name="Green_light_2_2.png" type="image">
+     <transform x="-11.75" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="1">
+    <display name="cotone_stage_2.png" type="image">
+     <transform x="-13.5" y="-13.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="2">
+    <display name="cotone_stage_3.png" type="image">
+     <transform x="-16" y="-16.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="cotonem" type="image">
+     <transform x="-1.07" y="-15.55" skX="0" skY="0" scX="1" scY="1" pX="16" pY="16.5"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-1.12" y="-4.03" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="0" y="4.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-0.75" y="-8.07" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="3" duration="19">
+     <transform x="0" y="4.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="-1.5" y="-12.22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="3" duration="18">
+     <transform x="0" y="4.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="3" duration="17">
+     <transform x="0" y="4.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="3.7" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="3.7" skX="0" skY="0" scX="1" scY="0.93" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="3.7" skX="0" skY="0" scX="1" scY="1.06" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="3.7" skX="0" skY="0" scX="1" scY="0.94" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0" y="3.7" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="grape">
+  <bone name="Layer 2">
+   <transform x="-0.72" y="2" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state1">
+   <transform x="-0.47" y="-13.1" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-1.8" y="-16.55" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="-3.95" y="-11.7" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="5.35" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 2" parent="Layer 2" z="0">
+    <display name="Red_1.png" type="image">
+     <transform x="-11" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Red_2.png" type="image">
+     <transform x="-11" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Red_3.png" type="image">
+     <transform x="-20.75" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Red_4.png" type="image">
+     <transform x="-20.75" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state1" parent="state1" z="1">
+    <display name="grape_stages_1.png" type="image">
+     <transform x="-16.75" y="-15.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="2">
+    <display name="grape_stages_2.png" type="image">
+     <transform x="-25.75" y="-19.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="3">
+    <display name="grape_stages_3.png" type="image">
+     <transform x="-23.5" y="-18.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="grapem" type="image">
+     <transform x="-3.32" y="-17.77" skX="0" skY="0" scX="1" scY="1" pX="25.75" pY="20.75"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-0.72" y="2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-0.47" y="-13.1" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="1">
+     <transform x="-0.87" y="2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="-1.8" y="-16.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="2" duration="1">
+     <transform x="0" y="5.28" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="-3.95" y="-11.7" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="3" duration="17">
+     <transform x="0" y="6.18" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="5.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="5.35" skX="0" skY="0" scX="1" scY="0.95" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="5.35" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="5.35" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0" y="5.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="pepper">
+  <bone name="Layer 2">
+   <transform x="0" y="2.58" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state1">
+   <transform x="-3.45" y="-11.85" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-2.33" y="-10.22" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="-3.92" y="-8.57" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="3.9" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 2" parent="Layer 2" z="0">
+    <display name="Yellow_light_1.png" type="image">
+     <transform x="-14" y="-7.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Yellow_light_3.png" type="image">
+     <transform x="-19.25" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state1" parent="state1" z="1">
+    <display name="papper_stage_1.png" type="image">
+     <transform x="-22.25" y="-15.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="2">
+    <display name="papper_stage_2.png" type="image">
+     <transform x="-25.5" y="-13.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="3">
+    <display name="papper_stage_3.png" type="image">
+     <transform x="-25.5" y="-16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="papperm" type="image">
+     <transform x="0" y="-11.95" skX="0" skY="0" scX="1" scY="1" pX="25.5" pY="19.25"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="0" y="2.58" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-3.45" y="-11.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="0" y="2.58" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="-2.33" y="-10.22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="1">
+     <transform x="0.03" y="4.72" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="-3.92" y="-8.57" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="17">
+     <transform x="0.03" y="4.72" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="3.9" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="3.9" skX="0" skY="0" scX="1" scY="0.89" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="3.9" skX="0" skY="0" scX="1" scY="1.07" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="3.9" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0" y="3.9" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="potato">
+  <bone name="state1">
+   <transform x="-0.45" y="-6.12" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 2">
+   <transform x="0" y="4.85" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-1.95" y="-4.17" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="0.4" y="-10" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="state1" parent="state1" z="0">
+    <display name="potato_stage_1.png" type="image">
+     <transform x="-21" y="-10.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 2" parent="Layer 2" z="3">
+    <display name="Red_light_3.png" type="image">
+     <transform x="-12" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Red_light_4.png" type="image">
+     <transform x="-20.75" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="1">
+    <display name="potato_stage_2.png" type="image">
+     <transform x="-22.25" y="-12.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="2">
+    <display name="potato_stage_3.png" type="image">
+     <transform x="-19.25" y="-15.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="potatom" type="image">
+     <transform x="1.15" y="-10.55" skX="0" skY="0" scX="1" scY="1" pX="26.25" pY="17.25"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-0.45" y="-6.12" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="0" y="4.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-1.95" y="-4.17" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="0" y="4.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="0.4" y="-10" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="0" y="4.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="3" displayIndex="1" duration="17">
+     <transform x="0.28" y="1.8" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.48" skX="0" skY="0" scX="1" scY="0.89" pX="0" pY="0.05"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1.11" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="0.92" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="soybean">
+  <bone name="Layer 2">
+   <transform x="0" y="3.03" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state1">
+   <transform x="-0.17" y="-10.55" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-0.82" y="-12.1" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="-3.5" y="-6.6" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="-0.3" y="3.88" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 2" parent="Layer 2" z="0">
+    <display name="Green_light_1_1.png" type="image">
+     <transform x="-14" y="-7.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Green_light_1_2.png" type="image">
+     <transform x="-16.5" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Green_light_1_3.png" type="image">
+     <transform x="-19.25" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state1" parent="state1" z="1">
+    <display name="soybean_stage_1.png" type="image">
+     <transform x="-18.75" y="-13.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="2">
+    <display name="soybean_stage_2.png" type="image">
+     <transform x="-22.5" y="-18.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="3">
+    <display name="soybean_stage_3.png" type="image">
+     <transform x="-30.5" y="-12.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="soebinm" type="image">
+     <transform x="-3.8" y="-11.15" skX="0" skY="0" scX="1" scY="1" pX="30.5" pY="13.5"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="0" y="3.03" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-0.17" y="-10.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="1">
+     <transform x="-2.35" y="2.4" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="-0.82" y="-12.1" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="2" duration="1">
+     <transform x="-0.3" y="3.88" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="-3.5" y="-6.6" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="2" duration="17">
+     <transform x="-0.3" y="3.88" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="-0.3" y="3.88" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="-0.3" y="3.88" skX="0" skY="0" scX="1" scY="0.93" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="-0.3" y="3.88" skX="0" skY="0" scX="1" scY="1.06" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="-0.3" y="3.88" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="-0.3" y="3.88" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="strawberry">
+  <bone name="Layer 2">
+   <transform x="0" y="2.55" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state1">
+   <transform x="0" y="-2.35" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-4.85" y="-7.45" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="3.73" y="-15.75" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 2" parent="Layer 2" z="0">
+    <display name="Green_dark_1.png" type="image">
+     <transform x="-8.25" y="-6" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Green_dark_2.png" type="image">
+     <transform x="-15" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Green_dark_3.png" type="image">
+     <transform x="-19.25" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state1" parent="state1" z="1">
+    <display name="strawberry_stage_1.png" type="image">
+     <transform x="-13" y="-10" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="2">
+    <display name="strawberry_stage_2.png" type="image">
+     <transform x="-25.25" y="-16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="3">
+    <display name="strawberry_stage_3.png" type="image">
+     <transform x="-19.25" y="-18.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="strawb" type="image">
+     <transform x="3.65" y="-17.5" skX="0" skY="0" scX="1" scY="1" pX="20" pY="20.5"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="0" y="2.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="0" y="-2.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="1">
+     <transform x="2.63" y="1.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="-4.85" y="-7.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="2" duration="1">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="3.73" y="-15.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="0" displayIndex="2" duration="17">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="0.91" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.53" skX="0" skY="0" scX="1" scY="1.06" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="sugarcane">
+  <bone name="state1">
+   <transform x="-0.9" y="-8.57" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 2">
+   <transform x="0.7" y="4.55" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-0.6" y="-12.62" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="-0.3" y="-15.47" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="3.75" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="state1" parent="state1" z="0">
+    <display name="sugarcane_stage_1.png" type="image">
+     <transform x="-21.75" y="-15" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="Layer 2" parent="Layer 2" z="4">
+    <display name="Yellow_1.png" type="image">
+     <transform x="-16.5" y="-10.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Yellow_2.png" type="image">
+     <transform x="-16.5" y="-10.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="1">
+    <display name="sugarcane_stage_2.png" type="image">
+     <transform x="-21.75" y="-19" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="2">
+    <display name="sugarcane_stage_3.png" type="image">
+     <transform x="-21.75" y="-22.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="3">
+    <display name="sugar" type="image">
+     <transform x="0.3" y="-22.12" skX="0" skY="0" scX="1" scY="1" pX="21.75" pY="25.5"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-0.9" y="-8.57" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="4" duration="1">
+     <transform x="0.7" y="4.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-0.6" y="-12.62" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="4" displayIndex="1" duration="1">
+     <transform x="0.33" y="4.08" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="-0.3" y="-15.47" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="4" displayIndex="1" duration="18">
+     <transform x="0.33" y="4.08" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="0" y="3.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="0" y="3.75" skX="0" skY="0" scX="1" scY="0.93" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="0" y="3.75" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="0" y="3.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" duration="1">
+     <transform x="0" y="3.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="4" displayIndex="1" duration="17">
+     <transform x="0.33" y="4.08" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="tomato">
+  <bone name="state1">
+   <transform x="0.43" y="-6.3" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="v">
+   <transform x="0.13" y="4.6" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="0" y="-5.85" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="5.65" y="-13.35" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0.1" y="0.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="state1" parent="state1" z="0">
+    <display name="tomato_stage_1.png" type="image">
+     <transform x="-16.75" y="-12.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="v" parent="v" z="3">
+    <display name="Blue_dark_3.png" type="image">
+     <transform x="-12.25" y="-6.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Blue_dark_4.png" type="image">
+     <transform x="-20.75" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="1">
+    <display name="tomato_stage_2.png" type="image">
+     <transform x="-16.75" y="-15.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="2">
+    <display name="tomato_stage_3.png" type="image">
+     <transform x="-21.75" y="-19.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="tomatom" type="image">
+     <transform x="0.18" y="-15.67" skX="0" skY="0" scX="1" scY="1" pX="22.5" pY="23"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="0.43" y="-6.3" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="v" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="0.13" y="4.6" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="0" y="-5.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="v" scale="1" offset="0">
+    <frame z="3" duration="2">
+     <transform x="0.13" y="4.6" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="5.65" y="-13.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="v" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="0.13" y="4.6" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="v" scale="1" offset="0">
+    <frame z="3" displayIndex="1" duration="17">
+     <transform x="-0.52" y="3.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0.1" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0.1" y="0.5" skX="0" skY="0" scX="1" scY="0.91" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0.1" y="0.48" skX="0" skY="0" scX="1" scY="1.08" pX="0" pY="0.03"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0.1" y="0.53" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0.1" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="wheat">
+  <bone name="v1">
+   <transform x="-0.3" y="2.73" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state1">
+   <transform x="-2.67" y="-10.1" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state2">
+   <transform x="-0.55" y="-16" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state3">
+   <transform x="-0.32" y="-22.3" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="state4">
+   <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="v1" parent="v1" z="0">
+    <display name="Blue_1.png" type="image">
+     <transform x="-11" y="-6.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Blue_2.png" type="image">
+     <transform x="-11" y="-6.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Blue_3.png" type="image">
+     <transform x="-11.75" y="-6.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+    <display name="Blue_4 (1).png" type="image">
+     <transform x="-11.25" y="-7" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state1" parent="state1" z="1">
+    <display name="wheat_stage_1 (1).png" type="image">
+     <transform x="-10" y="-12.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state2" parent="state2" z="2">
+    <display name="wheat_stage_2 (1).png" type="image">
+     <transform x="-11.75" y="-18.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state3" parent="state3" z="3">
+    <display name="wheat_stage_3 (1).png" type="image">
+     <transform x="-17.75" y="-24.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="state4" parent="state4" z="4">
+    <display name="wheatm" type="image">
+     <transform x="-0.55" y="-22.4" skX="0" skY="0" scX="1" scY="1" pX="17.75" pY="24.75"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="state1" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="v1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-0.3" y="2.73" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state1" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-2.67" y="-10.1" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state2" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="v1" scale="1" offset="0">
+    <frame z="0" displayIndex="1" duration="1">
+     <transform x="-0.3" y="2.73" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="-0.55" y="-16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state3" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="v1" scale="1" offset="0">
+    <frame z="0" displayIndex="2" duration="1">
+     <transform x="-0.22" y="3.15" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state3" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="-0.32" y="-22.3" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="state4" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="v1" scale="1" offset="0">
+    <frame z="0" displayIndex="3" duration="17">
+     <transform x="0.2" y="2.38" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="state4" scale="1" offset="0">
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.53" skX="0" skY="0" scX="1" scY="0.93" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="1" duration="4">
+     <transform x="0" y="0.53" skX="0" skY="0" scX="1" scY="0.93" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>
