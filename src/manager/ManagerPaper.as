@@ -88,6 +88,7 @@ public class ManagerPaper {
             ob.timeToNext = int(new Date().getTime()/1000);
             ob.isBuyed = false;
             ob.isBotBuy = true;
+            ob.visible = true;
             _arr.push(ob);
 
             ra = Math.random() * arrMax.length;
@@ -101,6 +102,7 @@ public class ManagerPaper {
             ob.timeToNext = int(new Date().getTime()/1000);
             ob.isBuyed = false;
             ob.isBotBuy = true;
+            ob.visible = true;
             _arr.push(ob);
             for (i = 0; i < 2; i++) {
                 g.directServer.addUserPapperBuy(_arr[i].buyerId, _arr[i].resourceId, _arr[i].resourceCount, _arr[i].xp, _arr[i].cost, 1);
@@ -122,6 +124,7 @@ public class ManagerPaper {
                 ob.timeToNext = int(new Date().getTime()/1000);
                 ob.isBuyed = false;
                 ob.isBotBuy = true;
+                ob.visible = true;
             } else {
                 arr = g.userInventory.gerResourcesForAmbarAndSklad();
                 arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
@@ -140,6 +143,7 @@ public class ManagerPaper {
                 ob.timeToNext = int(new Date().getTime()/1000);
                 ob.isBuyed = false;
                 ob.isBotBuy = true;
+                ob.visible = true;
             }
             _arr.push(ob);
             g.directServer.updateUserPapperBuy(ob.buyerId,ob.resourceId,ob.resourceCount,ob.xp,ob.cost,1);

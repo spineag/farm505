@@ -594,7 +594,8 @@ public class ManagerCutScenes {
     }
 
     public function isCutSceneBuilding(wo:WorldObject):Boolean {
-        return _cutSceneBuildings.indexOf(wo) > -1;
+        if(_cutSceneBuildings)  return _cutSceneBuildings.indexOf(wo) > -1;
+        else return false;
     }
 
     private function createDelay(delay:Number, f:Function):void {

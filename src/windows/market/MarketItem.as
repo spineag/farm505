@@ -224,7 +224,6 @@ public class MarketItem {
     private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
         if (_imageCont) unFillIt();
         var im:Image;
-        isFill = 1;
         _data = data;
         if (_data) {
             if (_data.buildType == BuildType.PLANT) {
@@ -256,8 +255,7 @@ public class MarketItem {
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
         if (_isUser) {
-            var b:Boolean = _wo.booleanPaper;
-            visiblePaper(b);
+            visiblePapperTimer();
         }
     }
 
@@ -288,30 +286,27 @@ public class MarketItem {
     }
 
     private function onPaper():void {
-        var b:Boolean = _wo.booleanPaper;
-        if (_inPapper || !b) return;
+        if (_inPapper || !_wo.booleanPaper) return;
         _inPapper = true;
+        _dataFromServer.inPapper = true;
+        _papper.visible = true;
         _imCheck.visible = true;
         _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
     }
 
-    public function visiblePaper(b:Boolean = false):void {
-        if (_inPapper || isFill == 0 || isFill == 2) return;
-        if (!_dataFromServer) {
-            _papper.visible = b;
-        } else {
-            if (_dataFromServer.timeInPapper == 0) {
-                _papper.visible = b;
-            } else if (b && int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper <= 10800) {
-                _papper.visible = b;
-                _imCheck.visible = b;
+    public function visiblePapperTimer():void {
+        if (isFill == 0 || isFill == 2) return;
+        if (_inPapper) {
+            if (int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper <= 10800) {
+                _papper.visible = true;
+                _imCheck.visible = true;
             } else {
                 _papper.visible = false;
                 _imCheck.visible = false;
-                g.directServer.updateMarketPapper(number,false,null);
+                g.directServer.updateMarketPapper(number, false, null);
             }
-        }
+        } else _papper.visible = _wo.booleanPaper;
     }
 
     private function onDelete ():void {
@@ -333,7 +328,9 @@ public class MarketItem {
                 break;
             }
         }
+        isFill = 0;
         unFillIt();
+
     }
 
     private function onClick():void {
@@ -422,12 +419,14 @@ public class MarketItem {
                     }
                 }
                 animCoin();
+                isFill = 0;
                 unFillIt();
             }
         }
     }
 
     public function onChoose(a:int, count:int, cost:int, inPapper:Boolean):void {
+        isFill = 1;
         fillIt(g.dataResource.objectResources[a],count, cost);
         _txtAdditem.text = '';
         g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
@@ -478,7 +477,7 @@ public class MarketItem {
     public function unFillIt():void {
         if (_closeCell) return;
         clearImageCont();
-        isFill = 0;
+//        isFill = 0;
         _countMoney = 0;
         _countResource = 0;
         _costTxt.text = '';
@@ -504,6 +503,8 @@ public class MarketItem {
         _person = p;
         _dataFromServer = obj;
         if (_dataFromServer.buyerId != '0') {
+            isFill = 2;
+            _inPapper = _dataFromServer.inPapper;
             if (_person.userSocialId == g.user.userSocialId) { //sale yours item
                 _plawkaSold.visible = false;
                 _txtPlawka.visible = false;
@@ -512,7 +513,6 @@ public class MarketItem {
                 showSaleImage();
                 _plawkabuy.visible = false;
                 _txtAdditem.text = '';
-                if (_wo.booleanPaper) visiblePaper(true);
             } else { // sale anyway item
                 _txtAdditem.text = '';
                 fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
@@ -520,18 +520,10 @@ public class MarketItem {
                 _plawkaLvl.visible = false;
                 _plawkaSold.visible = true;
                 _txtPlawka.visible = true;
-                _inPapper = _dataFromServer.inPapper;
-                if (_inPapper) {
-                    _papper.visible = true;
-                    _imCheck.visible = true;
-                } else {
-                    _papper.visible = false;
-                    _imCheck.visible = false;
-                }
             }
-            isFill = 2;
         } else { //have Item
             isFill = 1;
+            _inPapper = _dataFromServer.inPapper;
             fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
             if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) { //have item but your level so small
                 _plawkaCoins.visible = false;
@@ -542,14 +534,6 @@ public class MarketItem {
                 _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
                 _txtAdditem.text = '';
                 isFill = 3;
-                _inPapper = _dataFromServer.inPapper;
-                if (_inPapper) {
-                    _papper.visible = true;
-                    _imCheck.visible = true;
-                } else {
-                    _papper.visible = false;
-                    _imCheck.visible = false;
-                }
             }
         }
     }

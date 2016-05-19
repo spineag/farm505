@@ -211,7 +211,7 @@ public class WOMarket  extends WindowMain {
             }
         }
         _arrFriends.unshift(g.user.neighbor);
-        _arrFriends.unshift(g.user);
+        if (g.user.level >= 5) _arrFriends.unshift(g.user);
         _txtName = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
@@ -451,7 +451,7 @@ public class WOMarket  extends WindowMain {
         _booleanPaper = true;
         _imCheck.visible = true;
         for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].visiblePaper(true);
+            _arrItems[i].visiblePapperTimer();
         }
     }
 
@@ -461,8 +461,9 @@ public class WOMarket  extends WindowMain {
 
     public function startPapperTimer():void {
         g.userTimer.startUserMarketTimer(300);
+        _booleanPaper = false;
         for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].visiblePaper(false);
+            _arrItems[i].visiblePapperTimer();
         }
         checkPapperTimer();
     }
@@ -493,7 +494,7 @@ public class WOMarket  extends WindowMain {
             _txtTimerPaper.text = '';
             g.gameDispatcher.removeFromTimer(onTimer);
             for (var i:int = 0; i < _arrItems.length; i++) {
-                _arrItems[i].visiblePaper(true);
+                _arrItems[i].visiblePapperTimer();
             }
         }
     }

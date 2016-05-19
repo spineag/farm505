@@ -148,6 +148,7 @@ public class ShopItem {
                 _btnBuyBlue.addChild(_txtBtnBuyBlue);
                 _btnBuyBlue.x = 74;
                 _btnBuyBlue.y = 190;
+                _btnBuyBlue.clickCallback = onClick;
                 source.addChild(_btnBuyBlue);
                 break;
             case 'green':
@@ -165,6 +166,7 @@ public class ShopItem {
                 _btnBuyGreen.addChild(_txtBtnBuyGreen);
                 _btnBuyGreen.x = 74;
                 _btnBuyGreen.y = 190;
+                _btnBuyGreen.clickCallback = onClick;
                 source.addChild(_btnBuyGreen);
                 break;
             case 'yellow':
@@ -176,6 +178,7 @@ public class ShopItem {
                 _btnActivationYellow.addChild(txt);
                 _btnActivationYellow.x = 74;
                 _btnActivationYellow.y = 190;
+                _btnActivationYellow.clickCallback = onClick;
                 source.addChild(_btnActivationYellow);
                 break;
         }

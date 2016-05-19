@@ -27,7 +27,7 @@ public class FriendItem {
     private var _txt:TextField;
     public var txtLvl:TextField;
     private var _preloader:FlashAnimatedPreloader;
-
+//    private var _timer:int;
     private var g:Vars = Vars.getInstance();
 
     public function FriendItem(f:Someone) {
@@ -52,6 +52,8 @@ public class FriendItem {
         _preloader.source.y = 40;
 //        _preloader.source.scaleX = _preloader.source.scaleY = .7;
         source.addChild(_preloader.source);
+//        _timer = 5;
+//        g.gameDispatcher.addToTimer(onTimer);
         if (_person is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
@@ -119,6 +121,12 @@ public class FriendItem {
             bitmap = g.pBitmaps[person.photo].create() as Bitmap;
         }
         if (!bitmap) {
+            if (_preloader) {
+                source.removeChild(_preloader.source);
+                _preloader.deleteIt();
+                _preloader = null;
+//                g.gameDispatcher.removeFromTimer(onTimer);
+            }
             Cc.error('FriendItem:: no photo for userId: ' + _person.userSocialId);
             return;
         }
@@ -164,6 +172,19 @@ public class FriendItem {
         _txt = null;
         source = null;
     }
+
+//    private function onTimer():void {
+//        _timer--;
+//        if (_timer <= 0) {
+//            trace(_person.name);
+//            g.gameDispatcher.removeFromTimer(onTimer);
+//            if (_preloader) {
+//                source.removeChild(_preloader.source);
+//                _preloader.deleteIt();
+//                _preloader = null;
+//            }
+//        }
+//    }
 
 //    public function newLevel():void {
 //        txtLvl.text = String(_person.level);

@@ -134,7 +134,7 @@ public class WOBuyPlant extends WindowMain {
             }
             super.hideIt();
         } else {
-            isCashed = false;
+            g.windowsManager.uncasheWindow();
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                 g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
             } else {
@@ -240,9 +240,9 @@ public class WOBuyPlant extends WindowMain {
         _arrPlantItems.length = 0;
         _callback = null;
         _ridge = null;
-        _source.removeChild(_birka);
-        _birka.deleteIt();
-        _birka = null;
+        if (_source)_source.removeChild(_birka);
+        if (_source)_birka.deleteIt();
+        if (_source)_birka = null;
         super.deleteIt();
     }
 }

@@ -255,6 +255,7 @@ public class WOPapperItem {
         source.addChildAt(im,1);
         _txtResourceName.x = -135;
         _txtResourceName.y = 50;
+        if (!_data.visible) source.alpha = .5;
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
@@ -279,7 +280,7 @@ public class WOPapperItem {
     }
 
     private function onClickBuyBot():void {
-        if (source.alpha == .5) return;
+        if (!_data.visible == .5) return;
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
             return;
         }
@@ -289,6 +290,7 @@ public class WOPapperItem {
         ob.id = DataMoney.SOFT_CURRENCY;
         ob.count = _data.resourceCount;
         new DropItem(p.x,p.y,ob);
+        _data.visible = false;
         new XPStar(p.x,p.y, 5);
         g.userInventory.addResource(_data.resourceId,-_data.resourceCount);
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
@@ -297,9 +299,10 @@ public class WOPapperItem {
     }
 
     private function onClickDelete():void {
-        if (source.alpha == .5) return;
+        if (!_data.visible == .5) return;
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
         source.alpha = .5;
+        _data.visible = false;
     }
 
     public function deleteIt():void {
