@@ -84,20 +84,30 @@ public class LoadComponents {
     }
 
     private function loadDBAnimations():void {
-        count = 1;
+        count = 6;
 
         g.loadAnimation.load('animations/arrow/', 'arrow', onLoadDB);
-//        g.load.loadDB_PNG(st + 'animations/chest_interface.png', 'chest_interface', onLoadDB);
-//        g.load.loadDB_PNG(st + 'animations/order_window2.png', 'orderWindow', onLoadDB);
-//        g.load.loadDB_PNG(st + 'animations/plot_seller.png', 'catCustomer', onLoadDB);
-//        g.load.loadDB_PNG(st + 'animations/preloader_2.png', 'preloader_2', onLoadDB);
-//        g.load.loadDB_PNG(st + 'animations/visit_preloader.png', 'visitPreloader', onLoadDB);
-//        g.load.loadDB_PNG(st + 'animations/x1/aerial_tram.png', 'train', onLoadDB);
-//                                                          g.load.loadDB_PNG(st + 'animations/x1/bfly.png', 'butterfly', onLoadDB);
-//        g.load.loadDB_PNG(st + 'animations/x1/building.png', 'buildingBuild', onLoadDB);
+        g.loadAnimation.load('animations/chest_interface/', 'chest_interface', onLoadDB);
+        g.loadAnimation.load('animations/order_window/', 'order_window', onLoadDB);
+        g.loadAnimation.load('animations/plot_seller/', 'cat_customer', onLoadDB);
+        g.loadAnimation.load('animations/preloader_2/', 'preloader_2', onLoadDB);
+        g.loadAnimation.load('animations/visit_preloader/', 'visitPreloader', onLoadDB);
     }
 
     private function onLoadDB():void {
+        count--;
+        if (count <=0) {
+            loadDBX();
+        }
+    }
+
+    private function loadDBX():void {
+        count = 1;
+
+        g.loadAnimation.load('animations/x1/bfly/', 'butterfly', onLoadDB_X);
+    }
+
+    private function onLoadDB_X():void {
         trace('LoadComponents:: on load DB');
         count--;
         if (count <=0) {

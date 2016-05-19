@@ -1,0 +1,30 @@
+<dragonBones name="preloader_2" frameRate="30" version="2.3">
+ <armature name="preloader">
+  <bone name="Layer 4">
+   <transform x="-0.5" y="-2" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="Layer 4" parent="Layer 4" z="0">
+    <display name="buble" type="image">
+     <transform x="-21.35" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="21.35"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="start" fadeInTime="0" duration="18" scale="1" loop="0" autoTween="0" tweenEasing="NaN">
+   <timeline name="Layer 4" scale="1" offset="0">
+    <frame z="0" tweenEasing="0" duration="5">
+     <transform x="-0.5" y="-2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="6">
+     <transform x="-0.5" y="-2" skX="120" skY="120" scX="1" scY="1" pX="0.05" pY="-0.1"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="6">
+     <transform x="-0.5" y="-1.95" skX="-120" skY="-120" scX="1" scY="1" pX="0.05" pY="-0.05"/>
+    </frame>
+    <frame z="0" duration="1">
+     <transform x="-0.5" y="-2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>

@@ -90,15 +90,6 @@ public class EmbedAssets {
     [Embed(source = "../../assets/animations/x1/sheep.png", mimeType = "application/octet-stream")]
     private const Sheep:Class;
 
-    [Embed(source = "../../assets/animations/visit_preloader.png", mimeType = "application/octet-stream")]
-    private const VisitPreloader:Class;
-    [Embed(source = "../../assets/animations/plot_seller.png", mimeType = "application/octet-stream")]
-    private const CatCustomer:Class;
-    [Embed(source = "../../assets/animations/order_window2.png", mimeType = "application/octet-stream")]
-    private const OrderWindow:Class;
-    [Embed(source = "../../assets/animations/preloader_2.png", mimeType = "application/octet-stream")]
-    private const MiniPreloader2:Class;
-
     [Embed(source = "../../assets/animations/x1/bakery.png", mimeType = "application/octet-stream")]
     private const BakeryFabrica:Class;
     [Embed(source = "../../assets/animations/x1/sugar_mill.png", mimeType = "application/octet-stream")]
@@ -139,18 +130,12 @@ public class EmbedAssets {
     private const Explode:Class;
     [Embed(source = "../../assets/animations/x1/explode_gray.png", mimeType = "application/octet-stream")]
     private const ExplodeGray:Class;
-//    [Embed(source = "../../assets/animations/arrow.png", mimeType = "application/octet-stream")]
-//    private const Arrow:Class;
     [Embed(source = "../../assets/animations/x1/cat_tutorial.png", mimeType = "application/octet-stream")]
     private const CatTutorial:Class;
     [Embed(source = "../../assets/animations/cat_tutorial_big2.png", mimeType = "application/octet-stream")]
     private const CatTutorialBig:Class;
     [Embed(source = "../../assets/animations/x1/chest_mini.png", mimeType = "application/octet-stream")]
     private const ChestMini:Class;
-    [Embed(source = "../../assets/animations/chest_interface.png", mimeType = "application/octet-stream")]
-    private const ChestInterface:Class;
-    [Embed(source = "../../assets/animations/x1/bfly.png", mimeType = "application/octet-stream")]
-    private const ButterFly:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -193,7 +178,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 34;
+        var count:int = 30;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -233,19 +218,12 @@ public class EmbedAssets {
         loadFactory('daily_bonus', DailyBonus, checkCount);
         loadFactory('train', AerialTram, checkCount);
         loadFactory('order', Orders, checkCount);
-        loadFactory('visitPreloader', VisitPreloader, checkCount);
-        loadFactory('catCustomer', CatCustomer, checkCount);
-        loadFactory('orderWindow', OrderWindow, checkCount);
         loadFactory('removeWild', RemoveWild, checkCount);
         loadFactory('explode', Explode, checkCount);
         loadFactory('explode_gray', ExplodeGray, checkCount);
-//        loadFactory('arrow', Arrow, checkCount);
         loadFactory('tutorialCat', CatTutorial, checkCount);
         loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
         loadFactory('chest_mini', ChestMini, checkCount);
-        loadFactory('chest_interface', ChestInterface, checkCount);
-        loadFactory('butterfly', ButterFly, checkCount);
-        loadFactory('preloader_2', MiniPreloader2, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

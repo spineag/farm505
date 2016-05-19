@@ -1,0 +1,6 @@
+<TextureAtlas name="chest_interface" imagePath="texture.png">
+ <SubTexture name="glow" x="0" y="0" width="714" height="354"/>
+ <SubTexture name="box_d" x="0" y="355" width="400" height="358"/>
+ <SubTexture name="box_t" x="402" y="685" width="366" height="231"/>
+ <SubTexture name="strichka" x="402" y="355" width="380" height="329"/>
+</TextureAtlas>
