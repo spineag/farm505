@@ -43,7 +43,6 @@ public class LoadComponents {
 
     private function onLoad(smth:*=null):void {
         count--;
-        trace('count on loaded Atlases: ' + count);
         if (count <=0) createAtlases();
     }
 
@@ -81,15 +80,13 @@ public class LoadComponents {
         delete  g.pBitmaps[st + 'x1/wildAtlas2.png'];
         delete  g.pXMLs[st + 'x1/wildAtlas2.xml'];
 
-//        loadDBAnimations();
-        if (_callback != null) _callback.apply();
+        loadDBAnimations();
     }
 
     private function loadDBAnimations():void {
-        count = -1;
+        count = 1;
 
-//        g.load.loadImage(st + 'animations/arrow.png', onLoadDB);
-//        g.load.loadXML(st + 'animations/arrow.xml', onLoadDB);
+        g.loadAnimation.load('animations/arrow/', 'arrow', onLoadDB);
 //        g.load.loadDB_PNG(st + 'animations/chest_interface.png', 'chest_interface', onLoadDB);
 //        g.load.loadDB_PNG(st + 'animations/order_window2.png', 'orderWindow', onLoadDB);
 //        g.load.loadDB_PNG(st + 'animations/plot_seller.png', 'catCustomer', onLoadDB);
@@ -101,15 +98,11 @@ public class LoadComponents {
     }
 
     private function onLoadDB():void {
+        trace('LoadComponents:: on load DB');
         count--;
-        if (count <=0) createFabricas();
-    }
-
-    private function createFabricas():void {
-//        var tex:Texture = Texture.fromBitmap(g.pBitmaps[st + 'animations/arrow.png'].create() as Bitmap);
-//        var xml:XML = g.pXMLs[st + 'animations/arrow.xml'];
-
-
+        if (count <=0) {
+            if (_callback != null) _callback.apply();
+        }
     }
 }
 }

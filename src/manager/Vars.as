@@ -107,6 +107,7 @@ public class Vars {
     public var managerPaper:ManagerPaper;
     public var managerChest:ManagerChest;
     public var load:LoaderManager;
+    public var loadAnimation:LoadAnimationManager;
     public var pBitmaps:Object;
     public var pXMLs:Object;
     public var managerOrder:ManagerOrder;

@@ -139,8 +139,8 @@ public class EmbedAssets {
     private const Explode:Class;
     [Embed(source = "../../assets/animations/x1/explode_gray.png", mimeType = "application/octet-stream")]
     private const ExplodeGray:Class;
-    [Embed(source = "../../assets/animations/arrow.png", mimeType = "application/octet-stream")]
-    private const Arrow:Class;
+//    [Embed(source = "../../assets/animations/arrow.png", mimeType = "application/octet-stream")]
+//    private const Arrow:Class;
     [Embed(source = "../../assets/animations/x1/cat_tutorial.png", mimeType = "application/octet-stream")]
     private const CatTutorial:Class;
     [Embed(source = "../../assets/animations/cat_tutorial_big2.png", mimeType = "application/octet-stream")]
@@ -239,7 +239,7 @@ public class EmbedAssets {
         loadFactory('removeWild', RemoveWild, checkCount);
         loadFactory('explode', Explode, checkCount);
         loadFactory('explode_gray', ExplodeGray, checkCount);
-        loadFactory('arrow', Arrow, checkCount);
+//        loadFactory('arrow', Arrow, checkCount);
         loadFactory('tutorialCat', CatTutorial, checkCount);
         loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
         loadFactory('chest_mini', ChestMini, checkCount);

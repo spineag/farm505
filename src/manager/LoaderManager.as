@@ -1,5 +1,4 @@
 package manager {
-
 import com.deadreckoned.assetmanager.AssetManager;
 import com.deadreckoned.assetmanager.AssetQueue;
 import com.junkbyte.console.Cc;

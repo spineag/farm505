@@ -5,10 +5,9 @@ package {
 import com.junkbyte.console.Cc;
 
 import manager.AllData;
-
 import manager.DataPath;
-
 import manager.EmbedAssets;
+import manager.LoadAnimationManager;
 import manager.LoadComponents;
 import manager.LoaderManager;
 import manager.Vars;
@@ -31,6 +30,7 @@ public class MainStarling extends Sprite {
         g.load = LoaderManager.getInstance();
         g.pBitmaps = {};
         g.pXMLs = {};
+        g.loadAnimation = new LoadAnimationManager();
 
         sAssets = new AssetManager();
         sAssets.verbose = true;
@@ -52,12 +52,11 @@ public class MainStarling extends Sprite {
     }
 
     private function loadComponents():void {
-        trace('start LoadComponents');
         new LoadComponents(onAllLoaded);
     }
 
     private function onAllLoaded():void {
-        trace('onAllLoaded');
+        Cc.info('on all loaded');
         dispatchEventWith(MainStarling.LOADED);
         g.initInterface();
     }
