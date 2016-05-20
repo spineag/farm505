@@ -34,7 +34,6 @@ public class ManagerPaper {
         _arr = [];
         if (ar.length > 0) {
             for (var i:int = 0; i < ar.length; i++) {
-//                trace(1800 - ar[i].time_to_new - int(new Date().getTime()/1000 * (-1)));
                 if (ar[i].visible == true) {
                     if (int(ar[i].user_id == g.user.userId)) continue;
                     ob = {};
@@ -68,7 +67,7 @@ public class ManagerPaper {
         var i:int;
         if (firstBot) {
             for (id in obData) {
-                if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].buildType != BuildType.INSTRUMENT) {
+                if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].visitorPrice > 0) {
                     arrMin.push(obData[id]);
                 }
             }
@@ -76,7 +75,7 @@ public class ManagerPaper {
             arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
             for (i = 0; i < arr.length; i++) {
                 if (arrMax.length >= 3) break;
-                if (g.dataResource.objectResources[arr[i].id].buildType != BuildType.INSTRUMENT) arrMax.push(arr[i]);
+                if (g.dataResource.objectResources[arr[i].id].visitorPrice > 0) arrMax.push(arr[i]);
             }
             ra =  Math.random() * arrMin.length;
             ob = {};
@@ -130,7 +129,7 @@ public class ManagerPaper {
                 arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
                 for (i = 0; i < arr.length; i++) {
                     if (arrMax.length >= 3) break;
-                    if (g.dataResource.objectResources[arr[i].id].buildType != BuildType.INSTRUMENT) arrMax.push(arr[i]);
+                    if (g.dataResource.objectResources[arr[i].id].visitorPrice > 0) arrMax.push(arr[i]);
                 }
                 ra = Math.random() * arrMax.length;
                 nu = Math.random();

@@ -11,10 +11,12 @@ import manager.Vars;
 import particle.PlantParticle;
 import starling.display.Sprite;
 
+import utils.CSprite;
+
 import windows.WindowsManager;
 
 public class PlantOnRidge {
-    private var _source:Sprite;
+    private var _source:CSprite;
     private var _ridge:Ridge;
     private var _data:Object;
     public var _timeToEndState:int;
@@ -33,13 +35,15 @@ public class PlantOnRidge {
         }
         _ridge = ridge;
         _data = data;
-        _source = new Sprite();
+        _source = new CSprite();
         _ridge.addChildPlant(_source);
         armature = g.allData.factory[_data.url].buildArmature(_data.imageShop);
         _source.addChild(armature.display as Sprite);
         WorldClock.clock.add(armature);
         _source.y = 35 * g.scaleFactor;
-
+        _source.endClickCallback = onClick;
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
         _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);
         _data.timeToStateGwoned = _data.buildTime -  _data.timeToGrow2 -  _data.timeToGrow3;
     }
@@ -50,6 +54,18 @@ public class PlantOnRidge {
 
     public function activateRender():void {
         g.gameDispatcher.addToTimer(render);
+    }
+
+    private function onClick():void {
+        _ridge.onEndClick();
+    }
+
+    private function onHover():void {
+        _ridge.onHover();
+    }
+
+    private function onOut():void {
+        _ridge.onOut();
     }
 
     public function checkStateRidge(needSetTimer:Boolean = true):void {

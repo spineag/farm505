@@ -57,7 +57,7 @@ public class WOPapper extends WindowMain {
         _btnRefreshGreen.x = 360;
         _btnRefreshGreen.y = 290;
         _source.addChild(_btnRefreshGreen);
-        _btnRefreshGreen.clickCallback = makeRefresh;
+        _btnRefreshGreen.clickCallback = onGreenRefresh;
         createBtns();
         createExitButton(hideIt);
         _btnExit.x += 30;
@@ -76,7 +76,7 @@ public class WOPapper extends WindowMain {
         _btnRefreshBlue.y = 290;
         _btnRefreshBlue.setEnabled = false;
         _source.addChild(_btnRefreshBlue);
-        _btnRefreshBlue.clickCallback = onRefresh;
+        _btnRefreshBlue.clickCallback = onBlueRefresh;
         _callbackClickBG = hideIt;
     }
 
@@ -262,23 +262,6 @@ public class WOPapper extends WindowMain {
 
     }
 
-    private function makeRefresh():void {
-        if (1 > g.user.hardCurrency){
-            super.hideIt();
-            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
-            return;
-        }
-        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
-        g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
-//        _timer = 900;
-//        g.gameDispatcher.addToTimer(renderPaperProgress);
-        startPapperTimer();
-        g.directServer.getUserPapperBuy(null);
-        g.directServer.getPaperItems(fillAfterRefresh);
-
-
-    }
-
     private function checkSocialInfoForArray(ar:Array):void {
         var userIds:Array = [];
         var p:Someone;
@@ -359,14 +342,26 @@ public class WOPapper extends WindowMain {
         }
     }
 
-    private function onRefresh():void {
+    private function onBlueRefresh():void {
+        g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
+        startPapperTimer();
         g.directServer.getUserPapperBuy(null);
         g.directServer.getPaperItems(fillAfterRefresh);
-
-        startPapperTimer();
-        g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         _btnRefreshBlue.setEnabled = false;
         _btnRefreshGreen.setEnabled = true;
+    }
+
+    private function onGreenRefresh():void {
+        if (1 > g.user.hardCurrency){
+            super.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            return;
+        }
+        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
+        g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
+        startPapperTimer();
+        g.directServer.getUserPapperBuy(null);
+        g.directServer.getPaperItems(fillAfterRefresh);
     }
 
     private function onUpdateUserTimePaper(b:Boolean = true):void {}

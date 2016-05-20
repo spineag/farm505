@@ -131,8 +131,8 @@ public class WOPapperItem {
         _txtUserName = new TextField(120, 50, "Станислав Йованович", g.allData.fonts['BloggerBold'], 16, ManagerFilters.TEXT_BLUE);
         _txtUserName.hAlign = HAlign.LEFT;
         _txtUserName.touchable = false;
-        _txtUserName.x = 56;
-        _txtUserName.y = 12;
+        _txtUserName.x = 60;
+        _txtUserName.y = 8;
         source.addChild(_txtUserName);
 
         source.visible = false;
@@ -190,7 +190,7 @@ public class WOPapperItem {
         isBotBuy = true;
         source.endClickCallback = null;
         if (!_data) {
-            Cc.error('WOPapperItem fillIt:: empty _data');
+            Cc.error('WOPapperItem fillItBot:: empty _data');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
             return;
         }
@@ -209,7 +209,7 @@ public class WOPapperItem {
         else
             _imageItem = new Image(g.allData.atlas[_dataResource.url].getTexture(_dataResource.imageShop));
         if (!_imageItem) {
-            Cc.error('WOPapperItem fillIt:: no such image: ' + _dataResource.imageShop);
+            Cc.error('WOPapperItem fillItBot:: no such image: ' + _dataResource.imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
             return;
         }
@@ -222,7 +222,6 @@ public class WOPapperItem {
             MCScaler.scaleMin(_userAvatar, 46, 46);
             _ava.addChild(_userAvatar);
         }
-
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
         MCScaler.scale(im,80,115);
         im.x = 50;
@@ -253,7 +252,8 @@ public class WOPapperItem {
         source.addChild(_btnDelete);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('visitor_back'));
         source.addChildAt(im,1);
-        _txtResourceName.x = -135;
+        _txtResourceName.hAlign = HAlign.LEFT;
+        _txtResourceName.x = 8;
         _txtResourceName.y = 50;
         if (!_data.visible) source.alpha = .5;
     }
