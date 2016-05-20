@@ -47,7 +47,6 @@ public class LoadComponents {
     }
 
     private function createAtlases():void {
-        trace('createAtlases');
         g.allData.atlas['iconAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'iconAtlas.png'].create() as Bitmap), g.pXMLs[st + 'iconAtlas.xml']);
         delete  g.pBitmaps[st + 'iconAtlas.png'];
         delete  g.pXMLs[st + 'iconAtlas.xml'];
@@ -117,7 +116,6 @@ public class LoadComponents {
     }
 
     private function onLoadDB_X():void {
-        trace('LoadComponents:: on load DB');
         count--;
         if (count <=0) {
             if (_callback != null) _callback.apply();

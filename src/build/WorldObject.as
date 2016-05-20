@@ -234,6 +234,7 @@ public class WorldObject {
     }
 
     protected function createIsoView():void {
+        if (_isoView) return;
         var im:Image;
         _isoView = new Sprite();
         try {
@@ -253,41 +254,59 @@ public class WorldObject {
     }
 
     protected function deleteIsoView():void {
-        while (_isoView.numChildren) _isoView.removeChildAt(0);
-        _source.removeChild(_isoView);
-        _isoView = null;
+        if (_isoView) {
+            while (_isoView.numChildren) _isoView.removeChildAt(0);
+            _source.removeChild(_isoView);
+            _isoView = null;
+        }
     }
 
     protected function addDoneBuilding():void {
         if (_craftSprite) {
-            if (!_buildingBuild) {
-                _buildingBuild = new BuildingBuild('done');
+            if (g.allData.factory['buildingBuild']) {
+                addDoneBuilding1();
             } else {
-                _buildingBuild.doneAnimation();
+                g.loadAnimation.load('animations/x1/building/', 'buildingBuild', addDoneBuilding1);
             }
-            _craftSprite.addChild(_buildingBuild.source);
-            _rect = _craftSprite.getBounds(_craftSprite);
-            _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
-            _source.registerHitArea(_hitArea);
         } else {
             Cc.error('_craftSprite == null  :(')
         }
     }
 
+    private function addDoneBuilding1():void {
+        if (!_buildingBuild) {
+            _buildingBuild = new BuildingBuild('done');
+        } else {
+            _buildingBuild.doneAnimation();
+        }
+        _craftSprite.addChild(_buildingBuild.source);
+        _rect = _craftSprite.getBounds(_craftSprite);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
+        _source.registerHitArea(_hitArea);
+    }
+
     protected function addFoundationBuilding():void {
         if (_craftSprite) {
-            if (!_buildingBuild) {
-                _buildingBuild = new BuildingBuild('work');
+            if (g.allData.factory['buildingBuild']) {
+                addFoundationBuilding1();
             } else {
-                _buildingBuild.workAnimation();
+                g.loadAnimation.load('animations/x1/building/', 'buildingBuild', addFoundationBuilding1);
             }
-            _craftSprite.addChild(_buildingBuild.source);
-            _rect = _craftSprite.getBounds(_craftSprite);
-            _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
-            _source.registerHitArea(_hitArea);
         } else {
             Cc.error('_craftSprite == null  :(')
         }
+    }
+
+    private function addFoundationBuilding1():void {
+        if (!_buildingBuild) {
+            _buildingBuild = new BuildingBuild('work');
+        } else {
+            _buildingBuild.workAnimation();
+        }
+        _craftSprite.addChild(_buildingBuild.source);
+        _rect = _craftSprite.getBounds(_craftSprite);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
+        _source.registerHitArea(_hitArea);
     }
 
     protected function buildingBuildDoneOver():void {

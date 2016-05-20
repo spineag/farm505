@@ -62,9 +62,6 @@ public class EmbedAssets {
     [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
     private const HouschkaBold:Class;
 
-    [Embed(source = "../../assets/animations/x1/building.png", mimeType = "application/octet-stream")]
-    private const BuildingBuild:Class;
-
     [Embed(source = "../../assets/animations/x1/beehive.png", mimeType = "application/octet-stream")]
     private const Beehive:Class;
     [Embed(source = "../../assets/animations/x1/chicken.png", mimeType = "application/octet-stream")]
@@ -160,7 +157,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 27;
+        var count:int = 26;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -172,7 +169,6 @@ public class EmbedAssets {
         };
         loadFactory('market',RoadsideMarket,checkCount);
         loadFactory('newspaper',Newspaper,checkCount);
-        loadFactory('buildingBuild', BuildingBuild, checkCount);
         loadFactory('beehive', Beehive, checkCount);
         loadFactory('chicken', Chicken, checkCount);
         loadFactory('cow', Cow, checkCount);
