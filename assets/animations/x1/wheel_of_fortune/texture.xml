@@ -1,0 +1,7 @@
+<TextureAtlas name="wheel_of_fortune" imagePath="texture.png">
+ <SubTexture name="wofort" x="0" y="0" width="116" height="172"/>
+ <SubTexture name="light_1" x="172" y="54" width="52" height="52"/>
+ <SubTexture name="light_2" x="118" y="54" width="52" height="52"/>
+ <SubTexture name="light_3" x="172" y="0" width="52" height="52"/>
+ <SubTexture name="light_4" x="118" y="0" width="52" height="52"/>
+</TextureAtlas>

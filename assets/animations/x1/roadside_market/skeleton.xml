@@ -1,0 +1,167 @@
+<dragonBones name="roadside_market" frameRate="24" version="2.3">
+ <armature name="road_shop">
+  <bone name="shop">
+   <transform x="15.5" y="-23.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="fr">
+   <transform x="-20.7" y="-19.27" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="fr2">
+   <transform x="6.5" y="-3.82" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="coins">
+   <transform x="38.3" y="19.43" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 2">
+   <transform x="5" y="-34.52" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="shop" parent="shop" z="0">
+    <display name="shop" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="86.25" pY="101.5"/>
+    </display>
+   </slot>
+   <slot name="fr" parent="fr" z="1">
+    <display name="fruits1" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="32.5" pY="25"/>
+    </display>
+   </slot>
+   <slot name="fr2" parent="fr2" z="2">
+    <display name="fruits2" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="32.5" pY="25.25"/>
+    </display>
+   </slot>
+   <slot name="coins" parent="coins" z="3">
+    <display name="coins" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="26.5" pY="18.25"/>
+    </display>
+   </slot>
+   <slot name="Layer 2" parent="Layer 2" z="4">
+    <display name="top" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="37.25" pY="27"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="idle" fadeInTime="0" duration="1" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+   <timeline name="shop" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="15.5" y="-23.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="work" fadeInTime="0" duration="1" scale="1" loop="0" autoTween="0" tweenEasing="NaN">
+   <timeline name="shop" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="15.5" y="-23.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fr" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-20.7" y="-19.27" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fr2" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="6.5" y="-3.82" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="coins" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="38.3" y="19.43" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="4" duration="1">
+     <transform x="5" y="-34.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="idle_2" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="shop" scale="1" offset="0">
+    <frame z="0" tweenEasing="0" duration="4">
+     <transform x="15.5" y="-23.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="4">
+     <transform x="15.5" y="-26.67" skX="0" skY="0" scX="1" scY="1.03" pX="0" pY="0"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="4">
+     <transform x="15.5" y="-20.5" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="4">
+     <transform x="15.5" y="-28.25" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="0" duration="1">
+     <transform x="15.5" y="-23.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fr" scale="1" offset="0">
+    <frame z="1" tweenEasing="0" duration="4">
+     <transform x="-20.7" y="-19.27" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="4">
+     <transform x="-20.7" y="-22.3" skX="0" skY="0" scX="1" scY="1.03" pX="0" pY="0"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="4">
+     <transform x="-20.7" y="-16.4" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="4">
+     <transform x="-20.7" y="-23.82" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="1" duration="1">
+     <transform x="-20.7" y="-19.27" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fr2" scale="1" offset="0">
+    <frame z="2" tweenEasing="0" duration="4">
+     <transform x="6.5" y="-3.82" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="4">
+     <transform x="6.5" y="-6.35" skX="0" skY="0" scX="1" scY="1.03" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="4">
+     <transform x="6.5" y="-1.4" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="4">
+     <transform x="6.5" y="-7.65" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" duration="1">
+     <transform x="6.5" y="-3.82" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="coins" scale="1" offset="0">
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="38.3" y="19.43" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="38.3" y="17.65" skX="0" skY="0" scX="1" scY="1.03" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="38.3" y="21.15" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="4">
+     <transform x="38.3" y="16.68" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="3" duration="1">
+     <transform x="38.3" y="19.43" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="4" tweenEasing="0" duration="4">
+     <transform x="5" y="-34.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="4">
+     <transform x="5" y="-38.05" skX="0" skY="0" scX="1" scY="1.03" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="4">
+     <transform x="5" y="-31.2" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="4">
+     <transform x="5" y="-39.8" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="5" y="-34.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>

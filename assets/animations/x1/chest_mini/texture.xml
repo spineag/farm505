@@ -1,0 +1,5 @@
+<TextureAtlas name="chest_mini" imagePath="texture.png">
+ <SubTexture name="ch_b" x="0" y="0" width="35" height="32"/>
+ <SubTexture name="glow" x="37" y="0" width="22" height="23"/>
+ <SubTexture name="ch_t" x="0" y="34" width="35" height="22"/>
+</TextureAtlas>

@@ -28,7 +28,6 @@ public class Train extends WorldObject{
     private var TIME_READY:int = 8*60*60; // время, которое ожидает поезд для загрузки продуктов
     private var TIME_WAIT:int = 8*60*60;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
-    private var _armature:Armature;
     private var _armatureOpenBoom:Armature;
     private var _arriveAnim:ArrivedAnimation;
     private var _countTimer:int;
@@ -48,11 +47,7 @@ public class Train extends WorldObject{
 
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
-       checkTrainState();
-
-        _source.hoverCallback = onHover;
-        _source.endClickCallback = onClick;
-        _source.outCallback = onOut;
+       createBuild(checkTrainState);
         _source.releaseContDrag = true;
     }
 
@@ -141,9 +136,9 @@ public class Train extends WorldObject{
     }
 
     private function checkTrainState():void {
-        try {
+//        try {
             if (g.isAway) {
-                createBuild();
+                onCreateBuild();
                 if (g.visitedUser) {
                     var ar:Array = g.visitedUser.userDataCity.objects;
                     for (var i:int=0; i<ar.length; i++) {
@@ -164,7 +159,7 @@ public class Train extends WorldObject{
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
-                        createBuild();
+                        createBuild(onCreateBuild);
                         makeIdleAnimation();
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
@@ -184,35 +179,24 @@ public class Train extends WorldObject{
                     }
                 } else {
                     _stateBuild = STATE_UNACTIVE;
-                    createBuild();
+                    onCreateBuild();
                     createBrokenTrain();
                 }
             }
-        } catch (e:Error) {
-            Cc.error('checkTrainState:: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'checkTrainState');
-        }
+//        } catch (e:Error) {
+//            Cc.error('checkTrainState:: ' + e.errorID + ' - ' + e.message);
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'checkTrainState');
+//        }
     }
 
-    override public function createBuild(isImageClicked:Boolean = true):void {
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
-        _armature = g.allData.factory[_dataBuild.image].buildArmature("aerial_tram");
-        _build.addChild(_armature.display as Sprite);
-        _defaultScale = 1;
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        if (_flip) _build.scaleX = -_defaultScale;
-        _source.addChild(_build);
+    private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_build, 'trainBuild');
         _source.registerHitArea(_hitArea);
         if (!_arriveAnim) _arriveAnim = new ArrivedAnimation(_source);
+        _source.hoverCallback = onHover;
+        _source.endClickCallback = onClick;
+        _source.outCallback = onOut;
     }
 
     private function createBrokenTrain():void {
@@ -388,7 +372,7 @@ public class Train extends WorldObject{
             }
             _build.visible = true;
             if (_arriveAnim) _arriveAnim.visible = true;
-            createBuild();
+            createBuild(onCreateBuild);
             arriveTrain();
             showBoom();
         }

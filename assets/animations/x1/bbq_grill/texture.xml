@@ -1,0 +1,23 @@
+<TextureAtlas name="bbq_grill" imagePath="texture.png">
+ <SubTexture name="bbq_1.png" x="0" y="0" width="216" height="125"/>
+ <SubTexture name="katushka" x="0" y="127" width="26" height="37"/>
+ <SubTexture name="patelnya" x="360" y="0" width="140" height="97"/>
+ <SubTexture name="bbq_2.png" x="218" y="0" width="140" height="97"/>
+ <SubTexture name="drova" x="359" y="99" width="50" height="37"/>
+ <SubTexture name="pie_oven_3.png" x="411" y="99" width="50" height="37"/>
+ <SubTexture name="legRight" x="189" y="127" width="11" height="15"/>
+ <SubTexture name="tail" x="170" y="127" width="17" height="10"/>
+ <SubTexture name="bbq_grill_an2.png" x="64" y="127" width="29" height="20"/>
+ <SubTexture name="handRight" x="347" y="118" width="9" height="17"/>
+ <SubTexture name="body" x="131" y="127" width="17" height="25"/>
+ <SubTexture name="legLeft" x="202" y="127" width="10" height="15"/>
+ <SubTexture name="pancake" x="463" y="99" width="44" height="29"/>
+ <SubTexture name="head" x="310" y="99" width="35" height="46"/>
+ <SubTexture name="lips" x="502" y="0" width="5" height="4"/>
+ <SubTexture name="eyes" x="463" y="130" width="13" height="5"/>
+ <SubTexture name="viyi" x="95" y="127" width="34" height="10"/>
+ <SubTexture name="lopatka" x="218" y="99" width="90" height="50"/>
+ <SubTexture name="handLeft" x="347" y="99" width="10" height="17"/>
+ <SubTexture name="drowa" x="28" y="127" width="34" height="23"/>
+ <SubTexture name="smog" x="150" y="127" width="18" height="19"/>
+</TextureAtlas>

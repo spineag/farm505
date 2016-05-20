@@ -9,6 +9,9 @@ import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import mouse.ToolsModifier;
+
+import starling.display.Image;
+
 import ui.xpPanel.XPStar;
 import windows.WindowsManager;
 
@@ -24,7 +27,7 @@ public class Wild extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Wild');
             return;
         }
-        createBuild();
+        createBuildWild();
 
         if (!g.isAway) {
             _source.hoverCallback = onHover;
@@ -36,6 +39,31 @@ public class Wild extends WorldObject{
         _source.releaseContDrag = true;
         _isOnHover = false;
         _delete = false;
+    }
+
+    private function createBuildWild():void {
+        var im:Image;
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+
+        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
+        im.x = _dataBuild.innerX;
+        im.y = _dataBuild.innerY;
+
+        if (!im) {
+            Cc.error('Wild:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
+            return;
+        }
+        _build.addChild(im);
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        _source.addChild(_build);
     }
 
     public function setLockedLand(l:LockedLand):void {

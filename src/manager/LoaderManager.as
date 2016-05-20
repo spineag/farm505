@@ -6,7 +6,7 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 
 public class LoaderManager {
-    private static const COUNT_PARALEL_LOADERS:int = 1;
+    private static const COUNT_PARALEL_LOADERS:int = 25;
 
     [ArrayElementType('com.deadreckoned.assetmanager.AssetQueue')]
     private var _loaders:Array;

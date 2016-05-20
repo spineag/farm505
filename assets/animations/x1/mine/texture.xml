@@ -1,0 +1,13 @@
+<TextureAtlas name="mine" imagePath="texture.png">
+ <SubTexture name="m_d" x="325" y="0" width="124" height="143"/>
+ <SubTexture name="vizok" x="101" y="195" width="64" height="57"/>
+ <SubTexture name="m_top" x="0" y="0" width="181" height="193"/>
+ <SubTexture name="mine_4.png" x="284" y="145" width="99" height="81"/>
+ <SubTexture name="Tween 3" x="385" y="145" width="99" height="81"/>
+ <SubTexture name="Tween 1" x="183" y="139" width="99" height="81"/>
+ <SubTexture name="Tween 2" x="0" y="195" width="99" height="81"/>
+ <SubTexture name="light_2" x="183" y="0" width="140" height="137"/>
+ <SubTexture name="light_3" x="451" y="31" width="13" height="17"/>
+ <SubTexture name="dust" x="167" y="222" width="90" height="85"/>
+ <SubTexture name="gold" x="451" y="0" width="50" height="29"/>
+</TextureAtlas>

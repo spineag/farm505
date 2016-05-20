@@ -2,6 +2,9 @@ package build {
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+
+import dragonBones.Armature;
+
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
@@ -42,6 +45,7 @@ public class WorldObject {
     protected var _tutorialCallback:Function;
     protected var _hitArea:OwnHitArea;
     protected var _leftBuildTime:int;                   // сколько осталось времени до окончания постройки здания
+    protected var _armature:Armature;
     private var _buildingBuild:BuildingBuild;
     public var countShopCost:int;
 
@@ -206,31 +210,28 @@ public class WorldObject {
         _hitArea = null;
     }
 
-    public function createBuild(isImageClicked:Boolean = true):void {
-        var im:Image;
+    public function createBuild(onCreate:Function):void {
         if (_build) {
             if (_source.contains(_build)) {
                 _source.removeChild(_build);
             }
             while (_build.numChildren) _build.removeChildAt(0);
         }
-
-        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
-        im.x = _dataBuild.innerX;
-        im.y = _dataBuild.innerY;
-
-        if (!im) {
-            Cc.error('AreaObject:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
-            return;
+        if (g.allData.factory[_dataBuild.url]) {
+            createBuild1(onCreate);
+        } else {
+            g.loadAnimation.load('animations/x1/' + _dataBuild.url, _dataBuild.url, createBuild1, onCreate);
         }
-        _build.addChild(im);
-        if (!isImageClicked) im.touchable = false;
+    }
+
+    private function createBuild1(onCreate:Function):void {
+        _armature = g.allData.factory[_dataBuild.url].buildArmature(_dataBuild.image);
+        _build.addChild(_armature.display as Sprite);
         _rect = _build.getBounds(_build);
         _sizeX = _dataBuild.width;
         _sizeY = _dataBuild.height;
-        (_build as Sprite).alpha = 1;
         _source.addChild(_build);
+        if (onCreate != null) onCreate.apply();
     }
 
     protected function createIsoView():void {

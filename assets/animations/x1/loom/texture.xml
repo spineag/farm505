@@ -1,0 +1,22 @@
+<TextureAtlas name="loom" imagePath="texture.png">
+ <SubTexture name="loom_l4.png" x="0" y="113" width="94" height="59"/>
+ <SubTexture name="loom_l1.png" x="0" y="0" width="213" height="111"/>
+ <SubTexture name="orang" x="96" y="113" width="59" height="59"/>
+ <SubTexture name="blue" x="157" y="113" width="56" height="58"/>
+ <SubTexture name="green" x="157" y="173" width="59" height="58"/>
+ <SubTexture name="yellow" x="0" y="174" width="55" height="58"/>
+ <SubTexture name="puff" x="57" y="223" width="58" height="47"/>
+ <SubTexture name="loom_l5.png" x="57" y="174" width="58" height="47"/>
+ <SubTexture name="handRight" x="238" y="56" width="9" height="17"/>
+ <SubTexture name="legLeft" x="234" y="75" width="10" height="15"/>
+ <SubTexture name="body" x="215" y="65" width="17" height="25"/>
+ <SubTexture name="fabricl" x="215" y="0" width="21" height="63"/>
+ <SubTexture name="fabric" x="215" y="92" width="13" height="7"/>
+ <SubTexture name="spoke" x="238" y="0" width="10" height="35"/>
+ <SubTexture name="handr" x="246" y="75" width="6" height="5"/>
+ <SubTexture name="handLeft" x="238" y="37" width="10" height="17"/>
+ <SubTexture name="head" x="215" y="101" width="35" height="46"/>
+ <SubTexture name="lips" x="249" y="56" width="5" height="4"/>
+ <SubTexture name="eyes" x="230" y="92" width="14" height="5"/>
+ <SubTexture name="viyi" x="215" y="149" width="34" height="10"/>
+</TextureAtlas>

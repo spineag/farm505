@@ -31,7 +31,6 @@ public class Fabrica extends WorldObject {
     private var _heroCat:HeroCat;
     private var _count:int;
     private var _arrCrafted:Array;
-    private var _armature:Armature;
     private var _armatureOpen:Armature;
     private var _countTimer:int;
 
@@ -67,7 +66,7 @@ public class Fabrica extends WorldObject {
             if (g.user.userBuildingData[_dataBuild.id]) {
                 if (g.user.userBuildingData[_dataBuild.id].isOpen) {
                     _stateBuild = STATE_ACTIVE;
-                    createBuild();                                                                  // уже построенно и открыто
+                    createBuild(onCreateBuild);                                                     // уже построенно и открыто
                 } else {
                     _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding); // сколько времени уже строится
                     var arr:Array = g.townArea.getCityObjectsById(_dataBuild.id);
@@ -84,7 +83,7 @@ public class Fabrica extends WorldObject {
                 }
             } else {
                 _stateBuild = STATE_ACTIVE;
-                createBuild();
+                createBuild(onCreateBuild);
             }
         } catch (e:Error) {
             Cc.error('AreaObject checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
@@ -92,28 +91,16 @@ public class Fabrica extends WorldObject {
         }
     }
 
-    override public function createBuild(isImageClicked:Boolean = true):void {
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
-        _armature = g.allData.factory[_dataBuild.image].buildArmature("fabrica");
-        _build.addChild(_armature.display as Sprite);
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        (_build as Sprite).alpha = 1;
-        _source.addChild(_build);
+    private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
         stopAnimation();
         _hitArea = g.managerHitArea.getHitArea(_source, 'fabrica' + _dataBuild.image);
         _source.registerHitArea(_hitArea);
     }
 
+
     public function showShopView():void {
-        createBuild();
+        createBuild(onCreateBuild);
         _craftSprite.visible = false;
     }
 
@@ -287,7 +274,7 @@ public class Fabrica extends WorldObject {
             }
             clearCraftSprite();
             onOut();
-            createBuild();
+            createBuild(onCreateBuild);
             _source.setChildIndex(_craftSprite, _source.numChildren-1);
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));

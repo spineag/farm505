@@ -52,7 +52,6 @@ public class Tree extends WorldObject {
     private var _craftedCountFromServer:int;
     private var _countMouse:int;
 
-    private var armature:Armature;
     private var armatureClip:Sprite;
     private var arrFruits:Array;
 
@@ -74,26 +73,26 @@ public class Tree extends WorldObject {
 
         switch (_data.id) {
             case 25:
-                armature = g.allData.factory['trees'].buildArmature("apple");
+                _armature = g.allData.factory['trees'].buildArmature("apple");
                 break;
             case 26:
-                armature = g.allData.factory['trees'].buildArmature("cheery");
+                _armature = g.allData.factory['trees'].buildArmature("cheery");
                 break;
             case 41:
-                armature = g.allData.factory['trees'].buildArmature("raspberry");
+                _armature = g.allData.factory['trees'].buildArmature("raspberry");
                 break;
             case 42:
-                armature = g.allData.factory['trees'].buildArmature("blueberry");
+                _armature = g.allData.factory['trees'].buildArmature("blueberry");
                 break;
         }
-        armatureClip = armature.display as Sprite;
+        armatureClip = _armature.display as Sprite;
         _build.addChild(armatureClip);
-        WorldClock.clock.add(armature);
+        WorldClock.clock.add(_armature);
 
         arrFruits = [];
         var b:Bone;
         for (var i:int = 0; i < arrFruits.length; i++) {
-            b = armature.getBone('fruit' + String(i + 1));
+            b = _armature.getBone('fruit' + String(i + 1));
             arrFruits.push(b);
             (b.display as Sprite).touchable = false;
 //            ((arrFruits[i] as Bone).display as Sprite).touchable = false;
@@ -106,11 +105,11 @@ public class Tree extends WorldObject {
     }
 
     public function showShopView():void {
-        armature.animation.gotoAndStop("small", 0);
+        _armature.animation.gotoAndStop("small", 0);
     }
 
     public function removeShopView():void {
-        armature.animation.gotoAndStop("small", 0);
+        _armature.animation.gotoAndStop("small", 0);
     }
 
     public function releaseTreeFromServer(ob:Object):void {
@@ -187,17 +186,17 @@ public class Tree extends WorldObject {
 
         switch (_state) {
             case GROW1:
-                armature.animation.gotoAndStop("small", 0);
+                _armature.animation.gotoAndStop("small", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER1:
-                armature.animation.gotoAndStop("small_flower", 0);
+                _armature.animation.gotoAndStop("small_flower", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED1:
-                armature.animation.gotoAndStop("small_fruits", 0);
+                _armature.animation.gotoAndStop("small_fruits", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
                 _source.registerHitArea(_hitArea);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[0]) {
@@ -215,18 +214,18 @@ public class Tree extends WorldObject {
                 rechekFruits();
                 break;
             case GROW2:
-                armature.animation.gotoAndStop("middle", 0);
+                _armature.animation.gotoAndStop("middle", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER2:
-                armature.animation.gotoAndStop("middle_flower", 0);
+                _armature.animation.gotoAndStop("middle_flower", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED2:
 //                if (_dataBuild.id == 41) armature.animation.gotoAndStop("middle_flower_0", 0);
-               armature.animation.gotoAndStop("middle_fruits", 0);
+               _armature.animation.gotoAndStop("middle_fruits", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
                 _source.registerHitArea(_hitArea);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[1]) {
@@ -244,17 +243,17 @@ public class Tree extends WorldObject {
                 rechekFruits();
                 break;
             case GROW3:
-                armature.animation.gotoAndStop("big", 0);
+                _armature.animation.gotoAndStop("big", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER3:
-                armature.animation.gotoAndStop("big_flower", 0);
+                _armature.animation.gotoAndStop("big_flower", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED3:
-                armature.animation.gotoAndStop("big_fruits", 0);
+                _armature.animation.gotoAndStop("big_fruits", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
@@ -272,37 +271,37 @@ public class Tree extends WorldObject {
                 rechekFruits();
                 break;
             case DEAD:
-                armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStop("dead", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case FULL_DEAD:
-                armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStop("dead", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case ASK_FIX:
-                armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStop("dead", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case FIXED:
-                armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStop("dead", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED:
-                armature.animation.gotoAndStop("big", 0);
+                _armature.animation.gotoAndStop("big", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED_FLOWER:
-                armature.animation.gotoAndStop("big_flower", 0);
+                _armature.animation.gotoAndStop("big_flower", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED_FIXED:
-                armature.animation.gotoAndStop("big_fruits", 0);
+                _armature.animation.gotoAndStop("big_fruits", 0);
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
@@ -361,60 +360,60 @@ public class Tree extends WorldObject {
         }
 
         var fEndOver:Function = function():void {
-            armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-            armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
         };
-        armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+        _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
 
         switch (_state) {
             case GROW1:
-                armature.animation.gotoAndPlay('over_s');
+                _armature.animation.gotoAndPlay('over_s');
                 break;
             case GROW_FLOWER1:
-                armature.animation.gotoAndPlay('over_sfl');
+                _armature.animation.gotoAndPlay('over_sfl');
                 break;
             case GROWED1:
-                armature.animation.gotoAndPlay('over_sfr');
+                _armature.animation.gotoAndPlay('over_sfr');
                 break;
             case GROW2:
-                armature.animation.gotoAndPlay('over_m');
+                _armature.animation.gotoAndPlay('over_m');
                 break;
             case GROW_FLOWER2:
-                armature.animation.gotoAndPlay('over_mfl');
+                _armature.animation.gotoAndPlay('over_mfl');
                 break;
             case GROWED2:
-                armature.animation.gotoAndPlay('over_mfr');
+                _armature.animation.gotoAndPlay('over_mfr');
                 break;
             case GROW3:
-                armature.animation.gotoAndPlay('over_b');
+                _armature.animation.gotoAndPlay('over_b');
                 break;
             case GROW_FLOWER3:
-                armature.animation.gotoAndPlay('over_bfl');
+                _armature.animation.gotoAndPlay('over_bfl');
                 break;
             case GROWED3:
-                armature.animation.gotoAndPlay('over_bfr');
+                _armature.animation.gotoAndPlay('over_bfr');
                 break;
             case DEAD:
-                armature.animation.gotoAndPlay('over_d');
+                _armature.animation.gotoAndPlay('over_d');
                 break;
             case FULL_DEAD:
-                armature.animation.gotoAndPlay('over_d');
+                _armature.animation.gotoAndPlay('over_d');
                 break;
             case ASK_FIX:
-                armature.animation.gotoAndPlay('over_d');
+                _armature.animation.gotoAndPlay('over_d');
                 break;
             case FIXED:
-                armature.animation.gotoAndPlay('over_d');
+                _armature.animation.gotoAndPlay('over_d');
                 break;
             case GROW_FIXED:
-                armature.animation.gotoAndPlay('over_b');
+                _armature.animation.gotoAndPlay('over_b');
                 break;
             case GROW_FIXED_FLOWER:
-                armature.animation.gotoAndPlay('over_bfl');
+                _armature.animation.gotoAndPlay('over_bfl');
                 break;
             case GROWED_FIXED:
-                armature.animation.gotoAndPlay('over_bfr');
+                _armature.animation.gotoAndPlay('over_bfr');
                 break;
             default:
                 Cc.error('tree state is WRONG');
@@ -735,7 +734,7 @@ public class Tree extends WorldObject {
 
     override public function clearIt():void {
         onOut();
-        WorldClock.clock.remove(armature);
+        WorldClock.clock.remove(_armature);
         g.gameDispatcher.removeFromTimer(render);
         _resourceItem = null;
         _arrCrafted.length = 0;

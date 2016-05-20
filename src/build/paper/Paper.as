@@ -15,7 +15,6 @@ import windows.WindowsManager;
 
 public class Paper extends WorldObject{
     private var _isOnHover:Boolean;
-    private var _armature:Armature;
 
     public function Paper(data:Object) {
         super (data);
@@ -26,32 +25,18 @@ public class Paper extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Papper');
             return;
         }
-        createBuild();
+        createBuild(onCreateBuild);
+        _source.releaseContDrag = true;
+    }
+
+    private function onCreateBuild():void {
+        WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndStop('idle', 0);
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
-        _source.releaseContDrag = true;
         _hitArea = g.managerHitArea.getHitArea(_source, 'paperBuild');
         _source.registerHitArea(_hitArea);
-    }
-
-    override public function createBuild(isImageClicked:Boolean = true):void {
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
-        _armature = g.allData.factory['newspaper'].buildArmature('newspaper');
-        _build.addChild(_armature.display as Sprite);
-        WorldClock.clock.add(_armature);
-        _defaultScale = 1;
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        if (_flip) _build.scaleX = -_defaultScale;
-        _source.addChild(_build);
-        _armature.animation.gotoAndStop('idle', 0);
     }
 
     private function onHover():void {

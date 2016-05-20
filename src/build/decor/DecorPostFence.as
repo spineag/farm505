@@ -12,6 +12,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 
+import windows.WindowsManager;
+
 public class DecorPostFence extends WorldObject{
     private var _rightLenta:Sprite;
     private var _leftLenta:Sprite;
@@ -19,7 +21,33 @@ public class DecorPostFence extends WorldObject{
 
     public function DecorPostFence(_data:Object) {
         super(_data);
-        createBuild();
+        createBuildDecor();
+        _source.releaseContDrag = true;
+    }
+
+    private function createBuildDecor():void {
+        var im:Image;
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+
+        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
+        im.x = _dataBuild.innerX;
+        im.y = _dataBuild.innerY;
+
+        if (!im) {
+            Cc.error('DecorPostFence:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
+            return;
+        }
+        _build.addChild(im);
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        _source.addChild(_build);
 
         if (!g.isAway) {
             _source.endClickCallback = onClick;
@@ -28,7 +56,6 @@ public class DecorPostFence extends WorldObject{
             _hitArea = g.managerHitArea.getHitArea(_source, 'decorPostFence' + _dataBuild.image);
             _source.registerHitArea(_hitArea);
         }
-        _source.releaseContDrag = true;
     }
 
     public function addLeftLenta():void {
