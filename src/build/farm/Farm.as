@@ -31,7 +31,7 @@ public class Farm extends WorldObject{
             return;
         }
         setDataAnimal();
-        createBuild();
+        createBuildFarm();
 
         _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;
@@ -69,6 +69,31 @@ public class Farm extends WorldObject{
                 g.gameDispatcher.addEnterFrame(sortAnimals);
             }
         }
+    }
+
+    private function createBuildFarm():void {
+        var im:Image;
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+
+        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
+        im.x = _dataBuild.innerX;
+        im.y = _dataBuild.innerY;
+
+        if (!im) {
+            Cc.error('Ambar:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
+            return;
+        }
+        _build.addChild(im);
+        _rect = _build.getBounds(_build);
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
+        _source.addChild(_build);
     }
 
     private function onHover():void {

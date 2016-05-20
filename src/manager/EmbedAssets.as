@@ -4,13 +4,8 @@
 package manager {
 
 import dragonBones.factories.StarlingFactory;
-
 import flash.events.Event;
-
 import flash.text.Font;
-
-import starling.textures.Texture;
-import starling.textures.TextureAtlas;
 
 public class EmbedAssets {
     // Texture
@@ -18,36 +13,12 @@ public class EmbedAssets {
 //    private const InterfaceTexture:Class;
 //    [Embed(source="../../assets/instrumentAtlas.png")]
 //    private const InstrumentTexture:Class;
-//    [Embed(source="../../assets/resourceAtlas.png")]
-//    private const ResourceTexture:Class;
-//    [Embed(source="../../assets/x1/wildAtlas2.png")]
-//    private const WildTexture:Class;
-//    [Embed(source="../../assets/x1/farmAtlas.png")]
-//    private const FarmTexture:Class;
-//    [Embed(source="../../assets/x1/decorAtlas.png")]
-//    private const DecorTexture:Class;
-//    [Embed(source="../../assets/x1/buildAtlas.png")]
-//    private const BuildTexture:Class;
-//    [Embed(source="../../assets/iconAtlas.png")]
-//    private const IconTexture:Class;
 
     // XML
 //    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
 //    private const InterfaceTextureXML:Class;
 //    [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
 //    private const InstrumentTextureXML:Class;
-//    [Embed(source="../../assets/resourceAtlas.xml", mimeType="application/octet-stream")]
-//    private const ResourceTextureXML:Class;
-//    [Embed(source="../../assets/x1/wildAtlas2.xml", mimeType="application/octet-stream")]
-//    private const WildTextureXML:Class;
-//    [Embed(source="../../assets/x1/farmAtlas.xml", mimeType="application/octet-stream")]
-//    private const FarmTextureXML:Class;
-//    [Embed(source="../../assets/x1/decorAtlas.xml", mimeType="application/octet-stream")]
-//    private const DecorTextureXML:Class;
-//    [Embed(source="../../assets/x1/buildAtlas.xml", mimeType="application/octet-stream")]
-//    private const BuildTextureXML:Class;
-//    [Embed(source="../../assets/iconAtlas.xml", mimeType="application/octet-stream")]
-//    private const IconTextureXML:Class;
 
     [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
     private const BloggerBold:Class;
@@ -73,48 +44,10 @@ public class EmbedAssets {
     [Embed(source = "../../assets/animations/x1/sheep.png", mimeType = "application/octet-stream")]
     private const Sheep:Class;
 
-    [Embed(source = "../../assets/animations/x1/bakery.png", mimeType = "application/octet-stream")]
-    private const BakeryFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/sugar_mill.png", mimeType = "application/octet-stream")]
-    private const SugarMillFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/feed_mill.png", mimeType = "application/octet-stream")]
-    private const FeedMillFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/bbq_grill.png", mimeType = "application/octet-stream")]
-    private const BbqGrillFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/dairy.png", mimeType = "application/octet-stream")]
-    private const DairyFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/pie_oven.png", mimeType = "application/octet-stream")]
-    private const PieOvenFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/juice_press.png", mimeType = "application/octet-stream")]
-    private const JuicePressFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/loom.png", mimeType = "application/octet-stream")]
-    private const LoomFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/pizza_maker.png", mimeType = "application/octet-stream")]
-    private const PizzaMakerFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/smelter.png", mimeType = "application/octet-stream")]
-    private const SmelterFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/smoke_house.png", mimeType = "application/octet-stream")]
-    private const SmokeHouseFabrica:Class;
-    [Embed(source = "../../assets/animations/x1/mine.png", mimeType = "application/octet-stream")]
-    private const Cave:Class;
-    [Embed(source = "../../assets/animations/x1/sklad.png", mimeType = "application/octet-stream")]
-    private const Sklad:Class;
-    [Embed(source = "../../assets/animations/x1/wheel_of_fortune.png", mimeType = "application/octet-stream")]
-    private const DailyBonus:Class;
-    [Embed(source = "../../assets/animations/x1/newspaper.png", mimeType = "application/octet-stream")]
-    private const Newspaper:Class;
-    [Embed(source = "../../assets/animations/x1/aerial_tram.png", mimeType = "application/octet-stream")]
-    private const AerialTram:Class;
-    [Embed(source = "../../assets/animations/x1/orders.png", mimeType = "application/octet-stream")]
-    private const Orders:Class;
-    [Embed(source = "../../assets/animations/x1/roadside_market.png", mimeType = "application/octet-stream")]
-    private const RoadsideMarket:Class;
     [Embed(source = "../../assets/animations/x1/cat_tutorial.png", mimeType = "application/octet-stream")]
     private const CatTutorial:Class;
     [Embed(source = "../../assets/animations/cat_tutorial_big2.png", mimeType = "application/octet-stream")]
     private const CatTutorialBig:Class;
-    [Embed(source = "../../assets/animations/x1/chest_mini.png", mimeType = "application/octet-stream")]
-    private const ChestMini:Class;
 
     private var g:Vars = Vars.getInstance();
 
@@ -131,24 +64,6 @@ public class EmbedAssets {
 //        texture = Texture.fromBitmap(new BuildTexture());
 //        xml= XML(new BuildTextureXML());
 //        g.allData.atlas['buildAtlas'] = new TextureAtlas(texture, xml);
-//        texture = Texture.fromBitmap(new InterfaceTexture());
-//        xml= XML(new InterfaceTextureXML());
-//        g.allData.atlas['interfaceAtlas'] = new TextureAtlas(texture, xml);
-//        texture = Texture.fromBitmap(new InstrumentTexture());
-//        xml= XML(new InstrumentTextureXML());
-//        g.allData.atlas['instrumentAtlas'] = new TextureAtlas(texture, xml);
-//        texture = Texture.fromBitmap(new WildTexture());
-//        xml= XML(new WildTextureXML());
-//        g.allData.atlas['wildAtlas'] = new TextureAtlas(texture, xml);
-//        texture = Texture.fromBitmap(new FarmTexture());
-//        xml= XML(new FarmTextureXML());
-//        g.allData.atlas['farmAtlas'] = new TextureAtlas(texture, xml);
-//        texture = Texture.fromBitmap(new DecorTexture());
-//        xml= XML(new DecorTextureXML());
-//        g.allData.atlas['decorAtlas'] = new TextureAtlas(texture, xml);
-//        texture = Texture.fromBitmap(new IconTexture());
-//        xml= XML(new IconTextureXML());
-//        g.allData.atlas['iconAtlas'] = new TextureAtlas(texture, xml);
 
         g.allData.fonts['BloggerBold'] = (new BloggerBold() as Font).fontName;
         g.allData.fonts['BloggerItalic'] = (new BloggerItalic() as Font).fontName;
@@ -157,7 +72,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 26;
+        var count:int = 7;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -167,32 +82,13 @@ public class EmbedAssets {
                 }
             }
         };
-        loadFactory('market',RoadsideMarket,checkCount);
-        loadFactory('newspaper',Newspaper,checkCount);
         loadFactory('beehive', Beehive, checkCount);
         loadFactory('chicken', Chicken, checkCount);
         loadFactory('cow', Cow, checkCount);
         loadFactory('pig', Pig, checkCount);
         loadFactory('sheep', Sheep, checkCount);
-        loadFactory('bakery', BakeryFabrica, checkCount);
-        loadFactory('sugar_mill', SugarMillFabrica, checkCount);
-        loadFactory('feed_mill', FeedMillFabrica, checkCount);
-        loadFactory('bbq_grill', BbqGrillFabrica, checkCount);
-        loadFactory('dairy', DairyFabrica, checkCount);
-        loadFactory('pie_oven', PieOvenFabrica, checkCount);
-        loadFactory('juice_press', JuicePressFabrica, checkCount);
-        loadFactory('loom', LoomFabrica, checkCount);
-        loadFactory('pizza_maker', PizzaMakerFabrica, checkCount);
-        loadFactory('smelter', SmelterFabrica, checkCount);
-        loadFactory('smoke_house', SmokeHouseFabrica, checkCount);
-        loadFactory('cave', Cave, checkCount);
-        loadFactory('sklad', Sklad, checkCount);
-        loadFactory('daily_bonus', DailyBonus, checkCount);
-        loadFactory('train', AerialTram, checkCount);
-        loadFactory('order', Orders, checkCount);
         loadFactory('tutorialCat', CatTutorial, checkCount);
         loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
-        loadFactory('chest_mini', ChestMini, checkCount);
     }
 
     private function loadFactory(name:String, clas:Class, onLoad:Function):void {

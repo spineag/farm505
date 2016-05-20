@@ -37,8 +37,8 @@ public class LoadComponents {
         g.load.loadXML(st + 'x1/decorAtlas.xml', onLoad);
         g.load.loadImage(st + 'x1/farmAtlas.png', onLoad);
         g.load.loadXML(st + 'x1/farmAtlas.xml', onLoad);
-        g.load.loadImage(st + 'x1/wildAtlas2.png', onLoad);
-        g.load.loadXML(st + 'x1/wildAtlas2.xml', onLoad);
+        g.load.loadImage(st + 'x1/wildAtlas.png', onLoad);
+        g.load.loadXML(st + 'x1/wildAtlas.xml', onLoad);
     }
 
     private function onLoad(smth:*=null):void {
@@ -75,9 +75,9 @@ public class LoadComponents {
         delete  g.pBitmaps[st + 'x1/farmAtlas.png'];
         delete  g.pXMLs[st + 'x1/farmAtlas.xml'];
 
-        g.allData.atlas['wildAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/wildAtlas2.png'].create() as Bitmap), g.pXMLs[st + 'x1/wildAtlas2.xml']);
-        delete  g.pBitmaps[st + 'x1/wildAtlas2.png'];
-        delete  g.pXMLs[st + 'x1/wildAtlas2.xml'];
+        g.allData.atlas['wildAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/wildAtlas.png'].create() as Bitmap), g.pXMLs[st + 'x1/wildAtlas.xml']);
+        delete  g.pBitmaps[st + 'x1/wildAtlas.png'];
+        delete  g.pXMLs[st + 'x1/wildAtlas.xml'];
 
         loadDBAnimations();
     }
@@ -85,12 +85,12 @@ public class LoadComponents {
     private function loadDBAnimations():void {
         count = 6;
 
-        g.loadAnimation.load('animations/arrow/', 'arrow', onLoadDB);
-        g.loadAnimation.load('animations/chest_interface/', 'chest_interface', onLoadDB);
-        g.loadAnimation.load('animations/order_window/', 'order_window', onLoadDB);
-        g.loadAnimation.load('animations/plot_seller/', 'cat_customer', onLoadDB);
-        g.loadAnimation.load('animations/preloader_2/', 'preloader_2', onLoadDB);
-        g.loadAnimation.load('animations/visit_preloader/', 'visitPreloader', onLoadDB);
+        g.loadAnimation.load('animations/arrow', 'arrow', onLoadDB);
+        g.loadAnimation.load('animations/chest_interface', 'chest_interface', onLoadDB);
+        g.loadAnimation.load('animations/order_window', 'orderWindow', onLoadDB);
+        g.loadAnimation.load('animations/plot_seller', 'cat_customer', onLoadDB);
+        g.loadAnimation.load('animations/preloader_2', 'preloader_2', onLoadDB);
+        g.loadAnimation.load('animations/visit_preloader', 'visitPreloader', onLoadDB);
     }
 
     private function onLoadDB():void {
@@ -103,16 +103,16 @@ public class LoadComponents {
     private function loadDBX():void {
         count = 10;
 
-        g.loadAnimation.load('animations/x1/bfly/', 'butterfly', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_main/', 'cat', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_watering_can/', 'cat_watering', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_feed/', 'cat_feed', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_queue/', 'cat_queue', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/explode/', 'explode', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/explode_gray/', 'explode_gray', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/plants/', 'plant', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/tools/', 'removeWild', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/trees/', 'trees', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/bfly', 'butterfly', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/cat_main', 'cat', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/cat_watering_can', 'cat_watering', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/cat_feed', 'cat_feed', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/cat_queue', 'cat_queue', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/explode', 'explode', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/explode_gray', 'explode_gray', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/plants', 'plant', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/tools', 'removeWild', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/trees', 'trees', onLoadDB_X);
     }
 
     private function onLoadDB_X():void {

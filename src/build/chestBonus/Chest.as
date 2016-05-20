@@ -13,25 +13,17 @@ import starling.display.Sprite;
 import windows.WindowsManager;
 
 public class Chest extends WorldObject{
-    private var _armature:Armature;
     private var _timerAnimation:int;
 
     public function Chest(data:Object) {
         super (data);
         _source.endClickCallback = onClick;
-        createBuild();
+        _source.releaseContDrag = true;
+        createBuild(onCreateBuild);
     }
 
-    override public function createBuild(isImageClicked:Boolean = true):void {
-        _armature = g.allData.factory['chest_mini'].buildArmature("cat");
-        _build.addChild(_armature.display as Sprite);
+    private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _defaultScale = 1;
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        if (_flip) _build.scaleX = -_defaultScale;
-        _source.addChild(_build);
         animation();
     }
 

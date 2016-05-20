@@ -15,7 +15,6 @@ import starling.display.Sprite;
 import windows.WindowsManager;
 
 public class DailyBonus extends WorldObject{
-    private var _armature:Armature;
     private var _isOnHover:Boolean;
 
     public function DailyBonus(data:Object) {
@@ -27,8 +26,13 @@ public class DailyBonus extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for DailyBonus');
             return;
         }
-        createBuild();
+        createBuild(onCreateBuild);
+        _source.releaseContDrag = true;
+    }
 
+    private function onCreateBuild():void {
+        WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndStop('idle', 0);
         if (!g.isAway) {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
@@ -36,26 +40,6 @@ public class DailyBonus extends WorldObject{
             _hitArea = g.managerHitArea.getHitArea(_source, 'dailyBonusBuild');
             _source.registerHitArea(_hitArea);
         }
-        _source.releaseContDrag = true;
-    }
-
-    override public function createBuild(isImageClicked:Boolean = true):void {
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
-        _armature = g.allData.factory['daily_bonus'].buildArmature("cat");
-        _build.addChild(_armature.display as Sprite);
-        WorldClock.clock.add(_armature);
-        _defaultScale = 1;
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        if (_flip) _build.scaleX = -_defaultScale;
-        _source.addChild(_build);
-        _armature.animation.gotoAndStop('idle', 0);
     }
 
     private function onHover():void {

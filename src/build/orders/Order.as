@@ -15,7 +15,6 @@ import starling.display.Sprite;
 import windows.WindowsManager;
 
 public class Order extends WorldObject{
-    private var _armature:Armature;
     private var _isOnHover:Boolean;
 
     public function Order (data:Object) {
@@ -26,36 +25,22 @@ public class Order extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Order');
             return;
         }
-        createOrderBuild();
-        if (!g.isAway) {
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
-            _source.releaseContDrag = true;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'orderBuild');
-            _source.registerHitArea(_hitArea);
-        }
+        createBuild(onCreateBuild);
+        _source.releaseContDrag = true;
     }
 
-    public function createOrderBuild():void {
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
-        _armature = g.allData.factory['order'].buildArmature("cat");
-        _build.addChild(_armature.display as Sprite);
-        _defaultScale = 1;
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        if (_flip) _build.scaleX = -_defaultScale;
-        _source.addChild(_build);
+    private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
         _armature.addEventListener(AnimationEvent.COMPLETE, makeAnimation);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);
         makeAnimation();
+        if (!g.isAway) {
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+            _hitArea = g.managerHitArea.getHitArea(_source, 'orderBuild');
+            _source.registerHitArea(_hitArea);
+        }
     }
 
     private function onHover():void {

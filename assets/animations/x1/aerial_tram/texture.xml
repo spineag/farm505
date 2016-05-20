@@ -1,0 +1,19 @@
+<TextureAtlas name="aerial_tram" imagePath="texture.png">
+ <SubTexture name="stovp" x="0" y="0" width="150" height="287"/>
+ <SubTexture name="pillow_1.png" x="152" y="160" width="209" height="142"/>
+ <SubTexture name="shesterni" x="363" y="259" width="86" height="257"/>
+ <SubTexture name="pillar_2_4.png" x="373" y="0" width="86" height="257"/>
+ <SubTexture name="pillar_2_2.png" x="0" y="289" width="86" height="257"/>
+ <SubTexture name="pillar_2_3.png" x="88" y="304" width="86" height="257"/>
+ <SubTexture name="ruchka" x="472" y="91" width="32" height="7"/>
+ <SubTexture name="__dbTextures/aerial_tram/mex_0" x="503" y="0" width="7" height="7"/>
+ <SubTexture name="boxr" x="152" y="0" width="219" height="158"/>
+ <SubTexture name="legRight" x="496" y="59" width="11" height="15"/>
+ <SubTexture name="tail" x="484" y="47" width="17" height="10"/>
+ <SubTexture name="handRight" x="461" y="74" width="9" height="17"/>
+ <SubTexture name="body" x="461" y="47" width="21" height="25"/>
+ <SubTexture name="legLeft" x="472" y="74" width="10" height="15"/>
+ <SubTexture name="head" x="461" y="0" width="40" height="45"/>
+ <SubTexture name="eye" x="496" y="76" width="13" height="8"/>
+ <SubTexture name="handLeft" x="484" y="59" width="10" height="17"/>
+</TextureAtlas>

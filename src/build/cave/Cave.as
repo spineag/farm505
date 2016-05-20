@@ -19,7 +19,6 @@ public class Cave extends WorldObject{
     private var _isOnHover:Boolean;
     private var _countTimer:int;
     private var _arrCraftItems:Array;
-    private var _armature:Armature;
     private var _armatureOpen:Armature;
     private var _isAnimate:Boolean;
 
@@ -32,7 +31,7 @@ public class Cave extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Cave');
             return;
         }
-        checkCaveState();
+        createBuild(checkCaveState);
         _isAnimate = false;
         _source.releaseContDrag = true;
         _craftSprite = new Sprite();
@@ -60,29 +59,15 @@ public class Cave extends WorldObject{
         super.clearIt();
     }
 
-    override public function createBuild(isImageClicked:Boolean = true):void {
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
-        _armature = g.allData.factory[_dataBuild.image].buildArmature("building");
-        _build.addChild(_armature.display as Sprite);
+    private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _defaultScale = 1;
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        if (_flip) _build.scaleX = -_defaultScale;
-        _source.addChild(_build);
         _hitArea = g.managerHitArea.getHitArea(_source, 'caveBuild');
         _source.registerHitArea(_hitArea);
     }
 
     private function checkCaveState():void {
-        try {
-            createBuild();
+//        try {
+            onCreateBuild();
             if (g.isAway) {
                 var ob:Object;
                 var ar:Array = g.visitedUser.userDataCity.objects;
@@ -140,10 +125,10 @@ public class Cave extends WorldObject{
                     _armature.animation.gotoAndStop('close', 0);
                 }
             }
-        } catch (e:Error) {
-            Cc.error('cave checkCaveState error: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Cave checkCaveState');
-        }
+//        } catch (e:Error) {
+//            Cc.error('cave checkCaveState error: ' + e.errorID + ' - ' + e.message);
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Cave checkCaveState');
+//        }
     }
 
     protected function renderBuildCaveProgress():void {

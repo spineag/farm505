@@ -1,0 +1,3 @@
+<TextureAtlas name="newspaper" imagePath="texture.png">
+ <SubTexture name="paper" x="0" y="0" width="73" height="122"/>
+</TextureAtlas>

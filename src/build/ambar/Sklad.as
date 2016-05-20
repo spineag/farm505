@@ -14,7 +14,6 @@ import windows.WindowsManager;
 import windows.ambar.WOAmbars;
 
 public class Sklad extends WorldObject{
-    private var _armature:Armature;
     private var _isOnHover:Boolean;
 
     public function Sklad(_data:Object) {
@@ -25,18 +24,20 @@ public class Sklad extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Sklad');
             return;
         }
-        createBuild();
+        _dbBuildingId = _dataBuild.dbId;
+        createBuild(onCreateBuild);
+    }
 
+    private function onCreateBuild():void {
         if (!g.isAway) {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
             _hitArea = g.managerHitArea.getHitArea(_source, 'skladBuild');
             _source.registerHitArea(_hitArea);
+            WorldClock.clock.add(_armature);
         }
         _source.releaseContDrag = true;
-        _dbBuildingId = _data.dbId;
-//        _dataBuild.isFlip = _flip;
     }
 
     private function onHover():void {
@@ -100,24 +101,6 @@ public class Sklad extends WorldObject{
         onOut();
         _source.touchable = false;
         super.clearIt();
-    }
-
-    override public function createBuild(isImageClicked:Boolean = true):void {
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
-        _armature = g.allData.factory['sklad'].buildArmature("fabrica");
-        _build.addChild(_armature.display as Sprite);
-        WorldClock.clock.add(_armature);
-//        _defaultScale = 1;
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-//        if (_flip) _build.scaleX = -_defaultScale;
-        _source.addChild(_build);
     }
 
 }

@@ -254,7 +254,7 @@ public class ShopItem {
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
             if (!texture) {
-                texture = g.allData.atlas[_data.url].getTexture(_data.image);
+                texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
             }
             _im = new Image(texture);
             if (!_im) {
