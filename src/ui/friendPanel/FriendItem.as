@@ -119,6 +119,11 @@ public class FriendItem {
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!bitmap) {
             bitmap = g.pBitmaps[person.photo].create() as Bitmap;
+            if (_preloader) {
+                source.removeChild(_preloader.source);
+                _preloader.deleteIt();
+                _preloader = null;
+            }
         }
         if (!bitmap) {
             if (_preloader) {

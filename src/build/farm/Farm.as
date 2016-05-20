@@ -76,6 +76,9 @@ public class Farm extends WorldObject{
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+            for (var i:int = 0; i < _arrAnimals.length; i++) {
+                _arrAnimals[i].deleteFilter();
+            }
             _source.filter = ManagerFilters.BUILD_STROKE;
         } else {
             if (_arrCrafted.length) {

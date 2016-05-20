@@ -38,6 +38,7 @@ import ui.xpPanel.XPStar;
 import user.Someone;
 import utils.CSprite;
 import windows.WindowsManager;
+import windows.shop.WOShop;
 
 public class TownArea extends Sprite {
     private var _cityObjects:Array;
@@ -228,7 +229,7 @@ public class TownArea extends Sprite {
             _townMatrix.push([]);
             _townTailMatrix.push([]);
             for (var j:int = 0; j < ln; j++) {
-                _townTailMatrix[i][j] = {build: null, inGame: true};
+                _townTailMatrix[i][j] = {build: null, inGame: true, inTile:false};
                 _townMatrix[i][j] = {};
                 _townMatrix[i][j].build = null;
                 _townMatrix[i][j].buildFence = null;
@@ -324,6 +325,7 @@ public class TownArea extends Sprite {
                     }
                     _townTailMatrix[i][j].isTutorialBuilding = false;
                     _townTailMatrix[i][j].build = source;
+                    _townTailMatrix[i][j].inTile = true;
 //                    _townTailMatrix[i][j].isFull = true;
 //                    if (sizeX > 1 && sizeY > 1) {
 //                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
@@ -348,6 +350,7 @@ public class TownArea extends Sprite {
             for (var i:int = posY; i < (posY + sizeY); i++) {
                 for (var j:int = posX; j < (posX + sizeX); j++) {
                     _townTailMatrix[i][j].build = null;
+                    _townTailMatrix[i][j].inTile= false;
 //                    _townTailMatrix[i][j].isFull = false;
 //                    _townTailMatrix[i][j].isWall = false;
                     _townTailMatrix[i][j].isTutorialBuilding = false;
@@ -780,6 +783,9 @@ public class TownArea extends Sprite {
     private function endMoveAfterShop(build:WorldObject,_x:Number, _y:Number):void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         (build as WorldObject).source.filter = null;
+        if ((build as WorldObject).dataBuild.buildType == BuildType.FARM) {
+            g.user.buyMarketTab = WOShop.VILLAGE;
+        }
         if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {
             g.bottomPanel.cancelBoolean(false);
         }
@@ -899,7 +905,7 @@ public class TownArea extends Sprite {
             }
         }
         (tail as WorldObject).updateDepth();
-        if (updateAfterMove) decorTailSort();
+        decorTailSort();
 
         g.selectedBuild = null;
         if (isNewAtMap){
