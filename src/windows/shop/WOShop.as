@@ -113,11 +113,11 @@ public class WOShop extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void{
         updateMoneyCounts();
-//        if (params.length) {
-//            curentTab = params[0];
-//        }
-        if (curentTab > 0) onTab(curentTab);
+        if (params.length) {
+            onTab(params[0]);
+        } else if (curentTab > 0) onTab(curentTab);
         else onTab(VILLAGE);
+        g.user.buyMarketTab = 0;
         super.showIt();
     }
 

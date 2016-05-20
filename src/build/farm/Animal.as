@@ -264,6 +264,9 @@ public class Animal {
         source.filter = ManagerFilters.BUILD_STROKE;
         g.gameDispatcher.addToTimer(countEnterFrameMouseHint);
     }
+    public function deleteFilter():void {
+        source.filter = null;
+    }
 
     private function onOut():void {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;

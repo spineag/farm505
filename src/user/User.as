@@ -36,6 +36,8 @@ public class User extends Someone {
     public var plantNotification:int;
     public var decorNotification:int;
     public var allNotification:int;
+
+    public var buyMarketTab:int;
     private var g:Vars = Vars.getInstance();
 
     public function User() {

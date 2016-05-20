@@ -32,6 +32,7 @@ import utils.MCScaler;
 import windows.WOComponents.HorizontalPlawka;
 import windows.WindowsManager;
 import windows.ambar.WOAmbars;
+import windows.serverError.WOServerError;
 import windows.shop.WOShop;
 
 public class MainBottomPanel {
@@ -229,6 +230,9 @@ public class MainBottomPanel {
                 } else if (g.managerCutScenes.isCutScene) {
                     shopTab = WOShop.DECOR;
                     g.managerCutScenes.checkCutSceneCallback();
+                } else {
+                    if (g.user.buyMarketTab == WOShop.VILLAGE)
+                    shopTab = WOShop.ANIMAL;
                 }
 
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);

@@ -376,12 +376,12 @@ public class ToolsModifier {
         if (_activeBuilding is DecorTail) {
             if (_modifierType == MOVE) {
                 g.townArea.onActivateMoveModifier(true);
-                g.cont.contentCont.touchable = true;
+//                g.cont.contentCont.touchable = true;
                 g.cont.contentCont.alpha = 1;
             }
         } else g.cont.contentCont.alpha = 1;
         if (_activeBuilding is DecorTail) {
-            if (g.townArea.townTailMatrix[point.y][point.x].build) {
+            if (!checkFreeTailGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
                 g.gameDispatcher.addEnterFrame(moveIt);
                 return;
             } else {
@@ -389,7 +389,7 @@ public class ToolsModifier {
                 g.cont.contentCont.touchable = true;
             }
         }
-        if (!g.isActiveMapEditor && _activeBuilding.useIsometricOnly ){//&& !(_activeBuilding is DecorTail)) {
+        if (!g.isActiveMapEditor && _activeBuilding.useIsometricOnly && !(_activeBuilding is DecorTail)) {
             if (!checkFreeGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
                 g.gameDispatcher.addEnterFrame(moveIt);
                 return;
@@ -433,13 +433,12 @@ public class ToolsModifier {
             spriteForMoveIndexY = point.y;
             if (_activeBuilding is DecorTail) {
                 if (!g.townArea.townTailMatrix[spriteForMoveIndexY] || !g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX]) return;
-                if (g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX].build) {
+                if (!checkFreeTailGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
                     _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
                 } else {
                     _spriteForMove.filter = null;
                 }
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
-
             } else {
                 if (g.isActiveMapEditor && _activeBuilding is Wild) return;
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
@@ -470,6 +469,19 @@ public class ToolsModifier {
                 if (obj.isFull) return false;
                 if (obj.isBlocked) return false;
                 if (obj.isFence) return false;
+            }
+        }
+
+        return true;
+    }
+    public function checkFreeTailGrids(posX:int, posY:int, width:int, height:int):Boolean {
+        for (i = posY; i < posY + height; i++) {
+            for (j = posX; j < posX + width; j++) {
+                if (i < 0 || j < 0 || i > 80 || j > 80) return false;
+                obj = g.townArea.townTailMatrix[i][j];
+                if (obj.inTile) return false;
+                if (!obj.inGame) return false;
+                if (obj.isBlocked) return false;
             }
         }
 
