@@ -1,0 +1,7 @@
+<TextureAtlas name="beehive" imagePath="texture.png">
+ <SubTexture name="beehive" x="0" y="0" width="81" height="84"/>
+ <SubTexture name="clover" x="83" y="0" width="40" height="35"/>
+ <SubTexture name="bee" x="83" y="37" width="33" height="28"/>
+ <SubTexture name="honey" x="118" y="57" width="7" height="5"/>
+ <SubTexture name="bee_wing.png" x="118" y="37" width="6" height="18"/>
+</TextureAtlas>

@@ -1,0 +1,6 @@
+<TextureAtlas name="pig" imagePath="texture.png">
+ <SubTexture name="leg" x="65" y="0" width="15" height="22"/>
+ <SubTexture name="head" x="0" y="0" width="63" height="60"/>
+ <SubTexture name="head1" x="0" y="62" width="63" height="60"/>
+ <SubTexture name="zzz" x="82" y="0" width="10" height="12"/>
+</TextureAtlas>
