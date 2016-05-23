@@ -62,6 +62,8 @@ public class WorldObject {
         _sizeX = 0;
         _sizeY = 0;
         _source.woObject = this;
+        _sizeX = _dataBuild.width;
+        _sizeY = _dataBuild.height;
     }
 
     public function get sizeX():uint {
@@ -228,8 +230,6 @@ public class WorldObject {
         _armature = g.allData.factory[_dataBuild.url].buildArmature(_dataBuild.image);
         _build.addChild(_armature.display as Sprite);
         _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
         _source.addChild(_build);
         if (onCreate != null) onCreate.apply();
     }

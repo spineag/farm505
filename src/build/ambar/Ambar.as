@@ -59,8 +59,6 @@ public class Ambar extends WorldObject{
         }
         _build.addChild(im);
         _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
         _source.addChild(_build);
     }
 
