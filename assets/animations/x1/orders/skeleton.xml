@@ -82,7 +82,7 @@
     </display>
    </slot>
   </skin>
-  <animation name="idle" fadeInTime="0" duration="28" scale="1" loop="0" autoTween="0" tweenEasing="NaN">
+  <animation name="idle" fadeInTime="0" duration="28" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
    <timeline name="buildb" scale="1" offset="0">
     <frame z="0" duration="28">
      <transform x="-1.23" y="99.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -696,7 +696,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="over" fadeInTime="0" duration="17" scale="1" loop="0" autoTween="0" tweenEasing="NaN">
+  <animation name="over" fadeInTime="0" duration="17" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
    <timeline name="buildb" scale="1" offset="0">
     <frame z="0" duration="17">
      <transform x="-1.23" y="99.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>

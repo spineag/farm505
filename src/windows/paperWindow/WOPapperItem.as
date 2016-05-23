@@ -218,7 +218,11 @@ public class WOPapperItem {
         _imageItem.y = 100 - +_imageItem.height/2;
         source.addChild(_imageItem);
         if (_data.buyerId == 1) {
-            _userAvatar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
+            _userAvatar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('avatar_2'));
+            MCScaler.scaleMin(_userAvatar, 46, 46);
+            _ava.addChild(_userAvatar);
+        } else {
+            _userAvatar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('avatar_3'));
             MCScaler.scaleMin(_userAvatar, 46, 46);
             _ava.addChild(_userAvatar);
         }
