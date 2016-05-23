@@ -306,7 +306,6 @@
             <filename>sale.png</filename>
             <filename>refresh_icon.png</filename>
             <filename>button_yel_left.png</filename>
-            <filename>neighbor.png</filename>
             <filename>tutorial_arrow_stroke.png</filename>
             <filename>coupons_icon.png</filename>
             <filename>coins.png</filename>
@@ -326,6 +325,9 @@
             <filename>cursor_hover.png</filename>
             <filename>red_m_big.png</filename>
             <filename>new_m.png</filename>
+            <filename>avatar_1.png</filename>
+            <filename>avatar_2.png</filename>
+            <filename>avatar_3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
