@@ -1097,12 +1097,12 @@ public class ManagerTutorial {
         (g.windowsManager.currentWindow as WOOrder).setTextForCustomer(texts[g.user.tutorialStep][_subStep]);
         g.user.tutorialStep = 12;
         updateTutorialStep();
-        _tutorialCallback = subStep11_10;
-    }
-
-    private function subStep11_10():void {
-        _subStep = 10;
-        (g.windowsManager.currentWindow as WOOrder).hideIt();
+//        _tutorialCallback = subStep11_10;
+//    }
+//
+//    private function subStep11_10():void {
+//        _subStep = 10;
+//        (g.windowsManager.currentWindow as WOOrder).hideIt();
         _currentAction = TutorialAction.LEVEL_UP;
         _tutorialCallback = subStep11_11;
     }

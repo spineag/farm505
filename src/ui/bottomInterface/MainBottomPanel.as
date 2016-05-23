@@ -419,6 +419,7 @@ public class MainBottomPanel {
     }
 
     private function photoFromTexture(tex:Texture):void {
+        if (!tex) return;
         _ava = new Image(tex);
         MCScaler.scale(_ava,71,71);
         _ava.x = 9;

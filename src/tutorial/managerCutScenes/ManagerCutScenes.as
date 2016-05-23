@@ -292,6 +292,7 @@ public class ManagerCutScenes {
             _arrow.deleteIt();
             _arrow = null;
         }
+        _cutScene.hideIt(deleteCutScene);
         g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 150, _cutSceneBuildings[0].source.y - 20, false, .5);
         (_cutSceneBuildings[0] as Decor).showArrow();
         _cutSceneCallback = toInventory_3;

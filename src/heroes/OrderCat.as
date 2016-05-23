@@ -126,7 +126,7 @@ public class OrderCat {
         _posX = p.x;
         _posY = p.y;
         if (_posX < 0 || _posY < 0) {
-            _depth = _source.y - 100;
+            _depth = _source.y - 150;
         } else {
             p.x = _source.x;
             p.y = _source.y;
