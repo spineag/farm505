@@ -79,6 +79,7 @@ public class Decor extends WorldObject{
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+            if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isCutSceneBuilding(this)) return;
             onOut();
             if (!g.selectedBuild) {
                 if (g.managerCutScenes && g.managerCutScenes.isCutSceneBuilding(this)) {

@@ -88,6 +88,7 @@ public class WOShop extends WindowMain {
     }
 
     private function onClickExit(e:Event=null):void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) return;
         if (g.user.allNotification > 0) {
             switch (curentTab) {
@@ -283,6 +284,7 @@ public class WOShop extends WindowMain {
         btn.y = -_woHeight/2 + 528;
         _source.addChild(btn);
         var f1:Function = function ():void {
+            if (g.managerCutScenes.isCutScene) return;
             if (g.managerTutorial.isTutorial) return;
             hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
@@ -312,6 +314,7 @@ public class WOShop extends WindowMain {
         btn.y = -_woHeight/2 + 528;
         _source.addChild(btn);
         var f2:Function = function ():void {
+            if (g.managerCutScenes.isCutScene) return;
             if (g.managerTutorial.isTutorial) return;
             hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, false);

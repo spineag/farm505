@@ -75,6 +75,7 @@ public class Wild extends WorldObject{
     }
 
     private function onHover():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.selectedBuild) return;
         if (_curLockedLand && !g.isActiveMapEditor) return;

@@ -114,6 +114,7 @@ public class Ridge extends WorldObject{
     }
 
     public function onHover():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
             if (_tutorialCallback == null) return;
             if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialBuilding(this)) {

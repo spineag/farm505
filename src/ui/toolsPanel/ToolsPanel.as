@@ -10,6 +10,9 @@ import mouse.ToolsModifier;
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
+
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import utils.CButton;
 import windows.WOComponents.HorizontalPlawka;
 
@@ -124,6 +127,8 @@ public class ToolsPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'repository':
+                if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR)
+                        && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();
@@ -143,18 +148,20 @@ public class ToolsPanel {
                 }
                 break;
             case 'move':
-                    if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
-                        g.toolsModifier.modifierType = ToolsModifier.NONE;
-                        g.toolsModifier.cancelMove();
-                    }
-                    if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
-                        g.toolsModifier.modifierType == ToolsModifier.MOVE
-                          ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
-                        hideRepository();
-                    }
-                    if (g.buyHint.showThis) g.buyHint.hideIt();
+                if (g.managerCutScenes.isCutScene) return;
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.toolsModifier.cancelMove();
+                }
+                if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
+                    g.toolsModifier.modifierType == ToolsModifier.MOVE
+                      ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
+                    hideRepository();
+                }
+                if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'flip':
+                if (g.managerCutScenes.isCutScene) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();

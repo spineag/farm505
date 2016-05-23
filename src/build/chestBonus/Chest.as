@@ -10,6 +10,9 @@ import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import mouse.ToolsModifier;
 import starling.display.Sprite;
+
+import tutorial.TutorialAction;
+
 import windows.WindowsManager;
 
 public class Chest extends WorldObject{
@@ -30,6 +33,7 @@ public class Chest extends WorldObject{
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction != TutorialAction.TAKE_CHEST) return;
             if (!g.managerTutorial.isTutorialBuilding(this)) return;
         }
         if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {

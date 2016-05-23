@@ -93,6 +93,7 @@ public class FriendItem {
     }
 
     private function visitPerson():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR && _person == g.user.neighbor) {
                 g.managerTutorial.checkTutorialCallback();
@@ -159,6 +160,7 @@ public class FriendItem {
             _preloader.deleteIt();
             _preloader = null;
         }
+        if (!tex) return;
         _ava = new Image(tex);
         MCScaler.scale(_ava, 50, 50);
         _ava.x = 5;

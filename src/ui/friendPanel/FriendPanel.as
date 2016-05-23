@@ -87,6 +87,7 @@ public class FriendPanel {
     }
 
     private function inviteFriends():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {      // temp
             g.managerTutorial.checkTutorialCallback();
             g.townArea.goAway(g.user.neighbor);
@@ -264,6 +265,7 @@ public class FriendPanel {
     }
 
     private function onLeftClick():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) return;
         var newCount:int = 5;
         if (_shift - newCount < 0) newCount = _shift;
@@ -288,6 +290,7 @@ public class FriendPanel {
     }
 
     private function onRightClick():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) return;
         var newCount:int = 5;
         if (_shift + newCount + 5 >= _arrFriends.length) newCount = _arrFriends.length - _shift - 5;

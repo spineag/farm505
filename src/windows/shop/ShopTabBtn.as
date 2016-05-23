@@ -37,6 +37,7 @@ public class ShopTabBtn {
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txt.y = 10;
         var f1:Function = function():void {
+            if (g.managerCutScenes.isCutScene) return;
             if (g.managerTutorial.isTutorial) return;
             if (f!=null) f.apply();
         };
@@ -138,7 +139,7 @@ public class ShopTabBtn {
         _defaultY = y;
     }
 
-    public function closeNotification ():void {
+    public function closeNotification():void {
         switch (_type) {
             case WOShop.VILLAGE:
                 if (g.user.villageNotification > 0) {

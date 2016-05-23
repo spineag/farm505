@@ -128,7 +128,6 @@ public class ManagerCutScenes {
             case ID_ACTION_BUY_DECOR: releaseDecor(); break;
             case ID_ACTION_TO_INVENTORY_DECOR: releaseToInventoryDecor(); break;
             case ID_ACTION_FROM_INVENTORY_DECOR: releaseFromInventoryDecor(); break;
-            case ID_ACTION_FROM_INVENTORY_DECOR: releaseFromInventoryDecor(); break;
             case ID_ACTION_TRAIN_AVAILABLE: releaseAvailableTrain(); break;
             case ID_ACTION_OPEN_TRAIN: releaseOpenTrain(); break;
         }
@@ -268,6 +267,7 @@ public class ManagerCutScenes {
             Cc.error('no decor for CutScene');
             return;
         }
+        _cutSceneBuildings.length = 1;
         g.bottomPanel.showToolsForCutScene();
         createDelay(.7, toInventory_1);
     }
@@ -292,13 +292,7 @@ public class ManagerCutScenes {
             _arrow.deleteIt();
             _arrow = null;
         }
-        var pX:int = _cutSceneBuildings[0].posX - 2;
-        var pY:int = _cutSceneBuildings[0].posY - 2;
-        if (pX < 0 || pY < 0) {
-            pX += 2;
-            pY += 2;
-        }
-        g.cont.moveCenterToPos(pX, pY, false, .5);
+        g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 150, _cutSceneBuildings[0].source.y - 20, false, .5);
         (_cutSceneBuildings[0] as Decor).showArrow();
         _cutSceneCallback = toInventory_3;
     }

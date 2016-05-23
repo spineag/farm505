@@ -201,6 +201,7 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
+                if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) return;
                 if (g.managerTutorial.isTutorial) {
                     if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA
                             || g.managerTutorial.currentAction == TutorialAction.BUY_FARM || g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
@@ -244,6 +245,7 @@ public class MainBottomPanel {
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'cancel':
+                if (g.managerCutScenes.isCutScene) return;
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     _toolsBtn.visible = true;
@@ -266,6 +268,7 @@ public class MainBottomPanel {
                 }
                 break;
             case 'tools':
+                if (g.managerCutScenes.isCutScene) return;
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
@@ -278,6 +281,7 @@ public class MainBottomPanel {
                 g.toolsPanel.hideRepository();
                 break;
             case 'option':
+                if (g.managerCutScenes.isCutScene) return;
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
@@ -292,6 +296,7 @@ public class MainBottomPanel {
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'order':
+                if (g.managerCutScenes.isCutScene) return;
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
@@ -302,6 +307,7 @@ public class MainBottomPanel {
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'ambar':
+                if (g.managerCutScenes.isCutScene) return;
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
@@ -313,6 +319,7 @@ public class MainBottomPanel {
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
             case 'door':
+                if (g.managerCutScenes.isCutScene) return;
                 if (g.managerTutorial.isTutorial) {
                     if (g.managerTutorial.currentAction == TutorialAction.GO_HOME) {
                         g.managerTutorial.checkTutorialCallback();
