@@ -1,0 +1,9 @@
+<TextureAtlas name="cow" imagePath="texture.png">
+ <SubTexture name="shadow" x="171" y="0" width="71" height="47"/>
+ <SubTexture name="leg" x="227" y="49" width="15" height="22"/>
+ <SubTexture name="body" x="108" y="0" width="61" height="58"/>
+ <SubTexture name="body_angry" x="0" y="0" width="106" height="97"/>
+ <SubTexture name="head" x="171" y="49" width="54" height="56"/>
+ <SubTexture name="head_angry" x="108" y="60" width="54" height="56"/>
+ <SubTexture name="zzz" x="244" y="0" width="10" height="12"/>
+</TextureAtlas>

@@ -1,0 +1,7 @@
+<TextureAtlas name="chiken" imagePath="texture.png">
+ <SubTexture name="shadow" x="53" y="43" width="46" height="30"/>
+ <SubTexture name="shikenw" x="0" y="0" width="51" height="52"/>
+ <SubTexture name="shiken_2" x="53" y="0" width="38" height="41"/>
+ <SubTexture name="wing" x="93" y="0" width="11" height="21"/>
+ <SubTexture name="zzz" x="106" y="0" width="10" height="12"/>
+</TextureAtlas>

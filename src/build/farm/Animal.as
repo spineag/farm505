@@ -41,6 +41,7 @@ public class Animal {
     private var _tutorialCallback:Function;
 
     private var animation:AnimalAnimation;
+    private var currentLabel:String;
     private var defaultLabel:String;
     private var hungryLabel:String;
     private var feedLabel:String;
@@ -61,6 +62,7 @@ public class Animal {
         _isOnHover = false;
         _tutorialCallback = null;
 
+        currentLabel = '';
         animation = new AnimalAnimation();
         animation.animalArmature(g.allData.factory[_data.image].buildArmature("animal"));
         source.addChild(animation.source);
