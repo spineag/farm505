@@ -41,7 +41,7 @@ public class Animal {
     private var _tutorialCallback:Function;
 
     private var animation:AnimalAnimation;
-    private var currentLabel:String;
+    private var currentLabelAfterLoading:String;
     private var defaultLabel:String;
     private var hungryLabel:String;
     private var feedLabel:String;
@@ -62,10 +62,12 @@ public class Animal {
         _isOnHover = false;
         _tutorialCallback = null;
 
-        currentLabel = '';
-        animation = new AnimalAnimation();
-        animation.animalArmature(g.allData.factory[_data.image].buildArmature("animal"));
-        source.addChild(animation.source);
+        currentLabelAfterLoading = '';
+        if (g.allData.factory[_data.url]) {
+            createAnimal();
+        } else {
+            g.loadAnimation.load('animations/x1/' + _data.url, _data.url, createAnimal);
+        }
 
         _state = HUNGRY;
 
@@ -111,6 +113,15 @@ public class Animal {
                 walkLabel = 'walk';
                 idleLabels = ['idle_2', 'idle_1'];
                 break;
+        }
+    }
+
+    private function createAnimal():void {
+        animation = new AnimalAnimation();
+        animation.animalArmature(g.allData.factory[_data.url].buildArmature(_data.image));
+        source.addChild(animation.source);
+        if (currentLabelAfterLoading != '') {
+            addRenderAnimation();
         }
     }
 
@@ -266,9 +277,6 @@ public class Animal {
         source.filter = ManagerFilters.BUILD_STROKE;
         g.gameDispatcher.addToTimer(countEnterFrameMouseHint);
     }
-    public function deleteFilter():void {
-        source.filter = null;
-    }
 
     private function onOut():void {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
@@ -309,7 +317,9 @@ public class Animal {
 
     private function showFeedingAnimation():void {
         stopAnimation();
-        animation.playIt('feed', true, addRenderAnimation);
+        if (animation) {
+            animation.playIt(feedLabel, true, addRenderAnimation);
+        } else currentLabelAfterLoading = feedLabel;
     }
 
     public function addRenderAnimation():void {
@@ -323,7 +333,7 @@ public class Animal {
 
     public function playDirectIdle():void {
         stopAnimation();
-        animation.playIt(idleLabels[0]);
+        if (animation) animation.playIt(idleLabels[0]);
     }
 
     private function completeDirectIdleAnimation(e:AnimationEvent):void {
@@ -331,11 +341,13 @@ public class Animal {
     }
 
     private function showHungryAnimations():void {
-        if (_data.id == 6) {
-            animation.stopItAtLabel(hungryLabel);
-        } else {
-            animation.playIt(hungryLabel);
-        }
+        if (animation) {
+            if (_data.id == 6) {
+                animation.stopItAtLabel(hungryLabel);
+            } else {
+                animation.playIt(hungryLabel);
+            }
+        } else currentLabelAfterLoading = hungryLabel;
     }
 
     private function playHungry(e:AnimationEvent):void {
@@ -343,16 +355,18 @@ public class Animal {
     }
 
     private function chooseAnimation():void {
-        stopAnimation();
-        if (_data.id == 6) {
-            idleAnimation();
-        } else {
-            if (Math.random() > .7) {
-                walkAnimation();
-            } else {
+        if (animation) {
+            stopAnimation();
+            if (_data.id == 6) {
                 idleAnimation();
+            } else {
+                if (Math.random() > .7) {
+                    walkAnimation();
+                } else {
+                    idleAnimation();
+                }
             }
-        }
+        } else currentLabelAfterLoading = defaultLabel;
     }
 
     private function idleAnimation():void {
@@ -403,7 +417,7 @@ public class Animal {
     }
 
     private function stopAnimation():void {
-        animation.stopIt();
+        if (animation) animation.stopIt();
         TweenMax.killTweensOf(source);
     }
 

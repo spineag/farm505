@@ -33,17 +33,6 @@ public class EmbedAssets {
     [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
     private const HouschkaBold:Class;
 
-    [Embed(source = "../../assets/animations/x1/beehive.png", mimeType = "application/octet-stream")]
-    private const Beehive:Class;
-    [Embed(source = "../../assets/animations/x1/chicken.png", mimeType = "application/octet-stream")]
-    private const Chicken:Class;
-    [Embed(source = "../../assets/animations/x1/cow.png", mimeType = "application/octet-stream")]
-    private const Cow:Class;
-    [Embed(source = "../../assets/animations/x1/pig.png", mimeType = "application/octet-stream")]
-    private const Pig:Class;
-    [Embed(source = "../../assets/animations/x1/sheep.png", mimeType = "application/octet-stream")]
-    private const Sheep:Class;
-
     [Embed(source = "../../assets/animations/x1/cat_tutorial.png", mimeType = "application/octet-stream")]
     private const CatTutorial:Class;
     [Embed(source = "../../assets/animations/cat_tutorial_big2.png", mimeType = "application/octet-stream")]
@@ -72,7 +61,7 @@ public class EmbedAssets {
         g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
         g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
-        var count:int = 7;
+        var count:int = 2;
         var checkCount:Function = function ():void {
             count--;
             if (count <= 0) {
@@ -82,11 +71,6 @@ public class EmbedAssets {
                 }
             }
         };
-        loadFactory('beehive', Beehive, checkCount);
-        loadFactory('chicken', Chicken, checkCount);
-        loadFactory('cow', Cow, checkCount);
-        loadFactory('pig', Pig, checkCount);
-        loadFactory('sheep', Sheep, checkCount);
         loadFactory('tutorialCat', CatTutorial, checkCount);
         loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
     }
