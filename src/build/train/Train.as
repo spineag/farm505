@@ -47,8 +47,12 @@ public class Train extends WorldObject{
 
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
-       createBuild(checkTrainState);
+       checkTrainState();
         _source.releaseContDrag = true;
+    }
+
+    public function fillItDefault():void {
+        createBuild(onCreateBuild);
     }
 
     public function fillFromServer(ob:Object):void {
@@ -60,12 +64,13 @@ public class Train extends WorldObject{
                     _stateBuild = STATE_READY;
                     g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                     _counter = TIME_READY;
-                    onArrivedKorzina();
+//                    onArrivedKorzina();
                 } else {
                     _counter = TIME_WAIT - int(ob.time_work);
                 }
                 g.directServer.getTrainPack(g.user.userSocialId, fillList);
-                renderTrainWork();
+//                renderTrainWork();
+                createBuild(onCreateBuild);
             } else if (_stateBuild == STATE_READY) {
                 if (int(ob.time_work) > TIME_READY) {
                     _stateBuild = STATE_WAIT_BACK;
@@ -73,10 +78,11 @@ public class Train extends WorldObject{
                     _counter = TIME_WAIT;
                 } else {
                     _counter = TIME_READY - int(ob.time_work);
-                    onArrivedKorzina();
+//                    onArrivedKorzina();
                 }
                 g.directServer.getTrainPack(g.user.userSocialId, fillList);
-                renderTrainWork();
+//                renderTrainWork();
+                createBuild(onCreateBuild);
             } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
                 // do nothing
             } else if (_stateBuild == STATE_BUILD) {
@@ -138,7 +144,6 @@ public class Train extends WorldObject{
     private function checkTrainState():void {
 //        try {
             if (g.isAway) {
-                onCreateBuild();
                 if (g.visitedUser) {
                     var ar:Array = g.visitedUser.userDataCity.objects;
                     for (var i:int=0; i<ar.length; i++) {
@@ -147,20 +152,18 @@ public class Train extends WorldObject{
                             break;
                         }
                     }
-                    if (_stateBuild < 4) {
-                        createBrokenTrain();
-                    } else if (_stateBuild == STATE_WAIT_BACK) {
-                        arriveTrain();
-                    }
-                } else {
-                    createBrokenTrain();
+//                    if (_stateBuild < 4) {
+//                        createBuild(onCreateBuild);
+//                    } else if (_stateBuild == STATE_WAIT_BACK) {
+                        createBuild(onCreateBuild);
+//                    }
                 }
             } else {
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
-                        createBuild(onCreateBuild);
-                        makeIdleAnimation();
+//                        createBuild(onCreateBuild);
+//                        makeIdleAnimation();
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
                         _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
@@ -179,8 +182,8 @@ public class Train extends WorldObject{
                     }
                 } else {
                     _stateBuild = STATE_UNACTIVE;
-                    onCreateBuild();
-                    createBrokenTrain();
+//                    onCreateBuild();
+//                    createBrokenTrain();
                 }
             }
 //        } catch (e:Error) {
@@ -193,7 +196,21 @@ public class Train extends WorldObject{
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_build, 'trainBuild');
         _source.registerHitArea(_hitArea);
-        if (!_arriveAnim) _arriveAnim = new ArrivedAnimation(_source);
+        if (g.isAway) {
+
+        } else {
+            if (_stateBuild == STATE_UNACTIVE) {
+                createBrokenTrain();
+                _arriveAnim = new ArrivedAnimation(_source);
+            } else if (_stateBuild == STATE_READY) {
+                _arriveAnim = new ArrivedAnimation(_source);
+                onArrivedKorzina();
+                startRenderTrainWork();
+            } else if (_stateBuild == STATE_WAIT_BACK) {
+                _arriveAnim = new ArrivedAnimation(_source);
+                startRenderTrainWork();
+            }
+        }
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
@@ -201,7 +218,7 @@ public class Train extends WorldObject{
 
     private function createBrokenTrain():void {
         _build.visible = true;
-        _armature.animation.gotoAndStop('close', 0);
+        if (_armature) _armature.animation.gotoAndStop('close', 0);
     }
 
     protected function renderBuildTrainProgress():void {
@@ -361,7 +378,7 @@ public class Train extends WorldObject{
             _stateBuild = STATE_READY;
             _counter = TIME_READY;
             g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
-            renderTrainWork();
+            startRenderTrainWork();
             onOut();
             clearCraftSprite();
             while (_build.numChildren) {
@@ -370,17 +387,23 @@ public class Train extends WorldObject{
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
-            _build.visible = true;
-            if (_arriveAnim) _arriveAnim.visible = true;
-            createBuild(onCreateBuild);
-            arriveTrain();
+            createBuild(onJustOpenedTrain);
             showBoom();
         }
     }
 
+    private function onJustOpenedTrain():void {
+        _build.visible = true;
+        if (!_arriveAnim) _arriveAnim = new ArrivedAnimation(_source);
+        _arriveAnim.visible = true;
+        _arriveAnim.makeArriveKorzina(onArrivedKorzina);
+        WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlay('work');
+        _bolAnimation = true;
+    }
+
     private function onOpenTrain(value:Boolean):void {
         g.directServer.addUserTrain(onAddUserTrain);
-        _arriveAnim.makeArriveKorzina(onArrivedKorzina);
     }
 
     private function onAddUserTrain(s_id:String):void {
@@ -468,7 +491,7 @@ public class Train extends WorldObject{
         g.directServer.getUserTrain(null);
     }
 
-    private function renderTrainWork():void {
+    private function startRenderTrainWork():void {
         g.gameDispatcher.addToTimer(render);
     }
 

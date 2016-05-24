@@ -268,11 +268,13 @@ public class WOTrain extends WindowMain {
             _txtCostAll.text = String(_build.allCoinsCount);
             _txtXpAll.text = String(_build.allXPCount);
         var num:int = 0;
-        for(i = 0; i< list.length; i++) {
-            if (!list[i].isFull && g.userInventory.getCountResourceById(list[i].id) >= list[i].count){
-                num = i;
-                break;
-            } else num = 0;
+        if (!g.managerCutScenes.isCutScene) {
+            for (i = 0; i < list.length; i++) {
+                if (!list[i].isFull && g.userInventory.getCountResourceById(list[i].id) >= list[i].count) {
+                    num = i;
+                    break;
+                } else num = 0;
+            }
         }
         onItemClick(num);
         checkBtn();
@@ -306,7 +308,6 @@ public class WOTrain extends WindowMain {
     }
 
     private function onItemClick(k:int):void {
-        if (g.managerCutScenes.isCutScene) return;
         _activeItemIndex = k;
         _btnLoad.visible = true;
         _btnHelp.visible = true;

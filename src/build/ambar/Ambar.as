@@ -30,11 +30,6 @@ public class Ambar extends WorldObject{
         _ambarIndicator.source.y = -210 * g.scaleFactor;
         _build.addChild(_ambarIndicator.source);
 
-        if (!g.isAway) {
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
-        }
         _source.releaseContDrag = true;
         _dbBuildingId = _data.dbId;
     }
@@ -60,6 +55,11 @@ public class Ambar extends WorldObject{
         _build.addChild(im);
         _rect = _build.getBounds(_build);
         _source.addChild(_build);
+        if (!g.isAway) {
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+        }
     }
 
     private function onHover():void {

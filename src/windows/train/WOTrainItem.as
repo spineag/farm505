@@ -133,6 +133,7 @@ public class WOTrainItem {
     }
 
     private function onClick():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (_f != null) {
             _f.apply(null, [_index]);
         }
