@@ -24,7 +24,7 @@ public class Ambar extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Ambar');
             return;
         }
-        createBuildAmbar();
+        createAtlasBuild(onCreateBuild);
         _ambarIndicator = new AmbarIndicator();
         _ambarIndicator.source.x = -36 * g.scaleFactor;
         _ambarIndicator.source.y = -210 * g.scaleFactor;
@@ -34,27 +34,7 @@ public class Ambar extends WorldObject{
         _dbBuildingId = _data.dbId;
     }
 
-    private function createBuildAmbar():void {
-        var im:Image;
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
-
-        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
-        im.x = _dataBuild.innerX;
-        im.y = _dataBuild.innerY;
-
-        if (!im) {
-            Cc.error('Ambar:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
-            return;
-        }
-        _build.addChild(im);
-        _rect = _build.getBounds(_build);
-        _source.addChild(_build);
+    private function onCreateBuild():void {
         if (!g.isAway) {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;

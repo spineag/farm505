@@ -5,6 +5,8 @@ import data.BuildType;
 
 import dragonBones.Armature;
 
+import flash.display.Bitmap;
+
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
@@ -12,6 +14,8 @@ import manager.hitArea.OwnHitArea;
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.textures.Texture;
+
 import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
 import utils.IsoUtils;
@@ -212,7 +216,7 @@ public class WorldObject {
         _hitArea = null;
     }
 
-    public function createBuild(onCreate:Function):void {
+    public function createAnimatedBuild(onCreate:Function):void {
         if (_build) {
             if (_source.contains(_build)) {
                 _source.removeChild(_build);
@@ -220,15 +224,76 @@ public class WorldObject {
             while (_build.numChildren) _build.removeChildAt(0);
         }
         if (g.allData.factory[_dataBuild.url]) {
-            createBuild1(onCreate);
+            createAnimBuild1(onCreate);
         } else {
-            g.loadAnimation.load('animations/x1/' + _dataBuild.url, _dataBuild.url, createBuild1, onCreate);
+            g.loadAnimation.load('animations/x1/' + _dataBuild.url, _dataBuild.url, createAnimBuild1, onCreate);
         }
     }
 
-    private function createBuild1(onCreate:Function):void {
+    private function createAnimBuild1(onCreate:Function):void {
         _armature = g.allData.factory[_dataBuild.url].buildArmature(_dataBuild.image);
         _build.addChild(_armature.display as Sprite);
+        _rect = _build.getBounds(_build);
+        _source.addChild(_build);
+        if (onCreate != null) onCreate.apply();
+    }
+
+    public function createAtlasBuild(onCreate:Function):void {
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+        if (g.allData.atlas[_dataBuild.url]) {
+            createAtlasBuild1(onCreate);
+        } else {
+            g.load.loadAtlas(_dataBuild.url, _dataBuild.url, createAtlasBuild1);
+        }
+
+    }
+
+    private function createAtlasBuild1(onCreate:Function):void {
+        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
+        im.x = _dataBuild.innerX;
+        im.y = _dataBuild.innerY;
+
+        if (!im) {
+            Cc.error('Ambar:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
+            return;
+        }
+        _build.addChild(im);
+        _rect = _build.getBounds(_build);
+        _source.addChild(_build);
+        if (onCreate != null) onCreate.apply();
+    }
+
+    public function createPNGBuild(onCreate:Function):void {
+        if (_build) {
+            if (_source.contains(_build)) {
+                _source.removeChild(_build);
+            }
+            while (_build.numChildren) _build.removeChildAt(0);
+        }
+        if (g.pBitmaps[_dataBuild.url]) {
+            createPNGBuild1(null, onCreate);
+        } else {
+            g.load.loadImage(_dataBuild.url, createPNGBuild1);
+        }
+    }
+
+    private function createPNGBuild1(b:Bitmap, onCreate:Function):void {
+        var im:Image = new Image(Texture.fromBitmap(g.pBitmaps[_dataBuild.url].create() as Bitmap));
+        im.x = _dataBuild.innerX;
+        im.y = _dataBuild.innerY;
+
+        if (!im) {
+            Cc.error('Ambar:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
+            return;
+        }
+        _build.addChild(im);
         _rect = _build.getBounds(_build);
         _source.addChild(_build);
         if (onCreate != null) onCreate.apply();

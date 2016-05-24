@@ -44,13 +44,16 @@ public class Ridge extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Ridge');
             return;
         }
-        createBuildRidge();
+        _plantSprite = new Sprite();
+        _bgClicked = new CSprite();
+        createAtlasBuild(onCreateBuild);
         _stateRidge = EMPTY;
 
         _source.removeMainListener();
         _isOnHover = false;
+    }
 
-        _bgClicked = new CSprite();
+    private function onCreateBuild():void {
         var tempSprite:Sprite = new Sprite();
         var q:Quad = new Quad(120 * g.scaleFactor, 120 * g.scaleFactor, Color.BLACK);
         q.rotation = Math.PI / 4;
@@ -70,9 +73,7 @@ public class Ridge extends WorldObject{
             _bgClicked.registerHitArea(_hitArea);
         }
         _bgClicked.releaseContDrag = true;
-
-        _plantSprite = new Sprite();
-        _bgClicked.addChild(_plantSprite);
+        _source.addChild(_plantSprite);
     }
 
     override public function isContDrag():Boolean {

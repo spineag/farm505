@@ -66,7 +66,7 @@ public class Fabrica extends WorldObject {
             if (g.user.userBuildingData[_dataBuild.id]) {
                 if (g.user.userBuildingData[_dataBuild.id].isOpen) {
                     _stateBuild = STATE_ACTIVE;
-                    createBuild(onCreateBuild);                                                     // уже построенно и открыто
+                    createAnimatedBuild(onCreateBuild);                                                     // уже построенно и открыто
                 } else {
                     _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding); // сколько времени уже строится
                     var arr:Array = g.townArea.getCityObjectsById(_dataBuild.id);
@@ -83,7 +83,7 @@ public class Fabrica extends WorldObject {
                 }
             } else {
                 _stateBuild = STATE_ACTIVE;
-                createBuild(onCreateBuild);
+                createAnimatedBuild(onCreateBuild);
             }
         } catch (e:Error) {
             Cc.error('AreaObject checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
@@ -100,7 +100,7 @@ public class Fabrica extends WorldObject {
 
 
     public function showShopView():void {
-        createBuild(onCreateBuild);
+        createAnimatedBuild(onCreateBuild);
         _craftSprite.visible = false;
     }
 
@@ -274,7 +274,7 @@ public class Fabrica extends WorldObject {
             }
             clearCraftSprite();
             onOut();
-            createBuild(onCreateBuild);
+            createAnimatedBuild(onCreateBuild);
             _source.setChildIndex(_craftSprite, _source.numChildren-1);
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));

@@ -26,7 +26,7 @@ public class DailyBonus extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for DailyBonus');
             return;
         }
-        createBuild(onCreateBuild);
+        createAnimatedBuild(onCreateBuild);
         _source.releaseContDrag = true;
     }
 

@@ -22,7 +22,7 @@ public class Chest extends WorldObject{
         super (data);
         _source.endClickCallback = onClick;
         _source.releaseContDrag = true;
-        createBuild(onCreateBuild);
+        createAnimatedBuild(onCreateBuild);
     }
 
     private function onCreateBuild():void {

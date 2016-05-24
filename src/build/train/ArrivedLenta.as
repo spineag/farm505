@@ -123,7 +123,7 @@ public class ArrivedLenta {
     public function showDirectKorzina():void {
         _korzina.x = -160*g.scaleFactor;
         _korzina.y = -178*g.scaleFactor;
-        if (!_parent.contains(_korzina))  _parent.addChild(_korzina);
+        if (!_parent.contains(_korzina)) _parent.addChild(_korzina);
         _imLeft.visible = true;
         _imRight.visible = true;
         setLeftToPoint(_korzina.x, _korzina.y);
@@ -145,6 +145,16 @@ public class ArrivedLenta {
             _callback.apply();
             _callback = null;
         }
+    }
+
+    public function deleteIt():void {
+        _parent.removeChild(_imLeft);
+        _parent.removeChild(_imRight);
+        if (_parent.contains(_korzina))  _parent.removeChild(_korzina);
+        _imLeft.dispose();
+        _imRight.dispose();
+        _korzina.dispose();
+        _parent = null;
     }
 }
 }
