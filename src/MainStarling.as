@@ -2,8 +2,6 @@
  * Created by andriy.grynkiv on 16/03/14.
  */
 package {
-import com.junkbyte.console.Cc;
-
 import manager.AllData;
 import manager.DataPath;
 import manager.EmbedAssets;
@@ -11,7 +9,6 @@ import manager.LoadAnimationManager;
 import manager.LoadComponents;
 import manager.LoaderManager;
 import manager.Vars;
-
 import starling.display.Sprite;
 import starling.utils.AssetManager;
 
@@ -36,7 +33,7 @@ public class MainStarling extends Sprite {
         sAssets.verbose = true;
         sAssets.enqueue(EmbedAssets);
 
-        var max:int = 80;
+        var max:int = 5;
         var cur:int;
         sAssets.loadQueue(function (ratio:Number):void {
             cur = int(max * ratio);
@@ -56,7 +53,6 @@ public class MainStarling extends Sprite {
     }
 
     private function onAllLoaded():void {
-        Cc.info('on all loaded');
         dispatchEventWith(MainStarling.LOADED);
         g.initInterface();
     }
