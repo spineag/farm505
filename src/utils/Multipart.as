@@ -1,4 +1,4 @@
-package Utils
+package utils
 {
 import flash.net.URLRequest;
 import flash.net.URLRequestHeader;

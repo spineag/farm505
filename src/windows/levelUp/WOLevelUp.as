@@ -5,6 +5,8 @@ package windows.levelUp {
 import data.BuildType;
 import flash.geom.Rectangle;
 import manager.ManagerFilters;
+import manager.ManagerWallPost;
+
 import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -32,6 +34,7 @@ public class WOLevelUp extends WindowMain {
     private var _arrCells:Array;
     private var _leftArrow:CButton;
     private var _rightArrow:CButton;
+    private var _arrItems:Array;
     private var _shift:int;
     private var _woBG:WindowBackground;
 
@@ -53,6 +56,7 @@ public class WOLevelUp extends WindowMain {
         _contClipRect = new Sprite();
         _contImage = new Sprite();
         _arrCells = [];
+        _arrItems = [];
         _source.addChild(_contClipRect);
         _contClipRect.clipRect = new Rectangle(0,0,440,280);
         _contClipRect.x = -_woWidth/2 + 55;
@@ -80,7 +84,7 @@ public class WOLevelUp extends WindowMain {
         _contBtn.addChild(_txtHard);
         _contBtn.addChild(_txtContinue);
         _contBtn.y = _woHeight/2;
-        _contBtn.clickCallback = hideIt;
+        _contBtn.clickCallback = onClickShare;
 
         _leftArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
@@ -260,6 +264,7 @@ public class WOLevelUp extends WindowMain {
                     }
                 }
             }
+            _arrItems.push(arr[i]);
             im = new WOLevelUpItem(arr[i],true, true, 3);
             im.source.x = int(i) * (90);
             _arrCells.push(im);
@@ -284,6 +289,11 @@ public class WOLevelUp extends WindowMain {
             _leftArrow.setEnabled = false;
             _rightArrow.visible = true;
         }
+    }
+
+    private function onClickShare():void {
+        g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_arrItems);
+        hideIt();
     }
 
     override protected function deleteIt():void {

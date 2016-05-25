@@ -52,7 +52,7 @@ public class CatPanel {
         checkCat();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-        _source.endClickCallback = onClick;
+//        _source.endClickCallback = onClick;
     }
 
     public function checkCat():void {
@@ -93,7 +93,6 @@ public class CatPanel {
     private function onClick():void {
 //        g.user.level ++;
 //        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-        g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL);
     }
 }
 }
