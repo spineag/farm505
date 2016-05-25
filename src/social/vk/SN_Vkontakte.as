@@ -17,6 +17,8 @@ import manager.Vars;
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
 
+import tutorial.ManagerTutorial;
+
 import user.Friend;
 
 
@@ -50,14 +52,14 @@ public class SN_Vkontakte extends SocialNetwork {
         _apiConnection.addEventListener(CustomEvent.ORDER_FAIL, orderFailHandler);
         _apiConnection.addEventListener(CustomEvent.ORDER_SUCCESS, orderSuccessHandler);
 
-        if (ExternalInterface.available) {
+//        if (ExternalInterface.available) {
             try {
                 ExternalInterface.addCallback("showPayment", showPayment);
                 ExternalInterface.addCallback("useActiveOffers", getOffersInfoHandler);
             } catch (e:Error) {
                 Cc.error(e.toString(), "Social network do not use ExternalInterface. Callback showPayment ignored.");
             }
-        }
+//        }
 
         super(flashVars);
     }
@@ -301,7 +303,7 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
         url = url || "icon_vk.png";
-        title = title || "Птичий островок";
+        title = title || "Умелые Лапки";
 
         super.wallPostBitmap(uid, message, image, url, title, posttype);
 
@@ -532,16 +534,18 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     private function showPayment(e:Object):void {
-//        if (ManagerTutorial.isTutorial || g.selectedBuilding || g.area.areaVisitCity.isAway || g.area.handler.selectedBuild) {
+//        if (g.managerTutorial.isTutorial || g.selectedBuild || g.isAway || g.area.handler.selectedBuild) {
 //            return;
 //        }
-//
+
 //        if (WOHandler.countOpenedWindows() > 0 || g.managerCutScene.isActivate || g.area.areaLoadedCity.isLoad) {
 //            return;
 //        }
-//
+
 //        g.woAddCoins.indexActivateTabButton = 0;
 //        g.woAddCoins.handler.init();
+
+        Cc.error(e.toString(), "showPayment");
     }
 
 
@@ -560,10 +564,10 @@ public class SN_Vkontakte extends SocialNetwork {
 
     private function getOffersInfoHandler(e:Object):void {
 //        for testing offers system uncomment next line
-//        (e.items as Array).push({currency_amount:6, description:"test", id:2169, price:1, img:"http://cs310421.vk.me/u00100/b_3a685ddb.jpg",title:"", short_description:"TestOffer"});
+        (e.items as Array).push({currency_amount:6, description:"test", id:2169, price:1, img:"http://cs310421.vk.me/u00100/b_3a685ddb.jpg",title:"", short_description:"TestOffer"});
 
         Cc.ch("offer", "Got " + e.count + " offers");
-        //g.managerOffer.setSocialOffer(e.items);
+//        g.managerOffer.setSocialOffer(e.items);
     }
 
     override public function showOfferBox(offer_id:String):void {

@@ -114,7 +114,7 @@ public class Vars {
     public var managerOrderCats:ManagerOrderCats;
     public var managerDailyBonus:ManagerDailyBonus;
     public var managerCutScenes:ManagerCutScenes;
-
+    public var managerWallPost:ManagerWallPost;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -213,6 +213,7 @@ public class Vars {
         managerTutorial = new ManagerTutorial();
         managerHitArea = new ManagerHitArea();
         managerCutScenes = new ManagerCutScenes();
+        managerWallPost = new ManagerWallPost();
 
         new ManagerFilters();
         ownMouse = new OwnMouse();

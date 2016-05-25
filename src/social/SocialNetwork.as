@@ -174,7 +174,7 @@ public class SocialNetwork extends EventDispatcher {
 
     public function wallPost(uid:String, message:String, image:DisplayObject, url:String = null, title:String = null, posttype:String = null, idObj:String = '0'):void {
         Cc.ch('social', "SocialNetwork:: wallpost for uid " + uid + ".\nMessage: " + message + "\nImage: " + image + "\nURL: " + url + "\nTitle: " + title + "\nType: " + posttype);
-        //v.plugins.sendActivity("posting", "show", {uids: [g.socialNetwork.currentUID, uid].join(","), typeObj: posttype, idObj: idObj});
+//        v.plugins.sendActivity("posting", "show", {uids: [g.socialNetwork.currentUID, uid].join(","), typeObj: posttype, idObj: idObj});
         clearScreen();
     }
 
@@ -259,7 +259,7 @@ public class SocialNetwork extends EventDispatcher {
     private function getLog(obj:Object = null):void {
         try {
             Cc.obj("info", obj, "SocialNetwork:: processing info for sending log with params");
-            //ExternalInterface.call("setLog", Cc.getLogHTML());
+//            ExternalInterface.call("setLog", Cc.getLogHTML());
         } catch (e:Error) {
             Cc.warn("SocialNetwork:: cannot send log");
         }

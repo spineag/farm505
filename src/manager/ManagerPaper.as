@@ -63,7 +63,6 @@ public class ManagerPaper {
         var arrMax:Array = [];
         var ob:Object;
         var ra:int;
-        var nu:Number;
         var i:int;
         if (firstBot) {
             for (id in obData) {
@@ -91,11 +90,10 @@ public class ManagerPaper {
             _arr.push(ob);
 
             ra = Math.random() * arrMax.length;
-            nu = Math.random();
             ob = {};
             ob.buyerId = 2;
             ob.resourceId = arrMax[ra].id;
-            ob.resourceCount = nu * arrMax[ra].count;
+            ob.resourceCount = int(Math.random()*arrMax[ra].count) + 1;
             ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
             ob.xp = 5;
             ob.timeToNext = int(new Date().getTime()/1000);
@@ -132,11 +130,10 @@ public class ManagerPaper {
                     if (g.dataResource.objectResources[arr[i].id].visitorPrice > 0) arrMax.push(arr[i]);
                 }
                 ra = Math.random() * arrMax.length;
-                nu = Math.random();
                 ob = {};
                 ob.buyerId = 2;
                 ob.resourceId = arrMax[ra].id;
-                ob.resourceCount = int(arrMax[ra].count * nu);
+                ob.resourceCount = int(Math.random()*arrMax[ra].count) + 1;
                 ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
                 ob.xp = 5;
                 ob.timeToNext = int(new Date().getTime()/1000);
