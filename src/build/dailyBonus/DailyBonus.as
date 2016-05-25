@@ -42,8 +42,9 @@ public class DailyBonus extends WorldObject{
         }
     }
 
-    private function onHover():void {
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             var fEndOver:Function = function():void {
@@ -61,7 +62,8 @@ public class DailyBonus extends WorldObject{
         g.hint.showIt(_dataBuild.name);
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         _source.filter = null;
         _isOnHover = false;
         g.hint.hideIt();

@@ -43,9 +43,10 @@ public class Order extends WorldObject{
         }
     }
 
-    private function onHover():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             var fEndOver:Function = function():void {
@@ -65,7 +66,8 @@ public class Order extends WorldObject{
         _isOnHover = true;
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         g.hint.hideIt();
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         _source.filter = null;

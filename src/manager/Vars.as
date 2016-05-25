@@ -122,7 +122,6 @@ public class Vars {
     public var matrixGrid:MatrixGrid;
     public var townArea:TownArea;
     public var farmGrid:FarmGrid;
-
     public var background:BackgroundArea;
 
     public var allData:AllData;
@@ -132,7 +131,6 @@ public class Vars {
     public var dataAnimal:DataAnimal;
     public var dataLevel:DataLevel;
     public var dataCats:Array;
-    public var selectedBuild:WorldObject;
 
     public var timerHint:TimerHint;
     public var wildHint:WildHint;
@@ -158,6 +156,8 @@ public class Vars {
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
     public var buildTouchManager:BuildTouchManager;
+    public var selectedBuild:WorldObject;
+    public var currentInteractiveBuild:WorldObject;
 
     public var server:Server;
     public var directServer:DirectServer;

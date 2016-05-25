@@ -114,9 +114,10 @@ public class Fabrica extends WorldObject {
         _craftSprite.visible = true;
     }
 
-    private function onHover():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _count = 20;
         if (_stateBuild == STATE_ACTIVE) {
@@ -151,7 +152,8 @@ public class Fabrica extends WorldObject {
         _isOnHover = true;
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         _source.filter = null;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) return;

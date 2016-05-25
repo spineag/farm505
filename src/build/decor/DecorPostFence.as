@@ -130,12 +130,14 @@ public class DecorPostFence extends WorldObject{
         }
     }
 
-    private function onHover():void {
+    override public function onHover():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY)
             _source.filter = ManagerFilters.BUILD_STROKE;
+            super.onHover();
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         _source.filter = null;
     }
 

@@ -133,16 +133,18 @@ public class LockedLand extends WorldObject {
         }
     }
 
-    private function onHover():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _build.filter = ManagerFilters.RED_LIGHT_TINT_FILTER;
         _topRibbon.filter = ManagerFilters.RED_LIGHT_TINT_FILTER;
         _bottomRibbon.filter = ManagerFilters.RED_LIGHT_TINT_FILTER;
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _build.filter = null;

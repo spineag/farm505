@@ -39,8 +39,9 @@ public class Paper extends WorldObject{
         _source.registerHitArea(_hitArea);
     }
 
-    private function onHover():void {
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         }
@@ -50,7 +51,8 @@ public class Paper extends WorldObject{
         g.hint.showIt(_dataBuild.name);
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         _isOnHover = false;
         _source.filter = null;
         g.hint.hideIt();

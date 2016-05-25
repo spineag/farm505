@@ -141,9 +141,10 @@ public class Cave extends WorldObject{
         }
     }
 
-    private function onHover():void {
-        if (_isAnimate) return;
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
+        if (_isAnimate) return;
         if (_stateBuild == STATE_ACTIVE) {
             if (!_isOnHover && !_isAnimate) {
                 var fEndOver2:Function = function():void {
@@ -182,7 +183,8 @@ public class Cave extends WorldObject{
         _isOnHover = true;
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         _isOnHover = false;
         if (_source) _source.filter = null;
         if (_isAnimate) return;

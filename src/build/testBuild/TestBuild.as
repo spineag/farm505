@@ -12,7 +12,7 @@ public class TestBuild extends WorldObject{
 
     public function TestBuild(_data:Object) {
         super(_data);
-        createAnimatedBuild();
+        createAnimatedBuild(null);
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
@@ -21,7 +21,9 @@ public class TestBuild extends WorldObject{
         _dataBuild.isFlip = _flip;
     }
 
-    private function onHover():void {
+    override public function onHover():void {
+        if (g.selectedBuild) return;
+        super.onHover();
         _source.filter = BlurFilter.createGlow(Color.RED, 10, 2, 1);
         g.hint.showIt(_dataBuild.name);
 
@@ -48,7 +50,8 @@ public class TestBuild extends WorldObject{
 
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         _source.filter = null;
         g.hint.hideIt();
     }

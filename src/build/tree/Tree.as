@@ -323,8 +323,9 @@ public class Tree extends WorldObject {
         }
     }
 
-    private function onHover():void {
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
         if (g.isActiveMapEditor) return;
         if (_isOnHover) return;
         _source.filter = ManagerFilters.BUILD_STROKE;
@@ -401,9 +402,10 @@ public class Tree extends WorldObject {
         }
     }
 
-    private function onOut():void {
+    override public function onOut():void {
         if (g.isActiveMapEditor) return;
         if (g.selectedBuild) return;
+        super.onOut();
         _source.filter = null;
         _isOnHover = false;
 //        g.timerHint.hideIt();

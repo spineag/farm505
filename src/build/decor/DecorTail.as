@@ -28,9 +28,10 @@ public class DecorTail extends WorldObject{
         _source.registerHitArea(_hitArea);
     }
 
-    private function onHover():void {
-        if (g.isActiveMapEditor) return;
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
+        if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             _source.filter = ManagerFilters.BUILD_STROKE;
         }
@@ -74,7 +75,8 @@ public class DecorTail extends WorldObject{
 
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         if (g.isActiveMapEditor) return;
         _source.filter = null;
     }

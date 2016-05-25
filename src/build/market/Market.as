@@ -49,8 +49,9 @@ public class Market extends WorldObject{
         _source.registerHitArea(_hitArea);
     }
 
-    private function onHover():void {
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
         if (_isOnHover)  return;
         var fEndOver:Function = function():void {
             _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
@@ -116,7 +117,7 @@ public class Market extends WorldObject{
         }
     }
 
-    private function onOut():void {
+    override public function onOut():void {
         _isOnHover = false;
         _source.filter = null;
         g.hint.hideIt();

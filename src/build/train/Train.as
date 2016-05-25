@@ -229,8 +229,10 @@ public class Train extends WorldObject{
         }
     }
 
-    private function onHover():void {
-        if (g.selectedBuild || _isOnHover) return;
+    override public function onHover():void {
+        if (g.selectedBuild) return;
+        super.onHover();
+        if (_isOnHover) return;
         _build.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         if (_stateBuild == STATE_UNACTIVE) {
             var fEndOver:Function = function():void {
@@ -427,7 +429,8 @@ public class Train extends WorldObject{
         g.gameDispatcher.addToTimer(renderBuildTrainProgress);
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         _craftSprite.filter = null;
         _build.filter = null;
         g.hint.hideIt();

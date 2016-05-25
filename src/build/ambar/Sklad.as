@@ -40,8 +40,9 @@ public class Sklad extends WorldObject{
         _source.releaseContDrag = true;
     }
 
-    private function onHover():void {
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             var fEndOver:Function = function():void {
@@ -91,7 +92,8 @@ public class Sklad extends WorldObject{
 
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         _isOnHover = false;
         _source.filter = null;
         g.hint.hideIt();

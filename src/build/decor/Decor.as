@@ -30,8 +30,9 @@ public class Decor extends WorldObject{
         }
     }
 
-    private function onHover():void {
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY)
             _source.filter = ManagerFilters.BUILD_STROKE;
@@ -83,7 +84,8 @@ public class Decor extends WorldObject{
 
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         _source.filter = null;
     }
 

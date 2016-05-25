@@ -114,7 +114,9 @@ public class Ridge extends WorldObject{
         _source.addChild(_build);
     }
 
-    public function onHover():void {
+    override public function onHover():void {
+        if (g.selectedBuild) return;
+        super.onHover();
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
             if (_tutorialCallback == null) return;
@@ -122,7 +124,6 @@ public class Ridge extends WorldObject{
 
             } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }
-        if (g.selectedBuild) return;
         if (g.isActiveMapEditor || g.isAway){
             return;
         }
@@ -152,7 +153,8 @@ public class Ridge extends WorldObject{
         }
     }
 
-    public function onOut():void {
+    override public function onOut():void {
+        super.onHover();
         if (g.isActiveMapEditor || g.isAway) return;
         _source.filter = null;
         _isOnHover = false;

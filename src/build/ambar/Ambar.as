@@ -42,8 +42,9 @@ public class Ambar extends WorldObject{
         }
     }
 
-    private function onHover():void {
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
         if (!_isOnHover) {
             makeOverAnimation();
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
@@ -85,7 +86,8 @@ public class Ambar extends WorldObject{
         }
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
        _isOnHover = false;
         _source.filter = null;
         g.hint.hideIt();

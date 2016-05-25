@@ -70,6 +70,12 @@ public class WorldObject {
         _sizeY = _dataBuild.height;
     }
 
+    public function onOut():void {}
+    public function onHover():void {
+        if (g.currentInteractiveBuild && g.currentInteractiveBuild != this) g.currentInteractiveBuild.onOut();
+        g.currentInteractiveBuild = this;
+    }
+
     public function get sizeX():uint {
         return _flip ? _sizeY : _sizeX;
     }

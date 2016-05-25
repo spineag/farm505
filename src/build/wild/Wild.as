@@ -74,10 +74,11 @@ public class Wild extends WorldObject{
         _curLockedLand = null;
     }
 
-    private function onHover():void {
+    override public function onHover():void {
+        if (g.selectedBuild) return;
+        super.onHover();
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
-        if (g.selectedBuild) return;
         if (_curLockedLand && !g.isActiveMapEditor) return;
         if (_delete) return;
         if(_isOnHover) return;
@@ -90,7 +91,8 @@ public class Wild extends WorldObject{
         g.gameDispatcher.addEnterFrame(countEnterFrame);
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (_delete) return;
         _isOnHover = false;

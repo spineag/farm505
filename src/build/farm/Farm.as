@@ -72,9 +72,10 @@ public class Farm extends WorldObject{
         }
     }
 
-    private function onHover():void {
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+    override public function onHover():void {
         if (g.selectedBuild) return;
+        super.onHover();
+        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             for (var i:int = 0; i < _arrAnimals.length; i++) {
@@ -88,7 +89,8 @@ public class Farm extends WorldObject{
         }
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         if (g.isActiveMapEditor) return;
         _source.filter = null;
         _craftSprite.filter = null;

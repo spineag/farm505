@@ -24,11 +24,14 @@ public class DecorFence extends WorldObject {
         super.clearIt();
     }
 
-    private function onHover():void {
+    override public function onHover():void {
+        if (g.selectedBuild) return;
+        super.onHover();
         _source.filter = ManagerFilters.BUILD_STROKE;
     }
 
-    private function onOut():void {
+    override public function onOut():void {
+        super.onOut();
         if (g.isActiveMapEditor) return;
         _source.filter = null;
     }
