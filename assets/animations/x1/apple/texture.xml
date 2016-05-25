@@ -1,0 +1,12 @@
+<TextureAtlas name="apple" imagePath="texture.png">
+ <SubTexture name="d1" x="350" y="0" width="92" height="155"/>
+ <SubTexture name="f1" x="444" y="74" width="41" height="35"/>
+ <SubTexture name="f2" x="444" y="0" width="41" height="35"/>
+ <SubTexture name="a2" x="0" y="197" width="70" height="70"/>
+ <SubTexture name="a1" x="234" y="183" width="95" height="95"/>
+ <SubTexture name="a3" x="350" y="157" width="95" height="95"/>
+ <SubTexture name="d2" x="234" y="0" width="114" height="181"/>
+ <SubTexture name="f3" x="444" y="37" width="41" height="35"/>
+ <SubTexture name="d3" x="0" y="0" width="115" height="195"/>
+ <SubTexture name="d4" x="117" y="0" width="115" height="195"/>
+</TextureAtlas>

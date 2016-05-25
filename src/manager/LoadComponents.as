@@ -117,13 +117,13 @@ public class LoadComponents {
         g.loadAnimation.load('animations/x1/explode_gray', 'explode_gray', onLoadDB_X);
         g.loadAnimation.load('animations/x1/plants', 'plant', onLoadDB_X);
         g.loadAnimation.load('animations/x1/tools', 'removeWild', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/trees', 'trees', onLoadDB_X);
+//        g.loadAnimation.load('animations/x1/trees', 'trees', onLoadDB_X);
     }
 
     private function onLoadDB_X():void {
         count++;
         g.startPreloader.setProgress(52 + 2*count);
-        if (count >=10) {
+        if (count >=9) {
             if (_callback != null) _callback.apply();
         }
     }

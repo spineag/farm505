@@ -60,12 +60,12 @@ public class ShopItem {
         _positionInList = pos;
         _wo = wo;
         _data = data;
+        source = new CSprite();
         if (!_data) {
             Cc.error('ShopItem:: empty _data');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
             return;
         }
-        source = new CSprite();
         _bg = new CartonBackgroundIn(145, 221);
         source.addChild(_bg);
 
@@ -262,11 +262,6 @@ public class ShopItem {
                 return;
             }
             _im = new Image(texture);
-            if (!_im) {
-                Cc.error('ShopItem:: no such image: ' + _data.image);
-                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
-                return;
-            }
             MCScaler.scale(_im, 120, 120);
             _imCont = new Sprite();
             _im.x = - _im.width / 2;
@@ -274,7 +269,6 @@ public class ShopItem {
             _imCont.addChild(_im);
             _imCont.x = 72;
             _imCont.y = 90;
-//            _imCont.touchable = false;
             source.addChildAt(_imCont, 1);
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);

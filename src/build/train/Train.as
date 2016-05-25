@@ -193,6 +193,7 @@ public class Train extends WorldObject{
                 onArrivedKorzina();
             } else if (_stateBuild == STATE_WAIT_BACK) {
                 _arriveAnim = new ArrivedAnimation(_source);
+                makeIdleAnimation();
             }
         } else {
             if (_stateBuild == STATE_UNACTIVE) {
@@ -204,6 +205,7 @@ public class Train extends WorldObject{
                 startRenderTrainWork();
             } else if (_stateBuild == STATE_WAIT_BACK) {
                 _arriveAnim = new ArrivedAnimation(_source);
+                makeIdleAnimation();
                 startRenderTrainWork();
             }
         }

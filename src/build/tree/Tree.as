@@ -5,7 +5,6 @@ package build.tree {
 import build.WorldObject;
 import build.wild.RemoveWildAnimation;
 import com.greensock.TweenMax;
-import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
@@ -51,65 +50,48 @@ public class Tree extends WorldObject {
     private var _wateringUserSocialId:String;
     private var _craftedCountFromServer:int;
     private var _countMouse:int;
-
-    private var armatureClip:Sprite;
     private var arrFruits:Array;
+    private var _needShopView:Boolean;
 
     public function Tree(_data:Object) {
         super(_data);
         _arrCrafted = [];
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        (_build as Sprite).alpha = 1;
-        _source.addChild(_build);
+        arrFruits = [];
         _state = GROW1;
 
+        _source.releaseContDrag = true;
+        _resourceItem = new ResourceItem();
+        _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
+        _craftSprite = new Sprite();
+        createAnimatedBuild(onCreateBuild);
+    }
+
+    private function onCreateBuild():void {
         if (!g.isAway) {
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }
         _source.endClickCallback = onClick;
-        _source.releaseContDrag = true;
-
-        switch (_data.id) {
-            case 25:
-                _armature = g.allData.factory['trees'].buildArmature("apple");
-                break;
-            case 26:
-                _armature = g.allData.factory['trees'].buildArmature("cheery");
-                break;
-            case 41:
-                _armature = g.allData.factory['trees'].buildArmature("raspberry");
-                break;
-            case 42:
-                _armature = g.allData.factory['trees'].buildArmature("blueberry");
-                break;
-        }
-        armatureClip = _armature.display as Sprite;
-        _build.addChild(armatureClip);
         WorldClock.clock.add(_armature);
-
-        arrFruits = [];
         var b:Bone;
         for (var i:int = 0; i < arrFruits.length; i++) {
             b = _armature.getBone('fruit' + String(i + 1));
             arrFruits.push(b);
             (b.display as Sprite).touchable = false;
-//            ((arrFruits[i] as Bone).display as Sprite).touchable = false;
         }
-
-        _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
-        _resourceItem = new ResourceItem();
-        _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
+        setBuildImage();
+        if (_needShopView) showShopView();
     }
 
     public function showShopView():void {
-        _armature.animation.gotoAndStop("small", 0);
+        _needShopView = true;
+        if (_armature) _armature.animation.gotoAndStop("small", 0);
     }
 
     public function removeShopView():void {
-        _armature.animation.gotoAndStop("small", 0);
+        _needShopView = false;
+        if (_armature) _armature.animation.gotoAndStop("small", 0);
     }
 
     public function releaseTreeFromServer(ob:Object):void {
@@ -171,7 +153,6 @@ public class Tree extends WorldObject {
                 break;
         }
 
-        setBuildImage();
         if (!g.isAway) {
             if (_state == GROW1 || _state == GROW_FLOWER1 || _state == GROW2 || _state == GROW_FLOWER2
                     || _state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
