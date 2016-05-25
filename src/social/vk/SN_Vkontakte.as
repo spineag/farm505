@@ -52,14 +52,14 @@ public class SN_Vkontakte extends SocialNetwork {
         _apiConnection.addEventListener(CustomEvent.ORDER_FAIL, orderFailHandler);
         _apiConnection.addEventListener(CustomEvent.ORDER_SUCCESS, orderSuccessHandler);
 
-//        if (ExternalInterface.available) {
+        if (ExternalInterface.available) {
             try {
                 ExternalInterface.addCallback("showPayment", showPayment);
                 ExternalInterface.addCallback("useActiveOffers", getOffersInfoHandler);
             } catch (e:Error) {
                 Cc.error(e.toString(), "Social network do not use ExternalInterface. Callback showPayment ignored.");
             }
-//        }
+        }
 
         super(flashVars);
     }
@@ -545,7 +545,6 @@ public class SN_Vkontakte extends SocialNetwork {
 //        g.woAddCoins.indexActivateTabButton = 0;
 //        g.woAddCoins.handler.init();
 
-        Cc.error(e.toString(), "showPayment");
     }
 
 
@@ -615,6 +614,8 @@ public class SN_Vkontakte extends SocialNetwork {
 }
 
 
+import utils.Multipart;
+
 import com.adobe.images.JPGEncoder;
 import com.adobe.serialization.json.JSONuse;
 import com.junkbyte.console.Cc;
@@ -656,7 +657,7 @@ internal class VKWallPost {
     }
 
     private function continueWallPostSavePhoto():void {
-        _apiConnection.api("photos.saveWallPhoto", {server: _saveWallPhoto.server, photo: _saveWallPhoto.photo, hash: _saveWallPhoto.hash, https: 1}, wallPostSavePhotoComplete, _network.onError);
+        _apiConnection.api("photos.saveWallPhoto", {uid: _uidWall, server: _saveWallPhoto.server, photo: _saveWallPhoto.photo, hash: _saveWallPhoto.hash, https: 1}, wallPostSavePhotoComplete, _network.onError);
     }
 
     private function destroy():void {
@@ -671,23 +672,23 @@ internal class VKWallPost {
     }
 
     private function continueWallPost(e:Object):void {
-//        var loader:URLLoader = new URLLoader();
-//        if (!_imageWallPost || !e) {
-//            return;
-//        }
-//
-//        Cc.obj("social", e, "before loading", 5);
-//        var form:Multipart = new Multipart(e.upload_url);
-//        var enc:JPGEncoder = new JPGEncoder(100);
-//        var jpg:ByteArray = enc.encode(_imageWallPost.bitmapData);
-//        form.addFile("file1", jpg, "application/octet-stream", "wallpost.jpg");
-//
-//        loader.addEventListener(Event.COMPLETE, wallPostSavePhoto);
-//        try {
-//            loader.load(form.request);
-//        } catch (error:Error) {
-//            Cc.ch("social", "Problem with wallpost on VK: " + error.message, 9);
-//        }
+        var loader:URLLoader = new URLLoader();
+        if (!_imageWallPost || !e) {
+            return;
+        }
+
+        Cc.obj("social", e, "before loading", 5);
+        var form:Multipart = new Multipart(e.upload_url);
+        var enc:JPGEncoder = new JPGEncoder(100);
+        var jpg:ByteArray = enc.encode(_imageWallPost.bitmapData);
+        form.addFile("file1", jpg, "application/octet-stream", "wallpost.jpg");
+
+        loader.addEventListener(Event.COMPLETE, wallPostSavePhoto);
+        try {
+            loader.load(form.request);
+        } catch (error:Error) {
+            Cc.ch("social", "Problem with wallpost on VK: " + error.message, 9);
+        }
     }
 
     private function wallPostSavePhoto(e:Event):void {
@@ -699,7 +700,7 @@ internal class VKWallPost {
     private function wallPostSavePhotoComplete(e:Object):void {
         var message:String;
 
-        message = 'Птичий Островок' + "\n" + _messageWall + "\n" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost;
+        message = 'Умелые Лапки' + "\n" + _messageWall + "\n" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost;
         _apiConnection.api("wall.post", {owner_id: _uidWall, message: message, attachments: e[0].id, https: 1}, wallPostSavePostComplete, onErrorPost);
     }
 

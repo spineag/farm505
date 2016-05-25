@@ -26,7 +26,7 @@ public class WOLevelUpItem {
     private var _bolAnimal:Boolean;
     private var g:Vars = Vars.getInstance();
 
-    public function WOLevelUpItem(ob:Object, boNew:Boolean, boCount:Boolean, count:int = 0) {
+    public function WOLevelUpItem(ob:Object, boNew:Boolean, boCount:Boolean, count:int = 0, wallNew:Boolean = false) {
         if (!ob) {
             Cc.error('WOLevelUpItem:: ob == null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woLevelUpItem');
@@ -161,8 +161,8 @@ public class WOLevelUpItem {
             _image.x = 38 - _image.width / 2;
             _image.y = 47 - _image.height / 2;
             source.addChild(_image);
-            source.addChild(_txtNew);
-            source.addChild(_txtCount);
+            if (!wallNew) source.addChild(_txtNew);
+            if (!wallNew) source.addChild(_txtCount);
         } else {
             Cc.error('WOLevelUpItem:: no such image: ' + count);
         }
