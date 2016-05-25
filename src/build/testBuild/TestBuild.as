@@ -12,7 +12,7 @@ public class TestBuild extends WorldObject{
 
     public function TestBuild(_data:Object) {
         super(_data);
-        createBuild();
+        createAnimatedBuild();
 
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;

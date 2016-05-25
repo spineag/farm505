@@ -5,6 +5,9 @@ import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 
+import starling.textures.Texture;
+import starling.textures.TextureAtlas;
+
 public class LoaderManager {
     private static const COUNT_PARALEL_LOADERS:int = 25;
 
@@ -127,6 +130,22 @@ public class LoaderManager {
         }
 
         if (additionalQueue[url]) additionalQueue[url] = null;
+    }
+
+    public function loadAtlas(url:String, name:String, f:Function, ...params):void {
+        var count:int = 2;
+        var st:String = g.dataPath.getGraphicsPath() + url;
+        var fOnLoad:Function = function(smth:*):void {
+            count--;
+            if (count<=0) {
+                g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png'].create() as Bitmap), g.pXMLs[st + '.xml']);
+                delete  g.pBitmaps[st + '.png'];
+                delete  g.pXMLs[st + '.xml'];
+                if (f!=null) f.apply(null, params);
+            }
+        };
+        g.load.loadImage(st + '.png', fOnLoad);
+        g.load.loadXML(st + '.xml', fOnLoad);
     }
 
     private function errorHandler(url:String):void {

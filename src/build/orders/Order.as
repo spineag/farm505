@@ -25,7 +25,7 @@ public class Order extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Order');
             return;
         }
-        createBuild(onCreateBuild);
+        createAnimatedBuild(onCreateBuild);
         _source.releaseContDrag = true;
     }
 

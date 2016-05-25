@@ -30,7 +30,7 @@ public class Market extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Market');
             return;
         }
-        createBuild(onCreateBuild);
+        createAnimatedBuild(onCreateBuild);
     }
 
     private function onCreateBuild():void {

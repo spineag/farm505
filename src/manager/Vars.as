@@ -190,6 +190,8 @@ public class Vars {
     }
 
     private function initVariables():void {
+        startPreloader.setProgress(77);
+
         event = new OwnEvent();
         useDataFromServer = true;
         directServer = new DirectServer();
@@ -243,51 +245,61 @@ public class Vars {
     }
 
     private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
+        startPreloader.setProgress(78);
         socialNetwork.removeEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
         socialNetwork.addEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
         socialNetwork.getProfile(socialNetwork.currentUID);
     }
 
     private function authoriseUser(e:SocialNetworkEvent = null):void {
+        startPreloader.setProgress(79);
         socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
-        directServer.authUser(onAuthUser);
+        directServer.authUser(loadMap);
+    }
+
+    private function loadMap():void {
+        startPreloader.setProgress(80);
+        background = new BackgroundArea(onAuthUser);
     }
 
     private function onAuthUser():void {
-        startPreloader.setProgress(87);
+        startPreloader.setProgress(81);
         directServer.getDataOutGameTiles(onGetOutGameTiles);
     }
 
     private function onGetOutGameTiles():void {
+        startPreloader.setProgress(82);
         directServer.getDataLevel(onDataLevel);
     }
 
     private function onDataLevel():void {
         directServer.getUserInfo(onUserInfo);
-        startPreloader.setProgress(88);
+        startPreloader.setProgress(83);
     }
 
     private function onUserInfo():void {
         managerCats.addAllHeroCats();
         directServer.getDataAnimal(onDataAnimal);
-        startPreloader.setProgress(89);
+        startPreloader.setProgress(84);
     }
 
     private function onDataAnimal():void {
         directServer.getDataResource(onDataResource);
-        startPreloader.setProgress(90);
+        startPreloader.setProgress(85);
     }
 
     private function onDataResource():void {
         directServer.getDataRecipe(onDataRecipe);
-        startPreloader.setProgress(91);
+        startPreloader.setProgress(86);
     }
 
     private function onDataRecipe():void {
+        startPreloader.setProgress(87);
         directServer.getDataCats(onDataCats);
     }
 
     private function onDataCats():void {
+        startPreloader.setProgress(88);
         managerCats.calculateMaxCountCats();
         catPanel.checkCat();
         directServer.getDataLockedLand(onDataLockedLand);
@@ -295,48 +307,51 @@ public class Vars {
 
     private function onDataLockedLand():void {
         directServer.getDataBuilding(onDataBuilding);
-        startPreloader.setProgress(92);
+        startPreloader.setProgress(89);
     }
 
     private function onDataBuilding():void {
-        startPreloader.setProgress(93);
+        startPreloader.setProgress(90);
         directServer.getUserResource(onUserResource);
     }
 
     private function onUserResource():void {
-        startPreloader.setProgress(94);
+        startPreloader.setProgress(91);
         directServer.getUserBuilding(onUserBuilding);
     }
 
     private function onUserBuilding():void {
-        startPreloader.setProgress(95);
+        startPreloader.setProgress(92);
         directServer.getUserFabricaRecipe(onUserFabricaRecipe);
     }
 
     private function onUserFabricaRecipe():void {
-        startPreloader.setProgress(96);
+        startPreloader.setProgress(93);
         directServer.getUserPlantRidge(onUserPlantRidge);
     }
 
     private function onUserPlantRidge():void {
-        startPreloader.setProgress(97);
+        startPreloader.setProgress(94);
         directServer.getUserTree(onUserTree);
     }
 
     private function onUserTree():void {
-        startPreloader.setProgress(98);
+        startPreloader.setProgress(95);
         directServer.getUserAnimal(onUserAnimal);
     }
 
     private function onUserAnimal():void {
+        startPreloader.setProgress(96);
         directServer.getUserTrain(onUserTrain);
     }
 
     private function onUserTrain():void {
+        startPreloader.setProgress(97);
         directServer.getUserWild(onUserWild);
     }
 
     private function onUserWild():void {
+        startPreloader.setProgress(98);
         managerOrder = new ManagerOrder();
         managerOrder.updateMaxCounts();
         directServer.getUserOrder(onUserOrder);
@@ -350,10 +365,6 @@ public class Vars {
     }
 
     private function initVariables2():void {
-        startPreloader.setProgress(100);
-        startPreloader.hideIt();
-        startPreloader = null;
-
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();
@@ -373,10 +384,11 @@ public class Vars {
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
-        background = new BackgroundArea(afterCreateMapBackground);
+        afterLoadAll();
     }
 
-    private function afterCreateMapBackground():void {
+    private function afterLoadAll():void {
+        startPreloader.setProgress(100);
         if (currentGameScale != 1) {
             optionPanel.makeScaling(currentGameScale, false, true);
         }
@@ -417,6 +429,9 @@ public class Vars {
         bottomPanel.checkIsFullOrder();
         if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
         townArea.addTownAreaSortCheking();
+
+        startPreloader.hideIt();
+        startPreloader = null;
 
         managerChest.createChest();
         if (managerTutorial.isTutorial) {

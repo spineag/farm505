@@ -31,7 +31,7 @@ public class Cave extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Cave');
             return;
         }
-        createBuild(checkCaveState);
+        createAnimatedBuild(checkCaveState);
         _isAnimate = false;
         _source.releaseContDrag = true;
         _craftSprite = new Sprite();

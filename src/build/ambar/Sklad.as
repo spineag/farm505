@@ -25,7 +25,7 @@ public class Sklad extends WorldObject{
             return;
         }
         _dbBuildingId = _dataBuild.dbId;
-        createBuild(onCreateBuild);
+        createAnimatedBuild(onCreateBuild);
     }
 
     private function onCreateBuild():void {

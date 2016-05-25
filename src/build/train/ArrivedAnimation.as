@@ -147,5 +147,18 @@ public class ArrivedAnimation {
     public function showKorzina():void {
         _lenta3.showDirectKorzina();
     }
+
+    public function deleteIt():void {
+        _lenta1.deleteIt();
+        _lenta2.deleteIt();
+        _lenta3.deleteIt();
+        _lentaBack4.deleteIt();
+        _lentaBack5.deleteIt();
+        _lentaBack6.deleteIt();
+        _bottomSprite.dispose();
+        _mediumSprite.dispose();
+        _topSprite.dispose();
+        _parent = null;
+    }
 }
 }

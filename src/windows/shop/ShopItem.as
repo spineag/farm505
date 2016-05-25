@@ -60,12 +60,12 @@ public class ShopItem {
         _positionInList = pos;
         _wo = wo;
         _data = data;
+        source = new CSprite();
         if (!_data) {
             Cc.error('ShopItem:: empty _data');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
             return;
         }
-        source = new CSprite();
         _bg = new CartonBackgroundIn(145, 221);
         source.addChild(_bg);
 
@@ -257,12 +257,12 @@ public class ShopItem {
                 if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE) texture = g.allData.atlas[_data.url].getTexture(_data.image);
                 else texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
             }
-            _im = new Image(texture);
-            if (!_im) {
-                Cc.error('ShopItem:: no such image: ' + _data.image);
+            if (!texture) {
+                Cc.error('ShopItem:: no such texture: ' + _data.url);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
                 return;
             }
+            _im = new Image(texture);
             MCScaler.scale(_im, 120, 120);
             _imCont = new Sprite();
             _im.x = - _im.width / 2;
@@ -270,7 +270,6 @@ public class ShopItem {
             _imCont.addChild(_im);
             _imCont.x = 72;
             _imCont.y = 90;
-//            _imCont.touchable = false;
             source.addChildAt(_imCont, 1);
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);

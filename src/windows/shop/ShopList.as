@@ -91,6 +91,9 @@ public class ShopList {
         var i:int;
         var j:int;
         _currentShopArr = [];
+        if (!arr.length) {
+            Cc.error('ShopList:: fillIt: empty arr');
+        }
         _decor = false;
         if (arr[0].buildType == BuildType.FABRICA) {
             for (j = 0; j < arr.length; j++) {

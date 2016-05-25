@@ -20,7 +20,8 @@ public class LoadComponents {
     }
 
     private function loadAtlases():void {
-        count=16;
+        g.startPreloader.setProgress(6);
+        count=0;
 
         g.load.loadImage(st + 'iconAtlas.png', onLoad);
         g.load.loadXML(st + 'iconAtlas.xml', onLoad);
@@ -42,8 +43,9 @@ public class LoadComponents {
     }
 
     private function onLoad(smth:*=null):void {
-        count--;
-        if (count <=0) createAtlases();
+        count++;
+        g.startPreloader.setProgress(6 + 2*count);
+        if (count >=16) createAtlases();
     }
 
     private function createAtlases():void {
@@ -83,7 +85,8 @@ public class LoadComponents {
     }
 
     private function loadDBAnimations():void {
-        count = 6;
+        g.startPreloader.setProgress(39);
+        count = 0;
 
         g.loadAnimation.load('animations/arrow', 'arrow', onLoadDB);
         g.loadAnimation.load('animations/chest_interface', 'chest_interface', onLoadDB);
@@ -94,14 +97,16 @@ public class LoadComponents {
     }
 
     private function onLoadDB():void {
-        count--;
-        if (count <=0) {
+        count++;
+        g.startPreloader.setProgress(39 + count*2);
+        if (count >=6) {
             loadDBX();
         }
     }
 
     private function loadDBX():void {
-        count = 10;
+        g.startPreloader.setProgress(52);
+        count = 0;
 
         g.loadAnimation.load('animations/x1/bfly', 'butterfly', onLoadDB_X);
         g.loadAnimation.load('animations/x1/cat_main', 'cat', onLoadDB_X);
@@ -112,12 +117,13 @@ public class LoadComponents {
         g.loadAnimation.load('animations/x1/explode_gray', 'explode_gray', onLoadDB_X);
         g.loadAnimation.load('animations/x1/plants', 'plant', onLoadDB_X);
         g.loadAnimation.load('animations/x1/tools', 'removeWild', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/trees', 'trees', onLoadDB_X);
+//        g.loadAnimation.load('animations/x1/trees', 'trees', onLoadDB_X);
     }
 
     private function onLoadDB_X():void {
-        count--;
-        if (count <=0) {
+        count++;
+        g.startPreloader.setProgress(52 + 2*count);
+        if (count >=9) {
             if (_callback != null) _callback.apply();
         }
     }

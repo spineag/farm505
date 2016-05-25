@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/shopicons/shopicons.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/shopicons/shopicons.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,8 +43,6 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>atfCompressData</key>
-        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -175,16 +173,14 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
+            <key>innerPadding</key>
+            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
-            <key>trimMargin</key>
-            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
-            <key>tracerTolerance</key>
-            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -204,7 +200,6 @@
             <filename>white_fence_icon.png</filename>
             <filename>chair_1_icon.png</filename>
             <filename>chair_2_icon.png</filename>
-            <filename>cheery2_icon.png</filename>
             <filename>chicken_icon.png</filename>
             <filename>cow_icon.png</filename>
             <filename>dairy_icon.png</filename>
@@ -237,7 +232,6 @@
             <filename>amanita_1_red_icon.png</filename>
             <filename>amanita_2_red_icon.png</filename>
             <filename>ambar_icon.png</filename>
-            <filename>apple_tree_icon.png</filename>
             <filename>arbor_icon.png</filename>
             <filename>arch_alive_icon.png</filename>
             <filename>arch_blue_icon.png</filename>
@@ -254,6 +248,8 @@
             <filename>bridge_icon.png</filename>
             <filename>cat_icon.png</filename>
             <filename>feed_mill_icon.png</filename>
+            <filename>apple_icon.png</filename>
+            <filename>cherry_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

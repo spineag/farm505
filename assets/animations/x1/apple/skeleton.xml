@@ -1,0 +1,764 @@
+<dragonBones name="apple" frameRate="30" version="2.3">
+ <armature name="apple">
+  <bone name="small">
+   <transform x="1.25" y="-43.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="flower1">
+   <transform x="2.25" y="-108.25" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="flower3">
+   <transform x="26.25" y="-56.25" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="fruit1">
+   <transform x="-12" y="-90.02" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="fruit2">
+   <transform x="23.33" y="-55.52" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="middle">
+   <transform x="0.25" y="-56.25" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="flower2">
+   <transform x="-36.25" y="-67.75" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="fruit3">
+   <transform x="-27.32" y="-62.52" skX="45" skY="45" scX="1" scY="1"/>
+  </bone>
+  <bone name="big">
+   <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="flower4">
+   <transform x="21.43" y="-128.15" skX="60" skY="60" scX="1" scY="1"/>
+  </bone>
+  <bone name="fruit4">
+   <transform x="19.83" y="-125.65" skX="-15" skY="-15" scX="1" scY="1"/>
+  </bone>
+  <bone name="dead">
+   <transform x="1.25" y="-60.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="small" parent="small" z="0">
+    <display name="d1" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="45.75" pY="77.5"/>
+    </display>
+   </slot>
+   <slot name="flower1" parent="flower1" z="4">
+    <display name="f1" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="20.25" pY="17.25"/>
+    </display>
+   </slot>
+   <slot name="flower3" parent="flower3" z="7">
+    <display name="f2" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="20.25" pY="17.25"/>
+    </display>
+   </slot>
+   <slot name="fruit1" parent="fruit1" z="8">
+    <display name="a2" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="34.55" pY="32.85"/>
+    </display>
+   </slot>
+   <slot name="fruit2" parent="fruit2" z="9">
+    <display name="a1" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="46.33" pY="45.85"/>
+    </display>
+    <display name="a3" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="46.33" pY="45.85"/>
+    </display>
+   </slot>
+   <slot name="middle" parent="middle" z="1">
+    <display name="d2" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="56.75" pY="90.25"/>
+    </display>
+   </slot>
+   <slot name="flower2" parent="flower2" z="6">
+    <display name="f3" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="20.25" pY="17.25"/>
+    </display>
+   </slot>
+   <slot name="fruit3" parent="fruit3" z="10">
+    <display name="a3" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="46.33" pY="45.85"/>
+    </display>
+    <display name="a1" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="46.33" pY="45.85"/>
+    </display>
+   </slot>
+   <slot name="big" parent="big" z="2">
+    <display name="d3" type="image">
+     <transform x="0" y="-90.97" skX="0" skY="0" scX="1" scY="1" pX="57.25" pY="97.5"/>
+    </display>
+   </slot>
+   <slot name="flower4" parent="flower4" z="5">
+    <display name="f1" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="20.25" pY="17.25"/>
+    </display>
+   </slot>
+   <slot name="fruit4" parent="fruit4" z="11">
+    <display name="a1" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="46.33" pY="45.85"/>
+    </display>
+   </slot>
+   <slot name="dead" parent="dead" z="3">
+    <display name="d4" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="57.25" pY="97.5"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="small" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="small" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="1.25" y="-43.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_s" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="small" scale="1" offset="0">
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1.07" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" duration="1">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-72.5"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="small_flower" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="small" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-72.5"/>
+    </frame>
+   </timeline>
+   <timeline name="flower1" scale="1" offset="0">
+    <frame z="4" duration="1">
+     <transform x="2.25" y="-108.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower3" scale="1" offset="0">
+    <frame z="7" duration="1">
+     <transform x="26.25" y="-56.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_sfl" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="small" scale="1" offset="0">
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" duration="1">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-72.5"/>
+    </frame>
+   </timeline>
+   <timeline name="flower1" scale="1" offset="0">
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="2.25" y="-108.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="2.25" y="-114.02" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="2.25" y="-102.92" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="2.25" y="-113.12" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="2.25" y="-108.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower3" scale="1" offset="0">
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-56.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-59.85" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-52.95" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-59.27" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" duration="1">
+     <transform x="26.25" y="-56.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="small_fruits" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="small" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-72.5"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit1" scale="1" offset="0">
+    <frame z="8" duration="1">
+     <transform x="-12" y="-90.02" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit2" scale="1" offset="0">
+    <frame z="9" duration="1">
+     <transform x="23.33" y="-55.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_sfr" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="small" scale="1" offset="0">
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="-72.47"/>
+    </frame>
+    <frame z="0" tweenEasing="0" duration="3">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="-72.5"/>
+    </frame>
+    <frame z="0" duration="1">
+     <transform x="1.25" y="29" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-72.5"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit1" scale="1" offset="0">
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="-12" y="-90.02" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="-12" y="-94.72" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="-12" y="-85.65" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="-12" y="-95.97" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" duration="1">
+     <transform x="-12" y="-90.02" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit2" scale="1" offset="0">
+    <frame z="9" tweenEasing="0" duration="3">
+     <transform x="23.33" y="-55.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" tweenEasing="0" duration="3">
+     <transform x="23.33" y="-58.87" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" tweenEasing="0" duration="3">
+     <transform x="23.33" y="-52.42" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" tweenEasing="0" duration="3">
+     <transform x="23.33" y="-59.75" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" duration="1">
+     <transform x="23.33" y="-55.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="middle" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="middle" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="0.25" y="-56.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_m" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="middle" scale="1" offset="0">
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-83.47"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.2" skX="0" skY="0" scX="1" scY="1.08" pX="0" pY="-83.45"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="-83.47"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="-83.47"/>
+    </frame>
+    <frame z="1" duration="1">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-83.47"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="middle_flower" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="middle" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-83.47"/>
+    </frame>
+   </timeline>
+   <timeline name="flower1" scale="1" offset="0">
+    <frame z="4" duration="1">
+     <transform x="-3.25" y="-123.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower2" scale="1" offset="0">
+    <frame z="6" duration="1">
+     <transform x="-36.25" y="-67.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower3" scale="1" offset="0">
+    <frame z="7" duration="1">
+     <transform x="26.25" y="-56.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_mfl" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="middle" scale="1" offset="0">
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-83.47"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="-83.45"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="0.95" pX="0" pY="-83.47"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1.03" pX="0" pY="-83.47"/>
+    </frame>
+    <frame z="1" duration="1">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-83.47"/>
+    </frame>
+   </timeline>
+   <timeline name="flower1" scale="1" offset="0">
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="-3.25" y="-123.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="-3.25" y="-130.6" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="-3.25" y="-115" skX="0" skY="0" scX="1" scY="0.95" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="-3.25" y="-128" skX="0" skY="0" scX="1" scY="1.03" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="-3.25" y="-123.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower2" scale="1" offset="0">
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-36.25" y="-67.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-36.25" y="-72.4" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-36.25" y="-62.55" skX="0" skY="0" scX="1" scY="0.95" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-36.25" y="-70.75" skX="0" skY="0" scX="1" scY="1.03" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" duration="1">
+     <transform x="-36.25" y="-67.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower3" scale="1" offset="0">
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-56.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-60.32" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-51.67" skX="0" skY="0" scX="1" scY="0.95" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-58.87" skX="0" skY="0" scX="1" scY="1.03" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" duration="1">
+     <transform x="26.25" y="-56.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="middle_fruits" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="middle" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-83.47"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit1" scale="1" offset="0">
+    <frame z="8" duration="1">
+     <transform x="1.5" y="-115.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit2" scale="1" offset="0">
+    <frame z="9" duration="1">
+     <transform x="27.33" y="-62.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit3" scale="1" offset="0">
+    <frame z="10" duration="1">
+     <transform x="-27.32" y="-62.52" skX="45" skY="45" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_mfr" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="middle" scale="1" offset="0">
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-83.47"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="-83.5"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="-83.47"/>
+    </frame>
+    <frame z="1" tweenEasing="0" duration="3">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="-83.47"/>
+    </frame>
+    <frame z="1" duration="1">
+     <transform x="0.25" y="27.23" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-83.47"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit1" scale="1" offset="0">
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="1.5" y="-115.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="1.5" y="-123.35" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="1.5" y="-109.37" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="1.5" y="-121.67" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" duration="1">
+     <transform x="1.5" y="-115.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit2" scale="1" offset="0">
+    <frame z="9" tweenEasing="0" duration="3">
+     <transform x="27.33" y="-62.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" tweenEasing="0" duration="3">
+     <transform x="27.33" y="-67.45" skX="0" skY="0" scX="1" scY="1.05" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" tweenEasing="0" duration="3">
+     <transform x="27.33" y="-58.65" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" tweenEasing="0" duration="3">
+     <transform x="27.33" y="-66.4" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" duration="1">
+     <transform x="27.33" y="-62.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit3" scale="1" offset="0">
+    <frame z="10" tweenEasing="0" duration="3">
+     <transform x="-27.32" y="-62.52" skX="45" skY="45" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="10" tweenEasing="0" duration="3">
+     <transform x="-27.32" y="-67.45" skX="43.48" skY="46.52" scX="1.03" scY="1.03" pX="0" pY="0"/>
+    </frame>
+    <frame z="10" tweenEasing="0" duration="3">
+     <transform x="-27.32" y="-58.65" skX="46.26" skY="43.74" scX="0.98" scY="0.98" pX="0" pY="0"/>
+    </frame>
+    <frame z="10" tweenEasing="0" duration="3">
+     <transform x="-27.32" y="-66.4" skX="43.79" skY="46.21" scX="1.02" scY="1.02" pX="0" pY="0"/>
+    </frame>
+    <frame z="10" duration="1">
+     <transform x="-27.32" y="-62.52" skX="45" skY="45" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="big" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="big" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_b" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="big" scale="1" offset="0">
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="0.94" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.5" skX="0" skY="0" scX="1" scY="1.06" pX="0" pY="-0.05"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" duration="1">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="big_flower" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="big" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower1" scale="1" offset="0">
+    <frame z="4" duration="1">
+     <transform x="-21.22" y="-127.42" skX="-60" skY="-60" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower4" scale="1" offset="0">
+    <frame z="5" duration="1">
+     <transform x="21.43" y="-128.15" skX="60" skY="60" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower2" scale="1" offset="0">
+    <frame z="6" duration="1">
+     <transform x="-33.75" y="-84.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower3" scale="1" offset="0">
+    <frame z="7" duration="1">
+     <transform x="26.25" y="-76.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_bfl" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="big" scale="1" offset="0">
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="1">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower1" scale="1" offset="0">
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="-21.22" y="-127.42" skX="-60" skY="-60" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="-21.22" y="-134.45" skX="-58.91" skY="-61.07" scX="1.03" scY="1.01" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="-21.22" y="-121.45" skX="-60.95" skY="-59.03" scX="0.97" scY="0.99" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" tweenEasing="0" duration="3">
+     <transform x="-21.22" y="-134.45" skX="-58.91" skY="-61.07" scX="1.03" scY="1.01" pX="0" pY="0"/>
+    </frame>
+    <frame z="4" duration="1">
+     <transform x="-21.22" y="-127.42" skX="-60" skY="-60" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower4" scale="1" offset="0">
+    <frame z="5" tweenEasing="0" duration="3">
+     <transform x="21.43" y="-128.15" skX="60" skY="60" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" tweenEasing="0" duration="3">
+     <transform x="21.43" y="-135.2" skX="58.91" skY="61.07" scX="1.03" scY="1.01" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" tweenEasing="0" duration="3">
+     <transform x="21.43" y="-122.15" skX="60.95" skY="59.03" scX="0.97" scY="0.99" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" tweenEasing="0" duration="3">
+     <transform x="21.43" y="-135.2" skX="58.91" skY="61.07" scX="1.03" scY="1.01" pX="0" pY="0"/>
+    </frame>
+    <frame z="5" duration="1">
+     <transform x="21.43" y="-128.15" skX="60" skY="60" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower2" scale="1" offset="0">
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-33.75" y="-84.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-33.75" y="-89.87" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-33.75" y="-80.37" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" tweenEasing="0" duration="3">
+     <transform x="-33.75" y="-89.87" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="6" duration="1">
+     <transform x="-33.75" y="-84.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="flower3" scale="1" offset="0">
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-76.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-81.53" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-72.7" skX="0" skY="0" scX="1" scY="0.96" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" tweenEasing="0" duration="3">
+     <transform x="26.25" y="-81.53" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="7" duration="1">
+     <transform x="26.25" y="-76.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="big_fruits" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="big" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit1" scale="1" offset="0">
+    <frame z="8" duration="1">
+     <transform x="-30.15" y="-78.67" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit2" scale="1" offset="0">
+    <frame z="9" displayIndex="1" duration="1">
+     <transform x="25.98" y="-68.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit3" scale="1" offset="0">
+    <frame z="10" displayIndex="1" duration="1">
+     <transform x="-22.35" y="-119.35" skX="60" skY="60" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit4" scale="1" offset="0">
+    <frame z="11" duration="1">
+     <transform x="19.83" y="-125.65" skX="-15" skY="-15" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_bfr" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="big" scale="1" offset="0">
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" tweenEasing="0" duration="3">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1.02" pX="0" pY="0"/>
+    </frame>
+    <frame z="2" duration="1">
+     <transform x="1.25" y="30.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit1" scale="1" offset="0">
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="-30.15" y="-78.67" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="-30.15" y="-82.97" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="-30.15" y="-75.53" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" tweenEasing="0" duration="3">
+     <transform x="-30.15" y="-80.97" skX="0" skY="0" scX="1" scY="1.02" pX="0" pY="0"/>
+    </frame>
+    <frame z="8" duration="1">
+     <transform x="-30.15" y="-78.67" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit2" scale="1" offset="0">
+    <frame z="9" displayIndex="1" tweenEasing="0" duration="3">
+     <transform x="25.98" y="-68.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" displayIndex="1" tweenEasing="0" duration="3">
+     <transform x="25.98" y="-72.25" skX="0" skY="0" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" displayIndex="1" tweenEasing="0" duration="3">
+     <transform x="25.98" y="-65.5" skX="0" skY="0" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" displayIndex="1" tweenEasing="0" duration="3">
+     <transform x="25.98" y="-70.45" skX="0" skY="0" scX="1" scY="1.02" pX="0" pY="0"/>
+    </frame>
+    <frame z="9" displayIndex="1" duration="1">
+     <transform x="25.98" y="-68.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit3" scale="1" offset="0">
+    <frame z="10" displayIndex="1" tweenEasing="0" duration="3">
+     <transform x="-22.35" y="-119.35" skX="60" skY="60" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="10" displayIndex="1" tweenEasing="0" duration="3">
+     <transform x="-22.35" y="-125.27" skX="59.03" skY="60.95" scX="1.03" scY="1.01" pX="0" pY="0"/>
+    </frame>
+    <frame z="10" displayIndex="1" tweenEasing="0" duration="3">
+     <transform x="-22.35" y="-115.02" skX="60.72" skY="59.26" scX="0.98" scY="0.99" pX="0" pY="0"/>
+    </frame>
+    <frame z="10" displayIndex="1" tweenEasing="0" duration="3">
+     <transform x="-22.35" y="-122.52" skX="59.48" skY="60.51" scX="1.02" scY="1.01" pX="0" pY="0"/>
+    </frame>
+    <frame z="10" displayIndex="1" duration="1">
+     <transform x="-22.35" y="-119.35" skX="60" skY="60" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="fruit4" scale="1" offset="0">
+    <frame z="11" tweenEasing="0" duration="3">
+     <transform x="19.83" y="-125.65" skX="-15" skY="-15" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="11" tweenEasing="0" duration="3">
+     <transform x="19.83" y="-131.82" skX="-14.45" skY="-15.56" scX="1" scY="1.04" pX="0" pY="0"/>
+    </frame>
+    <frame z="11" tweenEasing="0" duration="3">
+     <transform x="19.83" y="-121.12" skX="-15.43" skY="-14.58" scX="1" scY="0.97" pX="0" pY="0"/>
+    </frame>
+    <frame z="11" tweenEasing="0" duration="3">
+     <transform x="19.83" y="-128.95" skX="-14.7" skY="-15.3" scX="1" scY="1.02" pX="0" pY="0"/>
+    </frame>
+    <frame z="11" duration="1">
+     <transform x="19.83" y="-125.65" skX="-15" skY="-15" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="dead" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="dead" scale="1" offset="0">
+    <frame z="3" duration="1">
+     <transform x="1.25" y="-60.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+  <animation name="over_d" fadeInTime="0" duration="13" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="dead" scale="1" offset="0">
+    <frame z="3" tweenEasing="0" duration="3">
+     <transform x="1.25" y="28.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-88.97"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="3">
+     <transform x="1.25" y="28.48" skX="0" skY="0" scX="1" scY="1.07" pX="0" pY="-88.97"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="3">
+     <transform x="1.25" y="28.48" skX="0" skY="0" scX="1.06" scY="0.94" pX="0" pY="-88.97"/>
+    </frame>
+    <frame z="3" tweenEasing="0" duration="3">
+     <transform x="1.25" y="28.48" skX="0" skY="0" scX="1" scY="1.07" pX="0" pY="-88.97"/>
+    </frame>
+    <frame z="3" duration="1">
+     <transform x="1.25" y="28.48" skX="0" skY="0" scX="1" scY="1" pX="0" pY="-88.97"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>
