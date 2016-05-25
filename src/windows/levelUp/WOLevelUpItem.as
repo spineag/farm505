@@ -107,7 +107,7 @@ public class WOLevelUpItem {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.FABRICA) {
-                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.TREE) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));

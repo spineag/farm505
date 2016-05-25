@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:971146c9662f1137f81402f048183d87:daaff251a12e802d3eb4b1b32df66205:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:afa460e1e4f90dd873b7f837607b829c:456a1281b8891a3537de4ade6ff4e143:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png" width="1156" height="2048">
     <SubTexture name="a_tr_blue" x="865" y="1806" width="90" height="89" frameX="0" frameY="-1" frameWidth="90" frameHeight="90"/>
     <SubTexture name="a_tr_cup_ico" x="888" y="721" width="19" height="22"/>
@@ -12,9 +12,8 @@
     <SubTexture name="add_friend_button" x="931" y="586" width="62" height="76"/>
     <SubTexture name="aerial_tram_all" x="425" y="2" width="595" height="346"/>
     <SubTexture name="available_on_level" x="758" y="1816" width="105" height="87"/>
-    <SubTexture name="avatar_1" x="723" y="1510" width="100" height="100"/>
-    <SubTexture name="avatar_2" x="745" y="1612" width="100" height="100"/>
-    <SubTexture name="avatar_3" x="758" y="1714" width="100" height="100"/>
+    <SubTexture name="avatar_2" x="723" y="1510" width="100" height="100"/>
+    <SubTexture name="avatar_3" x="745" y="1612" width="100" height="100"/>
     <SubTexture name="baloon_1" x="2" y="1699" width="385" height="252"/>
     <SubTexture name="baloon_2" x="425" y="350" width="385" height="210"/>
     <SubTexture name="baloon_3" x="420" y="562" width="385" height="157"/>
@@ -107,7 +106,7 @@
     <SubTexture name="cursor_number_circle" x="998" y="1274" width="31" height="31" frameX="-2" frameY="-2" frameWidth="35" frameHeight="35"/>
     <SubTexture name="cursor_sickle" x="995" y="624" width="36" height="38" frameX="-2" frameY="-2" frameWidth="40" frameHeight="40"/>
     <SubTexture name="decor_cell" x="784" y="1996" width="50" height="50"/>
-    <SubTexture name="default_avatar_big" x="825" y="1510" width="100" height="100"/>
+    <SubTexture name="default_avatar_big" x="758" y="1714" width="100" height="100"/>
     <SubTexture name="empty_green_tile" x="949" y="1672" width="80" height="40"/>
     <SubTexture name="empty_red_tile" x="1033" y="624" width="80" height="40"/>
     <SubTexture name="friend_board" x="373" y="1960" width="243" height="86"/>
@@ -149,6 +148,7 @@
     <SubTexture name="main_panel_bt_tools" x="1058" y="1312" width="46" height="47" frameX="-5" frameY="-5" frameWidth="57" frameHeight="57"/>
     <SubTexture name="mine_picture" x="2" y="1351" width="595" height="346"/>
     <SubTexture name="minus" x="1077" y="793" width="27" height="11"/>
+    <SubTexture name="neighbor" x="825" y="1510" width="100" height="100"/>
     <SubTexture name="new_m" x="1065" y="1672" width="43" height="40"/>
     <SubTexture name="newlevel_window_fon" x="2" y="967" width="540" height="382"/>
     <SubTexture name="newspaper_icon_small" x="1015" y="666" width="40" height="34" frameX="0" frameY="-4" frameWidth="40" frameHeight="40"/>

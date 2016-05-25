@@ -325,9 +325,9 @@
             <filename>cursor_hover.png</filename>
             <filename>red_m_big.png</filename>
             <filename>new_m.png</filename>
-            <filename>avatar_1.png</filename>
             <filename>avatar_2.png</filename>
             <filename>avatar_3.png</filename>
+            <filename>neighbor.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
