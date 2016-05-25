@@ -349,6 +349,7 @@ public class WONoResources extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        g.marketHint.hideIt();
         for (var i:int=0; i<_arrItems.length; i++) {
             _arrItems[i].deleteIt();
         }

@@ -47,7 +47,6 @@ public class Fabrica extends WorldObject {
         _craftSprite = new Sprite();
         _source.addChild(_craftSprite);
         checkBuildState();
-        _source.setChildIndex(_craftSprite, _source.numChildren - 1);
 
         _arrRecipes = [];
         _arrList = [];
@@ -96,6 +95,7 @@ public class Fabrica extends WorldObject {
         stopAnimation();
         _hitArea = g.managerHitArea.getHitArea(_source, 'fabrica' + _dataBuild.image);
         _source.registerHitArea(_hitArea);
+        _source.setChildIndex(_craftSprite, _source.numChildren - 1);
     }
 
 

@@ -3,16 +3,10 @@
  */
 package build.chestBonus {
 import build.WorldObject;
-
 import com.junkbyte.console.Cc;
-
-import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import mouse.ToolsModifier;
-import starling.display.Sprite;
-
 import tutorial.TutorialAction;
-
 import windows.WindowsManager;
 
 public class Chest extends WorldObject{
@@ -20,12 +14,12 @@ public class Chest extends WorldObject{
 
     public function Chest(data:Object) {
         super (data);
-        _source.endClickCallback = onClick;
         _source.releaseContDrag = true;
         createAnimatedBuild(onCreateBuild);
     }
 
     private function onCreateBuild():void {
+        _source.endClickCallback = onClick;
         WorldClock.clock.add(_armature);
         animation();
     }

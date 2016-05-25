@@ -29,13 +29,6 @@ public class Wild extends WorldObject{
         }
         createBuildWild();
 
-        if (!g.isAway) {
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'lockedLand' + _dataBuild.image);
-            _source.registerHitArea(_hitArea);
-        }
         _source.releaseContDrag = true;
         _isOnHover = false;
         _delete = false;
@@ -49,7 +42,6 @@ public class Wild extends WorldObject{
             }
             while (_build.numChildren) _build.removeChildAt(0);
         }
-
         im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
         im.x = _dataBuild.innerX;
         im.y = _dataBuild.innerY;
@@ -61,9 +53,14 @@ public class Wild extends WorldObject{
         }
         _build.addChild(im);
         _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
         _source.addChild(_build);
+        if (!g.isAway) {
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+            _hitArea = g.managerHitArea.getHitArea(_source, 'wild' + _dataBuild.image);
+            _source.registerHitArea(_hitArea);
+        }
     }
 
     public function setLockedLand(l:LockedLand):void {

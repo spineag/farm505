@@ -442,5 +442,9 @@ public class Animal {
         _timeToEnd = 0;
         render();
     }
+
+    public function deleteFilter():void {
+
+    }
 }
 }
