@@ -82,9 +82,9 @@
     </display>
    </slot>
   </skin>
-  <animation name="idle" fadeInTime="0" duration="1" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="idle" fadeInTime="0" duration="8" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
    <timeline name="beehive" scale="1" offset="0">
-    <frame z="2" duration="1">
+    <frame z="2" duration="8">
      <transform x="0" y="-4.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
@@ -176,7 +176,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="work1" fadeInTime="0" duration="59" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
+  <animation name="work1" fadeInTime="0" duration="59" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
    <timeline name="clover copy 2" scale="1" offset="0">
     <frame z="0" duration="59">
      <transform x="32.17" y="-29.97" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -223,7 +223,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="work2" fadeInTime="0" duration="148" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+  <animation name="work2" fadeInTime="0" duration="148" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
    <timeline name="clover copy 2" scale="1" offset="0">
     <frame z="0" duration="147">
      <transform x="32.17" y="-29.97" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -289,7 +289,7 @@
     <frame z="2" tweenEasing="0" duration="9">
      <transform x="0" y="-4.45" skX="0" skY="0" scX="0.98" scY="1.02" pX="0" pY="0.03"/>
     </frame>
-    <frame z="2" tweenEasing="0" duration="1">
+    <frame z="2" duration="1">
      <transform x="0" y="-4.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
@@ -322,7 +322,7 @@
     <frame z="6" tweenEasing="1" duration="15">
      <transform x="-13.9" y="-38.3" skX="-30" skY="-30" scX="0.11" scY="0.11" pX="0" pY="0"/>
     </frame>
-    <frame z="6" tweenEasing="0" duration="1">
+    <frame z="6" duration="1">
      <transform x="-62.02" y="-35.77" skX="-30.05" skY="-29.86" scX="1" scY="1" pX="0" pY="0.08"/>
     </frame>
     <frame z="6" tweenEasing="1" duration="21">
@@ -343,7 +343,7 @@
     <frame z="6" tweenEasing="1" duration="24">
      <transform x="-57.22" y="-40.25" skX="0" skY="0" scX="-1" scY="1" pX="0.08" pY="0.1"/>
     </frame>
-    <frame z="6" tweenEasing="0" duration="1">
+    <frame z="6" duration="1">
      <transform x="-23.52" y="-43.25" skX="0" skY="0" scX="-0.16" scY="0.16" pX="-0.02" pY="0"/>
     </frame>
     <frame duration="20" displayIndex="-1"/>
@@ -362,7 +362,7 @@
     <frame z="7" tweenEasing="1" duration="24">
      <transform x="-49.45" y="-37.4" skX="-15" skY="-15" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
-    <frame z="7" tweenEasing="0" duration="1">
+    <frame z="7" duration="1">
      <transform x="-22.3" y="-42.8" skX="-15" skY="-15" scX="0.15" scY="0.15" pX="0" pY="0"/>
     </frame>
     <frame duration="20" displayIndex="-1"/>
@@ -371,7 +371,7 @@
     <frame z="8" tweenEasing="1" duration="13">
      <transform x="-13.9" y="-38.3" skX="30" skY="30" scX="-0.11" scY="0.11" pX="0" pY="0"/>
     </frame>
-    <frame z="8" tweenEasing="0" duration="1">
+    <frame z="8" duration="1">
      <transform x="-8.02" y="-14.07" skX="30.05" skY="29.86" scX="-1" scY="1" pX="0.03" pY="0.08"/>
     </frame>
     <frame z="8" tweenEasing="1" duration="29">
@@ -392,7 +392,7 @@
     <frame z="8" tweenEasing="1" duration="26">
      <transform x="-4.62" y="-7.25" skX="0" skY="0" scX="1" scY="1" pX="0.08" pY="0.13"/>
     </frame>
-    <frame z="8" tweenEasing="0" duration="1">
+    <frame z="8" duration="1">
      <transform x="-13.05" y="-37.45" skX="0" skY="0" scX="0.16" scY="0.16" pX="-0.02" pY="0.05"/>
     </frame>
     <frame duration="17" displayIndex="-1"/>
@@ -411,7 +411,7 @@
     <frame z="9" tweenEasing="1" duration="26">
      <transform x="-12.2" y="-4.42" skX="15" skY="15" scX="-1" scY="1" pX="0" pY="0"/>
     </frame>
-    <frame z="9" tweenEasing="0" duration="1">
+    <frame z="9" duration="1">
      <transform x="-14.27" y="-37" skX="15" skY="15" scX="-0.15" scY="0.15" pX="0" pY="0"/>
     </frame>
     <frame duration="17" displayIndex="-1"/>
