@@ -4,6 +4,14 @@
 package manager {
 import com.junkbyte.console.Cc;
 
+import flash.geom.Point;
+
+import resourceItem.DropItem;
+
+import starling.core.Starling;
+
+import ui.xpPanel.XPStar;
+
 import wallPost.WALLNewLevel;
 
 public class ManagerWallPost {
@@ -15,15 +23,20 @@ public class ManagerWallPost {
     public static const DONE_TRAIN:String = 'done_train';
     public static const DONE_ORDER:String = 'done_order';
 
+    private var _count:int;
+    private var _type:int;
+    private var g:Vars = Vars.getInstance();
+
     public function ManagerWallPost() {
 
     }
 
     public function openWindow(type:String,callback:Function=null, ...params):void {
+        _count = params[1];
+        _type = params[2];
         switch (type) {
             case NEW_LEVEL:
                var wo:WALLNewLevel = new WALLNewLevel();
-                    wo.showItParams(callback,params);
                 break;
             case NEW_FABRIC:
 //                wo = new WONoFreeCats();
@@ -48,7 +61,19 @@ public class ManagerWallPost {
                 Cc.error('WindowsManager:: unknown window type: ' + type);
                 break;
         }
-//
+        wo.showItParams(callback,params);
+    }
+
+
+    public function callbackAward():void {
+        if (_type == 9) new XPStar(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, _count);
+        else {
+            var obj:Object;
+            obj = {};
+            obj.count = _count;
+            obj.id = _type;
+            new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2,obj);
+        }
     }
 }
 }
