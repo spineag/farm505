@@ -59,7 +59,7 @@ public class Multipart
         // Close
         _writeString('--' + boundary + '--\r\n');
 
-        var r: URLRequest = new URLRequest(_url);
+        var r:URLRequest = new URLRequest(_url);
         r.data = _data;
         r.method = URLRequestMethod.POST;
         //r.contentType = "multipart/form-data; boundary=" + boundary;

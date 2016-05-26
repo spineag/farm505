@@ -201,6 +201,7 @@ public class SocialNetwork extends EventDispatcher {
     protected function wallSave():void {
         Cc.ch('social', "SocialNetwork:: wall post was published");
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.WALL_SAVE, false, false));
+        g.managerWallPost.callbackAward();
     }
 
     protected function wallCancel():void {

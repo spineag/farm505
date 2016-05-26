@@ -3,6 +3,8 @@
  */
 package windows.levelUp {
 import data.BuildType;
+import data.DataMoney;
+
 import flash.geom.Rectangle;
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
@@ -30,6 +32,7 @@ public class WOLevelUp extends WindowMain {
     private var _imageHard:Image;
     private var _contBtn:CButton;
     private var _contImage:Sprite;
+    private var _count:int;
     private var _contClipRect:Sprite;
     private var _arrCells:Array;
     private var _leftArrow:CButton;
@@ -51,7 +54,7 @@ public class WOLevelUp extends WindowMain {
         bg.y = -_woHeight/2 + 15;
         _source.addChild(bg);
         createExitButton(hideIt);
-
+        _count = 1;
         var im:Image;
         _contClipRect = new Sprite();
         _contImage = new Sprite();
@@ -69,7 +72,7 @@ public class WOLevelUp extends WindowMain {
         _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtContinue = new TextField(110,100,"РАССКАЗАТЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtHard = new TextField(50,50,"+1", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtHard = new TextField(50,50,String(_count), g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtHard.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _contBtn = new CButton();
         _contBtn.addButtonTexture(172, 45, CButton.BLUE, true);
@@ -292,7 +295,11 @@ public class WOLevelUp extends WindowMain {
     }
 
     private function onClickShare():void {
-        g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_arrItems);
+        var arr:Array = [];
+        arr.push(_arrItems);
+        arr.push(_count);
+        arr.push(DataMoney.HARD_CURRENCY);
+//        g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_arrItems);
         hideIt();
     }
 
