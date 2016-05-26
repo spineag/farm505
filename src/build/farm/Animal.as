@@ -376,7 +376,7 @@ public class Animal {
         }
         try {
             if (idleLabels.length == 1) {
-                animation.playIt(idleLabels[0]);
+                animation.playIt(idleLabels[0], true, chooseAnimation);
             } else if (idleLabels.length == 2) {
                 if (Math.random()<.75) {
                     animation.playIt(idleLabels[0], true, chooseAnimation);
@@ -444,7 +444,10 @@ public class Animal {
     }
 
     public function deleteFilter():void {
-
+        source.filter = null;
+        _isOnHover = false;
+        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
+        g.mouseHint.hideIt();
     }
 }
 }

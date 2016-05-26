@@ -20,6 +20,8 @@ public class Chest extends WorldObject{
 
     private function onCreateBuild():void {
         _source.endClickCallback = onClick;
+        _hitArea = g.managerHitArea.getHitArea(_source, 'chest');
+        _source.registerHitArea(_hitArea);
         WorldClock.clock.add(_armature);
         animation();
     }

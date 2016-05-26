@@ -159,6 +159,8 @@ public class Tree extends WorldObject {
                 g.gameDispatcher.addToTimer(render);
             }
         }
+
+        if (_armature) quickCheckState();
     }
 
     private function setBuildImage():void {
@@ -323,6 +325,61 @@ public class Tree extends WorldObject {
         }
     }
 
+    private function quickCheckState():void {
+        switch (_state) {
+            case GROW1:
+                _armature.animation.gotoAndStop("small", 0);
+                break;
+            case GROW_FLOWER1:
+                _armature.animation.gotoAndStop("small_flower", 0);
+                break;
+            case GROWED1:
+                _armature.animation.gotoAndStop("small_fruits", 0);
+                break;
+            case GROW2:
+                _armature.animation.gotoAndStop("middle", 0);
+                break;
+            case GROW_FLOWER2:
+                _armature.animation.gotoAndStop("middle_flower", 0);
+                break;
+            case GROWED2:
+                _armature.animation.gotoAndStop("middle_fruits", 0);
+                break;
+            case GROW3:
+                _armature.animation.gotoAndStop("big", 0);
+                break;
+            case GROW_FLOWER3:
+                _armature.animation.gotoAndStop("big_flower", 0);
+                break;
+            case GROWED3:
+                _armature.animation.gotoAndStop("big_fruits", 0);
+                break;
+            case DEAD:
+                _armature.animation.gotoAndStop("dead", 0);
+                break;
+            case FULL_DEAD:
+                _armature.animation.gotoAndStop("dead", 0);
+                break;
+            case ASK_FIX:
+                _armature.animation.gotoAndStop("dead", 0);
+                break;
+            case FIXED:
+                _armature.animation.gotoAndStop("dead", 0);
+                break;
+            case GROW_FIXED:
+                _armature.animation.gotoAndStop("big", 0);
+                break;
+            case GROW_FIXED_FLOWER:
+                _armature.animation.gotoAndStop("big_flower", 0);
+                break;
+            case GROWED_FIXED:
+                _armature.animation.gotoAndStop("big_fruits", 0);
+                break;
+            default:
+                Cc.error('tree state is WRONG');
+        }
+    }
+
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();
@@ -344,6 +401,7 @@ public class Tree extends WorldObject {
         var fEndOver:Function = function():void {
             _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            quickCheckState();
         };
         _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
