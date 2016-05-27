@@ -89,9 +89,9 @@ public class CatPanel {
     }
 
     private function onClick():void {
+//        g.socialNetwork.getFriends();
 //        g.user.level ++;
 //        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-        g.managerInviteFriend.create();
     }
 }
 }

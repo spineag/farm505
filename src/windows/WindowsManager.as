@@ -15,6 +15,7 @@ import windows.chestWindow.WOChest;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.fabricaWindow.WOFabrica;
 import windows.gameError.WOGameError;
+import windows.inviteFriends.WOInviteFriends;
 import windows.lastResource.WOLastResource;
 import windows.levelUp.WOLevelUp;
 import windows.lockedLand.WOLockedLand;
@@ -65,6 +66,7 @@ public class WindowsManager {
     public static const WO_TRAIN_ORDER:String = 'train_order';
     public static const WO_TRAIN_SEND:String = 'train_send';
     public static const WO_CHEST:String = 'chest';
+    public static const WO_INVITE_FRIENDS:String = 'invite_friends';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -180,6 +182,9 @@ public class WindowsManager {
                 break;
             case WO_CHEST:
                 wo = new WOChest();
+                break;
+            case WO_INVITE_FRIENDS:
+                wo = new WOInviteFriends();
                 break;
 
             default:
