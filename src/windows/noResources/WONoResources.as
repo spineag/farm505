@@ -145,6 +145,18 @@ public class WONoResources extends WindowMain {
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
                 _btnBuy.clickCallback = onClickOrder;
                 break;
+            case 'papper':
+                _countOfResources = _paramData.count;
+                item = new WONoResourcesItem();
+                item.fillWithResource(_paramData.data.id, _paramData.count);
+                item.source.x =  - item.source.width/2;
+                item.source.y = 0;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _countCost = _paramData.count * int(_paramData.data.priceHard);
+                _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+                _btnBuy.clickCallback = onClickPapper;
+                break;
             case 'train':
                 _countOfResources = _paramData.count;
                 item = new WONoResourcesItem();
@@ -329,6 +341,23 @@ public class WONoResources extends WindowMain {
             _callbackBuy = null;
         }
     }
+    private function onClickPapper():void {
+        if (_countCost <= g.user.hardCurrency) {
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countCost);
+        } else {
+            _callbackBuy = null;
+            g.windowsManager.uncasheWindow();
+            super.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            return;
+        }
+        g.userInventory.addResource(_paramData.data.id, _countOfResources);
+        super.hideIt();
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null,[]);
+            _callbackBuy = null;
+        }
+    }
 
     private function onClickTrain():void {
         if (_countCost <= g.user.hardCurrency) {
@@ -347,6 +376,7 @@ public class WONoResources extends WindowMain {
             _callbackBuy = null;
         }
     }
+
 
     override protected function deleteIt():void {
         g.marketHint.hideIt();

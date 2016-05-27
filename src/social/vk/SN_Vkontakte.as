@@ -342,6 +342,7 @@ public class SN_Vkontakte extends SocialNetwork {
 
     private function inviteBoxCompleteHandler(e:CustomEvent):void {
         _apiConnection.removeEventListener(CustomEvent.WINDOW_FOCUS, inviteBoxCompleteHandler);
+
         super.inviteBoxComplete();
     }
 

@@ -219,7 +219,10 @@ public class Animal {
             }
         } else if (_state == HUNGRY) {
             onOut();
-            if(g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
+            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
+                    return;
+            } else if  (g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
                 g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
                 return;
             }
@@ -229,7 +232,8 @@ public class Animal {
             }
             if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
                 g.mouseHint.hideIt();
-                g.userInventory.addResource(_data.idResourceRaw, -1);
+                if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) g.userInventory.addResource(_data.idResourceRaw, -2);
+                else g.userInventory.addResource(_data.idResourceRaw, -1);
                 _timeToEnd = _data.timeCraft;
                 g.gameDispatcher.addToTimer(render);
                 _state = WORK;

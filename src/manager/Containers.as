@@ -138,14 +138,14 @@ public class Containers {
                 _isDragged = false;
                 return;
             }
-            if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-                if (!_isDragged) {
-                    g.bottomPanel.cancelBoolean(false);
-                    g.toolsModifier.modifierType = ToolsModifier.NONE;
-                }
-                _isDragged = false;
-                return;
-            }
+//            if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+//                if (!_isDragged) {
+//                    g.bottomPanel.cancelBoolean(false);
+//                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+//                }
+//                _isDragged = false;
+//                return;
+//            }
             _isDragged = false;
         }
 

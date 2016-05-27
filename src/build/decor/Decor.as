@@ -86,7 +86,7 @@ public class Decor extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
-        _source.filter = null;
+        if(_source) _source.filter = null;
     }
 
     override public function clearIt():void {

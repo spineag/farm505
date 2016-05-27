@@ -110,6 +110,14 @@ public class WindowMain {
         else _btnExit.alpha = 1;
     }
 
+    protected function hideExitButton():void {
+        if (_btnExit) {
+            _source.removeChild(_btnExit);
+            _btnExit.deleteIt();
+            _btnExit = null;
+        }
+    }
+
     public function get source():Sprite {
         return _source;
     }
