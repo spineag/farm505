@@ -2,20 +2,21 @@ package build {
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
-
 import dragonBones.Armature;
-
 import flash.display.Bitmap;
-
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
 import manager.hitArea.OwnHitArea;
+
+import preloader.miniPreloader.FlashAnimatedPreloader;
+
 import starling.display.DisplayObject;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.textures.Texture;
-
+import starling.utils.Color;
 import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
 import utils.IsoUtils;
@@ -40,6 +41,7 @@ public class WorldObject {
     protected var _source:CSprite;
     protected var _build:Sprite;
     protected var _isoView:Sprite;
+    private var _preloader:FlashAnimatedPreloader;
     protected var _craftSprite:Sprite;
     protected var _depth:Number = 0;
     protected var _rect:Rectangle;
@@ -232,11 +234,13 @@ public class WorldObject {
         if (g.allData.factory[_dataBuild.url]) {
             createAnimBuild1(onCreate);
         } else {
+            createIsoView();
             g.loadAnimation.load('animations/x1/' + _dataBuild.url, _dataBuild.url, createAnimBuild1, onCreate);
         }
     }
 
     private function createAnimBuild1(onCreate:Function):void {
+        deleteIsoView();
         _armature = g.allData.factory[_dataBuild.url].buildArmature(_dataBuild.image);
         _build.addChild(_armature.display as Sprite);
         _rect = _build.getBounds(_build);
@@ -254,12 +258,14 @@ public class WorldObject {
         if (g.allData.atlas[_dataBuild.url]) {
             createAtlasBuild1(onCreate);
         } else {
+            createIsoView();
             g.load.loadAtlas(_dataBuild.url, _dataBuild.url, createAtlasBuild1);
         }
 
     }
 
     private function createAtlasBuild1(onCreate:Function):void {
+        deleteIsoView();
         var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
         im.x = _dataBuild.innerX;
         im.y = _dataBuild.innerY;
@@ -276,6 +282,7 @@ public class WorldObject {
     }
 
     public function createPNGBuild(onCreate:Function):void {
+        createIsoView();
         if (_build) {
             if (_source.contains(_build)) {
                 _source.removeChild(_build);
@@ -290,6 +297,7 @@ public class WorldObject {
     }
 
     private function createPNGBuild1(b:Bitmap, onCreate:Function):void {
+        deleteIsoView();
         var im:Image = new Image(Texture.fromBitmap(g.pBitmaps[_dataBuild.url].create() as Bitmap));
         im.x = _dataBuild.innerX;
         im.y = _dataBuild.innerY;
@@ -307,29 +315,31 @@ public class WorldObject {
 
     protected function createIsoView():void {
         if (_isoView) return;
-        var im:Image;
         _isoView = new Sprite();
-        try {
-            for (var i:int = 0; i < _dataBuild.width; i++) {
-                for (var j:int = 0; j < _dataBuild.height; j++) {
-                    im = new Image(g.matrixGrid.buildUnderTexture);
-                    im.pivotX = im.width/2;
-                    g.matrixGrid.setSpriteFromIndex(im, new Point(i, j));
-                    _isoView.addChild(im);
-                }
-            }
-            _source.addChildAt(_isoView, 0);
-        } catch (e:Error) {
-            Cc.error('AreaObject createIsoView error id: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject createIsoView ');
-        }
+        var q:Quad  = new Quad(_dataBuild.width*g.matrixGrid.WIDTH_CELL, _dataBuild.height*g.matrixGrid.WIDTH_CELL, Color.WHITE);
+        q.alpha = .15;
+        q.rotation = Math.PI/4;
+        _isoView.addChild(q);
+        _isoView.scaleY = .5;
+        _isoView.touchable = false;
+        _source.addChildAt(_isoView, 0);
+        _preloader = new FlashAnimatedPreloader();
+        _preloader.source.x = (_dataBuild.width - _dataBuild.height)*g.matrixGrid.FACTOR/2;
+        _preloader.source.y = _isoView.height/2;
+        _preloader.source.scaleX = _preloader.source.scaleY = .8;
+        _source.addChild(_preloader.source);
     }
 
     protected function deleteIsoView():void {
         if (_isoView) {
-            while (_isoView.numChildren) _isoView.removeChildAt(0);
             _source.removeChild(_isoView);
+            _isoView.dispose();
             _isoView = null;
+        }
+        if (_preloader) {
+            _source.removeChild(_preloader.source);
+            _preloader.deleteIt();
+            _preloader = null;
         }
     }
 

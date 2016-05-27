@@ -122,21 +122,21 @@ public class DailyBonus extends WorldObject{
 
     public function showLights():void {
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay('work');
+        if (_armature) _armature.animation.gotoAndPlay('work');
     }
 
     private function hoverIdle():void {
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay('idle_2');
+        if (_armature) _armature.animation.gotoAndPlay('idle_2');
     }
 
     private function hoverout():void {
-        _armature.animation.gotoAndStop('idle', 0);
+        if (_armature) _armature.animation.gotoAndStop('idle', 0);
         WorldClock.clock.remove(_armature);
     }
 
     public function hideLights():void {
-        _armature.animation.gotoAndStop('idle', 0);
+        if (_armature)  _armature.animation.gotoAndStop('idle', 0);
         WorldClock.clock.remove(_armature);
     }
 

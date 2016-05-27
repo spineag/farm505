@@ -183,24 +183,24 @@ public class MatrixGrid {
         _gridRedTexture = Texture.fromBitmapData(BMP2,false, false);
     }
 
-    private var underTexture:Texture;
-    public function get buildUnderTexture():Texture {
-        if (underTexture) return underTexture;
-
-        var sp:flash.display.Shape = new flash.display.Shape();
-        sp.graphics.lineStyle(1, Color.BLACK);
-        sp.graphics.beginFill(0x990000, 1);
-        sp.graphics.moveTo(DIAGONAL/2, 0);
-        sp.graphics.lineTo(0, FACTOR/2);
-        sp.graphics.lineTo(DIAGONAL/2, FACTOR);
-        sp.graphics.lineTo(DIAGONAL, FACTOR/2);
-        sp.graphics.lineTo(DIAGONAL/2, 0);
-        sp.graphics.endFill();
-        var BMP:BitmapData = new BitmapData(DIAGONAL, FACTOR, true, 0x00000000);
-        BMP.draw(sp);
-        underTexture = Texture.fromBitmapData(BMP,false, false);
-        return underTexture;
-    }
+//    private var underTexture:Texture;
+//    public function get buildUnderTexture():Texture {
+//        if (underTexture) return underTexture;
+//
+//        var sp:flash.display.Shape = new flash.display.Shape();
+//        sp.graphics.lineStyle(1, Color.BLACK);
+//        sp.graphics.beginFill(0x990000, 1);
+//        sp.graphics.moveTo(DIAGONAL/2, 0);
+//        sp.graphics.lineTo(0, FACTOR/2);
+//        sp.graphics.lineTo(DIAGONAL/2, FACTOR);
+//        sp.graphics.lineTo(DIAGONAL, FACTOR/2);
+//        sp.graphics.lineTo(DIAGONAL/2, 0);
+//        sp.graphics.endFill();
+//        var BMP:BitmapData = new BitmapData(DIAGONAL, FACTOR, true, 0x00000000);
+//        BMP.draw(sp);
+//        underTexture = Texture.fromBitmapData(BMP,false, false);
+//        return underTexture;
+//    }
 
 
 
