@@ -44,6 +44,7 @@ public class AnimalAnimation {
 
     public function stopItAtLabel(label:String):void {
         _label = label;
+        if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
         _armature.animation.gotoAndStop(_label, 0);
     }
 

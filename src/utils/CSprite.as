@@ -12,6 +12,7 @@ import manager.hitArea.OwnHitArea;
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
 import starling.display.Sprite;
+import starling.events.Touch;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 
@@ -29,6 +30,7 @@ public class CSprite extends Sprite {
     private var _params:*;
     private var _hitArea:OwnHitArea;
     private var _hitAreaState:int;
+    public var makeTest:Boolean = false;
     public var woObject:WorldObject;
 
     private var g:Vars = Vars.getInstance();
@@ -52,7 +54,15 @@ public class CSprite extends Sprite {
 
     private var _startDragPoint:Point;
     public function onTouch(te:TouchEvent):void {
-        if (!te.touches.length) return;
+        if (makeTest) {
+            var touch:Touch = te.getTouch(this);
+            if (touch == null) {
+                trace('out!!!');
+            } else {
+                trace(touch.phase);
+            }
+        }
+
         if (_hitArea) {
             var p:Point = new Point(te.touches[0].globalX, te.touches[0].globalY);
             p = this.globalToLocal(p);
