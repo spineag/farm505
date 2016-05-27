@@ -7,6 +7,8 @@ import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import dragonBones.events.AnimationEvent;
+
+import flash.events.MouseEvent;
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
@@ -120,6 +122,7 @@ public class Animal {
         animation = new AnimalAnimation();
         animation.animalArmature(g.allData.factory[_data.url].buildArmature(_data.image));
         source.addChild(animation.source);
+        _rect = source.getBounds(source);
         if (currentLabelAfterLoading != '') {
             addRenderAnimation();
         }
@@ -138,7 +141,6 @@ public class Animal {
     }
 
     public function addArrow():void {
-        _rect = source.getBounds(source);
         removeArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.scaleIt(.7);
@@ -211,7 +213,14 @@ public class Animal {
         if(_farm.hasAnyCraftedResource) return;
         if (_state == WORK) {
             source.filter = null;
-            g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
+            if (!g.mouseHint.isShowedAnimalFeed) {
+                var p1:Point = new Point(0, _rect.y);
+                p1 = source.localToGlobal(p1);
+                if (_data.id == 1) p1.y += 25;
+                g.timerHint.showIt(90, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut);
+                stopAnimation();
+                idleAnimation();
+            }
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
                 removeArrow();
                 g.mouseHint.hideIt();
@@ -272,6 +281,7 @@ public class Animal {
     }
 
     private function onHover():void {
+        if (_isOnHover) true;
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         if (g.isActiveMapEditor) return;
@@ -295,17 +305,28 @@ public class Animal {
     private function countEnterFrameMouseHint():void {
         _frameCounterMouseHint--;
         if (_frameCounterMouseHint <= 5){
-            if (_isOnHover) {
-                if (_state == HUNGRY) {
-                    g.mouseHint.checkMouseHint('animal', _data);
-                    g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
-                } else if (_state == WORK) g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
-            } else g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
+            if (!g.mouseHint.isShowedAnimalFeed) {
+                if (_isOnHover) {
+                    if (_state == HUNGRY)
+                        g.mouseHint.checkMouseHint(MouseHint.ANIMAL, _data);
+                    else if (_state == WORK) {
+                        g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
+                    }
+                }
+            }
+            g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
         }
         if (_frameCounterMouseHint <= 0) {  // will be goon not use showing timerHint on hover
             g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
             if (_isOnHover && _state == WORK) {
-                g.timerHint.showIt(90, g.ownMouse.mouseX + 20, g.ownMouse.mouseY + 20, _timeToEnd, _data.costForceCraft, _data.name,callbackSkip,onOut);
+                if (!g.mouseHint.isShowedAnimalFeed) {
+                    var p1:Point = new Point(0, _rect.y);
+                    p1 = source.localToGlobal(p1);
+                    if (_data.id == 1) p1.y += 20;
+                    g.timerHint.showIt(90, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut);
+                    stopAnimation();
+                    idleAnimation();
+                }
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
                     removeArrow();
                     g.mouseHint.hideIt();

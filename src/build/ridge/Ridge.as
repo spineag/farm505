@@ -149,7 +149,8 @@ public class Ridge extends WorldObject{
                 g.wildHint.managerHide();
                 g.treeHint.managerHide();
             }
-            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+            if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED && g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE)
+                g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
 

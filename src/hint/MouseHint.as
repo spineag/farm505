@@ -26,6 +26,8 @@ public class MouseHint {
     public static const KOWOLKA:String = "cursor_basket";
     public static const KORZINA:String = "cursor_basket";
     public static const HELP:String = "help_icon";
+    public static const ANIMAL:String = "animal";
+    private var _curType:String;
 
     private var _source:Sprite;
     private var _imageBg:Image;
@@ -71,8 +73,13 @@ public class MouseHint {
         _source.y = g.ownMouse.mouseY + 5;
     }
 
+    public function get isShowedAnimalFeed():Boolean {
+        return _isShowed && _curType == ANIMAL;
+    }
+
     public function checkMouseHint(s:String, dat:Object = null):void {
         if (_isShowed) return;
+        _curType = s;
         _isShowed = true;
         _imageCircle.visible = false;
         _txtCount.text = '';
@@ -102,7 +109,7 @@ public class MouseHint {
                 _image.y = 7;
 
                 break;
-            case 'animal':
+            case ANIMAL:
                 _imageCircle.visible = true;
                 _txtCount.text = String(g.userInventory.getCountResourceById(dat.idResourceRaw));
                 if (g.dataResource.objectResources[dat.idResourceRaw].buildType == BuildType.PLANT)
