@@ -134,12 +134,21 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function getFriends():void {
         super.getFriends();
-        _apiConnection.api("friends.get", {fields: "", https: 1}, getFriendsHandler, onError);
+        _apiConnection.api("friends.get", {fields: "first_name,last_name,photo_100", https: 1}, getFriendsHandler, onError);
     }
 
     private function getFriendsHandler(e:Object = null):void {
+        var b:Boolean;
         for (var key:String in e) {
-            addNoAppFriend(e[key]);
+            b = false;
+            for (var i:int = 0; i < g.user.arrFriends.length; i++) {
+                if (int(e[key].uid) != int(g.user.arrFriends[i].userSocialId)) b = true;
+                else {
+                    b = false;
+                    break;
+                }
+            }
+            if (b) addNoAppFriend(e[key]);
         }
         super.getFriendsSuccess(e.length);
     }
@@ -266,12 +275,12 @@ public class SN_Vkontakte extends SocialNetwork {
         _apiConnection.api("wall.getById", {posts: postIds, extended: 0, v: 5.21}, getPostsByIdsHandler, onError);
     }
 
-    override public function getAppUsers():void {
+    override public function getAppUsers():void { // друзья в игре
         super.getAppUsers();
         _apiConnection.api("friends.getAppUsers", {https: 1}, getAppUsersHandler, onError);
     }
 
-    private function getAppUsersHandler(e:Object):void {
+    private function getAppUsersHandler(e:Object):void { // создает массив друзей в игре
         _appFriends = e as Array;
         var f:Friend;
         for (var i:int=0; i<_appFriends.length; i++) {
@@ -434,7 +443,7 @@ public class SN_Vkontakte extends SocialNetwork {
 
     private function onGetAlbums(data:Object):void {
         for (var Key:String in data) {
-            if (data[Key].title == "Птичий Островок") {
+            if (data[Key].title == "Умелые Лапки") {
                 _isAlbum = true;
                 _idAlbum = data[Key].aid;
 

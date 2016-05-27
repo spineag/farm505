@@ -178,7 +178,11 @@ public class LockedLandItem {
             btn.x = 362;
             btn.y = 50;
             source.addChild(btn);
-//            btn.endClickCallback = f1;
+            var f1:Function = function ():void {
+                g.windowsManager.hideWindow(WindowsManager.WO_LOCKED_LAND);
+                g.windowsManager.openWindow(WindowsManager.WO_INVITE_FRIENDS, null, false);
+            };
+            btn.clickCallback = f1;
             _isGood = false;
         }
     }

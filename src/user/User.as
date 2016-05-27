@@ -36,6 +36,7 @@ public class User extends Someone {
     public var plantNotification:int;
     public var decorNotification:int;
     public var allNotification:int;
+    public var arrNoAppFriend:Array;
 
     public var buyMarketTab:int;
     private var g:Vars = Vars.getInstance();
@@ -60,6 +61,7 @@ public class User extends Someone {
         userBuildingData = {};
         arrFriends = [];
         arrTempUsers = [];
+        arrNoAppFriend = [];
         lastVisitAmbar = true;
         neighbor = new NeighborBot();
     }
@@ -86,6 +88,7 @@ public class User extends Someone {
 
     public function friendAppUser():void {
         g.socialNetwork.getAppUsers();
+//        g.socialNetwork.getFriends();
     }
 
     public function addFriendInfo(ob:Object):void {

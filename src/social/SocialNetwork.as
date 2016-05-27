@@ -95,8 +95,14 @@ public class SocialNetwork extends EventDispatcher {
 //        g.user.addFriendsInfo(socUID, firstName, lastName, photo);
     }
 
-    protected function addNoAppFriend(socUID:String):void {
-//        g.user.addNoAppFriend(socUID);
+    protected function addNoAppFriend(data:Object):void {
+        var ob:Object = {};
+        ob.name = data.first_name;
+        ob.lastName = data.last_name;
+        ob.online = data.online;
+        ob.photo = data.photo_100;
+        ob.userSocialId = data.user_id;
+        g.user.arrNoAppFriend.push(ob);
     }
 
     protected function getFriendsSuccess(e:Object):void {

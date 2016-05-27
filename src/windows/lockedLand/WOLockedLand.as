@@ -144,6 +144,7 @@ public class WOLockedLand extends WindowMain {
     }
 
     private function addAnimation():void {
+        if(!_armature) return;
         _armature = g.allData.factory['catCustomer'].buildArmature("cat_customer");
         _armature.display.x = -150;
         _armature.display.y = -150;
@@ -152,6 +153,7 @@ public class WOLockedLand extends WindowMain {
     }
 
     private function showAnimation(e:AnimationEvent = null):void {
+        if(!_armature) return;
         if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
         if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
 
@@ -174,11 +176,11 @@ public class WOLockedLand extends WindowMain {
         }
         _arrItems.length = 0;
         WorldClock.clock.remove(_armature);
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
-       _source.removeChild(_armature.display as Sprite);
-        _armature.dispose();
-        _armature = null;
+        if (_armature) if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
+        if (_armature) if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+        if (_armature) _source.removeChild(_armature.display as Sprite);
+        if (_armature) _armature.dispose();
+        if (_armature) _armature = null;
         _source.removeChild(_btnOpen);
         _btnOpen.deleteIt();
         _btnOpen = null;
