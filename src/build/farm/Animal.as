@@ -216,7 +216,7 @@ public class Animal {
             if (!g.mouseHint.isShowedAnimalFeed) {
                 var p1:Point = new Point(0, _rect.y);
                 p1 = source.localToGlobal(p1);
-                if (_data.id == 1) p1.y += 25;
+                if (_data.id == 1 || _data.id == 3) p1.y += 25;
                 g.timerHint.showIt(90, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut);
                 stopAnimation();
                 idleAnimation();
@@ -315,24 +315,6 @@ public class Animal {
                 }
             }
             g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
-        }
-        if (_frameCounterMouseHint <= 0) {  // will be goon not use showing timerHint on hover
-            g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
-            if (_isOnHover && _state == WORK) {
-                if (!g.mouseHint.isShowedAnimalFeed) {
-                    var p1:Point = new Point(0, _rect.y);
-                    p1 = source.localToGlobal(p1);
-                    if (_data.id == 1) p1.y += 20;
-                    g.timerHint.showIt(90, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut);
-                    stopAnimation();
-                    idleAnimation();
-                }
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
-                    removeArrow();
-                    g.mouseHint.hideIt();
-                    g.timerHint.addArrow();
-                }
-            }
         }
     }
 

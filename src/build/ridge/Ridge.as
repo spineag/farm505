@@ -155,13 +155,15 @@ public class Ridge extends WorldObject{
     }
 
     override public function onOut():void {
-        super.onHover();
-        if (g.isActiveMapEditor || g.isAway) return;
-        _source.filter = null;
-        _isOnHover = false;
-        g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+        if (_source) {
+            super.onHover();
+            if (g.isActiveMapEditor || g.isAway) return;
+            _isOnHover = false;
+            _source.filter = null;
+            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
 //        g.mouseHint.hideIt();
 //        g.timerHint.hideIt();
+        }
 
     }
 
