@@ -27,15 +27,16 @@ public class WOInviteFriends extends WindowMain {
 
     public function WOInviteFriends() {
         super();
-        if (g.user.arrNoAppFriend.length == 0) g.socialNetwork.getFriends();
         _windowType = WindowsManager.WO_INVITE_FRIENDS;
         _woWidth = 450;
         _woHeight = 500;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _arrItem = [];
-//        _cartonBackground = new CartonBackground(666, 320);
-//        _source.addChild(_cartonBackground);
+        _cartonBackground = new CartonBackground(330, 300);
+        _cartonBackground.y = -165;
+        _cartonBackground.x = -165;
+        _source.addChild(_cartonBackground);
         _txt = new TextField(300,30,'ПРИГЛАСИ ДРУЗЕЙ', g.allData.fonts['BloggerBold'],22,Color.WHITE);
         _txt.x = -150;
         _txt.y = -200;
@@ -66,6 +67,7 @@ public class WOInviteFriends extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void{
         super.showIt();
         createFriend();
+        g.socialNetwork.getFriends();
     }
 
     private function createFriend():void {
@@ -81,11 +83,13 @@ public class WOInviteFriends extends WindowMain {
     }
 
     private function onClick():void {
+        var arr:Array = [];
         for (var i:int = 0; i < _arrItem.length; i++) {
-            if (_arrItem[i].check) {
-                g.socialNetwork.requestBox(String(_arrItem[i].data.userSocialId),'ЭЙ БРАТТТТ ФЮЮЮЮЮЮ ДАВАЙ ИГРАТЬ БРААТТ','1');
+            if (_arrItem[i].check.visible) {
+                arr.push(_arrItem[i].data.userSocialId);
             }
         }
+        g.socialNetwork.requestBoxArray(arr,'ЭЙ БРАТТТТ ФЮЮЮЮЮЮ ДАВАЙ ИГРАТЬ БРААТТ','1');
     }
 
 

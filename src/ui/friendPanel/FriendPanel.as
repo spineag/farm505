@@ -92,7 +92,7 @@ public class FriendPanel {
             g.managerTutorial.checkTutorialCallback();
             g.townArea.goAway(g.user.neighbor);
             g.catPanel.visibleCatPanel(false);
-        }
+        } else g.socialNetwork.showInviteWindow();
     }
 
     public function onResize():void {
