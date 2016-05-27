@@ -78,7 +78,7 @@ public class DecorTail extends WorldObject{
     override public function onOut():void {
         super.onOut();
         if (g.isActiveMapEditor) return;
-        _source.filter = null;
+        if (_source) _source.filter = null;
     }
 
     override public function clearIt():void {

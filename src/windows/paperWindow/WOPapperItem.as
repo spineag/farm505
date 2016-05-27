@@ -304,9 +304,9 @@ public class WOPapperItem {
 
     private function onClickBuyBot():void {
         if (!_data.visible == .5) return;
+        var ob:Object = {};
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
             g.windowsManager.cashWindow = _wo;
-            var ob:Object = {};
             ob.data = g.dataResource.objectResources[_data.resourceId];
             ob.count = _data.resourceCount - g.userInventory.getCountResourceById(_data.resourceId);
             _wo.hideIt();
@@ -315,7 +315,6 @@ public class WOPapperItem {
         }
         var p:Point = new Point(_ava.x, _ava.y);
         p = _ava.localToGlobal(p);
-        var ob:Object = {};
         ob.id = DataMoney.SOFT_CURRENCY;
         ob.count = _data.resourceCount;
         new DropItem(p.x,p.y,ob);

@@ -54,17 +54,17 @@ public class CSprite extends Sprite {
 
     private var _startDragPoint:Point;
     public function onTouch(te:TouchEvent):void {
-        if (makeTest) {
-            var touch:Touch = te.getTouch(this);
-            if (touch == null) {
-                trace('out!!!');
-            } else {
-                trace(touch.phase);
+        var touch:Touch = te.getTouch(this);
+        if (touch == null) {
+            Mouse.cursor = OwnMouse.USUAL_CURSOR;
+            if (_outCallback != null) {
+                _outCallback.apply();
             }
+            return;
         }
 
         if (_hitArea) {
-            var p:Point = new Point(te.touches[0].globalX, te.touches[0].globalY);
+            var p:Point = new Point(touch.globalX, touch.globalY);
             p = this.globalToLocal(p);
             if (_hitArea.isTouchablePoint(p.x, p.y)) _hitAreaState = 2; // state -> mouse is under visible point
             else _hitAreaState = 3; // state -> mouse is not under visible point
@@ -72,31 +72,31 @@ public class CSprite extends Sprite {
             _hitAreaState = 1; //state -> don't have hitArea
         }
 
-        if (te.touches[0].phase == TouchPhase.MOVED) {
+        if (touch.phase == TouchPhase.MOVED) {
             if (_useContDrag) {
                 if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) return;
-                g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
+                g.cont.dragGameCont(touch.getLocation(g.mainStage));
             }
             if (_onMovedCallback != null) {
-                _onMovedCallback.apply(null, [te.touches[0].globalX, te.touches[0].globalY]);
+                _onMovedCallback.apply(null, [touch.globalX, touch.globalY]);
             }
-        } else if (te.touches[0].phase == TouchPhase.BEGAN) {
+        } else if (touch.phase == TouchPhase.BEGAN) {
             if (_hitAreaState != 3) {
                 te.stopPropagation();
                 if (_useContDrag) {
                     _startDragPoint = new Point();
                     _startDragPoint.x = g.cont.gameCont.x;
                     _startDragPoint.y = g.cont.gameCont.y;
-                    g.cont.setDragPoints(te.touches[0].getLocation(g.mainStage));
+                    g.cont.setDragPoints(touch.getLocation(g.mainStage));
                 }
                 Mouse.cursor = OwnMouse.CLICK_CURSOR;
                 if (_startClickCallback != null) {
                     _startClickCallback.apply();
                 }
             } else {
-                g.buildTouchManager.checkForTouches(te.touches[0].globalX, te.touches[0].globalY, woObject, te);
+                g.buildTouchManager.checkForTouches(touch.globalX, touch.globalY, woObject, te);
             }
-        } else if (te.touches[0].phase == TouchPhase.ENDED) {
+        } else if (touch.phase == TouchPhase.ENDED) {
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
             if (_hitAreaState != 3) {
                 te.stopPropagation();
@@ -109,7 +109,7 @@ public class CSprite extends Sprite {
                     }
                 }
             } else {
-                g.buildTouchManager.checkForTouches(te.touches[0].globalX, te.touches[0].globalY, woObject, te);
+                g.buildTouchManager.checkForTouches(touch.globalX, touch.globalY, woObject, te);
             }
         } else if (te.touches[0].phase == TouchPhase.HOVER) {
             if (_hitAreaState != 3) {
@@ -123,7 +123,7 @@ public class CSprite extends Sprite {
                 if (_outCallback != null) {
                     _outCallback.apply();
                 }
-                g.buildTouchManager.checkForTouches(te.touches[0].globalX, te.touches[0].globalY, woObject, te);
+                g.buildTouchManager.checkForTouches(touch.globalX, touch.globalY, woObject, te);
             }
         } else {
             if (_hitAreaState != 2) {
@@ -132,7 +132,7 @@ public class CSprite extends Sprite {
                     _outCallback.apply();
                 }
             } else {
-                g.buildTouchManager.checkForTouches(te.touches[0].globalX, te.touches[0].globalY, woObject, te);
+                g.buildTouchManager.checkForTouches(touch.globalX, touch.globalY, woObject, te);
             }
         }
     }
