@@ -103,6 +103,7 @@ public class WOChest  extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        hideExitButton();
         var fEndOver:Function = function():void {
             _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);

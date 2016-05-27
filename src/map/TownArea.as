@@ -705,10 +705,9 @@ public class TownArea extends Sprite {
             build = createNewBuild( worldObject.dataBuild);
             g.selectedBuild = build;
             (build as WorldObject).source.filter = null;
-//            arr = getCityObjectsById( worldObject.dataBuild.id);
             g.toolsModifier.startMove(build, afterMoveReturn, true);
             g.bottomPanel.cancelBoolean(true);
-            g.buyHint.hideIt();
+//            g.buyHint.hideIt();
             return;
 
         } else if (isNewAtMap && worldObject is DecorTail){

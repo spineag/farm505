@@ -190,7 +190,7 @@ public class ManagerOrder {
                 countResources = int(Math.random()*_curMaxCountResoureAtOrder) + 1;
                 switch (countResources) {
                     case 1:
-                    if (g.user.level == 4) {
+                    if (g.user.level <= 4) {
                         if (Math.random() < .6) {
                             order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
                             order.resourceCounts.push( int(Math.random()*2) + 2 );

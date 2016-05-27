@@ -48,6 +48,7 @@ public class WOPapperItem {
     private var _userAvatar:Image;
     private var _txtUserName:TextField;
     private var _txtResourceName:TextField;
+    private var _txtSale:TextField;
     private var _p:Someone;
     private var _wo:WOPapper;
     private var number:int;
@@ -136,7 +137,7 @@ public class WOPapperItem {
         source.addChild(_txtUserName);
 
         source.visible = false;
-        source.endClickCallback = onClickVisit;
+
     }
 
     public function updateAvatar():void {
@@ -183,6 +184,7 @@ public class WOPapperItem {
         } else {
             _txtUserName.text = ob.userSocialId;
         }
+        source.endClickCallback = onClickVisit;
     }
 
     public function fillItBot(ob:Object):void {
@@ -203,6 +205,10 @@ public class WOPapperItem {
         _txtCountResource.y = 40;
         _dataResource = g.dataResource.objectResources[_data.resourceId];
         _txtResourceName.text = _dataResource.name;
+
+        _txtResourceName.hAlign = HAlign.LEFT;
+        _txtResourceName.x = 8;
+        _txtResourceName.y = 50;
         _txtUserName.text = '';
         if (_dataResource.buildType == BuildType.PLANT)
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
@@ -220,8 +226,14 @@ public class WOPapperItem {
         if (_data.buyerId == 1) {
             _userAvatar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('avatar_2'));
             MCScaler.scaleMin(_userAvatar, 46, 46);
+            while (_ava.numChildren) {
+                _ava.removeChildAt(0);
+            }
             _ava.addChild(_userAvatar);
         } else {
+            while (_ava.numChildren) {
+                _ava.removeChildAt(0);
+            }
             _userAvatar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('avatar_3'));
             MCScaler.scaleMin(_userAvatar, 46, 46);
             _ava.addChild(_userAvatar);
@@ -235,13 +247,11 @@ public class WOPapperItem {
         txt.x = 80;
         txt.y = 10;
         source.addChild(txt);
-
         _btnBuyBot = new CButton();
-        _btnBuyBot.addButtonTexture(60, 30, CButton.GREEN, true);
-        txt = new TextField(60,30,'продать', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
+        _btnBuyBot.addButtonTexture(70, 30, CButton.GREEN, true);
+        txt = new TextField(60, 30, 'продать', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
+        txt.x = 4;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-//        txt.x = 85;
-//        txt.y = 4;
         _btnBuyBot.addChild(txt);
         source.addChild(_btnBuyBot);
         _btnBuyBot.x = 95;
@@ -254,12 +264,21 @@ public class WOPapperItem {
         _btnDelete.y = 97;
         _btnDelete.clickCallback = onClickDelete;
         source.addChild(_btnDelete);
+
+        _txtSale =  new TextField(120,30,'продано', g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+        _txtSale.x = 48;
+        _txtSale.y = 95;
+        _txtSale.visible = false;
+        source.addChild(_txtSale);
+        if (!_data.visible) {
+            _btnBuyBot.visible = false;
+            _btnDelete.visible = false;
+            source.alpha = .5;
+            _txtSale.visible = true;
+        }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('visitor_back'));
         source.addChildAt(im,1);
-        _txtResourceName.hAlign = HAlign.LEFT;
-        _txtResourceName.x = 8;
-        _txtResourceName.y = 50;
-        if (!_data.visible) source.alpha = .5;
+
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
@@ -286,6 +305,12 @@ public class WOPapperItem {
     private function onClickBuyBot():void {
         if (!_data.visible == .5) return;
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
+            g.windowsManager.cashWindow = _wo;
+            var ob:Object = {};
+            ob.data = g.dataResource.objectResources[_data.resourceId];
+            ob.count = _data.resourceCount - g.userInventory.getCountResourceById(_data.resourceId);
+            _wo.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickBuyBot, 'papper', ob);
             return;
         }
         var p:Point = new Point(_ava.x, _ava.y);
@@ -300,6 +325,9 @@ public class WOPapperItem {
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
         _btnBuyBot.clickCallback = null;
         source.alpha = .5;
+        _btnBuyBot.visible = false;
+        _btnDelete.visible = false;
+        _txtSale.visible = true;
     }
 
     private function onClickDelete():void {
@@ -307,6 +335,8 @@ public class WOPapperItem {
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
         source.alpha = .5;
         _data.visible = false;
+        _btnBuyBot.visible = false;
+        _btnDelete.visible = false;
     }
 
     public function deleteIt():void {
@@ -323,6 +353,7 @@ public class WOPapperItem {
         _userAvatar = null;
         _txtUserName = null;
         _txtResourceName = null;
+        _txtSale = null;
         _p = null;
         source.dispose();
         source = null;

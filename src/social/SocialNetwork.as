@@ -211,7 +211,7 @@ public class SocialNetwork extends EventDispatcher {
 
     protected function inviteBoxComplete():void {
         Cc.ch('social', "SocialNetwork:: completed request to show window of invite friend");
-       // v.friendsWindow.checkQuest();
+//        v.friendsWindow.checkQuest();
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.INVITE_WINDOW_COMPLETE, false, false));
     }
 

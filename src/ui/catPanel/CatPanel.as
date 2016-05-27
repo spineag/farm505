@@ -52,7 +52,7 @@ public class CatPanel {
         checkCat();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-//        _source.endClickCallback = onClick;
+        _source.endClickCallback = onClick;
     }
 
     public function checkCat():void {
@@ -66,9 +66,7 @@ public class CatPanel {
             _txtCount.text = String(g.managerCats.countFreeCats + "/" + g.managerCats.curCountCats);
             _txtZero.visible = false;
             _txtCount.x = 20;
-
         }
-
     }
 
     public function onResize():void {
@@ -93,6 +91,7 @@ public class CatPanel {
     private function onClick():void {
 //        g.user.level ++;
 //        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+        g.managerInviteFriend.create();
     }
 }
 }

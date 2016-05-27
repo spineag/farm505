@@ -327,7 +327,7 @@
             <filename>new_m.png</filename>
             <filename>avatar_2.png</filename>
             <filename>avatar_3.png</filename>
-            <filename>neighbor.png</filename>
+            <filename>neighbor.jpg</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
