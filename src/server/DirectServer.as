@@ -13,6 +13,7 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.events.Event;
+import flash.events.IOErrorEvent;
 import flash.geom.Point;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
@@ -456,6 +457,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAuthUser);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
         function onCompleteAuthUser(e:Event):void { completeAuthUser(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4762,6 +4764,10 @@ public class DirectServer {
                 callback.apply(null, [false]);
             }
         }
+    }
+
+    private function onIOError(e:IOErrorEvent):void {
+        Cc.error('IOError:: ' + e.text);
     }
 }
 }

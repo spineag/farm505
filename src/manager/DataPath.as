@@ -3,7 +3,7 @@
  */
 package manager {
 public class DataPath {
-    public const MAIN_PATH:String = 'farm505-spineag.c9.io/public/';
+    public const MAIN_PATH:String = '505.ninja/';
     public const MAIN_PATH_GRAPHICS:String = '505.ninja/content/';
 
     public static const API_VERSION:String = "api-v1-0/";
@@ -26,7 +26,7 @@ public class DataPath {
     }
 
     public function getVersion():String {
-        return API_VERSION;
+        return 'php/' + API_VERSION;
     }
 
 }
