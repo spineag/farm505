@@ -847,7 +847,7 @@ public class ManagerTutorial {
 
     private function subStep9_5():void {
         _subStep = 5;
-        cat.showBubble(texts[g.user.tutorialStep][_subStep]);
+//        cat.showBubble(texts[g.user.tutorialStep][_subStep]);
         g.cont.moveCenterToPos(21, 35);
         _tutorialCallback = subStep9_6;
     }
@@ -868,7 +868,7 @@ public class ManagerTutorial {
             _arrow.deleteIt();
             _arrow = null;
         }
-        if (!cat.isShowingBubble) cat.showBubble(texts[g.user.tutorialStep][5]);
+//        if (!cat.isShowingBubble) cat.showBubble(texts[g.user.tutorialStep][5]);
         _tutorialPlaceBuilding = _tutorialObjects[1];
         g.cont.moveCenterToPos(23, 35);
         _tutorialPlaceBuilding.activateIt(true);
@@ -891,7 +891,7 @@ public class ManagerTutorial {
             _arrow.deleteIt();
             _arrow = null;
         }
-        if (!cat.isShowingBubble) cat.showBubble(texts[g.user.tutorialStep][5]);
+//        if (!cat.isShowingBubble) cat.showBubble(texts[g.user.tutorialStep][5]);
         g.cont.moveCenterToPos(25, 35);
         _tutorialPlaceBuilding = _tutorialObjects[2];
         _tutorialPlaceBuilding.activateIt(true);
@@ -899,7 +899,7 @@ public class ManagerTutorial {
     }
 
     private function subStep9_8():void {
-        cat.hideBubble();
+//        cat.hideBubble();
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         _tutorialPlaceBuilding.activateIt(false);
         _tutorialPlaceBuilding = null;
