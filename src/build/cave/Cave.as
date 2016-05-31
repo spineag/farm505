@@ -8,6 +8,8 @@ import dragonBones.events.AnimationEvent;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+import manager.ManagerWallPost;
+
 import mouse.ToolsModifier;
 import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
@@ -283,6 +285,7 @@ public class Cave extends WorldObject{
             _build.visible = true;
             _rect = _build.getBounds(_build);
             showBoom();
+            g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE);
         }
     }
 

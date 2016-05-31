@@ -8,6 +8,8 @@ import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 import manager.ManagerFilters;
+import manager.ManagerWallPost;
+
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -141,6 +143,7 @@ public class WOLockedLand extends WindowMain {
         _land.showBoom();
         _land = null;
         hideIt();
+        g.windowsManager.openWindow(WindowsManager.POST_OPEN_LAND,null);
     }
 
     private function addAnimation():void {

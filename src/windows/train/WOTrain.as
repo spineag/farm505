@@ -359,6 +359,11 @@ public class WOTrain extends WindowMain {
         updateItems();
         _btnLoad.visible = false;
         checkBtn();
+        if (g.user.wallTrainItem) {
+            g.windowsManager.openWindow(WindowsManager.POST_DONE_TRAIN);
+            g.directServer.updateWallTrainItem(null);
+            g.user.wallTrainItem = false;
+        }
     }
 
     private function updateItems():void {

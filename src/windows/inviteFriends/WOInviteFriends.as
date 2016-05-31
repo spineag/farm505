@@ -51,8 +51,8 @@ public class WOInviteFriends extends WindowMain {
         _btn.y = 200;
         _source.addChild(_btn);
         _btn.clickCallback = onClick;
-        _scrollSprite = new DefaultVerticalScrollSprite(360, 270, 90, 90);
-        _scrollSprite.createScoll(360, 0, 360, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+        _scrollSprite = new DefaultVerticalScrollSprite(270, 270, 90, 90);
+        _scrollSprite.createScoll(-275, 0,270, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
 
         createExitButton(onClickExit);
     }
@@ -78,7 +78,7 @@ public class WOInviteFriends extends WindowMain {
             _arrItem.push(item);
         }
         _source.addChild(_scrollSprite.source);
-        _scrollSprite.source.x = -180;
+        _scrollSprite.source.x = -140;
         _scrollSprite.source.y = -150;
     }
 
