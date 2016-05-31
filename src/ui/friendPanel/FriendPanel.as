@@ -90,8 +90,8 @@ public class FriendPanel {
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {      // temp
             g.managerTutorial.checkTutorialCallback();
-            g.townArea.goAway(g.user.neighbor);
-            g.catPanel.visibleCatPanel(false);
+//            g.townArea.goAway(g.user.neighbor);
+//            g.catPanel.visibleCatPanel(false);
         } else g.socialNetwork.showInviteWindow();
     }
 

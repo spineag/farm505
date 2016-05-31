@@ -137,7 +137,7 @@ public class WOLevelUpItem {
                 _image = new Image(texture);
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.ANIMAL) {
-                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 _bolHouse = true;
                 _bolAnimal = true;
             } else if (ob.buildType == BuildType.INSTRUMENT) {

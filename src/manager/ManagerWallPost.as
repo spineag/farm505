@@ -49,7 +49,7 @@ public class ManagerWallPost {
                 break;
             case NEW_FABRIC:
                 var woNewFabric:WALLNewFabric = new WALLNewFabric();
-                woNewFabric.showItParams(callback,params[3]);
+                woNewFabric.showItParams(callback,params[2]);
                 break;
             case NEW_LAND:
                 var woNewLand:WALLOpenLand = new WALLOpenLand();

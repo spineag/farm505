@@ -360,6 +360,7 @@ public class WOTrain extends WindowMain {
         _btnLoad.visible = false;
         checkBtn();
         if (g.user.wallTrainItem) {
+            super.hideIt();
             g.windowsManager.openWindow(WindowsManager.POST_DONE_TRAIN);
             g.directServer.updateWallTrainItem(null);
             g.user.wallTrainItem = false;

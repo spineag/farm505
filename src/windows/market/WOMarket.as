@@ -270,7 +270,7 @@ public class WOMarket  extends WindowMain {
 
         var marketCellCount:int = _curUser.marketCell;
         if (g.user == _curUser) {
-            marketCellCount += 2;
+            marketCellCount += 1;
             if (marketCellCount > 40) marketCellCount = 40;
         }
 

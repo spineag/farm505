@@ -253,7 +253,7 @@ public class WOLevelUp extends WindowMain {
         if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
             objDataLevel = {};
             objDataLevel.ridgeCount = true;
-            objDataLevel.id = -2;
+//            objDataLevel.id = -2;
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].ridgeCount;
             arr.push(objDataLevel);
             g.user.villageNotification++
@@ -295,10 +295,6 @@ public class WOLevelUp extends WindowMain {
     }
 
     private function onClickShare():void {
-        var arr:Array = [];
-//        arr.push(_arrItems);
-//        arr.push(_count);
-//        arr.push(DataMoney.HARD_CURRENCY);
         g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_count,DataMoney.HARD_CURRENCY);
         hideIt();
     }
