@@ -138,10 +138,12 @@ public class MarketFriendItem {
         _ava = null;
         _txt = null;
         _person = null;
-        source.removeChild(_visitBtn);
-        _visitBtn.deleteIt();
-        _visitBtn = null;
-        source.dispose();
+        if (_visitBtn) {
+            source.removeChild(_visitBtn);
+            _visitBtn.deleteIt();
+            _visitBtn = null;
+        }
+        if (source) source.dispose();
         source = null;
     }
 }
