@@ -335,6 +335,9 @@ public class MarketItem {
 
     private function onClick():void {
         if (_closeCell) return;
+        if (g.managerTutorial.isTutorial) {
+            if (!g.managerTutorial.isTutorialResource(_data.id)) return;
+        }
         _onHover = false;
         g.marketHint.hideIt();
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
