@@ -12,7 +12,15 @@ import starling.core.Starling;
 
 import ui.xpPanel.XPStar;
 
+import wallPost.WALLDoneOrder;
+
+import wallPost.WALLDoneTrain;
+import wallPost.WALLNewFabric;
+
 import wallPost.WALLNewLevel;
+import wallPost.WALLOpenCave;
+import wallPost.WALLOpenLand;
+import wallPost.WALLOpenTrain;
 
 public class ManagerWallPost {
     public static const NEW_LEVEL:String = 'new_level';
@@ -32,36 +40,43 @@ public class ManagerWallPost {
     }
 
     public function openWindow(type:String,callback:Function=null, ...params):void {
-        _count = params[1];
-        _type = params[2];
+        _count = params[0];// количество подарка
+        _type = params[1];//тип подарка
         switch (type) {
             case NEW_LEVEL:
-               var wo:WALLNewLevel = new WALLNewLevel();
+               var woLevel:WALLNewLevel = new WALLNewLevel();
+                woLevel.showItParams(callback,params);
                 break;
             case NEW_FABRIC:
-//                wo = new WONoFreeCats();
+                var woNewFabric:WALLNewFabric = new WALLNewFabric();
+                woNewFabric.showItParams(callback,params[3]);
                 break;
             case NEW_LAND:
-//                wo = new WOWaitFreeCats();
+                var woNewLand:WALLOpenLand = new WALLOpenLand();
+                woNewLand.showItParams(callback,params);
                 break;
             case OPEN_TRAIN:
-//                wo = new WOBuyCoupone();
+                var woOpenTrain:WALLOpenTrain = new WALLOpenTrain();
+                woOpenTrain.showItParams(callback,params);
                 break;
             case OPEN_CAVE:
-//                wo = new WOAmbarFilled();
+               var woCave:WALLOpenCave = new WALLOpenCave();
+                woCave.showItParams(callback,params);
                 break;
             case DONE_TRAIN:
-//                wo = new WOReloadGame();
+                var woDoneTrain:WALLDoneTrain = new WALLDoneTrain();
+                woDoneTrain.showItParams(callback,params);
                 break;
             case DONE_ORDER:
-//                wo = new WOServerError();
+                var woDoneOrder:WALLDoneOrder = new WALLDoneOrder();
+                woDoneOrder.showItParams(callback,params);
                 break;
 
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);
                 break;
         }
-        wo.showItParams(callback,params);
+
     }
 
 

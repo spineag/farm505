@@ -8,6 +8,8 @@ import dragonBones.events.AnimationEvent;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+import manager.ManagerWallPost;
+
 import mouse.ToolsModifier;
 import resourceItem.DropItem;
 import starling.core.Starling;
@@ -389,6 +391,7 @@ public class Train extends WorldObject{
             }
             createAnimatedBuild(onJustOpenedTrain);
             showBoom();
+            g.windowsManager.openWindow(WindowsManager.POST_OPEN_TRAIN);
         }
     }
 

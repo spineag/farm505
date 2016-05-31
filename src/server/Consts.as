@@ -97,5 +97,7 @@ public class Consts {
     public static var INQ_UPDATE_USER_PAPPER_BUY:String = 'updateUserPapperBuyer.php';
     public static var INQ_GET_USER_PAPPER_BUY:String = 'getUserPapperBuy.php';
     public static var INQ_UPDATE_USER_NOTIFICATION:String = 'updateUserNotification.php';
+    public static var INQ_UPDATE_WALL_TRAIN_ITEM:String = 'updateWallTrainItem.php';
+    public static var INQ_UPDATE_WALL_ORDER_ITEM:String = 'updateWallOrderTime.php';
 }
 }

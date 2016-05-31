@@ -34,6 +34,12 @@ import windows.shop.WOShop;
 import windows.train.WOTrain;
 import windows.train.WOTrainOrder;
 import windows.train.WOTrainSend;
+import windows.wallPost.PostDoneOrder;
+import windows.wallPost.PostDoneTrain;
+import windows.wallPost.PostOpenCave;
+import windows.wallPost.PostOpenFabric;
+import windows.wallPost.PostOpenLand;
+import windows.wallPost.PostOpenTrain;
 
 public class WindowsManager {
     public static const WO_AMBAR:String = 'ambar_and_sklad';
@@ -67,6 +73,12 @@ public class WindowsManager {
     public static const WO_TRAIN_SEND:String = 'train_send';
     public static const WO_CHEST:String = 'chest';
     public static const WO_INVITE_FRIENDS:String = 'invite_friends';
+    public static const POST_OPEN_LAND:String = 'post_open_land';
+    public static const POST_OPEN_CAVE:String = 'post_open_cave';
+    public static const POST_OPEN_TRAIN:String = 'post_open_train';
+    public static const POST_OPEN_FABRIC:String = 'post_open_fabric';
+    public static const POST_DONE_TRAIN:String = 'post_done_train';
+    public static const POST_DONE_ORDER:String = 'post_done_order';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -185,6 +197,24 @@ public class WindowsManager {
                 break;
             case WO_INVITE_FRIENDS:
                 wo = new WOInviteFriends();
+                break;
+            case POST_OPEN_LAND:
+                wo = new PostOpenLand();
+                break;
+            case POST_OPEN_TRAIN:
+                wo = new PostOpenTrain();
+                break;
+            case POST_OPEN_CAVE:
+                wo = new PostOpenCave();
+                break;
+            case POST_OPEN_FABRIC:
+                wo = new PostOpenFabric();
+                break;
+            case POST_DONE_ORDER:
+                wo = new PostDoneOrder();
+                break;
+            case POST_DONE_TRAIN:
+                wo = new PostDoneTrain();
                 break;
 
             default:

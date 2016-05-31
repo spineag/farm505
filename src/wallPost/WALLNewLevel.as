@@ -33,22 +33,15 @@ import windows.levelUp.WOLevelUpItem;
 public class WALLNewLevel {
     protected var g:Vars = Vars.getInstance();
     private var _source:Sprite;
-    private var _arrItems:Array;
-    private var _arrCells:Array;
-    private var _contImage:Sprite;
     private var _txtLevel:TextField;
 
     public function WALLNewLevel() {
-        _arrItems = [];
-        _arrCells = [];
         _source = new Sprite();
-        _contImage = new Sprite();
     }
 
     public function showItParams(callback:Function, params:Array):void {
         var st:String = g.dataPath.getGraphicsPath();
         g.load.loadImage(st + 'wall/wall_new_level.jpg',onLoad);
-        _arrItems = params[0];
     }
 
     private function onLoad(bitmap:Bitmap):void {
@@ -62,7 +55,12 @@ public class WALLNewLevel {
         _source.addChild(_txtLevel);
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('ТЫ КРАСАВА ВААААСССЯЯЯЯ, СУШАЙ ЛЕВЛ ПОЛУЧИЛ ВАААСССЯ'),bitMap,'interfaceAtlas');
+        deleteIt();
+    }
 
+    private function deleteIt():void {
+        _source = null;
+        _txtLevel = null;
     }
 }
 }

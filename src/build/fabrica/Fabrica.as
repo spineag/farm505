@@ -284,6 +284,7 @@ public class Fabrica extends WorldObject {
                 new XPStar(start.x, start.y, _dataBuild.xpForBuild);
             }
             showBoom();
+            g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
             }

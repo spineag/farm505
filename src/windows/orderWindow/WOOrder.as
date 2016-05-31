@@ -307,6 +307,11 @@ public class WOOrder extends WindowMain{
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
             g.managerTutorial.checkTutorialCallback();
         }
+        if (g.user.wallOrderItem && g.user.level >= 10) {
+            g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
+            g.directServer.updateWallOrderItem(null);
+            g.user.wallOrderItem = false;
+        }
     }
 
     private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {
