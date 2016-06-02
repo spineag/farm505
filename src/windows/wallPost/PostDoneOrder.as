@@ -56,6 +56,7 @@ public class PostDoneOrder extends WindowMain {
 
     private function onClick():void {
         g.managerWallPost.openWindow(ManagerWallPost.DONE_ORDER,null,200,9);
+        super.hideIt();
     }
 
     override protected function deleteIt():void {

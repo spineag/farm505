@@ -308,6 +308,7 @@ public class WOOrder extends WindowMain{
             g.managerTutorial.checkTutorialCallback();
         }
         if (g.user.wallOrderItem && g.user.level >= 10) {
+            hideIt();
             g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
             g.directServer.updateWallOrderItem(null);
             g.user.wallOrderItem = false;

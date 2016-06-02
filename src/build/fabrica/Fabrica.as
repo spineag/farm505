@@ -284,10 +284,10 @@ public class Fabrica extends WorldObject {
                 new XPStar(start.x, start.y, _dataBuild.xpForBuild);
             }
             showBoom();
-            g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
-            }
+            } else g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
+
         }
     }
 
@@ -446,8 +446,8 @@ public class Fabrica extends WorldObject {
     }
 
     private function startAnimation():void {
-        _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
+        if(_armature) _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
+        if(_armature) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
         releaseHeroCatWoman();
         chooseAnimation();
     }

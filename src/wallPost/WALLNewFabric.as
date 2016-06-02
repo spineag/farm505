@@ -37,8 +37,8 @@ public class WALLNewFabric {
             }
         }
         var im:Image = new Image(texture);
-        im.x = -75;
-        im.y = -50;
+        im.x = 200;
+        im.y = 160;
         _source.addChild(im);
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('ТЫ КРАСАВА ВААААСССЯЯЯЯ, ФАБРИКА ПРОСТО ЧУМААААА'),bitMap,'interfaceAtlas');

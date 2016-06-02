@@ -67,6 +67,7 @@ public class PostOpenFabric  extends WindowMain {
 
     private function onClick():void {
         g.managerWallPost.openWindow(ManagerWallPost.NEW_FABRIC,null,200,9,_data);
+        super.hideIt();
     }
 
     override protected function deleteIt():void {

@@ -92,8 +92,6 @@ public class CatPanel {
 //        g.socialNetwork.getFriends();
 //        g.user.level ++;
 //        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-        var data:Object = g.dataBuilding.objectBuilding[1];
-        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,data);
 
     }
 }
