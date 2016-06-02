@@ -117,7 +117,7 @@ public class WOBuyCurrency extends WindowMain {
         }
         arrInfo.sortOn('count', Array.NUMERIC);
         for (i=0; i< arrInfo.length; i++) {
-            item = new WOBuyCurrencyItem(arrInfo[i].typeMoney, arrInfo[i].count, "", arrInfo[i].cost);
+            item = new WOBuyCurrencyItem(arrInfo[i].typeMoney, arrInfo[i].count, "", arrInfo[i].cost, arrInfo[i].id);
             item.source.x = 13;
             item.source.y = 12 + i*64;
             _contItems.addChild(item.source);

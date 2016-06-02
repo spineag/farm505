@@ -355,6 +355,7 @@ public class DirectServer {
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
+                obj.id = int(d.message[i].id);
                 obj.typeMoney = int(d.message[i].type_money);
                 obj.cost = int(d.message[i].cost_for_real);
                 obj.count = int(d.message[i].count_getted);

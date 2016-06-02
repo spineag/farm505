@@ -29,10 +29,12 @@ public class WOBuyCurrencyItem {
     private var _currency:int;
     private var _costRealMoney:int;
     private var _countGameMoney:int;
+    private var _packId:int;
     private var g:Vars = Vars.getInstance();
 
-    public function WOBuyCurrencyItem(currency:int, count:int, profit:String, cost:int) {
+    public function WOBuyCurrencyItem(currency:int, count:int, profit:String, cost:int, packId:int) {
         _currency = currency;
+        _packId = packId;
         _countGameMoney = count;
         _costRealMoney = cost;
         source = new Sprite();
@@ -97,7 +99,7 @@ public class WOBuyCurrencyItem {
         g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
         g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
         g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-        g.socialNetwork.showOrderWindow({id: _costRealMoney});
+        g.socialNetwork.showOrderWindow({id: _packId});
     }
 
     private function orderWindowSuccessHandler(e:SocialNetworkEvent):void {
