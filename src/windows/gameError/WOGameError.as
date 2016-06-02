@@ -26,8 +26,6 @@ public class WOGameError extends WindowMain {
         _woHeight = 340;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        createExitButton(onClickExit);
-        _callbackClickBG = onClickExit;
         var txt:TextField = new TextField(420,80,'Произошла ошибка в игре. Если подобное происходит часто, обратитесь в службу поддержки.',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
         txt.autoScale = true;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -52,15 +50,16 @@ public class WOGameError extends WindowMain {
         im.x = -35;
         im.y = -50;
         _source.addChild(im);
-    }
-
-    private function onClickExit(e:Event=null):void {
-        hideIt();
+        _b.clickCallback = onClick;
     }
 
     override public function showItParams(callback:Function, params:Array):void {
 //        _txtError.text = params[0];
         showIt();
+    }
+
+    private function onClick():void {
+        g.socialNetwork.reloadGame();
     }
 
     override protected function deleteIt():void {

@@ -311,7 +311,7 @@ public class SocialNetwork extends EventDispatcher {
     public function reloadGame():void {
         try {
             Cc.stackch("info", "SocialNetwork:: game reloading");
-            ExternalInterface.call("BT.reload");
+            ExternalInterface.call("FarmNinja.reload");
         } catch (e:Error) {
             Cc.warn("SocialNetwork:: cannot reload game");
         }

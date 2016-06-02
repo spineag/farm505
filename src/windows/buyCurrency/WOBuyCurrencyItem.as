@@ -2,6 +2,8 @@
  * Created by user on 7/17/15.
  */
 package windows.buyCurrency {
+import com.junkbyte.console.Cc;
+
 import data.DataMoney;
 
 import flash.display.StageDisplayState;
@@ -100,12 +102,14 @@ public class WOBuyCurrencyItem {
         g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
         g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
         g.socialNetwork.showOrderWindow({id: _packId});
+        Cc.info('try to buy packId: ' + _packId);
     }
 
     private function orderWindowSuccessHandler(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
+        Cc.info('Seccuss for buy pack');
         onBuy();
     }
 
@@ -113,6 +117,7 @@ public class WOBuyCurrencyItem {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
+        Cc.info('Fail for buy pack');
     }
 
     private function onBuy():void {
