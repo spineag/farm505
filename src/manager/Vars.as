@@ -301,6 +301,10 @@ public class Vars {
     }
 
     private function onDataCats():void {
+        directServer.getDataBuyMoney(onDataBuyMoney);
+    }
+
+    private function onDataBuyMoney():void {
         startPreloader.setProgress(88);
         managerCats.calculateMaxCountCats();
         catPanel.checkCat();
