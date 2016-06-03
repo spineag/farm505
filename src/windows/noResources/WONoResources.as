@@ -354,7 +354,7 @@ public class WONoResources extends WindowMain {
         g.userInventory.addResource(_paramData.data.id, _countOfResources);
         super.hideIt();
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[]);
+            _callbackBuy.apply(null,[true]);
             _callbackBuy = null;
         }
     }

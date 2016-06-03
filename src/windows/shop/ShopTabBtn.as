@@ -143,20 +143,21 @@ public class ShopTabBtn {
         switch (_type) {
             case WOShop.VILLAGE:
                 if (g.user.villageNotification > 0) {
+                    g.user.allNotification = g.user.allNotification - g.user.villageNotification;
                     g.user.villageNotification = 0;
+                    _imNotification = null;
+                    _txtNotification = null;
                     _source.removeChild(_imNotification);
                     _source.removeChild(_txtNotification);
                     if (_shopSource.contains(_source)) _shopSource.removeChild(_source);
                     if (!_shopSprite.contains(_source)) _shopSprite.addChild(_source);
-
-//                    _imNotification = null;
-//                    _txtNotification = null;
                 }
                 break;
             case WOShop.ANIMAL:
                 break;
             case WOShop.FABRICA:
                 if (g.user.fabricaNotification > 0) {
+                    g.user.allNotification = g.user.allNotification - g.user.fabricaNotification;
                     g.user.fabricaNotification = 0;
                     _imNotification.visible = false;
                     _txtNotification.visible = false;
@@ -164,6 +165,7 @@ public class ShopTabBtn {
                 break;
             case WOShop.PLANT:
                 if (g.user.plantNotification > 0) {
+                    g.user.allNotification = g.user.allNotification - g.user.plantNotification;
                     g.user.plantNotification = 0;
                     _imNotification.visible = false;
                     _txtNotification.visible = false;
@@ -171,6 +173,7 @@ public class ShopTabBtn {
                 break;
             case WOShop.DECOR:
                 if (g.user.decorNotification > 0) {
+                    g.user.allNotification = g.user.allNotification - g.user.decorNotification;
                     g.user.decorNotification = 0;
                     _imNotification.visible = false;
                     _txtNotification.visible = false;

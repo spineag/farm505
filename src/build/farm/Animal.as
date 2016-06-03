@@ -256,7 +256,9 @@ public class Animal {
                 else
                     texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
 
-                new RawItem(p, texture, 1, 0);
+                if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT ) {
+                    new RawItem(p, texture, 2, 0);
+                } else new RawItem(p, texture, 1, 0);
                 if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
                 if (_data.id != 6) {
                     showFeedingAnimation();

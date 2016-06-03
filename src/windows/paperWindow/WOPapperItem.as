@@ -201,14 +201,14 @@ public class WOPapperItem {
         _txtCost.y = 55;
         _imageCoins.y = 75;
         _txtCountResource.text = String(_data.resourceCount) + ' шт.';
-        _txtCountResource.x = 40;
-        _txtCountResource.y = 40;
+        _txtCountResource.x = 30;
+        _txtCountResource.y = 42;
         _dataResource = g.dataResource.objectResources[_data.resourceId];
         _txtResourceName.text = _dataResource.name;
 
         _txtResourceName.hAlign = HAlign.LEFT;
         _txtResourceName.x = 8;
-        _txtResourceName.y = 50;
+        _txtResourceName.y = 45;
         _txtUserName.text = '';
         if (_dataResource.buildType == BuildType.PLANT)
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
@@ -302,7 +302,7 @@ public class WOPapperItem {
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
     }
 
-    private function onClickBuyBot():void {
+    private function onClickBuyBot(noResource:Boolean = false):void {
         if (!_data.visible == .5) return;
         var ob:Object = {};
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
@@ -313,15 +313,21 @@ public class WOPapperItem {
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickBuyBot, 'papper', ob);
             return;
         }
+        if (!noResource && _data.type == BuildType.PLANT && g.userInventory.getCountResourceById(_data.resourceId) == _data.resourceCount) {
+            g.windowsManager.cashWindow = _wo;
+            _wo.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBuyBot, {id:_data.resourceId}, 'market');
+            return;
+        }
         var p:Point = new Point(_ava.x, _ava.y);
         p = _ava.localToGlobal(p);
         ob.id = DataMoney.SOFT_CURRENCY;
-        ob.count = _data.resourceCount;
+        ob.count = _data.cost;
         new DropItem(p.x,p.y,ob);
         _data.visible = false;
         new XPStar(p.x,p.y, 5);
         g.userInventory.addResource(_data.resourceId,-_data.resourceCount);
-        g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
+        g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         _btnBuyBot.clickCallback = null;
         source.alpha = .5;
         _btnBuyBot.visible = false;
@@ -331,7 +337,7 @@ public class WOPapperItem {
 
     private function onClickDelete():void {
         if (!_data.visible == .5) return;
-        g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0);
+        g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         source.alpha = .5;
         _data.visible = false;
         _btnBuyBot.visible = false;

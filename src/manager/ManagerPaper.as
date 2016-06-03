@@ -31,6 +31,7 @@ public class ManagerPaper {
 
     public function fillBot(ar:Array):void {
         var ob:Object;
+        _arr = null;
         _arr = [];
         if (ar.length > 0) {
             for (var i:int = 0; i < ar.length; i++) {
@@ -42,6 +43,7 @@ public class ManagerPaper {
                     ob.resourceCount = int(ar[i].resource_count);
                     ob.cost = int(ar[i].cost);
                     ob.xp = int(ar[i].xp);
+                    ob.type = int(ar[i].type_resource);
                     ob.timeToNext = int(ar[i].time_to_new);
                     ob.isBuyed = false;
                     ob.isBotBuy = true;
@@ -83,6 +85,7 @@ public class ManagerPaper {
             ob.resourceCount = 1;
             ob.cost = arrMin[ra].visitorPrice * ob.resourceCount;
             ob.xp = 5;
+            ob.type = arrMin[ra].buildType;
             ob.timeToNext = int(new Date().getTime()/1000);
             ob.isBuyed = false;
             ob.isBotBuy = true;
@@ -96,6 +99,7 @@ public class ManagerPaper {
             ob.resourceCount = int(Math.random()*arrMax[ra].count) + 1;
             ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
             ob.xp = 5;
+            ob.type = g.dataResource.objectResources[arrMax[ra].id].buildType;
             ob.timeToNext = int(new Date().getTime()/1000);
             ob.isBuyed = false;
             ob.isBotBuy = true;
@@ -118,6 +122,7 @@ public class ManagerPaper {
                 ob.resourceCount = 1;
                 ob.cost = arrMin[ra].visitorPrice * ob.resourceCount;
                 ob.xp = 5;
+                ob.type = arrMin[ra].buildType;
                 ob.timeToNext = int(new Date().getTime()/1000);
                 ob.isBuyed = false;
                 ob.isBotBuy = true;
@@ -136,13 +141,14 @@ public class ManagerPaper {
                 ob.resourceCount = int(Math.random()*arrMax[ra].count) + 1;
                 ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
                 ob.xp = 5;
+                ob.type = g.dataResource.objectResources[arrMax[ra].id].buildType;
                 ob.timeToNext = int(new Date().getTime()/1000);
                 ob.isBuyed = false;
                 ob.isBotBuy = true;
                 ob.visible = true;
             }
             _arr.push(ob);
-            g.directServer.updateUserPapperBuy(ob.buyerId,ob.resourceId,ob.resourceCount,ob.xp,ob.cost,1);
+            g.directServer.updateUserPapperBuy(ob.buyerId,ob.resourceId,ob.resourceCount,ob.xp,ob.cost,1,ob.type);
         }
     }
 
