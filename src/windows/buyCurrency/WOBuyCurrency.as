@@ -104,22 +104,20 @@ public class WOBuyCurrency extends WindowMain {
 
     private function createLists():void {
         var item:WOBuyCurrencyItem;
-        var arrAdd:Array;
-        var arrCost:Array;
-        var currency:int;
+        var arrInfo:Array = [];
+        var arr:Array = g.allData.dataBuyMoney;
 
         _arrItems = [];
-        if (_isHard) {
-            arrAdd = [15, 45, 95, 185, 515, 1115];
-            arrCost = [2, 5, 10, 19, 49, 99];
-            currency = DataMoney.HARD_CURRENCY;
-        } else {
-            arrAdd = [220, 1100, 2500, 7000, 22000, 50000];
-            arrCost = [1, 4, 9, 24, 69, 149];
-            currency = DataMoney.SOFT_CURRENCY;
+        for (var i:int = 0; i<arr.length; i++) {
+            if (_isHard && arr[i].typeMoney == DataMoney.HARD_CURRENCY) {
+                arrInfo.push(arr[i]);
+            } else if (!_isHard && arr[i].typeMoney == DataMoney.SOFT_CURRENCY) {
+                arrInfo.push(arr[i]);
+            }
         }
-        for (var i:int=0; i< arrAdd.length; i++) {
-            item = new WOBuyCurrencyItem(currency, arrAdd[i], "", arrCost[i]);
+        arrInfo.sortOn('count', Array.NUMERIC);
+        for (i=0; i< arrInfo.length; i++) {
+            item = new WOBuyCurrencyItem(arrInfo[i].typeMoney, arrInfo[i].count, "", arrInfo[i].cost, arrInfo[i].id);
             item.source.x = 13;
             item.source.y = 12 + i*64;
             _contItems.addChild(item.source);

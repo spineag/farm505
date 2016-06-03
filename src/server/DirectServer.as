@@ -322,6 +322,55 @@ public class DirectServer {
         }
     }
 
+    public function getDataBuyMoney(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_BUY_MONEY);
+
+        Cc.ch('server', 'start getDataBuyMoney', 1);
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetDataBuyMoney);
+        function onCompleteGetDataBuyMoney(e:Event):void { completeGetDataBuyMoney(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataBuyMoney error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataBuyMoney error:' + error.errorID);
+        }
+    }
+
+    private function completeGetDataBuyMoney(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDataBuyMoney: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataBuyMoney: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getDataBuyMoney OK', 5);
+            var obj:Object;
+            for (var i:int = 0; i<d.message.length; i++) {
+                obj = {};
+                obj.id = int(d.message[i].id);
+                obj.typeMoney = int(d.message[i].type_money);
+                obj.cost = int(d.message[i].cost_for_real);
+                obj.count = int(d.message[i].count_getted);
+                obj.url = d.message[i].url;
+                g.allData.dataBuyMoney.push(obj);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getDataBuyMoney: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataBuyMoney: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
     public function getDataBuilding(callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_BUILDING);
