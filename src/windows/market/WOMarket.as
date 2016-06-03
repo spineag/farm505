@@ -553,8 +553,15 @@ public class WOMarket  extends WindowMain {
         if (paper) {
             _item = new MarketFriendItem(_curUser, this, 0);
             _item.source.y = -180;
-            if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
-             else _item._visitBtn.visible = true;
+            if (g.isAway) {
+                if (_arrFriends[_shiftFriend] == g.visitedUser)  _item._visitBtn.visible = false;
+                else _item._visitBtn.visible = true;
+            } else {
+                if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
+                else _item._visitBtn.visible = true;
+            }
+//            if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
+//             else _item._visitBtn.visible = true;
 
             c = new CartonBackground(125, 115);
             c.x = 208 - 5;
@@ -567,8 +574,13 @@ public class WOMarket  extends WindowMain {
         } else {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
             _item.source.y = -180;
-            if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
-            else _item._visitBtn.visible = true;
+            if (g.isAway) {
+                if (_arrFriends[_shiftFriend] == g.visitedUser)  _item._visitBtn.visible = false;
+                else _item._visitBtn.visible = true;
+            } else {
+                if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
+                else _item._visitBtn.visible = true;
+            }
             c = new CartonBackground(125, 115);
             c.x = 208 - 5;
             c.y = -185;

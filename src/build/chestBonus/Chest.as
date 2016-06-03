@@ -5,12 +5,16 @@ package build.chestBonus {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import dragonBones.animation.WorldClock;
+
+import manager.ManagerFilters;
+
 import mouse.ToolsModifier;
 import tutorial.TutorialAction;
 import windows.WindowsManager;
 
 public class Chest extends WorldObject{
     private var _timerAnimation:int;
+    private var _isOnHover:Boolean;
 
     public function Chest(data:Object) {
         super (data);
@@ -19,7 +23,9 @@ public class Chest extends WorldObject{
     }
 
     private function onCreateBuild():void {
+        _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
+        _source.outCallback = onOut;
         _hitArea = g.managerHitArea.getHitArea(_source, 'chest');
         _source.registerHitArea(_hitArea);
         WorldClock.clock.add(_armature);
@@ -69,6 +75,24 @@ public class Chest extends WorldObject{
             g.gameDispatcher.removeFromTimer(timerAnimation);
             animation();
         }
+    }
+
+    override public function onHover():void {
+        if (g.selectedBuild) return;
+        super.onHover();
+        if (!_isOnHover) {
+            makeOverAnimation();
+            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+        }
+        _isOnHover = true;
+        g.hint.showIt(_dataBuild.name);
+    }
+
+    override public function onOut():void {
+        super.onOut();
+        _isOnHover = false;
+        _source.filter = null;
+        g.hint.hideIt();
     }
 }
 }

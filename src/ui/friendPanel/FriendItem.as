@@ -165,7 +165,7 @@ public class FriendItem {
         MCScaler.scale(_ava, 50, 50);
         _ava.x = 5;
         _ava.y = 18;
-        source.addChildAt(_ava,1);
+        if (source) source.addChildAt(_ava,1);
     }
 
 

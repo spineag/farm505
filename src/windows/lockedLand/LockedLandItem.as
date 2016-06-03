@@ -49,9 +49,9 @@ public class LockedLandItem {
         txt.y = 55;
         txt.x = -30;
         source.addChild(txt);
-        txt = new TextField(200,60,'Приобрести разрешение на строительство',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
+        txt = new TextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (пропадут после открытия)',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
         txt.x = 103;
-        txt.y = 15;
+        txt.y = -2;
         source.addChild(txt);
 
         if (g.user.softCurrencyCount >= count) {
@@ -157,7 +157,7 @@ public class LockedLandItem {
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         source.addChild(txt);
-        txt = new TextField(200,60,'Попросите помощи у друзей',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
+        txt = new TextField(200,60,'Пригласить ' +String(count) + ' друзей',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
         txt.x = 103;
         txt.y = 15;
         source.addChild(txt);

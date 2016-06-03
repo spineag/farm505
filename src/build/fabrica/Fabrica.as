@@ -459,17 +459,30 @@ public class Fabrica extends WorldObject {
     }
 
     private function chooseAnimation(e:AnimationEvent = null):void {
-        if (!_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
-        if (!_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
-
-        var k:int = int(Math.random()*6);
-        switch (k) {
-            case 0: _armature.animation.gotoAndPlay('idle1'); break;
-            case 1: _armature.animation.gotoAndPlay('idle1'); break;
-            case 2: _armature.animation.gotoAndPlay('idle1'); break;
-            case 3: _armature.animation.gotoAndPlay('idle2'); break;
-            case 4: _armature.animation.gotoAndPlay('idle3'); break;
-            case 5: _armature.animation.gotoAndPlay('idle4'); break;
+        if (_armature) if (!_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
+        if (_armature) if (!_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
+        if (_armature) {
+            var k:int = int(Math.random() * 6);
+            switch (k) {
+                case 0:
+                    _armature.animation.gotoAndPlay('idle1');
+                    break;
+                case 1:
+                    _armature.animation.gotoAndPlay('idle1');
+                    break;
+                case 2:
+                    _armature.animation.gotoAndPlay('idle1');
+                    break;
+                case 3:
+                    _armature.animation.gotoAndPlay('idle2');
+                    break;
+                case 4:
+                    _armature.animation.gotoAndPlay('idle3');
+                    break;
+                case 5:
+                    _armature.animation.gotoAndPlay('idle4');
+                    break;
+            }
         }
     }
 
@@ -554,7 +567,7 @@ public class Fabrica extends WorldObject {
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "right_hand/handRight");
         }
-        var viyi:Bone = _armature.getBone('viyi'); {
+        if (_armature) var viyi:Bone = _armature.getBone('viyi'); {
             if (viyi) {
                 viyi.visible = false;
             }
@@ -582,7 +595,7 @@ public class Fabrica extends WorldObject {
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "right_hand/handRight_w");
         }
-        var viyi:Bone = _armature.getBone('viyi'); {
+        if (_armature) var viyi:Bone = _armature.getBone('viyi'); {
             if (viyi) {
                 viyi.visible = true;
             }
@@ -601,7 +614,7 @@ public class Fabrica extends WorldObject {
 
     private function changeTexture(oldName:String, newName:String):void {
         var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
-        var b:Bone = _armature.getBone(oldName);
+        if (_armature) var b:Bone = _armature.getBone(oldName);
         if (b) {
             im.pivotX = b.display.pivotX;
             im.pivotY = b.display.pivotY;

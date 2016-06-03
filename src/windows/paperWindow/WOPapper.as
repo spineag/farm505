@@ -345,8 +345,8 @@ public class WOPapper extends WindowMain {
     private function onBlueRefresh():void {
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         startPapperTimer();
-        g.directServer.getUserPapperBuy(null);
-        g.directServer.getPaperItems(fillAfterRefresh);
+        g.directServer.getUserPapperBuy(getUserPapper);
+//        g.directServer.getPaperItems(fillAfterRefresh);
         _btnRefreshBlue.setEnabled = false;
         _btnRefreshGreen.setEnabled = true;
     }
@@ -360,8 +360,12 @@ public class WOPapper extends WindowMain {
         g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         startPapperTimer();
-        g.directServer.getUserPapperBuy(null);
+        g.directServer.getUserPapperBuy(getUserPapper);
+    }
+
+    private function getUserPapper():void {
         g.directServer.getPaperItems(fillAfterRefresh);
+
     }
 
     private function onUpdateUserTimePaper(b:Boolean = true):void {}

@@ -8,6 +8,9 @@ import com.junkbyte.console.Cc;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import manager.Vars;
+
+import mouse.ToolsModifier;
+
 import particle.PlantParticle;
 import starling.display.Sprite;
 
@@ -24,7 +27,7 @@ public class PlantOnRidge {
     private var armature:Armature;
 //    private var particles:PlantParticle;
     private var _timerAnimationGrowed:int;
-
+    public var isHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function PlantOnRidge(ridge:Ridge, data:Object) {
@@ -35,6 +38,7 @@ public class PlantOnRidge {
         }
         _ridge = ridge;
         _data = data;
+        isHover = false;
         _source = new CSprite();
         _ridge.addChildPlant(_source);
         armature = g.allData.factory[_data.url].buildArmature(_data.imageShop);
@@ -61,11 +65,14 @@ public class PlantOnRidge {
     }
 
     private function onHover():void {
+        if (isHover) return;
+        isHover = true;
         _ridge.onHover();
     }
 
     private function onOut():void {
         _ridge.onOut();
+        isHover = false;
     }
 
     public function checkStateRidge(needSetTimer:Boolean = true):void {

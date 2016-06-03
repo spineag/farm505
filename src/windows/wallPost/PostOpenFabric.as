@@ -73,6 +73,7 @@ public class PostOpenFabric  extends WindowMain {
     override protected function deleteIt():void {
         _btn = null;
         _source = null;
+        _data = null;
     }
 }
 

@@ -164,7 +164,6 @@ public class Ridge extends WorldObject{
 //        g.mouseHint.hideIt();
 //        g.timerHint.hideIt();
         }
-
     }
 
     private function onStartClick():void {

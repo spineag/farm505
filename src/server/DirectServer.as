@@ -4634,7 +4634,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserPapperBuy(buyerId:int,resourceId:int,rsourceCount:int,xp:int,cost:int,visible:int):void {
+    public function updateUserPapperBuy(buyerId:int,resourceId:int,rsourceCount:int,xp:int,cost:int,visible:int, type:int):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_PAPPER_BUY);
         var variables:URLVariables = new URLVariables();
@@ -4646,6 +4646,7 @@ public class DirectServer {
         variables.xp = xp;
         variables.cost = cost;
         variables.visible = visible;
+        variables.type_resource = type;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
