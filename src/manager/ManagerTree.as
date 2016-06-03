@@ -41,6 +41,10 @@ public class ManagerTree {
         g.directServer.updateUserTreeState(treeDbId, state, null);
     }
 
+    public function updateTreeCraftCount(treeDbId:String, countCraft:int):void {
+      g.directServer.updateUserCraftCountTree(treeDbId,countCraft,null);
+    }
+
     public function onCraft(plantIdFromServer:String):void {
         //g.directServer.craftPlantRidge(plantIdFromServer, null);
     }

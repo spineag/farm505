@@ -100,5 +100,6 @@ public class Consts {
     public static var INQ_UPDATE_USER_NOTIFICATION:String = 'updateUserNotification.php';
     public static var INQ_UPDATE_WALL_TRAIN_ITEM:String = 'updateWallTrainItem.php';
     public static var INQ_UPDATE_WALL_ORDER_ITEM:String = 'updateWallOrderTime.php';
+    public static var INQ_UPDATE_USER_CRAFT_COUNT_TREE:String = 'updateUserCraftCountTree.php';
 }
 }
