@@ -34,13 +34,13 @@ public class ConsoleWrapper {
         Cc.config.style.backgroundAlpha = 0.95;
         Cc.config.style.roundBorder = 0;
         Cc.config.maxLines = 2000;
-        Cc.startOnStage(parrent, "0");
+        Cc.startOnStage(parrent, "505");
         Cc.config.commandLineAllowed = false;
         Cc.config.showTimestamp = true;
         Cc.config.showLineNumber = true;
         Cc.width = stage.stageWidth - 50;
         Cc.height = stage.stageHeight / 3;
-//        Cc.bindKey(new KeyBind(Keyboard.L, false, false, true, true), exportLogToHTML);
+        Cc.bindKey(new KeyBind(Keyboard.L, false, false, true, true), exportLogToHTML);
 //        Cc.bindKey(new KeyBind(Keyboard.R, false, false, true, true), removeUserData);
 
         //Cc.addSlashCommand("export", exportLogToHTML, "Save game log.", true);
@@ -58,7 +58,7 @@ public class ConsoleWrapper {
         Cc.commandLine = true;
         Cc.config.keystrokePassword = "0";
         Cc.config.commandLineAllowed = true;
-//        Cc.bindKey(new KeyBind(Keyboard.L), exportLogToHTML);
+        Cc.bindKey(new KeyBind(Keyboard.L), exportLogToHTML);
 //        Cc.bindKey(new KeyBind(Keyboard.T), turnOffTestMode);
 //        Cc.bindKey(new KeyBind(Keyboard.R), removeUserData);
         Cc.addSlashCommand("g", inspectObjects, "Inspect Objects class", true);
@@ -72,7 +72,7 @@ public class ConsoleWrapper {
         Cc.info("Console:: export log to html.");
         time = String(Math.round(new Date().getTime() / 1000));
         exporter = new ConsoleHtmlExportAddon(Cc.instance);
-        exporter.exportToFile("HiddenObject_" + time + ".html");
+        exporter.exportToFile("game_log_" + time + ".html");
     }
 //
 //    private function removeUserData():void {
