@@ -72,6 +72,7 @@ public class AirTextBubble {
     }
 
     private function onCallback():void {
+        return;
         if (_callback != null) {
             _callback.apply();
             _callback = null;

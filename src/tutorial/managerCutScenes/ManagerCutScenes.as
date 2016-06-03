@@ -232,6 +232,7 @@ public class ManagerCutScenes {
 
     private function decor_2():void {
         _cutSceneResourceIDs = [28];
+        (g.windowsManager.currentWindow as WOShop).openOnResource(_cutSceneResourceIDs[0]);
         var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_cutSceneResourceIDs[0], true);
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);

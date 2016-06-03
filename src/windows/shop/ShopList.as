@@ -219,7 +219,6 @@ public class ShopList {
             animList();
         }
         for (var i:int=0; i<_arrItems.length; i++) {
-            _itemsSprite.removeChild(_arrItems[i].source);
             _arrItems[i].deleteIt();
         }
         _arrItems.length = 0;
@@ -319,8 +318,12 @@ public class ShopList {
                 break;
             }
         }
-        ob.x = (_arrItems[place] as ShopItem).source.x;
-        ob.y = (_arrItems[place] as ShopItem).source.y;
+        if (!_arrItems[place - _shift]) {
+            Cc.error('ShopList getShopItemProperties error');
+            return null;
+        }
+        ob.x = (_arrItems[place - _shift] as ShopItem).source.x;
+        ob.y = (_arrItems[place - _shift] as ShopItem).source.y;
         var p:Point = new Point(ob.x, ob.y);
         p = _itemsSprite.localToGlobal(p);
         ob.x = p.x;
@@ -352,7 +355,7 @@ public class ShopList {
             }
         }
         if (place != -1) {
-            _shift = int(place/4);
+            _shift = int(place/4)*4;
             if (_shift >= _currentShopArr.length - 4) _shift = _currentShopArr.length - 4;
             if (_shift < 0) _shift = 0;
             var item:ShopItem;
@@ -375,7 +378,7 @@ public class ShopList {
             _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
             checkArrows();
         } else {
-            Cc.error();
+            Cc.error('ShopList openOnResource error');
         }
     }
 
