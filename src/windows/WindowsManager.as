@@ -220,7 +220,8 @@ public class WindowsManager {
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);
                 break;
-        }wo.showItParams(callback, params);
+        }
+        wo.showItParams(callback, params);
         _currentWindow = wo;
     }
 

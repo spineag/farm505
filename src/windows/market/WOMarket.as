@@ -664,6 +664,8 @@ public class WOMarket  extends WindowMain {
     }
 
     private function btnFriend (hideCallback:Boolean = false):void {
+        if (g.managerTutorial.isTutorial) return;
+        if (g.managerCutScenes.isCutScene) return;
         if (hideCallback) {
             _ma.hideIt();
             _panelBool = false;
