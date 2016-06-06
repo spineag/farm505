@@ -1737,7 +1737,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserTreeState(treeDbId:String, state:int, callback:Function):void {
+    public function  updateUserTreeState(treeDbId:String, state:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TREE_STATE);
         var variables:URLVariables = new URLVariables();
@@ -4906,6 +4906,50 @@ public class DirectServer {
         }
     }
 
+    public function updateUserCraftCountTree (treeDbId:String,countCraft:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_CRAFT_COUNT_TREE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserCraftCountTree', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.id = treeDbId;
+        variables.craftedCount = countCraft;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCraftCountTree);
+        function onCompleteUpdateUserCraftCountTree(e:Event):void { completeUpdateUserCraftCountTree(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserCraftCountTree error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCraftCountTree error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserCraftCountTree(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserCraftCountTree: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCraftCountTree: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserCraftCountTree OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserCraftCountTree: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCraftCountTree: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
 
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError:: ' + e.text);
