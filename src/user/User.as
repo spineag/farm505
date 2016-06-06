@@ -39,6 +39,7 @@ public class User extends Someone {
     public var arrNoAppFriend:Array;
     public var wallTrainItem:Boolean;
     public var wallOrderItem:Boolean;
+    public var userGAcid:String = 'unknown';
 
     public var buyMarketTab:int;
     private var g:Vars = Vars.getInstance();
