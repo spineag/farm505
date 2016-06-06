@@ -205,6 +205,7 @@ public class ShopList {
     }
 
     public function clearIt(b:Boolean = false):void {  // need remake
+        if (!_arrItems.length) return;
         while (_itemsSprite.numChildren) {
             _itemsSprite.removeChildAt(0);
         }
@@ -354,6 +355,7 @@ public class ShopList {
                 break;
             }
         }
+        if (place < _shift + 4) return;
         if (place != -1) {
             _shift = int(place/4)*4;
             if (_shift >= _currentShopArr.length - 4) _shift = _currentShopArr.length - 4;
