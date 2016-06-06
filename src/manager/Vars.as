@@ -456,7 +456,7 @@ public class Vars {
         managerButterfly.startButterflyFly();
 
         analyticManager = new AnalyticManager();
-        analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {});
+        analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id:1});
     }
 
     private function onEnterFrameGlobal():void {

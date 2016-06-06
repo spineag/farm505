@@ -2,6 +2,8 @@
  * Created by user on 6/11/15.
  */
 package build.tree {
+import analytic.AnalyticManager;
+
 import build.WorldObject;
 import build.wild.RemoveWildAnimation;
 import com.greensock.TweenMax;
@@ -482,6 +484,7 @@ public class Tree extends WorldObject {
     }
 
     private function onClick():void {
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TEST, {id:1}); // temp
         if (g.managerCutScenes.isCutScene) return;
         if (g.isActiveMapEditor) return;
         if (g.isAway) {
