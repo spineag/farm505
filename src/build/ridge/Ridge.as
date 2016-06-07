@@ -142,15 +142,20 @@ public class Ridge extends WorldObject{
 //            }
         } else {
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
-            _count = 10;
-            _countMouse = 7;
+//            _count = 10;
+//            _countMouse = 7;
+//            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+//                g.timerHint.managerHide();
+//                g.wildHint.managerHide();
+//                g.treeHint.managerHide();
+//            }
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                g.timerHint.managerHide();
-                g.wildHint.managerHide();
-                g.treeHint.managerHide();
+                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
+                } else if (_stateRidge == GROWED) {
+                g.mouseHint.checkMouseHint(MouseHint.SERP);
             }
-            if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED && g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE)
-                g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+//            if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED && g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE)
+//                g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
 
@@ -160,9 +165,9 @@ public class Ridge extends WorldObject{
             if (g.isActiveMapEditor || g.isAway) return;
             _isOnHover = false;
             _source.filter = null;
-            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-//        g.mouseHint.hideIt();
-//        g.timerHint.hideIt();
+//            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
+        g.mouseHint.hideIt();
+        g.timerHint.hideIt();
         }
     }
 
@@ -354,37 +359,37 @@ public class Ridge extends WorldObject{
         }
     }
 
-    public function countMouseEnterFrame():void {
-        if(_isOnHover == false) {
-//                _source.filter = null;
-            g.timerHint.hideIt();
-            g.mouseHint.hideIt();
-            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-            return;
-        }
-        _countMouse--;
-        if (_countMouse <= 5) {
-            if (_isOnHover == true) {
-                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
-                } else if (_stateRidge == GROWED) {
-                    g.mouseHint.checkMouseHint(MouseHint.SERP);
-                    g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-                }
-            }
-        }
-        if(_countMouse <= 0){
-            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-            if (_isOnHover == true) {
-                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                    g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut,true);
-                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
-                } else if (_stateRidge == GROWED) {
-                    g.mouseHint.checkMouseHint(MouseHint.SERP);
-                }
-            }
-        }
-    }
+//    public function countMouseEnterFrame():void {
+//        if(_isOnHover == false) {
+////                _source.filter = null;
+//            g.timerHint.hideIt();
+//            g.mouseHint.hideIt();
+//            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+//            return;
+//        }
+//        _countMouse--;
+//        if (_countMouse <= 5) {
+//            if (_isOnHover == true) {
+//                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+//                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
+//                } else if (_stateRidge == GROWED) {
+//                    g.mouseHint.checkMouseHint(MouseHint.SERP);
+//                    g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+//                }
+//            }
+//        }
+//        if(_countMouse <= 0){
+//            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+//            if (_isOnHover == true) {
+//                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+//                    g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut,true);
+//                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
+//                } else if (_stateRidge == GROWED) {
+//                    g.mouseHint.checkMouseHint(MouseHint.SERP);
+//                }
+//            }
+//        }
+//    }
 
     public function get plant():PlantOnRidge {
         return _plant;

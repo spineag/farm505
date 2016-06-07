@@ -132,7 +132,7 @@ public class WOBuyPlant extends WindowMain {
                 _callback.apply();
                 _callback = null;
             }
-            super.hideIt();
+//            super.hideIt();
         } else {
             g.windowsManager.uncasheWindow();
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
@@ -140,8 +140,10 @@ public class WOBuyPlant extends WindowMain {
             } else {
                 g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
             }
-            super.hideIt();
+//            super.hideIt();
         }
+        g.windowsManager.uncasheWindow();
+        super.hideIt();
     }
 
     private function createBG():void {

@@ -80,6 +80,10 @@ public class Tree extends WorldObject {
         _source.endClickCallback = onClick;
         WorldClock.clock.add(_armature);
         var b:Bone;
+        _fruits1 = _armature.getBone('fruit1');
+        _fruits2 = _armature.getBone('fruit2');
+        _fruits3 = _armature.getBone('fruit3');
+        _fruits4 = _armature.getBone('fruit4');
 //        for (var i:int = 0; i < arrFruits.length; i++) {
 //            b = _armature.getBone('fruit' + String(i + 1));
 //            arrFruits.push(b);
@@ -165,18 +169,12 @@ public class Tree extends WorldObject {
                 g.gameDispatcher.addToTimer(render);
             }
         }
-
-        if (_armature) quickCheckState();
-//        setBuildImage();
+        if (_armature) quickCheckState(true);
     }
 
     private function setBuildImage():void {
         var i:int;
         var item:CraftItem;
-        _fruits1 = _armature.getBone('fruit1');
-        _fruits2 = _armature.getBone('fruit2');
-        _fruits3 = _armature.getBone('fruit3');
-        _fruits4 = _armature.getBone('fruit4');
         switch (_state) {
             case GROW1:
                 _armature.animation.gotoAndStop("small", 0);
@@ -300,17 +298,17 @@ public class Tree extends WorldObject {
         }
     }
 
-    private function rechekFruits(setBuildImage:Boolean = false):void {
+    private function rechekFruits():void {
         var st:String;
         var b:Bone;
-            var item:CraftItem = new CraftItem(0, 0, _resourceItem, _craftSprite, 1);
-            item.flyIt();
-            st = 'fruit' + _countCrafted;
-            b = _armature.getBone(st);
-            _armature.removeBone(b, true);
-            _countCrafted--;
-            if (_countCrafted == 0) onCraftItemClick();
-            else g.managerTree.updateTreeCraftCount(tree_db_id,_countCrafted);
+        var item:CraftItem = new CraftItem(0, 0, _resourceItem, _source, 1);
+        item.flyIt();
+        st = 'fruit' + _countCrafted;
+        b = _armature.getBone(st);
+        _armature.removeBone(b, true);
+        _countCrafted--;
+        if (_countCrafted == 0) onCraftItemClick();
+        else g.managerTree.updateTreeCraftCount(tree_db_id,_countCrafted);
 
     }
 
@@ -323,6 +321,7 @@ public class Tree extends WorldObject {
                 _armature.animation.gotoAndStop("small_flower", 0);
                 break;
             case GROWED1:
+                if (server) _countCrafted = 2;
                 _armature.animation.gotoAndStop("small_fruits", 0);
                 break;
             case GROW2:
@@ -332,6 +331,7 @@ public class Tree extends WorldObject {
                 _armature.animation.gotoAndStop("middle_flower", 0);
                 break;
             case GROWED2:
+                if (server) _countCrafted = 3;
                 _armature.animation.gotoAndStop("middle_fruits", 0);
                 break;
             case GROW3:
@@ -341,6 +341,7 @@ public class Tree extends WorldObject {
                 _armature.animation.gotoAndStop("big_flower", 0);
                 break;
             case GROWED3:
+                if (server) _countCrafted = 4;
                 _armature.animation.gotoAndStop("big_fruits", 0);
                 break;
             case DEAD:
@@ -362,6 +363,7 @@ public class Tree extends WorldObject {
                 _armature.animation.gotoAndStop("big_flower", 0);
                 break;
             case GROWED_FIXED:
+                if (server) _countCrafted = 4;
                 _armature.animation.gotoAndStop("big_fruits", 0);
                 break;
             default:
@@ -790,23 +792,27 @@ public class Tree extends WorldObject {
         if (_state == GROW1 || _state == GROW_FLOWER1) {
             _state = GROWED1;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED1, _dbBuildingId, null);
-            g.managerTree.updateTreeCraftCount(String(_dbBuildingId),2);
+            g.directServer.skipTimeOnTree(GROWED1, _dbBuildingId, afterSkip);
         } else if (_state == GROW2 || _state == GROW_FLOWER2) {
             _state = GROWED2;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED2, _dbBuildingId, null);
-            g.managerTree.updateTreeCraftCount(String(_dbBuildingId),3);
+            g.directServer.skipTimeOnTree(GROWED2, _dbBuildingId, afterSkip);
         } else if (_state == GROW3 || _state == GROW_FLOWER3) {
             _state = GROWED3;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED3, _dbBuildingId, null);
-            g.managerTree.updateTreeCraftCount(String(_dbBuildingId),4);
+            g.directServer.skipTimeOnTree(GROWED3, _dbBuildingId, afterSkip);
         } else if (_state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
             _state = GROWED_FIXED;
             setBuildImage();
             g.directServer.skipTimeOnTree(GROWED_FIXED, _dbBuildingId, null);
         }
+    }
+
+    private function afterSkip():void {
+        if (_state == GROWED1) g.managerTree.updateTreeCraftCount(tree_db_id,2);
+        if (_state == GROWED2) g.managerTree.updateTreeCraftCount(tree_db_id,3);
+        if (_state == GROWED3) g.managerTree.updateTreeCraftCount(tree_db_id,4);
+        if (_state == GROWED_FIXED) g.managerTree.updateTreeCraftCount(tree_db_id,4);
     }
 
     public function get stateTree():int {

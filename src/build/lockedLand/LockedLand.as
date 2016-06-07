@@ -147,7 +147,7 @@ public class LockedLand extends WorldObject {
         super.onOut();
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
-        _build.filter = null;
+        if (_build) _build.filter = null;
         if (_topRibbon) _topRibbon.filter = null;
         if (_bottomRibbon) _bottomRibbon.filter = null;
     }

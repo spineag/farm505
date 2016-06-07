@@ -126,6 +126,7 @@ public class WOOrderItem {
             _txtCoins.visible = false;
             _coinsImage.visible = false;
             _starImage.visible = false;
+            _check.visible = false;
             g.userTimer.setOrder(_order);
             g.gameDispatcher.addToTimer(renderLeftTime);
             _delImage.visible = true;

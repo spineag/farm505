@@ -75,7 +75,6 @@ public class WOPapper extends WindowMain {
         _btnRefreshBlue.x = 220;
         _btnRefreshBlue.y = 290;
         _btnRefreshBlue.setEnabled = false;
-        _source.addChild(_btnRefreshBlue);
         _btnRefreshBlue.clickCallback = onBlueRefresh;
         _callbackClickBG = hideIt;
     }
@@ -126,8 +125,13 @@ public class WOPapper extends WindowMain {
         _leftPage.source.y = -_woHeight/2;
         _rightPage.source.x = 0;
         _rightPage.source.y = -_woHeight/2;
-        _source.addChildAt(_leftPage.source,0);
-        _source.addChildAt(_rightPage.source,0);
+//        _source.addChildAt(_leftPage.source,0);
+        _source.addChild(_leftPage.source);
+//        _source.addChildAt(_rightPage.source,0);
+        _source.addChild(_rightPage.source);
+        _source.addChild(_btnRefreshBlue);
+        _source.addChild(_btnRefreshGreen);
+
 
         var arr:Array = _arrPaper.slice((_shiftPages - 1)*6, (_shiftPages - 1)*6 + 6);
         _leftPage.fillItems(arr);
@@ -286,6 +290,8 @@ public class WOPapper extends WindowMain {
         _leftPage = null;
         _rightPage.deleteIt();
         _source.removeChild(_rightPage.source);
+        _source.removeChild(_btnRefreshBlue);
+        _source.removeChild(_btnRefreshGreen);
         _rightPage = null;
         _arrPaper = [];
         _arrPaper = g.managerPaper.arr.slice();
