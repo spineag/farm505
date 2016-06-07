@@ -773,6 +773,7 @@ public class ShopItem {
                     checkState();
                     g.bottomPanel.cancelBoolean(false);
                     _wo.updateMoneyCounts();
+                    break;
                 }
             }
             if (g.managerTutorial.isTutorial) {

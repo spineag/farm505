@@ -97,12 +97,16 @@ public class WOBuyCurrencyItem {
     }
 
     private function onClick():void {
-        if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) g.optionPanel.makeFullScreen();
-        g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
-        g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
-        g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-        g.socialNetwork.showOrderWindow({id: _packId});
-        Cc.info('try to buy packId: ' + _packId);
+        if (g.isDebug) {
+            onBuy();
+        } else {
+            if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) g.optionPanel.makeFullScreen();
+            g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
+            g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
+            g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
+            g.socialNetwork.showOrderWindow({id: _packId});
+            Cc.info('try to buy packId: ' + _packId);
+        }
     }
 
     private function orderWindowSuccessHandler(e:SocialNetworkEvent):void {

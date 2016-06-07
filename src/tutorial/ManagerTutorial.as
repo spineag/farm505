@@ -1728,7 +1728,6 @@ public class ManagerTutorial {
     private function subStep22_1():void {
         _subStep = 1;
         _tutorialObjects = (_tutorialObjects[0] as Farm).arrAnimals;
-        (_tutorialObjects[0] as Animal).playDirectIdle();
         (_tutorialObjects[0] as Animal).addArrow();
         (_tutorialObjects[0] as Animal).tutorialCallback = subStep22_2;
     }
