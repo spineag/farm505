@@ -4,6 +4,8 @@
 package manager {
 import additional.butterfly.ManagerButterfly;
 
+import analytic.AnalyticManager;
+
 import build.BuildTouchManager;
 
 import build.WorldObject;
@@ -168,6 +170,7 @@ public class Vars {
     public var dataPath:DataPath;
     public var event:OwnEvent;
 
+    public var analyticManager:AnalyticManager;
     public var managerCats:ManagerCats;
     public var aStar:AStar;
     public var managerTutorial:ManagerTutorial;
@@ -203,7 +206,6 @@ public class Vars {
         dataAnimal = new DataAnimal();
         dataLevel = new DataLevel();
 
-        user = new User();
         userInventory = new UserInventory();
         userTimer = new UserTimer();
         gameDispatcher = new FarmDispatcher(mainStage);
@@ -452,6 +454,9 @@ public class Vars {
         managerButterfly = new ManagerButterfly();
         managerButterfly.createBFlyes();
         managerButterfly.startButterflyFly();
+
+        analyticManager = new AnalyticManager();
+        analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id:1});
     }
 
     private function onEnterFrameGlobal():void {

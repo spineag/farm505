@@ -245,7 +245,7 @@ public class SocialNetwork extends EventDispatcher {
         return {};
     }
 
-   public function get contentPath():String {
+    public function get contentPath():String {
         return _contentPath || _serverPath;
     }
 
@@ -315,6 +315,19 @@ public class SocialNetwork extends EventDispatcher {
         } catch (e:Error) {
             Cc.warn("SocialNetwork:: cannot reload game");
         }
+    }
+
+    public function getUserGAsid(callback:Function):void {
+        function getGAcidfromJS(s:String):void {
+            g.user.userGAcid = s;
+            Cc.ch('analytic', 'on getting GAcid:: ' + s);
+            if (callback != null) {
+                callback.apply();
+            }
+        }
+        Cc.ch('analytic', 'try get GAcid');
+        ExternalInterface.addCallback("sendGAcidToAS", getGAcidfromJS);
+        ExternalInterface.call("FarmNinja.getUserGAcidForAS");
     }
 
     public function checkLeftMenu():void {

@@ -24,6 +24,8 @@ import preloader.StartPreloader;
 import starling.core.Starling;
 import starling.events.Event;
 
+import user.User;
+
 import utils.ConsoleWrapper;
 
 //[SWF (frameRate='30', backgroundColor='#709e1d', width = '1000', height = '640')]
@@ -83,6 +85,9 @@ public class MainStartWebStarling extends Sprite{
         g.isDebug = stage.loaderInfo.url.substr(0, 4).toLowerCase() == 'file';
         g.useHttps = g.isDebug ? false : (g.flashVars['protocol'] == 'https');
         Cc.ch('info', 'isDebug = ' + g.isDebug);
+        g.user = new User();
+        g.user.userGAcid = String(g.flashVars['gacid']);
+        Cc.ch('analytic', 'gacid from flashvars:: ' + g.user.userGAcid);
 
         game = star.root as MainStarling;
         game.addEventListener(MainStarling.LOADED, onLoaded);
