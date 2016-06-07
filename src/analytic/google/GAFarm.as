@@ -62,7 +62,7 @@ public class GAFarm {
         url += '&' + 't=' + 'event';
         url += '&' + 'ec=' + category;
         url += '&' + 'ea=' + action;
-        url += '&' + 'ev=' + obj.id;
+        url += '&' + 'el=' + obj.id;
         url += '&' + 'z=' + int(Math.random()*1000000);
         var request:URLRequest = new URLRequest(url);
         request.method = URLRequestMethod.POST;
