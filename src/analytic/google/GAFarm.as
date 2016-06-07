@@ -18,8 +18,7 @@ public class GAFarm {
 
     public function GAFarm() {
         try {
-//            if (!g.isDebug) _isActive = true;
-            _isActive = true;
+            if (!g.isDebug) _isActive = true;
             Cc.ch("analytic", "<GAFarm> initialized on");
         } catch (error:Error) {
             Cc.error("<GAFarm> init error:" + error.message);
