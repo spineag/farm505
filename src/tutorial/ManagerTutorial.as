@@ -2,6 +2,8 @@
  * Created by user on 2/29/16.
  */
 package tutorial {
+import analytic.AnalyticManager;
+
 import build.WorldObject;
 import build.chestBonus.Chest;
 import build.fabrica.Fabrica;
@@ -85,6 +87,7 @@ public class ManagerTutorial {
 
     private function updateTutorialStep():void {
         g.directServer.updateUserTutorialStep(null);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TUTORIAL, {id:g.user.tutorialStep});
     }
 
     public function initScenes():void {
