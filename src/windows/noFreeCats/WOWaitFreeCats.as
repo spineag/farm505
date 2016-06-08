@@ -25,13 +25,13 @@ public class WOWaitFreeCats extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(hideIt);
-        var txt:TextField = new TextField(400,100,"НЕТ СВОБОДНЫХ КОТОВ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        var txt:TextField = new TextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.touchable = false;
         txt.x = -200;
         txt.y = -155;
         _source.addChild(txt);
-        txt = new TextField(400,100,'Все коты сейчас заняты! Подождите окончания другого производства!',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt = new TextField(400,100,'Все помощники сейчас заняты! Подождите окончания другого производства!',g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.x = -200;
         txt.y = -120;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

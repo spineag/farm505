@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:2f8281952f7c4f724d4482fd4234d188:c71f9711588c04bfb60468dd718dc9c1:4793af12d87b93b48c95ed9be00d1ca8$ -->
+<!-- $TexturePacker:SmartUpdate:85bb3a8e4bcaadf5ed8d6b68b89a359e:159a4257f532eb9710668f726725bf4c:4793af12d87b93b48c95ed9be00d1ca8$ -->
 <TextureAtlas imagePath="iconAtlas.png" width="2022" height="496">
+    <SubTexture name="aerial_tram_icon" x="346" y="295" width="127" height="141" frameX="0" frameY="-4" frameWidth="150" frameHeight="150"/>
     <SubTexture name="alive_fence_icon" x="553" y="427" width="74" height="64" frameX="-4" frameY="-9" frameWidth="87" frameHeight="76"/>
     <SubTexture name="amanita_1_red_icon" x="1817" y="93" width="45" height="63"/>
     <SubTexture name="amanita_2_red_icon" x="1623" y="326" width="64" height="71"/>
@@ -22,7 +23,6 @@
     <SubTexture name="blueberry_icon" x="748" y="273" width="145" height="131" frameX="-3" frameY="-10" frameWidth="150" frameHeight="150"/>
     <SubTexture name="bridge_icon" x="1677" y="102" width="138" height="93" frameX="-6" frameY="-1" frameWidth="150" frameHeight="94"/>
     <SubTexture name="cat_icon" x="1099" y="2" width="68" height="123" frameX="-10" frameY="-5" frameWidth="84" frameHeight="128"/>
-    <SubTexture name="cave_icon" x="2" y="2" width="137" height="150" frameX="-5" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="chair_1_icon" x="1963" y="181" width="57" height="73" frameX="-9" frameY="-15" frameWidth="69" frameHeight="92"/>
     <SubTexture name="chair_2_icon" x="1947" y="340" width="67" height="89" frameX="0" frameY="0" frameWidth="69" frameHeight="92"/>
     <SubTexture name="cherry_icon" x="112" y="306" width="117" height="148" frameX="-21" frameY="-2" frameWidth="150" frameHeight="150"/>
@@ -47,7 +47,9 @@
     <SubTexture name="gate_white_closed_icon" x="1765" y="371" width="80" height="86" frameX="-21" frameY="-6" frameWidth="117" frameHeight="99"/>
     <SubTexture name="juice_press_icon" x="1169" y="2" width="146" height="122" frameX="-2" frameY="-28" frameWidth="150" frameHeight="150"/>
     <SubTexture name="loom_icon" x="1864" y="90" width="146" height="89" frameX="-3" frameY="-60" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="mine_icon" x="2" y="2" width="137" height="150" frameX="-5" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="newspaper_icon" x="436" y="2" width="82" height="140" frameX="-33" frameY="-6" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="orders_icon" x="131" y="154" width="148" height="147" frameX="-1" frameY="-1" frameWidth="150" frameHeight="150"/>
     <SubTexture name="picnic_pink_icon" x="929" y="399" width="150" height="95" frameX="0" frameY="0" frameWidth="150" frameHeight="98"/>
     <SubTexture name="pie_oven_icon" x="475" y="287" width="146" height="138" frameX="-3" frameY="-10" frameWidth="150" frameHeight="150"/>
     <SubTexture name="pig_icon" x="1344" y="368" width="130" height="112" frameX="-10" frameY="-20" frameWidth="150" frameHeight="150"/>
@@ -64,9 +66,7 @@
     <SubTexture name="sunflower_icon" x="845" y="136" width="71" height="131" frameX="-1" frameY="-2" frameWidth="73" frameHeight="133"/>
     <SubTexture name="swamp_decor_icon" x="1623" y="399" width="140" height="89" frameX="-4" frameY="-3" frameWidth="150" frameHeight="97"/>
     <SubTexture name="track_pink_icon" x="629" y="407" width="150" height="87"/>
-    <SubTexture name="train_icon" x="346" y="295" width="127" height="141" frameX="0" frameY="-4" frameWidth="150" frameHeight="150"/>
     <SubTexture name="trampoline_yellow_icon" x="1715" y="2" width="147" height="89" frameX="-3" frameY="-1" frameWidth="150" frameHeight="91"/>
     <SubTexture name="umbrella_green_icon" x="2" y="154" width="127" height="150"/>
     <SubTexture name="white_fence_icon" x="1947" y="266" width="68" height="72" frameX="-8" frameY="0" frameWidth="87" frameHeight="76"/>
-    <SubTexture name="zakaz_icon" x="131" y="154" width="148" height="147" frameX="-1" frameY="-1" frameWidth="150" frameHeight="150"/>
 </TextureAtlas>

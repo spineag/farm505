@@ -71,24 +71,39 @@ public class WOLevelUp extends WindowMain {
         _txtLevel = new TextField(300,100,"",g.allData.fonts['BloggerBold'],51,Color.WHITE);
         _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtContinue = new TextField(110,100,"РАССКАЗАТЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
-        _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtHard = new TextField(50,50,String(_count), g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtHard = new TextField(50,50,'+'+String(_count), g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtHard.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _contBtn = new CButton();
-        _contBtn.addButtonTexture(172, 45, CButton.BLUE, true);
-        _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        MCScaler.scale(_imageHard,25,25);
+        if (g.user.level <= 4) {
+            var btn:CButton = new CButton();
+            btn.addButtonTexture(172, 45, CButton.GREEN, true);
+            _txtContinue.text = 'ПРОДОЛЖИТЬ';
+            _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            _txtContinue.y = -25;
+            _txtContinue.x = 30;
+            btn.addChild(_txtContinue);
+            btn.y = _woHeight / 2;
+            btn.clickCallback = onClickNext;
+            _source.addChild(btn);
 
-        _txtContinue.y = -25;
-        _txtHard.x = 100;
-        _imageHard.x = 135;
-        _imageHard.y = 12;
-        _contBtn.addChild(_imageHard);
-        _contBtn.addChild(_txtHard);
-        _contBtn.addChild(_txtContinue);
-        _contBtn.y = _woHeight/2;
-        _contBtn.clickCallback = onClickShare;
+        } else {
+            _contBtn = new CButton();
+            _contBtn.addButtonTexture(172, 45, CButton.BLUE, true);
+            _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
+            MCScaler.scale(_imageHard, 25, 25);
+            _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
 
+            _txtContinue.y = -25;
+            _txtHard.x = 100;
+            _imageHard.x = 135;
+            _imageHard.y = 12;
+            _contBtn.addChild(_imageHard);
+            _contBtn.addChild(_txtHard);
+            _contBtn.addChild(_txtContinue);
+            _contBtn.y = _woHeight / 2;
+            _contBtn.clickCallback = onClickShare;
+            _source.addChild(_contBtn);
+
+        }
         _leftArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
         MCScaler.scale(im,61,26);
@@ -116,7 +131,6 @@ public class WOLevelUp extends WindowMain {
         _source.addChild(_txtNewObject);
 
         _contClipRect.addChild(_contImage);
-        _source.addChild(_contBtn);
 
         _txtNewLvl.x = -67;
         _txtNewLvl.y = -55;
@@ -134,6 +148,10 @@ public class WOLevelUp extends WindowMain {
         createList();
         super.showIt();
         _source.y -= 40;
+    }
+
+    private function onClickNext():void {
+        hideIt();
     }
 
     private function onLeftClick():void {

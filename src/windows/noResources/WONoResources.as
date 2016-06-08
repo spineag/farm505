@@ -69,7 +69,8 @@ public class WONoResources extends WindowMain {
         _callbackBuy = callback;
         switch (params[0]) {
             case 'animal':
-                _countOfResources = 1;
+                if (g.dataResource.objectResources[_paramData.idResourceRaw].buildType == BuildType.PLANT)_countOfResources = 2;
+                else _countOfResources = 1;
                 _countCost = g.dataResource.objectResources[_paramData.idResourceRaw].priceHard * _countOfResources;
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
                 item = new WONoResourcesItem();

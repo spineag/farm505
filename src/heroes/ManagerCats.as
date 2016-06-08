@@ -31,7 +31,7 @@ public class ManagerCats {
         _townMatrix = g.townArea.townMatrix;
         _catsArray = [];
         _catInfo = new Object();
-        _catInfo.name = 'Кот';
+        _catInfo.name = 'Помощник';
         _catInfo.url = 'cat';
         _catInfo.image = 'cat';
         _catInfo.image2 = 'cat_woman';

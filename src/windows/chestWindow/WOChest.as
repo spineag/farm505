@@ -50,8 +50,8 @@ public class WOChest  extends WindowMain{
             _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
             _armature.animation.gotoAndPlay('idle_2');
-                if (g.managerTutorial.isTutorial) _woChestItemsTutorial = new WOChestItemsTutorial(_source, hideItTutorial);
-                else  _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, hideIt);
+                if (g.managerTutorial.isTutorial) _woChestItemsTutorial = new WOChestItemsTutorial(_source, closeAnimation);
+                else  _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, closeAnimation);
         };
         _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
@@ -78,8 +78,19 @@ public class WOChest  extends WindowMain{
         }
     }
 
+    private function closeAnimation():void {
+            var fEndOver:Function = function():void {
+                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                if (g.managerTutorial.isTutorial) hideItTutorial();
+                else hideIt();
+            };
+            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlay('idle_3');
+    }
+
     override public function hideIt():void {
-        _armature.animation.gotoAndPlay('idle_3');
         g.managerChest.setCount = 1;
         g.directServer.useChest(g.managerChest.getCount);
         super.hideIt();

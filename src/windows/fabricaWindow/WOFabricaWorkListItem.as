@@ -75,9 +75,9 @@ public class WOFabricaWorkListItem {
 
             _btnSkip = new CButton();
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
-            _txtSkip = new TextField(100,35,"25",g.allData.fonts['BloggerBold'], 22, Color.WHITE);
-            _txtSkip.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-            _txtSkip.y = 2;
+            _txtSkip = new TextField(100,35,"25",g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+            _txtSkip.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            _txtSkip.y = 11;
             _btnSkip.addChild(_txtSkip);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             MCScaler.scale(im, 30, 30);
@@ -87,6 +87,11 @@ public class WOFabricaWorkListItem {
             im.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
+            var txt:TextField = new TextField(65,35,"ускорить",g.allData.fonts['BloggerBold'], 14,Color.WHITE);
+            txt.x = 10;
+            txt.y = -8;
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            _btnSkip.addChild(txt);
             _source.addChild(_btnSkip);
             _btnSkip.visible = false;
             _btnSkip.clickCallback = makeSkip;

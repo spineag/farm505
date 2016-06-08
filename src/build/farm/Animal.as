@@ -213,11 +213,15 @@ public class Animal {
         if(_farm.hasAnyCraftedResource) return;
         if (_state == WORK) {
             source.filter = null;
+            if (g.timerHint.isShow) {
+                g.timerHint.managerHide(onClickCallbackWhenWork);
+                return;
+            }
             if (!g.mouseHint.isShowedAnimalFeed) {
                 var p1:Point = new Point(0, _rect.y);
                 p1 = source.localToGlobal(p1);
                 if (_data.id == 1 || _data.id == 3) p1.y += 25;
-                g.timerHint.showIt(90, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut);
+                g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut,false,true);
                 stopAnimation();
                 idleAnimation();
             }
@@ -282,6 +286,22 @@ public class Animal {
         }
     }
 
+    private function onClickCallbackWhenWork():void {
+        if (!g.mouseHint.isShowedAnimalFeed) {
+            var p1:Point = new Point(0, _rect.y);
+            p1 = source.localToGlobal(p1);
+            if (_data.id == 1 || _data.id == 3) p1.y += 25;
+            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut,false,true);
+            stopAnimation();
+            idleAnimation();
+        }
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
+            removeArrow();
+            g.mouseHint.hideIt();
+            g.timerHint.addArrow();
+        }
+    }
+
     private function onHover():void {
         if (_isOnHover) true;
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
@@ -291,7 +311,9 @@ public class Animal {
         _isOnHover = true;
         _frameCounterTimerHint = 7;
         source.filter = ManagerFilters.BUILD_STROKE;
-        g.gameDispatcher.addToTimer(countEnterFrameMouseHint);
+        if (_state == HUNGRY) g.mouseHint.checkMouseHint(MouseHint.ANIMAL, _data);
+        else if (_state == WORK) g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
+//        g.gameDispatcher.addToTimer(countEnterFrameMouseHint);
     }
 
     private function onOut():void {
@@ -300,25 +322,25 @@ public class Animal {
         if (_state == HUNGRY && _farm.hasAnyCraftedResource) return;
         source.filter = null;
         _isOnHover = false;
-        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
+//        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
         g.mouseHint.hideIt();
     }
 
-    private function countEnterFrameMouseHint():void {
-        _frameCounterMouseHint--;
-        if (_frameCounterMouseHint <= 5){
-            if (!g.mouseHint.isShowedAnimalFeed) {
-                if (_isOnHover) {
-                    if (_state == HUNGRY)
-                        g.mouseHint.checkMouseHint(MouseHint.ANIMAL, _data);
-                    else if (_state == WORK) {
-                        g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
-                    }
-                }
-            }
-            g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
-        }
-    }
+//    private function countEnterFrameMouseHint():void {
+//        _frameCounterMouseHint--;
+//        if (_frameCounterMouseHint <= 5){
+//            if (!g.mouseHint.isShowedAnimalFeed) {
+//                if (_isOnHover) {
+//                    if (_state == HUNGRY)
+//                        g.mouseHint.checkMouseHint(MouseHint.ANIMAL, _data);
+//                    else if (_state == WORK) {
+//                        g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
+//                    }
+//                }
+//            }
+//            g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
+//        }
+//    }
 
     public function get animalData():Object {
         return _data;
@@ -438,7 +460,7 @@ public class Animal {
         g.mouseHint.hideIt();
         source.filter = null;
         TweenMax.killTweensOf(source);
-        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
+//        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
         g.timerHint.hideIt();
         _data = null;
         source.dispose();
@@ -455,7 +477,7 @@ public class Animal {
     public function deleteFilter():void {
         source.filter = null;
         _isOnHover = false;
-        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
+//        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
         g.mouseHint.hideIt();
     }
 }

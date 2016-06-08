@@ -153,8 +153,9 @@ public class LockedLandItem {
         icon.x = 41 - icon.width/2;
         icon.y = 34 - icon.height/2;
         source.addChild(icon);
-        var txt:TextField = new TextField(150,40,String(count),g.allData.fonts['BloggerMedium'],16,Color.WHITE);
+        var txt:TextField = new TextField(150,40,'0/' +String(count),g.allData.fonts['BloggerMedium'],16,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt.x = -35;
         txt.y = 55;
         source.addChild(txt);
         txt = new TextField(200,60,'Пригласить ' +String(count) + ' друзей',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);

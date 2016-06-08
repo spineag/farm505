@@ -17,6 +17,7 @@ public class WALLOpenLand {
     private var _source:Sprite;
 
     public function WALLOpenLand() {
+        _source = new Sprite();
     }
 
     public function showItParams(callback:Function, params:Array):void {
@@ -30,6 +31,11 @@ public class WALLOpenLand {
         _source.addChild(Image.fromBitmap(bitmap));
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('ТЫ КРАСАВА ВААААСССЯЯЯЯ, СУШАЙ ОТКРЫЛ ТЕРЕТОРИЮ ЙО ЩА БУДЕМ КОПАТЬ КАК ДИКИЕ ВАААААСССЯЯЯЯ'),bitMap,'interfaceAtlas');
+        deleteIt();
+    }
+
+    private function deleteIt():void {
+        _source = null;
     }
 }
 }
