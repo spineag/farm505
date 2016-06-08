@@ -2,6 +2,8 @@
  * Created by andy on 3/3/16.
  */
 package tutorial {
+import build.TownAreaBuildSprite;
+
 import com.greensock.TweenMax;
 
 import heroes.BasicCat;
@@ -26,7 +28,8 @@ public class TutorialCat extends BasicCat {
         _speedWalk = 4;
         _speedRun = 12;
 
-        _source = new CSprite();
+        _source = new TownAreaBuildSprite();
+        _source.isTouchable = false;
         _catImage = new Sprite();
         _catBackImage = new Sprite();
         _catImage.touchable = false;

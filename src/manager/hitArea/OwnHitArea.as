@@ -14,6 +14,10 @@ import starling.utils.Color;
 import utils.DrawToBitmap;
 
 public class OwnHitArea {
+    public static const NO_HIT_AREA:int = 1;
+    public static const UNDER_VISIBLE_POINT:int = 2;
+    public static const UNDER_INVISIBLE_POINT:int = 3;
+
     private var _source:Sprite; // use only for test
     private var _pixelsArr:Vector.< Vector.<int> >;
     private var _w:int;

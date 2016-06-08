@@ -2,16 +2,12 @@
  * Created by user on 9/23/15.
  */
 package heroes {
+import build.TownAreaBuildSprite;
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
 import manager.Vars;
-
-import map.MatrixGrid;
-
 import utils.CSprite;
 import utils.IsoUtils;
 import utils.Point3D;
@@ -28,7 +24,7 @@ public class BasicCat {
     protected var _posX:int;
     protected var _posY:int;
     protected var _depth:Number;
-    protected var _source:CSprite;
+    protected var _source:TownAreaBuildSprite;
     protected var _speedWalk:int = 2;
     protected var _speedIdleWalk:int = 1;
     protected var _speedRun:int = 8;
@@ -90,7 +86,7 @@ public class BasicCat {
         return _posY;
     }
 
-    public function get source():CSprite {
+    public function get source():TownAreaBuildSprite {
         return _source;
     }
 

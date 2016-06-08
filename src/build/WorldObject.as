@@ -38,7 +38,7 @@ public class WorldObject {
     public var useIsometricOnly:Boolean = true;
     protected var _sizeX:int;
     protected var _sizeY:int;
-    protected var _source:CSprite;
+    protected var _source:TownAreaBuildSprite;
     protected var _build:Sprite;
     protected var _isoView:Sprite;
     private var _preloader:FlashAnimatedPreloader;
@@ -59,7 +59,7 @@ public class WorldObject {
 
     public function WorldObject(dataBuildObject:Object) {
         _tutorialCallback = null;
-        _source = new CSprite();
+        _source = new TownAreaBuildSprite();
         _build = new Sprite();
         _dataBuild = dataBuildObject;
         _defaultScale = 1;
@@ -86,7 +86,7 @@ public class WorldObject {
         return _flip ? _sizeX : _sizeY;
     }
 
-    public function get source():CSprite {
+    public function get source():TownAreaBuildSprite {
         return _source;
     }
 

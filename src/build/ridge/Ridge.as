@@ -33,9 +33,7 @@ public class Ridge extends WorldObject{
     private var _plantSprite:Sprite;
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
-    private var _count:int;
-    private var _countMouse:int;
-    private var _bgClicked:CSprite;
+    private var _bg:Sprite;
 
     public function Ridge(_data:Object) {
         super(_data);
@@ -45,11 +43,9 @@ public class Ridge extends WorldObject{
             return;
         }
         _plantSprite = new Sprite();
-        _bgClicked = new CSprite();
+        _bg = new Sprite();
         createAtlasBuild(onCreateBuild);
         _stateRidge = EMPTY;
-
-        _source.removeMainListener();
         _isOnHover = false;
     }
 
@@ -61,58 +57,54 @@ public class Ridge extends WorldObject{
         tempSprite.addChild(q);
         tempSprite.scaleY = .5;
         tempSprite.flatten();
-        _bgClicked.addChild(tempSprite);
-        _source.addChild(_bgClicked);
+        _bg.addChild(tempSprite);
+        _source.addChild(_bg);
 
         if (!g.isAway) {
-            _bgClicked.hoverCallback = onHover;
-            _bgClicked.endClickCallback = onEndClick;
-            _bgClicked.startClickCallback = onStartClick;
-            _bgClicked.outCallback = onOut;
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onEndClick;
+            _source.startClickCallback = onStartClick;
+            _source.outCallback = onOut;
             _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild');
-            _bgClicked.registerHitArea(_hitArea);
+            _source.registerHitArea(_hitArea);
         }
-        _bgClicked.releaseContDrag = true;
+        _source.releaseContDrag = true;
         _source.addChild(_plantSprite);
     }
 
     override public function isContDrag():Boolean {
-        return _bgClicked.isContDrag;
-    }
-
-    public function get bgClicked():CSprite {
-        return _bgClicked;
+        return _source.isContDrag;
     }
 
     public function addChildPlant(s:Sprite):void {
         _plantSprite.addChild(s);
     }
 
-    private function createBuildRidge():void {
-        var im:Image;
-        if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
-            while (_build.numChildren) _build.removeChildAt(0);
-        }
-
-        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
-        im.x = _dataBuild.innerX;
-        im.y = _dataBuild.innerY;
-
-        if (!im) {
-            Cc.error('Ridge:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
-            return;
-        }
-        _build.addChild(im);
-//        im.touchable = false; ?
-        _rect = _build.getBounds(_build);
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
-        _source.addChild(_build);
-    }
+//    private function createBuildRidge():void {
+//        var im:Image;
+//        if (_build) {
+//            if (_source.contains(_build)) {
+//                _source.removeChild(_build);
+//            }
+//            while (_build.numChildren) _build.removeChildAt(0);
+//        }
+//
+//        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
+//        im.x = _dataBuild.innerX;
+//        im.y = _dataBuild.innerY;
+//
+//        if (!im) {
+//            Cc.error('Ridge:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
+//            return;
+//        }
+//        _build.addChild(im);
+////        im.touchable = false; ?
+//        _rect = _build.getBounds(_build);
+//        _sizeX = _dataBuild.width;
+//        _sizeY = _dataBuild.height;
+//        _source.addChild(_build);
+//    }
 
     override public function onHover():void {
         if (g.selectedBuild) return;
@@ -400,8 +392,8 @@ public class Ridge extends WorldObject{
     }
 
     override public function clearIt():void {
-        _bgClicked.touchable = false;
-        while (_bgClicked.numChildren) _bgClicked.removeChildAt(0);
+        _bg.touchable = false;
+        while (_bg.numChildren) _bg.removeChildAt(0);
         while (_plantSprite.numChildren) _plantSprite.removeChildAt(0);
         if (_plant) _plant.clearIt();
         _plant = null;
@@ -421,10 +413,10 @@ public class Ridge extends WorldObject{
     public function lockIt(v:Boolean):void {
         if (v) {
             if (_stateRidge != EMPTY) {
-                _bgClicked.isTouchable = false;
+                _source.isTouchable = false;
             }
         } else {
-            _bgClicked.isTouchable = true;
+            _source.isTouchable = true;
         }
     }
 

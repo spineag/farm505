@@ -3,14 +3,12 @@
  */
 package heroes {
 
+import build.TownAreaBuildSprite;
 import build.farm.Farm;
 import build.ridge.Ridge;
-
 import com.greensock.TweenMax;
 import dragonBones.Armature;
 import dragonBones.Bone;
-import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
 
 import flash.geom.Point;
 
@@ -37,7 +35,7 @@ public class HeroCat extends BasicCat{
 
         _type = type;
         _isFree = true;
-        _source = new CSprite();
+        _source = new TownAreaBuildSprite();
         _source.touchable = false;
         _catImage = new Sprite();
         _catWateringAndFeed = new Sprite();

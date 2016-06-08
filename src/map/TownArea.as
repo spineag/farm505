@@ -1,4 +1,5 @@
 ﻿package map {
+import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.ambar.Ambar;
 import build.ambar.Sklad;
@@ -36,7 +37,6 @@ import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.xpPanel.XPStar;
 import user.Someone;
-import utils.CSprite;
 import windows.WindowsManager;
 import windows.shop.WOShop;
 
@@ -1643,7 +1643,7 @@ public class TownArea extends Sprite {
                     || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest) {
                 if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
-                (_cityObjects[i].source as CSprite).isTouchable = !v;
+                (_cityObjects[i].source as TownAreaBuildSprite).isTouchable = !v;
             }
             if (_cityObjects[i] is Farm) {
                 (_cityObjects[i] as Farm).onActivateMoveModifier(v);
@@ -1657,7 +1657,7 @@ public class TownArea extends Sprite {
                     || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest) {
                 if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
-                (_cityObjects[i].source as CSprite).isTouchable = !v;
+                (_cityObjects[i].source as TownAreaBuildSprite).isTouchable = !v;
             }
             if (_cityObjects[i] is Farm) {
                 (_cityObjects[i] as Farm).onActivateMoveModifier(v);
@@ -1671,7 +1671,7 @@ public class TownArea extends Sprite {
                 _cityObjects[i] is Fabrica || _cityObjects[i] is Tree || _cityObjects[i] is Ambar || _cityObjects[i] is Sklad  ||
                     _cityObjects[i] is Paper || _cityObjects[i] is Cave || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is LockedLand || _cityObjects[i] is Chest) {
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
-                (_cityObjects[i].source as CSprite).isTouchable = !v;
+                (_cityObjects[i].source as TownAreaBuildSprite).isTouchable = !v;
             }
         }
     }

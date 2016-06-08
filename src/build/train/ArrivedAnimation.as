@@ -2,6 +2,8 @@
  * Created by user on 2/9/16.
  */
 package build.train {
+import build.TownAreaBuildSprite;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -11,7 +13,7 @@ import starling.display.Sprite;
 import utils.CSprite;
 
 public class ArrivedAnimation {
-    private var _parent:CSprite;
+    private var _parent:TownAreaBuildSprite;
     private var _bottomSprite:Sprite;
     private var _mediumSprite:Sprite;
     private var _topSprite:Sprite;
@@ -27,7 +29,7 @@ public class ArrivedAnimation {
     private var _lentaBack5:ArrivedLenta;
     private var _lentaBack6:ArrivedLenta;
 
-    public function ArrivedAnimation(p:CSprite) {
+    public function ArrivedAnimation(p:TownAreaBuildSprite) {
         _parent = p;
         _bottomSprite = new Sprite();
         _parent.addChildAt(_bottomSprite, 0);

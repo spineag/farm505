@@ -3,11 +3,8 @@
  */
 package manager {
 import additional.butterfly.ManagerButterfly;
-
 import analytic.AnalyticManager;
-
-import build.BuildTouchManager;
-
+import build.TownAreaTouchManager;
 import build.WorldObject;
 import build.ambar.Ambar;
 import build.farm.FarmGrid;
@@ -26,15 +23,12 @@ import hint.Hint;
 import hint.MouseHint;
 import hint.TimerHint;
 import hint.WildHint;
-
 import manager.hitArea.ManagerHitArea;
-
 import map.BackgroundArea;
 import map.MatrixGrid;
 import map.TownArea;
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
-import preloader.AwayPreloader;
 import preloader.StartPreloader;
 import server.DirectServer;
 import server.Server;
@@ -53,7 +47,6 @@ import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 import tutorial.ManagerTutorial;
 import tutorial.managerCutScenes.ManagerCutScenes;
-
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
@@ -67,7 +60,6 @@ import user.Someone;
 import user.User;
 import user.UserInventory;
 import user.UserTimer;
-
 import utils.FarmDispatcher;
 import windows.WindowsManager;
 
@@ -124,6 +116,7 @@ public class Vars {
 
     public var matrixGrid:MatrixGrid;
     public var townArea:TownArea;
+    public var townAreaTouchManager:TownAreaTouchManager;
     public var farmGrid:FarmGrid;
     public var background:BackgroundArea;
 
@@ -158,7 +151,6 @@ public class Vars {
 
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
-    public var buildTouchManager:BuildTouchManager;
     public var selectedBuild:WorldObject;
     public var currentInteractiveBuild:WorldObject;
 
@@ -231,6 +223,7 @@ public class Vars {
         managerOrderCats = new ManagerOrderCats();
         catPanel = new CatPanel();
         managerChest = new ManagerChest();
+        townAreaTouchManager = new TownAreaTouchManager();
 
         if (useDataFromServer) {
             socialNetwork = new SocialNetwork(flashVars);
@@ -449,7 +442,6 @@ public class Vars {
             managerCutScenes.checkAvailableCutScenes();
         }
 
-        buildTouchManager = new BuildTouchManager();
 
         managerButterfly = new ManagerButterfly();
         managerButterfly.createBFlyes();

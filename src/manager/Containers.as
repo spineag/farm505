@@ -4,23 +4,16 @@
 package manager {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
-
 import flash.geom.Point;
-
-import map.MatrixGrid;
-
 import mouse.ToolsModifier;
-
-import starling.animation.Tween;
 import starling.core.Starling;
-
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
-
-import tutorial.ManagerTutorial;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
+
+import utils.CSprite;
 
 public class Containers {
     public var SHIFT_MAP_X:int;
@@ -29,8 +22,8 @@ public class Containers {
     public var mainCont:Sprite;
     public var backgroundCont:Sprite;
     public var gridDebugCont:Sprite;
-    public var tailCont:Sprite;
-    public var contentCont:Sprite;
+    public var tailCont:CSprite;
+    public var contentCont:CSprite;
     public var cloudsCont:Sprite;
     public var animationsCont:Sprite;
     public var interfaceContMapEditor:Sprite;
@@ -59,8 +52,8 @@ public class Containers {
         gameCont = new Sprite();
         backgroundCont = new Sprite();
         gridDebugCont = new Sprite();
-        contentCont = new Sprite();
-        tailCont = new Sprite();
+        contentCont = new CSprite();
+        tailCont = new CSprite();
         animationsCont = new Sprite();
         cloudsCont = new Sprite();
         interfaceCont = new Sprite();

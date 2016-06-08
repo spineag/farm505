@@ -2,6 +2,8 @@
  * Created by user on 2/5/16.
  */
 package heroes {
+import build.TownAreaBuildSprite;
+
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
@@ -34,7 +36,7 @@ public class OrderCat {
     protected var _posX:int;
     protected var _posY:int;
     protected var _depth:Number;
-    protected var _source:Sprite;
+    protected var _source:TownAreaBuildSprite;
     protected var _typeCat:int;
     protected var _speedWalk:int = 2;
     protected var _speedRun:int = 8;
@@ -52,8 +54,8 @@ public class OrderCat {
     public function OrderCat(type:int) {
         _posX = _posY = -1;
         _typeCat = type;
-        _source = new Sprite();
-        _source.touchable = false;
+        _source = new TownAreaBuildSprite();
+        _source.isTouchable = false;
         _catImage = new Sprite();
         _catBackImage = new Sprite();
 
