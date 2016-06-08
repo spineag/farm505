@@ -34,9 +34,9 @@ public class ManagerDropBonusResource {
 //                prise.variaty = 1;
                 prise = null;
                 prise = getDropPrise();
-            }
-        }
-        new DropItem(_x, _y, prise);
+            } else new DropItem(_x, _y, prise);
+        } else new DropItem(_x, _y, prise);
+
     }
 
     private function getDropPrise():Object {

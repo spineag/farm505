@@ -213,7 +213,10 @@ public class Animal {
         if(_farm.hasAnyCraftedResource) return;
         if (_state == WORK) {
             source.filter = null;
-            if (g.timerHint.isShow) g.timerHint.managerHide(onClickCallbackWhenWork);
+            if (g.timerHint.isShow) {
+                g.timerHint.managerHide(onClickCallbackWhenWork);
+                return;
+            }
             if (!g.mouseHint.isShowedAnimalFeed) {
                 var p1:Point = new Point(0, _rect.y);
                 p1 = source.localToGlobal(p1);

@@ -71,10 +71,10 @@ public class WOLevelUp extends WindowMain {
         _txtLevel = new TextField(300,100,"",g.allData.fonts['BloggerBold'],51,Color.WHITE);
         _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtContinue = new TextField(110,100,"РАССКАЗАТЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
-        _txtHard = new TextField(50,50,String(_count), g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtHard = new TextField(50,50,'+'+String(_count), g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtHard.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         if (g.user.level <= 4) {
-            var btn = new CButton();
+            var btn:CButton = new CButton();
             btn.addButtonTexture(172, 45, CButton.GREEN, true);
             _txtContinue.text = 'ПРОДОЛЖИТЬ';
             _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;

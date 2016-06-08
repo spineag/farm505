@@ -242,7 +242,11 @@ public class Ridge extends WorldObject{
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 if (g.managerTutorial.isTutorial) return;
                 onOut();
-                if (!_lastBuyResource) g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
+
+                if (!_lastBuyResource) {
+                    if (g.timerHint.isShow) g.timerHint.managerHide(onClickCallbackWhenWork);
+                     else g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
+                }
                 _lastBuyResource = false;
             }
             if (_stateRidge == EMPTY) {
@@ -279,6 +283,10 @@ public class Ridge extends WorldObject{
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
+    }
+
+    private function onClickCallbackWhenWork():void {
+        g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
     }
 
     public function checkBuildRect(isEmpty:Boolean):void {

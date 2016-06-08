@@ -82,16 +82,16 @@ public class ManagerOrderCats {
         }
 
 // move queue
-        var pos:int = cat.queuePosition;
-        for (i=0; i<_arrCats.length; i++) {
-            if (_arrCats[i].queuePosition > pos) {
-                if (_arrCats[i].walkPosition == OrderCat.STAY_IN_QUEUE) {
-                    moveQueue(_arrCats[i]);
-                } else {
-                    _arrCats[i].setPositionInQueue(_arrCats[i].queuePosition-1);
-                }
-            }
-        }
+//        var pos:int = cat.queuePosition;
+//        for (i=0; i<_arrCats.length; i++) {
+//            if (_arrCats[i].queuePosition > pos) {
+//                if (_arrCats[i].walkPosition == OrderCat.STAY_IN_QUEUE) {
+//                    moveQueue(_arrCats[i]);
+//                } else {
+//                    _arrCats[i].setPositionInQueue(_arrCats[i].queuePosition-1);
+//                }
+//            }
+//        }
     }
 
     private function moveQueue(cat:OrderCat):void {

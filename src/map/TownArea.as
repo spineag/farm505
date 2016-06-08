@@ -1171,6 +1171,10 @@ public class TownArea extends Sprite {
         }
         addAwayTownAreaSortCheking();
         g.managerChest.createChest(true);
+        var p:Point = new Point();
+        p.x = 24;
+        p.y = 26;
+        g.cont.moveCenterToPos(p.x, p.y, true, 2);
     }
 
     private function setDefaultAwayMatrix():void {

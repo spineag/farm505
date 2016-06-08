@@ -53,7 +53,7 @@ public class TimerHint {
         _txtCost = new TextField(50,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtCost.x = 10;
-        _txtCost.y = -2;
+        _txtCost.y = 6;
         _txtTimer = new TextField(80,30,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtTimer.x = -85;
@@ -62,7 +62,10 @@ public class TimerHint {
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -88;
         _txtName.y = -130;
-        _txtText = new TextField(80,40,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE);
+        _txtText = new TextField(65,50,'ускорить',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _txtText.x = 7;
+        _txtText.y = -15;
         _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));
         _imageClock.y = -93;
         _imageClock.x = -63;
@@ -70,16 +73,21 @@ public class TimerHint {
         _btn.addButtonTexture(77, 45, CButton.GREEN, true);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         im.x = 50;
-        im.y = 10;
+        im.y = 18;
         MCScaler.scale(im,25,25);
+
+//        var txt:TextField = new TextField(50,30,'ускорить',g.allData.fonts['BloggerBold]'],12,Color.WHITE);
+////        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+//        txt.x = 10;
+//        txt.y = 5;
         _btn.addChild(im);
         _btn.addChild(_txtCost);
+        _btn.addChild(_txtText);
         _btn.y = -60;
         _btn.x = 36;
         _source.addChild(_btn);
         _source.addChild(_txtName);
         _source.addChild(_imageClock);
-        _source.addChild(_txtText);
         _source.addChild(_txtTimer);
 
         _source.hoverCallback = onHover;
@@ -138,6 +146,7 @@ public class TimerHint {
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
         _txtCost.text = String(cost);
         _txtName.text = name;
+//        _txtText.text = 'ускорить';
         g.cont.hintContUnder.addChild(_source);
         g.gameDispatcher.addToTimer(onTimer);
 
