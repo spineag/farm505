@@ -33,9 +33,6 @@ public class Ridge extends WorldObject{
     private var _plantSprite:Sprite;
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
-    private var _count:int;
-    private var _countMouse:int;
-    private var _bgClicked:CSprite;
     private var _lastBuyResource:Boolean;
     private var _bg:Sprite;
 
