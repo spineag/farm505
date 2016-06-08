@@ -72,7 +72,6 @@ public class AirTextBubble {
     }
 
     private function onCallback():void {
-        return;
         if (_callback != null) {
             _callback.apply();
             _callback = null;
@@ -85,7 +84,7 @@ public class AirTextBubble {
         _fonClickable.addChild(new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK));
         _parent.addChild(_fonClickable);
         _fonClickable.alpha = 0;
-        _fonClickable.endClickCallback = onCallback;
+        _fonClickable.endClickCallback = null;
     }
 
     private function deleteFonClickable():void {

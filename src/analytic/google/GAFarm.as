@@ -18,8 +18,7 @@ public class GAFarm {
 
     public function GAFarm() {
         try {
-//            if (!g.isDebug) _isActive = true;
-            _isActive = true;
+            if (!g.isDebug) _isActive = true;
             Cc.ch("analytic", "<GAFarm> initialized on");
         } catch (error:Error) {
             Cc.error("<GAFarm> init error:" + error.message);
@@ -62,7 +61,7 @@ public class GAFarm {
         url += '&' + 't=' + 'event';
         url += '&' + 'ec=' + category;
         url += '&' + 'ea=' + action;
-        url += '&' + 'ev=' + obj.id;
+        url += '&' + 'el=' + obj.id;
         url += '&' + 'z=' + int(Math.random()*1000000);
         var request:URLRequest = new URLRequest(url);
         request.method = URLRequestMethod.POST;

@@ -325,6 +325,7 @@ public class ManagerCutScenes {
     }
 
     private function fromInventory_1():void {
+        _cutSceneResourceIDs = [28];
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
         var ob:Object = g.toolsPanel.getRepositoryBoxProperties();

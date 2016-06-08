@@ -2,6 +2,8 @@
  * Created by user on 2/29/16.
  */
 package tutorial {
+import analytic.AnalyticManager;
+
 import build.WorldObject;
 import build.chestBonus.Chest;
 import build.fabrica.Fabrica;
@@ -85,6 +87,7 @@ public class ManagerTutorial {
 
     private function updateTutorialStep():void {
         g.directServer.updateUserTutorialStep(null);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TUTORIAL, {id:g.user.tutorialStep});
     }
 
     public function initScenes():void {
@@ -1164,7 +1167,7 @@ public class ManagerTutorial {
         dataPlace.width = 5;
         dataPlace.height = 5;
         _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
-        var p:Point = new Point(3, 6);
+        var p:Point = new Point(3, 7);
         p = g.matrixGrid.getXYFromIndex(p);
         g.townArea.pasteBuild(_tutorialPlaceBuilding, p.x, p.y, false, false);
     }
@@ -1172,7 +1175,7 @@ public class ManagerTutorial {
     private function subStep12_3():void {
         _tutorialPlaceBuilding.activateIt(true);
         _subStep = 3;
-        g.cont.moveCenterToPos(3, 6);
+        g.cont.moveCenterToPos(3, 7);
         _currentAction = TutorialAction.PUT_FABRICA;
         _tutorialCallback = subStep12_4;
         if (_dustRectangle) {
@@ -1208,12 +1211,12 @@ public class ManagerTutorial {
             return;
         }
         if (!cat) {
-            addCatToPos(2, 11);
-            g.cont.moveCenterToPos(2, 11, true);
+            addCatToPos(2, 12);
+            g.cont.moveCenterToPos(2, 12, true);
             subStep13_1();
         } else {
-            g.managerCats.goCatToPoint(cat, new Point(2, 11), subStep13_1);
-            g.cont.moveCenterToPos(2, 11);
+            g.managerCats.goCatToPoint(cat, new Point(2, 12), subStep13_1);
+            g.cont.moveCenterToPos(2, 12);
         }
     }
 
@@ -1250,8 +1253,8 @@ public class ManagerTutorial {
             _tutorialObjects = g.townArea.getCityObjectsById(1);
         }
         if (!cat) {
-            addCatToPos(2, 11);
-            g.cont.moveCenterToPos(2, 11, true);
+            addCatToPos(2, 12);
+            g.cont.moveCenterToPos(2, 12, true);
         }
         if (!texts) texts = (new TutorialTexts()).objText;
         cat.flipIt(false);
@@ -1725,7 +1728,6 @@ public class ManagerTutorial {
     private function subStep22_1():void {
         _subStep = 1;
         _tutorialObjects = (_tutorialObjects[0] as Farm).arrAnimals;
-        (_tutorialObjects[0] as Animal).playDirectIdle();
         (_tutorialObjects[0] as Animal).addArrow();
         (_tutorialObjects[0] as Animal).tutorialCallback = subStep22_2;
     }

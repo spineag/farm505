@@ -2,6 +2,8 @@
  * Created by user on 6/8/15.
  */
 package build.decor {
+import analytic.AnalyticManager;
+
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
@@ -39,6 +41,7 @@ public class Decor extends WorldObject{
     }
 
     private function onClick():void {
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TEST, {id:2}); // temp
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
@@ -57,7 +60,7 @@ public class Decor extends WorldObject{
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-            if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isCutSceneBuilding(this)) return;
+            if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isCutSceneResource(_dataBuild.id)) return;
             onOut();
             if (!g.selectedBuild) {
                 if (g.managerCutScenes && g.managerCutScenes.isCutSceneBuilding(this)) {

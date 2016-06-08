@@ -611,6 +611,7 @@ public class DirectServer {
                 g.currentGameScale = int(ob.scale)/100;
             }
             if (ob.cut_scene) {
+                Cc.info('User cutscenes:: ' + ob.cut_scene);
                 g.user.cutScenes = String(ob.cut_scene).split('&');
                 for (i=0; i<g.user.cutScenes.length; i++) {
                     g.user.cutScenes[i] = int(g.user.cutScenes[i]);

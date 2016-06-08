@@ -93,6 +93,7 @@ public class FriendItem {
     }
 
     private function visitPerson():void {
+        if (g.visitedUser && g.visitedUser == _person) return;
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR && _person == g.user.neighbor) {
@@ -106,7 +107,6 @@ public class FriendItem {
             if (g.isAway) g.townArea.backHome();
             g.catPanel.visibleCatPanel(true);
         } else {
-            if (g.visitedUser && g.visitedUser == _person) return;
             g.townArea.goAway(_person);
             g.catPanel.visibleCatPanel(false);
         }
