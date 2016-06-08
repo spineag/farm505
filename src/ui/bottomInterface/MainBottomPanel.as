@@ -527,6 +527,7 @@ public class MainBottomPanel {
     }
 
     private function createNotificateionItem():void {
+        if (g.user.level < 5) return;
         var obj:Object;
         var id:String;
         var i:int;

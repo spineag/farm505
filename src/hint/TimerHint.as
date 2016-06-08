@@ -91,7 +91,7 @@ public class TimerHint {
         _needMoveCenter = v;
     }
 
-    public function isShow():Boolean {
+    public function get isShow():Boolean {
         return _isShow;
     }
 
@@ -99,11 +99,17 @@ public class TimerHint {
         _canHide = v;
     }
 
-    public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false):void {
+    public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false, animal:Boolean = false):void {
         if(_isShow) return;
         if (timer <=0) return;
         _onOutCallback = out;
         if (ridge) {
+            _quad = new Quad(_bg.width, _bg.height,Color.WHITE ,false);
+            var quad:Quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
+            quad.pivotX = quad.width/2;
+            _source.addChildAt(quad,0);
+            quad.alpha = 0;
+        } else if (animal) {
             _quad = new Quad(_bg.width, _bg.height,Color.WHITE ,false);
             var quad:Quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
             quad.pivotX = quad.width/2;
@@ -223,7 +229,7 @@ public class TimerHint {
         }
     }
 
-    public function managerHide():void {
+    public function managerHide(f:Function = null):void {
         if (_isShow) {
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);
@@ -235,10 +241,14 @@ public class TimerHint {
                 if (g.cont.hintContUnder.contains(_source)) {
                     g.cont.hintContUnder.removeChild(_source);
                 }
-
+                if (f != null) {
+                    f.apply(null);
+                    f = null;
+                }
             };
             g.starling.juggler.add(tween);
             g.gameDispatcher.removeFromTimer(closeTimer);
+            _isShow = false;
         }
     }
 

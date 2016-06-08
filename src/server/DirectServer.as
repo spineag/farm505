@@ -4695,7 +4695,7 @@ public class DirectServer {
         variables.xp = xp;
         variables.cost = cost;
         variables.visible = visible;
-        variables.type_resource = type;
+        variables.typeResource = type;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
