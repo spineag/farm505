@@ -51,9 +51,9 @@ public class TownAreaTouchManager {
         _touch = cont.getCurTouch;
         if (!_touch) return;
         _curBuild = getWorldObject(_touch);
-        if (_curBuild) {
+        if (_curBuild && _curBuild.source) {
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
-            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
+            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT &&  _curBuild.source.isTouchable) {
                 _curBuild.source.releaseEndClick();
             } else {
                 checkForTouches();
@@ -65,7 +65,7 @@ public class TownAreaTouchManager {
         _touch = cont.getCurTouch;
         if (!_touch) return;
         _curBuild = getWorldObject(_touch);
-        if (_curBuild) {
+        if (_curBuild && _curBuild.source) {
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
             if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseStartClick();
@@ -78,20 +78,20 @@ public class TownAreaTouchManager {
     private function onHover():void {
         _touch = cont.getCurTouch;
         if (!_touch) {
-            if (_curBuild) _curBuild.source.releaseOut();
+            if (_curBuild && _curBuild.source) _curBuild.source.releaseOut();
             _curBuild = null;
-            if (_prevBuild) _prevBuild.source.releaseOut();
+            if (_prevBuild && _curBuild.source) _prevBuild.source.releaseOut();
             _prevBuild = null;
             return;
         }
         _curBuild = getWorldObject(_touch);
-        if (_curBuild) {
+        if (_curBuild && _curBuild.source) {
             if (!_prevBuild) _prevBuild = _curBuild;
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
-            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
+            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT &&  _curBuild.source.isTouchable) {
                 _curBuild.source.releaseHover();
                 if (_prevBuild && _prevBuild != _curBuild) {
-                    _prevBuild.source.releaseOut();
+                    if (_prevBuild.source) _prevBuild.source.releaseOut();
                     _prevBuild = _curBuild;
                 }
             } else {
@@ -104,14 +104,14 @@ public class TownAreaTouchManager {
     private function onOut():void {
         _touch = cont.getCurTouch;
         if (!_touch) {
-            if (_curBuild) {
+            if (_curBuild && _curBuild.source) {
                 _curBuild.source.releaseOut();
                 _curBuild = null;
             }
             return;
         }
         _curBuild = getWorldObject(_touch);
-        if (_curBuild) {
+        if (_curBuild && _curBuild.source) {
             _curBuild.source.releaseOut();
         }
     }
@@ -122,7 +122,7 @@ public class TownAreaTouchManager {
             return;
         }
         _curBuild = getWorldObject(_touch);
-        if (_curBuild) {
+        if (_curBuild && _curBuild.source) {
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
             if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseEndClick();
@@ -144,14 +144,15 @@ public class TownAreaTouchManager {
             return;
         }
         _curBuild = getWorldObject(_touch);
-        if (_prevBuild && _prevBuild != _curBuild) {
-            if (_prevBuild.source.isTouchable) _prevBuild.source.releaseOut();
-            _prevBuild = _curBuild;
-        }
+        if (!_prevBuild) _prevBuild = _curBuild;
         if (_curBuild) {
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
             if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseHover();
+                if (_prevBuild && _prevBuild != _curBuild) {
+                    if (_prevBuild.source) _prevBuild.source.releaseOut();
+                    _prevBuild = _curBuild;
+                }
             } else {
                 _curBuild.source.releaseOut();
                 checkForTouches();

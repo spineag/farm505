@@ -1687,6 +1687,14 @@ public class TownArea extends Sprite {
         }
     }
 
+    public function onStartPlanting(isStart:Boolean):void {
+        for (var i:int=0; i<_cityObjects.length; i++) {
+            if (_cityObjects[i] is Ridge) {
+                (_cityObjects[i] as Ridge).stopDragMapDuringPlanting(isStart);
+            }
+        }
+    }
+
 
     // ----------------- ORDER CATS --------------------
     public function addOrderCatToCont(cat:OrderCat):void {

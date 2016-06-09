@@ -82,6 +82,7 @@ public class Ridge extends WorldObject{
     }
 
     override public function onHover():void {
+        if(_isOnHover) return;
         if (g.selectedBuild) return;
         super.onHover();
         if (g.managerCutScenes.isCutScene) return;
@@ -94,7 +95,6 @@ public class Ridge extends WorldObject{
         if (g.isActiveMapEditor || g.isAway){
             return;
         }
-        if(_isOnHover) return;
         _isOnHover = true;
         if (_stateRidge == GROWED) _plant.hoverGrowed();
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
@@ -122,7 +122,7 @@ public class Ridge extends WorldObject{
     }
 
     override public function onOut():void {
-        if (_source) {
+        if (_source && _isOnHover) {
             super.onOut();
             if (g.isActiveMapEditor || g.isAway) return;
             _isOnHover = false;
@@ -146,6 +146,7 @@ public class Ridge extends WorldObject{
             _lastBuyResource = true;
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             _source.filter = null;
+            g.townArea.onStartPlanting(true);
             g.managerPlantRidge.checkFreeRidges();
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
                 if (_tutorialCallback != null) {
@@ -153,6 +154,10 @@ public class Ridge extends WorldObject{
                 }
             }
         }
+    }
+
+    public function stopDragMapDuringPlanting(isPlantingNow:Boolean):void {
+        _source.releaseContDrag = !isPlantingNow;
     }
 
     public function onEndClick():void {

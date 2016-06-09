@@ -89,10 +89,12 @@ public class Chest extends WorldObject{
     }
 
     override public function onOut():void {
-        super.onOut();
-        _isOnHover = false;
-        if(_source) _source.filter = null;
-        g.hint.hideIt();
+        if (_source) {
+            super.onOut();
+            _isOnHover = false;
+            if (_source) _source.filter = null;
+            g.hint.hideIt();
+        }
     }
 }
 }
