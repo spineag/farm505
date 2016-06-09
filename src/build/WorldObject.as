@@ -73,10 +73,7 @@ public class WorldObject {
     }
 
     public function onOut():void {}
-    public function onHover():void {
-        if (g.currentInteractiveBuild && g.currentInteractiveBuild != this) g.currentInteractiveBuild.onOut();
-        g.currentInteractiveBuild = this;
-    }
+    public function onHover():void {}
 
     public function get sizeX():uint {
         return _flip ? _sizeY : _sizeX;

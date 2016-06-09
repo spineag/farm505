@@ -149,12 +149,7 @@ public class Containers {
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
             _startDragPointCont = new Point(gameCont.x, gameCont.y);
             g.ownMouse.showClickCursor();
-        } else if (te.getTouch(gameCont, TouchPhase.HOVER)) {
-            if (g.currentInteractiveBuild) {
-                g.currentInteractiveBuild.onOut();
-                g.currentInteractiveBuild = null;
-            }
-        }
+        } else if (te.getTouch(gameCont, TouchPhase.HOVER)) {}
     }
 
     public function setDragPoints(p:Point):void {

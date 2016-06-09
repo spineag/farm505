@@ -80,17 +80,20 @@ public class TownAreaTouchManager {
         if (!_touch) {
             if (_curBuild) _curBuild.source.releaseOut();
             _curBuild = null;
+            if (_prevBuild) _prevBuild.source.releaseOut();
+            _prevBuild = null;
             return;
         }
         _curBuild = getWorldObject(_touch);
-        if (_prevBuild && _prevBuild != _curBuild) {
-            if (_prevBuild.source.isTouchable) _prevBuild.source.releaseOut();
-            _prevBuild = _curBuild;
-        }
         if (_curBuild) {
+            if (!_prevBuild) _prevBuild = _curBuild;
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
             if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseHover();
+                if (_prevBuild && _prevBuild != _curBuild) {
+                    _prevBuild.source.releaseOut();
+                    _prevBuild = _curBuild;
+                }
             } else {
                 _curBuild.source.releaseOut();
                 checkForTouches();
@@ -101,9 +104,9 @@ public class TownAreaTouchManager {
     private function onOut():void {
         _touch = cont.getCurTouch;
         if (!_touch) {
-            if (_prevBuild && _prevBuild.source.isTouchable) {
-                _prevBuild.source.releaseOut();
-                _prevBuild = null;
+            if (_curBuild) {
+                _curBuild.source.releaseOut();
+                _curBuild = null;
             }
             return;
         }
@@ -227,9 +230,11 @@ public class TownAreaTouchManager {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT)
                         (ar[0] as WorldObject).source.releaseEndClick();
                 } else if (_touch.phase == TouchPhase.HOVER) {
-                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT)
+                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
                         (ar[0] as WorldObject).source.releaseHover();
-                    else (ar[0] as WorldObject).source.releaseOut();
+                    } else {
+                        (ar[0] as WorldObject).source.releaseOut();
+                    }
                 } else {
                     (ar[0] as WorldObject).source.releaseOut();
                 }

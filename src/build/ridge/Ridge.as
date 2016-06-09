@@ -81,32 +81,6 @@ public class Ridge extends WorldObject{
         _plantSprite.addChild(s);
     }
 
-//    private function createBuildRidge():void {
-//        var im:Image;
-//        if (_build) {
-//            if (_source.contains(_build)) {
-//                _source.removeChild(_build);
-//            }
-//            while (_build.numChildren) _build.removeChildAt(0);
-//        }
-//
-//        im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
-//        im.x = _dataBuild.innerX;
-//        im.y = _dataBuild.innerY;
-//
-//        if (!im) {
-//            Cc.error('Ridge:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
-//            return;
-//        }
-//        _build.addChild(im);
-////        im.touchable = false; ?
-//        _rect = _build.getBounds(_build);
-//        _sizeX = _dataBuild.width;
-//        _sizeY = _dataBuild.height;
-//        _source.addChild(_build);
-//    }
-
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();
@@ -128,11 +102,6 @@ public class Ridge extends WorldObject{
             if (g.managerTutorial.isTutorial) return;
             fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
             g.managerPlantRidge.checkFreeRidges();
-//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
-//                if (_tutorialCallback != null) {
-//                    _tutorialCallback.apply(null, [this]);
-//                }
-//            }
         } else {
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
 //            _count = 10;
@@ -154,13 +123,13 @@ public class Ridge extends WorldObject{
 
     override public function onOut():void {
         if (_source) {
-            super.onHover();
+            super.onOut();
             if (g.isActiveMapEditor || g.isAway) return;
             _isOnHover = false;
             _source.filter = null;
 //            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-        g.mouseHint.hideIt();
-        g.timerHint.hideIt();
+            g.mouseHint.hideIt();
+            g.timerHint.hideIt();
         }
     }
 
