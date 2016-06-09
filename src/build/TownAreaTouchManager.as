@@ -4,6 +4,7 @@
 package build {
 import build.decor.DecorFence;
 import build.decor.DecorPostFence;
+import build.decor.DecorTail;
 import build.lockedLand.LockedLand;
 import flash.geom.Point;
 import heroes.BasicCat;
@@ -23,23 +24,27 @@ public class TownAreaTouchManager {
     private var _touch:Touch;
     private var _curBuild:WorldObject;
     private var _prevBuild:WorldObject;
-    private var _startDragPoint:Point;
     private var _arrTown:Array;
 
     public function TownAreaTouchManager() {
-        _arrTown = g.townArea.cityObjects;
-
         cont = g.cont.contentCont;
         cont.endClickCallback = onEndClick;
         cont.startClickCallback = onStartClick;
         cont.hoverCallback = onHover;
         cont.outCallback = onOut;
+        cont.releaseContDrag = true;
 
         contTail = g.cont.tailCont;
         contTail.endClickCallback = onEndClickTail;
         contTail.startClickCallback = onStartClickTail;
         contTail.hoverCallback = onHoverTail;
         contTail.outCallback = onOutTail;
+        contTail.isTouchable = false;
+        contTail.releaseContDrag = true;
+    }
+
+    public function set tailAreTouchable(v:Boolean):void {
+        contTail.isTouchable = v;
     }
 
     private function onEndClick():void {
@@ -95,7 +100,13 @@ public class TownAreaTouchManager {
 
     private function onOut():void {
         _touch = cont.getCurTouch;
-        if (!_touch) return;
+        if (!_touch) {
+            if (_prevBuild && _prevBuild.source.isTouchable) {
+                _prevBuild.source.releaseOut();
+                _prevBuild = null;
+            }
+            return;
+        }
         _curBuild = getWorldObject(_touch);
         if (_curBuild) {
             _curBuild.source.releaseOut();
@@ -103,7 +114,19 @@ public class TownAreaTouchManager {
     }
 
     private function onEndClickTail():void {
-
+        _touch = contTail.getCurTouch;
+        if (!_touch) {
+            return;
+        }
+        _curBuild = getWorldObject(_touch);
+        if (_curBuild) {
+            var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
+            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
+                _curBuild.source.releaseEndClick();
+            } else {
+                checkForTouches();
+            }
+        }
     }
 
     private function onStartClickTail():void {
@@ -111,24 +134,40 @@ public class TownAreaTouchManager {
     }
 
     private function onHoverTail():void {
-
+        _touch = contTail.getCurTouch;
+        if (!_touch) {
+            if (_curBuild) _curBuild.source.releaseOut();
+            _curBuild = null;
+            return;
+        }
+        _curBuild = getWorldObject(_touch);
+        if (_prevBuild && _prevBuild != _curBuild) {
+            if (_prevBuild.source.isTouchable) _prevBuild.source.releaseOut();
+            _prevBuild = _curBuild;
+        }
+        if (_curBuild) {
+            var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
+            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
+                _curBuild.source.releaseHover();
+            } else {
+                _curBuild.source.releaseOut();
+                checkForTouches();
+            }
+        }
     }
 
     private function onOutTail():void {
-
-    }
-
-    public function get wasGameContMoved():Boolean {
-        if (_curBuild) {
-            if (_curBuild.source.isContDrag && _startDragPoint) {
-                var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
-                _startDragPoint = null;
-                return distance > 5;
-            } else {
-                return false;
+        _touch = contTail.getCurTouch;
+        if (!_touch) {
+            if (_prevBuild && _prevBuild.source.isTouchable) {
+                _prevBuild.source.releaseOut();
+                _prevBuild = null;
             }
-        } else {
-            return false;
+            return;
+        }
+        _curBuild = getWorldObject(_touch);
+        if (_curBuild) {
+            _curBuild.source.releaseOut();
         }
     }
 
@@ -156,6 +195,11 @@ public class TownAreaTouchManager {
     }
 
     public function checkForTouches():void {
+        if (g.isAway) {
+            _arrTown = g.townArea.cityAwayObjects;
+        } else {
+            _arrTown = g.townArea.cityObjects;
+        }
         var i:int;
         var p:Point = new Point(_touch.globalX, _touch.globalY);
         p = cont.globalToLocal(p);
@@ -200,6 +244,15 @@ public class TownAreaTouchManager {
         if (p.y < sp.y + rect.y) return false;
         if (p.y > sp.y + rect.y + rect.height) return false;
         return true;
+    }
+
+    public function get wasGameContMoved():Boolean {
+        if (_curBuild) {
+            if (_curBuild is DecorTail) return contTail.wasGameContMoved;
+                else return cont.wasGameContMoved;
+        } else {
+            return false;
+        }
     }
 
 }

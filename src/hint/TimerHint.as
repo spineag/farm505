@@ -111,15 +111,16 @@ public class TimerHint {
         if(_isShow) return;
         if (timer <=0) return;
         _onOutCallback = out;
+        var quad:Quad;
         if (ridge) {
             _quad = new Quad(_bg.width, _bg.height,Color.WHITE ,false);
-            var quad:Quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
+            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
             quad.pivotX = quad.width/2;
             _source.addChildAt(quad,0);
             quad.alpha = 0;
         } else if (animal) {
             _quad = new Quad(_bg.width, _bg.height,Color.WHITE ,false);
-            var quad:Quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
+            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
             quad.pivotX = quad.width/2;
             _source.addChildAt(quad,0);
             quad.alpha = 0;

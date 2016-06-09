@@ -24,7 +24,7 @@ public class DecorTail extends WorldObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
-        _hitArea = g.managerHitArea.getHitArea(_source, 'decorTail' + _dataBuild.image);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'decorTail' + _dataBuild.sizeX + '_' + _dataBuild.sizeY);
         _source.registerHitArea(_hitArea);
     }
 

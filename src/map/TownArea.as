@@ -96,6 +96,10 @@ public class TownArea extends Sprite {
         return _townAwayMatrix;
     }
 
+    public function get cityAwayObjects():Array {
+        return _cityAwayObjects;
+    }
+
     public function get diagonalsObject():Object {
         return _objBuildingsDiagonals;
     }
@@ -1642,6 +1646,7 @@ public class TownArea extends Sprite {
     }
 
     public function onActivateMoveModifier(v:Boolean):void {
+        g.townAreaTouchManager.tailAreTouchable = v;
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand || _cityObjects[i] is Paper || _cityObjects[i] is Cave
                     || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest) {
@@ -1656,6 +1661,7 @@ public class TownArea extends Sprite {
     }
 
     public function onActivateRotateModifier(v:Boolean):void {
+        g.townAreaTouchManager.tailAreTouchable = v;
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand || _cityObjects[i] is Paper || _cityObjects[i] is Cave
                     || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest) {
@@ -1670,6 +1676,7 @@ public class TownArea extends Sprite {
     }
 
     public function onActivateInventoryModifier(v:Boolean):void {
+        g.townAreaTouchManager.tailAreTouchable = v;
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is Ridge || _cityObjects[i] is Farm ||
                 _cityObjects[i] is Fabrica || _cityObjects[i] is Tree || _cityObjects[i] is Ambar || _cityObjects[i] is Sklad  ||

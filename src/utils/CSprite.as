@@ -30,7 +30,6 @@ public class CSprite extends Sprite {
     private var _params:*;
     private var _hitArea:OwnHitArea;
     private var _hitAreaState:int;
-    public var woObject:WorldObject;
     private var _currentTouch:Touch;
 
     private var g:Vars = Vars.getInstance();
