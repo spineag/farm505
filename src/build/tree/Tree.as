@@ -115,6 +115,7 @@ public class Tree extends WorldObject {
             case GROW1:
                 if (ob.time_work > _resourceItem.buildTime) {
                     _state = GROWED1;
+                    if (_craftedCountFromServer <= 0) _craftedCountFromServer = 2;
                     _timeToEndState = 0;
                 } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW1;
@@ -127,6 +128,7 @@ public class Tree extends WorldObject {
             case GROW2:
                 if (ob.time_work > _resourceItem.buildTime) {
                     _state = GROWED2;
+                    if (_craftedCountFromServer <= 0) _craftedCountFromServer = 3;
                     _timeToEndState = 0;
                 } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW2;
@@ -139,6 +141,7 @@ public class Tree extends WorldObject {
             case GROW3:
                 if (ob.time_work > _resourceItem.buildTime) {
                     _state = GROWED3;
+                    if (_craftedCountFromServer <= 0) _craftedCountFromServer = 4;
                     _timeToEndState = 0;
                 } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW3;
@@ -151,6 +154,7 @@ public class Tree extends WorldObject {
             case GROW_FIXED:
                 if (ob.time_work > _resourceItem.buildTime) {
                     _state = GROWED_FIXED;
+                    if (_craftedCountFromServer <= 0) _craftedCountFromServer = 4;
                     _timeToEndState = 0;
                 } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW_FIXED;
@@ -309,7 +313,10 @@ public class Tree extends WorldObject {
         b = _armature.getBone(st);
         _armature.removeBone(b, true);
         _countCrafted--;
-        if (_countCrafted == 0) onCraftItemClick();
+        if (_countCrafted == 0) {
+//            _state++;
+            onCraftItemClick();
+        }
         else g.managerTree.updateTreeCraftCount(tree_db_id,_countCrafted);
 
     }
@@ -647,9 +654,10 @@ public class Tree extends WorldObject {
     }
 
     private function onCraftItemClick(item:CraftItem=null):void {
-        if (_countCrafted > 0) { // dont use with == 0 because of optimisation
-            g.directServer.craftUserTree(tree_db_id, _state, null);
-        }
+//        if (_countCrafted > 0) { // dont use with == 0 because of optimisation
+//            trace('dopizdelsya');
+//            g.directServer.craftUserTree(tree_db_id, _state, null);
+//        }
 
         if (_countCrafted <= 0) {
             switch (_state) {

@@ -59,7 +59,8 @@ public class WOGameError extends WindowMain {
     }
 
     private function onClick():void {
-        g.socialNetwork.reloadGame();
+        if (g.isDebug) hideIt();
+        else g.socialNetwork.reloadGame();
     }
 
     override protected function deleteIt():void {

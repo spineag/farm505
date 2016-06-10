@@ -20,6 +20,10 @@ import hint.FlyMessage;
 
 import manager.ManagerFilters;
 import manager.Vars;
+
+import resourceItem.CraftItem;
+
+import resourceItem.DropItem;
 import resourceItem.ResourceItem;
 
 import starling.display.Image;
@@ -28,6 +32,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
+
+import temp.DropResourceVariaty;
 
 import tutorial.TutorialAction;
 
@@ -291,6 +297,7 @@ public class MarketItem {
         _dataFromServer.inPapper = true;
         _papper.visible = true;
         _imCheck.visible = true;
+        _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
         _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
     }
@@ -413,7 +420,7 @@ public class MarketItem {
         } else {
             if (g.managerTutorial.isTutorial) return;
             if (_isUser) { // купленная
-                g.userInventory.addMoney(2,_dataFromServer.cost);
+//                g.userInventory.addMoney(2,_dataFromServer.cost);
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {
                     if (g.user.marketItems[i].id == _dataFromServer.id) {
@@ -455,26 +462,17 @@ public class MarketItem {
     }
 
     private function animCoin():void {
-        var eP:Point = g.softHardCurrency.getSoftCurrencyPoint();
-        var s:Sprite = new Sprite();
-        s.addChild(new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins')));
-        MCScaler.scale(s, 50, 50);
-        s.pivotX = s.width / 2;
-        s.pivotY = s.height / 2;
-        var sP:Point = new Point(80, 110);
-        sP = source.localToGlobal(sP);
-        s.x = sP.x;
-        s.y = sP.y;
-        g.cont.animationsResourceCont.addChild(s);
-
-        var f1:Function = function():void {
-            g.cont.animationsResourceCont.removeChild(s);
-            s.dispose();
-            s = null;
-            _countMoney = 0;
-            _countResource = 0;
-        };
-        new TweenMax(s, 1, {x:eP.x, y:eP.y, ease:Linear.easeOut ,onComplete: f1});
+        _imageCont.pivotX = -_imageCont.width/2;
+        _imageCont.pivotY = -_imageCont.height/2;
+        var p:Point = new Point(_imageCont.x, _imageCont.y);
+        p = _imageCont.localToGlobal(p);
+        var prise:Object = {};
+        prise.id = DataMoney.SOFT_CURRENCY;
+        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
+        prise.count = _countMoney;
+        new DropItem(p.x, p.y, prise);
+        _countMoney = 0;
+        _countResource = 0;
     }
 
     public function unFillIt():void {
@@ -546,41 +544,10 @@ public class MarketItem {
     }
 
     private function showFlyResource(d:Object, count:int):void {
-        var im:Image;
-        if (!d) {
-            Cc.error('MarketItem showFlyResource:: empty data');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
-            return;
-        }
-        if (_data.buildType == BuildType.PLANT) {
-            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
-        } else {
-            im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
-        }
-        if (!im) {
-            Cc.error('MarketItem showFlyResource:: no such image: ' + d.imageShop);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
-            return;
-        }
-        MCScaler.scale(im, 100, 100);
-        var p:Point = new Point(0, 0);
-        p = source.localToGlobal(p);
-        im.pivotX = im.width/2;
-        im.pivotY = im.height/2;
-        im.x = p.x;
-        im.y = p.y;
-        g.cont.animationsResourceCont.addChild(im);
-        g.craftPanel.showIt(d.placeBuild);
-        p = g.craftPanel.pointXY();
-        var f1:Function = function():void {
-            g.cont.animationsResourceCont.removeChild(im);
-            im.dispose();
-            g.userInventory.addResource(d.id, count);
-            var item:ResourceItem = new ResourceItem();
-            item.fillIt(d);
-            g.craftPanel.afterFly(item);
-        };
-        new TweenMax(im, .5, {x:p.x, y:p.y, ease:Linear.easeOut ,onComplete: f1});
+        var resource:ResourceItem = new ResourceItem();
+        resource.fillIt(d);
+        var item:CraftItem = new CraftItem(0,0,resource,source,count);
+        item.flyIt();
     }
 
     private function showSaleImage():void {

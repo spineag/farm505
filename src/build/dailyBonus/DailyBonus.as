@@ -53,6 +53,7 @@ public class DailyBonus extends WorldObject{
                 _armature.animation.gotoAndStop('idle', 0);
                 showLights();
 
+
             };
             _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
@@ -68,7 +69,7 @@ public class DailyBonus extends WorldObject{
         _isOnHover = false;
         g.hint.hideIt();
         hoverout();
-        if (g.managerDailyBonus.count > 0) hideLights();
+        g.managerDailyBonus.checkDailyBonusStateBuilding();
     }
 
     private function onClick():void {

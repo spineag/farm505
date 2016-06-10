@@ -9,7 +9,20 @@ import tutorial.TutorialAction;
 import utils.Utils;
 
 public class ManagerOrder {
+    public static const TIME_FIRST_DELAY:int = 3 * 60;
+    public static const TIME_SECOND_DELAY:int = 5 * 60;
+    public static const TIME_THIRD_DELAY:int = 10 * 60;
+    public static const TIME_FOURTH_DELAY:int = 15 * 60;
+    public static const TIME_FIFTH_DELAY:int = 20 * 60;
+
     public static const TIME_DELAY:int = 15 * 60;
+
+    public static const COST_FIRST_SKIP_WAIT:int = 2;
+    public static const COST_SECOND_SKIP_WAIT:int = 3;
+    public static const COST_THIRD_SKIP_WAIT:int = 5;
+    public static const COST_FOURTH_SKIP_WAIT:int = 6;
+    public static const COST_FIFTH_SKIP_WAIT:int = 8;
+
     public static const COST_SKIP_WAIT:int = 8;
 
     private var _countCellOnLevel:Array;
@@ -910,13 +923,13 @@ public class ManagerOrder {
         if (i == _arrOrders.length) Cc.error('ManagerOrder deleteOrder:: no order');
         var pl:int = order.placeNumber;
         g.directServer.deleteUserOrder(order.dbId, null);
-        addNewOrders(1, TIME_DELAY, f, order.placeNumber);
-//        for (i=0; i<_arrOrders.length; i++) {
-//            if (_arrOrders[i].placeNumber == pl) {
-//                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
-//                break;
-//            }
-//        }
+
+        if (g.user.level <= 6)  addNewOrders(1, TIME_FIRST_DELAY, f, order.placeNumber);
+        else if (g.user.level <= 9)  addNewOrders(1, TIME_SECOND_DELAY, f, order.placeNumber);
+        else if (g.user.level <= 15)  addNewOrders(1, TIME_THIRD_DELAY, f, order.placeNumber);
+        else if (g.user.level <= 19)  addNewOrders(1, TIME_FOURTH_DELAY, f, order.placeNumber);
+        else if (g.user.level >= 20)  addNewOrders(1, TIME_FIFTH_DELAY, f, order.placeNumber);
+//        addNewOrders(1, TIME_DELAY, f, order.placeNumber);
     }
 
     public function sellOrder(order:ManagerOrderItem, f:Function):void {
@@ -975,7 +988,12 @@ public class ManagerOrder {
 //        }
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == orderDbId) {
-                _arrOrders[i].startTime -= 2*ManagerOrder.TIME_DELAY;
+                if (g.user.level <= 6) _arrOrders[i].startTime -= 2* TIME_FIRST_DELAY;
+                else if (g.user.level <= 9) _arrOrders[i].startTime -= 2*  TIME_SECOND_DELAY;
+                else if (g.user.level <= 15) _arrOrders[i].startTime -= 2* TIME_THIRD_DELAY;
+                else if (g.user.level <= 19) _arrOrders[i].startTime -= 2* TIME_FOURTH_DELAY;
+                else if (g.user.level >= 20) _arrOrders[i].startTime -= 2* TIME_FIFTH_DELAY;
+//                _arrOrders[i].startTime -= 2* TIME_DELAY;
                 break;
             }
         }

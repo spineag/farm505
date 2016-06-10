@@ -596,10 +596,10 @@ public class DirectServer {
             if ( g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);
-            if (ob.wall_order_item_time == int(new Date().getTime()/1000)) g.user.wallOrderItem = false;
+            if (ob.wall_order_item_time == int(new Date().date)) g.user.wallOrderItem = false;
             else g.user.wallOrderItem = true;
 
-            if (ob.wall_train_item == int(new Date().getTime()/1000)) g.user.wallTrainItem = false;
+            if (ob.wall_train_item == int(new Date().date)) g.user.wallTrainItem = false;
             else g.user.wallTrainItem = true;
 
             g.user.checkUserLevel();
