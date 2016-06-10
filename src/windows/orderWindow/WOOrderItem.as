@@ -183,7 +183,11 @@ public class WOOrderItem {
         _leftSeconds = 0;
         g.managerOrder.onSkipTimer(_order);
         _check.visible = false;
-        _order.startTime -= 2*ManagerOrder.TIME_DELAY;
+        if (g.user.level <= 6) _order.startTime -= 2* ManagerOrder.TIME_FIRST_DELAY;
+        else if (g.user.level <= 9) _order.startTime -= 2*  ManagerOrder.TIME_SECOND_DELAY;
+        else if (g.user.level <= 15) _order.startTime -= 2* ManagerOrder.TIME_THIRD_DELAY;
+        else if (g.user.level <= 19) _order.startTime -= 2* ManagerOrder.TIME_FOURTH_DELAY;
+        else if (g.user.level >= 20) _order.startTime -= 2* ManagerOrder.TIME_FIFTH_DELAY;
     }
 
     public function getOrder():ManagerOrderItem {
@@ -206,6 +210,10 @@ public class WOOrderItem {
             _bgCarton.filter = null;
             _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
         }
+    }
+
+    public function updateCheck(b:Boolean):void {
+        _check.visible = b;
     }
 
     public function deleteIt():void {

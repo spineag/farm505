@@ -9,12 +9,16 @@ import com.greensock.easing.Linear;
 
 import data.BuildType;
 
+import flash.display.StageDisplayState;
+
 import flash.geom.Point;
 import manager.ManagerDailyBonus;
 import manager.ManagerFilters;
 import manager.Vars;
 
 import resourceItem.CraftItem;
+
+import starling.core.Starling;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -155,7 +159,10 @@ public class WODailyBonusCraftItem {
         var f:Function = function ():void {
             g.directServer.buyAndAddToInventory(_data.id, f1);
         };
-        new TweenMax(_source, .5, {scaleX:.3, scaleY:.3, ease:Back.easeIn, onComplete:f});
+        var v:Number;
+        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = .5;
+        else v = .2;
+        new TweenMax(_source, v, {scaleX:.3, scaleY:.3, ease:Back.easeIn, onComplete:f});
     }
 
     private function flyItMoney(isSoft:Boolean):void {
@@ -187,7 +194,10 @@ public class WODailyBonusCraftItem {
         var tempX:int = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
         var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        new TweenMax(_source, dist/300, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
+        var v:int;
+        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
+        else v = 460;
+        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
     }
 
     private function flyItResource():void {
@@ -217,7 +227,10 @@ public class WODailyBonusCraftItem {
         var tempX:int = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
         var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        new TweenMax(_source, dist/300, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
+        var v:int;
+        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
+        else v = 380;
+        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
     }
 
     private function deleteIt():void {

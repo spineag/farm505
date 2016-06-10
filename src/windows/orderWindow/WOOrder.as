@@ -235,7 +235,12 @@ public class WOOrder extends WindowMain{
         var txt:TextField = new TextField(80, 50, "Получить сейчас", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSkipDelete.addChild(txt);
-        txt = new TextField(20, 50, String(ManagerOrder.COST_SKIP_WAIT), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(20, 50, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        if (g.user.level <= 6) txt.text = String(ManagerOrder.COST_FIRST_SKIP_WAIT);
+        else if (g.user.level <= 9) txt.text = String(ManagerOrder.COST_SECOND_SKIP_WAIT);
+        else if (g.user.level <= 15) txt.text = String(ManagerOrder.COST_THIRD_SKIP_WAIT);
+        else if (g.user.level <= 19) txt.text = String(ManagerOrder.COST_FOURTH_SKIP_WAIT);
+        else if (g.user.level >= 20) txt.text = String(ManagerOrder.COST_FIFTH_SKIP_WAIT);
         txt.x = 80;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSkipDelete.addChild(txt);
@@ -331,6 +336,14 @@ public class WOOrder extends WindowMain{
                 onItemClick(_activeOrderItem, true);
             }
         }
+        for (k = 0; k < _arrItems.length; k++) {
+            for (var i:int=0; i<order.resourceIds.length; i++) {
+                if (g.userInventory.getCountResourceById(_arrOrders[k].resourceIds[i]) < _arrOrders[k].resourceCounts[i]) {
+                    _arrItems[k].updateCheck(false);
+                    break;
+                }
+            }
+        }
         g.bottomPanel.checkIsFullOrder();
     }
 
@@ -413,7 +426,12 @@ public class WOOrder extends WindowMain{
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
 //            g.userTimer.setOrder(_activeOrderItem.getOrder());
-            setTimerText = ManagerOrder.TIME_DELAY;
+            if (g.user.level <= 6) setTimerText = ManagerOrder.TIME_FIRST_DELAY;
+            else if (g.user.level <= 9) setTimerText = ManagerOrder.TIME_SECOND_DELAY;
+            else if (g.user.level <= 15) setTimerText = ManagerOrder.TIME_THIRD_DELAY;
+            else if (g.user.level <= 19) setTimerText = ManagerOrder.TIME_FOURTH_DELAY;
+            else if (g.user.level >= 20) setTimerText = ManagerOrder.TIME_FIFTH_DELAY;
+//            setTimerText = ManagerOrder.TIME_DELAY;
             _waitForAnswer = true;
             _arrOrders[_activeOrderItem.position] = null;
             var tOrderItem:WOOrderItem = _activeOrderItem;
@@ -421,14 +439,40 @@ public class WOOrder extends WindowMain{
                 afterDeleteOrder(order, tOrderItem);
             };
             g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
+            g.bottomPanel.checkIsFullOrder();
         }
     }
 
     private function afterDeleteOrder(order:ManagerOrderItem, orderItem:WOOrderItem):void {
         if (_isShowed) {
-            order.startTime += ManagerOrder.TIME_DELAY;
-            _waitForAnswer = false;
-            setTimerText = ManagerOrder.TIME_DELAY;
+            if (g.user.level <= 6) {
+                order.startTime += ManagerOrder.TIME_FIRST_DELAY;
+                _waitForAnswer = false;
+                setTimerText = ManagerOrder.TIME_FIRST_DELAY;
+            }
+            else if (g.user.level <= 9) {
+                order.startTime += ManagerOrder.TIME_SECOND_DELAY;
+                _waitForAnswer = false;
+                setTimerText = ManagerOrder.TIME_SECOND_DELAY;
+            }
+            else if (g.user.level <= 15) {
+                order.startTime += ManagerOrder.TIME_THIRD_DELAY;
+                _waitForAnswer = false;
+                setTimerText = ManagerOrder.TIME_THIRD_DELAY;
+            }
+            else if (g.user.level <= 19) {
+                order.startTime += ManagerOrder.TIME_FOURTH_DELAY;
+                _waitForAnswer = false;
+                setTimerText = ManagerOrder.TIME_FOURTH_DELAY;
+            }
+            else if (g.user.level >= 20) {
+                order.startTime += ManagerOrder.TIME_FIFTH_DELAY;
+                _waitForAnswer = false;
+                setTimerText = ManagerOrder.TIME_FIFTH_DELAY;
+            }
+//            order.startTime += ManagerOrder.TIME_DELAY;
+//            _waitForAnswer = false;
+//            setTimerText = ManagerOrder.TIME_DELAY;
             var b:Boolean = true;
             for (var k:int=0; k<order.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
@@ -446,14 +490,20 @@ public class WOOrder extends WindowMain{
     }
 
     private function skipDelete():void {
-        if (g.user.hardCurrency < ManagerOrder.COST_SKIP_WAIT) {
+        var n:int;
+        if (g.user.level <= 6) n = ManagerOrder.COST_FIRST_SKIP_WAIT;
+        else if (g.user.level <= 9) n = ManagerOrder.COST_SECOND_SKIP_WAIT;
+        else if (g.user.level <= 15) n = ManagerOrder.COST_THIRD_SKIP_WAIT;
+        else if (g.user.level <= 19) n = ManagerOrder.COST_FOURTH_SKIP_WAIT;
+        else if (g.user.level >= 20) n = ManagerOrder.COST_FIFTH_SKIP_WAIT;
+        if (g.user.hardCurrency < n) {
             isCashed = false;
             super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
         _activeOrderItem.onSkipTimer();
-        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -ManagerOrder.COST_SKIP_WAIT);
+        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -n);
     }
 
     private function createRightBlockTimer():void {
