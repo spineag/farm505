@@ -44,6 +44,7 @@ public class CouponePanel {
 
     public function CouponePanel() {
         _source = new CSprite();
+        _source.nameIt = 'couponePanel';
         g.cont.interfaceCont.addChild(_source);
         _contCoupone = new Sprite();
         _contClipRect = new Sprite();

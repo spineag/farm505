@@ -59,6 +59,7 @@ public class OptionPanel {
         var im:Image;
 
         _contFullScreen = new CSprite();
+        _contFullScreen.nameIt = 'contFullScreen';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_fs_off"));
         _contFullScreen.addChild(im);
         _contFullScreen.y = 115;
@@ -84,6 +85,7 @@ public class OptionPanel {
         };
 
         _contScalePlus = new CSprite();
+        _contScalePlus.nameIt = 'contScalePlus';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in_off"));
         _contScalePlus.addChild(im);
         _contScalePlus.y = 160;
@@ -105,6 +107,7 @@ public class OptionPanel {
         };
 
         _contScaleMinus = new CSprite();
+        _contScaleMinus.nameIt = 'contScaleMinus';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out_off"));
         _contScaleMinus.addChild(im);
         _contScaleMinus.y = 205;
@@ -126,6 +129,7 @@ public class OptionPanel {
         };
 
         _contScreenShot = new CSprite();
+        _contScreenShot.nameIt = 'contScreenShot';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_screen"));
         _contScreenShot.addChild(im);
         _contScreenShot.y = 149;
@@ -141,6 +145,7 @@ public class OptionPanel {
         };
 
         _contAnim = new CSprite();
+        _contAnim.nameIt = 'contAnim';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_a_off"));
         _contAnim.addChild(im);
         _contAnim.y = 205;
@@ -156,6 +161,7 @@ public class OptionPanel {
         };
 
         _contMusic = new CSprite();
+        _contMusic.nameIt = '_contMusic';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_off"));
         _contMusic.addChild(im);
         _contMusic.y = 250;
@@ -171,6 +177,7 @@ public class OptionPanel {
         };
 
         _contSound = new CSprite();
+        _contSound.nameIt = 'contSound';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_off"));
         _contSound.addChild(im);
         _contSound.y = 295;

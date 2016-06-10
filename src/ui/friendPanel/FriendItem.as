@@ -40,6 +40,7 @@ public class FriendItem {
 //        g.directServer.getFriendsInfo(int(_person.userSocialId),_person,newLevel);
 
         source = new CSprite();
+        source.nameIt = 'friendPanel';
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
         MCScaler.scale(_ava, 50, 50);
         _ava.x = 5;

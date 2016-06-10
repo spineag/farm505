@@ -68,6 +68,7 @@ public class Ridge extends WorldObject{
             _source.outCallback = onOut;
             _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild');
             _source.registerHitArea(_hitArea);
+            _source.nameIt = 'ridge';
         }
         _source.releaseContDrag = true;
         _source.addChild(_plantSprite);
@@ -79,6 +80,40 @@ public class Ridge extends WorldObject{
 
     public function addChildPlant(s:Sprite):void {
         _plantSprite.addChild(s);
+    }
+
+    public function plantThePlant():void {
+        fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) lockIt(true);
+        g.managerPlantRidge.checkFreeRidges();
+    }
+
+    public function craftThePlant():void {
+        if (_stateRidge != GROWED) return;
+        if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
+            _source.filter = null;
+            g.managerPlantRidge.onStartCraftPlanting(false);
+            g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
+        } else {
+            _stateRidge = EMPTY;
+            _plant.onCraftPlant();
+            _plant.checkStateRidge();
+            _resourceItem = new ResourceItem();
+            _resourceItem.fillIt(_dataPlant);
+            var f1:Function = function():void {
+                if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
+                _plant = null;
+            };
+            var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
+            item.flyIt();
+            onOut();
+        }
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
+            if (_tutorialCallback != null) {
+                _tutorialCallback.apply(null, [this]);
+            }
+        }
+        g.managerPlantRidge.checkGrowedRidges();
     }
 
     override public function onHover():void {
@@ -100,8 +135,7 @@ public class Ridge extends WorldObject{
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
             if (g.managerTutorial.isTutorial) return;
-            fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
-            g.managerPlantRidge.checkFreeRidges();
+//            plantThePlant();
         } else {
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
 //            _count = 10;
@@ -113,7 +147,7 @@ public class Ridge extends WorldObject{
 //            }
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                     g.mouseHint.checkMouseHint(MouseHint.CLOCK);
-                } else if (_stateRidge == GROWED) {
+            } else if (_stateRidge == GROWED) {
                 g.mouseHint.checkMouseHint(MouseHint.SERP);
             }
 //            if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED && g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE)
@@ -122,14 +156,13 @@ public class Ridge extends WorldObject{
     }
 
     override public function onOut():void {
+        g.timerHint.hideIt();
         if (_source && _isOnHover) {
             super.onOut();
             if (g.isActiveMapEditor || g.isAway) return;
             _isOnHover = false;
             _source.filter = null;
 //            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-            g.mouseHint.hideIt();
-            g.timerHint.hideIt();
         }
     }
 
@@ -137,22 +170,25 @@ public class Ridge extends WorldObject{
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
         if (g.isActiveMapEditor || g.isAway) return;
-        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
             if (g.toolsModifier.plantId <= 0 || _stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
             }
-            g.toolsModifier.activatePlantState = true;
             _lastBuyResource = true;
-            fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
+            g.managerPlantRidge.onStartActivePlanting(true);
             _source.filter = null;
-            g.townArea.onStartPlanting(true);
-            g.managerPlantRidge.checkFreeRidges();
+            plantThePlant();
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
                 if (_tutorialCallback != null) {
                     _tutorialCallback.apply(null, [this]);
                 }
             }
+        } else if (_stateRidge == GROWED) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.CRAFT_RIDGE) return;
+//            craftThePlant();
+            g.timerHint.hideIt(true);
+            g.managerPlantRidge.onStartCraftPlanting(true);
         }
     }
 
@@ -170,7 +206,13 @@ public class Ridge extends WorldObject{
             } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }
         if (g.isActiveMapEditor || g.isAway) return;
-        if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+            g.managerPlantRidge.onStartActivePlanting(false);
+            return;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
+            g.managerPlantRidge.onStartCraftPlanting(false);
+            return;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
             if (!g.managerTutorial.isTutorial) onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
@@ -192,9 +234,9 @@ public class Ridge extends WorldObject{
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
-            g.toolsModifier.activatePlantState = false;
-            g.managerPlantRidge.checkFreeRidges();
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
+//            g.toolsModifier.activatePlantState = false;
+//            g.managerPlantRidge.checkFreeRidges();
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
@@ -221,30 +263,8 @@ public class Ridge extends WorldObject{
                     hideArrow();
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_PLANT, onBuy, this);
-            } else if (_stateRidge == GROWED) {
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.CRAFT_RIDGE) return;
-                if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
-                    _source.filter = null;
-                    g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
-                } else {
-                    _stateRidge = EMPTY;
-                    _plant.onCraftPlant();
-                    _plant.checkStateRidge();
-                    _resourceItem = new ResourceItem();
-                    _resourceItem.fillIt(_dataPlant);
-                    var f1:Function = function():void {
-                        if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
-                        _plant = null;
-                    };
-                    var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
-                    item.flyIt();
-                    onOut();
-                }
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
-                    if (_tutorialCallback != null) {
-                        _tutorialCallback.apply(null, [this]);
-                    }
-                }
+//            } else if (_stateRidge == GROWED) {
+//                craftThePlant();
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')

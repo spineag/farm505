@@ -1693,6 +1693,8 @@ public class TownArea extends Sprite {
                 (_cityObjects[i] as Ridge).stopDragMapDuringPlanting(isStart);
             }
         }
+        g.cont.contentCont.releaseContDrag = !isStart;
+        g.cont.tailCont.releaseContDrag = !isStart;
     }
 
 

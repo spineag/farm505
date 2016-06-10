@@ -2,8 +2,6 @@
  * Created by user on 5/21/15.
  */
 package utils {
-import build.WorldObject;
-
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.ui.Mouse;
@@ -31,6 +29,7 @@ public class CSprite extends Sprite {
     private var _hitArea:OwnHitArea;
     private var _hitAreaState:int;
     private var _currentTouch:Touch;
+    private var _itsName:String; // use for testing
 
     private var g:Vars = Vars.getInstance();
     public function CSprite() {
@@ -41,6 +40,10 @@ public class CSprite extends Sprite {
         _useContDrag = false;
         _scale = 1;
         this.addEventListener(TouchEvent.TOUCH, onTouch);
+    }
+
+    public function set nameIt(s:String):void {
+        _itsName = s;
     }
 
     public function set releaseContDrag(value:Boolean):void {
@@ -77,7 +80,7 @@ public class CSprite extends Sprite {
 
         if (_currentTouch.phase == TouchPhase.MOVED) {
             if (_useContDrag) {
-                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) return;
+                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
                 g.cont.dragGameCont(_currentTouch.getLocation(g.mainStage));
             }
             if (_onMovedCallback != null) {
@@ -86,15 +89,19 @@ public class CSprite extends Sprite {
         } else if (_currentTouch.phase == TouchPhase.BEGAN) {
             if (_hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
                 te.stopPropagation();
+                Mouse.cursor = OwnMouse.CLICK_CURSOR;
+                if (_startClickCallback != null) {
+                    _startClickCallback.apply();
+                }
+                if (g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+                    _startDragPoint = null;
+                    return;
+                }
                 if (_useContDrag) {
                     _startDragPoint = new Point();
                     _startDragPoint.x = g.cont.gameCont.x;
                     _startDragPoint.y = g.cont.gameCont.y;
                     g.cont.setDragPoints(_currentTouch.getLocation(g.mainStage));
-                }
-                Mouse.cursor = OwnMouse.CLICK_CURSOR;
-                if (_startClickCallback != null) {
-                    _startClickCallback.apply();
                 }
             }
         } else if (_currentTouch.phase == TouchPhase.ENDED) {

@@ -90,6 +90,8 @@ public class Containers {
         g.mainStage.addChild(mainCont);
 
         addGameContListener(true);
+        contentCont.nameIt = 'contentCont_csprite';
+        tailCont.nameIt = 'tailCont_csprite';
     }
 
     public function addGameContListener(value:Boolean):void {
@@ -123,7 +125,7 @@ public class Containers {
                 _isDragged = false;
                 return;
             }
-            if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+            if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
                 if (!_isDragged && !g.managerTutorial.isTutorial) {
                     g.bottomPanel.cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -131,18 +133,11 @@ public class Containers {
                 _isDragged = false;
                 return;
             }
-//            if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-//                if (!_isDragged) {
-//                    g.bottomPanel.cancelBoolean(false);
-//                    g.toolsModifier.modifierType = ToolsModifier.NONE;
-//                }
-//                _isDragged = false;
-//                return;
-//            }
             _isDragged = false;
         }
 
         if (te.getTouch(gameCont, TouchPhase.MOVED)) {
+            if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
             _isDragged = true;
             dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати перевірки на спосіб тачу
         } else if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
@@ -158,6 +153,7 @@ public class Containers {
     }
 
     public function dragGameCont(mouseP:Point):void {
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA || g.managerTutorial.currentAction == TutorialAction.PUT_FARM) {
 

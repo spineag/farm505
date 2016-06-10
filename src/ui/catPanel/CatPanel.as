@@ -33,6 +33,7 @@ public class CatPanel {
     private var g:Vars = Vars.getInstance();
     public function CatPanel() {
         _source = new CSprite();
+        _source.nameIt = 'catPanel';
         var pl:HorizontalPlawka = new HorizontalPlawka(null, g.allData.atlas['interfaceAtlas'].getTexture('xp_center'),
                 g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 100);
         _source.addChild(pl);

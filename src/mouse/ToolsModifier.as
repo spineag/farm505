@@ -30,6 +30,7 @@ public class ToolsModifier {
     public static var GRID_DEACTIVATED:int = 8;
     public static var ADD_NEW_RIDGE:int = 9;
     public static var ADD_NEW_DECOR:int = 10;
+    public static var CRAFT_PLANT:int = 11;
 
     private var _activeBuilding:WorldObject;
     private var _startMoveX:int;
@@ -110,42 +111,34 @@ public class ToolsModifier {
         _ridgeId = a;
     }
 
-    public function set activatePlantState(value:Boolean):void {
-        if (value) {
-            _modifierType = PLANT_SEED_ACTIVE;
-        } else {
-            _modifierType = PLANT_SEED;
-        }
-    }
-
     public function checkMouseIcon():void {
         var im:Image;
 
         clearCont();
-        switch (g.toolsModifier.modifierType){
-             case ToolsModifier.NONE:
+        switch (_modifierType){
+             case NONE:
                  _plantId = -1;
                  if(_mouseCont.contains(_mouseIcon)) _mouseCont.removeChild(_mouseIcon);
                  g.gameDispatcher.removeEnterFrame(moveMouseIcon);
                  _mouseIcon.scaleX = _mouseIcon.scaleY = 1;
                  return;
-             case ToolsModifier.MOVE:
+             case MOVE:
                  im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_move'));
                  if (im) _mouseIcon.addChild(im);
                  break;
-             case ToolsModifier.FLIP:
+             case FLIP:
                  im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_rotate'));
                  if (im) _mouseIcon.addChild(im);
                 break;
-             case ToolsModifier.DELETE:
+             case DELETE:
                  im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_canc'));
                  if (im) _mouseIcon.addChild(im);
                 break;
-             case ToolsModifier.INVENTORY:
+             case INVENTORY:
                  im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_inv'));
                  if (im) _mouseIcon.addChild(im);
                 break;
-             case ToolsModifier.GRID_DEACTIVATED:
+             case GRID_DEACTIVATED:
                  im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_tile'));
                  if (im) {
                      im.x = -im.width/2 - 15;
@@ -153,7 +146,8 @@ public class ToolsModifier {
                      _mouseIcon.addChild(im);
                  }
                 break;
-            case ToolsModifier.PLANT_SEED:
+            case PLANT_SEED_ACTIVE:
+            case PLANT_SEED:
                 if (_plantId <= 0) return;
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle'));
                 _mouseCont.addChild(im);
@@ -172,8 +166,11 @@ public class ToolsModifier {
                 if (!_mouseCont.contains(_txtCount)) _mouseCont.addChild(_txtCount);
                 updateCountTxt();
                 break;
-            case ToolsModifier.ADD_NEW_RIDGE:
+            case ADD_NEW_RIDGE:
 //                _modifierType = NONE;
+                break;
+            case CRAFT_PLANT:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_sickle'));
                 break;
         }
         if (im) {

@@ -49,6 +49,7 @@ public class WildHint {
 
     public function WildHint() {
         _source = new CSprite();
+        _source.nameIt = 'wildHint';
         _btn = new CButton();
         _isShowed = false;
         _isOnHover = false;

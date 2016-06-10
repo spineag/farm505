@@ -44,6 +44,7 @@ public class TimerHint {
     public function TimerHint() {
         _canHide = true;
         _source = new CSprite();
+        _source.nameIt = 'timerHint';
         _isOnHover = false;
         _isShow = false;
         _bg = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
@@ -170,10 +171,11 @@ public class TimerHint {
     }
 
     public function hideIt(force:Boolean = false):void {
-        if (!_canHide) return;
+        if (!_canHide && !force) return;
         if (_isOnHover && !force) return;
         if (!_isShow) return;
-        _closeTime = 1.5;
+        if (force) _closeTime = 0;
+            else _closeTime = 1.5;
         g.gameDispatcher.addToTimer(closeTimer);
     }
 

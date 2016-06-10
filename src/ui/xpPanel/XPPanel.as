@@ -34,6 +34,7 @@ public class XPPanel {
 
     public function XPPanel() {
         _source = new CSprite();
+        _source.nameIt = 'xpPanel';
         g.cont.interfaceCont.addChild(_source);
         var pl:HorizontalPlawka = new HorizontalPlawka(null, g.allData.atlas['interfaceAtlas'].getTexture('xp_center'),
                 g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 163);

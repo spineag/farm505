@@ -19,6 +19,7 @@ public class TownAreaBuildSprite extends Sprite {
     private var _useContDrag:Boolean = false;
     private var _hitArea:OwnHitArea;
     private var _isTouchable:Boolean = true;
+    private var _name:String; // use for testing
 
     public function TownAreaBuildSprite() {
         super();
@@ -31,10 +32,10 @@ public class TownAreaBuildSprite extends Sprite {
     public function set hoverCallback(f:Function):void { _hoverCallback = f; }
     public function set outCallback(f:Function):void { _outCallback = f; }
     public function set onMovedCallback(f:Function):void { _onMovedCallback = f; }
-    public function releaseEndClick():void {  if (_endClickCallback != null) _endClickCallback.call(); }
-    public function releaseStartClick():void {  if (_startClickCallback != null) _startClickCallback.call(); }
-    public function releaseHover():void { if (_hoverCallback != null) _hoverCallback.call(); }
-    public function releaseOut():void { if (_outCallback != null) _outCallback.call(); }
+    public function releaseEndClick():void {  if (_endClickCallback != null) _endClickCallback.apply(); }
+    public function releaseStartClick():void {  if (_startClickCallback != null) _startClickCallback.apply(); }
+    public function releaseHover():void { if (_hoverCallback != null) _hoverCallback.apply(); }
+    public function releaseOut():void { if (_outCallback != null) _outCallback.apply(); }
     public function registerHitArea(hArea:OwnHitArea):void { _hitArea = hArea; }
 
     public function deleteIt():void {
@@ -45,6 +46,10 @@ public class TownAreaBuildSprite extends Sprite {
         _onMovedCallback = null;
         _hitArea = null;
         this.dispose();
+    }
+
+    public function set nameIt(s:String):void {
+
     }
 
     public function get wasGameContMoved():Boolean {

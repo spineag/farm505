@@ -64,6 +64,7 @@ public class TreeHint {
 
     public function TreeHint() {
         _source = new CSprite();
+        _source.nameIt = 'treeHint';
         _contDelete = new CButton();
         _contWatering = new CButton();
         _isShowed = false;

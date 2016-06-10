@@ -30,6 +30,7 @@ public class FarmHint {
     public function FarmHint() {
         _isOnHover = false;
         source = new CSprite();
+        source.nameIt = 'farmHint';
         _textureHint = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup_farm"));
         source.addChild(_textureHint);
         source.pivotX = source.width/2;

@@ -54,6 +54,7 @@ public class CraftItem {
         count = _count;
         _callback = f;
         _source = new CSprite();
+        _source.nameIt = 'craftItem';
         _resourceItem = resourceItem;
         if (!_resourceItem) {
             Cc.error('CraftItem:: resourceItem == null!');

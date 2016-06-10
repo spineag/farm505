@@ -132,6 +132,7 @@ public class WindowMain {
     private function createBlackBG():void {
         if (_black) return;
         _black = new CSprite();
+        _black.nameIt = 'wo_black';
         _black.addChild(new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK));
         g.cont.windowsCont.addChildAt(_black, 0);
         _black.alpha = .0;

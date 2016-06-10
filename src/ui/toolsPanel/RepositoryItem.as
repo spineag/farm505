@@ -29,6 +29,7 @@ public class RepositoryItem {
 
     public function RepositoryItem() {
         source = new CSprite();
+        source.nameIt = 'repositoryItem';
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('decor_cell'));
         im.width = im.height = 60;
         source.addChild(im);

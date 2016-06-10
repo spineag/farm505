@@ -42,7 +42,9 @@ public class SoftHardCurrency {
     public function SoftHardCurrency() {
         _source = new Sprite();
         _contSoft = new CSprite();
+        _contSoft.nameIt = 'panel_contSoft';
         _contHard = new CSprite();
+        _contHard.nameIt = 'panel_contHard';
         _contSoft.endClickCallback = onClickSoft;
         _contSoft.hoverCallback = function ():void {
             g.hint.showIt("Монеты",false,false,false,1);

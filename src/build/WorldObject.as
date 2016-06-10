@@ -119,6 +119,10 @@ public class WorldObject {
         _stateBuild = a;
     }
 
+    public function get hitArea():OwnHitArea {
+        return _hitArea;
+    }
+
     public function addXP():void {}
 
     public function get craftSprite():Sprite {

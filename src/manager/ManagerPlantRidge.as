@@ -14,6 +14,7 @@ public class ManagerPlantRidge {
     private var _arrRidge:Array; // список всех грядок юзера
     private var _catsForPlant:Object; // _catsForPlant['id plant'] = { cat: HeroCat, ridges: array(ridge1, ridge2..) };
     private var _movingRidgePlantId:int;
+    private var _tempPoint:Point;
 
     private var g:Vars = Vars.getInstance();
 
@@ -27,6 +28,7 @@ public class ManagerPlantRidge {
                 _arrRidge.push(arr[i]);
             }
         }
+        _tempPoint = new Point();
     }
 
     public function addRidge(r:Ridge):void {
@@ -196,6 +198,7 @@ public class ManagerPlantRidge {
         if (!b) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.bottomPanel.cancelBoolean(false);
+            g.gameDispatcher.removeEnterFrame(checkForPlanting);
         }
     }
 
@@ -224,5 +227,77 @@ public class ManagerPlantRidge {
         }
     }
 
+    public function onStartActivePlanting(isStart:Boolean):void {
+        if (isStart) {
+            g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED_ACTIVE;
+            g.gameDispatcher.addEnterFrame(checkForPlanting);
+        } else {
+            g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
+            g.gameDispatcher.removeEnterFrame(checkForPlanting);
+            checkFreeRidges();
+        }
+        g.townArea.onStartPlanting(isStart);
+    }
+
+    private function checkForPlanting():void {
+        _tempPoint.x = g.ownMouse.mouseX;
+        _tempPoint.y = g.ownMouse.mouseY;
+        _tempPoint = g.cont.contentCont.globalToLocal(_tempPoint);
+        for (var i:int=0; i<_arrRidge.length; i++) {
+            if ((_arrRidge[i] as Ridge).isFreeRidge) {
+                if (isMouseUnderRidge(_tempPoint, _arrRidge[i] as Ridge)) {
+                    (_arrRidge[i] as Ridge).plantThePlant();
+                    break;
+                }
+            }
+        }
+    }
+
+    public function onStartCraftPlanting(isStart:Boolean):void {
+        g.cont.contentCont.releaseContDrag = !isStart;
+        g.cont.tailCont.releaseContDrag = !isStart;
+        if (isStart) {
+            g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
+            g.gameDispatcher.addEnterFrame(checkForCrafting);
+        } else {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.gameDispatcher.removeEnterFrame(checkForCrafting);
+        }
+    }
+
+    private function checkForCrafting():void {
+        _tempPoint.x = g.ownMouse.mouseX;
+        _tempPoint.y = g.ownMouse.mouseY;
+        _tempPoint = g.cont.contentCont.globalToLocal(_tempPoint);
+        for (var i:int=0; i<_arrRidge.length; i++) {
+            if ((_arrRidge[i] as Ridge).stateRidge == Ridge.GROWED) {
+                if (isMouseUnderRidge(_tempPoint, _arrRidge[i] as Ridge)) {
+                    (_arrRidge[i] as Ridge).craftThePlant();
+                    break;
+                }
+            }
+        }
+    }
+
+    private function isMouseUnderRidge(p:Point, r:Ridge):Boolean {
+        var b:Boolean = r.hitArea.isTouchablePoint(p.x - r.source.x, p.y - r.source.y);
+        return b;
+    }
+
+    public function checkGrowedRidges():void {
+        var b:Boolean = false;
+        var i:int;
+        for (i=0; i<_arrRidge.length; i++) {  // check if there are at least one HUNGRY ridge
+            if (_arrRidge[i].stateRidge == Ridge.GROWED) {
+                b = true;
+                break;
+            }
+        }
+
+        if (!b) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            onStartCraftPlanting(false);
+        }
+    }
 }
 }
