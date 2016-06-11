@@ -152,6 +152,11 @@ public class Containers {
         _startDragPointCont = new Point(gameCont.x, gameCont.y);
     }
 
+    public function nullDragPoint():void {
+        _startDragPoint = null;
+        _startDragPointCont = null;
+    }
+
     public function dragGameCont(mouseP:Point):void {
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
         if (g.managerTutorial.isTutorial) {

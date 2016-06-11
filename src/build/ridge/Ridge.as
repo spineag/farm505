@@ -156,8 +156,8 @@ public class Ridge extends WorldObject{
     }
 
     override public function onOut():void {
-        g.timerHint.hideIt();
-        if (_source && _isOnHover) {
+        g.timerHint.hideIt(true);
+        if (_source) {
             super.onOut();
             if (g.isActiveMapEditor || g.isAway) return;
             _isOnHover = false;

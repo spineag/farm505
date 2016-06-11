@@ -236,6 +236,7 @@ public class ManagerPlantRidge {
             g.gameDispatcher.removeEnterFrame(checkForPlanting);
             checkFreeRidges();
         }
+        g.cont.nullDragPoint();
         g.townArea.onStartPlanting(isStart);
     }
 
@@ -256,6 +257,7 @@ public class ManagerPlantRidge {
     public function onStartCraftPlanting(isStart:Boolean):void {
         g.cont.contentCont.releaseContDrag = !isStart;
         g.cont.tailCont.releaseContDrag = !isStart;
+        g.cont.nullDragPoint();
         if (isStart) {
             g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
             g.gameDispatcher.addEnterFrame(checkForCrafting);
