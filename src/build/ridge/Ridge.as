@@ -134,8 +134,7 @@ public class Ridge extends WorldObject{
         if (_stateRidge == GROWED) _plant.hoverGrowed();
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
-            if (g.managerTutorial.isTutorial) return;
-//            plantThePlant();
+//            if (g.managerTutorial.isTutorial) return;
         } else {
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
 //            _count = 10;
@@ -157,13 +156,11 @@ public class Ridge extends WorldObject{
 
     override public function onOut():void {
         g.timerHint.hideIt(true);
+        g.mouseHint.hideIt();
         if (_source) {
             super.onOut();
-            if (g.isActiveMapEditor || g.isAway) return;
             _isOnHover = false;
             _source.filter = null;
-            g.timerHint.hideIt();
-            g.mouseHint.hideIt();
 //            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }

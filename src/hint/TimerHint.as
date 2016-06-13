@@ -175,7 +175,7 @@ public class TimerHint {
         if (_isOnHover && !force) return;
         if (!_isShow) return;
         if (force) _closeTime = 0;
-            else _closeTime = 1.5;
+            else _closeTime = 1;
         g.gameDispatcher.addToTimer(closeTimer);
     }
 
