@@ -70,13 +70,11 @@ public class FriendItem {
         im.y = 41;
         source.addChild(im);
 
-        txtLvl = new TextField(27, 18, "", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        txtLvl = new TextField(34, 18, "", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         txtLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txtLvl.text = '1';
-        txtLvl.x = 36;
-        txtLvl.y = 50;
         txtLvl.text = String(_person.level);
-        txtLvl.x = 36;
+        txtLvl.x = 32;
         txtLvl.y = 50;
         source.addChild(txtLvl);
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';

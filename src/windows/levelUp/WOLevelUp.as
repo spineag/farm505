@@ -302,7 +302,7 @@ public class WOLevelUp extends WindowMain {
         } else if (_arrCells.length == 5) {
             _contImage.x = 3;
         }
-        g.bottomPanel.notification();
+        if (g.user.level > 5) g.bottomPanel.notification();
         g.directServer.updateUserNotification(null);
         if (_arrCells.length > 5) {
             _contImage.x = 3;

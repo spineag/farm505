@@ -162,6 +162,8 @@ public class Ridge extends WorldObject{
             if (g.isActiveMapEditor || g.isAway) return;
             _isOnHover = false;
             _source.filter = null;
+            g.timerHint.hideIt();
+            g.mouseHint.hideIt();
 //            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }

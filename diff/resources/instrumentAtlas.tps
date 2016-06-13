@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.7.1</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/resources/instrumentAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/farm505/diff/resources/instrumentAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,6 +43,8 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
+        <key>atfCompressData</key>
+        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -173,14 +175,16 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
-            <key>innerPadding</key>
-            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
+            <key>trimMargin</key>
+            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <key>tracerTolerance</key>
+            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -194,11 +198,11 @@
             <filename>part_instruments/himble.png</filename>
             <filename>part_instruments/jackhammer.png</filename>
             <filename>part_instruments/pickaxe.png</filename>
-            <filename>part_instruments/pin.png</filename>
             <filename>part_instruments/ribbon.png</filename>
             <filename>part_instruments/safety_pin.png</filename>
             <filename>part_instruments/saw.png</filename>
             <filename>part_instruments/shovel.png</filename>
+            <filename>part_instruments/pin.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

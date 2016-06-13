@@ -115,6 +115,11 @@ public class WOPapper extends WindowMain {
         createPages();
         checkArrows();
         checkPapperTimer();
+        if (g.userTimer.timerAtPapper <= 0) {
+            g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
+            startPapperTimer();
+            g.directServer.getUserPapperBuy(getUserPapper);
+        }
         super.showIt();
     }
 
