@@ -185,58 +185,62 @@ public class Vars {
     }
 
     private function initVariables():void {
-        startPreloader.setProgress(77);
+        try {
+            startPreloader.setProgress(77);
 
-        event = new OwnEvent();
-        useDataFromServer = true;
-        directServer = new DirectServer();
+            event = new OwnEvent();
+            useDataFromServer = true;
+            directServer = new DirectServer();
 
-        dataBuilding = new DataBuildings();
-        dataRecipe = new DataRecipe();
-        dataResource = new DataResources();
-        dataAnimal = new DataAnimal();
-        dataLevel = new DataLevel();
+            dataBuilding = new DataBuildings();
+            dataRecipe = new DataRecipe();
+            dataResource = new DataResources();
+            dataAnimal = new DataAnimal();
+            dataLevel = new DataLevel();
 
-        userInventory = new UserInventory();
-        userTimer = new UserTimer();
-        gameDispatcher = new FarmDispatcher(mainStage);
+            userInventory = new UserInventory();
+            userTimer = new UserTimer();
+            gameDispatcher = new FarmDispatcher(mainStage);
 
-        matrixGrid = new MatrixGrid();
-        matrixGrid.createMatrix();
-        townArea = new TownArea();
-        farmGrid = new FarmGrid();
-        managerDailyBonus = new ManagerDailyBonus();
-        managerTutorial = new ManagerTutorial();
-        managerHitArea = new ManagerHitArea();
-        managerCutScenes = new ManagerCutScenes();
-        managerWallPost = new ManagerWallPost();
-        managerInviteFriend = new ManagerInviteFriend();
+            matrixGrid = new MatrixGrid();
+            matrixGrid.createMatrix();
+            townArea = new TownArea();
+            farmGrid = new FarmGrid();
+            managerDailyBonus = new ManagerDailyBonus();
+            managerTutorial = new ManagerTutorial();
+            managerHitArea = new ManagerHitArea();
+            managerCutScenes = new ManagerCutScenes();
+            managerWallPost = new ManagerWallPost();
+            managerInviteFriend = new ManagerInviteFriend();
 
-        new ManagerFilters();
-        ownMouse = new OwnMouse();
-        toolsModifier = new ToolsModifier();
-        toolsModifier.setTownArray();
+            new ManagerFilters();
+            ownMouse = new OwnMouse();
+            toolsModifier = new ToolsModifier();
+            toolsModifier.setTownArray();
 
-        aStar = new AStar();
-        managerCats = new ManagerCats();
-        managerOrderCats = new ManagerOrderCats();
-        catPanel = new CatPanel();
-        managerChest = new ManagerChest();
-        townAreaTouchManager = new TownAreaTouchManager();
+            aStar = new AStar();
+            managerCats = new ManagerCats();
+            managerOrderCats = new ManagerOrderCats();
+            catPanel = new CatPanel();
+            managerChest = new ManagerChest();
+            townAreaTouchManager = new TownAreaTouchManager();
 
-        if (useDataFromServer) {
-            socialNetwork = new SocialNetwork(flashVars);
-            socialNetworkID = SocialNetworkSwitch.SN_VK;
-            SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-            socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-            socialNetwork.init();
-        } else {
-            dataLevel.fillDataLevels();
-            dataAnimal.fillDataAnimal();
-            dataRecipe.fillDataRecipe();
-            dataBuilding.fillDataBuilding();
-            dataResource.fillDataResources();
-            initVariables2();
+            if (useDataFromServer) {
+                socialNetwork = new SocialNetwork(flashVars);
+                socialNetworkID = SocialNetworkSwitch.SN_VK;
+                SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+                socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+                socialNetwork.init();
+            } else {
+                dataLevel.fillDataLevels();
+                dataAnimal.fillDataAnimal();
+                dataRecipe.fillDataRecipe();
+                dataBuilding.fillDataBuilding();
+                dataResource.fillDataResources();
+                initVariables2();
+            }
+        } catch (e:Error) {
+            Cc.stackch('error', 'initVariables::', 10);
         }
     }
 
@@ -365,89 +369,97 @@ public class Vars {
     }
 
     private function initVariables2():void {
-        timerHint = new TimerHint();
-        wildHint = new WildHint();
-        hint = new Hint();
-        buyHint = new BuyHint();
+        try {
+            timerHint = new TimerHint();
+            wildHint = new WildHint();
+            hint = new Hint();
+            buyHint = new BuyHint();
 //        farmHint = new FarmHint();
-        mouseHint = new MouseHint();
-        fabricHint = new FabricHint();
-        treeHint = new TreeHint();
-        resourceHint = new ResourceHint();
-        marketHint = new MarketHint();
-        levelUpHint = new LevelUpHint();
-        xpPanel = new XPPanel();
-        couponePanel = new CouponePanel();
-        softHardCurrency = new SoftHardCurrency();
-        bottomPanel = new MainBottomPanel();
-        craftPanel = new CraftPanel();
-        optionPanel = new OptionPanel();
-        friendPanel = new FriendPanel();
-        toolsPanel = new ToolsPanel();
-        afterLoadAll();
+            mouseHint = new MouseHint();
+            fabricHint = new FabricHint();
+            treeHint = new TreeHint();
+            resourceHint = new ResourceHint();
+            marketHint = new MarketHint();
+            levelUpHint = new LevelUpHint();
+            xpPanel = new XPPanel();
+            couponePanel = new CouponePanel();
+            softHardCurrency = new SoftHardCurrency();
+            bottomPanel = new MainBottomPanel();
+            craftPanel = new CraftPanel();
+            optionPanel = new OptionPanel();
+            friendPanel = new FriendPanel();
+            toolsPanel = new ToolsPanel();
+            afterLoadAll();
+        } catch (e:Error) {
+            Cc.stackch('error', 'initVariables2::', 10);
+        }
     }
 
     private function afterLoadAll():void {
-        startPreloader.setProgress(100);
-        if (currentGameScale != 1) {
-            optionPanel.makeScaling(currentGameScale, false, true);
+        try {
+            startPreloader.setProgress(100);
+            if (currentGameScale != 1) {
+                optionPanel.makeScaling(currentGameScale, false, true);
+            }
+            cont.moveCenterToXY(0, realGameTilesHeight / 2 - 400 * scaleFactor, true);
+
+            windowsManager = new WindowsManager();
+            managerDropResources = new ManagerDropBonusResource();
+            managerPaper = new ManagerPaper();
+            managerPaper.getPaperItems();
+            managerCats.setAllCatsToRandomPositions();
+            managerDailyBonus.checkDailyBonusStateBuilding();
+            isGameLoaded = true;
+
+            if ((user as User).isMegaTester) {
+                Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
+                Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
+            }
+
+            if ((user as User).isTester) {
+                var f1:Function = function ():void {
+                    directServer.deleteUser(f2);
+                };
+                var f2:Function = function ():void {
+                    windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
+                };
+                Cc.addSlashCommand("deleteUser", f1);
+            }
+
+            softHardCurrency.checkHard();
+            softHardCurrency.checkSoft();
+            xpPanel.checkXP();
+            managerOrder.checkOrders();
+            gameDispatcher.addEnterFrame(onEnterFrameGlobal);
+            updateAmbarIndicator();
+            townArea.zSort();
+            townArea.decorTailSort();
+            townArea.sortAtLockedLands();
+            bottomPanel.checkIsFullOrder();
+            if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
+            townArea.addTownAreaSortCheking();
+
+            startPreloader.hideIt();
+            startPreloader = null;
+
+            managerChest.createChest();
+            if (managerTutorial.isTutorial) {
+                managerTutorial.initScenes();
+                managerTutorial.checkDefaults();
+            } else {
+                managerCutScenes.checkAvailableCutScenes();
+            }
+
+
+            managerButterfly = new ManagerButterfly();
+            managerButterfly.createBFlyes();
+            managerButterfly.startButterflyFly();
+
+            analyticManager = new AnalyticManager();
+            analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
+        } catch (e:Error) {
+            Cc.stackch('error', 'afterAllLoaded::', 10);
         }
-        cont.moveCenterToXY(0, realGameTilesHeight/2 - 400*scaleFactor, true);
-
-        windowsManager = new WindowsManager();
-        managerDropResources = new ManagerDropBonusResource();
-        managerPaper = new ManagerPaper();
-        managerPaper.getPaperItems();
-        managerCats.setAllCatsToRandomPositions();
-        managerDailyBonus.checkDailyBonusStateBuilding();
-        isGameLoaded = true;
-
-        if ((user as User).isMegaTester) {
-            Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
-            Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
-        }
-
-        if ((user as User).isTester) {
-            var f1:Function = function():void {
-                directServer.deleteUser(f2);
-            };
-            var f2:Function = function():void {
-                windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
-            };
-            Cc.addSlashCommand("deleteUser", f1);
-        }
-
-        softHardCurrency.checkHard();
-        softHardCurrency.checkSoft();
-        xpPanel.checkXP();
-        managerOrder.checkOrders();
-        gameDispatcher.addEnterFrame(onEnterFrameGlobal);
-        updateAmbarIndicator();
-        townArea.zSort();
-        townArea.decorTailSort();
-        townArea.sortAtLockedLands();
-        bottomPanel.checkIsFullOrder();
-        if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
-        townArea.addTownAreaSortCheking();
-
-        startPreloader.hideIt();
-        startPreloader = null;
-
-        managerChest.createChest();
-        if (managerTutorial.isTutorial) {
-            managerTutorial.initScenes();
-            managerTutorial.checkDefaults();
-        } else {
-            managerCutScenes.checkAvailableCutScenes();
-        }
-
-
-        managerButterfly = new ManagerButterfly();
-        managerButterfly.createBFlyes();
-        managerButterfly.startButterflyFly();
-
-        analyticManager = new AnalyticManager();
-        analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id:1});
     }
 
     private function onEnterFrameGlobal():void {
