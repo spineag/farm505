@@ -322,9 +322,10 @@ public class WOOrder extends WindowMain{
 
     private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
+        var k:int;
         if (_isShowed) {
             var b:Boolean = true;
-            for (var k:int=0; k<order.resourceIds.length; k++) {
+            for (k=0; k<order.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
                     b = false;
                     break;
@@ -336,8 +337,9 @@ public class WOOrder extends WindowMain{
                 onItemClick(_activeOrderItem, true);
             }
         }
+        var i:int;
         for (k = 0; k < _arrItems.length; k++) {
-            for (var i:int=0; i<order.resourceIds.length; i++) {
+            for (i=0; i<_arrOrders[k].resourceIds.length; i++) {
                 if (g.userInventory.getCountResourceById(_arrOrders[k].resourceIds[i]) < _arrOrders[k].resourceCounts[i]) {
                     _arrItems[k].updateCheck(false);
                     break;

@@ -66,25 +66,29 @@ public class WOLevelUp extends WindowMain {
         _contClipRect.y = 55;
         _txtNewLvl = new TextField(120,100,"НОВЫЙ УРОВЕНЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtNewLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtNewLvl.touchable = false;
         _txtNewObject = new TextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtNewObject.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtNewObject.touchable = false;
         _txtLevel = new TextField(300,100,"",g.allData.fonts['BloggerBold'],51,Color.WHITE);
         _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtLevel.touchable = false;
         _txtContinue = new TextField(110,100,"РАССКАЗАТЬ", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtContinue.touchable = false;
         _txtHard = new TextField(50,50,'+'+String(_count), g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtHard.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtHard.touchable = false;
         if (g.user.level <= 4) {
-            var btn:CButton = new CButton();
-            btn.addButtonTexture(172, 45, CButton.GREEN, true);
+            _contBtn = new CButton();
+            _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
             _txtContinue.text = 'ПРОДОЛЖИТЬ';
             _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             _txtContinue.y = -25;
             _txtContinue.x = 30;
-            btn.addChild(_txtContinue);
-            btn.y = _woHeight / 2;
-            btn.clickCallback = onClickNext;
-            _source.addChild(btn);
-
+            _contBtn.addChild(_txtContinue);
+            _contBtn.y = _woHeight / 2;
+            _contBtn.clickCallback = onClickNext;
+            _source.addChild(_contBtn);
         } else {
             _contBtn = new CButton();
             _contBtn.addButtonTexture(172, 45, CButton.BLUE, true);
@@ -326,18 +330,26 @@ public class WOLevelUp extends WindowMain {
             _arrCells[i].deleteIt();
         }
         _arrCells.length = 0;
-        _source.removeChild(_contBtn);
-        _contBtn.deleteIt();
-        _contBtn = null;
-        _source.removeChild(_leftArrow);
-        _leftArrow.deleteIt();
-        _leftArrow = null;
-        _source.removeChild(_rightArrow);
-        _rightArrow.deleteIt();
-        _rightArrow = null;
-        _source.removeChild(_woBG);
-        _woBG.deleteIt();
-        _woBG = null;
+        if (_contBtn) {
+            _source.removeChild(_contBtn);
+            _contBtn.deleteIt();
+            _contBtn = null;
+        }
+        if (_leftArrow) {
+            source.removeChild(_leftArrow);
+            _leftArrow.deleteIt();
+            _leftArrow = null;
+        }
+        if (_rightArrow) {
+            _source.removeChild(_rightArrow);
+            _rightArrow.deleteIt();
+            _rightArrow = null;
+        }
+        if (_woBG) {
+            _source.removeChild(_woBG);
+            _woBG.deleteIt();
+            _woBG = null;
+        }
         super.deleteIt();
     }
 
