@@ -50,7 +50,7 @@ public class AStar {
             makeSearch();
         } catch (e:Error) {
             Cc.error('Error with makeSearch at AStar');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'aStar');
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'aStar');
             if (callback != null) {
                 callback.apply(null, [[new Point(startX, startY)]]);
                 callback = null;

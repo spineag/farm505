@@ -230,7 +230,7 @@ public class ManagerPlantRidge {
     public function onStartActivePlanting(isStart:Boolean):void {
         if (isStart) {
             g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED_ACTIVE;
-            g.gameDispatcher.addEnterFrame(checkForPlanting);
+            if (!g.managerTutorial.isTutorial) g.gameDispatcher.addEnterFrame(checkForPlanting);
         } else {
             g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
             g.gameDispatcher.removeEnterFrame(checkForPlanting);
@@ -260,7 +260,7 @@ public class ManagerPlantRidge {
         g.cont.nullDragPoint();
         if (isStart) {
             g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
-            g.gameDispatcher.addEnterFrame(checkForCrafting);
+            if (!g.managerTutorial.isTutorial) g.gameDispatcher.addEnterFrame(checkForCrafting);
         } else {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.gameDispatcher.removeEnterFrame(checkForCrafting);

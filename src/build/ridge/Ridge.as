@@ -186,7 +186,7 @@ public class Ridge extends WorldObject{
             }
         } else if (_stateRidge == GROWED) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.CRAFT_RIDGE) return;
-//            craftThePlant();
+            craftThePlant();
             g.timerHint.hideIt(true);
             g.managerPlantRidge.onStartCraftPlanting(true);
         }
