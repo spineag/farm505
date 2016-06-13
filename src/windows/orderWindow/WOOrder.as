@@ -339,12 +339,14 @@ public class WOOrder extends WindowMain{
         }
         var i:int;
         for (k = 0; k < _arrItems.length; k++) {
-            for (i=0; i<_arrOrders[k].resourceIds.length; i++) {
-                if (g.userInventory.getCountResourceById(_arrOrders[k].resourceIds[i]) < _arrOrders[k].resourceCounts[i]) {
-                    _arrItems[k].updateCheck(false);
-                    break;
+            if (_arrOrders[k]) {
+                for (i = 0; i < _arrOrders[k].resourceIds.length; i++) {
+                    if (g.userInventory.getCountResourceById(_arrOrders[k].resourceIds[i]) < _arrOrders[k].resourceCounts[i]) {
+                        _arrItems[k].updateCheck(false);
+                        break;
+                    }
                 }
-            }
+            } else break;
         }
         g.bottomPanel.checkIsFullOrder();
     }

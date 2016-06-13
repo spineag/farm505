@@ -581,6 +581,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_7():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         _currentAction = TutorialAction.NONE;
         if (!texts) texts = (new TutorialTexts()).objText;
         if (!cat) {
@@ -696,6 +697,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_8():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         _subStep = 0;
         _currentAction = TutorialAction.RAW_RECIPE;
         _tutorialResourceIDs = [1];
@@ -1364,7 +1366,11 @@ public class ManagerTutorial {
     }
 
     private function subStep16_3():void {
-        _subStep = 3;
+        subStep16_4();
+    }
+
+    private function subStep16_4():void {
+        _subStep = 4;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         g.user.tutorialStep = 17;
