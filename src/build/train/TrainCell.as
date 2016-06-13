@@ -78,6 +78,10 @@ public class TrainCell {
             p = new Point(im.x + im.width / 2, im.y + im.height / 2);
             p = im.parent.localToGlobal(p);
         }
+        if (p.x < 0 && p.y < 0 ) {
+            p.x = Starling.current.nativeStage.stageWidth/2;
+            p.y = Starling.current.nativeStage.stageHeight/2;
+        }
         new XPStar(p.x, p.y, countXP);
         var prise:Object = {};
         prise.id = DataMoney.SOFT_CURRENCY;

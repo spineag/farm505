@@ -30,7 +30,7 @@ public class WONoFreeCats extends WindowMain {
         txt.y = -155;
         txt.touchable = false;
         _source.addChild(txt);
-        txt = new TextField(400,100,'Все помощники сейчас заняты! Подождите окончания производства или купите еще одного!',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt = new TextField(400,100,'Подождите окончания производства или купите еще одного!',g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.x = -200;
         txt.y = -120;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

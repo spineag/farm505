@@ -21,7 +21,7 @@ public class PostOpenCave extends WindowMain {
         _woHeight = 430;
         _woWidth = 620;
         var st:String = g.dataPath.getGraphicsPath();
-        g.load.loadImage(st + 'wall/wall_open_order.png',onLoad);
+        g.load.loadImage(st + 'wall/wall_open_cave.png',onLoad);
 
     }
 
@@ -31,7 +31,7 @@ public class PostOpenCave extends WindowMain {
 
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_open_order.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[st + 'wall/wall_open_cave.png'].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 

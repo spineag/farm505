@@ -485,6 +485,11 @@ public class Train extends WorldObject{
         priseCoupone.type = DropResourceVariaty.DROP_TYPE_MONEY;
         priseCoupone.count = 1;
         new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, priseCoupone);
+        if (g.user.wallTrainItem) {
+            g.windowsManager.openWindow(WindowsManager.POST_DONE_TRAIN);
+            g.directServer.updateWallTrainItem(null);
+            g.user.wallTrainItem = false;
+        }
     }
 
     private function onReleasePack():void {

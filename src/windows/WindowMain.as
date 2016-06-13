@@ -44,13 +44,15 @@ public class WindowMain {
 
     public function showIt():void {
         g.hideAllHints();//?
-        createBlackBG();
-        _source.x = Starling.current.nativeStage.stageWidth/2;
-        _source.y = Starling.current.nativeStage.stageHeight/2;
-        g.cont.addGameContListener(false);
-        g.cont.windowsCont.addChild(_source);
-        _source.scaleX = _source.scaleY = .8;
-        TweenMax.to(_source, .2, {scaleX:1, scaleY:1, alpha: 1, onComplete:onShowingWindow});
+        if (_source) {
+            createBlackBG();
+            _source.x = Starling.current.nativeStage.stageWidth / 2;
+            _source.y = Starling.current.nativeStage.stageHeight / 2;
+            g.cont.addGameContListener(false);
+            g.cont.windowsCont.addChild(_source);
+            _source.scaleX = _source.scaleY = .8;
+            TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, alpha: 1, onComplete: onShowingWindow});
+        }
         _isShowed = true;
     }
 

@@ -93,12 +93,8 @@ public class CatPanel {
 
     private function onClick():void {
 //        g.socialNetwork.getFriends();
-//        g.user.level ++;
-//        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-        var p:Point = new Point();
-        p.x = 24;
-        p.y = 26;
-        g.cont.moveCenterToPos(p.x, p.y, true, 2);
+        g.user.level ++;
+        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
 //        g.managerWallPost.openWindow(ManagerWallPost.OPEN_TRAIN,null,3,DataMoney.HARD_CURRENCY);
 
     }

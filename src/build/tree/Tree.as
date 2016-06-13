@@ -364,6 +364,7 @@ public class Tree extends WorldObject {
                 break;
             case FIXED:
                 _armature.animation.gotoAndStop("dead", 0);
+                makeWateringIcon();
                 break;
             case GROW_FIXED:
                 _armature.animation.gotoAndStop("big", 0);
@@ -746,6 +747,7 @@ public class Tree extends WorldObject {
                     g.treeHint.showIt(_source.height,_dataBuild, newX, newY, _dataBuild.name, this, onOut);
                     g.treeHint.onWatering = askWateringTree;
                 } else if (_state == FULL_DEAD || _state == ASK_FIX) {
+                    if (g.isAway) return;
                     g.wildHint.onDelete = deleteTree;
                     g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId, _dataBuild.name,onOut);
                 }  else {

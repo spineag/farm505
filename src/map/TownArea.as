@@ -1539,6 +1539,10 @@ public class TownArea extends Sprite {
         _awayPreloader.deleteIt();
         _awayPreloader = null;
         addTownAreaSortCheking();
+        var p:Point = new Point();
+        p.x = 24;
+        p.y = 26;
+        g.cont.moveCenterToPos(p.x, p.y, true, 2);
     }
 
     private function clearAwayCity():void {
