@@ -26,7 +26,8 @@ public class PlantOnRidge {
     public function PlantOnRidge(ridge:Ridge, data:Object) {
         if (!data) {
             Cc.error('no data for PlantOnRidge');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for PLantOnRidge');
+            ridge.onOut();
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for PLantOnRidge');
             return;
         }
         _ridge = ridge;

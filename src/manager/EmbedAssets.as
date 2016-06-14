@@ -35,7 +35,7 @@ public class EmbedAssets {
 
     [Embed(source = "../../assets/animations/x1/cat_tutorial.png", mimeType = "application/octet-stream")]
     private const CatTutorial:Class;
-    [Embed(source = "../../assets/animations/cat_tutorial_big2.png", mimeType = "application/octet-stream")]
+    [Embed(source = "../../assets/animations/x1/cat_tutorial_big.png", mimeType = "application/octet-stream")]
     private const CatTutorialBig:Class;
 
     private var g:Vars = Vars.getInstance();

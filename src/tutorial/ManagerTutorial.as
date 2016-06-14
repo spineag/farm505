@@ -1335,6 +1335,7 @@ public class ManagerTutorial {
 
     private function initScene_16():void {
         _subStep = 0;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         _currentAction = TutorialAction.NONE;
         if (!texts) texts = (new TutorialTexts()).objText;
         _tutorialObjects = g.townArea.getCityObjectsById(1);

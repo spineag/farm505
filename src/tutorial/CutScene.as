@@ -74,9 +74,9 @@ public class CutScene {
         if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, animateCat);
 
         d = Math.random();
-        if (d < .5) label = 'idle';
-            else if (d < .75) label = '_idle_2';
-            else label = 'idle_3';
+        if (d < .5) label = 'idle1';
+            else if (d < .75) label = 'idle2';
+            else label = 'idle3';
         _armature.addEventListener(AnimationEvent.COMPLETE, animateCat);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCat);
         _armature.animation.gotoAndPlay(label);

@@ -193,6 +193,7 @@ public class Fabrica extends WorldObject {
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION && g.managerTutorial.isTutorialBuilding(this)) {
 
             } else if (g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialResource(_dataBuild.id)) {
