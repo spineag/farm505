@@ -2,6 +2,8 @@
  * Created by user on 7/17/15.
  */
 package windows.buyCurrency {
+import analytic.AnalyticManager;
+
 import com.junkbyte.console.Cc;
 
 import data.DataMoney;
@@ -56,7 +58,7 @@ public class WOBuyCurrencyItem {
         _bg.flatten();
         source.addChild(_bg);
 
-        if (currency == DataMoney.HARD_CURRENCY) {
+        if (_currency == DataMoney.HARD_CURRENCY) {
             _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         } else {
             _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
@@ -114,6 +116,11 @@ public class WOBuyCurrencyItem {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
         Cc.info('Seccuss for buy pack');
+        if (_currency == DataMoney.HARD_CURRENCY) {
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_HARD_FOR_REAL, {id: _packId});
+        } else {
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_SOFT_FOR_REAL, {id: _packId});
+        }
         onBuy();
     }
 

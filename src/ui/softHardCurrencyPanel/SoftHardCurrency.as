@@ -150,7 +150,7 @@ public class SoftHardCurrency {
         g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
     }
 
-    public function animationBuy (hard:Boolean):void {
+    public function animationBuy(hard:Boolean):void {
         var tween:Tween;
         if (hard) {
             tween = new Tween(_imHard, 0.3);
