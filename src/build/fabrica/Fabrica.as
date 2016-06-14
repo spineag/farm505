@@ -69,7 +69,6 @@ public class Fabrica extends WorldObject {
                 } else {
                     _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding); // сколько времени уже строится
                     var arr:Array = g.townArea.getCityObjectsById(_dataBuild.id);
-
                     _leftBuildTime = int(_dataBuild.buildTime[arr.length]) - _leftBuildTime;        // сколько времени еще до конца стройки
                     if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                         _stateBuild = STATE_WAIT_ACTIVATE;
@@ -96,6 +95,7 @@ public class Fabrica extends WorldObject {
         _hitArea = g.managerHitArea.getHitArea(_source, 'fabrica' + _dataBuild.image);
         _source.registerHitArea(_hitArea);
         _source.setChildIndex(_craftSprite, _source.numChildren - 1);
+        onHeroAnimation();
     }
 
 
@@ -122,7 +122,7 @@ public class Fabrica extends WorldObject {
         _count = 20;
         if (_stateBuild == STATE_ACTIVE) {
             g.hint.showIt(_dataBuild.name);
-            if (!_isOnHover && !_arrList.length) {
+            if (!_isOnHover && !_arrList.length && _armature) {
                 var fEndOver:Function = function():void {
                     _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
                     _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
@@ -324,7 +324,6 @@ public class Fabrica extends WorldObject {
 
     public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object, isFromServer:Boolean = false, deltaTime:int = 0):void {
         if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
-
         if (!_arrList.length && !_heroCat) {
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                 g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
@@ -456,7 +455,7 @@ public class Fabrica extends WorldObject {
     private function stopAnimation():void {
         if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, chooseAnimation);
         if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
-        _armature.animation.gotoAndStop('idle', 0);
+        if (_armature) _armature.animation.gotoAndStop('idle', 0);
     }
 
     private function chooseAnimation(e:AnimationEvent = null):void {
@@ -490,12 +489,12 @@ public class Fabrica extends WorldObject {
     override public function clearIt():void {
         onOut();
         stopAnimation();
-        WorldClock.clock.remove(_armature);
+        if (_armature) WorldClock.clock.remove(_armature);
         g.gameDispatcher.removeFromTimer(render);
         _source.touchable = false;
         _arrList.length = 0;
         _arrRecipes.length = 0;
-        _armature.dispose();
+        if (_armature) _armature.dispose();
         super.clearIt();
     }
 
@@ -558,6 +557,7 @@ public class Fabrica extends WorldObject {
     }
 
     private function releaseManFrontTexture():void {
+        if (!_armature) return;
         changeTexture("head", "heads/head");
         changeTexture("body", "bodys/body");
         changeTexture("handLeft", "left_hand/handLeft");
@@ -568,7 +568,7 @@ public class Fabrica extends WorldObject {
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "right_hand/handRight");
         }
-        if (_armature) var viyi:Bone = _armature.getBone('viyi'); {
+        var viyi:Bone = _armature.getBone('viyi'); {
             if (viyi) {
                 viyi.visible = false;
             }
@@ -586,6 +586,7 @@ public class Fabrica extends WorldObject {
     }
 
     private function releaseWomanFrontTexture():void {
+        if (!_armature) return;
         changeTexture("head", "heads/head_w");
         changeTexture("body", "bodys/body_w");
         changeTexture("handLeft", "left_hand/handLeft_w");
@@ -596,7 +597,7 @@ public class Fabrica extends WorldObject {
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "right_hand/handRight_w");
         }
-        if (_armature) var viyi:Bone = _armature.getBone('viyi'); {
+        var viyi:Bone = _armature.getBone('viyi'); {
             if (viyi) {
                 viyi.visible = true;
             }
@@ -615,7 +616,7 @@ public class Fabrica extends WorldObject {
 
     private function changeTexture(oldName:String, newName:String):void {
         var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
-        if (_armature) var b:Bone = _armature.getBone(oldName);
+        var b:Bone = _armature.getBone(oldName);
         if (b) {
             im.pivotX = b.display.pivotX;
             im.pivotY = b.display.pivotY;
@@ -628,6 +629,7 @@ public class Fabrica extends WorldObject {
 
     private function showBoom():void {
         _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
+        if (!_armatureOpen) return;
         _armatureOpen.display.scaleX = _armatureOpen.display.scaleY = 1.5;
         _source.addChild(_armatureOpen.display as Sprite);
         WorldClock.clock.add(_armatureOpen);

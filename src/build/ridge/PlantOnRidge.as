@@ -8,8 +8,8 @@ import com.junkbyte.console.Cc;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import manager.Vars;
+import mouse.ToolsModifier;
 import starling.display.Sprite;
-import windows.WindowsManager;
 
 public class PlantOnRidge {
     private var _source:Sprite;
@@ -27,6 +27,7 @@ public class PlantOnRidge {
         if (!data) {
             Cc.error('no data for PlantOnRidge');
             ridge.onOut();
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for PLantOnRidge');
             return;
         }

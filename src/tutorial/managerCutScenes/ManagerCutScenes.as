@@ -182,6 +182,7 @@ public class ManagerCutScenes {
     }
 
     private function releasePapper():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.PAPER);
         if (_cat) {
@@ -272,6 +273,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseToInventoryDecor():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutSceneResourceIDs = [28];
         _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
@@ -326,6 +328,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseFromInventoryDecor():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         if (g.toolsPanel.isShowed) {
             fromInventory_1();
