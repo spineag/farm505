@@ -439,14 +439,17 @@ public class Vars {
             if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
             townArea.addTownAreaSortCheking();
 
-            startPreloader.hideIt();
-            startPreloader = null;
-
             managerChest.createChest();
             if (managerTutorial.isTutorial) {
+                if (user.tutorialStep > 1) {
+                    startPreloader.hideIt();
+                    startPreloader = null;
+                }
                 managerTutorial.initScenes();
                 managerTutorial.checkDefaults();
             } else {
+                startPreloader.hideIt();
+                startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
             }
 
