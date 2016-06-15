@@ -28,7 +28,6 @@ public class PlantOnRidge {
             Cc.error('no data for PlantOnRidge');
             ridge.onOut();
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for PLantOnRidge');
             return;
         }
         _ridge = ridge;
@@ -40,9 +39,6 @@ public class PlantOnRidge {
         _source.addChild(armature.display as Sprite);
         WorldClock.clock.add(armature);
         _source.y = 35 * g.scaleFactor;
-//        _source.endClickCallback = onClick;
-//        _source.hoverCallback = onHover;
-//        _source.outCallback = onOut;
         _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);
         _data.timeToStateGwoned = _data.buildTime -  _data.timeToGrow2 -  _data.timeToGrow3;
     }
@@ -54,21 +50,6 @@ public class PlantOnRidge {
     public function activateRender():void {
         g.gameDispatcher.addToTimer(render);
     }
-
-//    private function onClick():void {
-//        _ridge.onEndClick();
-//    }
-//
-//    private function onHover():void {
-//        if (isHover) return;
-//        isHover = true;
-//        _ridge.onHover();
-//    }
-//
-//    private function onOut():void {
-//        _ridge.onOut();
-//        isHover = false;
-//    }
 
     public function checkStateRidge(needSetTimer:Boolean = true):void {
         switch (_ridge.stateRidge) {
@@ -111,7 +92,7 @@ public class PlantOnRidge {
     private function timerAnimation():void {
         _timerAnimationGrowed --;
         if (_timerAnimationGrowed <=0) {
-            if(armature == null) return;
+            if (armature == null) return;
             armature.animation.gotoAndPlay('state4',0);
             g.gameDispatcher.removeFromTimer(timerAnimation);
             growedAnimation();

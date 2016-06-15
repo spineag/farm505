@@ -2,6 +2,8 @@
  * Created by user on 7/24/15.
  */
 package windows.paperWindow {
+import analytic.AnalyticManager;
+
 import data.DataMoney;
 import flash.utils.getTimer;
 import manager.ManagerFilters;
@@ -369,6 +371,7 @@ public class WOPapper extends WindowMain {
             return;
         }
         g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_PAPER_ID});
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         startPapperTimer();
         g.directServer.getUserPapperBuy(getUserPapper);

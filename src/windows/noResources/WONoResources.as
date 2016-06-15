@@ -2,6 +2,8 @@
  * Created by user on 6/29/15.
  */
 package windows.noResources {
+import analytic.AnalyticManager;
+
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
@@ -258,6 +260,7 @@ public class WONoResources extends WindowMain {
             return;
         }
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _countOfResources);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_SOFT_FOR_HARD, {id: DataMoney.SOFT_CURRENCY, info: _countOfResources});
         super.hideIt();
         if (_callbackBuy != null) {
             _callbackBuy.apply(null);
@@ -275,6 +278,7 @@ public class WONoResources extends WindowMain {
             return;
         }
         g.userInventory.addResource(_paramData.idResourceRaw, _countOfResources);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.idResourceRaw, info: _countOfResources});
         super.hideIt();
         if (_callbackBuy != null) {
             _callbackBuy.apply(null);
@@ -294,6 +298,7 @@ public class WONoResources extends WindowMain {
         }
         if (_paramData.data.buildType == BuildType.INSTRUMENT) {
             g.userInventory.addResource(_paramData.data.id, _countOfResources);
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
             super.hideIt();
             if (_callbackBuy != null) {
                 _callbackBuy.apply(null);
@@ -301,6 +306,7 @@ public class WONoResources extends WindowMain {
             }
         } else if (_paramData.data.buildType == BuildType.PLANT) {
             g.userInventory.addResource(_paramData.data.id, _countOfResources);
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
             super.hideIt();
             if (_callbackBuy != null) {
                 _callbackBuy.apply(null, [_paramData.data, _paramData.ridge]);
@@ -312,6 +318,7 @@ public class WONoResources extends WindowMain {
                 countRes = g.userInventory.getCountResourceById(_paramData.data.ingridientsId[i]);
                 if (countRes < _paramData.data.ingridientsCount[i]) {
                     g.userInventory.addResource(_paramData.data.ingridientsId[i], _paramData.data.ingridientsCount[i] - countRes);
+                    g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.ingridientsId[i], info: _paramData.data.ingridientsCount[i] - countRes});
                 }
             }
             super.hideIt();
@@ -334,7 +341,11 @@ public class WONoResources extends WindowMain {
         }
         for (var i:int=0; i<_paramData.resourceIds.length; i++) {
             number = g.userInventory.getCountResourceById(_paramData.resourceIds[i]);
-            if (number < _paramData.resourceCounts[i]) g.userInventory.addResource(_paramData.resourceIds[i], _paramData.resourceCounts[i] - number);
+            if (number < _paramData.resourceCounts[i]) {
+                g.userInventory.addResource(_paramData.resourceIds[i], _paramData.resourceCounts[i] - number);
+                g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.resourceIds[i], info: _paramData.resourceCounts[i] - number});
+
+            }
         }
         super.hideIt();
         if (_callbackBuy != null) {
@@ -353,6 +364,8 @@ public class WONoResources extends WindowMain {
             return;
         }
         g.userInventory.addResource(_paramData.data.id, _countOfResources);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
+
         super.hideIt();
         if (_callbackBuy != null) {
             _callbackBuy.apply(null,[true]);
@@ -371,6 +384,7 @@ public class WONoResources extends WindowMain {
             return;
         }
         g.userInventory.addResource(_paramData.data.id, _countOfResources);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
         super.hideIt();
         if (_callbackBuy != null) {
             _callbackBuy.apply(null,[true]);

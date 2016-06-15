@@ -2,6 +2,8 @@
  * Created by user on 6/9/15.
  */
 package build.fabrica {
+import analytic.AnalyticManager;
+
 import build.WorldObject;
 import data.BuildType;
 import dragonBones.Armature;
@@ -500,7 +502,8 @@ public class Fabrica extends WorldObject {
 
     private function callbackSkip():void { // for building build
         _stateBuild = STATE_WAIT_ACTIVATE;
-        g.directServer.skipTimeOnFabricBuild(_leftBuildTime, dbBuildingId, null);
+        g.directServer.skipTimeOnFabricBuild(_leftBuildTime, _dbBuildingId, null);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_BUILDING_BUILD_ID, info: _dataBuild.id});
         _leftBuildTime = 0;
         renderBuildProgress();
         onOut();
@@ -514,6 +517,7 @@ public class Fabrica extends WorldObject {
     public function skipRecipe():void { // for making recipe
         if (_arrList[0]) {
             g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[0].id});
             craftResource(_arrList.shift());
         } else {
             Cc.error('Fabrica skipRecipe:: _arrList[0] == null');
