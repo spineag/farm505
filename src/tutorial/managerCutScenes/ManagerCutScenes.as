@@ -95,6 +95,17 @@ public class ManagerCutScenes {
     public function checkCutScene(reason:int):void {
         if (g.user.level < 5) return;
         var i:int;
+        if (!g.user.cutScenes.length) {
+            var countActions:int = _properties.length;
+            var l:int;
+            if (g.user.cutScenes.length < countActions) {
+                l = countActions - g.user.cutScenes.length;
+                while (l>0) {
+                    g.user.cutScenes.push(0);
+                    l--;
+                }
+            }
+        }
         switch (reason) {
             case REASON_NEW_LEVEL:
                 for (i=0; i<_properties.length; i++) {
@@ -171,6 +182,7 @@ public class ManagerCutScenes {
     }
 
     private function releasePapper():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.PAPER);
         if (_cat) {
@@ -261,6 +273,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseToInventoryDecor():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutSceneResourceIDs = [28];
         _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
@@ -315,6 +328,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseFromInventoryDecor():void {
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         if (g.toolsPanel.isShowed) {
             fromInventory_1();

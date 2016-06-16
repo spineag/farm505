@@ -2,6 +2,8 @@
  * Created by user on 6/2/15.
  */
 package build.ridge {
+import analytic.AnalyticManager;
+
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
@@ -415,7 +417,8 @@ public class Ridge extends WorldObject{
         _source.filter = null;
         _isOnHover = false;
         _plant.checkStateRidge(false);
-        g.directServer.skipTimeOnRidge(_plant._timeToEndState,_dbBuildingId,null);
+        g.directServer.skipTimeOnRidge(_plant._timeToEndState, _dbBuildingId, null);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_PLANT_ID, info: _plant.dataPlant.id});
         _plant.renderSkip();
     }
 

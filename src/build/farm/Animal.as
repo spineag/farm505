@@ -2,6 +2,8 @@
  * Created by user on 6/19/15.
  */
 package build.farm {
+import analytic.AnalyticManager;
+
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
@@ -470,7 +472,8 @@ public class Animal {
 
     private function callbackSkip():void {
         onOut();
-        g.directServer.skipTimeOnAnimal(_timeToEnd,animal_db_id,null);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_ANIMAL_ID, info: _data.id});
+        g.directServer.skipTimeOnAnimal(_timeToEnd, animal_db_id, null);
         _timeToEnd = 0;
         render();
     }

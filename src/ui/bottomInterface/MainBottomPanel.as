@@ -202,7 +202,6 @@ public class MainBottomPanel {
     private function onClick(reason:String):void {
         switch (reason) {
             case 'shop':
-                if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) return;
                 if (g.managerTutorial.isTutorial) {
                     if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA
                             || g.managerTutorial.currentAction == TutorialAction.BUY_FARM || g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
@@ -218,6 +217,7 @@ public class MainBottomPanel {
                     } else return;
                 }
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                    if (g.managerCutScenes.isCutScene) return;
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
@@ -270,8 +270,11 @@ public class MainBottomPanel {
                 break;
             case 'tools':
                 if (g.managerCutScenes.isCutScene)  {
-                    if (!g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR) && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR))
-                    return;
+                    if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR)) {
+                        if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
+                    } else if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) {
+
+                    } else return;
                 }
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {

@@ -259,7 +259,7 @@ public class ManagerPlantRidge {
         g.cont.tailCont.releaseContDrag = !isStart;
         g.cont.nullDragPoint();
         if (isStart) {
-            g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
+            if (!g.managerTutorial.isTutorial) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
             if (!g.managerTutorial.isTutorial) g.gameDispatcher.addEnterFrame(checkForCrafting);
         } else {
             g.toolsModifier.modifierType = ToolsModifier.NONE;

@@ -2,6 +2,8 @@
  * Created by user on 9/11/15.
  */
 package windows.train {
+import analytic.AnalyticManager;
+
 import build.train.Train;
 import manager.ManagerFilters;
 import starling.display.Image;
@@ -109,6 +111,7 @@ public class WOTrainOrder extends WindowMain{
         }
 
         g.userInventory.addMoney(1,-30);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_AERIAL_TRAM_ID});
 //        g.woTrain.clearItems();
         if (_callback != null) {
             _callback.apply(null);

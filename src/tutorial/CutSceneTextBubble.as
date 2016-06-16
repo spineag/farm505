@@ -30,8 +30,10 @@ public class CutSceneTextBubble {
         _type = type;
         _parent = p;
         _source = new Sprite();
-        _source.y = -130;
-        _source.x = 65;
+        _source.y = -90;
+        _source.x = 50;
+//        _source.y = -130;
+//        _source.x = 65;
         _parent.addChild(_source);
         if (stURL != '') {
             _innerImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture(stURL));
