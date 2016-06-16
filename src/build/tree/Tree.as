@@ -475,6 +475,7 @@ public class Tree extends WorldObject {
     }
 
     override public function onOut():void {
+        if (!_isOnHover) return;
         if (g.isActiveMapEditor) return;
         if (g.selectedBuild) return;
         super.onOut();

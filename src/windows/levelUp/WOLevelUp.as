@@ -307,6 +307,13 @@ public class WOLevelUp extends WindowMain {
             _contImage.x = 3;
         }
         if (g.user.level > 5) g.bottomPanel.notification();
+        else {
+            g.user.villageNotification = 0;
+            g.user.decorNotification = 0;
+            g.user.fabricaNotification = 0;
+            g.user.plantNotification = 0;
+            g.user.allNotification = 0;
+        }
         g.directServer.updateUserNotification(null);
         if (_arrCells.length > 5) {
             _contImage.x = 3;

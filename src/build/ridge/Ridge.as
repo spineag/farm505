@@ -152,17 +152,22 @@ public class Ridge extends WorldObject{
 //            if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED && g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE)
 //                g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
+//        trace('kaawwaiiihover');
+
     }
 
     override public function onOut():void {
+        if (!_isOnHover) return;
         g.timerHint.hideIt(true);
         g.mouseHint.hideIt();
         if (_source) {
+//            trace('kaawwaiiiout');
             super.onOut();
             _isOnHover = false;
             _source.filter = null;
 //            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
+
     }
 
     private function onStartClick():void {
