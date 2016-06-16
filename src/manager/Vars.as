@@ -441,7 +441,7 @@ public class Vars {
 
             managerChest.createChest();
             if (managerTutorial.isTutorial) {
-                if (user.tutorialStep > 1) {
+                if ((user as User).tutorialStep > 1) {
                     startPreloader.hideIt();
                     startPreloader = null;
                 }
