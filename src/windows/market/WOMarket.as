@@ -232,7 +232,11 @@ public class WOMarket  extends WindowMain {
                     _shiftFriend = i;
                 }
             }
-            if(_shiftFriend == 0) createMarketTabBtns(true);
+//            if (_shiftFriend == 0 && _curUser.userSocialId == g.user.userSocialId)
+            if(_shiftFriend == 0)  {
+                if (_curUser.userSocialId == g.user.userSocialId)createMarketTabBtns();
+                else createMarketTabBtns(true);
+            }
                 else createMarketTabBtns();
             checkPapperTimer();
             choosePerson(params[0]);
@@ -553,16 +557,10 @@ public class WOMarket  extends WindowMain {
         if (paper) {
             _item = new MarketFriendItem(_curUser, this, 0);
             _item.source.y = -180;
-            if (g.isAway) {
-                if (_arrFriends[_shiftFriend] == g.visitedUser)  _item._visitBtn.visible = false;
+            if (g.visitedUser) {
+                if (_curUser.userSocialId == g.visitedUser.userSocialId) _item._visitBtn.visible = false;
                 else _item._visitBtn.visible = true;
-            } else {
-                if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
-                else _item._visitBtn.visible = true;
-            }
-//            if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
-//             else _item._visitBtn.visible = true;
-
+            } else _item._visitBtn.visible = true;
             c = new CartonBackground(125, 115);
             c.x = 208 - 5;
             c.y = -185;

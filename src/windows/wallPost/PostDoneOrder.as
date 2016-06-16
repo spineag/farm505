@@ -12,6 +12,8 @@ import starling.textures.Texture;
 import starling.textures.Texture;
 import starling.utils.Color;
 import utils.CButton;
+import utils.MCScaler;
+
 import windows.WindowMain;
 
 public class PostDoneOrder extends WindowMain {
@@ -23,7 +25,6 @@ public class PostDoneOrder extends WindowMain {
         _woWidth = 620;
         var st:String = g.dataPath.getGraphicsPath();
         g.load.loadImage(st + 'wall/wall_done_order.png',onLoad);
-
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -45,10 +46,20 @@ public class PostDoneOrder extends WindowMain {
         _btn.addButtonTexture(172, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
         var txt:TextField = new TextField(100,30,'Рассказать',g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        txt.x = 35;
+        txt.x = 5;
         txt.y = 7;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
+        txt = new TextField(50,50,'200',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt.x = 95;
+        txt.y = -2;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _btn.addChild(txt);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
+        MCScaler.scale(im,30,30);
+        im.x = 135;
+        im.y = 7;
+        _btn.addChild(im);
         _btn.y = 180;
         _source.addChild(_btn);
         createExitButton(hideIt);

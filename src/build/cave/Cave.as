@@ -287,7 +287,6 @@ public class Cave extends WorldObject{
             _build.visible = true;
             _rect = _build.getBounds(_build);
             showBoom();
-            g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE);
         }
     }
 
@@ -425,6 +424,7 @@ public class Cave extends WorldObject{
         _source.removeChild(_armatureOpen.display as Sprite);
         _armatureOpen.dispose();
         _armatureOpen = null;
+        g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE);
     }
 
 }

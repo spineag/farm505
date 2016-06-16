@@ -121,6 +121,8 @@ public class WOPapper extends WindowMain {
             g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
             startPapperTimer();
             g.directServer.getUserPapperBuy(getUserPapper);
+            _btnRefreshBlue.setEnabled = false;
+            _btnRefreshGreen.setEnabled = true;
         }
         super.showIt();
     }

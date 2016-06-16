@@ -93,10 +93,10 @@ public class CatPanel {
 
     private function onClick():void {
 //        g.socialNetwork.getFriends();
-        g.user.level ++;
-        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+//        g.user.level ++;
+//        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
 //        g.managerWallPost.openWindow(ManagerWallPost.OPEN_TRAIN,null,3,DataMoney.HARD_CURRENCY);
-
+        g.windowsManager.openWindow(WindowsManager.POST_OPEN_LAND,null);
     }
 }
 }

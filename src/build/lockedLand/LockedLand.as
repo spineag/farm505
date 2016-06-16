@@ -324,6 +324,8 @@ public class LockedLand extends WorldObject {
         _armatureOpen.dispose();
         _armatureOpen = null;
         openIt();
+        g.windowsManager.openWindow(WindowsManager.POST_OPEN_LAND,null);
+
     }
 }
 }

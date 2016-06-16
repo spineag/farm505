@@ -649,6 +649,10 @@ public class Fabrica extends WorldObject {
         _source.removeChild(_armatureOpen.display as Sprite);
         _armatureOpen.dispose();
         _armatureOpen = null;
+        if (!g.managerTutorial.isTutorial) {
+            g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
+        }
+
     }
 
 }

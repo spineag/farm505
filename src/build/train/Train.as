@@ -394,7 +394,7 @@ public class Train extends WorldObject{
             }
             createAnimatedBuild(onJustOpenedTrain);
             showBoom();
-            g.windowsManager.openWindow(WindowsManager.POST_OPEN_TRAIN);
+
         }
     }
 
@@ -580,6 +580,7 @@ public class Train extends WorldObject{
         _source.removeChild(_armatureOpenBoom.display as Sprite);
         _armatureOpenBoom.dispose();
         _armatureOpenBoom = null;
+        g.windowsManager.openWindow(WindowsManager.POST_OPEN_TRAIN);
     }
 }
 }

@@ -312,12 +312,6 @@ public class WOOrder extends WindowMain{
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
             g.managerTutorial.checkTutorialCallback();
         }
-        if (g.user.wallOrderItem && g.user.level >= 10) {
-            hideIt();
-            g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
-            g.directServer.updateWallOrderItem(null);
-            g.user.wallOrderItem = false;
-        }
     }
 
     private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {
@@ -721,6 +715,12 @@ public class WOOrder extends WindowMain{
         if (_armatureSeller.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
         if (_armatureCustomer.hasEventListener(AnimationEvent.COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
         if (_armatureCustomer.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+        if (g.user.wallOrderItem && g.user.level >= 10) {
+            hideIt();
+            g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
+            g.directServer.updateWallOrderItem(null);
+            g.user.wallOrderItem = false;
+        }
     }
 
     private function animateCatsOnSell():void {
