@@ -22,12 +22,12 @@ import starling.textures.TextureAtlas;
 import starling.utils.Color;
 
 public class StartPreloader {
-    [Embed(source="../../assets/preloaderAtlas.png")]
-    public static const PreloaderTexture:Class;
+//    [Embed(source="../../assets/preloaderAtlas.png")]
+//    public static const PreloaderTexture:Class;
     [Embed(source = "../../assets/animations/preloader/splash_screen.png", mimeType = "application/octet-stream")]
     private const Preloader:Class;
-    [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
-    public static const PreloaderTextureXML:Class;
+//    [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
+//    public static const PreloaderTextureXML:Class;
 
     private var _source:Sprite;
     private var _bg:Image;
@@ -41,9 +41,9 @@ public class StartPreloader {
     private var _txt:TextField;
     public function StartPreloader() {
         _source = new Sprite();
-        _texture = Texture.fromBitmap(new PreloaderTexture());
-        var xml:XML = XML(new PreloaderTextureXML());
-        _preloaderAtlas = new TextureAtlas(_texture, xml);
+//        _texture = Texture.fromBitmap(new PreloaderTexture());
+//        var xml:XML = XML(new PreloaderTextureXML());
+//        _preloaderAtlas = new TextureAtlas(_texture, xml);
         loadFactory('preloader',Preloader,create);
 //
 //        _bg = new Image(_preloaderAtlas.getTexture('preloader_window'));
@@ -68,14 +68,16 @@ public class StartPreloader {
         _source.addChildAt(_armature.display as Sprite,0);
         WorldClock.clock.add(_armature);
 //        _armature.animation.gotoAndStop('default', 0);
-        animation();
+
         _txt.x = _armature.display.width/2 - 142;
         _txt.y = _armature.display.height/2 + 185;
         setProgress(0);
+        g.cont.popupCont.addChild(_source);
+        animation();
     }
 
     public function showIt():void {
-        g.cont.popupCont.addChild(_source);
+
     }
 
     public function setProgress(a:int):void {
@@ -88,16 +90,18 @@ public class StartPreloader {
         while (_source.numChildren) {
             _source.removeChildAt(0);
         }
-        _texture.dispose();
-        _preloaderAtlas.dispose();
-        _bg.dispose();
-        _preloaderBG.dispose();
-        _preloaderLine.dispose();
-        _armature = null;
+        if (_texture) _texture.dispose();
+        if (_preloaderAtlas)_preloaderAtlas.dispose();
+        if (_bg)_bg.dispose();
+        if(_preloaderBG) _preloaderBG.dispose();
+        if (_preloaderLine) _preloaderLine.dispose();
+        if (_armature) _armature = null;
     }
 
     private function animation():void {
+        if (!_armature) return;
         var fEndOver:Function = function():void {
+            if (!_armature) return;
             _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
             animation();

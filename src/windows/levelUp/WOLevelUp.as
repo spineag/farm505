@@ -305,7 +305,7 @@ public class WOLevelUp extends WindowMain {
         } else if (_arrCells.length == 5) {
             _contImage.x = 3;
         }
-        if (g.user.level > 5) g.bottomPanel.notification();
+        if (g.user.level >= 5) g.bottomPanel.notification();
         else {
             g.user.villageNotification = 0;
             g.user.decorNotification = 0;

@@ -143,7 +143,6 @@ public class WOLockedLand extends WindowMain {
         _land.showBoom();
         _land = null;
         hideIt();
-        g.windowsManager.openWindow(WindowsManager.POST_OPEN_LAND,null);
     }
 
     private function addAnimation():void {
