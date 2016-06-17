@@ -361,6 +361,7 @@ public class Tree extends WorldObject {
                 break;
             case ASK_FIX:
                 _armature.animation.gotoAndStop("dead", 0);
+                makeWateringIcon();
                 break;
             case FIXED:
                 _armature.animation.gotoAndStop("dead", 0);
@@ -399,6 +400,11 @@ public class Tree extends WorldObject {
         super.onHover();
         if (g.isActiveMapEditor) return;
         if (_isOnHover) return;
+        if (g.isAway && _state == ASK_FIX) {
+            _source.filter = ManagerFilters.BUILD_STROKE;
+            _isOnHover = true;
+            return;
+        }
         _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
         if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
@@ -479,6 +485,11 @@ public class Tree extends WorldObject {
         if (g.isActiveMapEditor) return;
         if (g.selectedBuild) return;
         super.onOut();
+        if (g.isAway) {
+            _source.filter = null;
+            _isOnHover = false;
+            return;
+        }
         _source.filter = null;
         _isOnHover = false;
 //        g.timerHint.hideIt();
@@ -507,6 +518,9 @@ public class Tree extends WorldObject {
                     }
                 }
                 onOut();
+                var start:Point = new Point(int(_source.x), int(_source.y));
+                start = _source.parent.localToGlobal(start);
+                new XPStar(start.x,start.y,8);
                 g.directServer.makeWateringUserTree(tree_db_id, _state, null);
                 makeWateringIcon();
             }

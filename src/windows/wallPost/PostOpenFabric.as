@@ -57,10 +57,10 @@ public class PostOpenFabric  extends WindowMain {
         txt.y = -2;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
-        MCScaler.scale(im,30,30);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
+        MCScaler.scale(im,35,35);
         im.x = 135;
-        im.y = 7;
+        im.y = 6;
         _btn.addChild(im);
         _btn.y = 180;
         _source.addChild(_btn);
@@ -70,7 +70,7 @@ public class PostOpenFabric  extends WindowMain {
                 texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
             }
         }
-        var im:Image = new Image(texture);
+        im = new Image(texture);
         im.x = -75;
         im.y = -50;
         _source.addChild(im);
@@ -78,7 +78,7 @@ public class PostOpenFabric  extends WindowMain {
     }
 
     private function onClick():void {
-        g.managerWallPost.openWindow(ManagerWallPost.NEW_FABRIC,null,200,9,_data);
+        g.managerWallPost.openWindow(ManagerWallPost.NEW_FABRIC,null,200,DataMoney.SOFT_CURRENCY,_data);
         super.hideIt();
     }
 

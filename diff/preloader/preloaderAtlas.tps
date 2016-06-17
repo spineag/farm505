@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/preloader/preloaderAtlas2.tps</string>
+        <string>/Users/user/IdeaProjects/farm505/diff/preloader/preloaderAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">

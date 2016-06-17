@@ -56,9 +56,9 @@ public class PostOpenLand  extends WindowMain {
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        MCScaler.scale(im,30,30);
+        MCScaler.scale(im,35,35);
         im.x = 135;
-        im.y = 7;
+        im.y = 6;
         _btn.addChild(im);
         _btn.y = 180;
         _source.addChild(_btn);

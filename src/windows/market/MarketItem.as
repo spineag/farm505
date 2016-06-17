@@ -473,6 +473,8 @@ public class MarketItem {
         new DropItem(p.x, p.y, prise);
         _countMoney = 0;
         _countResource = 0;
+        _inPapper = false;
+        _papper.visible = false;
     }
 
     public function unFillIt():void {
@@ -494,6 +496,7 @@ public class MarketItem {
         _plawkaSold.visible = false;
         _plawkaLvl.visible = false;
         _txtPlawka.visible = false;
+        if (_ava) _ava = null;
         _delete.visible = false;
         g.marketHint.hideIt();
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
@@ -547,7 +550,7 @@ public class MarketItem {
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(d);
         var item:CraftItem = new CraftItem(0,0,resource,source,count);
-        item.flyIt();
+        item.flyIt(false);
     }
 
     private function showSaleImage():void {
