@@ -132,9 +132,9 @@ public class TutorialMult {
         deleteCats();
         _armature.removeEventListener(AnimationEvent.COMPLETE, onIdle6);
         _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onIdle6);
-//        if (_endCallback != null) {
-//            _endCallback.apply();
-//        }
+        if (_endCallback != null) {
+            _endCallback.apply();
+        }
     }
 
     private function createCatSprite():void {
@@ -182,7 +182,12 @@ public class TutorialMult {
     }
 
     public function deleteIt():void {
-
+        g.cont.popupCont.removeChild(_armature.display as Sprite);
+        delete g.allData.factory['tutorial_mult'];
+        _catsSprite.dispose();
+        _tempBG.dispose();
+        _tempSprite.dispose();
+        _armature.dispose();
     }
 }
 }

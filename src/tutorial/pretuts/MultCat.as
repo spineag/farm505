@@ -35,7 +35,7 @@ public class MultCat {
         _armature.addEventListener(AnimationEvent.COMPLETE, onWalk);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onWalk);
         _armature.animation.gotoAndPlay('run');
-        TweenMax.to(_source, 1, {x:newX, y:newY, onComplete:showHello, delay:d});
+        TweenMax.to(_source, 1.2, {x:newX, y:newY, onComplete:showHello, delay:d});
     }
 
     private function onWalk(e:AnimationEvent):void {

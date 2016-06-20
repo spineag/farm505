@@ -232,6 +232,7 @@ public class ManagerTutorial {
         _mult = null;
         g.user.tutorialStep = 2;
         updateTutorialStep();
+        initScenes();
     }
 
     private function  initScene_2():void {
