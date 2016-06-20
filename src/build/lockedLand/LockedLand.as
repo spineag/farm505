@@ -35,7 +35,7 @@ public class LockedLand extends WorldObject {
         }
         _arrWilds = [];
         _dataLand = g.allData.lockedLandData[_data.dbId];
-        if (!_dataLand) {
+        if (!_dataLand && !g.isAway) {
             Cc.error('no dataLand for LockedLand _data.dbId: ' + _data.dbId);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no dataLand');
             return;

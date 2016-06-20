@@ -877,8 +877,8 @@ public class TownArea extends Sprite {
             } while (arr[i][j].isFull || !arr[i][j].inGame);
             return new Point(j, i);
         } catch (e:Error) {
-            Cc.error('ManagerCats getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats getRandomFreeCell');
+            Cc.error('TownArea getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'TownArea getRandomFreeCell');
         }
         return new Point(0, 0);
     }

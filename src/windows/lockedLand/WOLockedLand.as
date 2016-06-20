@@ -146,8 +146,7 @@ public class WOLockedLand extends WindowMain {
     }
 
     private function addAnimation():void {
-        if(!_armature) return;
-        _armature = g.allData.factory['catCustomer'].buildArmature("cat_customer");
+        _armature = g.allData.factory['cat_customer'].buildArmature("cat_customer");
         _armature.display.x = -150;
         _armature.display.y = -150;
         _armature.display.scaleX = -1;
