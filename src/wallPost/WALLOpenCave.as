@@ -27,7 +27,7 @@ public class WALLOpenCave {
         bitmap = g.pBitmaps[st + 'wall/wall_open_cave.jpg'].create() as Bitmap;
         _source.addChild(Image.fromBitmap(bitmap));
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
-        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('ТЫ КРАСАВА ВААААСССЯЯЯЯ, СУШАЙ ШАХТУ ОТКРЫЛ ЙО ЩА БУДЕМ КОПАТЬ КАК ДИКИЕ ВАААААСССЯЯЯЯ'),bitMap,'interfaceAtlas');
+        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Проход в шахту расчищен! Теперь мы можем самостоятельно добывать руду в Долине Рукоделия!'),bitMap,'interfaceAtlas');
     }
 }
 }

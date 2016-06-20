@@ -63,6 +63,12 @@ public class Fabrica extends WorldObject {
     }
 
     private function checkBuildState():void {
+//        if (g.isAway) {
+//            _stateBuild = STATE_ACTIVE;
+//            createAnimatedBuild(onCreateBuild);
+//            trace('Away');
+//            return;
+//        }
         try {
             if (g.user.userBuildingData[_dataBuild.id]) {
                 if (g.user.userBuildingData[_dataBuild.id].isOpen) {
@@ -86,8 +92,8 @@ public class Fabrica extends WorldObject {
                 createAnimatedBuild(onCreateBuild);
             }
         } catch (e:Error) {
-            Cc.error('AreaObject checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject checkBuildState');
+            Cc.error('Fabric checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Fabric checkBuildState');
         }
     }
 
@@ -97,7 +103,7 @@ public class Fabrica extends WorldObject {
         _hitArea = g.managerHitArea.getHitArea(_source, 'fabrica' + _dataBuild.image);
         _source.registerHitArea(_hitArea);
         _source.setChildIndex(_craftSprite, _source.numChildren - 1);
-        onHeroAnimation();
+        if (!g.isAway) onHeroAnimation();
     }
 
 

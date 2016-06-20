@@ -30,7 +30,7 @@ public class WALLOpenLand {
         bitmap = g.pBitmaps[st + 'wall/wall_new_land.jpg'].create() as Bitmap;
         _source.addChild(Image.fromBitmap(bitmap));
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
-        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('ТЫ КРАСАВА ВААААСССЯЯЯЯ, СУШАЙ ОТКРЫЛ ТЕРЕТОРИЮ ЙО ЩА БУДЕМ КОПАТЬ КАК ДИКИЕ ВАААААСССЯЯЯЯ'),bitMap,'interfaceAtlas');
+        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Новая территория открыта! Теперь моя Долина Рукоделия в игре Умелые Лапки стала еще больше!'),bitMap,'interfaceAtlas');
         deleteIt();
     }
 

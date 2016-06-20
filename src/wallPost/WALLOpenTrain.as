@@ -29,7 +29,7 @@ public class WALLOpenTrain {
         bitmap = g.pBitmaps[st + 'wall/wall_open_train.jpg'].create() as Bitmap;
         _source.addChild(Image.fromBitmap(bitmap));
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
-        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('ТЫ КРАСАВА ВААААСССЯЯЯЯ, СУШАЙ КАНАТНУЮ ДОРОГУ ОТКРЫЛ ЙО ЩА БУДЕМ ЗАГРУЖАТЬ КАК ДИКИЕ ВАААААСССЯЯЯЯ'),bitMap,'interfaceAtlas');
+        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Канатная дорога открыта! Теперь, загружая корзинку и выполняя заказы, я буду получать еще больше опыта, монет и ваучеров!'),bitMap,'interfaceAtlas');
     }
 }
 }

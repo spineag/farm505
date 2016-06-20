@@ -197,9 +197,6 @@ public class Tree extends WorldObject {
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 2;
-                if (_craftedCountFromServer >= _dataBuild.countCraftResource[0]) {
-                    Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[0] for dbId: ' + tree_db_id);
-                }
 //                rechekFruits(true);
                 break;
             case GROW2:
@@ -219,9 +216,6 @@ public class Tree extends WorldObject {
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 3;
-                if (_craftedCountFromServer >= _dataBuild.countCraftResource[1]) {
-                    Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[1] for dbId: ' + tree_db_id);
-                }
 //                rechekFruits(true);
                 break;
             case GROW3:
@@ -242,9 +236,6 @@ public class Tree extends WorldObject {
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
-                if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
-                    Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[2] for dbId: ' + tree_db_id);
-                }
 //                rechekFruits(true);
                 break;
             case DEAD:
@@ -286,9 +277,6 @@ public class Tree extends WorldObject {
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
-                if (_craftedCountFromServer >= _dataBuild.countCraftResource[2]) {
-                    Cc.error('Tree setBuildImage:: _craftedCountFromServer >= _dataBuild.countCraftResource[2] for dbId: ' + tree_db_id);
-                }
 //                rechekFruits(true);
                 break;
             default:
