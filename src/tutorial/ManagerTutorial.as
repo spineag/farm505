@@ -24,6 +24,11 @@ import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
+
+import tutorial.pretuts.TutorialCloud;
+
+import tutorial.pretuts.TutorialMult;
+
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
 import windows.market.WOMarket;
@@ -187,6 +192,7 @@ public class ManagerTutorial {
 
     private function initScene_1():void {
         _cloud = new TutorialCloud(subStep1_1);
+        _mult = new TutorialMult();
     }
 
     private function subStep1_1():void {
@@ -213,7 +219,17 @@ public class ManagerTutorial {
     }
 
     private function subStep1_5():void {
+        _mult.showMult(subStep1_6, subStep1_7);
+    }
+
+    private function subStep1_6():void {
         _cloud.deleteIt();
+        _cloud = null;
+    }
+
+    private function subStep1_7():void {
+        _mult.deleteIt();
+        _mult = null;
         g.user.tutorialStep = 2;
         updateTutorialStep();
     }

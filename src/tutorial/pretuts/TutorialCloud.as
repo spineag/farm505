@@ -1,7 +1,7 @@
 /**
  * Created by user on 6/15/16.
  */
-package tutorial {
+package tutorial.pretuts {
 import com.greensock.TweenMax;
 import flash.display.Bitmap;
 import manager.ManagerFilters;
