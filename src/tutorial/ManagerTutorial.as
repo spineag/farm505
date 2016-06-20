@@ -99,7 +99,7 @@ public class ManagerTutorial {
 
     public function initScenes():void {
         var curFunc:Function;
-        try {
+//        try {
             switch (g.user.tutorialStep) {
                 case 1:
                     curFunc = initScene_1;
@@ -184,10 +184,10 @@ public class ManagerTutorial {
             if (curFunc != null) {
                 curFunc.apply();
             }
-        } catch (err:Error) {
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
-            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);
-        }
+//        } catch (err:Error) {
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
+//            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);
+//        }
     }
 
     private function initScene_1():void {
@@ -421,7 +421,7 @@ public class ManagerTutorial {
         if (!cat) {
             addCatToPos(30, 11);
             g.cont.moveCenterToPos(28, 11, true);
-            subStep4_1();
+            subStep5_1();
         } else {
             g.managerCats.goCatToPoint(cat, new Point(30, 11), subStep5_1);
             g.cont.moveCenterToPos(28, 11, false, 2);
@@ -1897,11 +1897,11 @@ public class ManagerTutorial {
             _arrow.deleteIt();
             _arrow = null;
         }
-        g.user.tutorialStep = 24;
+        g.user.tutorialStep = 25;
         updateTutorialStep();
         _airBubble.hideIt();
         _subStep = 7;
-        g.user.tutorialStep = 23;
+        g.user.tutorialStep = 24;
         _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, subStep24_8);
         _airBubble.showBtnParticles();
         _airBubble.showBtnArrow();

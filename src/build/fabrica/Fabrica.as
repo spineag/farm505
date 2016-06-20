@@ -523,7 +523,7 @@ public class Fabrica extends WorldObject {
     public function skipRecipe():void { // for making recipe
         if (_arrList[0]) {
             g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
-            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[0].data.id});
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[0].resourceID});
             craftResource(_arrList.shift());
         } else {
             Cc.error('Fabrica skipRecipe:: _arrList[0] == null');
