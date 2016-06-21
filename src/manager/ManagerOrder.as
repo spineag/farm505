@@ -4,6 +4,8 @@
 package manager {
 import com.junkbyte.console.Cc;
 
+import flash.utils.getTimer;
+
 import tutorial.TutorialAction;
 
 import utils.Utils;
@@ -966,6 +968,10 @@ public class ManagerOrder {
             b = true;
             for (k=0; k<order.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+                    b = false;
+                    break;
+                }
+                if (order.cat == null) {
                     b = false;
                     break;
                 }

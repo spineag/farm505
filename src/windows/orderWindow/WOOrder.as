@@ -558,6 +558,7 @@ public class WOOrder extends WindowMain{
                 break;
             }
         }
+        g.bottomPanel.checkIsFullOrder();
     }
 
     private function set setTimerText(c:int):void {
