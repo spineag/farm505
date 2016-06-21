@@ -341,10 +341,9 @@ public class MarketItem {
     }
 
     private function onClick():void {
-        if (!_data) return;
         if (_closeCell) return;
         if (g.managerTutorial.isTutorial) {
-            if (!g.managerTutorial.isTutorialResource(_data.id)) return;
+            if (!_data || !g.managerTutorial.isTutorialResource(_data.id)) return;
         }
         _onHover = false;
         g.marketHint.hideIt();

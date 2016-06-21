@@ -63,12 +63,6 @@ public class Fabrica extends WorldObject {
     }
 
     private function checkBuildState():void {
-//        if (g.isAway) {
-//            _stateBuild = STATE_ACTIVE;
-//            createAnimatedBuild(onCreateBuild);
-//            trace('Away');
-//            return;
-//        }
         try {
             if (g.user.userBuildingData[_dataBuild.id]) {
                 if (g.user.userBuildingData[_dataBuild.id].isOpen) {
@@ -108,8 +102,8 @@ public class Fabrica extends WorldObject {
 
 
     public function showShopView():void {
-        createAnimatedBuild(onCreateBuild);
         _craftSprite.visible = false;
+        createAnimatedBuild(onCreateBuild);
     }
 
     public function removeShopView():void {
@@ -120,8 +114,8 @@ public class Fabrica extends WorldObject {
             while (_build.numChildren) _build.removeChildAt(0);
         }
         _craftSprite.visible = true;
-        if (_craftSprite.numChildren) {
-            _rect = _craftSprite.getBounds(_craftSprite);
+        _rect = _craftSprite.getBounds(_craftSprite);
+        if (_rect.width) {
             _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
             _source.registerHitArea(_hitArea);
         }
