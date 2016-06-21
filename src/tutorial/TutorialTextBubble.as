@@ -7,6 +7,7 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.VAlign;
 
 public class TutorialTextBubble {
     public static var SMALL:int = 1;
@@ -43,7 +44,7 @@ public class TutorialTextBubble {
         switch (_type) {
             case BIG:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
-                _txt = new TextField(278, 180, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+                _txt = new TextField(278, 180, st, g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE);
                 if (_isFlip) {
                     _im.x = -12;
                     _im.y = -210;
@@ -59,7 +60,7 @@ public class TutorialTextBubble {
                 break;
             case MIDDLE:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_2'));
-                _txt = new TextField(270, 134, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+                _txt = new TextField(270, 134, st, g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE);
 //                    txt.border = 10;
                 if (_isFlip) {
                     _im.x = -12;
@@ -76,7 +77,7 @@ public class TutorialTextBubble {
                 break;
             case SMALL:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
-                _txt = new TextField(270, 90, st, g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+                _txt = new TextField(270, 90, st, g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE);
 //                _txt.border = 10;
                 if (_isFlip) {
                     _im.x = -15;
@@ -94,6 +95,7 @@ public class TutorialTextBubble {
         }
         _source.addChild(_im);
         _txt.autoScale = true;
+        _txt.vAlign = VAlign.CENTER;
         _source.addChild(_txt);
     }
 

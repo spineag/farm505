@@ -228,9 +228,10 @@ public class ManagerPlantRidge {
     }
 
     public function onStartActivePlanting(isStart:Boolean):void {
+        if (g.managerTutorial.isTutorial) return;
         if (isStart) {
             g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED_ACTIVE;
-            if (!g.managerTutorial.isTutorial) g.gameDispatcher.addEnterFrame(checkForPlanting);
+            g.gameDispatcher.addEnterFrame(checkForPlanting);
         } else {
             g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
             g.gameDispatcher.removeEnterFrame(checkForPlanting);

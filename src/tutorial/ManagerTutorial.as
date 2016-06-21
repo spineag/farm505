@@ -243,7 +243,7 @@ public class ManagerTutorial {
         _subStep = 0;
         addCatToPos(30, 26);
         playCatIdle();
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep2_1, 1);
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep2_1, .5);
         addBlack();
     }
 
@@ -802,7 +802,7 @@ public class ManagerTutorial {
         if (!cat) {
             addCatToPos(19, 37);
             g.cont.moveCenterToPos(19, 37, true);
-            subStep9_1();
+            subStep10_1();
         } else {
             g.managerCats.goCatToPoint(cat, new Point(19, 37), subStep10_1);
             g.cont.moveCenterToPos(19, 37, false, 1.5);
@@ -978,7 +978,7 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
         for (var i:int=0; i<arr.length; i++) {
-            if (arr[i].posY == 35) {
+            if (arr[i].posY == 35 && (arr[i] as Ridge).isFreeRidge) {
                 _tutorialObjects.push(arr[i]);
             }
         }
