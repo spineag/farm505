@@ -2,6 +2,8 @@
  * Created by user on 5/31/16.
  */
 package windows.wallPost {
+import com.junkbyte.console.Cc;
+
 import data.DataMoney;
 import flash.display.Bitmap;
 import manager.ManagerFilters;
@@ -36,10 +38,20 @@ public class PostOpenFabric  extends WindowMain {
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_new_fabric.png'].create() as Bitmap;
-        photoFromTexture(Texture.fromBitmap(bitmap));
+        try {
+            photoFromTexture(Texture.fromBitmap(bitmap));
+        } catch (e:Error) {
+            Cc.error('PostOpenFabrica:: ' + e.message);
+            super.hideIt();
+        }
     }
 
     private function photoFromTexture(tex:Texture):void {
+        if (!_data) {
+            Cc.error('PostOpenFabric:: empty data');
+            super.hideIt();
+            return;
+        }
         _image = new Image(tex);
         _image.pivotX = _image.width/2;
         _image.pivotY = _image.height/2;

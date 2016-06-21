@@ -120,6 +120,11 @@ public class Fabrica extends WorldObject {
             while (_build.numChildren) _build.removeChildAt(0);
         }
         _craftSprite.visible = true;
+        if (_craftSprite.numChildren) {
+            _rect = _craftSprite.getBounds(_craftSprite);
+            _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
+            _source.registerHitArea(_hitArea);
+        }
     }
 
     override public function onHover():void {

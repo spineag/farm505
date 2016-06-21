@@ -200,22 +200,22 @@ public class ManagerTutorial {
         g.startPreloader = null;
         _subStep = 1;
         if (!texts) texts = (new TutorialTexts()).objText;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_2);
+        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_2, 1);
     }
 
     private function subStep1_2():void {
         _subStep = 2;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_3);
+        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_3, 2);
     }
 
     private function subStep1_3():void {
         _subStep = 3;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_4);
+        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_4, 3);
     }
 
     private function subStep1_4():void {
         _subStep = 4;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_5);
+        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_5, 4);
     }
 
     private function subStep1_5():void {

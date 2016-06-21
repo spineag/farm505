@@ -10,6 +10,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
+import starling.utils.VAlign;
+
 import utils.CButton;
 
 public class CutSceneTextBubble {
@@ -30,10 +32,8 @@ public class CutSceneTextBubble {
         _type = type;
         _parent = p;
         _source = new Sprite();
-        _source.y = -90;
-        _source.x = 50;
-//        _source.y = -130;
-//        _source.x = 65;
+        _source.y = -140;
+        _source.x = 55;
         _parent.addChild(_source);
         if (stURL != '') {
             _innerImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture(stURL));
@@ -117,6 +117,7 @@ public class CutSceneTextBubble {
         _source.addChild(im);
         if (_innerImage) _source.addChild(_innerImage);
         txt.autoScale = true;
+        txt.vAlign = VAlign.CENTER;
         _source.addChild(txt);
         if (_btn) _source.addChild(_btn);
         if (_btnExit) {

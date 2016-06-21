@@ -830,12 +830,12 @@ public class TownArea extends Sprite {
             }
         }
         if (build is Tree) (build as Tree).removeShopView();
-        if (build is Fabrica) (build as Fabrica).removeShopView();
         if (build is DecorTail) {
             pasteTailBuild(build as DecorTail, _x, _y);
         } else {
             pasteBuild(build, _x, _y);
         }
+        if (build is Fabrica) (build as Fabrica).removeShopView();
         showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, -(build as WorldObject).countShopCost);
         if (g.managerCutScenes.isCutScene && (build as WorldObject).dataBuild.buildType == BuildType.DECOR) {
             if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) {
