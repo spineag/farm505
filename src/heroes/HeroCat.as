@@ -165,7 +165,6 @@ public class HeroCat extends BasicCat{
         b.display = im;
     }
 
-
 // play Direct label
     public function playDirectLabel(label:String, playOnce:Boolean, callback:Function):void {
         showFront(true);
@@ -323,22 +322,6 @@ public class HeroCat extends BasicCat{
         p.y = -92;
         p = (_animation.catArmature.display as Sprite).localToGlobal(p);
         curActiveFarm.showParticles(p, isLeftForFeedAndWatering);
-    }
-
-// WORK WITH FARM BEEHIVE
-    public function workWithFarmBeehive(callback:Function):void {
-        if (!_animation.catWorkerArmature) {
-            _animation.catWorkerArmature = g.allData.factory['cat_watering'].buildArmature("cat");
-            var viyi:Bone = _animation.catWorkerArmature.getBone('viyi');
-            if (_type == WOMAN) {
-                releaseFrontWoman(_animation.catWorkerArmature);
-                if (viyi) viyi.visible = true;
-            } else {
-                if (viyi) viyi.visible = false;
-            }
-        }
-        flipIt(isLeftForFeedAndWatering);
-        _animation.playIt('open', true, makeWatering, callback);
     }
 
 // DELETE

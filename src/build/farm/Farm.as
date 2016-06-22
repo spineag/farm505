@@ -194,9 +194,9 @@ public class Farm extends WorldObject{
                 an.fillItFromServer(ob);
             }
             an.addRenderAnimation();
-            if (_dataAnimal.id != 6) {
-                sortAnimals();
-            }
+//            if (_dataAnimal.id != 6) {
+//                sortAnimals();
+//            }
 //        } catch (e:Error) {
 //            Cc.error('farm addAnimal: ' + e.errorID + ' - ' + e.message);
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farm add animal');

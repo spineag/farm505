@@ -90,11 +90,8 @@ public class ManagerAnimal {
         var onFinishWork:Function = function():void {
             onArrivedCatToFarm(cat);
         };
-        if (cat.curActiveFarm.dataAnimal.id == 6) {
-            cat.workWithFarmBeehive(onFinishWork);
-        } else {
-            cat.workWithFarm(onFinishWork);
-        }
+        g.townArea.zSort();
+        cat.workWithFarm(onFinishWork);
     }
 
     public function freeFarmCat(farmDbId:int):void {
