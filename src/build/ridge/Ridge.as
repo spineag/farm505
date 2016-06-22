@@ -301,11 +301,8 @@ public class Ridge extends WorldObject{
 
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
         try {
-            var b:Boolean = false;
             if (_stateRidge != EMPTY) {
-                Cc.error('Try to plant already planted ridge');
-                Cc.error(data.name);
-                b = true;
+                Cc.error('Try to plant already planted ridge data.name: ' + data.name);
                 return;
             }
             if (!data) {

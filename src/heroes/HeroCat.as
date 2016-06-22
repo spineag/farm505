@@ -209,7 +209,7 @@ public class HeroCat extends BasicCat{
     }
 
 // WORK WITH PLANT
-    public function workWithPlant(callback:Function):void {
+    public function  workWithPlant(callback:Function):void {
         _animation.deleteWorker();
         _animation.catWorkerArmature = g.allData.factory['cat_watering'].buildArmature("cat");
         var viyi:Bone = _animation.catWorkerArmature.getBone('viyi');
@@ -219,8 +219,7 @@ public class HeroCat extends BasicCat{
         } else {
             if (viyi) viyi.visible = false;
         }
-        if (isLeftForFeedAndWatering) flipIt(true);
-
+        flipIt(isLeftForFeedAndWatering);
         _animation.playIt('open', true, makeWatering, callback);
     }
 
@@ -272,7 +271,7 @@ public class HeroCat extends BasicCat{
         } else {
             if (viyi) viyi.visible = false;
         }
-        if (isLeftForFeedAndWatering) flipIt(true);
+        flipIt(isLeftForFeedAndWatering);
 
         makeFeeding(callback);
     }
@@ -338,7 +337,7 @@ public class HeroCat extends BasicCat{
                 if (viyi) viyi.visible = false;
             }
         }
-        if (isLeftForFeedAndWatering) flipIt(true);
+        flipIt(isLeftForFeedAndWatering);
         _animation.playIt('open', true, makeWatering, callback);
     }
 

@@ -120,9 +120,7 @@ public class Containers {
 
         if (te.getTouch(gameCont, TouchPhase.ENDED)) {
             onEnded();
-        }
-
-        if (te.getTouch(gameCont, TouchPhase.MOVED)) {
+        } else if (te.getTouch(gameCont, TouchPhase.MOVED)) {
             if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
             _isDragged = true;
             dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати перевірки на спосіб тачу

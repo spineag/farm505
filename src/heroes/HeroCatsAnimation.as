@@ -138,6 +138,7 @@ public class HeroCatsAnimation {
     public function flipIt(v:Boolean):void {
         v ? _catImage.scaleX = -1: _catImage.scaleX = 1;
         v ? _catBackImage.scaleX = -1: _catBackImage.scaleX = 1;
+        if (_catWorkerImage) v ? _catWorkerImage.scaleX = -1: _catWorkerImage.scaleX = 1;
     }
 
     public function showFront(v:Boolean):void {

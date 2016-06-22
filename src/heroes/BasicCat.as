@@ -31,10 +31,13 @@ public class BasicCat {
     protected var _curSpeed:int;
     protected var _currentPath:Array;
     protected var _curTypeMoving:int;
+    protected var _name:String;
     protected var g:Vars = Vars.getInstance();
     public var isOnMap:Boolean = false;
 
-    public function BasicCat() {}
+    public function BasicCat() {
+        _name = 'Cat_'+String(int(Math.random()*10000));
+    }
 
     public function setPosition(p:Point):void {
         _posX = p.x;

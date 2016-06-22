@@ -58,6 +58,8 @@ public class TownAreaTouchManager {
             } else {
                 checkForTouches();
             }
+        } else {
+            g.cont.onEnded();
         }
     }
 
