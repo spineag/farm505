@@ -241,6 +241,13 @@ public class TownAreaTouchManager {
                 }
             }
             ar.length = 0;
+        } else {
+            if (_touch.phase == TouchPhase.ENDED) {
+                g.cont.onEnded();
+//            } else if (_touch.phase == TouchPhase.BEGAN) {
+//            } else if (_touch.phase == TouchPhase.HOVER) {
+//            } else {
+            }
         }
     }
 

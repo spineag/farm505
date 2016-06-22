@@ -196,9 +196,7 @@ public class ManagerPlantRidge {
         }
 
         if (!b) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.bottomPanel.cancelBoolean(false);
-            g.gameDispatcher.removeEnterFrame(checkForPlanting);
+            onStartActivePlanting(false);
         }
     }
 
@@ -233,9 +231,8 @@ public class ManagerPlantRidge {
             g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED_ACTIVE;
             g.gameDispatcher.addEnterFrame(checkForPlanting);
         } else {
-            g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.gameDispatcher.removeEnterFrame(checkForPlanting);
-            checkFreeRidges();
         }
         g.cont.nullDragPoint();
         g.townArea.onStartPlanting(isStart);
@@ -290,7 +287,7 @@ public class ManagerPlantRidge {
     public function checkGrowedRidges():void {
         var b:Boolean = false;
         var i:int;
-        for (i=0; i<_arrRidge.length; i++) {  // check if there are at least one HUNGRY ridge
+        for (i=0; i<_arrRidge.length; i++) {  // check if there are at least one GROWED ridge
             if (_arrRidge[i].stateRidge == Ridge.GROWED) {
                 b = true;
                 break;
@@ -298,7 +295,6 @@ public class ManagerPlantRidge {
         }
 
         if (!b) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
             onStartCraftPlanting(false);
         }
     }

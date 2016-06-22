@@ -310,7 +310,7 @@ public class Ridge extends WorldObject{
             }
             if (!data) {
                 Cc.error('no data for fillPlant at Ridge');
-                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for fillPlant');
+                g.managerPlantRidge.onStartActivePlanting(false);
                 return;
             }
             _stateRidge = GROW1;

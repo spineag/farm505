@@ -68,6 +68,7 @@ public class ManagerCutScenes {
     }
 
     public function checkAvailableCutScenes():void { // use this function only once at game start
+        if (g.isAway) return;
         var countActions:int = _properties.length;
         var l:int;
         if (g.user.cutScenes.length < countActions) {
@@ -93,6 +94,7 @@ public class ManagerCutScenes {
     }
 
     public function checkCutScene(reason:int):void {
+        if (!g.isAway) return;
         if (g.user.level < 5) return;
         var i:int;
         if (!g.user.cutScenes.length) {
@@ -133,6 +135,13 @@ public class ManagerCutScenes {
     }
 
     private function checkTypeFunctions():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
+            g.managerPlantRidge.onStartCraftPlanting(false);
+        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+            g.managerPlantRidge.onStartActivePlanting(false);
+        } else {
+            g.toolsModifier.modifierType == ToolsModifier.NONE;
+        }
         switch (_curCutScenePropertie.id_action) {
             case ID_ACTION_SHOW_MARKET: releaseMarket(); break;
             case ID_ACTION_SHOW_PAPPER: releasePapper(); break;

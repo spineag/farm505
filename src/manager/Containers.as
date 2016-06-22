@@ -119,21 +119,7 @@ public class Containers {
         }
 
         if (te.getTouch(gameCont, TouchPhase.ENDED)) {
-            g.ownMouse.showUsualCursor();
-            if (g.toolsModifier.modifierType == ToolsModifier.MOVE && !_isDragged && g.selectedBuild) {
-                g.toolsModifier.onTouchEnded();
-                _isDragged = false;
-                return;
-            }
-            if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
-                if (!_isDragged && !g.managerTutorial.isTutorial) {
-                    g.bottomPanel.cancelBoolean(false);
-                    g.toolsModifier.modifierType = ToolsModifier.NONE;
-                }
-                _isDragged = false;
-                return;
-            }
-            _isDragged = false;
+            onEnded();
         }
 
         if (te.getTouch(gameCont, TouchPhase.MOVED)) {
@@ -145,6 +131,25 @@ public class Containers {
             _startDragPointCont = new Point(gameCont.x, gameCont.y);
             g.ownMouse.showClickCursor();
         } else if (te.getTouch(gameCont, TouchPhase.HOVER)) {}
+    }
+
+    public function onEnded():void {
+        g.ownMouse.showUsualCursor();
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE && !_isDragged && g.selectedBuild) {
+            g.toolsModifier.onTouchEnded();
+            _isDragged = false;
+            return;
+        }
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
+            if (!_isDragged && !g.managerTutorial.isTutorial) {
+                g.bottomPanel.cancelBoolean(false);
+                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.managerPlantRidge.onStartActivePlanting(false);
+                if (g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) g.managerPlantRidge.onStartCraftPlanting(false);
+            }
+            _isDragged = false;
+            return;
+        }
+        _isDragged = false;
     }
 
     public function setDragPoints(p:Point):void {
