@@ -830,12 +830,12 @@ public class TownArea extends Sprite {
             }
         }
         if (build is Tree) (build as Tree).removeShopView();
-        if (build is Fabrica) (build as Fabrica).removeShopView();
         if (build is DecorTail) {
             pasteTailBuild(build as DecorTail, _x, _y);
         } else {
             pasteBuild(build, _x, _y);
         }
+        if (build is Fabrica) (build as Fabrica).removeShopView();
         showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, -(build as WorldObject).countShopCost);
         if (g.managerCutScenes.isCutScene && (build as WorldObject).dataBuild.buildType == BuildType.DECOR) {
             if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) {
@@ -877,8 +877,8 @@ public class TownArea extends Sprite {
             } while (arr[i][j].isFull || !arr[i][j].inGame);
             return new Point(j, i);
         } catch (e:Error) {
-            Cc.error('ManagerCats getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats getRandomFreeCell');
+            Cc.error('TownArea getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'TownArea getRandomFreeCell');
         }
         return new Point(0, 0);
     }
@@ -1542,7 +1542,7 @@ public class TownArea extends Sprite {
         var p:Point = new Point();
         p.x = 24;
         p.y = 26;
-        g.cont.moveCenterToPos(p.x, p.y, true, 2);
+        if (!g.managerTutorial.isTutorial) g.cont.moveCenterToPos(p.x, p.y, true, 2);
     }
 
     private function clearAwayCity():void {

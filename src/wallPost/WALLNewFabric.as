@@ -41,7 +41,7 @@ public class WALLNewFabric {
         im.y = 160;
         _source.addChild(im);
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
-        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('ТЫ КРАСАВА ВААААСССЯЯЯЯ, ФАБРИКА ПРОСТО ЧУМААААА'),bitMap,'interfaceAtlas');
+        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),bitMap,'interfaceAtlas');
     }
 }
 }

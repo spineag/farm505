@@ -154,7 +154,6 @@ public class Ridge extends WorldObject{
 //            if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED && g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE)
 //                g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
-//        trace('kaawwaiiihover');
 
     }
 

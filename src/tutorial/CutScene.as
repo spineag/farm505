@@ -23,8 +23,8 @@ public class CutScene {
     public function CutScene() {
         _cont = g.cont.popupCont;
         _source = new Sprite();
-        _xStart = -65;
-        _xEnd = 85;
+        _xStart = -95;
+        _xEnd = 125;
         _armature = g.allData.factory['tutorialCatBig'].buildArmature('cat');
         (_armature.display as Sprite).scaleX = -1;
         _source.addChild(_armature.display as Sprite);

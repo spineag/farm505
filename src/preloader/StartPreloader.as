@@ -21,13 +21,15 @@ import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 import starling.utils.Color;
 
+import utils.FarmDispatcher;
+
 public class StartPreloader {
-//    [Embed(source="../../assets/preloaderAtlas.png")]
-//    public static const PreloaderTexture:Class;
+    [Embed(source="../../assets/preloaderAtlas1.png")]
+    public static const PreloaderTexture:Class;
     [Embed(source = "../../assets/animations/preloader/splash_screen.png", mimeType = "application/octet-stream")]
     private const Preloader:Class;
-//    [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
-//    public static const PreloaderTextureXML:Class;
+    [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
+    public static const PreloaderTextureXML:Class;
 
     private var _source:Sprite;
     private var _bg:Image;
@@ -41,13 +43,18 @@ public class StartPreloader {
     private var _txt:TextField;
     public function StartPreloader() {
         _source = new Sprite();
-//        _texture = Texture.fromBitmap(new PreloaderTexture());
-//        var xml:XML = XML(new PreloaderTextureXML());
-//        _preloaderAtlas = new TextureAtlas(_texture, xml);
+        var gameDispatcher:FarmDispatcher;
+        gameDispatcher = new FarmDispatcher(g.mainStage);
+        gameDispatcher.addEnterFrame(onEnterFrameGlobal);
+
+        _texture = Texture.fromBitmap(new PreloaderTexture());
+        var xml:XML = XML(new PreloaderTextureXML());
+        _preloaderAtlas = new TextureAtlas(_texture, xml);
+        _bg = new Image(_preloaderAtlas.getTexture('preloader_window'));
+        _source.addChild(_bg);
         loadFactory('preloader',Preloader,create);
 //
-//        _bg = new Image(_preloaderAtlas.getTexture('preloader_window'));
-//        _source.addChild(_bg);
+
 //        _preloaderSprite = new Sprite();
 //        _preloaderBG = new Image(_preloaderAtlas.getTexture('preloader_bg'));
 //        _preloaderLine = new Image(_preloaderAtlas.getTexture('preloader_line'));
@@ -63,21 +70,24 @@ public class StartPreloader {
     }
     private function create():void {
         _armature = g.allData.factory['preloader'].buildArmature("splash_screen");
-        _armature.display.x = _armature.display.width/2-106;
-        _armature.display.y = _armature.display.height/2;
-        _source.addChildAt(_armature.display as Sprite,0);
+        _armature.display.x = _bg.width/2;
+        _armature.display.y = _bg.height/2;
+        _source.addChild(_armature.display as Sprite);
         WorldClock.clock.add(_armature);
 //        _armature.animation.gotoAndStop('default', 0);
 
-        _txt.x = _armature.display.width/2 - 142;
-        _txt.y = _armature.display.height/2 + 185;
+        _txt.x = _bg.width/2 - 35;
+        _txt.y = _bg.height/2 + 185;
         setProgress(0);
-        g.cont.popupCont.addChild(_source);
         animation();
     }
 
     public function showIt():void {
+        g.cont.popupCont.addChild(_source);
+    }
 
+    private function onEnterFrameGlobal():void {
+        WorldClock.clock.advanceTime(-1);
     }
 
     public function setProgress(a:int):void {

@@ -62,7 +62,8 @@ public class WOCave extends WindowMain {
                 if (callback != null) {
                     callback.apply(null, [id]);
                 }
-                isCashed = false;
+//                isCashed = false;
+                g.windowsManager.uncasheWindow();
                 hideIt();
             };
             var arrIds:Array = params[0];
@@ -84,9 +85,9 @@ public class WOCave extends WindowMain {
             _arrItems[i].deleteIt();
         }
         _arrItems.length = 0;
-        _source.removeChild(_birka);
-        _birka.deleteIt();
-        _birka = null;
+        if (_birka) _source.removeChild(_birka);
+        if (_birka) _birka.deleteIt();
+        if (_birka) _birka = null;
         super.deleteIt();
     }
 }

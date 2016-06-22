@@ -2,6 +2,8 @@
  * Created by user on 5/31/16.
  */
 package windows.wallPost {
+import com.junkbyte.console.Cc;
+
 import data.DataMoney;
 import flash.display.Bitmap;
 import manager.ManagerFilters;
@@ -36,10 +38,20 @@ public class PostOpenFabric  extends WindowMain {
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_new_fabric.png'].create() as Bitmap;
-        photoFromTexture(Texture.fromBitmap(bitmap));
+        try {
+            photoFromTexture(Texture.fromBitmap(bitmap));
+        } catch (e:Error) {
+            Cc.error('PostOpenFabrica:: ' + e.message);
+            super.hideIt();
+        }
     }
 
     private function photoFromTexture(tex:Texture):void {
+        if (!_data) {
+            Cc.error('PostOpenFabric:: empty data');
+            super.hideIt();
+            return;
+        }
         _image = new Image(tex);
         _image.pivotX = _image.width/2;
         _image.pivotY = _image.height/2;
@@ -57,10 +69,10 @@ public class PostOpenFabric  extends WindowMain {
         txt.y = -2;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
-        MCScaler.scale(im,30,30);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
+        MCScaler.scale(im,35,35);
         im.x = 135;
-        im.y = 7;
+        im.y = 6;
         _btn.addChild(im);
         _btn.y = 180;
         _source.addChild(_btn);
@@ -70,7 +82,7 @@ public class PostOpenFabric  extends WindowMain {
                 texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
             }
         }
-        var im:Image = new Image(texture);
+        im = new Image(texture);
         im.x = -75;
         im.y = -50;
         _source.addChild(im);
@@ -78,7 +90,7 @@ public class PostOpenFabric  extends WindowMain {
     }
 
     private function onClick():void {
-        g.managerWallPost.openWindow(ManagerWallPost.NEW_FABRIC,null,200,9,_data);
+//        g.managerWallPost.openWindow(ManagerWallPost.NEW_FABRIC,null,200,DataMoney.SOFT_CURRENCY,_data);
         super.hideIt();
     }
 

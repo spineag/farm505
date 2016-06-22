@@ -47,15 +47,15 @@ public class WOChest  extends WindowMain{
         _callback = callback;
         if (g.managerChest.getCount <= 2) {
             var fEndOver:Function = function():void {
-            _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlay('idle_2');
+                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndStop('idle_2', 0);
                 if (g.managerTutorial.isTutorial) _woChestItemsTutorial = new WOChestItemsTutorial(_source, closeAnimation);
                 else  _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, closeAnimation);
-        };
-        _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-        _armature.animation.gotoAndPlay('idle_1');
+            };
+            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlay('idle_1');
         } else {
             _btnOpen = new CButton();
             _btnOpen.addButtonTexture(160, 40, CButton.GREEN, true);
@@ -101,7 +101,6 @@ public class WOChest  extends WindowMain{
 
     private function hideItTutorial():void {
         g.managerTutorial.checkTutorialCallback();
-        _armature.animation.gotoAndPlay('idle_3');
         super.hideIt();
         if (_callback != null) {
             _callback.apply(null,[]);

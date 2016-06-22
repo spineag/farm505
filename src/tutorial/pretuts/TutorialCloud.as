@@ -1,7 +1,7 @@
 /**
  * Created by user on 6/15/16.
  */
-package tutorial {
+package tutorial.pretuts {
 import com.greensock.TweenMax;
 import flash.display.Bitmap;
 import manager.ManagerFilters;
@@ -17,6 +17,7 @@ public class TutorialCloud {
     private var _source:Sprite;
     private var _bg:Image;
     private var _txt:TextField;
+    private var _txtPage:TextField;
     private var _txtSp:Sprite;
     private var _callback:Function;
     private var _btn:CButton;
@@ -45,12 +46,16 @@ public class TutorialCloud {
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.BLUE, true);
         _btn.x = 500;
-        _btn.y = 550;
+        _btn.y = 520;
         var btnTxt:TextField = new TextField(120, 40, 'Далее', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(btnTxt);
         _btn.clickCallback = onClick;
         _source.addChild(_btn);
+        _txtPage = new TextField(100, 30, '', g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+        _txtPage.x = 450;
+        _txtPage.y = 460;
+        _source.addChild(_txtPage);
         applyCallback();
     }
 
@@ -60,11 +65,12 @@ public class TutorialCloud {
         }
     }
 
-    public function showText(t:String, f:Function):void {
+    public function showText(t:String, f:Function, page:int):void {
         _callback = f;
         _txt.text = t;
         _txtSp.alpha = 0;
-        TweenMax.to(_txtSp, .5, {alpha:1, onComplete: anim1});
+        _txtPage.text = String(page) + '/4';
+        TweenMax.to(_txtSp, .3, {alpha:1, onComplete: anim1});
     }
 
     private function anim1():void {
@@ -73,17 +79,19 @@ public class TutorialCloud {
 
     private function onClick():void {
         if (!_isClickable) return;
-        TweenMax.to(_txtSp, .5, {alpha:0, onComplete: anim2});
+        TweenMax.to(_txtSp, .3, {alpha:0, onComplete: anim2});
     }
 
     private function anim2():void {
         _txt.text = '';
+        _txtPage.text = '';
         _isClickable = false;
         applyCallback();
     }
 
     public function deleteIt():void {
         g.cont.popupCont.removeChild(_source);
+        _source.removeChild(_btn);
         _btn.deleteIt();
         _source.dispose();
     }

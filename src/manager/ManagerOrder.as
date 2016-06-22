@@ -4,6 +4,8 @@
 package manager {
 import com.junkbyte.console.Cc;
 
+import flash.utils.getTimer;
+
 import tutorial.TutorialAction;
 
 import utils.Utils;
@@ -54,7 +56,7 @@ public class ManagerOrder {
             {level: 17, count: 5}
         ];
         _arrOrders = [];
-        _arrNames = ['Жозефина', 'Катаракта', 'Мария', 'Педретто', 'Хуан Пискуан', 'Доздроперма', 'Всеволод', 'Мздюк', 'Варан'];
+        _arrNames = ['Булавка', 'Петелька', 'Шпилька', 'Ниточка', 'Иголочка', 'Пряжа', 'Ленточка', 'Ирис', 'Наперсток', 'Кристик', 'Акрил', 'Стежок', 'Шнурочек', 'Ажур'];
     }
 
     public function get arrOrders():Array {
@@ -966,6 +968,10 @@ public class ManagerOrder {
             b = true;
             for (k=0; k<order.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+                    b = false;
+                    break;
+                }
+                if (order.cat == null) {
                     b = false;
                     break;
                 }

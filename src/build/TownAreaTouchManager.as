@@ -245,6 +245,7 @@ public class TownAreaTouchManager {
     }
 
     private function containsPoint(sp:Sprite, rect:flash.geom.Rectangle, p:Point):Boolean {
+        if (!sp || !rect || !p) return false;
         if (p.x < sp.x + rect.x) return false;
         if (p.x > sp.x + rect.x + rect.width) return false;
         if (p.y < sp.y + rect.y) return false;

@@ -57,9 +57,9 @@ public class PostDoneTrain extends WindowMain {
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
-        MCScaler.scale(im,30,30);
+        MCScaler.scale(im,35,35);
         im.x = 135;
-        im.y = 7;
+        im.y = 6;
         _btn.addChild(im);
         _btn.y = 180;
         _source.addChild(_btn);
@@ -67,7 +67,7 @@ public class PostDoneTrain extends WindowMain {
     }
 
     private function onClick():void {
-        g.managerWallPost.openWindow(ManagerWallPost.DONE_TRAIN,null,200,9);
+//        g.managerWallPost.openWindow(ManagerWallPost.DONE_TRAIN,null,100,9);
         super.hideIt();
     }
 

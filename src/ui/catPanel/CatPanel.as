@@ -55,7 +55,7 @@ public class CatPanel {
         checkCat();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-        _source.endClickCallback = onClick;
+//        _source.endClickCallback = onClick;
     }
 
     public function checkCat():void {
@@ -96,7 +96,7 @@ public class CatPanel {
 //        g.user.level ++;
 //        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
 //        g.managerWallPost.openWindow(ManagerWallPost.OPEN_TRAIN,null,3,DataMoney.HARD_CURRENCY);
-        g.windowsManager.openWindow(WindowsManager.POST_OPEN_LAND,null);
+//        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
     }
 }
 }

@@ -112,7 +112,7 @@ public class CraftItem {
         return _source;
     }
 
-    public function flyIt():void {
+    public function flyIt(xpFly:Boolean = true):void {
         if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT || g.managerTutorial.currentAction == TutorialAction.FABRICA_CRAFT)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply();
@@ -188,7 +188,7 @@ public class CraftItem {
 
 
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
-        new XPStar(_source.x,_source.y,_resourceItem.craftXP);
+        if (xpFly) new XPStar(_source.x,_source.y,_resourceItem.craftXP);
         if (count > 0) {
             _txtNumber.text = '+' + String(count);
         } else {

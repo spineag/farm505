@@ -24,7 +24,6 @@ public class OwnHitArea {
     private var _h:int;
     private var _rect:flash.geom.Rectangle;
     private var bitmapScaling:Number = .25; // use for minimise memory, try smaller number for that, max = 1
-//    private var bitmapScaling:Number = 1; // use for minimise memory, try smaller number for that, max = 1
     private var _name:String;
 
     public function OwnHitArea(sp:Sprite, nm:String) {
@@ -62,8 +61,9 @@ public class OwnHitArea {
             }
         }
         var im:Image = new Image(Texture.fromBitmapData(bData));
-        im.x = _rect.x;
-        im.y = _rect.y;
+        im.x = _rect.x/bitmapScaling;
+        im.y = _rect.y/bitmapScaling;
+        im.scaleX = im.scaleY = 1/bitmapScaling;
         _source.addChild(im);
     }
 
@@ -85,8 +85,9 @@ public class OwnHitArea {
 
     private function createTestSprite3(bData:BitmapData):void {
         var im:Image = new Image(Texture.fromBitmapData(bData));
-        im.x = _rect.x;
-        im.y = _rect.y;
+        im.x = _rect.x/bitmapScaling;
+        im.y = _rect.y/bitmapScaling;
+        im.scaleX = im.scaleY = 1/bitmapScaling;
         _source.addChild(im);
     }
 

@@ -173,6 +173,7 @@ public class FriendPanel {
             bt.x = 237 + bt.width/2;
             bt.y = 6 + bt.height/2;
             _source.addChild(bt);
+            bt.clickCallback = inviteFriends;
 
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
@@ -185,6 +186,7 @@ public class FriendPanel {
             bt.x = 303 + bt.width/2;
             bt.y = 6 + bt.height/2;
             _source.addChild(bt);
+            bt.clickCallback = inviteFriends;
 
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
@@ -197,6 +199,8 @@ public class FriendPanel {
             bt.x = 369 + bt.width/2;
             bt.y = 6 + bt.height/2;
             _source.addChild(bt);
+            bt.clickCallback = inviteFriends;
+
         } else if (_arrFriends.length == 1) {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
@@ -209,6 +213,7 @@ public class FriendPanel {
             bt.x = 303 + bt.width/2;
             bt.y = 6 + bt.height/2;
             _source.addChild(bt);
+            bt.clickCallback = inviteFriends;
 
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
@@ -221,6 +226,8 @@ public class FriendPanel {
             bt.x = 369 + bt.width/2;
             bt.y = 6 + bt.height/2;
             _source.addChild(bt);
+            bt.clickCallback = inviteFriends;
+
         } else if (_arrFriends.length == 2) {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
@@ -233,6 +240,7 @@ public class FriendPanel {
             bt.x = 369 + bt.width/2;
             bt.y = 6 + bt.height/2;
             _source.addChild(bt);
+            bt.clickCallback = inviteFriends;
         }
         createLevel();
     }

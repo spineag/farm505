@@ -86,8 +86,8 @@ public class Fabrica extends WorldObject {
                 createAnimatedBuild(onCreateBuild);
             }
         } catch (e:Error) {
-            Cc.error('AreaObject checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject checkBuildState');
+            Cc.error('Fabric checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Fabric checkBuildState');
         }
     }
 
@@ -97,13 +97,13 @@ public class Fabrica extends WorldObject {
         _hitArea = g.managerHitArea.getHitArea(_source, 'fabrica' + _dataBuild.image);
         _source.registerHitArea(_hitArea);
         _source.setChildIndex(_craftSprite, _source.numChildren - 1);
-        onHeroAnimation();
+        if (!g.isAway) onHeroAnimation();
     }
 
 
     public function showShopView():void {
-        createAnimatedBuild(onCreateBuild);
         _craftSprite.visible = false;
+        createAnimatedBuild(onCreateBuild);
     }
 
     public function removeShopView():void {
@@ -114,6 +114,11 @@ public class Fabrica extends WorldObject {
             while (_build.numChildren) _build.removeChildAt(0);
         }
         _craftSprite.visible = true;
+        _rect = _craftSprite.getBounds(_craftSprite);
+        if (_rect.width) {
+            _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
+            _source.registerHitArea(_hitArea);
+        }
     }
 
     override public function onHover():void {
@@ -289,7 +294,7 @@ public class Fabrica extends WorldObject {
             showBoom();
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
-            } else g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
+            }
 
         }
     }
@@ -517,7 +522,7 @@ public class Fabrica extends WorldObject {
     public function skipRecipe():void { // for making recipe
         if (_arrList[0]) {
             g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
-            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[0].id});
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[0].resourceID});
             craftResource(_arrList.shift());
         } else {
             Cc.error('Fabrica skipRecipe:: _arrList[0] == null');
@@ -620,7 +625,7 @@ public class Fabrica extends WorldObject {
 
     private function changeTexture(oldName:String, newName:String):void {
         var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
-        var b:Bone = _armature.getBone(oldName);
+        if (_armature) var b:Bone = _armature.getBone(oldName);
         if (b) {
             im.pivotX = b.display.pivotX;
             im.pivotY = b.display.pivotY;

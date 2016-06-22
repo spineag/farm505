@@ -388,7 +388,10 @@ public class WorldObject {
         }
         _craftSprite.addChild(_buildingBuild.source);
         _rect = _craftSprite.getBounds(_craftSprite);
+        var isVisible:Boolean = _craftSprite.visible;
+        _craftSprite.visible = true;
         _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
+        _craftSprite.visible = isVisible;
         _source.registerHitArea(_hitArea);
     }
 

@@ -256,6 +256,7 @@ public class Cave extends WorldObject{
                         }
                     } else {
                         onOut();
+//                        if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
                         g.windowsManager.openWindow(WindowsManager.WO_CAVE, onItemClick, _dataBuild.idResourceRaw);
                         g.hint.hideIt();
                     }

@@ -558,6 +558,7 @@ public class WOOrder extends WindowMain{
                 break;
             }
         }
+        g.bottomPanel.checkIsFullOrder();
     }
 
     private function set setTimerText(c:int):void {
@@ -703,24 +704,34 @@ public class WOOrder extends WindowMain{
     }
 
     private function killCatsAnimations():void {
+        if (!_armatureCustomer) {
+            trace ('_armatureCustomer');
+            return;
+        }
+        if (!_armatureSeller) {
+            trace ('_armatureSeller');
+            return;
+        }
         stopCatsAnimations();
         WorldClock.clock.remove(_armatureCustomer);
         WorldClock.clock.remove(_armatureSeller);
     }
 
     private function stopCatsAnimations():void {
+        if (!_armatureCustomer) {
+            trace ('_armatureCustomer');
+            return;
+        }
+        if (!_armatureSeller) {
+            trace ('_armatureSeller');
+            return;
+        }
         _armatureCustomer.animation.gotoAndStop('idle1', 0);
         _armatureSeller.animation.gotoAndStop('idle1', 0);
         if (_armatureSeller.hasEventListener(AnimationEvent.COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerCat);
         if (_armatureSeller.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
         if (_armatureCustomer.hasEventListener(AnimationEvent.COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
         if (_armatureCustomer.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
-        if (g.user.wallOrderItem && g.user.level >= 10) {
-            hideIt();
-            g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
-            g.directServer.updateWallOrderItem(null);
-            g.user.wallOrderItem = false;
-        }
     }
 
     private function animateCatsOnSell():void {
@@ -747,6 +758,12 @@ public class WOOrder extends WindowMain{
         } else {
             changeCatTexture(_activeOrderItem.position);
             animateCustomerCat();
+        }
+        if (g.user.wallOrderItem && g.user.level >= 10) {
+            hideIt();
+            g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
+            g.directServer.updateWallOrderItem(null);
+            g.user.wallOrderItem = false;
         }
     }
 

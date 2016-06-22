@@ -24,6 +24,11 @@ import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
+
+import tutorial.pretuts.TutorialCloud;
+
+import tutorial.pretuts.TutorialMult;
+
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
 import windows.market.WOMarket;
@@ -94,7 +99,7 @@ public class ManagerTutorial {
 
     public function initScenes():void {
         var curFunc:Function;
-        try {
+//        try {
             switch (g.user.tutorialStep) {
                 case 1:
                     curFunc = initScene_1;
@@ -179,14 +184,15 @@ public class ManagerTutorial {
             if (curFunc != null) {
                 curFunc.apply();
             }
-        } catch (err:Error) {
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
-            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);
-        }
+//        } catch (err:Error) {
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
+//            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);
+//        }
     }
 
     private function initScene_1():void {
         _cloud = new TutorialCloud(subStep1_1);
+        _mult = new TutorialMult();
     }
 
     private function subStep1_1():void {
@@ -194,28 +200,39 @@ public class ManagerTutorial {
         g.startPreloader = null;
         _subStep = 1;
         if (!texts) texts = (new TutorialTexts()).objText;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_2);
+        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_2, 1);
     }
 
     private function subStep1_2():void {
         _subStep = 2;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_3);
+        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_3, 2);
     }
 
     private function subStep1_3():void {
         _subStep = 3;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_4);
+        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_4, 3);
     }
 
     private function subStep1_4():void {
         _subStep = 4;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_5);
+        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_5, 4);
     }
 
     private function subStep1_5():void {
+        _mult.showMult(subStep1_6, subStep1_7);
+    }
+
+    private function subStep1_6():void {
         _cloud.deleteIt();
+        _cloud = null;
+    }
+
+    private function subStep1_7():void {
+        _mult.deleteIt();
+        _mult = null;
         g.user.tutorialStep = 2;
         updateTutorialStep();
+        initScenes();
     }
 
     private function  initScene_2():void {
@@ -226,7 +243,7 @@ public class ManagerTutorial {
         _subStep = 0;
         addCatToPos(30, 26);
         playCatIdle();
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep2_1, 1);
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep2_1, .5);
         addBlack();
     }
 
@@ -404,7 +421,7 @@ public class ManagerTutorial {
         if (!cat) {
             addCatToPos(30, 11);
             g.cont.moveCenterToPos(28, 11, true);
-            subStep4_1();
+            subStep5_1();
         } else {
             g.managerCats.goCatToPoint(cat, new Point(30, 11), subStep5_1);
             g.cont.moveCenterToPos(28, 11, false, 2);
@@ -785,7 +802,7 @@ public class ManagerTutorial {
         if (!cat) {
             addCatToPos(19, 37);
             g.cont.moveCenterToPos(19, 37, true);
-            subStep9_1();
+            subStep10_1();
         } else {
             g.managerCats.goCatToPoint(cat, new Point(19, 37), subStep10_1);
             g.cont.moveCenterToPos(19, 37, false, 1.5);
@@ -961,7 +978,7 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
         for (var i:int=0; i<arr.length; i++) {
-            if (arr[i].posY == 35) {
+            if (arr[i].posY == 35 && (arr[i] as Ridge).isFreeRidge) {
                 _tutorialObjects.push(arr[i]);
             }
         }
@@ -1880,11 +1897,11 @@ public class ManagerTutorial {
             _arrow.deleteIt();
             _arrow = null;
         }
-        g.user.tutorialStep = 24;
+        g.user.tutorialStep = 25;
         updateTutorialStep();
         _airBubble.hideIt();
         _subStep = 7;
-        g.user.tutorialStep = 23;
+        g.user.tutorialStep = 24;
         _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, subStep24_8);
         _airBubble.showBtnParticles();
         _airBubble.showBtnArrow();
