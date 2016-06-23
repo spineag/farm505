@@ -72,7 +72,7 @@ public class TimerHint {
         _imageClock.x = -63;
         _btn = new CButton();
         _btn.addButtonTexture(77, 45, CButton.GREEN, true);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         im.x = 50;
         im.y = 18;
         MCScaler.scale(im,25,25);

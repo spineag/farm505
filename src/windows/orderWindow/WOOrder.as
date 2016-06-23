@@ -148,10 +148,10 @@ public class WOOrder extends WindowMain{
         txt.x = 411;
         txt.y = 418;
         _rightBlock.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         im.x = 501;
         im.y = 417;
-        MCScaler.scale(im, 30, 30);
+//        MCScaler.scale(im, 30, 30);
         im.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(im);
         _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
@@ -159,10 +159,10 @@ public class WOOrder extends WindowMain{
         _txtXP.x = 523;
         _txtXP.y = 418;
         _rightBlock.addChild(_txtXP);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         im.x = 570;
         im.y = 419;
-        MCScaler.scale(im, 30, 30);
+//        MCScaler.scale(im, 30, 30);
         im.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(im);
         _imCoup = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_cup_ico'));

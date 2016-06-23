@@ -328,6 +328,12 @@
             <filename>avatar_2.png</filename>
             <filename>avatar_3.png</filename>
             <filename>neighbor.jpg</filename>
+            <filename>coins_medium.png</filename>
+            <filename>coins_small.png</filename>
+            <filename>star_medium.png</filename>
+            <filename>star_small.png</filename>
+            <filename>rubins_medium.png</filename>
+            <filename>rubins_small.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

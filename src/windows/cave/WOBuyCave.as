@@ -34,11 +34,11 @@ public class WOBuyCave extends WindowMain {
         _btn = new CButton();
         _btn.addButtonTexture(250, 35, CButton.BLUE, true);
         _btn.y = 165;
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
+        MCScaler.scale(im,25,25);
         im.x = 215;
         im.y = 7;
         _btn.addChild(im);
-        MCScaler.scale(im,25,25);
         _priceTxt = new TextField(217, 30, '',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _priceTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _priceTxt.y = 5;

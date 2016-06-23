@@ -107,7 +107,6 @@ public class FriendItem {
             g.catPanel.visibleCatPanel(true);
         } else {
             g.townArea.goAway(_person);
-            g.catPanel.visibleCatPanel(false);
         }
         g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
     }

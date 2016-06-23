@@ -79,8 +79,8 @@ public class WOFabricaWorkListItem {
             _txtSkip.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             _txtSkip.y = 11;
             _btnSkip.addChild(_txtSkip);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-            MCScaler.scale(im, 30, 30);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+//            MCScaler.scale(im, 30, 30);
             im.x = 72;
             im.y = 5;
             _btnSkip.addChild(im);
@@ -194,7 +194,7 @@ public class WOFabricaWorkListItem {
             var txt:TextField = new TextField(46, 28, "+" + String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _proposeBtn.addChild(txt);
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(im, 20, 20);
             im.x = 14;
             im.y = 23;

@@ -57,7 +57,7 @@ public class WONoResources extends WindowMain {
         _txtHardCost = new TextField(180, 34, "Купить ресурсы за 8888", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         _txtHardCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuy.addChild(_txtHardCost);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         MCScaler.scale(im, 25, 25);
         im.x = 180;
         im.y = 4;
@@ -277,13 +277,13 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        g.userInventory.addResource(_paramData.idResourceRaw, _countOfResources);
+        g.userInventory.addResource(_paramData.idResourceRaw, _countOfResources,true,callbackServe);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.idResourceRaw, info: _countOfResources});
         super.hideIt();
-        if (_callbackBuy != null) {
-            _callbackBuy.apply(null);
-            _callbackBuy = null;
-        }
+//        if (_callbackBuy != null) {
+//            _callbackBuy.apply(null);
+//            _callbackBuy = null;
+//        }
     }
 
     private function onClickResource():void {
@@ -297,13 +297,13 @@ public class WONoResources extends WindowMain {
             return;
         }
         if (_paramData.data.buildType == BuildType.INSTRUMENT) {
-            g.userInventory.addResource(_paramData.data.id, _countOfResources);
+            g.userInventory.addResource(_paramData.data.id, _countOfResources,true,callbackServe);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
             super.hideIt();
-            if (_callbackBuy != null) {
-                _callbackBuy.apply(null);
-                _callbackBuy = null;
-            }
+//            if (_callbackBuy != null) {
+//                _callbackBuy.apply(null);
+//                _callbackBuy = null;
+//            }
         } else if (_paramData.data.buildType == BuildType.PLANT) {
             g.userInventory.addResource(_paramData.data.id, _countOfResources);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
@@ -317,14 +317,14 @@ public class WONoResources extends WindowMain {
             for (var i:int = 0; i < _paramData.data.ingridientsId.length; i++) {
                 countRes = g.userInventory.getCountResourceById(_paramData.data.ingridientsId[i]);
                 if (countRes < _paramData.data.ingridientsCount[i]) {
-                    g.userInventory.addResource(_paramData.data.ingridientsId[i], _paramData.data.ingridientsCount[i] - countRes);
+                    g.userInventory.addResource(_paramData.data.ingridientsId[i], _paramData.data.ingridientsCount[i] - countRes, true, callbackServe3);
                     g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.ingridientsId[i], info: _paramData.data.ingridientsCount[i] - countRes});
                 }
             }
             super.hideIt();
-            if (_callbackBuy != null) {
-                _callbackBuy.apply(null, [_paramData.data, true]);
-            }
+//            if (_callbackBuy != null) {
+//                _callbackBuy.apply(null, [_paramData.data, true]);
+//            }
         }
     }
 
@@ -342,16 +342,16 @@ public class WONoResources extends WindowMain {
         for (var i:int=0; i<_paramData.resourceIds.length; i++) {
             number = g.userInventory.getCountResourceById(_paramData.resourceIds[i]);
             if (number < _paramData.resourceCounts[i]) {
-                g.userInventory.addResource(_paramData.resourceIds[i], _paramData.resourceCounts[i] - number);
+                g.userInventory.addResource(_paramData.resourceIds[i], _paramData.resourceCounts[i] - number,true,callbackServe4);
                 g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.resourceIds[i], info: _paramData.resourceCounts[i] - number});
 
             }
         }
         super.hideIt();
-        if (_callbackBuy != null) {
-            _callbackBuy.apply(null, [true, _paramData]);
-            _callbackBuy = null;
-        }
+//        if (_callbackBuy != null) {
+//            _callbackBuy.apply(null, [true, _paramData]);
+//            _callbackBuy = null;
+//        }
     }
     private function onClickPapper():void {
         if (_countCost <= g.user.hardCurrency) {
@@ -363,14 +363,14 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        g.userInventory.addResource(_paramData.data.id, _countOfResources);
+        g.userInventory.addResource(_paramData.data.id, _countOfResources,true,callbackServe2);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
 
         super.hideIt();
-        if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[true]);
-            _callbackBuy = null;
-        }
+//        if (_callbackBuy != null) {
+//            _callbackBuy.apply(null,[true]);
+//            _callbackBuy = null;
+//        }
     }
 
     private function onClickTrain():void {
@@ -383,15 +383,41 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        g.userInventory.addResource(_paramData.data.id, _countOfResources);
+        g.userInventory.addResource(_paramData.data.id, _countOfResources,true,callbackServe2);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
         super.hideIt();
+//        if (_callbackBuy != null) {
+//            _callbackBuy.apply(null,[true]);
+//            _callbackBuy = null;
+//        }
+    }
+
+    private function callbackServe(b:Boolean):void {
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null);
+            _callbackBuy = null;
+        }
+    }
+
+    private function callbackServe2(b:Boolean):void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null,[true]);
             _callbackBuy = null;
         }
     }
 
+    private function callbackServe3(b:Boolean):void {
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null, [_paramData.data, true]);
+        }
+    }
+
+    private function callbackServe4(b:Boolean):void {
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null, [true, _paramData]);
+            _callbackBuy = null;
+        }
+    }
 
     override protected function deleteIt():void {
         g.marketHint.hideIt();

@@ -34,7 +34,7 @@ public class BuyHint {
     public function showIt(st:int):void {
         _txtHint.text = String(st);
         var rectangle:Rectangle = _txtHint.textBounds;
-        _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(_imCoins,20,20);
         _imCoins.y = 5;
         _txtHint.width = rectangle.width + 20;

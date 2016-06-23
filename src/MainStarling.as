@@ -23,7 +23,7 @@ public class MainStarling extends Sprite {
     public function start() : void
     {
         g.dataPath = new DataPath();
-        g.allData = new AllData();
+//        g.allData = new AllData();
         g.load = LoaderManager.getInstance();
         g.pBitmaps = {};
         g.pXMLs = {};
@@ -39,7 +39,7 @@ public class MainStarling extends Sprite {
             cur = int(max * ratio);
             g.startPreloader.setProgress(cur);
             if (ratio == 1.0){
-                initGame();
+                loadComponents();
             }
         });
     }

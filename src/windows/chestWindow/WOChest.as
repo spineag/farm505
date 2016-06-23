@@ -59,7 +59,7 @@ public class WOChest  extends WindowMain{
         } else {
             _btnOpen = new CButton();
             _btnOpen.addButtonTexture(160, 40, CButton.GREEN, true);
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
             MCScaler.scale(im, 35, 35);
             im.x = 120;
             im.y = 4;

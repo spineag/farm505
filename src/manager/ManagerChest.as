@@ -73,7 +73,7 @@ public class ManagerChest {
             obj.id = 0;
             obj.type = SOFT_MONEY;
         } else {
-            obj.count =  int(Math.random()*3) + 3;
+            obj.count =  int(Math.random()*5) + 3;
             obj.id = 0;
             obj.type = HARD_MONEY;
         }

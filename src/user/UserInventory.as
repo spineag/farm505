@@ -53,14 +53,14 @@ public class UserInventory {
          else return 0;
     }
 
-    public function addResource(id:int, count:int, needSendToServer:Boolean = true):void {
+    public function addResource(id:int, count:int, needSendToServer:Boolean = true, f:Function = null):void {
         if (count == 0) return;
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
         _inventoryResource[id] += count;
         if (_inventoryResource[id] == 0) delete(_inventoryResource[id]);
         if (needSendToServer) {
             g.updateAmbarIndicator();
-            g.directServer.addUserResource(id, count, null);
+            g.directServer.addUserResource(id, count, f);
         }
         if (needSendToServer) g.bottomPanel.checkIsFullOrder();
     }

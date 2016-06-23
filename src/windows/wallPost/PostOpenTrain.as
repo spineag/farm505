@@ -55,8 +55,7 @@ public class PostOpenTrain extends WindowMain {
         txt.y = -2;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
-        MCScaler.scale(im,35,35);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star_small"));
         im.x = 135;
         im.y = 6;
         _btn.addChild(im);
