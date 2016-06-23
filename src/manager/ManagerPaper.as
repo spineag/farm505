@@ -25,6 +25,7 @@ public class ManagerPaper {
             ob.cost = int(ar[i].cost);
             ob.isBuyed = false;
             ob.isBotBuy = false;
+            ob.isOpened = false;
             _arr.push(ob);
         }
     }

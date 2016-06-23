@@ -185,6 +185,9 @@ public class WOPapperItem {
             _txtUserName.text = ob.userSocialId;
         }
         source.endClickCallback = onClickVisit;
+        if (_data.isOpened) {
+            source.alpha = .5;
+        }
     }
 
     public function fillItBot(ob:Object):void {
@@ -300,6 +303,8 @@ public class WOPapperItem {
         _wo.hideIt();
          _p.idVisitItemFromPaper = _data.resourceId;
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
+        _data.isOpened = true;
+
     }
 
     private function onClickBuyBot(noResource:Boolean = false):void {

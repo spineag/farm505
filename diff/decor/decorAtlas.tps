@@ -229,7 +229,6 @@
             <filename>umbrella_green.png</filename>
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
-            <filename>fence</filename>
             <filename>trees_1.png</filename>
             <filename>trees_2.png</filename>
             <filename>trees_3.png</filename>
@@ -237,6 +236,7 @@
             <filename>trees_5.png</filename>
             <filename>trees_6.png</filename>
             <filename>trees_7.png</filename>
+            <filename>fence</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

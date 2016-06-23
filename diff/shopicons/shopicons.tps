@@ -192,58 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>alive_fence_icon.png</filename>
-            <filename>amanita_1_red_icon.png</filename>
-            <filename>amanita_2_red_icon.png</filename>
-            <filename>ambar_icon.png</filename>
-            <filename>apple_icon.png</filename>
-            <filename>arbor_icon.png</filename>
-            <filename>arch_alive_icon.png</filename>
-            <filename>arch_blue_icon.png</filename>
-            <filename>arch_pink_icon.png</filename>
-            <filename>arch_white_icon.png</filename>
-            <filename>bakery_icon.png</filename>
-            <filename>balabas_blue_icon.png</filename>
-            <filename>barrel_icon.png</filename>
-            <filename>bbq_grill_icon.png</filename>
-            <filename>beach_chair_red_icon.png</filename>
-            <filename>beehive_icon.png</filename>
-            <filename>blue_fence_icon.png</filename>
-            <filename>blueberry_icon.png</filename>
-            <filename>bridge_icon.png</filename>
-            <filename>builds</filename>
-            <filename>cat_icon.png</filename>
-            <filename>chair_1_icon.png</filename>
-            <filename>chair_2_icon.png</filename>
-            <filename>cherry_icon.png</filename>
-            <filename>chicken_icon.png</filename>
-            <filename>cow_icon.png</filename>
-            <filename>dairy_icon.png</filename>
-            <filename>dandelion_icon.png</filename>
-            <filename>easel_clear_icon.png</filename>
-            <filename>farm_bee_icon.png</filename>
-            <filename>farm_chicken_icon.png</filename>
-            <filename>farm_cow_icon.png</filename>
-            <filename>farm_pig_icon.png</filename>
-            <filename>farm_sheep_icon.png</filename>
-            <filename>farming_table_icon.png</filename>
-            <filename>feed_mill_icon.png</filename>
-            <filename>fir_1_icon.png</filename>
-            <filename>fir_2_icon.png</filename>
-            <filename>gate_alive_closed_icon.png</filename>
-            <filename>gate_blue_closed_icon.png</filename>
-            <filename>gate_pink_closed_icon.png</filename>
-            <filename>gate_white_closed_icon.png</filename>
-            <filename>juice_press_icon.png</filename>
-            <filename>loom_icon.png</filename>
-            <filename>picnic_pink_icon.png</filename>
-            <filename>pie_oven_icon.png</filename>
-            <filename>pig_icon.png</filename>
-            <filename>pink_fence_icon.png</filename>
-            <filename>pizza_maker_icon.png</filename>
-            <filename>raspberry_icon.png</filename>
-            <filename>ridge_icon.png</filename>
-            <filename>sheep_icon.png</filename>
             <filename>sklad_icon.png</filename>
             <filename>smelter_icon.png</filename>
             <filename>smoke_house_icon.png</filename>
@@ -261,6 +209,70 @@
             <filename>trees_7_icon.png</filename>
             <filename>umbrella_green_icon.png</filename>
             <filename>white_fence_icon.png</filename>
+            <filename>cat_icon.png</filename>
+            <filename>chair_1_icon.png</filename>
+            <filename>chair_2_icon.png</filename>
+            <filename>cherry_icon.png</filename>
+            <filename>chicken_icon.png</filename>
+            <filename>cow_icon.png</filename>
+            <filename>dairy_icon.png</filename>
+            <filename>dandelion_icon.png</filename>
+            <filename>easel_clear_icon.png</filename>
+            <filename>farm_bee_icon.png</filename>
+            <filename>farm_chicken_icon.png</filename>
+            <filename>farm_cow_icon.png</filename>
+            <filename>farm_pig_icon.png</filename>
+            <filename>farm_sheep_icon.png</filename>
+            <filename>farming_table_icon.png</filename>
+            <filename>feed_mill_icon.png</filename>
+            <filename>fence_brick_2_icon.png</filename>
+            <filename>fence_brick_3_icon.png</filename>
+            <filename>fence_brick_4_icon.png</filename>
+            <filename>fence_unique_2_icon.png</filename>
+            <filename>fence_unique_3_icon.png</filename>
+            <filename>fence_unique_4_icon.png</filename>
+            <filename>fir_1_icon.png</filename>
+            <filename>fir_2_icon.png</filename>
+            <filename>gate_alive_closed_icon.png</filename>
+            <filename>gate_blue_closed_icon.png</filename>
+            <filename>gate_pink_closed_icon.png</filename>
+            <filename>gate_white_closed_icon.png</filename>
+            <filename>juice_press_icon.png</filename>
+            <filename>loom_icon.png</filename>
+            <filename>picnic_pink_icon.png</filename>
+            <filename>pie_oven_icon.png</filename>
+            <filename>pig_icon.png</filename>
+            <filename>pink_fence_icon.png</filename>
+            <filename>pizza_maker_icon.png</filename>
+            <filename>raspberry_icon.png</filename>
+            <filename>ridge_icon.png</filename>
+            <filename>sheep_icon.png</filename>
+            <filename>builds</filename>
+            <filename> fence_polka_dot_3_icon.png</filename>
+            <filename> fence_polka_dot_4_icon.png</filename>
+            <filename> fence_polka_dot_5_icon.png</filename>
+            <filename>alive_fence_icon.png</filename>
+            <filename>amanita_1_red_icon.png</filename>
+            <filename>amanita_2_red_icon.png</filename>
+            <filename>ambar_icon.png</filename>
+            <filename>apple_icon.png</filename>
+            <filename>arbor_icon.png</filename>
+            <filename>arch_alive_icon.png</filename>
+            <filename>arch_blue_icon.png</filename>
+            <filename>arch_leaf_green_2_icon.png</filename>
+            <filename>arch_leaf_green_3_icon.png</filename>
+            <filename>arch_leaf_green_4_icon.png</filename>
+            <filename>arch_pink_icon.png</filename>
+            <filename>arch_white_icon.png</filename>
+            <filename>bakery_icon.png</filename>
+            <filename>balabas_blue_icon.png</filename>
+            <filename>barrel_icon.png</filename>
+            <filename>bbq_grill_icon.png</filename>
+            <filename>beach_chair_red_icon.png</filename>
+            <filename>beehive_icon.png</filename>
+            <filename>blue_fence_icon.png</filename>
+            <filename>blueberry_icon.png</filename>
+            <filename>bridge_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
