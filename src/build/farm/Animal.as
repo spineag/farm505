@@ -314,8 +314,8 @@ public class Animal {
         _isOnHover = true;
         _frameCounterTimerHint = 7;
         source.filter = ManagerFilters.BUILD_STROKE;
-        if (_state == HUNGRY) g.mouseHint.checkMouseHint(MouseHint.ANIMAL, _data);
-        else if (_state == WORK) g.mouseHint.checkMouseHint(MouseHint.CLOCK, _data);
+        if (_state == HUNGRY) g.mouseHint.showMouseHint(MouseHint.ANIMAL, _data);
+        else if (_state == WORK) g.mouseHint.showMouseHint(MouseHint.CLOCK, _data);
 //        g.gameDispatcher.addToTimer(countEnterFrameMouseHint);
     }
 

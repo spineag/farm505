@@ -697,10 +697,10 @@ public class Tree extends WorldObject {
         if (_countMouse <= 5) {
             if (_isOnHover == true) {
                 if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
-                    g.mouseHint.checkMouseHint(MouseHint.KORZINA);
+                    g.mouseHint.showMouseHint(MouseHint.KORZINA);
                 } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
                         _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
+                    g.mouseHint.showMouseHint(MouseHint.CLOCK);
                 }
             }
         }
@@ -708,7 +708,7 @@ public class Tree extends WorldObject {
             g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
             if (_isOnHover == true) {
                 if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
-                    g.mouseHint.checkMouseHint(MouseHint.KORZINA);
+                    g.mouseHint.showMouseHint(MouseHint.KORZINA);
                 } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
                         _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER || _state == FULL_DEAD || _state == ASK_FIX || _state == DEAD) {
                 var time:int = _timeToEndState;

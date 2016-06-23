@@ -77,7 +77,7 @@ public class MouseHint {
         return _isShowed && _curType == ANIMAL;
     }
 
-    public function checkMouseHint(s:String, dat:Object = null):void {
+    public function showMouseHint(s:String, dat:Object = null):void {
         if (_isShowed) return;
         _curType = s;
         _isShowed = true;

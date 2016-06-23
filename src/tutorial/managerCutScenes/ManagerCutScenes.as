@@ -135,13 +135,7 @@ public class ManagerCutScenes {
     }
 
     private function checkTypeFunctions():void {
-        if (g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
-            g.managerPlantRidge.onStartCraftPlanting(false);
-        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
-            g.managerPlantRidge.onStartActivePlanting(false);
-        } else {
-            g.toolsModifier.modifierType == ToolsModifier.NONE;
-        }
+        g.toolsModifier.modifierType == ToolsModifier.NONE;
         switch (_curCutScenePropertie.id_action) {
             case ID_ACTION_SHOW_MARKET: releaseMarket(); break;
             case ID_ACTION_SHOW_PAPPER: releasePapper(); break;

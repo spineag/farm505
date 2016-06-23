@@ -7,6 +7,9 @@ import build.decor.DecorTail;
 import build.wild.Wild;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
+
+import hint.MouseHint;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
@@ -70,8 +73,14 @@ public class ToolsModifier {
     }
 
     public function set modifierType(a:int):void {
-        if (_modifierType == PLANT_SEED || _modifierType == PLANT_SEED_ACTIVE) {
+        if (_modifierType == PLANT_SEED) {
             g.managerPlantRidge.lockAllFillRidge(false); // unlock all not empty ridges
+        } else if (_modifierType == PLANT_SEED_ACTIVE) {
+            g.managerPlantRidge.lockAllFillRidge(false);
+            g.managerPlantRidge.onStartActivePlanting(false);
+        } else if (_modifierType == CRAFT_PLANT) {
+            g.mouseHint.hideIt();
+            g.managerPlantRidge.onStartCraftPlanting(false);
         }
         if (_modifierType == MOVE) {
             g.townArea.onActivateMoveModifier(false);
@@ -88,11 +97,16 @@ public class ToolsModifier {
             g.townArea.onActivateRotateModifier(true);
         } else if (_modifierType == INVENTORY) {
             g.townArea.onActivateInventoryModifier(true);
+        } else if (_modifierType == PLANT_SEED_ACTIVE) {
+            g.managerPlantRidge.onStartActivePlanting(true);
+            g.managerPlantRidge.lockAllFillRidge(true);
+        } else if (_modifierType == PLANT_SEED) {
+            g.managerPlantRidge.lockAllFillRidge(true);
+        } else if (_modifierType == CRAFT_PLANT) {
+            g.mouseHint.showMouseHint(MouseHint.SERP);
+            g.managerPlantRidge.onStartCraftPlanting(true);
         }
         checkMouseIcon();
-        if (_modifierType == PLANT_SEED || _modifierType == PLANT_SEED_ACTIVE) {
-            g.managerPlantRidge.lockAllFillRidge(true);  // lock all not empty ridges
-        }
     }
 
     public function get modifierType():int {
