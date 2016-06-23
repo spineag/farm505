@@ -196,7 +196,7 @@ public class ManagerPlantRidge {
         }
 
         if (!b) {
-            onStartActivePlanting(false);
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
         }
     }
 
@@ -228,17 +228,16 @@ public class ManagerPlantRidge {
     public function onStartActivePlanting(isStart:Boolean):void {
         if (g.managerTutorial.isTutorial) return;
         if (isStart) {
-            g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED_ACTIVE;
             g.gameDispatcher.addEnterFrame(checkForPlanting);
         } else {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.gameDispatcher.removeEnterFrame(checkForPlanting);
         }
-        g.cont.nullDragPoint();
+        g.cont.deleteDragPoint();
         g.townArea.onStartPlanting(isStart);
     }
 
     private function checkForPlanting():void {
+        if (g.managerTutorial.isTutorial) return;
         _tempPoint.x = g.ownMouse.mouseX;
         _tempPoint.y = g.ownMouse.mouseY;
         _tempPoint = g.cont.contentCont.globalToLocal(_tempPoint);
@@ -253,14 +252,13 @@ public class ManagerPlantRidge {
     }
 
     public function onStartCraftPlanting(isStart:Boolean):void {
+        if (g.managerTutorial.isTutorial) return;
         g.cont.contentCont.releaseContDrag = !isStart;
         g.cont.tailCont.releaseContDrag = !isStart;
-        g.cont.nullDragPoint();
+        g.cont.deleteDragPoint();
         if (isStart) {
-            if (!g.managerTutorial.isTutorial) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
-            if (!g.managerTutorial.isTutorial) g.gameDispatcher.addEnterFrame(checkForCrafting);
+            g.gameDispatcher.addEnterFrame(checkForCrafting);
         } else {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.gameDispatcher.removeEnterFrame(checkForCrafting);
         }
     }
@@ -295,7 +293,7 @@ public class ManagerPlantRidge {
         }
 
         if (!b) {
-            onStartCraftPlanting(false);
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
         }
     }
 }

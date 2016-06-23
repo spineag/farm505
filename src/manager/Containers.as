@@ -141,8 +141,7 @@ public class Containers {
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
             if (!_isDragged && !g.managerTutorial.isTutorial) {
                 g.bottomPanel.cancelBoolean(false);
-                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.managerPlantRidge.onStartActivePlanting(false);
-                if (g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) g.managerPlantRidge.onStartCraftPlanting(false);
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
             }
             _isDragged = false;
             return;
@@ -155,7 +154,7 @@ public class Containers {
         _startDragPointCont = new Point(gameCont.x, gameCont.y);
     }
 
-    public function nullDragPoint():void {
+    public function deleteDragPoint():void {
         _startDragPoint = null;
         _startDragPointCont = null;
     }

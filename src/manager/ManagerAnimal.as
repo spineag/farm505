@@ -109,7 +109,6 @@ public class ManagerAnimal {
             var f:Function = function ():void {
                 (_catsForFarm[farmDbId] as HeroCat).showSimpleIdle();
             };
-            (_catsForFarm[farmDbId] as HeroCat).killAllAnimations();
             (_catsForFarm[farmDbId] as HeroCat).showFailCat(f);
         }
     }

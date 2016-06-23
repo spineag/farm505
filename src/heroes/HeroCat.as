@@ -349,7 +349,6 @@ public class HeroCat extends BasicCat{
     public function showFailCat(callback:Function):void {
         killAllAnimations();
         _animation.deleteWorker();
-        _animation.showFront(true);
         _animation.playIt('fail', true, callback);
     }
 
