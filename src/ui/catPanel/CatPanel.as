@@ -55,7 +55,7 @@ public class CatPanel {
         checkCat();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-//        _source.endClickCallback = onClick;
+        _source.endClickCallback = onClick;
     }
 
     public function checkCat():void {
@@ -75,7 +75,6 @@ public class CatPanel {
     public function onResize():void {
         _source.y = 77;
         _source.x = Starling.current.nativeStage.stageWidth - 108;
-
     }
 
     private function onHover():void {
@@ -97,6 +96,8 @@ public class CatPanel {
 //        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
 //        g.managerWallPost.openWindow(ManagerWallPost.OPEN_TRAIN,null,3,DataMoney.HARD_CURRENCY);
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
+//        g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE,null);
+
     }
 }
 }

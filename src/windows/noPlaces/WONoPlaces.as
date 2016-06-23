@@ -54,7 +54,7 @@ public class WONoPlaces extends WindowMain {
 
         _source.addChild(_txtText);
 
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_medium"));
         MCScaler.scale(im,35,35);
         im.x = 155;
         im.y = 4;

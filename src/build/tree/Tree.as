@@ -500,7 +500,7 @@ public class Tree extends WorldObject {
             if (_state == ASK_FIX) {
                 _state = FIXED;
                 for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
-                    if (g.visitedUser.userDataCity.treesInfo[i].dbId == tree_db_id) {
+                    if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
                         g.visitedUser.userDataCity.treesInfo[i].state = String(FIXED);
                         break;
                     }

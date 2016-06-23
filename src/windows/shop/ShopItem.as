@@ -137,7 +137,7 @@ public class ShopItem {
                 if (_btnBuyBlue) return;
                 _btnBuyBlue = new CButton();
                 _btnBuyBlue.addButtonTexture(126, 40, CButton.BLUE, true);
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
                 MCScaler.scale(im, 35, 35);
                 im.x = 85;
                 im.y = 4;
@@ -155,7 +155,7 @@ public class ShopItem {
                 if (_btnBuyGreen) return;
                 _btnBuyGreen = new CButton();
                 _btnBuyGreen.addButtonTexture(126, 40, CButton.GREEN, true);
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
                 MCScaler.scale(im, 35, 35);
                 im.x = 85;
                 im.y = 4;

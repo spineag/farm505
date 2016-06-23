@@ -71,8 +71,8 @@ public class UpdateItem {
 //        _contTxt.addChild(_btnTxt);
         _btn.addChild(_btnTxt);
 
-        var dmnt:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-        MCScaler.scale(dmnt, 30, 30);
+        var dmnt:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+//        MCScaler.scale(dmnt, 30, 30);
         dmnt.x = 57;
         dmnt.y = 4;
         _btn.addChild(dmnt);

@@ -54,8 +54,8 @@ public class WOBuyCouponeItem {
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             txt.x = 5;
             _btn.addChild(txt);
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-            MCScaler.scale(im,30,30);
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+//            MCScaler.scale(im,30,30);
             im.x = 45;
             im.y = 10;
             _btn.addDisplayObject(im);

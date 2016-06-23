@@ -22,13 +22,15 @@ public class WOMarketDeleteItem extends WindowMain{
     private var _woBG:WindowBackground;
     private var _b:CButton;
     private var _callback:Function;
+    private var _data:Object;
+    private var _count:int;
     public function WOMarketDeleteItem() {
         _woWidth = 400;
         _woHeight = 200;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        var txt:TextField = new TextField(300,30,'Этот продукт не будет возвращен в хранилище.',g.allData.fonts['BloggerMedium'],20,Color.WHITE);
+        var txt:TextField = new TextField(300,30,'Этот продукт будет возвращен в хранилище.',g.allData.fonts['BloggerMedium'],20,Color.WHITE);
         txt.autoScale = true;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -150;
@@ -49,10 +51,10 @@ public class WOMarketDeleteItem extends WindowMain{
         txt = new TextField(200, 34, "Убрать за 1", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _b.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         im.x = 150;
         im.y = 1;
-        MCScaler.scale(im,30,30);
+//        MCScaler.scale(im,30,30);
         _b.addChild(im);
         _b.y = 70;
         _b.clickCallback = onClick;
@@ -66,6 +68,8 @@ public class WOMarketDeleteItem extends WindowMain{
     override public function showItParams(f:Function, params:Array):void {
         super.showIt();
         _callback = f;
+        _data = params[0];
+        _count = params[1];
     }
 
     private function onClick():void {
@@ -74,6 +78,19 @@ public class WOMarketDeleteItem extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+//        if (_data.placeBuild == 1) {
+//            if (_count + g.userInventory.currentCountInAmbar > g.user.ambarMaxCount) {
+//                g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
+//                return;
+//            }
+//        } else {
+//            if (_count + g.userInventory.currentCountInSklad > g.user.skladMaxCount) {
+//                g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
+//                return;
+//            }
+//        }
+        g.userInventory.addResource(_data.id,_count);
+
         if (_callback != null) {
             _callback.apply(null,[]);
         }

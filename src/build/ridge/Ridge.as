@@ -174,6 +174,28 @@ public class Ridge extends WorldObject{
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
         if (g.isActiveMapEditor || g.isAway) return;
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+            if (!g.managerTutorial.isTutorial) onOut();
+            if (g.selectedBuild) {
+                if (g.selectedBuild == this) {
+                    g.toolsModifier.onTouchEnded();
+                } else return;
+            } else {
+                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
+                    g.toolsModifier.ridgeId = _dataPlant.id;
+                }
+                checkBeforeMove();
+                g.townArea.moveBuild(this);
+            }
+            return;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            return;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+            releaseFlip();
+            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+            return;
+        }
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
             if (g.toolsModifier.plantId <= 0 || _stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -243,6 +265,7 @@ public class Ridge extends WorldObject{
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+        }  else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             // ничего не делаем вообще

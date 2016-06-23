@@ -11,23 +11,24 @@ import flash.events.Event;
 
 
 import flash.geom.Rectangle;
+import flash.text.Font;
+
+import manager.EmbedAssets;
 
 import manager.Vars;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 import starling.utils.Color;
-
 import utils.FarmDispatcher;
 
 public class StartPreloader {
-    [Embed(source="../../assets/preloaderAtlas1.png")]
+    [Embed(source="../../assets/preloaderAtlas.png")]
     public static const PreloaderTexture:Class;
-    [Embed(source = "../../assets/animations/preloader/splash_screen.png", mimeType = "application/octet-stream")]
-    private const Preloader:Class;
     [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
     public static const PreloaderTextureXML:Class;
 
@@ -39,22 +40,27 @@ public class StartPreloader {
     private var _texture:Texture;
     private var _preloaderAtlas:TextureAtlas;
     private var _armature:Armature;
-    private var g:Vars = Vars.getInstance();
+    private var _quad:Quad;
     private var _txt:TextField;
+
+
+    private var g:Vars = Vars.getInstance();
+
     public function StartPreloader() {
         _source = new Sprite();
         var gameDispatcher:FarmDispatcher;
         gameDispatcher = new FarmDispatcher(g.mainStage);
         gameDispatcher.addEnterFrame(onEnterFrameGlobal);
-
+        new EmbedAssets(null);
         _texture = Texture.fromBitmap(new PreloaderTexture());
         var xml:XML = XML(new PreloaderTextureXML());
         _preloaderAtlas = new TextureAtlas(_texture, xml);
         _bg = new Image(_preloaderAtlas.getTexture('preloader_window'));
         _source.addChild(_bg);
-        loadFactory('preloader',Preloader,create);
-//
-
+        _quad = new Quad(3.2, 3, 0xc0e8ff);
+        _quad.x = 327;
+        _quad.y = 599;
+        _source.addChild(_quad);
 //        _preloaderSprite = new Sprite();
 //        _preloaderBG = new Image(_preloaderAtlas.getTexture('preloader_bg'));
 //        _preloaderLine = new Image(_preloaderAtlas.getTexture('preloader_line'));
@@ -65,9 +71,12 @@ public class StartPreloader {
 //        _preloaderSprite.x = _source.width/2 - _preloaderBG.width/2;
 //        _preloaderSprite.y = 600;
 //        _source.addChild(_preloaderSprite);
-        _txt = new TextField(60,50,'0','Arial', 24, Color.BLACK);
+        _txt = new TextField(75,50,'0',g.allData.fonts['BloggerBold'], 24, 0x0659b6);
         _source.addChild(_txt);
+        _txt.x = _bg.width/2 - 42;
+        _txt.y = _bg.height/2 + 185;
     }
+
     private function create():void {
         _armature = g.allData.factory['preloader'].buildArmature("splash_screen");
         _armature.display.x = _bg.width/2;
@@ -76,10 +85,8 @@ public class StartPreloader {
         WorldClock.clock.add(_armature);
 //        _armature.animation.gotoAndStop('default', 0);
 
-        _txt.x = _bg.width/2 - 35;
-        _txt.y = _bg.height/2 + 185;
+
         setProgress(0);
-        animation();
     }
 
     public function showIt():void {
@@ -92,7 +99,8 @@ public class StartPreloader {
 
     public function setProgress(a:int):void {
 //        _preloaderLine.x = -_preloaderLine.width*(100-a)/100;
-        _txt.text = String(a);
+        _quad.scaleX = a;
+        _txt.text = String(a + '%');
     }
 
     public function hideIt():void {
@@ -106,30 +114,6 @@ public class StartPreloader {
         if(_preloaderBG) _preloaderBG.dispose();
         if (_preloaderLine) _preloaderLine.dispose();
         if (_armature) _armature = null;
-    }
-
-    private function animation():void {
-        if (!_armature) return;
-        var fEndOver:Function = function():void {
-            if (!_armature) return;
-            _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-            animation();
-        };
-        _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-        _armature.animation.gotoAndPlay('load');
-    }
-
-    private function loadFactory(name:String, clas:Class, onLoad:Function):void {
-        var factory:StarlingFactory = new StarlingFactory();
-        var f:Function = function (e:Event):void {
-            factory.removeEventListener(Event.COMPLETE, f);
-            g.allData.factory[name] = factory;
-            if (onLoad != null) onLoad.apply();
-        };
-        factory.addEventListener(Event.COMPLETE, f);
-        factory.parseData(new clas());
     }
 }
 }

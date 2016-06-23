@@ -161,7 +161,7 @@ public class MarketItem {
         _plawkabuy.x = 5;
         _plawkabuy.y = 100;
         _plawkaCoins.addChild(_plawkabuy);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(im,25,25);
         im.y = 102;
         im.x = _bg.width/2 + 15;
@@ -211,7 +211,7 @@ public class MarketItem {
             txt.x = 10;
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             _btnBuyCont.addChild(txt);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             im.x = 55;
             im.y = 3;
             MCScaler.scale(im,25,25);
@@ -319,7 +319,7 @@ public class MarketItem {
     private function onDelete ():void {
         g.windowsManager.cashWindow = _wo;
         _wo.hideIt();
-        g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, true);
+        g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _data, _countResource);
     }
 
     private function deleteCallback():void {

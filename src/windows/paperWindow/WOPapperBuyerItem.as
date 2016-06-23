@@ -85,7 +85,7 @@ public class WOPapperBuyerItem {
         _ava.addChild(im);
         source.addChild(_ava);
 
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins_small"));
         MCScaler.scale(im, 25, 25);
         im.x = 143;
         im.y = 60;

@@ -59,9 +59,9 @@ public class WOBuyCurrencyItem {
         source.addChild(_bg);
 
         if (_currency == DataMoney.HARD_CURRENCY) {
-            _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
         } else {
-            _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+            _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
         }
         MCScaler.scale(_im, 38, 38);
         _im.x = 15;

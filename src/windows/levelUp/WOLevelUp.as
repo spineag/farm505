@@ -92,7 +92,7 @@ public class WOLevelUp extends WindowMain {
         } else {
             _contBtn = new CButton();
             _contBtn.addButtonTexture(172, 45, CButton.BLUE, true);
-            _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
+            _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
             MCScaler.scale(_imageHard, 25, 25);
             _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
 
@@ -323,7 +323,7 @@ public class WOLevelUp extends WindowMain {
     }
 
     private function onClickShare():void {
-        g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_count,DataMoney.HARD_CURRENCY);
+//        g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_count,DataMoney.HARD_CURRENCY);
         hideIt();
     }
 

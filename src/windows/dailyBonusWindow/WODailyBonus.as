@@ -94,8 +94,8 @@ public class WODailyBonus extends WindowMain {
         _txtBtnBuy.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuy.addChild(_txtBtnBuy);
         _btnBuy.y = 260;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-        MCScaler.scale(im, 30, 30);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+//        MCScaler.scale(im, 30, 30);
         im.x = 163;
         im.y = 4;
         _btnBuy.addChild(im);

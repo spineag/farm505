@@ -168,8 +168,8 @@ public class WOMarket  extends WindowMain {
 
         _btnPaper = new CButton();
         _btnPaper.addButtonTexture(70,30,CButton.GREEN,true);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-        MCScaler.scale(im,30,30);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+//        MCScaler.scale(im,30,30);
         im.x = 35;
         _btnPaper.addChild(im);
         txt = new TextField(30,30,'1',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
@@ -206,8 +206,9 @@ public class WOMarket  extends WindowMain {
         _arrFriends = g.user.arrFriends.slice();
 
         for (var i:int = 0; i <_arrFriends.length; i++) {
-            if (_arrFriends[i].level < 5) {
+            if (_arrFriends[i].level < 5 || _arrFriends[i].level == 0) {
                 _arrFriends.splice(i,1);
+                i--;
             }
         }
         _arrFriends.unshift(g.user.neighbor);
@@ -268,8 +269,8 @@ public class WOMarket  extends WindowMain {
 //        clearItems();
 
         if (_curUser.marketCell <= 0) {
-            _curUser.marketCell = 5;
-            if (_curUser == g.user) g.directServer.updateUserMarketCell(5, null);
+            _curUser.marketCell = 6;
+            if (_curUser == g.user) g.directServer.updateUserMarketCell(0, null);
         }
 
         var marketCellCount:int = _curUser.marketCell;

@@ -165,6 +165,10 @@ public class OrderCat {
         releaseFrontTexture(st);
         releaseBackTexture(st);
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, isWoman);
+        if (!isWoman) {
+            var bant:Bone = armature.getBone('bant');
+            bant.visible = false;
+        }
     }
 
     private function releaseFrontTexture(st:String):void {

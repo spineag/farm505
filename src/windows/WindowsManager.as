@@ -306,7 +306,7 @@ public class WindowsManager {
     public function closeAllWindows():void {
         uncasheWindow();
         uncasheSecondWindow();
-        _currentWindow.hideItQuick();
+        if (_currentWindow) _currentWindow.hideItQuick();
     }
 
 

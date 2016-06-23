@@ -260,7 +260,7 @@ public class OptionPanel {
             case 'anim':
                 break;
             case 'music':
-                g.socialNetwork.reloadGame();
+//                g.socialNetwork.reloadGame();
                 break;
             case 'sound':
                 break;

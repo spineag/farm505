@@ -39,25 +39,25 @@ public class PostOpenCave extends WindowMain {
 
     private function photoFromTexture(tex:Texture):void {
         _image = new Image(tex);
-        _image.pivotX = _image.width/2;
-        _image.pivotY = _image.height/2;
+        _image.pivotX = int(_image.width/2);
+        _image.pivotY = int(_image.height/2);
         _source.addChild(_image);
         _btn = new CButton();
         _btn.addButtonTexture(172, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
-        var txt:TextField = new TextField(100,30,'Рассказать',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        var txt:TextField = new TextField(140,30,'Рассказать 200',g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.x = 5;
         txt.y = 7;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
-        txt = new TextField(50,50,'200',g.allData.fonts['BloggerBold'],18,Color.WHITE);
-        txt.x = 95;
-        txt.y = -2;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _btn.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
-        MCScaler.scale(im,35,35);
-        im.x = 135;
+//        txt = new TextField(50,50,'200',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+//        txt.x = 95;
+//        txt.y = -2;
+//        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+//        _btn.addChild(txt);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star_small"));
+        im.filter = ManagerFilters.SHADOW_TINY;
+        im.x = 136;
         im.y = 6;
         _btn.addChild(im);
         _btn.y = 180;

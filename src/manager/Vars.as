@@ -322,6 +322,7 @@ public class Vars {
     private function onUserResource():void {
         startPreloader.setProgress(91);
         directServer.getUserBuilding(onUserBuilding);
+//        onUserBuilding();
     }
 
     private function onUserBuilding():void {

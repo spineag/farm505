@@ -125,7 +125,7 @@ public class LockedLandItem {
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             txt.x = -15;
             btn.addChild(txt);
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(im,25,25);
             im.x = 80;
             im.y = 3;

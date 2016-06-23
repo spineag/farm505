@@ -208,7 +208,7 @@
     <frame z="3" tweenEasing="1" duration="4">
      <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="0.94" pX="0" pY="0"/>
     </frame>
-    <frame z="3" tweenEasing="1" duration="1">
+    <frame z="3" duration="1">
      <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
@@ -324,10 +324,10 @@
    <transform x="-1.62" y="-15.57" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="state2">
-   <transform x="-1.37" y="-20.8" skX="0" skY="0" scX="1" scY="1"/>
+   <transform x="-1.87" y="-19.42" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="state3">
-   <transform x="-2.62" y="-21.12" skX="0" skY="0" scX="1" scY="1"/>
+   <transform x="-2.62" y="-22.62" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="state4">
    <transform x="0" y="0.5" skX="0" skY="0" scX="1" scY="1"/>
@@ -345,12 +345,12 @@
    </slot>
    <slot name="state2" parent="state2" z="2">
     <display name="corn_stage_2.png" type="image">
-     <transform x="-14.75" y="-22.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-16.5" y="-26" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="state3" parent="state3" z="3">
     <display name="corn_stage_3.png" type="image">
-     <transform x="-16.5" y="-23.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-16.5" y="-26" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="state4" parent="state4" z="4">
@@ -379,7 +379,7 @@
    </timeline>
    <timeline name="state2" scale="1" offset="0">
     <frame z="2" duration="1">
-     <transform x="-1.37" y="-20.8" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-1.87" y="-19.42" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
   </animation>
@@ -391,7 +391,7 @@
    </timeline>
    <timeline name="state3" scale="1" offset="0">
     <frame z="3" duration="1">
-     <transform x="-2.62" y="-21.12" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-2.62" y="-22.62" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
   </animation>
@@ -637,7 +637,7 @@
    </timeline>
   </animation>
  </armature>
- <armature name="pepper">
+ <armature name="peper">
   <bone name="Layer 2">
    <transform x="0" y="2.58" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

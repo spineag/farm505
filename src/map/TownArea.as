@@ -27,15 +27,22 @@ import data.DataMoney;
 import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.OrderCat;
+
+import hint.FlyMessage;
+
 import manager.Vars;
 import mouse.ToolsModifier;
 import preloader.AwayPreloader;
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
+
+import starling.core.Starling;
 import starling.display.Sprite;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.xpPanel.XPStar;
+
+import user.NeighborBot;
 import user.Someone;
 import windows.WindowsManager;
 import windows.shop.WOShop;
@@ -1149,6 +1156,16 @@ public class TownArea extends Sprite {
      // ---------------------------------------------------- AWAY SECTION -------------------------------------------------------
 
     public function goAway(person:Someone):void {
+        var b:Boolean = true;
+        if (person.level <= 0) {
+            if (person is NeighborBot) b = false;
+            if (b) {
+                var p0:Point = new Point(Starling.current.nativeStage.stageWidth / 2, Starling.current.nativeStage.stageHeight / 2);
+                new FlyMessage(p0, "ЭТОТ ЧЕЛОВЕК УДАЛЕН ИЗ ИГРЫ");
+                return;
+            }
+        }
+        g.catPanel.visibleCatPanel(false);
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(false);
         g.visitedUser = person;
