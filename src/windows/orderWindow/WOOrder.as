@@ -625,9 +625,14 @@ public class WOOrder extends WindowMain{
         _source.addChild(_armatureCustomer.display as Sprite);
         _source.addChild(_armatureSeller.display as Sprite);
         var viyi:Bone = _armatureSeller.getBone('viyi');
-        if (viyi) viyi.visible = false;
-        viyi = _armatureCustomer.getBone('viyi');
-        if (viyi) viyi.visible = false;
+        if (viyi) {
+            viyi.visible = false;
+            var bant:Bone = _armatureSeller.getBone('bant');
+            if (bant) bant.visible = false;
+        }
+//        viyi = _armatureCustomer.getBone('viyi');
+//        if (viyi) viyi.visible = false;
+
     }
 
     private function changeCatTexture(pos:int):void {

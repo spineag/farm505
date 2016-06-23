@@ -269,8 +269,8 @@ public class WOMarket  extends WindowMain {
 //        clearItems();
 
         if (_curUser.marketCell <= 0) {
-            _curUser.marketCell = 5;
-            if (_curUser == g.user) g.directServer.updateUserMarketCell(5, null);
+            _curUser.marketCell = 6;
+            if (_curUser == g.user) g.directServer.updateUserMarketCell(0, null);
         }
 
         var marketCellCount:int = _curUser.marketCell;
