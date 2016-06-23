@@ -402,6 +402,8 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         if (!cutScene) cutScene = new CutScene();
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep4_6, 0, 'tutorial_nyam');
+        g.user.tutorialStep = 5;
+        updateTutorialStep();
         addBlack();
     }
 
@@ -410,8 +412,6 @@ public class ManagerTutorial {
         _subStep = 6;
         cutScene.hideIt(deleteCutScene, initScenes);
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        g.user.tutorialStep = 5;
-        updateTutorialStep();
     }
 
     private function initScene_5():void {

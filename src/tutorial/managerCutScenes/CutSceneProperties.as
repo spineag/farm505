@@ -38,7 +38,7 @@ public class CutSceneProperties {
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
         obj.level = 8;
         obj.id_action = ManagerCutScenes.ID_ACTION_BUY_DECOR;
-        obj.text = 'Нашу поляну можно украшать! Нажми на кнопку “Магазин”';
+        obj.text = 'Нашу долину можно украшать! Нажми на кнопку “Магазин”';
         _prop.push(obj);
 
         obj = {};

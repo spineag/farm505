@@ -68,19 +68,19 @@ public class HeroCatsAnimation {
         if (_armatureWorker) WorldClock.clock.remove(_armatureWorker);
 
         if (_state == STATE_FRONT) {
-            _catWorkerImage.visible = false;
+            if (_catWorkerImage) _catWorkerImage.visible = false;
             _catImage.visible = true;
             _catBackImage.visible = false;
             WorldClock.clock.add(_armature);
             _armature.animation.gotoAndPlay(_label);
         } else if (_state == STATE_BACK) {
-            _catWorkerImage.visible = false;
+            if (_catWorkerImage) _catWorkerImage.visible = false;
             _catImage.visible = false;
             _catBackImage.visible = true;
             WorldClock.clock.add(_armatureBack);
             _armatureBack.animation.gotoAndPlay(_label);
         } else if (_state == STATE_WORKER && _armatureWorker) {
-            _catWorkerImage.visible = true;
+            if (_catWorkerImage) _catWorkerImage.visible = true;
             _catImage.visible = false;
             _catBackImage.visible = false;
             WorldClock.clock.add(_armatureWorker);

@@ -215,7 +215,7 @@ public class Ridge extends WorldObject{
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.CRAFT_RIDGE) return;
             craftThePlant();
             g.timerHint.hideIt(true);
-            g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
+            if (!g.managerTutorial.isTutorial) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
         }
     }
 

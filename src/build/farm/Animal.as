@@ -43,6 +43,7 @@ public class Animal {
     private var _arrow:SimpleArrow;
     private var _rect:flash.geom.Rectangle;
     private var _tutorialCallback:Function;
+    private var _needShowArrow:Boolean = false;
 
     private var animation:AnimalAnimation;
     private var currentLabelAfterLoading:String;
@@ -129,6 +130,10 @@ public class Animal {
         if (currentLabelAfterLoading != '') {
             addRenderAnimation();
         }
+        if (_needShowArrow) {
+            addArrow();
+            _needShowArrow = false;
+        }
     }
 
     public function get state():int {
@@ -144,10 +149,14 @@ public class Animal {
     }
 
     public function addArrow():void {
-        removeArrow();
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
-        _arrow.scaleIt(.7);
-        _arrow.animateAtPosition(0, _rect.y + 30);
+        if (animation) {
+            removeArrow();
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
+            _arrow.scaleIt(.7);
+            _arrow.animateAtPosition(0, _rect.y + 30);
+        } else {
+            _needShowArrow = true;
+        }
     }
 
     public function removeArrow():void {
