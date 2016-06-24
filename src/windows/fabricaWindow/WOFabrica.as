@@ -118,7 +118,7 @@ public class WOFabrica extends WindowMain {
     }
 
     private function onBuyResource(obj:Object, lastRes:Boolean = false):void {
-        super.showIt();
+//        super.showIt();
         onItemClick(obj, lastRes);
     }
 

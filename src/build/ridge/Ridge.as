@@ -96,7 +96,10 @@ public class Ridge extends WorldObject{
         if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
             _source.filter = null;
             g.managerPlantRidge.onStartCraftPlanting(false);
-            g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
+            if (!g.windowsManager.currentWindow){
+                g.mouseHint.hideIt();
+                g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
+            }
         } else {
             _stateRidge = EMPTY;
             _plant.onCraftPlant();
@@ -246,24 +249,24 @@ public class Ridge extends WorldObject{
                     g.toolsModifier.onTouchEnded();
                 } else return;
             }
-        } else if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            if (!g.managerTutorial.isTutorial) onOut();
-            if (g.selectedBuild) {
-                if (g.selectedBuild == this) {
-                    g.toolsModifier.onTouchEnded();
-                } else return;
-            } else {
-                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
-                    g.toolsModifier.ridgeId = _dataPlant.id;
-                }
-                checkBeforeMove();
-                g.townArea.moveBuild(this);
-            }
-        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            releaseFlip();
-            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+//            if (!g.managerTutorial.isTutorial) onOut();
+//            if (g.selectedBuild) {
+//                if (g.selectedBuild == this) {
+//                    g.toolsModifier.onTouchEnded();
+//                } else return;
+//            } else {
+//                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
+//                    g.toolsModifier.ridgeId = _dataPlant.id;
+//                }
+//                checkBeforeMove();
+//                g.townArea.moveBuild(this);
+//            }
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
+//            g.toolsModifier.modifierType = ToolsModifier.NONE;
+//        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+//            releaseFlip();
+//            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
         }  else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;

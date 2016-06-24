@@ -462,9 +462,11 @@ public class MarketItem {
     }
 
     private function animCoin():void {
-        _imageCont.pivotX = -_imageCont.width/2;
-        _imageCont.pivotY = -_imageCont.height/2;
-        var p:Point = new Point(_imageCont.x, _imageCont.y);
+        var x:Number;
+        var y:Number;
+        x = _imageCont.width/2;
+        y = _imageCont.height/2;
+        var p:Point = new Point(x, y);
         p = _imageCont.localToGlobal(p);
         var prise:Object = {};
         prise.id = DataMoney.SOFT_CURRENCY;
@@ -475,6 +477,7 @@ public class MarketItem {
         _countResource = 0;
         _inPapper = false;
         _papper.visible = false;
+        _imCheck.visible = false;
     }
 
     public function unFillIt():void {
