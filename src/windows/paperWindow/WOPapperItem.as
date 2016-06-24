@@ -108,28 +108,28 @@ public class WOPapperItem {
         _imageCoins.y = 60;
         source.addChild(_imageCoins);
 
-        _txtCost = new TextField(84, 62, "1500", g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+        _txtCost = new TextField(84, 62, "1500", g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCost.hAlign = HAlign.RIGHT;
         _txtCost.touchable = false;
         _txtCost.x = 53;
         _txtCost.y = 42;
         source.addChild(_txtCost);
 
-        _txtCountResource = new TextField(84, 62, "10 шт.", g.allData.fonts['BloggerMedium'], 14, ManagerFilters.TEXT_BLUE);
+        _txtCountResource = new TextField(84, 62, "10 шт.", g.allData.fonts['BloggerMedium'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCountResource.hAlign = HAlign.RIGHT;
         _txtCountResource.touchable = false;
         _txtCountResource.x = 80;
         _txtCountResource.y = 70;
         source.addChild(_txtCountResource);
 
-        _txtResourceName = new TextField(200, 30, "Смаженый кабаньчик", g.allData.fonts['BloggerMedium'], 14, ManagerFilters.TEXT_BLUE);
+        _txtResourceName = new TextField(200, 30, "Смаженый кабаньчик", g.allData.fonts['BloggerMedium'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtResourceName.hAlign = HAlign.RIGHT;
         _txtResourceName.touchable = false;
         _txtResourceName.x = -38;
         _txtResourceName.y = 103;
         source.addChild(_txtResourceName);
 
-        _txtUserName = new TextField(120, 50, "Станислав Йованович", g.allData.fonts['BloggerBold'], 16, ManagerFilters.TEXT_BLUE);
+        _txtUserName = new TextField(120, 50, "Станислав Йованович", g.allData.fonts['BloggerBold'], 16, ManagerFilters.TEXT_BLUE_COLOR);
         _txtUserName.hAlign = HAlign.LEFT;
         _txtUserName.touchable = false;
         _txtUserName.x = 60;
@@ -246,7 +246,7 @@ public class WOPapperItem {
         im.x = 50;
         im.y = 5;
         source.addChild(im);
-        var txt:TextField = new TextField(60,30,'я куплю', g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BLUE);
+        var txt:TextField = new TextField(60,30,'я куплю', g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = 80;
         txt.y = 10;
         source.addChild(txt);
@@ -268,7 +268,7 @@ public class WOPapperItem {
         _btnDelete.clickCallback = onClickDelete;
         source.addChild(_btnDelete);
 
-        _txtSale =  new TextField(120,30,'продано', g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+        _txtSale =  new TextField(120,30,'продано', g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txtSale.x = 48;
         _txtSale.y = 95;
         _txtSale.visible = false;

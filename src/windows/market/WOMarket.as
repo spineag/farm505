@@ -81,7 +81,7 @@ public class WOMarket  extends WindowMain {
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
         _source.addChild(_contItem);
-        _SHADOW = ManagerFilters.getShadowFilter();
+        _SHADOW = ManagerFilters.NEW_SHADOW;
         _contItem.filter = _SHADOW;
         _btnFriends = new CButton();
         _btnFriends.addButtonTexture(96, 40, CButton.GREEN, true);

@@ -64,7 +64,7 @@ public class WOLockedLand extends WindowMain {
         _pl.y = -_woHeight/2 + 109;
         _pl.addShadow();
         _source.addChild(_pl);
-        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.fonts['BloggerMedium'], 18, ManagerFilters.TEXT_BLUE);
+        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.fonts['BloggerMedium'], 18, ManagerFilters.TEXT_BLUE_COLOR);
         _pl.inSprite.addChild(txt);
         addAnimation();
     }

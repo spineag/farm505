@@ -44,7 +44,7 @@ public class WOBuyCurrency extends WindowMain {
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
-        SHADOW = ManagerFilters.getShadowFilter();
+        SHADOW = ManagerFilters.NEW_SHADOW;
         _cartonBG = new CartonBackground(618, 398);
         _cartonBG.x = -308;
         _cartonBG.y = -166;

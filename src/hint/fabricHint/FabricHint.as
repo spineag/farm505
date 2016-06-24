@@ -64,14 +64,14 @@ public class FabricHint {
         _txtName.x = -20;
         _source.addChild(_txtName);
 
-        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE);
+        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _txtCreate.y = 50;
         _source.addChild(_txtCreate);
 
-        _txtTimeCreate = new TextField(50, 30 ,'Время:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE);
+        _txtTimeCreate = new TextField(50, 30 ,'Время:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _txtTimeCreate.x = 20;
         _txtTimeCreate.y = 130;
-        _txtOnSklad = new TextField(100, 30 ,'На складе:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE);
+        _txtOnSklad = new TextField(100, 30 ,'На складе:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _txtOnSklad.x = 100;
         _txtOnSklad.y = 130;
         _txtItem = new TextField(50, 40 ,'', g.allData.fonts['BloggerBold'], 16, Color.WHITE);

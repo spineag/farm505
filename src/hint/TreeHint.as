@@ -93,7 +93,7 @@ public class TreeHint {
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -100;
         _txtName.y = -140;
-        _txtText = new TextField(50,30,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE);
+        _txtText = new TextField(50,30,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE_COLOR);
 
         _contDelete.addDisplayObject(_imageBgItem);
         _contWatering.addDisplayObject(_imageBgItemHelp);

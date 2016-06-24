@@ -397,7 +397,7 @@ public class MainBottomPanel {
     }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
         _friendBoard.addChild(im);
-        txt = new TextField(150,40,_person.name,g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BROWN);
+        txt = new TextField(150,40,_person.name,g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = 20;
         _friendBoard.addChild(txt);

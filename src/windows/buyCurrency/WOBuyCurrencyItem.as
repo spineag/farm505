@@ -69,7 +69,7 @@ public class WOBuyCurrencyItem {
         _im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_im);
 
-        var txt:TextField = new TextField(135, 52, String(count), g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE);
+        var txt:TextField = new TextField(135, 52, String(count), g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE_COLOR);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
         txt.x = 70;
         txt.y = 4;
