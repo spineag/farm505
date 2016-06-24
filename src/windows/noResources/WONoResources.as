@@ -305,13 +305,13 @@ public class WONoResources extends WindowMain {
 //                _callbackBuy = null;
 //            }
         } else if (_paramData.data.buildType == BuildType.PLANT) {
-            g.userInventory.addResource(_paramData.data.id, _countOfResources);
+            g.userInventory.addResource(_paramData.data.id, _countOfResources,true,callbackServe5);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
             super.hideIt();
-            if (_callbackBuy != null) {
-                _callbackBuy.apply(null, [_paramData.data, _paramData.ridge]);
-                _callbackBuy = null;
-            }
+//            if (_callbackBuy != null) {
+//                _callbackBuy.apply(null, [_paramData.data, _paramData.ridge]);
+//                _callbackBuy = null;
+//            }
         } else if (_paramData.data.ingridientsId) {
             var countRes:int = 0;
             for (var i:int = 0; i < _paramData.data.ingridientsId.length; i++) {
@@ -409,12 +409,20 @@ public class WONoResources extends WindowMain {
     private function callbackServe3(b:Boolean):void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null, [_paramData.data, true]);
+            _callbackBuy = null;
         }
     }
 
     private function callbackServe4(b:Boolean):void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null, [true, _paramData]);
+            _callbackBuy = null;
+        }
+    }
+
+    private function callbackServe5(b:Boolean):void {
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null, [_paramData.data, _paramData.ridge]);
             _callbackBuy = null;
         }
     }

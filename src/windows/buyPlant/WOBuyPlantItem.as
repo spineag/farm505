@@ -135,6 +135,7 @@ public class WOBuyPlantItem {
             fillData(ob, f);
             TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d});
         }
+
     }
 
     private function unfillIt():void {
@@ -170,7 +171,7 @@ public class WOBuyPlantItem {
         if (g.managerTutorial.isTutorial) return;
         _isOnHover = true;
         g.resourceHint.hideIt();
-        g.resourceHint.showIt(_dataPlant.id, source.x, source.y, source, true);
+        g.resourceHint.showIt(_dataPlant.id, source.x, 48, source, true);
     }
 
     private function onOut():void {

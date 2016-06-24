@@ -45,7 +45,7 @@ public class WOChest  extends WindowMain{
     override public function showItParams(callback:Function, params:Array):void {
         super.showIt();
         _callback = callback;
-        if (g.managerChest.getCount <= 2) {
+        if (g.managerChest.getCount + 1 <= 2) {
             var fEndOver:Function = function():void {
                 _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
                 _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
