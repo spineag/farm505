@@ -95,7 +95,7 @@ public class Ridge extends WorldObject{
         if (_stateRidge != GROWED) return;
         if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
             _source.filter = null;
-            g.managerPlantRidge.onStartCraftPlanting(false);
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
             if (!g.windowsManager.currentWindow){
                 g.mouseHint.hideIt();
                 g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
