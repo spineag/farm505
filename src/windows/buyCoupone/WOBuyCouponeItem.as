@@ -80,7 +80,8 @@ public class WOBuyCouponeItem {
 
     private function onClick():void {
         if (g.user.hardCurrency < _cost) {
-            g.windowsManager.hideWindow(WindowsManager.WO_BUY_COUPONE);
+//            g.windowsManager.hideWindow(WindowsManager.WO_BUY_COUPONE);
+            g.windowsManager.closeAllWindows();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }

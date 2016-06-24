@@ -248,9 +248,6 @@
             <filename>ridge_icon.png</filename>
             <filename>sheep_icon.png</filename>
             <filename>builds</filename>
-            <filename> fence_polka_dot_3_icon.png</filename>
-            <filename> fence_polka_dot_4_icon.png</filename>
-            <filename> fence_polka_dot_5_icon.png</filename>
             <filename>alive_fence_icon.png</filename>
             <filename>amanita_1_red_icon.png</filename>
             <filename>amanita_2_red_icon.png</filename>
@@ -273,6 +270,9 @@
             <filename>blue_fence_icon.png</filename>
             <filename>blueberry_icon.png</filename>
             <filename>bridge_icon.png</filename>
+            <filename>fence_polka_dot_3_icon.png</filename>
+            <filename>fence_polka_dot_4_icon.png</filename>
+            <filename>fence_polka_dot_5_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -112,9 +112,9 @@ public class WONoResourcesItem {
         _image.y = 33 - _image.height / 2;
         source.addChild(_image);
 
-        _txtCount = new TextField(66, 20, String(count), g.allData.fonts['BloggerMedium'], 12, Color.WHITE);
+        _txtCount = new TextField(66, 20, String(count), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtCount.y = 50;
+        _txtCount.y = 45;
         source.addChild(_txtCount);
         _money = true;
     }

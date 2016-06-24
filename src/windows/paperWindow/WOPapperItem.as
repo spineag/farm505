@@ -129,10 +129,10 @@ public class WOPapperItem {
         _txtResourceName.y = 103;
         source.addChild(_txtResourceName);
 
-        _txtUserName = new TextField(120, 50, "Станислав Йованович", g.allData.fonts['BloggerBold'], 16, ManagerFilters.TEXT_BLUE);
+        _txtUserName = new TextField(110, 50, "Станислав Йованович", g.allData.fonts['BloggerBold'], 16, ManagerFilters.TEXT_BLUE);
         _txtUserName.hAlign = HAlign.LEFT;
         _txtUserName.touchable = false;
-        _txtUserName.x = 60;
+        _txtUserName.x = 58;
         _txtUserName.y = 8;
         source.addChild(_txtUserName);
 

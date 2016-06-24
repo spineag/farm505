@@ -39,6 +39,8 @@ public class User extends Someone {
     public var arrNoAppFriend:Array;
     public var wallTrainItem:Boolean;
     public var wallOrderItem:Boolean;
+    public var decorShop:Boolean;
+    public var decorShifrShop:int;
     public var userGAcid:String = 'unknown';
 
     public var buyMarketTab:int;
