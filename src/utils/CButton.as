@@ -4,6 +4,10 @@
 package utils {
 import flash.geom.Point;
 import flash.ui.Mouse;
+
+import manager.ManagerFilters;
+
+import manager.ManagerFilters;
 import manager.ManagerFilters;
 import manager.Vars;
 import manager.hitArea.OwnHitArea;
@@ -31,11 +35,11 @@ public class CButton extends Sprite {
     private var _scale:Number;
     private var _bg:Sprite;
     private var _arrTextFields:Array;
-    private var BUTTON_CLICK_FILTER:ColorMatrixFilter;
-    private var BUTTON_HOVER_FILTER:ColorMatrixFilter;
-    private var BUTTON_DISABLE_FILTER:ColorMatrixFilter;
     private var _hitArea:OwnHitArea;
     private var _hitAreaState:int;
+    private var hoverFilter:ColorMatrixFilter;
+    private var disableFilter:ColorMatrixFilter;
+    private var clickFilter:ColorMatrixFilter;
     private var g:Vars = Vars.getInstance();
 
     public function CButton() {
@@ -43,6 +47,9 @@ public class CButton extends Sprite {
         _scale = 1;
         _arrTextFields = [];
         _bg = new Sprite();
+        hoverFilter = ManagerFilters.getButtonHoverFilter();
+        disableFilter = ManagerFilters.getButtonDisableFilter();
+        clickFilter = ManagerFilters.getButtonDisableFilter();
         this.addChild(_bg);
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
@@ -179,8 +186,7 @@ public class CButton extends Sprite {
                 _arrTextFields[i].t.nativeFilters = _arrTextFields[i].c;
             }
         } else {
-            if (!BUTTON_DISABLE_FILTER) BUTTON_DISABLE_FILTER = ManagerFilters.getButtonDisableFilter();
-            _bg.filter = BUTTON_DISABLE_FILTER;
+            _bg.filter = disableFilter;
             for (i=0; i<_arrTextFields.length; i++) {
                 _arrTextFields[i].t.nativeFilters = ManagerFilters.TEXT_STROKE_GRAY;
             }
@@ -188,18 +194,14 @@ public class CButton extends Sprite {
     }
 
     public function deleteIt():void {
-//        _bg.unflatten();
         _hitArea = null;
         _bg.filter = null;
-        if (BUTTON_CLICK_FILTER) BUTTON_CLICK_FILTER.dispose();
-        if (BUTTON_HOVER_FILTER) BUTTON_HOVER_FILTER.dispose();
-        if (BUTTON_DISABLE_FILTER) BUTTON_DISABLE_FILTER.dispose();
-        BUTTON_CLICK_FILTER = null;
-        BUTTON_DISABLE_FILTER = null;
-        BUTTON_HOVER_FILTER = null;
         if (this.hasEventListener(TouchEvent.TOUCH)) this.removeEventListener(TouchEvent.TOUCH, onTouch);
         _bg.dispose();
         _bg = null;
+        clickFilter.dispose();
+        hoverFilter.dispose();
+        disableFilter.dispose();
         dispose();
         _arrTextFields.length = 0;
         _clickCallback = null;
@@ -210,8 +212,7 @@ public class CButton extends Sprite {
     }
 
     private function onBeganClickAnimation():void {
-        if (!BUTTON_CLICK_FILTER) BUTTON_CLICK_FILTER = ManagerFilters.getButtonClickFilter();
-        _bg.filter = BUTTON_CLICK_FILTER;
+        _bg.filter = clickFilter;
         this.scaleX = this.scaleY = _scale*.95;
     }
 
@@ -221,8 +222,7 @@ public class CButton extends Sprite {
     }
 
     private function onHoverAnimation():void {
-        if (!BUTTON_HOVER_FILTER) BUTTON_HOVER_FILTER = ManagerFilters.getButtonHoverFilter();
-        _bg.filter = BUTTON_HOVER_FILTER;
+        _bg.filter = hoverFilter;
     }
 
     private function onOutAnimation():void {

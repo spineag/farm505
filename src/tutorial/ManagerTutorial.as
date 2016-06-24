@@ -249,14 +249,24 @@ public class ManagerTutorial {
 
     private function subStep2_1():void {
         _subStep = 1;
-        cutScene.reChangeBubble(texts[g.user.tutorialStep][_subStep], texts['lookAround'], subStep2_2, subStep2_2a);
+        cutScene.reChangeBubble(texts[g.user.tutorialStep][_subStep], texts['lookAround'], emptyFunction, subStep2_2a);
+        cutScene.startClick = subStep2_2;
     }
 
     private function subStep2_2():void {
-        g.optionPanel.makeFullScreen();
-        g.optionPanel.makeResizeForGame();
-        onResize();
-        subStep2_2a();
+        try {
+            var func:Function = function(e:flash.events.Event):void {
+                Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
+                g.optionPanel.makeFullScreen();
+                g.optionPanel.makeResizeForGame();
+                onResize();
+                subStep2_2a();
+            };
+            Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);
+        } catch (e:Error) {
+            Cc.ch('tutorial', 'Error:: Trouble with fullscreen: ' + e.message);
+            subStep2_2a();
+        }
     }
 
     private function subStep2_2a():void {

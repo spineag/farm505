@@ -79,7 +79,7 @@ public class LevelUpHint {
         _source.x = start.x + source.width/2;
         _source.y = start.y + source.height;
         if (_dataId == -1) {
-            _txtName = new TextField(200, 30,'Кот', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200, 30,'Кот', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 25;
             _txtText = new TextField(200,100,'Работает на ферме', g.allData.fonts['BloggerBold'],12,Color.WHITE);
@@ -96,7 +96,7 @@ public class LevelUpHint {
             return;
         }
         if (_dataId == -2) {
-            _txtName = new TextField(200, 30,'Грядка', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200, 30,'Грядка', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 25;
             _txtText = new TextField(200,100,'На ней растут растения', g.allData.fonts['BloggerBold'],12,Color.WHITE);
@@ -113,7 +113,7 @@ public class LevelUpHint {
             return;
         }
         if (animal) {
-            _txtName = new TextField(200, 30,String(g.dataAnimal.objectAnimal[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200, 30,String(g.dataAnimal.objectAnimal[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 25;
             _txtText = new TextField(200,100,'Производит: ' + g.dataResource.objectResources[g.dataAnimal.objectAnimal[_dataId].idResource].name, g.allData.fonts['BloggerBold'],12,Color.WHITE);
@@ -140,7 +140,7 @@ public class LevelUpHint {
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_TAIL || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.MARKET
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.ORDER || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DAILY_BONUS
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.CAVE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.PAPER || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.TRAIN) {
-                _txtName = new TextField(200, 30, String(g.dataBuilding.objectBuilding[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+                _txtName = new TextField(200, 30, String(g.dataBuilding.objectBuilding[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -100;
                 _txtName.y = 25;
                 wName = _txtName.textBounds.width + 40;
@@ -171,10 +171,10 @@ public class LevelUpHint {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -40;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(80, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtTime = new TextField(80, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             if (_txtTime.textBounds.width >= 50) {
                 _txtTime.x = -20;
             } else {
@@ -202,7 +202,7 @@ public class LevelUpHint {
             return;
         }
         if (g.dataResource.objectResources[_dataId].buildType == BuildType.INSTRUMENT) {
-            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
             _txtText = new TextField(200,100,String(g.dataResource.objectResources[_dataId].opys),g.allData.fonts['BloggerBold'],12,Color.WHITE);
@@ -225,10 +225,10 @@ public class LevelUpHint {
             if (_dataId == objTrees[i].craftIdResource) {
                 _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
                 _imageClock.y = 70;
-                _txtName = new TextField(150,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
+                _txtName = new TextField(150,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -75;
                 _txtName.y = 20;
-                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime),g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
+                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime),g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtTime.x = -10;
                 _txtTime.y = 60;
                 _txtText = new TextField(200,100,"Растет на: " + objTrees[i].name,g.allData.fonts['BloggerBold'],12,Color.WHITE);
@@ -257,7 +257,7 @@ public class LevelUpHint {
 
         for (i=0; i<objCave.length; i++) {
             if (_dataId == int(objCave[i])) {
-                _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
+                _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -100;
                 _txtName.y = 20;
                 _txtText = new TextField(200,100,"Место производства: Пещера",g.allData.fonts['BloggerBold'],12,Color.WHITE);
@@ -282,10 +282,10 @@ public class LevelUpHint {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -30;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtTime.x = -10;
             _txtTime.y = 60;
             _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_dataId].buildingId].name, g.allData.fonts['BloggerBold'], 12, Color.WHITE);
@@ -311,10 +311,10 @@ public class LevelUpHint {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -30;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtTime.x = -10;
             _txtTime.y = 60;
             _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_dataId].buildId].name, g.allData.fonts['BloggerBold'], 12, Color.WHITE);

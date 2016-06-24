@@ -54,7 +54,7 @@ public class WOAmbars extends WindowMain {
         _woWidth = 538;
         _woHeight = 566;
         _arrCells = [];
-        _SHADOW = ManagerFilters.getShadowFilter();
+        _SHADOW = ManagerFilters.NEW_SHADOW;
 
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
@@ -167,7 +167,7 @@ public class WOAmbars extends WindowMain {
         _progress.source.y = -_woHeight/2 + 458;
         _source.addChild(_progress.source);
 
-        _txtCount = new TextField(250, 67, "Вместимость: 888/8888", g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_ORANGE);
+        _txtCount = new TextField(250, 67, "Вместимость: 888/8888", g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
         _txtCount.hAlign = HAlign.LEFT;
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
         _txtCount.x = -_woWidth/2 + 47;

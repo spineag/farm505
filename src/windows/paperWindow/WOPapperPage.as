@@ -64,12 +64,12 @@ public class WOPapperPage {
         q.x = 70;
         q.y = 38;
         _bg.addChild(q);
-        var txt:TextField = new TextField(300, 100, "НьюсМяу", g.allData.fonts['BloggerBold'], 26, ManagerFilters.TEXT_MAX_BLUE);
+        var txt:TextField = new TextField(300, 100, "НьюсМяу", g.allData.fonts['BloggerBold'], 26, ManagerFilters.TEXT_BLUE_HARD);
         txt.hAlign = HAlign.LEFT;
         txt.x = 66;
         txt.y = -23;
         _bg.addChild(txt);
-        txt = new TextField(100, 100, String(n) + '/' + String(nMax), g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BROWN);
+        txt = new TextField(100, 100, String(n) + '/' + String(nMax), g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 170;
         txt.y = 460;
         _bg.addChild(txt);

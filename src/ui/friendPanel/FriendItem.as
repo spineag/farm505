@@ -79,7 +79,7 @@ public class FriendItem {
         source.addChild(txtLvl);
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
         if (_person is NeighborBot) txtLvl.text = '10';
-        _txt = new TextField(64, 30, "", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN);
+        _txt = new TextField(64, 30, "", g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BROWN_COLOR);
         _txt.y = -5;
         _txt.x = -1;
         if (_person.name) {

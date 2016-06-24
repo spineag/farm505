@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:9d05900c9d5ba7cb8e4ad76c87b96392:c0243607d8706594e2be7ac610300a12:8cd4caae4f70083015e4fa51cc2a58b3$ -->
+<!-- $TexturePacker:SmartUpdate:f9c23f3c7651e111958b4e677492fb8e:8214f46e5491f0b23dd2944afb2e2dc0:8cd4caae4f70083015e4fa51cc2a58b3$ -->
 <TextureAtlas imagePath="buildAtlas.png">
-    <SubTexture name="ambar" x="443" y="2" width="124" height="244"/>
-    <SubTexture name="ambar_indicator_main" x="415" y="2" width="20" height="117"/>
-    <SubTexture name="ambar_indicator_top" x="2" y="226" width="23" height="11"/>
+    <SubTexture name="ambar" x="415" y="2" width="120" height="220" frameX="0" frameY="0" frameWidth="121" frameHeight="221"/>
+    <SubTexture name="ambar_indicator_main" x="781" y="28" width="19" height="92"/>
+    <SubTexture name="ambar_indicator_top" x="244" y="206" width="32" height="16"/>
     <SubTexture name="bazar" x="244" y="2" width="169" height="202" frameX="0" frameY="-1" frameWidth="173" frameHeight="203"/>
-    <SubTexture name="bow_dark_green_1" x="741" y="39" width="33" height="35" frameX="-2" frameY="-1" frameWidth="35" frameHeight="37"/>
-    <SubTexture name="bow_dark_green_2" x="741" y="2" width="34" height="35" frameX="-3" frameY="0" frameWidth="40" frameHeight="36"/>
-    <SubTexture name="bow_dark_green_3" x="770" y="215" width="36" height="29" frameX="-1" frameY="0" frameWidth="37" frameHeight="30"/>
-    <SubTexture name="busket_2" x="652" y="2" width="87" height="113" frameX="-2" frameY="-1" frameWidth="90" frameHeight="115"/>
-    <SubTexture name="cat_shadow" x="724" y="215" width="44" height="27" frameX="0" frameY="0" frameWidth="46" frameHeight="27"/>
-    <SubTexture name="paper" x="652" y="117" width="70" height="120"/>
-    <SubTexture name="pillar_1" x="569" y="2" width="81" height="224" frameX="-3" frameY="-1" frameWidth="87" frameHeight="228"/>
-    <SubTexture name="pillar_new" x="724" y="117" width="82" height="49" frameX="-1" frameY="-1" frameWidth="85" frameHeight="51"/>
-    <SubTexture name="ribbon_dark_green" x="244" y="206" width="197" height="24" frameX="-1" frameY="-8" frameWidth="204" frameHeight="40"/>
-    <SubTexture name="ridge" x="724" y="168" width="84" height="45" frameX="-1" frameY="0" frameWidth="86" frameHeight="46"/>
-    <SubTexture name="rope" x="2" y="239" width="35" height="6"/>
+    <SubTexture name="bow_dark_green_1" x="790" y="159" width="33" height="35" frameX="-2" frameY="-1" frameWidth="35" frameHeight="37"/>
+    <SubTexture name="bow_dark_green_2" x="790" y="122" width="34" height="35" frameX="-3" frameY="0" frameWidth="40" frameHeight="36"/>
+    <SubTexture name="bow_dark_green_3" x="666" y="194" width="36" height="29" frameX="-1" frameY="0" frameWidth="37" frameHeight="30"/>
+    <SubTexture name="busket_2" x="620" y="28" width="87" height="113" frameX="-2" frameY="-1" frameWidth="90" frameHeight="115"/>
+    <SubTexture name="cat_shadow" x="620" y="194" width="44" height="27" frameX="0" frameY="0" frameWidth="46" frameHeight="27"/>
+    <SubTexture name="paper" x="709" y="28" width="70" height="120"/>
+    <SubTexture name="pillar_1" x="537" y="2" width="81" height="224" frameX="-3" frameY="-1" frameWidth="87" frameHeight="228"/>
+    <SubTexture name="pillar_new" x="620" y="143" width="82" height="49" frameX="-1" frameY="-1" frameWidth="85" frameHeight="51"/>
+    <SubTexture name="ribbon_dark_green" x="620" y="2" width="197" height="24" frameX="-1" frameY="-8" frameWidth="204" frameHeight="40"/>
+    <SubTexture name="ridge" x="704" y="150" width="84" height="45" frameX="-1" frameY="0" frameWidth="86" frameHeight="46"/>
+    <SubTexture name="rope" x="704" y="197" width="35" height="6"/>
     <SubTexture name="sklad" x="2" y="2" width="240" height="222" frameX="0" frameY="0" frameWidth="241" frameHeight="222"/>
 </TextureAtlas>

@@ -45,8 +45,8 @@ public class CatPanel {
         im.x = -19;
         im.y = -5;
         _source.addChild(im);
-        _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BROWN);
-        _txtZero = new TextField(30, 40, '', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_ORANGE);
+        _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtZero = new TextField(30, 40, '', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_ORANGE_COLOR);
         _source.addChild(_txtCount);
         _source.addChild(_txtZero);
 

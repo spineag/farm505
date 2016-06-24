@@ -40,7 +40,7 @@ public class FabricHintItem {
         _txtWhite.x = 43;
         _txtWhite.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtWhite.text = String("/" + String(_needCount));
-        _txtOrange = new TextField(50,50,'',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_ORANGE);
+        _txtOrange = new TextField(50,50,'',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_ORANGE_COLOR);
         _txtOrange.hAlign = HAlign.LEFT;
         _txtOrange.y = 56;
         _txtOrange.x = 36;

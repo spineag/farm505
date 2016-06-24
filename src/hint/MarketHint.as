@@ -103,7 +103,7 @@ public class MarketHint {
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
             _imageItem.x = 10;
-            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
             _txtText = new TextField(200,100,'',g.allData.fonts['BloggerBold'],12,Color.WHITE);
@@ -116,7 +116,7 @@ public class MarketHint {
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
             _txtCount.x = 30;
             _txtCount.y = 70;
-            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
             _txtSklad.x = -55;
             _txtSklad.y = 75;
             _source.x = start.x + source.width/2;
@@ -136,7 +136,7 @@ public class MarketHint {
             return;
         }
         if (g.dataResource.objectResources[_dataId].buildType == BuildType.INSTRUMENT) {
-            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
             _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop));
@@ -152,7 +152,7 @@ public class MarketHint {
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
             _txtCount.x = 30;
             _txtCount.y = 80;
-            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
             _txtSklad.x = -60;
             _txtSklad.y = 85;
             wText = _txtText.textBounds.width + 20;
@@ -187,7 +187,7 @@ public class MarketHint {
                 MCScaler.scale(_imageItem,30,30);
                 _imageItem.y = 70;
                 _imageItem.x = 10;
-                _txtName = new TextField(150,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
+                _txtName = new TextField(150,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -75;
                 _txtName.y = 20;
                 _txtText = new TextField(200,100,"Растет на: " + objTrees[i].name,g.allData.fonts['BloggerBold'],12,Color.WHITE);
@@ -199,7 +199,7 @@ public class MarketHint {
                 _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
                 _txtCount.x = 30;
                 _txtCount.y = 70;
-                _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+                _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
                 _txtSklad.x = -55;
                 _txtSklad.y = 75;
                 wText = _txtText.textBounds.width + 40;
@@ -224,7 +224,7 @@ public class MarketHint {
                 MCScaler.scale(_imageItem,30,30);
                 _imageItem.y = 70;
                 _imageItem.x = 15;
-                _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE);
+                _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -100;
                 _txtName.y = 20;
                 _txtText = new TextField(200,100,"Место производства: Пещера",g.allData.fonts['BloggerBold'],12,Color.WHITE);
@@ -236,7 +236,7 @@ public class MarketHint {
                 _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
                 _txtCount.x = 35;
                 _txtCount.y = 70;
-                _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+                _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
                 _txtSklad.x = -50;
                 _txtSklad.y = 75;
                 wText = _txtText.textBounds.width + 20;
@@ -260,7 +260,7 @@ public class MarketHint {
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
             _imageItem.x = 15;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
             _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_dataId].buildingId].name, g.allData.fonts['BloggerBold'], 12, Color.WHITE);
@@ -272,7 +272,7 @@ public class MarketHint {
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
             _txtCount.x = 35;
             _txtCount.y = 70;
-            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
             _txtSklad.x = -50;
             _txtSklad.y = 75;
             wText = _txtText.textBounds.width + 20;
@@ -295,7 +295,7 @@ public class MarketHint {
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
             _imageItem.x = 15;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
             _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_dataId].buildId].name, g.allData.fonts['BloggerBold'], 12, Color.WHITE);
@@ -307,7 +307,7 @@ public class MarketHint {
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
             _txtCount.x = 35;
             _txtCount.y = 70;
-            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE);
+            _txtSklad = new TextField(70,20,'На складе:',g.allData.fonts['BloggerBold'],12,ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
             _txtSklad.x = -50;
             _txtSklad.y = 75;
             wText = _txtText.textBounds.width + 20;

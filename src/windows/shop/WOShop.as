@@ -68,8 +68,8 @@ public class WOShop extends WindowMain {
         _shopSprite = new Sprite();
         _shopSprite.x = -_woWidth/2 + 41;
         _shopSprite.y = -_woHeight/2 + 141;
-        _SHADOW = ManagerFilters.getShadowFilter();
-        _SHADOW2 = ManagerFilters.getShadowFilter();
+        _SHADOW = ManagerFilters.NEW_SHADOW;
+        _SHADOW2 = ManagerFilters.NEW_SHADOW;
         _shopSprite.filter = _SHADOW;
         _source.addChild(_shopSprite);
         _contSprite = new Sprite();

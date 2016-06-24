@@ -36,7 +36,7 @@ public class TutorialCloud {
         _source = new Sprite();
         _source.addChild(_bg);
         _txtSp = new Sprite();
-        _txt = new TextField(680, 340, '', g.allData.fonts['BloggerBold'], 30, ManagerFilters.TEXT_BLUE);
+        _txt = new TextField(680, 340, '', g.allData.fonts['BloggerBold'], 30, ManagerFilters.TEXT_BLUE_COLOR);
         _txtSp.addChild(_txt);
         _txtSp.x = 177;
         _txtSp.y = 128;
@@ -52,7 +52,7 @@ public class TutorialCloud {
         _btn.addChild(btnTxt);
         _btn.clickCallback = onClick;
         _source.addChild(_btn);
-        _txtPage = new TextField(100, 30, '', g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE);
+        _txtPage = new TextField(100, 30, '', g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txtPage.x = 450;
         _txtPage.y = 460;
         _source.addChild(_txtPage);

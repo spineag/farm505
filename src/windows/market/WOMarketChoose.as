@@ -51,7 +51,7 @@ public class WOMarketChoose extends WindowMain {
         _woHeight = 570;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        _SHADOW = ManagerFilters.getShadowFilter();
+        _SHADOW = ManagerFilters.NEW_SHADOW;
         createExitButton(hideIt);
         booleanPlus = true;
         booleanMinus = true;

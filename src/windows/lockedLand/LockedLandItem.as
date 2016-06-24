@@ -49,7 +49,7 @@ public class LockedLandItem {
         txt.y = 55;
         txt.x = -30;
         source.addChild(txt);
-        txt = new TextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (пропадут после открытия)',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
+        txt = new TextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (пропадут после открытия)',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 103;
         txt.y = -2;
         source.addChild(txt);
@@ -106,7 +106,7 @@ public class LockedLandItem {
         txt.y = 55;
         txt.x = -40;
         source.addChild(txt);
-        txt = new TextField(200,60,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name,g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
+        txt = new TextField(200,60,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name,g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 103;
         txt.y = 15;
         source.addChild(txt);
@@ -158,7 +158,7 @@ public class LockedLandItem {
         txt.x = -35;
         txt.y = 55;
         source.addChild(txt);
-        txt = new TextField(200,60,'Пригласить ' +String(count) + ' друзей',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN);
+        txt = new TextField(200,60,'Пригласить ' +String(count) + ' друзей',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 103;
         txt.y = 15;
         source.addChild(txt);

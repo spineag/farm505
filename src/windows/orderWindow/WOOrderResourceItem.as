@@ -51,7 +51,7 @@ public class WOOrderResourceItem {
 
         _countTxt.y = 60;
         source.addChild(_countTxt);
-        _countRed = new TextField(30, 30, "", g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_ORANGE);
+        _countRed = new TextField(30, 30, "", g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
         _countRed.hAlign = HAlign.RIGHT;
         _countRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countRed.y = 65;
