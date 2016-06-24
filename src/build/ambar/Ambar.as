@@ -26,8 +26,8 @@ public class Ambar extends WorldObject{
         }
         createAtlasBuild(onCreateBuild);
         _ambarIndicator = new AmbarIndicator();
-        _ambarIndicator.source.x = -36 * g.scaleFactor;
-        _ambarIndicator.source.y = -210 * g.scaleFactor;
+        _ambarIndicator.source.x = -20 * g.scaleFactor;
+        _ambarIndicator.source.y = -140 * g.scaleFactor;
         _build.addChild(_ambarIndicator.source);
 
         _source.releaseContDrag = true;
