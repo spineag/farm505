@@ -14,6 +14,8 @@ import build.ridge.Ridge;
 import build.tutorialPlace.TutorialPlace;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+
+import flash.display.StageDisplayState;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
@@ -2067,6 +2069,21 @@ public class ManagerTutorial {
         if (cutScene) {
             cutScene.onResize();
         }
+        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
+            checkResizeNormal();
+        } else {
+            checkResizeFull();
+        }
+    }
+
+    private function checkResizeNormal():void {
+        switch (g.user.tutorialStep) {
+
+        }
+    }
+
+    private function checkResizeFull():void {
+
     }
 
     private function deleteCutScene():void {
