@@ -48,6 +48,10 @@ public class CutScene {
         _bubble.showBubble(st, stBtn, callback, callbackNo);
     }
 
+    public function set startClick(f:Function):void {
+        _bubble.startClick = f;
+    }
+
     public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null):void {
         var f:Function = function():void {
             showBubble(st, stBtn, callback, callbackNo, '');

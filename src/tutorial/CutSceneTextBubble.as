@@ -48,6 +48,12 @@ public class CutSceneTextBubble {
         TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete:addParticles});
     }
 
+    public function set startClick(f:Function):void {
+        if (_btn) {
+            _btn.startClickCallback = f;
+        }
+    }
+
     private function addButton(btnSt:String, callback:Function):void {
         _btn = new CButton();
         _btn.addButtonTexture(200, 30, CButton.BLUE, true);
