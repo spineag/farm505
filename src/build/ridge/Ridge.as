@@ -205,6 +205,8 @@ public class Ridge extends WorldObject{
                 return;
             }
             _lastBuyResource = true;
+            _source.filter = null;
+            plantThePlant();
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
                 if (_tutorialCallback != null) {
                     _tutorialCallback.apply(null, [this]);
@@ -212,8 +214,6 @@ public class Ridge extends WorldObject{
             } else {
                 g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED_ACTIVE;
             }
-            _source.filter = null;
-            plantThePlant();
         } else if (_stateRidge == GROWED) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.CRAFT_RIDGE) return;
             craftThePlant();

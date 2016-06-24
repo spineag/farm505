@@ -37,6 +37,9 @@ public class CButton extends Sprite {
     private var _arrTextFields:Array;
     private var _hitArea:OwnHitArea;
     private var _hitAreaState:int;
+    private var hoverFilter:ColorMatrixFilter;
+    private var disableFilter:ColorMatrixFilter;
+    private var clickFilter:ColorMatrixFilter;
     private var g:Vars = Vars.getInstance();
 
     public function CButton() {
@@ -44,6 +47,9 @@ public class CButton extends Sprite {
         _scale = 1;
         _arrTextFields = [];
         _bg = new Sprite();
+        hoverFilter = ManagerFilters.getButtonHoverFilter();
+        disableFilter = ManagerFilters.getButtonDisableFilter();
+        clickFilter = ManagerFilters.getButtonDisableFilter();
         this.addChild(_bg);
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
@@ -180,7 +186,7 @@ public class CButton extends Sprite {
                 _arrTextFields[i].t.nativeFilters = _arrTextFields[i].c;
             }
         } else {
-            _bg.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+            _bg.filter = disableFilter;
             for (i=0; i<_arrTextFields.length; i++) {
                 _arrTextFields[i].t.nativeFilters = ManagerFilters.TEXT_STROKE_GRAY;
             }
@@ -188,12 +194,14 @@ public class CButton extends Sprite {
     }
 
     public function deleteIt():void {
-//        _bg.unflatten();
         _hitArea = null;
         _bg.filter = null;
         if (this.hasEventListener(TouchEvent.TOUCH)) this.removeEventListener(TouchEvent.TOUCH, onTouch);
         _bg.dispose();
         _bg = null;
+        clickFilter.dispose();
+        hoverFilter.dispose();
+        disableFilter.dispose();
         dispose();
         _arrTextFields.length = 0;
         _clickCallback = null;
@@ -204,7 +212,7 @@ public class CButton extends Sprite {
     }
 
     private function onBeganClickAnimation():void {
-        _bg.filter = ManagerFilters.BUTTON_CLICK_FILTER;
+        _bg.filter = clickFilter;
         this.scaleX = this.scaleY = _scale*.95;
     }
 
@@ -214,7 +222,7 @@ public class CButton extends Sprite {
     }
 
     private function onHoverAnimation():void {
-        _bg.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+        _bg.filter = hoverFilter;
     }
 
     private function onOutAnimation():void {

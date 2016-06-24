@@ -101,6 +101,24 @@ public class ManagerFilters {
         return _BUILD_STROKE;
     }
 
+    public static function getButtonClickFilter():ColorMatrixFilter {
+        var f:ColorMatrixFilter = new ColorMatrixFilter();
+        f.adjustBrightness(-.07);
+        return f;
+    }
+
+    public static function getButtonDisableFilter():ColorMatrixFilter {
+        var f:ColorMatrixFilter = new ColorMatrixFilter();
+        f.adjustSaturation(-.95);
+        return f;
+    }
+
+    public static function getButtonHoverFilter():ColorMatrixFilter {
+        var f:ColorMatrixFilter = new ColorMatrixFilter();
+        f.adjustBrightness(.04);
+        return f;
+    }
+
     public static function get BUTTON_CLICK_FILTER():ColorMatrixFilter {
         if (!_BUTTON_CLICK_FILTER) {
             _BUTTON_CLICK_FILTER = new ColorMatrixFilter();
