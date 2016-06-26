@@ -49,7 +49,7 @@ public class CButton extends Sprite {
         _bg = new Sprite();
         hoverFilter = ManagerFilters.getButtonHoverFilter();
         disableFilter = ManagerFilters.getButtonDisableFilter();
-        clickFilter = ManagerFilters.getButtonDisableFilter();
+        clickFilter = ManagerFilters.getButtonClickFilter();
         this.addChild(_bg);
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }

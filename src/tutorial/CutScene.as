@@ -19,6 +19,7 @@ public class CutScene {
     private var _cont:Sprite;
     private var _xStart:int;
     private var _xEnd:int;
+    private var _startCallback:Function;
 
     public function CutScene() {
         _cont = g.cont.popupCont;
@@ -45,11 +46,14 @@ public class CutScene {
         } else {
             _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE);
         }
+        if (_startCallback != null) {
+            _bubble.startClick = _startCallback;
+        }
         _bubble.showBubble(st, stBtn, callback, callbackNo);
     }
 
     public function set startClick(f:Function):void {
-        _bubble.startClick = f;
+        _startCallback = f;
     }
 
     public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null):void {
