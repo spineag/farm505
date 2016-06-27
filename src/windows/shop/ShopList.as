@@ -113,6 +113,9 @@ public class ShopList {
                     arr[j].indexQueue = int(arr[j].blockByLevel[curCount]);
                 }
             }
+            g.user.decorShop = false;
+            g.user.decorShifrShop = 0;
+
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.TREE) {
             for (j = 0; j < arr.length; j++) {
@@ -134,6 +137,9 @@ public class ShopList {
                     arr[j].indexQueue = int(arr[j].blockByLevel[i]);
                 }
             }
+            g.user.decorShop = false;
+            g.user.decorShifrShop = 0;
+
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.ANIMAL) {
             var dataFarm:Object;
@@ -156,6 +162,9 @@ public class ShopList {
                     arr[j].indexQueue = int(dataFarm.blockByLevel[arrFarm.length]);
                 }
             }
+            g.user.decorShop = false;
+            g.user.decorShifrShop = 0;
+
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.FARM || arr[0].buildType == BuildType.CAT || arr[0].buildType == BuildType.RIDGE) {
             for (j = 0; j < arr.length; j++) {
@@ -181,12 +190,15 @@ public class ShopList {
                     arr[j].indexQueue = 1;
                 }
             }
+            g.user.decorShop = false;
+            g.user.decorShifrShop = 0;
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL) {
             for (j = 0; j < arr.length; j++) {
                 arr[j].indexQueue = int(arr[j].blockByLevel[0]);
             }
+            if (!g.user.decorShop) g.user.decorShop = true;
             arr.sortOn("indexQueue", Array.NUMERIC);
         }
 
@@ -201,6 +213,33 @@ public class ShopList {
         }
 
         checkArrows();
+
+        var f:Function = function():void {
+            for (i=0; i<_shift; i++) {
+                item = _arrItems.shift();
+                if (!item) return;
+                _itemsSprite.removeChild(item.source);
+                item.deleteIt();
+            }
+        };
+        if (g.user.decorShop) {
+           var newCount:int = g.user.decorShifrShop;
+
+            for (i = 0; i<newCount; i++) {
+                if (_currentShopArr[_shift + 4 + i]) {
+                    item = new ShopItem(_currentShopArr[_shift + 4 + i], _wo, _shift + 4 + i);
+                    item.source.x = 153 * (_shift + 4 + i);
+                    _itemsSprite.addChild(item.source);
+                    _arrItems.push(item);
+                }
+            }
+            _shift = g.user.decorShifrShop;
+            animList(f);
+        }
+        if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
+                arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL) {
+            if (!g.user.decorShop) g.user.decorShop = true;
+        }
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
     }
 
@@ -226,6 +265,7 @@ public class ShopList {
     }
 
     private function checkArrows():void {
+        if (!_leftArrow) return;
         _leftArrow.visible = true;
         _rightArrow.visible = true;
 
@@ -268,6 +308,11 @@ public class ShopList {
                 item.deleteIt();
             }
         };
+
+        if (_currentShopArr[0].buildType == BuildType.DECOR || _currentShopArr[0].buildType == BuildType.DECOR_FULL_FENСE ||
+                _currentShopArr[0].buildType == BuildType.DECOR_POST_FENCE || _currentShopArr[0].buildType == BuildType.DECOR_TAIL) {
+            g.user.decorShifrShop = _shift;
+        }
         animList(f);
     }
 
@@ -291,10 +336,15 @@ public class ShopList {
         var f:Function = function():void {
             for (i=0; i<newCount; i++) {
                 item = _arrItems.shift();
+                if (!item) return;
                 _itemsSprite.removeChild(item.source);
                 item.deleteIt();
             }
         };
+        if (_currentShopArr[0].buildType == BuildType.DECOR || _currentShopArr[0].buildType == BuildType.DECOR_FULL_FENСE ||
+                _currentShopArr[0].buildType == BuildType.DECOR_POST_FENCE || _currentShopArr[0].buildType == BuildType.DECOR_TAIL) {
+            g.user.decorShifrShop = _shift;
+        }
         animList(f);
     }
 

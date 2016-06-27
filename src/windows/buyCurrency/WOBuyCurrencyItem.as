@@ -25,6 +25,8 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class WOBuyCurrencyItem {
     public var source:Sprite;
     private var _bg:Sprite;
@@ -102,7 +104,10 @@ public class WOBuyCurrencyItem {
         if (g.isDebug) {
             onBuy();
         } else {
-            if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) g.optionPanel.makeFullScreen();
+            if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
+                g.optionPanel.makeFullScreen();
+                g.windowsManager.hideWindow(WindowsManager.WO_BUY_CURRENCY);
+            }
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);

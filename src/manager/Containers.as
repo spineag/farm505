@@ -208,6 +208,10 @@ public class Containers {
         }
     }
 
+    public function killMoveCenterToPoint():void {
+        TweenMax.killTweensOf(gameCont);
+    }
+
     public function moveCenterToPos(posX:int, posY:int, needQuick:Boolean = false, time:Number = .5):void {
         var p:Point = new Point(posX, posY);
         p = g.matrixGrid.getXYFromIndex(p);

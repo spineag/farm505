@@ -215,6 +215,7 @@ public class WOFabricaWorkListItem {
                     g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
                 } else {
                     g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+//                    g.windowsManager.closeAllWindows();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                 }
             };
@@ -239,6 +240,7 @@ public class WOFabricaWorkListItem {
                 g.managerTutorial.checkTutorialCallback();
             }
         } else {
+            g.windowsManager.hideWindow(WindowsManager.WO_FABRICA);
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         }
     }

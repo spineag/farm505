@@ -14,8 +14,6 @@ import build.ridge.Ridge;
 import build.tutorialPlace.TutorialPlace;
 import com.junkbyte.console.Cc;
 import data.BuildType;
-
-import flash.display.StageDisplayState;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
@@ -251,23 +249,30 @@ public class ManagerTutorial {
 
     private function subStep2_1():void {
         _subStep = 1;
-        cutScene.reChangeBubble(texts[g.user.tutorialStep][_subStep], texts['lookAround'], emptyFunction, subStep2_2a);
         cutScene.startClick = subStep2_2;
+        cutScene.reChangeBubble(texts[g.user.tutorialStep][_subStep], texts['lookAround'], emptyFunction, subStep2_2a);
     }
 
     private function subStep2_2():void {
-        try {
-            var func:Function = function(e:flash.events.Event):void {
-                Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
-                g.optionPanel.makeFullScreen();
-                g.optionPanel.makeResizeForGame();
-                onResize();
-                subStep2_2a();
-            };
-            Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);
-        } catch (e:Error) {
-            Cc.ch('tutorial', 'Error:: Trouble with fullscreen: ' + e.message);
+        if (g.isDebug) {
+            g.optionPanel.makeFullScreen();
+            g.optionPanel.makeResizeForGame();
+            onResize();
             subStep2_2a();
+        } else {
+            try {
+                var func:Function = function (e:flash.events.Event):void {
+                    Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
+                    g.optionPanel.makeFullScreen();
+                    g.optionPanel.makeResizeForGame();
+                    onResize();
+                    subStep2_2a();
+                };
+                Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);
+            } catch (e:Error) {
+                Cc.ch('tutorial', 'Error:: Trouble with fullscreen: ' + e.message);
+                subStep2_2a();
+            }
         }
     }
 
@@ -963,7 +968,6 @@ public class ManagerTutorial {
             _arrow.deleteIt();
             _arrow = null;
         }
-//        if (!cat.isShowingBubble) cat.showBubble(texts[g.user.tutorialStep][5]);
         g.cont.moveCenterToPos(25, 35);
         _tutorialPlaceBuilding = _tutorialObjects[2];
         _tutorialPlaceBuilding.activateIt(true);
@@ -971,7 +975,6 @@ public class ManagerTutorial {
     }
 
     private function subStep10_8():void {
-//        cat.hideBubble();
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         _tutorialPlaceBuilding.activateIt(false);
         _tutorialPlaceBuilding = null;
@@ -1479,12 +1482,16 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.FABRICA_SKIP_RECIPE;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
-        var ob:Object = (g.windowsManager.currentWindow as WOFabrica).getSkipBtnProperties();
-        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
-        _arrow.scaleIt(.5);
-        _arrow.animateAtPosition(ob.x, ob.y + ob.height/2);
-        _tutorialCallback = subStep18_2;
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_FABRICA) {
+            var ob:Object = (g.windowsManager.currentWindow as WOFabrica).getSkipBtnProperties();
+            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
+            _arrow.scaleIt(.5);
+            _arrow.animateAtPosition(ob.x, ob.y + ob.height/2);
+            _tutorialCallback = subStep18_2;
+        } else {
+            Cc.error('tuts:: WO_fabrica is not opened');
+        }
     }
 
     private function subStep18_2():void {
@@ -1584,6 +1591,7 @@ public class ManagerTutorial {
     }
 
     private function subStep20_2():void {
+        _subStep = 2;
         _onShowWindowCallback = null;
         var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopDirectItemProperties(1);
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
@@ -1594,7 +1602,7 @@ public class ManagerTutorial {
     }
 
     private function subStep20_3():void {
-        _subStep = 2;
+        _subStep = 3;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1611,11 +1619,12 @@ public class ManagerTutorial {
     }
 
     private function subStep20_4():void {
-        _subStep = 3;
+        _subStep = 4;
         initScenes();
     }
 
     private function initScene_21():void {
+        _subStep = 0;
         _currentAction = TutorialAction.BUY_FARM;
         if (!cat) {
             addCatToPos(31, 26);
@@ -1627,7 +1636,7 @@ public class ManagerTutorial {
         if (g.windowsManager.currentWindow) {
             if (g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
                 addBlack();
-                cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['ok'], subStep21_1b);
+                cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['ok'], subStep21_3);
             } else {
                 g.windowsManager.currentWindow.hideIt();
                 createDelay(.7, subStep21_1a);
@@ -1638,6 +1647,7 @@ public class ManagerTutorial {
     }
 
     private function subStep21_1a():void {
+        _subStep = 1;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep]);
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         g.bottomPanel.addArrow('shop');
@@ -1646,6 +1656,7 @@ public class ManagerTutorial {
     }
 
     private function subStep21_2a():void {
+        _subStep = 2;
         cutScene.hideIt(deleteCutScene);
         g.bottomPanel.deleteArrow();
         if (_dustRectangle) {
@@ -1655,13 +1666,15 @@ public class ManagerTutorial {
         _onShowWindowCallback = subStep21_4;
     }
 
-    private function subStep21_1b():void {
+    private function subStep21_3():void {
+        _subStep = 3;
         removeBlack();
         cutScene.hideIt(deleteCutScene);
         subStep21_4();
     }
 
     private function subStep21_4():void {
+        _subStep = 4;
         _tutorialResourceIDs = [39];
         _onShowWindowCallback = null;
         var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0], true);
@@ -1682,6 +1695,7 @@ public class ManagerTutorial {
     }
 
     private function subStep21_5():void {
+        _subStep = 5;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1697,6 +1711,7 @@ public class ManagerTutorial {
     }
 
     private function subStep21_6():void {
+        _subStep = 6;
         _tutorialPlaceBuilding.activateIt(false);
         _tutorialPlaceBuilding = null;
         _tutorialCallback = null;
@@ -1749,6 +1764,7 @@ public class ManagerTutorial {
     }
 
     private function subStep22_3():void {
+        _subStep = 3;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             (g.windowsManager.currentWindow as WOShop).openOnResource(_tutorialResourceIDs[0]);
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
@@ -1763,6 +1779,7 @@ public class ManagerTutorial {
     }
 
     private function subStep22_4():void {
+        _subStep = 4;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         if (_dustRectangle) {
@@ -1777,6 +1794,7 @@ public class ManagerTutorial {
     }
 
     private function subStep22_5():void {
+        _subStep = 5;
         g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         g.user.tutorialStep = 23;
         updateTutorialStep();
@@ -1838,6 +1856,7 @@ public class ManagerTutorial {
     }
 
     private function subStep24_1():void {
+        _subStep = 1;
         var ob:Object = g.friendPanel.getNeighborItemProperties();
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
@@ -1852,7 +1871,7 @@ public class ManagerTutorial {
             _arrow = null;
         }
         cutScene.hideIt(deleteCutScene);
-        _subStep = 3;
+        _subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1901,6 +1920,7 @@ public class ManagerTutorial {
     }
 
     private function subStep24_7():void {
+        _subStep = 7;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1912,7 +1932,6 @@ public class ManagerTutorial {
         g.user.tutorialStep = 25;
         updateTutorialStep();
         _airBubble.hideIt();
-        _subStep = 7;
         g.user.tutorialStep = 24;
         _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, subStep24_8);
         _airBubble.showBtnParticles();
@@ -1951,6 +1970,7 @@ public class ManagerTutorial {
     }
 
     private function subStep24_11():void {
+        _subStep = 11;
         _tutorialCallback = null;
         g.user.tutorialStep = 25;
         _tutorialResourceIDs = [];
@@ -2069,20 +2089,436 @@ public class ManagerTutorial {
         if (cutScene) {
             cutScene.onResize();
         }
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
-            checkResizeNormal();
-        } else {
-            checkResizeFull();
-        }
-    }
 
-    private function checkResizeNormal():void {
+        checkDefaults();
+
+        var p:Point = new Point();
+        var ob:Object;
         switch (g.user.tutorialStep) {
-
+            case 3:
+            case 4:
+                if (!_tutorialObjects[0]) return;
+                p.x = (_tutorialObjects[0] as WorldObject).posX;
+                p.y = (_tutorialObjects[0] as WorldObject).posY;
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(p.x, p.y, false, 1);
+                break;
+            case 5:
+            case 6:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(28, 11, false, 1);
+                break;
+            case 7:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(28, 11);
+                if (_subStep == 1) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                } else if (_subStep == 3) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+                    } else {
+                        Cc.error('Tuts:: WO_Shop is not opened on resize');
+                    }
+                }
+                break;
+            case 8:
+                if (_subStep == 0) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(30, 11, false, 1);
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                } else if (_subStep == 1) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(30, 11, false, 1);
+                } else if (_subStep == 2) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(30, 11, false, 1);
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                    } else {
+                        Cc.error('wo_SHOP is not opened on resize');
+                    }
+                } else if ( _subStep == 3) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(8, 9, false, 1);
+                } else if (_subStep >= 4) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(9, 13, false, 1);
+                }
+                break;
+            case 9:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(9, 13, false, 1);
+                break;
+            case 10:
+                if (_subStep == 2) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(19, 37, false, 1);
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                } else if (_subStep < 4) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(19, 37, false, 1);
+                } else if (_subStep == 4) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(21, 35, false, 1);
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+                    } else {
+                        Cc.error('wo_SHOP is not opened on resize');
+                    }
+                } else if (_subStep == 5) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(21, 35, false, 1);
+                } else if (_subStep == 6) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(23, 35, false, 1);
+                } else if (_subStep == 7) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(23, 35, false, 1);
+                } else {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(23, 35, false, 1);
+                }
+                break;
+            case 11:
+                if (_tutorialObjects[0]) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, false, 1);
+                }
+                break;
+            case 12:
+                if (_subStep < 6) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(31, 26, false, 1);
+                } else if (_subStep == 6 || _subStep == 7) {
+                    if (_tutorialObjects[0]) {
+                        g.cont.killMoveCenterToPoint();
+                        g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, false, 1);
+                    }
+                } else if (_subStep == 8) {
+                    if (_tutorialObjects[0]) {
+                        g.cont.killMoveCenterToPoint();
+                        g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, false, 1);
+                    }
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
+                        ob = (g.windowsManager.currentWindow as WOOrder).getSellBtnProperties();
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height - 20, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
+                        _arrow.scaleIt(.5);
+                        _arrow.animateAtPosition(ob.x, ob.y + 25);
+                    } else {
+                        Cc.error('wo_order is not opened on resize');
+                    }
+                } else {
+                    if (_tutorialObjects[0]) {
+                        g.cont.killMoveCenterToPoint();
+                        g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, false, 1);
+                    }
+                }
+                break;
+            case 13:
+                if (_subStep == 0){
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(31, 26, false, 1);
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                } else if (_subStep == 1) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(31, 26, false, 1);
+                } else if (_subStep == 2) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(31, 26, false, 1);
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                    } else {
+                        Cc.error('wo_shop is not opened on resize');
+                    }
+                }
+                break;
+            case 14:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(2, 12, false, 1);
+                break;
+            case 15:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(2, 12, false, 1);
+                break;
+            case 16:
+                g.cont.killMoveCenterToPoint();
+                if (_tutorialObjects[0]) {
+                    g.cont.moveCenterToPos(_tutorialObjects[0].posX, _tutorialObjects[0].posY, true);
+                } else {
+                    g.cont.moveCenterToPos(2, 12, false, 1);
+                }
+                break;
+            case 17:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(2, 11, false, 1);
+                break;
+            case 18:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(2, 11, false, 1);
+                if (_subStep == 1) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_FABRICA) {
+                        ob = (g.windowsManager.currentWindow as WOFabrica).getSkipBtnProperties();
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
+                        _arrow.scaleIt(.5);
+                    } else {
+                        Cc.error('wo_fabrica is not opened on resize');
+                    }
+                }
+                break;
+            case 19:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(2, 11, false, 1);
+                break;
+            case 20:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(31, 28, false, 1);
+                if (_subStep == 2) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopDirectItemProperties(1);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                    } else {
+                        Cc.error('wo_shop is not opened on resize');
+                    }
+                }
+                break;
+            case 21:
+                if (_subStep == 1) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(31, 26, false, 1);
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                } else if (_subStep == 4) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(31, 26, false, 1);
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0], true);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                    } else {
+                        Cc.error('wo_shop is not opened on resize');
+                    }
+                } else if (_subStep < 4) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(31, 26, false, 1);
+                } else {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(16, 9, false, 1);
+                }
+                break;
+            case 22:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(8, 17, false, 1);
+                if (_subStep == 1) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                } else if (_subStep == 3) {
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        if (_dustRectangle) {
+                            _dustRectangle.deleteIt();
+                            _dustRectangle = null;
+                        }
+                        if (_arrow) {
+                            _arrow.deleteIt();
+                            _arrow = null;
+                        }
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                    } else {
+                        Cc.error('wo_SHOP is not opened on resize');
+                    }
+                }
+                break;
+            case 23:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(8, 17, false, 1);
+                break;
+            case 24:
+                if (_subStep == 1) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(31, 28, false, 1);
+                    ob = g.friendPanel.getNeighborItemProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                    _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                    _arrow.scaleIt(.5);
+                    _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+                } else if (_subStep < 4) {
+                    g.cont.killMoveCenterToPoint();
+                    g.cont.moveCenterToPos(31, 28, false, 1);
+                } else if (_subStep > 4) {
+                    if (_tutorialObjects[0]) {
+                        g.cont.moveCenterToXY((_tutorialObjects[0] as Market).source.x - 100, (_tutorialObjects[0] as Market).source.y, false, 1);
+                    }
+                    if (_subStep == 6) {
+                        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
+                            if (_dustRectangle) {
+                                _dustRectangle.deleteIt();
+                                _dustRectangle = null;
+                            }
+                            if (_arrow) {
+                                _arrow.deleteIt();
+                                _arrow = null;
+                            }
+                            _airBubble.hideIt();
+                            _airBubble = new AirTextBubble();
+                            _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2);
+                            ob = (g.windowsManager.currentWindow as WOMarket).getItemProperties(1);
+                            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
+                            _arrow.scaleIt(.5);
+                            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height);
+                        } else {
+                            Cc.error('wo_market is not opened on resize');
+                        }
+                    } else if (_subStep == 7) {
+                        _airBubble.hideIt();
+                        _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, subStep24_8);
+                        _airBubble.showBtnParticles();
+                        _airBubble.showBtnArrow();
+                    } else if (_subStep == 9) {
+                        if (_dustRectangle) {
+                            _dustRectangle.deleteIt();
+                            _dustRectangle = null;
+                        }
+                        ob = g.bottomPanel.getBtnProperties('home');
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                    }
+                }
+                break;
+            case 25:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(31, 28, false, 1);
+                break;
+            case 26:
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(31, 31, false, 1);
+                break;
         }
-    }
-
-    private function checkResizeFull():void {
 
     }
 

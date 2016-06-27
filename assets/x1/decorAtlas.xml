@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:38fe22fa211c287678d21e61a9fd2619:2665456299c542a901e6f731c7c5ef9a:8e467b6e9f38a55d4cabd49280944c60$ -->
+<!-- $TexturePacker:SmartUpdate:a4b886b0055990c244fa85ddd4a7d41f:ad87ed79ba98dbe0e2d269a207b16c96:8e467b6e9f38a55d4cabd49280944c60$ -->
 <TextureAtlas imagePath="decorAtlas.png" width="2033" height="365">
     <SubTexture name=" arch_polka_dot" x="2" y="223" width="108" height="140" frameX="0" frameY="-1" frameWidth="108" frameHeight="141"/>
-    <SubTexture name=" fence_polka_dot" x="1372" y="108" width="61" height="80"/>
-    <SubTexture name=" fence_polka_dot_3" x="1752" y="73" width="66" height="65" frameX="-2" frameY="-1" frameWidth="70" frameHeight="66"/>
-    <SubTexture name=" fence_polka_dot_4" x="1613" y="80" width="73" height="69" frameX="-1" frameY="0" frameWidth="74" frameHeight="70"/>
-    <SubTexture name=" fence_polka_dot_5" x="1435" y="108" width="38" height="80" frameX="0" frameY="0" frameWidth="38" frameHeight="81"/>
     <SubTexture name="alive_fence" x="1107" y="329" width="21" height="34"/>
     <SubTexture name="alive_fence_1" x="1970" y="267" width="58" height="44" frameX="-2" frameY="0" frameWidth="60" frameHeight="45"/>
     <SubTexture name="amanita_1_red" x="1130" y="329" width="23" height="32"/>
@@ -31,7 +27,7 @@
     <SubTexture name="cat_statue" x="325" y="210" width="86" height="146" frameX="-4" frameY="0" frameWidth="93" frameHeight="149"/>
     <SubTexture name="chair_1" x="1847" y="136" width="30" height="37" frameX="-4" frameY="-7" frameWidth="35" frameHeight="46"/>
     <SubTexture name="chair_2" x="1981" y="2" width="34" height="45" frameX="0" frameY="0" frameWidth="35" frameHeight="46"/>
-    <SubTexture name="dandelion" x="1753" y="2" width="66" height="65" frameX="-1" frameY="-4" frameWidth="70" frameHeight="70"/>
+    <SubTexture name="dandelion" x="1752" y="73" width="66" height="65" frameX="-1" frameY="-4" frameWidth="70" frameHeight="70"/>
     <SubTexture name="easel_clear" x="1441" y="190" width="68" height="104" frameX="-3" frameY="0" frameWidth="72" frameHeight="107"/>
     <SubTexture name="farming_table" x="1954" y="205" width="69" height="60" frameX="0" frameY="0" frameWidth="69" frameHeight="61"/>
     <SubTexture name="fence_brick" x="1515" y="108" width="64" height="79"/>
@@ -39,6 +35,10 @@
     <SubTexture name="fence_brick_3" x="1821" y="2" width="53" height="65"/>
     <SubTexture name="fence_brick_4" x="1581" y="90" width="30" height="77"/>
     <SubTexture name="fence_leaf_green" x="1521" y="280" width="60" height="77"/>
+    <SubTexture name="fence_polka_dot" x="1372" y="108" width="61" height="80"/>
+    <SubTexture name="fence_polka_dot_3" x="1753" y="2" width="66" height="65" frameX="-2" frameY="-1" frameWidth="70" frameHeight="66"/>
+    <SubTexture name="fence_polka_dot_4" x="1613" y="80" width="73" height="69" frameX="-1" frameY="0" frameWidth="74" frameHeight="70"/>
+    <SubTexture name="fence_polka_dot_5" x="1435" y="108" width="38" height="80" frameX="0" frameY="0" frameWidth="38" frameHeight="81"/>
     <SubTexture name="fence_unique" x="1307" y="111" width="63" height="81" frameX="0" frameY="0" frameWidth="64" frameHeight="82"/>
     <SubTexture name="fence_unique_2" x="1682" y="2" width="69" height="69" frameX="0" frameY="-1" frameWidth="69" frameHeight="71"/>
     <SubTexture name="fence_unique_3" x="1475" y="108" width="38" height="80" frameX="0" frameY="0" frameWidth="39" frameHeight="80"/>
