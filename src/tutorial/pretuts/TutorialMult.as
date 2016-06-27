@@ -10,6 +10,8 @@ import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 import manager.Vars;
+
+import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 
@@ -20,13 +22,14 @@ public class TutorialMult {
     private var _endCallback:Function;
     private var _armature:Armature;
     private var _tempBG:Quad;
-    private var _tempSprite:Sprite;
+    private var _boneBlueSprite:Sprite;
     private var _tempBlack:Sprite;
     private var _arrCats:Array;
     private var _catsSprite:Sprite;
-    private var _bone:Bone;
+    private var _boneBlue:Bone;
     private var _boneCats:Bone;
     private var _boneBlack:Bone;
+    private var walls:Array;
     private var g:Vars = Vars.getInstance();
 
     public function TutorialMult() {
@@ -55,11 +58,8 @@ public class TutorialMult {
         if (_startCallback != null) {
             _startCallback.apply();
         }
-        WorldClock.clock.add(_armature);
-        _armature.addEventListener(AnimationEvent.COMPLETE, onIdle1);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onIdle1);
-        _bone = _armature.getBone('blue');
-        _tempSprite = new Sprite();
+        _boneBlue = _armature.getBone('blue');
+        _boneBlueSprite = new Sprite();
         _tempBG = new Quad(g.stageWidth, g.stageHeight);
         _tempBG.setVertexColor(0, 0x7FAFB3);
         _tempBG.setVertexColor(1, 0x7FAFB3);
@@ -67,13 +67,31 @@ public class TutorialMult {
         _tempBG.setVertexColor(3, 0xA4C6C8);
         _tempBG.x = -g.stageWidth/2;
         _tempBG.y = -g.stageHeight/2;
-        _tempSprite.addChild(_tempBG);
-        _bone.display = _tempSprite;
-        _armature.animation.gotoAndPlay('idle');
+        _boneBlueSprite.addChild(_tempBG);
+        _boneBlue.display = _boneBlueSprite;
         createCatSprite();
         _boneBlack = _armature.getBone('black');
         _tempBlack = new Sprite();
         _boneBlack.display = _tempBlack;
+
+        walls = [];
+        var sp:Sprite = new Sprite();
+        var b:Bone = _armature.getBone('wall');
+        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+        sp.addChild(im);
+        b.display = sp;
+        walls.push(sp);
+        b = _armature.getBone('wall1');
+        im = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+        sp = new Sprite();
+        sp.addChild(im);
+        b.display = sp;
+        walls.push(sp);
+
+        WorldClock.clock.add(_armature);
+        _armature.addEventListener(AnimationEvent.COMPLETE, onIdle1);
+        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onIdle1);
+        _armature.animation.gotoAndPlay('idle');
     }
 
     private function onIdle1(e:AnimationEvent):void {
@@ -90,14 +108,38 @@ public class TutorialMult {
         _armature.addEventListener(AnimationEvent.COMPLETE, onIdle3);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onIdle3);
         _armature.animation.gotoAndPlay('idle3');
+        TweenMax.to(_boneBlueSprite, 20, {alpha:0, ease:Linear.easeNone, useFrames:true, delay: 15});
+
+        var sp:Sprite = new Sprite();
+        var b:Bone = _armature.getBone('wall2');
+        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+        sp.addChild(im);
+        b.display = sp;
+        walls.push(sp);
+        sp.alpha = 0;
+        var b1:Bone = _armature.getBone('wall3');
+        im = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+        sp = new Sprite();
+        sp.addChild(im);
+        b1.display = sp;
+        sp.alpha = 0;
+        walls.push(sp);
+
+        var f:Function = function():void {
+          for (var i:int=0; i<walls.length; i++) {
+              walls[i].alpha = 1;
+              TweenMax.to(walls[i], 6, {alpha:0, ease:Linear.easeNone, useFrames:true});
+          }
+        };
+        TweenMax.to(walls[0], 16, {alpha:1, ease:Linear.easeNone, useFrames:true, onComplete:f});
     }
 
     private function onIdle3(e:AnimationEvent):void {
         _armature.removeEventListener(AnimationEvent.COMPLETE, onIdle3);
         _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onIdle3);
-        _bone.display = null;
-        _bone = null;
-        _tempSprite.removeChild(_tempBG);
+        _boneBlue.display = null;
+        _boneBlue = null;
+        _boneBlueSprite.removeChild(_tempBG);
         _tempBG.dispose();
         _tempBG = null;
         showCats();
@@ -153,7 +195,7 @@ public class TutorialMult {
         cat.moveTo(-164, 68, .1);
         _arrCats.push(cat);
         cat = new MultCat(472, 248, _catsSprite);
-        cat.moveTo(274, 20, .3);
+        cat.moveTo(274, 120, .3);
         _arrCats.push(cat);
         cat = new MultCat(171, 275, _catsSprite);
         cat.moveTo(-23, 283, .3);
@@ -186,7 +228,7 @@ public class TutorialMult {
         delete g.allData.factory['tutorial_mult'];
         _catsSprite.dispose();
         _tempBG.dispose();
-        _tempSprite.dispose();
+        _boneBlueSprite.dispose();
         _armature.dispose();
     }
 }
