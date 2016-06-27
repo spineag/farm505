@@ -26,6 +26,7 @@ public class CutSceneTextBubble {
     private var _type:int;
     private var _innerImage:Image;
     private var _dustRectangle:DustRectangle;
+    private var _startClickCallback:Function;
     private var g:Vars = Vars.getInstance();
 
     public function CutSceneTextBubble(p:Sprite, type:int, stURL:String = '') {
@@ -40,8 +41,8 @@ public class CutSceneTextBubble {
         }
     }
 
-    public function showBubble(st:String, btnSt:String, callback:Function, callbackNo:Function=null):void {
-        if (callback != null) addButton(btnSt, callback);
+    public function showBubble(st:String, btnSt:String, callback:Function, callbackNo:Function=null, startClick:Function=null):void {
+        if (callback != null) addButton(btnSt, callback, startClick);
         if (callbackNo != null) addNoButton(callbackNo);
         createBubble(st);
         _source.scaleX = _source.scaleY = .3;
@@ -54,10 +55,11 @@ public class CutSceneTextBubble {
         }
     }
 
-    private function addButton(btnSt:String, callback:Function):void {
+    private function addButton(btnSt:String, callback:Function, startClick:Function):void {
         _btn = new CButton();
         _btn.addButtonTexture(200, 30, CButton.BLUE, true);
         _btn.clickCallback = callback;
+        _btn.startClickCallback = startClick;
         var _btnTxt:TextField = new TextField(200, 30, btnSt, g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(_btnTxt);

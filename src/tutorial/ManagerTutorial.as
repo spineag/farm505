@@ -249,8 +249,7 @@ public class ManagerTutorial {
 
     private function subStep2_1():void {
         _subStep = 1;
-        cutScene.startClick = subStep2_2;
-        cutScene.reChangeBubble(texts[g.user.tutorialStep][_subStep], texts['lookAround'], emptyFunction, subStep2_2a);
+        cutScene.reChangeBubble(texts[g.user.tutorialStep][_subStep], texts['lookAround'], emptyFunction, subStep2_2a, subStep2_2);
     }
 
     private function subStep2_2():void {

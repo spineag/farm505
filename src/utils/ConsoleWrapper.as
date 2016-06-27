@@ -11,6 +11,8 @@ import manager.Vars;
 
 import starling.display.Stage;
 
+import windows.WindowsManager;
+
 public class ConsoleWrapper {
     protected static var g:Vars = Vars.getInstance();
 
@@ -41,6 +43,7 @@ public class ConsoleWrapper {
         Cc.width = stage.stageWidth - 50;
         Cc.height = stage.stageHeight / 3;
         Cc.bindKey(new KeyBind(Keyboard.L, false, false, true, true), exportLogToHTML);
+        Cc.bindKey(new KeyBind(Keyboard.R, false, false, true, true), deleteUser);
 //        Cc.bindKey(new KeyBind(Keyboard.R, false, false, true, true), removeUserData);
 
         //Cc.addSlashCommand("export", exportLogToHTML, "Save game log.", true);
@@ -74,12 +77,15 @@ public class ConsoleWrapper {
         exporter = new ConsoleHtmlExportAddon(Cc.instance);
         exporter.exportToFile("game_log_" + time + ".html");
     }
-//
-//    private function removeUserData():void {
-//        if (g.currentUser.isTester) {
-//            g.server.resetUser(onResetUser);
-//        }
-//    }
+
+    private function deleteUser():void {
+        if (g.user.isTester || g.isDebug) {
+            var f2:Function = function ():void {
+                g.windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
+            };
+            g.directServer.deleteUser(f2);
+        }
+    }
 
     private function onResetUser():void {
 //        g.socialNetwork.reloadGame();

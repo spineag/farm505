@@ -19,7 +19,6 @@ public class CutScene {
     private var _cont:Sprite;
     private var _xStart:int;
     private var _xEnd:int;
-    private var _startCallback:Function;
 
     public function CutScene() {
         _cont = g.cont.popupCont;
@@ -40,25 +39,18 @@ public class CutScene {
         animateCat();
     }
 
-    private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String=''):void {
+    private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String='', startClick:Function = null):void {
         if (st.length > 100 || stURL != '') {
             _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG, stURL);
         } else {
             _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE);
         }
-        if (_startCallback != null) {
-            _bubble.startClick = _startCallback;
-        }
-        _bubble.showBubble(st, stBtn, callback, callbackNo);
+        _bubble.showBubble(st, stBtn, callback, callbackNo, startClick);
     }
 
-    public function set startClick(f:Function):void {
-        _startCallback = f;
-    }
-
-    public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null):void {
+    public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null, startClick:Function=null):void {
         var f:Function = function():void {
-            showBubble(st, stBtn, callback, callbackNo, '');
+            showBubble(st, stBtn, callback, callbackNo, '', startClick);
         };
         if (_bubble) {
             _bubble.hideBubble(f, null);

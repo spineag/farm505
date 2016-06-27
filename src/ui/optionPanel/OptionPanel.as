@@ -275,6 +275,7 @@ public class OptionPanel {
             g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
             g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
             makeResizeForGame();
+            if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
         }
     }
 
