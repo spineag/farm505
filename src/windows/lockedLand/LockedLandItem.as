@@ -131,17 +131,17 @@ public class LockedLandItem {
             im.y = 3;
             btn.addChild(im);
             btn.x = 362;
-            btn.y = 64;
+            btn.y = 45;
             source.addChild(btn);
             btn.clickCallback = buyItem;
-            btn = new CButton();
-            btn.addButtonTexture(112, 30, CButton.YELLOW, true);
-            txt = new TextField(112,30,'Показать',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
-            btn.addChild(txt);
-            btn.x = 362;
-            btn.y = 25;
-            source.addChild(btn);
+//            btn = new CButton();
+//            btn.addButtonTexture(112, 30, CButton.YELLOW, true);
+//            txt = new TextField(112,30,'Показать',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
+//            txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+//            btn.addChild(txt);
+//            btn.x = 362;
+//            btn.y = 25;
+//            source.addChild(btn);
 //            btn.endClickCallback = show;
             _isGood = false;
         }

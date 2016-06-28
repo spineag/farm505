@@ -197,6 +197,7 @@ public class ManagerPlantRidge {
 
         if (!b) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.bottomPanel.cancelBoolean(false);
         }
     }
 

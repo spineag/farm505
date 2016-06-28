@@ -146,7 +146,8 @@ public class TimerHint {
         _isShow = true;
         _timer = timer;
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
-        _txtCost.text = String(cost);
+        if (g.managerTutorial.isTutorial) _txtCost.text = String(0);
+        else _txtCost.text = String(cost);
         _txtName.text = name;
 //        _txtText.text = 'ускорить';
         g.cont.hintContUnder.addChild(_source);
@@ -227,6 +228,14 @@ public class TimerHint {
     }
 
     private function onClickBtn():void {
+        if (g.managerTutorial.isTutorial) {
+            _isOnHover = false;
+            managerHide();
+            if (_callbackSkip != null) {
+                _callbackSkip.apply(null);
+            }
+            return;
+        }
         if (g.user.hardCurrency < int(_txtCost.text)) {
             _isOnHover = false;
             hideIt();

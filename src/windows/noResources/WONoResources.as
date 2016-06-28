@@ -341,11 +341,13 @@ public class WONoResources extends WindowMain {
         }
         for (var i:int=0; i<_paramData.resourceIds.length; i++) {
             number = g.userInventory.getCountResourceById(_paramData.resourceIds[i]);
+            _countCost = i+1;
             if (number < _paramData.resourceCounts[i]) {
                 g.userInventory.addResource(_paramData.resourceIds[i], _paramData.resourceCounts[i] - number,true,callbackServe4);
                 g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.resourceIds[i], info: _paramData.resourceCounts[i] - number});
-
             }
+//            if (i+1 == _paramData.resourceIds.length) checkOrder
+//                callbackServe4(true);
         }
         super.hideIt();
 //        if (_callbackBuy != null) {
@@ -353,6 +355,12 @@ public class WONoResources extends WindowMain {
 //            _callbackBuy = null;
 //        }
     }
+
+//    private function checkOrder():void {
+//
+//        callbackServe4(true);
+//    }
+
     private function onClickPapper():void {
         if (_countCost <= g.user.hardCurrency) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countCost);
@@ -414,6 +422,7 @@ public class WONoResources extends WindowMain {
     }
 
     private function callbackServe4(b:Boolean):void {
+        if (_countCost < _paramData.resourceIds.length) return;
         if (_callbackBuy != null) {
             _callbackBuy.apply(null, [true, _paramData]);
             _callbackBuy = null;

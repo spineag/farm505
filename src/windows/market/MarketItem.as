@@ -364,14 +364,14 @@ public class MarketItem {
                 }
                 var d:Object = g.dataResource.objectResources[_dataFromServer.resourceId];
                 if (d.placeBuild == BuildType.PLACE_AMBAR) {
-                    if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount >= g.user.ambarMaxCount) {
+                    if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount > g.user.ambarMaxCount) {
                         p = new Point(source.x, source.y);
                         p = source.parent.localToGlobal(p);
                         new FlyMessage(p, "Амбар заполнен");
                         return;
                     }
                 } else if (d.placeBuild == BuildType.PLACE_SKLAD) {
-                    if (g.userInventory.currentCountInSklad + _dataFromServer.resourceCount >= g.user.skladMaxCount) {
+                    if (g.userInventory.currentCountInSklad + _dataFromServer.resourceCount > g.user.skladMaxCount) {
                         p = new Point(source.x, source.y);
                         p = source.parent.localToGlobal(p);
                         new FlyMessage(p, "Склад заполнен");
@@ -575,7 +575,6 @@ public class MarketItem {
                 }
             }
             if (!_personBuyer) {
-
                 for (i = 0; i < g.user.marketItems.length; i++) {
                     if (_dataFromServer.buyerSocialId == g.user.marketItems[i].buyerSocialId) {
                         _personBuyerTemp = g.user.marketItems[i];
@@ -584,14 +583,37 @@ public class MarketItem {
                 }
             }
         }
-        if (_personBuyer is NeighborBot) {
+        if (_personBuyer is NeighborBot && !_personBuyerTemp) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
-            if (!_personBuyer) g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId], onGettingUserInfo);
+            if (!_personBuyer) {
+                if (_person.photo) {
+                    _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                    MCScaler.scale(_ava, 35, 35);
+                    _ava.x = 2;
+                    _ava.y = 102;
+                    source.addChild(_ava);
+                }
+                g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId], onGettingUserInfo);
+            }
             else {
                 if (_personBuyer.photo) {
+                    if (_person.photo) {
+                        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                        MCScaler.scale(_ava, 35, 35);
+                        _ava.x = 2;
+                        _ava.y = 102;
+                        source.addChild(_ava);
+                    }
                     g.load.loadImage(_personBuyer.photo, onLoadPhoto);
                 } else {
+                    if (_person.photo) {
+                        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                        MCScaler.scale(_ava, 35, 35);
+                        _ava.x = 2;
+                        _ava.y = 102;
+                        source.addChild(_ava);
+                    }
                     g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId], onGettingUserInfo);
                 }
             }

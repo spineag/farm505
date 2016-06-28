@@ -54,9 +54,11 @@ public class ManagerCats {
         } else {
             arr = _townMatrix;
         }
+        i = int(Math.random() * arr.length);
+        j = int(Math.random() * arr[0].length);
+
         try {
             do {
-                i = int(Math.random() * arr.length);
                 j = int(Math.random() * arr[0].length);
                 b++;
                 if (b>30) return new Point(0, 0);

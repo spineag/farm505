@@ -111,7 +111,8 @@ public class WOFabricaWorkListItem {
         }
         if (_type == BIG_CELL) {
             _btnSkip.visible = true;
-            _txtSkip.text = String(_resource.priceSkipHard);
+            if (g.managerTutorial.isTutorial)  _txtSkip.text = String(0);
+            else _txtSkip.text = String(_resource.priceSkipHard);
         }
         fillIcon(_resource.imageShop);
         _source.visible = true;
@@ -214,8 +215,8 @@ public class WOFabricaWorkListItem {
                     new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
                     g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
                 } else {
-                    g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
-//                    g.windowsManager.closeAllWindows();
+//                    g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+                    g.windowsManager.closeAllWindows();
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                 }
             };
@@ -229,6 +230,17 @@ public class WOFabricaWorkListItem {
     }
 
     private function makeSkip():void {
+        if (g.managerTutorial.isTutorial) {
+            if (_skipCallback != null) {
+                destroyTimer();
+                _btnSkip.visible = false;
+                _skipCallback.apply();
+            }
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
+                g.managerTutorial.checkTutorialCallback();
+            }
+            return;
+        }
         if (g.user.hardCurrency >= _resource.priceSkipHard) {
             if (_skipCallback != null) {
                 g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_resource.priceSkipHard);
