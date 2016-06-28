@@ -314,7 +314,7 @@ public class ShopItem {
                 createLockedSprite();
                 _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
-                _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                _im.filter = ManagerFilters.getButtonDisableFilter();
                 _nameTxt.text = _data.name;
             } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
@@ -326,7 +326,7 @@ public class ShopItem {
                 }
                 if (arr.length == _data.blockByLevel.length) {
                     createShopLimitSprite();
-                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                    _im.filter = ManagerFilters.getButtonDisableFilter();
                     _nameTxt.text = _data.name;
                     _countTxt.visible = true;
                     _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
@@ -356,7 +356,7 @@ public class ShopItem {
                 createLockedSprite();
                 _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
-                _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                _im.filter = ManagerFilters.getButtonDisableFilter();
                 _nameTxt.text = _data.name;
             } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
@@ -370,11 +370,11 @@ public class ShopItem {
                         createLockedSprite();
                         _txtAvailable.visible = true;
                         _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[arr.length]) + ' уровне';
-                        _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                        _im.filter = ManagerFilters.getButtonDisableFilter();
                         _nameTxt.text = _data.name;
                     } else {
                         createShopLimitSprite();
-                        _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                        _im.filter = ManagerFilters.getButtonDisableFilter();
                         _nameTxt.text = _data.name;
                         _countTxt.visible = true;
                         _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
@@ -403,7 +403,7 @@ public class ShopItem {
                     createLockedSprite();
                     _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
-                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                    _im.filter = ManagerFilters.getButtonDisableFilter();
                     _nameTxt.text = _data.name;
                 } else {
                     if (_state == STATE_FROM_INVENTORY) {
@@ -440,7 +440,7 @@ public class ShopItem {
                     createLockedSprite();
                     _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(dataFarm.blockByLevel[0]) + ' уровне';
-                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                    _im.filter = ManagerFilters.getButtonDisableFilter();
                     _nameTxt.text = _data.name;
                 } else {
                     arr = g.townArea.getCityObjectsById(dataFarm.id);
@@ -458,7 +458,7 @@ public class ShopItem {
                         }
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
                             createShopLimitSprite();
-                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                            _im.filter = ManagerFilters.getButtonDisableFilter();
                             _nameTxt.text = _data.name;
                             _countTxt.visible = true;
                             _countTxt.text = String(maxCount) + '/' + String(maxCount);
@@ -466,7 +466,7 @@ public class ShopItem {
                         } else {
                             _txtAvailable.visible = true;
                             _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
-                            _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                            _im.filter = ManagerFilters.getButtonDisableFilter();
                             _nameTxt.text = _data.name;
                         }
                     } else {
@@ -489,7 +489,7 @@ public class ShopItem {
                 createLockedSprite();
                 _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
-                _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                _im.filter = ManagerFilters.getButtonDisableFilter();
             } else {
                 arr = g.townArea.getCityTreeById(_data.id, true);
                 curCount = arr.length;
@@ -501,7 +501,7 @@ public class ShopItem {
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
                     createShopLimitSprite();
-                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                    _im.filter = ManagerFilters.getButtonDisableFilter();
                     _nameTxt.text = _data.name;
                     _countTxt.visible = true;
                     _countTxt.text = String(maxCount) + '/' + String(maxCount);
@@ -530,7 +530,7 @@ public class ShopItem {
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
                     createShopLimitSprite();
-                    _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                    _im.filter = ManagerFilters.getButtonDisableFilter();
                     _nameTxt.text = _data.name;
                     _countTxt.visible = true;
                     _countTxt.text = String(maxCount) + '/' + String(maxCount);
@@ -552,7 +552,7 @@ public class ShopItem {
             maxCount = g.managerCats.maxCountCats;
             if (curCount >= maxCount) {
                 createShopLimitSprite();
-                _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                _im.filter = ManagerFilters.getButtonDisableFilter();
                 _nameTxt.text = _data.name;
                 _countTxt.visible = true;
                 _countTxt.text = String(maxCount) + '/' + String(maxCount);

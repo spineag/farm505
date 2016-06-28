@@ -223,12 +223,18 @@ public class ManagerCutScenes {
     }
 
     private function releaseDecor():void {
+        Cc.ch('info', 'try cutScene: releaseDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         g.bottomPanel.addArrow('shop');
+        if (!ob) {
+            Cc.error('CutScene releaseDecor: no ob');
+            isCutScene = false;
+            return;
+        }
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         _cutSceneCallback = decor_1;
     }
@@ -274,12 +280,14 @@ public class ManagerCutScenes {
     }
 
     private function releaseToInventoryDecor():void {
+        Cc.ch('info', 'try cutScene: releaseToInventoryDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutSceneResourceIDs = [28];
         _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
         if (!_cutSceneBuildings.length) {
-            Cc.error('no decor for CutScene');
+            Cc.error('no decor for CutScene on map');
+            isCutScene = false;
             return;
         }
         _cutSceneBuildings.length = 1;
@@ -329,7 +337,13 @@ public class ManagerCutScenes {
     }
 
     private function releaseFromInventoryDecor():void {
+        Cc.ch('info', 'try cutScene: releaseFromInventoryDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
+        _cutSceneResourceIDs = [28];
+        if (!g.userInventory.getDecorInventory(_cutSceneResourceIDs[0])) {
+            Cc.error('no such decor in inventory for cutScene');
+            return;
+        }
         isCutScene = true;
         if (g.toolsPanel.isShowed) {
             fromInventory_1();
@@ -340,7 +354,6 @@ public class ManagerCutScenes {
     }
 
     private function fromInventory_1():void {
-        _cutSceneResourceIDs = [28];
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
         var ob:Object = g.toolsPanel.getRepositoryBoxProperties();
@@ -397,6 +410,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseAvailableTrain():void {
+        Cc.ch('info', 'try cutScene: releaseAvailableTrain');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.hideAllHints();
         isCutScene = true;
@@ -404,6 +418,7 @@ public class ManagerCutScenes {
         _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
         if (!_cutSceneBuildings.length) {
             Cc.error('no train build for CutScene');
+            isCutScene = false;
             return;
         }
         g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80, false, 1);
@@ -429,6 +444,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseOpenTrain():void {
+        Cc.ch('info', 'try cutScene: releaseOpenTrain');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.hideAllHints();
         isCutScene = true;
@@ -436,6 +452,7 @@ public class ManagerCutScenes {
         _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
         if (!_cutSceneBuildings.length) {
             Cc.error('no train build for CutScene');
+            isCutScene = false;
             return;
         }
         g.user.cutScenes[6] = 1;

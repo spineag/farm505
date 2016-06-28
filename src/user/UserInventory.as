@@ -23,7 +23,7 @@ public class UserInventory {
         return _decorInventory;
     }
 
-    public function  getDecorInventory(id:int):Boolean {
+    public function getDecorInventory(id:int):Boolean {
         if (_decorInventory[id]) return true;
         return false;
     }

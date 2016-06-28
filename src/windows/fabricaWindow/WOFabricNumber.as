@@ -32,7 +32,7 @@ public class WOFabricNumber {
     }
 
     private function onHover():void {
-        source.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+        source.filter = ManagerFilters.getButtonHoverFilter();
     }
 
     private function onOut():void {
