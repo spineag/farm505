@@ -29,6 +29,13 @@ public class ManagerAnimal {
         }
     }
 
+    public function onAddNewFarm(fa:Farm):void {
+        if (g.isAway) return;
+        if (_arrFarm.indexOf(fa) < 0) {
+            _arrFarm.push(fa);
+        }
+    }
+
     public function addAnimal(ob:Object):void {
         var i:int;
         var curFarm:Farm;
@@ -117,6 +124,14 @@ public class ManagerAnimal {
         if (_catsForFarm[fa.dbBuildingId]) {
             g.managerCats.goCatToPoint(_catsForFarm[fa.dbBuildingId] as HeroCat, new Point(fa.posX, fa.posY), onArrivedCatToFarm, _catsForFarm[fa.dbBuildingId] as HeroCat);
         }
+    }
+
+    public function getAllAnimals():Array {
+        var arr:Array = [];
+        for (var i:int=0; i<_arrFarm; i++) {
+            arr.concat((_arrFarm[i] as Farm).arrAnimals);
+        }
+        return arr;
     }
 
 }

@@ -31,7 +31,7 @@ public class ManagerPlantRidge {
         _tempPoint = new Point();
     }
 
-    public function addRidge(r:Ridge):void {
+    public function onAddNewRidge(r:Ridge):void {
         _arrRidge.push(r);
     }
 
@@ -296,6 +296,26 @@ public class ManagerPlantRidge {
         if (!b) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         }
+    }
+
+    public function getRidgesForCraft():Array {
+        var arr:Array = [];
+        for (var i=0; i<_arrRidge.length; i++) {
+            if (_arrRidge[i].stateRidge == Ridge.GROWED) {
+                arr.push(_arrRidge[i]);
+            }
+        }
+        return arr;
+    }
+
+    public function getEmptyRidges():Array {
+        var arr:Array = [];
+        for (var i=0; i<_arrRidge.length; i++) {
+            if (_arrRidge[i].stateRidge == Ridge.EMPTY) {
+                arr.push(_arrRidge[i]);
+            }
+        }
+        return arr;
     }
 }
 }

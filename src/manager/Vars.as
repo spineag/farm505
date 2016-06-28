@@ -46,6 +46,7 @@ import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 import tutorial.ManagerTutorial;
+import tutorial.helpers.ManagerHelpers;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
@@ -166,6 +167,7 @@ public class Vars {
     public var aStar:AStar;
     public var managerTutorial:ManagerTutorial;
     public var managerButterfly:ManagerButterfly;
+    public var managerHelpers:ManagerHelpers;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -453,7 +455,7 @@ public class Vars {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
             }
-
+            managerHelpers = new ManagerHelpers();
 
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();

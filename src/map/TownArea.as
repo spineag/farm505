@@ -590,7 +590,9 @@ public class TownArea extends Sprite {
             if (worldObject is Tree)
                 g.directServer.addUserBuilding(worldObject, onAddNewTree);
             if (worldObject is Ridge)
-                g.managerPlantRidge.addRidge(worldObject as Ridge);
+                g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
+            if (worldObject is Farm)
+                g.managerAnimal.onAddNewFarm(worldObject as Farm);
         }
 
         if (updateAfterMove) {
