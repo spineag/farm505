@@ -51,6 +51,14 @@ public class SimpleArrow {
         animateIt();
     }
 
+    public function changeY(_y:int):void {
+        _source.y = _y;
+    }
+
+    public function set visible(v:Boolean):void {
+        _source.visible = v;
+    }
+
     private function animateIt():void {
         WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlay('start');

@@ -300,7 +300,7 @@ public class ManagerPlantRidge {
 
     public function getRidgesForCraft():Array {
         var arr:Array = [];
-        for (var i=0; i<_arrRidge.length; i++) {
+        for (var i:int=0; i<_arrRidge.length; i++) {
             if (_arrRidge[i].stateRidge == Ridge.GROWED) {
                 arr.push(_arrRidge[i]);
             }
@@ -310,7 +310,7 @@ public class ManagerPlantRidge {
 
     public function getEmptyRidges():Array {
         var arr:Array = [];
-        for (var i=0; i<_arrRidge.length; i++) {
+        for (var i:int=0; i<_arrRidge.length; i++) {
             if (_arrRidge[i].stateRidge == Ridge.EMPTY) {
                 arr.push(_arrRidge[i]);
             }
