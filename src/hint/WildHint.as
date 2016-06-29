@@ -185,7 +185,11 @@ public class WildHint {
 //        }
     }
 
-    public function managerHide():void {
+    public function get isShow():Boolean {
+        return _isShowed;
+    }
+
+    public function managerHide(callback:Function = null):void {
         if (_isShowed) {
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);
@@ -198,6 +202,10 @@ public class WildHint {
                 _btn.removeChild(_iconResource);
                 _iconResource = null;
                 _height = 0;
+                if (callback != null) {
+                    callback.apply();
+                    callback = null;
+                }
             };
             g.starling.juggler.add(tween);
             g.gameDispatcher.removeFromTimer(closeTimer);

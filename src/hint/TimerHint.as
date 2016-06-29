@@ -250,7 +250,7 @@ public class TimerHint {
         }
     }
 
-    public function managerHide(f:Function = null):void {
+    public function managerHide(callback:Function = null):void {
         if (_isShow) {
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);
@@ -262,9 +262,9 @@ public class TimerHint {
                 if (g.cont.hintContUnder.contains(_source)) {
                     g.cont.hintContUnder.removeChild(_source);
                 }
-                if (f != null) {
-                    f.apply(null);
-                    f = null;
+                if (callback != null) {
+                    callback.apply();
+                    callback = null;
                 }
             };
             g.starling.juggler.add(tween);

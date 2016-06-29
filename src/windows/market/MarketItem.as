@@ -378,32 +378,33 @@ public class MarketItem {
                         return;
                     }
                 }
-                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
 
-                showFlyResource(d, _dataFromServer.resourceCount);
-                _plawkaCoins.visible = false;
-                _plawkaSold.visible = true;
-                _txtPlawka.visible = true;
-                _papper.visible = false;
-                if (_person == g.user.neighbor) {
-                    g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
-                    _dataFromServer.resourceId = -1;
-                } else {
-                    g.directServer.buyFromMarket(_dataFromServer.id, null);
-                    var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
-                    for (var j:int = 0; j< arr.length; j++) {
-                        if (!arr[j].marketItems) continue;
-                        for (i = 0; i < arr[j].marketItems.length; i++) {
-                            if (arr[j].marketItems[i].id == _dataFromServer.id) {
-                                arr[j].marketItems[i].buyerId = g.user.userId;
-                                arr[j].marketItems[i].inPapper = false;
-                                arr[j].marketItems[i].buyerSocialId = g.user.userSocialId;
-                                return;
-                            }
-                        }
-                    }
-                }
-                isFill = 2;
+                g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
+//                showFlyResource(d, _dataFromServer.resourceCount);
+//                _plawkaCoins.visible = false;
+//                _plawkaSold.visible = true;
+//                _txtPlawka.visible = true;
+//                _papper.visible = false;
+//                if (_person == g.user.neighbor) {
+//                    g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
+//                    _dataFromServer.resourceId = -1;
+//                } else {
+//                    g.directServer.buyFromMarket(_dataFromServer.id, null);
+//                    var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
+//                    for (var j:int = 0; j< arr.length; j++) {
+//                        if (!arr[j].marketItems) continue;
+//                        for (i = 0; i < arr[j].marketItems.length; i++) {
+//                            if (arr[j].marketItems[i].id == _dataFromServer.id) {
+//                                arr[j].marketItems[i].buyerId = g.user.userId;
+//                                arr[j].marketItems[i].inPapper = false;
+//                                arr[j].marketItems[i].buyerSocialId = g.user.userSocialId;
+//                                return;
+//                            }
+//                        }
+//                    }
+//                }
+//                isFill = 2;
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {
                     g.managerTutorial.checkTutorialCallback();
                 }
@@ -432,6 +433,49 @@ public class MarketItem {
                 isFill = 0;
                 unFillIt();
             }
+        }
+    }
+
+    private function checkItemWhenYouBuy():void {
+        var b:Boolean = true;
+        for (var i:int = 0; i < _person.marketItems.length; i++) {
+            if (number == _person.marketItems[i].numberCell && _person.marketItems[i].buyerId > 0) {
+                b = false;
+                break;
+            }
+        }
+        if (!b) {
+            var p:Point = new Point(source.x, source.y);
+            p = source.parent.localToGlobal(p);
+            new FlyMessage(p, "товар был приобретен другим игроком");
+            _wo.refreshItemWhenYouBuy();
+        } else {
+            g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
+            var d:Object = g.dataResource.objectResources[_dataFromServer.resourceId];
+            showFlyResource(d, _dataFromServer.resourceCount);
+            _plawkaCoins.visible = false;
+            _plawkaSold.visible = true;
+            _txtPlawka.visible = true;
+            _papper.visible = false;
+            if (_person == g.user.neighbor) {
+                g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
+                _dataFromServer.resourceId = -1;
+            } else {
+                g.directServer.buyFromMarket(_dataFromServer.id, null);
+                var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
+                for (var j:int = 0; j< arr.length; j++) {
+                    if (!arr[j].marketItems) continue;
+                    for (i = 0; i < arr[j].marketItems.length; i++) {
+                        if (arr[j].marketItems[i].id == _dataFromServer.id) {
+                            arr[j].marketItems[i].buyerId = g.user.userId;
+                            arr[j].marketItems[i].inPapper = false;
+                            arr[j].marketItems[i].buyerSocialId = g.user.userSocialId;
+                            return;
+                        }
+                    }
+                }
+            }
+            isFill = 2;
         }
     }
 
@@ -553,7 +597,7 @@ public class MarketItem {
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(d);
         var item:CraftItem = new CraftItem(0,0,resource,source,count);
-        item.flyIt(false);
+        item.flyIt(false,false);
     }
 
     private function showSaleImage():void {
@@ -689,6 +733,7 @@ public class MarketItem {
     }
 
     private function photoFromTexture(tex:Texture):void {
+        if (_ava) _ava = null;
         _ava = new Image(tex);
         _ava.visible = true;
         MCScaler.scale(_ava, 35, 35);

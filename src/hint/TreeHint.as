@@ -187,7 +187,7 @@ public class TreeHint {
         g.gameDispatcher.addToTimer(closeTimer);
     }
 
-    public function managerHide():void {
+    public function managerHide(callback:Function = null):void {
 //        if (_isShowed) {
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);
@@ -198,6 +198,10 @@ public class TreeHint {
                 if (g.cont.hintCont.contains(_source)) {
                     g.cont.hintCont.removeChild(_source);
                     _contDelete.removeChild(_imageItem);
+                }
+                if (callback != null) {
+                    callback.apply();
+                    callback = null;
                 }
             };
             g.starling.juggler.add(tween);
@@ -227,6 +231,10 @@ public class TreeHint {
 
     private function onHover():void {
         _isOnHover = true;
+    }
+
+    public function get isShow():Boolean {
+        return _isShowed;
     }
 
     private function onOut():void {

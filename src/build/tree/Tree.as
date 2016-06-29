@@ -47,12 +47,11 @@ public class Tree extends WorldObject {
 //    private var _arrCrafted:Array;
     private var _countCrafted:int;
     private var _isOnHover:Boolean;
-    private var _count:int;
+    private var _isClick:Boolean;
     private var _wateringIcon:Sprite;
     public var tree_db_id:String;    // id в табличке user_tree
     private var _wateringUserSocialId:String;
     private var _craftedCountFromServer:int;
-    private var _countMouse:int;
 //    private var arrFruits:Array;
     private var _needShopView:Boolean;
 
@@ -72,6 +71,7 @@ public class Tree extends WorldObject {
         _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
         _craftSprite = new Sprite();
         createAnimatedBuild(onCreateBuild);
+        _isClick = false;
     }
 
     private function onCreateBuild():void {
@@ -395,17 +395,9 @@ public class Tree extends WorldObject {
         }
         _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
-        if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            _count = 20;
-            _countMouse = 7;
-            g.timerHint.managerHide();
-            g.wildHint.managerHide();
-            g.treeHint.managerHide();
-            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-        } else {
-            g.mouseHint.hideIt();
-        }
-
+        if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) g.mouseHint.showMouseHint(MouseHint.KORZINA);
+        else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
+                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) g.mouseHint.showMouseHint(MouseHint.CLOCK);
         var fEndOver:Function = function():void {
             _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
@@ -480,17 +472,8 @@ public class Tree extends WorldObject {
         }
         _source.filter = null;
         _isOnHover = false;
-//        g.timerHint.hideIt();
-//        g.treeHint.hideIt();
         if (_state == ASK_FIX) makeWateringIcon();
-        if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            _count = 20;
-//            _countMouse = 2;
-            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
-        } else {
             g.mouseHint.hideIt();
-        }
-
     }
 
     private function onClick():void {
@@ -540,7 +523,20 @@ public class Tree extends WorldObject {
                 onOut();
                 return;
             }
-             if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
+            if (g.timerHint.isShow) {
+                g.timerHint.managerHide(callbackClose);
+                return;
+            }
+            else if (g.wildHint.isShow){
+                g.wildHint.managerHide(callbackClose);
+                return;
+            }
+            else if (g.treeHint.isShow) {
+                g.treeHint.managerHide(callbackClose);
+                return;
+            }
+
+            if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_countCrafted) {
                     if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount) {
                         _source.filter = null;
@@ -553,47 +549,51 @@ public class Tree extends WorldObject {
                     _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER ||
                     _state == DEAD || _state == FULL_DEAD || _state == ASK_FIX) {
                 var time:int = _timeToEndState;
-                if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FIXED) {
-                    time += int(_resourceItem.buildTime / 2 + .5);
-                }
+                if (_timeToEndState == 0) {
+                    time += int(_resourceItem.buildTime);
+                    _timeToEndState = int(_resourceItem.buildTime / 2);
+                } else time += int(_resourceItem.buildTime /2 + .5);
+
                 var newX:int;
                 var newY:int;
                 if (_dataBuild.id == 25) { //Яблоня
                     if (_state == ASK_FIX) makeWateringIcon(true);
-//                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-//                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
                 } else if (_dataBuild.id == 26) { // Вишня
                     if (_state == ASK_FIX) makeWateringIcon(true);
-//                    newX = g.cont.gameCont.x + (_source.x + _source.width /12) * g.currentGameScale;
-//                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 12) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
                 } else if (_dataBuild.id == 41) { //Малина
                     if (_state == ASK_FIX) makeWateringIcon(true);
-//                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-//                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
-//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
-//                    } else {
-//                        newX = g.cont.gameCont.x + (_source.x + _source.width / 5) * g.currentGameScale;
-//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
-//                    }
+                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
+                    } else {
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 5) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
+                    }
                 } else if (_dataBuild.id == 42) { //Черника
                     if (_state == ASK_FIX) makeWateringIcon(true);
-//                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-//                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
-//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 6) * g.currentGameScale;
-//                    } else{
-//                        newX = g.cont.gameCont.x + (_source.x +  _source.width / 12) * g.currentGameScale;
-//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
-//                    }
-                } if (_state == DEAD) {
-                     g.treeHint.onDelete = deleteTree;
-                     g.treeHint.showIt(_source.height,_dataBuild, newX, newY, _dataBuild.name, this, onOut);
-                     g.treeHint.onWatering = askWateringTree;
-                 } else if (_state == FULL_DEAD || _state == ASK_FIX) {
-                     g.wildHint.onDelete = deleteTree;
-                     g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId, _dataBuild.name,onOut);
-                 }  else {
-//                     g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip,onOut);
-                 }
+                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 6) * g.currentGameScale;
+                    } else {
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 12) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
+                    }
+                }
+                if (_state == DEAD) {
+                    g.treeHint.onDelete = deleteTree;
+                    g.treeHint.showIt(_source.height, _dataBuild, newX, newY, _dataBuild.name, this, onOut);
+                    g.treeHint.onWatering = askWateringTree;
+                } else if (_state == FULL_DEAD || _state == ASK_FIX) {
+                    g.wildHint.onDelete = deleteTree;
+                    g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut);
+                } else {
+                    g.timerHint.showIt(_source.height, newX, newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+                }
+                _isClick = true;
             } else if (_state == FIXED) {
                 _state = GROW_FIXED;
                 setBuildImage();
@@ -603,6 +603,73 @@ public class Tree extends WorldObject {
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+        }
+    }
+
+    private function callbackClose():void {
+        if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
+            if (_countCrafted) {
+                if (g.userInventory.currentCountInAmbar >= g.user.ambarMaxCount) {
+                    _source.filter = null;
+                    g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
+                    return;
+                }
+                onCraftItemClick();
+            } else Cc.error('TREE:: state == GROWED*, but empty _arrCrafted');
+        } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
+                _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER ||
+                _state == DEAD || _state == FULL_DEAD || _state == ASK_FIX) {
+            var time:int = _timeToEndState;
+            if (_timeToEndState == 0) {
+                time += int(_resourceItem.buildTime);
+                _timeToEndState = int(_resourceItem.buildTime / 2);
+            } else time += int(_resourceItem.buildTime /2 + .5);
+            var newX:int;
+            var newY:int;
+            if (_dataBuild.id == 25) { //Яблоня
+                if (_state == ASK_FIX) makeWateringIcon(true);
+                newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
+                newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+            } else if (_dataBuild.id == 26) { // Вишня
+                if (_state == ASK_FIX) makeWateringIcon(true);
+                newX = g.cont.gameCont.x + (_source.x + _source.width / 12) * g.currentGameScale;
+                newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+            } else if (_dataBuild.id == 41) { //Малина
+                if (_state == ASK_FIX) makeWateringIcon(true);
+                if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
+                } else {
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 5) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
+                }
+            } else if (_dataBuild.id == 42) { //Черника
+                if (_state == ASK_FIX) makeWateringIcon(true);
+                if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 6) * g.currentGameScale;
+                } else {
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 12) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
+                }
+            }
+            if (_state == DEAD) {
+                g.treeHint.onDelete = deleteTree;
+                g.treeHint.showIt(_source.height, _dataBuild, newX, newY, _dataBuild.name, this, onOut);
+                g.treeHint.onWatering = askWateringTree;
+            } else if (_state == FULL_DEAD || _state == ASK_FIX) {
+                g.wildHint.onDelete = deleteTree;
+                g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut);
+            } else {
+                g.timerHint.showIt(_source.height, newX, newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+            }
+            _isClick = true;
+        } else if (_state == FIXED) {
+            _state = GROW_FIXED;
+            setBuildImage();
+            startGrow();
+            g.managerTree.updateTreeState(tree_db_id, _state);
+            makeWateringIcon();
         }
     }
 
@@ -692,76 +759,76 @@ public class Tree extends WorldObject {
         }
     }
 
-    public function countMouseEnterFrame():void {
-        _countMouse--;
-        if (_countMouse <= 5) {
-            if (_isOnHover == true) {
-                if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
-                    g.mouseHint.showMouseHint(MouseHint.KORZINA);
-                } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
-                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                    g.mouseHint.showMouseHint(MouseHint.CLOCK);
-                }
-            }
-        }
-        if (_countMouse <= 0) {
-            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-            if (_isOnHover == true) {
-                if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
-                    g.mouseHint.showMouseHint(MouseHint.KORZINA);
-                } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
-                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER || _state == FULL_DEAD || _state == ASK_FIX || _state == DEAD) {
-                var time:int = _timeToEndState;
-                if (_timeToEndState == 0) time += int(_resourceItem.buildTime +.5);
-                else time += int(_resourceItem.buildTime /2 + .5);
-                var newX:int;
-                var newY:int;
-                if (_dataBuild.id == 25) { //Яблоня
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
-                }else if (_dataBuild.id == 26) { // Вишня
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    newX = g.cont.gameCont.x + (_source.x + _source.width /12) * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
-                } else if (_dataBuild.id == 41) { //Малина
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
-                    } else{
-                        newX = g.cont.gameCont.x + (_source.x + _source.width / 5) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
-                    }
-                } else if (_dataBuild.id == 42) { //Черника
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 6) * g.currentGameScale;
-                    } else{
-                        newX = g.cont.gameCont.x + (_source.x +  _source.width / 12) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
-                    }
-                }if (_state == DEAD) {
-                    g.treeHint.onDelete = deleteTree;
-                    g.treeHint.showIt(_source.height,_dataBuild, newX, newY, _dataBuild.name, this, onOut);
-                    g.treeHint.onWatering = askWateringTree;
-                } else if (_state == FULL_DEAD || _state == ASK_FIX) {
-                    if (g.isAway) return;
-                    g.wildHint.onDelete = deleteTree;
-                    g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId, _dataBuild.name,onOut);
-                }  else {
-                     g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip,onOut);
-                }
-                }
-            } else {
-//                _source.filter = null;
-                g.mouseHint.hideIt();
-                g.timerHint.hideIt();
-                g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-            }
-        }
-    }
+//    public function countMouseEnterFrame():void {
+//        _countMouse--;
+//        if (_countMouse <= 5) {
+//            if (_isOnHover == true) {
+//                if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
+//                    g.mouseHint.showMouseHint(MouseHint.KORZINA);
+//                } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
+//                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+//                    g.mouseHint.showMouseHint(MouseHint.CLOCK);
+//                }
+//            }
+//        }
+//        if (_countMouse <= 0) {
+//            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+//            if (_isOnHover == true) {
+//                if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
+//                    g.mouseHint.showMouseHint(MouseHint.KORZINA);
+//                } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
+//                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER || _state == FULL_DEAD || _state == ASK_FIX || _state == DEAD) {
+//                var time:int = _timeToEndState;
+//                if (_timeToEndState == 0) time += int(_resourceItem.buildTime);
+//                else time += int(_resourceItem.buildTime /2 + .5);
+//                var newX:int;
+//                var newY:int;
+//                if (_dataBuild.id == 25) { //Яблоня
+//                    if (_state == ASK_FIX) makeWateringIcon(true);
+//                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
+//                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+//                }else if (_dataBuild.id == 26) { // Вишня
+//                    if (_state == ASK_FIX) makeWateringIcon(true);
+//                    newX = g.cont.gameCont.x + (_source.x + _source.width /12) * g.currentGameScale;
+//                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+//                } else if (_dataBuild.id == 41) { //Малина
+//                    if (_state == ASK_FIX) makeWateringIcon(true);
+//                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+//                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
+//                    } else{
+//                        newX = g.cont.gameCont.x + (_source.x + _source.width / 5) * g.currentGameScale;
+//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
+//                    }
+//                } else if (_dataBuild.id == 42) { //Черника
+//                    if (_state == ASK_FIX) makeWateringIcon(true);
+//                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+//                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 6) * g.currentGameScale;
+//                    } else{
+//                        newX = g.cont.gameCont.x + (_source.x +  _source.width / 12) * g.currentGameScale;
+//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
+//                    }
+//                }if (_state == DEAD) {
+//                    g.treeHint.onDelete = deleteTree;
+//                    g.treeHint.showIt(_source.height,_dataBuild, newX, newY, _dataBuild.name, this, onOut);
+//                    g.treeHint.onWatering = askWateringTree;
+//                } else if (_state == FULL_DEAD || _state == ASK_FIX) {
+//                    if (g.isAway) return;
+//                    g.wildHint.onDelete = deleteTree;
+//                    g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId, _dataBuild.name,onOut);
+//                }  else {
+//                     g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip,onOut);
+//                }
+//                }
+//            } else {
+////                _source.filter = null;
+//                g.mouseHint.hideIt();
+//                g.timerHint.hideIt();
+//                g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
+//            }
+//        }
+//    }
 
     override public function addXP():void {
         if (_dataBuild.xpForBuild) {

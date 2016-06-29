@@ -182,7 +182,8 @@ public class WOPapperItem {
             _txtUserName.text = _p.name + ' ' + _p.lastName;
             g.load.loadImage(_p.photo, onLoadPhoto);
         } else {
-            _txtUserName.text = ob.userSocialId;
+//            _txtUserName.text = _p.name + ' ' + _p.lastName;
+            _txtUserName.text = 'Станислав Йованович';
         }
         source.endClickCallback = onClickVisit;
         if (_data.isOpened) {
@@ -342,6 +343,7 @@ public class WOPapperItem {
 
     private function onClickDelete():void {
         if (!_data.visible == .5) return;
+        _data.timeToNext = int(new Date().getTime()/1000);
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         source.alpha = .5;
         _data.visible = false;

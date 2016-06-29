@@ -411,83 +411,85 @@ public class DirectServer {
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
-                obj.id = int(d.message[i].id);
-                obj.width = int(d.message[i].width);
-                obj.height = int(d.message[i].height);
-                if (d.message[i].inner_x) {
-                    obj.innerX = String(d.message[i].inner_x).split('&');
-                    if (obj.innerX.length == 1) {
-                        obj.innerX = int(obj.innerX[0]) * g.scaleFactor;
-                    } else if (obj.innerX.length) {
-                        for (k = 0; k < obj.innerX.length; k++) {
-                            obj.innerX[k] = int(obj.innerX[k]) * g.scaleFactor;
+                if (d.message[i].visible == 1) {
+                    obj.id = int(d.message[i].id);
+                    obj.width = int(d.message[i].width);
+                    obj.height = int(d.message[i].height);
+                    if (d.message[i].inner_x) {
+                        obj.innerX = String(d.message[i].inner_x).split('&');
+                        if (obj.innerX.length == 1) {
+                            obj.innerX = int(obj.innerX[0]) * g.scaleFactor;
+                        } else if (obj.innerX.length) {
+                            for (k = 0; k < obj.innerX.length; k++) {
+                                obj.innerX[k] = int(obj.innerX[k]) * g.scaleFactor;
+                            }
+                        }
+                        obj.innerY = String(d.message[i].inner_y).split('&');
+                        if (obj.innerY.length == 1) {
+                            obj.innerY = int(obj.innerY[0]) * g.scaleFactor;
+                        } else if (obj.innerY.length) {
+                            for (k = 0; k < obj.innerY.length; k++) {
+                                obj.innerY[k] = int(obj.innerY[k]) * g.scaleFactor;
+                            }
                         }
                     }
-                    obj.innerY = String(d.message[i].inner_y).split('&');
-                    if (obj.innerY.length == 1) {
-                        obj.innerY = int(obj.innerY[0]) * g.scaleFactor;
-                    } else if (obj.innerY.length) {
-                        for (k = 0; k < obj.innerY.length; k++) {
-                            obj.innerY[k] = int(obj.innerY[k]) * g.scaleFactor;
-                        }
+                    obj.name = d.message[i].name;
+                    obj.url = d.message[i].url;
+                    obj.image = d.message[i].image;
+                    obj.xpForBuild = int(d.message[i].xp_for_build);
+                    obj.buildType = int(d.message[i].build_type);
+
+                    if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
+                    if (d.message[i].currency) {
+                        obj.currency = String(d.message[i].currency).split('&');
+                        for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
                     }
-                }
-                obj.name = d.message[i].name;
-                obj.url = d.message[i].url;
-                obj.image = d.message[i].image;
-                obj.xpForBuild = int(d.message[i].xp_for_build);
-                obj.buildType = int(d.message[i].build_type);
+                    if (d.message[i].cost) {
+                        obj.cost = String(d.message[i].cost).split('&');
+                        for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
+                    }
+                    if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
+                    if (d.message[i].block_by_level) {
+                        obj.blockByLevel = String(d.message[i].block_by_level).split('&');
+                        for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
+                    }
+                    if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
+                    if (d.message[i].build_time) {
+                        obj.buildTime = String(d.message[i].build_time).split('&');
+                        for (k = 0; k < obj.buildTime.length; k++) obj.buildTime[k] = int(obj.buildTime[k]);
+                    }
+                    if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
 
-                if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
-                if (d.message[i].currency) {
-                    obj.currency = String(d.message[i].currency).split('&');
-                    for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
-                }
-                if (d.message[i].cost) {
-                    obj.cost = String(d.message[i].cost).split('&');
-                    for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
-                }
-                if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
-                if (d.message[i].block_by_level) {
-                    obj.blockByLevel = String(d.message[i].block_by_level).split('&');
-                    for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
-                }
-                if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
-                if (d.message[i].build_time) {
-                    obj.buildTime = String(d.message[i].build_time).split('&');
-                    for (k = 0; k < obj.buildTime.length; k++) obj.buildTime[k] = int(obj.buildTime[k]);
-                }
-                if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
+                    if (d.message[i].craft_resource_id) obj.craftIdResource = int(d.message[i].craft_resource_id);
+                    if (d.message[i].count_craft_resource) {
+                        obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
+                        for (k = 0; k < obj.countCraftResource.length; k++) obj.countCraftResource[k] = int(obj.countCraftResource[k]);
+                    }
+                    if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
+                    if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
+                    if (d.message[i].delta_count_resources) obj.deltaCountResources = int(d.message[i].delta_count_resources);
+                    if (d.message[i].start_count_instruments) obj.startCountInstrumets = int(d.message[i].start_count_instruments);
+                    if (d.message[i].delta_count_instruments) obj.deltaCountAfterUpgrade = int(d.message[i].delta_count_instruments);
+                    if (d.message[i].up_instrument_id_1) obj.upInstrumentId1 = int(d.message[i].up_instrument_id_1);
+                    if (d.message[i].up_instrument_id_2) obj.upInstrumentId2 = int(d.message[i].up_instrument_id_2);
+                    if (d.message[i].up_instrument_id_3) obj.upInstrumentId3 = int(d.message[i].up_instrument_id_3);
+                    if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
+                    if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
+                    if (d.message[i].resource_id) {
+                        obj.idResource = String(d.message[i].resource_id).split('&');
+                        for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
+                    }
+                    if (d.message[i].raw_resource_id) {
+                        obj.idResourceRaw = String(d.message[i].raw_resource_id).split('&');
+                        for (k = 0; k < obj.idResourceRaw.length; k++) obj.idResourceRaw[k] = int(obj.idResourceRaw[k]);
+                    }
+                    if (d.message[i].variaty) {
+                        obj.variaty = String(d.message[i].variaty).split('&');
+                        for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
+                    }
 
-                if (d.message[i].craft_resource_id) obj.craftIdResource = int(d.message[i].craft_resource_id);
-                if (d.message[i].count_craft_resource) {
-                    obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
-                    for (k = 0; k < obj.countCraftResource.length; k++) obj.countCraftResource[k] = int(obj.countCraftResource[k]);
+                    g.dataBuilding.objectBuilding[obj.id] = obj;
                 }
-                if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
-                if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
-                if (d.message[i].delta_count_resources) obj.deltaCountResources = int(d.message[i].delta_count_resources);
-                if (d.message[i].start_count_instruments) obj.startCountInstrumets = int(d.message[i].start_count_instruments);
-                if (d.message[i].delta_count_instruments) obj.deltaCountAfterUpgrade = int(d.message[i].delta_count_instruments);
-                if (d.message[i].up_instrument_id_1) obj.upInstrumentId1 = int(d.message[i].up_instrument_id_1);
-                if (d.message[i].up_instrument_id_2) obj.upInstrumentId2 = int(d.message[i].up_instrument_id_2);
-                if (d.message[i].up_instrument_id_3) obj.upInstrumentId3 = int(d.message[i].up_instrument_id_3);
-                if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
-                if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
-                if (d.message[i].resource_id) {
-                    obj.idResource = String(d.message[i].resource_id).split('&');
-                    for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
-                }
-                if (d.message[i].raw_resource_id) {
-                    obj.idResourceRaw = String(d.message[i].raw_resource_id).split('&');
-                    for (k = 0; k < obj.idResourceRaw.length; k++) obj.idResourceRaw[k] = int(obj.idResourceRaw[k]);
-                }
-                if (d.message[i].variaty) {
-                    obj.variaty = String(d.message[i].variaty).split('&');
-                    for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
-                }
-
-                g.dataBuilding.objectBuilding[obj.id] = obj;
             }
             if (callback != null) {
                 callback.apply();

@@ -71,7 +71,11 @@ public class WONoResources extends WindowMain {
         _callbackBuy = callback;
         switch (params[0]) {
             case 'animal':
-                if (g.dataResource.objectResources[_paramData.idResourceRaw].buildType == BuildType.PLANT)_countOfResources = 2;
+
+                if (g.dataResource.objectResources[_paramData.idResourceRaw].buildType == BuildType.PLANT) {
+                    if (g.userInventory.getCountResourceById(_paramData.idResourceRaw) == 1) _countOfResources = 1;
+                    else _countOfResources = 2;
+                }
                 else _countOfResources = 1;
                 _countCost = g.dataResource.objectResources[_paramData.idResourceRaw].priceHard * _countOfResources;
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
@@ -89,6 +93,7 @@ public class WONoResources extends WindowMain {
                 _btnBuy.clickCallback = onClickResource;
                 break;
             case 'money':
+
                 _countOfResources = _paramData.count;
                 _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
@@ -263,7 +268,7 @@ public class WONoResources extends WindowMain {
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_SOFT_FOR_HARD, {id: DataMoney.SOFT_CURRENCY, info: _countOfResources});
         super.hideIt();
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null);
+            _callbackBuy.apply(null,[_paramData]);
             _callbackBuy = null;
         }
     }

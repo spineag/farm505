@@ -49,8 +49,8 @@ public class DropItem {
         _source = new Sprite();
         if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
             _image = new Image(g.allData.atlas[g.dataResource.objectResources[prise.id].url].getTexture(g.dataResource.objectResources[prise.id].imageShop));
-             endPoint = g.craftPanel.pointXY();
-             g.craftPanel.showIt(BuildType.PLACE_SKLAD);
+            endPoint = g.craftPanel.pointXY();
+            g.craftPanel.showIt(BuildType.PLACE_SKLAD);
             g.updateAmbarIndicator();
             g.directServer.addUserResource(prise.id, prise.count, null);
         } else {

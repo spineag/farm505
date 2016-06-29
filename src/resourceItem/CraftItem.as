@@ -112,7 +112,7 @@ public class CraftItem {
         return _source;
     }
 
-    public function flyIt(xpFly:Boolean = true):void {
+    public function flyIt(xpFly:Boolean = true,bonusDrop:Boolean = true):void {
         if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT || g.managerTutorial.currentAction == TutorialAction.FABRICA_CRAFT)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply();
@@ -164,8 +164,10 @@ public class CraftItem {
         _source.x = start.x;
         _source.y = start.y;
         g.cont.animationsResourceCont.addChild(_source);
-        if (g.managerDropResources.checkDrop()) {
-            g.managerDropResources.makeDrop(_source.x,_source.y);
+        if (bonusDrop) {
+            if (g.managerDropResources.checkDrop()) {
+                g.managerDropResources.makeDrop(_source.x, _source.y);
+            }
         }
         g.userInventory.addResource(_resourceItem.resourceID, count);
         var f1:Function = function():void {

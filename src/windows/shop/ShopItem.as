@@ -613,14 +613,14 @@ public class ShopItem {
                         var ob:Object = {};
                         ob.currency = DataMoney.SOFT_CURRENCY;
                         ob.count = _countCost - g.user.softCurrencyCount;
-                        g.windowsManager.cashWindow = _wo;
+//                        g.windowsManager.cashWindow = _wo;
                         _wo.hideIt();
-                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'money', ob);
+//                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceCallback, 'money', ob,_data,_countCost);
                         return;
                     }
                 } else if (_data.currency == DataMoney.HARD_CURRENCY) {
                     if (g.user.hardCurrency < _countCost) {
-                        g.windowsManager.cashWindow = _wo;
+//                        g.windowsManager.cashWindow = _wo;
                         _wo.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                         return;
@@ -668,9 +668,9 @@ public class ShopItem {
                 var ob2:Object = {};
                 ob2.currency = DataMoney.SOFT_CURRENCY;
                 ob2.count = _countCost - g.user.softCurrencyCount;
-                g.windowsManager.cashWindow = _wo;
+//                g.windowsManager.cashWindow = _wo;
                 _wo.hideIt();
-                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'money', ob2);
+//                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceCallback, 'money', ob2);
                 return;
             }
         }
@@ -787,6 +787,114 @@ public class ShopItem {
             Cc.error('ShopItem:: no such Farm :(');
         }
     }
+
+//    private function noResourceCallback(data:Object):void {
+//        if(!data) return;
+//        var build:WorldObject;
+//        if (data.buildType == BuildType.RIDGE) {
+//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.NEW_RIDGE) return;
+//            build = g.townArea.createNewBuild(data);
+//            g.selectedBuild = build;
+//            g.bottomPanel.cancelBoolean(true);
+//            g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
+//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+//                g.managerTutorial.checkTutorialCallback();
+//            }
+//            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
+//            (build as WorldObject).countShopCost = _countCost;
+//            g.townArea.startMoveAfterShop(build);
+//        } else if (data.buildType == BuildType.DECOR_TAIL) {
+//            if (g.managerTutorial.isTutorial) return;
+//            build = g.townArea.createNewBuild(data);
+//            g.selectedBuild = build;
+//            g.bottomPanel.cancelBoolean(true);
+//            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+//            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
+//            if (_state == STATE_FROM_INVENTORY) {
+//                g.townArea.startMoveAfterShop(build, true);
+//                g.buyHint.hideIt();
+//            } else {
+//                (build as WorldObject).countShopCost = _countCost;
+//                g.townArea.startMoveAfterShop(build);
+////                g.toolsModifier.startMoveTail(build, _countCost, true);
+//            }
+//        } else if (data.buildType == BuildType.CAT) {
+//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_CAT) return;
+//            g.managerCats.onBuyCatFromShop();
+//            g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(data.cost));
+//            if (g.managerTutorial.isTutorial) {
+//                if (g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+//                    g.managerTutorial.checkTutorialCallback();
+//                }
+//            }
+//        } else if (data.buildType != BuildType.ANIMAL) {
+//            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_FABRICA && g.managerTutorial.currentAction != TutorialAction.BUY_FARM) return;
+//            build = g.townArea.createNewBuild(data);
+//            g.selectedBuild = build;
+//            g.bottomPanel.cancelBoolean(true);
+//            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+//            if (data.buildType == BuildType.FARM) {
+//                _wo.setAnimalClick = true;
+//            }
+//            if (build is Tree) (build as Tree).showShopView();
+//            if (build is Fabrica) (build as Fabrica).showShopView();
+//            if (g.managerTutorial.isTutorial) {
+//                if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA && g.managerTutorial.isTutorialResource(data.id)) {
+//                    g.managerTutorial.checkTutorialCallback();
+//                } else if (g.managerTutorial.currentAction == TutorialAction.BUY_FARM && g.managerTutorial.isTutorialResource(data.id)) {
+//                    g.managerTutorial.checkTutorialCallback();
+//                }
+//            }
+//            if (_state == STATE_FROM_INVENTORY) {
+//                g.townArea.startMoveAfterShop(build, true);
+//                g.buyHint.hideIt();
+//            } else {
+//                (build as WorldObject).countShopCost = _countCost;
+//                g.townArea.startMoveAfterShop(build);
+////                g.toolsModifier.startMove(build, _countCost, true);
+//            }
+//            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
+//        } else {
+//            if (g.managerTutorial.isTutorial) {
+//                if (g.managerTutorial.currentAction != TutorialAction.BUY_ANIMAL) return;
+//                if (!g.managerTutorial.isTutorialResource(data.id)) return;
+//            }
+//            //додаємо на відповідну ферму
+//            var dataFarm:Object = g.dataBuilding.objectBuilding[data.buildId];
+//            var curCount:int = 0;
+//            var arr:Array = g.townArea.cityObjects;
+//            var arrPat:Array = g.townArea.getCityObjectsById(dataFarm.id);
+//            for (var i:int = 0; i < arrPat.length; i++) {
+//                curCount += (arrPat[i] as Farm).arrAnimals.length;
+//            }
+//            if (curCount < dataFarm.maxAnimalsCount) {
+//                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(data.cost));
+//                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(data.cost));
+//            } else if (curCount < 2 * dataFarm.maxAnimalsCount) {
+//                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(data.cost2));
+//                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(data.cost2));
+//            } else {
+//                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(data.cost3));
+//                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(data.cost3));
+//            }
+//            for (i = 0; i < arr.length; i++) {
+//                if (arr[i] is Farm && arr[i].dataBuild.id == data.buildId && !arr[i].isFull) {
+//                    (arr[i] as Farm).addAnimal();
+//                    checkState();
+//                    g.bottomPanel.cancelBoolean(false);
+//                    _wo.updateMoneyCounts();
+//                    break;
+//                }
+//            }
+//            if (g.managerTutorial.isTutorial) {
+//                if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(data.id)) {
+//                    g.managerTutorial.checkTutorialCallback();
+//                } else {
+//                    return;
+//                }
+//            }
+//        }
+//    }
 
     private function updateItem():void {
         var curCount:int;

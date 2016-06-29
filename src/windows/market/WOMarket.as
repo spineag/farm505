@@ -50,7 +50,7 @@ public class WOMarket  extends WindowMain {
     private var _txtName:TextField;
     private var _txtNumberPage:TextField;
     private var _txtTimerPaper:TextField;
-    private var _imCheck:Image;
+//    private var _imCheck:Image;
     private var _curUser:Someone;
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
@@ -181,11 +181,11 @@ public class WOMarket  extends WindowMain {
         _btnPaper.clickCallback = onClickPaper;
         _contPaper.addChild(_btnPaper);
 
-        _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-        _imCheck.x = 95;
-        _imCheck.y = 165;
-        _contPaper.addChild(_imCheck);
-        _imCheck.visible = false;
+//        _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+//        _imCheck.x = 95;
+//        _imCheck.y = 165;
+//        _contPaper.addChild(_imCheck);
+//        _imCheck.visible = false;
 
         txt = new TextField(200,30,'Выставить в газету:',g.allData.fonts['BloggerBold'], 12, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -430,6 +430,13 @@ public class WOMarket  extends WindowMain {
         g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
     }
 
+    public function refreshItemWhenYouBuy ():void {
+        for (var i:int=0; i< _arrItems.length; i++) {
+            _arrItems[i].unFillIt();
+        }
+        fillItems();
+    }
+
     public function refreshMarket():void {
         for (var i:int=0; i< _arrItems.length; i++) {
             if(!_arrItems[i].number) break;
@@ -454,7 +461,7 @@ public class WOMarket  extends WindowMain {
         _txtTimerPaper.text = '';
         _btnPaper.visible = false;
         _booleanPaper = true;
-        _imCheck.visible = true;
+        _contPaper.visible = false;
         for (var i:int = 0; i < _curUser.marketItems.length; i++) {
             _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
         }
@@ -485,11 +492,11 @@ public class WOMarket  extends WindowMain {
             g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
             g.gameDispatcher.addToTimer(onTimer);
             _booleanPaper = false;
-            _imCheck.visible = false;
+            _contPaper.visible = true;
             _btnPaper.visible = true;
         } else {
             _booleanPaper = true;
-            _imCheck.visible = true;
+            _contPaper.visible = false;
             _btnPaper.visible = false;
             _txtTimerPaper.text = '';
             g.gameDispatcher.removeFromTimer(onTimer);
@@ -501,7 +508,7 @@ public class WOMarket  extends WindowMain {
         else {
             _btnPaper.visible = false;
             _booleanPaper = true;
-            _imCheck.visible = true;
+            _contPaper.visible = false;
             _txtTimerPaper.text = '';
             g.gameDispatcher.removeFromTimer(onTimer);
             for (var i:int = 0; i < _curUser.marketItems.length; i++) {
@@ -626,7 +633,10 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onChoosePerson():void {
-        _contPaper.visible = _curUser == g.user;
+        if (_curUser == g.user) {
+            if (g.userTimer.papperTimerAtMarket > 0) _contPaper.visible = true;
+            else _contPaper.visible = false;
+        } else _contPaper.visible = false;
         addItems();
         fillItems();
     }

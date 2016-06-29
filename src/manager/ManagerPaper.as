@@ -50,7 +50,8 @@ public class ManagerPaper {
                     ob.isBotBuy = true;
                     ob.visible = Boolean(ar[i].visible);
                     _arr.push(ob);
-                } else if (ar[i].visible == false && ar[i].time_to_new - int(new Date().getTime()/1000 >= 1800)) {
+                } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 1800) {
+                    trace ((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
                     newBot(false,ar[i]);
                 }
             }
@@ -87,7 +88,7 @@ public class ManagerPaper {
             ob.cost = arrMin[ra].visitorPrice * ob.resourceCount;
             ob.xp = 5;
             ob.type = arrMin[ra].buildType;
-            ob.timeToNext = int(new Date().getTime()/1000);
+            ob.timeToNext = 0;
             ob.isBuyed = false;
             ob.isBotBuy = true;
             ob.visible = true;
@@ -101,7 +102,7 @@ public class ManagerPaper {
             ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
             ob.xp = 5;
             ob.type = g.dataResource.objectResources[arrMax[ra].id].buildType;
-            ob.timeToNext = int(new Date().getTime()/1000);
+            ob.timeToNext = 0;
             ob.isBuyed = false;
             ob.isBotBuy = true;
             ob.visible = true;
@@ -124,7 +125,7 @@ public class ManagerPaper {
                 ob.cost = arrMin[ra].visitorPrice * ob.resourceCount;
                 ob.xp = 5;
                 ob.type = arrMin[ra].buildType;
-                ob.timeToNext = int(new Date().getTime()/1000);
+                ob.timeToNext = 0;
                 ob.isBuyed = false;
                 ob.isBotBuy = true;
                 ob.visible = true;
@@ -143,7 +144,7 @@ public class ManagerPaper {
                 ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
                 ob.xp = 5;
                 ob.type = g.dataResource.objectResources[arrMax[ra].id].buildType;
-                ob.timeToNext = int(new Date().getTime()/1000);
+                ob.timeToNext = 0;
                 ob.isBuyed = false;
                 ob.isBotBuy = true;
                 ob.visible = true;
