@@ -128,7 +128,7 @@ public class ManagerAnimal {
 
     public function getAllAnimals():Array {
         var arr:Array = [];
-        for (var i:int=0; i<_arrFarm; i++) {
+        for (var i:int=0; i<_arrFarm.length; i++) {
             arr.concat((_arrFarm[i] as Farm).arrAnimals);
         }
         return arr;
