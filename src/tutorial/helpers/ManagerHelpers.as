@@ -35,7 +35,7 @@ public class ManagerHelpers {
         _isStoped = false;
         if (_isActiveHelper) {
 
-        } else if (g.user.level >= 4 && g.user.level < 9) {
+        } else if (g.user.level >= 4 && g.user.level < 8) {
             _curReason = null;
             _isCheckingForHelper = true;
             startIt();
