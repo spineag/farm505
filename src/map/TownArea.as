@@ -1169,6 +1169,7 @@ public class TownArea extends Sprite {
                 return;
             }
         }
+        g.managerHelpers.stopIt();
         g.hideAllHints();
         g.catPanel.visibleCatPanel(false);
         _awayPreloader = new AwayPreloader();
@@ -1544,6 +1545,7 @@ public class TownArea extends Sprite {
     }
 
     public function backHome():void {
+        g.managerHelpers.checkIt();
         g.hideAllHints();
         removeAwayTownAreaSortCheking();
         _awayPreloader = new AwayPreloader();

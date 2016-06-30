@@ -22,6 +22,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
+
+import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import utils.CButton;
@@ -54,6 +56,7 @@ public class ShopItem {
     private var _wo:WOShop;
     private var _bg:CartonBackgroundIn;
     private var _positionInList:int;
+    private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
 
     public function ShopItem(data:Object, wo:WOShop, pos:int) {
@@ -941,6 +944,10 @@ public class ShopItem {
         if (_imCont) {
             TweenMax.killTweensOf(_imCont);
         }
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
         _im = null;
         _imCont = null;
         _nameTxt = null;
@@ -978,6 +985,12 @@ public class ShopItem {
         _bg = null;
         source.deleteIt();
         source = null;
+    }
+
+    public function addArrow():void {
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(73, 10);
     }
 }
 }

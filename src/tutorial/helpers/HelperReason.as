@@ -24,50 +24,50 @@ public class HelperReason {
         ob.txt = 'Можно выполнить заказ лавки!';
         _arr.push(ob);
 
-//        ob = {};
-//        ob.reason = REASON_FEED_ANIMAL;
-//        ob.txt = 'Животные проголодались, давай их накормим!';
-//        _arr.push(ob);
-//
-//        ob = {};
-//        ob.reason = REASON_CRAFT_PLANT;
-//        ob.txt = 'Можно собирать урожай!';
-//        _arr.push(ob);
-//
-//        ob = {};
-//        ob.reason = REASON_RAW_PLANT;
-//        ob.txt = 'Давай что-нибудь посадим!';
-//        _arr.push(ob);
-//
-//        ob = {};
-//        ob.reason = REASON_RAW_FABRICA;
-//        ob.txt = 'Давай что-нибудь произведем на фабрике!';
-//        _arr.push(ob);
-//
-//        ob = {};
-//        ob.reason = REASON_BUY_FABRICA;
-//        ob.txt = 'Давай построим новую фабрику!';
-//        _arr.push(ob);
-//
-//        ob = {};
-//        ob.reason = REASON_BUY_FARM;
-//        ob.txt = 'Мы можем построить новый питомник!';
-//        _arr.push(ob);
-//
-//        ob = {};
-//        ob.reason = REASON_BUY_HERO;
-//        ob.txt = 'Можно нанять еще одного помощника';
-//        _arr.push(ob);
-//
-//        ob = {};
-//        ob.reason = REASON_BUY_ANIMAL;
-//        ob.txt = 'Можно приобрести еще нескольких животных!';
-//        _arr.push(ob);
-//
-//        ob = {};
-//        ob.reason = REASON_BUY_RIDGE;
-//        ob.txt = 'Давай вскопаем еще несколько грядок!';
-//        _arr.push(ob);
+        ob = {};
+        ob.reason = REASON_FEED_ANIMAL;
+        ob.txt = 'Животные проголодались, давай их накормим!';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_CRAFT_PLANT;
+        ob.txt = 'Можно собирать урожай!';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_RAW_PLANT;
+        ob.txt = 'Давай что-нибудь посадим!';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_RAW_FABRICA;
+        ob.txt = 'Давай что-нибудь произведем на фабрике!';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_BUY_FABRICA;
+        ob.txt = 'Давай построим новую фабрику!';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_BUY_FARM;
+        ob.txt = 'Мы можем построить новый питомник!';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_BUY_HERO;
+        ob.txt = 'Можно нанять еще одного помощника';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_BUY_ANIMAL;
+        ob.txt = 'Можно приобрести еще нескольких животных!';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_BUY_RIDGE;
+        ob.txt = 'Давай вскопаем еще несколько грядок!';
+        _arr.push(ob);
     }
 
     public function get reasons():Array {

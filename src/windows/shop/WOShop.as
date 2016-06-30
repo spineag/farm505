@@ -426,6 +426,14 @@ public class WOShop extends WindowMain {
         _shopList.openOnResource(_id);
     }
 
+    public function addArrow(_id:int):void {
+        _shopList.addArrow(_id);
+    }
+    
+    public function addArrowAtPos(n:int):void {
+        _shopList.addArrowAtPos(n);
+    }
+
     public function getShopDirectItemProperties(a:int):Object {
         return _shopList.getShopDirectItemProperties(a);
     }

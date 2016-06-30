@@ -22,6 +22,7 @@ import starling.utils.Color;
 
 import tutorial.SimpleArrow;
 import tutorial.TutorialAction;
+import tutorial.helpers.HelperReason;
 import tutorial.managerCutScenes.ManagerCutScenes;
 
 import user.NeighborBot;
@@ -232,12 +233,21 @@ public class MainBottomPanel {
                 } else if (g.managerCutScenes.isCutScene) {
                     shopTab = WOShop.DECOR;
                     g.managerCutScenes.checkCutSceneCallback();
+                } else if (g.managerHelpers.isActiveHelper) {
+                    if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShop.ANIMAL;
+                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FABRICA) shopTab = WOShop.FABRICA;
+                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FARM) shopTab = WOShop.VILLAGE;
+                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_HERO) shopTab = WOShop.VILLAGE;
+                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_RIDGE) shopTab = WOShop.VILLAGE;
                 } else {
                     if (g.user.buyMarketTab == WOShop.VILLAGE)
                     shopTab = WOShop.ANIMAL;
                 }
 
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
+                if (g.managerHelpers.isActiveHelper) {
+                    g.managerHelpers.onOpenShop();
+                }
                 if (g.managerTutorial.isTutorial) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply();
@@ -269,6 +279,7 @@ public class MainBottomPanel {
                 }
                 break;
             case 'tools':
+                g.managerHelpers.onUserAction();
                 if (g.managerCutScenes.isCutScene)  {
                     if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR)) {
                         if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
@@ -288,6 +299,7 @@ public class MainBottomPanel {
                 g.toolsPanel.hideRepository();
                 break;
             case 'option':
+                g.managerHelpers.onUserAction();
                 if (g.managerCutScenes.isCutScene) return;
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {

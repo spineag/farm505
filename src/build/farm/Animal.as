@@ -148,6 +148,10 @@ public class Animal {
         return source.y;
     }
 
+    public function get animalData():Object {
+        return _data;
+    }
+
     public function addArrow():void {
         if (animation) {
             removeArrow();
@@ -219,6 +223,7 @@ public class Animal {
     }
 
     private function onClick(last:Boolean = false):void {
+        g.managerHelpers.onUserAction();
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
@@ -353,10 +358,6 @@ public class Animal {
 //            g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
 //        }
 //    }
-
-    public function get animalData():Object {
-        return _data;
-    }
 
     private function showFeedingAnimation():void {
         stopAnimation();

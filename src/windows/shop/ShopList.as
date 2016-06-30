@@ -433,6 +433,19 @@ public class ShopList {
             Cc.error('ShopList openOnResource error');
         }
     }
+    
+    public function addArrow(_id:int):void {
+        for (var i:int=0; i<_currentShopArr.length; i++) {
+            if (_currentShopArr[i].id == _id) {
+                _arrItems[i].addArrow();
+                break;
+            }
+        }
+    }
+    
+    public function addArrowAtPos(n:int):void {
+        _arrItems[n].addArrow();
+    }
 
     public function deleteIt():void {
         _wo = null;

@@ -113,6 +113,7 @@ public class CraftItem {
     }
 
     public function flyIt(xpFly:Boolean = true,bonusDrop:Boolean = true):void {
+        g.managerHelpers.onUserAction();
         if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT || g.managerTutorial.currentAction == TutorialAction.FABRICA_CRAFT)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply();

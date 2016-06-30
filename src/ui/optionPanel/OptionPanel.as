@@ -220,6 +220,7 @@ public class OptionPanel {
     }
 
     private function onClick(reason:String):void {
+        g.managerHelpers.onUserAction();
         var i:int;
         switch (reason) {
             case 'fullscreen':
