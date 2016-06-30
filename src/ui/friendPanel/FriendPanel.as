@@ -23,6 +23,8 @@ import starling.text.TextField;
 
 import tutorial.TutorialAction;
 
+import user.NeighborBot;
+
 import user.Someone;
 
 import utils.CButton;
@@ -278,12 +280,17 @@ public class FriendPanel {
 
         var item:FriendItem;
         for (var i:int=0; i<newCount; i++) {
-            item = new FriendItem(_arrFriends[_shift + i]);
+            item = new FriendItem(_arrFriends[_shift + i],_shift + i);
+//            if(_arrFriends[_shift+i] is NeighborBot){
+//                trace('true');
+//            }
             _arrItems.unshift(item);
             item.source.x = 66 * (_shift + i);
             item.source.y = -1;
             _cont.addChild(item.source);
         }
+
+        _arrItems.sortOn('position', Array.NUMERIC);
         var f:Function = function():void {
             for (i=0; i<newCount; i++) {
                 item = _arrItems.pop();
@@ -302,12 +309,13 @@ public class FriendPanel {
         var item:FriendItem;
         for (var i:int=0; i<newCount; i++) {
             if (_arrFriends[_shift + 4 + i]) {
-                item = new FriendItem(_arrFriends[_shift + 5 + i]);
+                item = new FriendItem(_arrFriends[_shift + 5 + i],_shift + 5 + i);
                 item.source.x = 66 * (_shift + 5 + i);
                 _cont.addChild(item.source);
                 _arrItems.push(item);
             }
         }
+        _arrItems.sortOn('position', Array.NUMERIC);
         _shift += newCount;
         var f:Function = function():void {
             for (i=0; i<newCount; i++) {

@@ -616,9 +616,11 @@ public class ShopItem {
                         var ob:Object = {};
                         ob.currency = DataMoney.SOFT_CURRENCY;
                         ob.count = _countCost - g.user.softCurrencyCount;
+                        ob.cost = _countCost;
+                        ob.data = _data;
 //                        g.windowsManager.cashWindow = _wo;
                         _wo.hideIt();
-//                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceCallback, 'money', ob,_data,_countCost);
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceCallback, 'money', ob);
                         return;
                     }
                 } else if (_data.currency == DataMoney.HARD_CURRENCY) {
@@ -671,9 +673,11 @@ public class ShopItem {
                 var ob2:Object = {};
                 ob2.currency = DataMoney.SOFT_CURRENCY;
                 ob2.count = _countCost - g.user.softCurrencyCount;
+                ob2.cost = _countCost;
+                ob2.data = _data;
 //                g.windowsManager.cashWindow = _wo;
                 _wo.hideIt();
-//                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceCallback, 'money', ob2);
+                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceCallback, 'money', ob2);
                 return;
             }
         }
@@ -788,6 +792,114 @@ public class ShopItem {
                 }
             }
             Cc.error('ShopItem:: no such Farm :(');
+        }
+    }
+
+    private function noResourceCallback(objectCallback:Object = null,countCost:int = 0):void {
+        if(!objectCallback) return;
+        var build:WorldObject;
+        if (objectCallback.buildType == BuildType.RIDGE) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.NEW_RIDGE) return;
+            build = g.townArea.createNewBuild(objectCallback);
+            g.selectedBuild = build;
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+                g.managerTutorial.checkTutorialCallback();
+            }
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
+            (build as WorldObject).countShopCost = countCost;
+            g.townArea.startMoveAfterShop(build);
+        } else if (objectCallback.buildType == BuildType.DECOR_TAIL) {
+            if (g.managerTutorial.isTutorial) return;
+            build = g.townArea.createNewBuild(objectCallback);
+            g.selectedBuild = build;
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
+            if (_state == STATE_FROM_INVENTORY) {
+                g.townArea.startMoveAfterShop(build, true);
+                g.buyHint.hideIt();
+            } else {
+                (build as WorldObject).countShopCost = countCost;
+                g.townArea.startMoveAfterShop(build);
+//                g.toolsModifier.startMoveTail(build, _countCost, true);
+            }
+        } else if (objectCallback.buildType == BuildType.CAT) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_CAT) return;
+            g.managerCats.onBuyCatFromShop();
+            g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost));
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+                    g.managerTutorial.checkTutorialCallback();
+                }
+            }
+        } else if (objectCallback.buildType != BuildType.ANIMAL) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_FABRICA && g.managerTutorial.currentAction != TutorialAction.BUY_FARM) return;
+            build = g.townArea.createNewBuild(objectCallback);
+            g.selectedBuild = build;
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            if (objectCallback.buildType == BuildType.FARM) {
+//                _wo.setAnimalClick = true;
+            }
+            if (build is Tree) (build as Tree).showShopView();
+            if (build is Fabrica) (build as Fabrica).showShopView();
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA && g.managerTutorial.isTutorialResource(objectCallback.id)) {
+                    g.managerTutorial.checkTutorialCallback();
+                } else if (g.managerTutorial.currentAction == TutorialAction.BUY_FARM && g.managerTutorial.isTutorialResource(objectCallback.id)) {
+                    g.managerTutorial.checkTutorialCallback();
+                }
+            }
+            if (_state == STATE_FROM_INVENTORY) {
+                g.townArea.startMoveAfterShop(build, true);
+                g.buyHint.hideIt();
+            } else {
+                (build as WorldObject).countShopCost = countCost;
+                g.townArea.startMoveAfterShop(build);
+//                g.toolsModifier.startMove(build, _countCost, true);
+            }
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
+        } else {
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction != TutorialAction.BUY_ANIMAL) return;
+                if (!g.managerTutorial.isTutorialResource(objectCallback.id)) return;
+            }
+            //додаємо на відповідну ферму
+            var dataFarm:Object = g.dataBuilding.objectBuilding[objectCallback.buildId];
+            var curCount:int = 0;
+            var arr:Array = g.townArea.cityObjects;
+            var arrPat:Array = g.townArea.getCityObjectsById(dataFarm.id);
+            for (var i:int = 0; i < arrPat.length; i++) {
+                curCount += (arrPat[i] as Farm).arrAnimals.length;
+            }
+            if (curCount < dataFarm.maxAnimalsCount) {
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost));
+            } else if (curCount < 2 * dataFarm.maxAnimalsCount) {
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost2));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost2));
+            } else {
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost3));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost3));
+            }
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i] is Farm && arr[i].dataBuild.id == objectCallback.buildId && !arr[i].isFull) {
+                    (arr[i] as Farm).addAnimal();
+                    checkState();
+                    g.bottomPanel.cancelBoolean(false);
+//                    _wo.updateMoneyCounts();
+                    break;
+                }
+            }
+            if (g.managerTutorial.isTutorial) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(objectCallback.id)) {
+                    g.managerTutorial.checkTutorialCallback();
+                } else {
+                    return;
+                }
+            }
         }
     }
 
