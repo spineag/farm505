@@ -8,41 +8,79 @@ import build.farm.Farm;
 import build.ridge.Ridge;
 import data.BuildType;
 import manager.Vars;
+import mouse.ToolsModifier;
+import windows.WindowsManager;
+import windows.shop.WOShop;
 
 public class ManagerHelpers {
-    private const MAX_SECONDS:int = 7;
+    private const MAX_SECONDS:int = 15;
     private var _countSeconds:int;
     private var _isActiveHelper:Boolean;
     private var _isCheckingForHelper:Boolean;
     private var _helper:GameHelper;
     private var _curReason:Object;
     private var _helperReason:HelperReason;
+    private var _isStoped:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function ManagerHelpers() {
         _isCheckingForHelper = false;
         _isActiveHelper = false;
+        _isStoped = false;
         _helperReason = new HelperReason();
         checkIt();
     }
 
     public function checkIt():void {
+        _isStoped = false;
         if (_isActiveHelper) {
 
         } else if (g.user.level >= 4 && g.user.level < 9) {
+            _curReason = null;
+            _isCheckingForHelper = true;
             startIt();
+        } else {
+            _curReason = null;
+            _isCheckingForHelper = false;
+        }
+    }
+
+    public function get isActiveHelper():Boolean {
+        return _isActiveHelper;
+    }
+
+    public function get activeReason():Object {
+        return _curReason;
+    }
+
+    public function onUserAction():void {
+        if (_isCheckingForHelper) {
+            _countSeconds = 0;
+        }
+        if (_isActiveHelper) {
+            onEnd();
+        }
+    }
+
+    public function stopIt():void {
+        _isStoped = true;
+        _countSeconds = 0;
+        g.gameDispatcher.removeFromTimer(onTimer);
+        if (_isActiveHelper && _curReason.reason != HelperReason.REASON_BUY_ANIMAL && _curReason.reason != HelperReason.REASON_BUY_FABRICA &&
+            _curReason.reason != HelperReason.REASON_BUY_FARM && _curReason.reason != HelperReason.REASON_BUY_HERO && _curReason.reason != HelperReason.REASON_BUY_RIDGE) {
+            onEnd();
         }
     }
 
     public function disableIt():void {
+        _curReason = null;
         g.gameDispatcher.removeFromTimer(onTimer);
         _isActiveHelper = false;
         _isCheckingForHelper = false;
     }
 
     private function startIt():void {
-        if (!_isCheckingForHelper && !_isActiveHelper) {
-            _isCheckingForHelper = true;
+        if (!_isActiveHelper) {
             _countSeconds = 0;
             g.gameDispatcher.addToTimer(onTimer);
         }
@@ -51,8 +89,12 @@ public class ManagerHelpers {
     private function onTimer():void {
         _countSeconds++;
         if (_countSeconds >= MAX_SECONDS) {
-            lookForHelperReason();
             _countSeconds = 0;
+            if (g.isActiveMapEditor) return;
+            if (g.isAway) return;
+            if (g.windowsManager.currentWindow) return;
+            if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
+            lookForHelperReason();
             if (_isActiveHelper) {
                 g.gameDispatcher.removeFromTimer(onTimer);
             }
@@ -70,7 +112,6 @@ public class ManagerHelpers {
         }
 
         if (wasFinded) {
-            _isActiveHelper = true;
             releaseReason();
         }
     }
@@ -89,7 +130,6 @@ public class ManagerHelpers {
             case HelperReason.REASON_BUY_ANIMAL: wasFindedReason = checkForBuyAnimal(); break;
             case HelperReason.REASON_BUY_RIDGE: wasFindedReason = checkForBuyRidge(); break;
         }
-        trace('wasFindedReason:: ' + wasFindedReason);
         return wasFindedReason;
     }
 
@@ -192,6 +232,7 @@ public class ManagerHelpers {
 
     private function checkForBuyHero():Boolean {
         if (g.managerCats.curCountCats < g.managerCats.maxCountCats && g.dataCats[g.managerCats.curCountCats].cost <= g.user.softCurrencyCount) {
+            _curReason.type = BuildType.CAT;
             return true;
         } else return false;
     }
@@ -199,7 +240,7 @@ public class ManagerHelpers {
     private function checkForBuyAnimal():Boolean {
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
         for (var i:int=0; i<arr.length; i++) {
-            if (!(arr[i] as Farm).isFull && g.dataAnimal[(arr[i] as Farm).dataAnimal.id].cost <= g.user.softCurrencyCount) {
+            if (!(arr[i] as Farm).isFull && g.dataAnimal.objectAnimal[(arr[i] as Farm).dataAnimal.id].cost <= g.user.softCurrencyCount) {
                 _curReason.id = (arr[i] as Farm).dataAnimal.id;
                 _curReason.type = BuildType.ANIMAL;
                 return true;
@@ -229,12 +270,34 @@ public class ManagerHelpers {
     }
 
     private function releaseReason():void {
+        _isActiveHelper = true;
         _helper = new GameHelper();
         _helper.showIt(onEnd, _curReason);
     }
 
     private function onEnd():void {
-
+        _helper.deleteHelper();
+        _helper = null;
+        _curReason = null;
+        _isActiveHelper = false;
+        if (!_isStoped) checkIt();
     }
+    
+    public function onOpenShop():void {
+        _helper.deleteHelper();
+        _helper = null;
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            if (_curReason.reason == HelperReason.REASON_BUY_ANIMAL || _curReason.reason == HelperReason.REASON_BUY_FABRICA || _curReason.reason == HelperReason.REASON_BUY_FARM
+                 || _curReason.reason == HelperReason.REASON_BUY_RIDGE) {
+                (g.windowsManager.currentWindow as WOShop).openOnResource(_curReason.id);
+                (g.windowsManager.currentWindow as WOShop).addArrow(_curReason.id);
+            } else if (_curReason.reason == HelperReason.REASON_BUY_HERO) {
+                (g.windowsManager.currentWindow as WOShop).addArrowAtPos(1);
+            }
+        }
+        _isActiveHelper = false;
+        _curReason = false;
+    }
+
 }
 }

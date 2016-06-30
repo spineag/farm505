@@ -125,6 +125,7 @@ public class ToolsPanel {
     }
 
     private function onClick(reason:String):void {
+        g.managerHelpers.onUserAction();
         switch (reason) {
             case 'repository':
                 if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR)

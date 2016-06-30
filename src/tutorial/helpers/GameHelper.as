@@ -3,6 +3,8 @@
  */
 package tutorial.helpers {
 import build.WorldObject;
+import build.farm.Animal;
+
 import com.junkbyte.console.Cc;
 import flash.events.TimerEvent;
 import flash.geom.Point;
@@ -29,7 +31,7 @@ public class GameHelper {
     private var _spArrow:Sprite;
     private var _centerPoint:Point;
     private var _targetPoint:Point;
-    private const MIN_RADIUS:int = 200;
+    private const MIN_RADIUS:int = 220;
     private var _btnExit:CButton;
     private var _btnShow:CButton;
     private var _angle:Number;
@@ -79,7 +81,7 @@ public class GameHelper {
     private function createCatHead():void {
         _catHead = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_right'));
-        im.scaleX = im.scaleY = .5;
+        im.scaleX = im.scaleY = .7;
         _catHead.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_icon'));
         im.scaleX = 1.3;
@@ -92,12 +94,13 @@ public class GameHelper {
         _source.addChild(_catHead);
     }
 
-    public function deleteIt():void {
-        deleteHelper();
-    }
-
-    private function deleteHelper():void {
+    public function deleteHelper():void {
         if (_source) {
+            _arrow.deleteIt();
+            _arrow = null;
+            g.cont.hintGameCont.removeChild(_spArrow);
+            _spArrow = null;
+            g.gameDispatcher.removeEnterFrame(checkPosition);
             g.cont.hintGameCont.removeChild(_source);
             while (_source.numChildren) _source.removeChildAt(0);
             _catHead.dispose();
@@ -111,68 +114,93 @@ public class GameHelper {
     }
 
     private function onExit():void {
-
+        if (_onCallback != null) {
+            _onCallback.apply();
+        }
     }
 
     public function showIt(callback:Function, r:Object):void {
         _onCallback = callback;
         _reason = r;
         _txt.text = _reason.txt;
-        _centerPoint = new Point(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2);
-        _source.x = _centerPoint.x;
-        _source.y = _centerPoint.y;
         _source.endClickCallback = callback;
-        g.cont.hintGameCont.addChild(_source);
-        _targetPoint = new Point();
 
         switch (_reason.reason) {
-            case HelperReason.REASON_ORDER: releaseOrder(); break;
-//            case HelperReason.REASON_FEED_ANIMAL: releaseFeedAnimal(); break;
-//            case HelperReason.REASON_CRAFT_PLANT: releaseCraftPlant(); break;
-//            case HelperReason.REASON_RAW_PLANT: releaseRawPlant(); break;
-//            case HelperReason.REASON_RAW_FABRICA: releaseRawFabrica(); break;
-//            case HelperReason.REASON_BUY_FABRICA: releaseBuyFabrica(); break;
-//            case HelperReason.REASON_BUY_FARM: releaseBuyFarm(); break;
-//            case HelperReason.REASON_BUY_HERO: releaseBuyHero(); break;
-//            case HelperReason.REASON_BUY_ANIMAL: releaseBuyAnimal(); break;
-//            case HelperReason.REASON_BUY_RIDGE: releaseBuyRidge(); break;
+            case HelperReason.REASON_ORDER: releaseTownBuild(); break;
+            case HelperReason.REASON_FEED_ANIMAL: releaseTownBuild(); break;
+            case HelperReason.REASON_CRAFT_PLANT: releaseTownBuild(); break;
+            case HelperReason.REASON_RAW_PLANT: releaseTownBuild(); break;
+            case HelperReason.REASON_RAW_FABRICA: releaseTownBuild(); break;
+            case HelperReason.REASON_BUY_FABRICA: releaseBuy(); break;
+            case HelperReason.REASON_BUY_FARM: releaseBuy(); break;
+            case HelperReason.REASON_BUY_HERO: releaseBuy(); break;
+            case HelperReason.REASON_BUY_ANIMAL: releaseBuy(); break;
+            case HelperReason.REASON_BUY_RIDGE: releaseBuy(); break;
         }
     }
 
-    private function releaseOrder():void {
-        createTownArrow();
-    }
+    private function releaseTownBuild():void {
+        _centerPoint = new Point(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2);
+        _source.x = _centerPoint.x;
+        _source.y = _centerPoint.y;
+        g.cont.hintGameCont.addChild(_source);
+        _targetPoint = new Point();
 
-    private function createTownArrow():void {
         _spArrow = new Sprite();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _spArrow);
-        _arrow.scaleIt(.7);
-        _arrow.animateAtPosition(0, -170);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(0, -150);
         _spArrow.x = _centerPoint.x;
         _spArrow.y = _centerPoint.y;
         g.cont.hintGameCont.addChildAt(_spArrow, 0);
+        _source.visible = false;
+        _arrow.visible = false;
 
-        g.gameDispatcher.addEnterFrame(checkArrowPosition);
+        g.gameDispatcher.addEnterFrame(checkPosition);
     }
 
-    private function checkArrowPosition():void {
+    private function checkPosition():void {
         if (!_reason.build) {
             Cc.error('GameHelper:: _reason.build = null');
             onExit();
             return;
         }
-//        _targetPoint.x = (_reason.build as WorldObject).rect.x + (_reason.build as WorldObject).rect.width/2;
         _targetPoint.x = 0;
         _targetPoint.y = 0;
-        _targetPoint = (_reason.build as WorldObject).source.localToGlobal(_targetPoint);
+        if (_reason.reason == HelperReason.REASON_FEED_ANIMAL) {
+            _targetPoint = (_reason.animal as Animal).source.localToGlobal(_targetPoint);
+        } else {
+            _targetPoint = (_reason.build as WorldObject).source.localToGlobal(_targetPoint);
+        }
 
         var dist:Number = Math.sqrt((_targetPoint.x - _centerPoint.x)*(_targetPoint.x - _centerPoint.x) + (_targetPoint.y - _centerPoint.y)*(_targetPoint.y - _centerPoint.y));
         if (dist < MIN_RADIUS) {
             if (_isUnderBuild) {
                 _spArrow.rotation = Math.PI;
-//                _source.x = (_reason.build as WorldObject).rect.
+                _arrow.changeY(-150);
+                _source.x = _targetPoint.x;
+                if (_reason.reason == HelperReason.REASON_FEED_ANIMAL) {
+                    _source.y = _targetPoint.y - 170;
+                } else {
+                    _source.y = _targetPoint.y + (_reason.build as WorldObject).rect.y - 140;
+                }
+                _spArrow.x = _source.x;
+                _spArrow.y = _source.y;
+                _arrow.visible = true;
+                _source.visible = true;
+                _btnShow.visible = false;
             } else showUnderTownBuild();
         } else {
+            if (_isUnderBuild) {
+                _isUnderBuild = false;
+                _btnShow.visible = true;
+                _source.x = _centerPoint.x;
+                _source.y = _centerPoint.y;
+                _spArrow.x = _centerPoint.x;
+                _spArrow.y = _centerPoint.y;
+            }
+            _source.visible = true;
+            _arrow.visible = true;
             if (_targetPoint.y < _centerPoint.y) {
                 _angle = Math.asin((_targetPoint.x - _centerPoint.x)/dist);
                 _spArrow.rotation = _angle;
@@ -180,22 +208,23 @@ public class GameHelper {
                 _angle = -Math.asin((_targetPoint.x - _centerPoint.x)/dist);
                 _spArrow.rotation = _angle + Math.PI;
             }
-            _arrow.changeY(-180 - int(Math.abs(_angle)*80));
+            _arrow.changeY(-150 - int(Math.abs(_angle)*80));
         }
     }
 
     private function showUnderTownBuild():void {
-        _arrow.visible = true;
-        _source.visible = true;
-        _btnShow.visible = false;
         _isUnderBuild = true;
     }
 
     private function onClickShow():void {
         _arrow.visible = false;
         _source.visible = false;
-        g.cont.moveCenterToPos((_reason.build as WorldObject).posX, (_reason.build as WorldObject).posY, false, 1);
-        createDelay(1, showUnderTownBuild);
+        var cX:int = (_reason.build as WorldObject).posX - 3;
+        var cY:int = (_reason.build as WorldObject).posY - 3;
+        if (cX < 0) cX = 0;
+        if (cY < 0) cY = 0;
+        g.cont.moveCenterToPos(cX, cY, false, 1);
+        createDelay(1.2, showUnderTownBuild);
     }
 
     private function createDelay(delay:Number, f:Function):void {
@@ -211,6 +240,22 @@ public class GameHelper {
         timer.start();
     }
 
+    private function releaseBuy():void {
+        _btnShow.visible = false;
+        var ob:Object = g.bottomPanel.getShopButtonProperties();
+        _source.x = ob.x + ob.width/2;
+        _source.y = ob.y + ob.height/2 - 200;
+        g.cont.hintGameCont.addChild(_source);
+
+        _spArrow = new Sprite();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _spArrow);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(0, -150);
+        _spArrow.rotation = Math.PI;
+        _spArrow.x = _source.x;
+        _spArrow.y = _source.y;
+        g.cont.hintGameCont.addChildAt(_spArrow, 0);
+    }
 
 }
 }

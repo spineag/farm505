@@ -3,6 +3,9 @@
  */
 package windows {
 import com.junkbyte.console.Cc;
+
+import manager.Vars;
+
 import windows.ambar.WOAmbars;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.buyCoupone.WOBuyCoupone;
@@ -84,6 +87,7 @@ public class WindowsManager {
     private var _cashWindow:WindowMain;
     private var _secondCashWindow:WindowMain;
     private var _nextWindow:Object;
+    protected var g:Vars = Vars.getInstance();
 
     public function WindowsManager() {}
 
@@ -223,6 +227,7 @@ public class WindowsManager {
         }
         wo.showItParams(callback, params);
         _currentWindow = wo;
+        g.managerHelpers.stopIt();
     }
 
     public function hideWindow(type:String):void {
@@ -233,6 +238,7 @@ public class WindowsManager {
     }
 
     public function onHideWindow(hiddenWindow:WindowMain):void {
+        g.managerHelpers.checkIt();
         _currentWindow = null;
         if (_nextWindow) {
             openWindow.apply(null, [_nextWindow.type, _nextWindow.callback].concat(_nextWindow.paramsArray));

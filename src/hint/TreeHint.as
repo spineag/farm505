@@ -115,6 +115,7 @@ public class TreeHint {
     }
 
     public function showIt(height:int,data:Object, x:int, y:int, name:String, worldobject:WorldObject, out:Function):void {
+        g.managerHelpers.onUserAction();
         if (!data || !worldobject) {
             Cc.error('TreeHint show it:: empty data or worldObject');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'treeHint');

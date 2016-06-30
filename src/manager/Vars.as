@@ -455,7 +455,7 @@ public class Vars {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
             }
-//            managerHelpers = new ManagerHelpers();
+            managerHelpers = new ManagerHelpers();
 
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();

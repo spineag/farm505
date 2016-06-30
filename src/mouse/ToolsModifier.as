@@ -73,6 +73,7 @@ public class ToolsModifier {
     }
 
     public function set modifierType(a:int):void {
+        g.managerHelpers.onUserAction();
         if (_modifierType == PLANT_SEED) {
             g.managerPlantRidge.lockAllFillRidge(false); // unlock all not empty ridges
         } else if (_modifierType == PLANT_SEED_ACTIVE) {

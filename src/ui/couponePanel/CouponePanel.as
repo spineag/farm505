@@ -110,6 +110,7 @@ public class CouponePanel {
     }
 
     private function onHover():void {
+        g.managerHelpers.onUserAction();
         _contCoupone.visible = true;
         var quad:Quad = new Quad(_imCoupone.width, _imCoupone.height,Color.WHITE ,false);
         quad.alpha = 0;
