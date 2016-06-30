@@ -27,6 +27,9 @@ import manager.hitArea.ManagerHitArea;
 import map.BackgroundArea;
 import map.MatrixGrid;
 import map.TownArea;
+
+import media.SoundManager;
+
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
 import preloader.StartPreloader;
@@ -168,6 +171,7 @@ public class Vars {
     public var managerTutorial:ManagerTutorial;
     public var managerButterfly:ManagerButterfly;
     public var managerHelpers:ManagerHelpers;
+    public var soundManager:SoundManager;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -226,6 +230,8 @@ public class Vars {
             catPanel = new CatPanel();
             managerChest = new ManagerChest();
             townAreaTouchManager = new TownAreaTouchManager();
+            soundManager = new SoundManager();
+            soundManager.load();
 
             if (useDataFromServer) {
                 socialNetwork = new SocialNetwork(flashVars);

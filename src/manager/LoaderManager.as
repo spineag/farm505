@@ -1,4 +1,5 @@
 package manager {
+import com.deadreckoned.assetmanager.Asset;
 import com.deadreckoned.assetmanager.AssetManager;
 import com.deadreckoned.assetmanager.AssetQueue;
 import com.junkbyte.console.Cc;
@@ -13,7 +14,7 @@ public class LoaderManager {
 
     [ArrayElementType('com.deadreckoned.assetmanager.AssetQueue')]
     private var _loaders:Array;
-    private var _loaderImages:AssetQueue;
+    private var _loaderQueue:AssetQueue;
 
     private var _loader:AssetManager = AssetManager.getInstance();
     private var _callbacks:Object;
@@ -40,8 +41,8 @@ public class LoaderManager {
         _loaders = [];
         _callbacks = {};
         _loader.loadSequentially = true;
-        _loaderImages = _loader.createQueue('loader');
-        _loaderImages.loadSequentially = false;
+        _loaderQueue = _loader.createQueue('loader');
+        _loaderQueue.loadSequentially = false;
         for (var i:int = 0; i < COUNT_PARALEL_LOADERS; i++) {
             _loaders.push(_loader.createQueue('loader' + String(i)));
         }
@@ -63,7 +64,7 @@ public class LoaderManager {
             additionalQueue[url].push({callback: callback, callbackParams: callbackParams});
         }
 
-        _loaderImages.add(url, {type: AssetManager.TYPE_IMAGE, priority: 8, onComplete: loadedImage, onCompleteParams: [url, callback, callbackParams], onError: errorHandler, onErrorParams: [url]});
+        _loaderQueue.add(url, {type: AssetManager.TYPE_IMAGE, priority: 8, onComplete: loadedImage, onCompleteParams: [url, callback, callbackParams], onError: errorHandler, onErrorParams: [url]});
     }
 
     private function loadedImage(url:String, callback:Function, callbackParams:Array):void {
@@ -109,7 +110,7 @@ public class LoaderManager {
             additionalQueue[url].push({callback: callback, callbackParams: callbackParams});
         }
 
-        _loaderImages.add(url, {type: AssetManager.TYPE_XML, priority: 8, onComplete: loadedXML, onCompleteParams: [url, callback, callbackParams], onError: errorHandler, onErrorParams: [url]});
+        _loaderQueue.add(url, {type: AssetManager.TYPE_XML, priority: 8, onComplete: loadedXML, onCompleteParams: [url, callback, callbackParams], onError: errorHandler, onErrorParams: [url]});
     }
 
     private function loadedXML(url:String, callback:Function, callbackParams:Array):void {
@@ -148,6 +149,15 @@ public class LoaderManager {
         g.load.loadXML(st + '.xml', fOnLoad);
     }
 
+    public function loadSWFModule(url:String, callback:Function, ...callbackParams):void {
+        setCallback(url, callback, callbackParams);
+        _loaderQueue.add(url, {type: AssetManager.TYPE_SWF, priority: 8, onComplete: loadedSWFModule, onCompleteParams: [url], onError: errorHandler, onErrorParams: [url]});
+    }
+
+    private function loadedSWFModule(url:String):void {
+        getCallback(url, _loader.get(url).rawData);
+    }
+
     private function errorHandler(url:String):void {
         Cc.error('LoaderManager:: error at ' + url);
     }
@@ -162,14 +172,20 @@ public class LoaderManager {
         }
     }
 
-    private function getCallback(url:String):void {
+    private function getCallback(url:String, extraData:* = null):void {
         var callbackObject:Object;
 
         if (_callbacks[url] != undefined) {
             while (_callbacks[url] && _callbacks[url].length) {
                 callbackObject = _callbacks[url].pop();
+                var arr:Array;
+                if (extraData) {
+                    arr = [extraData];
+                } else {
+                    arr = [g.pBitmaps[url].create() as Bitmap];
+                }
                 if (callbackObject.callback != null) {
-                    callbackObject.callback.apply(null, [g.pBitmaps[url].create() as Bitmap].concat(callbackObject.callbackParams));
+                    callbackObject.callback.apply(null, arr.concat(callbackObject.callbackParams));
                 }
             }
             delete _callbacks[url];
