@@ -28,10 +28,12 @@ public class FriendItem {
     public var txtLvl:TextField;
     private var _preloader:FlashAnimatedPreloader;
     private var _timer:int;
+    private var _positionInList:int;
     private var g:Vars = Vars.getInstance();
 
-    public function FriendItem(f:Someone) {
+    public function FriendItem(f:Someone,pos:int =0) {
         _person = f;
+        _positionInList = pos;
         if (!_person) {
             Cc.error('FriendItem:: person == null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'friendItem');
@@ -164,6 +166,7 @@ public class FriendItem {
         _ava.x = 5;
         _ava.y = 18;
         if (source) source.addChildAt(_ava,1);
+//        source.addChildAt(_ava,1);
     }
 
 
@@ -176,6 +179,10 @@ public class FriendItem {
         _ava = null;
         _txt = null;
         source = null;
+    }
+
+    public function get position():int {
+        return _positionInList;
     }
 
     private function onTimer():void {

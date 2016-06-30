@@ -268,7 +268,7 @@ public class WONoResources extends WindowMain {
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_SOFT_FOR_HARD, {id: DataMoney.SOFT_CURRENCY, info: _countOfResources});
         super.hideIt();
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null,[_paramData]);
+            _callbackBuy.apply(null,[_paramData.data,_paramData.cost]);
             _callbackBuy = null;
         }
     }

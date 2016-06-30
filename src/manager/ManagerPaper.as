@@ -51,7 +51,6 @@ public class ManagerPaper {
                     ob.visible = Boolean(ar[i].visible);
                     _arr.push(ob);
                 } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 1800) {
-                    trace ((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
                     newBot(false,ar[i]);
                 }
             }

@@ -68,6 +68,7 @@ public class MarketItem {
     private var _plawkaSold:Image;
     private var _plawkaLvl:Image;
     private var _plawkabuy:Image;
+    private var _coin:Image;
     private var _plawkaCoins:Sprite;
     private var _isUser:Boolean;
     private var _imageCont:Sprite;
@@ -79,7 +80,7 @@ public class MarketItem {
     private var _woHeight:int;
     private var _onHover:Boolean;
     private var _closeCell:Boolean;
-    private var _quadGreen:Quad;
+//    private var _quadGreen:Quad;
     private var _ava:Image;
     private var _countBuyCell:int;
     private var _papper:CButton;
@@ -114,10 +115,10 @@ public class MarketItem {
         _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.addChild(_txtAdditem);
 
-        _quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
-        _quadGreen.y = 100;
-        source.addChild(_quadGreen);
-        _quadGreen.visible = false;
+//        _quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
+//        _quadGreen.y = 100;
+//        source.addChild(_quadGreen);
+//        _quadGreen.visible = false;
 
         _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -161,16 +162,16 @@ public class MarketItem {
         _plawkabuy.x = 5;
         _plawkabuy.y = 100;
         _plawkaCoins.addChild(_plawkabuy);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
-        MCScaler.scale(im,25,25);
-        im.y = 102;
-        im.x = _bg.width/2 + 15;
-        _plawkaCoins.addChild(im);
+        _coin  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
+        MCScaler.scale(_coin,25,25);
+        _coin.y = 102;
+        _coin.x = _bg.width/2 + 15;
+        _plawkaCoins.addChild(_coin);
         _plawkaCoins.addChild(_costTxt);
         _plawkaCoins.visible = false;
 
         _papper = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
         _papper.addDisplayObject(im);
         _papper.setPivots();
         _papper.x = 15;
@@ -260,6 +261,13 @@ public class MarketItem {
         _countTxt.text = String(_countResource);
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
+        _coin.y = 102;
+        _coin.x = _bg.width/2 + 15;
+        _txtPlawka.x = 10;
+        _txtPlawka.y = 85;
+        _costTxt.y = 101;
+        _costTxt.pivotX = _costTxt.width/2;
+        _costTxt.x = _bg.width/2;
         if (_isUser) {
             visiblePapperTimer();
         }
@@ -305,7 +313,8 @@ public class MarketItem {
     public function visiblePapperTimer():void {
         if (isFill == 0 || isFill == 2) return;
         if (_inPapper) {
-            if (int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper <= 10800) {
+            trace((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper));
+            if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
                 _papper.visible = true;
                 _imCheck.visible = true;
             } else {
@@ -380,7 +389,6 @@ public class MarketItem {
                 }
 
                 g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
-                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
 //                showFlyResource(d, _dataFromServer.resourceCount);
 //                _plawkaCoins.visible = false;
 //                _plawkaSold.visible = true;
@@ -447,7 +455,7 @@ public class MarketItem {
         if (!b) {
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
-            new FlyMessage(p, "товар был приобретен другим игроком");
+            new FlyMessage(p, "товар был куплен другим игроком");
             _wo.refreshItemWhenYouBuy();
         } else {
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
@@ -536,7 +544,7 @@ public class MarketItem {
         else _txtAdditem.text = '';
         _data = null;
         _personBuyerTemp = null;
-        _quadGreen.visible = false;
+//        _quadGreen.visible = false;
         source.removeChild(_ava);
         _plawkabuy.visible = true;
         _plawkaCoins.visible = false;
@@ -559,9 +567,9 @@ public class MarketItem {
             if (_person.userSocialId == g.user.userSocialId) { //sale yours item
                 _plawkaSold.visible = false;
                 _txtPlawka.visible = false;
-                _quadGreen.visible = true;
-                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
-                showSaleImage();
+//                _quadGreen.visible = true;
+//                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
+                showSaleImage(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.cost);
                 _plawkabuy.visible = false;
                 _txtAdditem.text = '';
             } else { // sale anyway item
@@ -600,14 +608,53 @@ public class MarketItem {
         item.flyIt(false,false);
     }
 
-    private function showSaleImage():void {
+    private function showSaleImage(data:Object, cost:int):void {
         var i:int;
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale'));
-        im.pivotY = im.height/2;
-        im.x = 3;
-        im.y = _bg.height/2 -15;
-        _imageCont.addChild(im);
-        _quadGreen.visible = true;
+        if (_imageCont) unFillIt();
+        var im:Image;
+        _data = data;
+        if (_data) {
+            if (_data.buildType == BuildType.PLANT) {
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+            } else {
+                im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            }
+            if (!im) {
+                Cc.error('MarketItem fillIt:: no such image: ' + _data.imageShop);
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
+                return;
+            }
+            MCScaler.scale(im, 45, 45);
+            im.x = 2;
+            im.y = 90;
+//            MCScaler.scale(im, 80, 80);
+//            im.pivotX = im.width/2;
+//            im.pivotY = im.height/2;
+//            im.x = _bg.width/2 - 10;
+//            im.y = _bg.height/2 - 15;
+            _imageCont.addChild(im);
+        } else {
+            Cc.error('MarketItem fillIt:: empty _data');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
+            return;
+        }
+        _txtPlawka.visible = true;
+        _txtPlawka.y = 45;
+        _txtAdditem.text = '';
+        _countMoney = cost;
+//        _countTxt.text = String(_countResource);
+        _coin.y = 85;
+        _coin.x = _bg.width/2;
+
+        _costTxt.y = 105;
+        _costTxt.x = _bg.width/2 + 12;
+        _plawkaCoins.visible = true;
+        _costTxt.text = String(cost);
+        if (_isUser) {
+            visiblePapperTimer();
+        }
+
+
         _costTxt.text = String(_dataFromServer.cost);
         if (_dataFromServer.buyerSocialId == 1) {
             _personBuyer = g.user.neighbor;
@@ -633,10 +680,12 @@ public class MarketItem {
             if (!_personBuyer) {
                 if (_person.photo) {
                     _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                    MCScaler.scale(_ava, 35, 35);
-                    _ava.x = 2;
-                    _ava.y = 102;
-                    source.addChild(_ava);
+                    MCScaler.scale(_ava, 75, 75);
+                    _ava.pivotX = _ava.width/2;
+                    _ava.pivotY = _ava.height/2;
+                    _ava.x = _bg.width/2 - 9;
+                    _ava.y = _bg.height/2 - 30;
+                    source.addChildAt(_ava,1);
                 }
                 g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId], onGettingUserInfo);
             }
@@ -644,19 +693,23 @@ public class MarketItem {
                 if (_personBuyer.photo) {
                     if (_person.photo) {
                         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                        MCScaler.scale(_ava, 35, 35);
-                        _ava.x = 2;
-                        _ava.y = 102;
-                        source.addChild(_ava);
+                        MCScaler.scale(_ava, 75, 75);
+                        _ava.pivotX = _ava.width/2;
+                        _ava.pivotY = _ava.height/2;
+                        _ava.x = _bg.width/2 - 9;
+                        _ava.y = _bg.height/2 - 30;
+                        source.addChildAt(_ava,1);
                     }
                     g.load.loadImage(_personBuyer.photo, onLoadPhoto);
                 } else {
                     if (_person.photo) {
                         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                        MCScaler.scale(_ava, 35, 35);
-                        _ava.x = 2;
-                        _ava.y = 102;
-                        source.addChild(_ava);
+                        MCScaler.scale(_ava, 75, 75);
+                        _ava.pivotX = _ava.width/2;
+                        _ava.pivotY = _ava.height/2;
+                        _ava.x = _bg.width/2 - 9;
+                        _ava.y = _bg.height/2 - 30;
+                        source.addChildAt(_ava,1);
                     }
                     g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId], onGettingUserInfo);
                 }
@@ -736,10 +789,12 @@ public class MarketItem {
         if (_ava) _ava = null;
         _ava = new Image(tex);
         _ava.visible = true;
-        MCScaler.scale(_ava, 35, 35);
-        _ava.x = 2;
-        _ava.y = 102;
-        source.addChild(_ava);
+        MCScaler.scale(_ava, 75, 75);
+        _ava.pivotX = _ava.width/2;
+        _ava.pivotY = _ava.height/2;
+        _ava.x = _bg.width/2 - 9;
+        _ava.y = _bg.height/2 - 30;
+        source.addChildAt(_ava,1);
     }
 
     public function getItemProperties():Object {
@@ -771,7 +826,7 @@ public class MarketItem {
         _person = null;
         _personBuyer = null;
         _personBuyerTemp = null;
-        _quadGreen = null;
+//        _quadGreen = null;
         _ava = null;
         if (_papper) {
             source.removeChild(_papper);
