@@ -12,6 +12,8 @@ import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
 
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 import resourceItem.DropItem;
 import starling.core.Starling;
@@ -394,7 +396,7 @@ public class Train extends WorldObject{
             }
             createAnimatedBuild(onJustOpenedTrain);
             showBoom();
-
+            g.soundManager.playSound(SoundConst.OPEN_BUILD);
         }
     }
 

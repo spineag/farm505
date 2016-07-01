@@ -231,7 +231,6 @@ public class Vars {
             managerChest = new ManagerChest();
             townAreaTouchManager = new TownAreaTouchManager();
             soundManager = new SoundManager();
-            soundManager.load();
 
             if (useDataFromServer) {
                 socialNetwork = new SocialNetwork(flashVars);
@@ -286,6 +285,7 @@ public class Vars {
     }
 
     private function onUserInfo():void {
+        soundManager.load();
         managerCats.addAllHeroCats();
         directServer.getDataAnimal(onDataAnimal);
         startPreloader.setProgress(84);

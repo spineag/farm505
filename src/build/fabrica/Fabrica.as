@@ -14,6 +14,9 @@ import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.HeroCat;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import resourceItem.CraftItem;
 import com.junkbyte.console.Cc;
 import resourceItem.RawItem;
@@ -296,7 +299,7 @@ public class Fabrica extends WorldObject {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
             }
-
+            g.soundManager.playSound(SoundConst.OPEN_BUILD);
         }
     }
 

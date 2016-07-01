@@ -26,6 +26,7 @@ public class WindowMain {
     protected var _callbackClickBG:Function;
     protected var _windowType:String;
     protected var _isShowed:Boolean = false;
+    protected var SOUND_OPEN:int = 0;
     public var isCashed:Boolean = false;
 
     public function WindowMain() {

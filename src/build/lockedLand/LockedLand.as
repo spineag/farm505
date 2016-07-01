@@ -13,6 +13,9 @@ import dragonBones.events.AnimationEvent;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -187,6 +190,7 @@ public class LockedLand extends WorldObject {
     }
 
     public function openIt():void {
+        g.soundManager.playSound(SoundConst.OPEN_BUILD);
         var _x:int = _source.x;
         var _y:int = _source.y;
         if (_dataLand.currencyCount > 0) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataLand.currencyCount);

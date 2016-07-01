@@ -4,6 +4,9 @@
 package windows.buyCurrency {
 import data.DataMoney;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
@@ -34,6 +37,7 @@ public class WOBuyCurrency extends WindowMain {
 
     public function WOBuyCurrency() {
         super();
+        SOUND_OPEN = SoundConst.OPEN_CURRENCY_WINDOW;
         _defaultY = -234;
         _windowType = WindowsManager.WO_BUY_CURRENCY;
         _woWidth = 700;
@@ -134,6 +138,7 @@ public class WOBuyCurrency extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (SOUND_OPEN) g.soundManager.playSound(SOUND_OPEN);
         _isHard = params[0];
         createTabs();
         fillTabs();

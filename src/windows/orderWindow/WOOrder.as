@@ -15,6 +15,9 @@ import heroes.OrderCat;
 import manager.ManagerFilters;
 import manager.ManagerOrder;
 import manager.ManagerOrderItem;
+
+import media.SoundConst;
+
 import resourceItem.DropItem;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -74,7 +77,7 @@ public class WOOrder extends WindowMain{
         createRightBlock();
         createRightBlockTimer();
         createItems();
-        createButtonCell();
+        createButtonSell();
         createButtonSkipDelete();
         _arrOrders = g.managerOrder.arrOrders.slice();
         createTopCats();
@@ -205,7 +208,7 @@ public class WOOrder extends WindowMain{
         }
     }
 
-    private function createButtonCell():void {
+    private function createButtonSell():void {
         _btnSell = new CButton();
         _btnSell.addButtonTexture(120, 40, CButton.GREEN, true);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_left'));
@@ -309,6 +312,7 @@ public class WOOrder extends WindowMain{
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
         g.bottomPanel.checkIsFullOrder();
         animateCatsOnSell();
+        g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
             g.managerTutorial.checkTutorialCallback();
         }

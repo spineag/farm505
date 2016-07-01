@@ -8,6 +8,9 @@ import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 
 import starling.display.Image;
@@ -321,6 +324,7 @@ public class Wild extends WorldObject{
             }
         }
         new RemoveWildAnimation(_source, onEndAnimation, onEndAnimationTotal, _dataBuild.removeByResourceId);
+        g.soundManager.playSound(SoundConst.REMOVE_WILD);
         _delete = true;
         g.wildHint.managerHide();
     }

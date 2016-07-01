@@ -17,7 +17,6 @@ public class GSound {
     public function GSound(snd:Sound = null):void {
         _soundChanell = new SoundChannel();
         snd ? _sound = snd : _sound = new Sound();
-
         _sound.addEventListener(IOErrorEvent.IO_ERROR, ioError);
     }
 

@@ -10,6 +10,8 @@ import flash.geom.Point;
 
 import heroes.HeroCat;
 
+import media.SoundConst;
+
 import windows.WindowsManager;
 
 public class ManagerAnimal {
@@ -117,6 +119,7 @@ public class ManagerAnimal {
                 (_catsForFarm[farmDbId] as HeroCat).showSimpleIdle();
             };
             (_catsForFarm[farmDbId] as HeroCat).showFailCat(f);
+            g.soundManager.playSound(SoundConst.FARM_HERO_AWAY);
         }
     }
 

@@ -595,6 +595,10 @@ public class DirectServer {
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
             g.user.allNotification = int(ob.notification_new);
+            if (ob.music == '1') g.soundManager.enabledMusic(true);
+                else g.soundManager.enabledMusic(false);
+            if (ob.sound == '1') g.soundManager.enabledSound(true);
+                else g.soundManager.enabledSound(false);
 //            g.userTimer.timerAtPapper = int(ob.time_paper);
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
             else g.userTimer.timerAtPapper = 300 - (ob.time_paper- int(new Date().getTime()/1000)) * (-1);
@@ -4957,6 +4961,94 @@ public class DirectServer {
         } else {
             Cc.error('updateUserCraftCountTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCraftCountTree: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserMusic(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_MUSIC);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserMusic', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.music = int(g.soundManager.isPlayingMusic);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserMusic);
+        function onCompleteUpdateUserMusic(e:Event):void { completeUpdateUserMusic(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserMusic error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMusic error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserMusic(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserMusic: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMusic: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserMusic OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserMusic: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMusic: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserSound(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_SOUND);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserSound', 1);
+//        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.sound = int(g.soundManager.isPlayingSound);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserSound);
+        function onCompleteUpdateUserSound(e:Event):void { completeUpdateUserSound(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserSound error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserSound error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserSound(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserSound: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserSound: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserSound OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserSound: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserSound: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 

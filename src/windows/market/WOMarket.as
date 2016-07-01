@@ -8,6 +8,9 @@ import com.junkbyte.console.Cc;
 import flash.filters.GlowFilter;
 import flash.geom.Rectangle;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import social.SocialNetworkEvent;
 import starling.animation.Tween;
 import starling.display.Image;
@@ -68,6 +71,7 @@ public class WOMarket  extends WindowMain {
 
     public function WOMarket() {
         super();
+        SOUND_OPEN = SoundConst.OPEN_MARKET_WINDOW;
         _windowType = WindowsManager.WO_MARKET;
         _cont = new Sprite();
         _contItem = new CSprite();
@@ -222,6 +226,7 @@ public class WOMarket  extends WindowMain {
     }
 
     override public function showItParams(f:Function, params:Array):void {
+        if (SOUND_OPEN) g.soundManager.playSound(SOUND_OPEN);
         _arrFriends = [];
         fillFriends();
         _countPage = 1;

@@ -162,12 +162,20 @@ public class OptionPanel {
 
         _contMusic = new CSprite();
         _contMusic.nameIt = '_contMusic';
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_off"));
+        if (g.soundManager.isPlayingMusic) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_on"));
+        } else {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_off"));
+        }
         _contMusic.addChild(im);
         _contMusic.y = 250;
         _source.addChild(_contMusic);
         _contMusic.hoverCallback = function ():void {
-            g.hint.showIt("Включить музыку");
+            if (g.soundManager.isPlayingMusic) {
+                g.hint.showIt("Выключить музыку");
+            } else {
+                g.hint.showIt("Включить музыку");
+            }
         };
         _contMusic.outCallback = function ():void {
             g.hint.hideIt();
@@ -178,12 +186,20 @@ public class OptionPanel {
 
         _contSound = new CSprite();
         _contSound.nameIt = 'contSound';
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_off"));
+        if (g.soundManager.isPlayingSound) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_on"));
+        } else {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_off"));
+        }
         _contSound.addChild(im);
         _contSound.y = 295;
         _source.addChild(_contSound);
         _contSound.hoverCallback = function ():void {
-            g.hint.showIt("Включить звук");
+            if (g.soundManager.isPlayingSound) {
+                g.hint.showIt("Выключить звук");
+            } else {
+                g.hint.showIt("Включить звук");
+            }
         };
         _contSound.outCallback = function ():void {
             g.hint.hideIt();
@@ -222,6 +238,7 @@ public class OptionPanel {
     private function onClick(reason:String):void {
         g.managerHelpers.onUserAction();
         var i:int;
+        var im:Image;
         switch (reason) {
             case 'fullscreen':
                     try {
@@ -261,9 +278,27 @@ public class OptionPanel {
             case 'anim':
                 break;
             case 'music':
-//                g.socialNetwork.reloadGame();
+                while (_contMusic.numChildren) _contMusic.removeChildAt(0);
+                g.soundManager.enabledMusic(!g.soundManager.isPlayingMusic);
+                g.directServer.updateUserMusic(null);
+                if (g.soundManager.isPlayingMusic) {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_on"));
+                    g.soundManager.playMusic();
+                } else {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_off"));
+                }
+                _contMusic.addChild(im);
                 break;
             case 'sound':
+                while (_contSound.numChildren) _contSound.removeChildAt(0);
+                g.soundManager.enabledSound(!g.soundManager.isPlayingSound);
+                g.directServer.updateUserSound(null);
+                if (g.soundManager.isPlayingSound) {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_on"));
+                } else {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_off"));
+                }
+                _contSound.addChild(im);
                 break;
         }
     }

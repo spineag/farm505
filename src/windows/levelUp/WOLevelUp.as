@@ -9,6 +9,8 @@ import flash.geom.Rectangle;
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
 
+import media.SoundConst;
+
 import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -43,6 +45,7 @@ public class WOLevelUp extends WindowMain {
 
     public function WOLevelUp() {
         super ();
+        SOUND_OPEN = SoundConst.LEVEL_COMPLETED;
         _windowType = WindowsManager.WO_LEVEL_UP;
         _woWidth = 551;
         _woHeight = 409;
@@ -146,6 +149,7 @@ public class WOLevelUp extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (SOUND_OPEN) g.soundManager.playSound(SOUND_OPEN);
         if (g.user.level >= 17) g.couponePanel.openPanel(true);
         _txtLevel.text = String(g.user.level);
         createList();

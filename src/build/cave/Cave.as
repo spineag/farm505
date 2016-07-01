@@ -12,6 +12,8 @@ import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
 
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
@@ -288,6 +290,7 @@ public class Cave extends WorldObject{
             _build.visible = true;
             _rect = _build.getBounds(_build);
             showBoom();
+            g.soundManager.playSound(SoundConst.OPEN_BUILD);
         }
     }
 

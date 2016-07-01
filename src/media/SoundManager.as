@@ -13,7 +13,7 @@ public class SoundManager {
     private var musics:Object = {};
     private var sounds:Object = {};
     private var _isPlayingMusic:Boolean = true;
-    private var _isPlayingSound:Boolean = false;
+    private var _isPlayingSound:Boolean = true;
     private var g:Vars = Vars.getInstance();
 
     public function SoundManager() {}
@@ -27,7 +27,6 @@ public class SoundManager {
         var i:int;
         var sound:Sound;
         var cl:Class;
-        
         try {
             if (response.hasDefinition("farm_music")) {
                 cl = response.getDefinition("farm_music") as Class;
@@ -42,8 +41,9 @@ public class SoundManager {
                 addSound(i, sound);
             }
         } catch (e:Error) {
-            Cc.error('');
+            Cc.error('soundManagerError after loaded: ' + e.message);
         }
+        if (_isPlayingMusic) playMusic();
     }
 
     private function addMusic(id:int, snd:Sound):void {
@@ -71,18 +71,17 @@ public class SoundManager {
     public function playMusic(count:int = int.MAX_VALUE):void {
         var sound:GSound;
         if (_isPlayingMusic) {
-            sound = musics['main'];
+            sound = musics[SoundConst.MAIN_MUSIC];
             if (sound && sound.isPlaying) {
                 sound.play(count, true);
             }
         }
     }
 
-    public function playSound(id:int, count:int = 0):void {
+    public function playSound(id:int, count:int = 1):void {
         var sound:GSound;
         if (_isPlayingSound) {
             sound = sounds[id];
-
             if (sound && sound.isPlaying) {
                 sound.play(count);
             }
@@ -91,7 +90,6 @@ public class SoundManager {
 
     public function stopSound(id:int):void {
         var sound:GSound;
-
         if (_isPlayingSound) {
             sound = sounds[id];
 
@@ -103,7 +101,6 @@ public class SoundManager {
 
     public function stopAllMusics():void {
         var sound:GSound;
-
         for (var key:String in musics) {
             sound = musics[key];
             sound.stop();
@@ -113,7 +110,6 @@ public class SoundManager {
     public function stopAllSounds():void {
         var sound:GSound;
         var key:String;
-
         for (key in sounds) {
             sound = sounds[key];
             sound.stop();
