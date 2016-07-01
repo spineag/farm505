@@ -292,7 +292,7 @@ public class ManagerHelpers {
                 (g.windowsManager.currentWindow as WOShop).openOnResource(_curReason.id);
                 (g.windowsManager.currentWindow as WOShop).addArrow(_curReason.id);
             } else if (_curReason.reason == HelperReason.REASON_BUY_HERO) {
-                (g.windowsManager.currentWindow as WOShop).addArrowAtPos(1);
+                (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0);
             }
         }
         _isActiveHelper = false;
