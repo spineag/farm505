@@ -82,6 +82,7 @@ public class MarketItem {
     private var _closeCell:Boolean;
 //    private var _quadGreen:Quad;
     private var _ava:Image;
+    private var _avaDefault:Image;
     private var _countBuyCell:int;
     private var _papper:CButton;
     private var _inPapper:Boolean;
@@ -313,7 +314,6 @@ public class MarketItem {
     public function visiblePapperTimer():void {
         if (isFill == 0 || isFill == 2) return;
         if (_inPapper) {
-            trace((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper));
             if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
                 _papper.visible = true;
                 _imCheck.visible = true;
@@ -437,6 +437,16 @@ public class MarketItem {
                         break;
                     }
                 }
+
+//                if (_avaDefault) {
+//                    _avaDefault = null;
+//                    source.removeChild(_avaDefault);
+//                }
+//
+//                if (_ava) {
+//                    _ava = null;
+//                }
+//                source.removeChild(_ava);
                 animCoin();
                 isFill = 0;
                 unFillIt();
@@ -499,11 +509,12 @@ public class MarketItem {
         obj.id = int(ob.id);
         obj.buyerId = ob.buyer_id;
         obj.cost = int(ob.cost);
-        obj.inPapper = Boolean(ob.in_papper);
+        obj.inPapper = false;
         obj.resourceCount = int(ob.resource_count);
         obj.resourceId = int(ob.resource_id);
         obj.timeSold = ob.time_sold;
         obj.timeStart = ob.time_start;
+        obj.timeInPapper = ob.time_in_papper;
         obj.numberCell = ob.number_cell;
         _dataFromServer = obj;
         g.user.marketItems.push(obj);
@@ -545,13 +556,21 @@ public class MarketItem {
         _data = null;
         _personBuyerTemp = null;
 //        _quadGreen.visible = false;
-        source.removeChild(_ava);
+
+//        if (_avaDefault) {
+//            _avaDefault = null;
+//            source.removeChild(_avaDefault);
+//        }
+//
+//        if (_ava) {
+//            _ava = null;
+//        }
+//        source.removeChild(_ava);
         _plawkabuy.visible = true;
         _plawkaCoins.visible = false;
         _plawkaSold.visible = false;
         _plawkaLvl.visible = false;
         _txtPlawka.visible = false;
-        if (_ava) _ava = null;
         _delete.visible = false;
         g.marketHint.hideIt();
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
@@ -679,37 +698,42 @@ public class MarketItem {
         } else {
             if (!_personBuyer) {
                 if (_person.photo) {
-                    _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                    MCScaler.scale(_ava, 75, 75);
-                    _ava.pivotX = _ava.width/2;
-                    _ava.pivotY = _ava.height/2;
-                    _ava.x = _bg.width/2 - 9;
-                    _ava.y = _bg.height/2 - 30;
-                    source.addChildAt(_ava,1);
+                    _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                    MCScaler.scale(_avaDefault, 75, 75);
+                    _avaDefault.pivotX = _avaDefault.width/2;
+                    _avaDefault.pivotY = _avaDefault.height/2;
+                    _avaDefault.x = _bg.width/2 - 9;
+                    _avaDefault.y = _bg.height/2 - 30;
+//                    source.addChildAt(_avaDefault,1);
+                    _imageCont.addChild(_avaDefault);
                 }
                 g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId], onGettingUserInfo);
             }
             else {
                 if (_personBuyer.photo) {
                     if (_person.photo) {
-                        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                        MCScaler.scale(_ava, 75, 75);
-                        _ava.pivotX = _ava.width/2;
-                        _ava.pivotY = _ava.height/2;
-                        _ava.x = _bg.width/2 - 9;
-                        _ava.y = _bg.height/2 - 30;
-                        source.addChildAt(_ava,1);
+                        _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                        MCScaler.scale(_avaDefault, 75, 75);
+                        _avaDefault.pivotX = _avaDefault.width/2;
+                        _avaDefault.pivotY = _avaDefault.height/2;
+                        _avaDefault.x = _bg.width/2 - 9;
+                        _avaDefault.y = _bg.height/2 - 30;
+//                        source.addChildAt(_avaDefault,1);
+                        _imageCont.addChild(_avaDefault);
+
                     }
                     g.load.loadImage(_personBuyer.photo, onLoadPhoto);
                 } else {
                     if (_person.photo) {
-                        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                        MCScaler.scale(_ava, 75, 75);
-                        _ava.pivotX = _ava.width/2;
-                        _ava.pivotY = _ava.height/2;
-                        _ava.x = _bg.width/2 - 9;
-                        _ava.y = _bg.height/2 - 30;
-                        source.addChildAt(_ava,1);
+                        _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                        MCScaler.scale(_avaDefault, 75, 75);
+                        _avaDefault.pivotX = _avaDefault.width/2;
+                        _avaDefault.pivotY = _ava.height/2;
+                        _avaDefault.x = _bg.width/2 - 9;
+                        _avaDefault.y = _bg.height/2 - 30;
+//                        source.addChildAt(_avaDefault,1);
+                        _imageCont.addChild(_avaDefault);
+
                     }
                     g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId], onGettingUserInfo);
                 }
@@ -786,7 +810,8 @@ public class MarketItem {
     }
 
     private function photoFromTexture(tex:Texture):void {
-        if (_ava) _ava = null;
+        if (_avaDefault) _avaDefault = null;
+        source.removeChild(_avaDefault);
         _ava = new Image(tex);
         _ava.visible = true;
         MCScaler.scale(_ava, 75, 75);
@@ -794,7 +819,8 @@ public class MarketItem {
         _ava.pivotY = _ava.height/2;
         _ava.x = _bg.width/2 - 9;
         _ava.y = _bg.height/2 - 30;
-        source.addChildAt(_ava,1);
+//        source.addChildAt(_ava,1);
+        _imageCont.addChild(_ava);
     }
 
     public function getItemProperties():Object {

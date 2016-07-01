@@ -149,7 +149,6 @@ public class User extends Someone {
         for (i=0; i < 6; i++) {
             obj = {};
             obj.id = i+1;
-            obj.cost = 1;
             obj.inPapper = false;
             obj.resourceCount = 1;
             obj.buyerId = '0';
@@ -161,6 +160,8 @@ public class User extends Someone {
                 case 4: obj.resourceId = int(ob.resource_id5); break;
                 case 5: obj.resourceId = int(ob.resource_id6); break;
             }
+            obj.cost = g.dataResource.objectResources[obj.resourceId].costDefault;
+
             obj.timeSold = 0;
             obj.timeStart = 0;
             neighbor.marketItems.push(obj);

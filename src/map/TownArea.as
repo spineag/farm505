@@ -1161,7 +1161,7 @@ public class TownArea extends Sprite {
 
     public function goAway(person:Someone):void {
         var b:Boolean = true;
-        if (person.level <= 0) {
+        if (person.level <= 0 && !person.marketItems) {
             if (person is NeighborBot) b = false;
             if (b) {
                 var p0:Point = new Point(Starling.current.nativeStage.stageWidth / 2, Starling.current.nativeStage.stageHeight / 2);

@@ -395,9 +395,11 @@ public class Tree extends WorldObject {
         }
         _source.filter = ManagerFilters.BUILD_STROKE;
         _isOnHover = true;
-        if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) g.mouseHint.showMouseHint(MouseHint.KORZINA);
-        else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
-                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) g.mouseHint.showMouseHint(MouseHint.CLOCK);
+        if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) g.mouseHint.showMouseHint(MouseHint.KORZINA);
+            else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
+                    _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) g.mouseHint.showMouseHint(MouseHint.CLOCK);
+        }
         var fEndOver:Function = function():void {
             _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);

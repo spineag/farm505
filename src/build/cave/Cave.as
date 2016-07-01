@@ -23,7 +23,7 @@ import windows.WindowsManager;
 
 public class Cave extends WorldObject{
     private var _isOnHover:Boolean;
-    private var _countTimer:int;
+//    private var _countTimer:int;
     private var _arrCraftItems:Array;
     private var _armatureOpen:Armature;
     private var _isAnimate:Boolean;
@@ -177,11 +177,8 @@ public class Cave extends WorldObject{
             }
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) buildingBuildFoundationOver();
-            _countTimer = 7;
-            g.timerHint.managerHide();
-            g.wildHint.managerHide();
-            g.treeHint.managerHide();
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
+//            _countTimer = 7;
+//            g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
         }
@@ -194,28 +191,28 @@ public class Cave extends WorldObject{
         _isOnHover = false;
         if (_source) _source.filter = null;
         if (_isAnimate) return;
-        g.hint.hideIt();
-        if (_stateBuild == STATE_BUILD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
-//            g.timerHint.hideIt();
-        }
+//        g.hint.hideIt();
+//        if (_stateBuild == STATE_BUILD) {
+//            g.gameDispatcher.addEnterFrame(countEnterFrame);
+////            g.timerHint.hideIt();
+//        }
     }
 
-    private function countEnterFrame():void {
-        _countTimer--;
-        if (_countTimer <= 0) {
-            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            if (_isOnHover == true) {
-                g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
-                g.hint.hideIt();
-            }
-            if (_isOnHover == false) {
-                _source.filter = null;
-                g.timerHint.hideIt();
-                g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            }
-        }
-    }
+//    private function countEnterFrame():void {
+//        _countTimer--;
+//        if (_countTimer <= 0) {
+//            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+//            if (_isOnHover == true) {
+//                g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+//                g.hint.hideIt();
+//            }
+//            if (_isOnHover == false) {
+//                _source.filter = null;
+//                g.timerHint.hideIt();
+//                g.gameDispatcher.removeEnterFrame(countEnterFrame);
+//            }
+//        }
+//    }
 
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
@@ -233,6 +230,18 @@ public class Cave extends WorldObject{
             return;
         }
         if (_stateBuild == STATE_BUILD) {
+            if (g.timerHint.isShow) {
+                g.timerHint.managerHide(openHint);
+                return;
+            }
+            else if (g.wildHint.isShow){
+                g.wildHint.managerHide(openHint);
+                return;
+            }
+            else if (g.treeHint.isShow) {
+                g.treeHint.managerHide(openHint);
+                return;
+            }
             g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
             g.hint.hideIt();
         }
@@ -292,6 +301,11 @@ public class Cave extends WorldObject{
             showBoom();
             g.soundManager.playSound(SoundConst.OPEN_BUILD);
         }
+    }
+
+    private function openHint():void {
+        g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+        g.hint.hideIt();
     }
 
     private function onOpenBuilded(value:Boolean):void { }

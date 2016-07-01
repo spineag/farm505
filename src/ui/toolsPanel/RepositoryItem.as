@@ -8,6 +8,9 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import mouse.ToolsModifier;
+
 import starling.display.Image;
 import starling.text.TextField;
 
@@ -70,6 +73,9 @@ public class RepositoryItem {
     }
 
     private function onClick():void {
+        if (g.selectedBuild) {
+            g.toolsModifier.cancelMove();
+        }
         var build:WorldObject = g.townArea.createNewBuild(_data, _arrDbIds[0]);
         g.selectedBuild = build;
         if (_data.buildType == BuildType.DECOR_TAIL) {

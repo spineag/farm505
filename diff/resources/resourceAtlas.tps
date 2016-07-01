@@ -222,7 +222,6 @@
             <filename>part_products/sugar_icon.png</filename>
             <filename>part_products/sweater_icon.png</filename>
             <filename>part_products/winter_hat_icon.png</filename>
-            <filename>part_plants</filename>
             <filename>part_products/apple_icon.png</filename>
             <filename>part_products/apple_juice_icon.png</filename>
             <filename>part_products/berry_juice_icon.png</filename>
@@ -248,6 +247,7 @@
             <filename>part_products/sheep_feed_icon.png</filename>
             <filename>part_products/wool_icon.png</filename>
             <filename>part_products/egg_icon.png</filename>
+            <filename>part_plants</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

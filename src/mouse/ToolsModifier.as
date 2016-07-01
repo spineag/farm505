@@ -470,7 +470,7 @@ public class ToolsModifier {
     public function checkFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
         for (i = posY; i < posY + height; i++) {
             for (j = posX; j < posX + width; j++) {
-                if (i < 0 || j < 0 || i > 80 || j > 80) return false;
+                if (i < 0 || j < 0 || i >= 80 || j > 80) return false;
                 obj = _townMatrix[i][j];
                 if (g.managerTutorial.isTutorial) {
                     if (!obj.isTutorialBuilding) {
