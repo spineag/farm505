@@ -18,6 +18,7 @@ import windows.WindowsManager;
 
 public class ManagerCats {
     protected var _townMatrix:Array;
+    private var _matrixLength:int;
     protected var _townAwayMatrix:Array;
 //    [ArrayElementType('heroes.BasicCat')]
     private var _catsArray:Array;
@@ -29,6 +30,7 @@ public class ManagerCats {
 
     public function ManagerCats() {
         _townMatrix = g.townArea.townMatrix;
+        _matrixLength = g.matrixGrid.getLengthMatrix();
         _catsArray = [];
         _catInfo = new Object();
         _catInfo.name = 'Помощник';
@@ -44,32 +46,6 @@ public class ManagerCats {
         return _catInfo;
     }
 
-    public function getRandomFreeCell():Point {
-        var i:int;
-        var j:int;
-        var b:int = 0;
-        var arr:Array;
-        if (g.isAway) {
-            arr = _townAwayMatrix;
-        } else {
-            arr = _townMatrix;
-        }
-        i = int(Math.random() * arr.length);
-        j = int(Math.random() * arr[0].length);
-
-        try {
-            do {
-                j = int(Math.random() * arr[0].length);
-                b++;
-                if (b>30) return new Point(0, 0);
-            } while (arr[i][j].isFull || !arr[i][j].inGame);
-            return new Point(j, i);
-        } catch (e:Error) {
-            Cc.error('ManagerCats getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats getRandomFreeCell');
-        }
-        return new Point(0, 0);
-    }
 
     public function addAllHeroCats():void {
         for (var i:int=0; i < g.user.countCats; i++) {
@@ -102,7 +78,7 @@ public class ManagerCats {
     public function setAllCatsToRandomPositions():void {
         for (var i:int=0; i<_catsArray.length; i++) {
             if ((_catsArray[i] as HeroCat).isFree) {
-                (_catsArray[i] as BasicCat).setPosition(getRandomFreeCell());
+                (_catsArray[i] as BasicCat).setPosition(g.townArea.getRandomFreeCell());
                 (_catsArray[i] as BasicCat).addToMap();
                 (_catsArray[i] as HeroCat).makeFreeCatIdle();
             }
@@ -196,7 +172,7 @@ public class ManagerCats {
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
             cat.setPosition(new Point(31, 28));
         } else {
-            cat.setPosition(getRandomFreeCell());
+            cat.setPosition(g.townArea.getRandomFreeCell());
         }
         cat.addToMap();
         g.user.countCats++;
@@ -237,7 +213,7 @@ public class ManagerCats {
         }
         _townAwayMatrix = g.townArea.townAwayMatrix;
         for (i=0; i<_catsAwayArray.length; i++) {
-            (_catsAwayArray[i] as BasicCat).setPosition(getRandomFreeCell());
+            (_catsAwayArray[i] as BasicCat).setPosition(g.townArea.getRandomFreeCell());
             (_catsAwayArray[i] as BasicCat).addToMap();
             (_catsAwayArray[i] as HeroCat).makeFreeCatIdle();
         }
