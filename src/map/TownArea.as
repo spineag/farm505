@@ -63,6 +63,7 @@ public class TownArea extends Sprite {
     private var _awayPreloader:AwayPreloader;
     private var _needTownAreaSort:Boolean = false;
     private var _zSortCounter:int;
+    private var _freePlace:TownAreaFreePlace;
     private var SORT_COUNTER_MAX:int = 10;
 
     protected var g:Vars = Vars.getInstance();
@@ -79,6 +80,7 @@ public class TownArea extends Sprite {
         _objAwayBuildingsDiagonals = {};
         _cont = g.cont.contentCont;
         _contTail = g.cont.tailCont;
+        _freePlace = new TownAreaFreePlace(g.matrixGrid.matrixSize);
 
         setDefaultMatrix();
     }
@@ -268,6 +270,7 @@ public class TownArea extends Sprite {
                 if (_townMatrix[i][j].build && _townMatrix[i][j].build is LockedLand && source is Wild) {
                     continue;
                 }
+                _freePlace.fillCell(j, i);
                 _townMatrix[i][j].isTutorialBuilding = false;
                 _townMatrix[i][j].build = source;
                 _townMatrix[i][j].isFull = true;
@@ -292,6 +295,7 @@ public class TownArea extends Sprite {
             for (var i:int = posY; i < (posY + sizeY); i++) {
                 for (j = posX; j < (posX + sizeX); j++) {
                     _townMatrix[i][j].isTutorialBuilding = true;
+                    _freePlace.fillCell(j, i);
                     if (sizeX > 1 && sizeY > 1) {
                         if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
                             _townMatrix[i][j].isWall = true;
@@ -310,6 +314,7 @@ public class TownArea extends Sprite {
     public function unFillMatrix(posX:int, posY:int, sizeX:int, sizeY:int):void {
         for (var i:int = posY; i < (posY + sizeY); i++) {
             for (var j:int = posX; j < (posX + sizeX); j++) {
+                _freePlace.freeCell(j, i);
                 _townMatrix[i][j].build = null;
                 _townMatrix[i][j].isFull = false;
                 _townMatrix[i][j].isWall = false;
@@ -382,6 +387,7 @@ public class TownArea extends Sprite {
             for (var j:int = posX; j < (posX + 2); j++) {
                 _townMatrix[i][j].isFull = true;
                 if (i == posY && j == posX)
+                    _freePlace.fillCell(j, i);
                     _townMatrix[i][j].buildFence = source;
             }
         }
@@ -392,6 +398,7 @@ public class TownArea extends Sprite {
             for (var j:int = posX; j < (posX + 2); j++) {
                 _townMatrix[i][j].buildFence = null;
                 _townMatrix[i][j].isFull = false;
+                _freePlace.freeCell(j, i);
             }
         }
     }
@@ -868,30 +875,11 @@ public class TownArea extends Sprite {
     }
 
     public function getRandomFreeCell():Point {
-        var i:int;
-        var j:int;
-        var b:int = 0;
-        var arr:Array;
         if (g.isAway) {
-            arr = _townAwayMatrix;
+            return _freePlace.getAwayFreeCell();
         } else {
-            arr = _townMatrix;
+            return _freePlace.getFreeCell();
         }
-        i = int(Math.random() * arr.length);
-        j = int(Math.random() * arr[0].length);
-
-        try {
-            do {
-                j = int(Math.random() * arr[0].length);
-                b++;
-                if (b>30) return new Point(0, 0);
-            } while (arr[i][j].isFull || !arr[i][j].inGame);
-            return new Point(j, i);
-        } catch (e:Error) {
-            Cc.error('TownArea getRandomFreeCell: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'TownArea getRandomFreeCell');
-        }
-        return new Point(0, 0);
     }
 
     public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false):void {
@@ -1090,7 +1078,6 @@ public class TownArea extends Sprite {
         }
     }
 
-
     private function afterMove(build:WorldObject, _x:Number, _y:Number):void {
         if (build is DecorTail) pasteTailBuild(build as DecorTail, _x, _y, false, true);
         else pasteBuild(build, _x, _y, false, true);
@@ -1175,6 +1162,8 @@ public class TownArea extends Sprite {
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(false);
         g.visitedUser = person;
+        _freePlace.deleteAway();
+        _freePlace.fillAway();
         if (g.isAway) {
             removeAwayTownAreaSortCheking();
             clearAwayCity();
@@ -1232,6 +1221,7 @@ public class TownArea extends Sprite {
                 if (_townAwayMatrix[i][j].build && _townAwayMatrix[i][j].build is LockedLand && source is Wild) {
                     continue;
                 }
+                _freePlace.fillAwayCell(j, i);
                 _townAwayMatrix[i][j].build = source;
                 _townAwayMatrix[i][j].isFull = true;
                 if (sizeX > 1 && sizeY > 1) {
@@ -1254,6 +1244,7 @@ public class TownArea extends Sprite {
             for (var j:int = posX; j < (posX + 2); j++) {
                 _townAwayMatrix[i][j].isFull = true;
                 if (i == posY && j == posX)
+                    _freePlace.fillAwayCell(j, i);
                     _townAwayMatrix[i][j].buildFence = source;
             }
         }
@@ -1551,6 +1542,7 @@ public class TownArea extends Sprite {
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(true);
         clearAwayCity();
+        _freePlace.deleteAway();
         g.isAway = false;
         g.visitedUser = null;
         g.bottomPanel.doorBoolean(false);

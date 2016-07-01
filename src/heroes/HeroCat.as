@@ -176,7 +176,7 @@ public class HeroCat extends BasicCat{
     private var timer:int;
     public function makeFreeCatIdle():void {
         if (freeIdleGo) {
-            g.managerCats.goIdleCatToPoint(this, g.managerCats.getRandomFreeCell(), makeFreeCatIdle);
+            g.managerCats.goIdleCatToPoint(this, g.townArea.getRandomFreeCell(), makeFreeCatIdle);
         } else {
             idleAnimation();
             timer = 5 + int(Math.random()*15);

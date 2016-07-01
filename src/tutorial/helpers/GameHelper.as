@@ -21,7 +21,7 @@ import utils.CButton;
 import utils.CSprite;
 
 public class GameHelper {
-    private var _source:CSprite;
+    private var _source:Sprite;
     private var _bg:Image;
     private var _txt:TextField;
     private var _catHead:Sprite;
@@ -39,7 +39,7 @@ public class GameHelper {
     private var g:Vars = Vars.getInstance();
 
     public function GameHelper() {
-        _source = new CSprite();
+        _source = new Sprite();
         _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
         _bg.x = -208;
         _bg.y = -81;
@@ -123,7 +123,6 @@ public class GameHelper {
         _onCallback = callback;
         _reason = r;
         _txt.text = _reason.txt;
-        _source.endClickCallback = callback;
 
         switch (_reason.reason) {
             case HelperReason.REASON_ORDER: releaseTownBuild(); break;
@@ -136,6 +135,7 @@ public class GameHelper {
             case HelperReason.REASON_BUY_HERO: releaseBuy(); break;
             case HelperReason.REASON_BUY_ANIMAL: releaseBuy(); break;
             case HelperReason.REASON_BUY_RIDGE: releaseBuy(); break;
+            case HelperReason.REASON_CRAFT_ANY_PRODUCT: releaseTownBuild(); break;
         }
     }
 
@@ -256,6 +256,7 @@ public class GameHelper {
         _spArrow.y = _source.y;
         g.cont.hintGameCont.addChildAt(_spArrow, 0);
     }
+
 
 }
 }

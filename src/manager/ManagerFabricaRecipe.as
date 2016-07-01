@@ -65,6 +65,7 @@ public class ManagerFabricaRecipe {
         var isReady:Boolean;
         for (var i:int=0; i<_arrFabrica.length; i++){
             f = _arrFabrica[i];
+            if (f.arrList.length >= f.dataBuild.countCell) continue;
             for (k=0; f.arrRecipes.length; k++) {
                 r = f.arrRecipes[k];
                 isReady = true;

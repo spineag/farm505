@@ -13,6 +13,7 @@ public class HelperReason {
     public static const REASON_BUY_HERO:int = 8;
     public static const REASON_BUY_ANIMAL:int = 9;
     public static const REASON_BUY_RIDGE:int = 10;
+    public static const REASON_CRAFT_ANY_PRODUCT:int = 11;
 
     private static var _arr:Array;
 
@@ -61,12 +62,17 @@ public class HelperReason {
 
         ob = {};
         ob.reason = REASON_BUY_ANIMAL;
-        ob.txt = 'Можно приобрести еще нескольких животных!';
+        ob.txt = 'Можно приобрести еще несколько животных!';
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_BUY_RIDGE;
         ob.txt = 'Давай вскопаем еще несколько грядок!';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_CRAFT_ANY_PRODUCT;
+        ob.txt = 'Давай отправим продукт на склад';
         _arr.push(ob);
     }
 
