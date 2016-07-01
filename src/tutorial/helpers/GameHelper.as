@@ -135,6 +135,7 @@ public class GameHelper {
             case HelperReason.REASON_BUY_HERO: releaseBuy(); break;
             case HelperReason.REASON_BUY_ANIMAL: releaseBuy(); break;
             case HelperReason.REASON_BUY_RIDGE: releaseBuy(); break;
+            case HelperReason.REASON_CRAFT_ANY_PRODUCT: releaseTownBuild(); break;
         }
     }
 
@@ -255,6 +256,7 @@ public class GameHelper {
         _spArrow.y = _source.y;
         g.cont.hintGameCont.addChildAt(_spArrow, 0);
     }
+
 
 }
 }

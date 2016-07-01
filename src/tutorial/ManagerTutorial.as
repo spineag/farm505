@@ -448,7 +448,7 @@ public class ManagerTutorial {
         var i:int;
         _subStep = 1;
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
-        if ((arr[0] as Farm).hasAnyCraftedResource) {
+        if ((arr[0] as Farm).isAnyCrafted) {
             arr = (arr[0] as Farm).arrAnimals;
             for (i = 0; i<arr.length; i++) {
                 if ((arr[i] as Animal).state == Animal.CRAFT) {

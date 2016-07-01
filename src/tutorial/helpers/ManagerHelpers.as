@@ -129,6 +129,7 @@ public class ManagerHelpers {
             case HelperReason.REASON_BUY_HERO: wasFindedReason = checkForBuyHero(); break;
             case HelperReason.REASON_BUY_ANIMAL: wasFindedReason = checkForBuyAnimal(); break;
             case HelperReason.REASON_BUY_RIDGE: wasFindedReason = checkForBuyRidge(); break;
+            case HelperReason.REASON_CRAFT_ANY_PRODUCT: wasFindedReason = checkForCraftAnyProduct(); break;
         }
         return wasFindedReason;
     }
@@ -269,6 +270,26 @@ public class ManagerHelpers {
         }
     }
 
+    private function checkForCraftAnyProduct():Boolean {
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FABRICA);
+        for (var i:int=0; i<arr.length; i++) {
+            if ((arr[i] as Fabrica).isAnyCrafted) {
+                _curReason.build = arr[i];
+                _curReason.type = BuildType.FABRICA;
+                return true;
+            }
+        }
+        arr = g.townArea.getCityObjectsByType(BuildType.FARM);
+        for (i=0; i<arr.length; i++) {
+            if ((arr[i] as Farm).isAnyCrafted) {
+                _curReason.build = arr[i];
+                _curReason.type = BuildType.FARM;
+                return true;
+            }
+        }
+        return false;
+    }
+
     private function releaseReason():void {
         _isActiveHelper = true;
         _helper = new GameHelper();
@@ -298,6 +319,7 @@ public class ManagerHelpers {
         _isActiveHelper = false;
         _curReason = false;
     }
+
 
 }
 }

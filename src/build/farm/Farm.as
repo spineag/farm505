@@ -331,7 +331,7 @@ public class Farm extends WorldObject{
         }
     }
 
-    public function get hasAnyCraftedResource():Boolean {
+    public function get isAnyCrafted():Boolean {
         return _arrCrafted.length > 0;
     }
 
