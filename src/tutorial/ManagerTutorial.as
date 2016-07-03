@@ -1982,6 +1982,9 @@ public class ManagerTutorial {
         _currentAction = TutorialAction.NONE;
         if (!cat) {
             addCatToPos(31, 28);
+        } else {
+            cat.setPosition(new Point(31, 28));
+            cat.updatePosition();
         }
         g.cont.moveCenterToPos(31, 28, true);
         if (!cutScene) cutScene = new CutScene();

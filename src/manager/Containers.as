@@ -170,8 +170,8 @@ public class Containers {
         }
         if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) return;
         g.hideAllHints(); // ??? not optimise
-        var s:Number = gameCont.scaleX;
         if (_startDragPointCont == null || _startDragPoint == null) return;
+        var s:Number = gameCont.scaleX;
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
         var oY:Number = g.matrixGrid.offsetY*s;
@@ -192,13 +192,13 @@ public class Containers {
         var oY:Number = g.matrixGrid.offsetY*s;
         newX = -(_x*s - Starling.current.nativeStage.stageWidth/2);
         newY = -(_y*s - Starling.current.nativeStage.stageHeight/2);
-        if (newY > oY + SHIFT_MAP_Y*s) gameCont.y = oY + SHIFT_MAP_Y*s;
+        if (newY > oY + SHIFT_MAP_Y*s) newY = oY + SHIFT_MAP_Y*s;
         if (newY < -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s)
             newY = -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s;
         if (newX > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s)
             newX =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
-        if (newX < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*s)
-            newX = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*s;
+        if (newX < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s)
+            newX = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s;
 
         if (needQuick) {
             gameCont.x = newX;

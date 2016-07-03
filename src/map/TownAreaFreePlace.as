@@ -48,6 +48,7 @@ public class TownAreaFreePlace {
 
     public function fillAway():void {
         var j:int;
+        _arrAway = [];
         for (var i:int=0; i<_length; i++) { //x
             for(j=0; j<_length; j++) {      //y
                 _arrAway.push(String(i) + '&' + String(j));
@@ -56,7 +57,7 @@ public class TownAreaFreePlace {
     }
 
     public function deleteAway():void {
-        _arrAway.length = 0;
+        if (_arrAway) _arrAway.length = 0;
     }
 
     public function fillAwayCell(x:int, y:int):void {

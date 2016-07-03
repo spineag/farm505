@@ -68,9 +68,10 @@ public class ManagerFabricaRecipe {
             if (f.arrList.length >= f.dataBuild.countCell) continue;
             for (k=0; f.arrRecipes.length; k++) {
                 r = f.arrRecipes[k];
+                if (r.blockByLevel > g.user.level) continue;
                 isReady = true;
                 for (l=0; l<r.ingridientsId.length; l++) {
-                    if (g.userInventory.getCountResourceById(r.ingridientsId[l]) < r.ingridientsCount[l]) {
+                    if (g.userInventory.getCountResourceById(int(r.ingridientsId[l])) < int(r.ingridientsCount[l])) {
                         isReady = false;
                         break;
                     }

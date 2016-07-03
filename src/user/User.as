@@ -40,7 +40,7 @@ public class User extends Someone {
     public var wallTrainItem:Boolean;
     public var wallOrderItem:Boolean;
     public var decorShop:Boolean;
-    public var decorShifrShop:int;
+    public var decorShiftShop:int;
     public var userGAcid:String = 'unknown';
 
     public var buyMarketTab:int;
@@ -160,11 +160,13 @@ public class User extends Someone {
                 case 4: obj.resourceId = int(ob.resource_id5); break;
                 case 5: obj.resourceId = int(ob.resource_id6); break;
             }
-            obj.cost = g.dataResource.objectResources[obj.resourceId].costDefault;
+            if (obj.resourceId > -1) {
+                obj.cost = g.dataResource.objectResources[obj.resourceId].costDefault;
 
-            obj.timeSold = 0;
-            obj.timeStart = 0;
-            neighbor.marketItems.push(obj);
+                obj.timeSold = 0;
+                obj.timeStart = 0;
+                neighbor.marketItems.push(obj);
+            }
         }
     }
 

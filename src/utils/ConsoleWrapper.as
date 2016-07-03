@@ -43,7 +43,8 @@ public class ConsoleWrapper {
         Cc.width = stage.stageWidth - 50;
         Cc.height = stage.stageHeight / 3;
         Cc.bindKey(new KeyBind(Keyboard.L, false, false, true, true), exportLogToHTML);
-        Cc.bindKey(new KeyBind(Keyboard.R, false, false, true, true), deleteUser);
+        Cc.bindKey(new KeyBind(Keyboard.R, true, false, true, true), deleteUser);
+        Cc.bindKey(new KeyBind(Keyboard.F, true, false, true, true), makeFullscreen);
 //        Cc.bindKey(new KeyBind(Keyboard.R, false, false, true, true), removeUserData);
 
         //Cc.addSlashCommand("export", exportLogToHTML, "Save game log.", true);
@@ -87,8 +88,12 @@ public class ConsoleWrapper {
         }
     }
 
-    private function onResetUser():void {
-//        g.socialNetwork.reloadGame();
+    private function makeFullscreen():void {
+        if (g.optionPanel) {
+            g.optionPanel.makeFullScreen();
+            g.optionPanel.makeResizeForGame();
+            if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
+        }
     }
 
     private function inspectObjects():void {

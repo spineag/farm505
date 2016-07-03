@@ -114,7 +114,7 @@ public class ShopList {
                 }
             }
             g.user.decorShop = false;
-            g.user.decorShifrShop = 0;
+            g.user.decorShiftShop = 0;
 
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.TREE) {
@@ -138,7 +138,7 @@ public class ShopList {
                 }
             }
             g.user.decorShop = false;
-            g.user.decorShifrShop = 0;
+            g.user.decorShiftShop = 0;
 
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.ANIMAL) {
@@ -163,7 +163,7 @@ public class ShopList {
                 }
             }
             g.user.decorShop = false;
-            g.user.decorShifrShop = 0;
+            g.user.decorShiftShop = 0;
 
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.FARM || arr[0].buildType == BuildType.CAT || arr[0].buildType == BuildType.RIDGE) {
@@ -191,7 +191,7 @@ public class ShopList {
                 }
             }
             g.user.decorShop = false;
-            g.user.decorShifrShop = 0;
+            g.user.decorShiftShop = 0;
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL) {
@@ -222,9 +222,8 @@ public class ShopList {
                 item.deleteIt();
             }
         };
-        if (g.user.decorShop) {
-           var newCount:int = g.user.decorShifrShop;
-
+        if (g.user.decorShop && !g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) {
+            var newCount:int = g.user.decorShiftShop;
             for (i = 0; i<newCount; i++) {
                 if (_currentShopArr[_shift + 4 + i]) {
                     item = new ShopItem(_currentShopArr[_shift + 4 + i], _wo, _shift + 4 + i);
@@ -233,7 +232,7 @@ public class ShopList {
                     _arrItems.push(item);
                 }
             }
-            _shift = g.user.decorShifrShop;
+            _shift = g.user.decorShiftShop;
             animList(f);
         }
         if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
@@ -311,7 +310,7 @@ public class ShopList {
 
         if (_currentShopArr[0].buildType == BuildType.DECOR || _currentShopArr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 _currentShopArr[0].buildType == BuildType.DECOR_POST_FENCE || _currentShopArr[0].buildType == BuildType.DECOR_TAIL) {
-            g.user.decorShifrShop = _shift;
+            g.user.decorShiftShop = _shift;
         }
         animList(f);
     }
@@ -343,19 +342,21 @@ public class ShopList {
         };
         if (_currentShopArr[0].buildType == BuildType.DECOR || _currentShopArr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 _currentShopArr[0].buildType == BuildType.DECOR_POST_FENCE || _currentShopArr[0].buildType == BuildType.DECOR_TAIL) {
-            g.user.decorShifrShop = _shift;
+            g.user.decorShiftShop = _shift;
         }
         animList(f);
     }
 
     private function animList(callback:Function = null):void {
-        var tween:Tween = new Tween(_itemsSprite, .5);
-        tween.moveTo(-_shift*153, _itemsSprite.y);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
-            if (callback != null) callback.apply();
-        };
-        g.starling.juggler.add(tween);
+        if (_itemsSprite.x != _shift*153) {
+            var tween:Tween = new Tween(_itemsSprite, .5);
+            tween.moveTo(-_shift * 153, _itemsSprite.y);
+            tween.onComplete = function ():void {
+                g.starling.juggler.remove(tween);
+                if (callback != null) callback.apply();
+            };
+            g.starling.juggler.add(tween);
+        }
         checkArrows();
         if(_currentShopArr)_txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
     }

@@ -90,6 +90,8 @@ public class ManagerHelpers {
         _countSeconds++;
         if (_countSeconds >= MAX_SECONDS) {
             _countSeconds = 0;
+            if (g.managerTutorial.isTutorial) return;
+            if (g.managerCutScenes.isCutScene) return;
             if (g.isActiveMapEditor) return;
             if (g.isAway) return;
             if (g.windowsManager.currentWindow) return;

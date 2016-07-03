@@ -345,14 +345,13 @@ public class OptionPanel {
         var cont:Sprite = g.cont.gameCont;
         var s:Number = cont.scaleX;
         var oY:Number = g.matrixGrid.offsetY*s;
-//        if (cont.y > -oY) cont.y = -oY;
         if (cont.y > oY + g.cont.SHIFT_MAP_Y*s) cont.y = oY + g.cont.SHIFT_MAP_Y*s;
-        if (cont.y < -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
-            cont.y = -oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
-        if (cont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2)
-            cont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2;
-        if (cont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth)
-            cont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth;
+        if (cont.y < -oY - g.realGameTilesHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            cont.y = -oY - g.realGameTilesHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
+        if (cont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
+            cont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
+        if (cont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_X*s)
+            cont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_Y*s;
         g.bottomPanel.onResize();
         g.bottomPanel.onResizePanelFriend();
         g.craftPanel.onResize();
