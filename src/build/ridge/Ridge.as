@@ -36,7 +36,7 @@ public class Ridge extends WorldObject{
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
     private var _lastBuyResource:Boolean;
-    private var _bg:Sprite;
+//    private var _bg:Sprite;
 
     public function Ridge(_data:Object) {
         super(_data);
@@ -47,22 +47,22 @@ public class Ridge extends WorldObject{
             return;
         }
         _plantSprite = new Sprite();
-        _bg = new Sprite();
+//        _bg = new Sprite();
         createAtlasBuild(onCreateBuild);
         _stateRidge = EMPTY;
         _isOnHover = false;
     }
 
     private function onCreateBuild():void {
-        var tempSprite:Sprite = new Sprite();
-        var q:Quad = new Quad(120 * g.scaleFactor, 120 * g.scaleFactor, Color.BLACK);
-        q.rotation = Math.PI / 4;
-        q.alpha = 0;
-        tempSprite.addChild(q);
-        tempSprite.scaleY = .5;
-        tempSprite.flatten();
-        _bg.addChild(tempSprite);
-        _source.addChild(_bg);
+//        var tempSprite:Sprite = new Sprite();
+//        var q:Quad = new Quad(120 * g.scaleFactor, 120 * g.scaleFactor, Color.BLACK);
+//        q.rotation = Math.PI / 4;
+//        q.alpha = 0;
+//        tempSprite.addChild(q);
+//        tempSprite.scaleY = .5;
+//        tempSprite.flatten();
+//        _bg.addChild(tempSprite);
+//        _source.addChild(_bg);
 
         if (!g.isAway) {
             _source.hoverCallback = onHover;
@@ -422,8 +422,8 @@ public class Ridge extends WorldObject{
     }
 
     override public function clearIt():void {
-        _bg.touchable = false;
-        while (_bg.numChildren) _bg.removeChildAt(0);
+//        _bg.touchable = false;
+//        while (_bg.numChildren) _bg.removeChildAt(0);
         while (_plantSprite.numChildren) _plantSprite.removeChildAt(0);
         if (_plant) _plant.clearIt();
         _plant = null;
