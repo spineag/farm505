@@ -262,7 +262,6 @@ public class WorldObject {
             createIsoView();
             g.load.loadAtlas(_dataBuild.url, _dataBuild.url, createAtlasBuild1);
         }
-
     }
 
     private function createAtlasBuild1(onCreate:Function):void {

@@ -584,6 +584,10 @@ public class ShopItem {
     }
 
     private function onClick():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
         var i:int;
         if (_shopLimitSprite) return;
         if (_txtAvailable.visible) {
