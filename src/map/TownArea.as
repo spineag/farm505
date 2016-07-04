@@ -708,7 +708,7 @@ public class TownArea extends Sprite {
                 g.toolsModifier.startMove(build, afterMoveReturn, true);
                 return;
             }
-            arr = getCityObjectsById( worldObject.dataBuild.id);
+            arr = getCityObjectsById(worldObject.dataBuild.id);
             if (worldObject.dataBuild.currency[0] == DataMoney.SOFT_CURRENCY && g.user.softCurrencyCount < (arr.length *  worldObject.dataBuild.deltaCost) + int( worldObject.dataBuild.cost)) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.bottomPanel.cancelBoolean(false);

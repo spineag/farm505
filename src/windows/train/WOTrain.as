@@ -34,12 +34,12 @@ public class WOTrain extends WindowMain {
     private var _arrItems:Array;
     private var _btnSend:CButton;
     private var _btnLoad:CButton;
-    private var _btnHelp:CButton;
+//    private var _btnHelp:CButton;
     private var _activeItemIndex: int;
     private var _build:Train;
     private var _txt:TextField;
     private var _txtCounter:TextField;
-    private var _txtHelp:TextField;
+//    private var _txtHelp:TextField;
     private var _txtLoad:TextField;
     private var _counter:int;
     private var _idFree:int;
@@ -146,22 +146,22 @@ public class WOTrain extends WindowMain {
         _btnLoad.y = 150;
         _rightBlock.addChild(_btnLoad);
 
-        _btnHelp = new CButton();
-        _btnHelp.addButtonTexture(240,52,CButton.BLUE,true);
-        txt = new TextField(80,30,'', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _btnHelp.addChild(txt);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
-        im.y = -10;
-        im.touchable = false;
-        _btnHelp.addDisplayObject(im);
-        _btnHelp.x = 143;
-        _btnHelp.y = 210;
-        _rightBlock.addChild(_btnHelp);
-        _txtHelp = new TextField(180, 50, 'Помогите!!', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        _txtHelp.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtHelp.x = 50;
-        _btnHelp.addChild(_txtHelp);
+//        _btnHelp = new CButton();
+//        _btnHelp.addButtonTexture(240,52,CButton.BLUE,true);
+//        txt = new TextField(80,30,'', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+//        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+//        _btnHelp.addChild(txt);
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
+//        im.y = -10;
+//        im.touchable = false;
+//        _btnHelp.addDisplayObject(im);
+//        _btnHelp.x = 143;
+//        _btnHelp.y = 210;
+//        _rightBlock.addChild(_btnHelp);
+//        _txtHelp = new TextField(180, 50, 'Помогите!!', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+//        _txtHelp.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+//        _txtHelp.x = 50;
+//        _btnHelp.addChild(_txtHelp);
 
         txt = new TextField(240,50,'Награда за полную загрузку:', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -310,14 +310,14 @@ public class WOTrain extends WindowMain {
     private function onItemClick(k:int):void {
         _activeItemIndex = k;
         _btnLoad.visible = true;
-        _btnHelp.visible = true;
+//        _btnHelp.visible = true;
         for (var i:int = 0; i<_arrItems.length; i++) {
             _arrItems[i].activateIt(false);
         }
         _arrItems[_activeItemIndex].activateIt(true);
         if (_arrItems[k].isResourceLoaded) {
             _btnLoad.visible = false;
-            _btnHelp.visible = false;
+//            _btnHelp.visible = false;
             _txtLoad.text = 'Вы уже загрузили ячейку и получили награду';
         } else {
             _txtLoad.text = 'Загрузите корзинку товаром и получите награду';
@@ -445,7 +445,7 @@ public class WOTrain extends WindowMain {
         _leftBlockBG = null;
         _arrItems.length = 0;
         _build = null;
-        _txt = _txtCostAll = _txtCostItem = _txtCounter = _txtHelp = _txtXpAll = _txtXpItem = null;
+        _txt = _txtCostAll = _txtCostItem = _txtCounter =  _txtXpAll = _txtXpItem = null;//_txtHelp = _txtXpAll = _txtXpItem = null;
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;
@@ -455,9 +455,9 @@ public class WOTrain extends WindowMain {
         _rightBlock.removeChild(_btnLoad);
         _btnLoad.deleteIt();
         _btnLoad = null;
-        _rightBlock.removeChild(_btnHelp);
-        _btnHelp.deleteIt();
-        _btnHelp = null;
+//        _rightBlock.removeChild(_btnHelp);
+//        _btnHelp.deleteIt();
+//        _btnHelp = null;
         _rightBlock = null;
         _leftBlock = null;
         _source.removeChild(_birka);

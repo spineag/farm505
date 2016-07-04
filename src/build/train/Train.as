@@ -280,30 +280,30 @@ public class Train extends WorldObject{
 
     private function onClick():void {
         if (_bolAnimation) return;
-        if (g.isAway) {
-            if (g.user.level >= _dataBuild.blockByLevel[0]) return;
-            if (_stateBuild == STATE_READY) {
-                onOut();
-                if (list.length) {
-                    if (_stateBuild == Train.STATE_READY) {
-                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
-                    } else {
-                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, null, list, this, _counter);
-                    }
-                } else {
-                    var f1:Function = function(ob:Object):void {
-                        fillList(ob);
-                        if (_stateBuild == Train.STATE_READY) {
-                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
-                        } else {
-                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
-                        }
-                    };
-                    g.directServer.getTrainPack(g.visitedUser.userSocialId, f1);
-                }
-            }
-            return;
-        }
+//        if (g.isAway) {
+//            if (g.user.level >= _dataBuild.blockByLevel[0]) return;
+//            if (_stateBuild == STATE_READY) {
+//                onOut();
+//                if (list.length) {
+//                    if (_stateBuild == Train.STATE_READY) {
+//                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
+//                    } else {
+//                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, null, list, this, _counter);
+//                    }
+//                } else {
+//                    var f1:Function = function(ob:Object):void {
+//                        fillList(ob);
+//                        if (_stateBuild == Train.STATE_READY) {
+//                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
+//                        } else {
+//                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
+//                        }
+//                    };
+//                    g.directServer.getTrainPack(g.visitedUser.userSocialId, f1);
+//                }
+//            }
+//            return;
+//        }
 
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();

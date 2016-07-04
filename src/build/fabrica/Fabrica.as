@@ -147,13 +147,14 @@ public class Fabrica extends WorldObject {
                 buildingBuildFoundationOver();
                 if (g.managerTutorial.isTutorial) {
                     return;
-                } else {
-                    _countTimer = 5;
-                    g.timerHint.managerHide();
-                    g.wildHint.managerHide();
-                    g.treeHint.managerHide();
-                    g.gameDispatcher.addEnterFrame(countEnterFrame);
                 }
+// else {
+//                    _countTimer = 5;
+//                    g.timerHint.managerHide();
+//                    g.wildHint.managerHide();
+//                    g.treeHint.managerHide();
+//                    g.gameDispatcher.addEnterFrame(countEnterFrame);
+//                }
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
@@ -171,28 +172,28 @@ public class Fabrica extends WorldObject {
         }
         if (g.isActiveMapEditor) return;
         _isOnHover = false;
-        if (_stateBuild == STATE_BUILD) {
-            g.gameDispatcher.addEnterFrame(countEnterFrame);
-        } else {
+//        if (_stateBuild == STATE_BUILD) {
+//            g.gameDispatcher.addEnterFrame(countEnterFrame);
+//        } else {
             g.hint.hideIt();
-        }
+//        }
     }
 
-    private function countEnterFrame():void {
-        _countTimer--;
-        if (_countTimer <= 0) {
-            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            if (_isOnHover == true) {
-                g.timerHint.needMoveCenter = true;
-                g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 3) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
-            }
-            if (_isOnHover == false) {
-                if(_source)_source.filter = null;
-                g.timerHint.hideIt();
-                g.gameDispatcher.removeEnterFrame(countEnterFrame);
-            }
-        }
-    }
+//    private function countEnterFrame():void {
+//        _countTimer--;
+//        if (_countTimer <= 0) {
+//            g.gameDispatcher.removeEnterFrame(countEnterFrame);
+//            if (_isOnHover == true) {
+//                g.timerHint.needMoveCenter = true;
+//                g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 3) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+//            }
+//            if (_isOnHover == false) {
+//                if(_source)_source.filter = null;
+//                g.timerHint.hideIt();
+//                g.gameDispatcher.removeEnterFrame(countEnterFrame);
+//            }
+//        }
+//    }
 
     public function openFabricaWindow():void {
         g.windowsManager.openWindow(WindowsManager.WO_FABRICA, callbackOnChooseRecipe, _arrRecipes.slice(), _arrList.slice(), this);

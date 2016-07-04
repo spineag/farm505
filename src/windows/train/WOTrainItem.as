@@ -199,10 +199,17 @@ public class WOTrainItem {
     public function updateIt():void {
         if (_info) {
             if (!_galo4ka.visible) {
-                _txtRed.text = String(g.userInventory.getCountResourceById(_info.id));
-                _txtWhite.text = '/' + String(_info.count);
-                _txtWhite.x = 23;
-                _txtRed.x = 50 -_txtWhite.textBounds.width ;
+                var curCount:int = g.userInventory.getCountResourceById(_info.id);
+                if (curCount >= _info.count) {
+                    _txtWhite.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
+                    _txtWhite.x = 23;
+                } else {
+                    _txtRed.text = String(curCount);
+                    _txtWhite.text = '/' + String(_info.count);
+
+                    _txtWhite.x = 23;
+                    _txtRed.x = 50 -_txtWhite.textBounds.width ;
+                }
             }
         }
     }
