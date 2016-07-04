@@ -34,6 +34,7 @@ public class ToolsModifier {
     public static var ADD_NEW_RIDGE:int = 9;
     public static var ADD_NEW_DECOR:int = 10;
     public static var CRAFT_PLANT:int = 11;
+    public static var FEED_ANIMAL_ACTIVE:int = 12;
 
     private var _activeBuilding:WorldObject;
     private var _startMoveX:int;
@@ -82,6 +83,8 @@ public class ToolsModifier {
         } else if (_modifierType == CRAFT_PLANT) {
             g.mouseHint.hideIt();
             g.managerPlantRidge.onStartCraftPlanting(false);
+        } else if (_modifierType == FEED_ANIMAL_ACTIVE) {
+            g.managerAnimal.onStartFeedAnimal(false);
         }
         if (_modifierType == MOVE) {
             g.townArea.onActivateMoveModifier(false);
@@ -106,6 +109,8 @@ public class ToolsModifier {
         } else if (_modifierType == CRAFT_PLANT) {
             g.mouseHint.showMouseHint(MouseHint.SERP);
             g.managerPlantRidge.onStartCraftPlanting(true);
+        } else if (_modifierType == FEED_ANIMAL_ACTIVE) {
+            g.managerAnimal.onStartFeedAnimal(true);
         }
         checkMouseIcon();
     }

@@ -81,6 +81,7 @@ public class Animal {
             source.hoverCallback = onHover;
             source.outCallback = onOut;
             source.endClickCallback = onClick;
+            source.startClickCallback = onStartClick;
         }
 
         switch (_data.id) {
@@ -150,6 +151,10 @@ public class Animal {
 
     public function get animalData():Object {
         return _data;
+    }
+
+    public function get rect():flash.geom.Rectangle {
+        return _rect;
     }
 
     public function addArrow():void {
@@ -222,8 +227,78 @@ public class Animal {
         if (g.useDataFromServer) g.directServer.craftUserAnimal(animal_db_id, null);
     }
 
-    private function onClick(last:Boolean = false):void {
+    public function feedAnimal(last:Boolean = false):void {
+        onOut();
+        if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
+            return;
+        } else if  (g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
+            return;
+        }
+        if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClick, {id:_data.idResourceRaw}, 'market');
+            return;
+        }
+        if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
+            if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
+            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) g.userInventory.addResource(_data.idResourceRaw, -2);
+                else g.userInventory.addResource(_data.idResourceRaw, -1);
+            _timeToEnd = _data.timeCraft;
+            g.gameDispatcher.addToTimer(render);
+            _state = WORK;
+            g.managerAnimal.addCatToFarm(_farm);
+            var p:Point = new Point(source.x, source.y);
+            p = source.parent.localToGlobal(p);
+            var texture:Texture;
+            var obj:Object = g.dataResource.objectResources[_data.idResourceRaw];
+            if (obj.buildType == BuildType.PLANT)
+                texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
+            else
+                texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
+
+            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT ) {
+                new RawItem(p, texture, 2, 0);
+            } else new RawItem(p, texture, 1, 0);
+            if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
+            if (_data.id != 6) {
+                showFeedingAnimation();
+            } else {
+                addRenderAnimation();
+            }
+            onOut();
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_FEED) {
+                if (_tutorialCallback != null) {
+                    _tutorialCallback.apply(null, [this]);
+                }
+            }
+        } else {
+            onOut();
+            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
+                g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
+            } else {
+                g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
+            }
+        }
+    }
+
+    private function onStartClick():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
+            g.managerAnimal.activeFeedAnimalId = _data.id;
+            feedAnimal();
+            g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
+        }
+    }
+
+    public function onClick(last:Boolean = false):void {
         g.managerHelpers.onUserAction();
+        if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            return;
+        }
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
@@ -248,58 +323,7 @@ public class Animal {
                 g.timerHint.addArrow();
             }
         } else if (_state == HUNGRY) {
-            onOut();
-            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
-                    g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
-                    return;
-            } else if  (g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
-                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
-                return;
-            }
-            if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {
-                g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClick, {id:_data.idResourceRaw}, 'market');
-                return;
-            }
-            if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
-                g.mouseHint.hideIt();
-                if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) g.userInventory.addResource(_data.idResourceRaw, -2);
-                else g.userInventory.addResource(_data.idResourceRaw, -1);
-                _timeToEnd = _data.timeCraft;
-                g.gameDispatcher.addToTimer(render);
-                _state = WORK;
-                g.managerAnimal.addCatToFarm(_farm);
-                var p:Point = new Point(source.x, source.y);
-                p = source.parent.localToGlobal(p);
-                var texture:Texture;
-                var obj:Object = g.dataResource.objectResources[_data.idResourceRaw];
-                if (obj.buildType == BuildType.PLANT)
-                    texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
-                else
-                    texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
-
-                if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT ) {
-                    new RawItem(p, texture, 2, 0);
-                } else new RawItem(p, texture, 1, 0);
-                if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
-                if (_data.id != 6) {
-                    showFeedingAnimation();
-                } else {
-                    addRenderAnimation();
-                }
-                onOut();
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_FEED) {
-                    if (_tutorialCallback != null) {
-                        _tutorialCallback.apply(null, [this]);
-                    }
-                }
-            } else {
-                onOut();
-                if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                    g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
-                } else {
-                    g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
-                }
-            }
+//            feedAnimal(last);
         }
     }
 

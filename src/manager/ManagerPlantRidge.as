@@ -6,6 +6,9 @@ import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import heroes.HeroCat;
+
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 
 import windows.WindowsManager;
@@ -211,6 +214,7 @@ public class ManagerPlantRidge {
             _catsForPlant[plantId].ridges.splice(_catsForPlant[plantId].ridges.indexOf(r), 1);
             if ((_catsForPlant[plantId].cat as HeroCat).curActiveRidge == r) {
                 (_catsForPlant[plantId].cat as HeroCat).showFailCat(f);
+                g.soundManager.playSound(SoundConst.FARM_HERO_AWAY);
             }
         }
     }

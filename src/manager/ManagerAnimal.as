@@ -2,25 +2,28 @@
  * Created by andy on 8/6/15.
  */
 package manager {
+import build.farm.Animal;
 import build.farm.Farm;
-
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
 import heroes.HeroCat;
-
 import media.SoundConst;
+
+import mouse.ToolsModifier;
 
 import windows.WindowsManager;
 
 public class ManagerAnimal {
     private var _arrFarm:Array;  // все фермы юзера, которые стоят на поляне и построенны
     private var _catsForFarm:Object;
+    private var _tempPoint:Point;
+    private var _arrAnimals:Array;
+    public var activeFeedAnimalId:int = 0;
 
     private var g:Vars = Vars.getInstance();
 
     public function ManagerAnimal() {
+        _tempPoint = new Point();
         var arr:Array = g.townArea.cityObjects;
         _arrFarm = [];
         _catsForFarm = {};
@@ -135,6 +138,70 @@ public class ManagerAnimal {
             arr = arr.concat((_arrFarm[i] as Farm).arrAnimals);
         }
         return arr;
+    }
+
+    public function getAllAnimalsById(id:int):Array {
+        var arr:Array = [];
+        var ans:Array;
+        var j:int;
+        for (var i:int=0; i<_arrFarm.length; i++) {
+            ans = (_arrFarm[i] as Farm).arrAnimals;
+            if (ans[0] && (ans[0] as Animal).animalData.id == id) {
+                arr = arr.concat(ans);
+            }
+        }
+        return arr;
+    }
+
+    public function onStartFeedAnimal(isStart:Boolean):void {
+        if (g.managerTutorial.isTutorial) return;
+        if (!activeFeedAnimalId && isStart) {
+            Cc.error('startFeedAnimal:: activeFeedAnimalId == 0');
+            return;
+        }
+        g.cont.contentCont.releaseContDrag = !isStart;
+        g.cont.tailCont.releaseContDrag = !isStart;
+        g.cont.deleteDragPoint();
+        if (isStart) {
+            _arrAnimals = getAllAnimalsById(activeFeedAnimalId);
+            g.gameDispatcher.addEnterFrame(checkForFeeding);
+        } else {
+            activeFeedAnimalId = 0;
+            _arrAnimals.length = 0;
+            g.gameDispatcher.removeEnterFrame(checkForFeeding);
+        }
+    }
+
+    private function checkForFeeding():void {
+        _tempPoint.x = g.ownMouse.mouseX;
+        _tempPoint.y = g.ownMouse.mouseY;
+        for (var i:int=0; i<_arrAnimals.length; i++) {
+            if ((_arrAnimals[i] as Animal).state == Animal.HUNGRY) {  // используем ИФ, ибо тварь могли только что покормить уже, но она ведь есть все еще в масиве
+                if (isMouseUnderAnimal(_arrAnimals[i] as Animal)) {
+                    (_arrAnimals[i] as Animal).feedAnimal();
+                    break;
+                }
+            } else {
+                _arrAnimals.splice(i, 1);
+                i--;
+            }
+        }
+        if (!_arrAnimals.length) {
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+        }
+    }
+
+    private var pTemp:Point = new Point();
+    private var rectTemp:flash.geom.Rectangle;
+    private function isMouseUnderAnimal(an:Animal):Boolean {
+        rectTemp = an.rect;
+        pTemp.x = 0;
+        pTemp.y = 0;
+        pTemp = an.source.localToGlobal(pTemp);
+        if (_tempPoint.x > pTemp.x+rectTemp.x && _tempPoint.x < pTemp.x+rectTemp.x+rectTemp.width &&
+                _tempPoint.y > pTemp.y+rectTemp.y && _tempPoint.y < pTemp.y+rectTemp.y+rectTemp.height) {
+            return true;
+        } else return false;
     }
 
 }
