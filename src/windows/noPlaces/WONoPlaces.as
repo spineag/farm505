@@ -63,13 +63,13 @@ public class WONoPlaces extends WindowMain {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         im.x = -50;
         im.y = -50;
-        _txtCost = new TextField(150,50,"","g.allData.fonts['BloggerBold']",14,Color.WHITE);
+        _txtCost = new TextField(150,50,"","g.allData.fonts['BloggerBold']",16,Color.WHITE);
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txtCost.x = 5;
         _txtCost.y = -3;
         _btn.addChild(_txtCost);
         _source.addChild(im);
-        _txtAdd = new TextField(100,100,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtAdd = new TextField(100,100,"",g.allData.fonts['BloggerBold'],16,Color.WHITE);
         _txtAdd.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _source.addChild(_txtAdd);
         _last = false;

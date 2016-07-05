@@ -10,7 +10,7 @@ import starling.display.Sprite;
 import windows.WindowsManager;
 
 public class WOFabricaWorkList {
-    private var _maxCount:int;
+    public var maxCount:int;
     [ArrayElementType('windows.fabricaWindow.WOFabricaWorkListItem')]
     private var _arrItems:Array;
     public var arrRecipes:Array;
@@ -48,12 +48,12 @@ public class WOFabricaWorkList {
                 addResource(arrCurList[i]);
             }
             _fabrica = fabrica;
-            _maxCount = _fabrica.dataBuild.countCell;
-            if (_maxCount < 9) {
-                var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
-                _arrItems[_maxCount].showBuyPropose(price, onBuyNewCell);
+            maxCount = _fabrica.dataBuild.countCell;
+            if (maxCount < 9) {
+                var price:int = 6 + (maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+                _arrItems[maxCount].showBuyPropose(price, onBuyNewCell);
             }
-            for (i=1; i<_maxCount; i++) {
+            for (i=1; i<maxCount; i++) {
                 _arrItems[i].source.visible = true;
             }
         } catch (e:Error) {
@@ -63,16 +63,16 @@ public class WOFabricaWorkList {
     }
 
     public function butNewCellFromWO():void {
-        _arrItems[_maxCount].removePropose();
+        _arrItems[maxCount].removePropose();
         onBuyNewCell();
     }
 
     private function onBuyNewCell():void {
-        _maxCount++;
+        maxCount++;
         _fabrica.onBuyNewCell();
-        if (_maxCount < 9) {
+        if (maxCount < 9) {
             var price:int = priceForNewCell;
-            (_arrItems[_maxCount] as WOFabricaWorkListItem).showBuyPropose(price, onBuyNewCell);
+            (_arrItems[maxCount] as WOFabricaWorkListItem).showBuyPropose(price, onBuyNewCell);
         }
     }
 
@@ -87,11 +87,11 @@ public class WOFabricaWorkList {
     }
 
     public function get isFull():Boolean {
-        return arrRecipes.length >= _maxCount;
+        return arrRecipes.length >= maxCount;
     }
 
     public function get priceForNewCell():int {
-        return 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+        return 6 + (maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
     }
 
     public function addResource(resource:ResourceItem):void {
@@ -123,11 +123,11 @@ public class WOFabricaWorkList {
     }
 
     private function visibleSource():void {
-        if (_maxCount < 9) {
-            var price:int = 6 + (_maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
-            _arrItems[_maxCount].showBuyPropose(price, onBuyNewCell);
+        if (maxCount < 9) {
+            var price:int = 6 + (maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+            _arrItems[maxCount].showBuyPropose(price, onBuyNewCell);
         }
-        for (var i:int=1; i<_maxCount; i++) {
+        for (var i:int=1; i<maxCount; i++) {
             _arrItems[i].source.visible = true;
         }
     }

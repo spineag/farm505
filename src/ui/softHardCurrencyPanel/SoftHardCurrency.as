@@ -47,14 +47,14 @@ public class SoftHardCurrency {
         _contHard.nameIt = 'panel_contHard';
         _contSoft.endClickCallback = onClickSoft;
         _contSoft.hoverCallback = function ():void {
-            g.hint.showIt("Монеты",false,false,false,1);
+            g.hint.showIt("Монеты",'none',1);
         };
         _contSoft.outCallback = function ():void {
             g.hint.hideIt();
         };
         _contHard.endClickCallback = onClickHard;
         _contHard.hoverCallback = function ():void {
-            g.hint.showIt("Рубины",false,false,false,1);
+            g.hint.showIt("Рубины",'none',1);
         };
         _contHard.outCallback = function ():void {
             g.hint.hideIt();

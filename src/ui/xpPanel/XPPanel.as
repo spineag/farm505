@@ -106,7 +106,7 @@ public class XPPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt(_maxXP - g.user.xp + ' XP до ' + (g.user.level+1) + ' уровня',false,false,false, _source.x);
+        g.hint.showIt(_maxXP - g.user.xp + ' XP до ' + (g.user.level+1) + ' уровня','none', _source.x);
     }
 
     private function onOut():void {

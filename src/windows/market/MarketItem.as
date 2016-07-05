@@ -179,6 +179,12 @@ public class MarketItem {
         _papper.y = 10;
         source.addChild(_papper);
         _papper.clickCallback = onPaper;
+        _papper.hoverCallback = function ():void {
+            g.hint.showIt('поместить обьявления в газету','market_paper');
+        };
+        _papper.outCallback = function ():void {
+            g.hint.hideIt();
+        };
         _papper.visible = false;
 
         _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
@@ -195,6 +201,12 @@ public class MarketItem {
         _delete.y = 110;
         source.addChild(_delete);
         _delete.clickCallback = onDelete;
+        _delete.hoverCallback = function ():void {
+            g.hint.showIt('забрать товар','market_delete');
+        };
+        _delete.outCallback = function ():void {
+            g.hint.hideIt();
+        };
         _delete.visible = false;
 
         if (_closeCell) {
@@ -456,11 +468,28 @@ public class MarketItem {
 
     private function checkItemWhenYouBuy():void {
         var b:Boolean = true;
+        var bDelete:Boolean = true;
         for (var i:int = 0; i < _person.marketItems.length; i++) {
             if (number == _person.marketItems[i].numberCell && _person.marketItems[i].buyerId > 0) {
                 b = false;
                 break;
             }
+        }
+        if (b) {
+            for (i = 0; i < _person.marketItems.length; i++) {
+                if (number == _person.marketItems[i].numberCell) {
+                    bDelete = true;
+                    break;
+                } else bDelete = false;
+            }
+        }
+        if (_person.marketItems.length == 0) bDelete = false;
+        if (!bDelete) {
+            var p:Point = new Point(source.x, source.y);
+            p = source.parent.localToGlobal(p);
+            new FlyMessage(p, "товар был забран игроком");
+            _wo.refreshItemWhenYouBuy();
+            return;
         }
         if (!b) {
             var p:Point = new Point(source.x, source.y);

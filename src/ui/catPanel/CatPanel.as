@@ -78,7 +78,7 @@ public class CatPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt('Готовы поработать: ' + g.managerCats.countFreeCats + '  Всего котов: ' + g.managerCats.curCountCats,false,false, true,_source.x);
+        g.hint.showIt('Готовы поработать: ' + g.managerCats.countFreeCats + '  Всего котов: ' + g.managerCats.curCountCats,'xp',_source.x);
     }
 
     private function onOut():void {
@@ -92,7 +92,7 @@ public class CatPanel {
 
     private function onClick():void {
 //        g.socialNetwork.getFriends();
-        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703) {
+        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096) {
             g.user.level++;
             g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
         }

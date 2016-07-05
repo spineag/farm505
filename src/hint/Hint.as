@@ -22,6 +22,7 @@ public class Hint {
     private var _isShow:Boolean;
     private var _newX:int;
     private var _catXp:Boolean;
+    private var _type:String;
     private var g:Vars = Vars.getInstance();
 
     public function Hint() {
@@ -30,22 +31,47 @@ public class Hint {
         _txtHint.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.touchable = false;
         _isShow = false;
+        _catXp = false;
     }
 
-    public function showIt(st:String, ambar:Boolean = false, sklad:Boolean = false,  xp:Boolean = false, newX:int = 0):void {
-        if (ambar) _txtHint.text = String(st + ' ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount);
-        else if (sklad) _txtHint.text = String(st + ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount);
-        else  _txtHint.text = st;
+    public function showIt(st:String, type:String = 'none', newX:int = 0):void {
+        switch (type) {
+            case 'none':
+                _txtHint.text = st;
+                _catXp = false;
+                break;
+            case 'ambar':
+                _txtHint.text = String(st + ' ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount);
+                _catXp = false;
+                break;
+            case 'sklad':
+                _txtHint.text = String(st + ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount);
+                _catXp = false;
+                break;
+            case 'xp':
+                _txtHint.text = st;
+                _catXp = true;
+                break;
+            case 'market_paper':
+                _txtHint.text = st;
+                break;
+            case 'market_delete':
+                _txtHint.text = st;
+                break;
+        }
+//        if (ambar) _txtHint.text = String(st + ' ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount);
+//        else if (sklad) _txtHint.text = String(st + ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount);
+//        else  _txtHint.text = st;
         var rectangle:Rectangle = _txtHint.textBounds;
-        _catXp = xp;
+        _type = type;
+//        _catXp = xp;
         _newX = newX;
-        if (!xp )  {
+        if (!_catXp )  {
             _txtHint.x = 0;
             _txtHint.width = rectangle.width + 20; var tween:Tween = new Tween(source, 0.1);
             tween.scaleTo(1);
             tween.onComplete = function ():void {
                 g.starling.juggler.remove(tween);
-
             };
             g.starling.juggler.add(tween);
         } else {
@@ -56,7 +82,7 @@ public class Hint {
             while (source.numChildren) source.removeChildAt(0);
         }
         var bg:HintBackground = new HintBackground(rectangle.width + 22, rectangle.height + 12);
-        if (xp) {
+        if (_catXp) {
             _txtHint.x = bg.x + 3;
         }
         source.addChild(bg);
@@ -76,6 +102,20 @@ public class Hint {
     }
 
     private function onEnterFrame():void {
+        switch (_type) {
+            case 'market_paper':
+                source.x = g.ownMouse.mouseX + 20;
+                source.y = g.ownMouse.mouseY - 60;
+                checkPosition();
+                return;
+                break;
+            case 'market_delete':
+                source.x = g.ownMouse.mouseX + 20;
+                source.y = g.ownMouse.mouseY + 20;
+                checkPosition();
+                return;
+                break;
+        }
         if (_catXp || _newX > 0) {
             source.x = _newX;
             source.y = g.ownMouse.mouseY + 20;
@@ -99,10 +139,6 @@ public class Hint {
         while (source.numChildren) source.removeChildAt(0);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
         g.cont.hintCont.removeChild(source);
-    }
-
-    private function timerClose():void {
-
     }
 }
 }

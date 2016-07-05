@@ -342,7 +342,7 @@ public class ResourceHint {
         _newSource = source;
         _bool = bol;
         _fabrickBoo = fabr;
-        _timer = 1;
+        _timer = .5;
         g.gameDispatcher.addToTimer(onTimer);
     }
 
