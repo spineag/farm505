@@ -31,7 +31,7 @@ public class GameHelper {
     private var _spArrow:Sprite;
     private var _centerPoint:Point;
     private var _targetPoint:Point;
-    private const MIN_RADIUS:int = 220;
+    private const MIN_RADIUS:int = 175;
     private var _btnExit:CButton;
     private var _btnShow:CButton;
     private var _angle:Number;
@@ -182,7 +182,7 @@ public class GameHelper {
                 if (_reason.reason == HelperReason.REASON_FEED_ANIMAL) {
                     _source.y = _targetPoint.y - 170;
                 } else {
-                    _source.y = _targetPoint.y + (_reason.build as WorldObject).rect.y - 140;
+                    _source.y = _targetPoint.y + (_reason.build as WorldObject).rect.y + (_reason.build as WorldObject).rect.height/2 - 140;
                 }
                 _spArrow.x = _source.x;
                 _spArrow.y = _source.y;
