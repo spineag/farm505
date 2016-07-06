@@ -1,6 +1,6 @@
 <TextureAtlas name="order_window" imagePath="texture.png">
  <SubTexture name="order_window_right.png" x="156" y="0" width="139" height="138"/>
- <SubTexture name="right_hand/handRight" x="203" y="232" width="18" height="34"/>
+ <SubTexture name="right_hand/handRight" x="163" y="232" width="18" height="34"/>
  <SubTexture name="bodys/body" x="405" y="206" width="34" height="50"/>
  <SubTexture name="left_hand/handLeft" x="264" y="204" width="20" height="34"/>
  <SubTexture name="heads/head" x="72" y="157" width="69" height="91"/>
@@ -13,37 +13,37 @@
  <SubTexture name="heart" x="477" y="216" width="29" height="24"/>
  <SubTexture name="order_window_left.png" x="0" y="0" width="154" height="155"/>
  <SubTexture name="right_hand/handRight_seller" x="143" y="232" width="19" height="34"/>
- <SubTexture name="bodys/body_seller" x="369" y="117" width="34" height="50"/>
+ <SubTexture name="bodys/body_seller" x="286" y="209" width="34" height="50"/>
  <SubTexture name="heads/lips_m" x="143" y="157" width="11" height="10"/>
  <SubTexture name="order_window_left_top.png" x="141" y="268" width="106" height="22"/>
  <SubTexture name="left_hand/handLeft_seller" x="483" y="0" width="22" height="34"/>
  <SubTexture name="coin" x="358" y="221" width="38" height="38"/>
- <SubTexture name="pngs/bodys/body_bl" x="286" y="209" width="34" height="50"/>
- <SubTexture name="pngs/heads/head_bl" x="411" y="92" width="70" height="90"/>
- <SubTexture name="pngs/left_hand/handLeft_bl" x="483" y="144" width="21" height="34"/>
- <SubTexture name="pngs/right_hand/handRight_bl" x="477" y="242" width="18" height="34"/>
- <SubTexture name="pngs/eye/lid_l_w" x="49" y="249" width="15" height="22"/>
+ <SubTexture name="pngs/bodys/body_bl" x="369" y="117" width="34" height="50"/>
+ <SubTexture name="pngs/heads/head_bl" x="411" y="0" width="70" height="90"/>
+ <SubTexture name="pngs/left_hand/handLeft_bl" x="483" y="36" width="21" height="34"/>
+ <SubTexture name="pngs/right_hand/handRight_bl" x="0" y="249" width="18" height="34"/>
+ <SubTexture name="pngs/eye/lid_l_w" x="125" y="250" width="15" height="22"/>
  <SubTexture name="pngs/eye/lid_r_w" x="65" y="250" width="28" height="24"/>
- <SubTexture name="pngs/eye/lid_l" x="125" y="250" width="15" height="22"/>
+ <SubTexture name="pngs/eye/lid_l" x="49" y="249" width="15" height="22"/>
  <SubTexture name="pngs/eye/lid_r" x="20" y="249" width="28" height="24"/>
- <SubTexture name="pngs/eye/eye_l_blue" x="290" y="162" width="6" height="10"/>
- <SubTexture name="pngs/eye/eye_l_brown" x="290" y="173" width="6" height="10"/>
+ <SubTexture name="pngs/eye/eye_l_blue" x="290" y="140" width="6" height="10"/>
+ <SubTexture name="pngs/eye/eye_l_brown" x="290" y="162" width="6" height="10"/>
  <SubTexture name="pngs/eye/eye_l_green" x="290" y="151" width="6" height="10"/>
- <SubTexture name="pngs/eye/eye_l_grey" x="290" y="140" width="6" height="10"/>
- <SubTexture name="pngs/bodys/body_gr" x="322" y="209" width="34" height="50"/>
+ <SubTexture name="pngs/eye/eye_l_grey" x="290" y="173" width="6" height="10"/>
+ <SubTexture name="pngs/bodys/body_gr" x="441" y="206" width="34" height="50"/>
  <SubTexture name="pngs/bodys/body_or" x="228" y="204" width="34" height="50"/>
- <SubTexture name="pngs/bodys/body_pk" x="441" y="206" width="34" height="50"/>
- <SubTexture name="pngs/heads/head_gr" x="411" y="0" width="70" height="90"/>
+ <SubTexture name="pngs/bodys/body_pk" x="322" y="209" width="34" height="50"/>
+ <SubTexture name="pngs/heads/head_gr" x="156" y="140" width="70" height="90"/>
  <SubTexture name="pngs/heads/head_or" x="0" y="157" width="70" height="90"/>
- <SubTexture name="pngs/heads/head_pk" x="156" y="140" width="70" height="90"/>
- <SubTexture name="pngs/left_hand/handLeft_gr" x="483" y="108" width="21" height="34"/>
- <SubTexture name="pngs/left_hand/handLeft_or" x="483" y="36" width="21" height="34"/>
- <SubTexture name="pngs/left_hand/handLeft_pk" x="483" y="72" width="21" height="34"/>
- <SubTexture name="pngs/right_hand/handRight_gr" x="183" y="232" width="18" height="34"/>
- <SubTexture name="pngs/right_hand/handRight_or" x="0" y="249" width="18" height="34"/>
- <SubTexture name="pngs/right_hand/handRight_pk" x="264" y="240" width="18" height="34"/>
+ <SubTexture name="pngs/heads/head_pk" x="297" y="117" width="70" height="90"/>
+ <SubTexture name="pngs/left_hand/handLeft_gr" x="483" y="72" width="21" height="34"/>
+ <SubTexture name="pngs/left_hand/handLeft_or" x="483" y="144" width="21" height="34"/>
+ <SubTexture name="pngs/left_hand/handLeft_pk" x="483" y="180" width="21" height="34"/>
+ <SubTexture name="pngs/right_hand/handRight_gr" x="477" y="242" width="18" height="34"/>
+ <SubTexture name="pngs/right_hand/handRight_or" x="264" y="240" width="18" height="34"/>
+ <SubTexture name="pngs/right_hand/handRight_pk" x="183" y="232" width="18" height="34"/>
  <SubTexture name="pngs/bodys/body_wh" x="369" y="169" width="34" height="50"/>
- <SubTexture name="pngs/heads/head_wh" x="297" y="117" width="70" height="90"/>
- <SubTexture name="pngs/left_hand/handLeft_wh" x="483" y="180" width="21" height="34"/>
- <SubTexture name="pngs/right_hand/handRight_wh" x="163" y="232" width="18" height="34"/>
+ <SubTexture name="pngs/heads/head_wh" x="411" y="92" width="70" height="90"/>
+ <SubTexture name="pngs/left_hand/handLeft_wh" x="483" y="108" width="21" height="34"/>
+ <SubTexture name="pngs/right_hand/handRight_wh" x="203" y="232" width="18" height="34"/>
 </TextureAtlas>
