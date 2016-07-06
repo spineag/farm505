@@ -484,15 +484,16 @@ public class MarketItem {
             }
         }
         if (_person.marketItems.length == 0) bDelete = false;
+        var p:Point;
         if (!bDelete) {
-            var p:Point = new Point(source.x, source.y);
+            p = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
             new FlyMessage(p, "товар был забран игроком");
             _wo.refreshItemWhenYouBuy();
             return;
         }
         if (!b) {
-            var p:Point = new Point(source.x, source.y);
+            p = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
             new FlyMessage(p, "товар был куплен другим игроком");
             _wo.refreshItemWhenYouBuy();

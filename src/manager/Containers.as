@@ -125,6 +125,7 @@ public class Containers {
             _isDragged = true;
             dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати перевірки на спосіб тачу
         } else if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
+            trace('cont:: onStart');
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
             _startDragPointCont = new Point(gameCont.x, gameCont.y);
             g.ownMouse.showClickCursor();
@@ -132,6 +133,7 @@ public class Containers {
     }
 
     public function onEnded():void {
+        trace('cont:: onEnded');
         g.ownMouse.showUsualCursor();
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE && !_isDragged && g.selectedBuild) {
             g.toolsModifier.onTouchEnded();
@@ -140,8 +142,14 @@ public class Containers {
         }
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
             if (!_isDragged && !g.managerTutorial.isTutorial) {
-                g.bottomPanel.cancelBoolean(false);
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE) {
+                    g.bottomPanel.cancelBoolean(false);
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    trace('cont onEnded:: set NONE');
+                } else {
+                    g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
+                    trace('cont onEnded:: set PLANT_SEED');
+                }
             }
             _isDragged = false;
             return;
