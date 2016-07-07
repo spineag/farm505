@@ -20,6 +20,8 @@ import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
 import ui.xpPanel.XPStar;
+
+import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;
 
@@ -41,18 +43,16 @@ public class Tree extends WorldObject {
     public static const GROW_FIXED_FLOWER:int = 15;
     public static const FULL_DEAD:int = 16;
 
+    public var tree_db_id:String;    // id в табличке user_tree
     private var _state:int;
     private var _resourceItem:ResourceItem;
     private var _timeToEndState:int;
-//    private var _arrCrafted:Array;
     private var _countCrafted:int;
     private var _isOnHover:Boolean;
     private var _isClick:Boolean;
-    private var _wateringIcon:Sprite;
-    public var tree_db_id:String;    // id в табличке user_tree
+    private var _wateringIcon:CSprite;
     private var _wateringUserSocialId:String;
     private var _craftedCountFromServer:int;
-//    private var arrFruits:Array;
     private var _needShopView:Boolean;
 
     private var _fruits1:Bone;
@@ -62,8 +62,6 @@ public class Tree extends WorldObject {
 
     public function Tree(_data:Object) {
         super(_data);
-//        _arrCrafted = [];
-//        arrFruits = [];
         _state = GROW1;
 
         _source.releaseContDrag = true;
@@ -81,17 +79,10 @@ public class Tree extends WorldObject {
         }
         _source.endClickCallback = onClick;
         WorldClock.clock.add(_armature);
-        var b:Bone;
         _fruits1 = _armature.getBone('fruit1');
         _fruits2 = _armature.getBone('fruit2');
         _fruits3 = _armature.getBone('fruit3');
         _fruits4 = _armature.getBone('fruit4');
-//        for (var i:int = 0; i < arrFruits.length; i++) {
-//            b = _armature.getBone('fruit' + String(i + 1));
-//            arrFruits.push(b);
-//            (b.display as Sprite).touchable = false;
-//        }
-//        _source.addChild(_craftSprite);
         setBuildImage();
         if (_needShopView) showShopView();
     }
@@ -179,8 +170,6 @@ public class Tree extends WorldObject {
     }
 
     private function setBuildImage():void {
-        var i:int;
-        var item:CraftItem;
         switch (_state) {
             case GROW1:
                 _armature.animation.gotoAndStop("small", 0);
@@ -197,7 +186,6 @@ public class Tree extends WorldObject {
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 2;
-//                rechekFruits(true);
                 break;
             case GROW2:
                 _armature.animation.gotoAndStop("middle", 0);
@@ -216,7 +204,6 @@ public class Tree extends WorldObject {
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 3;
-//                rechekFruits(true);
                 break;
             case GROW3:
                 _armature.animation.gotoAndStop("big", 0);
@@ -236,7 +223,6 @@ public class Tree extends WorldObject {
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
-//                rechekFruits(true);
                 break;
             case DEAD:
                 _armature.animation.gotoAndStop("dead", 0);
@@ -277,7 +263,6 @@ public class Tree extends WorldObject {
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
-//                rechekFruits(true);
                 break;
             default:
                 Cc.error('tree state is WRONG');
@@ -302,7 +287,6 @@ public class Tree extends WorldObject {
         _armature.removeBone(b, true);
         _countCrafted--;
         if (_countCrafted == 0) {
-//            _state++;
             onCraftItemClick();
         }
         else g.managerTree.updateTreeCraftCount(tree_db_id,_countCrafted);
@@ -725,11 +709,6 @@ public class Tree extends WorldObject {
     }
 
     private function onCraftItemClick(item:CraftItem=null):void {
-//        if (_countCrafted > 0) { // dont use with == 0 because of optimisation
-//            trace('dopizdelsya');
-//            g.directServer.craftUserTree(tree_db_id, _state, null);
-//        }
-
         if (_countCrafted <= 0) {
             switch (_state) {
                 case GROWED1:
@@ -864,7 +843,6 @@ public class Tree extends WorldObject {
         WorldClock.clock.remove(_armature);
         g.gameDispatcher.removeFromTimer(render);
         _resourceItem = null;
-//        _arrCrafted.length = 0;
         _source.touchable = false;
         super.clearIt();
     }
@@ -901,6 +879,26 @@ public class Tree extends WorldObject {
     public function get stateTree():int {
         return _state;
     }
+    private function hov():void {
+        if (_isOnHover) return;
+        _isOnHover = true;
+        _source.filter = ManagerFilters.BUILD_STROKE;
+//
+//        var fEndOver:Function = function():void {
+//            _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
+//            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+//            quickCheckState();
+//        };
+//        _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
+//        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+//        if (_state == ASK_FIX) _armature.animation.gotoAndPlay('over_d');
+//        if (_state == FIXED) _armature.animation.gotoAndPlay('over_d');
+    }
+
+    private function ouu():void {
+        _isOnHover = false;
+        _source.filter = null;
+    }
 
     private function makeWateringIcon(ask:Boolean = false):void {
         if (_wateringIcon) {
@@ -911,7 +909,10 @@ public class Tree extends WorldObject {
         }
         if (!ask) {
             if (_state == ASK_FIX || _state == FIXED) {
-                _wateringIcon = new Sprite();
+                _wateringIcon = new CSprite();
+                _wateringIcon.endClickCallback = onClickWatering;
+                _wateringIcon.hoverCallback = hov;
+                _wateringIcon.outCallback = ouu;
                 var im:Image;
                 var watering:Image;
                 if (_dataBuild.width == 2) {
@@ -1000,9 +1001,30 @@ public class Tree extends WorldObject {
                 if (_flip) {
                     _wateringIcon.scaleX = -1;
                     _wateringIcon.x = _wateringIcon.x + 10;
-                }else
+                } else
                     _wateringIcon.scaleX = 1;
             }
+        }
+    }
+
+    private function onClickWatering():void {
+        if (g.isAway) {
+            if (_state == ASK_FIX) {
+                _state = FIXED;
+                for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
+                    if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
+                        g.visitedUser.userDataCity.treesInfo[i].state = String(FIXED);
+                        break;
+                    }
+                }
+                onOut();
+                var start:Point = new Point(int(_source.x), int(_source.y));
+                start = _source.parent.localToGlobal(start);
+                new XPStar(start.x,start.y,8);
+                g.directServer.makeWateringUserTree(tree_db_id, _state, null);
+                makeWateringIcon();
+            }
+            return;
         }
     }
 

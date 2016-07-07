@@ -26,7 +26,7 @@ public class ManagerOrderCats {
         for (var i:int=0; i<arr.length; i++) {
             leftSeconds = arr[i].startTime - int(new Date().getTime()/1000);
             if (leftSeconds <= 0) {
-                cat = new OrderCat(int(Math.random()*6 + 1));
+                cat = new OrderCat(int(Math.random()*OrderCat.ALL_CAT_COLORS + 1));
                 cat.setTailPositions(30, 25 - i*2);
                 cat.walkPosition = OrderCat.STAY_IN_QUEUE;
                 cat.setPositionInQueue(i);
@@ -158,7 +158,7 @@ public class ManagerOrderCats {
 
     // ------ new Cat arrived --------
     public function getNewCatForOrder(onArriveCallback:Function = null):OrderCat{
-        var cat:OrderCat = new OrderCat(int(Math.random()*6 + 1));
+        var cat:OrderCat = new OrderCat(int(Math.random()*OrderCat.ALL_CAT_COLORS + 1));
         cat.arriveCallback = onArriveCallback;
         cat.setPositionInQueue(getFreeQueuePosition());
         _arrCats.push(cat);

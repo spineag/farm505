@@ -231,11 +231,13 @@ public class Animal {
         onOut();
         if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
+//            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
             return;
         } else if  (g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
+//            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
             return;
         }
         if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {

@@ -8,6 +8,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.text.TextField;
+import starling.utils.Color;
 
 import utils.CSprite;
 import utils.MCScaler;
@@ -40,8 +41,9 @@ public class CaveItem {
         source.outCallback = function():void {source.filter = null;};
 //        source.hoverCallback = onHover;
 //        source.outCallback = onOut;
-        _txtCount = new TextField(40,30,'',g.allData.fonts['BloggerBold'],16, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtCount.x = 52;
+        _txtCount = new TextField(40,30,'',g.allData.fonts['BloggerBold'],16,Color.WHITE);
+        _txtCount.nativeFilters =  ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCount.x = 60;
         _txtCount.y = 68;
         source.addChild(_txtCount);
     }

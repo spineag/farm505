@@ -50,7 +50,7 @@ public class Ambar extends WorldObject{
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         }
         _isOnHover = true;
-        g.hint.showIt(_dataBuild.name,true);
+        g.hint.showIt(_dataBuild.name,'ambar');
     }
 
     private function onClick():void {

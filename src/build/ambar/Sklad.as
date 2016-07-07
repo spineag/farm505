@@ -54,7 +54,7 @@ public class Sklad extends WorldObject{
             _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
             _armature.animation.gotoAndPlay('over');
             _isOnHover = true;
-            g.hint.showIt(_dataBuild.name,false,true);
+            g.hint.showIt(_dataBuild.name,'sklad');
         }
     }
 

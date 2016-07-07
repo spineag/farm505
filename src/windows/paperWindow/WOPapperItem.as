@@ -296,6 +296,9 @@ public class WOPapperItem {
         }
         _userAvatar = new Image(Texture.fromBitmap(bitmap));
         MCScaler.scaleMin(_userAvatar, 46, 46);
+        while (_ava.numChildren) {
+            _ava.removeChildAt(0);
+        }
         _ava.addChild(_userAvatar);
     }
 
@@ -303,6 +306,7 @@ public class WOPapperItem {
         if (!_data) return;
         _wo.hideIt();
          _p.idVisitItemFromPaper = _data.resourceId;
+        _p.level = _data.level;
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
         _data.isOpened = true;
 

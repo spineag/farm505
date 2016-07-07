@@ -649,15 +649,29 @@ public class WOOrder extends WindowMain{
         var isWoman:Boolean;
         if (!_arrOrders[pos] || !_arrOrders[pos].cat) return;
         switch (_arrOrders[pos].cat.typeCat){
-            case OrderCat.BLUE:   st = '_bl';  isWoman = false; break;
+            case OrderCat.BLUE:   st = '_bl'; isWoman = false; break;
             case OrderCat.GREEN:  st = '_gr'; isWoman = false; break;
+            case OrderCat.BROWN:  st = '_br'; isWoman = false; break;
             case OrderCat.ORANGE: st = '_or'; isWoman = true;  break;
             case OrderCat.PINK:   st = '_pk'; isWoman = true;  break;
             case OrderCat.WHITE:  st = '_wh'; isWoman = true;  break;
             case OrderCat.BLACK:  st = '';    isWoman = false; break;
         }
         releaseFrontTexture(st);
+//        if (!isWoman) {
+//            var b:Bone = _armatureCustomer.getBone('bant');
+//            b.visible = false;
+//
+//        } else  chengeBant(_arrOrders[pos].cat.bant);
 //        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);
+    }
+
+    private function chengeBant(n:int):void {
+        var str:String = 'bant_'+ n;
+        var im:Image = g.allData.factory['orderWindow'].getTextureDisplay(str) as Image;
+        var b:Bone = _armatureCustomer.getBone('bant');
+        b.display.dispose();
+        b.display = im;
     }
 
     private function releaseFrontTexture(st:String):void {
