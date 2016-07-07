@@ -289,8 +289,8 @@ public class Animal {
 
     private function onStartClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
-            feedAnimal();
             if (!g.managerTutorial.isTutorial) {
+                feedAnimal();
                 g.managerAnimal.activeFeedAnimalId = _data.id;
                 g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
             }
