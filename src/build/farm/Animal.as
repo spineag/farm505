@@ -80,7 +80,7 @@ public class Animal {
         if (!g.isAway) {
             source.hoverCallback = onHover;
             source.outCallback = onOut;
-            source.endClickCallback = onClick;
+            source.endClickCallback = onEndClick;
             source.startClickCallback = onStartClick;
         }
 
@@ -231,16 +231,16 @@ public class Animal {
         onOut();
         if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
             return;
         } else if  (g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'animal', _data);
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
             return;
         }
         if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClick, {id:_data.idResourceRaw}, 'market');
+            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onEndClick, {id:_data.idResourceRaw}, 'market');
             return;
         }
         if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
@@ -287,13 +287,15 @@ public class Animal {
 
     private function onStartClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
-            g.managerAnimal.activeFeedAnimalId = _data.id;
             feedAnimal();
-            g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
+            if (!g.managerTutorial.isTutorial) {
+                g.managerAnimal.activeFeedAnimalId = _data.id;
+                g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
+            }
         }
     }
 
-    public function onClick(last:Boolean = false):void {
+    public function onEndClick(last:Boolean = false):void {
         g.managerHelpers.onUserAction();
         if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -323,7 +325,8 @@ public class Animal {
                 g.timerHint.addArrow();
             }
         } else if (_state == HUNGRY) {
-//            feedAnimal(last);
+            if (g.managerTutorial.isTutorial)
+                feedAnimal(last);
         }
     }
 
@@ -352,8 +355,10 @@ public class Animal {
         _isOnHover = true;
         _frameCounterTimerHint = 7;
         source.filter = ManagerFilters.BUILD_STROKE;
-        if (_state == HUNGRY) g.mouseHint.showMouseHint(MouseHint.ANIMAL, _data);
-        else if (_state == WORK) g.mouseHint.showMouseHint(MouseHint.CLOCK, _data);
+        if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            if (_state == HUNGRY) g.mouseHint.showMouseHint(MouseHint.ANIMAL, _data);
+            else if (_state == WORK) g.mouseHint.showMouseHint(MouseHint.CLOCK, _data);
+        }
 //        g.gameDispatcher.addToTimer(countEnterFrameMouseHint);
     }
 
