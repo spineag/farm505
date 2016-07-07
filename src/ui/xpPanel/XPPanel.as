@@ -9,6 +9,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
@@ -82,6 +84,12 @@ public class XPPanel {
             g.user.level++;
             _txtLevel.text = String(g.user.level);
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
+            if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                if (g.managerCutScenes.isCutScene) return;
+                g.toolsModifier.cancelMove();
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                if (g.buyHint.showThis) g.buyHint.hideIt();
+            }
             g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             g.friendPanel.checkLevel();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;

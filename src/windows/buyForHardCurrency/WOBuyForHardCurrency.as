@@ -70,6 +70,8 @@ public class WOBuyForHardCurrency extends WindowMain {
 
     private function onYes():void {
         if (g.user.hardCurrency < _count * g.dataResource.objectResources[_id].priceHard) {
+            g.windowsManager.uncasheWindow();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             hideIt();
             return;
         }

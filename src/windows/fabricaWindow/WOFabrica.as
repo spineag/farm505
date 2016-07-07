@@ -125,22 +125,20 @@ public class WOFabrica extends WindowMain {
     private function onItemClick(dataRecipe:Object, lastRes:Boolean = false):void {
         var obj:Object;
         if (!lastRes) {
-//            if (_list.isFull) {
-                g.windowsManager.cashWindow = this;
-                super.hideIt();
                 var fExit:Function = function():void {
                     g.windowsManager.uncasheWindow();
                 };
-//                if (_fabrica.dataBuild.countCell >= 9) {
-                    if (_list.arrRecipes.length == 9) {
-                    g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, fExit, true);
+                if (_list.arrRecipes.length == 9) {
+                        g.windowsManager.cashWindow = this;
+                        super.hideIt();
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, fExit, true);
                     return;
                 } else if (_list.arrRecipes.length == _list.maxCount){
-                    g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.priceForNewCell, 0, fExit, false);
+                        g.windowsManager.cashWindow = this;
+                        super.hideIt();
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.priceForNewCell, 0, fExit, false);
                     return;
                 }
-//                return;
-//            }
             if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
                 isCashed = false;
                 super.hideIt();
