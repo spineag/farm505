@@ -48,6 +48,7 @@ public class TownAreaTouchManager {
     }
 
     private function onEndClick():void {
+        trace('touchManager:: onEndClick');
         _touch = cont.getCurTouch;
         if (!_touch) return;
         _curBuild = getWorldObject(_touch);
@@ -59,6 +60,7 @@ public class TownAreaTouchManager {
                 checkForTouches();
             }
         } else {
+            trace('touchManager: g.cont.onEnded');
             g.cont.onEnded();
         }
     }
@@ -230,8 +232,10 @@ public class TownAreaTouchManager {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT)
                         (ar[0] as WorldObject).source.releaseStartClick();
                 } else if (_touch.phase == TouchPhase.ENDED) {
-                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT)
+                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
+                        trace('touchManager checkForTouches:: releaseEndClick');
                         (ar[0] as WorldObject).source.releaseEndClick();
+                    }
                 } else if (_touch.phase == TouchPhase.HOVER) {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
                         (ar[0] as WorldObject).source.releaseHover();
@@ -245,6 +249,7 @@ public class TownAreaTouchManager {
             ar.length = 0;
         } else {
             if (_touch.phase == TouchPhase.ENDED) {
+                trace('touchManager checkForTouches:: g.cont.onEnded');
                 g.cont.onEnded();
 //            } else if (_touch.phase == TouchPhase.BEGAN) {
 //            } else if (_touch.phase == TouchPhase.HOVER) {

@@ -316,7 +316,6 @@ public class MarketItem {
     private function onPaper():void {
         if (_inPapper || !_wo.booleanPaper) return;
         _inPapper = true;
-        g.hint.hideIt();
         _dataFromServer.inPapper = true;
         _papper.visible = true;
         _imCheck.visible = true;
@@ -487,15 +486,16 @@ public class MarketItem {
         }
         if (_person.marketItems.length == 0) bDelete = false;
         if (_person is NeighborBot) bDelete = true;
+        var p:Point;
         if (!bDelete) {
-            var p:Point = new Point(source.x, source.y);
+            p = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
             new FlyMessage(p, "товар был забран игроком");
             _wo.refreshItemWhenYouBuy();
             return;
         }
         if (!b) {
-            var p:Point = new Point(source.x, source.y);
+            p = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
             new FlyMessage(p, "товар был куплен другим игроком");
             _wo.refreshItemWhenYouBuy();
