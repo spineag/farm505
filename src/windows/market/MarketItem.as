@@ -180,7 +180,8 @@ public class MarketItem {
         source.addChild(_papper);
         _papper.clickCallback = onPaper;
         _papper.hoverCallback = function ():void {
-            g.hint.showIt('поместить обьявления в газету','market_paper');
+            if (_inPapper) return;
+            g.hint.showIt('Поместить объявление в газету','market_paper');
         };
         _papper.outCallback = function ():void {
             g.hint.hideIt();
@@ -315,6 +316,7 @@ public class MarketItem {
     private function onPaper():void {
         if (_inPapper || !_wo.booleanPaper) return;
         _inPapper = true;
+        g.hint.hideIt();
         _dataFromServer.inPapper = true;
         _papper.visible = true;
         _imCheck.visible = true;
@@ -484,6 +486,7 @@ public class MarketItem {
             }
         }
         if (_person.marketItems.length == 0) bDelete = false;
+        if (_person is NeighborBot) bDelete = true;
         if (!bDelete) {
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);

@@ -395,7 +395,9 @@ public class WOMarket  extends WindowMain {
                 else _arrItems[i].friendAdd(false);
             }
             for (i = 0; i < _curUser.marketItems.length; i++) {
-                _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
+                if (_curUser.marketItems[i].numberCell+1 <= _arrItems.length) {
+                    _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
+                }
             }
 
             if (_shiftFriend != 0) goToItemFromPaper();

@@ -109,6 +109,7 @@ public class WindowMain {
     }
 
     protected function grayExitButton(b:Boolean):void {
+        if (!_btnExit) return;
         if (b) _btnExit.alpha = .5;
         else _btnExit.alpha = 1;
     }

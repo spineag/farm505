@@ -3247,7 +3247,10 @@
    <transform x="85.5" y="54" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="legLeft_or">
-   <transform x="74.5" y="46.5" skX="0" skY="0" scX="1" scY="1"/>
+   <transform x="213" y="12.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="legRight_b_br">
+   <transform x="198.5" y="72" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="legLeft_pk">
    <transform x="59.98" y="42.5" skX="0" skY="0" scX="1" scY="1"/>
@@ -3256,7 +3259,10 @@
    <transform x="9.5" y="-93.25" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="legLeft_b_or">
-   <transform x="22.8" y="-93.25" skX="0" skY="0" scX="1" scY="1"/>
+   <transform x="213.25" y="54" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="legLeft_b_br">
+   <transform x="198.75" y="69" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="legLeft_b_pk">
    <transform x="-6.5" y="-93.25" skX="0" skY="0" scX="1" scY="1"/>
@@ -3283,7 +3289,7 @@
    <transform x="130" y="42" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="legRight_or">
-   <transform x="115.25" y="34" skX="0" skY="0" scX="1" scY="1"/>
+   <transform x="213.25" y="34" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="legRight_pk">
    <transform x="130" y="25.5" skX="0" skY="0" scX="1" scY="1"/>
@@ -3292,7 +3298,7 @@
    <transform x="-19.5" y="52" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="legRight_b_or">
-   <transform x="-32.25" y="52" skX="0" skY="0" scX="1" scY="1"/>
+   <transform x="213" y="72" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="legRight_b_pk">
    <transform x="-6.25" y="52" skX="0" skY="0" scX="1" scY="1"/>
@@ -3351,11 +3357,74 @@
   <bone name="lid_r_green">
    <transform x="-70.6" y="-66.72" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
+  <bone name="lid_l_brown">
+   <transform x="-84.42" y="-79.03" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="body_br">
+   <transform x="144" y="49.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="body_b_br">
+   <transform x="161" y="44" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="handLeft_br">
+   <transform x="-2.5" y="18" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="handRight_br">
+   <transform x="40.75" y="18.25" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="handRight_b_br">
+   <transform x="40.25" y="40.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="tail_br">
+   <transform x="36.25" y="10.55" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="bant_1">
+   <transform x="186.63" y="-17.27" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="bant_2">
+   <transform x="209.88" y="-3.52" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="bant_3">
+   <transform x="194.88" y="11.73" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="bant_4">
+   <transform x="239.88" y="11.73" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="bant_5">
+   <transform x="209.88" y="-19.27" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="bant_6">
+   <transform x="186.63" y="-33.65" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="bant_7">
+   <transform x="220" y="31.2" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="bant_8">
+   <transform x="175.88" y="-56.8" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="handLeft_b_br">
+   <transform x="26.48" y="54" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="legLeft_br">
+   <transform x="198.5" y="6.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="legRight_br">
+   <transform x="198.75" y="26.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="lid_r_brown">
+   <transform x="-70.6" y="-78.8" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
   <bone name="lid_l_white">
    <transform x="-84.1" y="-51.22" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="lid_r_white">
    <transform x="-70.6" y="-52.22" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="head_br">
+   <transform x="-70.5" y="25" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="head_b_br">
+   <transform x="-74.75" y="68.5" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="lid_l_orange">
    <transform x="-84.1" y="-36.22" skX="0" skY="0" scX="1" scY="1"/>
@@ -3575,202 +3644,317 @@
      <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
     </display>
    </slot>
-   <slot name="legLeft_pk" parent="legLeft_pk" z="41">
+   <slot name="legRight_b_br" parent="legRight_b_br" z="41">
+    <display name="right_leg_b/legRight_b_br" type="image">
+     <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
+    </display>
+   </slot>
+   <slot name="legLeft_pk" parent="legLeft_pk" z="42">
     <display name="left_leg/legLeft_pk" type="image">
      <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
     </display>
    </slot>
-   <slot name="legLeft_b_gr" parent="legLeft_b_gr" z="42">
+   <slot name="legLeft_b_gr" parent="legLeft_b_gr" z="43">
     <display name="left_leg_b/legLeft_b_gr" type="image">
      <transform x="0" y="7.5" skX="0" skY="0" scX="1" scY="1" pX="5.25" pY="15"/>
     </display>
    </slot>
-   <slot name="legLeft_b_or" parent="legLeft_b_or" z="43">
+   <slot name="legLeft_b_or" parent="legLeft_b_or" z="44">
     <display name="left_leg_b/legLeft_b_or" type="image">
      <transform x="0" y="7.5" skX="0" skY="0" scX="1" scY="1" pX="5.25" pY="15"/>
     </display>
    </slot>
-   <slot name="legLeft_b_pk" parent="legLeft_b_pk" z="44">
+   <slot name="legLeft_b_br" parent="legLeft_b_br" z="45">
+    <display name="left_leg_b/legLeft_b_br" type="image">
+     <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5.25" pY="15"/>
+    </display>
+   </slot>
+   <slot name="legLeft_b_pk" parent="legLeft_b_pk" z="46">
     <display name="left_leg_b/legLeft_b_pk" type="image">
      <transform x="0" y="7.5" skX="0" skY="0" scX="1" scY="1" pX="5.25" pY="15"/>
     </display>
    </slot>
-   <slot name="handRight_gr" parent="handRight_gr" z="45">
+   <slot name="handRight_gr" parent="handRight_gr" z="47">
     <display name="right_hand/handRight_gr" type="image">
      <transform x="0" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="4.5" pY="0"/>
     </display>
    </slot>
-   <slot name="handRight_or" parent="handRight_or" z="46">
+   <slot name="handRight_or" parent="handRight_or" z="48">
     <display name="right_hand/handRight_or" type="image">
      <transform x="0" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="4.5" pY="0"/>
     </display>
    </slot>
-   <slot name="handRight_pk" parent="handRight_pk" z="47">
+   <slot name="handRight_pk" parent="handRight_pk" z="49">
     <display name="right_hand/handRight_pk" type="image">
      <transform x="0" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="4.5" pY="0"/>
     </display>
    </slot>
-   <slot name="handRight_b_gr" parent="handRight_b_gr" z="48">
+   <slot name="handRight_b_gr" parent="handRight_b_gr" z="50">
     <display name="right_hand_b/handRight_b_gr" type="image">
      <transform x="0" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
     </display>
    </slot>
-   <slot name="handRight_b_or" parent="handRight_b_or" z="49">
+   <slot name="handRight_b_or" parent="handRight_b_or" z="51">
     <display name="right_hand_b/handRight_b_or" type="image">
      <transform x="0" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
     </display>
    </slot>
-   <slot name="handRight_b_pk" parent="handRight_b_pk" z="50">
+   <slot name="handRight_b_pk" parent="handRight_b_pk" z="52">
     <display name="right_hand_b/handRight_b_pk" type="image">
      <transform x="0" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
     </display>
    </slot>
-   <slot name="legRight_gr" parent="legRight_gr" z="51">
+   <slot name="legRight_gr" parent="legRight_gr" z="53">
     <display name="right_leg/legRight_gr" type="image">
      <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5.25" pY="0"/>
     </display>
    </slot>
-   <slot name="legRight_or" parent="legRight_or" z="52">
+   <slot name="legRight_or" parent="legRight_or" z="54">
     <display name="right_leg/legRight_or" type="image">
      <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5.25" pY="0"/>
     </display>
    </slot>
-   <slot name="legRight_pk" parent="legRight_pk" z="53">
+   <slot name="legRight_pk" parent="legRight_pk" z="55">
     <display name="right_leg/legRight_pk" type="image">
      <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5.25" pY="0"/>
     </display>
    </slot>
-   <slot name="legRight_b_gr" parent="legRight_b_gr" z="54">
+   <slot name="legRight_b_gr" parent="legRight_b_gr" z="56">
     <display name="right_leg_b/legRight_b_gr" type="image">
      <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
     </display>
    </slot>
-   <slot name="legRight_b_or" parent="legRight_b_or" z="55">
+   <slot name="legRight_b_or" parent="legRight_b_or" z="57">
     <display name="right_leg_b/legRight_b_or" type="image">
      <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
     </display>
    </slot>
-   <slot name="legRight_b_pk" parent="legRight_b_pk" z="56">
+   <slot name="legRight_b_pk" parent="legRight_b_pk" z="58">
     <display name="right_leg_b/legRight_b_pk" type="image">
      <transform x="0" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
     </display>
    </slot>
-   <slot name="tail_gr" parent="tail_gr" z="57">
+   <slot name="tail_gr" parent="tail_gr" z="59">
     <display name="tails/tail_gr" type="image">
      <transform x="-8.25" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="4.75"/>
     </display>
    </slot>
-   <slot name="tail_or" parent="tail_or" z="58">
+   <slot name="tail_or" parent="tail_or" z="60">
     <display name="tails/tail_or" type="image">
      <transform x="-8.25" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="4.75"/>
     </display>
    </slot>
-   <slot name="tail_pk" parent="tail_pk" z="59">
+   <slot name="tail_pk" parent="tail_pk" z="61">
     <display name="tails/tail_pk" type="image">
      <transform x="-8.25" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="4.75"/>
     </display>
    </slot>
-   <slot name="body_wh" parent="body_wh" z="60">
+   <slot name="body_wh" parent="body_wh" z="62">
     <display name="bodys/body_wh" type="image">
      <transform x="-0.25" y="12.5" skX="0" skY="0" scX="1" scY="1" pX="8.25" pY="25"/>
     </display>
    </slot>
-   <slot name="body_b_wh" parent="body_b_wh" z="61">
+   <slot name="body_b_wh" parent="body_b_wh" z="63">
     <display name="bodys_b/body_b_wh" type="image">
      <transform x="0" y="12" skX="0" skY="0" scX="1" scY="1" pX="8.5" pY="24.5"/>
     </display>
    </slot>
-   <slot name="head_wh" parent="head_wh" z="62">
+   <slot name="head_wh" parent="head_wh" z="64">
     <display name="heads/head_wh" type="image">
      <transform x="-0.75" y="23" skX="0" skY="0" scX="1" scY="1" pX="16.75" pY="45.5"/>
     </display>
    </slot>
-   <slot name="head_b_wh" parent="head_b_wh" z="63">
+   <slot name="head_b_wh" parent="head_b_wh" z="65">
     <display name="heads_b/head_b_wh" type="image">
      <transform x="-0.75" y="22.5" skX="0" skY="0" scX="1" scY="1" pX="16.75" pY="45"/>
     </display>
    </slot>
-   <slot name="handLeft_wh" parent="handLeft_wh" z="64">
+   <slot name="handLeft_wh" parent="handLeft_wh" z="66">
     <display name="left_hand/handLeft_wh" type="image">
      <transform x="-1" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="4.25" pY="0"/>
     </display>
    </slot>
-   <slot name="handLeft_b_wh" parent="handLeft_b_wh" z="65">
+   <slot name="handLeft_b_wh" parent="handLeft_b_wh" z="67">
     <display name="left_hand_b/handLeft_b_wh" type="image">
      <transform x="0.25" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="4.75" pY="0"/>
     </display>
    </slot>
-   <slot name="legLeft_wh" parent="legLeft_wh" z="66">
+   <slot name="legLeft_wh" parent="legLeft_wh" z="68">
     <display name="left_leg/legLeft_wh" type="image">
      <transform x="-0.5" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="4.5" pY="0"/>
     </display>
    </slot>
-   <slot name="legLeft_b_wh" parent="legLeft_b_wh" z="67">
+   <slot name="legLeft_b_wh" parent="legLeft_b_wh" z="69">
     <display name="left_leg_b/legLeft_b_wh" type="image">
      <transform x="0.25" y="7" skX="0" skY="0" scX="1" scY="1" pX="5.5" pY="14.5"/>
     </display>
    </slot>
-   <slot name="handRight_wh" parent="handRight_wh" z="68">
+   <slot name="handRight_wh" parent="handRight_wh" z="70">
     <display name="right_hand/handRight_wh" type="image">
      <transform x="0" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="4.5" pY="0"/>
     </display>
    </slot>
-   <slot name="handRight_b_wh" parent="handRight_b_wh" z="69">
+   <slot name="handRight_b_wh" parent="handRight_b_wh" z="71">
     <display name="right_hand_b/handRight_b_wh" type="image">
      <transform x="-1" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="4" pY="0"/>
     </display>
    </slot>
-   <slot name="legRight_wh" parent="legRight_wh" z="70">
+   <slot name="legRight_wh" parent="legRight_wh" z="72">
     <display name="right_leg/legRight_wh" type="image">
      <transform x="0.25" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="5.5" pY="0"/>
     </display>
    </slot>
-   <slot name="legRight_b_wh" parent="legRight_b_wh" z="71">
+   <slot name="legRight_b_wh" parent="legRight_b_wh" z="73">
     <display name="right_leg_b/legRight_b_wh" type="image">
      <transform x="-0.25" y="-7.5" skX="0" skY="0" scX="1" scY="1" pX="4.75" pY="0"/>
     </display>
    </slot>
-   <slot name="tail_wh" parent="tail_wh" z="72">
+   <slot name="tail_wh" parent="tail_wh" z="74">
     <display name="tails/tail_wh" type="image">
      <transform x="-8.25" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="4.75"/>
     </display>
    </slot>
-   <slot name="lid_l_green" parent="lid_l_green" z="73">
+   <slot name="lid_l_green" parent="lid_l_green" z="75">
     <display name="eye/lid_l_green" type="image">
      <transform x="0" y="-5.47" skX="0" skY="0" scX="1" scY="1" pX="3.58" pY="0"/>
     </display>
    </slot>
-   <slot name="lid_r_green" parent="lid_r_green" z="74">
+   <slot name="lid_r_green" parent="lid_r_green" z="76">
     <display name="eye/lid_r_green" type="image">
      <transform x="0" y="-5.77" skX="0" skY="0" scX="1" scY="1" pX="6.8" pY="0"/>
     </display>
    </slot>
-   <slot name="lid_l_white" parent="lid_l_white" z="75">
+   <slot name="lid_l_brown" parent="lid_l_brown" z="77">
+    <display name="eye/lid_l_brown" type="image">
+     <transform x="0" y="-5.47" skX="0" skY="0" scX="1" scY="1" pX="3.58" pY="0"/>
+    </display>
+   </slot>
+   <slot name="body_br" parent="body_br" z="78">
+    <display name="bodys/body_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="8.5" pY="25"/>
+    </display>
+   </slot>
+   <slot name="body_b_br" parent="body_b_br" z="79">
+    <display name="bodys_b/body_b_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="8.5" pY="24.5"/>
+    </display>
+   </slot>
+   <slot name="handLeft_br" parent="handLeft_br" z="80">
+    <display name="left_hand/handLeft_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
+    </display>
+   </slot>
+   <slot name="handRight_br" parent="handRight_br" z="81">
+    <display name="right_hand/handRight_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="4.5" pY="0"/>
+    </display>
+   </slot>
+   <slot name="handRight_b_br" parent="handRight_b_br" z="82">
+    <display name="right_hand_b/handRight_b_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="4" pY="0"/>
+    </display>
+   </slot>
+   <slot name="tail_br" parent="tail_br" z="83">
+    <display name="tails/tail_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="4.75"/>
+    </display>
+   </slot>
+   <slot name="bant_1" parent="bant_1" z="84">
+    <display name="bant_1" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6.38" pY="47.73"/>
+    </display>
+   </slot>
+   <slot name="bant_2" parent="bant_2" z="85">
+    <display name="bant_2" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6.38" pY="47.73"/>
+    </display>
+   </slot>
+   <slot name="bant_3" parent="bant_3" z="86">
+    <display name="bant_3" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6.38" pY="47.73"/>
+    </display>
+   </slot>
+   <slot name="bant_4" parent="bant_4" z="87">
+    <display name="bant_4" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6.38" pY="47.73"/>
+    </display>
+   </slot>
+   <slot name="bant_5" parent="bant_5" z="88">
+    <display name="bant_5" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6.38" pY="47.73"/>
+    </display>
+   </slot>
+   <slot name="bant_6" parent="bant_6" z="89">
+    <display name="bant_6" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6.38" pY="47.73"/>
+    </display>
+   </slot>
+   <slot name="bant_7" parent="bant_7" z="90">
+    <display name="bant_7" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6.38" pY="47.73"/>
+    </display>
+   </slot>
+   <slot name="bant_8" parent="bant_8" z="91">
+    <display name="bant_8" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6.38" pY="47.73"/>
+    </display>
+   </slot>
+   <slot name="handLeft_b_br" parent="handLeft_b_br" z="92">
+    <display name="left_hand_b/handLeft_b_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="4.5" pY="0"/>
+    </display>
+   </slot>
+   <slot name="legLeft_br" parent="legLeft_br" z="93">
+    <display name="left_leg/legLeft_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="5" pY="0"/>
+    </display>
+   </slot>
+   <slot name="legRight_br" parent="legRight_br" z="94">
+    <display name="right_leg/legRight_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="5.25" pY="0"/>
+    </display>
+   </slot>
+   <slot name="lid_r_brown" parent="lid_r_brown" z="95">
+    <display name="eye/lid_r_brown" type="image">
+     <transform x="0" y="-5.77" skX="0" skY="0" scX="1" scY="1" pX="6.8" pY="0"/>
+    </display>
+   </slot>
+   <slot name="lid_l_white" parent="lid_l_white" z="96">
     <display name="eye/lid_l_white" type="image">
      <transform x="0" y="-5.47" skX="0" skY="0" scX="1" scY="1" pX="3.58" pY="0"/>
     </display>
    </slot>
-   <slot name="lid_r_white" parent="lid_r_white" z="76">
+   <slot name="lid_r_white" parent="lid_r_white" z="97">
     <display name="eye/lid_r_white" type="image">
      <transform x="0" y="-5.77" skX="0" skY="0" scX="1" scY="1" pX="6.8" pY="0"/>
     </display>
    </slot>
-   <slot name="lid_l_orange" parent="lid_l_orange" z="77">
+   <slot name="head_br" parent="head_br" z="98">
+    <display name="heads/head_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="17.25" pY="45"/>
+    </display>
+   </slot>
+   <slot name="head_b_br" parent="head_b_br" z="99">
+    <display name="heads_b/head_b_br" type="image">
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="17.25" pY="45"/>
+    </display>
+   </slot>
+   <slot name="lid_l_orange" parent="lid_l_orange" z="100">
     <display name="eye/lid_l_orange" type="image">
      <transform x="0" y="-5.47" skX="0" skY="0" scX="1" scY="1" pX="3.58" pY="0"/>
     </display>
    </slot>
-   <slot name="lid_r_orange" parent="lid_r_orange" z="78">
+   <slot name="lid_r_orange" parent="lid_r_orange" z="101">
     <display name="eye/lid_r_orange" type="image">
      <transform x="0" y="-5.77" skX="0" skY="0" scX="1" scY="1" pX="6.8" pY="0"/>
     </display>
    </slot>
-   <slot name="lid_l_pink" parent="lid_l_pink" z="79">
+   <slot name="lid_l_pink" parent="lid_l_pink" z="102">
     <display name="eye/lid_l_pink" type="image">
      <transform x="0" y="-5.47" skX="0" skY="0" scX="1" scY="1" pX="3.58" pY="0"/>
     </display>
    </slot>
-   <slot name="lid_r_pink" parent="lid_r_pink" z="80">
+   <slot name="lid_r_pink" parent="lid_r_pink" z="103">
     <display name="eye/lid_r_pink" type="image">
      <transform x="0" y="-5.77" skX="0" skY="0" scX="1" scY="1" pX="6.8" pY="0"/>
     </display>
@@ -3979,206 +4163,321 @@
    </timeline>
    <timeline name="legLeft_or" scale="1" offset="0">
     <frame z="40" duration="1">
-     <transform x="74.5" y="46.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="213" y="12.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="legRight_b_br" scale="1" offset="0">
+    <frame z="41" duration="1">
+     <transform x="198.5" y="72" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legLeft_pk" scale="1" offset="0">
-    <frame z="41" duration="1">
+    <frame z="42" duration="1">
      <transform x="59.98" y="42.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legLeft_b_gr" scale="1" offset="0">
-    <frame z="42" duration="1">
+    <frame z="43" duration="1">
      <transform x="9.5" y="-93.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legLeft_b_or" scale="1" offset="0">
-    <frame z="43" duration="1">
-     <transform x="22.8" y="-93.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    <frame z="44" duration="1">
+     <transform x="213.25" y="54" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="legLeft_b_br" scale="1" offset="0">
+    <frame z="45" duration="1">
+     <transform x="198.75" y="69" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legLeft_b_pk" scale="1" offset="0">
-    <frame z="44" duration="1">
+    <frame z="46" duration="1">
      <transform x="-6.5" y="-93.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handRight_gr" scale="1" offset="0">
-    <frame z="45" duration="1">
+    <frame z="47" duration="1">
      <transform x="-38" y="-69.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handRight_or" scale="1" offset="0">
-    <frame z="46" duration="1">
+    <frame z="48" duration="1">
      <transform x="-26.25" y="-69.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handRight_pk" scale="1" offset="0">
-    <frame z="47" duration="1">
+    <frame z="49" duration="1">
      <transform x="-38" y="-52.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handRight_b_gr" scale="1" offset="0">
-    <frame z="48" duration="1">
+    <frame z="50" duration="1">
      <transform x="-48" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handRight_b_or" scale="1" offset="0">
-    <frame z="49" duration="1">
+    <frame z="51" duration="1">
      <transform x="-38.5" y="8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handRight_b_pk" scale="1" offset="0">
-    <frame z="50" duration="1">
+    <frame z="52" duration="1">
      <transform x="-35.75" y="-8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legRight_gr" scale="1" offset="0">
-    <frame z="51" duration="1">
+    <frame z="53" duration="1">
      <transform x="130" y="42" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legRight_or" scale="1" offset="0">
-    <frame z="52" duration="1">
-     <transform x="115.25" y="34" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    <frame z="54" duration="1">
+     <transform x="213.25" y="34" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legRight_pk" scale="1" offset="0">
-    <frame z="53" duration="1">
+    <frame z="55" duration="1">
      <transform x="130" y="25.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legRight_b_gr" scale="1" offset="0">
-    <frame z="54" duration="1">
+    <frame z="56" duration="1">
      <transform x="-19.5" y="52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legRight_b_or" scale="1" offset="0">
-    <frame z="55" duration="1">
-     <transform x="-32.25" y="52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    <frame z="57" duration="1">
+     <transform x="213" y="72" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legRight_b_pk" scale="1" offset="0">
-    <frame z="56" duration="1">
+    <frame z="58" duration="1">
      <transform x="-6.25" y="52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="tail_gr" scale="1" offset="0">
-    <frame z="57" duration="1">
+    <frame z="59" duration="1">
      <transform x="44.5" y="1.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="tail_or" scale="1" offset="0">
-    <frame z="58" duration="1">
+    <frame z="60" duration="1">
      <transform x="39.23" y="-21.75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="tail_pk" scale="1" offset="0">
-    <frame z="59" duration="1">
+    <frame z="61" duration="1">
      <transform x="23.5" y="9.73" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="body_wh" scale="1" offset="0">
-    <frame z="60" duration="1">
+    <frame z="62" duration="1">
      <transform x="168" y="-68" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="body_b_wh" scale="1" offset="0">
-    <frame z="61" duration="1">
+    <frame z="63" duration="1">
      <transform x="167.5" y="-35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="head_wh" scale="1" offset="0">
-    <frame z="62" duration="1">
+    <frame z="64" duration="1">
      <transform x="125" y="-61.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="head_b_wh" scale="1" offset="0">
-    <frame z="63" duration="1">
+    <frame z="65" duration="1">
      <transform x="144" y="-95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handLeft_wh" scale="1" offset="0">
-    <frame z="64" duration="1">
+    <frame z="66" duration="1">
      <transform x="146" y="-25.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handLeft_b_wh" scale="1" offset="0">
-    <frame z="65" duration="1">
+    <frame z="67" duration="1">
      <transform x="109" y="-20" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legLeft_wh" scale="1" offset="0">
-    <frame z="66" duration="1">
+    <frame z="68" duration="1">
      <transform x="161" y="-14.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legLeft_b_wh" scale="1" offset="0">
-    <frame z="67" duration="1">
+    <frame z="69" duration="1">
      <transform x="121" y="8.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handRight_wh" scale="1" offset="0">
-    <frame z="68" duration="1">
+    <frame z="70" duration="1">
      <transform x="157" y="9" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="handRight_b_wh" scale="1" offset="0">
-    <frame z="69" duration="1">
+    <frame z="71" duration="1">
      <transform x="135" y="-17.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legRight_wh" scale="1" offset="0">
-    <frame z="70" duration="1">
+    <frame z="72" duration="1">
      <transform x="143.5" y="0.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="legRight_b_wh" scale="1" offset="0">
-    <frame z="71" duration="1">
+    <frame z="73" duration="1">
      <transform x="172.5" y="-2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="tail_wh" scale="1" offset="0">
-    <frame z="72" duration="1">
+    <frame z="74" duration="1">
      <transform x="101.5" y="-1.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="lid_l_green" scale="1" offset="0">
-    <frame z="73" duration="1">
+    <frame z="75" duration="1">
      <transform x="-84.1" y="-65.72" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="lid_r_green" scale="1" offset="0">
-    <frame z="74" duration="1">
+    <frame z="76" duration="1">
      <transform x="-70.6" y="-66.72" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
+   <timeline name="lid_l_brown" scale="1" offset="0">
+    <frame z="77" duration="1">
+     <transform x="-84.42" y="-79.03" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="body_br" scale="1" offset="0">
+    <frame z="78" duration="1">
+     <transform x="144" y="49.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="body_b_br" scale="1" offset="0">
+    <frame z="79" duration="1">
+     <transform x="161" y="44" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="handLeft_br" scale="1" offset="0">
+    <frame z="80" duration="1">
+     <transform x="-2.5" y="18" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="handRight_br" scale="1" offset="0">
+    <frame z="81" duration="1">
+     <transform x="40.75" y="18.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="handRight_b_br" scale="1" offset="0">
+    <frame z="82" duration="1">
+     <transform x="40.25" y="40.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="tail_br" scale="1" offset="0">
+    <frame z="83" duration="1">
+     <transform x="36.25" y="10.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="bant_1" scale="1" offset="0">
+    <frame z="84" duration="1">
+     <transform x="186.63" y="-17.27" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="bant_2" scale="1" offset="0">
+    <frame z="85" duration="1">
+     <transform x="209.88" y="-3.52" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="bant_3" scale="1" offset="0">
+    <frame z="86" duration="1">
+     <transform x="194.88" y="11.73" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="bant_4" scale="1" offset="0">
+    <frame z="87" duration="1">
+     <transform x="239.88" y="11.73" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="bant_5" scale="1" offset="0">
+    <frame z="88" duration="1">
+     <transform x="209.88" y="-19.27" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="bant_6" scale="1" offset="0">
+    <frame z="89" duration="1">
+     <transform x="186.63" y="-33.65" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="bant_7" scale="1" offset="0">
+    <frame z="90" duration="1">
+     <transform x="220" y="31.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="bant_8" scale="1" offset="0">
+    <frame z="91" duration="1">
+     <transform x="175.88" y="-56.8" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="handLeft_b_br" scale="1" offset="0">
+    <frame z="92" duration="1">
+     <transform x="26.48" y="54" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="legLeft_br" scale="1" offset="0">
+    <frame z="93" duration="1">
+     <transform x="198.5" y="6.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="legRight_br" scale="1" offset="0">
+    <frame z="94" duration="1">
+     <transform x="198.75" y="26.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="lid_r_brown" scale="1" offset="0">
+    <frame z="95" duration="1">
+     <transform x="-70.6" y="-78.8" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
    <timeline name="lid_l_white" scale="1" offset="0">
-    <frame z="75" duration="1">
+    <frame z="96" duration="1">
      <transform x="-84.1" y="-51.22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="lid_r_white" scale="1" offset="0">
-    <frame z="76" duration="1">
+    <frame z="97" duration="1">
      <transform x="-70.6" y="-52.22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
+   <timeline name="head_br" scale="1" offset="0">
+    <frame z="98" duration="1">
+     <transform x="-70.5" y="25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="head_b_br" scale="1" offset="0">
+    <frame z="99" duration="1">
+     <transform x="-74.75" y="68.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
    <timeline name="lid_l_orange" scale="1" offset="0">
-    <frame z="77" duration="1">
+    <frame z="100" duration="1">
      <transform x="-84.1" y="-36.22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="lid_r_orange" scale="1" offset="0">
-    <frame z="78" duration="1">
+    <frame z="101" duration="1">
      <transform x="-70.6" y="-37.22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="lid_l_pink" scale="1" offset="0">
-    <frame z="79" duration="1">
+    <frame z="102" duration="1">
      <transform x="-84.1" y="-21.22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="lid_r_pink" scale="1" offset="0">
-    <frame z="80" duration="1">
+    <frame z="103" duration="1">
      <transform x="-70.6" y="-22.22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>

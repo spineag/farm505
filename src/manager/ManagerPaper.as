@@ -18,6 +18,7 @@ public class ManagerPaper {
             if (int(ar[i].user_id == g.user.userId)) continue;
             ob = {};
             ob.id = int(ar[i].id);
+            ob.level = int(ar[i].level);
             ob.resourceId = int(ar[i].resource_id);
             ob.resourceCount = int(ar[i].resource_count);
             ob.userId = int(ar[i].user_id);

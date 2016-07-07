@@ -18,6 +18,7 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import utils.IsoUtils;
+import utils.MCScaler;
 import utils.Point3D;
 
 public class OrderCat {
@@ -27,6 +28,9 @@ public class OrderCat {
     public static var ORANGE:int = 4;
     public static var PINK:int = 5;
     public static var WHITE:int = 6;
+    public static var BROWN:int = 7;
+
+    public static var ALL_CAT_COLORS:int = 7;
 
     public static var LONG_OUTTILE_WALKING:int=1;
     public static var SHORT_OUTTILE_WALKING:int=2;
@@ -48,6 +52,7 @@ public class OrderCat {
     private var _queuePosition:int;
     private var _currentPath:Array;
     public var walkPosition:int;
+    public var bant:int;
     private var _arriveCallback:Function;
     protected var g:Vars = Vars.getInstance();
 
@@ -65,11 +70,13 @@ public class OrderCat {
         _catBackImage.addChild(armatureBack.display as Sprite);
         WorldClock.clock.add(armature);
         WorldClock.clock.add(armatureBack);
-
+        bant = 0;
         if (_typeCat != BLACK) {
             changeCatTexture();
         } else {
             heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head', '_black', false);
+            var b:Bone = armature.getBone('bant');
+            b.visible = false;
         }
         _source.addChild(_catImage);
         _source.addChild(_catBackImage);
@@ -158,6 +165,7 @@ public class OrderCat {
             case BLACK:   st = '';   st2 = '_black'; isWoman = false; break;
             case BLUE:   st = '_bl'; st2 = '_blue';  isWoman = false; break;
             case GREEN:  st = '_gr'; st2 = '_green'; isWoman = false; break;
+            case BROWN:  st = '_br'; st2 = '_brown'; isWoman = false; break;
             case ORANGE: st = '_or'; st2 = '_orange'; isWoman = true;  break;
             case PINK:   st = '_pk'; st2 = '_pink'; isWoman = true;  break;
             case WHITE:  st = '_wh'; st2 = '_white';  isWoman = true;  break;
@@ -166,9 +174,18 @@ public class OrderCat {
         releaseBackTexture(st);
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, isWoman);
         if (!isWoman) {
-            var bant:Bone = armature.getBone('bant');
-            bant.visible = false;
-        }
+            var b:Bone = armature.getBone('bant');
+            b.visible = false;
+
+        } else  chengeBant(int(Math.random() * 8 + 1));
+    }
+    private function chengeBant(n:int):void {
+        var str:String = 'bant_'+ n;
+        bant = n;
+        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
+        var b:Bone = armature.getBone('bant');
+        b.display.dispose();
+        b.display = im;
     }
 
     private function releaseFrontTexture(st:String):void {
