@@ -42,7 +42,7 @@ public class User extends Someone {
     public var decorShop:Boolean;
     public var decorShiftShop:int;
     public var userGAcid:String = 'unknown';
-
+    public var paperShift:int;
     public var buyMarketTab:int;
     private var g:Vars = Vars.getInstance();
 

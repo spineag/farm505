@@ -1,10 +1,10 @@
 <dragonBones name="loom" frameRate="30" version="2.3">
  <armature name="fabrica">
-  <bone name="top">
-   <transform x="1.5" y="76" skX="0" skY="0" scX="1" scY="1"/>
-  </bone>
   <bone name="osnova">
-   <transform x="-1.02" y="55.5" skX="0" skY="0" scX="1" scY="1"/>
+   <transform x="-0.52" y="52.2" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="Layer 2">
+   <transform x="1.48" y="44.28" skX="0" skY="0" scX="1" scY="1"/>
   </bone>
   <bone name="orang">
    <transform x="-19.67" y="43.03" skX="0" skY="0" scX="1" scY="1"/>
@@ -61,14 +61,14 @@
    <transform x="-9.35" y="-3.57" skX="-12.99" skY="-12.99" scX="1" scY="1"/>
   </bone>
   <skin name="default">
-   <slot name="top" parent="top" z="0">
-    <display name="loom_l4.png" type="image">
-     <transform x="-47" y="-29.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+   <slot name="osnova" parent="osnova" z="0">
+    <display name="loom.png" type="image">
+     <transform x="-107.25" y="-54.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
-   <slot name="osnova" parent="osnova" z="1">
-    <display name="loom_l1.png" type="image">
-     <transform x="-106.25" y="-55.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+   <slot name="Layer 2" parent="Layer 2" z="1">
+    <display name="__dbTextures/fabrica/Layer 2_0" type="image">
+     <transform x="-88.27" y="-22.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </display>
    </slot>
    <slot name="orang" parent="orang" z="2">
@@ -166,14 +166,14 @@
    </slot>
   </skin>
   <animation name="idle" fadeInTime="0" duration="1" scale="1" loop="0" autoTween="1" tweenEasing="NaN">
-   <timeline name="top" scale="1" offset="0">
+   <timeline name="osnova" scale="1" offset="0">
     <frame z="0" duration="1">
-     <transform x="1.5" y="76" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-0.52" y="52.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
-   <timeline name="osnova" scale="1" offset="0">
-    <frame z="1" duration="1">
-     <transform x="-1.02" y="55.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="1" tweenEasing="NaN" duration="1">
+     <transform x="1.48" y="44.28" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="orang" scale="1" offset="0">
@@ -202,15 +202,15 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="over" fadeInTime="0" duration="14" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
-   <timeline name="top" scale="1" offset="0">
-    <frame z="0" duration="14">
-     <transform x="1.5" y="76" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+  <animation name="over" fadeInTime="0" duration="14" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+   <timeline name="osnova" scale="1" offset="0">
+    <frame z="0" duration="219">
+     <transform x="-0.52" y="52.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
-   <timeline name="osnova" scale="1" offset="0">
-    <frame z="1" duration="14">
-     <transform x="-1.02" y="55.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="1" tweenEasing="NaN" duration="219">
+     <transform x="1.48" y="44.28" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="orang" scale="1" offset="0">
@@ -300,14 +300,14 @@
    </timeline>
   </animation>
   <animation name="idle1" fadeInTime="0" duration="73" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
-   <timeline name="top" scale="1" offset="0">
-    <frame z="0" duration="73">
-     <transform x="1.5" y="76" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+   <timeline name="osnova" scale="1" offset="0">
+    <frame z="0" duration="205">
+     <transform x="-0.52" y="52.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
-   <timeline name="osnova" scale="1" offset="0">
-    <frame z="1" duration="73">
-     <transform x="-1.02" y="55.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="1" tweenEasing="NaN" duration="205">
+     <transform x="1.48" y="44.28" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="orang" scale="1" offset="0">
@@ -1191,14 +1191,14 @@
    </timeline>
   </animation>
   <animation name="idle2" fadeInTime="0" duration="42" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
-   <timeline name="top" scale="1" offset="0">
+   <timeline name="osnova" scale="1" offset="0">
     <frame z="0" duration="132">
-     <transform x="1.5" y="76" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-0.52" y="52.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
-   <timeline name="osnova" scale="1" offset="0">
-    <frame z="1" duration="132">
-     <transform x="-1.02" y="55.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="1" tweenEasing="NaN" duration="132">
+     <transform x="1.48" y="44.28" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="orang" scale="1" offset="0">
@@ -1365,14 +1365,14 @@
    </timeline>
   </animation>
   <animation name="idle3" fadeInTime="0" duration="33" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
-   <timeline name="top" scale="1" offset="0">
+   <timeline name="osnova" scale="1" offset="0">
     <frame z="0" duration="90">
-     <transform x="1.5" y="76" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-0.52" y="52.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
-   <timeline name="osnova" scale="1" offset="0">
-    <frame z="1" duration="90">
-     <transform x="-1.02" y="55.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="1" tweenEasing="NaN" duration="90">
+     <transform x="1.48" y="44.28" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="orang" scale="1" offset="0">
@@ -1516,14 +1516,14 @@
    </timeline>
   </animation>
   <animation name="idle4" fadeInTime="0" duration="57" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
-   <timeline name="top" scale="1" offset="0">
+   <timeline name="osnova" scale="1" offset="0">
     <frame z="0" duration="57">
-     <transform x="1.5" y="76" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="-0.52" y="52.2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
-   <timeline name="osnova" scale="1" offset="0">
-    <frame z="1" duration="57">
-     <transform x="-1.02" y="55.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+   <timeline name="Layer 2" scale="1" offset="0">
+    <frame z="1" tweenEasing="NaN" duration="57">
+     <transform x="1.48" y="44.28" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
    <timeline name="orang" scale="1" offset="0">

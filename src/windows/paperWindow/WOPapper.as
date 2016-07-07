@@ -114,9 +114,13 @@ public class WOPapper extends WindowMain {
         if (_arrPaper.length > 60) _arrPaper.length = 60;
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
+
         createPages();
         checkArrows();
         checkPapperTimer();
+//        if (g.user.paperShift > 1) {
+//            moveNext();
+//        }
         if (g.userTimer.timerAtPapper <= 0) {
             g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
             startPapperTimer();
@@ -194,6 +198,8 @@ public class WOPapper extends WindowMain {
 
     private function afterMoveNext():void {
         _shiftPages +=2;
+        g.user.paperShift = _shiftPages;
+        trace(g.user.paperShift + 'afterMoveNext');
         _source.removeChild(_flipPage);
         _flipPage.deleteIt();
         _flipPage = null;
@@ -247,6 +253,8 @@ public class WOPapper extends WindowMain {
 
     private function afterMovePrev():void {
         _shiftPages -=2;
+        g.user.paperShift = _shiftPages;
+        trace(g.user.paperShift + 'afterMovePrev');
         _source.removeChild(_flipPage);
         _flipPage.deleteIt();
         _flipPage = null;
