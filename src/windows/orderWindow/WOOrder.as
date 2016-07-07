@@ -730,11 +730,9 @@ public class WOOrder extends WindowMain{
 
     private function killCatsAnimations():void {
         if (!_armatureCustomer) {
-            trace ('_armatureCustomer');
             return;
         }
         if (!_armatureSeller) {
-            trace ('_armatureSeller');
             return;
         }
         stopCatsAnimations();

@@ -48,7 +48,6 @@ public class ToolsModifier {
     private var _modifierType:int;
     private var _mouseIcon:Sprite;
     private var _mouseCont:Sprite;
-    public var contImage:Sprite;
     private var _plantId:int;
     private var _ridgeId:int;
     private var _txtCount:TextField;
@@ -62,7 +61,6 @@ public class ToolsModifier {
         _callbackAfterMove = null;
         _modifierType = NONE;
         _mouseIcon = new Sprite();
-        contImage = new Sprite();
         _plantId = -1;
         _txtCount = new TextField(50,40,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtCount.x = 18;
@@ -74,7 +72,6 @@ public class ToolsModifier {
     }
 
     public function set modifierType(a:int):void {
-        trace('toolsModifier:: set ' + a);
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (_modifierType == PLANT_SEED) {
             g.managerPlantRidge.lockAllFillRidge(false); // unlock all not empty ridges
@@ -140,6 +137,7 @@ public class ToolsModifier {
              case NONE:
                  _plantId = -1;
                  if(_mouseCont.contains(_mouseIcon)) _mouseCont.removeChild(_mouseIcon);
+                 while (_mouseIcon.numChildren) _mouseIcon.removeChildAt(0);
                  g.gameDispatcher.removeEnterFrame(moveMouseIcon);
                  _mouseIcon.scaleX = _mouseIcon.scaleY = 1;
                  return;
@@ -171,7 +169,7 @@ public class ToolsModifier {
             case PLANT_SEED:
                 if (_plantId <= 0) return;
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle'));
-                _mouseCont.addChild(im);
+                _mouseIcon.addChild(im);
                 im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_plantId].imageShop + '_icon'));
                 if (im) {
                     MCScaler.scale(im, 40, 40);
@@ -181,10 +179,10 @@ public class ToolsModifier {
                 }
                 if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
                 var im2:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_number_circle"));
-                im2.x = _mouseCont.width - 27;
-                im2.y = _mouseCont.height - 23;
-                _mouseCont.addChild(im2);
-                if (!_mouseCont.contains(_txtCount)) _mouseCont.addChild(_txtCount);
+                im2.x = _mouseIcon.width - 27;
+                im2.y = _mouseIcon.height - 23;
+                _mouseIcon.addChild(im2);
+                if (!_mouseIcon.contains(_txtCount)) _mouseIcon.addChild(_txtCount);
                 updateCountTxt();
                 break;
             case ADD_NEW_RIDGE:
@@ -196,7 +194,7 @@ public class ToolsModifier {
         }
         if (im) {
             if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
-            MCScaler.scale(_mouseIcon, 40, 40);
+//            MCScaler.scale(_mouseIcon, 40, 40);
             g.gameDispatcher.addEnterFrame(moveMouseIcon);
         }
      }
@@ -219,8 +217,8 @@ public class ToolsModifier {
     }
 
     private function moveMouseIcon():void{
-        _mouseCont.x = g.ownMouse.mouseX + 15;
-        _mouseCont.y = g.ownMouse.mouseY + 5;
+        _mouseIcon.x = g.ownMouse.mouseX + 15;
+        _mouseIcon.y = g.ownMouse.mouseY + 5;
     }
 
     public function  startMove(selectedBuild:WorldObject, callback:Function=null, isFromShop:Boolean = false):void {

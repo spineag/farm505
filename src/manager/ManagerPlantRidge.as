@@ -231,7 +231,6 @@ public class ManagerPlantRidge {
     }
 
     public function onStartActivePlanting(isStart:Boolean):void {
-        trace('activePlanting: ' + isStart);
         if (g.managerTutorial.isTutorial) return;
         if (isStart) {
             g.gameDispatcher.addEnterFrame(checkForPlanting);

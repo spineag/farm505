@@ -32,7 +32,6 @@ public class NodeServer {
     }
 
     static private function completeTest(response:String):void {
-        trace('asdasdasd');
     }
 }
 }

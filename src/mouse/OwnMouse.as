@@ -23,11 +23,9 @@ public class OwnMouse {
     public static const HOVER_CURSOR:String = 'cursor_hover';
     public static const CLICK_CURSOR:String = 'cursor_click';
 
-    private var _cont:Sprite;
     private var g:Vars = Vars.getInstance();
 
     public function OwnMouse() {
-        _cont = g.cont.mouseCont;
         CreateMouseCursor();
     }
 

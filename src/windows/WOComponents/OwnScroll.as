@@ -68,11 +68,9 @@ public class OwnScroll {
             _box.y = _startDragSourcePoint + _delta  - _box.height/2;
             if (_box.y > _size - _box.height/2) {
                 _box.y = _size - _box.height/2;
-                trace('_box.y > _size - _box.height/2');
             }
             if (_box.y <_box.height/2) {
                 _box.y = _box.height/2;
-                trace('_box.y <_box.height/2');
             }
             _percent = _box.y / (_size - _box.height - 8);
         } else {
