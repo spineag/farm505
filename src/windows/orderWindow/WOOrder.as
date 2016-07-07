@@ -633,9 +633,9 @@ public class WOOrder extends WindowMain{
         var viyi:Bone = _armatureSeller.getBone('viyi');
         if (viyi) {
             viyi.visible = false;
-            var bant:Bone = _armatureSeller.getBone('bant');
-            if (bant) bant.visible = false;
         }
+        var bant:Bone = _armatureCustomer.getBone('bant');
+        if (bant) bant.visible = false;
 //        viyi = _armatureCustomer.getBone('viyi');
 //        if (viyi) viyi.visible = false;
 
@@ -658,20 +658,31 @@ public class WOOrder extends WindowMain{
             case OrderCat.BLACK:  st = '';    isWoman = false; break;
         }
         releaseFrontTexture(st);
-//        if (!isWoman) {
-//            var b:Bone = _armatureCustomer.getBone('bant');
-//            b.visible = false;
-//
-//        } else  chengeBant(_arrOrders[pos].cat.bant);
+        var b:Bone = _armatureCustomer.getBone('bant');
+        if (!isWoman)  b.visible = false;
+            else changeBant(_arrOrders[pos].cat.bant, b);
 //        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);
     }
 
-    private function chengeBant(n:int):void {
-        var str:String = 'bant_'+ n;
-        var im:Image = g.allData.factory['orderWindow'].getTextureDisplay(str) as Image;
-        var b:Bone = _armatureCustomer.getBone('bant');
-        b.display.dispose();
-        b.display = im;
+    private function changeBant(n:int, b:Bone):void {
+        var str:String = 'bant_'+ String(n);
+        if (n == 1) str = 'bant';
+        var im:Image = g.allData.factory['orderWindow'].getTextureDisplay('bants/' + str) as Image;
+        if (b) {
+            b.visible = true;
+            if (b.display) {
+                if (im) {
+                    b.display.dispose();
+                    b.display = im;
+                } else {
+                    Cc.error('WOOrder changeBant:: no bant image for: ' + n);
+                }
+            } else {
+                Cc.error('WOOrder changeBant:: bant.display == null');
+            }
+        } else {
+            Cc.error('WOOrder changeBant:: no bant bone');
+        }
     }
 
     private function releaseFrontTexture(st:String):void {
@@ -686,8 +697,12 @@ public class WOOrder extends WindowMain{
         var b:Bone = arma.getBone(oldName);
         if (b) {
             if (im) {
-                b.display.dispose();
-                b.display = im;
+                if (b.display) {
+                    b.display.dispose();
+                    b.display = im;
+                } else {
+                    Cc.error('WOOrder changeTexture:: no bone.display - ' + oldName);
+                }
             } else {
                 Cc.error('WOOrder changeTexture:: no such image - ' + newName);
             }
