@@ -684,8 +684,16 @@ public class WOOrder extends WindowMain{
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
         var im:Image = g.allData.factory['orderWindow'].getTextureDisplay(newName) as Image;
         var b:Bone = arma.getBone(oldName);
-        b.display.dispose();
-        b.display = im;
+        if (b) {
+            if (im) {
+                b.display.dispose();
+                b.display = im;
+            } else {
+                Cc.error('WOOrder changeTexture:: no such image - ' + newName);
+            }
+        } else {
+            Cc.error('WOOrder changeTexture:: no such bone - ' + oldName);
+        }
     }
     private function startAnimationCats():void {
         WorldClock.clock.add(_armatureCustomer);
@@ -741,12 +749,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function stopCatsAnimations():void {
-        if (!_armatureCustomer) {
-            trace ('_armatureCustomer');
-            return;
-        }
-        if (!_armatureSeller) {
-            trace ('_armatureSeller');
+        if (!_armatureCustomer || !_armatureSeller) {
             return;
         }
         _armatureCustomer.animation.gotoAndStop('idle1', 0);
