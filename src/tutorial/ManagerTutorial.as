@@ -2084,6 +2084,7 @@ public class ManagerTutorial {
     }
 
     public function onResize():void {
+        Cc.info('tuts: onResize');
         if (black) {
             removeBlack();
             addBlack();
