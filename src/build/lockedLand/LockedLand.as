@@ -171,10 +171,12 @@ public class LockedLand extends WorldObject {
             if (!checkIsFree()) {
                 var p0:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
                 p0.y -= 50;
+                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 new FlyMessage(p0,"Откройте соседние территории");
                 return;
             }
             if (g.user.level < _dataLand.blockByLevel) {
+                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
                 p.y -= 50;
                 new FlyMessage(p,"Будет доступно на " + String(_dataLand.blockByLevel) + ' уровне');

@@ -15,6 +15,9 @@ import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 import resourceItem.RawItem;
 import starling.textures.Texture;
@@ -271,8 +274,18 @@ public class Animal {
             } else new RawItem(p, texture, 1, 0);
             if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
             if (_data.id != 6) {
+                if (_data.id == 1) {
+                    g.soundManager.playSound(SoundConst.RAW_CHICKEN);
+                } else if (_data.id == 2) {
+                    g.soundManager.playSound(SoundConst.RAW_COW);
+                } else if (_data.id == 3) {
+                    g.soundManager.playSound(SoundConst.RAW_PIG);
+                } else if (_data.id == 7) {
+                    g.soundManager.playSound(SoundConst.RAW_SHEEP);
+                }
                 showFeedingAnimation();
             } else {
+//                g.soundManager.playSound(SoundConst);
                 addRenderAnimation();
             }
             onOut();

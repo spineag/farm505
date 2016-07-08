@@ -6,6 +6,9 @@ import data.BuildType;
 import data.DataMoney;
 import manager.OwnEvent;
 import manager.Vars;
+
+import media.SoundConst;
+
 import starling.events.Event;
 
 public class UserInventory {
@@ -137,10 +140,12 @@ public class UserInventory {
     public function addMoney(typeCurrency:int, count:int,needSendToServer:Boolean = true):void {
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
+                g.soundManager.playSound(SoundConst.COINS_PLUS);
                 g.user.hardCurrency += count;
                 g.softHardCurrency.checkHard();
                 break;
             case DataMoney.SOFT_CURRENCY:
+                g.soundManager.playSound(SoundConst.COINS_PLUS);
                 g.user.softCurrencyCount += count;
                 g.softHardCurrency.checkSoft();
                 break;

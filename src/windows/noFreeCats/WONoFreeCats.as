@@ -3,6 +3,9 @@
  */
 package windows.noFreeCats {
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -50,6 +53,7 @@ public class WONoFreeCats extends WindowMain {
         im.y = -55;
         _source.addChild(im);
         txt.touchable = false;
+        SOUND_OPEN = SoundConst.WO_AHTUNG;
     }
 
     override public function showItParams(callback:Function, params:Array):void {

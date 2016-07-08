@@ -3,6 +3,9 @@
  */
 package windows.ambarFilled {
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -35,6 +38,7 @@ public class WOAmbarFilled extends WindowMain {
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
+        SOUND_OPEN = SoundConst.WO_AHTUNG;
 
         _btn = new CButton();
         _btn.clickCallback = onClick;

@@ -12,6 +12,8 @@ import manager.ManagerFilters;
 import manager.Vars;
 import manager.hitArea.OwnHitArea;
 
+import media.SoundConst;
+
 import mouse.OwnMouse;
 import starling.display.DisplayObject;
 import starling.display.Sprite;
@@ -40,6 +42,7 @@ public class CButton extends Sprite {
     private var hoverFilter:ColorMatrixFilter;
     private var disableFilter:ColorMatrixFilter;
     private var clickFilter:ColorMatrixFilter;
+    private var _isHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function CButton() {
@@ -50,6 +53,7 @@ public class CButton extends Sprite {
         hoverFilter = ManagerFilters.getButtonHoverFilter();
         disableFilter = ManagerFilters.getButtonDisableFilter();
         clickFilter = ManagerFilters.getButtonClickFilter();
+        _isHover = false;
         this.addChild(_bg);
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
@@ -217,15 +221,20 @@ public class CButton extends Sprite {
     }
 
     private function onEndClickAnimation():void {
+        g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
         _bg.filter = null;
         this.scaleX = this.scaleY = _scale;
     }
 
     private function onHoverAnimation():void {
+        if (_isHover) return;
+        _isHover = true;
         _bg.filter = hoverFilter;
+        g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
     }
 
     private function onOutAnimation():void {
+        _isHover = false;
         this.scaleX = this.scaleY = _scale;
         _bg.filter = null;
     }

@@ -9,6 +9,9 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import utils.CButton;
 import utils.MCScaler;
 import windows.*;
@@ -37,6 +40,7 @@ public class WONoResources extends WindowMain {
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
+        SOUND_OPEN = SoundConst.WO_AHTUNG;
 
         var txt:TextField = new TextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ!", g.allData.fonts['BloggerBold'], 22, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

@@ -4,6 +4,8 @@
 package windows.serverError {
 import manager.ManagerFilters;
 
+import media.SoundConst;
+
 import starling.display.Image;
 
 import starling.events.Event;
@@ -51,6 +53,7 @@ public class WOServerError extends WindowMain {
         im.y = -50;
         _source.addChild(im);
         _b.clickCallback = onClick;
+        SOUND_OPEN = SoundConst.WO_AHTUNG;
     }
 
     override public function showItParams(callback:Function, params:Array):void {

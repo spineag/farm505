@@ -277,6 +277,7 @@ public class Cave extends WorldObject{
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             if (g.user.level < _dataBuild.blockByLevel) {
+                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p1:Point = new Point(_source.x, _source.y - 100);
                 p1 = _source.parent.localToGlobal(p1);
                 new FlyMessage(p1,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');

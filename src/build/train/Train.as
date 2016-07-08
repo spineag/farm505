@@ -371,6 +371,7 @@ public class Train extends WorldObject{
                 return;
             }
             if (g.user.level < _dataBuild.blockByLevel[0]) {
+                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel[0]) + ' уровне');

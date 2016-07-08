@@ -138,7 +138,6 @@ public class WOBuyCurrency extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        if (SOUND_OPEN) g.soundManager.playSound(SOUND_OPEN);
         _isHard = params[0];
         createTabs();
         fillTabs();

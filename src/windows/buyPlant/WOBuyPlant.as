@@ -5,6 +5,9 @@ package windows.buyPlant {
 import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+
+import media.SoundConst;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -127,6 +130,7 @@ public class WOBuyPlant extends WindowMain {
         }
         if (!_ridge) _ridge = r;
         if (g.managerPlantRidge.checkIsCat(d.id)) {
+            g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
             _ridge.fillPlant(d);
             if (_callback != null) {
                 _callback.apply();

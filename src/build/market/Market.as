@@ -9,6 +9,9 @@ import dragonBones.events.AnimationEvent;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -98,6 +101,7 @@ public class Market extends WorldObject{
             var isNotAway:int = 1;
             if (g.isAway) isNotAway = 0;
             if (g.user.level < int(_dataBuild.blockByLevel) + isNotAway) {
+                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p,"Будет доступно на " + String(int(_dataBuild.blockByLevel) + isNotAway) + ' уровне');

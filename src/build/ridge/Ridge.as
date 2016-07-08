@@ -9,6 +9,9 @@ import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 import resourceItem.CraftItem;
 import resourceItem.RawItem;
@@ -86,6 +89,7 @@ public class Ridge extends WorldObject{
     }
 
     public function plantThePlant():void {
+        g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
         fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
 //        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) lockIt(true);
         g.managerPlantRidge.checkFreeRidges();
@@ -102,6 +106,7 @@ public class Ridge extends WorldObject{
             }
         } else {
             _stateRidge = EMPTY;
+            g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
             _plant.onCraftPlant();
             _plant.checkStateRidge();
             _resourceItem = new ResourceItem();

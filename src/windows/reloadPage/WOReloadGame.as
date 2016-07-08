@@ -2,6 +2,8 @@
  * Created by andy on 8/12/15.
  */
 package windows.reloadPage {
+import media.SoundConst;
+
 import starling.text.TextField;
 import starling.utils.Color;
 
@@ -23,6 +25,7 @@ public class WOReloadGame extends WindowMain{
         txt.x = -200;
         txt.y = -150;
         _source.addChild(txt);
+        SOUND_OPEN = SoundConst.WO_AHTUNG;
     }
 
     override public function showItParams(f:Function, params:Array):void {
