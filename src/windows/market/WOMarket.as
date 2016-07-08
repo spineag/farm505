@@ -519,7 +519,7 @@ public class WOMarket  extends WindowMain {
             _txtTimerPaper.text = '';
             g.gameDispatcher.removeFromTimer(onTimer);
             for (var i:int = 0; i < _curUser.marketItems.length; i++) {
-                if (_arrItems.length == 0) break;
+                if (_arrItems.length == 0 || _curUser != g.user) break;
                 else _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
             }
 //            for (var i:int = 0; i < _arrItems.length; i++) {

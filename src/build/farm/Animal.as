@@ -229,28 +229,30 @@ public class Animal {
         if (g.useDataFromServer) g.directServer.craftUserAnimal(animal_db_id, null);
     }
 
-    public function feedAnimal(last:Boolean = false):void {
+    public function feedAnimal(last:Boolean = false,show:Boolean = false):void {
         onOut();
-        if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
+        if (!show) {
+            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
 //            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
-            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
-            return;
-        } else if  (g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
+                return;
+            } else if (g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
 //            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
-            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
-            return;
-        }
-        if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onEndClick, {id:_data.idResourceRaw}, 'market');
-            return;
+                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
+                return;
+            }
+            if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onEndClick, {id: _data.idResourceRaw}, 'market');
+                return;
+            }
         }
         if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
             if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
             if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) g.userInventory.addResource(_data.idResourceRaw, -2);
-                else g.userInventory.addResource(_data.idResourceRaw, -1);
+            else g.userInventory.addResource(_data.idResourceRaw, -1);
             _timeToEnd = _data.timeCraft;
             g.gameDispatcher.addToTimer(render);
             _state = WORK;
@@ -292,7 +294,6 @@ public class Animal {
     private function onStartClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
             if (!g.managerTutorial.isTutorial) {
-                feedAnimal();
                 g.managerAnimal.activeFeedAnimalId = _data.id;
                 g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
                 _wasStartActiveFeeding = true;

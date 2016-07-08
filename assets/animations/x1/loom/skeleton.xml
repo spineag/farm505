@@ -93,10 +93,7 @@
    </slot>
    <slot name="puf" parent="puf" z="6">
     <display name="puff" type="image">
-     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="29" pY="23.25"/>
-    </display>
-    <display name="loom_l5.png" type="image">
-     <transform x="-29" y="-23.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+     <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="45" pY="23.25"/>
     </display>
    </slot>
    <slot name="handRight" parent="handRight" z="7">
@@ -388,7 +385,7 @@
     </frame>
    </timeline>
    <timeline name="puf" scale="1" offset="0">
-    <frame z="6" displayIndex="1" duration="73">
+    <frame z="6" duration="73">
      <transform x="3.03" y="41.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
@@ -1222,7 +1219,7 @@
     </frame>
    </timeline>
    <timeline name="puf" scale="1" offset="0">
-    <frame z="6" displayIndex="1" duration="132">
+    <frame z="6" duration="132">
      <transform x="3.03" y="41.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
@@ -1396,7 +1393,7 @@
     </frame>
    </timeline>
    <timeline name="puf" scale="1" offset="0">
-    <frame z="6" displayIndex="1" duration="90">
+    <frame z="6" duration="90">
      <transform x="3.03" y="41.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
@@ -1547,7 +1544,7 @@
     </frame>
    </timeline>
    <timeline name="puf" scale="1" offset="0">
-    <frame z="6" displayIndex="1" duration="57">
+    <frame z="6" duration="57">
      <transform x="3.03" y="41.25" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>

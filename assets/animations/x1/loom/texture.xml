@@ -2,11 +2,10 @@
  <SubTexture name="loom.png" x="0" y="0" width="215" height="109"/>
  <SubTexture name="__dbTextures/fabrica/Layer 2_0" x="0" y="111" width="177" height="45"/>
  <SubTexture name="orang" x="179" y="149" width="59" height="59"/>
- <SubTexture name="blue" x="61" y="158" width="56" height="58"/>
- <SubTexture name="green" x="0" y="158" width="59" height="58"/>
- <SubTexture name="yellow" x="119" y="158" width="55" height="58"/>
- <SubTexture name="puff" x="0" y="218" width="58" height="47"/>
- <SubTexture name="loom_l5.png" x="176" y="210" width="58" height="47"/>
+ <SubTexture name="blue" x="148" y="210" width="56" height="58"/>
+ <SubTexture name="green" x="87" y="158" width="59" height="58"/>
+ <SubTexture name="yellow" x="0" y="212" width="55" height="58"/>
+ <SubTexture name="puff" x="0" y="158" width="85" height="52"/>
  <SubTexture name="handRight" x="240" y="56" width="9" height="17"/>
  <SubTexture name="legLeft" x="236" y="75" width="10" height="15"/>
  <SubTexture name="body" x="217" y="65" width="17" height="25"/>

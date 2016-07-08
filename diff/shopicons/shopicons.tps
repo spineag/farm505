@@ -238,7 +238,6 @@
             <filename>gate_pink_closed_icon.png</filename>
             <filename>gate_white_closed_icon.png</filename>
             <filename>juice_press_icon.png</filename>
-            <filename>loom_icon.png</filename>
             <filename>picnic_pink_icon.png</filename>
             <filename>pie_oven_icon.png</filename>
             <filename>pig_icon.png</filename>
@@ -273,6 +272,7 @@
             <filename>fence_polka_dot_3_icon.png</filename>
             <filename>fence_polka_dot_4_icon.png</filename>
             <filename>fence_polka_dot_5_icon.png</filename>
+            <filename>loom_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
