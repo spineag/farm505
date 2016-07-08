@@ -4,6 +4,9 @@
 package windows.noPlaces {
 import data.DataMoney;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import starling.display.Image;
 import starling.events.Event;
 import starling.text.TextField;
@@ -38,6 +41,7 @@ public class WONoPlaces extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(hideIt);
+        SOUND_OPEN = SoundConst.WO_AHTUNG;
 
         _btn = new CButton();
         _btn.addButtonTexture(200, 40, CButton.GREEN, true);

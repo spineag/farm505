@@ -226,7 +226,6 @@ public class WOMarket  extends WindowMain {
     }
 
     override public function showItParams(f:Function, params:Array):void {
-        if (SOUND_OPEN) g.soundManager.playSound(SOUND_OPEN);
         _arrFriends = [];
         fillFriends();
         _countPage = 1;

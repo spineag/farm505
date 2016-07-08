@@ -9,6 +9,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 
 import starling.animation.Tween;
@@ -76,6 +78,7 @@ public class XPPanel {
     }
 
     public function addXP(count:int):void{
+        g.soundManager.playSound(SoundConst.XP_PLUS);
         g.user.xp += count;
         g.user.globalXP += count;
         if (count && g.useDataFromServer)

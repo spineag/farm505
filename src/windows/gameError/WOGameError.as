@@ -5,11 +5,12 @@ package windows.gameError {
 import flash.events.Event;
 import manager.ManagerFilters;
 
+import media.SoundConst;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
-import windows.WOComponents.Birka;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -51,6 +52,7 @@ public class WOGameError extends WindowMain {
         im.y = -50;
         _source.addChild(im);
         _b.clickCallback = onClick;
+        SOUND_OPEN = SoundConst.WO_AHTUNG;
     }
 
     override public function showItParams(callback:Function, params:Array):void {

@@ -9,6 +9,9 @@ import dragonBones.animation.WorldClock;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import mouse.ToolsModifier;
 import starling.display.Sprite;
 import windows.WindowsManager;
@@ -85,6 +88,7 @@ public class Paper extends WorldObject{
                 return;
             }
             if (g.user.level < _dataBuild.blockByLevel) {
+                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');

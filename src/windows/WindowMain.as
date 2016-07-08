@@ -4,6 +4,9 @@
 package windows {
 import com.greensock.TweenMax;
 import manager.Vars;
+
+import media.SoundConst;
+
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Quad;
@@ -35,6 +38,7 @@ public class WindowMain {
         _source.y = g.stageHeight/2;
         _woHeight = 0;
         _woWidth = 0;
+        SOUND_OPEN = SoundConst.DEFAULT_WINDOW;
     }
 
     public function get windowType():String {
@@ -44,6 +48,7 @@ public class WindowMain {
     public function showItParams(callback:Function, params:Array):void { }
 
     public function showIt():void {
+        if (SOUND_OPEN) g.soundManager.playSound(SOUND_OPEN);
         g.hideAllHints();//?
         if (_source) {
             createBlackBG();

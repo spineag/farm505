@@ -324,7 +324,7 @@ public class Wild extends WorldObject{
             }
         }
         new RemoveWildAnimation(_source, onEndAnimation, onEndAnimationTotal, _dataBuild.removeByResourceId);
-        g.soundManager.playSound(SoundConst.REMOVE_WILD);
+        g.soundManager.playSound(SoundConst.DELETE_WILD);
         _delete = true;
         g.wildHint.managerHide();
     }
