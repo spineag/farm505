@@ -11,6 +11,9 @@ import heroes.BasicCat;
 import heroes.OrderCat;
 import manager.Vars;
 import manager.hitArea.OwnHitArea;
+
+import mouse.ToolsModifier;
+
 import starling.display.DisplayObject;
 import starling.display.Sprite;
 import starling.events.Touch;
@@ -246,6 +249,9 @@ public class TownAreaTouchManager {
             ar.length = 0;
         } else {
             if (_touch.phase == TouchPhase.ENDED) {
+                if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+                    g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
+                }
                 g.cont.onEnded();
 //            } else if (_touch.phase == TouchPhase.BEGAN) {
 //            } else if (_touch.phase == TouchPhase.HOVER) {

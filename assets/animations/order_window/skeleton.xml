@@ -93,7 +93,7 @@
    </slot>
    <slot name="viyi" parent="viyi" z="12">
     <display name="viyi" type="image">
-     <transform x="0.05" y="0" skX="0" skY="0" scX="1" scY="1" pX="33.7" pY="10"/>
+     <transform x="0.05" y="0" skX="0" skY="0" scX="1" scY="1" pX="30.55" pY="10"/>
     </display>
    </slot>
    <slot name="Layer 3" parent="Layer 3" z="8">
@@ -1111,7 +1111,7 @@
    </slot>
    <slot name="viyi" parent="viyi" z="7">
     <display name="viyi" type="image">
-     <transform x="0.05" y="0" skX="0" skY="0" scX="1" scY="1" pX="33.7" pY="10"/>
+     <transform x="0.05" y="0" skX="0" skY="0" scX="1" scY="1" pX="30.55" pY="10"/>
     </display>
    </slot>
    <slot name="top" parent="top" z="8">

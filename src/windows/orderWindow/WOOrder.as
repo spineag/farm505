@@ -727,10 +727,10 @@ public class WOOrder extends WindowMain{
         switch (l) {
             case 0: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
             case 1: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
-            case 2: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
+            case 2: _armatureCustomer.animation.gotoAndPlay('speak'); break;
             case 3: _armatureCustomer.animation.gotoAndPlay('hi1'); break;
             case 4: _armatureCustomer.animation.gotoAndPlay('hi2'); break;
-            case 5: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
+            case 5: _armatureCustomer.animation.gotoAndPlay('speak_2'); break;
         }
     }
 
