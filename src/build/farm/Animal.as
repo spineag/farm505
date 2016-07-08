@@ -44,6 +44,7 @@ public class Animal {
     private var _rect:flash.geom.Rectangle;
     private var _tutorialCallback:Function;
     private var _needShowArrow:Boolean = false;
+    private var _wasStartActiveFeeding:Boolean;
 
     private var animation:AnimalAnimation;
     private var currentLabelAfterLoading:String;
@@ -67,6 +68,7 @@ public class Animal {
         _data = data;
         _isOnHover = false;
         _tutorialCallback = null;
+        _wasStartActiveFeeding = false;
 
         currentLabelAfterLoading = '';
         if (g.allData.factory[_data.url]) {
@@ -293,6 +295,7 @@ public class Animal {
                 feedAnimal();
                 g.managerAnimal.activeFeedAnimalId = _data.id;
                 g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
+                _wasStartActiveFeeding = true;
             }
         }
     }
@@ -314,12 +317,16 @@ public class Animal {
                 return;
             }
             if (!g.mouseHint.isShowedAnimalFeed) {
-                var p1:Point = new Point(0, _rect.y);
-                p1 = source.localToGlobal(p1);
-                if (_data.id == 1 || _data.id == 3) p1.y += 25;
-                g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut,false,true);
-                stopAnimation();
-                idleAnimation();
+                if (!_wasStartActiveFeeding) {
+                    var p1:Point = new Point(0, _rect.y);
+                    p1 = source.localToGlobal(p1);
+                    if (_data.id == 1 || _data.id == 3) p1.y += 25;
+                    g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut, false, true);
+                    stopAnimation();
+                    idleAnimation();
+                } else {
+                    _wasStartActiveFeeding = false;
+                }
             }
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
                 removeArrow();
