@@ -650,6 +650,7 @@ public class Fabrica extends WorldObject {
         _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
         _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
         _armatureOpen.animation.gotoAndPlay("start");
+
     }
 
     private function onBoom(e:AnimationEvent=null):void {
@@ -662,7 +663,6 @@ public class Fabrica extends WorldObject {
         if (!g.managerTutorial.isTutorial) {
             g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
         }
-
     }
 
 }

@@ -125,7 +125,7 @@ public class MarketItem {
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _costTxt.y = 101;
         _costTxt.pivotX = _costTxt.width/2;
-        _costTxt.x = _bg.width/2;
+        _costTxt.x = _bg.width/2 - 5;
 
         _countTxt = new TextField(30, 30, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _countTxt.x = 77;
@@ -281,7 +281,7 @@ public class MarketItem {
         _txtPlawka.y = 85;
         _costTxt.y = 101;
         _costTxt.pivotX = _costTxt.width/2;
-        _costTxt.x = _bg.width/2;
+        _costTxt.x = _bg.width/2 - 5;
         if (_isUser) {
             visiblePapperTimer();
         }

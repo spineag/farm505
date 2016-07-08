@@ -24,15 +24,23 @@ public class PostOpenFabric  extends WindowMain {
     private var _data:Object;
     public function PostOpenFabric() {
         super();
+//        if (g.windowsManager.currentWindow) {
+//            g.windowsManager.cashWindow = this;
+//            return;
+//        }
+//        g.windowsManager.cashWindow = this;
         _woHeight = 430;
         _woWidth = 620;
-        var st:String = g.dataPath.getGraphicsPath();
-        g.load.loadImage(st + 'wall/wall_new_fabric.png',onLoad);
+
+
     }
 
     override public function showItParams(callback:Function, params:Array):void {
         super.showIt();
         _data = params[0];
+        var st:String = g.dataPath.getGraphicsPath();
+        g.load.loadImage(st + 'wall/wall_new_fabric.png',onLoad);
+//        g.windowsManager.cashWindow = this;
     }
 
     private function onLoad(bitmap:Bitmap):void {
@@ -42,7 +50,7 @@ public class PostOpenFabric  extends WindowMain {
             photoFromTexture(Texture.fromBitmap(bitmap));
         } catch (e:Error) {
             Cc.error('PostOpenFabrica:: ' + e.message);
-            super.hideIt();
+            hideIt();
         }
     }
 
@@ -90,6 +98,11 @@ public class PostOpenFabric  extends WindowMain {
 
     private function onClick():void {
 //        g.managerWallPost.openWindow(ManagerWallPost.NEW_FABRIC,null,200,DataMoney.SOFT_CURRENCY,_data);
+        hideIt();
+    }
+
+    override public function hideIt():void {
+//        g.windowsManager.uncasheWindow();
         super.hideIt();
     }
 

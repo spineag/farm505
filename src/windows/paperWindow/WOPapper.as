@@ -118,15 +118,16 @@ public class WOPapper extends WindowMain {
         createPages();
         checkArrows();
         checkPapperTimer();
-//        if (g.user.paperShift > 1) {
-//            moveNext();
-//        }
         if (g.userTimer.timerAtPapper <= 0) {
             g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
             startPapperTimer();
             g.directServer.getUserPapperBuy(getUserPapper);
             _btnRefreshBlue.setEnabled = false;
             _btnRefreshGreen.setEnabled = true;
+            g.user.paperShift = 1;
+        }
+        if (g.user.paperShift > 1) {
+            moveNext();
         }
         super.showIt();
     }
@@ -199,7 +200,6 @@ public class WOPapper extends WindowMain {
     private function afterMoveNext():void {
         _shiftPages +=2;
         g.user.paperShift = _shiftPages;
-        trace(g.user.paperShift + 'afterMoveNext');
         _source.removeChild(_flipPage);
         _flipPage.deleteIt();
         _flipPage = null;
@@ -254,7 +254,6 @@ public class WOPapper extends WindowMain {
     private function afterMovePrev():void {
         _shiftPages -=2;
         g.user.paperShift = _shiftPages;
-        trace(g.user.paperShift + 'afterMovePrev');
         _source.removeChild(_flipPage);
         _flipPage.deleteIt();
         _flipPage = null;
@@ -361,7 +360,7 @@ public class WOPapper extends WindowMain {
             _txtTimer.x = 25;
             g.gameDispatcher.removeFromTimer(onTimer);
             g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
-
+            g.user.paperShift = 1;
         }
     }
 
@@ -372,6 +371,7 @@ public class WOPapper extends WindowMain {
 //        g.directServer.getPaperItems(fillAfterRefresh);
         _btnRefreshBlue.setEnabled = false;
         _btnRefreshGreen.setEnabled = true;
+        g.user.paperShift = 1;
     }
 
     private function onGreenRefresh():void {
@@ -385,6 +385,7 @@ public class WOPapper extends WindowMain {
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         startPapperTimer();
         g.directServer.getUserPapperBuy(getUserPapper);
+        g.user.paperShift = 1;
     }
 
     private function getUserPapper():void {
