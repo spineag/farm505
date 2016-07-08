@@ -628,7 +628,7 @@ public class WOMarket  extends WindowMain {
         new TweenMax(_contItemCell, .5, {x: -_shift * 125, ease: Linear.easeNone});
         _countPage = 1;
         _curUser = _person;
-        if (_curUser.marketCell < 0) {
+        if (_curUser.marketCell < 0 || _curUser != g.user) {
             if (_curUser is NeighborBot) {
                 g.directServer.getUserNeighborMarket(onChoosePerson);
             } else {
