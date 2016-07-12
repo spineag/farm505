@@ -11,6 +11,7 @@ import build.decor.DecorFence;
 import build.decor.DecorPostFence;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
+import build.farm.Animal;
 import build.farm.Farm;
 import build.lockedLand.LockedLand;
 import build.market.Market;
@@ -270,14 +271,14 @@ public class TownArea extends Sprite {
                 if (_townMatrix[i][j].build && _townMatrix[i][j].build is LockedLand && source is Wild) {
                     continue;
                 }
-                _freePlace.fillCell(j, i);
-                _townMatrix[i][j].isTutorialBuilding = false;
-                _townMatrix[i][j].build = source;
-                _townMatrix[i][j].isFull = true;
-                if (sizeX > 1 && sizeY > 1) {
-                    if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
-                        _townMatrix[i][j].isWall = true;
-                }
+                    _freePlace.fillCell(j, i);
+                    _townMatrix[i][j].isTutorialBuilding = false;
+                    _townMatrix[i][j].build = source;
+                    _townMatrix[i][j].isFull = true;
+                    if (sizeX > 1 && sizeY > 1) {
+                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
+                            _townMatrix[i][j].isWall = true;
+                    }
             }
         }
 
@@ -287,6 +288,54 @@ public class TownArea extends Sprite {
             _objBuildingsDiagonals[String(posX) + '-' + String(posY+sizeY-1) + '-' + String(posX+1) + '-' + String(posY+sizeY)] = true;
             _objBuildingsDiagonals[String(posX+sizeX-1) + '-' + String(posY+sizeY) + '-' + String(posX+sizeX) + '-' + String(posY+sizeY-1)] = true;
         }
+    }
+    private var i:int;
+    private var j:int;
+    private var obj:Object;
+    public function checkFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
+        for (i = posY; i < posY + height; i++) {
+            for (j = posX; j < posX + width; j++) {
+                if (i < 0 || j < 0 || i >= 80 || j > 80) return false;
+                obj = _townMatrix[i][j];
+                if (g.managerTutorial.isTutorial) {
+                    if (!obj.isTutorialBuilding) {
+                        return true;
+                    }
+                }
+                if (!obj.inGame) return false;
+                if (obj.isFull) return false;
+                if (obj.isBlocked) return false;
+                if (obj.isFence) return false;
+            }
+        }
+        return true;
+    }
+
+    public function checkAwayFreeGrids(posX:int, posY:int, width:int, height:int):Boolean {
+        for (i = posY; i < posY + height; i++) {
+            for (j = posX; j < posX + width; j++) {
+                if (i < 0 || j < 0 || i >= 80 || j > 80) return false;
+                obj = _townAwayMatrix[i][j];
+                if (g.managerTutorial.isTutorial) {
+                    if (!obj.isTutorialBuilding) {
+                        return true;
+                    }
+                }
+                if (!obj.inGame) {
+                    return false;
+                }
+                if (obj.isFull) {
+                    return false;
+                }
+                if (obj.isBlocked) {
+                    return false;
+                }
+                if (obj.buildFence) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public function fillMatrixWithTutorialBuildings(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
@@ -339,9 +388,9 @@ public class TownArea extends Sprite {
                     if (_townTailMatrix[i][j].build && _townTailMatrix[i][j].build is LockedLand && source is Wild) {
                         continue;
                     }
-                    _townTailMatrix[i][j].isTutorialBuilding = false;
-                    _townTailMatrix[i][j].build = source;
-                    _townTailMatrix[i][j].inTile = true;
+                        _townTailMatrix[i][j].isTutorialBuilding = false;
+                        _townTailMatrix[i][j].build = source;
+                        _townTailMatrix[i][j].inTile = true;
 //                    _townTailMatrix[i][j].isFull = true;
 //                    if (sizeX > 1 && sizeY > 1) {
 //                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
@@ -526,6 +575,18 @@ public class TownArea extends Sprite {
         if (_cont.contains(worldObject.source)) {
             _cont.removeChild(worldObject.source);
         }
+        if (!isNewAtMap) {
+            if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
+                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild) {
+            } else {
+                point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+                if (!checkFreeGrids(point.x, point.y, worldObject.sizeX, worldObject.sizeY)) {
+                    Cc.error('TownArea pasteBuild checkFreeGrids:: posX, posY not empty ' + worldObject.dataBuild.name + ' ' + worldObject.dataBuild.id);
+                    return;
+                }
+            }
+        }
+
 
         if (worldObject is Wild) {
             point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
@@ -1365,7 +1426,15 @@ public class TownArea extends Sprite {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
-
+            if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
+                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild ) {
+            } else {
+                if (!checkAwayFreeGrids(posX, posY, worldObject.sizeX, worldObject.sizeY)) {
+                    Cc.error('TownArea pasteAwayBuild checkFreeGrids:: posX, posY not empty ' + worldObject.dataBuild.name + ' ' + worldObject.dataBuild.id);
+                    return;
+                }
+            }
+        var point:Point;
         if (worldObject is Wild) {
             point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
             worldObject.posX = posX;
@@ -1387,7 +1456,7 @@ public class TownArea extends Sprite {
         worldObject.posX = posX;
         worldObject.posY = posY;
         if (worldObject.useIsometricOnly) {
-            var point:Point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
+            point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
             worldObject.source.x = int(point.x);
             worldObject.source.y = int(point.y);
         } else {

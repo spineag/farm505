@@ -234,6 +234,16 @@ public class Animal {
 
     public function feedAnimal(last:Boolean = false,show:Boolean = false):void {
         onOut();
+        if (!g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
+            onOut();
+            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
+                if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
+                return;
+            } else {
+                if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
+                return;
+            }
+        }
         if (!show) {
             if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -269,7 +279,7 @@ public class Animal {
             else
                 texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
 
-            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT ) {
+            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) {
                 new RawItem(p, texture, 2, 0);
             } else new RawItem(p, texture, 1, 0);
             if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
@@ -294,14 +304,17 @@ public class Animal {
                     _tutorialCallback.apply(null, [this]);
                 }
             }
-        } else {
-            onOut();
-            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
-            } else {
-                g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
-            }
         }
+//        } else {
+//            onOut();
+//            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
+//                if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
+//                trace('WO_WAIT_FREE_CATS');
+//            } else {
+//                if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
+//                trace('WO_NO_FREE_CATS');
+//            }
+//        }
     }
 
     private function onStartClick():void {

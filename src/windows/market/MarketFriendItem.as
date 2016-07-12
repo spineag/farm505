@@ -69,7 +69,7 @@ public class MarketFriendItem {
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(66, 26, CButton.BLUE, true);
         var txtBtn:TextField = new TextField(80, 25, "Посетить", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
-        txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txtBtn.x = -8;
         _visitBtn.addChild(txtBtn);
         _visitBtn.x = 55;

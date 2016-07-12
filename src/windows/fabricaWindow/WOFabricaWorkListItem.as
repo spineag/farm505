@@ -81,7 +81,7 @@ public class WOFabricaWorkListItem {
             _btnSkip.addChild(_txtSkip);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
 //            MCScaler.scale(im, 30, 30);
-            im.x = 72;
+            im.x = 78;
             im.y = 5;
             _btnSkip.addChild(im);
             im.filter = ManagerFilters.SHADOW_TINY;
@@ -187,7 +187,9 @@ public class WOFabricaWorkListItem {
             }
         }
     }
-
+//    public function get leftTime():int {
+//        return _resource.leftTime;
+//    }
     public function showBuyPropose(buyCount:int, callback:Function):void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_type == SMALL_CELL) {

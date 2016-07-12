@@ -24,6 +24,7 @@ public class Market extends WorldObject{
     private var _fruits1:Bone;
     private var _fruits2:Bone;
     private var _coins:Bone;
+    private var _timer:int;
     public function Market(_data:Object) {
         super(_data);
         _isOnHover = false;
@@ -50,6 +51,8 @@ public class Market extends WorldObject{
         marketState();
         _hitArea = g.managerHitArea.getHitArea(_source, 'marketBuild');
         _source.registerHitArea(_hitArea);
+        _timer = 60;
+        g.gameDispatcher.addToTimer(refreshMarketTemp);
     }
 
     override public function onHover():void {
@@ -149,16 +152,12 @@ public class Market extends WorldObject{
             }
         }
         var b:Bone;
-        var im:Image;
         _armature.animation.gotoAndStop('work', 0);
         if (coins <= 0) {
             b = _armature.getBone('coins');
             if (b != null) _armature.removeBone(b,true);
-//            b.display.visible = false;
-//            _armature.getBones(false);
 
         } else {
-//            b = _armature.getBone('coins');
             _armature.addBone(_coins);
         }
         if (res <= 0) {
@@ -169,14 +168,20 @@ public class Market extends WorldObject{
                 b = _armature.getBone('fr2');
                 _armature.removeBone(b,true);
             }
-//            b.display.visible = false;
-//            b = _armature.getBone('fr2');
-//            b.display.dispose();
-//            b.display.visible = false;
-
         } else {
             _armature.addBone(_fruits1);
             _armature.addBone(_fruits2);
+        }
+
+        _timer = 60;
+        g.gameDispatcher.addToTimer(refreshMarketTemp);
+    }
+
+    private function refreshMarketTemp():void {
+        _timer--;
+        if (_timer <= 0) {
+            marketState();
+            g.gameDispatcher.removeFromTimer(refreshMarketTemp);
         }
     }
 }

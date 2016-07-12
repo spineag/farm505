@@ -48,6 +48,7 @@ public class WOMarket  extends WindowMain {
     private var _btnFriends:CButton;
     private var _btnPaper:CButton;
     private var _arrItems:Array;
+    private var _arrItemsTemp:Array;
     private var _arrItemsFriend:Array;
     private var _arrFriends:Array;
     private var _txtName:TextField;
@@ -68,6 +69,7 @@ public class WOMarket  extends WindowMain {
     private var _callback:Function;
     private var _birka:Birka;
     private var _SHADOW:BlurFilter;
+    private var _timer:int;
 
     public function WOMarket() {
         super();
@@ -117,8 +119,9 @@ public class WOMarket  extends WindowMain {
         _btnRefresh.addChild(ref);
         _btnRefresh.x = -320;
         _btnRefresh.y = 155;
-        _source.addChild(_btnRefresh);
+//        _source.addChild(_btnRefresh);
         _btnRefresh.endClickCallback = makeRefresh;
+        _btnRefresh.hoverCallback =  function():void { };
         _callbackClickBG = hideIt;
 //        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         _birka = new Birka('РЫНОК', _source, _woWidth, _woHeight);
@@ -242,15 +245,20 @@ public class WOMarket  extends WindowMain {
                 if (_curUser.userSocialId == g.user.userSocialId)createMarketTabBtns();
                 else createMarketTabBtns(true);
             }
-                else createMarketTabBtns();
+            else createMarketTabBtns();
+
             checkPapperTimer();
             choosePerson(params[0]);
         }
+        _timer = 5;
+        g.gameDispatcher.addToTimer(refreshMarketTemp);
         super.showIt();
     }
 
     private function onClickExit(e:Event=null):void {
         if (g.managerTutorial.isTutorial) return;
+        _timer = 5;
+        g.gameDispatcher.removeFromTimer(refreshMarketTemp);
         super.hideIt();
     }
 
@@ -394,9 +402,7 @@ public class WOMarket  extends WindowMain {
                 else _arrItems[i].friendAdd(false);
             }
             for (i = 0; i < _curUser.marketItems.length; i++) {
-                if (_curUser.marketItems[i].numberCell+1 <= _arrItems.length) {
-                    _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
-                }
+                _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
             }
 
             if (_shiftFriend != 0) goToItemFromPaper();
@@ -540,8 +546,14 @@ public class WOMarket  extends WindowMain {
         if (_curUser.userSocialId == g.user.userSocialId) {
             _txtName.text = 'Вы продаете:';
         } else {
-            if (paper) _txtName.text = _curUser.name + ' продает:';
-            else _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
+            if (paper) {
+                if (_curUser.name == null ) _txtName.text = 'Игрок продает:';
+                else _txtName.text = _curUser.name + ' продает:';
+            }
+            else {
+                if (_arrFriends[_shiftFriend].name == null ) _txtName.text = 'Игрок продает:';
+                else _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
+            }
         }
         _source.addChild(_txtName);
 
@@ -628,6 +640,8 @@ public class WOMarket  extends WindowMain {
         new TweenMax(_contItemCell, .5, {x: -_shift * 125, ease: Linear.easeNone});
         _countPage = 1;
         _curUser = _person;
+        _timer = 5;
+        g.gameDispatcher.addToTimer(refreshMarketTemp);
         if (_curUser.marketCell < 0 || _curUser != g.user) {
             if (_curUser is NeighborBot) {
                 g.directServer.getUserNeighborMarket(onChoosePerson);
@@ -776,6 +790,53 @@ public class WOMarket  extends WindowMain {
         if (a>0) {
             item.onChoose(a, count, cost, inPapper);
         }
+    }
+
+    private function refreshMarketTemp():void {
+        if (_curUser is NeighborBot) {
+            _timer = 5;
+            g.gameDispatcher.removeFromTimer(refreshMarketTemp);
+            return;
+        }
+        _timer--;
+        if (_timer <= 0) {
+            _arrItemsTemp = _curUser.marketItems;
+            g.directServer.getUserMarketItem(_curUser.userSocialId, onRefreshTemp);
+            g.gameDispatcher.removeFromTimer(refreshMarketTemp);
+        }
+    }
+
+    private function onRefreshTemp():void {
+        var b:Boolean = false;
+        var i:int;
+        if (_curUser is NeighborBot) {
+            g.gameDispatcher.removeFromTimer(refreshMarketTemp);
+            return;
+        }
+        if (_arrItemsTemp.length != _curUser.marketItems.length) {
+            for (i=0; i< _arrItems.length; i++) {
+                _arrItems[i].unFillIt();
+            }
+            trace(' if (_arrItemsTemp.length != _curUser.marketItems.length)');
+            fillItems();
+        } else {
+            for (i= 0; i < _curUser.marketItems.length; i++) {
+                if (_arrItemsTemp[i].buyerId != _curUser.marketItems[i].buyerId || _arrItemsTemp[i].id != _curUser.marketItems[i].id) {
+                   b = true;
+                    break;
+                }
+            }
+            if (b) {
+                for (i = 0; i < _arrItems.length; i++) {
+                    _arrItems[i].unFillIt();
+                }
+                fillItems();
+                trace('if (b)');
+            }
+        }
+        trace('ну как то так');
+        _timer = 5;
+        g.gameDispatcher.addToTimer(refreshMarketTemp);
     }
 
     override protected function deleteIt():void {

@@ -62,6 +62,8 @@ public class WONoFreeCats extends WindowMain {
 
     private function onClick():void {
         super.hideIt();
+        g.user.decorShop = false;
+        g.user.decorShiftShop = 0;
         g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, 1);
     }
 

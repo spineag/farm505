@@ -131,7 +131,9 @@ public class Fabrica extends WorldObject {
         if (g.isActiveMapEditor) return;
         _count = 20;
         if (_stateBuild == STATE_ACTIVE) {
-            g.hint.showIt(_dataBuild.name);
+            if (_arrList.length > 0) g.hint.showIt(_dataBuild.name,'fabric',0,_arrList[0].leftTime);
+            else g.hint.showIt(_dataBuild.name);
+
             if (!_isOnHover && !_arrList.length && _armature) {
                 var fEndOver:Function = function():void {
                     _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);

@@ -14,39 +14,48 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
+import utils.TimeUtils;
+
 import windows.WOComponents.HintBackground;
 
 public class Hint {
     public var source:Sprite;
     private var _txtHint:TextField;
+    private var _txtHintTime:TextField;
     private var _isShow:Boolean;
     private var _newX:int;
     private var _catXp:Boolean;
     private var _type:String;
+    private var _timeHint:int;
+    private var _fabric:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function Hint() {
         source = new Sprite();
         _txtHint = new TextField(150,20,"", g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtHint.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtHintTime = new TextField(150,20,"", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtHintTime.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.touchable = false;
         _isShow = false;
-        _catXp = false;
+
     }
 
-    public function showIt(st:String, type:String = 'none', newX:int = 0):void {
+    public function showIt(st:String, type:String = 'none', newX:int = 0, time:int = 0):void {
+        _fabric = false;
+        _catXp = false;
+        _timeHint = 0;
         switch (type) {
             case 'none':
                 _txtHint.text = st;
-                _catXp = false;
                 break;
             case 'ambar':
                 _txtHint.text = String(st + ' ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount);
-                _catXp = false;
                 break;
             case 'sklad':
                 _txtHint.text = String(st + ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount);
-                _catXp = false;
                 break;
             case 'xp':
                 _txtHint.text = st;
@@ -58,14 +67,18 @@ public class Hint {
             case 'market_delete':
                 _txtHint.text = st;
                 break;
+            case 'fabric':
+                _fabric = true;
+                _timeHint = time;
+                _txtHint.text = st;
+                g.gameDispatcher.addToTimer(timer);
+//                    return;
+                break;
         }
-//        if (ambar) _txtHint.text = String(st + ' ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount);
-//        else if (sklad) _txtHint.text = String(st + ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount);
-//        else  _txtHint.text = st;
         var rectangle:Rectangle = _txtHint.textBounds;
         _type = type;
-//        _catXp = xp;
         _newX = newX;
+
         if (!_catXp )  {
             _txtHint.x = 0;
             _txtHint.width = rectangle.width + 20; var tween:Tween = new Tween(source, 0.1);
@@ -77,16 +90,26 @@ public class Hint {
         } else {
             _txtHint.width = 150;
         }
+
         _txtHint.height = rectangle.height + 10;
+        if (_fabric) {
+            _txtHintTime.height = rectangle.height + 10;
+            _txtHintTime.x = 0;
+            _txtHintTime.y = 20;
+            _txtHintTime.width = rectangle.width + 20;
+        }
         if (source.numChildren) {
             while (source.numChildren) source.removeChildAt(0);
         }
-        var bg:HintBackground = new HintBackground(rectangle.width + 22, rectangle.height + 12);
+        var bg:HintBackground;
+        if (_fabric) bg = new HintBackground(rectangle.width + 22, rectangle.height + 30);
+        else bg = new HintBackground(rectangle.width + 22, rectangle.height + 12);
         if (_catXp) {
             _txtHint.x = bg.x + 3;
         }
         source.addChild(bg);
         source.addChild(_txtHint);
+        if (_fabric) source.addChild(_txtHintTime);
         if(_isShow) return;
         _isShow = true;
         g.cont.hintCont.addChild(source);
@@ -136,9 +159,21 @@ public class Hint {
 
     public function hideIt():void {
         _isShow = false;
+        _timeHint = 0;
+        if (_txtHintTime)_txtHintTime.text = '';
+        g.gameDispatcher.removeFromTimer(timer);
         while (source.numChildren) source.removeChildAt(0);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
         g.cont.hintCont.removeChild(source);
+    }
+
+    private function timer():void {
+        _txtHintTime.text = TimeUtils.convertSecondsToStringClassic(_timeHint);
+        _timeHint --;
+        if (_timeHint <= 0) {
+            g.gameDispatcher.removeFromTimer(timer);
+            _txtHintTime.text = '';
+        }
     }
 }
 }

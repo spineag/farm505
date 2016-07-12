@@ -287,6 +287,31 @@ public class MarketItem {
         }
     }
 
+    public function onChoose(a:int, count:int, cost:int, inPapper:Boolean):void {
+        isFill = 1;
+        g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
+        fillIt(g.dataResource.objectResources[a],count, cost);
+        _txtAdditem.text = '';
+    }
+
+    private function onAddToServer(ob:Object):void {
+        trace(g.user.marketItems.length + ' old');
+        var obj:Object = {};
+        obj.id = int(ob.id);
+        obj.buyerId = ob.buyer_id;
+        obj.cost = int(ob.cost);
+        obj.inPapper = false;
+        obj.resourceCount = int(ob.resource_count);
+        obj.resourceId = int(ob.resource_id);
+        obj.timeSold = ob.time_sold;
+        obj.timeStart = ob.time_start;
+        obj.timeInPapper = ob.time_in_papper;
+        obj.numberCell = ob.number_cell;
+        _dataFromServer = obj;
+        g.user.marketItems.push(obj);
+        trace(g.user.marketItems.length + ' new');
+    }
+
     public function clearImageCont():void {
         if (!_imageCont) return;
         while (_imageCont.numChildren) {
@@ -359,7 +384,6 @@ public class MarketItem {
         }
         isFill = 0;
         unFillIt();
-
     }
 
     private function onClick():void {
@@ -400,32 +424,7 @@ public class MarketItem {
                         return;
                     }
                 }
-
                 g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
-//                showFlyResource(d, _dataFromServer.resourceCount);
-//                _plawkaCoins.visible = false;
-//                _plawkaSold.visible = true;
-//                _txtPlawka.visible = true;
-//                _papper.visible = false;
-//                if (_person == g.user.neighbor) {
-//                    g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
-//                    _dataFromServer.resourceId = -1;
-//                } else {
-//                    g.directServer.buyFromMarket(_dataFromServer.id, null);
-//                    var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
-//                    for (var j:int = 0; j< arr.length; j++) {
-//                        if (!arr[j].marketItems) continue;
-//                        for (i = 0; i < arr[j].marketItems.length; i++) {
-//                            if (arr[j].marketItems[i].id == _dataFromServer.id) {
-//                                arr[j].marketItems[i].buyerId = g.user.userId;
-//                                arr[j].marketItems[i].inPapper = false;
-//                                arr[j].marketItems[i].buyerSocialId = g.user.userSocialId;
-//                                return;
-//                            }
-//                        }
-//                    }
-//                }
-//                isFill = 2;
                 if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {
                     g.managerTutorial.checkTutorialCallback();
                 }
@@ -442,7 +441,6 @@ public class MarketItem {
         } else {
             if (g.managerTutorial.isTutorial) return;
             if (_isUser) { // купленная
-//                g.userInventory.addMoney(2,_dataFromServer.cost);
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {
                     if (g.user.marketItems[i].id == _dataFromServer.id) {
@@ -450,16 +448,6 @@ public class MarketItem {
                         break;
                     }
                 }
-
-//                if (_avaDefault) {
-//                    _avaDefault = null;
-//                    source.removeChild(_avaDefault);
-//                }
-//
-//                if (_ava) {
-//                    _ava = null;
-//                }
-//                source.removeChild(_ava);
                 animCoin();
                 isFill = 0;
                 unFillIt();
@@ -527,30 +515,6 @@ public class MarketItem {
             }
             isFill = 2;
         }
-    }
-
-    public function onChoose(a:int, count:int, cost:int, inPapper:Boolean):void {
-        isFill = 1;
-        g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
-        fillIt(g.dataResource.objectResources[a],count, cost);
-        _txtAdditem.text = '';
-
-    }
-
-    private function onAddToServer(ob:Object):void {
-        var obj:Object = {};
-        obj.id = int(ob.id);
-        obj.buyerId = ob.buyer_id;
-        obj.cost = int(ob.cost);
-        obj.inPapper = false;
-        obj.resourceCount = int(ob.resource_count);
-        obj.resourceId = int(ob.resource_id);
-        obj.timeSold = ob.time_sold;
-        obj.timeStart = ob.time_start;
-        obj.timeInPapper = ob.time_in_papper;
-        obj.numberCell = ob.number_cell;
-        _dataFromServer = obj;
-        g.user.marketItems.push(obj);
     }
 
     public function set callbackFill(f:Function):void {
