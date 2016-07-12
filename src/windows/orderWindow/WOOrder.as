@@ -111,6 +111,7 @@ public class WOOrder extends WindowMain{
         _waitForAnswer = false;
         changeCatTexture(i);
         startAnimationCats();
+//        helloStart();
         super.showIt();
     }
 
@@ -192,8 +193,9 @@ public class WOOrder extends WindowMain{
         _btnDeleteOrder.y = 414;
         _rightBlock.addChild(_btnDeleteOrder);
         _btnDeleteOrder.endClickCallback = deleteOrder;
-//        _btnDeleteOrder.hoverCallback = function():void {_btnDeleteOrder.filter = ManagerFilters.BUTTON_HOVER_FILTER; };
-//        _btnDeleteOrder.outCallback = function():void {_btnDeleteOrder.filter = null; };
+
+        _btnDeleteOrder.hoverCallback = function():void { g.hint.showIt('отменить заказ'); };
+        _btnDeleteOrder.outCallback = function():void {g.hint.hideIt();};
     }
 
     private function createItems():void {
@@ -379,17 +381,20 @@ public class WOOrder extends WindowMain{
         _activeOrderItem = item;
         fillResourceItems(_activeOrderItem.getOrder());
         _activeOrderItem.activateIt(true);
-        if (!isAfterSell) {
+        if (_activeOrderItem.leftSeconds <= 0 && !isAfterSell) {
             stopCatsAnimations();
             changeCatTexture(_activeOrderItem.position);
             animateCustomerCat();
             animateSellerCat();
+            helloStart();
         }
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
             g.gameDispatcher.addToTimer(onTimer);
             setTimerText = _activeOrderItem.leftSeconds;
+            stopCatsAnimations();
+            emptyCarCustomer();
         } else {
             _rightBlock.visible = true;
             if (item.getOrder().addCoupone) {
@@ -426,6 +431,7 @@ public class WOOrder extends WindowMain{
     private function deleteOrder():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_activeOrderItem) {
+            g.hint.hideIt();
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
 //            g.userTimer.setOrder(_activeOrderItem.getOrder());
@@ -553,6 +559,7 @@ public class WOOrder extends WindowMain{
             _rightBlockTimer.visible = false;
             g.gameDispatcher.removeFromTimer(onTimer);
             setTimerText = 0;
+            helloStart();
         }
     }
 
@@ -659,8 +666,12 @@ public class WOOrder extends WindowMain{
         }
         releaseFrontTexture(st);
         var b:Bone = _armatureCustomer.getBone('bant');
-        if (!isWoman)  b.visible = false;
-            else changeBant(_arrOrders[pos].cat.bant, b);
+        var viyi:Bone = _armatureCustomer.getBone('viyi');
+        if (!isWoman) {
+            b.visible = false;
+            viyi.visible = false;
+        }
+        else changeBant(_arrOrders[pos].cat.bant, b);
 //        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);
     }
 
@@ -713,8 +724,8 @@ public class WOOrder extends WindowMain{
     private function startAnimationCats():void {
         WorldClock.clock.add(_armatureCustomer);
         WorldClock.clock.add(_armatureSeller);
-        animateCustomerCat();
-        animateSellerCat();
+//        animateCustomerCat();
+//        animateSellerCat();
     }
 
     private function animateCustomerCat(e:AnimationEvent=null):void {
@@ -728,8 +739,8 @@ public class WOOrder extends WindowMain{
             case 0: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
             case 1: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
             case 2: _armatureCustomer.animation.gotoAndPlay('speak'); break;
-            case 3: _armatureCustomer.animation.gotoAndPlay('hi1'); break;
-            case 4: _armatureCustomer.animation.gotoAndPlay('hi2'); break;
+            case 3: _armatureCustomer.animation.gotoAndPlay('speak'); break;
+            case 4: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
             case 5: _armatureCustomer.animation.gotoAndPlay('speak_2'); break;
         }
     }
@@ -745,9 +756,9 @@ public class WOOrder extends WindowMain{
             case 0: _armatureSeller.animation.gotoAndPlay('idle1'); break;
             case 1: _armatureSeller.animation.gotoAndPlay('idle1'); break;
             case 2: _armatureSeller.animation.gotoAndPlay('idle1'); break;
-            case 3: _armatureSeller.animation.gotoAndPlay('hi1'); break;
-            case 4: _armatureSeller.animation.gotoAndPlay('hi2'); break;
-            case 5: _armatureSeller.animation.gotoAndPlay('idle1'); break;
+            case 3: _armatureSeller.animation.gotoAndPlay('speak'); break;
+            case 4: _armatureSeller.animation.gotoAndPlay('speak'); break;
+            case 5: _armatureSeller.animation.gotoAndPlay('speak_2'); break;
         }
     }
 
@@ -828,6 +839,27 @@ public class WOOrder extends WindowMain{
         _armatureCustomer = null;
         _armatureSeller.dispose();
         _armatureSeller = null;
+    }
+
+    private function helloStart():void {
+        _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+        var l:int = int(Math.random()*2);
+        switch (l) {
+            case 0: _armatureSeller.animation.gotoAndPlay('hi'); break;
+            case 1: _armatureSeller.animation.gotoAndPlay('hi2'); break;
+        }
+        _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+         l = int(Math.random()*2);
+        switch (l) {
+            case 0: _armatureCustomer.animation.gotoAndPlay('hi'); break;
+            case 1: _armatureCustomer.animation.gotoAndPlay('hi2'); break;
+        }
+    }
+
+    private function emptyCarCustomer():void {
+        _armatureCustomer.animation.gotoAndStop('empty',0);
     }
 
 }

@@ -267,6 +267,8 @@ public class WOPapperItem {
         _btnDelete.x = 130;
         _btnDelete.y = 97;
         _btnDelete.clickCallback = onClickDelete;
+        _btnDelete.hoverCallback = function ():void { g.hint.showIt('забрать товар'); };
+        _btnDelete.outCallback = function ():void { g.hint.hideIt();  };
         source.addChild(_btnDelete);
 
         _txtSale =  new TextField(120,30,'продано', g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE_COLOR);

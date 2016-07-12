@@ -334,6 +334,7 @@
             <filename>star_small.png</filename>
             <filename>rubins_medium.png</filename>
             <filename>rubins_small.png</filename>
+            <filename>wait.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

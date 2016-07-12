@@ -49,9 +49,9 @@ public class WOOrderItem {
         source.addChild(_bgCartonIn);
         _bgCarton.touchable = true;
 
-        _delImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_or'));
-        _delImage.x = 25;
-        _delImage.y = 10;
+        _delImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wait'));
+        _delImage.x = 20;
+        _delImage.y = 5;
         source.addChild(_delImage);
 
         _txtName = new TextField(112, 20, "Васько", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
@@ -161,6 +161,10 @@ public class WOOrderItem {
 
     private function renderLeftTime():void {
         _leftSeconds--;
+        if (_leftSeconds <= 10) {
+            if (_txtName)_wo.timerSkip(_order);
+            else g.userTimer.newCatOrder();
+        }
         if (_leftSeconds <= 0) {
             _leftSeconds = -1;
             g.gameDispatcher.removeFromTimer(renderLeftTime);
@@ -170,8 +174,8 @@ public class WOOrderItem {
             if(_coinsImage)_coinsImage.visible = true;
             if(_starImage)_starImage.visible = true;
             if(_delImage)_delImage.visible = false;
-            if(_txtName)_wo.timerSkip(_order);
-            else g.userTimer.newCatOrder();
+//            if(_txtName)_wo.timerSkip(_order);
+//            else g.userTimer.newCatOrder();
         }
     }
 
