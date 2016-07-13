@@ -322,7 +322,7 @@ public class ShopList {
         if (_shift + newCount + 4 >= _currentShopArr.length) newCount = _currentShopArr.length - _shift - 4;
 
         var item:ShopItem;
-        for (var i:int=0; i<newCount; i++) {
+        for (var i:int = 0; i < newCount; i++) {
             if (_currentShopArr[_shift + 4 + i]) {
                 item = new ShopItem(_currentShopArr[_shift + 4 + i], _wo, _shift + 4 + i);
                 item.source.x = 153 * (_shift + 4 + i);
@@ -332,8 +332,8 @@ public class ShopList {
         }
         _shift += newCount;
         _arrItems.sortOn('position', Array.NUMERIC);
-        var f:Function = function():void {
-            for (i=0; i<newCount; i++) {
+        var f:Function = function ():void {
+            for (i = 0; i < newCount; i++) {
                 item = _arrItems.shift();
                 if (!item) return;
                 _itemsSprite.removeChild(item.source);

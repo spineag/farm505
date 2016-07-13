@@ -80,11 +80,11 @@ public class ResourceHint {
         var wText:int = 0;
         var wName:int = 0;
         var hText:int = 0;
-        if (!g.dataResource.objectResources[_id]) {
-            Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'resourceHint');
-            return;
-        }
+//        if (!g.dataResource.objectResources[_id]) {
+//            Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'resourceHint');
+//            return;
+//        }
         var start:Point = new Point(int(_newX-2), int(_newY - 20));
         start = _newSource.parent.localToGlobal(start);
         _source.x = start.x + _newSource.width/2;

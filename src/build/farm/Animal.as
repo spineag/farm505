@@ -256,9 +256,9 @@ public class Animal {
                 g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
                 return;
             }
-            if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1) {
+            if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 2) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
-                g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onEndClick, {id: _data.idResourceRaw}, 'market');
+                g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, feedAnimal, {id: _data.idResourceRaw}, 'market');
                 return;
             }
         }

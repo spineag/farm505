@@ -273,6 +273,7 @@
             <filename>fence_polka_dot_4_icon.png</filename>
             <filename>fence_polka_dot_5_icon.png</filename>
             <filename>loom_icon.png</filename>
+            <filename>fryer_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -701,6 +701,7 @@ public class WOOrder extends WindowMain{
         changeTexture("body", "bodys/body" + st, _armatureCustomer);
         changeTexture("handLeft", "left_hand/handLeft" + st, _armatureCustomer);
         changeTexture("handRight", "right_hand/handRight" + st, _armatureCustomer);
+        changeTexture('handLeft copy', 'left_hand/handLeft' +st, _armatureCustomer);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {

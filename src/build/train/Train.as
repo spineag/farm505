@@ -280,6 +280,7 @@ public class Train extends WorldObject{
 
     private function onClick():void {
         if (_bolAnimation) return;
+        if (g.isAway) return;
 //        if (g.isAway) {
 //            if (g.user.level >= _dataBuild.blockByLevel[0]) return;
 //            if (_stateBuild == STATE_READY) {

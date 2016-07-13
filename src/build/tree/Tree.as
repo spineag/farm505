@@ -54,6 +54,7 @@ public class Tree extends WorldObject {
     private var _wateringUserSocialId:String;
     private var _craftedCountFromServer:int;
     private var _needShopView:Boolean;
+    private var _deleteTree:Boolean;
 
     private var _fruits1:Bone;
     private var _fruits2:Bone;
@@ -70,6 +71,7 @@ public class Tree extends WorldObject {
         _craftSprite = new Sprite();
         createAnimatedBuild(onCreateBuild);
         _isClick = false;
+        _deleteTree = false;
     }
 
     private function onCreateBuild():void {
@@ -463,6 +465,7 @@ public class Tree extends WorldObject {
     }
 
     private function onClick():void {
+        if (_deleteTree) return;
         if (g.managerCutScenes.isCutScene) return;
         if (g.isActiveMapEditor) return;
         if (g.isAway) {
@@ -820,6 +823,7 @@ public class Tree extends WorldObject {
     }
 
     private function deleteTree():void {
+        _deleteTree = true;
         g.directServer.deleteUserTree(tree_db_id, _dbBuildingId, null);
         new RemoveWildAnimation(_source, onEndAnimation, onEndAnimationTotal, _dataBuild.removeByResourceId);
     }

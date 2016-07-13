@@ -168,9 +168,11 @@ public class TownAreaTouchManager {
     private function onOutTail():void {
         _touch = contTail.getCurTouch;
         if (!_touch) {
-            if (_prevBuild && _prevBuild.source.isTouchable) {
-                _prevBuild.source.releaseOut();
-                _prevBuild = null;
+            if (_prevBuild.source) {
+                if (_prevBuild && _prevBuild.source.isTouchable) {
+                    _prevBuild.source.releaseOut();
+                    _prevBuild = null;
+                }
             }
             return;
         }
