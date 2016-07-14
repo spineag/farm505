@@ -92,11 +92,12 @@ public class CatPanel {
 
     private function onClick():void {
 //        g.socialNetwork.getFriends();
-        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096) {
-            g.user.level++;
-            g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-        }
-//        var _dataBuild:Object = g.dataBuilding.objectBuilding[3];
+//        g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK,null);
+//        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096) {
+//            g.user.level++;
+//            g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+//        }
+//        var _dataBuild:Object = g.dataBuilding.objectBuilding[1];
 //        g.managerWallPost.openWindow(ManagerWallPost.OPEN_TRAIN,null,3,DataMoney.HARD_CURRENCY);
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE,null);

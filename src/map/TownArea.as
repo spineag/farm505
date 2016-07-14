@@ -1521,6 +1521,22 @@ public class TownArea extends Sprite {
             _contTail.addChild(tail.source);
             _cityAwayTailObjects.push(tail);
         }
+        (tail as WorldObject).updateDepth();
+        decorAwayTailSort();
+    }
+
+    public function decorAwayTailSort():void {
+        try {
+            _cityAwayTailObjects.sortOn("depth", Array.NUMERIC);
+            for (var i:int = 0; i < _cityAwayTailObjects.length; i++) {
+                if (_contTail.contains(_cityAwayTailObjects[i].source)) {
+                    _contTail.setChildIndex(_cityAwayTailObjects[i].source, i);
+                }
+            }
+        } catch(e:Error) {
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+            Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
+        }
     }
 
     public function addAwayHero(c:BasicCat):void {

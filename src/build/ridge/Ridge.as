@@ -299,8 +299,6 @@ public class Ridge extends WorldObject{
 //            } else if (_stateRidge == GROWED) {
 //                craftThePlant();
             }
-        } else {
-            Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
     }
 

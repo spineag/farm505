@@ -33,6 +33,7 @@ import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPapper;
 import windows.reloadPage.WOReloadGame;
 import windows.serverError.WOServerError;
+import windows.serverNoWork.WOSeverNoWork;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
 import windows.train.WOTrainOrder;
@@ -82,6 +83,7 @@ public class WindowsManager {
     public static const POST_OPEN_FABRIC:String = 'post_open_fabric';
     public static const POST_DONE_TRAIN:String = 'post_done_train';
     public static const POST_DONE_ORDER:String = 'post_done_order';
+    public static const WO_SERVER_NO_WORK:String = 'server_no_work';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -129,6 +131,9 @@ public class WindowsManager {
                 break;
             case WO_SERVER_ERROR:
                 wo = new WOServerError();
+                break;
+            case WO_SERVER_NO_WORK:
+                wo = new WOSeverNoWork();
                 break;
             case WO_BUY_CURRENCY:
                 wo = new WOBuyCurrency();

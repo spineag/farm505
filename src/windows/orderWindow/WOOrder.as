@@ -318,6 +318,7 @@ public class WOOrder extends WindowMain{
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
             g.managerTutorial.checkTutorialCallback();
         }
+
     }
 
     private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {
@@ -331,6 +332,7 @@ public class WOOrder extends WindowMain{
                     break;
                 }
             }
+            order.startTime = int(new Date().getTime()/1000) + 10;
             orderItem.fillIt(order, order.placeNumber, onItemClick, b);
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {
@@ -860,7 +862,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function emptyCarCustomer():void {
-        _armatureCustomer.animation.gotoAndStop('empty',0);
+        _armatureCustomer.animation.gotoAndPlay('empty');
     }
 
 }

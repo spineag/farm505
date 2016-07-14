@@ -90,8 +90,15 @@ public class PostOpenFabric  extends WindowMain {
             }
         }
         im = new Image(texture);
-        im.x = -75;
-        im.y = -50;
+        if (_data.id == 3) {
+            im.y = -5;
+            im.x = -95;
+        } else {
+            im.y = -75;
+            im.x = -95;
+        }
+
+
         _source.addChild(im);
         createExitButton(hideIt);
     }
