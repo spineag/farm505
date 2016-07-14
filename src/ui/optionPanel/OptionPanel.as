@@ -305,6 +305,7 @@ public class OptionPanel {
 
     private function reportKeyDown(event:KeyboardEvent):void  {
         if (event.keyCode == 27) {
+            Cc.info('reportKeyDown: ESC');
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
             Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
             Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
