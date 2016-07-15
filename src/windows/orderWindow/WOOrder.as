@@ -63,6 +63,7 @@ public class WOOrder extends WindowMain{
     private var _txtCoupone:TextField;
     private var _bubble:TutorialTextBubble;
     private var _birka:Birka;
+    private var _txtOrder:TextField;
 
     public function WOOrder() {
         super();
@@ -314,6 +315,7 @@ public class WOOrder extends WindowMain{
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
         g.bottomPanel.checkIsFullOrder();
         animateCatsOnSell();
+        emptyCarCustomer();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
             g.managerTutorial.checkTutorialCallback();
@@ -332,11 +334,11 @@ public class WOOrder extends WindowMain{
                     break;
                 }
             }
-            order.startTime = int(new Date().getTime()/1000) + 10;
-            orderItem.fillIt(order, order.placeNumber, onItemClick, b);
+            order.startTime = int(new Date().getTime()/1000) + 15;
+            orderItem.fillIt(order, order.placeNumber, onItemClick, b, true);
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {
-                onItemClick(_activeOrderItem, true);
+                onItemClick(_activeOrderItem, true,true);
             }
         }
         var i:int;
@@ -369,14 +371,14 @@ public class WOOrder extends WindowMain{
                 }
             }
             if (order.placeNumber > -1) {
-                _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b);
+                _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b,order.cat);
             } else {
                 Cc.error('WOOrder fillList:: order.place == -1');
             }
         }
     }
 
-    private function onItemClick(item:WOOrderItem, isAfterSell:Boolean = false):void {
+    private function onItemClick(item:WOOrderItem, isAfterSell:Boolean = false, delOrsell:Boolean = false):void {
         if (_waitForAnswer) return;
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
         clearResourceItems();
@@ -393,6 +395,13 @@ public class WOOrder extends WindowMain{
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
+            _btnSkipDelete.visible = true;
+            if (delOrsell) {
+                _txtOrder.text = 'ЗАКАЗ ОФОРМЛЕН';
+                _btnSkipDelete.visible = false;
+            }
+            else _txtOrder.text = 'ЗАКАЗ УДАЛЕН';
+
             g.gameDispatcher.addToTimer(onTimer);
             setTimerText = _activeOrderItem.leftSeconds;
             stopCatsAnimations();
@@ -436,6 +445,7 @@ public class WOOrder extends WindowMain{
             g.hint.hideIt();
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
+//            _txtOrder.text = 'ЗАКАЗ УДАЛЕН';
 //            g.userTimer.setOrder(_activeOrderItem.getOrder());
             if (g.user.level <= 6) setTimerText = ManagerOrder.TIME_FIRST_DELAY;
             else if (g.user.level <= 9) setTimerText = ManagerOrder.TIME_SECOND_DELAY;
@@ -531,12 +541,13 @@ public class WOOrder extends WindowMain{
         bgIn.y = 32;
         _rightBlockTimer.addChild(bgIn);
 
-        var t:TextField = new TextField(280, 30, "ЗАКАЗ УДАЛЕН", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
-        t.x = 14;
-        t.y = 40;
-        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _rightBlockTimer.addChild(t);
-        t = new TextField(280, 30, "следующий поступит через:", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        _txtOrder = new TextField(280, 30, "", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtOrder.x = 14;
+        _txtOrder.y = 40;
+        _txtOrder.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _rightBlockTimer.addChild(_txtOrder);
+
+        var t:TextField = new TextField(280, 30, "следующий поступит через:", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
         t.x = 14;
         t.y = 65;
         t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -546,6 +557,7 @@ public class WOOrder extends WindowMain{
         im.x = 65;
         im.y = 110;
         _rightBlockTimer.addChild(im);
+
         _txtTimer = new TextField(165, 50, "", g.allData.fonts['BloggerBold'], 30, Color.WHITE);
         _txtTimer.x = 101;
         _txtTimer.y = 102;

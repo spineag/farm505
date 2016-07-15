@@ -142,8 +142,9 @@ public class TownArea extends Sprite {
                     ar.push(_cityObjects[i]);
             }
         } catch (e:Error) {
-            Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+//            Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
+            Cc.error('TownArea getCityObjectsById:: error _cityObjects: ' + _cityObjects.length );
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;
     }
@@ -297,6 +298,10 @@ public class TownArea extends Sprite {
             for (j = posX; j < posX + width; j++) {
                 if (i < 0 || j < 0 || i >= 80 || j > 80) return false;
                 obj = _townMatrix[i][j];
+                if (!obj){
+                    Cc.error('TownArea checkFreeGrids:: obj == nul');
+                    return false;
+                }
                 if (g.managerTutorial.isTutorial) {
                     if (!obj.isTutorialBuilding) {
                         return true;
@@ -316,6 +321,10 @@ public class TownArea extends Sprite {
             for (j = posX; j < posX + width; j++) {
                 if (i < 0 || j < 0 || i >= 80 || j > 80) return false;
                 obj = _townAwayMatrix[i][j];
+                if (!obj) {
+                    Cc.error('TownArea checkAwayFreeGrids:: obj == nul');
+                    return false;
+                }
                 if (g.managerTutorial.isTutorial) {
                     if (!obj.isTutorialBuilding) {
                         return true;
@@ -816,7 +825,7 @@ public class TownArea extends Sprite {
                 cost = (build as WorldObject).dataBuild.cost;
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
             } else {
-                cost = (arr.length-1) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
+                cost = (arr.length) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
             }
         } else {

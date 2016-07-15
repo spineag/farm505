@@ -57,7 +57,6 @@ public class WOSeverNoWork  extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-//        _txtError.text = params[0];
         showIt();
     }
 

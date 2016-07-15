@@ -28,12 +28,14 @@ public class WOOrderItem {
     private var _leftSeconds:int;
     private var _starImage:Image;
     private var _coinsImage:Image;
+    private var _clockImage:Image;
     private var _delImage:Image;
     private var _position:int;
     private var _check:Image;
     private var _clickCallback:Function;
     private var _act:Boolean;
     private var _wo:WOOrder;
+    private var _deleteOrSell:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
@@ -49,9 +51,15 @@ public class WOOrderItem {
         source.addChild(_bgCartonIn);
         _bgCarton.touchable = true;
 
-        _delImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wait'));
-        _delImage.x = 20;
-        _delImage.y = 5;
+        _clockImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wait'));
+        _clockImage.x = 20;
+        _clockImage.y = 5;
+        _clockImage.visible = false;
+        source.addChild(_clockImage);
+
+        _delImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_or'));
+        _delImage.x = 25;
+        _delImage.y = 10;
         source.addChild(_delImage);
 
         _txtName = new TextField(112, 20, "Васько", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
@@ -107,7 +115,7 @@ public class WOOrderItem {
         return _position;
     }
 
-    public function fillIt(order:ManagerOrderItem, position:int, f:Function, b:Boolean = false):void {
+    public function fillIt(order:ManagerOrderItem, position:int, f:Function, b:Boolean = false, afterSale:Boolean = false):void {
         _position = position;
         _order = order;
         _clickCallback = f;
@@ -119,31 +127,59 @@ public class WOOrderItem {
         else _check.visible = false;
         source.endClickCallback = onClick;
 
+        _deleteOrSell = afterSale;
+
         _leftSeconds = _order.startTime - int(new Date().getTime()/1000);
-        if (_leftSeconds > 0) {
-            _txtName.visible = false;
-            _txtXP.visible = false;
-            _txtCoins.visible = false;
-            _coinsImage.visible = false;
-            _starImage.visible = false;
-            _check.visible = false;
-            g.userTimer.setOrder(_order);
-            g.gameDispatcher.addToTimer(renderLeftTime);
-            _delImage.visible = true;
+        if (afterSale) {
+            if (_leftSeconds > 0) {
+                _txtName.visible = false;
+                _txtXP.visible = false;
+                _txtCoins.visible = false;
+                _coinsImage.visible = false;
+                _starImage.visible = false;
+                _check.visible = false;
+                g.userTimer.setOrder(_order);
+                g.gameDispatcher.addToTimer(renderLeftTimeOrder);
+                _delImage.visible = false;
+                _clockImage.visible = true;
+            } else {
+                _leftSeconds = -1;
+                _txtName.visible = true;
+                _txtXP.visible = true;
+                _txtCoins.visible = true;
+                _coinsImage.visible = true;
+                _starImage.visible = true;
+                _clockImage.visible = false;
+                _delImage.visible = false;
+            }
         } else {
-            _leftSeconds = -1;
-            _txtName.visible = true;
-            _txtXP.visible = true;
-            _txtCoins.visible = true;
-            _coinsImage.visible = true;
-            _starImage.visible = true;
-            _delImage.visible = false;
+            if (_leftSeconds > 0) {
+                _txtName.visible = false;
+                _txtXP.visible = false;
+                _txtCoins.visible = false;
+                _coinsImage.visible = false;
+                _starImage.visible = false;
+                _check.visible = false;
+                g.userTimer.setOrder(_order);
+                g.gameDispatcher.addToTimer(renderLeftTime);
+                _clockImage.visible = false;
+                _delImage.visible = true;
+            } else {
+                _leftSeconds = -1;
+                _txtName.visible = true;
+                _txtXP.visible = true;
+                _txtCoins.visible = true;
+                _coinsImage.visible = true;
+                _starImage.visible = true;
+                _delImage.visible = false;
+                _clockImage.visible = false;
+            }
         }
     }
 
     private function onClick():void {
         if (_clickCallback != null) {
-            _clickCallback.apply(null, [this]);
+            _clickCallback.apply(null, [this,false,_deleteOrSell]);
         }
     }
 
@@ -157,11 +193,12 @@ public class WOOrderItem {
         source.visible = false;
         _check.visible = false;
         g.gameDispatcher.removeFromTimer(renderLeftTime);
+        g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
     }
 
     private function renderLeftTime():void {
         _leftSeconds--;
-        if (_leftSeconds <= 10) {
+        if (_leftSeconds <= 15) {
             if (_txtName)_wo.timerSkip(_order);
             else g.userTimer.newCatOrder();
         }
@@ -179,12 +216,31 @@ public class WOOrderItem {
         }
     }
 
+    private function renderLeftTimeOrder():void {
+        _leftSeconds--;
+        if (_leftSeconds <= 0) {
+            _leftSeconds = -1;
+            g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
+            if(_txtName)_txtName.visible = true;
+            if(_txtXP)_txtXP.visible = true;
+            if(_txtCoins)_txtCoins.visible = true;
+            if(_coinsImage)_coinsImage.visible = true;
+            if(_starImage)_starImage.visible = true;
+            if(_delImage)_delImage.visible = false;
+            if(_clockImage)_clockImage.visible = false;
+//            if(_txtName)_wo.timerSkip(_order);
+//            else g.userTimer.newCatOrder();
+        }
+    }
+
     public function get leftSeconds():int {
         return _leftSeconds;
     }
 
     public function onSkipTimer():void {
-        _leftSeconds = 0;
+        g.gameDispatcher.removeFromTimer(renderLeftTime);
+        _leftSeconds = 15;
+        g.gameDispatcher.addToTimer(renderLeftTimeOrder);
         g.managerOrder.onSkipTimer(_order);
         _check.visible = false;
         if (g.user.level <= 6) _order.startTime -= 2* ManagerOrder.TIME_FIRST_DELAY;

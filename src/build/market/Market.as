@@ -62,7 +62,6 @@ public class Market extends WorldObject{
         var fEndOver:Function = function():void {
             _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
             _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-//            fillIt();
         };
         _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
@@ -173,7 +172,7 @@ public class Market extends WorldObject{
             _armature.addBone(_fruits2);
         }
 
-        _timer = 60;
+        _timer = 300;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
     }
 

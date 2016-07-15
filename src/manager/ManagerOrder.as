@@ -926,11 +926,11 @@ public class ManagerOrder {
         var pl:int = order.placeNumber;
         g.directServer.deleteUserOrder(order.dbId, null);
 
-        if (g.user.level <= 6)  addNewOrders(1, TIME_FIRST_DELAY, f, order.placeNumber);
-        else if (g.user.level <= 9)  addNewOrders(1, TIME_SECOND_DELAY, f, order.placeNumber);
-        else if (g.user.level <= 15)  addNewOrders(1, TIME_THIRD_DELAY, f, order.placeNumber);
-        else if (g.user.level <= 19)  addNewOrders(1, TIME_FOURTH_DELAY, f, order.placeNumber);
-        else if (g.user.level >= 20)  addNewOrders(1, TIME_FIFTH_DELAY, f, order.placeNumber);
+        if (g.user.level <= 6) addNewOrders(1, TIME_FIRST_DELAY, f, order.placeNumber);
+        else if (g.user.level <= 9) addNewOrders(1, TIME_SECOND_DELAY, f, order.placeNumber);
+        else if (g.user.level <= 15) addNewOrders(1, TIME_THIRD_DELAY, f, order.placeNumber);
+        else if (g.user.level <= 19) addNewOrders(1, TIME_FOURTH_DELAY, f, order.placeNumber);
+        else if (g.user.level >= 20) addNewOrders(1, TIME_FIFTH_DELAY, f, order.placeNumber);
 //        addNewOrders(1, TIME_DELAY, f, order.placeNumber);
     }
 
@@ -984,15 +984,15 @@ public class ManagerOrder {
 
     public function onSkipTimer(order:ManagerOrderItem):void {
         g.directServer.skipOrderTimer(order.dbId, null);
-//        var pl:int = order.placeNumber;
+        var pl:int = order.placeNumber;
         var orderDbId:String = order.dbId;
-//        for (var i:int = 0; i<_arrOrders.length; i++) {
-//            if (_arrOrders[i].placeNumber == pl) {
-//                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
-//                break;
-//            }
-//        }
-        for (var i:int=0; i<_arrOrders.length; i++) {
+        for (var i:int = 0; i<_arrOrders.length; i++) {
+            if (_arrOrders[i].placeNumber == pl) {
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+                break;
+            }
+        }
+        for (i = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == orderDbId) {
                 if (g.user.level <= 6) _arrOrders[i].startTime -= 2* TIME_FIRST_DELAY;
                 else if (g.user.level <= 9) _arrOrders[i].startTime -= 2*  TIME_SECOND_DELAY;
