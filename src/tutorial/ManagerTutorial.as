@@ -255,16 +255,16 @@ public class ManagerTutorial {
     private function subStep2_2():void {
         if (g.isDebug) {
             g.optionPanel.makeFullScreen();
-            g.optionPanel.makeResizeForGame();
-            onResize();
+//            g.optionPanel.makeResizeForGame();
+//            onResize();
             subStep2_2a();
         } else {
             try {
                 var func:Function = function (e:flash.events.Event):void {
                     Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
                     g.optionPanel.makeFullScreen();
-                    g.optionPanel.makeResizeForGame();
-                    onResize();
+//                    g.optionPanel.makeResizeForGame();
+//                    onResize();
                     subStep2_2a();
                 };
                 Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);

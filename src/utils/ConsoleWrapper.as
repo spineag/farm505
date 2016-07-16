@@ -91,8 +91,8 @@ public class ConsoleWrapper {
     private function makeFullscreen():void {
         if (g.optionPanel) {
             g.optionPanel.makeFullScreen();
-            g.optionPanel.makeResizeForGame();
-            if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
+//            g.optionPanel.makeResizeForGame();
+//            if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
         }
     }
 

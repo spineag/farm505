@@ -48,6 +48,7 @@ public class OptionPanel {
     public function OptionPanel() {
         _arrCells = [/*.5,*/ .62, .8, 1, 1.25, 1.55];
         fillBtns();
+        Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);
     }
 
     private function fillBtns():void {
@@ -246,7 +247,7 @@ public class OptionPanel {
                             Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
                             makeFullScreen();
                             _contFullScreen.filter = null;
-                            makeResizeForGame();
+//                            makeResizeForGame();
                         };
                         Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);
                     } catch (e:Error) {
@@ -303,46 +304,40 @@ public class OptionPanel {
         }
     }
 
-    private function reportKeyDown(event:KeyboardEvent):void  {
-        if (event.keyCode == 27) {
-            Cc.info('reportKeyDown: ESC');
-            Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
-            Starling.current.viewPort = new Rectangle(0, 0,Starling.current.nativeStage.stageWidth,Starling.current.nativeStage.stageHeight);
-            Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
-            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
-            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
-            makeResizeForGame();
-            if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
-        }
-    }
+//    private function reportKeyDown(event:KeyboardEvent):void  {
+//        if (event.keyCode == 27) {
+//            Cc.info('reportKeyDown: ESC');
+//            makeFullScreen();
+//            makeResizeForGame();
+//        }
+//    }
 
     private function onStageResize(e:flash.events.Event):void {
-        Starling.current.nativeStage.removeEventListener(flash.events.Event.RESIZE, onStageResize);
-        Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-        Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
-        g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
-        g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
+        Cc.info('event onStageResize');
+//        makeFullScreen();
         makeResizeForGame();
     }
 
     public function makeFullScreen():void {
+        Cc.info('makeFullScreen');
         if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
             Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
-            Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);
+//            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+//            Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);
             g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
             g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
         } else {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
             Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-            Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+//            Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
             g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
             g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
         }
     }
 
     public function makeResizeForGame():void {
+        Cc.info('makeResizeForGame');
         var cont:Sprite = g.cont.gameCont;
         var s:Number = cont.scaleX;
         var oY:Number = g.matrixGrid.offsetY*s;
@@ -353,17 +348,23 @@ public class OptionPanel {
             cont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
         if (cont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_X*s)
             cont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_Y*s;
-        g.bottomPanel.onResize();
-        g.bottomPanel.onResizePanelFriend();
-        g.craftPanel.onResize();
-        g.friendPanel.onResize();
-        g.toolsPanel.onResize();
-        g.xpPanel.onResize();
-        g.catPanel.onResize();
-        g.windowsManager.onResize();
-        _source.x = Starling.current.nativeStage.stageWidth;
-        _source.y = Starling.current.nativeStage.stageHeight - g.stageHeight + 147;
-        if (_source.visible) _source.x -= 58;
+        try {
+            g.bottomPanel.onResize();
+            g.bottomPanel.onResizePanelFriend();
+            g.craftPanel.onResize();
+            g.friendPanel.onResize();
+            g.toolsPanel.onResize();
+            g.xpPanel.onResize();
+            g.catPanel.onResize();
+            g.windowsManager.onResize();
+            _source.x = Starling.current.nativeStage.stageWidth;
+            _source.y = Starling.current.nativeStage.stageHeight - g.stageHeight + 147;
+            if (_source.visible) _source.x -= 58;
+        } catch (e:Error) {
+            Cc.stackch('error', 'error at makeResizeForGame::', 10);
+        }
+        Cc.info('before check tuts for resize');
+        if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
     }
 
     private var isAnimScaling:Boolean = false;
