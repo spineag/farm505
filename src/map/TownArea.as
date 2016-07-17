@@ -441,19 +441,22 @@ public class TownArea extends Sprite {
     }
 
     public function fillMatrixWithFence(posX:int, posY:int, source:*):void {
+        var j:int;
         for (var i:int = posY; i < (posY + 2); i++) {
-            for (var j:int = posX; j < (posX + 2); j++) {
+            for (j = posX; j < (posX + 2); j++) {
                 _townMatrix[i][j].isFull = true;
-                if (i == posY && j == posX)
-                    _freePlace.fillCell(j, i);
+                if (i == posY && j == posX) {
+                    _freePlace.fillCell(j + 1, i + 1);
                     _townMatrix[i][j].buildFence = source;
+                }
             }
         }
     }
 
     public function unFillMatrixWithFence(posX:int, posY:int):void {
+        var j:int;
         for (var i:int = posY; i < (posY + 2); i++) {
-            for (var j:int = posX; j < (posX + 2); j++) {
+            for (j = posX; j < (posX + 2); j++) {
                 _townMatrix[i][j].buildFence = null;
                 _townMatrix[i][j].isFull = false;
                 _freePlace.freeCell(j, i);
@@ -1160,22 +1163,22 @@ public class TownArea extends Sprite {
         // проверяем, есть ли по соседству еще столбы забора, если да - то проводим между ними ленту
         var obj:Object;
 
-        if (_townMatrix[d.posY][d.posX-2]) {
+        if (_townMatrix[d.posY][d.posX - 2]) {
             obj = _townMatrix[d.posY][d.posX - 2];
-            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
-                obj.buildFence.addRightLenta();
+            if (obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
+                (obj.buildFence as DecorPostFence).addRightLenta();
         }
-        if (_townMatrix[d.posY-2]) {
+        if (_townMatrix[d.posY - 2]) {
             obj = _townMatrix[d.posY - 2][d.posX];
             if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
-                obj.buildFence.addLeftLenta();
+                (obj.buildFence as DecorPostFence).addLeftLenta();
         }
-        if (_townMatrix[d.posY][d.posX+2]) {
+        if (_townMatrix[d.posY][d.posX + 2]) {
             obj = _townMatrix[d.posY][d.posX + 2];
-            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
+            if (obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
                 d.addRightLenta();
         }
-        if (_townMatrix[d.posY+2]) {
+        if (_townMatrix[d.posY + 2]) {
             obj = _townMatrix[d.posY + 2][d.posX];
             if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
                 d.addLeftLenta();
@@ -1186,15 +1189,15 @@ public class TownArea extends Sprite {
         // проверяем, есть ли по соседству еще столбы забора, если да - то забираем между ними ленту
         var obj:Object;
 
-        if (_townMatrix[d.posY][d.posX-2]) {
+        if (_townMatrix[d.posY][d.posX - 2]) {
             obj = _townMatrix[d.posY][d.posX - 2];
             if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
-                obj.buildFence.removeRightLenta();
+                (obj.buildFence as DecorPostFence).removeRightLenta();
         }
-        if (_townMatrix[d.posY-2]) {
+        if (_townMatrix[d.posY - 2]) {
             obj = _townMatrix[d.posY - 2][d.posX];
             if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
-                obj.buildFence.removeLeftLenta();
+                (obj.buildFence as DecorPostFence).removeLeftLenta();
         }
 
         d.removeLeftLenta();

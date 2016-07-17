@@ -10,6 +10,8 @@ import data.DataMoney;
 
 import flash.geom.Point;
 
+import manager.AStar;
+
 import manager.Vars;
 
 import tutorial.TutorialAction;
@@ -131,7 +133,8 @@ public class ManagerCats {
                 }
                 return;
             }
-            g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
+            var a:AStar = new AStar();
+            a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCatToPoint');
@@ -159,7 +162,8 @@ public class ManagerCats {
                 cat.walkIdleAnimation();
                 cat.goWithPath(arr, f2);
             };
-            g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
+            var a:AStar = new AStar();
+            a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerCats goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goIdleCatToPoint');

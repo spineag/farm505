@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
+import manager.AStar;
+
 import manager.Vars;
 
 import windows.WindowsManager;
@@ -148,7 +150,8 @@ public class ManagerOrderCats {
         };
 
         try {
-            g.aStar.getPath(cat.posX, cat.posY, p.x, p.y, f1);
+            var a:AStar = new AStar();
+            a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerOrderCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerOrderCats goCatToPoint cat == null');

@@ -167,7 +167,6 @@ public class Vars {
 
     public var analyticManager:AnalyticManager;
     public var managerCats:ManagerCats;
-    public var aStar:AStar;
     public var managerTutorial:ManagerTutorial;
     public var managerButterfly:ManagerButterfly;
     public var managerHelpers:ManagerHelpers;
@@ -224,7 +223,6 @@ public class Vars {
             toolsModifier = new ToolsModifier();
             toolsModifier.setTownArray();
 
-            aStar = new AStar();
             managerCats = new ManagerCats();
             managerOrderCats = new ManagerOrderCats();
             catPanel = new CatPanel();
