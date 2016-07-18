@@ -113,6 +113,7 @@ public class ManagerCats {
                 cat.goWithPath(arr, f2);
             } catch (e:Error) {
                 Cc.error('ManagerCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
+                Cc.stackch('error', 'ManagerCats goCatToPoint f1', 10);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCat1');
             }
         };
@@ -137,6 +138,7 @@ public class ManagerCats {
             a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
+            Cc.stackch('error', 'ManagerCats goCatToPoint', 10);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCatToPoint');
         }
     }
@@ -166,6 +168,7 @@ public class ManagerCats {
             a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerCats goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
+            Cc.stackch('error', 'ManagerCats goIdleCatToPoint', 10);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goIdleCatToPoint');
         }
     }
