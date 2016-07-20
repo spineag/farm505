@@ -5,6 +5,8 @@ package user {
 import manager.ManagerOrderItem;
 import manager.Vars;
 
+import windows.WindowsManager;
+
 public class UserTimer {
     public var papperTimerAtMarket:int;
     public var timerAtPapper:int;
@@ -57,15 +59,23 @@ public class UserTimer {
                 }
             }
         }
-      var pl:int = _arrOrderItem[i].placeNumber;
-        _arrOrderItem[i] = null;
+//      var pl:int = _arrOrderItem[i].placeNumber;
+//        _arrOrderItem[i] = null;
         var arr:Array = g.managerOrder.arrOrders.slice();
+
         for (i = 0; i < arr.length; i++) {
-            if (arr[i].placeNumber == pl) {
-               arr[i].cat = g.managerOrderCats.getNewCatForOrder();
+            if (!arr[i].cat) {
+                arr[i].cat = g.managerOrderCats.getNewCatForOrder();
+//                g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
                 break;
             }
         }
+//        for (i = 0; i < arr.length; i++) {
+//            if (arr[i].placeNumber == pl) {
+//               arr[i].cat = g.managerOrderCats.getNewCatForOrder();
+//                break;
+//            }
+//        }
         g.bottomPanel.checkIsFullOrder();
     }
 }

@@ -4746,6 +4746,50 @@ public class DirectServer {
         }
     }
 
+    public function updateUserOrder(id:int,place:int,callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_ORDER_ITEM);
+        var variables:URLVariables = new URLVariables();
+        Cc.ch('server', 'updateUserOrder', 1);
+        variables.userId = g.user.userId;
+        variables.id = id;
+        variables.place = place;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserOrder);
+        function onCompleteUpdateUserOrder(e:Event):void { completeUpdateUserOrder(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserOrder error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMarketCell error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
+        }
+    }
+
+    private function completeUpdateUserOrder(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserOrder: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserOrder: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserOrder OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('updateUserOrder: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserOrder: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
     public function addUserPapperBuy(buyerId:int,resourceId:int,resourceCount:int,xp:int,cost:int,visible:int):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_PAPPER_BUY);

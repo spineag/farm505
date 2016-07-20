@@ -38,6 +38,7 @@ public class Train extends WorldObject{
     private var _arriveAnim:ArrivedAnimation;
 //    private var _countTimer:int;
     private var _bolAnimation:Boolean;
+    private var _fullTrain:Boolean;
 
     public function Train(_data:Object) {
         super(_data);
@@ -519,6 +520,7 @@ public class Train extends WorldObject{
         leaveTrain();
         list = [];
         g.directServer.getUserTrain(null);
+        _fullTrain = false;
     }
 
     private function startRenderTrainWork():void {
@@ -529,11 +531,14 @@ public class Train extends WorldObject{
         _counter--;
         if (_counter <= 0) {
             if (_stateBuild == STATE_READY) {
-                _stateBuild = STATE_WAIT_BACK;
-                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
-                _counter = TIME_WAIT;
-                leaveTrain();
-                g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
+                if (_fullTrain) fullTrain(false);
+                else {
+                    _stateBuild = STATE_WAIT_BACK;
+                    g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+                    _counter = TIME_WAIT;
+                    leaveTrain();
+                    g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
+                }
             } else if (_stateBuild == STATE_WAIT_BACK) {
                 _stateBuild = STATE_READY;
                 g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
@@ -544,6 +549,10 @@ public class Train extends WorldObject{
                 Cc.error('renderTrainWork:: wrong _stateBuild');
             }
         }
+    }
+
+    public function set trainFull(b:Boolean):void {
+        _fullTrain = b;
     }
 
     override public function clearIt():void {

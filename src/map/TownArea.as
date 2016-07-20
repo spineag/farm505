@@ -1342,6 +1342,7 @@ public class TownArea extends Sprite {
         }
         g.managerCats.makeAwayCats();
         zAwaySort();
+        decorAwayTailSort();
         sortAwayAtLockedLands();
         _awayPreloader.deleteIt();
         _awayPreloader = null;
@@ -1430,6 +1431,13 @@ public class TownArea extends Sprite {
         if (isFlip && !(build is DecorPostFence)) {
             (build as WorldObject).makeFlipBuilding();
         }
+
+        if (_data.id == 93 || _data.id == 95 || _data.id == 97
+                || _data.id == 107 || _data.id == 108 || _data.id == 109 || _data.id == 110 || _data.id == 111 || _data.id == 112 || _data.id == 113
+                || _data.id == 114 || _data.id == 115 || _data.id == 116 || _data.id == 117 || _data.id == 118) {
+            (build as WorldObject).makeFlipBuilding();
+        }
+
     }
 
     public function pasteAwayBuild(worldObject:WorldObject, posX:Number, posY:Number):void {
@@ -1534,7 +1542,6 @@ public class TownArea extends Sprite {
             _cityAwayTailObjects.push(tail);
         }
         (tail as WorldObject).updateDepth();
-        decorAwayTailSort();
     }
 
     public function decorAwayTailSort():void {

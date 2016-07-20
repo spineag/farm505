@@ -38,7 +38,11 @@ public class DecorPostFence extends WorldObject{
     public function addLeftLenta():void {
         if (_leftLenta) return;
         _leftLenta = new Sprite();
-        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_1'));
+        try {
+            var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_1'));
+        } catch (e:Error) {
+          return;
+        }
         switch (_dataBuild.id) {  // better to add its to DB as array
             case 21: im.x = -107 * g.scaleFactor;
                      im.y = -3 * g.scaleFactor;
@@ -60,7 +64,11 @@ public class DecorPostFence extends WorldObject{
     public function addRightLenta():void {
         if (_rightLenta) return;
         _rightLenta = new Sprite();
-        var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_1'));
+        try {
+            var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_1'));
+        } catch (e:Error) {
+            return;
+        }
         switch (_dataBuild.id) {  // better to add its to DB as array
             case 21: im.x = -107 * g.scaleFactor;
                 im.y = -3 * g.scaleFactor;

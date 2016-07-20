@@ -141,7 +141,7 @@ public class ManagerOrder {
     // 1 - usual resource fromFabrica
     // 2 - resources made from resources from cave
     // 3 - resource plants
-    private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1):void {
+    private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1,del:Boolean = true):void {
         var order:ManagerOrderItem;
         var arrOrderType1:Array = new Array(); //products
         var arrOrderType2:Array = new Array(); //cave res
@@ -872,10 +872,46 @@ public class ManagerOrder {
                 order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
             }
             order.startTime = int(new Date().getTime()/1000);
-            if (place == -1) {
-                order.placeNumber = getFreePlace();
-            } else {
-                order.placeNumber = place;
+            if (place > -1) {
+                if (del) {
+                    for (i = 0; i < _arrOrders.length; i++) {
+                        if (_arrOrders[i].placeNumber > place) {
+                            _arrOrders[i].placeNumber -= 1;
+                            g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
+                        }
+                    }
+                    order.placeNumber = _curMaxCountOrders;
+                    g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
+                } else {
+                    var b:Boolean;
+                    for (i = 0; i < _arrOrders.length; i++) {
+                        b = true;
+                        if (!_arrOrders[i].cat) {
+                            place = _arrOrders[i].placeNumber;
+                            b = false;
+                            break;
+                        }
+                    }
+                    if (b) {
+                        for (i = 0; i < _arrOrders.length; i++) {
+                            if (_arrOrders[i].placeNumber > place) {
+                                _arrOrders[i].placeNumber -= 1;
+                                g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
+                            }
+                        }
+                        order.placeNumber = _curMaxCountOrders;
+                        g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
+                    } else {
+                        for (i = 0; i < _arrOrders.length; i++) {
+                            if (_arrOrders[i].placeNumber >= place && _arrOrders[i].cat) {
+                                _arrOrders[i].placeNumber -= 1;
+                                g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
+                            }
+                        }
+                        order.placeNumber = place-1;
+                        g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
+                    }
+                }
             }
             _arrOrders.push(order);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
@@ -932,6 +968,9 @@ public class ManagerOrder {
         else if (g.user.level <= 19) addNewOrders(1, TIME_FOURTH_DELAY, f, order.placeNumber);
         else if (g.user.level >= 20) addNewOrders(1, TIME_FIFTH_DELAY, f, order.placeNumber);
 //        addNewOrders(1, TIME_DELAY, f, order.placeNumber);
+//        for (i = 0; i < _arrOrders.length; i++) {
+//            if (_arrOrders[i])
+//        }
     }
 
     public function sellOrder(order:ManagerOrderItem, f:Function):void {
@@ -943,17 +982,23 @@ public class ManagerOrder {
                 break;
             }
         }
-        if (i == _arrOrders.length) Cc.error('ManagerOrder cellOrder:: no order');
+
         g.directServer.deleteUserOrder(order.dbId, null);
         var pl:int = order.placeNumber;
         order = null;
-        addNewOrders(1, 0, f, pl);
-        for (i=0; i<_arrOrders.length; i++) {
-            if (_arrOrders[i].placeNumber == pl) {
+        addNewOrders(1, 0, f, pl,false);
+        for (i = 0; i < _arrOrders.length; i++) {
+            if (!_arrOrders[i].cat) {
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
                 break;
             }
         }
+//        for (i=0; i<_arrOrders.length; i++) {
+//            if (_arrOrders[i].placeNumber == pl) {
+//                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+//                break;
+//            }
+//        }
     }
 
     public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled

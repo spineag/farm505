@@ -286,7 +286,12 @@ public class Tree extends WorldObject {
         item.flyIt();
         st = 'fruit' + _countCrafted;
         b = _armature.getBone(st);
-        _armature.removeBone(b, true);
+        if (b)_armature.removeBone(b, true);
+        else {
+            st = 'fruit' + (_countCrafted+1);
+            b = _armature.getBone(st);
+            _armature.removeBone(b, true);
+        }
         _countCrafted--;
         if (_countCrafted == 0) {
             onCraftItemClick();
@@ -1029,6 +1034,14 @@ public class Tree extends WorldObject {
                 makeWateringIcon();
             }
             return;
+        } else {
+            if (_state == FIXED) {
+                _state = GROW_FIXED;
+                setBuildImage();
+                startGrow();
+                g.managerTree.updateTreeState(tree_db_id, _state);
+                makeWateringIcon();
+            }
         }
     }
 

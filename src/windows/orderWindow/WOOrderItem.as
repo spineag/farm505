@@ -3,10 +3,14 @@
  */
 package windows.orderWindow {
 
+import com.greensock.TweenMax;
+
 import manager.ManagerFilters;
 import manager.ManagerOrder;
 import manager.ManagerOrderItem;
 import manager.Vars;
+
+import starling.animation.Tween;
 
 import starling.display.Image;
 import starling.text.TextField;
@@ -36,6 +40,7 @@ public class WOOrderItem {
     private var _act:Boolean;
     private var _wo:WOOrder;
     private var _deleteOrSell:Boolean;
+    private var _recheck:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
@@ -45,6 +50,8 @@ public class WOOrderItem {
         _bgCarton = new CartonBackground(112, 90);
         _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(_bgCarton);
+        source.pivotX = source.width/2;
+        source.pivotY = source.height/2;
         _bgCartonIn = new CartonBackgroundIn(102, 64);
         _bgCartonIn.x = 5;
         _bgCartonIn.y = 21;
@@ -97,6 +104,7 @@ public class WOOrderItem {
         source.addChild(_check);
         source.hoverCallback = onHover;
         source.outCallback = onOut;
+
     }
 
     public function activateIt(v:Boolean):void {
@@ -115,7 +123,8 @@ public class WOOrderItem {
         return _position;
     }
 
-    public function fillIt(order:ManagerOrderItem, position:int, f:Function, b:Boolean = false, afterSale:Boolean = false):void {
+    public function fillIt(order:ManagerOrderItem, position:int, f:Function, b:Boolean = false, afterSale:Boolean = false,rech:Boolean = false):void {
+        _recheck = rech;
         _position = position;
         _order = order;
         _clickCallback = f;
@@ -175,6 +184,7 @@ public class WOOrderItem {
                 _clockImage.visible = false;
             }
         }
+        if (rech)source.scaleX = source.scaleY = 0;
     }
 
     private function onClick():void {
@@ -198,7 +208,7 @@ public class WOOrderItem {
 
     private function renderLeftTime():void {
         _leftSeconds--;
-        if (_leftSeconds <= 15) {
+        if (_leftSeconds <= 15 && !_recheck) {
             if (_txtName)_wo.timerSkip(_order);
             else g.userTimer.newCatOrder();
         }
@@ -243,6 +253,8 @@ public class WOOrderItem {
         g.gameDispatcher.addToTimer(renderLeftTimeOrder);
         g.managerOrder.onSkipTimer(_order);
         _check.visible = false;
+        _delImage.visible = false;
+        _clockImage.visible = true;
         if (g.user.level <= 6) _order.startTime -= 2* ManagerOrder.TIME_FIRST_DELAY;
         else if (g.user.level <= 9) _order.startTime -= 2*  ManagerOrder.TIME_SECOND_DELAY;
         else if (g.user.level <= 15) _order.startTime -= 2* ManagerOrder.TIME_THIRD_DELAY;
@@ -274,6 +286,21 @@ public class WOOrderItem {
 
     public function updateCheck(b:Boolean):void {
         _check.visible = b;
+    }
+
+    public function animation(delay:Number):void {
+        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:1, y: source.y, delay:delay});
+    }
+
+    public function animationHide(delay:Number):void {
+        TweenMax.to(source, .3, {scaleX:0, scaleY:0, alpha:1, y: source.y, delay:delay});
+    }
+
+    public function clearItem():void {
+        _txtName.text = '';
+        _txtXP.text = '';
+        _txtCoins.text = '';
+        _leftSeconds = 0;
     }
 
     public function deleteIt():void {

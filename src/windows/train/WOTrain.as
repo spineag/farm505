@@ -399,6 +399,15 @@ public class WOTrain extends WindowMain {
             _btnSend.setEnabled = false;
             return;
         }
+        var b:Boolean;
+        for (i = 0; i<_arrItems.length; i++) {
+            b = false;
+            if (_arrItems[i].isResourceLoaded) {
+                b = true;
+            }
+        }
+        if (b) (_build as Train).trainFull = true;
+
         _btnSend.setEnabled = true;
         _btnSend.clickCallback = fullTrain;
     }

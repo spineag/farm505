@@ -93,7 +93,7 @@ public class WOOrder extends WindowMain{
         fillList();
         var num:int;
         var delay:int;
-        for (var i:int = 0; i < _arrOrders.length; i++){
+        for (var i:int = 0; i < _arrOrders.length; i++) {
             delay = 0;
             num = 0;
             for (var k:int = 0; k<_arrOrders[i].resourceIds.length; k++) {
@@ -204,8 +204,8 @@ public class WOOrder extends WindowMain{
         _arrItems = [];
         for (var i:int=0; i<9; i++) {
             item = new WOOrderItem(this);
-            item.source.x = -382 + 40 + (i%3)*120;
-            item.source.y = -285 + 185 + int(i/3)*94;
+            item.source.x = -330 + 40 + (i%3)*120;
+            item.source.y = -246 + 185 + int(i/3)*94;
             _source.addChild(item.source);
             _arrItems.push(item);
         }
@@ -315,7 +315,6 @@ public class WOOrder extends WindowMain{
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
         g.bottomPanel.checkIsFullOrder();
         animateCatsOnSell();
-        emptyCarCustomer();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
             g.managerTutorial.checkTutorialCallback();
@@ -353,6 +352,7 @@ public class WOOrder extends WindowMain{
             } else break;
         }
         g.bottomPanel.checkIsFullOrder();
+//        newPlaceNumber();
     }
 
     private function fillList():void {
@@ -360,6 +360,7 @@ public class WOOrder extends WindowMain{
         var b:Boolean;
         var order:ManagerOrderItem;
         var k:int;
+        var delay:Number = .1;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (i >= maxCount) return;
             b = true;
@@ -372,6 +373,8 @@ public class WOOrder extends WindowMain{
             }
             if (order.placeNumber > -1) {
                 _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b,order.cat);
+//                _arrItems[i].animation(delay);
+//                delay += .1;
             } else {
                 Cc.error('WOOrder fillList:: order.place == -1');
             }
@@ -392,10 +395,12 @@ public class WOOrder extends WindowMain{
             animateSellerCat();
             helloStart();
         }
+
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
             _btnSkipDelete.visible = true;
+            if (_activeOrderItem.leftSeconds <= 15) _btnSkipDelete.visible = false;
             if (delOrsell) {
                 _txtOrder.text = 'ЗАКАЗ ОФОРМЛЕН';
                 _btnSkipDelete.visible = false;
@@ -405,7 +410,7 @@ public class WOOrder extends WindowMain{
             g.gameDispatcher.addToTimer(onTimer);
             setTimerText = _activeOrderItem.leftSeconds;
             stopCatsAnimations();
-            emptyCarCustomer();
+            if (!g.managerTutorial.isTutorial) emptyCarCustomer();
         } else {
             _rightBlock.visible = true;
             if (item.getOrder().addCoupone) {
@@ -445,23 +450,53 @@ public class WOOrder extends WindowMain{
             g.hint.hideIt();
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
-//            _txtOrder.text = 'ЗАКАЗ УДАЛЕН';
 //            g.userTimer.setOrder(_activeOrderItem.getOrder());
             if (g.user.level <= 6) setTimerText = ManagerOrder.TIME_FIRST_DELAY;
             else if (g.user.level <= 9) setTimerText = ManagerOrder.TIME_SECOND_DELAY;
             else if (g.user.level <= 15) setTimerText = ManagerOrder.TIME_THIRD_DELAY;
             else if (g.user.level <= 19) setTimerText = ManagerOrder.TIME_FOURTH_DELAY;
             else if (g.user.level >= 20) setTimerText = ManagerOrder.TIME_FIFTH_DELAY;
-//            setTimerText = ManagerOrder.TIME_DELAY;
             _waitForAnswer = true;
             _arrOrders[_activeOrderItem.position] = null;
             var tOrderItem:WOOrderItem = _activeOrderItem;
             var f:Function = function (order:ManagerOrderItem):void {
                 afterDeleteOrder(order, tOrderItem);
+                newPlaceNumber();
             };
             g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
             g.bottomPanel.checkIsFullOrder();
         }
+    }
+
+    private function newPlaceNumber():void {
+        _arrOrders = [];
+        _arrOrders = g.managerOrder.arrOrders.slice();
+        var delay:Number = .1;
+        for (var i:int = 0; i < _arrOrders.length; i++) {
+            _arrItems[i].animationHide(delay);
+            delay += .1;
+        }
+        var order:ManagerOrderItem;
+        var k:int;
+        var b:Boolean;
+        delay = .1;
+        for (i = 0; i < _arrOrders.length; i++) {
+            b = true;
+            order = _arrOrders[i];
+            for (k=0; k<order.resourceIds.length; k++) {
+                if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+                    b = false;
+                    break;
+                }
+            }
+            if (order.placeNumber > -1) {
+                _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b,order.cat,true);
+                _arrItems[i].animation(delay);
+                delay += .1;
+
+            }
+        }
+        onItemClick(_arrItems[0]);
     }
 
     private function afterDeleteOrder(order:ManagerOrderItem, orderItem:WOOrderItem):void {
@@ -526,6 +561,8 @@ public class WOOrder extends WindowMain{
         }
         _activeOrderItem.onSkipTimer();
         g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -n);
+        _btnSkipDelete.visible = false;
+
     }
 
     private function createRightBlockTimer():void {
@@ -826,12 +863,14 @@ public class WOOrder extends WindowMain{
             changeCatTexture(_activeOrderItem.position);
             animateCustomerCat();
         }
+
         if (g.user.wallOrderItem && g.user.level >= 10) {
             hideIt();
             g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
             g.directServer.updateWallOrderItem(null);
             g.user.wallOrderItem = false;
-        }
+        } else hideIt();
+
     }
 
     public function setTextForCustomer(st:String):void {

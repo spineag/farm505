@@ -75,13 +75,7 @@ public class WONoPlaces extends WindowMain {
         _source.addChild(im);
         _txtAdd = new TextField(100,100,"",g.allData.fonts['BloggerBold'],16,Color.WHITE);
         _txtAdd.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _source.addChild(_txtAdd);
         _last = false;
-
-//        _txtButton = new TextField(150,50,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
-//        _txtButton.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-//        _btn.addChild(_txtButton);
-//        _txtButton.y = -2;
     }
 
     private function onClickExit(e:Event=null):void {
@@ -104,6 +98,7 @@ public class WONoPlaces extends WindowMain {
             _imageItem.x = -40;
             _imageItem.y = -40;
             _source.addChild(_imageItem);
+            _source.addChild(_txtAdd);
             _last = true;
             _cost = params[0];
             _txtCost.text = String('Ускорить за   ' + _price);
