@@ -52,6 +52,7 @@ public class WOFabricaWorkList {
             if (maxCount < 9) {
                 var price:int = 6 + (maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
                 _arrItems[maxCount].showBuyPropose(price, onBuyNewCell);
+                trace('lol');
             }
             for (i=1; i<maxCount; i++) {
                 _arrItems[i].source.visible = true;

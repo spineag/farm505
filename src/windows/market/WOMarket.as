@@ -402,7 +402,8 @@ public class WOMarket  extends WindowMain {
                 else _arrItems[i].friendAdd(false);
             }
             for (i = 0; i < _curUser.marketItems.length; i++) {
-                _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
+                if (_curUser.marketItems[i].numberCell == _arrItems.length)  _arrItems[_curUser.marketItems[i].numberCell-1].fillFromServer(_curUser.marketItems[i], _curUser);
+                else _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
             }
 
             if (_shiftFriend != 0) goToItemFromPaper();
@@ -817,7 +818,6 @@ public class WOMarket  extends WindowMain {
             for (i=0; i< _arrItems.length; i++) {
                 _arrItems[i].unFillIt();
             }
-            trace(' if (_arrItemsTemp.length != _curUser.marketItems.length)');
             fillItems();
         } else {
             for (i= 0; i < _curUser.marketItems.length; i++) {
@@ -831,10 +831,8 @@ public class WOMarket  extends WindowMain {
                     _arrItems[i].unFillIt();
                 }
                 fillItems();
-                trace('if (b)');
             }
         }
-        trace('ну как то так');
         _timer = 5;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
     }

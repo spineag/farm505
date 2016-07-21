@@ -165,6 +165,7 @@ public class WildHint {
                 _deleteCallback.apply();
                 _deleteCallback = null;
             }
+            onOutHint();
         }
     }
 

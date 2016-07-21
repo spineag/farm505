@@ -180,7 +180,7 @@ public class MarketItem {
         source.addChild(_papper);
         _papper.clickCallback = onPaper;
         _papper.hoverCallback = function ():void {
-            if (_inPapper) return;
+            if (_inPapper || isFill == 2) return;
             g.hint.showIt('Поместить объявление в газету','market_paper');
         };
         _papper.outCallback = function ():void {
@@ -295,7 +295,6 @@ public class MarketItem {
     }
 
     private function onAddToServer(ob:Object):void {
-        trace(g.user.marketItems.length + ' old');
         var obj:Object = {};
         obj.id = int(ob.id);
         obj.buyerId = ob.buyer_id;
@@ -309,7 +308,6 @@ public class MarketItem {
         obj.numberCell = ob.number_cell;
         _dataFromServer = obj;
         g.user.marketItems.push(obj);
-        trace(g.user.marketItems.length + ' new');
     }
 
     public function clearImageCont():void {

@@ -405,12 +405,15 @@ public class WOOrder extends WindowMain{
                 _txtOrder.text = 'ЗАКАЗ ОФОРМЛЕН';
                 _btnSkipDelete.visible = false;
             }
-            else _txtOrder.text = 'ЗАКАЗ УДАЛЕН';
+            else {
+                stopCatsAnimations();
+            if (!g.managerTutorial.isTutorial) emptyCarCustomer();
+                _txtOrder.text = 'ЗАКАЗ УДАЛЕН';
+            }
 
             g.gameDispatcher.addToTimer(onTimer);
             setTimerText = _activeOrderItem.leftSeconds;
-            stopCatsAnimations();
-            if (!g.managerTutorial.isTutorial) emptyCarCustomer();
+//
         } else {
             _rightBlock.visible = true;
             if (item.getOrder().addCoupone) {
@@ -857,11 +860,13 @@ public class WOOrder extends WindowMain{
     private function animateCustomerOnSell(e:AnimationEvent):void {
         _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
         _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
+
         if (g.managerTutorial.isTutorial) {
             g.managerTutorial.checkTutorialCallback();
         } else {
-            changeCatTexture(_activeOrderItem.position);
-            animateCustomerCat();
+            emptyCarCustomer();
+//            changeCatTexture(_activeOrderItem.position);
+//            animateCustomerCat();
         }
 
         if (g.user.wallOrderItem && g.user.level >= 10) {

@@ -288,6 +288,7 @@ public class WOFabricaWorkListItem {
         _skipCallback = null;
         if (_type == SMALL_CELL) {
             _source.visible = false;
+            trace ('tyt');
             if (_proposeBtn) {
                 _source.removeChild(_proposeBtn);
                 _proposeBtn.deleteIt();
