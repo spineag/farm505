@@ -47,8 +47,8 @@ public class WOTrainOrder extends WindowMain{
         _btn = new CButton();
         _btn.addButtonTexture(172, 50, CButton.GREEN, true);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
-        im.y = 15;
-        im.x = 30;
+        im.y = 10;
+        im.x = 35;
 //        MCScaler.scale(im,30,30);
         _btn.addDisplayObject(im);
         txt = new TextField(100,50,"привезти сейчас",g.allData.fonts['BloggerBold'],16,Color.WHITE);

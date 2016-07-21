@@ -908,7 +908,8 @@ public class ManagerOrder {
                                 g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
                             }
                         }
-                        order.placeNumber = place-1;
+                        if (place == 0) order.placeNumber = place;
+                        else order.placeNumber = place-1;
                         g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
                     }
                 }

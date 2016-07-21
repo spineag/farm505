@@ -108,6 +108,7 @@ public class WOOrder extends WindowMain{
             }
         }
         if (delay > 0) i = 0;
+//        if (_arrItems[i].)
         onItemClick(_arrItems[i]);
         _waitForAnswer = false;
         changeCatTexture(i);

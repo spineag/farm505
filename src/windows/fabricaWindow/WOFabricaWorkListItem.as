@@ -194,6 +194,7 @@ public class WOFabricaWorkListItem {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_type == SMALL_CELL) {
             _source.visible = true;
+            if (_proposeBtn) return;
             _proposeBtn = new CSprite();
             var txt:TextField = new TextField(46, 28, "+" + String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -288,7 +289,6 @@ public class WOFabricaWorkListItem {
         _skipCallback = null;
         if (_type == SMALL_CELL) {
             _source.visible = false;
-            trace ('tyt');
             if (_proposeBtn) {
                 _source.removeChild(_proposeBtn);
                 _proposeBtn.deleteIt();

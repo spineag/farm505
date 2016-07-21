@@ -140,7 +140,8 @@ public class WOTrainItem {
     }
 
     public function get isResourceLoaded():Boolean {
-        return _info.isFull;
+        if (!_info) return false;
+        else return _info.isFull;
     }
 
     public function canFull():Boolean {
