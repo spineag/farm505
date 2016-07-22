@@ -142,12 +142,15 @@ public class WOLevelUpItem {
                 _bolAnimal = true;
             } else if (ob.buildType == BuildType.INSTRUMENT) {
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
-            } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER || ob.buildType == BuildType.DAILY_BONUS
+            } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.ORDER
                      || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
                  _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.CAVE) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
+                _bolHouse = true;
+            } else if (ob.buildType == BuildType.DAILY_BONUS) {
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture('daily_bonus_icon'));
                 _bolHouse = true;
             }
         } catch (e:Error) {

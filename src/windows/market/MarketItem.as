@@ -742,18 +742,19 @@ public class MarketItem {
 
         if (isFill == 0 &&_isUser) {
             _bg.filter = ManagerFilters.BUILD_STROKE;
-        } else if (isFill == 1 && _isUser) {
+        } else if (isFill == 1) {
             _delete.visible = true;
             count = 1;
             g.gameDispatcher.addToTimer(onEnterFrame);
         }
+        if (isFill == 1 && _isUser)_delete.visible = true;
     }
 
     private function onOut():void {
         _onHover = false;
         if (isFill == 0 && _isUser) {
             _bg.filter = null;
-        } else if (isFill == 1 && _isUser) {
+        } else if (isFill == 1) {
             _delete.visible = false;
             g.marketHint.hideIt();
             g.gameDispatcher.removeFromTimer(onEnterFrame);
@@ -765,8 +766,8 @@ public class MarketItem {
         count--;
         if (count >= 0) {
             g.gameDispatcher.removeFromTimer(onEnterFrame);
-//            if (!g.resourceHint.isShowed && _onHover)
-//                g.marketHint.showIt(_data.id,source.x,source.y,source);
+            if (!g.resourceHint.isShowed && _onHover)
+                g.marketHint.showIt(_data.id,source.x,source.y,source);
         }
     }
 

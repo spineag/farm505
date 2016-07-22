@@ -31,7 +31,8 @@ public class Train extends WorldObject{
     private var _counter:int;
     private var _dataPack:Object;
     private var _train_db_id:String; // id для поезда юзера в табличке user_train
-    private var TIME_READY:int = 8*60*60; // время, которое ожидает поезд для загрузки продуктов
+//    private var TIME_READY:int = 8*60*60; // время, которое ожидает поезд для загрузки продуктов
+    private var TIME_READY:int = 60; // время, которое ожидает поезд для загрузки продуктов
     private var TIME_WAIT:int = 8*60*60;  // время, на которое уезжает поезд
     private var _isOnHover:Boolean;
     private var _armatureOpenBoom:Armature;
@@ -531,8 +532,10 @@ public class Train extends WorldObject{
         _counter--;
         if (_counter <= 0) {
             if (_stateBuild == STATE_READY) {
-                if (_fullTrain) fullTrain(false);
-                else {
+                if (_fullTrain){
+                    fullTrain(false);
+                    g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
+                } else {
                     _stateBuild = STATE_WAIT_BACK;
                     g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                     _counter = TIME_WAIT;
