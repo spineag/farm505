@@ -84,7 +84,6 @@ public class WOOrder extends WindowMain{
         createTopCats();
         _waitForAnswer = false;
         _rightBlock.visible = false;
-
         _birka = new Birka('ЛАВКА', _source, 764, 570);
     }
 
@@ -108,12 +107,10 @@ public class WOOrder extends WindowMain{
             }
         }
         if (delay > 0) i = 0;
-//        if (_arrItems[i].)
         onItemClick(_arrItems[i]);
         _waitForAnswer = false;
         changeCatTexture(i);
         startAnimationCats();
-//        helloStart();
         super.showIt();
     }
 
@@ -157,7 +154,6 @@ public class WOOrder extends WindowMain{
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         im.x = 501;
         im.y = 417;
-//        MCScaler.scale(im, 30, 30);
         im.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(im);
         _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
@@ -168,7 +164,6 @@ public class WOOrder extends WindowMain{
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         im.x = 570;
         im.y = 419;
-//        MCScaler.scale(im, 30, 30);
         im.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(im);
         _imCoup = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_cup_ico'));
@@ -314,7 +309,7 @@ public class WOOrder extends WindowMain{
         };
         _arrOrders[_activeOrderItem.position] = null;
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
-        g.bottomPanel.checkIsFullOrder();
+//        g.bottomPanel.checkIsFullOrder();
         animateCatsOnSell();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
@@ -352,7 +347,7 @@ public class WOOrder extends WindowMain{
                 }
             } else break;
         }
-        g.bottomPanel.checkIsFullOrder();
+//        g.bottomPanel.checkIsFullOrder();
 //        newPlaceNumber();
     }
 
@@ -893,6 +888,7 @@ public class WOOrder extends WindowMain{
 
     private function deleteCats():void {
         killCatsAnimations();
+        if (!_armatureCustomer) return;
         _source.removeChild(_armatureCustomer.display as Sprite);
         _source.removeChild(_armatureSeller.display as Sprite);
         _armatureCustomer.dispose();

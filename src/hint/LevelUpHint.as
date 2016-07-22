@@ -68,7 +68,7 @@ public class LevelUpHint {
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite, house:Boolean,animal:Boolean):void {
         var wText:int = 0;
         var wName:int = 0;
-//        if (!g.dataResource.objectResources[_dataId]) {
+//        if (_dataId == 0 ) {
 //            Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
 //            g.woGameError.showIt();
 //            return;
@@ -78,6 +78,8 @@ public class LevelUpHint {
         start = source.parent.localToGlobal(start);
         _source.x = start.x + source.width/2;
         _source.y = start.y + source.height;
+
+
         if (_dataId == -1) {
             _txtName = new TextField(200, 30,'Кот', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;

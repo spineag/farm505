@@ -58,7 +58,7 @@ public class ManagerFabricaRecipe {
     }
 
     public function getFabricaWithPossibleRecipe():Fabrica {
-        var k:int;
+        var j:int;
         var l:int;
         var f:Fabrica;
         var r:Object;
@@ -66,8 +66,9 @@ public class ManagerFabricaRecipe {
         for (var i:int=0; i<_arrFabrica.length; i++){
             f = _arrFabrica[i];
             if (f.arrList.length >= f.dataBuild.countCell) continue;
-            for (k=0; f.arrRecipes.length; k++) {
-                r = f.arrRecipes[k];
+
+            for (j=0; f.arrRecipes.length; j++) {
+                r = f.arrRecipes[j];
                 if (!r) continue;
                 if (r.blockByLevel > g.user.level) continue;
                 isReady = true;

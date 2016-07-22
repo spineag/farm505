@@ -94,11 +94,13 @@ public class WOLevelUpItem {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
                 _txtCount.text = String(ob.count);
                 _txtNew.text = '';
+                _data.id = -1;
             }
             if (ob.ridgeCount) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
                 _txtCount.text = String(count);
                 _txtNew.text = '';
+                _data.id = -2;
             }
             if (ob.buildType == BuildType.FARM) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));

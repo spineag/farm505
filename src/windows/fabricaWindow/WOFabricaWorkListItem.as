@@ -225,6 +225,8 @@ public class WOFabricaWorkListItem {
                 }
             };
             _proposeBtn.endClickCallback = f1;
+            _proposeBtn.hoverCallback = function():void { _proposeBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER};
+            _proposeBtn.outCallback = function():void { _proposeBtn.filter = null};
         }
     }
 
