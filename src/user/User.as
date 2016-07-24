@@ -43,7 +43,8 @@ public class User extends Someone {
     public var decorShiftShop:int;
     public var userGAcid:String = 'unknown';
     public var paperShift:int;
-    public var buyMarketTab:int;
+    public var buyShopTab:int;
+    public var shopDecorFilter:int = 1;
     private var g:Vars = Vars.getInstance();
 
     public function User() {

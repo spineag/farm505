@@ -876,7 +876,7 @@ public class TownArea extends Sprite {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         (build as WorldObject).source.filter = null;
         if ((build as WorldObject).dataBuild.buildType == BuildType.FARM) {
-            g.user.buyMarketTab = WOShop.VILLAGE;
+            g.user.buyShopTab = WOShop.VILLAGE;
         }
         if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {
             g.bottomPanel.cancelBoolean(false);

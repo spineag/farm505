@@ -115,7 +115,6 @@ public class ShopList {
             }
             g.user.decorShop = false;
             g.user.decorShiftShop = 0;
-
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.TREE) {
             for (j = 0; j < arr.length; j++) {
@@ -139,7 +138,6 @@ public class ShopList {
             }
             g.user.decorShop = false;
             g.user.decorShiftShop = 0;
-
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.ANIMAL) {
             var dataFarm:Object;
@@ -164,7 +162,6 @@ public class ShopList {
             }
             g.user.decorShop = false;
             g.user.decorShiftShop = 0;
-
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.FARM || arr[0].buildType == BuildType.CAT || arr[0].buildType == BuildType.RIDGE) {
             for (j = 0; j < arr.length; j++) {
@@ -201,7 +198,6 @@ public class ShopList {
             if (!g.user.decorShop) g.user.decorShop = true;
             arr.sortOn("indexQueue", Array.NUMERIC);
         }
-
         _currentShopArr = arr;
         var l:int = _currentShopArr.length;
         if (l>4) l=4;

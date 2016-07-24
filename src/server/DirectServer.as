@@ -465,6 +465,7 @@ public class DirectServer {
                         for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
                     }
                     if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
+                    if (d.message[i].filter) obj.filterType = int(d.message[i].filter);
                     if (d.message[i].build_time) {
                         obj.buildTime = String(d.message[i].build_time).split('&');
                         for (k = 0; k < obj.buildTime.length; k++) obj.buildTime[k] = int(obj.buildTime[k]);

@@ -53,6 +53,7 @@ public class WOShop extends WindowMain {
     private var _pl2:HorizontalPlawka;
     private var _pl3:HorizontalPlawka;
     private var _shopTabBtnCont:Sprite;
+    private var _decorFilter:DecorShopFilter;
 
     public function WOShop() {
         super();
@@ -85,6 +86,8 @@ public class WOShop extends WindowMain {
         if (g.user.level < 17) _contCoupone.visible = false;
             else _contCoupone.visible = true;
         _birka = new Birka('МАГАЗИН', _source, _woWidth, _woHeight);
+        
+        _decorFilter = new DecorShopFilter(this);
     }
 
     private function onClickExit(e:Event=null):void {
@@ -122,7 +125,7 @@ public class WOShop extends WindowMain {
         } else {
             onTab(VILLAGE);
         }
-        g.user.buyMarketTab = 0;
+        g.user.buyShopTab = 0;
         super.showIt();
     }
 
@@ -164,6 +167,11 @@ public class WOShop extends WindowMain {
                 _btnTab5.activateIt(true);
                 break;
         }
+    }
+
+    public function onChangeDecorFilter():void {
+        g.user.decorShiftShop = 0;
+        onTab(DECOR);
     }
 
     public function createShopTabBtns():void {
@@ -245,6 +253,7 @@ public class WOShop extends WindowMain {
                 for (id in obj) {
                     if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_FULL_FENСE ||
                             obj[id].buildType == BuildType.DECOR_POST_FENCE || obj[id].buildType == BuildType.DECOR_TAIL) {
+                        if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == obj[id].filterType)
                         arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
@@ -252,8 +261,10 @@ public class WOShop extends WindowMain {
         }
         if (curentTab == DECOR) {
             _shopList.clearIt(true);
+            _decorFilter.visible = true;
         } else {
             _shopList.clearIt();
+            _decorFilter.visible = false;
         }
         _shopList.fillIt(arr);
     }
@@ -443,6 +454,8 @@ public class WOShop extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        _decorFilter.deleteIt();
+        _decorFilter = null;
         _contCoupone = null;
         _btnTab1.deleteIt();
         _btnTab2.deleteIt();

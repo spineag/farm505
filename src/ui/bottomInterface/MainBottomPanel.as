@@ -240,7 +240,7 @@ public class MainBottomPanel {
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_HERO) shopTab = WOShop.VILLAGE;
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_RIDGE) shopTab = WOShop.VILLAGE;
                 } else {
-                    if (g.user.buyMarketTab == WOShop.VILLAGE)
+                    if (g.user.buyShopTab == WOShop.VILLAGE)
                     shopTab = WOShop.ANIMAL;
                 }
 
