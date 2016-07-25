@@ -40,15 +40,16 @@ public class DirectServer {
     private var g:Vars = Vars.getInstance();
     private var iconMouse:ServerIconMouse = new ServerIconMouse();
 
+    private function addDefault(variables:URLVariables):URLVariables {
+        variables.sessionKey = g.user.sessionKey;
+        return variables;
+    }
+
     public function getDataLevel(callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_LEVEL);
-//        var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'start getDataLevel', 1);
-//        variables = addDefault(variables);
-//        variables.key = generateSecretKey(Consts.INQ_ALLLEVELS);
-//        request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAllLevels);
         iconMouse.startConnect();
@@ -235,7 +236,6 @@ public class DirectServer {
             Cc.error('getDataResource error:' + error.errorID);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataResource error:' + error.errorID);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
-
         }
     }
 
@@ -518,7 +518,8 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'authUser', 1);
-//        variables = addDefault(variables);
+        g.user.sessionKey = String(int(Math.random()*1000000));
+        variables = addDefault(variables);
         variables.idSocial = g.user.userSocialId;
         variables.name = g.user.name;
         variables.lastName = g.user.lastName;
