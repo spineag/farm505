@@ -36,7 +36,6 @@ public class ResourceItem {
         dataResource.imageShop ? _imageShop = dataResource.imageShop : _imageShop = '';
         dataResource.currency ? _currency = dataResource.currency : _currency = DataMoney.HARD_CURRENCY;
         dataResource.costMax ? _costMax = dataResource.costMax : _costMax = 0;
-        dataResource.costMin ? _costMin = dataResource.costMin : _costMin = 0;
         dataResource.priceHard ? _priceHard = dataResource.priceHard : _priceHard = 10000;
         dataResource.priceSkipHard ? _priceSkipHard = dataResource.priceSkipHard : _priceSkipHard = 10000;
         dataResource.blockByLevel ? _blockByLevel = dataResource.blockByLevel : _blockByLevel = 1;
@@ -54,7 +53,6 @@ public class ResourceItem {
     public function get imageShop():String { return _imageShop}
     public function get currency():int { return _currency}
     public function get costMax():int { return _costMax}
-    public function get costMin():int { return _costMin}
     public function get priceHard():int { return _priceHard}
     public function get priceSkipHard():int { return _priceSkipHard}
     public function get blockByLevel():int { return _blockByLevel}

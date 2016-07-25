@@ -208,7 +208,7 @@ public class WOOrderItem {
 
     private function renderLeftTime():void {
         _leftSeconds--;
-        if (_leftSeconds <= 15 && !_recheck) {
+        if (_leftSeconds <= 19 && !_recheck) {
             if (_txtName)_wo.timerSkip(_order);
             else g.userTimer.newCatOrder();
         }
