@@ -77,7 +77,7 @@ public class DecorShopFilterItem {
         _btn.addDisplayObject(im);
         _btn.setPivots();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_tr'));
-        im.x = 14;
+        im.x = 16;
         im.y = 9;
         _btn.addChild(im);
         _btn.y = 17;
