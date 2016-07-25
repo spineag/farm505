@@ -208,6 +208,7 @@ public class WOFabricaWorkListItem {
             _proposeBtn.flatten();
             _source.addChild(_proposeBtn);
             var f1:Function = function ():void {
+                _proposeBtn.filter = null;
                 if (g.user.hardCurrency >= buyCount) {
                     if (callback != null) {
                         callback.apply();

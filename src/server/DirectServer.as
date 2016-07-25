@@ -264,7 +264,6 @@ public class DirectServer {
                 obj.currency = int(d.message[i].currency);
                 obj.costDefault = int(d.message[i].cost_default);
                 obj.costMax = int(d.message[i].cost_max);
-                obj.costMin = int(d.message[i].cost_min);
                 obj.orderPrice = int(d.message[i].order_price);
                 obj.orderXP = int(d.message[i].order_xp);
                 obj.visitorPrice = int(d.message[i].visitor_price);

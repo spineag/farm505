@@ -290,7 +290,7 @@ public class WOMarketChoose extends WindowMain {
         _countResourceBlock.count = count;
         _countResourceBlock.onChangeCallback = onChangeResourceCount;
         _countMoneyBlock.maxValue = count * g.dataResource.objectResources[_curResourceId].costMax;
-        _countMoneyBlock.minValue = 1;
+        _countMoneyBlock.minValue = g.dataResource.objectResources[_curResourceId].costDefault;
         _countMoneyBlock.count =  count * g.dataResource.objectResources[_curResourceId].costDefault;
         if (countRes == 1) {
             _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;

@@ -115,12 +115,12 @@ public class DecorPostFence extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            if (_dataBuild.id == 93 || _dataBuild.id == 95 || _dataBuild.id == 97
-                    || _dataBuild.id == 107 || _dataBuild.id == 108 || _dataBuild.id == 109 || _dataBuild.id == 110 || _dataBuild.id == 111 || _dataBuild.id == 112 || _dataBuild.id == 113
-                    || _dataBuild.id == 114 || _dataBuild.id == 115 || _dataBuild.id == 116 || _dataBuild.id == 117 || _dataBuild.id == 118) {
-                releaseFlip();
-                g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
-            }
+//            if (_dataBuild.id == 93 || _dataBuild.id == 95 || _dataBuild.id == 97
+//                    || _dataBuild.id == 107 || _dataBuild.id == 108 || _dataBuild.id == 109 || _dataBuild.id == 110 || _dataBuild.id == 111 || _dataBuild.id == 112 || _dataBuild.id == 113
+//                    || _dataBuild.id == 114 || _dataBuild.id == 115 || _dataBuild.id == 116 || _dataBuild.id == 117 || _dataBuild.id == 118) {
+//                releaseFlip();
+//                g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+//            }
             // ничего не делаем
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             if (!g.selectedBuild) {

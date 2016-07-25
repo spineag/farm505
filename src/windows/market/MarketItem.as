@@ -203,6 +203,7 @@ public class MarketItem {
         source.addChild(_delete);
         _delete.clickCallback = onDelete;
         _delete.hoverCallback = function ():void {
+            if (g.marketHint.isShowed)g.marketHint.hideIt();
             g.hint.showIt('забрать товар','market_delete');
         };
         _delete.outCallback = function ():void {
@@ -364,6 +365,7 @@ public class MarketItem {
     private function onDelete ():void {
         g.windowsManager.cashWindow = _wo;
         _wo.hideIt();
+        g.marketHint.hideIt();
         g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _data, _countResource);
     }
 
@@ -742,8 +744,7 @@ public class MarketItem {
 
         if (isFill == 0 &&_isUser) {
             _bg.filter = ManagerFilters.BUILD_STROKE;
-        } else if (isFill == 1) {
-            _delete.visible = true;
+        } else if (isFill == 1 && !_isUser) {
             count = 1;
             g.gameDispatcher.addToTimer(onEnterFrame);
         }

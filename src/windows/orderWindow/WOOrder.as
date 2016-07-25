@@ -329,7 +329,7 @@ public class WOOrder extends WindowMain{
                     break;
                 }
             }
-            order.startTime = int(new Date().getTime()/1000) + 15;
+            order.startTime = int(new Date().getTime()/1000) + 19;
             orderItem.fillIt(order, order.placeNumber, onItemClick, b, true);
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {
@@ -687,14 +687,12 @@ public class WOOrder extends WindowMain{
         _armatureSeller.display.y = -170;
         _source.addChild(_armatureCustomer.display as Sprite);
         _source.addChild(_armatureSeller.display as Sprite);
-        var viyi:Bone = _armatureSeller.getBone('viyi');
-        if (viyi) {
-            viyi.visible = false;
-        }
+//        var viyi:Bone = _armatureSeller.getBone('viyi');
+//        if (viyi) {
+//            viyi.visible = false;
+//        }
         var bant:Bone = _armatureCustomer.getBone('bant');
         if (bant) bant.visible = false;
-//        viyi = _armatureCustomer.getBone('viyi');
-//        if (viyi) viyi.visible = false;
 
     }
 
@@ -721,7 +719,10 @@ public class WOOrder extends WindowMain{
             b.visible = false;
             viyi.visible = false;
         }
-        else changeBant(_arrOrders[pos].cat.bant, b);
+        else {
+            changeBant(_arrOrders[pos].cat.bant, b);
+            viyi.visible = true;
+        }
 //        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);
     }
 
