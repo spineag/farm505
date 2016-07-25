@@ -8,6 +8,7 @@ import manager.Vars;
 
 import windows.ambar.WOAmbars;
 import windows.ambarFilled.WOAmbarFilled;
+import windows.anotherGameError.WOAnotherGame;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
 import windows.buyForHardCurrency.WOBuyForHardCurrency;
@@ -71,6 +72,7 @@ public class WindowsManager {
     public static const WO_PAPPER:String = 'papper';
     public static const WO_RELOAD_GAME:String = 'reload_game';
     public static const WO_SERVER_ERROR:String = 'server_error';
+    public static const WO_ANOTHER_GAME_ERROR:String = 'another_game';
     public static const WO_SHOP:String = 'shop';
     public static const WO_TRAIN:String = 'train';
     public static const WO_TRAIN_ORDER:String = 'train_order';
@@ -99,7 +101,7 @@ public class WindowsManager {
 
     public function openWindow(type:String, callback:Function=null, ...params):void {
         if (_currentWindow) {
-            if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR) {
+            if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR || type == WO_ANOTHER_GAME_ERROR) {
                 closeAllWindows();
             } else {
                 _nextWindow = {};
@@ -224,6 +226,9 @@ public class WindowsManager {
                 break;
             case POST_DONE_TRAIN:
                 wo = new PostDoneTrain();
+                break;
+            case WO_ANOTHER_GAME_ERROR:
+                wo = new WOAnotherGame();
                 break;
 
             default:

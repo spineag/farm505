@@ -568,7 +568,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserInfo', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -612,16 +612,16 @@ public class DirectServer {
             g.user.globalXP = int(ob.xp);
             g.user.allNotification = int(ob.notification_new);
             if (ob.music == '1') g.soundManager.enabledMusic(true);
-                else g.soundManager.enabledMusic(false);
+            else g.soundManager.enabledMusic(false);
             if (ob.sound == '1') g.soundManager.enabledSound(true);
-                else g.soundManager.enabledSound(false);
+            else g.soundManager.enabledSound(false);
 //            g.userTimer.timerAtPapper = int(ob.time_paper);
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
-            else g.userTimer.timerAtPapper = 300 - (ob.time_paper- int(new Date().getTime()/1000)) * (-1);
-            if ( g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
+            else g.userTimer.timerAtPapper = 300 - (ob.time_paper - int(new Date().getTime() / 1000)) * (-1);
+            if (g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
             if (int(ob.in_papper) == 0) g.userTimer.papperTimerAtMarket = 0;
-            else g.userTimer.papperTimerAtMarket = 300 - (ob.in_papper - int(new Date().getTime()/1000)) * (-1);
-            if ( g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
+            else g.userTimer.papperTimerAtMarket = 300 - (ob.in_papper - int(new Date().getTime() / 1000)) * (-1);
+            if (g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);
             if (ob.wall_order_item_time == int(new Date().date)) g.user.wallOrderItem = false;
@@ -636,12 +636,12 @@ public class DirectServer {
 //            g.user.level = int(ob.level);
             g.user.countCats = int(ob.count_cats);
             if (ob.scale) {
-                g.currentGameScale = int(ob.scale)/100;
+                g.currentGameScale = int(ob.scale) / 100;
             }
             if (ob.cut_scene) {
                 Cc.info('User cutscenes:: ' + ob.cut_scene);
                 g.user.cutScenes = String(ob.cut_scene).split('&');
-                for (i=0; i<g.user.cutScenes.length; i++) {
+                for (i = 0; i < g.user.cutScenes.length; i++) {
                     g.user.cutScenes[i] = int(g.user.cutScenes[i]);
                 }
             } else {
@@ -660,6 +660,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userInfo: id: ' + d.id + '  with message: ' + d.message);
@@ -672,6 +674,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserTutorialStep', 1);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.step = g.user.tutorialStep;
         request.data = variables;
@@ -704,6 +707,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
@@ -716,6 +721,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getFriendsInfo', 1);
+        variables = addDefault(variables);
         variables.userSocialId = userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -748,6 +754,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('getFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
@@ -760,6 +768,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getAllFriendsInfo', 1);
+        variables = addDefault(variables);
         variables.userSocialIds = userSocialIdArr.join('&');
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -792,6 +801,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('getAllFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
@@ -804,7 +815,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserMoney', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.type = type;
         variables.count = count;
@@ -856,7 +867,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserXP', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.count = count;
         request.data = variables;
@@ -892,6 +903,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserXP: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP: id: ' + d.id + '  with message: ' + d.message);
@@ -907,7 +920,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserLevel', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.level = g.user.level;
         request.data = variables;
@@ -943,6 +956,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
@@ -958,7 +973,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 //        var time:Number = getTimer();
         Cc.ch('server', 'updateUserTimerPaper', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.timePaper = int(new Date().getTime()/1000);
         request.data = variables;
@@ -994,6 +1009,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserTimerPaper: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTimerPaper: id: ' + d.id + '  with message: ' + d.message);
@@ -1009,7 +1026,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserResource', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -1044,6 +1061,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('GetUserResource: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserResource: id: ' + d.id + '  with message: ' + d.message);
@@ -1056,7 +1075,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserResource', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.resourceId = resourceId;
         variables.count = count;
@@ -1093,6 +1112,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserResource: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserResource: id: ' + d.id + '  with message: ' + d.message);
@@ -1108,7 +1129,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserBuilding', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.buildingId = wObject.dataBuild.id;
         variables.posX = wObject.posX;
@@ -1154,6 +1175,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true, wObject]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserBuilding: id: ' + d.id + '  with message: ' + d.message);
@@ -1169,7 +1192,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserBuilding', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         iconMouse.startConnect();
@@ -1250,6 +1273,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserBuilding: id: ' + d.id + '  with message: ' + d.message);
@@ -1262,7 +1287,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'startBuildMapBuilding', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.buildingId = wObject.dataBuild.id;
         variables.dbId = wObject.dbBuildingId;
@@ -1299,6 +1324,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
@@ -1314,7 +1341,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'openBuildMapBuilding', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.buildingId = wObject.dataBuild.id;
         variables.dbId = wObject.dbBuildingId;
@@ -1351,6 +1378,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message);
@@ -1366,7 +1395,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addFabricaRecipe', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.recipeId = recipeId;
         variables.dbId = dbId;
@@ -1404,6 +1433,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
@@ -1419,7 +1450,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserFabricaRecipe', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         iconMouse.startConnect();
@@ -1456,6 +1487,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('GetUserFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
@@ -1468,7 +1501,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'craftFabricaRecipe', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         request.data = variables;
@@ -1504,6 +1537,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
@@ -1519,7 +1554,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'rawPlantOnRidge', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.plantId = plantId;
         variables.dbId = dbId;
@@ -1556,6 +1591,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('rawPlantOnRidge: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'rawPlantOnRidge: id: ' + d.id + '  with message: ' + d.message);
@@ -1571,7 +1608,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserPlantRidge', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         iconMouse.startConnect();
@@ -1623,6 +1660,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('GetUserPlantRidge: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserPlantRidge: id: ' + d.id + '  with message: ' + d.message);
@@ -1635,7 +1674,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'craftPlantRidge', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         request.data = variables;
@@ -1671,6 +1710,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('craftPlantRidge: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftPlantRidge: id: ' + d.id + '  with message: ' + d.message);
@@ -1686,7 +1727,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserTree', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = wObject.dbBuildingId;
         request.data = variables;
@@ -1723,6 +1764,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTree: id: ' + d.id + '  with message: ' + d.message);
@@ -1738,7 +1781,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserTree', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         iconMouse.startConnect();
@@ -1781,6 +1824,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('GetUserTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserTree: id: ' + d.id + '  with message: ' + d.message);
@@ -1793,7 +1838,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserTreeState', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.state = state;
@@ -1827,6 +1872,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserTreeState: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTreeState: id: ' + d.id + '  with message: ' + d.message);
@@ -1839,7 +1886,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'deleteUserTree', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         variables.treeDbId = treeDbId;
@@ -1873,6 +1920,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
@@ -1885,7 +1934,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserAnimal', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.farmDbId = farmDbId;
         variables.animalId = an.animalData.id;
@@ -1923,6 +1972,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTree: id: ' + d.id + '  with message: ' + d.message);
@@ -1938,7 +1989,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'rawUserAnimal', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.anDbId = anDbId;
         request.data = variables;
@@ -1974,6 +2025,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('rawUserTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'rawUserTree: id: ' + d.id + '  with message: ' + d.message);
@@ -1989,7 +2042,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserAnimal', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         iconMouse.startConnect();
@@ -2033,6 +2086,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('GetUserAnimal: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserAnimal: id: ' + d.id + '  with message: ' + d.message);
@@ -2045,7 +2100,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'craftUserAnimal', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.animalDbId = animalDbId;
         request.data = variables;
@@ -2081,6 +2136,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('craftUserAnimal: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserAnimal: id: ' + d.id + '  with message: ' + d.message);
@@ -2093,7 +2150,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserTrain', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         iconMouse.startConnect();
@@ -2128,6 +2185,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserTrain: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserTrain: id: ' + d.id + '  with message: ' + d.message);
@@ -2161,7 +2220,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserTrain', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         iconMouse.startConnect();
@@ -2190,6 +2249,8 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getUserTrain OK', 5);
             tr.fillFromServer(d.message);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('GetUserTrain: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserTrain: id: ' + d.id + '  with message: ' + d.message);
@@ -2206,7 +2267,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserTrainState', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.state = state;
         variables.id = train_db_id;
@@ -2243,6 +2304,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserTrainState: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainState: id: ' + d.id + '  with message: ' + d.message);
@@ -2258,7 +2321,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getTrainPack', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userSocialId = userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -2290,7 +2353,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
-            return;
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('getTrainPack: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getTrainPack: id: ' + d.id + '  with message: ' + d.message);
@@ -2303,7 +2367,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'releaseUserTrainPack', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = train_db_id;
         request.data = variables;
@@ -2339,6 +2403,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('releaseUserTrainPack: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'releaseUserTrainPack: id: ' + d.id + '  with message: ' + d.message);
@@ -2354,7 +2420,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserTrainPackItems ', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = train_item_db_id;
         request.data = variables;
@@ -2390,6 +2456,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserTrainPackItems: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainPackItems: id: ' + d.id + '  with message: ' + d.message);
@@ -2405,7 +2473,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'deleteUser', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -2435,7 +2503,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserMarketItem', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.resourceId = id;
         variables.count = count;
@@ -2473,7 +2541,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
-            return;
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
@@ -2486,7 +2555,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserMarketItem', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userSocialId = socialId;
         variables.userId = g.user.userId;
         request.data = variables;
@@ -2520,7 +2589,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
-            return;
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('getUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
@@ -2533,7 +2603,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'buyFromMarket', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.itemId = itemId;
         request.data = variables;
@@ -2566,7 +2636,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
-            return;
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('buyFromMarket: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyFromMarket: id: ' + d.id + '  with message: ' + d.message);
@@ -2579,7 +2650,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'deleteUserMarketItem', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.itemId = itemId;
         request.data = variables;
@@ -2612,7 +2683,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
-            return;
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('deleteUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserMarketItem: id: ' + d.id + '  with message: ' + d.message);
@@ -2625,7 +2697,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserBuildPosition', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         variables.posX = pX;
@@ -2660,6 +2732,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message);
@@ -2672,7 +2746,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getPaperItems', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -2705,6 +2779,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('getPaperItems: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getPaperItems: id: ' + d.id + '  with message: ' + d.message);
@@ -2717,7 +2793,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserAmbar', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.isAmbar = isAmbar;
         variables.newLevel = newLevel;
@@ -2752,6 +2828,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
@@ -2818,6 +2896,7 @@ public class DirectServer {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_REMOVE_USER_LOCKED_LAND);
         var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.mapBuildingId = id;
         request.data = variables;
@@ -2851,6 +2930,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message);
@@ -2861,6 +2942,7 @@ public class DirectServer {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_TO_INVENTORY);
         var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         request.data = variables;
@@ -2894,6 +2976,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addToInventory: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addToInventory: id: ' + d.id + '  with message: ' + d.message);
@@ -2904,6 +2988,7 @@ public class DirectServer {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_REMOVE_FROM_INVENTORY);
         var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         variables.posX = posX;
@@ -2939,6 +3024,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('removeFromInventory: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'removeFromInventory: id: ' + d.id + '  with message: ' + d.message);
@@ -2951,7 +3038,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserNeighborMarket', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -2984,7 +3071,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
-            return;
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('getUserNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
@@ -2997,7 +3085,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'buyFromNeighborMarket', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.itemId = itemId;
         request.data = variables;
@@ -3030,7 +3118,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
-            return;
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message);
@@ -3043,7 +3132,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getAllCityData', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userSocialId = p.userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -3136,7 +3225,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [p]);
             }
-            return;
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('getAllCityData: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllCityData: id: ' + d.id + '  with message: ' + d.message);
@@ -3149,7 +3239,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'buyHeroCat', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -3181,7 +3271,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
-            return;
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('buyHeroCat: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyHeroCat: id: ' + d.id + '  with message: ' + d.message);
@@ -3404,7 +3495,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserWild', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -3456,6 +3547,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('GetUserWild: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserWild: id: ' + d.id + '  with message: ' + d.message);
@@ -3468,7 +3561,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'userBuildingFlip', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         variables.isFlip = isFlip;
@@ -3505,6 +3598,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('userBuildingFlip: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
@@ -3520,7 +3615,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'deleteUserWild', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         request.data = variables;
@@ -3556,6 +3651,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('deleteUserWild: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserWild: wrong JSON:' + String(response));
@@ -3624,7 +3721,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'saveUserGameScale', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.scale = g.currentGameScale*100;
         request.data = variables;
@@ -3657,6 +3754,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('saveUserGameScale: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'saveUserGameScale: wrong JSON:' + String(response));
@@ -3669,7 +3768,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'buyNewCellOnFabrica', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         variables.count = count;
@@ -3703,6 +3802,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);
@@ -3715,7 +3816,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'skipRecipeOnFabrica', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.recipeDbId = userRecipeDbId;
         variables.leftTime = leftTime;
@@ -3750,6 +3851,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
@@ -3763,7 +3866,7 @@ public class DirectServer {
         var time:Number = getTimer();
 
         Cc.ch('server', 'skipTimeOnRidge', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.plantTime = time - plantTime;
         variables.buildDbId = buildDbId;
@@ -3797,6 +3900,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('skipTimeOnRidge: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnRidge: id: ' + d.id + '  with message: ' + d.message);
@@ -3809,7 +3914,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'skipTimeOnTree', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.state = stateTree;
         variables.id = buildDbId;
@@ -3843,6 +3948,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('skipTimeOnTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnTree: id: ' + d.id + '  with message: ' + d.message);
@@ -3855,7 +3962,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
         var time:Number = getTimer();
         Cc.ch('server', 'skipTimeOnAnimal', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.animalDbId = int(buildDbId);
         variables.timeToEnd = time - timeToEnd;
@@ -3889,6 +3996,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('skipTimeOnAnimal: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnAnimal: id: ' + d.id + '  with message: ' + d.message);
@@ -3902,7 +4011,7 @@ public class DirectServer {
         var time:Number = getTimer();
 
         Cc.ch('server', 'skipTimeOnFabricBuild', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.leftTime = time - leftTime;
         variables.buildDbId = buildDbId;
@@ -3936,6 +4045,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('skipTimeOnFabricBuild: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnFabricBuild: id: ' + d.id + '  with message: ' + d.message);
@@ -3948,7 +4059,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'addUserOrder', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.ids = order.resourceIds.join('&');
         variables.counts = order.resourceCounts.join('&');
@@ -3988,6 +4099,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [order]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserOrder: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserOrder: id: ' + d.id + '  with message: ' + d.message);
@@ -4000,7 +4113,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserOrder', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -4035,6 +4148,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('GetUserFOrder: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserOrder: id: ' + d.id + '  with message: ' + d.message);
@@ -4047,7 +4162,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'deleteUserOrder', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = orderDbId;
         request.data = variables;
@@ -4080,6 +4195,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('deleteUserOrder: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserOrder: id: ' + d.id + '  with message: ' + d.message);
@@ -4092,7 +4209,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'askWateringUserTree', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.state = state;
@@ -4126,6 +4243,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('askWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'askWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
@@ -4138,7 +4257,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'makeWateringUserTree', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userSocialId = g.user.userSocialId;
         variables.awayUserSocialId = g.visitedUser.userSocialId;
         variables.id = treeDbId;
@@ -4173,6 +4292,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('makeWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'makeWateringUserTree: id: ' + d.id + '  with message: ' + d.message);
@@ -4185,7 +4306,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'skipOrderTimer', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = orderID;
         request.data = variables;
@@ -4218,6 +4339,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('skipOrderTimer: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipOrderTimer: id: ' + d.id + '  with message: ' + d.message);
@@ -4230,7 +4353,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'craftUserTree', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.state = state;
@@ -4264,6 +4387,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('craftUserTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserTree: id: ' + d.id + '  with message: ' + d.message);
@@ -4276,7 +4401,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'useDailyBonus', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.count = count;
         request.data = variables;
@@ -4309,6 +4434,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('useDailyBonus: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useDailyBonus: id: ' + d.id + '  with message: ' + d.message);
@@ -4322,7 +4449,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'buyAndAddToInventory', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.buildingId = id;
         variables.posX = 0;
@@ -4357,6 +4484,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [int(d.message)]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('buyAndAddToInventory: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyAndAddToInventory: id: ' + d.id + '  with message: ' + d.message);
@@ -4421,8 +4550,8 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'ME_deleteOutGameTile', 1);
-//        variables = addDefault(variables);
-        variables.userId = g.user.userId;
+        variables = addDefault(variables);
+//        variables.userId = g.user.userId;
         variables.posX = posX;
         variables.posY = posY;
         request.data = variables;
@@ -4473,7 +4602,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getDataOutGameTile', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -4526,6 +4655,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserMarketCell', 1);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.marketCell = g.user.marketCell + cell;
         request.data = variables;
@@ -4558,6 +4688,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserMarketCell: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMarketCell: id: ' + d.id + '  with message: ' + d.message);
@@ -4570,7 +4702,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
         var time:Number = getTimer();
         Cc.ch('server', 'updateMarketPapper', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.numberCell = numberCell;
         variables.inPapper = inPapper ? 1 : 0;
@@ -4605,6 +4737,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateMarketPapper: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateMarketPapper: id: ' + d.id + '  with message: ' + d.message);
@@ -4615,9 +4749,8 @@ public class DirectServer {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_USER_IN_PAPER);
         var variables:URLVariables = new URLVariables();
-        var time:Number = getTimer();
         Cc.ch('server', 'skipUserInPaper', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.inPapper = 0;
         request.data = variables;
@@ -4653,6 +4786,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('skipUserInPaper: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipUserInPaper: id: ' + d.id + '  with message: ' + d.message);
@@ -4668,7 +4803,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'useChest', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.count = count;
         request.data = variables;
@@ -4701,6 +4836,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('useChest: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'useChest: id: ' + d.id + '  with message: ' + d.message);
@@ -4712,7 +4849,7 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_CUT_SCENE_DATA);
         var variables:URLVariables = new URLVariables();
         Cc.ch('server', 'updateUserCutScenesData', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.cutScene = g.user.cutScenes.join('&');
         request.data = variables;
@@ -4742,6 +4879,8 @@ public class DirectServer {
 
         if (d.id == 0) {
             Cc.ch('server', 'updateUserCutScenesData OK', 5);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message);
@@ -4753,6 +4892,7 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_ORDER_ITEM);
         var variables:URLVariables = new URLVariables();
         Cc.ch('server', 'updateUserOrder', 1);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = id;
         variables.place = place;
@@ -4786,6 +4926,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserOrder: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserOrder: id: ' + d.id + '  with message: ' + d.message);
@@ -4797,7 +4939,7 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_PAPPER_BUY);
         var variables:URLVariables = new URLVariables();
         Cc.ch('server', 'addUserPapperBuy', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.buyerId = buyerId;
         variables.resourceId = resourceId;
@@ -4832,6 +4974,8 @@ public class DirectServer {
 
         if (d.id == 0) {
             Cc.ch('server', 'addUserPapperBuy OK', 5);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
@@ -4843,6 +4987,7 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_PAPPER_BUY);
         var variables:URLVariables = new URLVariables();
         Cc.ch('server', 'updateUserPapperBuy', 1);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.buyerId = buyerId;
         variables.resourceId = resourceId;
@@ -4878,6 +5023,8 @@ public class DirectServer {
 
         if (d.id == 0) {
             Cc.ch('server', 'updateUserPapperBuy OK', 5);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
@@ -4890,7 +5037,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getUserPapperBuy', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -4923,6 +5070,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('getUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
@@ -4935,7 +5084,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserNotification', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.notificationNew = g.user.allNotification;
         request.data = variables;
@@ -4971,6 +5120,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserNotification: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserNotification: id: ' + d.id + '  with message: ' + d.message);
@@ -4986,6 +5137,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateWallTrainItem', 1);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -5017,6 +5169,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateWallTrainItem: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateWallTrainItem: id: ' + d.id + '  with message: ' + d.message);
@@ -5029,6 +5183,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateWallOrderTime', 1);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -5060,6 +5215,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateWallOrderTime: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateWallOrderTime: id: ' + d.id + '  with message: ' + d.message);
@@ -5072,7 +5229,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserCraftCountTree', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.craftedCount = countCraft;
@@ -5106,6 +5263,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserCraftCountTree: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCraftCountTree: id: ' + d.id + '  with message: ' + d.message);
@@ -5118,7 +5277,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserMusic', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.music = int(g.soundManager.isPlayingMusic);
         request.data = variables;
@@ -5151,6 +5310,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserMusic: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMusic: id: ' + d.id + '  with message: ' + d.message);
@@ -5163,7 +5324,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserSound', 1);
-//        variables = addDefault(variables);
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.sound = int(g.soundManager.isPlayingSound);
         request.data = variables;
@@ -5196,6 +5357,8 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('updateUserSound: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserSound: id: ' + d.id + '  with message: ' + d.message);
