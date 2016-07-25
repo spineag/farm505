@@ -20,7 +20,7 @@ public class ManagerDropBonusResource {
     }
 
     public function checkDrop():Boolean {
-        return int(Math.random()*10000) < DropResourceVariaty.DROP_VARIATY*100;
+        return int(Math.random()*100) < DropResourceVariaty.DROP_VARIATY;
     }
 
     public function makeDrop(_x:int, _y:int):void {
@@ -33,7 +33,7 @@ public class ManagerDropBonusResource {
 //                prise.type = 'money';
 //                prise.variaty = 1;
                 prise = null;
-                prise = getDropPrise();
+                prise = getDropPrise();   // ??
             } else new DropItem(_x, _y, prise);
         } else new DropItem(_x, _y, prise);
 
