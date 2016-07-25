@@ -194,6 +194,7 @@ public class CSprite extends Sprite {
     public function deleteIt():void {
         if (this.hasEventListener(TouchEvent.TOUCH)) removeEventListener(TouchEvent.TOUCH, onTouch);
         while (this.numChildren) this.removeChildAt(0);
+        filter = null;
         _currentTouch = null;
         _endClickCallback = null;
         _startClickCallback = null;
