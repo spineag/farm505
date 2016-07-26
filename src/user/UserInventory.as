@@ -4,7 +4,7 @@
 package user {
 import data.BuildType;
 import data.DataMoney;
-import manager.OwnEvent;
+import data.OwnEvent;
 import manager.Vars;
 
 import media.SoundConst;

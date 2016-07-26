@@ -7,7 +7,7 @@ import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
 import flash.geom.Point;
 
-import manager.Containers;
+import map.Containers;
 import manager.Vars;
 
 import starling.display.Image;

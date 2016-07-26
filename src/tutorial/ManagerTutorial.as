@@ -20,6 +20,10 @@ import flash.utils.Timer;
 import heroes.OrderCat;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import particle.tuts.DustRectangle;
+import heroes.TutorialCat;
+
 import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -28,6 +32,8 @@ import starling.utils.Color;
 import tutorial.pretuts.TutorialCloud;
 
 import tutorial.pretuts.TutorialMult;
+
+import utils.SimpleArrow;
 
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;

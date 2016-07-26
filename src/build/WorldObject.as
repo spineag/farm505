@@ -17,7 +17,7 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.textures.Texture;
 import starling.utils.Color;
-import tutorial.SimpleArrow;
+import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import utils.IsoUtils;
 import utils.Point3D;

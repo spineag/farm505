@@ -1,4 +1,4 @@
-package manager {
+package manager.AStar {
 
 public class AStarNode {
     public var x:int;

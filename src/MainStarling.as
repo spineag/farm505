@@ -2,7 +2,7 @@
  * Created by andriy.grynkiv on 16/03/14.
  */
 package {
-import manager.AllData;
+import data.AllData;
 import loaders.DataPath;
 import loaders.EmbedAssets;
 import loaders.LoadAnimationManager;

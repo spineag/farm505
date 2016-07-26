@@ -12,7 +12,7 @@ import flash.events.Event;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import manager.Containers;
+import map.Containers;
 
 import manager.Vars;
 

@@ -16,7 +16,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 import starling.utils.HAlign;
 
-import tutorial.SimpleArrow;
+import utils.SimpleArrow;
 import tutorial.TutorialAction;
 
 import utils.CSprite;

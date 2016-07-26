@@ -25,7 +25,7 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import tutorial.SimpleArrow;
+import utils.SimpleArrow;
 
 import tutorial.TutorialAction;
 import tutorial.TutorialTextBubble;

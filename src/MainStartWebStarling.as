@@ -13,7 +13,7 @@ import flash.system.Security;
 import flash.utils.clearTimeout;
 import flash.utils.setTimeout;
 
-import manager.Containers;
+import map.Containers;
 
 import manager.Vars;
 

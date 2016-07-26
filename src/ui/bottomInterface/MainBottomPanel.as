@@ -20,7 +20,7 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
-import tutorial.SimpleArrow;
+import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import tutorial.helpers.HelperReason;
 import tutorial.managerCutScenes.ManagerCutScenes;

@@ -1,7 +1,9 @@
 /**
  * Created by user on 3/1/16.
  */
-package tutorial {
+package particle.tuts {
+import tutorial.*;
+
 import starling.display.Sprite;
 
 public class DustOval {

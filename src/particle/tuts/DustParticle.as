@@ -1,7 +1,7 @@
 /**
  * Created by user on 2/29/16.
  */
-package tutorial {
+package particle.tuts {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import manager.Vars;

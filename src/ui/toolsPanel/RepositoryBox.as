@@ -7,7 +7,7 @@ import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import manager.OwnEvent;
+import data.OwnEvent;
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Image;

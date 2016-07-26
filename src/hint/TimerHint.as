@@ -12,7 +12,7 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.text.TextField;
 import starling.utils.Color;
-import tutorial.SimpleArrow;
+import utils.SimpleArrow;
 import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;

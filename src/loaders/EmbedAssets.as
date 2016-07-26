@@ -2,6 +2,8 @@
  * Created by andriy.grynkiv on 1/2/15.
  */
 package loaders {
+import data.AllData;
+
 import manager.*;
 
 import dragonBones.factories.StarlingFactory;

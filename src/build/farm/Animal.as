@@ -21,7 +21,7 @@ import media.SoundConst;
 import mouse.ToolsModifier;
 import resourceItem.RawItem;
 import starling.textures.Texture;
-import tutorial.SimpleArrow;
+import utils.SimpleArrow;
 import tutorial.TutorialAction;
 
 import utils.CSprite;

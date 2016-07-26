@@ -7,7 +7,7 @@ import analytic.AnalyticManager;
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
-import manager.OwnEvent;
+import data.OwnEvent;
 import mouse.ToolsModifier;
 
 import starling.display.Image;

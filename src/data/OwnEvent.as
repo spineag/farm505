@@ -1,7 +1,7 @@
 /**
  * Created by user on 12/24/15.
  */
-package manager {
+package data {
 import starling.display.Sprite;
 
 public class OwnEvent extends Sprite{
