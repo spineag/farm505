@@ -1,5 +1,5 @@
 <dragonBones name="fryer" frameRate="30" version="2.3">
- <armature name="cat">
+ <armature name="fabrica">
   <bone name="fon">
    <transform x="0" y="85.5" skX="0" skY="0" scX="1" scY="1"/>
   </bone>

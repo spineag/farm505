@@ -52,6 +52,7 @@ public class DirectServer {
         Cc.ch('server', 'start getDataLevel', 1);
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAllLevels);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         iconMouse.startConnect();
         function onCompleteAllLevels(e:Event):void { completeLevels(e.target.data, callback); }
         try {
@@ -114,6 +115,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAnimal);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAnimal(e:Event):void { completeAnimal(e.target.data, callback); }
         try {
             loader.load(request);
@@ -175,6 +177,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteRecipe);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteRecipe(e:Event):void { completeRecipe(e.target.data, callback); }
         try {
             loader.load(request);
@@ -229,6 +232,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteResource);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteResource(e:Event):void { completeResource(e.target.data, callback); }
         try {
             loader.load(request);
@@ -293,6 +297,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteCats);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteCats(e:Event):void { completeCats(e.target.data, callback); }
         try {
             loader.load(request);
@@ -344,6 +349,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetDataBuyMoney);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetDataBuyMoney(e:Event):void { completeGetDataBuyMoney(e.target.data, callback); }
         try {
             loader.load(request);
@@ -394,6 +400,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuilding);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteBuilding(e:Event):void { completeBuilding(e.target.data, callback); }
         try {
             loader.load(request);
@@ -573,6 +580,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUserInfo);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUserInfo(e:Event):void { completeUserInfo(e.target.data, callback); }
         try {
             loader.load(request);
@@ -680,6 +688,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onUpdateUserTutorialStep);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onUpdateUserTutorialStep(e:Event):void { completeUpdateUserTutorialStep(e.target.data, callback); }
         try {
             loader.load(request);
@@ -726,6 +735,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteFriendsInfo);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteFriendsInfo(e:Event):void { completeFriendsInfo(e.target.data,_person, callback); }
         try {
             loader.load(request);
@@ -773,6 +783,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAllFriendsInfo);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAllFriendsInfo(e:Event):void { completeAllFriendsInfo(e.target.data, callback); }
         try {
             loader.load(request);
@@ -822,6 +833,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserMoney);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddUserMoney(e:Event):void { completeAddUserMoney(e.target.data, callback); }
         try {
             loader.load(request);
@@ -873,9 +885,12 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserXP);
-        function onCompleteAddUserXP(e:Event):void { completeAddUserXP(e.target.data, callback); }
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteAddUserXP(e:Event):void { completeAddUserXP(e.target.data, callback,loader); }
+
         try {
             loader.load(request);
+//            loader.removeEventListener(IOErrorEvent.IO_ERROR,null);
         } catch (error:Error) {
             Cc.error('addUserXP error:' + error.errorID);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP error:' + error.errorID);
@@ -883,11 +898,12 @@ public class DirectServer {
         }
     }
 
-    private function completeAddUserXP(response:String, callback:Function = null):void {
+    private function completeAddUserXP(response:String, callback:Function = null, loader:URLLoader = null):void {
         iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
+
         } catch (e:Error) {
             Cc.error('addUserXP: wrong JSON:' + String(response));
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP: wrong JSON:' + String(response));
@@ -926,6 +942,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserLevel);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserLevel(e:Event):void { completeUpdateUserLevel(e.target.data, callback); }
         try {
             loader.load(request);
@@ -979,6 +996,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTimePaper);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserTimePaper(e:Event):void { completeUpdateUserTimePaper(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1031,6 +1049,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserResource);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserResource(e:Event):void { completeGetUserResource(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1082,6 +1101,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserResource);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddUserResource(e:Event):void { completeAddUserResource(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1142,6 +1162,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserBuilding);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddUserBuilding(e:Event):void { completeAddUserBuilding(e.target.data, wObject, callback); }
         try {
             loader.load(request);
@@ -1197,6 +1218,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserBuilding);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserBuilding(e:Event):void { completeGetUserBuilding(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1294,6 +1316,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteStartBuildMapBuilding);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteStartBuildMapBuilding(e:Event):void { completeStartBuildMapBuilding(e.target.data, wObject, callback); }
         try {
             loader.load(request);
@@ -1348,6 +1371,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteOpenBuildMapBuilding);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteOpenBuildMapBuilding(e:Event):void { completeOpenBuildMapBuilding(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1403,6 +1427,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddFabricaRecipe);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddFabricaRecipe(e:Event):void { completeAddFabricaRecipe(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1455,6 +1480,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserFabricaRecipe);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserFabricaRecipe(e:Event):void { completeGetUserFabricaRecipe(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1507,6 +1533,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteCraftFabricaRecipe);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteCraftFabricaRecipe(e:Event):void { completeCraftFabricaRecipe(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1561,6 +1588,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteRawPlantOnRidge);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteRawPlantOnRidge(e:Event):void { completeRawPlantOnRidge(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1613,6 +1641,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserPlantRidge);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserPlantRidge(e:Event):void { completeGetUserPlantRidge(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1680,6 +1709,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteCraftPlantRidge);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteCraftPlantRidge(e:Event):void { completeCraftPlantRidge(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1733,6 +1763,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserTree);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddUserTree(e:Event):void { completeAddUserTree(e.target.data, wObject, callback); }
         try {
             loader.load(request);
@@ -1786,6 +1817,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserTree);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserTree(e:Event):void { completeGetUserTree(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1845,6 +1877,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTreeState);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserTreeState(e:Event):void { completeUpdateUserTreeState(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1893,6 +1926,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserTree);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteDeleteUserTree(e:Event):void { completeDeleteUserTree(e.target.data, callback); }
         try {
             loader.load(request);
@@ -1941,6 +1975,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserAnimal);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddUserAnimal(e:Event):void { completeAddUserAnimal(e.target.data, an, callback); }
         try {
             loader.load(request);
@@ -1995,6 +2030,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteRawUserAnimal);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteRawUserAnimal(e:Event):void { completeRawUserAnimal(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2047,6 +2083,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserAnimal);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserAnimal(e:Event):void { completeGetUserAnimal(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2106,6 +2143,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteCraftUserAnimal);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteCraftUserAnimal(e:Event):void { completeCraftUserAnimal(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2155,6 +2193,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserTrain);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddUserTrain(e:Event):void { completeAddUserTrain(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2225,6 +2264,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserTrain);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserTrain(e:Event):void { completeGetUserTrain(e.target.data, tr, callback); }
         try {
             loader.load(request);
@@ -2274,6 +2314,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTrainState);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserTrainState(e:Event):void { completeUpdateUserTrainState(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2326,6 +2367,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetTrainPack);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetTrainPack(e:Event):void { completeGetTrainPack(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2373,6 +2415,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteReleaseUserTrainPack);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteReleaseUserTrainPack(e:Event):void { completeReleaseUserTrainPack(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2426,6 +2469,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTrainPackItems);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserTrainPackItems(e:Event):void { completeUpdateUserTrainPackItems(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2478,6 +2522,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUser);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteDeleteUser(e:Event):void { completeDeleteUser(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2514,6 +2559,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserMarketItem);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddUserMarketItem(e:Event):void { completeAddUserMarketItem(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2561,6 +2607,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserMarketItem);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserMarketItem(e:Event):void { completeGetUserMarketItem(e.target.data, socialId, callback); }
         try {
             loader.load(request);
@@ -2609,6 +2656,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyFromMarket);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteBuyFromMarket(e:Event):void { completeBuyFromMarket(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2656,6 +2704,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserMarketItem);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteDeleteUserMarketItem(e:Event):void { completeDeleteUserMarketItem(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2705,6 +2754,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserBuildPosition);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserBuildPosition(e:Event):void { completeUpdateUserBuildPosition(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2751,6 +2801,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetPaperItems);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetPaperItems(e:Event):void { completeGetPaperItems(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2801,6 +2852,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserAmbar);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserAmbar(e:Event):void { completeUpdateUserAmbar(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2846,6 +2898,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetDataLockedLand);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetDataLockedLand(e:Event):void { completeGetDataLockedLand(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2903,6 +2956,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteRemoveUserLockedLand);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteRemoveUserLockedLand(e:Event):void { completeRemoveUserLockedLand(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2949,6 +3003,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddToInventory);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddToInventory(e:Event):void { completeAddToInventory(e.target.data, callback); }
         try {
             loader.load(request);
@@ -2997,6 +3052,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteRemoveFromInventory);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteRemoveFromInventory(e:Event):void { completeRemoveFromInventory(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3043,6 +3099,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserNeighborMarket);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserNeighborMarket(e:Event):void { completeGetUserNeighborMarket(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3091,6 +3148,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyFromNeighborMarket);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteBuyFromNeighborMarket(e:Event):void { completeBuyFromNeighborMarket(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3137,6 +3195,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetAllCityData);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetAllCityData(e:Event):void { completeGetAllCityData(e.target.data, p, callback); }
         try {
             loader.load(request);
@@ -3244,6 +3303,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyHeroCat);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteBuyHeroCat(e:Event):void { completeBuyHeroCat(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3293,6 +3353,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_addWild);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteME_addWild(e:Event):void { completeME_addWild(e.target.data, w, callback); }
         try {
             loader.load(request);
@@ -3345,6 +3406,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_removeWild);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteME_removeWild(e:Event):void { completeME_removeWild(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3398,6 +3460,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_moveWild);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteME_moveWild(e:Event):void { completeME_moveWild(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3450,6 +3513,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_flipWild);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteME_flipWild(e:Event):void { completeME_flipWild(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3500,6 +3564,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserWild);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserWild(e:Event):void { completeGetUserWild(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3568,6 +3633,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUserBuildingFlip);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUserBuildingFlip(e:Event):void { completeUserBuildingFlip(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3621,6 +3687,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserWild);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteDeleteUserWild(e:Event):void { completeDeleteUserWild(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3676,6 +3743,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_moveMapBuilding);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteME_moveMapBuilding(e:Event):void { completeME_moveMapBuilding(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3727,6 +3795,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSaveUserGameScale);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteSaveUserGameScale(e:Event):void { completeSaveUserGameScale(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3775,6 +3844,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyNewCellOnFabrica);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteBuyNewCellOnFabrica(e:Event):void { completeBuyNewCellOnFabrica(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3824,6 +3894,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSkipRecipeOnFabrica);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteSkipRecipeOnFabrica(e:Event):void { completeSkipRecipeOnFabrica(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3873,6 +3944,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteskipTimeOnRidge);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteskipTimeOnRidge(e:Event):void { completeskipTimeOnRidge(e.target.data, callback); }
         try {
             loader.load(request);
@@ -3921,6 +3993,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSkipTimeOnTree);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteSkipTimeOnTree(e:Event):void { completeSkipTimeOnTree(e.target.data,callback);}//e.target.data, callback); }
         try {
             loader.load(request);
@@ -3969,6 +4042,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteskipTimeOnAnimal);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteskipTimeOnAnimal(e:Event):void { completeskipTimeOnAnimal(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4018,6 +4092,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSkipTimeOnFabricBuild);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteSkipTimeOnFabricBuild(e:Event):void { completeSkipTimeOnFabricBuild(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4071,6 +4146,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserOrder);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddUserOrder(e:Event):void { completeAddUserOrder(e.target.data, order, callback); }
         try {
             loader.load(request);
@@ -4118,6 +4194,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserOrder);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserOrder(e:Event):void { completeGetUserOrder(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4168,6 +4245,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserOrder);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteDeleteUserOrder(e:Event):void { completeDeleteUserOrder(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4216,6 +4294,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAskWateringUserTree);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAskWateringUserTree(e:Event):void { completeAskWateringUserTree(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4265,6 +4344,7 @@ public class DirectServer {
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteMakeWateringUserTree);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteMakeWateringUserTree(e:Event):void { completeMakeWateringUserTree(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4312,6 +4392,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSkipOrderTimer);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteSkipOrderTimer(e:Event):void { completeSkipOrderTimer(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4360,6 +4441,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteCraftUserTree);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteCraftUserTree(e:Event):void { completeCraftUserTree(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4407,6 +4489,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUseDailyBonus);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUseDailyBonus(e:Event):void { completeUseDailyBonus(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4457,6 +4540,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuyAndAddToInventory);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteBuyAndAddToInventory(e:Event):void { completeBuyAndAddToInventory(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4505,6 +4589,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_addOutGameTile);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteME_addOutGameTile(e:Event):void { completeME_addOutGameTile(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4557,6 +4642,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteME_deleteOutGameTile);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteME_deleteOutGameTile(e:Event):void { completeME_deleteOutGameTile(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4607,6 +4693,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetDataOutGameTile);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetDataOutGameTile(e:Event):void { completeGetDataOutGameTile(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4661,6 +4748,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserMarketCell);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserMarketCell(e:Event):void { completeUpdateUserMarketCell(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4710,6 +4798,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateMarketPapper);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateMarketPapper(e:Event):void { completeupdateMarketPapper(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4756,6 +4845,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteSkipUserInPaper);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteSkipUserInPaper(e:Event):void { completeSkipUserInPaper(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4809,6 +4899,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUseChest);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUseChest(e:Event):void { completeUseChest(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4855,6 +4946,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCutScenesData);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserCutScenesData(e:Event):void { completeUpdateUserCutScenesData(e.target.data); }
         try {
             loader.load(request);
@@ -4899,6 +4991,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserOrder);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserOrder(e:Event):void { completeUpdateUserOrder(e.target.data, callback); }
         try {
             loader.load(request);
@@ -4950,6 +5043,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserPapperBuy);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteAddUserPapperBuy(e:Event):void { completeAddUserPapperBuy(e.target.data); }
         try {
             loader.load(request);
@@ -4999,6 +5093,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserPapperBuy);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserPapperBuy(e:Event):void { completeUpdateUserPapperBuy(e.target.data); }
         try {
             loader.load(request);
@@ -5042,6 +5137,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetUserPapperBuy);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteGetUserPapperBuy(e:Event):void { completeGetUserPapperBuy(e.target.data, callback); }
         try {
             loader.load(request);
@@ -5090,6 +5186,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserNotification);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserNotification(e:Event):void { completeUpdateUserNotification(e.target.data, callback); }
         try {
             loader.load(request);
@@ -5142,6 +5239,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateWallTrainItem);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateWallTrainItem(e:Event):void { completeUpdateWallTrainItem(e.target.data, callback); }
         try {
             loader.load(request);
@@ -5188,6 +5286,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateWallOrderItem);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateWallOrderItem(e:Event):void { completeUpdateWallOrderItem(e.target.data, callback); }
         try {
             loader.load(request);
@@ -5236,6 +5335,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCraftCountTree);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserCraftCountTree(e:Event):void { completeUpdateUserCraftCountTree(e.target.data, callback); }
         try {
             loader.load(request);
@@ -5283,6 +5383,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserMusic);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserMusic(e:Event):void { completeUpdateUserMusic(e.target.data, callback); }
         try {
             loader.load(request);
@@ -5330,6 +5431,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserSound);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
         function onCompleteUpdateUserSound(e:Event):void { completeUpdateUserSound(e.target.data, callback); }
         try {
             loader.load(request);
@@ -5364,8 +5466,68 @@ public class DirectServer {
         }
     }
 
+    public function addUserCave(recipeId:int, dbId:int, delay:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_FABRICA_RECIPE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addFabricaRecipe', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.recipeId = recipeId;
+        variables.dbId = dbId;
+        variables.delay = delay;
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserCave);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteAddUserCave(e:Event):void { completeAddUserCave(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addFabricaRecipe error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
+        }
+    }
+
+    private function completeAddUserCave(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addFabricaRecipe: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'addFabricaRecipe OK', 5);
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError:: ' + e.text);
+    }
+
+    private function internetNotWork(ev:Event):void {
+        g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
     }
 }
 }
