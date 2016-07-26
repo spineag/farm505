@@ -778,6 +778,7 @@ public class DirectServer {
 
         Cc.ch('server', 'getAllFriendsInfo', 1);
         variables = addDefault(variables);
+        variables.userId = g.user.userId;
         variables.userSocialIds = userSocialIdArr.join('&');
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -2362,6 +2363,7 @@ public class DirectServer {
 
         Cc.ch('server', 'getTrainPack', 1);
         variables = addDefault(variables);
+        variables.userId = g.user.userId;
         variables.userSocialId = userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -3190,6 +3192,7 @@ public class DirectServer {
 
         Cc.ch('server', 'getAllCityData', 1);
         variables = addDefault(variables);
+        variables.userId = g.user.userId;
         variables.userSocialId = p.userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;

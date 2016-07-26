@@ -193,9 +193,11 @@ public class WorldObject {
 
     public function showArrow():void {
         hideArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
         if (_rect) {
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
             _arrow.animateAtPosition(_rect.x + _rect.width/2, _rect.y);
+        } else {
+            _arrow.animateAtPosition(0, 10);
         }
     }
 
