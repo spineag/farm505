@@ -127,9 +127,17 @@ public class BasicCat {
 
     public function goWithPath(arr:Array, callbackOnWalking:Function):void {
         _currentPath = arr;
-        if (_currentPath.length) {
+        if (_currentPath.length > 1) {
             _currentPath.shift(); // first element is that point, where we are now
             gotoPoint(_currentPath.shift(), callbackOnWalking);
+        } else {
+            if (_currentPath.length) {
+                gotoPoint(_currentPath.shift(), callbackOnWalking);
+            } else {
+                if (callbackOnWalking != null) {
+                    callbackOnWalking.apply();
+                }
+            }
         }
     }
 
