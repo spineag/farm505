@@ -3134,6 +3134,7 @@ public class DirectServer {
 
         Cc.ch('server', 'getAllCityData', 1);
         variables = addDefault(variables);
+        variables.userId = g.user.userId;
         variables.userSocialId = p.userSocialId;
         request.data = variables;
         request.method = URLRequestMethod.POST;

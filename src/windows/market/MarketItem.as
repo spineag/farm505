@@ -362,7 +362,8 @@ public class MarketItem {
         } else _papper.visible = _wo.booleanPaper;
     }
 
-    private function onDelete ():void {
+    private function onDelete():void {
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         g.windowsManager.cashWindow = _wo;
         _wo.hideIt();
         g.marketHint.hideIt();
