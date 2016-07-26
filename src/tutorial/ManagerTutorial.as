@@ -1136,6 +1136,7 @@ public class ManagerTutorial {
     }
 
     private function subStep12_7():void {
+        _tutorialCallback = null;
         _subStep = 7;
         cat.flipIt(false);
         (_tutorialObjects[0] as WorldObject).hideArrow();
@@ -1143,6 +1144,7 @@ public class ManagerTutorial {
     }
 
     private function subStep12_8():void {
+        _onShowWindowCallback = null;
         _subStep = 8;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
             (g.windowsManager.currentWindow as WOOrder).setTextForCustomer(texts[g.user.tutorialStep][_subStep]);

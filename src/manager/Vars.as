@@ -23,6 +23,12 @@ import hint.Hint;
 import hint.MouseHint;
 import hint.TimerHint;
 import hint.WildHint;
+
+import loaders.DataPath;
+
+import loaders.LoadAnimationManager;
+import loaders.LoaderManager;
+
 import manager.hitArea.ManagerHitArea;
 import map.BackgroundArea;
 import map.MatrixGrid;

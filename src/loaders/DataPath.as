@@ -1,7 +1,9 @@
 /**
  * Created by user on 7/16/15.
  */
-package manager {
+package loaders {
+import manager.*;
+
 public class DataPath {
     public const MAIN_PATH:String = '505.ninja/';
     public const MAIN_PATH_GRAPHICS:String = '505.ninja/content/';

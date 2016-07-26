@@ -1,8 +1,12 @@
 /**
  * Created by andy on 5/19/16.
  */
-package manager {
+package loaders {
+import manager.*;
+
 import com.junkbyte.console.Cc;
+
+import loaders.LoadAnimation;
 
 public class LoadAnimationManager {
     private var additionalQueue:Object = new Object();

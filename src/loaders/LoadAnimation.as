@@ -1,7 +1,9 @@
 /**
  * Created by andy on 5/19/16.
  */
-package manager {
+package loaders {
+import manager.*;
+
 import dragonBones.factories.StarlingFactory;
 import dragonBones.objects.DragonBonesData;
 import dragonBones.objects.XMLDataParser;

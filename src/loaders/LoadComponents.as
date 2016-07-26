@@ -1,7 +1,9 @@
 /**
  * Created by andy on 5/17/16.
  */
-package manager {
+package loaders {
+import manager.*;
+
 import flash.display.Bitmap;
 
 import starling.textures.Texture;

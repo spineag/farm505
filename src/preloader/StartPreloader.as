@@ -13,7 +13,7 @@ import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.text.Font;
 
-import manager.EmbedAssets;
+import loaders.EmbedAssets;
 
 import manager.Vars;
 

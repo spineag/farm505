@@ -1,4 +1,6 @@
-package manager {
+package loaders {
+import manager.*;
+
 import com.deadreckoned.assetmanager.Asset;
 import com.deadreckoned.assetmanager.AssetManager;
 import com.deadreckoned.assetmanager.AssetQueue;

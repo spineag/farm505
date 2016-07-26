@@ -3,11 +3,11 @@
  */
 package {
 import manager.AllData;
-import manager.DataPath;
-import manager.EmbedAssets;
-import manager.LoadAnimationManager;
-import manager.LoadComponents;
-import manager.LoaderManager;
+import loaders.DataPath;
+import loaders.EmbedAssets;
+import loaders.LoadAnimationManager;
+import loaders.LoadComponents;
+import loaders.LoaderManager;
 import manager.Vars;
 import starling.display.Sprite;
 import starling.utils.AssetManager;

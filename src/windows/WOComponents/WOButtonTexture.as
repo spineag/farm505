@@ -8,8 +8,10 @@ import starling.display.BlendMode;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 import utils.CButton;
+import utils.DrawToBitmap;
 
 public class WOButtonTexture extends Sprite {
     public static const GREEN:int = 1;
@@ -26,6 +28,7 @@ public class WOButtonTexture extends Sprite {
         var i:int;
         var delta:int = 0;
         var st:String = 'bt_b_';
+        var _s:Sprite = new Sprite();
 
         if (w%2) w++;
         if (h%2) h++;
@@ -40,28 +43,28 @@ public class WOButtonTexture extends Sprite {
         im = new Image(tex.getTexture(st+'lt'));
         im.x = 0;
         im.y = 0;
-        addChild(im);
+        _s.addChild(im);
         arr.push(im);
 
         // bottom left
         im = new Image(tex.getTexture(st+'ld'));
         im.x = 0;
         im.y = h - im.height;
-        addChild(im);
+        _s.addChild(im);
         arr.push(im);
 
         // top right
         im = new Image(tex.getTexture(st+'rt'));
         im.x = w - im.width;
         im.y = 0;
-        addChild(im);
+        _s.addChild(im);
         arr.push(im);
 
         // bottom right
         im = new Image(tex.getTexture(st+'rd'));
         im.x = w - im.width;
         im.y = h - im.height;
-        addChild(im);
+        _s.addChild(im);
         arr.push(im);
 
         //top center and bottom center
@@ -74,11 +77,11 @@ public class WOButtonTexture extends Sprite {
             im.x = arr[0].x + arr[0].width + i*(imWidth - delta);
             if (i == countW-1 && im.x > arr[2].x - 2) im.x = arr[2].x - 2;
             im.y = 0;
-            addChildAt(im, 0);
+            _s.addChildAt(im, 0);
             im = new Image(tex.getTexture(st+'c'));
             im.x = arr[1].x + arr[1].width + i*(imWidth - delta);
             im.y = h - imHeight;
-            addChildAt(im, 0);
+            _s.addChildAt(im, 0);
         }
 
         // left and right
@@ -89,11 +92,11 @@ public class WOButtonTexture extends Sprite {
             im = new Image(tex.getTexture(st+'c'));
             im.y = arr[0].y + arr[0].height + i*(imHeight - delta);
             im.x = 0;
-            addChildAt(im, 0);
+            _s.addChildAt(im, 0);
             im = new Image(tex.getTexture(st+'c'));
             im.y = arr[2].y + arr[2].height + i*(imHeight - delta);
             im.x = w - imWidth;
-            addChildAt(im, 0);
+            _s.addChildAt(im, 0);
         }
 
         for (i=0; i<countW; i++) {
@@ -101,11 +104,14 @@ public class WOButtonTexture extends Sprite {
                 im = new Image(tex.getTexture(st+'c'));
                 im.x = arr[0].x + arr[0].width + i*(imWidth - delta);
                 im.y = arr[0].y + arr[0].height + j*(imHeight - delta);
-                addChildAt(im, 0);
+                _s.addChildAt(im, 0);
             }
         }
 
         arr.length = 0;
+        im = new Image(Texture.fromBitmap(DrawToBitmap.drawToBitmap(_s)));
+        addChild(im);
+        _s.dispose();
         flatten();
     }
 
