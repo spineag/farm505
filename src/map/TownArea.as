@@ -510,6 +510,9 @@ public class TownArea extends Sprite {
             case BuildType.DECOR:
                 build = new Decor(_data);
                 break;
+            case BuildType.DECOR_FULL_FENСE:
+                build = new DecorFence(_data);
+                break;
             case BuildType.FABRICA:
                 build = new Fabrica(_data);
                 break;

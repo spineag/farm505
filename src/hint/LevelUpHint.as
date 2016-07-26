@@ -81,7 +81,7 @@ public class LevelUpHint {
 
 
         if (_dataId == -1) {
-            _txtName = new TextField(200, 30,'Кот', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30,'Помощник', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 25;
             _txtText = new TextField(200,100,'Работает на ферме', g.allData.fonts['BloggerBold'],12,Color.WHITE);

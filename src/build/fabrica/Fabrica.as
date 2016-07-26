@@ -375,7 +375,6 @@ public class Fabrica extends WorldObject {
                         delay += _arrList[i].buildTime;
                     }
                 }
-
             }
             var f1:Function = function(t:String):void {
                 resItem.idFromServer = t;
