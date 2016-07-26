@@ -51,8 +51,8 @@ public class AStar {
         try {
             makeSearch();
         } catch (e:Error) {
-            Cc.error('Error with makeSearch at AStar');
-            Cc.stackch('error', 'astar', 10);
+//            Cc.error('Error with makeSearch at AStar');
+//            Cc.stackch('error', 'astar', 10);
             if (callback != null) {
                 callback.apply(null, [[new Point(startX, startY)]]);
                 callback = null;
