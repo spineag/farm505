@@ -343,6 +343,7 @@ public class MarketItem {
         _dataFromServer.inPapper = true;
         _papper.visible = true;
         _imCheck.visible = true;
+        g.hint.hideIt();
         _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
         _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);

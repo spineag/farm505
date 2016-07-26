@@ -258,7 +258,7 @@ public class ShopItem {
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
             if (!texture) {
-                if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE) texture = g.allData.atlas[_data.url].getTexture(_data.image);
+                if (_data.buildType == BuildType.DECOR ||_data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE) texture = g.allData.atlas[_data.url].getTexture(_data.image);
                 else texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
             }
             if (!texture) {

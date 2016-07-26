@@ -55,7 +55,7 @@ public class Tree extends WorldObject {
     private var _craftedCountFromServer:int;
     private var _needShopView:Boolean;
     private var _deleteTree:Boolean;
-
+    private var _isOnHoverWatter:Boolean;
     private var _fruits1:Bone;
     private var _fruits2:Bone;
     private var _fruits3:Bone;
@@ -72,6 +72,7 @@ public class Tree extends WorldObject {
         createAnimatedBuild(onCreateBuild);
         _isClick = false;
         _deleteTree = false;
+        _isOnHoverWatter = false;
     }
 
     private function onCreateBuild():void {
@@ -465,6 +466,7 @@ public class Tree extends WorldObject {
         }
         _source.filter = null;
         _isOnHover = false;
+        _isOnHoverWatter = false;
         if (_state == ASK_FIX) makeWateringIcon();
             g.mouseHint.hideIt();
     }
@@ -889,23 +891,15 @@ public class Tree extends WorldObject {
         return _state;
     }
     private function hov():void {
-        if (_isOnHover) return;
+        if (_isOnHover || _isOnHoverWatter) return;
         _isOnHover = true;
         _source.filter = ManagerFilters.BUILD_STROKE;
 //
-//        var fEndOver:Function = function():void {
-//            _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-//            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-//            quickCheckState();
-//        };
-//        _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-//        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-//        if (_state == ASK_FIX) _armature.animation.gotoAndPlay('over_d');
-//        if (_state == FIXED) _armature.animation.gotoAndPlay('over_d');
     }
 
     private function ouu():void {
         _isOnHover = false;
+        _isOnHoverWatter = false;
         _source.filter = null;
     }
 

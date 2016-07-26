@@ -67,10 +67,11 @@ public class MarketFriendItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _visitBtn = new CButton();
-        _visitBtn.addButtonTexture(66, 26, CButton.BLUE, true);
-        var txtBtn:TextField = new TextField(80, 25, "Посетить", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        _visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
+        var txtBtn:TextField = new TextField(80, 25, "Посетить", g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txtBtn.x = -8;
+        txtBtn.x = -5;
+        txtBtn.y = 3;
         _visitBtn.addChild(txtBtn);
         _visitBtn.x = 55;
         _visitBtn.y = 3;

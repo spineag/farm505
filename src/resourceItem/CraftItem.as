@@ -217,6 +217,10 @@ public class CraftItem {
         _arrow.animateAtPosition(0, -_image.height/2);
     }
 
+    public function get resourceId():int {
+        return _resourceItem.resourceID;
+    }
+
     public function removeArrow():void {
         if (_arrow) {
             _arrow.deleteIt();

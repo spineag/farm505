@@ -112,6 +112,7 @@ public class Cave extends WorldObject{
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
                         _armature.animation.gotoAndStop('open', 0);
+                        g.directServer.getUserCave(fillFromServer);
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
                         _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
@@ -135,6 +136,22 @@ public class Cave extends WorldObject{
 //            Cc.error('cave checkCaveState error: ' + e.errorID + ' - ' + e.message);
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Cave checkCaveState');
 //        }
+    }
+
+    private function fillFromServer(ar:Array):void {
+        if (ar.length == 0 || ar == null) return;
+        var item:ResourceItem;
+        var craftItem:CraftItem;
+        _craftSprite.x = 104*g.scaleFactor;
+        _craftSprite.y = 109*g.scaleFactor;
+        for (var i:int = 0; i <ar.length; i++) {
+            item = new ResourceItem();
+            item.fillIt(g.dataResource.objectResources[ar[i].resource_id]);
+            craftItem = new CraftItem(0, 0, item, _craftSprite, ar[i].count);
+            craftItem.removeDefaultCallbacks();
+            craftItem.addParticle();
+            _arrCraftItems.push(craftItem);
+        }
     }
 
     protected function renderBuildCaveProgress():void {
@@ -261,7 +278,10 @@ public class Cave extends WorldObject{
                             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                             return;
                         }
+                        g.directServer.craftUserCave(_arrCraftItems[_arrCraftItems.length-1].resourceId,null);
                         _arrCraftItems.pop().flyIt();
+
+//                        g.directServer.craftUserCave();
                         if (!_arrCraftItems.length) {
                             _armature.animation.gotoAndStop('open', 0);
                         }
@@ -402,6 +422,7 @@ public class Cave extends WorldObject{
                     craftItem.addParticle();
                     _arrCraftItems.push(craftItem);
                 }
+                g.directServer.addUserCave(item.resourceID,craftItem.count,null);
             }
             _isAnimate = false;
         };
@@ -418,6 +439,7 @@ public class Cave extends WorldObject{
         _armature.addEventListener(AnimationEvent.COMPLETE, fIn);
         _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fIn);
         _armature.animation.gotoAndPlay("in");
+
     }
 
     private function callbackSkip():void {

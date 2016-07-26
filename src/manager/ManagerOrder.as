@@ -880,7 +880,7 @@ public class ManagerOrder {
                             g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
                         }
                     }
-                    order.placeNumber = _curMaxCountOrders;
+                    order.placeNumber = _curMaxCountOrders-1;
                     g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
                 } else {
                     var b:Boolean;
@@ -899,7 +899,7 @@ public class ManagerOrder {
                                 g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
                             }
                         }
-                        order.placeNumber = _curMaxCountOrders;
+                        order.placeNumber = _curMaxCountOrders -1 ;
                         g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
                     } else {
                         for (i = 0; i < _arrOrders.length; i++) {
@@ -914,6 +914,12 @@ public class ManagerOrder {
                     }
                 }
             }
+
+            for (i = 0; i <_arrOrders.length; i ++) {
+                trace(_arrOrders[i].placeNumber + '   _arrOrders');
+            }
+
+            trace(order.placeNumber);
             _arrOrders.push(order);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
             g.directServer.addUserOrder(order, delay, f);

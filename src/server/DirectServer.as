@@ -4339,6 +4339,7 @@ public class DirectServer {
 
         Cc.ch('server', 'makeWateringUserTree', 1);
         variables = addDefault(variables);
+        variables.userId = g.user.userId;
         variables.userSocialId = g.user.userSocialId;
         variables.awayUserSocialId = g.visitedUser.userSocialId;
         variables.id = treeDbId;
@@ -5469,17 +5470,16 @@ public class DirectServer {
         }
     }
 
-    public function addUserCave(recipeId:int, dbId:int, delay:int, callback:Function):void {
+    public function addUserCave(resourceId:int, count:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_FABRICA_RECIPE);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_CAVE);
         var variables:URLVariables = new URLVariables();
 
-        Cc.ch('server', 'addFabricaRecipe', 1);
+        Cc.ch('server', 'addUserCave', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.recipeId = recipeId;
-        variables.dbId = dbId;
-        variables.delay = delay;
+        variables.resourceId = resourceId;
+        variables.count = count;
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -5489,7 +5489,7 @@ public class DirectServer {
         try {
             loader.load(request);
         } catch (error:Error) {
-            Cc.error('addFabricaRecipe error:' + error.errorID);
+            Cc.error('addUserCave error:' + error.errorID);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe error:' + error.errorID);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
         }
@@ -5501,27 +5501,123 @@ public class DirectServer {
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
-            Cc.error('addFabricaRecipe: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: wrong JSON:' + String(response));
+            Cc.error('addUserCave: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserCave: wrong JSON:' + String(response));
             if (callback != null) {
-                callback.apply(null, [false]);
+                callback.apply();
             }
             return;
         }
 
         if (d.id == 0) {
-            Cc.ch('server', 'addFabricaRecipe OK', 5);
+            Cc.ch('server', 'addUserCave OK', 5);
             if (callback != null) {
                 callback.apply(null, [d.message]);
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
-            Cc.error('addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message);
+            Cc.error('addUserCave: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserCave: id: ' + d.id + '  with message: ' + d.message);
             if (callback != null) {
                 callback.apply(null, [false]);
             }
+        }
+    }
+
+    public function getUserCave(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_CAVE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserCave', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserCave);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetUserCave(e:Event):void { completeGetUserCave(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserCave error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userInfo error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
+        }
+    }
+
+    private function completeGetUserCave(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var ar:Array;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserCave: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserCave: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserCave OK', 5);
+            if (callback != null) {
+                callback.apply(null,[d.message]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function craftUserCave(resourceId:String, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_USER_CAVE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'craftUserCave', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.resourceId = resourceId;
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteCraftUserCave);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteCraftUserCave(e:Event):void { completeCraftUserCave(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('craftUserCave error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserAnimal error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
+        }
+    }
+
+    private function completeCraftUserCave(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('craftUserCave: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserCave: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'craftUserCave OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('craftUserCave: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftUserCave: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
