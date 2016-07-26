@@ -8,10 +8,12 @@ import starling.display.BlendMode;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.textures.Texture;
 
 import starling.textures.TextureAtlas;
 
 import utils.CButton;
+import utils.DrawToBitmap;
 
 public class WOSimpleButtonTexture  extends Sprite {
     public static const GREEN:int = 1;
@@ -27,6 +29,7 @@ public class WOSimpleButtonTexture  extends Sprite {
         var i:int;
         var st:String = 'bt_b_b_';
         var useBig:Boolean = h<=35;
+        var _s:Sprite = new Sprite();
 
         if (w%2) w++;
         if (h%2) h++;
@@ -54,14 +57,14 @@ public class WOSimpleButtonTexture  extends Sprite {
         im = new Image(tex.getTexture(st+'l'));
         im.x = 0;
         im.y = 0;
-        addChild(im);
+        _s.addChild(im);
         arr.push(im);
 
         //right
         im = new Image(tex.getTexture(st+'r'));
         im.x = w - im.width;
         im.y = 0;
-        addChild(im);
+        _s.addChild(im);
         arr.push(im);
 
         //center
@@ -71,7 +74,7 @@ public class WOSimpleButtonTexture  extends Sprite {
             im = new Image(tex.getTexture(st+'c'));
             im.x = arr[0].x + arr[0].width + i - 1;
             im.y = 0;
-            addChildAt(im, 0);
+            _s.addChildAt(im, 0);
         }
         arr.push(im);
         // add shadows
@@ -80,11 +83,14 @@ public class WOSimpleButtonTexture  extends Sprite {
             im = new Image(tex.getTexture(st));
             im.x = arr[0].x + arr[0].width + i;
             im.y = arr[2].height - 2;
-            addChildAt(im, 0);
+            _s.addChildAt(im, 0);
         }
 
-        height = h*1.2; // because we have shadow in pictures
         arr.length = 0;
+        im = new Image(Texture.fromBitmap(DrawToBitmap.drawToBitmap(_s)));
+        im.height = int(h*1.2); // because we have shadow in pictures
+        addChild(im);
+        _s.dispose();
         flatten();
     }
 

@@ -8,7 +8,7 @@ import dragonBones.events.AnimationEvent;
 import dragonBones.factories.StarlingFactory;
 
 import flash.events.Event;
-import manager.EmbedAssets;
+import loaders.EmbedAssets;
 import manager.Vars;
 
 import starling.display.Sprite;

@@ -27,7 +27,7 @@ import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import tutorial.SimpleArrow;
+import utils.SimpleArrow;
 import tutorial.TutorialAction;
 
 import ui.xpPanel.XPStar;

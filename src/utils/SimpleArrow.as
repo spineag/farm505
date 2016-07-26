@@ -1,7 +1,7 @@
 /**
  * Created by user on 3/1/16.
  */
-package tutorial {
+package utils {
 import com.greensock.TweenMax;
 
 import dragonBones.Armature;

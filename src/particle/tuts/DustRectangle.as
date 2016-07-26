@@ -1,7 +1,9 @@
 /**
  * Created by user on 2/29/16.
  */
-package tutorial {
+package particle.tuts {
+import particle.tuts.DustParticle;
+
 import starling.display.Sprite;
 
 public class DustRectangle {

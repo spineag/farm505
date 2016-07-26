@@ -5,6 +5,8 @@ package tutorial {
 import manager.ManagerFilters;
 import manager.Vars;
 
+import particle.tuts.DustRectangle;
+
 import starling.core.Starling;
 
 import starling.display.Image;
@@ -16,6 +18,7 @@ import starling.utils.Color;
 
 import utils.CButton;
 import utils.CSprite;
+import utils.SimpleArrow;
 
 import windows.WOComponents.HintBackground;
 

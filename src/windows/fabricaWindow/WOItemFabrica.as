@@ -8,7 +8,7 @@ import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
-import tutorial.SimpleArrow;
+import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import utils.CSprite;
 import utils.MCScaler;

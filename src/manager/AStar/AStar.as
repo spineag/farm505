@@ -1,4 +1,6 @@
-package manager {
+package manager.AStar {
+import manager.*;
+
 import build.lockedLand.LockedLand;
 
 import com.junkbyte.console.Cc;

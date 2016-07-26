@@ -6,6 +6,9 @@ import com.greensock.TweenMax;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import particle.tuts.DustRectangle;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;

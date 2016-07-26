@@ -1,7 +1,9 @@
 /**
  * Created by user on 5/14/15.
  */
-package manager {
+package map {
+import manager.*;
+
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import flash.geom.Point;

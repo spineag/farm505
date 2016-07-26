@@ -82,12 +82,12 @@ public class WOShop extends WindowMain {
         curentTab = 0;
         _contCoupone = new Sprite();
         _source.addChild(_contCoupone);
+        
+        _decorFilter = new DecorShopFilter(this);
         createMoneyBlock();
         if (g.user.level < 17) _contCoupone.visible = false;
             else _contCoupone.visible = true;
         _birka = new Birka('МАГАЗИН', _source, _woWidth, _woHeight);
-        
-        _decorFilter = new DecorShopFilter(this);
     }
 
     private function onClickExit(e:Event=null):void {
@@ -254,7 +254,7 @@ public class WOShop extends WindowMain {
                     if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_FULL_FENСE ||
                             obj[id].buildType == BuildType.DECOR_POST_FENCE || obj[id].buildType == BuildType.DECOR_TAIL) {
                         if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == obj[id].filterType)
-                        arr.push(Utils.objectDeepCopy(obj[id]));
+                            arr.push(Utils.objectDeepCopy(obj[id]));
                     }
                 }
                 break;

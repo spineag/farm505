@@ -20,6 +20,10 @@ import flash.utils.Timer;
 import heroes.OrderCat;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import particle.tuts.DustRectangle;
+import heroes.TutorialCat;
+
 import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -28,6 +32,8 @@ import starling.utils.Color;
 import tutorial.pretuts.TutorialCloud;
 
 import tutorial.pretuts.TutorialMult;
+
+import utils.SimpleArrow;
 
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
@@ -1136,6 +1142,7 @@ public class ManagerTutorial {
     }
 
     private function subStep12_7():void {
+        _tutorialCallback = null;
         _subStep = 7;
         cat.flipIt(false);
         (_tutorialObjects[0] as WorldObject).hideArrow();
@@ -1143,6 +1150,7 @@ public class ManagerTutorial {
     }
 
     private function subStep12_8():void {
+        _onShowWindowCallback = null;
         _subStep = 8;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
             (g.windowsManager.currentWindow as WOOrder).setTextForCustomer(texts[g.user.tutorialStep][_subStep]);

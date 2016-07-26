@@ -1,4 +1,4 @@
-package manager {
+package loaders {
 import flash.display.Bitmap;
 
 public class PBitmap {

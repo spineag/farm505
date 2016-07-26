@@ -1,7 +1,9 @@
 /**
  * Created by andy on 3/3/16.
  */
-package tutorial {
+package heroes {
+import tutorial.*;
+
 import build.TownAreaBuildSprite;
 
 import com.greensock.TweenMax;

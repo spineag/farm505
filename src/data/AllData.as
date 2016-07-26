@@ -1,7 +1,7 @@
 /**
  * Created by user on 9/30/15.
  */
-package manager {
+package data {
 public class AllData {
     public var lockedLandData:Object;
     public var atlas:Object;
