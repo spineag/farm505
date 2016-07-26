@@ -115,6 +115,7 @@ public class Vars {
     public var managerAnimal:ManagerAnimal;
     public var managerPaper:ManagerPaper;
     public var managerChest:ManagerChest;
+    public var lateAction:ManagerLateAction;
     public var load:LoaderManager;
     public var loadAnimation:LoadAnimationManager;
     public var pBitmaps:Object;
@@ -427,6 +428,7 @@ public class Vars {
             managerPaper.getPaperItems();
             managerCats.setAllCatsToRandomPositions();
             managerDailyBonus.checkDailyBonusStateBuilding();
+            lateAction = new ManagerLateAction();
             isGameLoaded = true;
 
             if ((user as User).isMegaTester) {
