@@ -104,5 +104,8 @@ public class Consts {
     public static var INQ_UPDATE_USER_CRAFT_COUNT_TREE:String = 'updateUserCraftCountTree.php';
     public static var INQ_UPDATE_USER_MUSIC:String = 'updateUserMusic.php';
     public static var INQ_UPDATE_USER_SOUND:String = 'updateUserSound.php';
+    public static var INQ_ADD_USER_CAVE:String = 'addUserCave.php';
+    public static var INQ_CRAFT_USER_CAVE:String = 'craftUserCave.php';
+    public static var INQ_GET_USER_CAVE:String = 'getUserCave.php';
 }
 }

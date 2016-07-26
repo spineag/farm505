@@ -702,10 +702,10 @@ public class WOOrder extends WindowMain{
         _armatureSeller.display.y = -170;
         _source.addChild(_armatureCustomer.display as Sprite);
         _source.addChild(_armatureSeller.display as Sprite);
-//        var viyi:Bone = _armatureSeller.getBone('viyi');
-//        if (viyi) {
-//            viyi.visible = false;
-//        }
+        var viyi:Bone = _armatureSeller.getBone('viyi');
+        if (viyi) {
+            viyi.visible = false;
+        }
         var bant:Bone = _armatureCustomer.getBone('bant');
         if (bant) bant.visible = false;
 

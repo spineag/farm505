@@ -185,6 +185,20 @@ public class ManagerOrderCats {
         } else {
             return arr[0];
         }
+
+//        var ar:Array = g.managerOrder.arrOrders.slice();
+//        var b:Boolean;
+//        var max:int = g.managerOrder.maxCountOrders - 1;
+//        for (var i:int = 0; i < ar.length; i++) {
+//            b = true;
+//            if (!ar[i].cat) {
+//                b = false;
+//                break;
+//            }
+//        }
+//        if (b) return int(ar[i].placeNumber);
+//        if (!b) return int(max);
+//        return 5;
     }
 
     private function arriveNewCat(cat:OrderCat):void {
