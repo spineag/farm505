@@ -86,5 +86,10 @@ public class DecorFence extends WorldObject {
         if (g.isActiveMapEditor) return;
         _source.filter = null;
     }
+
+    public function makeFlipAtMoving():void {
+        _flip = !_flip;
+        makeFlipBuilding();
+    }
 }
 }

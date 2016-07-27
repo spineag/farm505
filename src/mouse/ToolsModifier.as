@@ -3,6 +3,7 @@
  */
 package mouse {
 import build.WorldObject;
+import build.decor.DecorFence;
 import build.decor.DecorTail;
 import build.wild.Wild;
 import com.junkbyte.console.Cc;
@@ -215,6 +216,10 @@ public class ToolsModifier {
             _mouseCont.removeChildAt(0);
         }
     }
+
+
+    // --------------------------------------------- MOVE SECTION -----------------------------------------------
+
 
     private function moveMouseIcon():void{
         _mouseIcon.x = g.ownMouse.mouseX + 15;
@@ -442,14 +447,14 @@ public class ToolsModifier {
         if (_startDragPoint) return;  // using for dragging gameCont
         if (!_activeBuilding.useIsometricOnly) return;
 
-        var point:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
-        g.matrixGrid.setSpriteFromIndex(_spriteForMove, point);
-        if (spriteForMoveIndexX != point.x || spriteForMoveIndexY != point.y) {
-            spriteForMoveIndexX = point.x;
-            spriteForMoveIndexY = point.y;
+        var pointPos:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
+        g.matrixGrid.setSpriteFromIndex(_spriteForMove, pointPos);
+        if (spriteForMoveIndexX != pointPos.x || spriteForMoveIndexY != pointPos.y) {
+            spriteForMoveIndexX = pointPos.x;
+            spriteForMoveIndexY = pointPos.y;
             if (_activeBuilding is DecorTail) {
                 if (!g.townArea.townTailMatrix[spriteForMoveIndexY] || !g.townArea.townTailMatrix[spriteForMoveIndexY][spriteForMoveIndexX]) return;
-                if (!checkFreeTailGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
+                if (!checkFreeTailGrids(pointPos.x, pointPos.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
                     _spriteForMove.filter = ManagerFilters.RED_TINT_FILTER;
                 } else {
                     _spriteForMove.filter = null;
@@ -464,8 +469,63 @@ public class ToolsModifier {
 //                    if (_startMoveX == int(_spriteForMove.x) && _startMoveY == int(_spriteForMove.y))  _activeBuilding.source.filter = null;
                     _activeBuilding.source.filter = ManagerFilters.RED_TINT_FILTER;
                 }
+                if (_activeBuilding is DecorFence) {
+                    try {
+                        checkDecorFenceForFlip(pointPos);
+                    } catch (e:Error) {
+                        Cc.error('Error with DecorFence at checkDecorFenceForFlip');
+                    }
+                }
             }
         }
+    }
+
+    private function checkDecorFenceForFlip(pos:Point):void {
+        var fence:DecorFence;
+        //check right top
+        if (_townMatrix[pos.y-1] && _townMatrix[pos.y-1][pos.x] && _townMatrix[pos.y-1][pos.x].build && _townMatrix[pos.y-1][pos.x].build is DecorFence) {
+            fence = _townMatrix[pos.y-1][pos.x].build as DecorFence;
+            if (_townMatrix[pos.y-1][pos.x+1] && _townMatrix[pos.y-1][pos.x+1].build && _townMatrix[pos.y-1][pos.x+1].build is DecorFence) {
+                if (fence == _townMatrix[pos.y-1][pos.x+1].build && fence.dataBuild.id == _activeBuilding.dataBuild.id) {
+                    // user have the sane fence at right top
+                    if (_activeBuilding.flip) (_activeBuilding as DecorFence).makeFlipAtMoving();
+                    return;
+                }
+            }
+        }
+        // check left bottom
+        if (_townMatrix[pos.y+2] && _townMatrix[pos.y+2][pos.x] && _townMatrix[pos.y+2][pos.x].build && _townMatrix[pos.y+2][pos.x].build is DecorFence) {
+            fence = _townMatrix[pos.y+2][pos.x].build as DecorFence;
+            if (_townMatrix[pos.y+2][pos.x+1] && _townMatrix[pos.y+2][pos.x+1].build && _townMatrix[pos.y+2][pos.x+1].build is DecorFence) {
+                if (fence == _townMatrix[pos.y+2][pos.x+1].build && fence.dataBuild.id == _activeBuilding.dataBuild.id) {
+                    // user have the sane fence at left bottom
+                    if (_activeBuilding.flip) (_activeBuilding as DecorFence).makeFlipAtMoving();
+                    return;
+                }
+            }
+        }
+        //check left top
+        if (_townMatrix[pos.y][pos.x-1] && _townMatrix[pos.y][pos.x-1].build && _townMatrix[pos.y][pos.x-1].build is DecorFence) {
+            fence = _townMatrix[pos.y][pos.x-1].build as DecorFence;
+            if (_townMatrix[pos.y+1] && _townMatrix[pos.y+1][pos.x-1] && _townMatrix[pos.y+1][pos.x-1].build && _townMatrix[pos.y+1][pos.x-1].build is DecorFence) {
+                if (fence == _townMatrix[pos.y+1][pos.x-1].build && fence.dataBuild.id == _activeBuilding.dataBuild.id) {
+                    // user have the sane fence at left top
+                    if (!_activeBuilding.flip) (_activeBuilding as DecorFence).makeFlipAtMoving();
+                    return;
+                }
+            }
+        }
+        //check right bottom
+        if (_townMatrix[pos.y][pos.x+2] && _townMatrix[pos.y][pos.x+2].build && _townMatrix[pos.y][pos.x+2].build is DecorFence) {
+            fence = _townMatrix[pos.y][pos.x+2].build as DecorFence;
+            if (_townMatrix[pos.y+1] && _townMatrix[pos.y+1][pos.x+2] && _townMatrix[pos.y+1][pos.x+2].build && _townMatrix[pos.y+1][pos.x+2].build is DecorFence) {
+                if (fence == _townMatrix[pos.y+1][pos.x+2].build && fence.dataBuild.id == _activeBuilding.dataBuild.id) {
+                    // user have the sane fence at right bottom
+                    if (!_activeBuilding.flip) (_activeBuilding as DecorFence).makeFlipAtMoving();
+                }
+            }
+        }
+
     }
 
     private var i:int;

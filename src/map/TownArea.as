@@ -650,9 +650,9 @@ public class TownArea extends Sprite {
         }
         if (!updateAfterMove) _cityObjects.push(worldObject);
         worldObject.updateDepth();
-        if (worldObject is DecorFence || worldObject is DecorPostFence) {
+        if (worldObject is DecorPostFence) {
             fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
-            if (worldObject is DecorPostFence) addFenceLenta(worldObject as DecorPostFence);
+            addFenceLenta(worldObject as DecorPostFence);
         } else {
             if (worldObject.useIsometricOnly) {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
@@ -676,6 +676,9 @@ public class TownArea extends Sprite {
                 g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
             if (worldObject is Farm)
                 g.managerAnimal.onAddNewFarm(worldObject as Farm);
+        } else {
+            if (worldObject is DecorFence)
+                g.directServer.userBuildingFlip(worldObject.dbBuildingId, int(worldObject.flip), null);
         }
 
         if (updateAfterMove) {
@@ -1087,6 +1090,7 @@ public class TownArea extends Sprite {
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
         g.directServer.startBuildBuilding(wObject, null);
+        if (wObject is DecorFence && wObject.flip) g.directServer.userBuildingFlip(wObject.dbBuildingId, 1, null);
     }
 
     private function onAddNewTree(value:Boolean, wObject:WorldObject):void {
