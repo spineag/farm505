@@ -2,20 +2,13 @@
  * Created by user on 9/23/15.
  */
 package heroes {
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-
 import flash.geom.Point;
-
 import manager.AStar.AStar;
-
 import manager.Vars;
-
 import tutorial.TutorialAction;
-
 import windows.WindowsManager;
 
 public class ManagerCats {

@@ -15,7 +15,11 @@ import media.SoundConst;
 
 import mouse.ToolsModifier;
 import starling.display.Sprite;
+
+import tutorial.helpers.HelperReason;
+
 import windows.WindowsManager;
+import windows.orderWindow.WOOrder;
 
 public class Order extends WorldObject{
     private var _isOnHover:Boolean;
@@ -112,9 +116,18 @@ public class Order extends WorldObject{
                 return;
             }
             onOut();
+            if (g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_ORDER) {
+                g.lateAction.releaseOnTimer(.7, showBtnCellArrow);
+            }
             g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+        }
+    }
+    
+    private function showBtnCellArrow():void {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
+            (g.windowsManager.currentWindow as WOOrder).showBtnSellArrow();
         }
     }
 

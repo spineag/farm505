@@ -64,6 +64,7 @@ public class WOOrder extends WindowMain{
     private var _bubble:TutorialTextBubble;
     private var _birka:Birka;
     private var _txtOrder:TextField;
+    private var _arrowBtnCell:SimpleArrow;
 
     public function WOOrder() {
         super();
@@ -640,6 +641,7 @@ public class WOOrder extends WindowMain{
     }
 
     override protected function deleteIt():void {
+        deleteBtnCellArrow();
         deleteCats();
         _activeOrderItem = null;
         g.gameDispatcher.removeFromTimer(onTimer);
@@ -673,6 +675,19 @@ public class WOOrder extends WindowMain{
             _bubble = null;
         }
         super.deleteIt();
+    }
+
+    public function showBtnSellArrow():void {
+        _arrowBtnCell = new SimpleArrow(SimpleArrow.POSITION_TOP, _rightBlock);
+        _arrowBtnCell.animateAtPosition(_btnSell.x + 5, _btnSell.y - 20);
+        _arrowBtnCell.activateTimer(3, deleteBtnCellArrow);
+    }
+    
+    private function deleteBtnCellArrow():void {
+        if (_arrowBtnCell) {
+            _arrowBtnCell.deleteIt();
+            _arrowBtnCell = null;
+        }
     }
 
 
@@ -918,6 +933,5 @@ public class WOOrder extends WindowMain{
     private function emptyCarCustomer():void {
         _armatureCustomer.animation.gotoAndPlay('empty');
     }
-
 }
 }

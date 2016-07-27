@@ -7,6 +7,9 @@ import com.greensock.TweenMax;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 
+import flash.events.TimerEvent;
+import flash.utils.Timer;
+
 import manager.Vars;
 import starling.display.Sprite;
 
@@ -19,6 +22,8 @@ public class SimpleArrow {
     private var _source:Sprite;
     private var _parent:Sprite;
     private var _armature:Armature;
+    private var _timer:Timer;
+    private var _onTimerCallback:Function;
     private var g:Vars = Vars.getInstance();
 
     public function SimpleArrow(posType:int, parent:Sprite) {
@@ -63,8 +68,32 @@ public class SimpleArrow {
         WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlay('start');
     }
+    
+    public function activateTimer(n:Number, f:Function):void {
+        _onTimerCallback = f;
+        _timer = new Timer(n*1000, 1);
+        _timer.addEventListener(TimerEvent.TIMER, onTimer);
+        _timer.start();
+    }
+
+    private function onTimer(e:TimerEvent):void {
+        if (_onTimerCallback != null) {
+            _onTimerCallback.apply();
+        }
+        if (_timer) {
+            _timer.removeEventListener(TimerEvent.TIMER, onTimer);
+            _timer.stop();
+            _timer = null;
+        }
+    }
 
     public function deleteIt():void {
+        if (_timer) {
+            _timer.removeEventListener(TimerEvent.TIMER, onTimer);
+            _timer.stop();
+            _timer = null;
+            _onTimerCallback = null;
+        }
         TweenMax.killTweensOf(_source);
         if (_parent.contains(_source)) _parent.removeChild(_source);
         WorldClock.clock.remove(_armature);
