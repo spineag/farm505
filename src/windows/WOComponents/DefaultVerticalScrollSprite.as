@@ -65,8 +65,6 @@ public class DefaultVerticalScrollSprite {
             _nextCellX += _cellW;
         }
         _scroll.source.visible = _scrolledSprite.height > _height + _cellH/2;
-//        _scrolledSprite.y = -27;
-//        _scroll.source.y = -27;
 
     }
 

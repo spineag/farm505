@@ -51,7 +51,7 @@ public class OwnScroll {
 
     private function onStartDrag():void {
         if (_isVertical) {
-            _startDragSourcePoint = _box.y + _boxHeight/2;
+            _startDragSourcePoint = _box.y;
             _startDragPoint = g.ownMouse.mouseY;
         } else {
             _startDragSourcePoint = _box.x;
@@ -64,15 +64,14 @@ public class OwnScroll {
     private function onDrag(_globalX:int, _globalY:int):void {
         if (_isVertical) {
             _delta = _globalY - _startDragPoint;
-//            _delta = 0;
-            _box.y = _startDragSourcePoint + _delta  - _box.height/2;
-            if (_box.y > _size - _box.height/2) {
-                _box.y = _size - _box.height/2;
+            _box.y = _startDragSourcePoint + _delta;
+            if (_box.y > _size - _boxHeight/2) {
+                _box.y = _size - _boxHeight/2;
             }
-            if (_box.y <_box.height/2) {
-                _box.y = _box.height/2;
+            if (_box.y < _boxHeight/2) {
+                _box.y = _boxHeight/2;
             }
-            _percent = _box.y / (_size - _box.height - 8);
+            _percent = (_box.y - _boxHeight/2) / (_size - _boxHeight);
         } else {
             // для горизонталього скролла
         }
@@ -82,14 +81,14 @@ public class OwnScroll {
     }
 
     private function callbackPercent():void {
-        _startDragSourcePoint = _box.y + _box.height/2;
+        _startDragSourcePoint = _box.y;
         _startDragPoint = g.ownMouse.mouseY;
         _delta = 0;
 //        _delta = 6;
-        _box.y = _startDragSourcePoint + _delta  - _box.height/2;
-        if (_box.y > _size - _box.height/2) _box.y = _size - _box.height/2;
-        if (_box.y <_box.height/2) _box.y = _box.height/2;
-        _percent = _box.y / (_size - _box.height);
+        _box.y = _startDragSourcePoint + _delta;
+        if (_box.y > _size - _boxHeight/2) _box.y = _size - _boxHeight/2;
+        if (_box.y <_boxHeight/2) _box.y = _boxHeight/2;
+        _percent = (_box.y - _boxHeight/2) / (_size - _boxHeight);
        if (_percentCallback != null) {
            _percentCallback.apply(null, [_percent]);
         }

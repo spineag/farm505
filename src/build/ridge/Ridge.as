@@ -39,21 +39,18 @@ public class Ridge extends WorldObject{
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
     private var _lastBuyResource:Boolean;
-//    private var _bg:Sprite;
 
     public function Ridge(_data:Object) {
         super(_data);
         if (!_data) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             Cc.error('no data for Ridge');
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Ridge');
             return;
         }
         _plantSprite = new Sprite();
-//        _bg = new Sprite();
-        createAtlasBuild(onCreateBuild);
         _stateRidge = EMPTY;
         _isOnHover = false;
+        createAtlasBuild(onCreateBuild);
     }
 
     private function onCreateBuild():void {
@@ -72,8 +69,7 @@ public class Ridge extends WorldObject{
             _source.endClickCallback = onEndClick;
             _source.startClickCallback = onStartClick;
             _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild');
-            _source.registerHitArea(_hitArea);
+            updateRidgeHitArea();
             _source.nameIt = 'ridge';
         }
         _source.releaseContDrag = true;
@@ -130,7 +126,6 @@ public class Ridge extends WorldObject{
     override public function onHover():void {
         if(_isOnHover) return;
         if (g.selectedBuild) return;
-        super.onHover();
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
             if (_tutorialCallback == null) return;
@@ -141,6 +136,7 @@ public class Ridge extends WorldObject{
         if (g.isActiveMapEditor || g.isAway){
             return;
         }
+        super.onHover();
         _isOnHover = true;
         if (_stateRidge == GROWED) _plant.hoverGrowed();
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
@@ -162,7 +158,6 @@ public class Ridge extends WorldObject{
 //            if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED && g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE)
 //                g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
-
     }
 
     override public function onOut():void {
@@ -175,7 +170,6 @@ public class Ridge extends WorldObject{
             _source.filter = null;
 //            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
-
     }
 
     private function onStartClick():void {
@@ -363,13 +357,22 @@ public class Ridge extends WorldObject{
                 p = _source.parent.localToGlobal(p);
                 var rawItem:RawItem = new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
             }
-
+            updateRidgeHitArea();
         } catch (e:Error) {
             if (_stateRidge != EMPTY) {
                 Cc.error('Try to plant already planted ridge');
                 return;
             }
         }
+    }
+
+    public function updateRidgeHitArea():void {
+        if (_stateRidge == EMPTY) {
+            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild');
+        } else {
+            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild_' + String(_dataPlant.id) + '_' + String(_stateRidge));
+        }
+        _source.registerHitArea(_hitArea);
     }
 
     public function get stateRidge():int {
@@ -381,6 +384,7 @@ public class Ridge extends WorldObject{
         if (_stateRidge == GROWED) {
             g.managerPlantRidge.removeCatFromRidge(_dataPlant.id, this);
         }
+        updateRidgeHitArea();
     }
 
 //    public function countMouseEnterFrame():void {
