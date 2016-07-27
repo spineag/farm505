@@ -25,6 +25,7 @@ import particle.tuts.DustRectangle;
 import utils.SimpleArrow;
 import heroes.TutorialCat;
 import windows.WindowsManager;
+import windows.buyPlant.WOBuyPlant;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
 
@@ -34,8 +35,8 @@ public class ManagerCutScenes {
     public static const CAT_AIR:String = 'air';         // use class AirTextBubble
 
     public static const REASON_NEW_LEVEL:int = 1;  // use after getting new level
-    public static const REASON_STUPID_USER:int = 2;  // use if user do nothing at 4-9 levels during 30 seconds
     public static const REASON_OPEN_TRAIN:int = 2;  // use if user open Train, cap
+    public static const REASON_OPEN_WO_PLANT:int = 3;  // реализуем, когда юзер впервые открыл окно покупки растений, когда уже появилась вторая вкладка
 
     public static const ID_ACTION_SHOW_MARKET:int = 0;
     public static const ID_ACTION_SHOW_PAPPER:int = 1;
@@ -575,6 +576,20 @@ public class ManagerCutScenes {
         isCutScene = false;
     }
 
+    public function isWOPlantCutSceneAvailable():void {
+        if (!_properties[7] || _properties[7].level > g.user.level || g.user.cutScenes[7]) return;
+        _curCutScenePropertie = _properties[7];
+        createDelay(.7, releaseWOPlant);
+    }
+
+    private function releaseWOPlant():void {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_BUY_PLANT) {
+            g.user.cutScenes[7] = 1;
+            isCutScene = true;
+            var ob:Object = (g.windowsManager.currentWindow as WOBuyPlant).getBoundsProperties('secondTab');
+        }
+    }
+
 
 
     public function isCutSceneResource(id:int):Boolean {
@@ -639,5 +654,6 @@ public class ManagerCutScenes {
         timer.addEventListener(TimerEvent.TIMER, func);
         timer.start();
     }
+
 }
 }

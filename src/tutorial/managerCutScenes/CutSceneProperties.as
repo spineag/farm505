@@ -73,6 +73,13 @@ public class CutSceneProperties {
         obj.text5 = 'После полной загрузки корзинку можно отправить или подождать пока она отправиться сама.';
         obj.text6 = 'Также за полную загрузку корзинки ты получаешь один случайный ваучер. Их можно обменять в магазине на особые покупки.';
         _prop.push(obj);
+
+        obj = {};
+        obj.reason = ManagerCutScenes.REASON_OPEN_WO_PLANT;
+        obj.level = 10;
+        obj.id_action = ManagerCutScenes.ID_ACTION_TRAIN_AVAILABLE;
+        obj.text = 'Новые растения на следующей странице';
+        _prop.push(obj);
     }
 }
 }

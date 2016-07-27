@@ -253,5 +253,12 @@ public class WOBuyPlant extends WindowMain {
         if (_source)_birka = null;
         super.deleteIt();
     }
+
+    public function getBoundsProperties(s:String):Object {
+        var obj:Object;
+        switch (s) {
+            case 'secondTab':
+        }
+    }
 }
 }
