@@ -77,7 +77,6 @@ public class CutSceneProperties {
         obj = {};
         obj.reason = ManagerCutScenes.REASON_OPEN_WO_PLANT;
         obj.level = 10;
-        obj.id_action = ManagerCutScenes.ID_ACTION_TRAIN_AVAILABLE;
         obj.text = 'Новые растения на следующей странице';
         _prop.push(obj);
     }

@@ -29,6 +29,7 @@ public class WOChest  extends WindowMain{
     private var _callback:Function;
     public function WOChest() {
         super();
+        _windowType = WindowsManager.WO_CHEST;
         _woWidth = 400;
         _woHeight = 340;
         _armature = g.allData.factory['chest_interface'].buildArmature("box");

@@ -7,7 +7,6 @@ import build.decor.Decor;
 import build.market.Market;
 import build.paper.Paper;
 import build.train.Train;
-
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import flash.events.TimerEvent;
@@ -577,17 +576,37 @@ public class ManagerCutScenes {
     }
 
     public function isWOPlantCutSceneAvailable():void {
-        if (!_properties[7] || _properties[7].level > g.user.level || g.user.cutScenes[7]) return;
+        if (!_properties || !_properties[7] || _properties[7].level > g.user.level || g.user.cutScenes[7]) return;
         _curCutScenePropertie = _properties[7];
         createDelay(.7, releaseWOPlant);
     }
+
 
     private function releaseWOPlant():void {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_BUY_PLANT) {
             g.user.cutScenes[7] = 1;
             isCutScene = true;
             var ob:Object = (g.windowsManager.currentWindow as WOBuyPlant).getBoundsProperties('secondTab');
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
+            _arrow.scaleIt(.5);
+            _arrow.animateAtPosition(ob.x, ob.y);
+            _airBubble = new AirTextBubble();
+            _airBubble.showIt(_curCutScenePropertie.text, g.cont.popupCont, ob.x + 70, ob.y, onWoPlant);
+            saveUserCutScenesData();
         }
+    }
+
+    private function onWoPlant():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        if (_airBubble) {
+            _airBubble.hideIt();
+            _airBubble.deleteIt();
+            _airBubble = null;
+        }
+        isCutScene = false;
     }
 
 

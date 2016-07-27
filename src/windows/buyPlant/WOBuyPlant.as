@@ -6,6 +6,8 @@ import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 
+import flash.geom.Point;
+
 import media.SoundConst;
 
 import starling.display.Image;
@@ -28,6 +30,7 @@ public class WOBuyPlant extends WindowMain {
 
     public function WOBuyPlant() {
         super();
+        _windowType = WindowsManager.WO_BUY_PLANT;
         _woWidth = 580;
         _woHeight = 134;
         createBG();
@@ -44,6 +47,7 @@ public class WOBuyPlant extends WindowMain {
 
     private function onClickExit(e:Event=null):void {
         if (g.managerTutorial.isTutorial) return;
+        if (g.managerCutScenes.isCutScene) return;
         hideIt();
     }
 
@@ -62,6 +66,7 @@ public class WOBuyPlant extends WindowMain {
         fillPlantItems();
         showAnimatePlantItems();
         super.showIt();
+        g.managerCutScenes.isWOPlantCutSceneAvailable();
     }
 
     private function updatePlantArray():void {
@@ -223,6 +228,7 @@ public class WOBuyPlant extends WindowMain {
     }
 
     private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {
+        if (g.managerCutScenes.isCutScene) return;
         if (needUpdate && _shift == n-1) return;
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
             _arrShiftBtns[i].source.y = -_woHeight/2 + 117;
@@ -256,9 +262,20 @@ public class WOBuyPlant extends WindowMain {
 
     public function getBoundsProperties(s:String):Object {
         var obj:Object;
+        var p:Point = new Point();
         switch (s) {
             case 'secondTab':
+                if (_arrShiftBtns[1]) {
+                    obj = {};
+                    p.x = _arrShiftBtns[1].source.x + _arrShiftBtns[1].source.width/2;
+                    p.y = _arrShiftBtns[1].source.y + _arrShiftBtns[1].source.height + 10;
+                    p = _source.localToGlobal(p);
+                    obj.x = p.x;
+                    obj.y = p.y;
+                }
+                break;
         }
+        return obj;
     }
 }
 }
