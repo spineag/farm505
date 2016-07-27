@@ -117,18 +117,20 @@ public class WOBuyPlant extends WindowMain {
         }
     }
 
-    private function onClickItem(d:Object, r:Ridge = null):void {
+    private function onClickItem(d:Object, r:Ridge = null,calllback:Function = null):void {
         if (g.userInventory.getCountResourceById(d.id) <= 0) {
-            g.windowsManager.cashWindow = this;
+//            g.windowsManager.cashWindow = this;
             var ob:Object = {};
             ob.data = d;
             ob.count = 1;
-            ob.ridge = r;
+            ob.ridge = _ridge;
+            ob.callback = _callback;
             super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickItem, 'menu', ob);
             return;
         }
         if (!_ridge) _ridge = r;
+        if (_callback == null) _callback = calllback;
         if (g.managerPlantRidge.checkIsCat(d.id)) {
             g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
             _ridge.fillPlant(d);
@@ -138,7 +140,7 @@ public class WOBuyPlant extends WindowMain {
             }
 //            super.hideIt();
         } else {
-            g.windowsManager.uncasheWindow();
+//            g.windowsManager.uncasheWindow();
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                 g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
             } else {
@@ -146,7 +148,7 @@ public class WOBuyPlant extends WindowMain {
             }
 //            super.hideIt();
         }
-        g.windowsManager.uncasheWindow();
+//        g.windowsManager.uncasheWindow();
         super.hideIt();
     }
 

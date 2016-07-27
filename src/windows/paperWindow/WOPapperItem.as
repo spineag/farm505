@@ -263,7 +263,7 @@ public class WOPapperItem {
         _btnBuyBot.clickCallback = onClickBuyBot;
         _btnDelete = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
-        _btnDelete.addChild(im);
+        _btnDelete.addDisplayObject(im);
         _btnDelete.x = 130;
         _btnDelete.y = 97;
         _btnDelete.clickCallback = onClickDelete;

@@ -915,11 +915,11 @@ public class ManagerOrder {
                 }
             }
 
-            for (i = 0; i <_arrOrders.length; i ++) {
-                trace(_arrOrders[i].placeNumber + '   _arrOrders');
-            }
-
-            trace(order.placeNumber);
+//            for (i = 0; i <_arrOrders.length; i ++) {
+//                trace(_arrOrders[i].placeNumber + '   _arrOrders');
+//            }
+//
+//            trace(order.placeNumber);
             _arrOrders.push(order);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
             g.directServer.addUserOrder(order, delay, f);
