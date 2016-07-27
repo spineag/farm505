@@ -91,6 +91,7 @@ public class ShopList {
         var i:int;
         var j:int;
         _currentShopArr = [];
+        if(arr.length == 0) return;
         if (!arr.length) {
             Cc.error('ShopList:: fillIt: empty arr');
         }

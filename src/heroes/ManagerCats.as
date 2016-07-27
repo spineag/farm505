@@ -10,7 +10,7 @@ import data.DataMoney;
 
 import flash.geom.Point;
 
-import manager.AStar;
+import manager.AStar.AStar;
 
 import manager.Vars;
 
