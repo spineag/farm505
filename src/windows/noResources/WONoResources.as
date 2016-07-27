@@ -75,7 +75,6 @@ public class WONoResources extends WindowMain {
         _callbackBuy = callback;
         switch (params[0]) {
             case 'animal':
-
                 if (g.dataResource.objectResources[_paramData.idResourceRaw].buildType == BuildType.PLANT) {
                     if (g.userInventory.getCountResourceById(_paramData.idResourceRaw) == 1) _countOfResources = 1;
                     else _countOfResources = 2;
@@ -97,7 +96,6 @@ public class WONoResources extends WindowMain {
                 _btnBuy.clickCallback = onClickResource;
                 break;
             case 'money':
-
                 _countOfResources = _paramData.count;
                 _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
@@ -181,7 +179,6 @@ public class WONoResources extends WindowMain {
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
                 _btnBuy.clickCallback = onClickTrain;
         }
-
         super.showIt();
     }
 
@@ -440,7 +437,7 @@ public class WONoResources extends WindowMain {
 
     private function callbackServe5(b:Boolean):void {
         if (_callbackBuy != null) {
-            _callbackBuy.apply(null, [_paramData.data, _paramData.ridge]);
+            _callbackBuy.apply(null, [_paramData.data, _paramData.ridge,_paramData.callback]);
             _callbackBuy = null;
         }
     }

@@ -36,7 +36,7 @@ public class WOFabricaWorkListItem {
     private var _timerBlock:Sprite;
     private var _btnSkip:CButton;
     private var _txtSkip:TextField;
-    private var _proposeBtn:CSprite;
+    private var _proposeBtn:CButton;
     private var _skipCallback:Function;
 
     private var g:Vars = Vars.getInstance();
@@ -195,7 +195,7 @@ public class WOFabricaWorkListItem {
         if (_type == SMALL_CELL) {
             _source.visible = true;
             if (_proposeBtn) return;
-            _proposeBtn = new CSprite();
+            _proposeBtn = new CButton();
             var txt:TextField = new TextField(46, 28, "+" + String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _proposeBtn.addChild(txt);
@@ -225,7 +225,7 @@ public class WOFabricaWorkListItem {
                     g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                 }
             };
-            _proposeBtn.endClickCallback = f1;
+            _proposeBtn.clickCallback = f1;
             _proposeBtn.hoverCallback = function():void { _proposeBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER};
             _proposeBtn.outCallback = function():void { _proposeBtn.filter = null};
         }

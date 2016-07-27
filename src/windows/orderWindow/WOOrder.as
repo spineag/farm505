@@ -46,7 +46,7 @@ public class WOOrder extends WindowMain{
     private var _arrItems:Array;
     private var _arrResourceItems:Array;
     private var _btnSell:CButton;
-    private var _btnDeleteOrder:CSprite;
+    private var _btnDeleteOrder:CButton;
     private var _txtXP:TextField;
     private var _txtCoins:TextField;
     private var _txtName:TextField;
@@ -183,14 +183,14 @@ public class WOOrder extends WindowMain{
         _txtCoins.x = 590;
         _txtCoins.y = 418;
         _rightBlock.addChild(_txtCoins);
-        _btnDeleteOrder = new CSprite();
+        _btnDeleteOrder = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
-        _btnDeleteOrder.addChild(im);
-        im.filter = ManagerFilters.SHADOW_TINY;
+        _btnDeleteOrder.addDisplayObject(im);
+//        im.filter = ManagerFilters.SHADOW_TINY;
         _btnDeleteOrder.x = 670;
         _btnDeleteOrder.y = 414;
         _rightBlock.addChild(_btnDeleteOrder);
-        _btnDeleteOrder.endClickCallback = deleteOrder;
+        _btnDeleteOrder.clickCallback = deleteOrder;
 
         _btnDeleteOrder.hoverCallback = function():void { g.hint.showIt('отменить заказ'); };
         _btnDeleteOrder.outCallback = function():void {g.hint.hideIt();};

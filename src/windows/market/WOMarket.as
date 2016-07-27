@@ -164,12 +164,12 @@ public class WOMarket  extends WindowMain {
         _contPaper = new Sprite();
         _source.addChild(_contPaper);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
-        im.x = 80;
+        im.x = 58;
         im.y = 164;
         _contPaper.addChild(im);
 
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
-        im.x = 50;
+        im.x = 28;
         im.y = 160;
         _contPaper.addChild(im);
 
@@ -183,7 +183,7 @@ public class WOMarket  extends WindowMain {
         txt.x = 10;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnPaper.addChild(txt);
-        _btnPaper.x = 175;
+        _btnPaper.x = 153;
         _btnPaper.y = 180;
         _btnPaper.clickCallback = onClickPaper;
         _contPaper.addChild(_btnPaper);
@@ -196,13 +196,13 @@ public class WOMarket  extends WindowMain {
 
         txt = new TextField(200,30,'Выставить в газету:',g.allData.fonts['BloggerBold'], 12, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        txt.x = 30;
+        txt.x = 8;
         txt.y = 135;
         _contPaper.addChild(txt);
 
         _txtTimerPaper = new TextField(80,30,'',g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtTimerPaper.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtTimerPaper.x = 68;
+        _txtTimerPaper.x = 46;
         _txtTimerPaper.y = 165;
         _contPaper.addChild(_txtTimerPaper);
         _contPaper.visible = false;

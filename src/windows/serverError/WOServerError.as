@@ -32,7 +32,7 @@ public class WOServerError extends WindowMain {
         txt.autoScale = true;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -210;
-        txt.y = -130;
+        txt.y = -120;
         txt.touchable = false;
         _source.addChild(txt);
         _txtError = new TextField(340,100,'Ошибка Сервера',g.allData.fonts['BloggerBold'],22,Color.WHITE);
@@ -50,7 +50,7 @@ public class WOServerError extends WindowMain {
         _b.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
-        im.y = -70;
+        im.y = -50;
         _source.addChild(im);
         _b.clickCallback = onClick;
         SOUND_OPEN = SoundConst.WO_AHTUNG;
