@@ -116,7 +116,7 @@ public class WOTrain extends WindowMain {
         _rightBlock.x = 35;
         _source.addChild(_rightBlock);
         _rightBlockBG = new CartonBackground(287, 375);
-        _rightBlockBG .filter = ManagerFilters.SHADOW;
+        _rightBlockBG.filter = ManagerFilters.SHADOW;
         _rightBlock.addChild(_rightBlockBG);
 
         _txtLoad = new TextField(240, 50, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
@@ -334,6 +334,7 @@ public class WOTrain extends WindowMain {
         _txtXpItem.text = String(_arrItems[_activeItemIndex].countXP);
         if (_imageItem) {
             _rightBlock.removeChild(_imageItem);
+            _imageItem.filter = null;
             _imageItem.dispose();
             _imageItem = null;
         }

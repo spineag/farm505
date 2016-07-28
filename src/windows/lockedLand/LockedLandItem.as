@@ -30,20 +30,24 @@ public class LockedLandItem {
     private var g:Vars = Vars.getInstance();
     private var _id:int;
     private var _count:int;
+    private var _iconCoins:Image;
+    private var _galo4ka:Image;
+    private var _bg:CartonBackgroundIn;
+    private var _btn:CButton;
 
     public function LockedLandItem() {
         source = new Sprite();
-        var bg:Sprite = new CartonBackgroundIn(428, 88);
-        source.addChild(bg);
+        _bg = new CartonBackgroundIn(428, 88);
+        source.addChild(_bg);
     }
 
     public function fillWithCurrency(count:int):void {
-        var icon:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-        MCScaler.scale(icon, 50, 50);
-        icon.x = 20;
-        icon.y = 12;
-        icon.filter = ManagerFilters.SHADOW_LIGHT;
-        source.addChild(icon);
+        _iconCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+        MCScaler.scale(_iconCoins, 50, 50);
+        _iconCoins.x = 20;
+        _iconCoins.y = 12;
+        _iconCoins.filter = ManagerFilters.SHADOW_LIGHT;
+        source.addChild(_iconCoins);
         var txt:TextField = new TextField(150,40,String(count),g.allData.fonts['BloggerBold'],16,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
@@ -55,26 +59,26 @@ public class LockedLandItem {
         source.addChild(txt);
 
         if (g.user.softCurrencyCount >= count) {
-            var gal:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-            gal.x = 351;
-            gal.y = 31;
-            gal.filter = ManagerFilters.SHADOW_TINY;
-            source.addChild(gal);
+            _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+            _galo4ka.x = 351;
+            _galo4ka.y = 31;
+            _galo4ka.filter = ManagerFilters.SHADOW_TINY;
+            source.addChild(_galo4ka);
             _isGood = true;
         } else {
-            var btn:CButton = new CButton();
-            btn.addButtonTexture(120, 30, CButton.GREEN, true);
+            _btn= new CButton();
+            _btn.addButtonTexture(120, 30, CButton.GREEN, true);
             txt = new TextField(120,30,'Купить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-            btn.addChild(txt);
-            btn.x = 362;
-            btn.y = 50;
-            source.addChild(btn);
+            _btn.addChild(txt);
+            _btn.x = 362;
+            _btn.y = 50;
+            source.addChild(_btn);
             var f1:Function = function ():void {
                 g.windowsManager.hideWindow(WindowsManager.WO_LOCKED_LAND);
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, false);
             };
-            btn.clickCallback = f1;
+            _btn.clickCallback = f1;
             _isGood = false;
         }
     }
@@ -112,28 +116,28 @@ public class LockedLandItem {
         source.addChild(txt);
 
         if (g.userInventory.getCountResourceById(id) >= count) {
-            var gal:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-            gal.x = 351;
-            gal.y = 31;
-            gal.filter = ManagerFilters.SHADOW_TINY;
-            source.addChild(gal);
+            _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+            _galo4ka.x = 351;
+            _galo4ka.y = 31;
+            _galo4ka.filter = ManagerFilters.SHADOW_TINY;
+            source.addChild(_galo4ka);
             _isGood = true;
         } else {
-            var btn:CButton = new CButton();
-            btn.addButtonTexture(120, 30, CButton.GREEN, true);
+            _btn = new CButton();
+            _btn.addButtonTexture(120, 30, CButton.GREEN, true);
             txt = new TextField(120,30,'Купить ' + String(g.dataResource.objectResources[id].priceHard *(count - g.userInventory.getCountResourceById(id))), g.allData.fonts['BloggerMedium'],16,Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             txt.x = -15;
-            btn.addChild(txt);
+            _btn.addChild(txt);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(im,25,25);
             im.x = 90;
             im.y = 3;
-            btn.addChild(im);
-            btn.x = 362;
-            btn.y = 45;
-            source.addChild(btn);
-            btn.clickCallback = buyItem;
+            _btn.addChild(im);
+            _btn.x = 362;
+            _btn.y = 45;
+            source.addChild(_btn);
+            _btn.clickCallback = buyItem;
 //            btn = new CButton();
 //            btn.addButtonTexture(112, 30, CButton.YELLOW, true);
 //            txt = new TextField(112,30,'Показать',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
@@ -164,34 +168,43 @@ public class LockedLandItem {
         source.addChild(txt);
 
         if (0 > count) {
-            var gal:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-            gal.x = 351;
-            gal.y = 31;
-            gal.filter = ManagerFilters.SHADOW_TINY;
-            source.addChild(gal);
+            _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+            _galo4ka.x = 351;
+            _galo4ka.y = 31;
+            _galo4ka.filter = ManagerFilters.SHADOW_TINY;
+            source.addChild(_galo4ka);
             _isGood = true;
         } else {
-            var btn:CButton = new CButton();
-            btn.addButtonTexture(120, 30, CButton.YELLOW, true);
+            _btn = new CButton();
+            _btn.addButtonTexture(120, 30, CButton.YELLOW, true);
             txt = new TextField(120,30,'Пригласить',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
-            btn.addChild(txt);
-            btn.x = 362;
-            btn.y = 50;
-            source.addChild(btn);
+            _btn.addChild(txt);
+            _btn.x = 362;
+            _btn.y = 50;
+            source.addChild(_btn);
             var f1:Function = function ():void {
                 g.windowsManager.hideWindow(WindowsManager.WO_LOCKED_LAND);
                 g.windowsManager.openWindow(WindowsManager.WO_INVITE_FRIENDS, null, false);
             };
-            btn.clickCallback = f1;
+            _btn.clickCallback = f1;
             _isGood = false;
         }
     }
 
-    public function clearIt():void {
-        while (source.numChildren) {
-            source.removeChildAt(0);
+    public function deleteIt():void {
+        if (_iconCoins) _iconCoins.filter = null;
+        if (_galo4ka) _galo4ka.filter = null;
+        if (_btn) {
+            source.removeChild(_btn);
+            _btn.deleteIt();
+            _btn = null;
         }
+        source.removeChild(_bg);
+        _bg.deleteIt();
+        _bg = null;
+        source.dispose();
+        source = null;
     }
 
     public function get isGood():Boolean {

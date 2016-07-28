@@ -17,6 +17,8 @@ import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
 import resourceItem.UseMoneyMessage;
+
+import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -58,8 +60,10 @@ public class ShopItem {
     private var _positionInList:int;
     private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
+    private var _arrImages:Array; // use only for delete filters from images
 
     public function ShopItem(data:Object, wo:WOShop, pos:int) {
+        _arrImages = [];
         _positionInList = pos;
         _wo = wo;
         _data = data;
@@ -146,6 +150,7 @@ public class ShopItem {
                 im.y = 4;
                 _btnBuyBlue.addChild(im);
                 im.filter = ManagerFilters.SHADOW_TINY;
+                _arrImages.push(im);
                 _txtBtnBuyBlue = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
                 _txtBtnBuyBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
                 _btnBuyBlue.addChild(_txtBtnBuyBlue);
@@ -164,6 +169,7 @@ public class ShopItem {
                 im.y = 4;
                 _btnBuyGreen.addChild(im);
                 im.filter = ManagerFilters.SHADOW_TINY;
+                _arrImages.push(im);    
                 _txtBtnBuyGreen = new TextField(85, 40, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
                 _txtBtnBuyGreen.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
                 _btnBuyGreen.addChild(_txtBtnBuyGreen);
@@ -203,6 +209,7 @@ public class ShopItem {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
                     MCScaler.scale(im, 30, 30);
                     im.filter = ManagerFilters.SHADOW_TINY;
+                    _arrImages.push(im);    
                     _btnBuyCoupone.addChild(im);
                     txt = new TextField(85, 40, String(_data.cost[i]), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
                     txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
@@ -212,6 +219,7 @@ public class ShopItem {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone'));
                     MCScaler.scale(im, 30, 30);
                     im.filter = ManagerFilters.SHADOW_TINY;
+                    _arrImages.push(im);    
                     _btnBuyCoupone.addChild(im);
                     txt = new TextField(85, 40, String(_data.cost[i]), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
                     txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
@@ -221,6 +229,7 @@ public class ShopItem {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone'));
                     MCScaler.scale(im, 30, 30);
                     im.filter = ManagerFilters.SHADOW_TINY;
+                    _arrImages.push(im);    
                     _btnBuyCoupone.addChild(im);
                     txt = new TextField(85, 40, String(_data.cost[i]), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
                     txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
@@ -230,6 +239,7 @@ public class ShopItem {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone'));
                     MCScaler.scale(im, 30, 30);
                     im.filter = ManagerFilters.SHADOW_TINY;
+                    _arrImages.push(im);    
                     _btnBuyCoupone.addChild(im);
                     txt = new TextField(85, 40, String(_data.cost[i]), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
                     txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
@@ -952,6 +962,11 @@ public class ShopItem {
             _arrow.deleteIt();
             _arrow = null;
         }
+        for (var i:int=0; i<_arrImages.length; i++) {
+            if (_arrImages[i] && _arrImages[i] is DisplayObject) (_arrImages[i] as DisplayObject).filter = null;
+        }
+        _arrImages.length = 0;
+        if (_im) _im.filter = null;
         _im = null;
         _imCont = null;
         _nameTxt = null;

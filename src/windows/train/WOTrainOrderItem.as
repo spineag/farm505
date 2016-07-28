@@ -68,9 +68,9 @@ public class WOTrainOrderItem {
     }
 
     public function clearIt():void {
-        while (source.numChildren) {
-            source.removeChildAt(0);
-        }
+        _info = null;
+        source.deleteIt();
+        source = null;
     }
 }
 }

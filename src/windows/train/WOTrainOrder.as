@@ -22,7 +22,6 @@ public class WOTrainOrder extends WindowMain{
     private var _btn:CButton;
     private var _contItem:Sprite;
     private var _txtTime:TextField;
-    private var _arrItems:Array;
     private var _timer:int;
     private var _woBG:WindowBackground;
     private var _callback:Function;
@@ -37,10 +36,8 @@ public class WOTrainOrder extends WindowMain{
         var txt:TextField;
         var im:Image;
         _contItem = new Sprite();
-        _arrItems = [];
         _woWidth = 500;
         _woHeight = 337;
-//        createTempBG();
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
@@ -49,7 +46,6 @@ public class WOTrainOrder extends WindowMain{
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
         im.y = 10;
         im.x = 35;
-//        MCScaler.scale(im,30,30);
         _btn.addDisplayObject(im);
         txt = new TextField(100,50,"привезти сейчас",g.allData.fonts['BloggerBold'],16,Color.WHITE);
         txt.x = 60;
@@ -95,13 +91,6 @@ public class WOTrainOrder extends WindowMain{
         hideIt();
     }
 
-//     override public function hideIt():void {
-////         item1.clearIt();
-////         item2.clearIt();
-////         item3.clearIt();
-//        super.hideIt();
-//    }
-
     private function onClickBtn():void {
         if (g.user.hardCurrency < 30) {
             g.windowsManager.cashWindow = this;
@@ -132,28 +121,43 @@ public class WOTrainOrder extends WindowMain{
     }
 
     private function fillList(list:Array):void {
-            item1 = new WOTrainOrderItem();
-            item1.fillIt(list[0], 1);
-            item1.source.x = -150;
-            item1.source.y = -20;
-            _contItem.addChild(item1.source);
-            item2 = new WOTrainOrderItem();
-            item2.fillIt(list[4], 4);
-            item2.source.x = -50;
-            item2.source.y = -20;
-            _contItem.addChild(item2.source);
-            item3 = new WOTrainOrderItem();
-            item3.source.x = 50;
-            item3.source.y = -20;
-            if (list.length <= 9) item3.fillIt(list[8], 8);
+        item1 = new WOTrainOrderItem();
+        item1.fillIt(list[0], 1);
+        item1.source.x = -150;
+        item1.source.y = -20;
+        _contItem.addChild(item1.source);
+        item2 = new WOTrainOrderItem();
+        item2.fillIt(list[4], 4);
+        item2.source.x = -50;
+        item2.source.y = -20;
+        _contItem.addChild(item2.source);
+        item3 = new WOTrainOrderItem();
+        item3.source.x = 50;
+        item3.source.y = -20;
+        if (list.length <= 9) item3.fillIt(list[8], 8);
             else item3.fillIt(list[9], 9);
-            _contItem.addChild(item3.source);
-            _source.addChild(_contItem);
+        _contItem.addChild(item3.source);
+        _source.addChild(_contItem);
     }
 
     private function timerCheck():void {
         --_timer;
         _txtTime.text = TimeUtils.convertSecondsForHint(_timer);
+    }
+
+    override protected function deleteIt():void {
+        _train = null;
+        g.gameDispatcher.removeFromTimer(timerCheck);
+        _contItem.removeChild(item1.source);
+        _contItem.removeChild(item2.source);
+        _contItem.removeChild(item3.source);
+        item1.clearIt();
+        item2.clearIt();
+        item3.clearIt();
+        item1 = null;
+        item2 = null;
+        item3 = null;
+        super.deleteIt();
     }
 }
 }

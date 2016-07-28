@@ -853,6 +853,12 @@ public class WOMarket  extends WindowMain {
             _ma.deleteIt();
             _ma = null;
         }
+        _source.removeChild(_leftBtn);
+        _leftBtn.deleteIt();
+        _leftBtn = null;
+        _source.removeChild(_rightBtn);
+        _rightBtn.deleteIt();
+        _rightBtn = null;
         callbackState();
         super.deleteIt();
         _SHADOW.dispose();

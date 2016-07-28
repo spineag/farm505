@@ -140,8 +140,7 @@ public class MarketFriendsPanelItem{
         }
         _ava = null;
         _txtPersonName = null;
-        source.dispose();
-        source = null;
+        source.deleteIt();
     }
 }
 }

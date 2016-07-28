@@ -3,15 +3,10 @@
  */
 package windows.shop {
 import build.farm.Farm;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
-import flash.filters.GlowFilter;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.animation.Tween;
@@ -19,10 +14,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
 
 public class ShopList {
     private var _currentShopArr:Array;

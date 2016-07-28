@@ -271,6 +271,7 @@ public class WOOrderItem {
     }
 
     private function onHover():void {
+        _bgCarton.filter = null;
         _bgCarton.filter = ManagerFilters.BUTTON_HOVER_FILTER;
     }
 
@@ -304,11 +305,19 @@ public class WOOrderItem {
     }
 
     public function deleteIt():void {
+        _txtCoins.nativeFilters = [];
+        _txtName.nativeFilters = [];
+        _txtXP.nativeFilters = [];
+        _starImage.filter = null;
+        _coinsImage.filter = null;
         _order = null;
+        source.filter = null;
         source.removeChild(_bgCarton);
+        _bgCarton.filter = null;
         _bgCarton.deleteIt();
         _bgCarton = null;
         source.removeChild(_bgCartonIn);
+        _bgCartonIn.filter = null;
         _bgCartonIn.deleteIt();
         _bgCarton = null;
         _clickCallback = null;
