@@ -6,6 +6,8 @@ import build.decor.DecorFence;
 import build.decor.DecorPostFence;
 import build.decor.DecorTail;
 import build.lockedLand.LockedLand;
+import build.ridge.Ridge;
+
 import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.OrderCat;
@@ -59,7 +61,9 @@ public class TownAreaTouchManager {
             if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT &&  _curBuild.source.isTouchable) {
                 _curBuild.source.releaseEndClick();
             } else {
-                checkForTouches();
+                if (_curBuild is Ridge && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+                    _curBuild.source.releaseEndClick();
+                } else checkForTouches();
             }
         } else {
             g.cont.onEnded();

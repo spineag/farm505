@@ -54,16 +54,6 @@ public class Ridge extends WorldObject{
     }
 
     private function onCreateBuild():void {
-//        var tempSprite:Sprite = new Sprite();
-//        var q:Quad = new Quad(120 * g.scaleFactor, 120 * g.scaleFactor, Color.BLACK);
-//        q.rotation = Math.PI / 4;
-//        q.alpha = 0;
-//        tempSprite.addChild(q);
-//        tempSprite.scaleY = .5;
-//        tempSprite.flatten();
-//        _bg.addChild(tempSprite);
-//        _source.addChild(_bg);
-
         if (!g.isAway) {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onEndClick;
@@ -87,7 +77,6 @@ public class Ridge extends WorldObject{
     public function plantThePlant():void {
         g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
         fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
-//        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) lockIt(true);
         g.managerPlantRidge.checkFreeRidges();
     }
 

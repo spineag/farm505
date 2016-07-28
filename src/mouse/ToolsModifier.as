@@ -75,9 +75,9 @@ public class ToolsModifier {
     public function set modifierType(a:int):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (_modifierType == PLANT_SEED) {
-            g.managerPlantRidge.lockAllFillRidge(false); // unlock all not empty ridges
+//            g.managerPlantRidge.lockAllFillRidge(false); // unlock all not empty ridges
         } else if (_modifierType == PLANT_SEED_ACTIVE) {
-            g.managerPlantRidge.lockAllFillRidge(false);
+//            g.managerPlantRidge.lockAllFillRidge(false);
             g.managerPlantRidge.onStartActivePlanting(false);
         } else if (_modifierType == CRAFT_PLANT) {
             g.mouseHint.hideIt();
@@ -102,9 +102,9 @@ public class ToolsModifier {
             g.townArea.onActivateInventoryModifier(true);
         } else if (_modifierType == PLANT_SEED_ACTIVE) {
             g.managerPlantRidge.onStartActivePlanting(true);
-            g.managerPlantRidge.lockAllFillRidge(true);
+//            g.managerPlantRidge.lockAllFillRidge(true);
         } else if (_modifierType == PLANT_SEED) {
-            g.managerPlantRidge.lockAllFillRidge(true);
+//            g.managerPlantRidge.lockAllFillRidge(true);
         } else if (_modifierType == CRAFT_PLANT) {
             g.mouseHint.showMouseHint(MouseHint.SERP);
             g.managerPlantRidge.onStartCraftPlanting(true);
