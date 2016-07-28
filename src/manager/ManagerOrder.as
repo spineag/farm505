@@ -32,7 +32,7 @@ public class ManagerOrder {
     private var _arrOrders:Array;
     private var _curMaxCountOrders:int;
     private var _curMaxCountResoureAtOrder:int;
-    private var _arrNames:Array;
+//    private var _arrNames:Array;
 
     private var g:Vars = Vars.getInstance();
 
@@ -56,7 +56,7 @@ public class ManagerOrder {
             {level: 17, count: 5}
         ];
         _arrOrders = [];
-        _arrNames = ['Булавка', 'Петелька', 'Шпилька', 'Ниточка', 'Иголочка', 'Пряжа', 'Ленточка', 'Ирис', 'Наперсток', 'Кристик', 'Акрил', 'Стежок', 'Шнурочек', 'Ажур'];
+//        _arrNames = ['Булавка', 'Петелька', 'Шпилька', 'Ниточка', 'Иголочка', 'Пряжа', 'Ленточка', 'Ирис', 'Наперсток', 'Кристик', 'Акрил', 'Стежок', 'Шнурочек', 'Ажур'];
     }
 
     public function get arrOrders():Array {
@@ -87,7 +87,7 @@ public class ManagerOrder {
     private function checkForNewCats(onArriveCallback:Function = null):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (!_arrOrders[i].cat) {
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback);
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback,_arrOrders[i].catOb);
             }
         }
     }
@@ -106,7 +106,8 @@ public class ManagerOrder {
         order.dbId = ob.id;
         order.resourceIds = ob.ids.split('&');
         order.resourceCounts = ob.counts.split('&');
-        order.catName = _arrNames[int(Math.random()*_arrNames.length)];
+//        order.catName = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)].name;
+        order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
         order.coins = int(ob.coins);
         order.xp = int(ob.xp);
         order.addCoupone = ob.add_coupone == '1';
@@ -864,7 +865,8 @@ public class ManagerOrder {
                         break;
                 }
             }
-            order.catName = _arrNames[int(Math.random()*_arrNames.length)];
+//             order.catName = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)].name;
+            order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
             order.coins = 0;
             order.xp = 0;
             for (k=0; k<order.resourceIds.length; k++) {
@@ -914,12 +916,6 @@ public class ManagerOrder {
                     }
                 }
             }
-
-//            for (i = 0; i <_arrOrders.length; i ++) {
-//                trace(_arrOrders[i].placeNumber + '   _arrOrders');
-//            }
-//
-//            trace(order.placeNumber);
             _arrOrders.push(order);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
             g.directServer.addUserOrder(order, delay, f);
@@ -931,7 +927,8 @@ public class ManagerOrder {
         order.resourceIds = [26];
         order.resourceCounts = [2];
         order.addCoupone = false;
-        order.catName = _arrNames[int(Math.random()*_arrNames.length)];
+//         order.catName = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)].name;
+        order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
         order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
         order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
         order.startTime = int(new Date().getTime()/1000);
@@ -974,10 +971,6 @@ public class ManagerOrder {
         else if (g.user.level <= 15) addNewOrders(1, TIME_THIRD_DELAY, f, order.placeNumber);
         else if (g.user.level <= 19) addNewOrders(1, TIME_FOURTH_DELAY, f, order.placeNumber);
         else if (g.user.level >= 20) addNewOrders(1, TIME_FIFTH_DELAY, f, order.placeNumber);
-//        addNewOrders(1, TIME_DELAY, f, order.placeNumber);
-//        for (i = 0; i < _arrOrders.length; i++) {
-//            if (_arrOrders[i])
-//        }
     }
 
     public function sellOrder(order:ManagerOrderItem, f:Function):void {
@@ -996,16 +989,10 @@ public class ManagerOrder {
         addNewOrders(1, 0, f, pl,false);
         for (i = 0; i < _arrOrders.length; i++) {
             if (!_arrOrders[i].cat) {
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 break;
             }
         }
-//        for (i=0; i<_arrOrders.length; i++) {
-//            if (_arrOrders[i].placeNumber == pl) {
-//                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
-//                break;
-//            }
-//        }
     }
 
     public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
@@ -1040,7 +1027,7 @@ public class ManagerOrder {
         var orderDbId:String = order.dbId;
         for (var i:int = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl) {
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 break;
             }
         }
@@ -1051,7 +1038,6 @@ public class ManagerOrder {
                 else if (g.user.level <= 15) _arrOrders[i].startTime -= 2* TIME_THIRD_DELAY;
                 else if (g.user.level <= 19) _arrOrders[i].startTime -= 2* TIME_FOURTH_DELAY;
                 else if (g.user.level >= 20) _arrOrders[i].startTime -= 2* TIME_FIFTH_DELAY;
-//                _arrOrders[i].startTime -= 2* TIME_DELAY;
                 break;
             }
         }

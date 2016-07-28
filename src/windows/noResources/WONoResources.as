@@ -306,31 +306,21 @@ public class WONoResources extends WindowMain {
             g.userInventory.addResource(_paramData.data.id, _countOfResources,true,callbackServe);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
             super.hideIt();
-//            if (_callbackBuy != null) {
-//                _callbackBuy.apply(null);
-//                _callbackBuy = null;
-//            }
         } else if (_paramData.data.buildType == BuildType.PLANT) {
             g.userInventory.addResource(_paramData.data.id, _countOfResources,true,callbackServe5);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
             super.hideIt();
-//            if (_callbackBuy != null) {
-//                _callbackBuy.apply(null, [_paramData.data, _paramData.ridge]);
-//                _callbackBuy = null;
-//            }
         } else if (_paramData.data.ingridientsId) {
             var countRes:int = 0;
+            _countCost = 0;
             for (var i:int = 0; i < _paramData.data.ingridientsId.length; i++) {
                 countRes = g.userInventory.getCountResourceById(_paramData.data.ingridientsId[i]);
                 if (countRes < _paramData.data.ingridientsCount[i]) {
-                    g.userInventory.addResource(_paramData.data.ingridientsId[i], _paramData.data.ingridientsCount[i] - countRes, true, callbackServe3);
+                    g.userInventory.addResource(_paramData.data.ingridientsId[i], _paramData.data.ingridientsCount[i] - countRes, true, callbackForFabric);
                     g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.ingridientsId[i], info: _paramData.data.ingridientsCount[i] - countRes});
-                }
+                } else callbackForFabric();
             }
             super.hideIt();
-//            if (_callbackBuy != null) {
-//                _callbackBuy.apply(null, [_paramData.data, true]);
-//            }
         }
     }
 
@@ -345,27 +335,17 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        _countCost = 0;
         for (var i:int=0; i<_paramData.resourceIds.length; i++) {
             number = g.userInventory.getCountResourceById(_paramData.resourceIds[i]);
-            _countCost = i+1;
             if (number < _paramData.resourceCounts[i]) {
-                g.userInventory.addResource(_paramData.resourceIds[i], _paramData.resourceCounts[i] - number,true,callbackServe4);
+                g.userInventory.addResource(_paramData.resourceIds[i], _paramData.resourceCounts[i] - number,true,callbackForOrder);
                 g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.resourceIds[i], info: _paramData.resourceCounts[i] - number});
-            }
-//            if (i+1 == _paramData.resourceIds.length) checkOrder
-//                callbackServe4(true);
+            } else callbackForOrder();
         }
         super.hideIt();
-//        if (_callbackBuy != null) {
-//            _callbackBuy.apply(null, [true, _paramData]);
-//            _callbackBuy = null;
-//        }
     }
 
-//    private function checkOrder():void {
-//
-//        callbackServe4(true);
-//    }
 
     private function onClickPapper():void {
         if (_countCost <= g.user.hardCurrency) {
@@ -381,10 +361,6 @@ public class WONoResources extends WindowMain {
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
 
         super.hideIt();
-//        if (_callbackBuy != null) {
-//            _callbackBuy.apply(null,[true]);
-//            _callbackBuy = null;
-//        }
     }
 
     private function onClickTrain():void {
@@ -400,42 +376,48 @@ public class WONoResources extends WindowMain {
         g.userInventory.addResource(_paramData.data.id, _countOfResources,true,callbackServe2);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
         super.hideIt();
-//        if (_callbackBuy != null) {
-//            _callbackBuy.apply(null,[true]);
-//            _callbackBuy = null;
-//        }
     }
 
-    private function callbackServe(b:Boolean):void {
+    private function callbackServe(b:Boolean = false):void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null);
             _callbackBuy = null;
         }
     }
 
-    private function callbackServe2(b:Boolean):void {
+    private function callbackServe2(b:Boolean = false):void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null,[true]);
             _callbackBuy = null;
         }
     }
 
-    private function callbackServe3(b:Boolean):void {
+    private function callbackServe3():void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null, [_paramData.data, true]);
             _callbackBuy = null;
         }
     }
 
-    private function callbackServe4(b:Boolean):void {
-        if (_countCost < _paramData.resourceIds.length) return;
+    private function callbackForFabric(b:Boolean = false):void {
+        _countCost +=1;
+        if (_countCost < _paramData.data.ingridientsId.length) return;
+        else callbackServe3();
+    }
+
+    private function callbackServe4():void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null, [true, _paramData]);
             _callbackBuy = null;
         }
     }
+    private function callbackForOrder(b:Boolean = false):void {
+        _countCost +=1;
+        if (_countCost < _paramData.resourceIds.length) return;
+        else callbackServe4();
+    }
 
-    private function callbackServe5(b:Boolean):void {
+    private function callbackServe5(b:Boolean = false):void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null, [_paramData.data, _paramData.ridge,_paramData.callback]);
             _callbackBuy = null;

@@ -128,7 +128,7 @@ public class WOOrderItem {
         _position = position;
         _order = order;
         _clickCallback = f;
-        _txtName.text = _order.catName;
+        _txtName.text = _order.catOb.name;
         _txtXP.text = String(_order.xp);
         _txtCoins.text = String(_order.coins);
         source.visible = true;

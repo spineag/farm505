@@ -51,6 +51,8 @@ import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
 import starling.core.Starling;
 import starling.display.Stage;
+
+import temp.catCharacters.DataCat;
 import temp.dataTemp.DataAnimal;
 import temp.dataTemp.DataLevel;
 import temp.dataTemp.DataRecipe;
@@ -143,6 +145,7 @@ public class Vars {
     public var dataAnimal:DataAnimal;
     public var dataLevel:DataLevel;
     public var dataCats:Array;
+    public var dataOrderCats:DataCat;
 
     public var timerHint:TimerHint;
     public var wildHint:WildHint;
@@ -214,7 +217,7 @@ public class Vars {
             dataResource = new DataResources();
             dataAnimal = new DataAnimal();
             dataLevel = new DataLevel();
-
+            dataOrderCats = new DataCat();
             userInventory = new UserInventory();
             userTimer = new UserTimer();
             gameDispatcher = new FarmDispatcher(mainStage);
