@@ -15,5 +15,6 @@ public class ManagerOrderItem {
     public var startTime:int;
     public var placeNumber:int;
     public var cat:OrderCat;
+    public var catOb:Object;
 }
 }

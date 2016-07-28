@@ -439,7 +439,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function fillResourceItems(order:ManagerOrderItem):void {
-        _txtName.text = _activeOrderItem.getOrder().catName + ' заказывает';
+        _txtName.text = order.catOb.name + ' заказывает';
         _txtXP.text = String(_activeOrderItem.getOrder().xp);
         _txtCoins.text = String(_activeOrderItem.getOrder().coins);
         for (var i:int=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {
@@ -621,7 +621,7 @@ public class WOOrder extends WindowMain{
         var pl:int = order.placeNumber;
         for (var i:int = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl) {
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder();
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 break;
             }
         }
@@ -735,21 +735,21 @@ public class WOOrder extends WindowMain{
             if (g.managerTutorial.currentAction != TutorialAction.ORDER) return;
         }
         var st:String;
-        var isWoman:Boolean;
         if (!_arrOrders[pos] || !_arrOrders[pos].cat) return;
         switch (_arrOrders[pos].cat.typeCat){
-            case OrderCat.BLUE:   st = '_bl'; isWoman = false; break;
-            case OrderCat.GREEN:  st = '_gr'; isWoman = false; break;
-            case OrderCat.BROWN:  st = '_br'; isWoman = false; break;
-            case OrderCat.ORANGE: st = '_or'; isWoman = true;  break;
-            case OrderCat.PINK:   st = '_pk'; isWoman = true;  break;
-            case OrderCat.WHITE:  st = '_wh'; isWoman = true;  break;
-            case OrderCat.BLACK:  st = '';    isWoman = false; break;
+            case OrderCat.BLUE:   st = '_bl'; break;
+            case OrderCat.GREEN:  st = '_gr'; break;
+            case OrderCat.BROWN:  st = '_br'; break;
+            case OrderCat.ORANGE: st = '_or'; break;
+            case OrderCat.PINK:   st = '_pk'; break;
+            case OrderCat.WHITE:  st = '_wh'; break;
+            case OrderCat.BLACK:  st = '';    break;
         }
+
         releaseFrontTexture(st);
         var b:Bone = _armatureCustomer.getBone('bant');
         var viyi:Bone = _armatureCustomer.getBone('viyi');
-        if (!isWoman) {
+        if (!_arrOrders[pos].catOb.isWoman) {
             b.visible = false;
             viyi.visible = false;
         }
@@ -823,10 +823,10 @@ public class WOOrder extends WindowMain{
         var l:int = int(Math.random()*6);
         switch (l) {
             case 0: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
-            case 1: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
+            case 1: _armatureCustomer.animation.gotoAndPlay('idle_4'); break;
             case 2: _armatureCustomer.animation.gotoAndPlay('speak'); break;
-            case 3: _armatureCustomer.animation.gotoAndPlay('speak'); break;
-            case 4: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
+            case 3: _armatureCustomer.animation.gotoAndPlay('idle_3'); break;
+            case 4: _armatureCustomer.animation.gotoAndPlay('idle_2'); break;
             case 5: _armatureCustomer.animation.gotoAndPlay('speak_2'); break;
         }
     }
@@ -840,10 +840,10 @@ public class WOOrder extends WindowMain{
         var l:int = int(Math.random()*6);
         switch (l) {
             case 0: _armatureSeller.animation.gotoAndPlay('idle1'); break;
-            case 1: _armatureSeller.animation.gotoAndPlay('idle1'); break;
-            case 2: _armatureSeller.animation.gotoAndPlay('idle1'); break;
+            case 1: _armatureSeller.animation.gotoAndPlay('speak_5'); break;
+            case 2: _armatureSeller.animation.gotoAndPlay('speak_4'); break;
             case 3: _armatureSeller.animation.gotoAndPlay('speak'); break;
-            case 4: _armatureSeller.animation.gotoAndPlay('speak'); break;
+            case 4: _armatureSeller.animation.gotoAndPlay('speak_3'); break;
             case 5: _armatureSeller.animation.gotoAndPlay('speak_2'); break;
         }
     }

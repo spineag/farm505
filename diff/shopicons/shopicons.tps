@@ -198,7 +198,6 @@
             <filename>sugar_mill_icon.png</filename>
             <filename>sunflower_icon.png</filename>
             <filename>swamp_decor_icon.png</filename>
-            <filename>track_pink_icon.png</filename>
             <filename>trampoline_yellow_icon.png</filename>
             <filename>trees_1_icon.png</filename>
             <filename>trees_2_icon.png</filename>
@@ -274,6 +273,10 @@
             <filename>fence_polka_dot_5_icon.png</filename>
             <filename>loom_icon.png</filename>
             <filename>fryer_icon.png</filename>
+            <filename>track_blue_icon.png</filename>
+            <filename>track_pink_icon.png</filename>
+            <filename>track_white_icon.png</filename>
+            <filename>track_yellow_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

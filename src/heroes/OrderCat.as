@@ -41,7 +41,7 @@ public class OrderCat {
     protected var _posY:int;
     protected var _depth:Number;
     protected var _source:TownAreaBuildSprite;
-    protected var _typeCat:int;
+//    protected var _typeCat:int;
     protected var _speedWalk:int = 2;
     protected var _speedRun:int = 8;
     private var _catImage:Sprite;
@@ -54,11 +54,15 @@ public class OrderCat {
     public var walkPosition:int;
     public var bant:int;
     private var _arriveCallback:Function;
+    private var _catData:Object;
+
+    private var _isWoman:Boolean;
     protected var g:Vars = Vars.getInstance();
 
-    public function OrderCat(type:int) {
+    public function OrderCat(ob:Object) {
         _posX = _posY = -1;
-        _typeCat = type;
+//        _typeCat = type;
+        _catData = ob;
         _source = new TownAreaBuildSprite();
         _source.isTouchable = false;
         _catImage = new Sprite();
@@ -71,13 +75,13 @@ public class OrderCat {
         WorldClock.clock.add(armature);
         WorldClock.clock.add(armatureBack);
         bant = 0;
-        if (_typeCat != BLACK) {
+//        if (_typeCat != BLACK) {
             changeCatTexture();
-        } else {
-            heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head', '_black', false);
-            var b:Bone = armature.getBone('bant');
-            b.visible = false;
-        }
+//        } else {
+//            heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head', '_black', false);
+//            var b:Bone = armature.getBone('bant');
+//            b.visible = false;
+//        }
         _source.addChild(_catImage);
         _source.addChild(_catBackImage);
         showFront(true);
@@ -160,20 +164,20 @@ public class OrderCat {
     private function changeCatTexture():void {
         var st:String;
         var st2:String;
-        var isWoman:Boolean;
-        switch (_typeCat) {
-            case BLACK:   st = '';   st2 = '_black'; isWoman = false; break;
-            case BLUE:   st = '_bl'; st2 = '_blue';  isWoman = false; break;
-            case GREEN:  st = '_gr'; st2 = '_green'; isWoman = false; break;
-            case BROWN:  st = '_br'; st2 = '_brown'; isWoman = false; break;
-            case ORANGE: st = '_or'; st2 = '_orange'; isWoman = true;  break;
-            case PINK:   st = '_pk'; st2 = '_pink'; isWoman = true;  break;
-            case WHITE:  st = '_wh'; st2 = '_white';  isWoman = true;  break;
+        switch (_catData.color) {
+            case BLACK:   st = '';   st2 = '_black'; break;
+            case BLUE:   st = '_bl'; st2 = '_blue'; break;
+            case GREEN:  st = '_gr'; st2 = '_green'; break;
+            case BROWN:  st = '_br'; st2 = '_brown'; break;
+            case ORANGE: st = '_or'; st2 = '_orange'; break;
+            case PINK:   st = '_pk'; st2 = '_pink'; break;
+            case WHITE:  st = '_wh'; st2 = '_white';break;
         }
+
         releaseFrontTexture(st);
         releaseBackTexture(st);
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, isWoman);
-        if (!isWoman) {
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, _catData.isWoman);
+        if (!_catData.isWoman) {
             var b:Bone = armature.getBone('bant');
             b.visible = false;
 
@@ -248,7 +252,10 @@ public class OrderCat {
     }
 
     public function get typeCat():int {
-        return _typeCat;
+        return _catData.color;
+    }
+    public function get sexCat():Boolean {
+        return _catData.isWoman;
     }
 
 

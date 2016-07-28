@@ -1,12 +1,12 @@
-<TextureAtlas name="order_window_new_break2" imagePath="texture.png">
+<TextureAtlas name="order_window" imagePath="texture.png">
  <SubTexture name="pngs/order_window_right.png" x="156" y="0" width="139" height="138"/>
  <SubTexture name="right_hand/handRight" x="124" y="285" width="18" height="34"/>
- <SubTexture name="bodys/body" x="324" y="302" width="34" height="50"/>
- <SubTexture name="left_hand/handLeft" x="477" y="252" width="21" height="34"/>
- <SubTexture name="heads/head" x="0" y="157" width="70" height="90"/>
- <SubTexture name="bants/bant" x="228" y="140" width="60" height="62"/>
+ <SubTexture name="bodys/body" x="475" y="288" width="34" height="50"/>
+ <SubTexture name="heads/head" x="411" y="0" width="70" height="90"/>
+ <SubTexture name="bants/bant" x="0" y="249" width="60" height="62"/>
  <SubTexture name="lips" x="144" y="168" width="10" height="8"/>
  <SubTexture name="lipspeak" x="506" y="0" width="5" height="7"/>
+ <SubTexture name="left_hand/handLeft" x="477" y="216" width="21" height="34"/>
  <SubTexture name="pngs/order_window_right_top.png" x="389" y="368" width="117" height="35"/>
  <SubTexture name="eyes" x="314" y="354" width="30" height="9"/>
  <SubTexture name="viyi" x="56" y="313" width="63" height="20"/>
@@ -14,59 +14,59 @@
  <SubTexture name="heart" x="360" y="325" width="29" height="24"/>
  <SubTexture name="pngs/order_window_left.png" x="0" y="0" width="154" height="155"/>
  <SubTexture name="seller/handRight_seller" x="206" y="232" width="19" height="34"/>
- <SubTexture name="seller/body_seller" x="475" y="288" width="34" height="50"/>
+ <SubTexture name="seller/body_seller" x="288" y="302" width="34" height="50"/>
  <SubTexture name="seller/headSeller" x="290" y="209" width="69" height="91"/>
  <SubTexture name="lips_m" x="144" y="157" width="11" height="10"/>
  <SubTexture name="pngs/order_window_left_top.png" x="130" y="371" width="106" height="22"/>
  <SubTexture name="seller/handLeft_seller" x="483" y="0" width="22" height="34"/>
  <SubTexture name="coin" x="226" y="332" width="38" height="38"/>
- <SubTexture name="bodys/body_bl" x="0" y="313" width="34" height="50"/>
+ <SubTexture name="bodys/body_bl" x="361" y="221" width="34" height="50"/>
  <SubTexture name="heads/head_bl" x="405" y="184" width="70" height="90"/>
- <SubTexture name="bodys/body_br" x="361" y="221" width="34" height="50"/>
+ <SubTexture name="bodys/body_br" x="369" y="117" width="34" height="50"/>
  <SubTexture name="heads/head_br" x="72" y="157" width="70" height="90"/>
- <SubTexture name="left_hand/handLeft_br" x="483" y="36" width="21" height="34"/>
- <SubTexture name="right_hand/handRight_br" x="36" y="313" width="18" height="34"/>
- <SubTexture name="left_hand/handLeft_bl" x="483" y="108" width="21" height="34"/>
- <SubTexture name="right_hand/handRight_bl" x="265" y="332" width="18" height="34"/>
- <SubTexture name="eye/lidl_or" x="459" y="299" width="15" height="22"/>
- <SubTexture name="eye/lidr_or" x="85" y="335" width="28" height="24"/>
- <SubTexture name="bants/bant_2" x="144" y="296" width="60" height="62"/>
- <SubTexture name="bants/bant_3" x="144" y="232" width="60" height="62"/>
- <SubTexture name="bants/bant_4" x="62" y="249" width="60" height="62"/>
- <SubTexture name="bants/bant_5" x="226" y="268" width="60" height="62"/>
- <SubTexture name="bants/bant_6" x="228" y="204" width="60" height="62"/>
- <SubTexture name="bants/bant_7" x="397" y="276" width="60" height="62"/>
- <SubTexture name="bants/bant_8" x="0" y="249" width="60" height="62"/>
- <SubTexture name="eye/lidl" x="114" y="357" width="15" height="22"/>
- <SubTexture name="eye/lidr" x="391" y="340" width="28" height="24"/>
- <SubTexture name="eye/lidl_bl" x="459" y="276" width="15" height="22"/>
- <SubTexture name="eye/lidr_bl" x="420" y="340" width="28" height="24"/>
- <SubTexture name="eye/lidl_br" x="36" y="349" width="15" height="22"/>
- <SubTexture name="eye/lidr_br" x="56" y="335" width="28" height="24"/>
- <SubTexture name="eye/lidl_gr" x="459" y="322" width="15" height="22"/>
- <SubTexture name="eye/lidr_gr" x="360" y="351" width="28" height="24"/>
- <SubTexture name="eye/lidl_pk" x="206" y="340" width="15" height="22"/>
- <SubTexture name="eye/lidr_pk" x="285" y="354" width="28" height="24"/>
- <SubTexture name="eye/lidl_wh" x="449" y="345" width="15" height="22"/>
- <SubTexture name="eye/lidr_wh" x="475" y="340" width="28" height="24"/>
+ <SubTexture name="left_hand/handLeft_br" x="477" y="252" width="21" height="34"/>
+ <SubTexture name="right_hand/handRight_br" x="124" y="249" width="18" height="34"/>
+ <SubTexture name="left_hand/handLeft_bl" x="483" y="180" width="21" height="34"/>
+ <SubTexture name="right_hand/handRight_bl" x="36" y="313" width="18" height="34"/>
+ <SubTexture name="eye/lidl_or" x="459" y="322" width="15" height="22"/>
+ <SubTexture name="eye/lidr_or" x="475" y="340" width="28" height="24"/>
+ <SubTexture name="bants/bant_2" x="62" y="249" width="60" height="62"/>
+ <SubTexture name="bants/bant_3" x="144" y="296" width="60" height="62"/>
+ <SubTexture name="bants/bant_4" x="144" y="232" width="60" height="62"/>
+ <SubTexture name="bants/bant_5" x="397" y="276" width="60" height="62"/>
+ <SubTexture name="bants/bant_6" x="226" y="268" width="60" height="62"/>
+ <SubTexture name="bants/bant_7" x="228" y="204" width="60" height="62"/>
+ <SubTexture name="bants/bant_8" x="228" y="140" width="60" height="62"/>
+ <SubTexture name="eye/lidl" x="206" y="340" width="15" height="22"/>
+ <SubTexture name="eye/lidr" x="85" y="335" width="28" height="24"/>
+ <SubTexture name="eye/lidl_bl" x="449" y="345" width="15" height="22"/>
+ <SubTexture name="eye/lidr_bl" x="360" y="351" width="28" height="24"/>
+ <SubTexture name="eye/lidl_br" x="459" y="276" width="15" height="22"/>
+ <SubTexture name="eye/lidr_br" x="391" y="340" width="28" height="24"/>
+ <SubTexture name="eye/lidl_gr" x="36" y="349" width="15" height="22"/>
+ <SubTexture name="eye/lidr_gr" x="285" y="354" width="28" height="24"/>
+ <SubTexture name="eye/lidl_pk" x="459" y="299" width="15" height="22"/>
+ <SubTexture name="eye/lidr_pk" x="420" y="340" width="28" height="24"/>
+ <SubTexture name="eye/lidl_wh" x="114" y="357" width="15" height="22"/>
+ <SubTexture name="eye/lidr_wh" x="56" y="335" width="28" height="24"/>
  <SubTexture name="eye/eye_l_blue" x="290" y="140" width="6" height="10"/>
- <SubTexture name="eye/eye_l_brown" x="290" y="173" width="6" height="10"/>
- <SubTexture name="eye/eye_l_green" x="290" y="151" width="6" height="10"/>
- <SubTexture name="eye/eye_l_grey" x="290" y="162" width="6" height="10"/>
- <SubTexture name="bodys/body_gr" x="369" y="117" width="34" height="50"/>
- <SubTexture name="bodys/body_or" x="361" y="273" width="34" height="50"/>
- <SubTexture name="bodys/body_pk" x="369" y="169" width="34" height="50"/>
- <SubTexture name="heads/head_gr" x="411" y="92" width="70" height="90"/>
- <SubTexture name="heads/head_or" x="297" y="117" width="70" height="90"/>
+ <SubTexture name="eye/eye_l_brown" x="290" y="162" width="6" height="10"/>
+ <SubTexture name="eye/eye_l_green" x="290" y="173" width="6" height="10"/>
+ <SubTexture name="eye/eye_l_grey" x="290" y="151" width="6" height="10"/>
+ <SubTexture name="bodys/body_gr" x="369" y="169" width="34" height="50"/>
+ <SubTexture name="bodys/body_or" x="0" y="313" width="34" height="50"/>
+ <SubTexture name="bodys/body_pk" x="361" y="273" width="34" height="50"/>
+ <SubTexture name="heads/head_gr" x="0" y="157" width="70" height="90"/>
+ <SubTexture name="heads/head_or" x="411" y="92" width="70" height="90"/>
  <SubTexture name="heads/head_pk" x="156" y="140" width="70" height="90"/>
- <SubTexture name="left_hand/handLeft_gr" x="477" y="216" width="21" height="34"/>
- <SubTexture name="left_hand/handLeft_or" x="483" y="180" width="21" height="34"/>
- <SubTexture name="left_hand/handLeft_pk" x="483" y="72" width="21" height="34"/>
+ <SubTexture name="left_hand/handLeft_gr" x="483" y="108" width="21" height="34"/>
+ <SubTexture name="left_hand/handLeft_or" x="483" y="72" width="21" height="34"/>
+ <SubTexture name="left_hand/handLeft_pk" x="483" y="144" width="21" height="34"/>
  <SubTexture name="right_hand/handRight_gr" x="206" y="304" width="18" height="34"/>
- <SubTexture name="right_hand/handRight_or" x="206" y="268" width="18" height="34"/>
- <SubTexture name="right_hand/handRight_pk" x="124" y="249" width="18" height="34"/>
- <SubTexture name="bodys/body_wh" x="288" y="302" width="34" height="50"/>
- <SubTexture name="heads/head_wh" x="411" y="0" width="70" height="90"/>
- <SubTexture name="left_hand/handLeft_wh" x="483" y="144" width="21" height="34"/>
+ <SubTexture name="right_hand/handRight_or" x="265" y="332" width="18" height="34"/>
+ <SubTexture name="right_hand/handRight_pk" x="206" y="268" width="18" height="34"/>
+ <SubTexture name="bodys/body_wh" x="324" y="302" width="34" height="50"/>
+ <SubTexture name="heads/head_wh" x="297" y="117" width="70" height="90"/>
+ <SubTexture name="left_hand/handLeft_wh" x="483" y="36" width="21" height="34"/>
  <SubTexture name="right_hand/handRight_wh" x="120" y="321" width="18" height="34"/>
 </TextureAtlas>
