@@ -23,6 +23,7 @@ public class MarketAllFriend {
     private var _contTouch:CSprite;
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _callback:Function;
+    private var _bg:CartonBackground;
 
     private var g:Vars = Vars.getInstance();
 
@@ -57,9 +58,9 @@ public class MarketAllFriend {
             source.y = -75;
 
         }
-        var c:CartonBackground = new CartonBackground(woWidth, woHeight);
-        c.filter = ManagerFilters.SHADOW_LIGHT;
-        source.addChild(c);
+        _bg = new CartonBackground(woWidth, woHeight);
+        _bg.filter = ManagerFilters.SHADOW_LIGHT;
+        source.addChild(_bg);
         for (var i:int=0; i < _arrFriends.length; i++) {
             var item:MarketFriendsPanelItem = new MarketFriendsPanelItem(_arrFriends[i], _wo, i);
             _scrollSprite.addNewCell(item.source);
@@ -88,6 +89,11 @@ public class MarketAllFriend {
     }
 
     public function deleteIt():void {
+        source.filter = null;
+        source.removeChild(_bg);
+        _bg.filter = null;
+        _bg.deleteIt();
+        _bg = null;
         source.removeChild(_contTouch);
         _contTouch.deleteIt();
         _contTouch = null;

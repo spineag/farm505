@@ -112,6 +112,7 @@ public class WindowBackground extends Sprite{
     }
 
     public function deleteIt():void {
+        filter = null;
         dispose();
         g = null;
     }

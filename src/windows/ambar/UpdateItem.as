@@ -3,25 +3,16 @@
  */
 package windows.ambar {
 import data.DataMoney;
-
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.MCScaler;
-import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
-import windows.WOComponents.WOButtonTexture;
 import windows.WindowsManager;
 
 public class UpdateItem {
@@ -38,6 +29,7 @@ public class UpdateItem {
     private var _countForBuy:int;
     private var _resourceImage:Image;
     private var _wo:WOAmbars;
+    private var _rubinsSmall:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -68,15 +60,13 @@ public class UpdateItem {
         _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnTxt.x = 16;
         _btnTxt.y = 10;
-//        _contTxt.addChild(_btnTxt);
         _btn.addChild(_btnTxt);
 
-        var dmnt:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-//        MCScaler.scale(dmnt, 30, 30);
-        dmnt.x = 57;
-        dmnt.y = 4;
-        _btn.addChild(dmnt);
-        dmnt.filter = ManagerFilters.SHADOW_TINY;
+        _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+        _rubinsSmall.x = 57;
+        _rubinsSmall.y = 4;
+        _btn.addChild(_rubinsSmall);
+        _rubinsSmall.filter = ManagerFilters.SHADOW_TINY;
 
         _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _imGalo4ka.x = 53 - _imGalo4ka.width/2;
@@ -162,6 +152,8 @@ public class UpdateItem {
 
     public function deleteIt():void {
         _wo = null;
+        _imGalo4ka.filter = null;
+        _rubinsSmall.filter = null;
         source.removeChild(_btn);
         _btn.deleteIt();
         _btn = null;

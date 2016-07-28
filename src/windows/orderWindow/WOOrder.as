@@ -65,6 +65,10 @@ public class WOOrder extends WindowMain{
     private var _birka:Birka;
     private var _txtOrder:TextField;
     private var _arrowBtnCell:SimpleArrow;
+    private var _rightBlockBG:CartonBackground;
+    private var _rightBlockTimerBG:CartonBackground;
+    private var _starSmall:Image;
+    private var _coinSmall:Image;
 
     public function WOOrder() {
         super();
@@ -125,11 +129,11 @@ public class WOOrder extends WindowMain{
         _rightBlock.x = -382;
         _rightBlock.y = -285;
         _source.addChild(_rightBlock);
-        var bg:CartonBackground = new CartonBackground(317, 278);
-        bg.x = 407;
-        bg.y = 178;
-        bg.filter = ManagerFilters.SHADOW_LIGHT;
-        _rightBlock.addChild(bg);
+        _rightBlockBG = new CartonBackground(317, 278);
+        _rightBlockBG.x = 407;
+        _rightBlockBG.y = 178;
+        _rightBlockBG.filter = ManagerFilters.SHADOW_LIGHT;
+        _rightBlock.addChild(_rightBlockBG);
 
         _txtName = new TextField(320, 35, "Самбука заказывает", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -152,21 +156,21 @@ public class WOOrder extends WindowMain{
         txt.x = 411;
         txt.y = 418;
         _rightBlock.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
-        im.x = 501;
-        im.y = 417;
-        im.filter = ManagerFilters.SHADOW_TINY;
-        _rightBlock.addChild(im);
+        _starSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
+        _starSmall.x = 501;
+        _starSmall.y = 417;
+        _starSmall.filter = ManagerFilters.SHADOW_TINY;
+        _rightBlock.addChild(_starSmall);
         _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtXP.x = 523;
         _txtXP.y = 418;
         _rightBlock.addChild(_txtXP);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
-        im.x = 570;
-        im.y = 419;
-        im.filter = ManagerFilters.SHADOW_TINY;
-        _rightBlock.addChild(im);
+        _coinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
+        _coinSmall.x = 570;
+        _coinSmall.y = 419;
+        _coinSmall.filter = ManagerFilters.SHADOW_TINY;
+        _rightBlock.addChild(_coinSmall);
         _imCoup = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_cup_ico'));
         _imCoup.x = 640;
         _imCoup.y = 422;
@@ -184,9 +188,8 @@ public class WOOrder extends WindowMain{
         _txtCoins.y = 418;
         _rightBlock.addChild(_txtCoins);
         _btnDeleteOrder = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
         _btnDeleteOrder.addDisplayObject(im);
-//        im.filter = ManagerFilters.SHADOW_TINY;
         _btnDeleteOrder.x = 670;
         _btnDeleteOrder.y = 414;
         _rightBlock.addChild(_btnDeleteOrder);
@@ -570,9 +573,9 @@ public class WOOrder extends WindowMain{
         _rightBlockTimer.x = -382 + 407;
         _rightBlockTimer.y = -285 + 178;
         _source.addChild(_rightBlockTimer);
-        var bg:CartonBackground = new CartonBackground(317, 278);
-        bg.filter = ManagerFilters.SHADOW_LIGHT;
-        _rightBlockTimer.addChild(bg);
+        _rightBlockTimerBG = new CartonBackground(317, 278);
+        _rightBlockTimerBG.filter = ManagerFilters.SHADOW_LIGHT;
+        _rightBlockTimer.addChild(_rightBlockTimerBG);
         var bgIn:CartonBackgroundIn = new CartonBackgroundIn(280, 150);
         bgIn.x = 14;
         bgIn.y = 32;
@@ -641,6 +644,14 @@ public class WOOrder extends WindowMain{
     }
 
     override protected function deleteIt():void {
+        _starSmall.filter = null;
+        _coinSmall.filter = null;
+        _txtCoins.nativeFilters = [];
+        _txtCoupone.nativeFilters = [];
+        _txtName.nativeFilters = [];
+        _txtOrder.nativeFilters = [];
+        _txtTimer.nativeFilters = [];
+        _txtXP.nativeFilters = [];
         deleteBtnCellArrow();
         deleteCats();
         _activeOrderItem = null;
@@ -654,6 +665,10 @@ public class WOOrder extends WindowMain{
             _source.removeChild(_arrResourceItems[i].source);
             _arrResourceItems[i].deleteIt();
         }
+        _rightBlockTimer.removeChild(_rightBlockTimerBG);
+        _rightBlockTimerBG.filter = null;
+        _rightBlockTimerBG.deleteIt();
+        _rightBlockTimerBG = null;
         _arrResourceItems.length = 0;
         _txtName = null;
         _txtXP = null;
@@ -664,6 +679,10 @@ public class WOOrder extends WindowMain{
         _source.removeChild(_birka);
         _birka.deleteIt();
         _birka = null;
+        _rightBlock.removeChild(_rightBlockBG);
+        _rightBlockBG.filter = null;
+        _rightBlockBG.deleteIt();
+        _rightBlockBG = null;
         _rightBlock.removeChild(_btnDeleteOrder);
         _btnDeleteOrder.deleteIt();
         _btnDeleteOrder = null;

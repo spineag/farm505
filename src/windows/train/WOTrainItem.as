@@ -222,6 +222,7 @@ public class WOTrainItem {
         _txtRed = null;
         _f = null;
         _galo4ka = null;
+        _bg.filter = null;
         _bg = null;
         source.deleteIt();
         source = null;

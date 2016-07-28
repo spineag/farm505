@@ -144,6 +144,7 @@ public class MarketFriendItem {
             _visitBtn.deleteIt();
             _visitBtn = null;
         }
+        source.filter = null;
         if (source) source.dispose();
         source = null;
     }

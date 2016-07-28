@@ -38,6 +38,7 @@ public class WOFabricaWorkListItem {
     private var _txtSkip:TextField;
     private var _proposeBtn:CButton;
     private var _skipCallback:Function;
+    private var _rubinSmall:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -79,12 +80,11 @@ public class WOFabricaWorkListItem {
             _txtSkip.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             _txtSkip.y = 11;
             _btnSkip.addChild(_txtSkip);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-//            MCScaler.scale(im, 30, 30);
-            im.x = 78;
-            im.y = 5;
+            _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+            _rubinSmall.x = 78;
+            _rubinSmall.y = 5;
             _btnSkip.addChild(im);
-            im.filter = ManagerFilters.SHADOW_TINY;
+            _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
             var txt:TextField = new TextField(65,35,"ускорить",g.allData.fonts['BloggerBold'], 14,Color.WHITE);
@@ -199,12 +199,12 @@ public class WOFabricaWorkListItem {
             var txt:TextField = new TextField(46, 28, "+" + String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _proposeBtn.addChild(txt);
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-            MCScaler.scale(im, 20, 20);
-            im.x = 14;
-            im.y = 23;
-            im.filter = ManagerFilters.SHADOW_TINY;
-            _proposeBtn.addChild(im);
+            _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+            MCScaler.scale(_rubinSmall, 20, 20);
+            _rubinSmall.x = 14;
+            _rubinSmall.y = 23;
+            _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
+            _proposeBtn.addChild(_rubinSmall);
             _proposeBtn.flatten();
             _source.addChild(_proposeBtn);
             var f1:Function = function ():void {
@@ -314,6 +314,7 @@ public class WOFabricaWorkListItem {
             _btnSkip.deleteIt();
             _btnSkip = null;
         }
+        if (_rubinSmall) _rubinSmall.filter = null;
         g.gameDispatcher.removeFromTimer(render);
         _source.dispose();
         _source = null;

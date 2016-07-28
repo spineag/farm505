@@ -90,6 +90,7 @@ public class Birka extends Sprite{
     }
 
     public function deleteIt():void {
+        _txt.nativeFilters = [];
         if (_parent.contains(_source)) _parent.removeChild(_source);
         _source.dispose();
         _source = null;

@@ -92,6 +92,7 @@ public class DefaultVerticalScrollSprite {
         _source.removeChild(_scroll.source);
         _scroll.deleteIt();
         _scrolledSprite.dispose();
+        _source.filter = null;
         _source.dispose();
         _scroll = null;
         _scrolledSprite = null;

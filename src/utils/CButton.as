@@ -198,6 +198,7 @@ public class CButton extends Sprite {
     }
 
     public function deleteIt():void {
+        filter = null;
         _hitArea = null;
         _bg.filter = null;
         if (this.hasEventListener(TouchEvent.TOUCH)) this.removeEventListener(TouchEvent.TOUCH, onTouch);

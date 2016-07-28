@@ -87,6 +87,7 @@ public class MarketCell {
     }
 
     public function deleteIt():void {
+        source.filter = null;
         source.removeChild(_carton);
         _carton.deleteIt();
         _carton = null;

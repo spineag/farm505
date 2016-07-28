@@ -105,6 +105,7 @@ public class CartonBackground extends Sprite{
     }
 
     public function deleteIt():void {
+        filter = null;
         dispose();
         g = null;
     }

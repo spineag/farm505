@@ -30,6 +30,7 @@ public class WOLockedLand extends WindowMain {
     private var _armature:Armature;
     private var _birka:Birka;
     private var _pl:HintBackground;
+    private var _bgC:CartonBackground;
 
     public function WOLockedLand() {
         super();
@@ -43,11 +44,11 @@ public class WOLockedLand extends WindowMain {
         _callbackClickBG = hideIt;
         _birka = new Birka('Новая территория', _source, _woWidth, _woHeight);
 
-        var c:CartonBackground = new CartonBackground(460, 320);
-        c.filter =  ManagerFilters.SHADOW;
-        c.x = -_woWidth/2 + 47;
-        c.y = -_woHeight/2 + 180;
-        _source.addChild(c);
+        _bgC = new CartonBackground(460, 320);
+        _bgC.filter =  ManagerFilters.SHADOW;
+        _bgC.x = -_woWidth/2 + 47;
+        _bgC.y = -_woHeight/2 + 180;
+        _source.addChild(_bgC);
 
         _btnOpen = new CButton();
         _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
@@ -172,8 +173,8 @@ public class WOLockedLand extends WindowMain {
 
     override protected function deleteIt():void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].clearIt();
             _source.removeChild(_arrItems[i].source);
+            _arrItems[i].deleteIt();
         }
         _arrItems.length = 0;
         WorldClock.clock.remove(_armature);
@@ -191,6 +192,9 @@ public class WOLockedLand extends WindowMain {
         _source.removeChild(_birka);
         _birka.deleteIt();
         _birka = null;
+        _source.removeChild(_bgC);
+        _bgC.deleteIt();
+        _bgC = null;
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;

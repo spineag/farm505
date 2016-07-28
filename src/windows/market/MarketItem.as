@@ -2,53 +2,32 @@
  * Created by user on 6/24/15.
  */
 package windows.market {
-
-import com.greensock.TweenMax;
-import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-
 import flash.display.Bitmap;
-
-import flash.filters.GlowFilter;
 import flash.geom.Point;
-import flash.utils.getTimer;
-
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
 import manager.Vars;
-
 import resourceItem.CraftItem;
-
 import resourceItem.DropItem;
 import resourceItem.ResourceItem;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
-
 import temp.DropResourceVariaty;
-
 import tutorial.TutorialAction;
-
 import user.NeighborBot;
-
 import user.Someone;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WindowsManager;
-
 
 public class MarketItem {
     public var source:CSprite;
@@ -80,7 +59,6 @@ public class MarketItem {
     private var _woHeight:int;
     private var _onHover:Boolean;
     private var _closeCell:Boolean;
-//    private var _quadGreen:Quad;
     private var _ava:Image;
     private var _avaDefault:Image;
     private var _countBuyCell:int;
@@ -115,11 +93,6 @@ public class MarketItem {
         _txtAdditem.y = 30;
         _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.addChild(_txtAdditem);
-
-//        _quadGreen = new Quad(_woWidth,40,Color.GREEN,false);
-//        _quadGreen.y = 100;
-//        source.addChild(_quadGreen);
-//        _quadGreen.visible = false;
 
         _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -237,7 +210,6 @@ public class MarketItem {
             _btnBuyCont.clickCallback = onClickBuy;
             buyCont.addChild(_btnBuyCont);
             _txtAdditem.text = '';
-            return;
         } else {
             source.endClickCallback = onClick;
         }

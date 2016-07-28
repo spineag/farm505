@@ -76,7 +76,7 @@ public class Tree extends WorldObject {
     }
 
     private function onCreateBuild():void {
-        if (!g.isAway) {
+        if (!g.isAway || _state == ASK_FIX) {
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }

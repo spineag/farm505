@@ -18,9 +18,9 @@ public class WODailyBonusItem {
     private var g:Vars = Vars.getInstance();
     private var _source:Sprite;
     private var _parent:Sprite;
+    private var im:Image;
 
     public function WODailyBonusItem(obj:Object, index:int, p:Sprite) {
-        var im:Image;
         _parent = p;
 
         switch (obj.type) {
@@ -114,6 +114,7 @@ public class WODailyBonusItem {
     }
 
     public function deleteIt():void {
+        im.filter = null;
         _source.unflatten();
         _parent.removeChild(_source);
         _source.dispose();
