@@ -83,7 +83,7 @@ public class WOFabricaWorkListItem {
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             _rubinSmall.x = 78;
             _rubinSmall.y = 5;
-            _btnSkip.addChild(im);
+            _btnSkip.addChild(_rubinSmall);
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
