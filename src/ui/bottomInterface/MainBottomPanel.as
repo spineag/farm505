@@ -220,6 +220,7 @@ public class MainBottomPanel {
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     if (g.managerCutScenes.isCutScene) return;
                     g.toolsModifier.cancelMove();
+                    cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
                 g.toolsPanel.hideRepository();
@@ -259,11 +260,12 @@ public class MainBottomPanel {
                 if (g.managerCutScenes.isCutScene) return;
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
-                    _toolsBtn.visible = true;
-                    _cancelBtn.visible = false;
+                    cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();
                     g.buyHint.hideIt();
+                } else {
+                    cancelBoolean(false);
                 }
                 if (g.toolsPanel.isShowed) {
                     if (g.toolsPanel.repositoryBoxVisible) {
@@ -304,6 +306,7 @@ public class MainBottomPanel {
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
+                    cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
                 if (g.optionPanel.isShowed) {
@@ -319,6 +322,7 @@ public class MainBottomPanel {
                 if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
+                    cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);

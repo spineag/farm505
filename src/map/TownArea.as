@@ -692,6 +692,12 @@ public class TownArea extends Sprite {
             }
         }
 
+//        if (isNewAtMap || updateAfterMove) {
+//            if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor) {
+//                g.managerCats.checkAllCatsAfterPasteBuilding(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+//            }
+//        }
+
         if (isNewAtMap && g.managerTutorial.isTutorial) {
             if (worldObject is TutorialPlace) return;
             if (worldObject is Fabrica && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA) {

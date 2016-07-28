@@ -34,6 +34,8 @@ public class BasicCat {
     protected var _name:String;
     protected var g:Vars = Vars.getInstance();
     public var isOnMap:Boolean = false;
+    public var walkCallback:Function;
+    public var walkCallbackParams:Array;
 
     public function BasicCat() {
         _name = 'Cat_'+String(int(Math.random()*10000));
@@ -140,7 +142,19 @@ public class BasicCat {
             }
         }
     }
+    
+    public function get currentPath():Array {
+        return _currentPath;
+    }
 
+    public function get endPathPoint():Point {
+        if (_currentPath.length) {
+            return _currentPath[_currentPath.length-1];
+        } else {
+            return new Point(posX, posY);
+        }
+    }
+    
     public function showFront(v:Boolean):void {}
     public function flipIt(v:Boolean):void {}
 

@@ -88,7 +88,7 @@ public class HeroCat extends BasicCat{
         if (!value)  _animation.stopIt();
         super.visible = value;
     }
-
+    
     override public function flipIt(v:Boolean):void {
         _animation.flipIt(v);
     }
@@ -184,6 +184,10 @@ public class HeroCat extends BasicCat{
             renderForIdleFreeCat();
         }
         freeIdleGo = !freeIdleGo;
+    }
+    
+    public function get isIdleGo():Boolean {
+        return freeIdleGo;
     }
 
     private function renderForIdleFreeCat():void {

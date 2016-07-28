@@ -6,6 +6,9 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
+
+import heroes.BasicCat;
+
 import manager.AStar.AStar;
 import manager.Vars;
 import tutorial.TutorialAction;
@@ -82,17 +85,14 @@ public class ManagerCats {
 
     public function goCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
         var f2:Function = function ():void {
-//            try {
-                cat.flipIt(false);
-                cat.showFront(true);
-                cat.idleAnimation();
-                if (callback != null) {
-                    callback.apply(null, callbackParams);
-                }
-//            } catch (e:Error) {
-//                Cc.error('ManagerCats goCatToPoint f2 error: ' + e.errorID + ' - ' + e.message);
-//                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCat2');
-//            }
+            cat.flipIt(false);
+            cat.showFront(true);
+            cat.idleAnimation();
+            if (cat.walkCallback != null) {
+                cat.walkCallback.apply(null, cat.walkCallbackParams);
+            }
+            cat.walkCallback = null;
+            cat.walkCallbackParams = [];
         };
 
         var f1:Function = function (arr:Array):void {
@@ -127,6 +127,8 @@ public class ManagerCats {
                 }
                 return;
             }
+            cat.walkCallback = callback;
+            cat.walkCallbackParams = callbackParams;
             var a:AStar = new AStar();
             a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
@@ -139,8 +141,8 @@ public class ManagerCats {
     public function goIdleCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
         try {
             if (cat.posX == p.x && cat.posY == p.y) {
-                if (callback != null) {
-                    callback.apply(null, callbackParams);
+                if (cat.walkCallback != null) {
+                    cat.walkCallback.apply(null, cat.walkCallbackParams);
                 }
                 return;
             }
@@ -152,11 +154,15 @@ public class ManagerCats {
                 if (callback != null) {
                     callback.apply(null, callbackParams);
                 }
+                cat.walkCallback = null;
+                cat.walkCallbackParams = [];
             };
             var f1:Function = function (arr:Array):void {
                 cat.walkIdleAnimation();
                 cat.goWithPath(arr, f2);
             };
+            cat.walkCallback = callback;
+            cat.walkCallbackParams = callbackParams;
             var a:AStar = new AStar();
             a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
@@ -225,6 +231,69 @@ public class ManagerCats {
             (_catsAwayArray[i] as HeroCat).deleteIt();
         }
         _catsAwayArray = [];
+    }
+
+    public function checkAllCatsAfterPasteBuilding(buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):void {
+        // check if any cat is under new building (or after removing) or his way is under building
+        for (var i:int=0; i<_catsArray.length; i++) {
+            if (_catsArray[i] is HeroCat && (_catsArray[i] as HeroCat).visible) {  // means that cat is not on any fabrica
+                checkCatAfterPasteBuilding(_catsArray[i] as HeroCat, buildPosX, buildPosY, buildWidth, buildHeight);
+            }
+        }
+    }
+
+    private function checkCatAfterPasteBuilding(cat:HeroCat, buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):void {
+        if (g.isAway) return;
+        if (cat.isFree) {
+            if (cat.isIdleGo) {
+                if (isCrossedPathAndSquare(cat.currentPath, buildPosX, buildPosY, buildWidth, buildHeight)) {
+                    cat.killAllAnimations();
+                    if (cat.posX > buildPosX && cat.posX < buildPosX + buildWidth && cat.posY > buildPosY && cat.posY < buildPosY + buildHeight) {
+                        var afterRunFree:Function = function ():void {
+                            cat.makeFreeCatIdle();
+                        };
+                        forceRunToPoint(buildPosX + buildWidth, buildPosY, afterRunFree);
+                    } else cat.makeFreeCatIdle();
+                }
+            } else {
+                if (cat.posX > buildPosX && cat.posX < buildPosX + buildWidth && cat.posY > buildPosY && cat.posY < buildPosY + buildHeight) {
+                    var afterRunFree2:Function = function ():void {
+                        cat.makeFreeCatIdle();
+                    };
+                    cat.killAllAnimations();
+                    forceRunToPoint(buildPosX + buildWidth, buildPosY, afterRunFree2);
+                }
+            }
+        } else {
+            var endPoint:Point = cat.endPathPoint;
+            if (cat.posX > buildPosX && cat.posX < buildPosX+buildWidth && cat.posY > buildPosY && cat.posY < buildPosY+buildHeight) {
+                var afterRun:Function = function ():void {
+                    goCatToPoint.apply(null, [cat, endPoint, cat.walkCallback].concat(cat.walkCallbackParams));
+                };
+                cat.killAllAnimations();
+                forceRunToPoint(buildPosX+buildWidth, buildPosY, afterRun);
+            } else if (isCrossedPathAndSquare(cat.currentPath, buildPosX, buildPosY, buildWidth, buildHeight)) {
+                cat.killAllAnimations();
+                goCatToPoint.apply(null, [cat, endPoint, cat.walkCallback].concat(cat.walkCallbackParams));
+            }
+        }
+    }
+
+    private function isCrossedPathAndSquare(path:Array, buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):Boolean {
+        var isCrossed:Boolean = false;
+        var p:Point;
+        for (var i:int=0; i<path.length; i++) {
+            p = path[i];
+            if (p.x > buildPosX && p.x < buildPosX+buildWidth && p.y > buildPosY && p.y < buildPosY+buildHeight) {
+                isCrossed = true;
+                break;
+            }
+        }
+        return isCrossed;
+    }
+
+    private function forceRunToPoint(posX:int, posY:int, callback:Function):void {
+
     }
 }
 }
