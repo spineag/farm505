@@ -25,7 +25,7 @@ public class ManagerDailyBonus {
 
     public function fillFromServer(day:String, lastCount:int):void {
         var lastDayNumber:int = int(day);
-        var curDayNumber:int = new Date().date;
+        var curDayNumber:int = new Date().dateUTC;
         if (curDayNumber != lastDayNumber)
             _count = 0;
         else

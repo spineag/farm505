@@ -33,7 +33,7 @@ public class ManagerChest {
 
     public function fillFromServer(day:String, lastCount:int):void {
         var lastDayNumber:int = int(day);
-        var curDayNumber:int = new Date().date;
+        var curDayNumber:int = new Date().dateUTC;
         if (curDayNumber != lastDayNumber)
             _count = 0;
         else
@@ -50,8 +50,8 @@ public class ManagerChest {
                 arr.push(int(id));
             }
         }
-        var k:int;
         var obj:Object;
+//        var k:int;
 //        for (var i:int = 0; i<8; i++) {
 //            k = int(Math.random()*arr.length);  // get random position
 //            k = arr.splice(k, 1);  // get random id resource or plant
