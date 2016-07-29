@@ -11,6 +11,8 @@ import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 import flash.geom.Point;
+
+import hint.FlyMessage;
 import hint.MouseHint;
 import manager.ManagerFilters;
 import resourceItem.CraftItem;
@@ -477,19 +479,12 @@ public class Tree extends WorldObject {
         if (g.isActiveMapEditor) return;
         if (g.isAway) {
             if (_state == ASK_FIX) {
-                _state = FIXED;
                 for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
                     if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
-                        g.visitedUser.userDataCity.treesInfo[i].state = String(FIXED);
+                        g.directServer.getAwayUserTreeWatering(int(tree_db_id),int(g.visitedUser.userSocialId),wateringTree);
                         break;
                     }
                 }
-                onOut();
-                var start:Point = new Point(int(_source.x), int(_source.y));
-                start = _source.parent.localToGlobal(start);
-                new XPStar(start.x,start.y,8);
-                g.directServer.makeWateringUserTree(tree_db_id, _state, null);
-                makeWateringIcon();
             }
             return;
         }
@@ -1013,21 +1008,13 @@ public class Tree extends WorldObject {
     private function onClickWatering():void {
         if (g.isAway) {
             if (_state == ASK_FIX) {
-                _state = FIXED;
                 for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
                     if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
-                        g.visitedUser.userDataCity.treesInfo[i].state = String(FIXED);
+                        g.directServer.getAwayUserTreeWatering(int(tree_db_id),int(g.visitedUser.userSocialId),wateringTree);
                         break;
                     }
                 }
-                onOut();
-                var start:Point = new Point(int(_source.x), int(_source.y));
-                start = _source.parent.localToGlobal(start);
-                new XPStar(start.x,start.y,8);
-                g.directServer.makeWateringUserTree(tree_db_id, _state, null);
-                makeWateringIcon();
             }
-            return;
         } else {
             if (_state == FIXED) {
                 _state = GROW_FIXED;
@@ -1038,6 +1025,30 @@ public class Tree extends WorldObject {
             }
         }
     }
+
+    private function wateringTree(state:int):void {
+        if (state != _state) {
+            var p:Point = new Point(source.x, source.y);
+            p = source.parent.localToGlobal(p);
+            new FlyMessage(p,'Полито другим игроком');
+            makeWateringIcon();
+            return;
+        }
+        _state = FIXED;
+        for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
+            if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
+                g.visitedUser.userDataCity.treesInfo[i].state = String(FIXED);
+                break;
+            }
+        }
+            onOut();
+        var start:Point = new Point(int(_source.x), int(_source.y));
+        start = _source.parent.localToGlobal(start);
+        new XPStar(start.x,start.y,8);
+        g.directServer.makeWateringUserTree(tree_db_id, _state, null);
+        makeWateringIcon();
+    }
+
 
 //    private function onLoadPhoto(bitmap:Bitmap, p:Someone):void {
 //        if (!bitmap) {
