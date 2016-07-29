@@ -297,16 +297,18 @@ public class MarketItem {
             return;
         }
         g.userInventory.addMoney(1,-_countBuyCell);
-        g.directServer.updateUserMarketCell(1,null);
-        g.user.marketCell++;
-        _txtAdditem.text = 'Добавить товар';
-        source.endClickCallback = onClick;
-        _wo.addItemsRefresh();
-        _closeCell = false;
-        _isUser = true;
-        while (buyCont.numChildren) {
-            buyCont.removeChildAt(0);
-        }
+        var f1:Function = function ():void {
+            g.user.marketCell++;
+            _txtAdditem.text = 'Добавить товар';
+            source.endClickCallback = onClick;
+            _wo.addItemsRefresh();
+            _closeCell = false;
+            _isUser = true;
+            while (buyCont.numChildren) {
+                buyCont.removeChildAt(0);
+            }
+        };
+        g.directServer.updateUserMarketCell(1,f1);
     }
 
     private function onPaper():void {

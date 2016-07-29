@@ -341,7 +341,7 @@ public class WOMarket  extends WindowMain {
     public function addItemsRefresh():void {
         if (_arrItems.length == 40) return;
         var item:MarketItem;
-        item = new MarketItem(_arrItems.length + 1, true, this);
+        item = new MarketItem(_arrItems.length, true, this);
 
         if (_arrItems.length  <= 7) {
             item.source.x = 125*(_arrItems.length%4) - 300;

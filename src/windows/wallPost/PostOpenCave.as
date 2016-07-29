@@ -43,7 +43,7 @@ public class PostOpenCave extends WindowMain {
         _image.pivotY = int(_image.height/2);
         _source.addChild(_image);
         _btn = new CButton();
-        _btn.addButtonTexture(172, 45, CButton.BLUE, true);
+        _btn.addButtonTexture(176, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
         var txt:TextField = new TextField(140,30,'Рассказать 200',g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.x = 5;
@@ -57,7 +57,7 @@ public class PostOpenCave extends WindowMain {
 //        _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star_small"));
         im.filter = ManagerFilters.SHADOW_TINY;
-        im.x = 136;
+        im.x = 140;
         im.y = 6;
         _btn.addChild(im);
         _btn.y = 180;

@@ -464,7 +464,7 @@ public class WOOrder extends WindowMain{
             var tOrderItem:WOOrderItem = _activeOrderItem;
             var f:Function = function (order:ManagerOrderItem):void {
                 afterDeleteOrder(order, tOrderItem);
-                newPlaceNumber();
+//                newPlaceNumber();
             };
             g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
             g.bottomPanel.checkIsFullOrder();
@@ -905,7 +905,7 @@ public class WOOrder extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
             g.directServer.updateWallOrderItem(null);
             g.user.wallOrderItem = false;
-        } else hideIt();
+        }
 
     }
 

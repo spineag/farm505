@@ -874,48 +874,55 @@ public class ManagerOrder {
                 order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
             }
             order.startTime = int(new Date().getTime()/1000);
-            if (place > -1) {
-                if (del) {
-                    for (i = 0; i < _arrOrders.length; i++) {
-                        if (_arrOrders[i].placeNumber > place) {
-                            _arrOrders[i].placeNumber -= 1;
-                            g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
-                        }
-                    }
-                    order.placeNumber = _curMaxCountOrders-1;
-                    g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
-                } else {
-                    var b:Boolean;
-                    for (i = 0; i < _arrOrders.length; i++) {
-                        b = true;
-                        if (!_arrOrders[i].cat) {
-                            place = _arrOrders[i].placeNumber;
-                            b = false;
-                            break;
-                        }
-                    }
-                    if (b) {
-                        for (i = 0; i < _arrOrders.length; i++) {
-                            if (_arrOrders[i].placeNumber > place) {
-                                _arrOrders[i].placeNumber -= 1;
-                                g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
-                            }
-                        }
-                        order.placeNumber = _curMaxCountOrders -1 ;
-                        g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
-                    } else {
-                        for (i = 0; i < _arrOrders.length; i++) {
-                            if (_arrOrders[i].placeNumber >= place && _arrOrders[i].cat) {
-                                _arrOrders[i].placeNumber -= 1;
-                                g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
-                            }
-                        }
-                        if (place == 0) order.placeNumber = place;
-                        else order.placeNumber = place-1;
-                        g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
-                    }
-                }
+//            if (place > -1) {
+//                if (del) {
+//                    for (i = 0; i < _arrOrders.length; i++) {
+//                        if (_arrOrders[i].placeNumber > place) {
+//                            _arrOrders[i].placeNumber -= 1;
+//                            g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
+//                        }
+//                    }
+//                    order.placeNumber = _curMaxCountOrders-1;
+//                    g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
+//                } else {
+//                    var b:Boolean;
+//                    for (i = 0; i < _arrOrders.length; i++) {
+//                        b = true;
+//                        if (!_arrOrders[i].cat) {
+//                            place = _arrOrders[i].placeNumber;
+//                            b = false;
+//                            break;
+//                        }
+//                    }
+//                    if (b) {
+//                        for (i = 0; i < _arrOrders.length; i++) {
+//                            if (_arrOrders[i].placeNumber > place) {
+//                                _arrOrders[i].placeNumber -= 1;
+//                                g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
+//                            }
+//                        }
+//                        order.placeNumber = _curMaxCountOrders -1 ;
+//                        g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
+//                    } else {
+//                        for (i = 0; i < _arrOrders.length; i++) {
+//                            if (_arrOrders[i].placeNumber >= place && _arrOrders[i].cat) {
+//                                _arrOrders[i].placeNumber -= 1;
+//                                g.directServer.updateUserOrder(int(_arrOrders[i].dbId), _arrOrders[i].placeNumber, null);
+//                            }
+//                        }
+//                        if (place == 0) order.placeNumber = place;
+//                        else order.placeNumber = place-1;
+//                        g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
+//                    }
+//                }
+//            }
+
+            if (place == -1) {
+                order.placeNumber = getFreePlace();
+            } else {
+                order.placeNumber = place;
             }
+
             _arrOrders.push(order);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
             g.directServer.addUserOrder(order, delay, f);

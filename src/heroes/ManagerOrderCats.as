@@ -21,18 +21,20 @@ public class ManagerOrderCats {
         var arr:Array = g.managerOrder.arrOrders;
         var cat:OrderCat;
         var leftSeconds:int;
+        var r:int = 0;
         for (var i:int=0; i<arr.length; i++) {
             leftSeconds = arr[i].startTime - int(new Date().getTime()/1000);
             if (leftSeconds <= 0) {
                 cat = new OrderCat(arr[i].catOb);
-                cat.setTailPositions(30, 25 - i*2);
+                cat.setTailPositions(30, 25 - r*2);
                 cat.walkPosition = OrderCat.STAY_IN_QUEUE;
-                cat.setPositionInQueue(i);
+                cat.setPositionInQueue(r);
                 g.townArea.addOrderCatToCont(cat);
                 g.townArea.addOrderCatToCityObjects(cat);
                 _arrCats.push(cat);
-                arr[i].cat = cat;
+                arr[r].cat = cat;
                 cat.idleFrontAnimation();
+                r++;
             }
         }
     }
@@ -166,38 +168,43 @@ public class ManagerOrderCats {
     }
 
     private function getFreeQueuePosition():int {
-        var max:int = g.managerOrder.maxCountOrders;
-        var arr:Array = [];
-        for (var i:int=0; i<max; i++) {
-            arr.push(i);
-        }
-        for (i=0; i<_arrCats.length; i++) {
-             if (arr.indexOf(_arrCats[i].queuePosition)>-1) {
-                 arr.splice(arr.indexOf(_arrCats[i].queuePosition), 1);
-             } else {
-                 Cc.error("ManagerOrderCats:: getFreeQueuePosition error: mismatch with queue position: " + _arrCats[i].queuePosition);
-             }
-        }
-
-        if (!arr.length) {
-            Cc.error("ManagerOrderCats:: getFreeQueuePosition error: no free queue position, so use next: " + String(max));
-            return max;
-        } else {
-            return arr[0];
-        }
-
-//        var ar:Array = g.managerOrder.arrOrders.slice();
-//        var b:Boolean;
-//        var max:int = g.managerOrder.maxCountOrders - 1;
-//        for (var i:int = 0; i < ar.length; i++) {
-//            b = true;
-//            if (!ar[i].cat) {
-//                b = false;
-//                break;
-//            }
+//        var max:int = g.managerOrder.maxCountOrders;
+//        var arr:Array = [];
+//        for (var i:int=0; i<max; i++) {
+//            arr.push(i);
 //        }
-//        if (b) return int(ar[i].placeNumber);
-//        if (!b) return int(max);
+//        for (i=0; i<_arrCats.length; i++) {
+//             if (arr.indexOf(_arrCats[i].queuePosition)>-1) {
+//                 arr.splice(arr.indexOf(_arrCats[i].queuePosition), 1);
+//             } else {
+//                 Cc.error("ManagerOrderCats:: getFreeQueuePosition error: mismatch with queue position: " + _arrCats[i].queuePosition);
+//             }
+//        }
+//
+//        if (!arr.length) {
+//            Cc.error("ManagerOrderCats:: getFreeQueuePosition error: no free queue position, so use next: " + String(max));
+//            return max;
+//        } else {
+//            return arr[0];
+//        }
+
+        var ar:Array = g.managerOrder.arrOrders.slice();
+        var b:Boolean = false;
+        var max:int = g.managerOrder.maxCountOrders;
+        var r:int = 0;
+        for (var i:int = 0; i < ar.length; i++) {
+            if (!b) b = false;
+            if (!ar[i].cat) {
+                r++;
+                b = true;
+            }
+        }
+        if (b) {
+            return max - r;
+        }
+        else {
+            return int(max);
+        }
 //        return 5;
     }
 
