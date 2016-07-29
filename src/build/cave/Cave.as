@@ -69,6 +69,7 @@ public class Cave extends WorldObject{
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_source, 'caveBuild');
         _source.registerHitArea(_hitArea);
+        _source.setChildIndex(_craftSprite, _source.numChildren - 1);
     }
 
     private function checkCaveState():void {
