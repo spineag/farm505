@@ -137,7 +137,7 @@ public class TownAreaTouchManager {
             if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseEndClick();
             } else {
-                checkForTouches();
+                checkForTailTouches();
             }
         }
     }
@@ -165,7 +165,7 @@ public class TownAreaTouchManager {
                 }
             } else {
                 _curBuild.source.releaseOut();
-                checkForTouches();
+                checkForTailTouches();
             }
         }
     }
@@ -275,6 +275,49 @@ public class TownAreaTouchManager {
 //            } else if (_touch.phase == TouchPhase.HOVER) {
 //            } else {
             }
+        }
+    }
+
+    public function checkForTailTouches():void {
+        if (g.isAway) return;
+        _arrTown = g.townArea.cityTailObjects;
+        var i:int;
+        var p:Point = new Point(_touch.globalX, _touch.globalY);
+        p = cont.globalToLocal(p);
+        var l:int = _arrTown.length;
+        var ar:Array = [];
+        for (i=0; i< l; i++) {
+            if (_arrTown[i] == _curBuild) continue;
+            if ((_arrTown[i] as WorldObject).depth > _curBuild.depth) continue;
+            if (containsPoint((_arrTown[i] as WorldObject).source as Sprite, (_arrTown[i] as WorldObject).rect, p)) ar.push(_arrTown[i]);
+        }
+
+        if (ar.length) {
+            if (ar.length > 1) {
+                ar.sortOn('depth', Array.NUMERIC);
+                ar.reverse();
+            }
+            if ((ar[0] as WorldObject).source.isTouchable) {
+                var hitAreaState:int = (ar[0] as WorldObject).source.getHitAreaState(_touch);
+                if (_touch.phase == TouchPhase.BEGAN) {
+                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
+                        (ar[0] as WorldObject).source.releaseStartClick();
+                    }
+                } else if (_touch.phase == TouchPhase.ENDED) {
+                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
+                        (ar[0] as WorldObject).source.releaseEndClick();
+                    }
+                } else if (_touch.phase == TouchPhase.HOVER) {
+                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
+                        (ar[0] as WorldObject).source.releaseHover();
+                    } else {
+                       (ar[0] as WorldObject).source.releaseOut();
+                    }
+                } else {
+                    (ar[0] as WorldObject).source.releaseOut();
+                }
+            }
+            ar.length = 0;
         }
     }
 
