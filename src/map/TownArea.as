@@ -258,6 +258,7 @@ public class TownArea extends Sprite {
     }
 
     public function addDeactivatedArea(posX:int, posY:int, isDeactivated:Boolean):void {
+        _freePlace.fillCell(posX, posY);
         _townMatrix[posY][posX].inGame = !isDeactivated;
         _townTailMatrix[posY][posX].inGame = !isDeactivated;
     }
@@ -692,11 +693,11 @@ public class TownArea extends Sprite {
             }
         }
 
-//        if (isNewAtMap || updateAfterMove) {
-//            if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor) {
-//                g.managerCats.checkAllCatsAfterPasteBuilding(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
-//            }
-//        }
+        if (isNewAtMap || updateAfterMove) {
+            if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor) {
+                g.managerCats.checkAllCatsAfterPasteBuilding(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+            }
+        }
 
         if (isNewAtMap && g.managerTutorial.isTutorial) {
             if (worldObject is TutorialPlace) return;
