@@ -5,6 +5,7 @@ package build {
 import build.decor.DecorFence;
 import build.decor.DecorPostFence;
 import build.decor.DecorTail;
+import build.farm.Farm;
 import build.lockedLand.LockedLand;
 import build.ridge.Ridge;
 
@@ -236,20 +237,31 @@ public class TownAreaTouchManager {
             if ((ar[0] as WorldObject).source.isTouchable) {
                 var hitAreaState:int = (ar[0] as WorldObject).source.getHitAreaState(_touch);
                 if (_touch.phase == TouchPhase.BEGAN) {
-                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT)
-                        (ar[0] as WorldObject).source.releaseStartClick();
+                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
+                        if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                            (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('start');
+                        } else (ar[0] as WorldObject).source.releaseStartClick();
+                    }
                 } else if (_touch.phase == TouchPhase.ENDED) {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
-                        (ar[0] as WorldObject).source.releaseEndClick();
+                        if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                            (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('end');
+                        } else (ar[0] as WorldObject).source.releaseEndClick();
                     }
                 } else if (_touch.phase == TouchPhase.HOVER) {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
-                        (ar[0] as WorldObject).source.releaseHover();
+                        if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                            (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('hover');
+                        } else (ar[0] as WorldObject).source.releaseHover();
                     } else {
-                        (ar[0] as WorldObject).source.releaseOut();
+                        if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                            (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('out');
+                        } else (ar[0] as WorldObject).source.releaseOut();
                     }
                 } else {
-                    (ar[0] as WorldObject).source.releaseOut();
+                    if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                        (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('out');
+                    } else (ar[0] as WorldObject).source.releaseOut();
                 }
             }
             ar.length = 0;

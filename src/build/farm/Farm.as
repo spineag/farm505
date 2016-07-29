@@ -6,6 +6,8 @@ import build.WorldObject;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import manager.ManagerFilters;
+
+import mouse.ToolsModifier;
 import mouse.ToolsModifier;
 import particle.FarmFeedParticles;
 import resourceItem.CraftItem;
@@ -22,6 +24,7 @@ public class Farm extends WorldObject{
     private var _contAnimals:Sprite;
     private var _imageBottom:Image;
     private var _arrCrafted:Array;
+    private var _curActiveAnimal:Animal;
 
     public function Farm(_data:Object) {
         super(_data);
@@ -341,6 +344,38 @@ public class Farm extends WorldObject{
 
     public function checkAfterMove():void {
         g.managerAnimal.onFarmFinishMove(this);
+    }
+
+    public function releaseMouseEventForAnimalFromTouchManager(eventType:String):void {
+        var an:Animal = getAnimalUnderMouse();
+        if (an) {
+            if (_curActiveAnimal) {
+                if (_curActiveAnimal != an) {
+                    _curActiveAnimal.onOut();
+                    _curActiveAnimal = an;
+                }
+            } else _curActiveAnimal = an;
+            switch (eventType) {
+                case 'start': an.onStartClick(); break;
+                case 'end': an.onEndClick(); break;
+                case 'hover': an.onHover(); break;
+                case 'out': an.onOut(); break;
+            }
+        } else {
+            if (_curActiveAnimal) {
+                _curActiveAnimal.onOut();
+                _curActiveAnimal = null;
+            }
+        }
+    }
+
+    private function getAnimalUnderMouse():Animal {
+        for (var i:int=0; i<_arrAnimals.length; i++) {
+            if ((_arrAnimals[i] as Animal).isMouseUnderAnimal()) {
+                return _arrAnimals[i];
+            }
+        }
+        return null;
     }
 }
 }

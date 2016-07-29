@@ -162,6 +162,14 @@ public class Animal {
         return _rect;
     }
 
+    public function isMouseUnderAnimal():Boolean {
+        var p:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
+        p = source.globalToLocal(p);
+        if (p.x > _rect.x && p.x < _rect.x+_rect.width && p.y > _rect.y && p.y < _rect.y+_rect.height) {
+            return true;
+        } else return false;
+    }
+
     public function addArrow():void {
         if (animation) {
             removeArrow();
@@ -317,7 +325,7 @@ public class Animal {
 //        }
     }
 
-    private function onStartClick():void {
+    public function onStartClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
             if (!g.managerTutorial.isTutorial) {
                 g.managerAnimal.activeFeedAnimalId = _data.id;
@@ -382,7 +390,7 @@ public class Animal {
         }
     }
 
-    private function onHover():void {
+    public function onHover():void {
         if (_isOnHover) true;
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
@@ -398,7 +406,7 @@ public class Animal {
 //        g.gameDispatcher.addToTimer(countEnterFrameMouseHint);
     }
 
-    private function onOut():void {
+    public function onOut():void {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         if (_state == HUNGRY && _farm.isAnyCrafted) return;
