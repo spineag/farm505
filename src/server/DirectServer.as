@@ -5621,6 +5621,56 @@ public class DirectServer {
         }
     }
 
+    public function getAwayUserTreeWatering(id:int,userSocialId:int,callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_AWAY_USER_TREE_WATERING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getAwayUserTreeWatering', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.userSocialId = userSocialId;
+//        variables.userDbBuildingId = userDbBuildingId;
+        variables.id = id;
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetAwayUserTreeWatering);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetAwayUserTreeWatering(e:Event):void { completeGetAwayUserTreeWatering(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getAwayUserTreeWatering error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserTree error:' + error.errorID);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
+        }
+    }
+
+    private function completeGetAwayUserTreeWatering(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getAwayUserTreeWatering: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAwayUserTreeWatering: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getAwayUserTreeWatering OK', 5);
+            if (callback != null) {
+                callback.apply(null,[d.message.state]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getAwayUserTreeWatering: id: ' + d.id + '  with message: ' + d.message);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAwayUserTreeWatering: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError:: ' + e.text);
     }
