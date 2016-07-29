@@ -186,8 +186,8 @@ public class HeroCat extends BasicCat{
         freeIdleGo = !freeIdleGo;
     }
     
-    public function get isIdleGo():Boolean {
-        return freeIdleGo;
+    public function get isIdleGoNow():Boolean {
+        return !freeIdleGo;
     }
 
     private function renderForIdleFreeCat():void {

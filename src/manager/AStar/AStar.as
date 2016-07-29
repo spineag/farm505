@@ -84,6 +84,9 @@ public class AStar {
 
         if (curNode == null) {
             Cc.error('AStar makeSearch:: curNode == null');
+            if (callback != null) {
+                callback.apply(null, [[new Point(startX, startY)]]);
+            }
             return;
         }
 

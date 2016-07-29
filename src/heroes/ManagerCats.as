@@ -88,11 +88,13 @@ public class ManagerCats {
             cat.flipIt(false);
             cat.showFront(true);
             cat.idleAnimation();
-            if (cat.walkCallback != null) {
-                cat.walkCallback.apply(null, cat.walkCallbackParams);
-            }
+            var fT:Function = cat.walkCallback;
+            var arrT:Array = cat.walkCallbackParams;
             cat.walkCallback = null;
             cat.walkCallbackParams = [];
+            if (fT != null) {
+                fT.apply(null, arrT);
+            }
         };
 
         var f1:Function = function (arr:Array):void {
@@ -141,8 +143,8 @@ public class ManagerCats {
     public function goIdleCatToPoint(cat:BasicCat, p:Point, callback:Function = null, ...callbackParams):void {
         try {
             if (cat.posX == p.x && cat.posY == p.y) {
-                if (cat.walkCallback != null) {
-                    cat.walkCallback.apply(null, cat.walkCallbackParams);
+                if (callback != null) {
+                    callback.apply(null, callbackParams);
                 }
                 return;
             }
@@ -151,11 +153,13 @@ public class ManagerCats {
                 cat.flipIt(false);
                 cat.showFront(true);
                 cat.idleAnimation();
-                if (callback != null) {
-                    callback.apply(null, callbackParams);
-                }
+                var fT:Function = cat.walkCallback;
+                var arrT:Array = cat.walkCallbackParams;
                 cat.walkCallback = null;
                 cat.walkCallbackParams = [];
+                if (fT != null) {
+                    fT.apply(null, arrT);
+                }
             };
             var f1:Function = function (arr:Array):void {
                 cat.walkIdleAnimation();
@@ -245,33 +249,33 @@ public class ManagerCats {
     private function checkCatAfterPasteBuilding(cat:HeroCat, buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):void {
         if (g.isAway) return;
         if (cat.isFree) {
-            if (cat.isIdleGo) {
+            if (cat.isIdleGoNow) { // mean cat is walking now
                 if (isCrossedPathAndSquare(cat.currentPath, buildPosX, buildPosY, buildWidth, buildHeight)) {
                     cat.killAllAnimations();
                     if (cat.posX > buildPosX && cat.posX < buildPosX + buildWidth && cat.posY > buildPosY && cat.posY < buildPosY + buildHeight) {
-                        var afterRunFree:Function = function ():void {
-                            cat.makeFreeCatIdle();
+                        var afterRunFree:Function = function (_cat:HeroCat):void {
+                            _cat.makeFreeCatIdle();
                         };
-                        forceRunToPoint(buildPosX + buildWidth, buildPosY, afterRunFree);
+                        forceRunToXYPoint(cat, buildPosX + buildWidth + 1, buildPosY + 1, afterRunFree);
                     } else cat.makeFreeCatIdle();
                 }
             } else {
                 if (cat.posX > buildPosX && cat.posX < buildPosX + buildWidth && cat.posY > buildPosY && cat.posY < buildPosY + buildHeight) {
-                    var afterRunFree2:Function = function ():void {
-                        cat.makeFreeCatIdle();
+                    var afterRunFree2:Function = function (_cat:HeroCat):void {
+                        _cat.makeFreeCatIdle();
                     };
                     cat.killAllAnimations();
-                    forceRunToPoint(buildPosX + buildWidth, buildPosY, afterRunFree2);
+                    forceRunToXYPoint(cat, buildPosX + buildWidth, buildPosY, afterRunFree2);
                 }
             }
         } else {
             var endPoint:Point = cat.endPathPoint;
             if (cat.posX > buildPosX && cat.posX < buildPosX+buildWidth && cat.posY > buildPosY && cat.posY < buildPosY+buildHeight) {
-                var afterRun:Function = function ():void {
-                    goCatToPoint.apply(null, [cat, endPoint, cat.walkCallback].concat(cat.walkCallbackParams));
+                var afterRun:Function = function (_cat:HeroCat):void {
+                    goCatToPoint.apply(null, [_cat, endPoint, _cat.walkCallback].concat(_cat.walkCallbackParams));
                 };
                 cat.killAllAnimations();
-                forceRunToPoint(buildPosX+buildWidth, buildPosY, afterRun);
+                forceRunToXYPoint(cat, buildPosX+buildWidth + 1, buildPosY + 1, afterRun);
             } else if (isCrossedPathAndSquare(cat.currentPath, buildPosX, buildPosY, buildWidth, buildHeight)) {
                 cat.killAllAnimations();
                 goCatToPoint.apply(null, [cat, endPoint, cat.walkCallback].concat(cat.walkCallbackParams));
@@ -292,8 +296,11 @@ public class ManagerCats {
         return isCrossed;
     }
 
-    private function forceRunToPoint(posX:int, posY:int, callback:Function):void {
-
+    private function forceRunToXYPoint(cat:HeroCat, posX:int, posY:int, callback:Function):void {
+        cat.runAnimation();
+        var p:Point = new Point(posX, posY);
+        p = g.matrixGrid.getXYFromIndex(p);
+        cat.goCatToXYPoint(p, 1, callback);
     }
 }
 }

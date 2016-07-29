@@ -227,6 +227,16 @@ public class BasicCat {
         new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
     }
 
+    public function goCatToXYPoint(p:Point, time:int, callbackOnWalking:Function):void {
+        new TweenMax(_source, time, {x:p.x, y:p.y, ease:Linear.easeNone, onComplete: onGotCatToXYPoint, onCompleteParams:[callbackOnWalking]});
+    }
+
+    private function onGotCatToXYPoint(f:Function) :void {
+        if (f != null) {
+            f.apply(null, [this]);
+        }
+    }
+
     private function checkForJump(nextPoint:Point):void {
 
     }

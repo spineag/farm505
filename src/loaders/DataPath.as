@@ -24,7 +24,7 @@ public class DataPath {
     }
 
     public function getGraphicsPath():String {
-        return 'http://' + MAIN_PATH_GRAPHICS;
+        return g.useHttps ? 'https://' + MAIN_PATH_GRAPHICS : 'http://' + MAIN_PATH_GRAPHICS;
     }
 
     public function getVersion():String {

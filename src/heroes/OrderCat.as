@@ -431,14 +431,13 @@ public class OrderCat {
         } else {
             new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         }
-
     }
 
     public function goCatToXYPoint(p:Point, time:int, callbackOnWalking:Function):void {
-        new TweenMax(_source, time, {x:p.x, y:p.y, ease:Linear.easeNone, onComplete: f1, onCompleteParams:[callbackOnWalking]});
+        new TweenMax(_source, time, {x:p.x, y:p.y, ease:Linear.easeNone, onComplete: f2, onCompleteParams:[callbackOnWalking]});
     }
 
-    private function f1(f:Function) :void {
+    private function f2(f:Function) :void {
         if (f != null) {
             f.apply(null, [this]);
         }
