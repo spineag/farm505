@@ -181,9 +181,9 @@ public class OrderCat {
             var b:Bone = armature.getBone('bant');
             b.visible = false;
 
-        } else  chengeBant(int(Math.random() * 8 + 1));
+        } else  changeBant(int(Math.random() * 8 + 1));
     }
-    private function chengeBant(n:int):void {
+    private function changeBant(n:int):void {
         var str:String = 'bant_'+ n;
         bant = n;
         var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;

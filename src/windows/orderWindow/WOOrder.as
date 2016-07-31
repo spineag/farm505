@@ -874,12 +874,16 @@ public class WOOrder extends WindowMain{
 
     private function animateCatsOnSell():void {
         stopCatsAnimations();
-        _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerOnSell);
-        _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerOnSell);
-        _armatureSeller.animation.gotoAndPlay('coin');
-        _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
-        _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
-        _armatureCustomer.animation.gotoAndPlay('love');
+        if (_armatureSeller) {
+            _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerOnSell);
+            _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerOnSell);
+            _armatureSeller.animation.gotoAndPlay('coin');
+        }
+        if (_armatureCustomer) {
+            _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
+            _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
+            _armatureCustomer.animation.gotoAndPlay('love');
+        }
     }
 
     private function animateSellerOnSell(e:AnimationEvent):void {
