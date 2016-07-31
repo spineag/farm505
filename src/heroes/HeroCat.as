@@ -18,6 +18,13 @@ import starling.display.Sprite;
 import utils.CSprite;
 
 public class HeroCat extends BasicCat{
+    public static const NO_ACTIVE:int=0;
+    public static const ACTIVE_IDLE_STOP:int=1;
+    public static const ACTIVE_IDLE_WALK:int=2;
+    public static const ACTIVE_WALK:int=3;
+    public static const ACTIVE_FARM:int=4;
+    public static const ACTIVE_RIDGE:int=5;
+
     private var _catImage:Sprite;
     private var _catWateringAndFeed:Sprite;
     private var _catBackImage:Sprite;
@@ -29,6 +36,7 @@ public class HeroCat extends BasicCat{
     public var curActiveRidge:Ridge; //  for watering ridge
     public var curActiveFarm:Farm;  // for feed animal at farm
     private var _animation:HeroCatsAnimation;
+    private var _curActive:int; // what cat is doing now
 
     public function HeroCat(type:int) {
         super();
@@ -69,6 +77,14 @@ public class HeroCat extends BasicCat{
         return _type;
     }
 
+    public function set curActive(a:int):void {
+        _curActive = a;
+    }
+
+    public function get curActive():int {
+        return _curActive;
+    }
+
     private function addShadow():void {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_shadow'));
         im.scaleX = im.scaleY = g.scaleFactor;
@@ -87,6 +103,13 @@ public class HeroCat extends BasicCat{
     override public function set visible(value:Boolean):void {
         if (!value)  _animation.stopIt();
         super.visible = value;
+    }
+
+    public function pauseIt(v:Boolean):void {
+        if (v) {
+            stopAnimation();
+            //...
+        }
     }
     
     override public function flipIt(v:Boolean):void {
@@ -120,6 +143,7 @@ public class HeroCat extends BasicCat{
         super.runAnimation();
     }
     override public function stopAnimation():void {
+        _curActive = NO_ACTIVE;
         heroEyes.stopAnimations();
         _animation.stopIt();
         super.stopAnimation();
@@ -176,8 +200,10 @@ public class HeroCat extends BasicCat{
     private var timer:int;
     public function makeFreeCatIdle():void {
         if (freeIdleGo) {
+            _curActive = ACTIVE_IDLE_WALK;
             g.managerCats.goIdleCatToPoint(this, g.townArea.getRandomFreeCell(), makeFreeCatIdle);
         } else {
+            _curActive = ACTIVE_IDLE_STOP;
             idleAnimation();
             timer = 5 + int(Math.random()*15);
             g.gameDispatcher.addToTimer(renderForIdleFreeCat);

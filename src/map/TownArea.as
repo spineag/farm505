@@ -1272,6 +1272,7 @@ public class TownArea extends Sprite {
             for (i = 0; i < _cityTailObjects.length; i++) {
                 _contTail.removeChild(_cityTailObjects[i].source);
             }
+            g.managerCats.onGoAway(true);
         }
         g.isAway = true;
         g.bottomPanel.doorBoolean(true,person);
@@ -1683,6 +1684,7 @@ public class TownArea extends Sprite {
         p.x = 24;
         p.y = 26;
         if (!g.managerTutorial.isTutorial) g.cont.moveCenterToPos(p.x, p.y, true, 2);
+        g.managerCats.onGoAway(false);
     }
 
     private function clearAwayCity():void {

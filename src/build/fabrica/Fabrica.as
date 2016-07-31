@@ -459,43 +459,43 @@ public class Fabrica extends WorldObject {
     }
 
     private function startAnimation():void {
-        if(_armature) _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
-        if(_armature) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
+        if (!_armature) return;
+        _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
+        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
         releaseHeroCatWoman();
         chooseAnimation();
     }
 
     private function stopAnimation():void {
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, chooseAnimation);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
+        if (_armature && _armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, chooseAnimation);
+        if (_armature && _armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
         if (_armature) _armature.animation.gotoAndStop('idle', 0);
     }
 
     private function chooseAnimation(e:AnimationEvent = null):void {
-        if (_armature) if (!_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
-        if (_armature) if (!_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
-        if (_armature) {
-            var k:int = int(Math.random() * 6);
-            switch (k) {
-                case 0:
-                    _armature.animation.gotoAndPlay('idle1');
-                    break;
-                case 1:
-                    _armature.animation.gotoAndPlay('idle1');
-                    break;
-                case 2:
-                    _armature.animation.gotoAndPlay('idle1');
-                    break;
-                case 3:
-                    _armature.animation.gotoAndPlay('idle2');
-                    break;
-                case 4:
-                    _armature.animation.gotoAndPlay('idle3');
-                    break;
-                case 5:
-                    _armature.animation.gotoAndPlay('idle4');
-                    break;
-            }
+        if (!_armature) return;
+        if (!_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
+        if (!_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
+        var k:int = int(Math.random() * 6);
+        switch (k) {
+            case 0:
+                _armature.animation.gotoAndPlay('idle1');
+                break;
+            case 1:
+                _armature.animation.gotoAndPlay('idle1');
+                break;
+            case 2:
+                _armature.animation.gotoAndPlay('idle1');
+                break;
+            case 3:
+                _armature.animation.gotoAndPlay('idle2');
+                break;
+            case 4:
+                _armature.animation.gotoAndPlay('idle3');
+                break;
+            case 5:
+                _armature.animation.gotoAndPlay('idle4');
+                break;
         }
     }
 

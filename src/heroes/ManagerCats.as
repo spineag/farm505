@@ -63,6 +63,12 @@ public class ManagerCats {
     public function get maxCountCats():int {
         return _maxCountCats;
     }
+    
+    public function onGoAway(v:Boolean):void {
+//        for (var i:int=0; i<_catsArray.length; i++) {
+//            (_catsArray[i] as HeroCat).pauseIt(v);
+//        }
+    }
 
     public function calculateMaxCountCats():void {
         for (var i:int=0; i < g.dataCats.length; i++) {
