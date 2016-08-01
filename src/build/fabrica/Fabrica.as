@@ -494,7 +494,8 @@ public class Fabrica extends WorldObject {
                 _armature.animation.gotoAndPlay('idle3');
                 break;
             case 5:
-                _armature.animation.gotoAndPlay('idle4');
+                if (_armature.animation.hasAnimation('idle4')) _armature.animation.gotoAndPlay('idle4');
+                else _armature.animation.gotoAndPlay('idle3');
                 break;
         }
     }

@@ -17,6 +17,9 @@ import flash.geom.Point;
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
+
+import temp.catCharacters.DataCat;
+
 import utils.IsoUtils;
 import utils.MCScaler;
 import utils.Point3D;
@@ -68,8 +71,8 @@ public class OrderCat {
         _catImage = new Sprite();
         _catBackImage = new Sprite();
 
-        armature = g.allData.factory['cat_queue'].buildArmature("cat");
-        armatureBack = g.allData.factory['cat_queue'].buildArmature("cat_back");
+        armature = g.allData.factory['cat_queue1'].buildArmature("cat");
+        armatureBack = g.allData.factory['cat_queue1'].buildArmature("cat_back");
         _catImage.addChild(armature.display as Sprite);
         _catBackImage.addChild(armatureBack.display as Sprite);
         WorldClock.clock.add(armature);
@@ -176,17 +179,85 @@ public class OrderCat {
 
         releaseFrontTexture(st);
         releaseBackTexture(st);
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, _catData.isWoman);
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue1'], armature, 'heads/head' + st, st2, _catData.isWoman);
+
+
         if (!_catData.isWoman) {
             var b:Bone = armature.getBone('bant');
             b.visible = false;
 
         } else  changeBant(int(Math.random() * 8 + 1));
+        var okuli:Bone = armature.getBone('okuli');
+        var sharf:Bone = armature.getBone('sharf');
+        switch (_catData.type) {
+            case DataCat.AKRIL:
+                okuli.visible = false;
+                break;
+            case DataCat.ASHUR:
+                okuli.visible = false;
+                sharf.visible = false;
+                break;
+            case DataCat.BULAVKA:
+                okuli.visible = false;
+                sharf.visible = false;
+                break;
+            case DataCat.BUSINKA:
+                okuli.visible = false;
+//                sharf.visible = false;
+                break;
+            case DataCat.IGOLOCHKA:
+                okuli.visible = false;
+                sharf.visible = false;
+                break;
+            case DataCat.IRIS:
+                okuli.visible = false;
+                sharf.visible = false;
+                break;
+            case DataCat.KRUCHOK:
+                okuli.visible = false;
+//                sharf.visible = false;
+
+                break;
+            case DataCat.LENTOCHKA:
+                okuli.visible = false;
+                sharf.visible = false;
+                break;
+            case DataCat.NAPERSTOK:
+                okuli.visible = false;
+                sharf.visible = false;
+                break;
+            case DataCat.PETELKA:
+                okuli.visible = false;
+                sharf.visible = false;
+                break;
+            case DataCat.PRYAGA:
+                okuli.visible = false;
+                sharf.visible = false;
+                break;
+            case DataCat.SINTETIKA:
+                sharf.visible = false;
+                break;
+            case DataCat.STESHOK:
+                okuli.visible = false;
+                sharf.visible = false;
+                break;
+            case DataCat.YZELOK:
+                okuli.visible = false;
+//                sharf.visible = false;
+                break;
+        }
+        var im:Image = g.allData.factory['cat_queue1'].getTextureDisplay(_catData.png) as Image;
+        if (!im)return;
+        var cast:Bone = armature.getBone('sharf');
+        cast.display.dispose();
+        cast.display = im;
+//        b.display.x = _catData.x;
+//        b.display.y = _catData.y;
     }
     private function changeBant(n:int):void {
         var str:String = 'bant_'+ n;
         bant = n;
-        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
+        var im:Image = g.allData.factory['cat_queue1'].getTextureDisplay(str) as Image;
         var b:Bone = armature.getBone('bant');
         b.display.dispose();
         b.display = im;
@@ -214,7 +285,7 @@ public class OrderCat {
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
+        var im:Image = g.allData.factory['cat_queue1'].getTextureDisplay(newName) as Image;
         var b:Bone = arma.getBone(oldName);
         b.display.dispose();
         b.display = im;
@@ -264,11 +335,11 @@ public class OrderCat {
     private var count:int;
     public function idleFrontAnimation():void {
         var r:int = int(Math.random()*50);
-        if (r != 9) {
+        if (r != 10) {
             armature.addEventListener(AnimationEvent.COMPLETE, onFinishIdle);
             armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdle);
         }
-        if (r > 9) {
+        if (r > 10) {
             armature.animation.gotoAndPlay("breath");
         } else {
             switch (r) {
@@ -282,6 +353,55 @@ public class OrderCat {
                 case 7: armature.animation.gotoAndPlay("idle8"); break;
                 case 8: armature.animation.gotoAndPlay("idle9"); break;
                 case 9: releaseBackIdle(); break;
+                case 10:
+                    armature.addEventListener(AnimationEvent.COMPLETE, onFinishIdle);
+                    armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdle);
+                    switch (_catData.type) {
+                    case DataCat.AKRIL:
+                        armature.animation.gotoAndPlay("akril");
+                        break;
+                    case DataCat.ASHUR:
+                        armature.animation.gotoAndPlay("agur");
+                        break;
+                    case DataCat.BULAVKA:
+                        armature.animation.gotoAndPlay("bulavka");
+                        break;
+                    case DataCat.BUSINKA:
+                        armature.animation.gotoAndPlay("businka");
+
+                        break;
+                    case DataCat.IGOLOCHKA:
+                        armature.animation.gotoAndPlay("igolochka");
+                        break;
+                    case DataCat.IRIS:
+                        armature.animation.gotoAndPlay("iris");
+                        break;
+                    case DataCat.KRUCHOK:
+                        armature.animation.gotoAndPlay("kruchek");
+                        break;
+                    case DataCat.LENTOCHKA:
+                        armature.animation.gotoAndPlay("lentochka");
+                        break;
+                    case DataCat.NAPERSTOK:
+                        armature.animation.gotoAndPlay("naperdstok");
+                        break;
+                    case DataCat.PETELKA:
+                        armature.animation.gotoAndPlay("petelka");
+                        break;
+                    case DataCat.PRYAGA:
+                        armature.animation.gotoAndPlay("pryaga");
+                        break;
+                    case DataCat.SINTETIKA:
+                        armature.animation.gotoAndPlay("sintetika");
+                        break;
+                    case DataCat.STESHOK:
+                        armature.animation.gotoAndPlay("stegok");
+                        break;
+                    case DataCat.YZELOK:
+                        armature.animation.gotoAndPlay("uzelok");
+                        break;
+                }
+                    break;
             }
         }
     }

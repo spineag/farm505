@@ -218,7 +218,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="idle_1" fadeInTime="0" duration="121" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+  <animation name="idle1" fadeInTime="0" duration="121" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
    <timeline name="fon" scale="1" offset="0">
     <frame z="0" duration="354">
      <transform x="0" y="85.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -612,7 +612,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="idle_2" fadeInTime="0" duration="96" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+  <animation name="idle2" fadeInTime="0" duration="96" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
    <timeline name="fon" scale="1" offset="0">
     <frame z="0" duration="233">
      <transform x="0" y="85.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -929,7 +929,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="idle_3" fadeInTime="0" duration="137" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
+  <animation name="idle3" fadeInTime="0" duration="137" scale="1" loop="1" autoTween="0" tweenEasing="NaN">
    <timeline name="fon" scale="1" offset="0">
     <frame z="0" duration="137">
      <transform x="0" y="85.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>

@@ -5,6 +5,20 @@ package temp.catCharacters {
 import heroes.OrderCat;
 
 public class DataCat {
+    public static var BULAVKA:int = 1;
+    public static var PRYAGA:int = 2;
+    public static var PETELKA:int = 3;
+    public static var IGOLOCHKA:int = 4;
+    public static var SINTETIKA:int = 5;
+    public static var BUSINKA:int = 6;
+    public static var LENTOCHKA:int = 7;
+    public static var IRIS:int = 8;
+    public static var KRUCHOK:int = 9;
+    public static var AKRIL:int = 10;
+    public static var YZELOK:int = 11;
+    public static var ASHUR:int = 12;
+    public static var NAPERSTOK:int = 13;
+    public static var STESHOK:int = 14;
     private var _arrCats:Array;
     public function DataCat() {
         _arrCats = [];
@@ -15,15 +29,14 @@ public class DataCat {
         var obj:Object;
 //БАБЫ
         obj = {};
-        obj.id = 1;
+        obj.type = BULAVKA;
         obj.color = OrderCat.BROWN;
         obj.isWoman = true;
         obj.name = 'Булавка';
-//        obj.idle =
         _arrCats.push(obj);
 
         obj = {};
-        obj.id = 2;
+        obj.type = PRYAGA;
         obj.color = OrderCat.GREEN;
         obj.isWoman = true;
         obj.name = 'Пряжа';
@@ -31,7 +44,7 @@ public class DataCat {
 
 
         obj = {};
-        obj.id = 3;
+        obj.type = PETELKA;
         obj.color = OrderCat.PINK;
         obj.isWoman = true;
         obj.name = 'Петелька';
@@ -39,7 +52,7 @@ public class DataCat {
 
 
         obj = {};
-        obj.id = 4;
+        obj.type = IGOLOCHKA;
         obj.color = OrderCat.BLACK;
         obj.isWoman = true;
         obj.name = 'Иголочка';
@@ -47,23 +60,25 @@ public class DataCat {
 
 
         obj = {};
-        obj.id = 5;
+        obj.type = SINTETIKA;
         obj.color = OrderCat.WHITE;
         obj.isWoman = true;
         obj.name = 'Синтетика';
+        obj.png = 'shmot/glas_1';
         _arrCats.push(obj);
 
 
         obj = {};
-        obj.id = 6;
+        obj.type = BUSINKA;
         obj.color = OrderCat.ORANGE;
         obj.isWoman = true;
         obj.name = 'Бусинка';
+        obj.png = 'shmot/necklace';
         _arrCats.push(obj);
 
 
         obj = {};
-        obj.id = 7;
+        obj.type = LENTOCHKA;
         obj.color = OrderCat.BLUE;
         obj.isWoman = true;
         obj.name = 'Ленточка';
@@ -72,7 +87,7 @@ public class DataCat {
 //ПАЦАНЫ
 
         obj = {};
-        obj.id = 8;
+        obj.type = IRIS;
         obj.color = OrderCat.BROWN;
         obj.isWoman = false;
         obj.name = 'Ирис';
@@ -80,31 +95,34 @@ public class DataCat {
 
 
         obj = {};
-        obj.id = 9;
+        obj.type = KRUCHOK;
         obj.color = OrderCat.GREEN;
         obj.isWoman = false;
         obj.name = 'Крючок';
+        obj.png = 'shmot/cepka';
         _arrCats.push(obj);
 
 
         obj = {};
-        obj.id = 10;
+        obj.type = AKRIL;
         obj.color = OrderCat.PINK;
         obj.isWoman = false;
         obj.name = 'Акрил';
+        obj.png = 'shmot/sharf';
         _arrCats.push(obj);
 
 
         obj = {};
-        obj.id = 11;
+        obj.type = YZELOK;
         obj.color = OrderCat.BLACK;
         obj.isWoman = false;
         obj.name = 'Узелок';
+        obj.png = 'shmot/galstuk';
         _arrCats.push(obj);
 
 
         obj = {};
-        obj.id = 12;
+        obj.type = ASHUR;
         obj.color = OrderCat.WHITE;
         obj.isWoman = false;
         obj.name = 'Ажур';
@@ -112,7 +130,7 @@ public class DataCat {
 
 
         obj = {};
-        obj.id = 13;
+        obj.type = NAPERSTOK;
         obj.color = OrderCat.ORANGE;
         obj.isWoman = false;
         obj.name = 'Наперсток';
@@ -120,7 +138,7 @@ public class DataCat {
 
 
         obj = {};
-        obj.id = 14;
+        obj.type = STESHOK;
         obj.color = OrderCat.BLUE;
         obj.isWoman = false;
         obj.name = 'Стежок';
