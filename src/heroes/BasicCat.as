@@ -36,6 +36,8 @@ public class BasicCat {
     public var isOnMap:Boolean = false;
     public var walkCallback:Function;
     public var walkCallbackParams:Array;
+    protected var _callbackOnWalking:Function;
+    public var isAwayCat:Boolean = false; // for test
 
     public function BasicCat() {
         _name = 'Cat_'+String(int(Math.random()*10000));
@@ -129,15 +131,17 @@ public class BasicCat {
 
     public function goWithPath(arr:Array, callbackOnWalking:Function):void {
         _currentPath = arr;
+        _callbackOnWalking = callbackOnWalking;
         if (_currentPath.length > 1) {
             _currentPath.shift(); // first element is that point, where we are now
-            gotoPoint(_currentPath.shift(), callbackOnWalking);
+            gotoPoint(_currentPath.shift(), _callbackOnWalking);
         } else {
             if (_currentPath.length) {
-                gotoPoint(_currentPath.shift(), callbackOnWalking);
+                gotoPoint(_currentPath.shift(), _callbackOnWalking);
             } else {
-                if (callbackOnWalking != null) {
-                    callbackOnWalking.apply();
+                if (_callbackOnWalking != null) {
+                    _callbackOnWalking.apply();
+                    _callbackOnWalking = null;
                 }
             }
         }
@@ -176,6 +180,7 @@ public class BasicCat {
                 idleAnimation();
                 if (callbackOnWalking != null) {
                     callbackOnWalking.apply();
+                    _callbackOnWalking = null;
                 }
             }
         };
