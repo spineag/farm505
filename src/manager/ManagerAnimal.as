@@ -98,6 +98,23 @@ public class ManagerAnimal {
         g.managerCats.goCatToPoint(cat, p, onArrivedCatToFarmPoint, cat);
     }
 
+    public function onGoAwayCats(v:Boolean):void {
+        var c:HeroCat;
+        var s:String;
+        for (s in _catsForFarm) {
+            c = _catsForFarm[s];
+            if (v) {
+                if (c.curActiveFarm) {
+                    c.setPosition(new Point(c.curActiveFarm.posX, c.curActiveFarm.posY));
+                    c.updatePosition();
+                }
+                c.killAllAnimations();
+            } else {
+                onArrivedCatToFarm(c);
+            }
+        }
+    }
+
     private function onArrivedCatToFarmPoint(cat:HeroCat):void {
         var onFinishWork:Function = function():void {
             onArrivedCatToFarm(cat);

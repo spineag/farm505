@@ -1,20 +1,14 @@
 package manager.AStar {
+import heroes.BasicCat;
+import heroes.HeroCat;
 import manager.*;
-
 import build.lockedLand.LockedLand;
-
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
 import starling.display.Image;
-
 import utils.MCScaler;
 
-import windows.WindowsManager;
-
 public class AStar {
-    protected var g:Vars = Vars.getInstance();
     private var matrix:Array;
     private var ln:int;
     private var startX:int;
@@ -26,10 +20,13 @@ public class AStar {
     private var path:Array;
     private var callback:Function;
     private var diagonals:Object;
+    private var _cat:HeroCat;
+    private var bliad:Vars = Vars.getInstance();
 
     public function AStar() {}
 
-    public function getPath(sX:int, sY:int, eX:int, eY:int, f:Function):void {
+    public function getPath(sX:int, sY:int, eX:int, eY:int, f:Function, c:BasicCat):void {
+        _cat = c as HeroCat;
         callback = f;
         startX = sX;
         startY = sY;
@@ -38,12 +35,12 @@ public class AStar {
         openList = [];
         closedList = [];
         path = [];
-        if (g.isAway) {
-            matrix = g.townArea.townAwayMatrix;
-            diagonals = g.townArea.awayDiagonalsObject;
+        if (bliad.isAway) {
+            matrix = bliad.townArea.townAwayMatrix;
+            diagonals = bliad.townArea.awayDiagonalsObject;
         } else {
-            matrix = g.townArea.townMatrix;
-            diagonals = g.townArea.diagonalsObject;
+            matrix = bliad.townArea.townMatrix;
+            diagonals = bliad.townArea.diagonalsObject;
         }
         ln = matrix.length;
         openList[startX + " " + startY] = new AStarNode(startX, startY, 0, 0, null);
@@ -85,6 +82,7 @@ public class AStar {
         if (curNode == null) {
             Cc.error('AStar makeSearch:: curNode == null.');
             Cc.error('sX:'+startX+', sY:'+startY+', eX:'+endX+', eY:'+endY);
+            Cc.error('g.isAway: ' + bliad.isAway + ' and cat.isAway: ' + _cat.isAwayCat);
             if (callback != null) {
                 callback.apply(null, [[new Point(startX, startY)]]);
             }
@@ -170,6 +168,7 @@ public class AStar {
                 }
                 arr.reverse();
                 callback.apply(null, [arr]);
+                _cat = null;
                 path = [];
                 callback = null;
                 openList = [];
@@ -182,20 +181,20 @@ public class AStar {
     }
 
     private function showWallPoints():void {
-        while (g.cont.animationsCont.numChildren) g.cont.animationsCont.removeChildAt(0);
+        while (bliad.cont.animationsCont.numChildren) bliad.cont.animationsCont.removeChildAt(0);
         var p:Point = new Point();
         var im:Image;
         for (var i:int = 0; i < ln; i++) {
             for (var j:int = 0; j < ln; j++) {
                 if (matrix[i][j].isWall) {
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('help_icon'));
+                    im = new Image(bliad.allData.atlas['interfaceAtlas'].getTexture('help_icon'));
                     MCScaler.scale(im, 20, 20);
                     p.x = j;
                     p.y = i;
-                    p = g.matrixGrid.getXYFromIndex(p);
+                    p = bliad.matrixGrid.getXYFromIndex(p);
                     im.x = p.x - 10;
                     im.y = p.y - 10;
-                    g.cont.animationsCont.addChild(im);
+                    bliad.cont.animationsCont.addChild(im);
                 }
             }
         }
@@ -203,22 +202,22 @@ public class AStar {
 
     private function showWallPoint(_x:int, _y:int):void {
         var p:Point = new Point(_x, _y);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('help_icon'));
+        var im:Image = new Image(bliad.allData.atlas['interfaceAtlas'].getTexture('help_icon'));
         MCScaler.scale(im, 20, 20);
-        p = g.matrixGrid.getXYFromIndex(p);
+        p = bliad.matrixGrid.getXYFromIndex(p);
         im.x = p.x - 10;
         im.y = p.y - 10;
-        g.cont.animationsCont.addChild(im);
+        bliad.cont.animationsCont.addChild(im);
     }
 
     private function showVisitedPoint(_x:int, _y:int):void {
         var p:Point = new Point(_x, _y);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('help_icon'));
+        var im:Image = new Image(bliad.allData.atlas['interfaceAtlas'].getTexture('help_icon'));
         MCScaler.scale(im, 20, 20);
-        p = g.matrixGrid.getXYFromIndex(p);
+        p = bliad.matrixGrid.getXYFromIndex(p);
         im.x = p.x - 10;
         im.y = p.y - 10;
-        g.cont.animationsCont.addChild(im);
+        bliad.cont.animationsCont.addChild(im);
     }
 
 }

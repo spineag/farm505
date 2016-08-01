@@ -407,6 +407,17 @@ public class Fabrica extends WorldObject {
         }
     }
 
+    public function onGoAway(v:Boolean):void {
+        if (v) {
+            if (_heroCat) {
+                _heroCat.killAllAnimations();
+                stopAnimation();
+            }
+        } else {
+            onHeroAnimation();
+        }
+    }
+
     private function render():void {
         if (!_arrList.length) {
             if (_heroCat) {
@@ -421,8 +432,7 @@ public class Fabrica extends WorldObject {
         if (_arrList[0].leftTime <= 0) {
             craftResource(_arrList.shift());
             if (!_arrList.length) {
-                g.gameDispatcher.removeFromTimer(render);
-                stopAnimation();
+                render();
             }
         }
     }

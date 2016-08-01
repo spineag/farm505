@@ -40,7 +40,6 @@ public class ManagerOrderCats {
         }
     }
 
-
    // ------- cat go away -----------
     public function onReleaseOrder(cat:OrderCat, isOrderSelled:Boolean):void {
         if (!cat) {

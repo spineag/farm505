@@ -122,6 +122,23 @@ public class ManagerPlantRidge {
         delete _catsForPlant[plantId];
     }
 
+    public function onGoAwayCats(v:Boolean):void {
+        var c:HeroCat;
+        var s:String;
+        for (s in _catsForPlant) {
+            c = _catsForPlant[s].cat;
+            if (v) {
+                if (c.curActiveRidge) {
+                    c.setPosition(new Point(c.curActiveRidge.posX, c.curActiveRidge.posY));
+                    c.updatePosition();
+                }
+                c.killAllAnimations();
+            } else {
+                onArrivedCatToRidge(c, int(s));
+            }
+        }
+    }
+
     private function onArrivedCatToRidge(cat:HeroCat, plantId:int):void {
         var p:Point = new Point();
         cat.isLeftForFeedAndWatering = Math.random() > .5;

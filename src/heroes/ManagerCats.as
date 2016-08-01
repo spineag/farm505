@@ -65,9 +65,12 @@ public class ManagerCats {
     }
     
     public function onGoAway(v:Boolean):void {
-//        for (var i:int=0; i<_catsArray.length; i++) {
-//            (_catsArray[i] as HeroCat).pauseIt(v);
-//        }
+        for (var i:int=0; i<_catsArray.length; i++) {
+            (_catsArray[i] as HeroCat).pauseIt(v);
+        }
+        g.managerAnimal.onGoAwayCats(v);
+        g.managerPlantRidge.onGoAwayCats(v);
+        g.managerFabricaRecipe.onGoAwayCats(v);
     }
 
     public function calculateMaxCountCats():void {
@@ -139,7 +142,7 @@ public class ManagerCats {
             cat.walkCallbackParams = callbackParams;
             var a:AStar = new AStar();
             Cc.info('goCatToPoint:: try get astar path');
-            a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
+            a.getPath(cat.posX, cat.posY, p.x, p.y, f1, cat);
         } catch (e:Error) {
             Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
             Cc.stackch('error', 'ManagerCats goCatToPoint', 10);
@@ -175,8 +178,8 @@ public class ManagerCats {
             cat.walkCallback = callback;
             cat.walkCallbackParams = callbackParams;
             var a:AStar = new AStar();
-            Cc.info('goIdleCatToPoint:: try get astar path');
-            a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
+            Cc.info('goIdleCatToPoint:: try get astar path' + '  || g.isAway: ' + g.isAway);
+            a.getPath(cat.posX, cat.posY, p.x, p.y, f1, cat);
         } catch (e:Error) {
             Cc.error('ManagerCats goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
             Cc.stackch('error', 'ManagerCats goIdleCatToPoint', 10);
@@ -228,6 +231,7 @@ public class ManagerCats {
         for (var i:int=0; i<5; i++) {
             cat = new HeroCat(int(Math.random() * 2) + 1);
             _catsAwayArray.push(cat);
+            cat.isAwayCat = true;
         }
         _townAwayMatrix = g.townArea.townAwayMatrix;
         for (i=0; i<_catsAwayArray.length; i++) {

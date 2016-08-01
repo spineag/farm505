@@ -273,7 +273,7 @@ public class Animal {
         if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
             if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
             if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) g.userInventory.addResource(_data.idResourceRaw, -2);
-            else g.userInventory.addResource(_data.idResourceRaw, -1);
+                else g.userInventory.addResource(_data.idResourceRaw, -1);
             _timeToEnd = _data.timeCraft;
             g.gameDispatcher.addToTimer(render);
             _state = WORK;
