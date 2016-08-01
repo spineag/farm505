@@ -40,6 +40,17 @@ public class ManagerOrderCats {
         }
     }
 
+    public function onGoAwayToUser(v:Boolean):void {
+        for (var i:int=0; i<_arrCats.length; i++) {
+            if (v)
+                (_arrCats[i] as OrderCat).stopAnimation();
+            else
+                if ((_arrCats[i] as OrderCat).walkPosition == OrderCat.STAY_IN_QUEUE) {
+                    (_arrCats[i] as OrderCat).idleFrontAnimation();
+                } else (_arrCats[i] as OrderCat).runAnimation();
+        }
+    }
+
    // ------- cat go away -----------
     public function onReleaseOrder(cat:OrderCat, isOrderSelled:Boolean):void {
         if (!cat) {

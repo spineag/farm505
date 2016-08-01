@@ -334,6 +334,7 @@ public class OrderCat {
 
     private var count:int;
     public function idleFrontAnimation():void {
+        if (g.isAway) return;
         var r:int = int(Math.random()*50);
         if (r != 10) {
             armature.addEventListener(AnimationEvent.COMPLETE, onFinishIdle);
@@ -434,13 +435,19 @@ public class OrderCat {
         }
     }
 
-    public function forceStopAnimation():void {
+    public function stopAnimation():void {
+        showFront(true);
+        if (armature) armature.animation.gotoAndStop('idle1', 0);
+        if (armatureBack) armatureBack.animation.gotoAndStop('idle', 0);
         if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, onFinishIdle);
         if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdle);
         if (armatureBack.hasEventListener(AnimationEvent.COMPLETE)) armatureBack.removeEventListener(AnimationEvent.COMPLETE, onFinishIdleBack);
         if (armatureBack.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armatureBack.removeEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdleBack);
+    }
+
+    public function forceStopAnimation():void {
+        stopAnimation();
         TweenMax.killTweensOf(_source);
-        showFront(true);
     }
 
     public function walkAnimation():void {

@@ -1273,6 +1273,7 @@ public class TownArea extends Sprite {
                 _contTail.removeChild(_cityTailObjects[i].source);
             }
             g.managerCats.onGoAway(true);
+            g.managerOrderCats.onGoAwayToUser(true);
         }
         g.isAway = true;
         g.bottomPanel.doorBoolean(true,person);
@@ -1677,6 +1678,7 @@ public class TownArea extends Sprite {
         for (i = 0; i < _cityTailObjects.length; i++) {
             _contTail.addChild(_cityTailObjects[i].source);
         }
+        g.managerOrderCats.onGoAwayToUser(false);
         _awayPreloader.deleteIt();
         _awayPreloader = null;
         addTownAreaSortCheking();
