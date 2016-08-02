@@ -39,6 +39,7 @@ import windows.WindowsManager;
 public class DirectServer {
     private var g:Vars = Vars.getInstance();
     private var iconMouse:ServerIconMouse = new ServerIconMouse();
+    private var SECRET:String = '505';
 
     private function addDefault(variables:URLVariables):URLVariables {
         variables.sessionKey = g.user.sessionKey;
@@ -1248,6 +1249,10 @@ public class DirectServer {
             g.user.userDataCity.objects = new Array();
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
+                if (!g.dataBuilding.objectBuilding[int(d.message[i].building_id)]) {
+                    Cc.error('no in g.dataBuilding.objectBuilding such id: ' + int(d.message[i].building_id));
+                    continue;
+                }
                 dataBuild = Utils.objectDeepCopy(g.dataBuilding.objectBuilding[int(d.message[i].building_id)]);
                 if (int(d.message[i].in_inventory)) {
                     g.userInventory.addToDecorInventory(dataBuild.id, dbId);
@@ -3225,6 +3230,10 @@ public class DirectServer {
             Cc.ch('server', 'getAllCityData OK', 5);
             p.userDataCity.objects = new Array();
             for (var i:int = 0; i < d.message['building'].length; i++) {
+                if (!g.dataBuilding.objectBuilding[int(d.message['building'][i].building_id)]) {
+                    Cc.error('no in g.dataBuilding.objectBuilding such id: ' + int(d.message['building'][i].building_id));
+                    continue;
+                }
                 ob = {};
                 ob.buildId = g.dataBuilding.objectBuilding[int(d.message['building'][i].building_id)].id;
                 ob.posX = int(d.message['building'][i].pos_x);
