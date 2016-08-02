@@ -20,21 +20,17 @@ import flash.net.URLRequest;
 import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
 import flash.utils.getTimer;
-
-import hint.FlyMessage;
-
 import manager.ManagerAnimal;
 import manager.ManagerFabricaRecipe;
 import manager.ManagerPlantRidge;
 import manager.ManagerTree;
 import manager.Vars;
 import mouse.ServerIconMouse;
-
-import starling.core.Starling;
-
 import user.Someone;
 import utils.Utils;
 import windows.WindowsManager;
+import com.adobe.crypto.MD5;
+
 
 public class DirectServer {
     private var g:Vars = Vars.getInstance();
@@ -3852,6 +3848,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         variables.count = count;
+        variables.hash = MD5.hash(String(g.user.userId)+String(dbId)+String(count)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -3885,6 +3882,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK);
         } else {
             Cc.error('buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message);

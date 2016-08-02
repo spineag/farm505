@@ -33,6 +33,7 @@ import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPapper;
 import windows.reloadPage.WOReloadGame;
+import windows.serverCrack.WOServerCrack;
 import windows.serverError.WOServerError;
 import windows.serverNoWork.WOSeverNoWork;
 import windows.shop.WOShop;
@@ -72,6 +73,7 @@ public class WindowsManager {
     public static const WO_PAPPER:String = 'papper';
     public static const WO_RELOAD_GAME:String = 'reload_game';
     public static const WO_SERVER_ERROR:String = 'server_error';
+    public static const WO_SERVER_CRACK:String = 'server_crack';
     public static const WO_ANOTHER_GAME_ERROR:String = 'another_game';
     public static const WO_SHOP:String = 'shop';
     public static const WO_TRAIN:String = 'train';
@@ -229,6 +231,9 @@ public class WindowsManager {
                 break;
             case WO_ANOTHER_GAME_ERROR:
                 wo = new WOAnotherGame();
+                break;
+            case WO_SERVER_CRACK:
+                wo = new WOServerCrack();
                 break;
 
             default:
