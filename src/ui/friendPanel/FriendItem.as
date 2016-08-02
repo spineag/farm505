@@ -94,6 +94,7 @@ public class FriendItem {
     }
 
     private function visitPerson():void {
+        g.managerHelpers.onUserAction();
         if (g.visitedUser && g.visitedUser == _person) return;
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {

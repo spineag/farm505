@@ -162,6 +162,7 @@ public class Ridge extends WorldObject{
     }
 
     private function onStartClick():void {
+        g.managerHelpers.onUserAction();
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
         if (g.isActiveMapEditor || g.isAway) return;
@@ -215,6 +216,7 @@ public class Ridge extends WorldObject{
     }
 
     public function onEndClick():void {
+        g.managerHelpers.onUserAction();
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialBuilding(this) && _tutorialCallback != null) {

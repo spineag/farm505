@@ -1285,7 +1285,6 @@ public class TownArea extends Sprite {
             g.directServer.getAllCityData(person, setAwayCity);
         }
         addAwayTownAreaSortCheking();
-        g.managerChest.createChest(true);
         var p:Point = new Point();
         p.x = 24;
         p.y = 26;
@@ -1367,6 +1366,7 @@ public class TownArea extends Sprite {
             fillAwayRecipe(p.userDataCity.recipes[i]);
         }
         g.managerCats.makeAwayCats();
+        g.managerChest.createChest(true);
         zAwaySort();
         decorAwayTailSort();
         sortAwayAtLockedLands();
@@ -1472,7 +1472,7 @@ public class TownArea extends Sprite {
                     worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild ) {
             } else {
                 if (!checkAwayFreeGrids(posX, posY, worldObject.sizeX, worldObject.sizeY)) {
-                    Cc.error('TownArea pasteAwayBuild checkFreeGrids:: posX, posY not empty ' + worldObject.dataBuild.name + ' ' + worldObject.dataBuild.id);
+                    Cc.error('TownArea pasteAwayBuild checkFreeGrids::' + posX + ', ' + posY + ' not empty ' + worldObject.dataBuild.name + ' ' + worldObject.dataBuild.id);
                     return;
                 }
             }
