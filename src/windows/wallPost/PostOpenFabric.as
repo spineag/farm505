@@ -104,7 +104,7 @@ public class PostOpenFabric  extends WindowMain {
     }
 
     private function onClick():void {
-//        g.managerWallPost.openWindow(ManagerWallPost.NEW_FABRIC,null,200,DataMoney.SOFT_CURRENCY,_data);
+        g.managerWallPost.openWindow(ManagerWallPost.NEW_FABRIC,null,200,DataMoney.SOFT_CURRENCY,_data);
         hideIt();
     }
 

@@ -18,6 +18,7 @@ import windows.WindowsManager;
 
 public class WOServerError extends WindowMain {
     private var _txtError:TextField;
+    private var _txtErrorNew:TextField;
     private var _woBG:WindowBackground;
     private var _b:CButton;
 
@@ -40,6 +41,12 @@ public class WOServerError extends WindowMain {
         _txtError.x = -170;
         _txtError.y = -170;
         _source.addChild(_txtError);
+        _txtErrorNew = new TextField(420,100,'',g.allData.fonts['BloggerBold'],22,Color.WHITE);
+        _txtErrorNew.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtErrorNew.x = -165;
+        _txtErrorNew.y = -170;
+        _source.addChild(_txtErrorNew);
+
         _txtError.touchable = false;
         _b = new CButton();
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
@@ -57,7 +64,7 @@ public class WOServerError extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-//        _txtError.text = params[0];
+        _txtError.text = "Ошибка сервера " + params[0];
         showIt();
     }
 

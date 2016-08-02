@@ -381,10 +381,12 @@ public class WOOrder extends WindowMain{
         }
     }
 
-    private function onItemClick(item:WOOrderItem, isAfterSell:Boolean = false, delOrsell:Boolean = false):void {
+    private function onItemClick(item:WOOrderItem, isAfterSell:Boolean = false, delOrsell:Boolean = false, recheck:int = -1):void {
         if (_waitForAnswer) return;
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
+        if (recheck > -1 && _activeOrderItem != item) return;
         clearResourceItems();
+
         _activeOrderItem = item;
         fillResourceItems(_activeOrderItem.getOrder());
         _activeOrderItem.activateIt(true);

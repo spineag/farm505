@@ -221,6 +221,9 @@ public class WOOrderItem {
             if(_coinsImage)_coinsImage.visible = true;
             if(_starImage)_starImage.visible = true;
             if(_delImage)_delImage.visible = false;
+            if (_clickCallback != null) {
+                _clickCallback.apply(null, [this,false,_deleteOrSell,1]);
+            }
 //            if(_txtName)_wo.timerSkip(_order);
 //            else g.userTimer.newCatOrder();
         }
@@ -238,6 +241,9 @@ public class WOOrderItem {
             if(_starImage)_starImage.visible = true;
             if(_delImage)_delImage.visible = false;
             if(_clockImage)_clockImage.visible = false;
+            if (_clickCallback != null) {
+                _clickCallback.apply(null, [this,false,_deleteOrSell,1]);
+            }
 //            if(_txtName)_wo.timerSkip(_order);
 //            else g.userTimer.newCatOrder();
         }
