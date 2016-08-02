@@ -100,7 +100,8 @@ public class ManagerTutorial {
 
     private function updateTutorialStep():void {
         g.directServer.updateUserTutorialStep(null);
-        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TUTORIAL, {id:g.user.tutorialStep});
+        if (g.analyticManager)
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TUTORIAL, {id:g.user.tutorialStep});
     }
 
     public function initScenes():void {
