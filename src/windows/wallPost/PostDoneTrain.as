@@ -66,7 +66,7 @@ public class PostDoneTrain extends WindowMain {
     }
 
     private function onClick():void {
-//        g.managerWallPost.openWindow(ManagerWallPost.DONE_TRAIN,null,100,9);
+        g.managerWallPost.openWindow(ManagerWallPost.DONE_TRAIN,null,100,9);
         super.hideIt();
     }
 

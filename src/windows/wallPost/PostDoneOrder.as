@@ -65,7 +65,7 @@ public class PostDoneOrder extends WindowMain {
     }
 
     private function onClick():void {
-//        g.managerWallPost.openWindow(ManagerWallPost.DONE_ORDER,null,200,DataMoney.SOFT_CURRENCY);
+        g.managerWallPost.openWindow(ManagerWallPost.DONE_ORDER,null,200,DataMoney.SOFT_CURRENCY);
         super.hideIt();
     }
 

@@ -65,7 +65,7 @@ public class PostOpenLand  extends WindowMain {
     }
 
     private function onClick():void {
-//        g.managerWallPost.openWindow(ManagerWallPost.NEW_LAND,null,3,DataMoney.HARD_CURRENCY);
+        g.managerWallPost.openWindow(ManagerWallPost.NEW_LAND,null,3,DataMoney.HARD_CURRENCY);
         super.hideIt();
     }
 

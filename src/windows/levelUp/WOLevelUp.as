@@ -326,7 +326,7 @@ public class WOLevelUp extends WindowMain {
     }
 
     private function onClickShare():void {
-//        g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_count,DataMoney.HARD_CURRENCY);
+        g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_count,DataMoney.HARD_CURRENCY);
         hideIt();
     }
 

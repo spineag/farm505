@@ -1031,6 +1031,7 @@ public class Tree extends WorldObject {
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
             new FlyMessage(p,'Полито другим игроком');
+            _state = FIXED;
             makeWateringIcon();
             return;
         }
