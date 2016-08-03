@@ -219,7 +219,7 @@ public class WOMarket  extends WindowMain {
             }
         }
         _arrFriends.unshift(g.user.neighbor);
-        if (g.user.level >= 5) _arrFriends.unshift(g.user);
+        _arrFriends.unshift(g.user);
         _txtName = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
@@ -572,7 +572,8 @@ public class WOMarket  extends WindowMain {
             if (_shiftFriend == 1) {
                 _shiftFriend = -1;
             }
-            _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
+            if (_arrFriends[_shiftFriend + 1] == null && paper)  _item2 = new MarketFriendItem(g.user, this, _shiftFriend + 1);
+            else _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
             _item2.source.y = 1 * 120 - 177;
             c = new CartonBackground(120, 110);
             c.x = 208 - 5;

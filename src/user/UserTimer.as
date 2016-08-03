@@ -65,6 +65,7 @@ public class UserTimer {
 
         for (i = 0; i < arr.length; i++) {
             if (!arr[i].cat) {
+                arr[i].delOb = false;
                 arr[i].cat = g.managerOrderCats.getNewCatForOrder(null,arr[i].catOb);
 //                g.directServer.updateUserOrder(int(order.dbId), order.placeNumber, null);
                 break;

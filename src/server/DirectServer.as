@@ -621,10 +621,15 @@ public class DirectServer {
             g.user.greenCouponCount = int(ob.green_count);
             g.user.globalXP = int(ob.xp);
             g.user.allNotification = int(ob.notification_new);
-            if (ob.music == '1') g.soundManager.enabledMusic(true);
-            else g.soundManager.enabledMusic(false);
-            if (ob.sound == '1') g.soundManager.enabledSound(true);
-            else g.soundManager.enabledSound(false);
+            if (!g.isDebug) {
+                if (ob.music == '1') g.soundManager.enabledMusic(true);
+                else g.soundManager.enabledMusic(false);
+                if (ob.sound == '1') g.soundManager.enabledSound(true);
+                else g.soundManager.enabledSound(false);
+            } else {
+                g.soundManager.enabledMusic(false);
+                g.soundManager.enabledSound(false);
+            }
 //            g.userTimer.timerAtPapper = int(ob.time_paper);
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
             else g.userTimer.timerAtPapper = 300 - (ob.time_paper - int(new Date().getTime() / 1000)) * (-1);
