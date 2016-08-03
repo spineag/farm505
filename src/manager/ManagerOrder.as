@@ -113,6 +113,7 @@ public class ManagerOrder {
         order.addCoupone = ob.add_coupone == '1';
         order.startTime = int(ob.start_time) || 0;
         order.placeNumber = int(ob.place);
+        if (order.startTime - int(new Date().getTime()/1000) > 0 ) order.delOb = true;
         Utils.intArray(order.resourceCounts);
         Utils.intArray(order.resourceIds);
         _arrOrders.push(order);

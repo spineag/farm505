@@ -139,6 +139,41 @@ public class WOOrderItem {
         _deleteOrSell = afterSale;
 
         _leftSeconds = _order.startTime - int(new Date().getTime()/1000);
+
+//        if (_leftSeconds > 0) {
+//            if (order.delOb) {
+//                _txtName.visible = false;
+//                _txtXP.visible = false;
+//                _txtCoins.visible = false;
+//                _coinsImage.visible = false;
+//                _starImage.visible = false;
+//                _check.visible = false;
+//                g.userTimer.setOrder(_order);
+//                g.gameDispatcher.addToTimer(renderLeftTime);
+//                _clockImage.visible = false;
+//                _delImage.visible = true;
+//            } else {
+//                _txtName.visible = false;
+//                _txtXP.visible = false;
+//                _txtCoins.visible = false;
+//                _coinsImage.visible = false;
+//                _starImage.visible = false;
+//                _check.visible = false;
+//                g.userTimer.setOrder(_order);
+//                g.gameDispatcher.addToTimer(renderLeftTimeOrder);
+//                _delImage.visible = false;
+//                _clockImage.visible = true;
+//            }
+//        } else {
+//            _leftSeconds = -1;
+//            _txtName.visible = true;
+//            _txtXP.visible = true;
+//            _txtCoins.visible = true;
+//            _coinsImage.visible = true;
+//            _starImage.visible = true;
+//            _clockImage.visible = false;
+//            _delImage.visible = false;
+//        }
         if (afterSale) {
             if (_leftSeconds > 0) {
                 _txtName.visible = false;

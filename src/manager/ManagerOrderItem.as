@@ -16,5 +16,6 @@ public class ManagerOrderItem {
     public var placeNumber:int;
     public var cat:OrderCat;
     public var catOb:Object;
+    public var delOb:Boolean = false;
 }
 }
