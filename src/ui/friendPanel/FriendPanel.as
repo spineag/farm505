@@ -343,7 +343,8 @@ public class FriendPanel {
         for (var i:int=0; i<_arrFriends.length; i++) {
             arr.push(_arrFriends[i].userSocialId);
         }
-        g.directServer.getAllFriendsInfo(arr, sortFriend);
+
+        if (arr.length > 0)g.directServer.getAllFriendsInfo(arr, sortFriend);
     }
 
     public function checkLevel():void {

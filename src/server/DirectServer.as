@@ -4494,7 +4494,7 @@ public class DirectServer {
         } catch (e:Error) {
             Cc.error('skipOrderTimer: wrong JSON:' + String(response));
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserOrder: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipOrderTimer: wrong JSON:' + String(response));
             return;
         }
 

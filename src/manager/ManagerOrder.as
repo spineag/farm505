@@ -990,17 +990,19 @@ public class ManagerOrder {
                 break;
             }
         }
-
-        g.directServer.deleteUserOrder(order.dbId, null);
-        var pl:int = order.placeNumber;
-        order = null;
-        addNewOrders(1, 0, f, pl,false);
-        for (i = 0; i < _arrOrders.length; i++) {
-            if (!_arrOrders[i].cat) {
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
-                break;
+        var f:Function = function ():void {
+            var pl:int = order.placeNumber;
+            order = null;
+            addNewOrders(1, 0, f, pl,false);
+            for (i = 0; i < _arrOrders.length; i++) {
+                if (!_arrOrders[i].cat) {
+                    _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
+                    break;
+                }
             }
-        }
+        };
+        g.directServer.deleteUserOrder(order.dbId, f);
+
     }
 
     public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
