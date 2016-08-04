@@ -2517,7 +2517,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = train_db_id;
-        variables.hash = MD5.hash(String(g.user.userId)+String(id)+SECRET);
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.id)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -4494,7 +4494,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.state = state;
-        variables.hash = MD5.hash(String(g.user.userId)+String(id)+String(state)+SECRET);
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.id)+String(state)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -4549,7 +4549,7 @@ public class DirectServer {
         variables.awayUserSocialId = g.visitedUser.userSocialId;
         variables.id = treeDbId;
         variables.state = state;
-        variables.hash = MD5.hash(String(g.user.userId)+String(g.user.userSocialId)+String(variables.awayUserSocialId)+String(id)+SECRET);
+        variables.hash = MD5.hash(String(g.user.userId)+String(g.user.userSocialId)+String(variables.awayUserSocialId)+String(variables.id)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -4654,7 +4654,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.state = state;
-        variables.hash = MD5.hash(String(g.user.userId)+String(id)+String(state)+SECRET);
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.id)+String(state)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5010,7 +5010,7 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
-        } else if (d,id == 6) {
+        } else if (d.id == 6) {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserMarketCell: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
