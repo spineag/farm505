@@ -367,8 +367,11 @@ public class Tree extends WorldObject {
             var st:String;
             var b:Bone;
             if (_countCrafted > _craftedCountFromServer) {
-                for (var i:int = 0; i < _countCrafted - _craftedCountFromServer; i++) {
-                    st = 'fruit' + (_countCrafted - i);
+                var c:int = _countCrafted - _craftedCountFromServer;
+                var arma:int = _countCrafted;
+                for (var i:int = 0; i < c; i++) {
+//                    if (_countCrafted == i)st = 'fruit2';
+                    st = 'fruit' + (arma - i);
                     b = _armature.getBone(st);
                     _armature.removeBone(b, true);
                     _countCrafted--;
@@ -706,6 +709,7 @@ public class Tree extends WorldObject {
                     break;
                 case GROW_FIXED_FLOWER:
                     _state = GROWED_FIXED;
+                    g.managerTree.updateTreeCraftCount(tree_db_id,4);
                     g.gameDispatcher.removeFromTimer(render);
                     break;
             }
@@ -870,7 +874,7 @@ public class Tree extends WorldObject {
         } else if (_state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
             _state = GROWED_FIXED;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED_FIXED, _dbBuildingId, null);
+            g.directServer.skipTimeOnTree(GROWED_FIXED, _dbBuildingId, afterSkip);
         }
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_TREE_ID, info: _dataBuild.id});
     }

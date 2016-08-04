@@ -1003,29 +1003,43 @@ public class ManagerOrder {
     }
 
     public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
-        var b:Boolean;
+        var b:Boolean = false;
         var k:int;
         var order:ManagerOrderItem;
 
         if (!_arrOrders.length) return false;
         for (var i:int=0; i<_arrOrders.length; i++) {
-            order = _arrOrders[i];
+           order = _arrOrders[i];
             if (!order || !order.resourceIds || !order.resourceIds.length) continue;
             b = true;
-            for (k=0; k<order.resourceIds.length; k++) {
+        if (order.cat != null && order.startTime - int(new Date().getTime() / 1000) <= 0) {
+            for (k = 0; k < order.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
                     b = false;
                     break;
                 }
-                if (order.cat == null) {
-                    b = false;
-                    break;
-                }
             }
+        } else b = false;
             if (b) return true;
         }
 
         return false;
+
+//        if (!_arrOrders.length) return false;
+//        for (var i:int=0; i<_arrOrders.length; i++) {
+//            order = _arrOrders[i];
+//            if (!order || !order.resourceIds || !order.resourceIds.length) continue;
+//            if (order.cat != null && order.startTime - int(new Date().getTime() / 1000) <= 0) {
+//                for (k = 0; k < order.resourceIds.length; k++) {
+//                    if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+//                        b = true;
+////                        break;
+//                    }
+//                }
+//            }
+//            if (b)return true;
+//        }
+//        return false;
     }
 
     public function onSkipTimer(order:ManagerOrderItem):void {

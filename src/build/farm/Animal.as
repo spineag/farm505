@@ -391,7 +391,8 @@ public class Animal {
     }
 
     public function onHover():void {
-        if (_isOnHover) true;
+        if (_isOnHover) return;
+        if (g.isAway) return;
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         if (g.isActiveMapEditor) return;

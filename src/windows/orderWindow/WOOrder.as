@@ -112,7 +112,7 @@ public class WOOrder extends WindowMain{
             }
         }
         if (delay > 0) i = 0;
-        onItemClick(_arrItems[i]);
+        onItemClick(_arrItems[i],false,-1,true);
         _waitForAnswer = false;
         changeCatTexture(i);
         startAnimationCats();
@@ -313,7 +313,7 @@ public class WOOrder extends WindowMain{
         };
         _arrOrders[_activeOrderItem.position] = null;
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
-//        g.bottomPanel.checkIsFullOrder();
+        g.bottomPanel.checkIsFullOrder();
         animateCatsOnSell();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
@@ -333,7 +333,7 @@ public class WOOrder extends WindowMain{
                     break;
                 }
             }
-            order.startTime = int(new Date().getTime()/1000) + 19;
+            order.startTime = int(new Date().getTime()/1000) + 23;
             orderItem.fillIt(order, order.placeNumber, onItemClick, b);
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {
@@ -381,7 +381,7 @@ public class WOOrder extends WindowMain{
         }
     }
 
-    private function onItemClick(item:WOOrderItem, isAfterSell:Boolean = false, recheck:int = -1):void {
+    private function onItemClick(item:WOOrderItem, isAfterSell:Boolean = false, recheck:int = -1, open:Boolean = false):void {
         if (_waitForAnswer) return;
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
         if (recheck > -1 && _activeOrderItem != item) return;
@@ -404,6 +404,10 @@ public class WOOrder extends WindowMain{
             _btnSkipDelete.visible = true;
             if (_activeOrderItem.leftSeconds <= 15) _btnSkipDelete.visible = false;
             if (!item.getOrder().delOb) {
+                if (open) {
+                    stopCatsAnimations();
+                    emptyCarCustomer();
+                }
                 _txtOrder.text = 'ЗАКАЗ ОФОРМЛЕН';
                 _btnSkipDelete.visible = false;
             } else {
@@ -621,12 +625,12 @@ public class WOOrder extends WindowMain{
     public function timerSkip(order:ManagerOrderItem):void {
         var pl:int = order.placeNumber;
         for (var i:int = 0; i<_arrOrders.length; i++) {
-            if (_arrOrders[i].placeNumber == pl) {
+            if (_arrOrders[i].placeNumber == pl &&  _arrOrders[i].delOb) {
+                _arrOrders[i].delOb = false;
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 break;
             }
         }
-        g.bottomPanel.checkIsFullOrder();
     }
 
     private function set setTimerText(c:int):void {
