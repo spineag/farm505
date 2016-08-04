@@ -43,6 +43,7 @@ public class WorldObject {
     protected var _isoView:Sprite;
     private var _preloader:FlashAnimatedPreloader;
     protected var _craftSprite:Sprite;
+    protected var _buildingBuildSprite:Sprite;
     protected var _depth:Number = 0;
     protected var _rect:Rectangle;
     protected var _dbBuildingId:int = 0;   // id в таблице user_building
@@ -74,6 +75,7 @@ public class WorldObject {
 
     public function onOut():void {}
     public function onHover():void {}
+    public function afterPasteBuild():void {}
 
     public function get sizeX():uint {
         return _flip ? _sizeY : _sizeX;
@@ -129,6 +131,10 @@ public class WorldObject {
         return _craftSprite;
     }
 
+    public function get buildingBuildSprite():Sprite {
+        return _buildingBuildSprite;
+    }
+
     public function updateDepth():void {
         var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
 
@@ -148,10 +154,10 @@ public class WorldObject {
     public function makeFlipBuilding():void {
         if (_flip) {
             _source.scaleX = -_defaultScale;
-            if (_craftSprite) _craftSprite.scaleX = -_defaultScale;
+            if (_buildingBuildSprite) _buildingBuildSprite.scaleX = -_defaultScale;
         } else {
             _source.scaleX = _defaultScale;
-            if (_craftSprite) _craftSprite.scaleX = _defaultScale;
+            if (_buildingBuildSprite) _buildingBuildSprite.scaleX = _defaultScale;
         }
     }
 
@@ -217,9 +223,17 @@ public class WorldObject {
 //            while (_isoView.numChildren) _isoView.removeChildAt(0);
 //            _isoView = null;
 //        }
+        if (_buildingBuildSprite) while (_buildingBuildSprite.numChildren) _buildingBuildSprite.removeChildAt(0);
         if (_craftSprite) while (_craftSprite.numChildren) _craftSprite.removeChildAt(0);
         if (_build) while (_build.numChildren) _build.removeChildAt(0);
         if (_source) while (_source.numChildren) _source.removeChildAt(0);
+        if (_craftSprite) {
+            if (g.isAway) {
+                if (g.cont.craftAwayCont.contains(_craftSprite)) g.cont.craftAwayCont.removeChild(_craftSprite);
+            } else {
+                if (g.cont.craftCont.contains(_craftSprite)) g.cont.craftCont.removeChild(_craftSprite);
+            }
+        }
         _dataBuild = null;
         _build = null;
         _source = null;
@@ -346,7 +360,7 @@ public class WorldObject {
     }
 
     protected function addDoneBuilding():void {
-        if (_craftSprite) {
+        if (_buildingBuildSprite) {
             if (g.allData.factory['buildingBuild']) {
                 addDoneBuilding1();
             } else {
@@ -363,14 +377,14 @@ public class WorldObject {
         } else {
             _buildingBuild.doneAnimation();
         }
-        _craftSprite.addChild(_buildingBuild.source);
-        _rect = _craftSprite.getBounds(_craftSprite);
+        _buildingBuildSprite.addChild(_buildingBuild.source);
+        _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
         _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
         _source.registerHitArea(_hitArea);
     }
 
     protected function addFoundationBuilding():void {
-        if (_craftSprite) {
+        if (_buildingBuildSprite) {
             if (g.allData.factory['buildingBuild']) {
                 addFoundationBuilding1();
             } else {
@@ -387,12 +401,12 @@ public class WorldObject {
         } else {
             _buildingBuild.workAnimation();
         }
-        _craftSprite.addChild(_buildingBuild.source);
-        _rect = _craftSprite.getBounds(_craftSprite);
+        _buildingBuildSprite.addChild(_buildingBuild.source);
+        _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
         var isVisible:Boolean = _craftSprite.visible;
-        _craftSprite.visible = true;
+        _buildingBuildSprite.visible = true;
         _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
-        _craftSprite.visible = isVisible;
+        _buildingBuildSprite.visible = isVisible;
         _source.registerHitArea(_hitArea);
     }
 
@@ -408,9 +422,9 @@ public class WorldObject {
         }
     }
 
-    protected function clearCraftSprite():void {
-        if (_craftSprite) {
-            while (_craftSprite.numChildren) _craftSprite.removeChildAt(0);
+    protected function clearBuildingBuildSprite():void {
+        if (_buildingBuildSprite) {
+            while (_buildingBuildSprite.numChildren) _buildingBuildSprite.removeChildAt(0);
             if (_buildingBuild) {
                 _buildingBuild.deleteIt();
                 _buildingBuild = null;
@@ -422,7 +436,7 @@ public class WorldObject {
         _leftBuildTime--;
         if (_leftBuildTime <= 0) {
             g.gameDispatcher.removeFromTimer(renderBuildProgress);
-            clearCraftSprite();
+            clearBuildingBuildSprite();
             addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
             if (g.managerTutorial.isTutorial && _dataBuild.buildType == BuildType.FABRICA && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {

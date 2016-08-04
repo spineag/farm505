@@ -2,6 +2,8 @@
  * Created by user on 6/12/15.
  */
 package resourceItem {
+import build.farm.Animal;
+
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
@@ -47,6 +49,7 @@ public class CraftItem {
     private var _particle:CraftItemParticle;
     private var _arrow:SimpleArrow;
     private var _tutorialCallback:Function;
+    public var animal:Animal;
 
     private var g:Vars = Vars.getInstance();
 
@@ -90,7 +93,7 @@ public class CraftItem {
     }
 
     private function onHover():void {
-        _image.filter = ManagerFilters.YELLOW_STROKE;
+        _image.filter = ManagerFilters.WHITE_STROKE;
     }
 
     private function onOut():void {
@@ -144,7 +147,7 @@ public class CraftItem {
             g.craftPanel.showIt(_resourceItem.placeBuild);
 
         if (_callback != null) {
-            _callback.apply(null, []);
+            _callback.apply(null, [_resourceItem, this]);
         }
         _source.visible = true;
         _source.endClickCallback = null;
@@ -178,6 +181,7 @@ public class CraftItem {
                 _source.removeChildAt(0);
             }
             _source = null;
+            animal = null;
             if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
                 g.craftPanel.afterFly(_resourceItem);
         };

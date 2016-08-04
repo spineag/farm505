@@ -50,7 +50,13 @@ public class Fabrica extends WorldObject {
             _dataBuild.countCell = g.dataBuilding.objectBuilding[_dataBuild.id].startCountCell;
         }
         _craftSprite = new Sprite();
-        _source.addChild(_craftSprite);
+        if (g.isAway) {
+            g.cont.craftAwayCont.addChild(_craftSprite);
+        } else {
+            g.cont.craftCont.addChild(_craftSprite);
+        }
+        _buildingBuildSprite = new Sprite();
+        _source.addChild(_buildingBuildSprite);
         checkBuildState();
 
         _arrRecipes = [];
@@ -63,6 +69,12 @@ public class Fabrica extends WorldObject {
             _source.outCallback = onOut;
         }
         updateRecipes();
+    }
+
+    override public function afterPasteBuild():void {
+        _craftSprite.x = _source.x;
+        _craftSprite.y = 100*g.scaleFactor + _source.y;
+        super.afterPasteBuild();
     }
 
     private function checkBuildState():void {
@@ -99,13 +111,12 @@ public class Fabrica extends WorldObject {
         stopAnimation();
         _hitArea = g.managerHitArea.getHitArea(_source, 'fabrica' + _dataBuild.image);
         _source.registerHitArea(_hitArea);
-        _source.setChildIndex(_craftSprite, _source.numChildren - 1);
         if (!g.isAway) onHeroAnimation();
     }
 
 
     public function showShopView():void {
-        _craftSprite.visible = false;
+        _buildingBuildSprite.visible = false;
         createAnimatedBuild(onCreateBuild);
     }
 
@@ -116,8 +127,8 @@ public class Fabrica extends WorldObject {
             }
             while (_build.numChildren) _build.removeChildAt(0);
         }
-        _craftSprite.visible = true;
-        _rect = _craftSprite.getBounds(_craftSprite);
+        _buildingBuildSprite.visible = true;
+        _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
         if (_rect.width) {
             _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
             _source.registerHitArea(_hitArea);
@@ -250,8 +261,7 @@ public class Fabrica extends WorldObject {
                     if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
                         g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                     } else {
-                        var item:CraftItem = _arrCrafted.pop();
-                        item.flyIt();
+                        (_arrCrafted[0] as CraftItem).flyIt();
                     }
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
@@ -288,10 +298,9 @@ public class Fabrica extends WorldObject {
             if (g.useDataFromServer) {
                 g.directServer.openBuildedBuilding(this, onOpenBuilded);
             }
-            clearCraftSprite();
+            clearBuildingBuildSprite();
             onOut();
             createAnimatedBuild(onCreateBuild);
-            _source.setChildIndex(_craftSprite, _source.numChildren-1);
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
                 start = _source.parent.localToGlobal(start);
@@ -445,12 +454,8 @@ public class Fabrica extends WorldObject {
                 countResources = g.dataRecipe.objectRecipe[id].numberCreate;
             }
         }
-        var f1:Function = function():void {
-            if (g.useDataFromServer) g.managerFabricaRecipe.onCraft(item);
-        };
-        var craftItem:CraftItem = new CraftItem(0, 135*g.scaleFactor, item, _craftSprite, countResources, f1);
+        var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, useCraftedResource, true);
         _arrCrafted.push(craftItem);
-        craftItem.removeDefaultCallbacks();
         craftItem.addParticle();
         if (!_arrList.length && _heroCat) {
             if (_heroCat.visible) {
@@ -462,6 +467,11 @@ public class Fabrica extends WorldObject {
             }
             _heroCat = null;
         }
+    }
+    
+    private function useCraftedResource(item:ResourceItem, crItem:CraftItem):void {
+        _arrCrafted.splice(_arrCrafted.indexOf(crItem), 1);
+        g.managerFabricaRecipe.onCraft(item);
     }
 
     public function awayImitationOfWork():void {

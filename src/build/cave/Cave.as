@@ -37,11 +37,17 @@ public class Cave extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Cave');
             return;
         }
-        createAnimatedBuild(checkCaveState);
         _isAnimate = false;
         _source.releaseContDrag = true;
         _craftSprite = new Sprite();
-        _source.addChild(_craftSprite);
+        if (g.isAway) {
+            g.cont.craftAwayCont.addChild(_craftSprite);
+        } else {
+            g.cont.craftCont.addChild(_craftSprite);
+        }
+        _buildingBuildSprite = new Sprite();
+        _source.addChild(_buildingBuildSprite);
+        createAnimatedBuild(checkCaveState);
         _arrCraftItems = [];
 
         if (!g.isAway) {
@@ -54,6 +60,12 @@ public class Cave extends WorldObject{
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
         }
+    }
+    
+    override public function afterPasteBuild():void {
+        _craftSprite.x = 104*g.scaleFactor + _source.x;
+        _craftSprite.y = 109*g.scaleFactor + _source.y;
+        super.afterPasteBuild();
     }
 
     override public function clearIt():void {
@@ -69,9 +81,6 @@ public class Cave extends WorldObject{
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_source, 'caveBuild');
         _source.registerHitArea(_hitArea);
-        if (_source.contains(_craftSprite)) {
-            _source.setChildIndex(_craftSprite, _source.numChildren - 1);
-        }
     }
 
     private function checkCaveState():void {
@@ -145,8 +154,6 @@ public class Cave extends WorldObject{
         if (ar.length == 0 || ar == null) return;
         var item:ResourceItem;
         var craftItem:CraftItem;
-        _craftSprite.x = 104*g.scaleFactor;
-        _craftSprite.y = 109*g.scaleFactor;
         for (var i:int = 0; i <ar.length; i++) {
             item = new ResourceItem();
             item.fillIt(g.dataResource.objectResources[ar[i].resource_id]);
@@ -161,7 +168,7 @@ public class Cave extends WorldObject{
         _leftBuildTime--;
         if (_leftBuildTime <= 0) {
             g.gameDispatcher.removeFromTimer(renderBuildCaveProgress);
-            clearCraftSprite();
+            clearBuildingBuildSprite();
             addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
         }
@@ -319,7 +326,7 @@ public class Cave extends WorldObject{
             }
             _stateBuild = STATE_ACTIVE;
             onOut();
-            clearCraftSprite();
+            clearBuildingBuildSprite();
             _build.visible = true;
             _rect = _build.getBounds(_build);
             showBoom();

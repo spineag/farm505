@@ -34,6 +34,11 @@ public class Farm extends WorldObject{
             return;
         }
         _craftSprite = new Sprite();
+        if (g.isAway) {
+            g.cont.craftAwayCont.addChild(_craftSprite);
+        } else {
+            g.cont.craftCont.addChild(_craftSprite);
+        }
         _contAnimals = new Sprite();
         setDataAnimal();
         createAtlasBuild(onCreateBuild);
@@ -54,9 +59,15 @@ public class Farm extends WorldObject{
                 Cc.error('Farm:: no image: ' + _data.image + '2');
             }
         }
-        _craftSprite.y = 320*g.scaleFactor;
+
         _arrAnimals = [];
         _arrCrafted = [];
+    }
+
+    override public function afterPasteBuild():void {
+        _craftSprite.x = _source.x;
+        _craftSprite.y = 100*g.scaleFactor + _source.y;
+        super.afterPasteBuild();
     }
 
     private function onCreateBuild():void {
@@ -67,7 +78,6 @@ public class Farm extends WorldObject{
         _hitArea = g.managerHitArea.getHitArea(_source, 'farm' + _dataBuild.image);
         _source.registerHitArea(_hitArea);
         _source.addChild(_contAnimals);
-        _source.addChild(_craftSprite);
         if (!g.isAway) {
             if (_dataAnimal.id != 6) {
                 g.gameDispatcher.addEnterFrame(sortAnimals);
@@ -85,10 +95,6 @@ public class Farm extends WorldObject{
                 (_arrAnimals[i] as Animal).deleteFilter();
             }
             _source.filter = ManagerFilters.BUILD_STROKE;
-        } else {
-            if (_arrCrafted.length) {
-                _craftSprite.filter = ManagerFilters.BUILD_STROKE;
-            }
         }
     }
 
@@ -99,7 +105,6 @@ public class Farm extends WorldObject{
         }
         if (g.isActiveMapEditor) return;
         _source.filter = null;
-        _craftSprite.filter = null;
     }
 
     private function onClick():void {
@@ -137,8 +142,7 @@ public class Farm extends WorldObject{
                     onOut();
                     g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                 } else {
-                    var item:CraftItem = _arrCrafted.pop();
-                    item.flyIt();
+                    (_arrCrafted[0] as CraftItem).flyIt();
                     checkForCraft();
                 }
             }
@@ -313,19 +317,24 @@ public class Farm extends WorldObject{
         } else {
             for (i=0; i<_arrAnimals.length; i++) {
                 (_arrAnimals[i] as Animal).source.isTouchable = true;
-                _craftSprite.filter = null;
             }
         }
     }
 
-    public function onAnimalReadyToCraft(idResource:int, onCraftCallback:Function):void {
+    public function onAnimalReadyToCraft(idResource:int, an:Animal):void {
         var rItem:ResourceItem = new ResourceItem();
         rItem.fillIt(g.dataResource.objectResources[idResource]);
-        var item:CraftItem = new CraftItem(0, -70, rItem, craftSprite, 1, onCraftCallback, true);
-        item.removeDefaultCallbacks();
+        var item:CraftItem = new CraftItem(0, 0, rItem, craftSprite, 1, useCraftedResource, true);
+        item.animal = an;
         item.addParticle();
         _arrCrafted.push(item);
         checkForCraft();
+    }
+
+    private function useCraftedResource(item:ResourceItem, crItem:CraftItem):void {
+        (crItem.animal as Animal).onCraft();
+        _arrCrafted.splice(_arrCrafted.indexOf(crItem), 1);
+        g.managerFabricaRecipe.onCraft(item);
     }
 
     public function addArrowToCraftItem(f:Function):void {

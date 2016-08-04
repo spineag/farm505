@@ -712,6 +712,7 @@ public class TownArea extends Sprite {
                 g.managerTutorial.checkTutorialCallback();
             }
         }
+        worldObject.afterPasteBuild();
 
         // временно полная сортировка, далее нужно будет дописать "умную"
         if (updateAfterMove) zSort();

@@ -231,13 +231,13 @@ public class Animal {
     }
 
     private function craftResource():void {
-        _farm.onAnimalReadyToCraft(_data.idResource, onCraft);
+        _farm.onAnimalReadyToCraft(_data.idResource, this);
     }
 
-    private function onCraft():void {
+    public function onCraft():void {
         _state = HUNGRY;
         addRenderAnimation();
-        if (g.useDataFromServer) g.directServer.craftUserAnimal(animal_db_id, null);
+        g.directServer.craftUserAnimal(animal_db_id, null);
     }
 
     public function feedAnimal(last:Boolean = false,show:Boolean = false):void {

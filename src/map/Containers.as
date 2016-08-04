@@ -28,6 +28,8 @@ public class Containers {
     public var contentCont:CSprite;
     public var cloudsCont:Sprite;
     public var animationsCont:Sprite;
+    public var craftCont:Sprite;
+    public var craftAwayCont:Sprite;
     public var interfaceContMapEditor:Sprite;
     public var interfaceCont:Sprite;
     public var animationsContTop:Sprite;
@@ -55,6 +57,8 @@ public class Containers {
         backgroundCont = new Sprite();
         gridDebugCont = new Sprite();
         contentCont = new CSprite();
+        craftCont = new Sprite();
+        craftAwayCont = new Sprite();
         tailCont = new CSprite();
         animationsCont = new Sprite();
         cloudsCont = new Sprite();
@@ -75,6 +79,8 @@ public class Containers {
         gameCont.addChild(gridDebugCont);
         gameCont.addChild(tailCont);
         gameCont.addChild(contentCont);
+        gameCont.addChild(craftCont);
+        gameCont.addChild(craftAwayCont);
         gameCont.addChild(animationsCont);
         gameCont.addChild(cloudsCont);
         mainCont.addChild(hintGameCont);
@@ -94,6 +100,8 @@ public class Containers {
         addGameContListener(true);
         contentCont.nameIt = 'contentCont_csprite';
         tailCont.nameIt = 'tailCont_csprite';
+        
+        craftAwayCont.touchable = false;
     }
 
     public function addGameContListener(value:Boolean):void {

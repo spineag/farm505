@@ -230,7 +230,7 @@ public class Train extends WorldObject{
         _leftBuildTime--;
         if (_leftBuildTime <= 0) {
             g.gameDispatcher.removeFromTimer(renderBuildTrainProgress);
-            clearCraftSprite();
+            clearBuildingBuildSprite();
             addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
         }
@@ -399,7 +399,7 @@ public class Train extends WorldObject{
             g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
             startRenderTrainWork();
             onOut();
-            clearCraftSprite();
+            clearBuildingBuildSprite();
             while (_build.numChildren) {
                 _build.removeChildAt(0);
             }
