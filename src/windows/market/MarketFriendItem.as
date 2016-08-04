@@ -131,6 +131,8 @@ public class MarketFriendItem {
     private function chooseThis():void {
         if (g.managerTutorial.isTutorial) return;
         if (_wo.curUser == _person) return;
+        if (_person == g.user && _person.level < 5) return;
+        if (!_wo) return;
         _wo.onChooseFriendOnPanel(_person, _shiftFriend);
     }
 

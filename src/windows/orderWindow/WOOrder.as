@@ -334,10 +334,10 @@ public class WOOrder extends WindowMain{
                 }
             }
             order.startTime = int(new Date().getTime()/1000) + 19;
-            orderItem.fillIt(order, order.placeNumber, onItemClick, b, true);
+            orderItem.fillIt(order, order.placeNumber, onItemClick, b);
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {
-                onItemClick(_activeOrderItem, true,true);
+                onItemClick(_activeOrderItem, true);
             }
         }
         var i:int;
@@ -381,7 +381,7 @@ public class WOOrder extends WindowMain{
         }
     }
 
-    private function onItemClick(item:WOOrderItem, isAfterSell:Boolean = false, delOrsell:Boolean = false, recheck:int = -1):void {
+    private function onItemClick(item:WOOrderItem, isAfterSell:Boolean = false, recheck:int = -1):void {
         if (_waitForAnswer) return;
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
         if (recheck > -1 && _activeOrderItem != item) return;
@@ -403,11 +403,10 @@ public class WOOrder extends WindowMain{
             _rightBlockTimer.visible = true;
             _btnSkipDelete.visible = true;
             if (_activeOrderItem.leftSeconds <= 15) _btnSkipDelete.visible = false;
-            if (delOrsell) {
+            if (!item.getOrder().delOb) {
                 _txtOrder.text = 'ЗАКАЗ ОФОРМЛЕН';
                 _btnSkipDelete.visible = false;
-            }
-            else {
+            } else {
                 stopCatsAnimations();
             if (!g.managerTutorial.isTutorial) emptyCarCustomer();
                 _txtOrder.text = 'ЗАКАЗ УДАЛЕН';
@@ -541,7 +540,7 @@ public class WOOrder extends WindowMain{
                     break;
                 }
             }
-            orderItem.fillIt(order, order.placeNumber, onItemClick, b);
+            orderItem.fillIt(order, order.placeNumber, onItemClick);
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {
                 onItemClick(_activeOrderItem);

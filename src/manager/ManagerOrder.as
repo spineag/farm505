@@ -143,7 +143,7 @@ public class ManagerOrder {
     // 1 - usual resource fromFabrica
     // 2 - resources made from resources from cave
     // 3 - resource plants
-    private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1,del:Boolean = true):void {
+    private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1,del:Boolean = false):void {
         var order:ManagerOrderItem;
         var arrOrderType1:Array = new Array(); //products
         var arrOrderType2:Array = new Array(); //cave res
@@ -923,7 +923,7 @@ public class ManagerOrder {
             } else {
                 order.placeNumber = place;
             }
-
+            order.delOb = del;
             _arrOrders.push(order);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
             g.directServer.addUserOrder(order, delay, f);
@@ -974,11 +974,11 @@ public class ManagerOrder {
         var pl:int = order.placeNumber;
         g.directServer.deleteUserOrder(order.dbId, null);
 
-        if (g.user.level <= 6) addNewOrders(1, TIME_FIRST_DELAY, f, order.placeNumber);
-        else if (g.user.level <= 9) addNewOrders(1, TIME_SECOND_DELAY, f, order.placeNumber);
-        else if (g.user.level <= 15) addNewOrders(1, TIME_THIRD_DELAY, f, order.placeNumber);
-        else if (g.user.level <= 19) addNewOrders(1, TIME_FOURTH_DELAY, f, order.placeNumber);
-        else if (g.user.level >= 20) addNewOrders(1, TIME_FIFTH_DELAY, f, order.placeNumber);
+        if (g.user.level <= 6) addNewOrders(1, TIME_FIRST_DELAY, f, order.placeNumber,true);
+        else if (g.user.level <= 9) addNewOrders(1, TIME_SECOND_DELAY, f, order.placeNumber,true);
+        else if (g.user.level <= 15) addNewOrders(1, TIME_THIRD_DELAY, f, order.placeNumber,true);
+        else if (g.user.level <= 19) addNewOrders(1, TIME_FOURTH_DELAY, f, order.placeNumber,true);
+        else if (g.user.level >= 20) addNewOrders(1, TIME_FIFTH_DELAY, f, order.placeNumber,true);
     }
 
     public function sellOrder(order:ManagerOrderItem, f:Function):void {
@@ -990,19 +990,16 @@ public class ManagerOrder {
                 break;
             }
         }
-        var f:Function = function ():void {
-            var pl:int = order.placeNumber;
-            order = null;
-            addNewOrders(1, 0, f, pl,false);
-            for (i = 0; i < _arrOrders.length; i++) {
-                if (!_arrOrders[i].cat) {
-                    _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
-                    break;
-                }
+        g.directServer.deleteUserOrder(order.dbId,null);
+        var pl:int = order.placeNumber;
+        order = null;
+        addNewOrders(1, 0, f, pl);
+        for (i = 0; i < _arrOrders.length; i++) {
+            if (!_arrOrders[i].cat) {
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
+                break;
             }
-        };
-        g.directServer.deleteUserOrder(order.dbId, f);
-
+        }
     }
 
     public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
@@ -1043,11 +1040,11 @@ public class ManagerOrder {
         }
         for (i = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == orderDbId) {
-                if (g.user.level <= 6) _arrOrders[i].startTime -= 2* TIME_FIRST_DELAY;
-                else if (g.user.level <= 9) _arrOrders[i].startTime -= 2*  TIME_SECOND_DELAY;
-                else if (g.user.level <= 15) _arrOrders[i].startTime -= 2* TIME_THIRD_DELAY;
-                else if (g.user.level <= 19) _arrOrders[i].startTime -= 2* TIME_FOURTH_DELAY;
-                else if (g.user.level >= 20) _arrOrders[i].startTime -= 2* TIME_FIFTH_DELAY;
+//                if (g.user.level <= 6) _arrOrders[i].startTime -= 2* TIME_FIRST_DELAY;
+//                else if (g.user.level <= 9) _arrOrders[i].startTime -= 2*  TIME_SECOND_DELAY;
+//                else if (g.user.level <= 15) _arrOrders[i].startTime -= 2* TIME_THIRD_DELAY;
+//                else if (g.user.level <= 19) _arrOrders[i].startTime -= 2* TIME_FOURTH_DELAY;
+//                else if (g.user.level >= 20) _arrOrders[i].startTime -= 2* TIME_FIFTH_DELAY;
                 break;
             }
         }

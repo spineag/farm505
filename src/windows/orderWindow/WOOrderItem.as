@@ -140,64 +140,8 @@ public class WOOrderItem {
 
         _leftSeconds = _order.startTime - int(new Date().getTime()/1000);
 
-//        if (_leftSeconds > 0) {
-//            if (order.delOb) {
-//                _txtName.visible = false;
-//                _txtXP.visible = false;
-//                _txtCoins.visible = false;
-//                _coinsImage.visible = false;
-//                _starImage.visible = false;
-//                _check.visible = false;
-//                g.userTimer.setOrder(_order);
-//                g.gameDispatcher.addToTimer(renderLeftTime);
-//                _clockImage.visible = false;
-//                _delImage.visible = true;
-//            } else {
-//                _txtName.visible = false;
-//                _txtXP.visible = false;
-//                _txtCoins.visible = false;
-//                _coinsImage.visible = false;
-//                _starImage.visible = false;
-//                _check.visible = false;
-//                g.userTimer.setOrder(_order);
-//                g.gameDispatcher.addToTimer(renderLeftTimeOrder);
-//                _delImage.visible = false;
-//                _clockImage.visible = true;
-//            }
-//        } else {
-//            _leftSeconds = -1;
-//            _txtName.visible = true;
-//            _txtXP.visible = true;
-//            _txtCoins.visible = true;
-//            _coinsImage.visible = true;
-//            _starImage.visible = true;
-//            _clockImage.visible = false;
-//            _delImage.visible = false;
-//        }
-        if (afterSale) {
-            if (_leftSeconds > 0) {
-                _txtName.visible = false;
-                _txtXP.visible = false;
-                _txtCoins.visible = false;
-                _coinsImage.visible = false;
-                _starImage.visible = false;
-                _check.visible = false;
-                g.userTimer.setOrder(_order);
-                g.gameDispatcher.addToTimer(renderLeftTimeOrder);
-                _delImage.visible = false;
-                _clockImage.visible = true;
-            } else {
-                _leftSeconds = -1;
-                _txtName.visible = true;
-                _txtXP.visible = true;
-                _txtCoins.visible = true;
-                _coinsImage.visible = true;
-                _starImage.visible = true;
-                _clockImage.visible = false;
-                _delImage.visible = false;
-            }
-        } else {
-            if (_leftSeconds > 0) {
+        if (_leftSeconds > 0) {
+            if (order.delOb) {
                 _txtName.visible = false;
                 _txtXP.visible = false;
                 _txtCoins.visible = false;
@@ -209,22 +153,79 @@ public class WOOrderItem {
                 _clockImage.visible = false;
                 _delImage.visible = true;
             } else {
-                _leftSeconds = -1;
-                _txtName.visible = true;
-                _txtXP.visible = true;
-                _txtCoins.visible = true;
-                _coinsImage.visible = true;
-                _starImage.visible = true;
+                _txtName.visible = false;
+                _txtXP.visible = false;
+                _txtCoins.visible = false;
+                _coinsImage.visible = false;
+                _starImage.visible = false;
+                _check.visible = false;
+                g.userTimer.setOrder(_order);
+                g.gameDispatcher.addToTimer(renderLeftTimeOrder);
                 _delImage.visible = false;
-                _clockImage.visible = false;
+                _clockImage.visible = true;
             }
+        } else {
+            if (order.delOb)  order.delOb = false;
+            _leftSeconds = -1;
+            _txtName.visible = true;
+            _txtXP.visible = true;
+            _txtCoins.visible = true;
+            _coinsImage.visible = true;
+            _starImage.visible = true;
+            _clockImage.visible = false;
+            _delImage.visible = false;
         }
+//        if (afterSale) {
+//            if (_leftSeconds > 0) {
+//                _txtName.visible = false;
+//                _txtXP.visible = false;
+//                _txtCoins.visible = false;
+//                _coinsImage.visible = false;
+//                _starImage.visible = false;
+//                _check.visible = false;
+//                g.userTimer.setOrder(_order);
+//                g.gameDispatcher.addToTimer(renderLeftTimeOrder);
+//                _delImage.visible = false;
+//                _clockImage.visible = true;
+//            } else {
+//                _leftSeconds = -1;
+//                _txtName.visible = true;
+//                _txtXP.visible = true;
+//                _txtCoins.visible = true;
+//                _coinsImage.visible = true;
+//                _starImage.visible = true;
+//                _clockImage.visible = false;
+//                _delImage.visible = false;
+//            }
+//        } else {
+//            if (_leftSeconds > 0) {
+//                _txtName.visible = false;
+//                _txtXP.visible = false;
+//                _txtCoins.visible = false;
+//                _coinsImage.visible = false;
+//                _starImage.visible = false;
+//                _check.visible = false;
+//                g.userTimer.setOrder(_order);
+//                g.gameDispatcher.addToTimer(renderLeftTime);
+//                _clockImage.visible = false;
+//                _delImage.visible = true;
+//            } else {
+//                _leftSeconds = -1;
+//                _txtName.visible = true;
+//                _txtXP.visible = true;
+//                _txtCoins.visible = true;
+//                _coinsImage.visible = true;
+//                _starImage.visible = true;
+//                _delImage.visible = false;
+//                _clockImage.visible = false;
+//            }
+//        }
         if (rech)source.scaleX = source.scaleY = 0;
     }
 
     private function onClick():void {
         if (_clickCallback != null) {
-            _clickCallback.apply(null, [this,false,_deleteOrSell]);
+            _clickCallback.apply(null, [this,false]);
         }
     }
 
@@ -257,8 +258,9 @@ public class WOOrderItem {
             if(_starImage)_starImage.visible = true;
             if(_delImage)_delImage.visible = false;
             if (_clickCallback != null) {
-                _clickCallback.apply(null, [this,false,_deleteOrSell,1]);
+                _clickCallback.apply(null, [this,false,1]);
             }
+            if (_order.delOb) false;
 //            if(_txtName)_wo.timerSkip(_order);
 //            else g.userTimer.newCatOrder();
         }
@@ -277,7 +279,7 @@ public class WOOrderItem {
             if(_delImage)_delImage.visible = false;
             if(_clockImage)_clockImage.visible = false;
             if (_clickCallback != null) {
-                _clickCallback.apply(null, [this,false,_deleteOrSell,1]);
+                _clickCallback.apply(null, [this,false,1]);
             }
 //            if(_txtName)_wo.timerSkip(_order);
 //            else g.userTimer.newCatOrder();
@@ -293,14 +295,16 @@ public class WOOrderItem {
         _leftSeconds = 15;
         g.gameDispatcher.addToTimer(renderLeftTimeOrder);
         g.managerOrder.onSkipTimer(_order);
+        _order.delOb = false;
         _check.visible = false;
         _delImage.visible = false;
         _clockImage.visible = true;
-        if (g.user.level <= 6) _order.startTime -= 2* ManagerOrder.TIME_FIRST_DELAY;
-        else if (g.user.level <= 9) _order.startTime -= 2*  ManagerOrder.TIME_SECOND_DELAY;
-        else if (g.user.level <= 15) _order.startTime -= 2* ManagerOrder.TIME_THIRD_DELAY;
-        else if (g.user.level <= 19) _order.startTime -= 2* ManagerOrder.TIME_FOURTH_DELAY;
-        else if (g.user.level >= 20) _order.startTime -= 2* ManagerOrder.TIME_FIFTH_DELAY;
+//        if (g.user.level <= 6) _order.startTime -= 2* ManagerOrder.TIME_FIRST_DELAY;
+//        else if (g.user.level <= 9) _order.startTime -= 2*  ManagerOrder.TIME_SECOND_DELAY;
+//        else if (g.user.level <= 15) _order.startTime -= 2* ManagerOrder.TIME_THIRD_DELAY;
+//        else if (g.user.level <= 19) _order.startTime -= 2* ManagerOrder.TIME_FOURTH_DELAY;
+//        else if (g.user.level >= 20) _order.startTime -= 2* ManagerOrder.TIME_FIFTH_DELAY;
+        _order.startTime = int(new Date().getTime()/1000) + 19;
     }
 
     public function getOrder():ManagerOrderItem {

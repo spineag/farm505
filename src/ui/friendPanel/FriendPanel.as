@@ -345,6 +345,7 @@ public class FriendPanel {
         }
 
         if (arr.length > 0)g.directServer.getAllFriendsInfo(arr, sortFriend);
+        else noFriends();
     }
 
     public function checkLevel():void {
@@ -368,6 +369,23 @@ public class FriendPanel {
             ob.width = 60;
             ob.height = 70;
             return ob;
+    }
+
+    public function noFriends():void {
+        var item:FriendItem;
+        _arrItems = [];
+        _shift = 0;
+        _arrFriends.unshift(g.user.neighbor);
+        _arrFriends.unshift(g.user);
+        var l:int = _arrFriends.length;
+        if (l>5) l = 5;
+        for (var i:int = 0; i < l; i++) {
+            item = new FriendItem(_arrFriends[i]);
+            _arrItems.push(item);
+            item.source.x = i*66;
+            item.source.y = -1;
+            _cont.addChild(item.source);
+        }
     }
 }
 }
