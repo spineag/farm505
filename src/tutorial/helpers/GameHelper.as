@@ -183,7 +183,7 @@ public class GameHelper {
                 if (_reason.reason == HelperReason.REASON_FEED_ANIMAL) {
                     _source.y = _targetPoint.y - 170;
                 } else {
-                    _source.y = _targetPoint.y + (_reason.build as WorldObject).rect.y + (_reason.build as WorldObject).rect.height/2 - 140;
+                    _source.y = _targetPoint.y + (_reason.build as WorldObject).rect.y + (_reason.build as WorldObject).rect.height/8 - 140;
                 }
                 _spArrow.x = _source.x;
                 _spArrow.y = _source.y;
