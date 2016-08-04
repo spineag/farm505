@@ -245,12 +245,14 @@ public class WOOrderItem {
     private function renderLeftTime():void {
         _leftSeconds--;
         if (_leftSeconds <= 19 && !_recheck) {
-            if (_txtName)_wo.timerSkip(_order);
+            _recheck = true;
+            if (_txtName && _order.delOb)_wo.timerSkip(_order);
             else g.userTimer.newCatOrder();
         }
         if (_leftSeconds <= 0) {
             _leftSeconds = -1;
             g.gameDispatcher.removeFromTimer(renderLeftTime);
+            g.bottomPanel.checkIsFullOrder();
             if(_txtName)_txtName.visible = true;
             if(_txtXP)_txtXP.visible = true;
             if(_txtCoins)_txtCoins.visible = true;
@@ -260,7 +262,16 @@ public class WOOrderItem {
             if (_clickCallback != null) {
                 _clickCallback.apply(null, [this,false,1]);
             }
-            if (_order.delOb) false;
+            if (_check) {
+                var b:Boolean = true;
+                for (var i:int = 0; i < _order.resourceIds.length; i++) {
+                   if (g.userInventory.getCountResourceById(_order.resourceIds[i]) < _order.resourceCounts[i]) {
+                       b = false;
+                       break;
+                   }
+                }
+                _check.visible = b;
+            }
 //            if(_txtName)_wo.timerSkip(_order);
 //            else g.userTimer.newCatOrder();
         }
@@ -280,6 +291,17 @@ public class WOOrderItem {
             if(_clockImage)_clockImage.visible = false;
             if (_clickCallback != null) {
                 _clickCallback.apply(null, [this,false,1]);
+            }
+            g.bottomPanel.checkIsFullOrder();
+            if (_check) {
+                var b:Boolean = true;
+                for (var i:int = 0; i < _order.resourceIds.length; i++) {
+                    if (g.userInventory.getCountResourceById(_order.resourceIds[i]) < _order.resourceCounts[i]) {
+                        b = false;
+                        break;
+                    }
+                }
+                _check.visible = b;
             }
 //            if(_txtName)_wo.timerSkip(_order);
 //            else g.userTimer.newCatOrder();
@@ -304,7 +326,7 @@ public class WOOrderItem {
 //        else if (g.user.level <= 15) _order.startTime -= 2* ManagerOrder.TIME_THIRD_DELAY;
 //        else if (g.user.level <= 19) _order.startTime -= 2* ManagerOrder.TIME_FOURTH_DELAY;
 //        else if (g.user.level >= 20) _order.startTime -= 2* ManagerOrder.TIME_FIFTH_DELAY;
-        _order.startTime = int(new Date().getTime()/1000) + 19;
+        _order.startTime = int(new Date().getTime()/1000) + 23;
     }
 
     public function getOrder():ManagerOrderItem {
