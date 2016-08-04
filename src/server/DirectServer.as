@@ -28,6 +28,8 @@ import manager.Vars;
 import mouse.ServerIconMouse;
 import user.Someone;
 import utils.Utils;
+
+import windows.WOComponents.WindowBackground;
 import windows.WindowsManager;
 import com.adobe.crypto.MD5;
 
@@ -579,6 +581,7 @@ public class DirectServer {
         Cc.ch('server', 'getUserInfo', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -677,6 +680,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -693,6 +698,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.step = g.user.tutorialStep;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.step)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -726,6 +732,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -741,6 +749,7 @@ public class DirectServer {
         Cc.ch('server', 'getFriendsInfo', 1);
         variables = addDefault(variables);
         variables.userSocialId = userSocialId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(userSocialId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -775,6 +784,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('getFriendsInfo: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -791,6 +802,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.userSocialIds = userSocialIdArr.join('&');
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -825,6 +837,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('getAllFriendsInfo: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -842,6 +856,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.type = type;
         variables.count = count;
+        variables.hash = MD5.hash(String(g.user.userId)+String(type)+String(count)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -876,6 +891,10 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [true]);
             }
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('addUserMoney: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -895,6 +914,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.count = count;
+        variables.hash = MD5.hash(String(g.user.userId)+String(count)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -933,6 +953,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserXP: id: ' + d.id + '  with message: ' + d.message + d.status + ' '+ d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP: id: ' + d.id + '  with message: ' + d.message);
@@ -952,6 +974,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.level = g.user.level;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.level)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -988,6 +1011,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserLevel: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1007,6 +1032,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.timePaper = int(new Date().getTime()/1000);
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.timePaper)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -1043,6 +1069,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserTimerPaper: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1061,6 +1089,7 @@ public class DirectServer {
         Cc.ch('server', 'getUserResource', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -1097,6 +1126,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('GetUserResource: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1114,6 +1145,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.resourceId = resourceId;
         variables.count = count;
+        variables.hash = MD5.hash(String(g.user.userId)+String(resourceId)+String(count)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1150,6 +1182,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserResource: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1176,6 +1210,7 @@ public class DirectServer {
         } else {
             variables.countCell = 0;
         }
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.buildingId)+String(variables.posX)+String(variables.posY)+String(variables.countCell)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -1215,6 +1250,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserBuilding: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1233,6 +1270,7 @@ public class DirectServer {
         Cc.ch('server', 'getUserBuilding', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1318,6 +1356,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('GetUserBuilding: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1335,6 +1375,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.buildingId = wObject.dataBuild.id;
         variables.dbId = wObject.dbBuildingId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.buildingId)+String(variables.dbId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1371,6 +1412,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('startBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1391,6 +1434,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.buildingId = wObject.dataBuild.id;
         variables.dbId = wObject.dbBuildingId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.buildingId)+String(variables.dbId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -1427,6 +1471,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('openBuildMapBuilding: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1448,6 +1494,7 @@ public class DirectServer {
         variables.recipeId = recipeId;
         variables.dbId = dbId;
         variables.delay = delay;
+        variables.hash = MD5.hash(String(g.user.userId)+String(dbId)+String(recipeId)+String(delay)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1484,6 +1531,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addFabricaRecipe: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1502,6 +1551,7 @@ public class DirectServer {
         Cc.ch('server', 'getUserFabricaRecipe', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1540,6 +1590,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('GetUserFabricaRecipe: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1556,6 +1608,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(dbId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1592,6 +1645,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('craftFabricaRecipe: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1612,6 +1667,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.plantId = plantId;
         variables.dbId = dbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(plantId)+String(dbId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1648,6 +1704,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('rawPlantOnRidge: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1666,6 +1724,7 @@ public class DirectServer {
         Cc.ch('server', 'getUserPlantRidge', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1719,6 +1778,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('GetUserPlantRidge: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1735,6 +1796,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(dbId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1757,7 +1819,7 @@ public class DirectServer {
         } catch (e:Error) {
             Cc.error('craftPlantRidge: wrong JSON:' + String(response));
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftPlantRidge: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'craftPlantRidge: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1771,6 +1833,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('craftPlantRidge: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1790,6 +1854,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = wObject.dbBuildingId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.dbId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1827,6 +1892,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1845,6 +1912,7 @@ public class DirectServer {
         Cc.ch('server', 'getUserTree', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1889,6 +1957,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('GetUserTree: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -1906,6 +1976,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.state = state;
+        variables.hash = MD5.hash(String(g.user.userId)+String(treeDbId)+String(state)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -1939,6 +2010,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserTreeState: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2006,6 +2079,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.farmDbId = farmDbId;
         variables.animalId = an.animalData.id;
+        variables.hash = MD5.hash(String(g.user.userId)+String(farmDbId)+String(variables.animalId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -2043,6 +2117,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserTree: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2062,6 +2138,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.anDbId = anDbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(anDbId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -2098,6 +2175,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('rawUserTree: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2177,6 +2256,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.animalDbId = animalDbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(animalDbId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -2213,6 +2293,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('craftUserAnimal: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2228,6 +2310,7 @@ public class DirectServer {
         Cc.ch('server', 'addUserTrain', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -2264,6 +2347,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserTrain: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2351,6 +2436,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.state = state;
         variables.id = train_db_id;
+        variables.hash = MD5.hash(String(g.user.userId)+String(train_db_id)+String(state)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -2387,6 +2473,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserTrainState: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2455,6 +2543,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = train_db_id;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.id)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -2491,6 +2580,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('releaseUserTrainPack: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2510,6 +2601,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.id = train_item_db_id;
+        variables.hash = MD5.hash(String(g.user.userId)+String(train_item_db_id)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -2546,6 +2638,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserTrainPackItems: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2600,6 +2694,7 @@ public class DirectServer {
         variables.numberCell = numberCell;
         variables.inPapper = inPapper ? 1 : 0;
         variables.timeInPapper = 0;
+        variables.hash = MD5.hash(String(g.user.userId)+String(id)+String(count)+String(cost)+String(numberCell)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -2633,6 +2728,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserMarketItem: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2699,6 +2796,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.itemId = itemId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(itemId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -2732,6 +2830,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('buyFromMarket: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2799,6 +2899,7 @@ public class DirectServer {
         variables.dbId = dbId;
         variables.posX = pX;
         variables.posY = pY;
+        variables.hash = MD5.hash(String(g.user.userId)+String(dbId)+String(pX)+String(pY)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -2832,6 +2933,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserBuildPosition: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -2899,6 +3002,7 @@ public class DirectServer {
         variables.isAmbar = isAmbar;
         variables.newLevel = newLevel;
         variables.newMaxCount = newMaxCount;
+        variables.hash = MD5.hash(String(g.user.userId)+String(newLevel)+String(newMaxCount)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -2932,6 +3036,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserAmbar: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -3004,6 +3110,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.mapBuildingId = id;
+        variables.hash = MD5.hash(String(g.user.userId)+String(id)+SECRET);
         request.data = variables;
         Cc.ch('server', 'start removeUserLockedLand', 1);
         request.method = URLRequestMethod.POST;
@@ -3038,6 +3145,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('removeUserLockedLand: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -3052,6 +3161,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = dbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(dbId)+SECRET);
         request.data = variables;
         Cc.ch('server', 'start addToInventory', 1);
         request.method = URLRequestMethod.POST;
@@ -3086,6 +3196,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addToInventory: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -3102,6 +3214,7 @@ public class DirectServer {
         variables.dbId = dbId;
         variables.posX = posX;
         variables.posY = posY;
+        variables.hash = MD5.hash(String(g.user.userId)+String(dbId)+SECRET);
         request.data = variables;
         Cc.ch('server', 'start removeFromInventory', 1);
         request.method = URLRequestMethod.POST;
@@ -3136,6 +3249,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('removeFromInventory: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -3201,6 +3316,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.itemId = itemId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(itemId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -3234,6 +3350,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('buyFromNeighborMarket: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -3250,6 +3368,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.userSocialId = p.userSocialId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.userSocialId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -3348,6 +3467,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('getAllCityData: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -3363,6 +3484,7 @@ public class DirectServer {
         Cc.ch('server', 'buyHeroCat', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -3396,6 +3518,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('buyHeroCat: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -3698,6 +3822,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         variables.isFlip = isFlip;
+        variables.hash = MD5.hash(String(g.user.userId)+String(dbId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -3863,6 +3988,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.scale = g.currentGameScale*100;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.scale)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -3896,6 +4022,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('saveUserGameScale: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -3948,7 +4076,7 @@ public class DirectServer {
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else if (d.id == 6) {
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('buyNewCellOnFabrica: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -3967,6 +4095,7 @@ public class DirectServer {
         variables.recipeDbId = userRecipeDbId;
         variables.leftTime = leftTime;
         variables.buildDbId = buildDbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(userRecipeDbId)+String(leftTime)+String(buildDbId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4000,6 +4129,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('skipRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4018,6 +4149,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.plantTime = time - plantTime;
         variables.buildDbId = buildDbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.plantTime)+String(buildDbId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4068,6 +4200,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.state = stateTree;
         variables.id = buildDbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(stateTree)+String(buildDbId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4101,6 +4234,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('skipTimeOnTree: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4118,6 +4253,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.animalDbId = int(buildDbId);
         variables.timeToEnd = time - timeToEnd;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.animalDbId)+String(variables.timeToEnd)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4152,6 +4288,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('skipTimeOnAnimal: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4170,6 +4308,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.leftTime = time - leftTime;
         variables.buildDbId = buildDbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.leftTime)+String(buildDbId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4203,6 +4342,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('skipTimeOnFabricBuild: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4225,6 +4366,7 @@ public class DirectServer {
         variables.addCoupone = int(order.addCoupone);
         variables.delay = delay;
         variables.place = order.placeNumber;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.ids)+String(variables.counts)+String(variables.xp)+String(variables.coins)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4259,6 +4401,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserOrder: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4376,6 +4520,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.state = state;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.id)+String(state)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -4409,6 +4554,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('askWateringUserTree: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4428,6 +4575,7 @@ public class DirectServer {
         variables.awayUserSocialId = g.visitedUser.userSocialId;
         variables.id = treeDbId;
         variables.state = state;
+        variables.hash = MD5.hash(String(g.user.userId)+String(g.user.userSocialId)+String(variables.awayUserSocialId)+String(variables.id)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -4461,6 +4609,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('makeWateringUserTree: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4477,6 +4627,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.dbId = orderID;
+        variables.hash = MD5.hash(String(g.user.userId)+String(orderID)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4510,6 +4661,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('skipOrderTimer: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4527,6 +4680,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.state = state;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.id)+String(state)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4560,6 +4714,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('craftUserTree: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4576,6 +4732,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.count = count;
+        variables.hash = MD5.hash(String(g.user.userId)+String(count)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4609,6 +4766,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('useDailyBonus: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4628,6 +4787,7 @@ public class DirectServer {
         variables.buildingId = id;
         variables.posX = 0;
         variables.posY = 0;
+        variables.hash = MD5.hash(String(g.user.userId)+String(id)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4661,6 +4821,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('buyAndAddToInventory: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4840,6 +5002,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.marketCell = g.user.marketCell + cell;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.marketCell)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4873,6 +5036,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserMarketCell: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4884,13 +5049,12 @@ public class DirectServer {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_MARKET_PAPPER);
         var variables:URLVariables = new URLVariables();
-        var time:Number = getTimer();
         Cc.ch('server', 'updateMarketPapper', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.numberCell = numberCell;
         variables.inPapper = inPapper ? 1 : 0;
-        variables.timePapper = time;
+        variables.hash = MD5.hash(String(g.user.userId)+String(numberCell)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4924,6 +5088,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateMarketPapper: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4939,6 +5105,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.inPapper = 0;
+        variables.hash = MD5.hash(String(g.user.userId)+'0'+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -4975,6 +5142,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('skipUserInPaper: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -4994,6 +5163,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.count = count;
+        variables.hash = MD5.hash(String(g.user.userId)+String(count)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5027,6 +5197,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('useChest: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5042,6 +5214,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.cutScene = g.user.cutScenes.join('&');
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.cutScene)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5072,6 +5245,8 @@ public class DirectServer {
             Cc.ch('server', 'updateUserCutScenesData OK', 5);
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5088,6 +5263,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.id = id;
         variables.place = place;
+        variables.hash = MD5.hash(String(g.user.userId)+String(id)+String(place)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5141,6 +5317,7 @@ public class DirectServer {
         variables.xp = xp;
         variables.cost = cost;
         variables.visible = visible;
+        variables.hash = MD5.hash(String(g.user.userId)+String(buyerId)+String(resourceId)+String(resourceCount)+String(xp)+String(cost)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5171,6 +5348,8 @@ public class DirectServer {
             Cc.ch('server', 'addUserPapperBuy OK', 5);
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5178,7 +5357,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserPapperBuy(buyerId:int,resourceId:int,rsourceCount:int,xp:int,cost:int,visible:int, type:int):void {
+    public function updateUserPapperBuy(buyerId:int,resourceId:int,resourceCount:int,xp:int,cost:int,visible:int, type:int):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_PAPPER_BUY);
         var variables:URLVariables = new URLVariables();
@@ -5187,11 +5366,12 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.buyerId = buyerId;
         variables.resourceId = resourceId;
-        variables.resourceCount = rsourceCount;
+        variables.resourceCount = resourceCount;
         variables.xp = xp;
         variables.cost = cost;
         variables.visible = visible;
         variables.typeResource = type;
+        variables.hash = MD5.hash(String(g.user.userId)+String(buyerId)+String(resourceId)+String(resourceCount)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5222,6 +5402,8 @@ public class DirectServer {
             Cc.ch('server', 'updateUserPapperBuy OK', 5);
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserPapperBuy: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5287,6 +5469,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.notificationNew = g.user.allNotification;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.notificationNew)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5323,6 +5506,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserNotification: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5341,6 +5526,7 @@ public class DirectServer {
         Cc.ch('server', 'updateWallTrainItem', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5374,6 +5560,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateWallTrainItem: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5389,6 +5577,7 @@ public class DirectServer {
         Cc.ch('server', 'updateWallOrderTime', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5422,6 +5611,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateWallOrderTime: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5439,6 +5630,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.id = treeDbId;
         variables.craftedCount = countCraft;
+        variables.hash = MD5.hash(String(g.user.userId)+String(treeDbId)+String(countCraft)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5472,6 +5664,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserCraftCountTree: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5488,6 +5682,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.music = int(g.soundManager.isPlayingMusic);
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.music)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5521,6 +5716,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserMusic: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5537,6 +5734,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.sound = int(g.soundManager.isPlayingSound);
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.sound)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -5570,6 +5768,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserSound: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5587,6 +5787,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.resourceId = resourceId;
         variables.count = count;
+        variables.hash = MD5.hash(String(g.user.userId)+String(resourceId)+String(count)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -5623,6 +5824,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, d.status);
         } else {
             Cc.error('addUserCave: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5691,6 +5894,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.resourceId = resourceId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(resourceId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -5724,6 +5928,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('craftUserCave: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
@@ -5740,8 +5946,8 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.userSocialId = userSocialId;
-//        variables.userDbBuildingId = userDbBuildingId;
         variables.id = id;
+        variables.hash = MD5.hash(String(g.user.userId)+String(userSocialId)+String(id)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -5775,6 +5981,8 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('getAwayUserTreeWatering: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
