@@ -235,6 +235,7 @@ public class CraftItem {
     }
 
     public function animIt():void {
+        if (g.isAway) return;
         var delay:int = 5 + int(Math.random()*20);
         if (_source) TweenMax.to(_source, .3, {y:_sY-40, onComplete:onAnimation1, delay: delay});
     }

@@ -210,7 +210,7 @@ public class ManagerAnimal {
 
     private var pTemp:Point = new Point();
     private var rectTemp:flash.geom.Rectangle;
-    private function isMouseUnderAnimal(an:Animal):Boolean {
+    public function isMouseUnderAnimal(an:Animal):Boolean {
         rectTemp = an.rect;
         pTemp.x = 0;
         pTemp.y = 0;

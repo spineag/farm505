@@ -254,15 +254,21 @@ public class Animal {
         }
         if (!show) {
             if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
-//            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
-                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
-                return;
+                if (_wasStartActiveFeeding && g.managerAnimal.isMouseUnderAnimal(this)) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
+                } else {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                }
+                    return;
             } else if (g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
-//            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onEndClick, 'animal', _data);
-                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
-                return;
+                if (_wasStartActiveFeeding && g.managerAnimal.isMouseUnderAnimal(this)) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
+                } else {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                }
+                    return;
             }
             if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 2 && !g.userInventory.checkLastResource(_data.idResourceRaw)) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -326,6 +332,7 @@ public class Animal {
     }
 
     public function onStartClick():void {
+        if(_farm.isAnyCrafted) return;
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
             if (!g.managerTutorial.isTutorial) {
                 g.managerAnimal.activeFeedAnimalId = _data.id;
