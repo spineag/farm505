@@ -378,8 +378,6 @@ public class Cave extends WorldObject{
             var craftItem:CraftItem;
             var item:ResourceItem;
             _arrCraftItems = [];
-            _craftSprite.x = 104*g.scaleFactor;
-            _craftSprite.y = 109*g.scaleFactor;
             var arr:Array = [];
             for (var i:int=0; i<4; i++) {
                 if (g.dataResource.objectResources[_dataBuild.idResource[i]].blockByLevel <= g.user.level)
