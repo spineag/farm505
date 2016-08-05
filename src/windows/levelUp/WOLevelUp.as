@@ -57,6 +57,7 @@ public class WOLevelUp extends WindowMain {
         bg.y = -_woHeight/2 + 15;
         _source.addChild(bg);
         createExitButton(hideIt);
+        _callbackClickBG = hideIt;
         _count = 1;
         var im:Image;
         _contClipRect = new Sprite();

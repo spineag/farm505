@@ -63,6 +63,7 @@ public class WOShop extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
+        _callbackClickBG = onClickExit;
 
         _shopTabBtnCont = new Sprite();
         _source.addChild(_shopTabBtnCont);

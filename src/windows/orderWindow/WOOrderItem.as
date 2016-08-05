@@ -254,7 +254,7 @@ public class WOOrderItem {
         if (_leftSeconds <= 0) {
             _leftSeconds = -1;
             g.gameDispatcher.removeFromTimer(renderLeftTime);
-            g.bottomPanel.checkIsFullOrder();
+            g.managerOrder.checkForFullOrder();
             if(_txtName)_txtName.visible = true;
             if(_txtXP)_txtXP.visible = true;
             if(_txtCoins)_txtCoins.visible = true;
@@ -294,7 +294,7 @@ public class WOOrderItem {
             if (_clickCallback != null) {
                 _clickCallback.apply(null, [this,false,1]);
             }
-            g.bottomPanel.checkIsFullOrder();
+            g.managerOrder.checkForFullOrder();
             if (_check) {
                 var b:Boolean = true;
                 for (var i:int = 0; i < _order.resourceIds.length; i++) {

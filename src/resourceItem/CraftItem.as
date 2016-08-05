@@ -195,7 +195,6 @@ public class CraftItem {
         if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
         else v = 400;
 
-
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
         if (xpFly) new XPStar(_source.x,_source.y,_resourceItem.craftXP);
         if (count > 0) {

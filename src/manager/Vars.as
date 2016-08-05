@@ -458,7 +458,7 @@ public class Vars {
             townArea.zSort();
             townArea.decorTailSort();
             townArea.sortAtLockedLands();
-            bottomPanel.checkIsFullOrder();
+            managerOrder.checkForFullOrder();
             if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
             townArea.addTownAreaSortCheking();
 

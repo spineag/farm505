@@ -316,7 +316,7 @@ public class WOOrder extends WindowMain{
         };
         _arrOrders[_activeOrderItem.position] = null;
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
-        g.bottomPanel.checkIsFullOrder();
+        g.managerOrder.checkForFullOrder();
         animateCatsOnSell();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
@@ -475,7 +475,7 @@ public class WOOrder extends WindowMain{
 //                newPlaceNumber();
             };
             g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
-            g.bottomPanel.checkIsFullOrder();
+            g.managerOrder.checkForFullOrder();
         }
     }
 
@@ -652,6 +652,7 @@ public class WOOrder extends WindowMain{
     }
 
     override protected function deleteIt():void {
+        if (!_source) return;
         _starSmall.filter = null;
         _coinSmall.filter = null;
         if (_txtCoins) _txtCoins.nativeFilters = [];
@@ -673,30 +674,42 @@ public class WOOrder extends WindowMain{
             _source.removeChild(_arrResourceItems[i].source);
             _arrResourceItems[i].deleteIt();
         }
-        _rightBlockTimer.removeChild(_rightBlockTimerBG);
-        _rightBlockTimerBG.filter = null;
-        _rightBlockTimerBG.deleteIt();
-        _rightBlockTimerBG = null;
+        if (_rightBlockTimerBG) {
+            _rightBlockTimer.removeChild(_rightBlockTimerBG);
+            _rightBlockTimerBG.filter = null;
+            _rightBlockTimerBG.deleteIt();
+            _rightBlockTimerBG = null;
+        }
         _arrResourceItems.length = 0;
         _txtName = null;
         _txtXP = null;
         _txtCoins.text = null;
-        _source.removeChild(_woBG);
-        _woBG.deleteIt();
-        _woBG = null;
-        _source.removeChild(_birka);
-        _birka.deleteIt();
-        _birka = null;
-        _rightBlock.removeChild(_rightBlockBG);
-        _rightBlockBG.filter = null;
-        _rightBlockBG.deleteIt();
-        _rightBlockBG = null;
-        _rightBlock.removeChild(_btnDeleteOrder);
-        _btnDeleteOrder.deleteIt();
-        _btnDeleteOrder = null;
-        _rightBlock.removeChild(_btnSell);
-        _btnSell.deleteIt();
-        _btnSell = null;
+        if (_woBG) {
+            _source.removeChild(_woBG);
+            _woBG.deleteIt();
+            _woBG = null;
+        }
+        if (_birka) {
+            _source.removeChild(_birka);
+            _birka.deleteIt();
+            _birka = null;
+        }
+        if (_rightBlockBG) {
+            _rightBlock.removeChild(_rightBlockBG);
+            _rightBlockBG.filter = null;
+            _rightBlockBG.deleteIt();
+            _rightBlockBG = null;
+        }
+        if (_btnDeleteOrder) {
+            _rightBlock.removeChild(_btnDeleteOrder);
+            _btnDeleteOrder.deleteIt();
+            _btnDeleteOrder = null;
+        }
+        if (_btnSell) {
+            _rightBlock.removeChild(_btnSell);
+            _btnSell.deleteIt();
+            _btnSell = null;
+        }
         if (_bubble) {
             _bubble.deleteIt();
             _bubble = null;

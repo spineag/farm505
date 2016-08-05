@@ -28,6 +28,7 @@ public class WOItemFabrica {
 
     public function WOItemFabrica() {
         source = new CSprite();
+        source.nameIt = 'woItemFabrica';
         _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
         source.addChild(_bg);
         source.pivotX = source.width/2;
@@ -35,8 +36,9 @@ public class WOItemFabrica {
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        source.alpha = .5;
         _isOnHover = false;
+        source.isTouchable = false;
+        source.visible = false;
     }
 
     public function setCoordinates(_x:int, _y:int):void {
@@ -88,6 +90,13 @@ public class WOItemFabrica {
         source.y = _defaultY - 35;
         source.scaleX = source.scaleY = .9;
         source.alpha = 0;
+        if (_maxAlpha > 0) {
+            source.isTouchable = true;
+            source.visible = true;
+        } else {
+            source.isTouchable = false;
+            source.visible = false;
+        }
         TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
     }
 
@@ -107,7 +116,17 @@ public class WOItemFabrica {
         }
         if (ob) {
             fillData(ob, f);
+            if (_maxAlpha > 0) {
+                source.isTouchable = true;
+                source.visible = true;
+            } else {
+                source.isTouchable = false;
+                source.visible = false;
+            }
             TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d});
+        } else {
+            source.isTouchable = false;
+            source.visible = false;
         }
     }
 

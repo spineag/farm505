@@ -35,6 +35,7 @@ public class XPStar {
 
     public function XPStar(_x:int, _y:int,xp:int) {
         _source = new Sprite();
+        _source.touchable = false;
         _txtStar = new TextField(80,50,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
         _txtStar.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtStar.x = -15;

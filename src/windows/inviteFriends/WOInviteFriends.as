@@ -55,6 +55,7 @@ public class WOInviteFriends extends WindowMain {
         _scrollSprite.createScoll(-275, 0,270, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
 
         createExitButton(onClickExit);
+        _callbackClickBG = onClickExit;
     }
 
 

@@ -84,6 +84,10 @@ public class WorldObject {
     public function get sizeY():uint {
         return _flip ? _sizeX : _sizeY;
     }
+    
+    public function get getArmature():Armature {
+        return _armature;
+    }
 
     public function get source():TownAreaBuildSprite {
         return _source;
