@@ -348,7 +348,7 @@ public class WOTrain extends WindowMain {
     private function onResourceLoad(lastResource:Boolean = false):void {
         if (_activeItemIndex == -1) return;
         if (!lastResource && _arrItems[_activeItemIndex].countFree == g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)
-                && g.dataResource.objectResources[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT ) {
+                && g.dataResource.objectResources[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
             g.windowsManager.cashWindow = this;
             super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onResourceLoad, {id: _arrItems[_activeItemIndex].idFree}, 'market');

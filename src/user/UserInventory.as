@@ -183,8 +183,15 @@ public class UserInventory {
         }
     }
 
-    public function checkLastResource():void {
-
+    public function checkLastResource(id:int):Boolean {
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+        for (var i:int = 0; i < arr.length; i++) {
+           if (arr[i].plant && arr[i].plant.dataPlant.id == id){
+               return true;
+               break;
+           }
+        }
+        return false;
     }
 }
 }

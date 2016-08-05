@@ -325,7 +325,7 @@ public class WOPapperItem {
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickBuyBot, 'papper', ob);
             return;
         }
-        if (!noResource && _data.type == BuildType.PLANT && g.userInventory.getCountResourceById(_data.resourceId) == _data.resourceCount) {
+        if (!noResource && _data.type == BuildType.PLANT && g.userInventory.getCountResourceById(_data.resourceId) == _data.resourceCount &&  !g.userInventory.checkLastResource(_data.resourceId)) {
             g.windowsManager.cashWindow = _wo;
             _wo.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBuyBot, {id:_data.resourceId}, 'market');

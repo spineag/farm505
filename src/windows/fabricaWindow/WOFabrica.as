@@ -175,7 +175,7 @@ public class WOFabrica extends WindowMain {
 
             for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
                 count = g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
-                if (g.dataResource.objectResources[dataRecipe.ingridientsId[i]].buildType == BuildType.PLANT && count == int(dataRecipe.ingridientsCount[i])) {
+                if (g.dataResource.objectResources[dataRecipe.ingridientsId[i]].buildType == BuildType.PLANT && count == int(dataRecipe.ingridientsCount[i]) && !g.userInventory.checkLastResource(dataRecipe.ingridientsId[i])) {
                     obj = {};
                     obj.data = dataRecipe;
                     obj.fabrica = _fabrica;
