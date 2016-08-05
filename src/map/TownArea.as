@@ -1263,9 +1263,12 @@ public class TownArea extends Sprite {
         _freePlace.deleteAway();
         _freePlace.fillAway();
         if (g.isAway) {
+            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
             removeAwayTownAreaSortCheking();
             clearAwayCity();
         } else {
+            g.cont.craftAwayCont.visible = true;
+            g.cont.craftCont.visible = false;
             removeTownAreaSortCheking();
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 _cont.removeChild(_cityObjects[i].source);
@@ -1457,6 +1460,7 @@ public class TownArea extends Sprite {
         } else {
             pasteAwayBuild(build, posX, posY);
         }
+        (build as WorldObject).afterPasteBuild();
 
         if (isFlip && !(build is DecorPostFence)) {
             (build as WorldObject).makeFlipBuilding();
@@ -1665,6 +1669,8 @@ public class TownArea extends Sprite {
     public function backHome():void {
         g.managerHelpers.checkIt();
         g.hideAllHints();
+        while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
+        g.cont.craftAwayCont.visible = false;
         removeAwayTownAreaSortCheking();
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(true);
@@ -1679,6 +1685,7 @@ public class TownArea extends Sprite {
         for (i = 0; i < _cityTailObjects.length; i++) {
             _contTail.addChild(_cityTailObjects[i].source);
         }
+        g.cont.craftCont.visible = true;
         g.managerOrderCats.onGoAwayToUser(false);
         _awayPreloader.deleteIt();
         _awayPreloader = null;

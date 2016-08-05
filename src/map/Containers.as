@@ -102,6 +102,7 @@ public class Containers {
         tailCont.nameIt = 'tailCont_csprite';
         
         craftAwayCont.touchable = false;
+        craftAwayCont.visible = false;
     }
 
     public function addGameContListener(value:Boolean):void {
