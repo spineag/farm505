@@ -222,8 +222,8 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = -15;
         _btnSell.addDisplayObject(im);
-        var txt:TextField = new TextField(110, 60, "Оформить заказ", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-        txt.y = -9;
+        var txt:TextField = new TextField(110, 60, "Продать", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        txt.y = -10;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSell.addChild(txt);
         _btnSell.registerTextField(txt, ManagerFilters.TEXT_STROKE_GREEN);
@@ -336,7 +336,7 @@ public class WOOrder extends WindowMain{
                     break;
                 }
             }
-            order.startTime = int(new Date().getTime()/1000) + 23;
+            order.startTime = int(new Date().getTime()/1000) + 6;
             orderItem.fillIt(order, order.placeNumber, onItemClick, b);
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {

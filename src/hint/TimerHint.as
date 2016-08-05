@@ -146,7 +146,7 @@ public class TimerHint {
         _isShow = true;
         _timer = timer;
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
-        if (g.managerTutorial.isTutorial) _txtCost.text = String(0);
+        if (g.user.level <= 5) _txtCost.text = String(0);
         else _txtCost.text = String(cost);
         _txtName.text = name;
 //        _txtText.text = 'ускорить';

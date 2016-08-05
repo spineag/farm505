@@ -105,6 +105,7 @@ public class Farm extends WorldObject{
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();
+        g.hint.showIt(_dataBuild.name);
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -117,6 +118,7 @@ public class Farm extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
+        g.hint.hideIt();
         for (var i:int = 0; i < _arrAnimals.length; i++) {
             (_arrAnimals[i] as Animal).deleteFilter();
         }

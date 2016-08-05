@@ -429,6 +429,7 @@ public class MarketItem {
                 unFillIt();
             }
         }
+        g.marketHint.hideIt();
     }
 
     private function checkItemWhenYouBuy():void {

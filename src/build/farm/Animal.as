@@ -398,6 +398,7 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         if (_farm.isAnyCrafted) return;
         _isOnHover = true;
+        g.hint.showIt(animalData.name);
         _frameCounterTimerHint = 7;
         source.filter = ManagerFilters.BUILD_STROKE;
         if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
@@ -410,6 +411,7 @@ public class Animal {
     public function onOut():void {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
+        g.hint.hideIt();
         source.filter = null;
         _isOnHover = false;
 //        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);

@@ -53,7 +53,7 @@ public class LockedLandItem {
         txt.y = 55;
         txt.x = -30;
         source.addChild(txt);
-        txt = new TextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (пропадут после открытия)',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new TextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (спишуться после открытия)',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = -2;
         source.addChild(txt);
@@ -110,9 +110,9 @@ public class LockedLandItem {
         txt.y = 55;
         txt.x = -40;
         source.addChild(txt);
-        txt = new TextField(200,60,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name,g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new TextField(200,90,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name + ' (пропадут после открытия)',g.allData.fonts['BloggerBold'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
-        txt.y = 15;
+        txt.y = -2;
         source.addChild(txt);
 
         if (g.userInventory.getCountResourceById(id) >= count) {

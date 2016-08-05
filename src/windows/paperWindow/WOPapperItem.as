@@ -352,6 +352,7 @@ public class WOPapperItem {
         _data.timeToNext = int(new Date().getTime()/1000);
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         source.alpha = .5;
+        g.hint.hideIt();
         _data.visible = false;
         _btnBuyBot.visible = false;
         _btnDelete.visible = false;
