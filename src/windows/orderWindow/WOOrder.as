@@ -651,12 +651,12 @@ public class WOOrder extends WindowMain{
     override protected function deleteIt():void {
         _starSmall.filter = null;
         _coinSmall.filter = null;
-        _txtCoins.nativeFilters = [];
-        _txtCoupone.nativeFilters = [];
-        _txtName.nativeFilters = [];
-        _txtOrder.nativeFilters = [];
-        _txtTimer.nativeFilters = [];
-        _txtXP.nativeFilters = [];
+        if (_txtCoins) _txtCoins.nativeFilters = [];
+        if (_txtCoupone) _txtCoupone.nativeFilters = [];
+        if (_txtName) _txtName.nativeFilters = [];
+        if (_txtOrder) _txtOrder.nativeFilters = [];
+        if (_txtTimer) _txtTimer.nativeFilters = [];
+        if (_txtXP) _txtXP.nativeFilters = [];
         deleteBtnCellArrow();
         deleteCats();
         _activeOrderItem = null;

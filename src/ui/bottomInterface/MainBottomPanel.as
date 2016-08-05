@@ -47,6 +47,7 @@ public class MainBottomPanel {
     private var _orderBtn:CButton;
     private var _ambarBtn:CButton;
     private var _checkImage:Image;
+    private var _checkSprite:Sprite;
     private var _person:Someone;
     private var _ava:Image;
     private var _tutorialCallback:Function;
@@ -142,10 +143,14 @@ public class MainBottomPanel {
         _source.addChild(_orderBtn);
         _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _checkImage.touchable = false;
-        _checkImage.x = 18;
-        _checkImage.y = 20;
-        _orderBtn.addChild(_checkImage);
-        _checkImage.visible = false;
+        _checkImage.x = -_checkImage.width/2;
+        _checkImage.y = -_checkImage.height/2;
+        _checkSprite = new Sprite();
+        _checkSprite.addChild(_checkImage);
+        _checkSprite.x = 18 + _checkImage.width/2;
+        _checkSprite.y = 20 + _checkImage.height/2;
+        _orderBtn.addChild(_checkSprite);
+        _checkSprite.visible = false;
         _orderBtn.hoverCallback = function():void { g.hint.showIt("Заказы"); };
         _orderBtn.outCallback = function():void { g.hint.hideIt(); };
         _orderBtn.clickCallback = function():void {onClick('order')};
@@ -393,7 +398,13 @@ public class MainBottomPanel {
     }
 
     public function checkIsFullOrder():void {
-        _checkImage.visible = g.managerOrder.chekIsAnyFullOrder();
+        if (g.managerOrder.chekIsAnyFullOrder()) {
+            _checkSprite.visible = true;
+            animateCheckSprite1();
+        } else {
+            _checkSprite.visible = false;
+            TweenMax.killTweensOf(_checkSprite);
+        }
     }
 
     private function friendBoard():void {
@@ -578,6 +589,26 @@ public class MainBottomPanel {
         if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
             g.user.villageNotification++
         }
+    }
+
+    private function animateCheckSprite1():void {
+        TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite2, delay:3});
+    }
+
+    private function animateCheckSprite2():void {
+        TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite3});
+    }
+
+    private function animateCheckSprite3():void {
+        TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite4});
+    }
+
+    private function animateCheckSprite4():void {
+        TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite5});
+    }
+
+    private function animateCheckSprite5():void {
+        TweenMax.to(_checkSprite, .1, {scaleX:1, scaleY:1, onComplete: animateCheckSprite1});
     }
 }
 }
