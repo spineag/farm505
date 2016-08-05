@@ -403,7 +403,7 @@ public class WorldObject {
         }
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-        var isVisible:Boolean = _craftSprite.visible;
+        var isVisible:Boolean = _buildingBuildSprite.visible;
         _buildingBuildSprite.visible = true;
         _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
         _buildingBuildSprite.visible = isVisible;

@@ -137,7 +137,7 @@ public class ManagerHelpers {
     }
 
     private function checkForOrder():Boolean {
-        var isOrder:Boolean = g.managerOrder.chekIsAnyFullOrder();
+        var isOrder:Boolean = g.managerOrder.checkIsAnyFullOrder();
         if (isOrder) {
             _curReason.build = g.townArea.getCityObjectsByType(BuildType.ORDER)[0];
         }

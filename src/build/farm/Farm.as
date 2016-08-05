@@ -34,6 +34,7 @@ public class Farm extends WorldObject{
             return;
         }
         _craftSprite = new Sprite();
+        _craftSprite.touchable = false;
         if (g.isAway) {
             g.cont.craftAwayCont.addChild(_craftSprite);
         } else {
@@ -65,6 +66,7 @@ public class Farm extends WorldObject{
     }
 
     override public function afterPasteBuild():void {
+        if (_arrCrafted.length) _craftSprite.visible = true;
         _craftSprite.x = _source.x;
         _craftSprite.y = 100*g.scaleFactor + _source.y;
         super.afterPasteBuild();
@@ -81,6 +83,21 @@ public class Farm extends WorldObject{
         if (!g.isAway) {
             if (_dataAnimal.id != 6) {
                 g.gameDispatcher.addEnterFrame(sortAnimals);
+            }
+        }
+    }
+
+    public function addAnimForCraftItem(v:Boolean):void {
+        if (_arrCrafted.length) {
+            var i:int;
+            if (v) {
+                for (i=0; i<_arrCrafted.length; i++) {
+                    (_arrCrafted[i] as CraftItem).animIt();
+                }
+            } else {
+                for (i=0; i<_arrCrafted.length; i++) {
+                    (_arrCrafted[i] as CraftItem).removeAnimIt();
+                }
             }
         }
     }
@@ -123,6 +140,7 @@ public class Farm extends WorldObject{
             } else {
                 onOut();
                 checkBeforeMove();
+                _craftSprite.visible = false;
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -295,12 +313,14 @@ public class Farm extends WorldObject{
     public function onActivateMoveModifier(v:Boolean):void {
         var i:int;
         if (v) {
-            if (_arrCrafted.length) return;
+            _craftSprite.touchable = false;
             for (i=0; i<_arrAnimals.length; i++) {
                 (_arrAnimals[i] as Animal).source.isTouchable = false;
             }
         } else {
-            if (!_arrCrafted.length) {
+            if (_arrCrafted.length) {
+                _craftSprite.touchable = true;
+            } else {
                 for (i = 0; i < _arrAnimals.length; i++) {
                     (_arrAnimals[i] as Animal).source.isTouchable = true;
                 }
@@ -314,10 +334,12 @@ public class Farm extends WorldObject{
             for (i=0; i<_arrAnimals.length; i++) {
                 (_arrAnimals[i] as Animal).source.isTouchable = false;
             }
+            _craftSprite.touchable = true;
         } else {
             for (i=0; i<_arrAnimals.length; i++) {
                 (_arrAnimals[i] as Animal).source.isTouchable = true;
             }
+            _craftSprite.touchable = false;
         }
     }
 
@@ -327,6 +349,7 @@ public class Farm extends WorldObject{
         var item:CraftItem = new CraftItem(0, 0, rItem, craftSprite, 1, useCraftedResource, true);
         item.animal = an;
         item.addParticle();
+        item.animIt();
         _arrCrafted.push(item);
         checkForCraft();
     }
@@ -335,6 +358,7 @@ public class Farm extends WorldObject{
         (crItem.animal as Animal).onCraft();
         _arrCrafted.splice(_arrCrafted.indexOf(crItem), 1);
         g.managerFabricaRecipe.onCraft(item);
+        checkForCraft();
     }
 
     public function addArrowToCraftItem(f:Function):void {

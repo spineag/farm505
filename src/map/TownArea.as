@@ -1272,6 +1272,9 @@ public class TownArea extends Sprite {
             removeTownAreaSortCheking();
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 _cont.removeChild(_cityObjects[i].source);
+                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
+                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
+                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
             }
             for (i = 0; i < _cityTailObjects.length; i++) {
                 _contTail.removeChild(_cityTailObjects[i].source);
@@ -1681,6 +1684,9 @@ public class TownArea extends Sprite {
         g.bottomPanel.doorBoolean(false);
         for (var i:int = 0; i < _cityObjects.length; i++) {
             _cont.addChild(_cityObjects[i].source);
+            if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(true);
+            if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(true);
+            if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(true);
         }
         for (i = 0; i < _cityTailObjects.length; i++) {
             _contTail.addChild(_cityTailObjects[i].source);

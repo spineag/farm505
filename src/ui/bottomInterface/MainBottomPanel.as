@@ -398,7 +398,7 @@ public class MainBottomPanel {
     }
 
     public function checkIsFullOrder():void {
-        if (g.managerOrder.chekIsAnyFullOrder()) {
+        if (g.managerOrder.checkIsAnyFullOrder()) {
             _checkSprite.visible = true;
             animateCheckSprite1();
         } else {

@@ -396,7 +396,7 @@ public class Animal {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         if (g.isActiveMapEditor) return;
-        if (_state == HUNGRY && _farm.isAnyCrafted) return;
+        if (_farm.isAnyCrafted) return;
         _isOnHover = true;
         _frameCounterTimerHint = 7;
         source.filter = ManagerFilters.BUILD_STROKE;
@@ -410,7 +410,6 @@ public class Animal {
     public function onOut():void {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
-        if (_state == HUNGRY && _farm.isAnyCrafted) return;
         source.filter = null;
         _isOnHover = false;
 //        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);

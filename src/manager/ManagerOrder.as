@@ -1002,7 +1002,7 @@ public class ManagerOrder {
         }
     }
 
-    public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
+    public function checkIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
         var b:Boolean = false;
         var k:int;
         var order:ManagerOrderItem;

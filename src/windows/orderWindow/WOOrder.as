@@ -116,6 +116,9 @@ public class WOOrder extends WindowMain{
         _waitForAnswer = false;
         changeCatTexture(i);
         startAnimationCats();
+        if (g.user.level == 4 && !g.managerTutorial.isTutorial) {
+            if (g.managerOrder.checkIsAnyFullOrder()) showBtnSellArrow();
+        }
         super.showIt();
     }
 

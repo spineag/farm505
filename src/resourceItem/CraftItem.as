@@ -43,6 +43,7 @@ public class CraftItem {
     private var _source:CSprite;
     private var _resourceItem:ResourceItem;
     private var _image:Image;
+    private var _imageSprite:Sprite;
     private var _callback:Function;
     public  var count:int;
     private var _txtNumber:TextField;
@@ -50,6 +51,7 @@ public class CraftItem {
     private var _arrow:SimpleArrow;
     private var _tutorialCallback:Function;
     public var animal:Animal;
+    private var _sY:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -74,11 +76,14 @@ public class CraftItem {
             return;
         }
         MCScaler.scale(_image, 100*g.scaleFactor, 100*g.scaleFactor);
+        _imageSprite = new Sprite();
         _image.x = -_image.width/2;
         _image.y = -_image.height/2;
-        _source.addChild(_image);
+        _imageSprite.addChild(_image);
+        _source.addChild(_imageSprite);
         _source.x = _x + int(Math.random()*30) - 15;
         _source.y = _y + int(Math.random()*30) - 15;
+        _sY = _source.y;
         parent.addChild(_source);
         _source.endClickCallback = flyIt;
         if (useHover){
@@ -117,6 +122,7 @@ public class CraftItem {
 
     public function flyIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
         g.managerHelpers.onUserAction();
+        removeAnimIt();
         if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT || g.managerTutorial.currentAction == TutorialAction.FABRICA_CRAFT)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply();
@@ -159,11 +165,10 @@ public class CraftItem {
         }
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
-        if (_source.parent.contains(_source)) _source.parent.removeChild(_source);
+        if (_source.parent && _source.parent.contains(_source)) _source.parent.removeChild(_source);
 
-        _image.scaleY = _image.scaleX = 1;
         _source.scaleY = _source.scaleX = 1;
-        MCScaler.scale(_image, 50, 50);
+        MCScaler.scale(_imageSprite, 50, 50);
         var endPoint:Point = g.craftPanel.pointXY();
         _source.x = start.x;
         _source.y = start.y;
@@ -176,10 +181,7 @@ public class CraftItem {
         g.userInventory.addResource(_resourceItem.resourceID, count);
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
-            removeDefaultCallbacks();
-            while (_source.numChildren) {
-                _source.removeChildAt(0);
-            }
+            _source.deleteIt();
             _source = null;
             animal = null;
             if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
@@ -230,6 +232,32 @@ public class CraftItem {
             _arrow.deleteIt();
             _arrow = null;
         }
+    }
+
+    public function animIt():void {
+        var delay:int = 5 + int(Math.random()*20);
+        if (_source) TweenMax.to(_source, .3, {y:_sY-40, onComplete:onAnimation1, delay: delay});
+    }
+
+    private function onAnimation1():void {
+        if (_imageSprite) TweenMax.to(_imageSprite, .2, {scaleX:1.2, scaleY:.8, onComplete:onAnimation2});
+    }
+
+    private function onAnimation2():void {
+        if (_imageSprite) TweenMax.to(_imageSprite, .2, {scaleX:.8, scaleY:1.2, onComplete:onAnimation3});
+    }
+
+    private function onAnimation3():void {
+        if (_imageSprite) TweenMax.to(_imageSprite, .2, {scaleX:1, scaleY:1});
+        if (_source) TweenMax.to(_source, .3, {y:_sY, onComplete:animIt});
+    }
+
+    public function removeAnimIt():void {
+        if (_source) {
+            TweenMax.killTweensOf(_source);
+            _source.y = _sY;
+        }
+        if (_imageSprite) _imageSprite.scaleX = _imageSprite.scaleY = 1;
     }
 
 }
