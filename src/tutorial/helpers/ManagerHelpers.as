@@ -91,8 +91,6 @@ public class ManagerHelpers {
     private function onTimer():void {
         _countSeconds++;
         if ((g.user.level < 5 && _countSeconds >= LOW_SECONDS) || (g.user.level < 6 && _countSeconds >= MEMIUM_SECONDS) || (g.user.level < 7 && _countSeconds >= MAX_SECONDS)) {
-            trace(_countSeconds);
-//        if (_countSeconds >= MAX_SECONDS) {
             _countSeconds = 0;
             if (g.managerTutorial.isTutorial) return;
             if (g.managerCutScenes.isCutScene) return;
