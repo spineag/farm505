@@ -14,6 +14,8 @@ import windows.shop.WOShop;
 
 public class ManagerHelpers {
     private const MAX_SECONDS:int = 15;
+    private const LOW_SECONDS:int = 5;
+    private const MEMIUM_SECONDS:int = 10;
     private var _countSeconds:int;
     private var _isActiveHelper:Boolean;
     private var _isCheckingForHelper:Boolean;
@@ -88,7 +90,9 @@ public class ManagerHelpers {
 
     private function onTimer():void {
         _countSeconds++;
-        if (_countSeconds >= MAX_SECONDS) {
+        if ((g.user.level < 5 && _countSeconds >= LOW_SECONDS) || (g.user.level < 6 && _countSeconds >= MEMIUM_SECONDS) || (g.user.level < 7 && _countSeconds >= MAX_SECONDS)) {
+            trace(_countSeconds);
+//        if (_countSeconds >= MAX_SECONDS) {
             _countSeconds = 0;
             if (g.managerTutorial.isTutorial) return;
             if (g.managerCutScenes.isCutScene) return;

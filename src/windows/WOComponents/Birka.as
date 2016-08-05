@@ -75,6 +75,14 @@ public class Birka extends Sprite{
         return _source;
     }
 
+    public function get bg():Sprite {
+        return _bg;
+    }
+
+    public function get curH():int {
+        return _curH;
+    }
+
     public function updateText(st:String):void {
         _txt.text = st;
         _source.unflatten();

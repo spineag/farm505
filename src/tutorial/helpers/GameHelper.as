@@ -36,6 +36,7 @@ public class GameHelper {
     private var _btnShow:CButton;
     private var _angle:Number;
     private var _isUnderBuild:Boolean;
+    private var _timer:int;
     private var g:Vars = Vars.getInstance();
 
     public function GameHelper() {
@@ -51,19 +52,24 @@ public class GameHelper {
         _source.addChild(_txt);
         _isUnderBuild = false;
         createCatHead();
-        createExitButton();
+        _timer = 5;
+        g.gameDispatcher.addToTimer(createExitButton);
         createShowButton();
     }
 
     private function createExitButton():void {
-        _btnExit = new CButton();
-        _btnExit.addDisplayObject(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
-        _btnExit.setPivots();
-        _btnExit.x = 144;
-        _btnExit.y = -53;
-        _btnExit.createHitArea('bt_close');
-        _source.addChild(_btnExit);
-        _btnExit.clickCallback = onExit;
+        _timer --;
+        if (_timer <= 0) {
+            g.gameDispatcher.removeFromTimer(createExitButton);
+            _btnExit = new CButton();
+            _btnExit.addDisplayObject(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
+            _btnExit.setPivots();
+            _btnExit.x = 144;
+            _btnExit.y = -53;
+            _btnExit.createHitArea('bt_close');
+            _source.addChild(_btnExit);
+            _btnExit.clickCallback = onExit;
+        }
     }
 
     private function createShowButton():void {
@@ -108,7 +114,7 @@ public class GameHelper {
             _txt.dispose();
             _bg = null;
             _source = null;
-            _btnExit.deleteIt();
+            if (_btnExit) _btnExit.deleteIt();
             _btnShow.deleteIt();
         }
     }

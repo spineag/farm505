@@ -182,5 +182,9 @@ public class UserInventory {
             }
         }
     }
+
+    public function checkLastResource():void {
+
+    }
 }
 }

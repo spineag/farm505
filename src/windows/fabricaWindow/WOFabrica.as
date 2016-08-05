@@ -35,8 +35,6 @@ public class WOFabrica extends WindowMain {
         _birka = new Birka('Фабрика', _source, 455, 580);
         _birka.flipIt();
         _birka.source.rotation = Math.PI/2;
-        _birka.source.x = -100;
-        _birka.source.y = 257;
         _callbackClickBG = onClickExit;
         createTopBG();
         createBottomBG();
@@ -59,6 +57,7 @@ public class WOFabrica extends WindowMain {
         if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
         _list.fillIt(params[1], _fabrica);
         _birka.updateText(_fabrica.dataBuild.name);
+        _birka.source.x = 270 - _birka.bg.height;
         showAnimateFabricaItems();
         super.showIt();
     }

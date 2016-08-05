@@ -100,6 +100,8 @@ public class WOOrderItem {
 
         source.visible = false;
         _check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _check.y = -9;
+        _check.x = -9;
         _check.visible = false;
         source.addChild(_check);
         source.hoverCallback = onHover;

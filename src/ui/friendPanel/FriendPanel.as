@@ -263,7 +263,7 @@ public class FriendPanel {
         var l:int = _arrFriends.length;
         if (l>5) l = 5;
         for (var i:int = 0; i < l; i++) {
-            item = new FriendItem(_arrFriends[i]);
+            item = new FriendItem(_arrFriends[i],i);
             _arrItems.push(item);
             item.source.x = i*66;
             item.source.y = -1;
@@ -322,6 +322,7 @@ public class FriendPanel {
                 item = _arrItems.shift();
                 _cont.removeChild(item.source);
                 item.deleteIt();
+                trace(i);
             }
         };
         animList(f);

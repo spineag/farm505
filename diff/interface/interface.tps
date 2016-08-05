@@ -271,7 +271,6 @@
             <filename>cursor_fertilizer.png</filename>
             <filename>cursor_basket.png</filename>
             <filename>cursor_circle.png</filename>
-            <filename>cursor_clock.png</filename>
             <filename>cursor_number_circle.png</filename>
             <filename>cursor_sickle.png</filename>
             <filename>star_particle.png</filename>
@@ -335,6 +334,10 @@
             <filename>rubins_medium.png</filename>
             <filename>rubins_small.png</filename>
             <filename>wait.png</filename>
+            <filename>uskorit.png</filename>
+            <filename>sobrat.png</filename>
+            <filename>pokormit.png</filename>
+            <filename>cursor_clock.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

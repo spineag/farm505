@@ -273,6 +273,7 @@ public class Animal {
         if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
             if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
             if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) g.userInventory.addResource(_data.idResourceRaw, -2);
+
                 else g.userInventory.addResource(_data.idResourceRaw, -1);
             _timeToEnd = _data.timeCraft;
             g.gameDispatcher.addToTimer(render);
@@ -398,6 +399,7 @@ public class Animal {
         if (g.isActiveMapEditor) return;
         if (_state == HUNGRY && _farm.isAnyCrafted) return;
         _isOnHover = true;
+        g.hint.showIt(animalData.name);
         _frameCounterTimerHint = 7;
         source.filter = ManagerFilters.BUILD_STROKE;
         if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
@@ -411,6 +413,7 @@ public class Animal {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         if (_state == HUNGRY && _farm.isAnyCrafted) return;
+        g.hint.hideIt();
         source.filter = null;
         _isOnHover = false;
 //        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);
