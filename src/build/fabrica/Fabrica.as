@@ -272,7 +272,10 @@ public class Fabrica extends WorldObject {
                     openFabricaWindow();
                 }
             } else {
-                Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+                Cc.error('Fabrica:: unknown g.toolsModifier.modifierType and convert to NONE');
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                onClick();
+                return;
             }
         } else if (_stateBuild == STATE_BUILD) {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {

@@ -167,7 +167,9 @@ public class Farm extends WorldObject{
                 }
             }
         } else {
-            Cc.error('Farm:: unknown g.toolsModifier.modifierType')
+            Cc.error('Farm:: unknown g.toolsModifier.modifierType and convert to NONE');
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            onClick();
         }
     }
 
