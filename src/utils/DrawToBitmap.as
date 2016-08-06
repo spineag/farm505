@@ -55,5 +55,11 @@ public class DrawToBitmap {
 
         return outBmp;
     }
+    
+    public static function drawToBitmap2(displayObject:DisplayObject, scl:Number = 1.0):Bitmap {
+        var bData:BitmapData = copyToBitmapScale(displayObject, scl);
+        var b:Bitmap = new Bitmap(bData);
+        return b;
+    }
 }
 }
