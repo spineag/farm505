@@ -35,6 +35,7 @@ public class WOPapper extends WindowMain {
     private var _flipPage:WOPapperFlipPage;
     private var _timer:int;
     private var _txtTimer:TextField;
+    private var _rubinsSmall:Image;
 
     public function WOPapper() {
         super();
@@ -50,12 +51,12 @@ public class WOPapper extends WindowMain {
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 2;
         _btnRefreshGreen.addChild(txt);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-        MCScaler.scale(im, 25, 25);
-        im.x = 100;
-        im.y = 8;
-        _btnRefreshGreen.addChild(im);
-        im.filter = ManagerFilters.SHADOW_TINY;
+        _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+        MCScaler.scale(_rubinsSmall, 25, 25);
+        _rubinsSmall.x = 100;
+        _rubinsSmall.y = 8;
+        _btnRefreshGreen.addChild(_rubinsSmall);
+        _rubinsSmall.filter = ManagerFilters.SHADOW_TINY;
         _btnRefreshGreen.x = 360;
         _btnRefreshGreen.y = 290;
         _source.addChild(_btnRefreshGreen);
@@ -66,7 +67,7 @@ public class WOPapper extends WindowMain {
         _btnExit.y -= 25;
         _btnRefreshBlue = new CButton();
         _btnRefreshBlue.addButtonTexture(130,40, CButton.BLUE, true);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
         im.x = 5;
         im.y = 5;
         _txtTimer = new TextField(100,30,'',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
@@ -82,6 +83,7 @@ public class WOPapper extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        _rubinsSmall.filter = null;
         _source.removeChild(_leftPage.source);
         _source.removeChild(_rightPage.source);
         _leftPage.deleteIt();
@@ -139,13 +141,10 @@ public class WOPapper extends WindowMain {
         _leftPage.source.y = -_woHeight/2;
         _rightPage.source.x = 0;
         _rightPage.source.y = -_woHeight/2;
-//        _source.addChildAt(_leftPage.source,0);
         _source.addChild(_leftPage.source);
-//        _source.addChildAt(_rightPage.source,0);
         _source.addChild(_rightPage.source);
         _source.addChild(_btnRefreshBlue);
         _source.addChild(_btnRefreshGreen);
-
 
         var arr:Array = _arrPaper.slice((_shiftPages - 1)*6, (_shiftPages - 1)*6 + 6);
         _leftPage.fillItems(arr);
@@ -187,7 +186,6 @@ public class WOPapper extends WindowMain {
         _tempRightPage.fillItems(arr);
         _isAnim = true;
         _flipPage = new WOPapperFlipPage(_rightPage.getScreenshot, _tempLeftPage.getScreenshot, true, afterMoveNext);
-        _flipPage.y = 28;
         _source.removeChild(_rightPage.source);
         _rightPage.deleteIt();
         _rightPage = null;
@@ -231,16 +229,15 @@ public class WOPapper extends WindowMain {
 
     private function movePrev():void {
         if (_isAnim) return;
-        if (_shiftPages <= 1) return;
+        if (_shiftPages <= 2) return;
         _tempLeftPage = new WOPapperPage(_shiftPages - 2, _maxPages, WOPapperPage.LEFT_SIDE, this);
         _tempRightPage = new WOPapperPage(_shiftPages - 1, _maxPages, WOPapperPage.RIGHT_SIDE, this);
-        var arr:Array = _arrPaper.slice((_shiftPages - 1)*6, (_shiftPages - 1)*6 + 6);
+        var arr:Array = _arrPaper.slice((_shiftPages-2 - 1)*6, (_shiftPages-2 - 1)*6 + 6);
         _tempLeftPage.fillItems(arr);
-        arr = _arrPaper.slice((_shiftPages)*6, (_shiftPages)*6 + 6);
+        arr = _arrPaper.slice((_shiftPages-1 - 1)*6, (_shiftPages-1 - 1)*6 + 6);
         _tempRightPage.fillItems(arr);
         _isAnim = true;
         _flipPage = new WOPapperFlipPage(_leftPage.getScreenshot, _tempRightPage.getScreenshot, false, afterMovePrev);
-        _flipPage.y = 28;
         _source.removeChild(_leftPage.source);
         _leftPage.deleteIt();
         _leftPage = null;
