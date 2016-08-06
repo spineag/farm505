@@ -97,52 +97,51 @@ public class FabricHint {
     }
 
     private function onTimer():void {
-        _timer--;
-        if (_timer <=0) {
-            g.gameDispatcher.removeFromTimer(onTimer);
-            if (_data && g.dataResource.objectResources[_data.idResource]) {
-                _txtName.text = String(g.dataResource.objectResources[_data.idResource].name);
-                _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_data.idResource].buildTime);
-                _txtItem.text = String(g.userInventory.getCountResourceById(_data.idResource));
-                createList();
-                _source.removeChild(_imageItem);
-                if (g.dataResource.objectResources[_data.idResource].buildType == BuildType.PLANT)
-                    _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_data.idResource].imageShop + '_icon'));
-                else
-                    _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[_data.idResource].url].getTexture(g.dataResource.objectResources[_data.idResource].imageShop));
-                if (!_imageItem) {
-                    Cc.error('FabricHint showIt:: no such image: ' + g.dataResource.objectResources[_data.idResource].imageShop);
-                    g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHint');
-                    return;
-                }
-                _imageItem.x = 120;
-                _imageItem.y = 150;
-                MCScaler.scale(_imageItem, 40,40);
-                _source.addChild(_imageItem);
-                _source.x = _newX + 50;
-                _source.y = _newY + 80;
-                g.cont.hintCont.addChild(_source);
+//        _timer--;
+//        if (_timer <=0) {
+//            g.gameDispatcher.removeFromTimer(onTimer);
 
-                _source.scaleX = _source.scaleY = 0;
-                var tween:Tween = new Tween(_source, 0.2);
-                tween.scaleTo(1);
-                    tween.onComplete = function ():void {
-                        g.starling.juggler.remove(tween);
-
-                    };
-                g.starling.juggler.add(tween);
-            } else {
-                Cc.error('FabricHint showIt with empty data or g.dataResource.objectResources[data.idResource] = null');
-            }
-        }
+//        }
     }
 
     public function showIt(da:Object, sX:int, sY:int):void {
         _data = da;
         _newX = sX;
         _newY = sY;
-        _timer = 1;
-       g.gameDispatcher.addToTimer(onTimer);
+        if (_data && g.dataResource.objectResources[_data.idResource]) {
+            _txtName.text = String(g.dataResource.objectResources[_data.idResource].name);
+            _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_data.idResource].buildTime);
+            _txtItem.text = String(g.userInventory.getCountResourceById(_data.idResource));
+            createList();
+            _source.removeChild(_imageItem);
+            if (g.dataResource.objectResources[_data.idResource].buildType == BuildType.PLANT)
+                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_data.idResource].imageShop + '_icon'));
+            else
+                _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[_data.idResource].url].getTexture(g.dataResource.objectResources[_data.idResource].imageShop));
+            if (!_imageItem) {
+                Cc.error('FabricHint showIt:: no such image: ' + g.dataResource.objectResources[_data.idResource].imageShop);
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHint');
+                return;
+            }
+            _imageItem.x = 120;
+            _imageItem.y = 150;
+            MCScaler.scale(_imageItem, 40,40);
+            _source.addChild(_imageItem);
+            _source.x = _newX + 50;
+            _source.y = _newY + 80;
+            g.cont.hintCont.addChild(_source);
+
+            _source.scaleX = _source.scaleY = 0;
+            var tween:Tween = new Tween(_source, 0.2);
+            tween.scaleTo(1);
+            tween.onComplete = function ():void {
+                g.starling.juggler.remove(tween);
+
+            };
+            g.starling.juggler.add(tween);
+        } else {
+            Cc.error('FabricHint showIt with empty data or g.dataResource.objectResources[data.idResource] = null');
+        }
     }
 
     public function updateItem():void {
