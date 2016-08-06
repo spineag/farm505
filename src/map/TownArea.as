@@ -743,6 +743,14 @@ public class TownArea extends Sprite {
                 } else break;
             }
             maxCount = maxCountAtCurrentLevel *  worldObject.dataBuild.countUnblock;
+            if (worldObject is Tree) {
+                var arr:Array = getCityObjectsByType(BuildType.TREE);
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].stateTree == Tree.FULL_DEAD) {
+                        maxCount ++;
+                    }
+                }
+            }
             if (curCount >= maxCount) {
                 g.bottomPanel.cancelBoolean(false);
                 g.toolsModifier.modifierType = ToolsModifier.NONE;

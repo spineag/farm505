@@ -3,6 +3,7 @@
  */
 package ui.catPanel {
 
+import data.BuildType;
 import data.DataMoney;
 
 import flash.filters.GlowFilter;
