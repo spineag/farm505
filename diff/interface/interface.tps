@@ -334,10 +334,10 @@
             <filename>rubins_medium.png</filename>
             <filename>rubins_small.png</filename>
             <filename>wait.png</filename>
-            <filename>uskorit.png</filename>
-            <filename>sobrat.png</filename>
-            <filename>pokormit.png</filename>
             <filename>cursor_clock.png</filename>
+            <filename>cursor_circle_1.png</filename>
+            <filename>cursor_circle_2.png</filename>
+            <filename>cursor_circle_3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

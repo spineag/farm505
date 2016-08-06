@@ -412,9 +412,16 @@ public class ToolsModifier {
             }
         }
         if (!g.isActiveMapEditor && _activeBuilding.useIsometricOnly && !(_activeBuilding is DecorTail)) {
-            if (!checkFreeGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
-                g.gameDispatcher.addEnterFrame(moveIt);
-                return;
+            if (_activeBuilding.dataBuild.isFlip) {
+                if (!checkFreeGrids(point.x, point.y, _activeBuilding.dataBuild.height, _activeBuilding.dataBuild.width)) {
+                    g.gameDispatcher.addEnterFrame(moveIt);
+                    return;
+                }
+            } else {
+                if (!checkFreeGrids(point.x, point.y, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height)) {
+                    g.gameDispatcher.addEnterFrame(moveIt);
+                    return;
+                }
             }
         }
 

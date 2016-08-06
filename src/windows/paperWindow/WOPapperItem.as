@@ -37,6 +37,7 @@ public class WOPapperItem {
     public var source:CSprite;
     public var isBotBuy:Boolean;
     private var _imageItem:Image;
+    private var _imBuy:Image;
     private var _txtCountResource:TextField;
     private var _txtCost:TextField;
     private var _data:Object;
@@ -183,12 +184,29 @@ public class WOPapperItem {
             g.load.loadImage(_p.photo, onLoadPhoto);
         } else {
 //            _txtUserName.text = _p.name + ' ' + _p.lastName;
-            _txtUserName.text = '';
+            var arr:Array = new Array();
+            arr.push('Александр Лугинин');
+            arr.push('Вадим Бойцов');
+            arr.push('Вадим Чебаненко');
+            arr.push('Мария Головина');
+
+            _txtUserName.text =   String(arr[int(Math.random()*arr.length)]);
         }
         source.endClickCallback = onClickVisit;
         if (_data.isOpened) {
             source.alpha = .5;
         }
+        _btnBuyBot = new CButton();
+        _btnBuyBot.addButtonTexture(70, 24, CButton.GREEN, true);
+        var txt:TextField = new TextField(60, 30, 'купить', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        txt.x = 4;
+        txt.y = -4;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _btnBuyBot.addChild(txt);
+        source.addChild(_btnBuyBot);
+        _btnBuyBot.x = 35;
+        _btnBuyBot.y = 120;
+        _btnBuyBot.clickCallback = onClickVisit;
     }
 
     public function fillItBot(ob:Object):void {

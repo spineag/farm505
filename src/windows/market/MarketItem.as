@@ -62,14 +62,14 @@ public class MarketItem {
     private var _ava:Image;
     private var _avaDefault:Image;
     private var _countBuyCell:int;
-    private var _papper:CButton;
+    private var _papperBtn:CButton;
     private var _inPapper:Boolean;
     private var _inDelete:Boolean;
     private var _delete:CButton;
     private var _imCheck:Image;
     private var _btnBuyCont:CButton;
     private var _wo:WOMarket;
-
+    private var _btnGoAwaySaleItem:CButton;
     private var g:Vars = Vars.getInstance();
 
     public function MarketItem(numberCell:int, close:Boolean, wo:WOMarket) {
@@ -144,22 +144,22 @@ public class MarketItem {
         _plawkaCoins.addChild(_costTxt);
         _plawkaCoins.visible = false;
 
-        _papper = new CButton();
+        _papperBtn = new CButton();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
-        _papper.addDisplayObject(im);
-        _papper.setPivots();
-        _papper.x = 15;
-        _papper.y = 10;
-        source.addChild(_papper);
-        _papper.clickCallback = onPaper;
-        _papper.hoverCallback = function ():void {
+        _papperBtn.addDisplayObject(im);
+        _papperBtn.setPivots();
+        _papperBtn.x = 15;
+        _papperBtn.y = 10;
+        source.addChild(_papperBtn);
+        _papperBtn.clickCallback = onPaper;
+        _papperBtn.hoverCallback = function ():void {
             if (_inPapper || isFill == 2) return;
             g.hint.showIt('Поместить объявление в газету','market_paper');
         };
-        _papper.outCallback = function ():void {
+        _papperBtn.outCallback = function ():void {
             g.hint.hideIt();
         };
-        _papper.visible = false;
+        _papperBtn.visible = false;
 
         _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _imCheck.x = 3;
@@ -315,7 +315,7 @@ public class MarketItem {
         if (_inPapper || !_wo.booleanPaper) return;
         _inPapper = true;
         _dataFromServer.inPapper = true;
-        _papper.visible = true;
+        _papperBtn.visible = true;
         _imCheck.visible = true;
         g.hint.hideIt();
         _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
@@ -327,14 +327,14 @@ public class MarketItem {
         if (isFill == 0 || isFill == 2) return;
         if (_inPapper) {
             if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
-                _papper.visible = true;
+                _papperBtn.visible = true;
                 _imCheck.visible = true;
             } else {
-                _papper.visible = false;
+                _papperBtn.visible = false;
                 _imCheck.visible = false;
                 g.directServer.updateMarketPapper(number, false, null);
             }
-        } else _papper.visible = _wo.booleanPaper;
+        } else _papperBtn.visible = _wo.booleanPaper;
     }
 
     private function onDelete():void {
@@ -346,7 +346,7 @@ public class MarketItem {
     }
 
     private function deleteCallback():void {
-        _papper.visible = false;
+        _papperBtn.visible = false;
         _imCheck.visible = false;
         _inPapper = false;
         g.userInventory.addMoney(1,-1);
@@ -471,7 +471,7 @@ public class MarketItem {
             _plawkaCoins.visible = false;
             _plawkaSold.visible = true;
             _txtPlawka.visible = true;
-            _papper.visible = false;
+            _papperBtn.visible = false;
             if (_person == g.user.neighbor) {
                 g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
                 _dataFromServer.resourceId = -1;
@@ -513,7 +513,7 @@ public class MarketItem {
         _countMoney = 0;
         _countResource = 0;
         _inPapper = false;
-        _papper.visible = false;
+        _papperBtn.visible = false;
         _imCheck.visible = false;
     }
 
@@ -606,6 +606,7 @@ public class MarketItem {
         if (_imageCont) unFillIt();
         var im:Image;
         _data = data;
+        _papperBtn.visible = false;
         if (_data) {
             if (_data.buildType == BuildType.PLANT) {
                 im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
@@ -620,11 +621,6 @@ public class MarketItem {
             MCScaler.scale(im, 45, 45);
             im.x = 2;
             im.y = 90;
-//            MCScaler.scale(im, 80, 80);
-//            im.pivotX = im.width/2;
-//            im.pivotY = im.height/2;
-//            im.x = _bg.width/2 - 10;
-//            im.y = _bg.height/2 - 15;
             _imageCont.addChild(im);
         } else {
             Cc.error('MarketItem fillIt:: empty _data');
@@ -635,7 +631,6 @@ public class MarketItem {
         _txtPlawka.y = 45;
         _txtAdditem.text = '';
         _countMoney = cost;
-//        _countTxt.text = String(_countResource);
         _coin.y = 85;
         _coin.x = _bg.width/2;
 
@@ -713,6 +708,35 @@ public class MarketItem {
                 }
             }
         }
+        _btnGoAwaySaleItem = new CButton();
+        _btnGoAwaySaleItem.addButtonTexture(70,26,CButton.BLUE, true);
+        var txt:TextField = new TextField(60,30,'посетить',g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        txt.x = 4;
+//        txt.y = 5;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _btnGoAwaySaleItem.x = 55;
+        _btnGoAwaySaleItem.y = 10;
+        _btnGoAwaySaleItem.addChild(txt);
+        source.addChild(_btnGoAwaySaleItem);
+        var f1:Function = function ():void {
+
+            if (_personBuyer) {
+                if (g.visitedUser && g.visitedUser == _personBuyer) return;
+                g.townArea.goAway(_personBuyer);
+            }
+            else {
+                var person:Someone;
+                person = new Someone();
+                person = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId);
+//                        person.userSocialId = _personBuyerTemp.buyerSocialId;
+//                        person.userSocialId = _personBuyerTemp.buyerSocialId;
+                person.level = 15;
+                if (g.visitedUser && g.visitedUser == person) return;
+                g.townArea.goAway(person);
+            }
+            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+        };
+        _btnGoAwaySaleItem.clickCallback = f1;
     }
 
     private function onHover():void {
@@ -785,7 +809,7 @@ public class MarketItem {
 
     private function photoFromTexture(tex:Texture):void {
         if (_avaDefault) _avaDefault = null;
-        source.removeChild(_avaDefault);
+        if (source) source.removeChild(_avaDefault);
         _ava = new Image(tex);
         _ava.visible = true;
         MCScaler.scale(_ava, 75, 75);
@@ -828,10 +852,10 @@ public class MarketItem {
         _personBuyerTemp = null;
 //        _quadGreen = null;
         _ava = null;
-        if (_papper) {
-            source.removeChild(_papper);
-            _papper.deleteIt();
-            _papper = null;
+        if (_papperBtn) {
+            source.removeChild(_papperBtn);
+            _papperBtn.deleteIt();
+            _papperBtn = null;
         }
         if (_delete) {
             source.removeChild(_delete);
