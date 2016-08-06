@@ -111,7 +111,7 @@ public class WOFabricaWorkListItem {
         }
         if (_type == BIG_CELL) {
             _btnSkip.visible = true;
-            if (g.user.level <= 5)  _txtSkip.text = String(0);
+            if (g.user.level < 5)  _txtSkip.text = String(0);
             else _txtSkip.text = String(_resource.priceSkipHard);
         }
         fillIcon(_resource.imageShop);

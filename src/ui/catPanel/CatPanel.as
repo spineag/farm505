@@ -91,7 +91,6 @@ public class CatPanel {
     }
 
     private function onClick():void {
-//        g.socialNetwork.getFriends();
 //        g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: wrong JSON:');
 //        g.directServer.addUserXP(1,null);
 ////
