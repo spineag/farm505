@@ -159,13 +159,14 @@ public class ManagerOrder {
         var countResources:int;
         var k:int;
         var i:int=0;
+        var id:String;
 
         if (i < n && g.user.level <= 4 && !g.managerTutorial.isTutorial ) {
             order = new ManagerOrderItem();
             order.resourceIds = [];
             order.resourceCounts = [];
             order.addCoupone = false;
-            for(var id:String in g.dataResource.objectResources) {
+            for(id in g.dataResource.objectResources) {
                 if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
                     if (g.dataResource.objectResources[id].orderType == 1) {
                         arrOrderType1.push(int(id));
@@ -191,7 +192,7 @@ public class ManagerOrder {
                 order.resourceCounts.push( int(Math.random()*4) + 4 );
             }
         } else {
-            for (var id:String in g.dataResource.objectResources) {
+            for (id in g.dataResource.objectResources) {
                 if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
                     if (g.dataResource.objectResources[id].orderType == 1) {
                         arrOrderType1.push(int(id));

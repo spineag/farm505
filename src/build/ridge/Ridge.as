@@ -193,6 +193,10 @@ public class Ridge extends WorldObject{
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
             }
+            if (_stateRidge == GROWED) {
+                g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
+                return;
+            }
             _lastBuyResource = true;
             _source.filter = null;
             plantThePlant();
