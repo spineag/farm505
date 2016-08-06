@@ -2,7 +2,6 @@
  * Created by user on 9/2/15.
  */
 package manager {
-import data.BuildType;
 
 public class ManagerPaper {
     private var _arr:Array;
@@ -29,6 +28,7 @@ public class ManagerPaper {
             ob.isOpened = false;
             _arr.push(ob);
         }
+//        fillArrayRandomly(); - only for test paper
     }
 
     public function fillBot(ar:Array):void {
@@ -165,6 +165,24 @@ public class ManagerPaper {
 
     private function getUserPapperBuy ():void {
         g.directServer.getPaperItems(null);
+    }
+
+    public function fillArrayRandomly():void {
+        var ob:Object;
+        for (var i:int=0; i<31; i++) {
+            ob = {};
+            ob.id = i;
+            ob.level = 2;
+            ob.resourceId = int(Math.random()*8) + 1;
+            ob.resourceCount = int(Math.random()*9) + 1;
+            ob.userId = 701;
+            ob.userSocialId = '191561520';
+            ob.cost = int(Math.random()*100) + 20;
+            ob.isBuyed = false;
+            ob.isBotBuy = false;
+            ob.isOpened = false;
+            _arr.push(ob);
+        }
     }
 }
 }
