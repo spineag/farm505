@@ -256,7 +256,7 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         _timer = 5;
         g.gameDispatcher.removeFromTimer(refreshMarketTemp);
         super.hideIt();
@@ -437,6 +437,7 @@ public class WOMarket  extends WindowMain {
     }
 
     private function makeRefresh():void {
+        if (g.managerCutScenes.isCutScene || g.managerTutorial.isTutorial) return;
         for (var i:int=0; i< _arrItems.length; i++) {
             _arrItems[i].unFillIt();
         }
@@ -462,6 +463,7 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onClickPaper():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (g.user.hardCurrency < 1) {
             g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
@@ -725,6 +727,7 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onLeft():void {
+        if (g.managerCutScenes.isCutScene) return;
         var tween:Tween = new Tween(_leftBtn, 0.2);
         tween.scaleTo(.6);
         tween.onComplete = function ():void {
@@ -743,7 +746,8 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onRight():void {
-        if (_rightBtn.filter == ManagerFilters.BUTTON_DISABLE_FILTER) return;
+        if (g.managerCutScenes.isCutScene) return;
+        if (_rightBtn.filter == ManagerFilters.BUTTON_DISABLE_FILTER) return;  // wo za pizdec?
         var tween:Tween = new Tween(_rightBtn, 0.2);
         tween.scaleTo(.6);
         tween.onComplete = function ():void {

@@ -79,6 +79,12 @@ public class CutSceneProperties {
         obj.level = 10;
         obj.text = 'Новые растения на следующей странице';
         _prop.push(obj);
+
+        obj = {};
+        obj.reason = ManagerCutScenes.REASON_ADD_TO_PAPPER;
+        obj.level = 4;
+        obj.text = 'Сообщение о продаже можно поместить в газету';
+        _prop.push(obj);
     }
 }
 }

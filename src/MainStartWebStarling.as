@@ -6,6 +6,7 @@ import com.junkbyte.console.Cc;
 
 import flash.display.Sprite;
 import flash.display.StageAlign;
+import flash.display.StageQuality;
 import flash.display.StageScaleMode;
 import flash.events.Event;
 import flash.events.UncaughtErrorEvent;
@@ -46,6 +47,7 @@ public class MainStartWebStarling extends Sprite{
         stage.scaleMode = StageScaleMode.NO_SCALE;
         stage.align = StageAlign.TOP_LEFT;
         stage.addEventListener(flash.events.Event.RESIZE, onStageResize);
+        stage.quality = StageQuality.LOW;
 
         setTimeout(function() : void { if (!stageReady) onStageResize(null);}, 1000);
     }

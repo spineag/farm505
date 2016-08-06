@@ -25,6 +25,7 @@ import utils.SimpleArrow;
 import heroes.TutorialCat;
 import windows.WindowsManager;
 import windows.buyPlant.WOBuyPlant;
+import windows.market.MarketItem;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
 
@@ -36,6 +37,7 @@ public class ManagerCutScenes {
     public static const REASON_NEW_LEVEL:int = 1;  // use after getting new level
     public static const REASON_OPEN_TRAIN:int = 2;  // use if user open Train, cap
     public static const REASON_OPEN_WO_PLANT:int = 3;  // реализуем, когда юзер впервые открыл окно покупки растений, когда уже появилась вторая вкладка
+    public static const REASON_ADD_TO_PAPPER:int = 4;  
 
     public static const ID_ACTION_SHOW_MARKET:int = 0;
     public static const ID_ACTION_SHOW_PAPPER:int = 1;
@@ -130,6 +132,15 @@ public class ManagerCutScenes {
 
     public function isType(id:int):Boolean {
         return id == _curCutScenePropertie.id_action;
+    }
+    
+    public function checkCutSceneForAddToPapper(it:MarketItem):void {
+        if (!_properties || !_properties[8] || _properties[8].level > g.user.level || g.user.cutScenes[8]) return;
+        _curCutScenePropertie = _properties[8];
+        var f:Function = function():void {
+            releaseAddToPapper(it);
+        };
+        createDelay(.7, f);
     }
 
     private function checkTypeFunctions():void {
@@ -597,6 +608,33 @@ public class ManagerCutScenes {
     }
 
     private function onWoPlant():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        if (_airBubble) {
+            _airBubble.hideIt();
+            _airBubble.deleteIt();
+            _airBubble = null;
+        }
+        isCutScene = false;
+    }
+
+    private function releaseAddToPapper(it:MarketItem):void {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
+            isCutScene = true;
+            g.user.cutScenes[8] = 1;
+            var ob:Object = it.getBoundsProperties('papperIcon');
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
+            _arrow.scaleIt(.5);
+            _arrow.animateAtPosition(ob.x + 25, ob.y + ob.height/2);
+            _airBubble = new AirTextBubble();
+            _airBubble.showIt(_curCutScenePropertie.text, g.cont.popupCont, ob.x + 10, ob.y + 70, onAddToPapper);
+            saveUserCutScenesData();
+        }
+    }
+    
+    private function onAddToPapper():void {
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;

@@ -123,6 +123,7 @@ public class MarketFriendsPanelItem{
     }
 
     private function chooseThis():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (_wo.curUser == _person) return;
         _wo.onChooseFriendOnPanel(_person, _shiftFriend);
     }

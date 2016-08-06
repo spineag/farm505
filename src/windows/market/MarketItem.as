@@ -265,6 +265,7 @@ public class MarketItem {
         g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
         fillIt(g.dataResource.objectResources[a],count, cost);
         _txtAdditem.text = '';
+        g.managerCutScenes.checkCutSceneForAddToPapper(this);
     }
 
     private function onAddToServer(ob:Object):void {
@@ -312,6 +313,7 @@ public class MarketItem {
     }
 
     private function onPaper():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (_inPapper || !_wo.booleanPaper) return;
         _inPapper = true;
         _dataFromServer.inPapper = true;
@@ -363,6 +365,7 @@ public class MarketItem {
     }
 
     private function onClick():void {
+        if (g.managerCutScenes.isCutScene) return;
         if (_closeCell) return;
         if (g.managerTutorial.isTutorial) {
             if (!_data || !g.managerTutorial.isTutorialResource(_data.id)) return;
@@ -870,6 +873,24 @@ public class MarketItem {
         _wo = null;
         source.dispose();
         source = null;
+    }
+
+    public function getBoundsProperties(s:String):Object {
+        var obj:Object;
+        var p:Point = new Point();
+        switch (s) {
+            case 'papperIcon':
+                obj = {};
+                p.x = _papperBtn.x - _papperBtn.width/2;
+                p.y = _papperBtn.y - _papperBtn.height/2;
+                p = source.localToGlobal(p);
+                obj.x = p.x;
+                obj.y = p.y;
+                obj.width = _papperBtn.width;
+                obj.height = _papperBtn.height;
+                break;
+        }
+        return obj;
     }
 }
 }

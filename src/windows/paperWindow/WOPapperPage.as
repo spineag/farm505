@@ -70,6 +70,7 @@ public class WOPapperPage {
         txt.y = -23;
         _bg.addChild(txt);
         txt = new TextField(100, 100, String(n) + '/' + String(nMax), g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BROWN_COLOR);
+        if (n > nMax) txt.text = '';
         txt.x = 170;
         txt.y = 460;
         _bg.addChild(txt);
