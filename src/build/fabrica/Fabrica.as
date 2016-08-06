@@ -72,6 +72,7 @@ public class Fabrica extends WorldObject {
     }
 
     override public function afterPasteBuild():void {
+        if (_arrCrafted.length) _craftSprite.visible = true;
         _craftSprite.x = _source.x;
         _craftSprite.y = 100*g.scaleFactor + _source.y;
         super.afterPasteBuild();
@@ -234,6 +235,7 @@ public class Fabrica extends WorldObject {
                     g.toolsModifier.onTouchEnded();
                 } else return;
             } else {
+                _craftSprite.visible = false;
                 g.townArea.moveBuild(this);
                 g.timerHint.hideIt();
             }
@@ -270,7 +272,10 @@ public class Fabrica extends WorldObject {
                     openFabricaWindow();
                 }
             } else {
-                Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+                Cc.error('Fabrica:: unknown g.toolsModifier.modifierType and convert to NONE');
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                onClick();
+                return;
             }
         } else if (_stateBuild == STATE_BUILD) {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
@@ -457,6 +462,7 @@ public class Fabrica extends WorldObject {
         var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, useCraftedResource, true);
         _arrCrafted.push(craftItem);
         craftItem.addParticle();
+        craftItem.animIt();
         if (!_arrList.length && _heroCat) {
             if (_heroCat.visible) {
                 _heroCat.killAllAnimations();
@@ -466,6 +472,21 @@ public class Fabrica extends WorldObject {
                 _heroCat.isFree = true;
             }
             _heroCat = null;
+        }
+    }
+
+    public function addAnimForCraftItem(v:Boolean):void {
+        if (_arrCrafted.length) {
+            var i:int;
+            if (v) {
+                for (i=0; i<_arrCrafted.length; i++) {
+                    (_arrCrafted[i] as CraftItem).animIt();
+                }
+            } else {
+                for (i=0; i<_arrCrafted.length; i++) {
+                    (_arrCrafted[i] as CraftItem).removeAnimIt();
+                }
+            }
         }
     }
     

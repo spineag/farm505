@@ -41,6 +41,7 @@ public class WONoPlaces extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(hideIt);
+        _callbackClickBG = hideIt;
         SOUND_OPEN = SoundConst.WO_AHTUNG;
 
         _btn = new CButton();

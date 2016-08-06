@@ -141,7 +141,6 @@ public class ManagerCats {
             cat.walkCallback = callback;
             cat.walkCallbackParams = callbackParams;
             var a:AStar = new AStar();
-            Cc.info('goCatToPoint:: try get astar path');
             a.getPath(cat.posX, cat.posY, p.x, p.y, f1, cat);
         } catch (e:Error) {
             Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
@@ -178,7 +177,6 @@ public class ManagerCats {
             cat.walkCallback = callback;
             cat.walkCallbackParams = callbackParams;
             var a:AStar = new AStar();
-            Cc.info('goIdleCatToPoint:: try get astar path' + '  || g.isAway: ' + g.isAway);
             a.getPath(cat.posX, cat.posY, p.x, p.y, f1, cat);
         } catch (e:Error) {
             Cc.error('ManagerCats goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);

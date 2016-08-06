@@ -24,7 +24,7 @@ import windows.WindowsManager;
 public class Cave extends WorldObject{
     private var _isOnHover:Boolean;
 //    private var _countTimer:int;
-    private var _arrCraftItems:Array;
+    private var _arrCrafted:Array;
     private var _armatureOpen:Armature;
     private var _isAnimate:Boolean;
 
@@ -48,7 +48,7 @@ public class Cave extends WorldObject{
         _buildingBuildSprite = new Sprite();
         _source.addChild(_buildingBuildSprite);
         createAnimatedBuild(checkCaveState);
-        _arrCraftItems = [];
+        _arrCrafted = [];
 
         if (!g.isAway) {
             if (_stateBuild == STATE_WAIT_ACTIVATE) {
@@ -73,7 +73,7 @@ public class Cave extends WorldObject{
         WorldClock.clock.remove(_armature);
         g.gameDispatcher.removeFromTimer(renderBuildCaveProgress);
         _source.touchable = false;
-        _arrCraftItems = [];
+        _arrCrafted = [];
         super.clearIt();
     }
 
@@ -81,6 +81,21 @@ public class Cave extends WorldObject{
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_source, 'caveBuild');
         _source.registerHitArea(_hitArea);
+    }
+
+    public function addAnimForCraftItem(v:Boolean):void {
+        if (_arrCrafted.length) {
+            var i:int;
+            if (v) {
+                for (i=0; i<_arrCrafted.length; i++) {
+                    (_arrCrafted[i] as CraftItem).animIt();
+                }
+            } else {
+                for (i=0; i<_arrCrafted.length; i++) {
+                    (_arrCrafted[i] as CraftItem).removeAnimIt();
+                }
+            }
+        }
     }
 
     private function checkCaveState():void {
@@ -160,7 +175,8 @@ public class Cave extends WorldObject{
             craftItem = new CraftItem(0, 0, item, _craftSprite, ar[i].count);
             craftItem.removeDefaultCallbacks();
             craftItem.addParticle();
-            _arrCraftItems.push(craftItem);
+            craftItem.animIt();
+            _arrCrafted.push(craftItem);
         }
     }
 
@@ -282,17 +298,17 @@ public class Cave extends WorldObject{
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
                 if (!_source.wasGameContMoved) {
-                    if (_arrCraftItems.length) {
+                    if (_arrCrafted.length) {
                         if (g.userInventory.currentCountInSklad >= g.user.skladMaxCount) {
                             _source.filter = null;
                             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                             return;
                         }
-                        g.directServer.craftUserCave(_arrCraftItems[_arrCraftItems.length-1].resourceId,null);
-                        _arrCraftItems.pop().flyIt();
+                        g.directServer.craftUserCave(_arrCrafted[_arrCrafted.length-1].resourceId,null);
+                        _arrCrafted.pop().flyIt();
 
 //                        g.directServer.craftUserCave();
-                        if (!_arrCraftItems.length) {
+                        if (!_arrCrafted.length) {
                             _armature.animation.gotoAndStop('open', 0);
                         }
                     } else {
@@ -377,7 +393,7 @@ public class Cave extends WorldObject{
             var r:Number;
             var craftItem:CraftItem;
             var item:ResourceItem;
-            _arrCraftItems = [];
+            _arrCrafted = [];
             var arr:Array = [];
             for (var i:int=0; i<4; i++) {
                 if (g.dataResource.objectResources[_dataBuild.idResource[i]].blockByLevel <= g.user.level)
@@ -395,7 +411,8 @@ public class Cave extends WorldObject{
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
                     craftItem.addParticle();
-                    _arrCraftItems.push(craftItem);
+                    craftItem.animIt();
+                    _arrCrafted.push(craftItem);
                 } else if (r < l2) {
                     item = new ResourceItem();
                     if (arr.length >= 2) {
@@ -406,7 +423,8 @@ public class Cave extends WorldObject{
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
                     craftItem.addParticle();
-                    _arrCraftItems.push(craftItem);
+                    craftItem.animIt();
+                    _arrCrafted.push(craftItem);
                 } else if (r < l3) {
                     item = new ResourceItem();
                     if (arr.length >= 3) {
@@ -417,7 +435,8 @@ public class Cave extends WorldObject{
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
                     craftItem.addParticle();
-                    _arrCraftItems.push(craftItem);
+                    craftItem.animIt();
+                    _arrCrafted.push(craftItem);
                 } else {
                     item = new ResourceItem();
                     if (arr.length > 3) {
@@ -428,7 +447,8 @@ public class Cave extends WorldObject{
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
                     craftItem.addParticle();
-                    _arrCraftItems.push(craftItem);
+                    craftItem.animIt();
+                    _arrCrafted.push(craftItem);
                 }
                 g.directServer.addUserCave(item.resourceID,craftItem.count,null);
             }

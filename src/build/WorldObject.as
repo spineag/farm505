@@ -84,6 +84,10 @@ public class WorldObject {
     public function get sizeY():uint {
         return _flip ? _sizeX : _sizeY;
     }
+    
+    public function get getArmature():Armature {
+        return _armature;
+    }
 
     public function get source():TownAreaBuildSprite {
         return _source;
@@ -403,7 +407,7 @@ public class WorldObject {
         }
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-        var isVisible:Boolean = _craftSprite.visible;
+        var isVisible:Boolean = _buildingBuildSprite.visible;
         _buildingBuildSprite.visible = true;
         _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
         _buildingBuildSprite.visible = isVisible;

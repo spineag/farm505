@@ -107,7 +107,7 @@ public class WOPapperPage {
     }
 
     public function get getScreenshot():Bitmap {
-        var b:Bitmap = DrawToBitmap.drawToBitmap(source);
+        var b:Bitmap = DrawToBitmap.drawToBitmap2(source);
         return b;
     }
 

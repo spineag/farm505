@@ -26,6 +26,7 @@ public class WOWaitFreeCats extends WindowMain{
         _woHeight = 308;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
+        _callbackClickBG = hideIt;
         createExitButton(hideIt);
         var txt:TextField = new TextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

@@ -1,13 +1,19 @@
 <TextureAtlas name="orders" imagePath="texture.png">
  <SubTexture name="orders_l2.png" x="0" y="316" width="357" height="182"/>
- <SubTexture name="handRight" x="490" y="0" width="9" height="17"/>
- <SubTexture name="body" x="458" y="0" width="17" height="25"/>
- <SubTexture name="head" x="421" y="0" width="35" height="46"/>
- <SubTexture name="lips" x="501" y="7" width="5" height="3"/>
- <SubTexture name="eyes" x="477" y="19" width="15" height="5"/>
+ <SubTexture name="handRight" x="501" y="0" width="9" height="17"/>
+ <SubTexture name="body" x="421" y="107" width="17" height="25"/>
+ <SubTexture name="head" x="475" y="54" width="35" height="46"/>
+ <SubTexture name="lips" x="501" y="33" width="5" height="3"/>
+ <SubTexture name="eyes" x="266" y="115" width="15" height="5"/>
  <SubTexture name="built" x="0" y="0" width="264" height="314"/>
  <SubTexture name="box" x="266" y="0" width="153" height="113"/>
- <SubTexture name="hando" x="501" y="0" width="7" height="5"/>
- <SubTexture name="handLeft" x="477" y="0" width="11" height="17"/>
- <SubTexture name="rag" x="494" y="19" width="12" height="8"/>
+ <SubTexture name="hando" x="501" y="19" width="7" height="5"/>
+ <SubTexture name="handLeft" x="456" y="107" width="11" height="17"/>
+ <SubTexture name="tableee" x="501" y="26" width="5" height="5"/>
+ <SubTexture name="rag" x="283" y="115" width="12" height="8"/>
+ <SubTexture name="shad_pet" x="421" y="53" width="52" height="52"/>
+ <SubTexture name="hand_pet_r" x="440" y="107" width="14" height="15"/>
+ <SubTexture name="pet_red" x="421" y="0" width="54" height="51"/>
+ <SubTexture name="hand_pet_left" x="477" y="0" width="22" height="52"/>
+ <SubTexture name="check" x="475" y="102" width="30" height="41"/>
 </TextureAtlas>

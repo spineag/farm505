@@ -109,7 +109,7 @@ public class WOButtonTexture extends Sprite {
         }
 
         arr.length = 0;
-        im = new Image(Texture.fromBitmap(DrawToBitmap.drawToBitmap(_s)));
+        im = new Image(Texture.fromBitmap(DrawToBitmap.drawToBitmap2(_s)));
         addChild(im);
         _s.dispose();
         flatten();

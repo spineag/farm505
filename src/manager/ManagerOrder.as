@@ -2,6 +2,8 @@
  * Created by andy on 11/14/15.
  */
 package manager {
+import build.orders.Order;
+
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
@@ -34,6 +36,7 @@ public class ManagerOrder {
     private var _arrOrders:Array;
     private var _curMaxCountOrders:int;
     private var _curMaxCountResoureAtOrder:int;
+    private var _orderBuilding:Order;
 //    private var _arrNames:Array;
 
     private var g:Vars = Vars.getInstance();
@@ -58,6 +61,8 @@ public class ManagerOrder {
             {level: 17, count: 5}
         ];
         _arrOrders = [];
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
+        if (arr.length) _orderBuilding = arr[0];
 //        _arrNames = ['Булавка', 'Петелька', 'Шпилька', 'Ниточка', 'Иголочка', 'Пряжа', 'Ленточка', 'Ирис', 'Наперсток', 'Кристик', 'Акрил', 'Стежок', 'Шнурочек', 'Ажур'];
     }
 
@@ -995,7 +1000,7 @@ public class ManagerOrder {
         }
     }
 
-    public function chekIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
+    public function checkIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
         var b:Boolean = false;
         var k:int;
         var order:ManagerOrderItem;
@@ -1033,6 +1038,16 @@ public class ManagerOrder {
 //            if (b)return true;
 //        }
 //        return false;
+    }
+    
+    public function checkForFullOrder():void {
+        if (checkIsAnyFullOrder()) {
+            g.bottomPanel.onFullOrder(true);
+            _orderBuilding.animateSmallHero(true);
+        } else {
+            g.bottomPanel.onFullOrder(false);
+            _orderBuilding.animateSmallHero(false);
+        }
     }
 
     public function onSkipTimer(order:ManagerOrderItem):void {

@@ -23,6 +23,7 @@ import windows.orderWindow.WOOrder;
 
 public class Order extends WorldObject{
     private var _isOnHover:Boolean;
+    private var _smallHero:SmallHeroAnimation;
 
     public function Order (data:Object) {
         super (data);
@@ -47,6 +48,20 @@ public class Order extends WorldObject{
             _source.outCallback = onOut;
             _hitArea = g.managerHitArea.getHitArea(_source, 'orderBuild');
             _source.registerHitArea(_hitArea);
+            createSmallHero();
+        }
+    }
+
+    private function createSmallHero():void {
+        if (!g.isAway) {
+            _smallHero = new SmallHeroAnimation(this);
+            _smallHero.armature = g.allData.factory[_dataBuild.url].buildArmature('table');
+        }
+    }
+    
+    public function animateSmallHero(v:Boolean):void {
+        if (_smallHero) {
+            _smallHero.animateIt(v);
         }
     }
 
@@ -133,6 +148,10 @@ public class Order extends WorldObject{
 
     override public function clearIt():void {
         onOut();
+        if (_smallHero) {
+            _smallHero.deleteIt();
+            _smallHero = null;
+        }
         _source.touchable = false;
         _armature.removeEventListener(AnimationEvent.COMPLETE, makeAnimation);
         _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);

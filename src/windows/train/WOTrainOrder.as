@@ -41,6 +41,7 @@ public class WOTrainOrder extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
+        _callbackClickBG = onClickExit;
         _btn = new CButton();
         _btn.addButtonTexture(172, 50, CButton.GREEN, true);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));

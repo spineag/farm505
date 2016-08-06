@@ -41,6 +41,7 @@ public class WOBuyPlantItem {
 
     public function WOBuyPlantItem() {
         source = new CSprite();
+        source.nameIt = 'woBuyPlantItem';
         _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
         source.addChild(_bg);
         source.pivotX = source.width/2;
@@ -48,7 +49,6 @@ public class WOBuyPlantItem {
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        source.alpha = .5;
         _txtNumber = new TextField(40,30,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
         _txtNumber.hAlign = HAlign.RIGHT;
         _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -56,8 +56,9 @@ public class WOBuyPlantItem {
         _txtNumber.x = 52;
         _txtNumber.y = 68;
         source.addChild(_txtNumber);
-        source.alpha = 0;
         _isOnHover = false;
+        source.isTouchable = false;
+        source.visible = false;
     }
 
     public function setCoordinates(_x:int, _y:int):void {
@@ -114,6 +115,13 @@ public class WOBuyPlantItem {
         source.y = _defaultY - 35;
         source.scaleX = source.scaleY = .9;
         source.alpha = 0;
+        if (_maxAlpha > 0) {
+            source.isTouchable = true;
+            source.visible = true;
+        } else {
+            source.isTouchable = false;
+            source.visible = false;
+        }
         TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
     }
 
@@ -133,9 +141,18 @@ public class WOBuyPlantItem {
         }
         if (ob) {
             fillData(ob, f);
+            if (_maxAlpha > 0) {
+                source.isTouchable = true;
+                source.visible = true;
+            } else {
+                source.isTouchable = false;
+                source.visible = false;
+            }
             TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d});
+        } else {
+            source.isTouchable = false;
+            source.visible = false;
         }
-
     }
 
     private function unfillIt():void {
