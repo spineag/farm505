@@ -84,6 +84,7 @@ public class CutSceneProperties {
         obj.reason = ManagerCutScenes.REASON_ADD_TO_PAPPER;
         obj.level = 4;
         obj.text = 'Сообщение о продаже можно поместить в газету';
+        obj.text2 = 'Следующее сообщение можно будет поместить через 5 минут или пропустить ожидание';
         _prop.push(obj);
     }
 }

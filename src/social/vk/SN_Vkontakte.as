@@ -715,7 +715,8 @@ internal class VKWallPost {
     private function wallPostSavePhotoComplete(e:Object):void {
         var message:String;
 
-        message = "[" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost + "|Умелые Лапки]" + "\n" + _messageWall;
+        message = 'Умелые Лапки' + "\n" + _messageWall + "\n" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost;
+//        message = "[" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost + "|Умелые Лапки]" + "\n" + _messageWall;
         _apiConnection.api("wall.post", {owner_id: _uidWall, message: message, attachments: e[0].id, https: 1}, wallPostSavePostComplete, onErrorPost);
     }
 

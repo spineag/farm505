@@ -785,6 +785,15 @@ public class WOMarket  extends WindowMain {
             return {};
         }
     }
+    
+    public function getTimerProperties():Object {
+        var ob:Object = {};
+        ob.x = _txtTimerPaper.x;
+        ob.y = _txtTimerPaper.y;
+        ob.width = 80;
+        ob.height = 30;
+        return ob;
+    } 
 
     public function onItemClickAndOpenWOChoose(item:MarketItem):void {
         g.windowsManager.cashWindow = this;

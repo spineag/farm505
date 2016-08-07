@@ -26,6 +26,7 @@ import heroes.TutorialCat;
 import windows.WindowsManager;
 import windows.buyPlant.WOBuyPlant;
 import windows.market.MarketItem;
+import windows.market.WOMarket;
 import windows.shop.WOShop;
 import windows.train.WOTrain;
 
@@ -633,8 +634,29 @@ public class ManagerCutScenes {
             saveUserCutScenesData();
         }
     }
-    
+
     private function onAddToPapper():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        if (_airBubble) {
+            _airBubble.hideIt();
+            _airBubble.deleteIt();
+            _airBubble = null;
+        }
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
+            isCutScene = true;
+//            var ob:Object = (g.windowsManager.currentWindow as WOMarket).getTimerProperties();
+//            _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
+//            _arrow.scaleIt(.5);
+//            _arrow.animateAtPosition(ob.x -10, ob.y + ob.height/2);
+            _airBubble = new AirTextBubble();
+            _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2-100, Starling.current.nativeStage.stageHeight/2-50, onAddToPapper2);
+        }
+    }
+    
+    private function onAddToPapper2():void {
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
