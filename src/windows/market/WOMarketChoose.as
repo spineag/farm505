@@ -292,6 +292,7 @@ public class WOMarketChoose extends WindowMain {
         _countMoneyBlock.maxValue = count * g.dataResource.objectResources[_curResourceId].costMax;
         _countMoneyBlock.minValue =  count * g.dataResource.objectResources[_curResourceId].costDefault;
         _countMoneyBlock.count =  count * g.dataResource.objectResources[_curResourceId].costDefault;
+        _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
         if (countRes == 1) {
             _countResourceBlock.btnFilter();
         } else if (_countResourceBlock.count == 10) {
@@ -320,15 +321,22 @@ public class WOMarketChoose extends WindowMain {
                 return;
             }
             if (booleanPlus == false) return; else {
+
                 if (_countResourceBlock.count == 10 || _countResourceBlock.count == countRes) {
                     booleanPlus = false;
                     _countMoneyBlock.count = _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault;
                     _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                    if (_countMoneyBlock.count == _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault) {
+                        _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
+                    }
                     return;
                 } else _countResourceBlock._btnPlus.filter = null;
             }
             booleanPlus = true;
             _countMoneyBlock.count = _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault;
+            if (_countMoneyBlock.count == _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault) {
+                _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
+            }
         } else {
             booleanPlus = true;
             if (_countMoneyBlock.count == _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costMax) {
@@ -345,6 +353,11 @@ public class WOMarketChoose extends WindowMain {
                     if (_countMoneyBlock.count == 1 || 0 >= _countMoneyBlock.count - g.dataResource.objectResources[_curResourceId].costDefault) {
                         _countMoneyBlock.count = _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault;
                         _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+                        trace(_countMoneyBlock.count);
+                        trace(_countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault);
+                        if (_countMoneyBlock.count == _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault) {
+                            _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
+                        }
                         return;
                     }
                     _countMoneyBlock.count = _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault;
@@ -358,6 +371,9 @@ public class WOMarketChoose extends WindowMain {
             }
             booleanMinus = true;
             _countMoneyBlock.count = _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault;
+            if (_countMoneyBlock.count == _countResourceBlock.count * g.dataResource.objectResources[_curResourceId].costDefault) {
+                _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
+            }
         }
     }
 

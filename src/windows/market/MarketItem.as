@@ -532,6 +532,11 @@ public class MarketItem {
         else _txtAdditem.text = '';
         _data = null;
         _personBuyerTemp = null;
+        if (_btnGoAwaySaleItem) {
+            source.removeChild(_btnGoAwaySaleItem);
+            _btnGoAwaySaleItem.deleteIt();
+            _btnGoAwaySaleItem = null;
+        }
 //        _quadGreen.visible = false;
 
 //        if (_avaDefault) {
@@ -644,8 +649,6 @@ public class MarketItem {
         if (_isUser) {
             visiblePapperTimer();
         }
-
-
         _costTxt.text = String(_dataFromServer.cost);
         if (_dataFromServer.buyerSocialId == 1) {
             _personBuyer = g.user.neighbor;
@@ -712,8 +715,8 @@ public class MarketItem {
             }
         }
         _btnGoAwaySaleItem = new CButton();
-        _btnGoAwaySaleItem.addButtonTexture(70,26,CButton.BLUE, true);
-        var txt:TextField = new TextField(60,30,'посетить',g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        _btnGoAwaySaleItem.addButtonTexture(70,30,CButton.BLUE, true);
+        var txt:TextField = new TextField(60,30,'посетить',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         txt.x = 4;
 //        txt.y = 5;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -731,8 +734,6 @@ public class MarketItem {
                 var person:Someone;
                 person = new Someone();
                 person = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId);
-//                        person.userSocialId = _personBuyerTemp.buyerSocialId;
-//                        person.userSocialId = _personBuyerTemp.buyerSocialId;
                 person.level = 15;
                 if (g.visitedUser && g.visitedUser == person) return;
                 g.townArea.goAway(person);
@@ -864,6 +865,11 @@ public class MarketItem {
             source.removeChild(_delete);
             _delete.deleteIt();
             _delete = null;
+        }
+        if (_btnGoAwaySaleItem) {
+            source.removeChild(_btnGoAwaySaleItem);
+            _btnGoAwaySaleItem.deleteIt();
+            _btnGoAwaySaleItem = null;
         }
         _imCheck = null;
         _costTxt = null;
