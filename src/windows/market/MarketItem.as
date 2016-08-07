@@ -674,11 +674,11 @@ public class MarketItem {
             if (!_personBuyer) {
                 if (_person.photo) {
                     _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                    MCScaler.scale(_avaDefault, 48, 48);
+                    MCScaler.scale(_avaDefault, 75, 75);
                     _avaDefault.pivotX = _avaDefault.width/2;
                     _avaDefault.pivotY = _avaDefault.height/2;
-                    _avaDefault.x = _bg.width/2 - 11;
-                    _avaDefault.y = _bg.height/2 - 28;
+                    _avaDefault.x = _bg.width/2 - 9;
+                    _avaDefault.y = _bg.height/2 - 30;
 //                    source.addChildAt(_avaDefault,1);
                     _imageCont.addChild(_avaDefault);
                 }
@@ -688,11 +688,11 @@ public class MarketItem {
                 if (_personBuyer.photo) {
                     if (_person.photo) {
                         _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                        MCScaler.scale(_avaDefault, 48, 48);
+                        MCScaler.scale(_avaDefault, 75, 75);
                         _avaDefault.pivotX = _avaDefault.width/2;
                         _avaDefault.pivotY = _avaDefault.height/2;
-                        _avaDefault.x = _bg.width/2 - 11;
-                        _avaDefault.y = _bg.height/2 - 28;
+                        _avaDefault.x = _bg.width/2 - 9;
+                        _avaDefault.y = _bg.height/2 - 30;
 //                        source.addChildAt(_avaDefault,1);
                         _imageCont.addChild(_avaDefault);
 
@@ -701,11 +701,11 @@ public class MarketItem {
                 } else {
                     if (_person.photo) {
                         _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                        MCScaler.scale(_avaDefault, 48, 48);
+                        MCScaler.scale(_avaDefault, 75, 75);
                         _avaDefault.pivotX = _avaDefault.width/2;
                         _avaDefault.pivotY = _ava.height/2;
-                        _avaDefault.x = _bg.width/2 - 11;
-                        _avaDefault.y = _bg.height/2 - 28;
+                        _avaDefault.x = _bg.width/2 - 9;
+                        _avaDefault.y = _bg.height/2 - 30;
 //                        source.addChildAt(_avaDefault,1);
                         _imageCont.addChild(_avaDefault);
 
@@ -714,15 +714,27 @@ public class MarketItem {
                 }
             }
         }
+
+
         _btnGoAwaySaleItem = new CButton();
-        _btnGoAwaySaleItem.addButtonTexture(70,30,CButton.BLUE, true);
-        var txt:TextField = new TextField(60,30,'посетить',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _btnGoAwaySaleItem.addButtonTexture(70, 24, CButton.BLUE, true);
+        var txt:TextField = new TextField(60, 30, 'посетить', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
         txt.x = 4;
-//        txt.y = 5;
+        txt.y = -4;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _btnGoAwaySaleItem.addChild(txt);
+        source.addChild(_btnGoAwaySaleItem);
+
+//
+//        _btnGoAwaySaleItem = new CButton();
+//        _btnGoAwaySaleItem.addButtonTexture(70,30,CButton.BLUE, true);
+//        var txt:TextField = new TextField(60,30,'посетить',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+//        txt.x = 4;
+////        txt.y = 5;
+//        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnGoAwaySaleItem.x = 55;
         _btnGoAwaySaleItem.y = 10;
-        _btnGoAwaySaleItem.addChild(txt);
+//        _btnGoAwaySaleItem.addChild(txt);
         source.addChild(_btnGoAwaySaleItem);
         var f1:Function = function ():void {
 
@@ -816,11 +828,11 @@ public class MarketItem {
         if (source) source.removeChild(_avaDefault);
         _ava = new Image(tex);
         _ava.visible = true;
-        MCScaler.scale(_ava, 48, 48);
+        MCScaler.scale(_ava, 75, 75);
         _ava.pivotX = _ava.width/2;
         _ava.pivotY = _ava.height/2;
-        _ava.x = _bg.width/2 - 11;
-        _ava.y = _bg.height/2 - 28;
+        _ava.x = _bg.width/2 - 9;
+        _ava.y = _bg.height/2 - 30;
 //        source.addChildAt(_ava,1);
         _imageCont.addChild(_ava);
     }
