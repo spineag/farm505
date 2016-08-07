@@ -108,5 +108,6 @@ public class Consts {
     public static var INQ_CRAFT_USER_CAVE:String = 'craftUserCave.php';
     public static var INQ_GET_USER_CAVE:String = 'getUserCave.php';
     public static var INQ_GET_AWAY_USER_TREE_WATERING:String = 'getAwayUserTreeWatering.php';
+    public static var INQ_SET_USER_LEVEL_VK:String = 'social/setUserLevel_vk.php';
 }
 }

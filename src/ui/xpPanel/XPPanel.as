@@ -103,6 +103,7 @@ public class XPPanel {
             if (g.user.level == g.dataBuilding.objectBuilding[45].blockByLevel)
                 g.managerDailyBonus.generateDailyBonusItems();
             if (g.user.level == 8) g.managerHelpers.disableIt();
+            g.socialNetwork.setUserLevel();
         }
         checkXP();
     }

@@ -353,5 +353,7 @@ public class SocialNetwork extends EventDispatcher {
     public function get appFriends():Array {
         return _appFriends;
     }
+    
+    public function setUserLevel():void {}
 }
 }

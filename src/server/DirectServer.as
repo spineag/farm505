@@ -5990,6 +5990,24 @@ public class DirectServer {
         }
     }
 
+    public function setUserLevelToVK():void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SET_USER_LEVEL_VK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'setUserLevelToVK', 1);
+        variables.level = g.user.level;
+        variables.id = g.user.userSocialId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('setUserLevelToVK:' + error.errorID);
+        }
+    }
+
+
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError:: ' + e.text);
     }
