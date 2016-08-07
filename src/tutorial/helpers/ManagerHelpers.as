@@ -7,9 +7,14 @@ import build.farm.Animal;
 import build.farm.Farm;
 import build.ridge.Ridge;
 import data.BuildType;
+
+import flash.events.TimerEvent;
+import flash.utils.Timer;
+
 import manager.Vars;
 import mouse.ToolsModifier;
 import windows.WindowsManager;
+import windows.fabricaWindow.WOFabrica;
 import windows.shop.WOShop;
 
 public class ManagerHelpers {
@@ -307,9 +312,22 @@ public class ManagerHelpers {
         _isActiveHelper = false;
         if (!_isStoped) checkIt();
     }
+
+    private function createDelay(delay:Number, f:Function):void {
+        var func:Function = function():void {
+            timer.removeEventListener(TimerEvent.TIMER, func);
+            timer = null;
+            if (f != null) {
+                f.apply();
+            }
+        };
+        var timer:Timer = new Timer(delay*1000, 1);
+        timer.addEventListener(TimerEvent.TIMER, func);
+        timer.start();
+    }
     
     public function onOpenShop():void {
-        _helper.deleteHelper();
+        if (_helper) _helper.deleteHelper();
         _helper = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             if (_curReason.reason == HelperReason.REASON_BUY_ANIMAL || _curReason.reason == HelperReason.REASON_BUY_FABRICA || _curReason.reason == HelperReason.REASON_BUY_FARM
@@ -319,6 +337,20 @@ public class ManagerHelpers {
             } else if (_curReason.reason == HelperReason.REASON_BUY_HERO) {
                 (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0);
             }
+        }
+        _isActiveHelper = false;
+        _curReason = false;
+    }
+
+    public function onOpenFabricaWithDelay():void {
+        createDelay(.7, onOpenFabrica);
+    }
+
+    private function onOpenFabrica():void {
+        if (_helper) _helper.deleteHelper();
+        _helper = null;
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_FABRICA) {
+            (g.windowsManager.currentWindow as WOFabrica).addArrowForPossibleRawItems();
         }
         _isActiveHelper = false;
         _curReason = false;

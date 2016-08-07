@@ -191,6 +191,20 @@ public class WOItemFabrica {
         }
     }
 
+    public function addArrowIfPossibleToRaw():void {
+        if (!_dataRecipe) return;
+        removeArrow();
+        for (var l:int=0; l<_dataRecipe.ingridientsId.length; l++) {
+            if (g.userInventory.getCountResourceById(int(_dataRecipe.ingridientsId[l])) < int(_dataRecipe.ingridientsCount[l])) {
+                break;
+            }
+        }
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
+        _arrow.animateAtPosition(source.width/2, 0);
+        _arrow.scaleIt(.5);
+        _arrow.activateTimer(3, removeArrow);
+    }
+
     public function deleteIt():void {
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();

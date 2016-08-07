@@ -52,7 +52,7 @@ public class GameHelper {
         _source.addChild(_txt);
         _isUnderBuild = false;
         createCatHead();
-        _timer = 5;
+        _timer = 3;
         g.gameDispatcher.addToTimer(createExitButton);
         createShowButton();
     }

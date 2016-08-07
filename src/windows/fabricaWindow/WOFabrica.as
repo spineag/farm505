@@ -296,6 +296,12 @@ public class WOFabrica extends WindowMain {
     public function getSkipBtnProperties():Object {
         return _list.getSkipBtnProperties();
     }
+    
+    public function addArrowForPossibleRawItems():void {
+        for (var i:int=0; i<_arrFabricaItems.length; i++) {
+            (_arrFabricaItems[i] as WOItemFabrica).addArrowIfPossibleToRaw();
+        }
+    }
 
     override protected function deleteIt():void {
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
