@@ -151,6 +151,7 @@ public class WOItemFabrica {
             _clickCallback.apply(null, [_dataRecipe]);
         }
         g.resourceHint.hideIt();
+        g.fabricHint.hideIt();
         if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResource(_dataRecipe.id)) {
             removeArrow();
             g.managerTutorial.checkTutorialCallback();

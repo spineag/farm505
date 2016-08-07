@@ -734,8 +734,8 @@ public class MarketItem {
 //        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnGoAwaySaleItem.x = 55;
         _btnGoAwaySaleItem.y = 10;
-//        _btnGoAwaySaleItem.addChild(txt);
         source.addChild(_btnGoAwaySaleItem);
+        _btnGoAwaySaleItem.visible = false;
         var f1:Function = function ():void {
 
             if (_personBuyer) {
@@ -766,6 +766,9 @@ public class MarketItem {
             g.gameDispatcher.addToTimer(onEnterFrame);
         }
         if (isFill == 1 && _isUser)_delete.visible = true;
+        if (_isUser && isFill == 2) {
+            _btnGoAwaySaleItem.visible = true;
+        }
     }
 
     private function onOut():void {
@@ -776,6 +779,10 @@ public class MarketItem {
             _delete.visible = false;
             g.marketHint.hideIt();
             g.gameDispatcher.removeFromTimer(onEnterFrame);
+        }
+
+        if (_isUser && isFill == 2) {
+            _btnGoAwaySaleItem.visible = false;
         }
     }
 
