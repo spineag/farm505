@@ -45,51 +45,54 @@ public class OwnHitArea {
         bm = null;
         createPixelArray(tempBitmapData);
 //        createTestSprite();
-//        createTestSprite2(tempBitmapData);
+//        bData = tempBitmapData;
+//        createTestSprite2();
     }
 
-    public function createTestSprite():void {
-        var bData:BitmapData = new BitmapData(_w, _h);
-        var j:int;
-        for (var i:int=0; i<_w; i++) {
-            for (j=0; j<_h; j++) {
-                if (_pixelsArr[i][j]) {
-                    bData.setPixel(i, j, 0xff00ff00);
-                } else {
-                    bData.setPixel32(i, j, 0x00ff0000);
-                }
-            }
-        }
-        var im:Image = new Image(Texture.fromBitmapData(bData));
-        im.x = _rect.x/bitmapScaling;
-        im.y = _rect.y/bitmapScaling;
-        im.scaleX = im.scaleY = 1/bitmapScaling;
-        _source.addChild(im);
-    }
+//    public function createTestSprite():void {
+//        var bData:BitmapData = new BitmapData(_w, _h);
+//        var j:int;
+//        for (var i:int=0; i<_w; i++) {
+//            for (j=0; j<_h; j++) {
+//                if (_pixelsArr[i][j]) {
+//                    bData.setPixel(i, j, 0xff00ff00);
+//                } else {
+//                    bData.setPixel32(i, j, 0x00ff0000);
+//                }
+//            }
+//        }
+//        var im:Image = new Image(Texture.fromBitmapData(bData));
+//        im.x = _rect.x/bitmapScaling;
+//        im.y = _rect.y/bitmapScaling;
+//        im.scaleX = im.scaleY = 1/bitmapScaling;
+//        _source.addChild(im);
+//    }
 
-    private function createTestSprite2(bData:BitmapData):void {
-        var j:int;
-        var color:uint;
-        for (var i:int=0; i<_w; i++) {
-            for (j=0; j<_h; j++) {
-                color = bData.getPixel32(i, j);
-                if (Color.getAlpha(color) < 30) {
-                    bData.setPixel32(i, j, 0x00000000);
-                } else {
-                    bData.setPixel32(i, j, 0xff000000);
-                }
-            }
-        }
-        createTestSprite3(bData);
-    }
+//    private var bData:BitmapData;
+//    public function createTestSprite2():void {
+//        if (!bData) return;
+//        var j:int;
+//        var color:uint;
+//        for (var i:int=0; i<_w; i++) {
+//            for (j=0; j<_h; j++) {
+//                color = bData.getPixel32(i, j);
+//                if (Color.getAlpha(color) < 30) {
+//                    bData.setPixel32(i, j, 0x00000000);
+//                } else {
+//                    bData.setPixel32(i, j, 0xff000000);
+//                }
+//            }
+//        }
+//        createTestSprite3(bData);
+//    }
 
-    private function createTestSprite3(bData:BitmapData):void {
-        var im:Image = new Image(Texture.fromBitmapData(bData));
-        im.x = _rect.x/bitmapScaling;
-        im.y = _rect.y/bitmapScaling;
-        im.scaleX = im.scaleY = 1/bitmapScaling;
-        _source.addChild(im);
-    }
+//    private function createTestSprite3(bData:BitmapData):void {
+//        var im:Image = new Image(Texture.fromBitmapData(bData));
+//        im.x = _rect.x/bitmapScaling;
+//        im.y = _rect.y/bitmapScaling;
+//        im.scaleX = im.scaleY = 1/bitmapScaling;
+//        _source.addChild(im);
+//    }
 
     private function createPixelArray(bData:BitmapData):void {
         var j:int;
