@@ -7,6 +7,7 @@ import data.BuildType;
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
@@ -16,6 +17,7 @@ import windows.WindowsManager;
 
 public class MarketCell {
     public var source:CSprite;
+    public var _cont:Sprite;
     private var _info:Object; // id & count
     private var _data:Object;
     private var _image:Image;
@@ -27,9 +29,11 @@ public class MarketCell {
     public function MarketCell(info:Object) {
         _clickCallback = null;
         source = new CSprite();
+        _cont = new Sprite();
+        source.addChild(_cont);
         source.endClickCallback = onClick;
         _carton = new CartonBackgroundIn(100, 100);
-        source.addChild(_carton);
+        _cont.addChild(_carton);
 
         _info = info;
         if (!_info) {
@@ -52,7 +56,7 @@ public class MarketCell {
             MCScaler.scale(_image, 99, 99);
             _image.x = 50 - _image.width/2;
             _image.y = 50 - _image.height/2;
-            source.addChild(_image);
+            _cont.addChild(_image);
         } else {
             Cc.error('MarketCell:: _data == null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketCell');
@@ -63,7 +67,9 @@ public class MarketCell {
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = 50;
         _countTxt.y = 77;
-        source.addChild(_countTxt);
+        _cont.addChild(_countTxt);
+        _cont.x += 2;
+        _cont.y += 2;
     }
 
     public function set clickCallback(f:Function):void {
@@ -82,13 +88,14 @@ public class MarketCell {
     }
 
     public function activateIt(a:Boolean):void {
-        if (a) source.filter = ManagerFilters.BUTTON_HOVER_FILTER;
-         else source.filter = null;
+        if (a) _cont.filter = ManagerFilters.YELLOW_STROKE;
+         else _cont.filter = null;
     }
 
     public function deleteIt():void {
-        source.filter = null;
-        source.removeChild(_carton);
+        _cont.removeChild(_carton);
+        _cont.filter = null;
+        source.removeChild(_cont);
         _carton.deleteIt();
         _carton = null;
         _clickCallback = null;

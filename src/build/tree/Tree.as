@@ -583,7 +583,7 @@ public class Tree extends WorldObject {
                     g.treeHint.onWatering = askWateringTree;
                 } else if (_state == FULL_DEAD || _state == ASK_FIX) {
                     g.wildHint.onDelete = deleteTree;
-                    g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut);
+                    g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut,_dataBuild.buildType);
                 } else {
                     g.timerHint.showIt(_source.height, newX, newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                 }

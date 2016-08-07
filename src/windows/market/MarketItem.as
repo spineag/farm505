@@ -674,11 +674,11 @@ public class MarketItem {
             if (!_personBuyer) {
                 if (_person.photo) {
                     _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                    MCScaler.scale(_avaDefault, 75, 75);
+                    MCScaler.scale(_avaDefault, 48, 48);
                     _avaDefault.pivotX = _avaDefault.width/2;
                     _avaDefault.pivotY = _avaDefault.height/2;
-                    _avaDefault.x = _bg.width/2 - 9;
-                    _avaDefault.y = _bg.height/2 - 30;
+                    _avaDefault.x = _bg.width/2 - 11;
+                    _avaDefault.y = _bg.height/2 - 28;
 //                    source.addChildAt(_avaDefault,1);
                     _imageCont.addChild(_avaDefault);
                 }
@@ -688,11 +688,11 @@ public class MarketItem {
                 if (_personBuyer.photo) {
                     if (_person.photo) {
                         _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                        MCScaler.scale(_avaDefault, 75, 75);
+                        MCScaler.scale(_avaDefault, 48, 48);
                         _avaDefault.pivotX = _avaDefault.width/2;
                         _avaDefault.pivotY = _avaDefault.height/2;
-                        _avaDefault.x = _bg.width/2 - 9;
-                        _avaDefault.y = _bg.height/2 - 30;
+                        _avaDefault.x = _bg.width/2 - 11;
+                        _avaDefault.y = _bg.height/2 - 28;
 //                        source.addChildAt(_avaDefault,1);
                         _imageCont.addChild(_avaDefault);
 
@@ -701,11 +701,11 @@ public class MarketItem {
                 } else {
                     if (_person.photo) {
                         _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                        MCScaler.scale(_avaDefault, 75, 75);
+                        MCScaler.scale(_avaDefault, 48, 48);
                         _avaDefault.pivotX = _avaDefault.width/2;
                         _avaDefault.pivotY = _ava.height/2;
-                        _avaDefault.x = _bg.width/2 - 9;
-                        _avaDefault.y = _bg.height/2 - 30;
+                        _avaDefault.x = _bg.width/2 - 11;
+                        _avaDefault.y = _bg.height/2 - 28;
 //                        source.addChildAt(_avaDefault,1);
                         _imageCont.addChild(_avaDefault);
 
@@ -816,11 +816,11 @@ public class MarketItem {
         if (source) source.removeChild(_avaDefault);
         _ava = new Image(tex);
         _ava.visible = true;
-        MCScaler.scale(_ava, 75, 75);
+        MCScaler.scale(_ava, 48, 48);
         _ava.pivotX = _ava.width/2;
         _ava.pivotY = _ava.height/2;
-        _ava.x = _bg.width/2 - 9;
-        _ava.y = _bg.height/2 - 30;
+        _ava.x = _bg.width/2 - 11;
+        _ava.y = _bg.height/2 - 28;
 //        source.addChildAt(_ava,1);
         _imageCont.addChild(_ava);
     }

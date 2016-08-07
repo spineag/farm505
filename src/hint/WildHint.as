@@ -4,6 +4,8 @@
 package hint {
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import flash.geom.Point;
 
 import manager.ManagerFilters;
@@ -45,6 +47,7 @@ public class WildHint {
     private var bg:HintBackground;
     private var g:Vars = Vars.getInstance();
     private var _quad:Quad;
+    private var _buildType:int;
     private var _onOutCallback:Function;
 
     public function WildHint() {
@@ -71,19 +74,19 @@ public class WildHint {
         _circle.x = +_bgItem.width/2 -20;
         _circle.y = -_bgItem.height - 50;
         _source.addChild(_circle);
-
         _source.addChild(_txtName);
         _btn.clickCallback = onClick;
         _source.outCallback = onOutHint;
         _source.hoverCallback = onHover;
     }
 
-    public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function):void {
+    public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function,buildType:int = 0):void {
         g.managerHelpers.onUserAction();
        if (_isShowed) return;
         _id = idResourceForRemoving;
         _isShowed = true;
         _height = height;
+        _buildType = buildType;
         _onOutCallback = out;
         _quad = new Quad(bg.width, bg.height + _height * g.currentGameScale,Color.WHITE ,false);
         _quad.alpha = 0;
@@ -153,13 +156,16 @@ public class WildHint {
         }
     }
 
-    private function onClick():void {
+    private function onClick(id:int = 0):void {
         if (g.userInventory.getCountResourceById(_id) <= 0){
             var ob:Object = {};
             ob.data = g.dataResource.objectResources[_id];
             ob.count = 1;
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'menu', ob);
         } else {
+            if (_buildType == BuildType.TREE) {
+                new XPStar(_source.x,_source.y,8);
+            }
             g.userInventory.addResource(_id, -1);
             if (_deleteCallback != null) {
                 _deleteCallback.apply();

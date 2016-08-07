@@ -105,6 +105,7 @@ public class FriendItem {
             }
         }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) return;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (_person == g.user) {
             if (g.isAway) g.townArea.backHome();
             g.catPanel.visibleCatPanel(true);
