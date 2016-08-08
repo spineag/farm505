@@ -4,8 +4,13 @@
 package windows.wallPost {
 import data.DataMoney;
 import flash.display.Bitmap;
+import flash.display.StageDisplayState;
+import flash.geom.Rectangle;
+
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
+
+import starling.core.Starling;
 import starling.display.Image;
 import starling.text.TextField;
 import starling.textures.Texture;
@@ -65,6 +70,13 @@ public class PostOpenLand  extends WindowMain {
     }
 
     private function onClick():void {
+        if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
+            Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
+            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
+//            Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
+            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
+        }
         g.managerWallPost.openWindow(ManagerWallPost.NEW_LAND,null,3,DataMoney.HARD_CURRENCY);
         super.hideIt();
     }

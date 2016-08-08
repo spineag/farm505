@@ -60,10 +60,11 @@ public class UserInventory {
         if (count == 0) return;
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
         _inventoryResource[id] += count;
-        if (_inventoryResource[id] == 0) delete(_inventoryResource[id]);
+        if (_inventoryResource[id] <= 0) delete(_inventoryResource[id]);
         if (needSendToServer) {
             g.updateAmbarIndicator();
-            g.directServer.addUserResource(id, count, f);
+            if (!_inventoryResource[id]) g.directServer.addUserResource(id, 0, f);
+            else g.directServer.addUserResource(id, _inventoryResource[id], f);
         }
         if (needSendToServer) g.managerOrder.checkForFullOrder();
     }
