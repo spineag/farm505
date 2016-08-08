@@ -218,13 +218,6 @@
             <filename>picnic_pink.png</filename>
             <filename>sunflower.png</filename>
             <filename>swamp_decor.png</filename>
-            <filename>tail1.png</filename>
-            <filename>tail2.png</filename>
-            <filename>tail3.png</filename>
-            <filename>track_blue.png</filename>
-            <filename>track_pink.png</filename>
-            <filename>track_white.png</filename>
-            <filename>track_yellow.png</filename>
             <filename>trampoline_yellow.png</filename>
             <filename>umbrella_green.png</filename>
             <filename>well_white.png</filename>
@@ -237,6 +230,10 @@
             <filename>trees_6.png</filename>
             <filename>trees_7.png</filename>
             <filename>fence</filename>
+            <filename>track_pink.png</filename>
+            <filename>track_white.png</filename>
+            <filename>track_yellow.png</filename>
+            <filename>track_blue.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

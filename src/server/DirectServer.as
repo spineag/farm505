@@ -1144,7 +1144,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.resourceId = resourceId;
-        variables.count = count;
+        variables.countAll = count;
         variables.hash = MD5.hash(String(g.user.userId)+String(resourceId)+String(count)+SECRET);
         request.data = variables;
         iconMouse.startConnect();

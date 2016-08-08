@@ -5,6 +5,8 @@ package windows.levelUp {
 import data.BuildType;
 import data.DataMoney;
 
+import flash.display.StageDisplayState;
+
 import flash.geom.Rectangle;
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
@@ -12,6 +14,7 @@ import manager.ManagerWallPost;
 import media.SoundConst;
 
 import starling.animation.Tween;
+import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -327,6 +330,13 @@ public class WOLevelUp extends WindowMain {
     }
 
     private function onClickShare():void {
+        if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
+            Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
+            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
+//            Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
+            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
+        }
         g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_count,DataMoney.HARD_CURRENCY);
         hideIt();
     }
