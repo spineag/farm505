@@ -37,6 +37,7 @@ import windows.serverCrack.WOServerCrack;
 import windows.serverError.WOServerError;
 import windows.serverNoWork.WOSeverNoWork;
 import windows.shop.WOShop;
+import windows.tipsWindow.WOTips;
 import windows.train.WOTrain;
 import windows.train.WOTrainOrder;
 import windows.train.WOTrainSend;
@@ -88,6 +89,7 @@ public class WindowsManager {
     public static const POST_DONE_TRAIN:String = 'post_done_train';
     public static const POST_DONE_ORDER:String = 'post_done_order';
     public static const WO_SERVER_NO_WORK:String = 'server_no_work';
+    public static const WO_TIPS:String = 'tips';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -103,7 +105,7 @@ public class WindowsManager {
 
     public function openWindow(type:String, callback:Function=null, ...params):void {
         if (_currentWindow) {
-            if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR || type == WO_ANOTHER_GAME_ERROR) {
+            if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR || type == WO_ANOTHER_GAME_ERROR || type == WO_SERVER_CRACK) {
                 closeAllWindows();
             } else {
                 _nextWindow = {};
@@ -234,6 +236,9 @@ public class WindowsManager {
                 break;
             case WO_SERVER_CRACK:
                 wo = new WOServerCrack();
+                break;
+            case WO_TIPS:
+                wo = new WOTips();
                 break;
 
             default:

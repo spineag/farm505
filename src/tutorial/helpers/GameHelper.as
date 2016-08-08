@@ -52,7 +52,7 @@ public class GameHelper {
         _source.addChild(_txt);
         _isUnderBuild = false;
         createCatHead();
-        _timer = 3;
+        _timer = 2;
         g.gameDispatcher.addToTimer(createExitButton);
         createShowButton();
     }
@@ -61,14 +61,16 @@ public class GameHelper {
         _timer --;
         if (_timer <= 0) {
             g.gameDispatcher.removeFromTimer(createExitButton);
-            _btnExit = new CButton();
-            _btnExit.addDisplayObject(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
-            _btnExit.setPivots();
-            _btnExit.x = 144;
-            _btnExit.y = -53;
-            _btnExit.createHitArea('bt_close');
-            _source.addChild(_btnExit);
-            _btnExit.clickCallback = onExit;
+            if (_source) {
+                _btnExit = new CButton();
+                _btnExit.addDisplayObject(new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_close')));
+                _btnExit.setPivots();
+                _btnExit.x = 144;
+                _btnExit.y = -53;
+                _btnExit.createHitArea('bt_close');
+                _source.addChild(_btnExit);
+                _btnExit.clickCallback = onExit;
+            }
         }
     }
 
@@ -102,20 +104,31 @@ public class GameHelper {
 
     public function deleteHelper():void {
         if (_source) {
+            g.gameDispatcher.removeFromTimer(createExitButton);
             _arrow.deleteIt();
             _arrow = null;
             g.cont.hintGameCont.removeChild(_spArrow);
             _spArrow = null;
             g.gameDispatcher.removeEnterFrame(checkPosition);
-            g.cont.hintGameCont.removeChild(_source);
-            while (_source.numChildren) _source.removeChildAt(0);
-            _catHead.dispose();
-            _catHead = null;
-            _txt.dispose();
+            if (_source) {
+                g.cont.hintGameCont.removeChild(_source);
+                while (_source.numChildren) _source.removeChildAt(0);
+            }
+            if (_catHead) {
+                _catHead.dispose();
+                _catHead = null;
+            }
+            if (_txt) _txt.dispose();
             _bg = null;
             _source = null;
-            if (_btnExit) _btnExit.deleteIt();
-            _btnShow.deleteIt();
+            if (_btnExit) {
+                _btnExit.deleteIt();
+                _btnExit = null;
+            }
+            if (_btnShow) {
+                _btnShow.deleteIt();
+                _btnShow = null;
+            }
         }
     }
 
@@ -181,7 +194,7 @@ public class GameHelper {
         }
 
         var dist:Number = Math.sqrt((_targetPoint.x - _centerPoint.x)*(_targetPoint.x - _centerPoint.x) + (_targetPoint.y - _centerPoint.y)*(_targetPoint.y - _centerPoint.y));
-        if (dist < MIN_RADIUS) {
+        if (dist < MIN_RADIUS && _targetPoint.y > 200) {
             if (_isUnderBuild) {
                 _spArrow.rotation = Math.PI;
                 _arrow.changeY(-150);
