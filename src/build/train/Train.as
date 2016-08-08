@@ -52,8 +52,8 @@ public class Train extends WorldObject{
             return;
         }
 
-        _craftSprite = new Sprite();
-        _source.addChild(_craftSprite);
+        _buildingBuildSprite = new Sprite();
+        _source.addChild(_buildingBuildSprite);
        checkTrainState();
         _source.releaseContDrag = true;
     }
@@ -251,12 +251,12 @@ public class Train extends WorldObject{
             _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
             _armature.animation.gotoAndPlay('over');
         } else if (_stateBuild == STATE_BUILD) {
-            _craftSprite.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            _buildingBuildSprite.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             buildingBuildFoundationOver();
 //            _countTimer = 5;
 //            g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            _craftSprite.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            _buildingBuildSprite.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             buildingBuildDoneOver();
         }
         g.hint.showIt(_dataBuild.name);
@@ -456,7 +456,7 @@ public class Train extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
-        _craftSprite.filter = null;
+        _buildingBuildSprite.filter = null;
         _build.filter = null;
         g.hint.hideIt();
         _isOnHover = false;

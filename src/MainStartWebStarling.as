@@ -47,7 +47,7 @@ public class MainStartWebStarling extends Sprite{
         stage.scaleMode = StageScaleMode.NO_SCALE;
         stage.align = StageAlign.TOP_LEFT;
         stage.addEventListener(flash.events.Event.RESIZE, onStageResize);
-        stage.quality = StageQuality.LOW;
+        stage.quality = StageQuality.MEDIUM;
 
         setTimeout(function() : void { if (!stageReady) onStageResize(null);}, 1000);
     }
