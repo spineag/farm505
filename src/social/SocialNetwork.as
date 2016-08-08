@@ -326,8 +326,16 @@ public class SocialNetwork extends EventDispatcher {
             }
         }
         Cc.ch('analytic', 'try get GAcid');
-        ExternalInterface.addCallback("sendGAcidToAS", getGAcidfromJS);
-        ExternalInterface.call("FarmNinja.getUserGAcidForAS");
+        try {
+            ExternalInterface.addCallback("sendGAcidToAS", getGAcidfromJS);
+            ExternalInterface.call("FarmNinja.getUserGAcidForAS");
+        } catch (e:Error) {
+            Cc.error('SocialNetwork getUserGASid:: error at ExternalInterface');
+            g.user.userGAcid = 'undefined';
+            if (callback != null) {
+                callback.apply();
+            }
+        }
     }
 
     public function checkLeftMenu():void {
