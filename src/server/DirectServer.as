@@ -642,10 +642,10 @@ public class DirectServer {
             if (g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);
-            if (ob.wall_order_item_time == int(new Date().date)) g.user.wallOrderItem = false;
+            if (ob.wall_order_item_time == int(new Date().dateUTC)) g.user.wallOrderItem = false;
             else g.user.wallOrderItem = true;
 
-            if (ob.wall_train_item == int(new Date().date)) g.user.wallTrainItem = false;
+            if (ob.wall_train_item == int(new Date().dateUTC)) g.user.wallTrainItem = false;
             else g.user.wallTrainItem = true;
 
             g.user.checkUserLevel();
@@ -2727,8 +2727,10 @@ public class DirectServer {
                 callback.apply(null, [d.message]);
             }
         } else if (d.id == 13) {
+            Cc.ch('server', 'addUserMarketItem anotherGame', 5);
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else if (d.id == 6) {
+            Cc.ch('server', 'addUserMarketItem SERVER CRACK', 5);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserMarketItem: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);

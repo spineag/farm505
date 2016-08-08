@@ -792,7 +792,7 @@ public class MarketItem {
         if (count >= 0) {
             g.gameDispatcher.removeFromTimer(onEnterFrame);
             if (!g.resourceHint.isShowed && _onHover)
-                g.marketHint.showIt(_data.id,source.x,source.y,source);
+            if (_data && source) g.marketHint.showIt(_data.id,source.x,source.y,source);
         }
     }
 

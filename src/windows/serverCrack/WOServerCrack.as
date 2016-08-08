@@ -2,6 +2,8 @@
  * Created by user on 7/14/16.
  */
 package windows.serverCrack {
+import com.junkbyte.console.Cc;
+
 import manager.ManagerFilters;
 
 import media.SoundConst;
@@ -57,6 +59,11 @@ public class WOServerCrack  extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         showIt();
+
+        if (params[0]) {
+            _txtError.text = 'Ошибка данных ' + String(params[0]);
+            Cc.error('WOServerCrack: status=' + params[0]);
+        }
     }
 
     private function onClick():void {
