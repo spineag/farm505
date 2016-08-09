@@ -65,11 +65,10 @@ public class Fabrica extends WorldObject {
         _arrList = [];
         _arrCrafted = [];
         _source.releaseContDrag = true;
-        if (!g.isAway) {
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
-        }
+        if (!g.isAway)_source.endClickCallback = onClick;
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
+
         updateRecipes();
     }
 
@@ -141,6 +140,10 @@ public class Fabrica extends WorldObject {
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();
+        if (g.isAway) {
+            g.hint.showIt(_dataBuild.name);
+            return;
+        }
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _count = 20;
@@ -181,6 +184,10 @@ public class Fabrica extends WorldObject {
 
     override public function onOut():void {
         super.onOut();
+        if (g.isAway) {
+            g.hint.hideIt();
+            return;
+        }
         _source.filter = null;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) return;
@@ -401,6 +408,11 @@ public class Fabrica extends WorldObject {
                     g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
                 }
             };
+            if (delay < 0) {
+//                trace('loohhhhh');
+//                    return;
+                delay = _arrList[0].buildTime;
+            }
             g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
 
             // animation of uploading resources to fabrica

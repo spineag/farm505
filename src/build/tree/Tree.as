@@ -78,10 +78,8 @@ public class Tree extends WorldObject {
     }
 
     private function onCreateBuild():void {
-        if (!g.isAway || _state == ASK_FIX) {
-            _source.hoverCallback = onHover;
-            _source.outCallback = onOut;
-        }
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
         _source.endClickCallback = onClick;
         WorldClock.clock.add(_armature);
         _fruits1 = _armature.getBone('fruit1');
@@ -381,6 +379,10 @@ public class Tree extends WorldObject {
     }
 
     override public function onHover():void {
+        if (g.isAway) {
+            g.hint.showIt(_dataBuild.name);
+            return;
+        }
         if (g.selectedBuild) return;
         super.onHover();
         if (g.isActiveMapEditor) return;
@@ -460,6 +462,11 @@ public class Tree extends WorldObject {
     }
 
     override public function onOut():void {
+        if (g.isAway) {
+            super.onOut();
+            g.hint.hideIt();
+            return;
+        }
         if (!_isOnHover) return;
         if (g.isActiveMapEditor) return;
         if (g.selectedBuild) return;

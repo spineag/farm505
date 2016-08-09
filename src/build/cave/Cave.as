@@ -56,10 +56,10 @@ public class Cave extends WorldObject{
             } else if (_stateBuild == STATE_BUILD) {
                 addFoundationBuilding();
             }
-            _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
         }
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
     }
     
     override public function afterPasteBuild():void {
@@ -193,6 +193,11 @@ public class Cave extends WorldObject{
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();
+        if (g.isAway) {
+            g.hint.showIt(_dataBuild.name);
+            return;
+        }
+
         if (_isAnimate) return;
         if (_stateBuild == STATE_ACTIVE) {
             if (!_isOnHover && !_isAnimate) {
@@ -231,6 +236,10 @@ public class Cave extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
+        if (g.isAway) {
+            g.hint.hideIt();
+            return;
+        }
         _isOnHover = false;
         if (_source) _source.filter = null;
         if (_isAnimate) return;

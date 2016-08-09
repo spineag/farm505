@@ -36,15 +36,20 @@ public class Ambar extends WorldObject{
 
     private function onCreateBuild():void {
         if (!g.isAway) {
-            _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
         }
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
+
     }
 
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();
+        if (g.isAway) {
+            g.hint.showIt(_dataBuild.name);
+            return;
+        }
         if (!_isOnHover) {
             makeOverAnimation();
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
@@ -88,6 +93,10 @@ public class Ambar extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
+        if (g.isAway) {
+            g.hint.hideIt();
+            return;
+        }
        _isOnHover = false;
         _source.filter = null;
         g.hint.hideIt();

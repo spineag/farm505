@@ -30,6 +30,7 @@ public class UpdateItem {
     private var _resourceImage:Image;
     private var _wo:WOAmbars;
     private var _rubinsSmall:Image;
+    private var _onHover:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
@@ -73,6 +74,7 @@ public class UpdateItem {
         _imGalo4ka.y = 123;
         source.addChild(_imGalo4ka);
         _imGalo4ka.filter = ManagerFilters.SHADOW_TINY;
+        _onHover = false;
     }
 
     public function updateIt(id:int, isAmbar:Boolean = true):void {
@@ -142,11 +144,14 @@ public class UpdateItem {
     }
 
     private function onHover():void {
+        if(_onHover) return;
+        _onHover = true;
         if (!g.resourceHint.isShowed)
             g.resourceHint.showIt(_resourceId,source.x,source.y,source,true);
     }
 
     private function onOut():void {
+        _onHover = false;
         g.resourceHint.hideIt();
     }
 

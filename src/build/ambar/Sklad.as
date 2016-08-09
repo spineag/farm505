@@ -30,19 +30,24 @@ public class Sklad extends WorldObject{
 
     private function onCreateBuild():void {
         if (!g.isAway) {
-            _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
             _hitArea = g.managerHitArea.getHitArea(_source, 'skladBuild');
             _source.registerHitArea(_hitArea);
             WorldClock.clock.add(_armature);
         }
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
+
         _source.releaseContDrag = true;
     }
 
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();
+        if (g.isAway) {
+            g.hint.showIt(_dataBuild.name);
+            return;
+        }
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             var fEndOver:Function = function():void {
@@ -94,6 +99,10 @@ public class Sklad extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
+        if (g.isAway) {
+            g.hint.hideIt();
+            return;
+        }
         _isOnHover = false;
         _source.filter = null;
         g.hint.hideIt();
