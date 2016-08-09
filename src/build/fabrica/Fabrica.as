@@ -464,6 +464,7 @@ public class Fabrica extends WorldObject {
                 countResources = g.dataRecipe.objectRecipe[id].numberCreate;
             }
         }
+        _craftSprite.visible = true;
         var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, useCraftedResource, true);
         _arrCrafted.push(craftItem);
         craftItem.addParticle();

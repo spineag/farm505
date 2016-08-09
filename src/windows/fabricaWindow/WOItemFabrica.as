@@ -195,6 +195,7 @@ public class WOItemFabrica {
     public function addArrowIfPossibleToRaw():void {
         if (!_dataRecipe) return;
         removeArrow();
+        if (_dataRecipe.blockByLevel > g.user.level) return;
         for (var l:int=0; l<_dataRecipe.ingridientsId.length; l++) {
             if (g.userInventory.getCountResourceById(int(_dataRecipe.ingridientsId[l])) < int(_dataRecipe.ingridientsCount[l])) {
                 break;
