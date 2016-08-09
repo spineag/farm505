@@ -158,7 +158,7 @@ public class ManagerHelpers {
         for (var i:int=0; i<animals.length; i++) {
             an = animals[i] as Animal;
             if (an.state == Animal.HUNGRY &&
-                    (an.animalData.buildType == BuildType.PLANT && g.userInventory.getCountResourceById(an.animalData.idResourceRaw) >= 2 ||
+                    (an.animalData.buildType == BuildType.PLANT && g.userInventory.getCountResourceById(an.animalData.idResourceRaw) > 2 ||
                     an.animalData.buildType != BuildType.PLANT && g.userInventory.getCountResourceById(an.animalData.idResourceRaw) > 0)) {
                 _curReason.animal = an;
                 _curReason.build = an.farm;
