@@ -2046,9 +2046,6 @@ public class ManagerTutorial {
         _subStep = 3;
         g.user.tutorialStep = 101;
         updateTutorialStep();
-
-        g.managerTips = new ManagerTips();
-        
         clearAll();
     }
 
@@ -2065,6 +2062,7 @@ public class ManagerTutorial {
             cat = null;
         }
         TUTORIAL_ON = false;
+        g.managerTips = new ManagerTips();
     }
 
     private function addCatToPos(_x:int, _y:int):void {
