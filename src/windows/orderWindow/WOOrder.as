@@ -917,13 +917,9 @@ public class WOOrder extends WindowMain{
         _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
         _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
 
-        if (g.managerTutorial.isTutorial) {
-            g.managerTutorial.checkTutorialCallback();
-        } else {
-            emptyCarCustomer();
-//            changeCatTexture(_activeOrderItem.position);
-//            animateCustomerCat();
-        }
+        emptyCarCustomer();
+//      changeCatTexture(_activeOrderItem.position);
+//      animateCustomerCat();
 
         if (g.user.wallOrderItem && g.user.level >= 10) {
             hideIt();
