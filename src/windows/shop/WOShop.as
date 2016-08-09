@@ -119,7 +119,7 @@ public class WOShop extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         updateMoneyCounts();
         if (params.length) {
-            if (g.user.decorShop && !g.managerCutScenes.isCutScene)   onTab(DECOR);
+            if (g.user.decorShop && !g.managerCutScenes.isCutScene) onTab(DECOR);
             else onTab(params[0]);
         } else if (curentTab > 0) {
             onTab(curentTab);

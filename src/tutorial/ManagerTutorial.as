@@ -32,6 +32,7 @@ import starling.utils.Color;
 import tutorial.pretuts.TutorialCloud;
 
 import tutorial.pretuts.TutorialMult;
+import tutorial.tips.ManagerTips;
 
 import utils.SimpleArrow;
 
@@ -2046,6 +2047,8 @@ public class ManagerTutorial {
         g.user.tutorialStep = 101;
         updateTutorialStep();
 
+        g.managerTips = new ManagerTips();
+        
         clearAll();
     }
 

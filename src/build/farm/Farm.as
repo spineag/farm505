@@ -247,6 +247,16 @@ public class Farm extends WorldObject{
     public function get arrAnimals():Array {
         return _arrAnimals;
     }
+    
+    public function get arrHungryAnimals():Array {
+        var ar:Array = [];
+        for (var i:int = 0; i<_arrAnimals.length; i++) {
+            if ((_arrAnimals[i] as Animal).state == Animal.HUNGRY) {
+                ar.push(_arrAnimals[i]);
+            }
+        }
+        return ar;
+    }
 
     private var counter:int = 0;
     private var arr:Array;
@@ -356,6 +366,7 @@ public class Farm extends WorldObject{
         item.animIt();
         _arrCrafted.push(item);
         checkForCraft();
+        if (g.managerTips) g.managerTips.calculateAvailableTips();
     }
 
     private function useCraftedResource(item:ResourceItem, crItem:CraftItem):void {

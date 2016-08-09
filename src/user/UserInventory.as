@@ -66,7 +66,10 @@ public class UserInventory {
             if (!_inventoryResource[id]) g.directServer.addUserResource(id, 0, f);
             else g.directServer.addUserResource(id, _inventoryResource[id], f);
         }
-        if (needSendToServer) g.managerOrder.checkForFullOrder();
+        if (needSendToServer) {
+            g.managerOrder.checkForFullOrder();
+            if (g.managerTips) g.managerTips.calculateAvailableTips();
+        }
     }
 
     public function getResourcesForAmbar():Array {

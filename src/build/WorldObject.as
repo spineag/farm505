@@ -201,7 +201,7 @@ public class WorldObject {
         return _source.isContDrag;
     }
 
-    public function showArrow():void {
+    public function showArrow(t:Number = 0):void {
         hideArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
         if (_rect) {
@@ -209,6 +209,7 @@ public class WorldObject {
         } else {
             _arrow.animateAtPosition(0, 10);
         }
+        if (t>0) _arrow.activateTimer(t, hideArrow);
     }
 
     public function hideArrow():void {
@@ -466,5 +467,6 @@ public class WorldObject {
         };
         TweenMax.to(_build, time, {scaleX: 0.98, scaleY: 1.02, y: -6*g.scaleFactor, onComplete: f1});
     }
+
 }
 }

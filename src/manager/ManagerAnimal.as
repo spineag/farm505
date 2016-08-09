@@ -160,12 +160,27 @@ public class ManagerAnimal {
     public function getAllAnimalsById(id:int):Array {
         var arr:Array = [];
         var ans:Array;
-        var j:int;
         for (var i:int=0; i<_arrFarm.length; i++) {
             ans = (_arrFarm[i] as Farm).arrAnimals;
             if (ans[0] && (ans[0] as Animal).animalData.id == id) {
                 arr = arr.concat(ans);
             }
+        }
+        return arr;
+    }
+
+    public function getAllHungryAnimalsForTipsWithPossibleForRaw():Array {
+        var arr:Array = [];
+        var ob:Object;
+        for (var i:int=0; i<_arrFarm.length; i++) {
+            if (!(_arrFarm[i] as Farm).isAnyCrafted) {
+                ob = (_arrFarm[i] as Farm).dataAnimal;
+                if (ob.id == 6 && g.userInventory.getCountResourceById(ob.idResourceRaw) > 1) {
+                    arr = arr.concat((_arrFarm[i] as Farm).arrHungryAnimals);
+                } else if (g.userInventory.getCountResourceById(ob.idResourceRaw) > 0) {
+                    arr = arr.concat((_arrFarm[i] as Farm).arrHungryAnimals);
+                }
+            } 
         }
         return arr;
     }

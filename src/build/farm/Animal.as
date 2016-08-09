@@ -170,12 +170,13 @@ public class Animal {
         } else return false;
     }
 
-    public function addArrow():void {
+    public function addArrow(t:Number = 0):void {
         if (animation) {
             removeArrow();
             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
             _arrow.scaleIt(.7);
             _arrow.animateAtPosition(0, _rect.y + 30);
+            if (t>0) _arrow.activateTimer(t, removeArrow);
         } else {
             _needShowArrow = true;
         }

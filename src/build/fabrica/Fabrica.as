@@ -478,6 +478,7 @@ public class Fabrica extends WorldObject {
             }
             _heroCat = null;
         }
+        if (g.managerTips) g.managerTips.calculateAvailableTips();
     }
 
     public function addAnimForCraftItem(v:Boolean):void {
