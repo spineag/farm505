@@ -378,6 +378,7 @@ public class Ridge extends WorldObject{
         _stateRidge = a;
         if (_stateRidge == GROWED) {
             g.managerPlantRidge.removeCatFromRidge(_dataPlant.id, this);
+            if (g.managerTips) g.managerTips.calculateAvailableTips();
         }
         updateRidgeHitArea();
     }
@@ -462,8 +463,8 @@ public class Ridge extends WorldObject{
             g.managerPlantRidge.onRidgeFinishMove(_dataPlant.id, this);
     }
 
-    override public function showArrow():void {
-        super.showArrow();
+    override public function showArrow(t:Number=0):void {
+        super.showArrow(t);
         if (_arrow) _arrow.scaleIt(.7);
     }
 

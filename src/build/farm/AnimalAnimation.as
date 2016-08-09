@@ -5,8 +5,14 @@ package build.farm {
 import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
+import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
+
+import starling.display.DisplayObject;
+
+import starling.display.DisplayObjectContainer;
+import starling.display.Image;
 
 import starling.display.Sprite;
 
@@ -22,13 +28,33 @@ public class AnimalAnimation {
     }
 
     public function get source():Sprite { return _source; }
-    public function animalArmature(a:Armature):void {
+    public function animalArmature(a:Armature, id:int):void {
         if (!a) {
             Cc.error('Animal:: no armature for animalId');
             return;
         }
         _armature = a;
         _source.addChild(_armature.display as Sprite);
+        if (id!=6) tryUnTouchableZZZ();
+    }
+
+    private function tryUnTouchableZZZ():void {
+        try {
+            var b:Bone = _armature.getBone('zzz');
+            if (b && b.display is Image) {
+                (b.display as Image).touchable = false;
+            }
+            b = _armature.getBone('zzz copy');
+            if (b && b.display is Image) {
+                (b.display as Image).touchable = false;
+            }
+            b = _armature.getBone('zzz copy 2');
+            if (b && b.display is Image) {
+                (b.display as Image).touchable = false;
+            }
+        } catch (e:Error) { 
+            Cc.error('Error at animalAnimation: try untouchable ZZZ');
+        }
     }
 
     public function playIt(label:String, playOnce:Boolean = false, callback:Function = null):void {

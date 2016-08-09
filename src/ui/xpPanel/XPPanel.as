@@ -102,7 +102,15 @@ public class XPPanel {
             g.managerOrder.checkOrders();
             if (g.user.level == g.dataBuilding.objectBuilding[45].blockByLevel)
                 g.managerDailyBonus.generateDailyBonusItems();
-            if (g.user.level == 8) g.managerHelpers.disableIt();
+            if (g.user.level == 8) {
+                g.managerHelpers.disableIt();
+            } else if (g.user.level == 9) {
+                g.managerTips.deleteTips();
+                g.managerTips = null;
+            }
+            if (g.user.level >=5 && g.user.level < 9) {
+                if (g.managerTips) g.managerTips.calculateAvailableTips();
+            }
             if (!g.isDebug) g.socialNetwork.setUserLevel();
         }
         checkXP();

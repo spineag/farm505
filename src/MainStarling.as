@@ -23,7 +23,6 @@ public class MainStarling extends Sprite {
     public function start() : void
     {
         g.dataPath = new DataPath();
-//        g.allData = new AllData();
         g.load = LoaderManager.getInstance();
         g.pBitmaps = {};
         g.pXMLs = {};

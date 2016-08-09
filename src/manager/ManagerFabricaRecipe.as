@@ -66,7 +66,6 @@ public class ManagerFabricaRecipe {
         for (var i:int=0; i<_arrFabrica.length; i++){
             f = _arrFabrica[i];
             if (f.arrList.length >= f.dataBuild.countCell) continue;
-
             for (j=0; j<f.arrRecipes.length; j++) {
                 r = f.arrRecipes[j];
                 if (!r) continue;
@@ -84,6 +83,45 @@ public class ManagerFabricaRecipe {
             }
         }
         return null;
+    }
+    
+    public function getAllFabricasWithPossibleRecipe():Array {
+        var j:int;
+        var l:int;
+        var f:Fabrica;
+        var r:Object;
+        var isReady:Boolean;
+        var arr:Array = [];
+        for (var i:int=0; i<_arrFabrica.length; i++){
+            f = _arrFabrica[i];
+            if (f.arrList.length >= f.dataBuild.countCell) continue;
+            for (j=0; j<f.arrRecipes.length; j++) {
+                r = f.arrRecipes[j];
+                if (!r) continue;
+                if (r.blockByLevel > g.user.level) continue;
+                isReady = true;
+                for (l=0; l<r.ingridientsId.length; l++) {
+                    if (g.userInventory.getCountResourceById(int(r.ingridientsId[l])) < int(r.ingridientsCount[l])) {
+                        isReady = false;
+                        break;
+                    }
+                }
+                if (isReady) {
+                    arr.push(f);
+                }
+            }
+        }
+        return arr;
+    }
+    
+    public function getAllFabricaWithCraft():Array {
+        var arr:Array = [];
+        for (var i:int=0; i<_arrFabrica.length; i++) {
+            if ((_arrFabrica[i] as Fabrica).isAnyCrafted) {
+                arr.push(_arrFabrica[i]);
+            }
+        }
+        return arr;
     }
 
     public function onGoAwayCats(v:Boolean):void {

@@ -17,6 +17,7 @@ public class ConsoleWrapper {
     protected static var g:Vars = Vars.getInstance();
 
     private static var _instance:ConsoleWrapper;
+    private var _isStats:Boolean = false;
 
     public static function getInstance():ConsoleWrapper {
         if (!_instance) {
@@ -45,6 +46,7 @@ public class ConsoleWrapper {
         Cc.bindKey(new KeyBind(Keyboard.L, false, false, true, true), exportLogToHTML);
         Cc.bindKey(new KeyBind(Keyboard.R, true, false, true, true), deleteUser);
         Cc.bindKey(new KeyBind(Keyboard.F, true, false, true, true), makeFullscreen);
+        Cc.bindKey(new KeyBind(Keyboard.I, true, false, true, true), showStats);
 //        Cc.bindKey(new KeyBind(Keyboard.R, false, false, true, true), removeUserData);
 
         //Cc.addSlashCommand("export", exportLogToHTML, "Save game log.", true);
@@ -67,6 +69,11 @@ public class ConsoleWrapper {
 //        Cc.bindKey(new KeyBind(Keyboard.R), removeUserData);
         Cc.addSlashCommand("g", inspectObjects, "Inspect Objects class", true);
 //        Cc.addSlashCommand("sendErrorLog", sendErrorLog, "Manually sends error message");
+    }
+
+    private function showStats():void {
+        _isStats = !_isStats;
+        g.starling.showStats = _isStats;
     }
 
     private function exportLogToHTML():void {

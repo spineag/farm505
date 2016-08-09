@@ -70,6 +70,11 @@ public class Wild extends WorldObject{
     public function setLockedLand(l:LockedLand):void {
         _curLockedLand = l;
     }
+    
+    public function get isAtLockedLand():Boolean {
+        if (_curLockedLand) return true;
+            else return false;
+    }
 
     public function removeLockedLand():void {
         _curLockedLand = null;
@@ -201,7 +206,6 @@ public class Wild extends WorldObject{
                 onOut();
                 return;
             }
-
             if (g.timerHint.isShow) {
                 g.timerHint.managerHide(callbackClose);
                 return;
@@ -214,7 +218,6 @@ public class Wild extends WorldObject{
                 g.treeHint.managerHide(callbackClose);
                 return;
             }
-
             if (_isOnHover)  {
                 onOut();
                 g.wildHint.onDelete = wildDelete;

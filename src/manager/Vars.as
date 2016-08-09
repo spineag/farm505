@@ -64,6 +64,8 @@ import temp.MapEditorInterface;
 import tutorial.ManagerTutorial;
 import tutorial.helpers.ManagerHelpers;
 import tutorial.managerCutScenes.ManagerCutScenes;
+import tutorial.tips.ManagerTips;
+
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
@@ -186,6 +188,7 @@ public class Vars {
     public var managerButterfly:ManagerButterfly;
     public var managerHelpers:ManagerHelpers;
     public var soundManager:SoundManager;
+    public var managerTips:ManagerTips;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -476,6 +479,11 @@ public class Vars {
                 managerCutScenes.checkAvailableCutScenes();
             }
             managerHelpers = new ManagerHelpers();
+            if (!managerTutorial.isTutorial) {
+                if ((user as User).level >= 4 && (user as User).level < 9) {
+                    managerTips = new ManagerTips();
+                }
+            }
 
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();

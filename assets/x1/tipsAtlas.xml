@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:497a1b3edcad43732cdc5377b0403b18:77e8ff2126ed31aee1b3b5ba34349489:e22fc90b19e4138bf572c23dec54983e$ -->
+<TextureAtlas imagePath="tipsAtlas.png">
+    <SubTexture name="animals_icon" x="2" y="291" width="68" height="68"/>
+    <SubTexture name="crops_icon" x="2" y="148" width="74" height="72"/>
+    <SubTexture name="factories_icon" x="2" y="432" width="65" height="65"/>
+    <SubTexture name="helper_cat_1" x="2" y="2" width="117" height="144" frameX="-2" frameY="0" frameWidth="124" frameHeight="148"/>
+    <SubTexture name="marcet_icon" x="2" y="566" width="64" height="70"/>
+    <SubTexture name="newspaper_icon" x="2" y="361" width="65" height="69"/>
+    <SubTexture name="orders_icon" x="2" y="638" width="64" height="68"/>
+    <SubTexture name="products_icon" x="2" y="222" width="73" height="67"/>
+    <SubTexture name="wheel_of_fortune_icon" x="2" y="499" width="65" height="65"/>
+</TextureAtlas>

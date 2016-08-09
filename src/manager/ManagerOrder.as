@@ -171,22 +171,25 @@ public class ManagerOrder {
                     if (g.dataResource.objectResources[id].orderType == 1) {
                         arrOrderType1.push(int(id));
                     } else if (g.dataResource.objectResources[id].orderType == 3) {
-                        arrOrderType3.push(int(id));
+                        if (int(id) != 18) arrOrderType3.push(int(id));
                     }
                 }
             }
-            var ids:int = 0;
-            var count:int = 0;
+//            var ids:int = 0;
+//            var count:int = 0;
             if (Math.random() < .6) {
-                ids = ( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
-                count = ( int(Math.random()*2) + 2 );
-                if (count > g.userInventory.getCountResourceById(ids)) {
-                    order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
-                    order.resourceCounts.push( int(Math.random()*4) + 4 );
-                } else {
-                    order.resourceIds.push(ids);
-                    order.resourceCounts.push(count);
-                }
+//                ids = ( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+//                count = ( int(Math.random()*2) + 2 );
+//                if (count > g.userInventory.getCountResourceById(ids)) {
+//                if (count > g.userInventory.getCountResourceById(ids)) {
+//                    order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
+//                    order.resourceCounts.push( int(Math.random()*4) + 4 );
+//                } else {
+//                    order.resourceIds.push(ids);
+//                    order.resourceCounts.push(count);
+//                }
+                order.resourceIds.push( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
+                order.resourceCounts.push( int(Math.random()*2) + 2 );
             } else {
                 order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
                 order.resourceCounts.push( int(Math.random()*4) + 4 );

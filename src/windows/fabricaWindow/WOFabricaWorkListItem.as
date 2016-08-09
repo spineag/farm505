@@ -166,6 +166,7 @@ public class WOFabricaWorkListItem {
             g.gameDispatcher.addToTimer(render);
             _timerBlock.visible = true;
             _btnSkip.visible = true;
+            _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_resource.leftTime);
         } else {
             Cc.error('WOFabricaWorkListItem activateTimer:: ');
         }
@@ -173,7 +174,6 @@ public class WOFabricaWorkListItem {
 
     private function render():void {
         if (!_resource) return;
-        _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_resource.leftTime);
         if (_resource.leftTime <= 0) {
             g.gameDispatcher.removeFromTimer(render);
             _txtTimer.text = '';
@@ -185,6 +185,8 @@ public class WOFabricaWorkListItem {
             if (_timerFinishCallback != null) {
                 _timerFinishCallback.apply();
             }
+        } else {
+            _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_resource.leftTime);
         }
     }
 //    public function get leftTime():int {

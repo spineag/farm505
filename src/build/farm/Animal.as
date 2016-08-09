@@ -8,6 +8,8 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+
+import dragonBones.Bone;
 import dragonBones.events.AnimationEvent;
 
 import flash.events.MouseEvent;
@@ -130,7 +132,7 @@ public class Animal {
 
     private function createAnimal():void {
         animation = new AnimalAnimation();
-        animation.animalArmature(g.allData.factory[_data.url].buildArmature(_data.image));
+        animation.animalArmature(g.allData.factory[_data.url].buildArmature(_data.image), _data.id);
         source.addChild(animation.source);
         _rect = source.getBounds(source);
         if (currentLabelAfterLoading != '') {
@@ -141,7 +143,7 @@ public class Animal {
             _needShowArrow = false;
         }
     }
-
+    
     public function get state():int {
         return _state;
     }
@@ -170,12 +172,13 @@ public class Animal {
         } else return false;
     }
 
-    public function addArrow():void {
+    public function addArrow(t:Number = 0):void {
         if (animation) {
             removeArrow();
             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
             _arrow.scaleIt(.7);
             _arrow.animateAtPosition(0, _rect.y + 30);
+            if (t>0) _arrow.activateTimer(t, removeArrow);
         } else {
             _needShowArrow = true;
         }
