@@ -53,7 +53,7 @@ public class TimerHint {
         _btn.addButtonTexture(78, 46, CButton.GREEN, true);
         _txtCost = new TextField(50,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-        _txtCost.x = 10;
+        _txtCost.x = 5;
         _txtCost.y = 6;
         _txtTimer = new TextField(80,30,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -73,7 +73,7 @@ public class TimerHint {
         _btn = new CButton();
         _btn.addButtonTexture(77, 45, CButton.GREEN, true);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-        im.x = 50;
+        im.x = 45;
         im.y = 18;
         MCScaler.scale(im,25,25);
 
@@ -146,7 +146,7 @@ public class TimerHint {
         _isShow = true;
         _timer = timer;
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
-        if (g.user.level < 5) _txtCost.text = String(0);
+        if (g.managerTutorial.isTutorial) _txtCost.text = String(0);
         else _txtCost.text = String(cost);
         _txtName.text = name;
 //        _txtText.text = 'ускорить';
