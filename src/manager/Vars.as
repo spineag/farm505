@@ -480,7 +480,7 @@ public class Vars {
             }
             managerHelpers = new ManagerHelpers();
             if (!managerTutorial.isTutorial) {
-                if ((user as User).level >= 4 && (user as User).level < 9) {
+                if ((user as User).level >= 4 && (user as User).level < 10) {
                     managerTips = new ManagerTips();
                 }
             }

@@ -321,7 +321,8 @@ public class OptionPanel {
     public function makeFullScreen():void {
         Cc.info('makeFullScreen');
         if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
-            Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+//            Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+            Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN;
             Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
 //            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
 //            Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);

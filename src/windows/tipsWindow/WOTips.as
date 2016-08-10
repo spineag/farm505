@@ -33,9 +33,9 @@ public class WOTips  extends WindowMain {
         _carton.x = -232;
         _carton.y = -221;
         _source.addChild(_carton);
-        var txt:TextField = new TextField(420,80,'Список доступных действий',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        var txt:TextField = new TextField(420,80,'Список действий',g.allData.fonts['BloggerBold'],24,Color.WHITE);
         txt.autoScale = true;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = -210;
         txt.y = -244;
         txt.touchable = false;

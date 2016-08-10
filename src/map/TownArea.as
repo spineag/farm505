@@ -1277,6 +1277,7 @@ public class TownArea extends Sprite {
         } else {
             g.cont.craftAwayCont.visible = true;
             g.cont.craftCont.visible = false;
+            if (g.managerTips) g.managerTips.onGoAway(true);
             removeTownAreaSortCheking();
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 _cont.removeChild(_cityObjects[i].source);
@@ -1701,6 +1702,7 @@ public class TownArea extends Sprite {
         }
         g.cont.craftCont.visible = true;
         g.managerOrderCats.onGoAwayToUser(false);
+        if (g.managerTips) g.managerTips.onGoAway(false);
         _awayPreloader.deleteIt();
         _awayPreloader = null;
         addTownAreaSortCheking();

@@ -73,7 +73,7 @@ public class TipsPanel {
     }
 
     private function onClick():void {
-        if (g.managerCutScenes.isCutScene || g.managerTutorial.isTutorial) return;
+        if (g.managerCutScenes.isCutScene || g.managerTutorial.isTutorial || g.isAway) return;
         TweenMax.killTweensOf(_source);
         _source.scaleX = _source.scaleY = .9;
         g.gameDispatcher.removeFromTimer(onTimer);
@@ -113,6 +113,16 @@ public class TipsPanel {
 
     private function animate4():void {
         TweenMax.to(_source, .2, {scaleX:.9, scaleY:.9});
+    }
+
+    public function onGoAway(v:Boolean):void {
+        _source.visible = v;
+        if (v) {
+            g.gameDispatcher.removeFromTimer(onTimer);
+        } else {
+            _timer = 7;
+            g.gameDispatcher.addToTimer(onTimer);
+        }
     }
 
 }
