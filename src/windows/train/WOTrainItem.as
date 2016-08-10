@@ -31,6 +31,7 @@ public class WOTrainItem {
     private var _f:Function;
     private var _galo4ka:Image;
     private var _bg:Image;
+    private var _isHover:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
@@ -52,6 +53,7 @@ public class WOTrainItem {
         _galo4ka.y = 60;
         source.addChild(_galo4ka);
         _galo4ka.visible = false;
+        _isHover = false;
     }
 
     public function fillIt(t:TrainCell, i:int, type:int):void {
@@ -113,6 +115,8 @@ public class WOTrainItem {
         source.addChild(_txtRed);
         source.addChild(_galo4ka);
         source.endClickCallback = onClick;
+        source.hoverCallback = onHover ;
+        source.outCallback = onOut;
         if (isResourceLoaded) {
             _galo4ka.visible = true;
             _txtWhite.text = '';
@@ -137,6 +141,17 @@ public class WOTrainItem {
         if (_f != null) {
             _f.apply(null, [_index]);
         }
+    }
+
+    private function onHover():void {
+        if (_isHover) return;
+        _isHover = true;
+        g.marketHint.showIt(_info.id,source.x, source.y, source);
+    }
+
+    private function onOut():void {
+        _isHover = false;
+        g.marketHint.hideIt();
     }
 
     public function get isResourceLoaded():Boolean {

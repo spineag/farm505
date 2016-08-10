@@ -492,9 +492,12 @@ public class Train extends WorldObject{
     public function fullTrain(free:Boolean):void {
         //fillList(_dataPack);
         //g.woTrain.showItWithParams(list, this);
-        onOut();
         g.directServer.releaseUserTrainPack(_train_db_id, onReleasePack);
-        if (free) return;
+        _stateBuild = STATE_WAIT_BACK;
+        if (free){
+            onOut();
+            return;
+        }
         new XPStar(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, _dataPack.count_xp);
         var prise:Object = {};
         var priseCoupone:Object = {};
@@ -511,6 +514,7 @@ public class Train extends WorldObject{
             g.directServer.updateWallTrainItem(null);
             g.user.wallTrainItem = false;
         }
+        onOut();
     }
 
     private function onReleasePack():void {

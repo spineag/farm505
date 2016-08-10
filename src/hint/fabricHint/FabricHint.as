@@ -93,6 +93,7 @@ public class FabricHint {
         _contImage.y = 50;
         _source.addChild(_contImage);
         _source.pivotX = bg.width/2;
+        _source.touchable = false;
 //        _source.pivotY = bg.height/2;
     }
 

@@ -322,11 +322,16 @@ public class OrderCat {
         _currentPath = [];
     }
 
-    public function get typeCat():int {
-        return _catData.color;
-    }
-    public function get sexCat():Boolean {
-        return _catData.isWoman;
+//    public function get typeCat():int {
+//        return _catData.color;
+//    }
+//
+//    public function get sexCat():Boolean {
+//        return _catData.isWoman;
+//    }
+
+    public function get catData():Object {
+        return _catData;
     }
 
 

@@ -25,6 +25,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import temp.catCharacters.DataCat;
+
 import utils.SimpleArrow;
 
 import tutorial.TutorialAction;
@@ -757,7 +759,7 @@ public class WOOrder extends WindowMain{
         }
         var st:String;
         if (!_arrOrders[pos] || !_arrOrders[pos].cat) return;
-        switch (_arrOrders[pos].cat.typeCat){
+        switch (_arrOrders[pos].catOb.color){
             case OrderCat.BLUE:   st = '_bl'; break;
             case OrderCat.GREEN:  st = '_gr'; break;
             case OrderCat.BROWN:  st = '_br'; break;
@@ -778,6 +780,77 @@ public class WOOrder extends WindowMain{
             changeBant(_arrOrders[pos].cat.bant, b);
             viyi.visible = true;
         }
+        var okuli:Bone = _armatureCustomer.getBone('okuli');
+        var sharf:Bone = _armatureCustomer.getBone('sharf');
+        okuli.visible = false;
+        sharf.visible = false;
+//        switch (_arrOrders[pos].catOb.type) {
+//            case DataCat.AKRIL:
+//                okuli.visible = false;
+//                sharf.visible = true;
+//                break;
+//            case DataCat.ASHUR:
+//                okuli.visible = false;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.BULAVKA:
+//                okuli.visible = false;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.BUSINKA:
+//                okuli.visible = false;
+////                sharf.visible = false;
+//                sharf.visible = true;
+//                break;
+//            case DataCat.IGOLOCHKA:
+//                okuli.visible = false;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.IRIS:
+//                okuli.visible = false;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.KRUCHOK:
+//                okuli.visible = false;
+////                sharf.visible = false;
+//                sharf.visible = true;
+//                break;
+//            case DataCat.LENTOCHKA:
+//                okuli.visible = false;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.NAPERSTOK:
+//                okuli.visible = false;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.PETELKA:
+//                okuli.visible = false;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.PRYAGA:
+//                okuli.visible = false;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.SINTETIKA:
+//                okuli.visible = true;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.STESHOK:
+//                okuli.visible = false;
+//                sharf.visible = false;
+//                break;
+//            case DataCat.YZELOK:
+//                okuli.visible = false;
+////                sharf.visible = false;
+//                sharf.visible = true;
+//                break;
+//        }
+//        var im:Image = g.allData.factory['cat_queue1'].getTextureDisplay(_arrOrders[pos].catOb.png) as Image;
+//        if (!im)return;
+//        var cast:Bone = _armatureCustomer.getBone('sharf');
+//        cast.display.dispose();
+//        cast.display = im;
+
 //        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);
     }
 
