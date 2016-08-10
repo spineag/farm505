@@ -18,9 +18,9 @@ import windows.fabricaWindow.WOFabrica;
 import windows.shop.WOShop;
 
 public class ManagerHelpers {
-    private const MAX_SECONDS:int = 15;
-    private const LOW_SECONDS:int = 5;
-    private const MEMIUM_SECONDS:int = 10;
+    private const MAX_SECONDS:int = 25;
+    private const LOW_SECONDS:int = 15;
+    private const MEMIUM_SECONDS:int = 20;
     private var _countSeconds:int;
     private var _isActiveHelper:Boolean;
     private var _isCheckingForHelper:Boolean;

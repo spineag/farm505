@@ -227,8 +227,13 @@ public class Wild extends WorldObject{
                     newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
                 }else if( _dataBuild.id == 31){ //  старое бревно2
-                    newX = g.cont.gameCont.x + (_source.x + _source.width/3) * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+                    if (dataBuild.isFlip) {
+                        newX = g.cont.gameCont.x + (_source.x - _source.width/4) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+                    } else {
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+                    }
                 }else if( _dataBuild.id == 32){ //ель
                     newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 1.9) * g.currentGameScale;
@@ -279,8 +284,13 @@ public class Wild extends WorldObject{
             newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
             newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
         }else if( _dataBuild.id == 31){ //  старое бревно2
-            newX = g.cont.gameCont.x + (_source.x + _source.width/3) * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+            if (dataBuild.isFlip) {
+                newX = g.cont.gameCont.x + (_source.x - _source.width/4) * g.currentGameScale;
+                newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+            } else {
+                newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
+                newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+            }
         }else if( _dataBuild.id == 32){ //ель
             newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
             newY = g.cont.gameCont.y + (_source.y - _source.height / 1.9) * g.currentGameScale;

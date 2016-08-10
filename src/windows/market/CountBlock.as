@@ -18,8 +18,8 @@ import utils.MCScaler;
 
 public class CountBlock {
     public var source:Sprite;
-    public var _btnMinus:CSprite;
-    public var _btnPlus:CSprite;
+    public var _btnMinus:CButton;
+    public var _btnPlus:CButton;
     private var _plawkaBg:Image;
     private var _txt:TextField;
     private var _curCount:int;
@@ -33,33 +33,33 @@ public class CountBlock {
         var im:Image;
         _curCount = 0;
         source = new Sprite();
-        _btnMinus = new CSprite();
+        _btnMinus = new CButton();
 
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
         MCScaler.scale(im, 27, 27);
-        _btnMinus.addChild(im);
+        _btnMinus.addDisplayObject(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
         MCScaler.scale(im, 16, 16);
         im.x = 6;
         im.y = 10;
-        _btnMinus.addChild(im);
+        _btnMinus.addDisplayObject(im);
 
-        _btnPlus = new CSprite();
+        _btnPlus = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
         MCScaler.scale(im, 27, 27);
-        _btnPlus.addChild(im);
+        _btnPlus.addDisplayObject(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
         MCScaler.scale(im, 16, 16);
         im.x = 6;
         im.y = 6;
-        _btnPlus.addChild(im);
+        _btnPlus.addDisplayObject(im);
         _txt = new TextField(50, 30, '0', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         _btnPlus.startClickCallback = onStartPlus;
-        _btnPlus.endClickCallback = onEndPlus;
+        _btnPlus.clickCallback = onEndPlus;
         _btnMinus.startClickCallback = onStartMinus;
-        _btnMinus.endClickCallback = onEndMinus;
+        _btnMinus.clickCallback = onEndMinus;
         btnFilter();
     }
 
