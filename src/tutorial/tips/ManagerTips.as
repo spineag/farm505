@@ -195,8 +195,13 @@ public class ManagerTips {
         var ob:Object = {};
         ob.type = TIP_MARKET;
         ob.array = g.townArea.getCityObjectsByType(BuildType.MARKET);
-        ob.priority = 100 + 3;
-        ob.count = 1;
+        if (g.user.level < 5) {
+            ob.priority = 3;
+            ob.count = 0;
+        } else {
+            ob.priority = 100 + 3;
+            ob.count = 1;
+        }
         return ob;
     }
 
@@ -204,8 +209,13 @@ public class ManagerTips {
         var ob:Object = {};
         ob.type = TIP_PAPPER;
         ob.array = g.townArea.getCityObjectsByType(BuildType.PAPER);
-        ob.priority = 100 + 2;
-        ob.count = 1;
+        if (g.user.level < 5) {
+            ob.priority = 2;
+            ob.count = 0;
+        } else {
+            ob.priority = 100 + 2;
+            ob.count = 1;
+        }
         return ob;
     }
 

@@ -60,7 +60,9 @@ public class ManagerCutScenes {
     private var _cutSceneResourceIDs:Array;
     private var _cutSceneBuildings:Array;
     private var _cutSceneCallback:Function;
+    private var _cutSceneStep:int;
     public var isCutScene:Boolean = false;
+    private var _temp:*;
 
     public function ManagerCutScenes() {
         _properties = (new CutSceneProperties(this)).properties;
@@ -146,18 +148,38 @@ public class ManagerCutScenes {
 
     private function checkTypeFunctions():void {
         g.toolsModifier.modifierType == ToolsModifier.NONE;
-        switch (_curCutScenePropertie.id_action) {
-            case ID_ACTION_SHOW_MARKET: releaseMarket(); break;
-            case ID_ACTION_SHOW_PAPPER: releasePapper(); break;
-            case ID_ACTION_BUY_DECOR: releaseDecor(); break;
-            case ID_ACTION_TO_INVENTORY_DECOR: releaseToInventoryDecor(); break;
-            case ID_ACTION_FROM_INVENTORY_DECOR: releaseFromInventoryDecor(); break;
-            case ID_ACTION_TRAIN_AVAILABLE: releaseAvailableTrain(); break;
-            case ID_ACTION_OPEN_TRAIN: releaseOpenTrain(); break;
+        try {
+            switch (_curCutScenePropertie.id_action) {
+                case ID_ACTION_SHOW_MARKET:
+                    releaseMarket();
+                    break;
+                case ID_ACTION_SHOW_PAPPER:
+                    releasePapper();
+                    break;
+                case ID_ACTION_BUY_DECOR:
+                    releaseDecor();
+                    break;
+                case ID_ACTION_TO_INVENTORY_DECOR:
+                    releaseToInventoryDecor();
+                    break;
+                case ID_ACTION_FROM_INVENTORY_DECOR:
+                    releaseFromInventoryDecor();
+                    break;
+                case ID_ACTION_TRAIN_AVAILABLE:
+                    releaseAvailableTrain();
+                    break;
+                case ID_ACTION_OPEN_TRAIN:
+                    releaseOpenTrain();
+                    break;
+            }
+        } catch (e:Error) {
+            Cc.error('error during cutScene for _curCutScenePropertie.id_action=' + _curCutScenePropertie.id_action);
+            endCutScene();
         }
     }
 
     private function releaseMarket():void {
+        _cutSceneStep = 1;
         isCutScene = true;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.MARKET);
@@ -167,6 +189,7 @@ public class ManagerCutScenes {
     }
 
     private function market_1():void {
+        _cutSceneStep = 2;
         g.optionPanel.makeScaling(1);
         _cat.flipIt(false);
         _cat.showBubble(_curCutScenePropertie.text);
@@ -176,6 +199,7 @@ public class ManagerCutScenes {
     }
 
     private function market_2():void {
+        _cutSceneStep = 3;
         _cutSceneCallback = null;
         _cat.hideBubble();
         (_cutSceneBuildings[0] as Market).hideArrow();
@@ -185,6 +209,7 @@ public class ManagerCutScenes {
     }
 
     private function market_3():void {
+        _cutSceneStep = 4;
         _airBubble.hideIt();
         _airBubble.deleteIt();
         _airBubble = null;
@@ -195,6 +220,7 @@ public class ManagerCutScenes {
     }
 
     private function releasePapper():void {
+        _cutSceneStep = 1;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.PAPER);
@@ -204,11 +230,12 @@ public class ManagerCutScenes {
         } else {
             addCatToPos(20, 22);
             g.managerCats.goCatToPoint(_cat, new Point(41, 0), papper_1);
-            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 3);
+            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 150, _cutSceneBuildings[0].source.y + 50, false, 3);
         }
     }
 
     private function papper_1():void {
+        _cutSceneStep = 2;
         g.optionPanel.makeScaling(1);
         _cat.flipIt(false);
         _cat.showBubble(_curCutScenePropertie.text);
@@ -217,12 +244,14 @@ public class ManagerCutScenes {
     }
 
     private function papper_2():void {
+        _cutSceneStep = 3;
         _cat.hideBubble();
         (_cutSceneBuildings[0] as Paper).hideArrow();
         papper_3();
     }
 
     private function papper_3():void {
+        _cutSceneStep = 4;
         _cutSceneCallback = null;
         g.user.cutScenes[1] = 1;
         saveUserCutScenesData();
@@ -235,6 +264,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseDecor():void {
+        _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
@@ -244,7 +274,7 @@ public class ManagerCutScenes {
         g.bottomPanel.addArrow('shop');
         if (!ob) {
             Cc.error('CutScene releaseDecor: no ob');
-            isCutScene = false;
+            endCutScene();
             return;
         }
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
@@ -252,6 +282,7 @@ public class ManagerCutScenes {
     }
 
     private function decor_1():void {
+        _cutSceneStep = 2;
         g.bottomPanel.deleteArrow();
         _cutScene.hideIt(deleteCutScene);
         if (_dustRectangle) {
@@ -262,6 +293,7 @@ public class ManagerCutScenes {
     }
 
     private function decor_2():void {
+        _cutSceneStep = 3;
         _cutSceneResourceIDs = [28];
         (g.windowsManager.currentWindow as WOShop).openOnResource(_cutSceneResourceIDs[0]);
         var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_cutSceneResourceIDs[0], true);
@@ -273,6 +305,7 @@ public class ManagerCutScenes {
     }
 
     private function decor_3():void {
+        _cutSceneStep = 4;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -285,6 +318,7 @@ public class ManagerCutScenes {
     }
 
     private function decor_4():void {
+        _cutSceneStep = 5;
         _cutSceneCallback = null;
         g.user.cutScenes[2] = 1;
         saveUserCutScenesData();
@@ -292,6 +326,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseToInventoryDecor():void {
+        _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseToInventoryDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
@@ -299,7 +334,7 @@ public class ManagerCutScenes {
         _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
         if (!_cutSceneBuildings.length) {
             Cc.error('no decor for CutScene on map');
-            isCutScene = false;
+            endCutScene();
             return;
         }
         _cutSceneBuildings.length = 1;
@@ -308,6 +343,7 @@ public class ManagerCutScenes {
     }
 
     private function toInventory_1():void {
+        _cutSceneStep = 2;
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
         var ob:Object = g.toolsPanel.getRepositoryBoxProperties();
@@ -319,6 +355,7 @@ public class ManagerCutScenes {
     }
 
     private function toInventory_2():void {
+        _cutSceneStep = 3;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -334,6 +371,7 @@ public class ManagerCutScenes {
     }
 
     private function toInventory_3():void {
+        _cutSceneStep = 4;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         (_cutSceneBuildings[0] as Decor).hideArrow();
         _cutSceneBuildings = [];
@@ -349,11 +387,13 @@ public class ManagerCutScenes {
     }
 
     private function releaseFromInventoryDecor():void {
+        _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseFromInventoryDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         _cutSceneResourceIDs = [28];
         if (!g.userInventory.getDecorInventory(_cutSceneResourceIDs[0])) {
             Cc.error('no such decor in inventory for cutScene');
+            endCutScene();
             return;
         }
         isCutScene = true;
@@ -366,6 +406,7 @@ public class ManagerCutScenes {
     }
 
     private function fromInventory_1():void {
+        _cutSceneStep = 2;
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
         var ob:Object = g.toolsPanel.getRepositoryBoxProperties();
@@ -377,6 +418,7 @@ public class ManagerCutScenes {
     }
 
     private function fromInventory_2():void {
+        _cutSceneStep = 3;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -390,6 +432,7 @@ public class ManagerCutScenes {
     }
 
     private function fromInventory_3():void {
+        _cutSceneStep = 4;
         var ob:Object = g.toolsPanel.getRepositoryBoxFirstItemProperties();
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
@@ -399,6 +442,7 @@ public class ManagerCutScenes {
     }
 
     private function fromInventory_4():void {
+        _cutSceneStep = 5;
         g.toolsPanel.hideRepository();
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -422,6 +466,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseAvailableTrain():void {
+        _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseAvailableTrain');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.hideAllHints();
@@ -430,7 +475,7 @@ public class ManagerCutScenes {
         _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
         if (!_cutSceneBuildings.length) {
             Cc.error('no train build for CutScene');
-            isCutScene = false;
+            endCutScene();
             return;
         }
         g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80, false, 1);
@@ -438,6 +483,7 @@ public class ManagerCutScenes {
     }
 
     private function availableTrain_1():void {
+        _cutSceneStep = 2;
         g.optionPanel.makeScaling(1);
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
@@ -456,6 +502,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseOpenTrain():void {
+        _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseOpenTrain');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.hideAllHints();
@@ -464,7 +511,7 @@ public class ManagerCutScenes {
         _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
         if (!_cutSceneBuildings.length) {
             Cc.error('no train build for CutScene');
-            isCutScene = false;
+            endCutScene();
             return;
         }
         g.user.cutScenes[6] = 1;
@@ -482,6 +529,7 @@ public class ManagerCutScenes {
     }
 
     private function openTrain_1():void {
+        _cutSceneStep = 2;
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
         (_cutSceneBuildings[0] as Train).showArrow();
@@ -489,6 +537,7 @@ public class ManagerCutScenes {
     }
 
     private function openTrain_2():void {
+        _cutSceneStep = 3;
         (_cutSceneBuildings[0] as Train).hideArrow();
         _cutSceneBuildings = [];
         _cutSceneCallback = null;
@@ -497,6 +546,7 @@ public class ManagerCutScenes {
     }
 
     private function openTrain_2a():void {
+        _cutSceneStep = 4;
         _airBubble = new AirTextBubble();
         _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, openTrain_3);
         _airBubble.showBtnParticles();
@@ -507,13 +557,16 @@ public class ManagerCutScenes {
     }
 
     private function openTrain_3():void {
+        _cutSceneStep = 5;
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
         }
-        _airBubble.hideIt();
-        _airBubble.deleteIt();
-        _airBubble = null;
+        if (_airBubble) {
+            _airBubble.hideIt();
+            _airBubble.deleteIt();
+            _airBubble = null;
+        }
 
         _airBubble = new AirTextBubble();
         _airBubble.showIt(_curCutScenePropertie.text3, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 300, Starling.current.nativeStage.stageHeight/2 - 100, openTrain_4);
@@ -525,13 +578,16 @@ public class ManagerCutScenes {
     }
 
     private function openTrain_4():void {
+        _cutSceneStep = 6;
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
         }
-        _airBubble.hideIt();
-        _airBubble.deleteIt();
-        _airBubble = null;
+        if (_airBubble) {
+            _airBubble.hideIt();
+            _airBubble.deleteIt();
+            _airBubble = null;
+        }
 
         _airBubble = new AirTextBubble();
         _airBubble.showIt(_curCutScenePropertie.text4, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 330, Starling.current.nativeStage.stageHeight/2 - 200, openTrain_5);
@@ -543,13 +599,16 @@ public class ManagerCutScenes {
     }
 
     private function openTrain_5():void {
+        _cutSceneStep = 7;
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
         }
-        _airBubble.hideIt();
-        _airBubble.deleteIt();
-        _airBubble = null;
+        if (_airBubble) {
+            _airBubble.hideIt();
+            _airBubble.deleteIt();
+            _airBubble = null;
+        }
 
         _airBubble = new AirTextBubble();
         _airBubble.showIt(_curCutScenePropertie.text5, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 300, Starling.current.nativeStage.stageHeight/2 + 100, openTrain_6);
@@ -561,13 +620,16 @@ public class ManagerCutScenes {
     }
 
     private function openTrain_6():void {
+        _cutSceneStep = 8;
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
         }
-        _airBubble.hideIt();
-        _airBubble.deleteIt();
-        _airBubble = null;
+        if (_airBubble) {
+            _airBubble.hideIt();
+            _airBubble.deleteIt();
+            _airBubble = null;
+        }
         g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
 
         if (!_cutScene) _cutScene = new CutScene();
@@ -596,7 +658,6 @@ public class ManagerCutScenes {
 
     private function releaseWOPlant():void {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_BUY_PLANT) {
-            g.user.cutScenes[7] = 1;
             isCutScene = true;
             var ob:Object = (g.windowsManager.currentWindow as WOBuyPlant).getBoundsProperties('secondTab');
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
@@ -604,7 +665,8 @@ public class ManagerCutScenes {
             _arrow.animateAtPosition(ob.x, ob.y);
             _airBubble = new AirTextBubble();
             _airBubble.showIt(_curCutScenePropertie.text, g.cont.popupCont, ob.x + 70, ob.y, onWoPlant);
-            saveUserCutScenesData();
+        } else {
+            isCutScene = false;
         }
     }
 
@@ -618,24 +680,30 @@ public class ManagerCutScenes {
             _airBubble.deleteIt();
             _airBubble = null;
         }
+        g.user.cutScenes[7] = 1;
         isCutScene = false;
+        saveUserCutScenesData();
     }
 
     private function releaseAddToPapper(it:MarketItem):void {
+        _cutSceneStep = 1;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
+            _temp = it;
             isCutScene = true;
-            g.user.cutScenes[8] = 1;
             var ob:Object = it.getBoundsProperties('papperIcon');
             _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
             _arrow.scaleIt(.5);
             _arrow.animateAtPosition(ob.x + 25, ob.y + ob.height/2);
             _airBubble = new AirTextBubble();
             _airBubble.showIt(_curCutScenePropertie.text, g.cont.popupCont, ob.x + 10, ob.y + 70, onAddToPapper);
-            saveUserCutScenesData();
+        } else {
+            isCutScene = false;
         }
     }
 
     private function onAddToPapper():void {
+        _cutSceneStep = 2;
+        _temp = null;
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
@@ -667,6 +735,8 @@ public class ManagerCutScenes {
             _airBubble = null;
         }
         isCutScene = false;
+        g.user.cutScenes[8] = 1;
+        saveUserCutScenesData();
     }
 
 
@@ -732,6 +802,204 @@ public class ManagerCutScenes {
         var timer:Timer = new Timer(delay*1000, 1);
         timer.addEventListener(TimerEvent.TIMER, func);
         timer.start();
+    }
+
+    public function onResize():void {
+        try {
+            if (!isCutScene || !_curCutScenePropertie) return;
+            // add try catch
+            if (_curCutScenePropertie.reason == REASON_ADD_TO_PAPPER) {
+                if (_cutSceneStep == 1) {
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    if (_airBubble) {
+                        _airBubble.hideIt();
+                        _airBubble.deleteIt();
+                        _airBubble = null;
+                    }
+                    if (_temp && _temp is MarketItem) {
+                        releaseAddToPapper(_temp as MarketItem);
+                    } else {
+                        isCutScene = false;
+                    }
+                } else if (_cutSceneStep == 2) {
+                    if (_arrow) {
+                        _arrow.deleteIt();
+                        _arrow = null;
+                    }
+                    if (_airBubble) {
+                        _airBubble.hideIt();
+                        _airBubble.deleteIt();
+                        _airBubble = null;
+                    }
+                    onAddToPapper();
+                }
+            } else if (_curCutScenePropertie.reason == REASON_OPEN_WO_PLANT) {
+                if (_arrow) {
+                    _arrow.deleteIt();
+                    _arrow = null;
+                }
+                if (_airBubble) {
+                    _airBubble.hideIt();
+                    _airBubble.deleteIt();
+                    _airBubble = null;
+                }
+                releaseWOPlant();
+            } else {
+                var ob:Object;
+                switch (_curCutScenePropertie.id_action) {
+                    case ID_ACTION_SHOW_MARKET:
+                        if (_cutSceneStep == 1 || _cutSceneStep == 2) {
+                            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50);
+                        } else if (_cutSceneStep == 3) {
+                            if (_airBubble) {
+                                _airBubble.hideIt();
+                                _airBubble.deleteIt();
+                                _airBubble = null;
+                            }
+                        }
+                        market_2();
+                        break;
+                    case ID_ACTION_SHOW_PAPPER:
+                        if (_cutSceneBuildings[0]) g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 150, _cutSceneBuildings[0].source.y + 50);
+                        break;
+                    case ID_ACTION_BUY_DECOR:
+                        if (_cutSceneStep == 1) {
+                            ob = g.bottomPanel.getShopButtonProperties();
+                            if (!ob) {
+                                Cc.error('CutScene releaseDecor: no ob');
+                                endCutScene();
+                                return;
+                            }
+                            if (_dustRectangle) {
+                                _dustRectangle.deleteIt();
+                                _dustRectangle = null;
+                            }
+                            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        } else if (_cutSceneStep == 3) {
+                            if (_arrow) {
+                                _arrow.deleteIt();
+                                _arrow = null;
+                            }
+                            if (_dustRectangle) {
+                                _dustRectangle.deleteIt();
+                                _dustRectangle = null;
+                            }
+                            ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_cutSceneResourceIDs[0], true);
+                            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                            _arrow.scaleIt(.7);
+                            _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+                        }
+                        break;
+                    case ID_ACTION_TO_INVENTORY_DECOR:
+                        if (_cutSceneStep == 2) {
+                            if (_arrow) {
+                                _arrow.deleteIt();
+                                _arrow = null;
+                            }
+                            if (_dustRectangle) {
+                                _dustRectangle.deleteIt();
+                                _dustRectangle = null;
+                            }
+                            ob = g.toolsPanel.getRepositoryBoxProperties();
+                            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                            _arrow.scaleIt(.7);
+                            _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+                        } else if (_cutSceneStep == 3) {
+                            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 150, _cutSceneBuildings[0].source.y - 20);
+                        }
+                        break;
+                    case ID_ACTION_FROM_INVENTORY_DECOR:
+                        if (_cutSceneStep == 2) {
+                            if (_arrow) {
+                                _arrow.deleteIt();
+                                _arrow = null;
+                            }
+                            if (_dustRectangle) {
+                                _dustRectangle.deleteIt();
+                                _dustRectangle = null;
+                            }
+                            ob = g.toolsPanel.getRepositoryBoxProperties();
+                            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                            _arrow.scaleIt(.7);
+                            _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+                        } else if (_cutSceneStep == 4) {
+                            if (_arrow) {
+                                _arrow.deleteIt();
+                                _arrow = null;
+                            }
+                            if (_dustRectangle) {
+                                _dustRectangle.deleteIt();
+                                _dustRectangle = null;
+                            }
+                            ob = g.toolsPanel.getRepositoryBoxFirstItemProperties();
+                            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                            _arrow.scaleIt(.7);
+                            _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+                        }
+                        break;
+                    case ID_ACTION_TRAIN_AVAILABLE:
+                        g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80);
+                        break;
+                    case ID_ACTION_OPEN_TRAIN:
+                        g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80);
+                        if (_cutSceneStep == 4) {
+                            if (_arrow) {
+                                _arrow.deleteIt();
+                                _arrow = null;
+                            }
+                            if (_airBubble) {
+                                _airBubble.hideIt();
+                                _airBubble.deleteIt();
+                                _airBubble = null;
+                            }
+                            openTrain_2a();
+                        } else if (_cutSceneStep == 5) {
+                            openTrain_3();
+                        } else if (_cutSceneStep == 6) {
+                            openTrain_4();
+                        } else if (_cutSceneStep == 7) {
+                            openTrain_5();
+                        } else if (_cutSceneStep == 8) {
+                            openTrain_6();
+                        }
+                        break;
+                }
+            }
+        } catch (e:Error) {
+            endCutScene();
+            Cc.error('error during cutScene resize');
+        }
+    }
+
+    private function endCutScene():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        if (_airBubble) {
+            _airBubble.hideIt();
+            _airBubble.deleteIt();
+            _airBubble = null;
+        }
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        deleteCutScene();
+        removeBlack();
+        if (_cat) {
+            _cat.removeFromMap();
+            _cat.deleteIt();
+            _cat = null;
+        }
+        isCutScene = false;
     }
 
 }
