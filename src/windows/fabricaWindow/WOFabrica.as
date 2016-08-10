@@ -59,6 +59,9 @@ public class WOFabrica extends WindowMain {
         _birka.updateText(_fabrica.dataBuild.name);
         _birka.source.x = 270 - _birka.bg.height;
         showAnimateFabricaItems();
+        if (params[3]) {
+            addArrowForPossibleRawItems();
+        }
         super.showIt();
     }
 

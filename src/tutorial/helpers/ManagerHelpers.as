@@ -73,9 +73,15 @@ public class ManagerHelpers {
         _isStoped = true;
         _countSeconds = 0;
         g.gameDispatcher.removeFromTimer(onTimer);
-        if (_isActiveHelper && _curReason.reason != HelperReason.REASON_BUY_ANIMAL && _curReason.reason != HelperReason.REASON_BUY_FABRICA &&
-            _curReason.reason != HelperReason.REASON_BUY_FARM && _curReason.reason != HelperReason.REASON_BUY_HERO && _curReason.reason != HelperReason.REASON_BUY_RIDGE) {
-            onEnd();
+        if (_isActiveHelper) {
+            if (g.isAway) {
+                onEnd();
+            } else if (_curReason.reason != HelperReason.REASON_BUY_ANIMAL && _curReason.reason != HelperReason.REASON_BUY_FABRICA &&    // - i dont remember why ((
+               _curReason.reason != HelperReason.REASON_BUY_FARM && _curReason.reason != HelperReason.REASON_BUY_HERO && _curReason.reason != HelperReason.REASON_BUY_RIDGE) {
+                onEnd();
+            } else {
+                if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType != WindowsManager.WO_SHOP) onEnd();
+            }
         }
     }
 

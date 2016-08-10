@@ -74,7 +74,12 @@ public class ManagerTips {
         _arrTips = null;
         (g.allData.atlas['tipsAtlas'] as TextureAtlas).dispose();
         g.allData.atlas['tipsAtlas'] = null;
+    }
 
+    public function onGoAway(v:Boolean):void {
+        if (_tipsPanel) {
+            _tipsPanel.onGoAway(v);
+        }
     }
 
     public function getArrTips():Array {
@@ -301,11 +306,14 @@ public class ManagerTips {
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
             } else if (ob.type == TIP_RAW_ANIMAL) {
                 for (var i:int = 0; i < ob.array.length; i++) {
-                    (ob.array[i] as Animal).addArrow(3);
+                    (ob.array[i] as Animal).addArrow(5);
+                    if (i==0) {
+                        g.cont.moveCenterToXY((ob.array[0] as Animal).farm.source.x, (ob.array[0] as Animal).farm.source.y);
+                    }
                 }
             } else {
                 for (var k:int = 0; k < ob.array.length; k++) {
-                    (ob.array[k] as WorldObject).showArrow(3);
+                    (ob.array[k] as WorldObject).showArrow(5);
                 }
                 if (ob.array[0]) {
                     g.cont.moveCenterToXY((ob.array[0] as WorldObject).source.x, (ob.array[0] as WorldObject).source.y);
