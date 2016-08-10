@@ -64,6 +64,7 @@ public class ManagerTutorial {
     private var _arrow:SimpleArrow;
     private var _cloud:TutorialCloud;
     private var _mult:TutorialMult;
+    private var _afterTutorialWindow:AfterTutorialWindow;
 
     public function ManagerTutorial() {
         _tutorialObjects = [];
@@ -2000,14 +2001,22 @@ public class ManagerTutorial {
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTexts()).objText;
         addBlack();
+        _afterTutorialWindow = new AfterTutorialWindow();
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['ok'], subStep25_1, 1);
     }
 
     private function subStep25_1():void {
-        removeBlack();
         if (cutScene) cutScene.hideIt(deleteCutScene);
         g.user.tutorialStep = 26;
         updateTutorialStep();
+        if (_afterTutorialWindow) _afterTutorialWindow.showIt(subStep25_2);
+        else {
+            subStep25_2();
+        }
+    }
+
+    private function subStep25_2():void {
+        removeBlack();
         initScenes();
     }
 

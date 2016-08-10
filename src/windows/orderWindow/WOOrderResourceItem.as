@@ -85,16 +85,17 @@ public class WOOrderResourceItem {
         _image.y = 47 - _image.height/2;
         source.addChildAt(_image, 1);
         var curCount:int = g.userInventory.getCountResourceById(id);
+        _countRed.text = String(curCount);
+        _countTxt.text = '/' + String(count);
+        _countTxt.x = 12;
+        _countRed.x = 61 -_countTxt.textBounds.width ;
         if (curCount >= count) {
             _check.visible = true;
-            _countTxt.text = String(curCount) + '/' + String(count);
-            _countTxt.x = 12;
+//            _countTxt.text = String(curCount) + '/' + String(count);
+//            _countTxt.x = 12;
+            _countRed.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
         } else {
-            _countRed.text = String(curCount);
-            _countTxt.text = '/' + String(count);
-
-            _countTxt.x = 12;
-            _countRed.x = 61 -_countTxt.textBounds.width ;
+            _countRed.color = ManagerFilters.TEXT_ORANGE_COLOR;
         }
 
         source.visible = true;

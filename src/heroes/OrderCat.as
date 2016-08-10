@@ -70,9 +70,8 @@ public class OrderCat {
         _source.isTouchable = false;
         _catImage = new Sprite();
         _catBackImage = new Sprite();
-
-        armature = g.allData.factory['cat_queue1'].buildArmature("cat");
-        armatureBack = g.allData.factory['cat_queue1'].buildArmature("cat_back");
+        armature = g.allData.factory['cat_queue'].buildArmature("cat");
+        armatureBack = g.allData.factory['cat_queue'].buildArmature("cat_back");
         _catImage.addChild(armature.display as Sprite);
         _catBackImage.addChild(armatureBack.display as Sprite);
         WorldClock.clock.add(armature);
@@ -179,7 +178,7 @@ public class OrderCat {
 
         releaseFrontTexture(st);
         releaseBackTexture(st);
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue1'], armature, 'heads/head' + st, st2, _catData.isWoman);
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, _catData.isWoman);
 
 
         if (!_catData.isWoman) {
@@ -246,7 +245,7 @@ public class OrderCat {
 //                sharf.visible = false;
                 break;
         }
-        var im:Image = g.allData.factory['cat_queue1'].getTextureDisplay(_catData.png) as Image;
+        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(_catData.png) as Image;
         if (!im)return;
         var cast:Bone = armature.getBone('sharf');
         cast.display.dispose();
@@ -257,7 +256,7 @@ public class OrderCat {
     private function changeBant(n:int):void {
         var str:String = 'bant_'+ n;
         bant = n;
-        var im:Image = g.allData.factory['cat_queue1'].getTextureDisplay(str) as Image;
+        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
         var b:Bone = armature.getBone('bant');
         b.display.dispose();
         b.display = im;
@@ -285,7 +284,7 @@ public class OrderCat {
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['cat_queue1'].getTextureDisplay(newName) as Image;
+        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
         var b:Bone = arma.getBone(oldName);
         b.display.dispose();
         b.display = im;

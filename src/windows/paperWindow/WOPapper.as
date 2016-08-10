@@ -318,13 +318,18 @@ public class WOPapper extends WindowMain {
     private function checkArrows():void {
         if (_shiftPages <= 1) {
             _leftArrow.setEnabled = false;
+            _rightArrow.touchable = true;
         } else {
             _leftArrow.setEnabled = true;
+            _rightArrow.touchable = true;
         }
         if (_shiftPages + 1>= _maxPages) {
             _rightArrow.setEnabled = false;
+            _rightArrow.touchable = true;
         } else {
             _rightArrow.setEnabled = true;
+            _rightArrow.touchable = true;
+
         }
     }
 

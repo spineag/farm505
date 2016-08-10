@@ -92,15 +92,14 @@ public class WOTrainItem {
         }
         var curCount:int = g.userInventory.getCountResourceById(_info.id);
         if (curCount >= _info.count) {
-            _txtWhite.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
-            _txtWhite.x = 23;
+           _txtRed.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
         } else {
-            _txtRed.text = String(curCount);
-            _txtWhite.text = '/' + String(_info.count);
-
-            _txtWhite.x = 23;
-            _txtRed.x = 50 -_txtWhite.textBounds.width ;
+            _txtRed.color = ManagerFilters.TEXT_ORANGE_COLOR;
         }
+        _txtRed.text = String(curCount);
+        _txtWhite.text = '/' + String(_info.count);
+        _txtWhite.x = 23;
+        _txtRed.x = 50 -_txtWhite.textBounds.width ;
         _im = currentImage();
         if (!_im) {
             Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);

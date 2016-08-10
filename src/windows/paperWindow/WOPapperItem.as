@@ -324,7 +324,8 @@ public class WOPapperItem {
 
     private function onClickVisit():void {
         if (!_data) return;
-        _wo.hideIt();
+//        _wo.hideIt();
+        g.windowsManager.cashWindow = _wo;
          _p.idVisitItemFromPaper = _data.resourceId;
         _p.level = _data.level;
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);

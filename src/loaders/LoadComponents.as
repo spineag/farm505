@@ -114,7 +114,7 @@ public class LoadComponents {
         g.loadAnimation.load('animations/x1/cat_main', 'cat', onLoadDB_X);
         g.loadAnimation.load('animations/x1/cat_watering_can', 'cat_watering', onLoadDB_X);
         g.loadAnimation.load('animations/x1/cat_feed', 'cat_feed', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_queue1', 'cat_queue1', onLoadDB_X);
+        g.loadAnimation.load('animations/x1/cat_queue1', 'cat_queue', onLoadDB_X);
 //        g.loadAnimation.load('animations/x1/cat_queue', 'cat_queue', onLoadDB_X);
         g.loadAnimation.load('animations/x1/explode', 'explode', onLoadDB_X);
         g.loadAnimation.load('animations/x1/explode_gray', 'explode_gray', onLoadDB_X);
