@@ -179,6 +179,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseMarket():void {
+        if (g.managerTips) g.managerTips.setUnvisible(true);
         _cutSceneStep = 1;
         isCutScene = true;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -220,6 +221,7 @@ public class ManagerCutScenes {
     }
 
     private function releasePapper():void {
+        if (g.managerTips) g.managerTips.setUnvisible(true);
         _cutSceneStep = 1;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
@@ -230,7 +232,7 @@ public class ManagerCutScenes {
         } else {
             addCatToPos(20, 22);
             g.managerCats.goCatToPoint(_cat, new Point(41, 0), papper_1);
-            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 150, _cutSceneBuildings[0].source.y + 50, false, 3);
+            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 3);
         }
     }
 
@@ -260,6 +262,7 @@ public class ManagerCutScenes {
             _cat.deleteIt();
             _cat = null;
         }
+        if (g.managerTips) g.managerTips.setUnvisible(false);
         isCutScene = false;
     }
 
@@ -863,7 +866,7 @@ public class ManagerCutScenes {
                         market_2();
                         break;
                     case ID_ACTION_SHOW_PAPPER:
-                        if (_cutSceneBuildings[0]) g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 150, _cutSceneBuildings[0].source.y + 50);
+                        if (_cutSceneBuildings[0]) g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50);
                         break;
                     case ID_ACTION_BUY_DECOR:
                         if (_cutSceneStep == 1) {
@@ -1000,6 +1003,7 @@ public class ManagerCutScenes {
             _cat = null;
         }
         isCutScene = false;
+        if (g.managerTips) g.managerTips.setUnvisible(false);
     }
 
 }

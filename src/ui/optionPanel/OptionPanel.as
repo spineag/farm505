@@ -367,6 +367,7 @@ public class OptionPanel {
         Cc.info('before check tuts for resize');
         if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
         if (g.managerCutScenes.isCutScene) g.managerCutScenes.onResize();
+        if (g.managerHelpers) g.managerHelpers.onResize();
     }
 
     private var isAnimScaling:Boolean = false;

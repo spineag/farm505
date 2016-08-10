@@ -739,6 +739,7 @@ public class ShopItem {
                     g.managerTutorial.checkTutorialCallback();
                 }
             }
+            if (g.managerTips) g.managerTips.calculateAvailableTips();
         } else if (_data.buildType != BuildType.ANIMAL) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_FABRICA && g.managerTutorial.currentAction != TutorialAction.BUY_FARM) return;
             build = g.townArea.createNewBuild(_data);
@@ -958,13 +959,10 @@ public class ShopItem {
         if (_imCont) {
             TweenMax.killTweensOf(_imCont);
         }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
         for (var i:int=0; i<_arrImages.length; i++) {
             if (_arrImages[i] && _arrImages[i] is DisplayObject) (_arrImages[i] as DisplayObject).filter = null;
         }
+        deleteArrow();
         _arrImages.length = 0;
         if (_im) _im.filter = null;
         _im = null;
@@ -1006,10 +1004,20 @@ public class ShopItem {
         source = null;
     }
 
-    public function addArrow():void {
+    public function addArrow(t:int = 0):void {
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.scaleIt(.5);
         _arrow.animateAtPosition(73, 10);
+        if (t>0) {
+            _arrow.activateTimer(t, deleteArrow);
+        }
+    }
+    
+    private function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

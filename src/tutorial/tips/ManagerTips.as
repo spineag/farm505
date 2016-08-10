@@ -10,6 +10,9 @@ import com.junkbyte.console.Cc;
 
 import data.BuildType;
 import flash.display.Bitmap;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
+
 import manager.Vars;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
@@ -76,9 +79,9 @@ public class ManagerTips {
         g.allData.atlas['tipsAtlas'] = null;
     }
 
-    public function onGoAway(v:Boolean):void {
+    public function setUnvisible(v:Boolean):void {
         if (_tipsPanel) {
-            _tipsPanel.onGoAway(v);
+            _tipsPanel.setUnvisible(v);
         }
     }
 
@@ -304,6 +307,7 @@ public class ManagerTips {
         try {
             if (ob.type == TIP_BUY_HERO) {
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
+                createDelay(.7, atBuyCat);
             } else if (ob.type == TIP_RAW_ANIMAL) {
                 for (var i:int = 0; i < ob.array.length; i++) {
                     (ob.array[i] as Animal).addArrow(5);
@@ -322,6 +326,25 @@ public class ManagerTips {
         } catch (e:Error) {
             Cc.error('ManagerTips onChooseTip for type==' + ob.type + ' error: ' + e.message);
         }
+    }
+    
+    private function atBuyCat():void {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0, 3);
+        }
+    }
+
+    private function createDelay(delay:Number, f:Function):void {
+        var func:Function = function():void {
+            timer.removeEventListener(TimerEvent.TIMER, func);
+            timer = null;
+            if (f != null) {
+                f.apply();
+            }
+        };
+        var timer:Timer = new Timer(delay*1000, 1);
+        timer.addEventListener(TimerEvent.TIMER, func);
+        timer.start();
     }
 
 }
