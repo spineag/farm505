@@ -736,8 +736,8 @@ public class WOOrder extends WindowMain{
     // ------------------ ANIMATIONS ---------------------
 
     private function createTopCats():void {
-        _armatureCustomer = g.allData.factory['orderWindow'].buildArmature("cat_customer");
-        _armatureSeller = g.allData.factory['orderWindow'].buildArmature("cat_seller");
+        _armatureCustomer = g.allData.factory['order_window'].buildArmature("cat_customer");
+        _armatureSeller = g.allData.factory['order_window'].buildArmature("cat_seller");
         _armatureCustomer.display.x = 110;
         _armatureCustomer.display.y = -170;
         _armatureSeller.display.x = -110;
@@ -857,7 +857,7 @@ public class WOOrder extends WindowMain{
     private function changeBant(n:int, b:Bone):void {
         var str:String = 'bant_'+ String(n);
         if (n == 1) str = 'bant';
-        var im:Image = g.allData.factory['orderWindow'].getTextureDisplay('bants/' + str) as Image;
+        var im:Image = g.allData.factory['order_window'].getTextureDisplay('bants/' + str) as Image;
         if (b) {
             b.visible = true;
             if (b.display) {
@@ -884,7 +884,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['orderWindow'].getTextureDisplay(newName) as Image;
+        var im:Image = g.allData.factory['order_window'].getTextureDisplay(newName) as Image;
         var b:Bone = arma.getBone(oldName);
         if (b) {
             if (im) {

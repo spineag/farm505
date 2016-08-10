@@ -20,7 +20,7 @@ public class ButterflyAnimation {
 
     public function ButterflyAnimation(type:int) {
         _source = new Sprite();
-        _armature = g.allData.factory['butterfly'].buildArmature("bfly");
+        _armature = g.allData.factory['bfly'].buildArmature("bfly");
         if (type != Butterfly.TYPE_PINK) {
             changeTexture(type);
         }
@@ -44,7 +44,7 @@ public class ButterflyAnimation {
     }
 
     private function changeBoneTexture(oldName:String, newName:String):void {
-        var im:Image = g.allData.factory['butterfly'].getTextureDisplay(newName) as Image;
+        var im:Image = g.allData.factory['bfly'].getTextureDisplay(newName) as Image;
         var b:Bone = _armature.getBone(oldName);
         if (im) {
             im.x = b.display.x;

@@ -27,7 +27,7 @@ public class AwayPreloader {
 
     public function AwayPreloader() {
         _source = new Sprite();
-        _armature = g.allData.factory['visitPreloader'].buildArmature("cat");
+        _armature = g.allData.factory['visit_preloader'].buildArmature("cat");
         _armatureSprite = new Sprite();
         _armatureSprite.addChild(_armature.display as Sprite);
         _source.addChild(_armatureSprite);

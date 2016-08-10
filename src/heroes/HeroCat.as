@@ -43,8 +43,8 @@ public class HeroCat extends BasicCat{
         freeIdleGo = true;
 
         _animation = new HeroCatsAnimation();
-        _animation.catArmature = g.allData.factory['cat'].buildArmature("cat");
-        _animation.catBackArmature = g.allData.factory['cat'].buildArmature("cat_back");
+        _animation.catArmature = g.allData.factory['cat_main'].buildArmature("cat");
+        _animation.catBackArmature = g.allData.factory['cat_main'].buildArmature("cat_back");
         _catImage.addChild(_animation.catArmature.display as Sprite);
         _catBackImage.addChild(_animation.catBackArmature.display as Sprite);
 
@@ -54,7 +54,7 @@ public class HeroCat extends BasicCat{
         }
         var st2:String = '';
         if (_type == WOMAN) st2 = '_w';
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], _animation.catArmature, 'heads/head' + st2, st2, _type == WOMAN);
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_main'], _animation.catArmature, 'heads/head' + st2, st2, _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);
@@ -172,7 +172,7 @@ public class HeroCat extends BasicCat{
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
+        var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
         var b:Bone = arma.getBone(oldName);
         b.display.dispose();
         b.display = im;
@@ -227,7 +227,7 @@ public class HeroCat extends BasicCat{
 // WORK WITH PLANT
     public function  workWithPlant(callback:Function):void {
         _animation.deleteWorker();
-        _animation.catWorkerArmature = g.allData.factory['cat_watering'].buildArmature("cat");
+        _animation.catWorkerArmature = g.allData.factory['cat_watering_can'].buildArmature("cat");
         var viyi:Bone = _animation.catWorkerArmature.getBone('viyi');
         if (_type == WOMAN) {
             releaseFrontWoman(_animation.catWorkerArmature);
