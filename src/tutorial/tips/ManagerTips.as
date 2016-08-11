@@ -45,8 +45,8 @@ public class ManagerTips {
 
     private function loadTips():void {
         var st:String = g.dataPath.getGraphicsPath() + 'x1/';
-        g.load.loadImage(st + 'tipsAtlas.png', onLoadImage, st);
-        g.load.loadXML(st + 'tipsAtlas.xml', onLoad, st);
+        g.load.loadImage(st + 'tipsAtlas.png' + g.getVersion('tipsAtlas'), onLoadImage, st);
+        g.load.loadXML(st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas'), onLoad, st);
     }
 
     private function onLoadImage(b:Bitmap, st:String):void {
@@ -54,10 +54,10 @@ public class ManagerTips {
     }
 
     private function onLoad(st:String):void {
-        if (g.pBitmaps[st + 'tipsAtlas.png'] && g.pXMLs[st + 'tipsAtlas.xml']) {
-            g.allData.atlas['tipsAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'tipsAtlas.png'].create() as Bitmap), g.pXMLs[st + 'tipsAtlas.xml']);
-            delete  g.pBitmaps[st + 'tipsAtlas.png'];
-            delete  g.pXMLs[st + 'tipsAtlas.xml'];
+        if (g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')] && g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')]) {
+            g.allData.atlas['tipsAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')].create() as Bitmap), g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')]);
+            delete  g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')];
+            delete  g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')];
             showTips();
         }
     }

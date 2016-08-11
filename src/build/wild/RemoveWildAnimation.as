@@ -30,32 +30,32 @@ public class RemoveWildAnimation {
                 _x = 46 * g.scaleFactor;
                 _y = 0;
                 _countPlay = 4;
-                _armature = g.allData.factory['removeWild'].buildArmature("saw");
+                _armature = g.allData.factory['tools'].buildArmature("saw");
                 break;
             case 1: // axe
                 _x = 32 * g.scaleFactor;
                 _y = -43 * g.scaleFactor;
                 _countPlay = 3;
-                _armature = g.allData.factory['removeWild'].buildArmature("axe");
+                _armature = g.allData.factory['tools'].buildArmature("axe");
                 (_armature.display as Sprite).rotation = -Math.PI/2;
                 break;
             case 125: // shovel
                 _x = 38 * g.scaleFactor;
                 _y = -22 * g.scaleFactor;
                 _countPlay = 2;
-                _armature = g.allData.factory['removeWild'].buildArmature("shovel");
+                _armature = g.allData.factory['tools'].buildArmature("shovel");
                 break;
             case 6: // pickaxe
                 _x = 160 * g.scaleFactor;
                 _y = 10 * g.scaleFactor;
                 _countPlay = 3;
-                _armature = g.allData.factory['removeWild'].buildArmature("pickaxe");
+                _armature = g.allData.factory['tools'].buildArmature("pickaxe");
                 break;
             case 5: // jackhammer
                 _x = 5 * g.scaleFactor;
                 _y = -23 * g.scaleFactor;
                 _countPlay = 2;
-                _armature = g.allData.factory['removeWild'].buildArmature("jackhammer");
+                _armature = g.allData.factory['tools'].buildArmature("jackhammer");
                 break;
         }
         WorldClock.clock.add(_armature);

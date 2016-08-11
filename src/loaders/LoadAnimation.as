@@ -26,24 +26,24 @@ public class LoadAnimation {
 
     public function startLoad():void {
         _count = 3;
-        g.load.loadImage(_url + '/texture.png', onLoad);
-        g.load.loadXML(_url + '/texture.xml', onLoad);
-        g.load.loadXML(_url + '/skeleton.xml', onLoad);
+        g.load.loadImage(_url + '/texture.png' + g.getVersion(_name), onLoad);
+        g.load.loadXML(_url + '/texture.xml' + g.getVersion(_name), onLoad);
+        g.load.loadXML(_url + '/skeleton.xml' + g.getVersion(_name), onLoad);
     }
 
     private function onLoad(smth:*=null):void {
         _count--;
         if (_count <=0) {
             var factory:StarlingFactory = new StarlingFactory();
-            var skeletonData:DragonBonesData = XMLDataParser.parseDragonBonesData(g.pXMLs[_url + '/skeleton.xml']);
+            var skeletonData:DragonBonesData = XMLDataParser.parseDragonBonesData(g.pXMLs[_url + '/skeleton.xml' + g.getVersion(_name)]);
             factory.addSkeletonData(skeletonData);
-            var texture:Texture = Texture.fromBitmap(g.pBitmaps[_url + '/texture.png'].create() as Bitmap);
-            var textureAtlas:StarlingTextureAtlas = new StarlingTextureAtlas(texture, g.pXMLs[_url + '/texture.xml']);
+            var texture:Texture = Texture.fromBitmap(g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)].create() as Bitmap);
+            var textureAtlas:StarlingTextureAtlas = new StarlingTextureAtlas(texture, g.pXMLs[_url + '/texture.xml' + g.getVersion(_name)]);
             factory.addTextureAtlas(textureAtlas);
             g.allData.factory[_name] = factory;
-            delete g.pBitmaps[_url + '/texture.png'];
-            delete g.pXMLs[_url + '/texture.xml'];
-            delete g.pXMLs[_url + '/skeleton.png'];
+            delete g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)];
+            delete g.pXMLs[_url + '/texture.xml' + g.getVersion(_name)];
+            delete g.pXMLs[_url + '/skeleton.png' + g.getVersion(_name)];
 
             if (_callback != null) _callback.apply(null, [_url, this]);
         }
