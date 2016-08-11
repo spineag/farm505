@@ -192,16 +192,18 @@ public class Train extends WorldObject{
         _hitArea = g.managerHitArea.getHitArea(_build, 'trainBuild');
         _source.registerHitArea(_hitArea);
         if (g.isAway) {
-            if (_stateBuild == STATE_UNACTIVE) {
-                createBrokenTrain();
-                _arriveAnim = new ArrivedAnimation(_source);
-            } else if (_stateBuild == STATE_READY) {
-                _arriveAnim = new ArrivedAnimation(_source);
-                onArrivedKorzina();
-            } else if (_stateBuild == STATE_WAIT_BACK) {
-                _arriveAnim = new ArrivedAnimation(_source);
-                makeIdleAnimation();
-            }
+            _arriveAnim = new ArrivedAnimation(_source);
+            if (_arriveAnim) _arriveAnim.visible = true;
+//            if (_stateBuild == STATE_UNACTIVE) {
+//                createBrokenTrain();
+//                _arriveAnim = new ArrivedAnimation(_source);
+//            } else if (_stateBuild == STATE_READY) {
+//                _arriveAnim = new ArrivedAnimation(_source);
+//                onArrivedKorzina();
+//            } else if (_stateBuild == STATE_WAIT_BACK) {
+//                _arriveAnim = new ArrivedAnimation(_source);
+//                makeIdleAnimation();
+//            }
         } else {
             if (_stateBuild == STATE_UNACTIVE) {
                 createBrokenTrain();

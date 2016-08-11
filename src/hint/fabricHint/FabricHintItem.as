@@ -36,15 +36,15 @@ public class FabricHintItem {
         _id = obId;
         _txtWhite = new TextField(50,50,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
         _txtWhite.hAlign = HAlign.LEFT;
-        _txtWhite.y = 55;
-        _txtWhite.x = 43;
+//        _txtWhite.y = 55;
+//        _txtWhite.x = 43;
         _txtWhite.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtWhite.text = String("/" + String(_needCount));
         _txtOrange = new TextField(50,50,'',g.allData.fonts['BloggerBold'],14,ManagerFilters.TEXT_ORANGE_COLOR);
         _txtOrange.hAlign = HAlign.LEFT;
         _txtOrange.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
-        _txtOrange.y = 55;
-        _txtOrange.x = 34;
+//        _txtOrange.y = 55;
+//        _txtOrange.x = 34;
         source.addChild(_txtWhite);
         source.addChild(_txtOrange);
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[obId].id);
@@ -54,6 +54,10 @@ public class FabricHintItem {
         } else {
             _txtOrange.color = ManagerFilters.TEXT_ORANGE_COLOR;
         }
+        _txtOrange.x = 34;
+        _txtOrange.y = 55;
+        _txtWhite.x = _txtOrange.x + _txtOrange.textBounds.width + 1;
+        _txtWhite.y = 55;
         if (!g.dataResource.objectResources[obId]) {
             Cc.error('FabricHintItem error: g.dataResource.objectResources[obId] = null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHintItem');

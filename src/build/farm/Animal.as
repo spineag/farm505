@@ -90,7 +90,7 @@ public class Animal {
             source.endClickCallback = onEndClick;
             source.startClickCallback = onStartClick;
         }
-
+        source.releaseContDrag = true;
         switch (_data.id) {
             case 1: // chicken
                 defaultLabel = 'walk';
@@ -256,7 +256,7 @@ public class Animal {
             }
         }
         if (!show) {
-            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 2) {
+            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
                 if (_wasStartActiveFeeding && g.managerAnimal.isMouseUnderAnimal(this)) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
@@ -281,8 +281,7 @@ public class Animal {
         }
         if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
             if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
-            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) g.userInventory.addResource(_data.idResourceRaw, -2);
-                else g.userInventory.addResource(_data.idResourceRaw, -1);
+            g.userInventory.addResource(_data.idResourceRaw, -1);
             _timeToEnd = _data.timeCraft;
             g.gameDispatcher.addToTimer(render);
             _state = WORK;

@@ -21,6 +21,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import tutorial.AfterTutorialWindow;
+
 import utils.CSprite;
 
 import windows.WOComponents.HorizontalPlawka;

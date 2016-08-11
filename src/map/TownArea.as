@@ -747,7 +747,7 @@ public class TownArea extends Sprite {
                 arr = getCityObjectsByType(BuildType.TREE);
                 for (i = 0; i < arr.length; i++) {
                     if (arr[i].stateTree == Tree.FULL_DEAD) {
-                        maxCount ++;
+                        curCount--;
                     }
                 }
             }

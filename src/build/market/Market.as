@@ -16,6 +16,9 @@ import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
 import tutorial.TutorialAction;
+
+import user.Someone;
+
 import windows.WindowsManager;
 
 public class Market extends WorldObject{
@@ -136,21 +139,33 @@ public class Market extends WorldObject{
     }
 
     public function marketState():void {
-        g.directServer.getUserMarketItem(g.user.userSocialId,fillIt);
+        if (g.isAway) fillIt(g.visitedUser);
+        else g.directServer.getUserMarketItem(g.user.userSocialId,fillIt);
     }
 
-    private function fillIt():void {
-        _arrItem = g.user.marketItems;
+    private function fillIt(some:Someone = null):void {
         var coins:int = 0;
         var res:int = 0;
+        var b:Bone;
+        if (some) _arrItem = some.marketItems;
+        else _arrItem = g.user.marketItems;
+        if (!_arrItem) {
+            b = _armature.getBone('fr');
+            if (b != null) _armature.removeBone(b,true);
+            b = _armature.getBone('fr2');
+            if (b != null) _armature.removeBone(b,true);
+            b = _armature.getBone('coins');
+            if (b != null) _armature.removeBone(b,true);
+            return;
+        }
         for (var i:int = 0; i < _arrItem.length; i++) {
-            if (g.user.marketItems[i].buyerId != '0') {
+            if (_arrItem[i].buyerId != '0') {
                 coins++;
             } else {
-                res ++;
+                res++;
             }
         }
-        var b:Bone;
+
         _armature.animation.gotoAndStop('work', 0);
         if (coins <= 0) {
             b = _armature.getBone('coins');

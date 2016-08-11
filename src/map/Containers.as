@@ -162,6 +162,7 @@ public class Containers {
             _isDragged = false;
             return;
         }
+        g.hideAllHints();
         _isDragged = false;
     }
 

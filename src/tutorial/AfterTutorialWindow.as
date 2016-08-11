@@ -30,7 +30,7 @@ public class AfterTutorialWindow {
     public function AfterTutorialWindow() {
         _source = new Sprite();
         _btn = new CButton();
-        _btn.addButtonTexture(172, 45, CButton.GREEN, true);
+        _btn.addButtonTexture(172, 45, CButton.BLUE, true);
         g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/after_tutorial_window.png',onLoad);
         _needShow = false;
     }
@@ -58,8 +58,8 @@ public class AfterTutorialWindow {
         _btn.clickCallback = onClick;
         g.cont.popupCont.addChild(_source);
         _source.addChild(_btn);
-        var txt:TextField = new TextField(110,100,"Дальше", g.allData.fonts['BloggerBold'],14,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        var txt:TextField = new TextField(110,100,"Дальше", g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.y = -25;
         txt.x = 30;
         _btn.addChild(txt);

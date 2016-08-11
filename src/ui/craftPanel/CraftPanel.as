@@ -78,7 +78,7 @@ public class CraftPanel {
     public function showIt(place:int):void {
         _countFlying++;
         if (!_isShow) {
-            g.cont.interfaceCont.addChild(_source);
+            g.cont.windowsCont.addChild(_source);
             _isShow = true;
         }
 
@@ -156,7 +156,7 @@ public class CraftPanel {
         while (_resourceSprite.numChildren) {
             _resourceSprite.removeChildAt(0);
         }
-        g.cont.interfaceCont.removeChild(_source);
+        g.cont.windowsCont.removeChild(_source);
         _isShow = false;
     }
 
