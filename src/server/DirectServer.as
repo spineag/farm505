@@ -28,8 +28,6 @@ import manager.Vars;
 import mouse.ServerIconMouse;
 import user.Someone;
 import utils.Utils;
-
-import windows.WOComponents.WindowBackground;
 import windows.WindowsManager;
 import com.adobe.crypto.MD5;
 
