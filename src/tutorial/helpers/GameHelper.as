@@ -57,6 +57,24 @@ public class GameHelper {
         createShowButton();
     }
 
+//    public function onResize():void {
+//        if (_reason == HelperReason.REASON_BUY_ANIMAL || _reason == HelperReason.REASON_BUY_FABRICA ||
+//                _reason == HelperReason.REASON_BUY_FARM || _reason == HelperReason.REASON_BUY_HERO || _reason == HelperReason.REASON_BUY_RIDGE) {
+//            var ob:Object = g.bottomPanel.getShopButtonProperties();
+//            _source.x = ob.x + ob.width/2;
+//            _source.y = ob.y + ob.height/2 - 200;
+//            _spArrow.x = _source.x;
+//            _spArrow.y = _source.y;
+//        } else {
+//            _centerPoint = new Point(Starling.current.nativeStage.stageWidth / 2, Starling.current.nativeStage.stageHeight / 2);
+//            _source.x = _centerPoint.x;
+//            _source.y = _centerPoint.y;
+//            _spArrow.x = _centerPoint.x;
+//            _spArrow.y = _centerPoint.y;
+//            checkPosition();
+//        }
+//    }
+
     private function createExitButton():void {
         _timer --;
         if (_timer <= 0) {

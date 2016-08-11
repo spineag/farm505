@@ -51,6 +51,13 @@ public class ManagerHelpers {
             _isCheckingForHelper = false;
         }
     }
+    
+    public function onResize():void {
+        if (_isActiveHelper && _helper) {
+//            _helper.onResize();
+            onEnd();
+        }
+    }
 
     public function get isActiveHelper():Boolean {
         return _isActiveHelper;

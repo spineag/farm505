@@ -85,9 +85,9 @@ public class MarketFriendItem {
 
     private function visitPerson():void {
         if (g.managerCutScenes.isCutScene) return;
-        g.windowsManager.uncasheWindow();
         g.catPanel.visibleCatPanel(false);
         g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+        g.windowsManager.uncasheWindow();
         g.townArea.goAway(_person);
     }
 

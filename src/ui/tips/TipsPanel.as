@@ -115,8 +115,8 @@ public class TipsPanel {
         TweenMax.to(_source, .2, {scaleX:.9, scaleY:.9});
     }
 
-    public function onGoAway(v:Boolean):void {
-        _source.visible = v;
+    public function setUnvisible(v:Boolean):void {
+        _source.visible = !v;
         if (v) {
             g.gameDispatcher.removeFromTimer(onTimer);
         } else {

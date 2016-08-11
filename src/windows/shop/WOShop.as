@@ -442,8 +442,8 @@ public class WOShop extends WindowMain {
         _shopList.addArrow(_id);
     }
     
-    public function addArrowAtPos(n:int):void {
-        _shopList.addArrowAtPos(n);
+    public function addArrowAtPos(n:int, t:int=0):void {
+        _shopList.addArrowAtPos(n, t);
     }
 
     public function getShopDirectItemProperties(a:int):Object {

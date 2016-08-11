@@ -433,8 +433,8 @@ public class ShopList {
         }
     }
     
-    public function addArrowAtPos(n:int):void {
-        _arrItems[n].addArrow();
+    public function addArrowAtPos(n:int, t:int=0):void {
+        (_arrItems[n] as ShopItem).addArrow(t);
     }
 
     public function deleteIt():void {
