@@ -694,7 +694,7 @@ public class Fabrica extends WorldObject {
     }
 
     private function changeTexture(oldName:String, newName:String):void {
-        var im:Image = g.allData.factory['cat'].getTextureDisplay(newName) as Image;
+        var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
         if (_armature) var b:Bone = _armature.getBone(oldName);
         if (b) {
             im.pivotX = b.display.pivotX;
