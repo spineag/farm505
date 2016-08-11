@@ -281,7 +281,6 @@ public class Animal {
         }
         if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
             if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
-            g.userInventory.addResource(_data.idResourceRaw, -1);
             _timeToEnd = _data.timeCraft;
             g.gameDispatcher.addToTimer(render);
             _state = WORK;
@@ -315,6 +314,8 @@ public class Animal {
                 addRenderAnimation();
             }
             onOut();
+            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) g.userInventory.addResource(_data.idResourceRaw, -2);
+            else g.userInventory.addResource(_data.idResourceRaw, -1);
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_FEED) {
                 if (_tutorialCallback != null) {
                     _tutorialCallback.apply(null, [this]);

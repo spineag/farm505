@@ -9,6 +9,9 @@ import loaders.LoadAnimationManager;
 import loaders.LoadComponents;
 import loaders.LoaderManager;
 import manager.Vars;
+
+import server.DirectServer;
+
 import starling.display.Sprite;
 import starling.utils.AssetManager;
 
@@ -38,13 +41,19 @@ public class MainStarling extends Sprite {
             cur = int(max * ratio);
             g.startPreloader.setProgress(cur);
             if (ratio == 1.0){
-                loadComponents();
+                loadVersion();
             }
         });
     }
 
     private function initGame():void {
-        new EmbedAssets(loadComponents);
+        new EmbedAssets(loadVersion);
+    }
+
+    private function loadVersion():void {
+        g.directServer = new DirectServer();
+        g.version = {};
+        g.directServer.getVersion(loadComponents);
     }
 
     private function loadComponents():void {

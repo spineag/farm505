@@ -3,7 +3,9 @@
  */
 package server {
 public class Consts {
-    public static var INQ_TEST:String = 'test_response.php';
+    public static var INQ_TEST:String = 'testik.php';
+    public static var INQ_TEST_RESPONCE:String = 'test_response.php';
+    public static var INQ_DATA_VERSION:String = 'getVersion.php';
     public static var INQ_DATA_ANIMAL:String = 'getDataAnimal.php';
     public static var INQ_DATA_BUILDING:String = 'getDataBuilding.php';
     public static var INQ_DATA_LEVEL:String = 'getDataLevel.php';

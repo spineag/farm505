@@ -28,8 +28,6 @@ import manager.Vars;
 import mouse.ServerIconMouse;
 import user.Someone;
 import utils.Utils;
-
-import windows.WOComponents.WindowBackground;
 import windows.WindowsManager;
 import com.adobe.crypto.MD5;
 
@@ -42,6 +40,83 @@ public class DirectServer {
     private function addDefault(variables:URLVariables):URLVariables {
         variables.sessionKey = g.user.sessionKey;
         return variables;
+    }
+
+    public function makeTest(callback:Function=null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_TEST);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'test', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteTest);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteTest(e:Event):void { completeTest(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('test error:' + error.errorID);
+        }
+    }
+
+    private function completeTest(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('test: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'test OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('test: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+        }
+    }
+
+    public function getVersion(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_VERSION);
+
+        Cc.ch('server', 'start getVersion', 1);
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteVersion);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteVersion(e:Event):void { completeVersion(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataRecipe error:' + error.errorID);
+        }
+    }
+
+    private function completeVersion(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getVersion: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getVersion OK', 5);
+            for (var i:int = 0; i<d.message.length; i++) {
+                g.version[d.message[i].name] = d.message[i].version;
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getVersion: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+        }
     }
 
     public function getDataLevel(callback:Function):void {

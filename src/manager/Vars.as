@@ -96,12 +96,6 @@ public class Vars {
     public var realGameHeight:int = 5000;
     public var realGameTilesWidth:int = 6782;
     public var realGameTilesHeight:int = 3400;
-    public var gameDispatcher:FarmDispatcher;
-    public var user:User;
-    public var userInventory:UserInventory;
-    public var userTimer:UserTimer;
-    public var managerDropResources:ManagerDropBonusResource;
-
     public var isAway:Boolean = false;
     public var visitedUser:Someone;
     public var isActiveMapEditor:Boolean = false;
@@ -110,6 +104,8 @@ public class Vars {
     public var flashVars:Object;
     public var socialNetworkID:int;
     public var isDebug:Boolean = false;
+    public var version:Object;
+
     public var mapEditor:MapEditorInterface;
     public var editorButtons:EditorButtonInterface;
     public var deactivatedAreaManager:DeactivatedAreaManager;
@@ -189,6 +185,11 @@ public class Vars {
     public var managerHelpers:ManagerHelpers;
     public var soundManager:SoundManager;
     public var managerTips:ManagerTips;
+    public var gameDispatcher:FarmDispatcher;
+    public var user:User;
+    public var userInventory:UserInventory;
+    public var userTimer:UserTimer;
+    public var managerDropResources:ManagerDropBonusResource;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -213,7 +214,6 @@ public class Vars {
 
             event = new OwnEvent();
             useDataFromServer = true;
-            directServer = new DirectServer();
 
             dataBuilding = new DataBuildings();
             dataRecipe = new DataRecipe();
@@ -536,6 +536,11 @@ public class Vars {
     public function updateAmbarIndicator():void {
         var a:WorldObject = townArea.getCityObjectsByType(BuildType.AMBAR)[0];
         if (a) (a as Ambar).updateIndicatorProgress();
+    }
+
+    public function getVersion(st:String):String {
+        if (version[st]) return '?v='+version[st];
+            else return '';
     }
 }
 }
