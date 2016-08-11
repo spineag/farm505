@@ -131,5 +131,9 @@ public class WOPapperPage {
             if(!_arrItems[i].isBotBuy) _arrItems[i].updateAvatar();
         }
     }
+
+    public function get arrItems():Array {
+        return _arrItems;
+    }
 }
 }

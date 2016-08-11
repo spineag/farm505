@@ -14,6 +14,8 @@ import manager.ManagerFilters;
 import manager.ManagerFilters;
 import manager.Vars;
 
+import preloader.miniPreloader.FlashAnimatedPreloader;
+
 import resourceItem.DropItem;
 
 import starling.display.Image;
@@ -55,6 +57,7 @@ public class WOPapperItem {
     private var number:int;
     private var _btnBuyBot:CButton;
     private var _btnDelete:CButton;
+    private var _preloader:FlashAnimatedPreloader;
 
     private var g:Vars = Vars.getInstance();
 
@@ -377,6 +380,35 @@ public class WOPapperItem {
         _btnDelete.visible = false;
     }
 
+    public function preloader():void {
+        source.removeChild(_imageItem);
+        source.removeChild(_txtCost);
+        source.removeChild(_txtUserName);
+        source.removeChild(_txtResourceName);
+        source.removeChild(_imageCoins);
+        source.removeChild(_txtSale);
+        source.removeChild(_btnBuyBot);
+        source.removeChild(_txtCountResource);
+        _btnBuyBot = null;
+        _txtSale = null;
+        _imageCoins = null;
+        _imageItem = null;
+        _txtUserName = null;
+        _txtCost = null;
+        _txtCountResource = null;
+        _txtResourceName = null;
+        _preloader = new FlashAnimatedPreloader();
+        _preloader.source.x = _bg.width/2;
+        _preloader.source.y = _bg.height/2;
+        source.addChild(_preloader.source);
+    }
+
+    public function deletePreloader():void {
+        if (!_preloader) return;
+        source.removeChild(_preloader.source);
+        _preloader = null;
+    }
+
     public function deleteIt():void {
         _wo = null;
         _data = null;
@@ -395,6 +427,10 @@ public class WOPapperItem {
         _p = null;
         source.dispose();
         source = null;
+        if (_preloader) {
+            _preloader = null;
+            source.removeChild(_preloader.source);
+        }
     }
 
 }
