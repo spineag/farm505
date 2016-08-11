@@ -36,6 +36,7 @@ public class WOPapper extends WindowMain {
     private var _timer:int;
     private var _txtTimer:TextField;
     private var _rubinsSmall:Image;
+    private var _preloader:Boolean;
 
     public function WOPapper() {
         super();
@@ -297,6 +298,8 @@ public class WOPapper extends WindowMain {
     }
 
     private function fillAfterRefresh():void {
+        _preloader = false;
+        preloader();
         _shiftPages = 1;
         _leftPage.deleteIt();
         _source.removeChild(_leftPage.source);
@@ -367,6 +370,8 @@ public class WOPapper extends WindowMain {
     }
 
     private function onBlueRefresh():void {
+        _preloader = true;
+        preloader();
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         startPapperTimer();
         g.directServer.getUserPapperBuy(getUserPapper);
@@ -382,6 +387,8 @@ public class WOPapper extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        _preloader = true;
+        preloader();
         g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_PAPER_ID});
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
@@ -393,6 +400,15 @@ public class WOPapper extends WindowMain {
     private function getUserPapper():void {
         g.directServer.getPaperItems(fillAfterRefresh);
 
+    }
+
+    private function preloader():void {
+        var arr:Array = _leftPage.arrItems.concat(_rightPage.arrItems);
+        for (var i:int = 0; i < arr.length; i++) {
+            if (_preloader) {
+                if (!arr[i].isBotBuy) arr[i].preloader();
+            } else if (!arr[i].isBotBuy) arr[i].deletePreloader();
+        }
     }
 
     private function onUpdateUserTimePaper(b:Boolean = true):void {}
