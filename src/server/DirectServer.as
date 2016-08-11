@@ -44,6 +44,45 @@ public class DirectServer {
         return variables;
     }
 
+    public function makeTest(callback:Function=null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_TEST);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'test', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteTest);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteTest(e:Event):void { completeTest(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('test error:' + error.errorID);
+        }
+    }
+
+    private function completeTest(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('test: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'test OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('test: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+        }
+    }
+
     public function getDataLevel(callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_LEVEL);
