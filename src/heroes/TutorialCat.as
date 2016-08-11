@@ -40,7 +40,7 @@ public class TutorialCat extends BasicCat {
 
         _animation = new HeroCatsAnimation();
         _animation.catArmature = g.allData.factory['tutorialCat'].buildArmature("cat");
-        _animation.catBackArmature = g.allData.factory['cat'].buildArmature("cat_back");
+        _animation.catBackArmature = g.allData.factory['cat_main'].buildArmature("cat_back");
         _catImage.addChild(_animation.catArmature.display as Sprite);
         _catBackImage.addChild(_animation.catBackArmature.display as Sprite);
 
