@@ -40,7 +40,7 @@ public class LockedLand extends WorldObject {
         _dataLand = g.allData.lockedLandData[_data.dbId];
         if (!_dataLand && !g.isAway) {
             Cc.error('no dataLand for LockedLand _data.dbId: ' + _data.dbId);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no dataLand');
+            if (g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no dataLand');
             return;
         }
         _build.touchable = false;

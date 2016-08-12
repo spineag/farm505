@@ -83,7 +83,7 @@ public class TimerHint {
 //        txt.y = 5;
         _btn.addChild(im);
         _btn.addChild(_txtCost);
-        _btn.addChild(_txtText);
+        _btn.addDisplayObject(_txtText);
         _btn.y = -60;
         _btn.x = 36;
         _source.addChild(_btn);

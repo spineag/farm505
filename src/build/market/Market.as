@@ -17,6 +17,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import tutorial.TutorialAction;
 
+import user.NeighborBot;
+
 import user.Someone;
 
 import windows.WindowsManager;
@@ -139,15 +141,21 @@ public class Market extends WorldObject{
     }
 
     public function marketState():void {
-        if (g.isAway) fillIt(g.visitedUser);
+        if (g.isAway) {
+            if (g.visitedUser is NeighborBot) {
+                g.directServer.getUserNeighborMarket(fillIt);
+            } else {
+                g.directServer.getUserMarketItem(g.visitedUser.userSocialId, fillIt);
+            }
+        }
         else g.directServer.getUserMarketItem(g.user.userSocialId,fillIt);
     }
 
-    private function fillIt(some:Someone = null):void {
+    private function fillIt():void {
         var coins:int = 0;
         var res:int = 0;
         var b:Bone;
-        if (some) _arrItem = some.marketItems;
+        if (g.isAway) _arrItem = g.visitedUser.marketItems;
         else _arrItem = g.user.marketItems;
         if (!_arrItem) {
             b = _armature.getBone('fr');

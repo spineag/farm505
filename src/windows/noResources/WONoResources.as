@@ -29,6 +29,8 @@ public class WONoResources extends WindowMain {
     private var _countCost:int;
     private var _callbackBuy:Function;
     private var _paramData:Object;
+    private var _txtNoResource:TextField;
+    private var _text:TextField;
 
     public function WONoResources() {
         super();
@@ -42,16 +44,16 @@ public class WONoResources extends WindowMain {
         _callbackClickBG = onClickExit;
         SOUND_OPEN = SoundConst.WO_AHTUNG;
 
-        var txt:TextField = new TextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ!", g.allData.fonts['BloggerBold'], 22, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txt.x = -150;
-        txt.y = -130;
-        _source.addChild(txt);
-        txt = new TextField(350, 75, "Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.", g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        txt.x = -175;
-        txt.y = -100;
-        _source.addChild(txt);
+        _txtNoResource = new TextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ!", g.allData.fonts['BloggerBold'], 22, Color.WHITE);
+        _txtNoResource.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtNoResource.x = -150;
+        _txtNoResource.y = -130;
+        _source.addChild(_txtNoResource);
+        _text = new TextField(350, 75, "Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.", g.allData.fonts['BloggerMedium'], 18, Color.WHITE);
+        _text.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _text.x = -175;
+        _text.y = -100;
+        _source.addChild(_text);
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(210, 34, CButton.GREEN, true);
@@ -73,6 +75,7 @@ public class WONoResources extends WindowMain {
         var item:WONoResourcesItem;
         _paramData = params[1];
         _callbackBuy = callback;
+        _text.text = 'Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.';
         switch (params[0]) {
             case 'animal':
                 _countOfResources = 1;
@@ -94,6 +97,7 @@ public class WONoResources extends WindowMain {
             case 'money':
                 _countOfResources = _paramData.count;
                 _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
+                _text.text = 'Не хватает монет. Вы можете купить их за рубины и начать производство немедленно.';
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
                     Cc.error('hard currency can"t be in woNoResourceWindow');
                     g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');

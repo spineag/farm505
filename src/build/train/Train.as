@@ -495,7 +495,6 @@ public class Train extends WorldObject{
         //fillList(_dataPack);
         //g.woTrain.showItWithParams(list, this);
         g.directServer.releaseUserTrainPack(_train_db_id, onReleasePack);
-        _stateBuild = STATE_WAIT_BACK;
         if (free){
             onOut();
             return;

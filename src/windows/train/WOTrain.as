@@ -417,10 +417,8 @@ public class WOTrain extends WindowMain {
         if (g.managerCutScenes.isCutScene) return;
         if (!b) {
             if (_lock == 0 || !_isBigCount && _lock <= 3) {
-                g.windowsManager.cashWindow = this;
                 super.hideIt();
-//                deleteIt();
-                g.windowsManager.openWindow(WindowsManager.WO_TRAIN_SEND, fullTrain);
+                g.windowsManager.openWindow(WindowsManager.WO_TRAIN_SEND, fullTrain, _build);
                 return;
             }
         }

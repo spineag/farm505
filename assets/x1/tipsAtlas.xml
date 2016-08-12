@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:497a1b3edcad43732cdc5377b0403b18:77e8ff2126ed31aee1b3b5ba34349489:e22fc90b19e4138bf572c23dec54983e$ -->
-<TextureAtlas imagePath="tipsAtlas.png">
-    <SubTexture name="animals_icon" x="2" y="291" width="68" height="68"/>
-    <SubTexture name="crops_icon" x="2" y="148" width="74" height="72"/>
-    <SubTexture name="factories_icon" x="2" y="432" width="65" height="65"/>
-    <SubTexture name="helper_cat_1" x="2" y="2" width="117" height="144" frameX="-2" frameY="0" frameWidth="124" frameHeight="148"/>
-    <SubTexture name="marcet_icon" x="2" y="566" width="64" height="70"/>
-    <SubTexture name="newspaper_icon" x="2" y="361" width="65" height="69"/>
-    <SubTexture name="orders_icon" x="2" y="638" width="64" height="68"/>
-    <SubTexture name="products_icon" x="2" y="222" width="73" height="67"/>
-    <SubTexture name="wheel_of_fortune_icon" x="2" y="499" width="65" height="65"/>
+<!-- $TexturePacker:SmartUpdate:c9a97a953a87ae30035ae72615adcd25:985d34e59f47eddaa24eb73be8944441:e22fc90b19e4138bf572c23dec54983e$ -->
+<TextureAtlas imagePath="tipsAtlas.png" width="123" height="919">
+    <SubTexture name="animals_icon" x="2" y="364" width="68" height="68"/>
+    <SubTexture name="crops_icon" x="2" y="149" width="74" height="72"/>
+    <SubTexture name="factories_icon" x="2" y="576" width="65" height="65"/>
+    <SubTexture name="grey_cat_icon" x="2" y="434" width="65" height="69"/>
+    <SubTexture name="helper_cat_1" x="2" y="2" width="119" height="145" frameX="-1" frameY="0" frameWidth="124" frameHeight="148"/>
+    <SubTexture name="marcet_icon" x="2" y="777" width="64" height="70"/>
+    <SubTexture name="newspaper_icon" x="2" y="505" width="65" height="69"/>
+    <SubTexture name="orders_icon" x="2" y="849" width="64" height="68"/>
+    <SubTexture name="products_icon" x="2" y="223" width="73" height="67"/>
+    <SubTexture name="tree_ridge_icon" x="2" y="643" width="65" height="65"/>
+    <SubTexture name="tree_saw_icon" x="2" y="292" width="69" height="70"/>
+    <SubTexture name="wheel_of_fortune_icon" x="2" y="710" width="65" height="65"/>
 </TextureAtlas>

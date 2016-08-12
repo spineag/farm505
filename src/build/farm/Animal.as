@@ -90,7 +90,7 @@ public class Animal {
             source.endClickCallback = onEndClick;
             source.startClickCallback = onStartClick;
         }
-        source.releaseContDrag = true;
+//        source.releaseContDrag = true;
         switch (_data.id) {
             case 1: // chicken
                 defaultLabel = 'walk';
@@ -249,9 +249,11 @@ public class Animal {
             onOut();
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                 if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
+//                source.releaseContDrag = false;
                 return;
             } else {
                 if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
+//                source.releaseContDrag = false;
                 return;
             }
         }
@@ -273,7 +275,7 @@ public class Animal {
                 }
                     return;
             }
-            if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 2 && !g.userInventory.checkLastResource(_data.idResourceRaw)) {
+            if (!last && g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1 && !g.userInventory.checkLastResource(_data.idResourceRaw)) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, feedAnimal, {id: _data.idResourceRaw}, 'market');
                 return;
@@ -294,9 +296,7 @@ public class Animal {
             else
                 texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
 
-            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) {
-                new RawItem(p, texture, 2, 0);
-            } else new RawItem(p, texture, 1, 0);
+            new RawItem(p, texture, 1, 0);
             if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
             if (_data.id != 6) {
                 if (_data.id == 1) {
@@ -314,8 +314,7 @@ public class Animal {
                 addRenderAnimation();
             }
             onOut();
-            if (g.dataResource.objectResources[_data.idResourceRaw].buildType == BuildType.PLANT) g.userInventory.addResource(_data.idResourceRaw, -2);
-            else g.userInventory.addResource(_data.idResourceRaw, -1);
+            g.userInventory.addResource(_data.idResourceRaw, -1);
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_FEED) {
                 if (_tutorialCallback != null) {
                     _tutorialCallback.apply(null, [this]);

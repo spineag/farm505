@@ -3167,7 +3167,6 @@ public class DirectServer {
                 obj.resourceCount = int(d.message[i].resource_count);
                 obj.friendsCount = int(d.message[i].friends_count);
                 obj.currencyCount = int(d.message[i].currency_count);
-
                 g.allData.lockedLandData[obj.id] = obj;
             }
             if (callback != null) {

@@ -57,12 +57,12 @@ public class WOTipsItem {
         var isPos:Boolean = true;
         switch (_data.type) {
             case ManagerTips.TIP_RAW_RIDGE:
-                im = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
-                MCScaler.scale(im, 70, 70);
-                im.x = 17;
-                im.y = 17;
-                _txt.text = 'Засеить грядки';
-                isPos = false;
+                im = new Image(g.allData.atlas['tipsAtlas'].getTexture('tree_ridge_icon'));
+//                MCScaler.scale(im, 70, 70);
+//                im.x = 17;
+//                im.y = 17;
+                _txt.text = 'Засеять грядки';
+//                isPos = false;
                 break;
             case ManagerTips.TIP_CRAFT_RIDGE:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('crops_icon'));
@@ -93,20 +93,20 @@ public class WOTipsItem {
                 _txt.text = 'Запустить "Колесо фортуны"';
                 break;
             case ManagerTips.TIP_WILD:
-                im = new Image(g.allData.atlas['wildAtlas'].getTexture('fir_big'));
-                MCScaler.scale(im, 65, 65);
-                im.x = 27;
-                im.y = 25;
+                im = new Image(g.allData.atlas['tipsAtlas'].getTexture('tree_saw_icon'));
+//                MCScaler.scale(im, 65, 65);
+//                im.x = 27;
+//                im.y = 25;
                 _txt.text = 'Убрать деревья и камни';
-                isPos = false;
+//                isPos = false;
                 break;
             case ManagerTips.TIP_BUY_HERO:
-                im = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
-                MCScaler.scale(im, 70, 70);
-                im.x = 22;
-                im.y = 15;
+                im = new Image(g.allData.atlas['tipsAtlas'].getTexture('grey_cat_icon'));
+//                MCScaler.scale(im, 70, 70);
+//                im.x = 22;
+//                im.y = 15;
                 _txt.text = 'Купить помощника';
-                isPos = false;
+//                isPos = false;
                 break;
             case ManagerTips.TIP_RAW_ANIMAL:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('animals_icon'));

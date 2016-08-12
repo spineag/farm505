@@ -2,6 +2,8 @@
  * Created by user on 1/26/16.
  */
 package windows.train {
+import build.train.Train;
+
 import manager.ManagerFilters;
 import starling.display.Image;
 import starling.text.TextField;
@@ -16,6 +18,7 @@ public class WOTrainSend extends WindowMain {
     private var _btnYes:CButton;
     private var _btnNo:CButton;
     private var _callback:Function;
+    private var _build:Train;
 
     public function WOTrainSend() {
         super();
@@ -66,20 +69,22 @@ public class WOTrainSend extends WindowMain {
 
     override public function showItParams(f:Function, params:Array):void {
         _callback = f;
+        _build = params[0];
         super.showIt();
     }
 
     private function onYes():void {
-        if (_callback != null) {
-            _callback.apply(null,[true]);
-            _callback = null;
-        }
-        g.windowsManager.uncasheWindow();
+//        if (_callback != null) {
+//            _callback.apply(null,[true]);
+//            _callback = null;
+//        }
+        (_build as Train).fullTrain(true);
+//        g.windowsManager.uncasheWindow();
         super.hideIt();
     }
 
     private function onNo():void {
-        g.windowsManager.uncasheWindow();
+//        g.windowsManager.uncasheWindow();
         super.hideIt();
     }
 

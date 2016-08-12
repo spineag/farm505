@@ -247,7 +247,7 @@ public class ManagerOrderCats {
         } else {
 //            cat.walkAnimation();
             cat.runAnimation();
-            cat.goCatToXYPoint(p, 2, arrivePart2);
+            cat.goCatToXYPoint(p, 1, arrivePart2);
         }
     }
 
