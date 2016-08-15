@@ -195,11 +195,11 @@ public class ManagerPlantRidge {
         }
     }
 
-    public function lockAllFillRidge(value:Boolean):void {
-        for (var i:int=0; i<_arrRidge.length; i++) {
-            (_arrRidge[i] as Ridge).lockIt(value);
-        }
-    }
+//    public function lockAllFillRidge(value:Boolean):void {
+//        for (var i:int=0; i<_arrRidge.length; i++) {
+//            (_arrRidge[i] as Ridge).lockIt(value);
+//        }
+//    }
 
     public function checkFreeRidges():void {
         var b:Boolean = false;

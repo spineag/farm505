@@ -85,6 +85,7 @@ public class CraftItem {
         _source.y = _y + int(Math.random()*30) - 15;
         _sY = _source.y;
         parent.addChild(_source);
+        _source.startClickCallback = onStart;
         _source.endClickCallback = flyIt;
         if (useHover){
             _source.hoverCallback = onHover;
@@ -95,6 +96,10 @@ public class CraftItem {
 //        _txtNumber.x = -5;
         _txtNumber.y = 10;
         _source.addChild(_txtNumber);
+    }
+    
+    private function onStart():void {
+        g.cont.deleteDragPoint();
     }
 
     private function onHover():void {
@@ -107,6 +112,7 @@ public class CraftItem {
 
     public function removeDefaultCallbacks():void {
         _source.endClickCallback = null;
+        _source.startClickCallback = null;
         _source.hoverCallback = null;
         _source.outCallback = null;
         _source.touchable = false;

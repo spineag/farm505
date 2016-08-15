@@ -183,11 +183,10 @@ public class WOChestItem {
         var endPoint:Point;
 
         var f1:Function = function():void {
-            g.userInventory.addResource(_data.id, _data.count);
             g.craftPanel.afterFlyWithId(_data.id);
             deleteIt();
         };
-
+        g.userInventory.addResource(_data.id, _data.count);
         endPoint = new Point();
         endPoint.x = _source.x;
         endPoint.y = _source.y;

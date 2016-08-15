@@ -65,7 +65,7 @@ public class Fabrica extends WorldObject {
         _arrList = [];
         _arrCrafted = [];
         _source.releaseContDrag = true;
-        if (!g.isAway)_source.endClickCallback = onClick;
+        if (!g.isAway) _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
 
