@@ -17,6 +17,7 @@ import starling.display.Sprite;
 import tutorial.TutorialAction;
 import ui.xpPanel.XPStar;
 import windows.WindowsManager;
+import windows.shop.WOShop;
 
 public class Farm extends WorldObject{
     private var _dataAnimal:Object;
@@ -165,6 +166,9 @@ public class Farm extends WorldObject{
                     (_arrCrafted[0] as CraftItem).flyIt();
                     checkForCraft();
                 }
+            } else {
+                g.user.animalIdArrow = _dataAnimal.id;
+                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null,  WOShop.ANIMAL);
             }
         } else {
             Cc.error('Farm:: unknown g.toolsModifier.modifierType and convert to NONE');

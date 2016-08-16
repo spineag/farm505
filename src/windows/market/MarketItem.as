@@ -176,7 +176,7 @@ public class MarketItem {
         source.addChild(_delete);
         _delete.clickCallback = onDelete;
         _delete.hoverCallback = function ():void {
-            if (g.marketHint.isShowed)g.marketHint.hideIt();
+            if (g.marketHint.isShowed) g.marketHint.hideIt();
             g.hint.showIt('забрать товар','market_delete');
         };
         _delete.outCallback = function ():void {
@@ -372,8 +372,6 @@ public class MarketItem {
             if (!_data || !g.managerTutorial.isTutorialResource(_data.id)) return;
         }
         _onHover = false;
-        g.marketHint.hideIt();
-        g.gameDispatcher.removeEnterFrame(onEnterFrame);
         var i:int;
         if (isFill == 1) {//заполненная
             if (_isUser) {
@@ -435,12 +433,15 @@ public class MarketItem {
                 unFillIt();
             }
         }
+        g.gameDispatcher.removeEnterFrame(onEnterFrame);
         g.marketHint.hideIt();
     }
 
     private function checkItemWhenYouBuy():void {
         var b:Boolean = true;
         var bDelete:Boolean = true;
+        g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        g.marketHint.hideIt();
         for (var i:int = 0; i < _person.marketItems.length; i++) {
             if (number == _person.marketItems[i].numberCell && _person.marketItems[i].buyerId > 0) {
                 b = false;
@@ -557,8 +558,8 @@ public class MarketItem {
         _plawkaLvl.visible = false;
         _txtPlawka.visible = false;
         _delete.visible = false;
-        g.marketHint.hideIt();
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
+        g.marketHint.hideIt();
     }
 
     public function fillFromServer(obj:Object, p:Someone):void {
@@ -780,13 +781,13 @@ public class MarketItem {
             _bg.filter = null;
         } else if (isFill == 1) {
             _delete.visible = false;
-            g.marketHint.hideIt();
             g.gameDispatcher.removeFromTimer(onEnterFrame);
         }
 
         if (_isUser && isFill == 2) {
             _btnGoAwaySaleItem.visible = false;
         }
+        g.marketHint.hideIt();
     }
 
     private var count:int;
