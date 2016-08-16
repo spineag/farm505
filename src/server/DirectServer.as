@@ -1185,7 +1185,7 @@ public class DirectServer {
         try {
             d = JSON.parse(response);
             for (var i:int = 0; i < d.message.length; i++) {
-                g.userInventory.addResource(int(d.message[i].resource_id), int(d.message[i].count), false);
+                g.userInventory.addResourceFromServer(int(d.message[i].resource_id), int(d.message[i].count));
             }
         } catch (e:Error) {
             Cc.error('GetUserResource: wrong JSON:' + String(response));
