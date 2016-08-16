@@ -5,6 +5,7 @@ package build.orders {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import dragonBones.Armature;
+import dragonBones.Bone;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
 import flash.geom.Point;
@@ -46,8 +47,8 @@ public class Order extends WorldObject{
             _source.endClickCallback = onClick;
             _hitArea = g.managerHitArea.getHitArea(_source, 'orderBuild');
             _source.registerHitArea(_hitArea);
-            createSmallHero();
         }
+        createSmallHero();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
 
@@ -57,6 +58,11 @@ public class Order extends WorldObject{
         if (!g.isAway) {
             _smallHero = new SmallHeroAnimation(this);
             _smallHero.armature = g.allData.factory[_dataBuild.url].buildArmature('table');
+        } else {
+            var b:Bone = _armature.getBone('table');
+            b.display.dispose();
+            var s:Sprite = new Sprite();
+            b.display = s;
         }
     }
     

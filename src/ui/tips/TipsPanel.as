@@ -3,25 +3,24 @@
  */
 package ui.tips {
 import com.greensock.TweenMax;
-
 import manager.Vars;
-
 import starling.display.Image;
-
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CSprite;
-
+import utils.SimpleArrow;
 import windows.WindowsManager;
 
 public class TipsPanel {
     private var _source:CSprite;
     private var _timer:int;
     private var _txt:TextField;
+    private var _arrow:SimpleArrow;
+    private var _onHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function TipsPanel() {
+        _onHover = false;
         _source = new CSprite();
         _source.x = 70;
         _source.y = 200;
@@ -54,6 +53,7 @@ public class TipsPanel {
     }
 
     public function hideIt():void {
+        deleteArrow();
         if (g.cont.interfaceCont.contains(_source)) g.cont.interfaceCont.removeChild(_source);
         g.gameDispatcher.removeFromTimer(onTimer);
         _source.deleteIt();
@@ -73,6 +73,7 @@ public class TipsPanel {
     }
 
     private function onClick():void {
+        deleteArrow();
         if (g.managerCutScenes.isCutScene || g.managerTutorial.isTutorial || g.isAway) return;
         TweenMax.killTweensOf(_source);
         _source.scaleX = _source.scaleY = .9;
@@ -86,6 +87,8 @@ public class TipsPanel {
     }
 
     private function onHover():void {
+        if (_onHover) return;
+        _onHover = true;
         TweenMax.killTweensOf(_source);
         _source.scaleX = _source.scaleY = 1;
         g.gameDispatcher.removeFromTimer(onTimer);
@@ -93,6 +96,8 @@ public class TipsPanel {
     }
 
     private function onOut():void {
+        if (!_onHover) return;
+        _onHover = false;
         _source.scaleX = _source.scaleY = .9;
         g.gameDispatcher.addToTimer(onTimer);
         _timer = 7;
@@ -122,6 +127,21 @@ public class TipsPanel {
         } else {
             _timer = 7;
             g.gameDispatcher.addToTimer(onTimer);
+        }
+    }
+
+    public function showArrow():void {
+        deleteArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(60, 15);
+        _arrow.activateTimer(5, deleteArrow);
+    }
+
+    private function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
         }
     }
 

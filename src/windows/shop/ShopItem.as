@@ -628,6 +628,7 @@ public class ShopItem {
             _data.cost = _countCost;
         }
 
+        var ob:Object;
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (g.managerTutorial.isTutorial) return;
             if (g.managerCutScenes.isCutScene) {
@@ -638,7 +639,7 @@ public class ShopItem {
             if (_data.currency.length == 1) {
                 if (_data.currency == DataMoney.SOFT_CURRENCY) {
                     if (g.user.softCurrencyCount < _countCost) {
-                        var ob:Object = {};
+                        ob = {};
                         ob.currency = DataMoney.SOFT_CURRENCY;
                         ob.count = _countCost - g.user.softCurrencyCount;
                         ob.cost = _countCost;
@@ -695,14 +696,14 @@ public class ShopItem {
             }
         } else {
             if (g.user.softCurrencyCount < _countCost){
-                var ob2:Object = {};
-                ob2.currency = DataMoney.SOFT_CURRENCY;
-                ob2.count = _countCost - g.user.softCurrencyCount;
-                ob2.cost = _countCost;
-                ob2.data = _data;
+                ob = {};
+                ob.currency = DataMoney.SOFT_CURRENCY;
+                ob.count = _countCost - g.user.softCurrencyCount;
+                ob.cost = _countCost;
+                ob.data = _data;
 //                g.windowsManager.cashWindow = _wo;
                 _wo.hideIt();
-                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceCallback, 'money', ob2);
+                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceCallback, 'money', ob);
                 return;
             }
         }
@@ -759,7 +760,7 @@ public class ShopItem {
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if(_data.buildType == BuildType.FARM) {
                 _wo.setAnimalClick = true;
-                var ob:Object = g.dataAnimal.objectAnimal;
+                ob = g.dataAnimal.objectAnimal;
                 var id:String;
                 for (id in ob){
                     if (ob[id].buildId == _data.id) {

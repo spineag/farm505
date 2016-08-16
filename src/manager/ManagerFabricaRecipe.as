@@ -28,7 +28,7 @@ public class ManagerFabricaRecipe {
         _arrFabrica.push(fb);
     }
 
-    public function addRecipe(ob:Object):void {
+    public function addRecipeFromServer(ob:Object):void {
         var i:int;
         var curFabrica:Fabrica;
         var resItem:ResourceItem = new ResourceItem();
@@ -50,6 +50,12 @@ public class ManagerFabricaRecipe {
             curFabrica.craftResource(resItem);
         } else {
             curFabrica.callbackOnChooseRecipe(resItem, g.dataRecipe.objectRecipe[int(ob.recipe_id)], true, int(ob.time_work) - int(ob.delay));
+        }
+    }
+
+    public function onLoadFromServer():void {
+        for (var i:int=0; i<_arrFabrica.length; i++) {
+            (_arrFabrica[i] as Fabrica).onLoadFromServer();
         }
     }
 

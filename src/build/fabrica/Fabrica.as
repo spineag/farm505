@@ -365,6 +365,25 @@ public class Fabrica extends WorldObject {
         return _heroCat;
     }
 
+    public function getRecipeFromServer(resItem:ResourceItem, dataRecipe:Object, deltaTime:int = 0):void {
+        resItem.leftTime -= deltaTime;
+        resItem.deltaTime = deltaTime;
+        resItem.currentRecipeID = dataRecipe.id;
+        _arrList.push(resItem);
+    }
+
+    public function onLoadFromServer():void {
+        _arrList.sortOn('deltaTime', Array.NUMERIC);
+        if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
+        if (_heroCat) {
+            _heroCat.isFree = false;
+            _heroCat.setPosition(new Point(posX, posY));
+            _heroCat.updatePosition();
+        } else {
+            Cc.error('Fabrica onLoadFromServer:: _heroCat == null');
+        }
+    }
+
     public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object, isFromServer:Boolean = false, deltaTime:int = 0):void {
         if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
         if (!_arrList.length && !_heroCat) {
@@ -396,13 +415,10 @@ public class Fabrica extends WorldObject {
                 g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
             }
 
-            // send to server
-            if (g.user.userBuildingData) {
-                var delay:int = 0;  // delay before start make this new recipe
-                if (_arrList.length > 1) {
-                    for (i = 0; i < _arrList.length - 1; i++) {
-                        delay += _arrList[i].buildTime;
-                    }
+            var delay:int = 0;  // delay before start make this new recipe
+            if (_arrList.length > 1) {
+                for (i = 0; i < _arrList.length - 1; i++) {
+                    delay += _arrList[i].buildTime;
                 }
             }
             var f1:Function = function(t:String):void {
@@ -411,11 +427,8 @@ public class Fabrica extends WorldObject {
                     g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
                 }
             };
-            if (delay < 0) {
-//                trace('loohhhhh');
-//                    return;
-                delay = _arrList[0].buildTime;
-            }
+
+            Cc.ch('temp', 'fabrica delay: ' + delay);
             g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
 
             // animation of uploading resources to fabrica

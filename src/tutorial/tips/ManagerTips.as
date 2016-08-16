@@ -18,6 +18,8 @@ import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 import ui.tips.TipsPanel;
 
+import utils.SimpleArrow;
+
 import windows.WindowsManager;
 import windows.shop.WOShop;
 
@@ -36,9 +38,11 @@ public class ManagerTips {
 
     private var _arrTips:Array;
     private var _tipsPanel:TipsPanel;
+    private var _arrowShow:Boolean;
     private var g:Vars = Vars.getInstance();
 
-    public function ManagerTips() {
+    public function ManagerTips(show:Boolean = false) {
+        _arrowShow = show;
         if (g.allData.atlas['tipsAtlas']) showTips();
             else loadTips();
     }
@@ -64,6 +68,8 @@ public class ManagerTips {
 
     private function showTips():void {
         _tipsPanel = new TipsPanel();
+        if (_arrowShow) _tipsPanel.showArrow();
+        _arrowShow = false;
     }
     
     public function onHideWOTips():void {
