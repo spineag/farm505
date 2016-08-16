@@ -19,7 +19,7 @@ import windows.shop.WOShop;
 
 public class ManagerHelpers {
     private const MAX_SECONDS:int = 25;
-    private const LOW_SECONDS:int = 15;
+    private const LOW_SECONDS:int = 12;
     private const MEMIUM_SECONDS:int = 20;
     private var _countSeconds:int;
     private var _isActiveHelper:Boolean;

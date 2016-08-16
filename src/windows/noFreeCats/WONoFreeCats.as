@@ -2,6 +2,9 @@
  * Created by user on 10/6/15.
  */
 package windows.noFreeCats {
+import flash.events.TimerEvent;
+import flash.utils.Timer;
+
 import manager.ManagerFilters;
 
 import media.SoundConst;
@@ -13,6 +16,7 @@ import utils.CButton;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
+import windows.shop.WOShop;
 
 public class WONoFreeCats extends WindowMain {
     private var _btn:CButton;
@@ -66,7 +70,29 @@ public class WONoFreeCats extends WindowMain {
         g.user.decorShop = false;
         g.user.decorShiftShop = 0;
         g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, 1);
+        createDelay(.7, atBuyCat);
     }
+
+    private function atBuyCat():void {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0, 3);
+        }
+    }
+
+
+    private function createDelay(delay:Number, f:Function):void {
+        var func:Function = function():void {
+            timer.removeEventListener(TimerEvent.TIMER, func);
+            timer = null;
+            if (f != null) {
+                f.apply();
+            }
+        };
+        var timer:Timer = new Timer(delay*1000, 1);
+        timer.addEventListener(TimerEvent.TIMER, func);
+        timer.start();
+    }
+
 
     override protected function deleteIt():void {
         _source.removeChild(_btn);
