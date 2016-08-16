@@ -51,7 +51,6 @@ public class XPStar {
         _source.y = _y;
         _source.addChild(_txtStar);
         flyItStar();
-
     }
 
     private function flyItStar():void {

@@ -75,7 +75,7 @@ public class ShopList {
         _rightArrow.clickCallback = onRightClick;
     }
 
-    public function fillIt(arr:Array):void {
+    public function fillIt(arr:Array,animalId:int = -1):void {
         var maxCount:int;
         var curCount:int;
         var item:ShopItem;
@@ -229,6 +229,9 @@ public class ShopList {
             if (!g.user.decorShop) g.user.decorShop = true;
         }
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
+        if (animalId >= 0) {
+            addArrow(animalId);
+        }
     }
 
     public function clearIt(b:Boolean = false):void {  // need remake

@@ -359,6 +359,7 @@ public class ShopItem {
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
                         im.x = 102;
                         source.addChild(im);
+                        if(!g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) addArrow(_data.id);
                     }
                     createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
@@ -401,6 +402,8 @@ public class ShopItem {
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
                         im.x = 102;
                         source.addChild(im);
+                        if(!g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) addArrow(_data.id);
+
                     }
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
@@ -430,6 +433,8 @@ public class ShopItem {
                             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
                             im.x = 102;
                             source.addChild(im);
+                            if(!g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) addArrow(_data.id);
+
                         }
                         _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
                             if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
@@ -527,6 +532,8 @@ public class ShopItem {
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
                         im.x = 102;
                         source.addChild(im);
+                        if(!g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) addArrow(_data.id);
+
                     }
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
@@ -555,6 +562,7 @@ public class ShopItem {
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
                         im.x = 102;
                         source.addChild(im);
+                        if(!g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) addArrow(_data.id);
                     }
                     createButtons('blue');
                     _txtBtnBuyBlue.text = String(_countCost);
@@ -584,6 +592,8 @@ public class ShopItem {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
                     im.x = 102;
                     source.addChild(im);
+                    if(!g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene)addArrow(_data.id);
+
                 }
                 createButtons('blue');
                 _txtBtnBuyBlue.text = String(_countCost);
@@ -748,6 +758,14 @@ public class ShopItem {
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if(_data.buildType == BuildType.FARM) {
                 _wo.setAnimalClick = true;
+                var ob:Object = g.dataAnimal.objectAnimal;
+                var id:String;
+                for (id in ob){
+                    if (ob[id].buildId == _data.id) {
+                        g.user.animalIdArrow = ob[id].id;
+                        break;
+                    }
+                }
             }
             if (build is Tree) (build as Tree).showShopView();
             if (build is Fabrica) (build as Fabrica).showShopView();
