@@ -2,6 +2,8 @@
  * Created by user on 6/12/15.
  */
 package user {
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 import data.DataMoney;
 import data.OwnEvent;
@@ -27,8 +29,9 @@ public class UserInventory {
     }
 
     public function getDecorInventory(id:int):Boolean {
-        if (_decorInventory[id]) return true;
-        return false;
+        if (_decorInventory[id]) {
+            return true;
+        } return false;
     }
 
     public function addToDecorInventory(id:int, dbId:int):void {
@@ -52,24 +55,33 @@ public class UserInventory {
     }
 
     public function getCountResourceById(id:int):int {
-        if (_inventoryResource[id])  return _inventoryResource[id];
-         else return 0;
+        if (_inventoryResource[id])  {
+            return _inventoryResource[id];
+        } else return 0;
     }
 
-    public function addResource(id:int, count:int, needSendToServer:Boolean = true, f:Function = null):void {
-        if (count == 0) return;
+    public function addResource(id:int, count:int, f:Function = null):void {
+        if (count == 0) {
+            Cc.error('UserInventory addResource:: try to add count=0 for resource id: ' + id);
+            return;
+        }
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
         _inventoryResource[id] += count;
-        if (_inventoryResource[id] <= 0) delete(_inventoryResource[id]);
-        if (needSendToServer) {
-            g.updateAmbarIndicator();
-            if (!_inventoryResource[id]) g.directServer.addUserResource(id, 0, f);
-            else g.directServer.addUserResource(id, _inventoryResource[id], f);
+        if (_inventoryResource[id] < 0) {
+            _inventoryResource[id] = 0;
+            Cc.error('UserInventory addResource:: count resource < 0 for resource id: ' + id + ' after addResource count: ' + count);
         }
-        if (needSendToServer) {
-            g.managerOrder.checkForFullOrder();
-            if (g.managerTips) g.managerTips.calculateAvailableTips();
+        g.updateAmbarIndicator();
+        g.directServer.addUserResource(id, _inventoryResource[id], f);
+        g.managerOrder.checkForFullOrder();
+        if (g.managerTips) g.managerTips.calculateAvailableTips();
+    }
+
+    public function addResourceFromServer(id:int, count:int):void {
+        if (_inventoryResource[id]) {
+            Cc.error('UserInventory addResourceFromServer:: duplicate for resourceId: ' + id);
         }
+        _inventoryResource[id] = count;
     }
 
     public function getResourcesForAmbar():Array {
@@ -98,7 +110,7 @@ public class UserInventory {
         for (var id:String in _inventoryResource) {
             if (res[id].placeBuild == BuildType.PLACE_SKLAD  && res[id].blockByLevel <= g.user.level) {
                 obj = {};
-                obj.id = id;
+                obj.id = int(id);
                 obj.count = _inventoryResource[id];
                 arr.push(obj);
             }
@@ -115,7 +127,7 @@ public class UserInventory {
         for (var id:String in _inventoryResource) {
             if ((res[id].placeBuild == BuildType.PLACE_SKLAD ||  res[id].placeBuild == BuildType.PLACE_AMBAR)&& res[id].blockByLevel <= g.user.level) {
                 obj = {};
-                obj.id = id;
+                obj.id = int(id);
                 obj.count = _inventoryResource[id];
                 arr.push(obj);
             }

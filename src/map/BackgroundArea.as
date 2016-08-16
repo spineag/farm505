@@ -66,53 +66,19 @@ public class BackgroundArea {
 //    }
 
     private function loadBG():void {
-//        var st:String;
-//        if (g.scaleFactor == 1) {
-//            st = 'map_x2';
-//        } else if (g.scaleFactor == .5) {
-//            st = 'map_x1';
-//        }
-//        if (!g.isDebug) {
-//            g.load.loadImage('../assets/map/'+st+'/map_1.jpg', onLoadMap, '../assets/map/'+st+'/map_1.jpg', 0, 0);
-//            g.load.loadImage('../assets/map/'+st+'/map_2.jpg', onLoadMap, '../assets/map/'+st+'/map_2.jpg', 2000, 0);
-//            g.load.loadImage('../assets/map/'+st+'/map_3.jpg', onLoadMap, '../assets/map/'+st+'/map_3.jpg', 4000, 0);
-//            g.load.loadImage('../assets/map/'+st+'/map_4.jpg', onLoadMap, '../assets/map/'+st+'/map_4.jpg', 6000, 0);
-//            g.load.loadImage('../assets/map/'+st+'/map_5.jpg', onLoadMap, '../assets/map/'+st+'/map_5.jpg', 0, 2000);
-//            g.load.loadImage('../assets/map/'+st+'/map_6.jpg', onLoadMap, '../assets/map/'+st+'/map_6.jpg', 2000, 2000);
-//            g.load.loadImage('../assets/map/'+st+'/map_7.jpg', onLoadMap, '../assets/map/'+st+'/map_7.jpg', 4000, 2000);
-//            g.load.loadImage('../assets/map/'+st+'/map_8.jpg', onLoadMap, '../assets/map/'+st+'/map_8.jpg', 6000, 2000);
-//            g.load.loadImage('../assets/map/'+st+'/map_9.jpg', onLoadMap, '../assets/map/'+st+'/map_9.jpg', 0, 4000);
-//            g.load.loadImage('../assets/map/'+st+'/map_10.jpg', onLoadMap, '../assets/map/'+st+'/map_10.jpg', 2000, 4000);
-//            g.load.loadImage('../assets/map/'+st+'/map_11.jpg', onLoadMap, '../assets/map/'+st+'/map_11.jpg', 4000, 4000);
-//            g.load.loadImage('../assets/map/'+st+'/map_12.jpg', onLoadMap, '../assets/map/'+st+'/map_12.jpg', 6000, 4000);
-//        } else {
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_1.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_1.jpg', 0, 0);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_2.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_2.jpg', 2000, 0);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_3.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_3.jpg', 4000, 0);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_4.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_4.jpg', 6000, 0);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_5.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_5.jpg', 0, 2000);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_6.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_6.jpg', 2000, 2000);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_7.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_7.jpg', 4000, 2000);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_8.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_8.jpg', 6000, 2000);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_9.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_9.jpg', 0, 4000);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_10.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_10.jpg', 2000, 4000);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_11.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_11.jpg', 4000, 4000);
-//            g.load.loadImage(g.dataPath.getTempGraphicsPath() + st+'/map_12.jpg', onLoadMap, g.dataPath.getTempGraphicsPath() + st+'/map_12.jpg', 6000, 4000);
-
-            g.load.loadImage('http://505.ninja/content/map/map_1.jpg', onLoadMap, 'http://505.ninja/content/map/map_1.jpg', 0, 0);
-            g.load.loadImage('http://505.ninja/content/map/map_2.jpg', onLoadMap, 'http://505.ninja/content/map/map_2.jpg', 2000, 0);
-            g.load.loadImage('http://505.ninja/content/map/map_3.jpg', onLoadMap, 'http://505.ninja/content/map/map_3.jpg', 4000, 0);
-            g.load.loadImage('http://505.ninja/content/map/map_4.jpg', onLoadMap, 'http://505.ninja/content/map/map_4.jpg', 6000, 0);
-            g.load.loadImage('http://505.ninja/content/map/map_5.jpg', onLoadMap, 'http://505.ninja/content/map/map_5.jpg', 0, 2000);
-            g.load.loadImage('http://505.ninja/content/map/map_6.jpg', onLoadMap, 'http://505.ninja/content/map/map_6.jpg', 2000, 2000);
-            g.load.loadImage('http://505.ninja/content/map/map_7.jpg', onLoadMap, 'http://505.ninja/content/map/map_7.jpg', 4000, 2000);
-            g.load.loadImage('http://505.ninja/content/map/map_8.jpg', onLoadMap, 'http://505.ninja/content/map/map_8.jpg', 6000, 2000);
-            g.load.loadImage('http://505.ninja/content/map/map_9.jpg', onLoadMap, 'http://505.ninja/content/map/map_9.jpg', 0, 4000);
-            g.load.loadImage('http://505.ninja/content/map/map_10.jpg', onLoadMap, 'http://505.ninja/content/map/map_10.jpg', 2000, 4000);
-            g.load.loadImage('http://505.ninja/content/map/map_11.jpg', onLoadMap, 'http://505.ninja/content/map/map_11.jpg', 4000, 4000);
-            g.load.loadImage('http://505.ninja/content/map/map_12.jpg', onLoadMap, 'http://505.ninja/content/map/map_12.jpg', 6000, 4000);
-//        }
-
+        var st:String = g.dataPath.getGraphicsPath() + 'map/';
+        g.load.loadImage(st+'map_1.jpg', onLoadMap, st+'map_1.jpg', 0, 0);
+        g.load.loadImage(st+'map_2.jpg', onLoadMap, st+'map_2.jpg', 2000, 0);
+        g.load.loadImage(st+'map_3.jpg', onLoadMap, st+'map_3.jpg', 4000, 0);
+        g.load.loadImage(st+'map_4.jpg', onLoadMap, st+'map_4.jpg', 6000, 0);
+        g.load.loadImage(st+'map_5.jpg', onLoadMap, st+'map_5.jpg', 0, 2000);
+        g.load.loadImage(st+'map_6.jpg', onLoadMap, st+'map_6.jpg', 2000, 2000);
+        g.load.loadImage(st+'map_7.jpg', onLoadMap, st+'map_7.jpg', 4000, 2000);
+        g.load.loadImage(st+'map_8.jpg', onLoadMap, st+'map_8.jpg', 6000, 2000);
+        g.load.loadImage(st+'map_9.jpg', onLoadMap, st+'map_9.jpg', 0, 4000);
+        g.load.loadImage(st+'map_10.jpg', onLoadMap, st+'map_10.jpg', 2000, 4000);
+        g.load.loadImage(st+'map_11.jpg', onLoadMap, st+'map_11.jpg', 4000, 4000);
+        g.load.loadImage(st+'map_12.jpg', onLoadMap, st+'map_12.jpg', 6000, 4000);
         _cont.addChild(_additionalCont);
         _additionalCont.x = -g.realGameWidth/2 + g.matrixGrid.DIAGONAL/2 - g.cont.SHIFT_MAP_X;
         _additionalCont.y = -g.matrixGrid.offsetY - g.cont.SHIFT_MAP_Y;
