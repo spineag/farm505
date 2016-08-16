@@ -141,7 +141,8 @@ public class UserInventory {
         return count;
     }
 
-    public function addMoney(typeCurrency:int, count:int,needSendToServer:Boolean = true):void {
+    public function addMoney(typeCurrency:int, count:int, needSendToServer:Boolean = true):void {
+        if (count == 0) return;
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
                 g.soundManager.playSound(SoundConst.COINS_PLUS);
@@ -167,22 +168,22 @@ public class UserInventory {
                 break;
         }
 
-        if (count && needSendToServer)
-            g.directServer.addUserMoney(typeCurrency, count, onAddUserMoney);
+        if (needSendToServer)
+            g.directServer.addUserMoney(typeCurrency, count, null);
     }
-
-    private function onAddUserMoney(b:Boolean = true):void { }
-
 
     public function addNewElementsAfterGettingNewLevel():void {
-        addCropsAfterNewLevel();
-    }
-
-    private function addCropsAfterNewLevel():void {
         var res:Object = g.dataResource.objectResources;
         for (var id:String in res) {
             if (res[id].buildType == BuildType.PLANT && res[id].blockByLevel == g.user.level) {
                 addResource(int(id), 3);
+            }
+        }
+        res = g.dataAnimal.objectAnimal;
+        for (id in res) {
+            if (res[id].idResourceRaw == res.id){
+                g.userInventory.addResource(res.id,3);  // add feed for animals
+                break;
             }
         }
     }
@@ -192,7 +193,6 @@ public class UserInventory {
         for (var i:int = 0; i < arr.length; i++) {
            if (arr[i].plant && arr[i].plant.dataPlant.id == id){
                return true;
-               break;
            }
         }
         return false;

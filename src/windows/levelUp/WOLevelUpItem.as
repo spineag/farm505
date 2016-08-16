@@ -32,7 +32,6 @@ public class WOLevelUpItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woLevelUpItem');
             return;
         }
-        var objAnimals:Object;
         var obj:Object;
         var id:String;
         _data = ob;
@@ -75,7 +74,7 @@ public class WOLevelUpItem {
                 var f1:Function = function (dbId:int):void {
                     g.userInventory.addToDecorInventory(ob.id, dbId);
                 };
-                    g.directServer.buyAndAddToInventory(ob.id, f1);
+                g.directServer.buyAndAddToInventory(ob.id, f1);
             }
 
 
@@ -115,13 +114,11 @@ public class WOLevelUpItem {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.RESOURCE) {
-                objAnimals = [];
                 obj = g.dataAnimal.objectAnimal;
                 for (id in obj) {
                    if (obj[id].idResourceRaw == ob.id){
                        _txtCount.text = '+3';
-                       g.userInventory.addResource(ob.id,3);
-                        break;
+                       break;
                    }
                 }
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));

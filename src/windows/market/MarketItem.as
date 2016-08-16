@@ -215,7 +215,7 @@ public class MarketItem {
         }
     }
 
-    private function fillIt(data:Object, count:int,cost:int, isFromServer:Boolean = false):void {
+    private function fillIt(data:Object, count:int,cost:int):void {
         if (_imageCont) unFillIt();
         var im:Image;
         _data = data;
@@ -244,7 +244,6 @@ public class MarketItem {
         _txtAdditem.text = '';
         _countResource = count;
         _countMoney = cost;
-        if (!isFromServer) g.userInventory.addResource(_data.id, -_countResource);
         _countTxt.text = String(_countResource);
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
@@ -263,6 +262,7 @@ public class MarketItem {
     public function onChoose(a:int, count:int, cost:int, inPapper:Boolean):void {
         isFill = 1;
         g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
+        g.userInventory.addResource(g.dataResource.objectResources[a].id, -count);
         fillIt(g.dataResource.objectResources[a],count, cost);
         _txtAdditem.text = '';
         g.managerCutScenes.checkCutSceneForAddToPapper(this);
@@ -352,6 +352,7 @@ public class MarketItem {
         _imCheck.visible = false;
         _inPapper = false;
         g.userInventory.addMoney(1,-1);
+        g.userInventory.addResource(_data.id, _data.count);
         g.gameDispatcher.removeFromTimer(onEnterFrame);
         g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
         for (var i:int = 0; i < g.user.marketItems.length; i++) {
@@ -403,9 +404,11 @@ public class MarketItem {
                         return;
                     }
                 }
-                g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
-                if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR) {
-                    g.managerTutorial.checkTutorialCallback();
+                if (g.managerTutorial.isTutorial) {
+                    if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR)
+                        g.managerTutorial.checkTutorialCallback();
+                } else {
+                    g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
                 }
             }
         } else if (isFill == 0) { // пустая
@@ -575,7 +578,7 @@ public class MarketItem {
                 _txtAdditem.text = '';
             } else { // sale anyway item
                 _txtAdditem.text = '';
-                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
+                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
                 _plawkaCoins.visible = false;
                 _plawkaLvl.visible = false;
                 _plawkaSold.visible = true;
@@ -584,7 +587,7 @@ public class MarketItem {
         } else { //have Item
             isFill = 1;
             _inPapper = _dataFromServer.inPapper;
-            fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
+            fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
             if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) { //have item but your level so small
                 _plawkaCoins.visible = false;
                 _plawkaLvl.visible = true;

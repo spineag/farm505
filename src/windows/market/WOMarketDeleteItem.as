@@ -25,6 +25,7 @@ public class WOMarketDeleteItem extends WindowMain{
     private var _data:Object;
     private var _count:int;
     public function WOMarketDeleteItem() {
+        _windowType = WindowsManager.WO_MARKET_DELETE_ITEM;
         _woWidth = 400;
         _woHeight = 200;
         _woBG = new WindowBackground(_woWidth, _woHeight);
@@ -79,19 +80,6 @@ public class WOMarketDeleteItem extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-//        if (_data.placeBuild == 1) {
-//            if (_count + g.userInventory.currentCountInAmbar > g.user.ambarMaxCount) {
-//                g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
-//                return;
-//            }
-//        } else {
-//            if (_count + g.userInventory.currentCountInSklad > g.user.skladMaxCount) {
-//                g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
-//                return;
-//            }
-//        }
-        g.userInventory.addResource(_data.id,_count);
-
         if (_callback != null) {
             _callback.apply(null,[]);
         }

@@ -52,7 +52,7 @@ public class DropItem {
             endPoint = g.craftPanel.pointXY();
             g.craftPanel.showIt(BuildType.PLACE_SKLAD);
             g.updateAmbarIndicator();
-            g.directServer.addUserResource(prise.id, prise.count, null);
+            g.userInventory.addResource(prise.id, prise.count);
         } else {
             switch (prise.id) {
                 case DataMoney.HARD_CURRENCY:
@@ -80,7 +80,7 @@ public class DropItem {
                     endPoint = g.couponePanel.getPoint();
                     break;
             }
-            g.directServer.addUserMoney(prise.id, prise.count, onAddUserMoney);
+            g.userInventory.addMoney(prise.id, prise.count);
         }
         if (!_image) {
             Cc.error('DropItem:: no image for type: ' + prise.id);
@@ -127,12 +127,9 @@ public class DropItem {
                     break;
             }
             if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
-                g.userInventory.addResource(prise.id, prise.count,false);
                 var item:ResourceItem = new ResourceItem();
                 item.fillIt(g.dataResource.objectResources[prise.id]);
                 g.craftPanel.afterFly(item);
-            } else {
-                g.userInventory.addMoney(prise.id, prise.count,false);
             }
         };
         var tempX:int = _source.x - 140 + int(Math.random()*140);
@@ -147,7 +144,5 @@ public class DropItem {
             new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:scale, scaleY:scale, ease:Linear.easeOut ,onComplete: f1, delay: delay});
         } else new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay: delay});
     }
-
-    private function onAddUserMoney(b:Boolean = true):void { }
 }
 }

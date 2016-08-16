@@ -15,7 +15,6 @@ public class ManagerChest {
     public static const MAX_CHEST:int = 5;
     public static const COST_OPEN:int = 5;
     private var _data:Object;
-    private var _arrItems:Array;
     private var _count:int;
     private var _chestBuildID:int = -1;
     private var g:Vars = Vars.getInstance();
@@ -41,59 +40,18 @@ public class ManagerChest {
     }
 
     private function generateChestItems():void {
-        _arrItems = [];
-        var arr:Array = [];
-        for(var id:String in g.dataResource.objectResources) {
-            if (g.dataResource.objectResources[id].blockByLevel <= g.user.level &&
-                    (g.dataResource.objectResources[id].buildType != BuildType.PLANT ||
-                    g.dataResource.objectResources[id].buildType != BuildType.RESOURCE)) {
-                arr.push(int(id));
-            }
-        }
-        var obj:Object;
-//        var k:int;
-//        for (var i:int = 0; i<8; i++) {
-//            k = int(Math.random()*arr.length);  // get random position
-//            k = arr.splice(k, 1);  // get random id resource or plant
-//            obj = {};
-//            obj.id = k;
-//            if (g.dataResource.objectResources[k].buildType == BuildType.PLANT) {
-//                obj.count = 3;
-//                obj.type = PLANT;
-//            } else {
-//                obj.count = 1;
-//                obj.type = RESOURCE;
-//            }
-//            _arrItems.push(obj);
-//        }
-
-        obj = {};
-        if (Math.random() > .5) {
+        var obj:Object = {};
+        if (Math.random()<.2) {
             obj.count = 100;
             obj.id = 0;
             obj.type = SOFT_MONEY;
         } else {
-            obj.count =  int(Math.random()*5) + 3;
-            obj.id = 0;
-            obj.type = HARD_MONEY;
+            var arr:Array = [1, 5, 6, 124, 125, 2, 3, 4, 7, 8, 9];
+            obj.id = arr[int(Math.random()*arr.length)];
+            obj.count = 1;
+            obj.type = INSTRUMENT;
         }
-        _arrItems.push(obj);
-
-        obj = {};
-        arr = [1, 5, 6];
-        obj.id = arr[int(Math.random()*arr.length)];
-        obj.count = 1;
-        obj.type = INSTRUMENT;
-        _arrItems.push(obj);
-
-        obj = {};
-        arr = [2, 3, 4, 7, 8, 9];
-        obj.id = arr[int(Math.random()*arr.length)];
-        obj.count = 1;
-        obj.type = INSTRUMENT;
-        _arrItems.push(obj);
-        var ra:int =  Math.random() * _arrItems.length;
-        _data = _arrItems[ra];
+        _data = obj;
     }
 
     public function createChest(away:Boolean = false):void {

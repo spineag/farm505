@@ -164,6 +164,7 @@ public class CraftItem {
         _source.visible = true;
         _source.endClickCallback = null;
         _source.filter = null;
+        _source.isTouchable = false;
         for(var id:String in g.dataRecipe.objectRecipe) {
             if (g.dataRecipe.objectRecipe[id].idResource == _resourceItem.resourceID) {
                 _txtNumber.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
