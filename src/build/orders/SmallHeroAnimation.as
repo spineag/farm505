@@ -19,13 +19,13 @@ public class SmallHeroAnimation {
     
     public function set armature(arma:Armature):void {
         if (!arma) return;
-        var headBone:Bone = _building.getArmature.getBone('table');
-        headBone.display.dispose();
+        var b:Bone = _building.getArmature.getBone('table');
+        b.display.dispose();
         _arma = arma;
         _armaClip = arma.display as Sprite;
         _armaClipCont = new Sprite();
         _armaClipCont.addChild(_armaClip);
-        headBone.display = _armaClipCont;
+        b.display = _armaClipCont;
         _armaClip.touchable = false;
         _armaClip.visible = false;
     }
