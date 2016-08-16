@@ -111,9 +111,9 @@ public class WOFabrica extends WindowMain {
         var delay:Number = .1;
         for (i = 0; i < _arrFabricaItems.length; i++) {
             if (arr[i]) {
-                _arrFabricaItems[i].showChangeAnimate(delay, arr[i], onItemClick);
+                (_arrFabricaItems[i] as WOItemFabrica).showChangeAnimate(delay, arr[i], onItemClick);
             } else {
-                _arrFabricaItems[i].showChangeAnimate(delay, null, null);
+                (_arrFabricaItems[i] as WOItemFabrica).showChangeAnimate(delay, null, null);
             }
             delay += .1;
         }

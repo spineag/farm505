@@ -21,6 +21,7 @@ public class ResourceItem {
     private var _buildType:int;
     public var craftXP:int;
     public var leftTime:int;
+    public var deltaTime:int;
     public var currentRecipeID:int;
     public var placeBuild:int;
     public var idFromServer:String; // в табличке user_recipe_fabrica

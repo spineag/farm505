@@ -1658,8 +1658,9 @@ public class DirectServer {
             (d.message as Array).sortOn('delay', Array.NUMERIC);
             g.managerFabricaRecipe = new ManagerFabricaRecipe();
             for (var i:int = 0; i < d.message.length; i++) {
-                g.managerFabricaRecipe.addRecipe(d.message[i]);
+                g.managerFabricaRecipe.addRecipeFromServer(d.message[i]);
             }
+            g.managerFabricaRecipe.onLoadFromServer();
             if (callback != null) {
                 callback.apply();
             }
