@@ -54,6 +54,7 @@ public class WOShop extends WindowMain {
     private var _pl3:HorizontalPlawka;
     private var _shopTabBtnCont:Sprite;
     private var _decorFilter:DecorShopFilter;
+    private var _idArrowAnimal:int;
 
     public function WOShop() {
         super();
@@ -216,7 +217,7 @@ public class WOShop extends WindowMain {
         curentTab = a;
         activateTabBtn();
         if (_animal) a = 2;
-        _animal = false;
+
         switch (a) {
             case VILLAGE:
                 obj = g.dataBuilding.objectBuilding;
@@ -267,7 +268,9 @@ public class WOShop extends WindowMain {
             _shopList.clearIt();
             _decorFilter.visible = false;
         }
-        _shopList.fillIt(arr);
+        _shopList.fillIt(arr, g.user.animalIdArrow);
+        _animal = false;
+        g.user.animalIdArrow = -1;
     }
 
     private function createMoneyBlock():void {
@@ -428,6 +431,14 @@ public class WOShop extends WindowMain {
 
     public function set setAnimalClick(a:Boolean):void {
         _animal = a;
+    }
+
+    public function get getAnimalId():int {
+        return _idArrowAnimal;
+    }
+
+    public function set setAnimalId(a:int):void {
+        _idArrowAnimal = a;
     }
 
     public function getShopItemProperties(_id:int, addArrow:Boolean = false):Object {

@@ -25,7 +25,7 @@ public class WOFabricaWorkListItem {
     public static const BIG_CELL:String = 'big';
     public static const SMALL_CELL:String = 'small';
 
-    private var _source:Sprite;
+    private var _source:CSprite;
     private var _bg:Image;
     private var _icon:Image;
     private var _resource:ResourceItem;
@@ -39,6 +39,7 @@ public class WOFabricaWorkListItem {
     private var _proposeBtn:CButton;
     private var _skipCallback:Function;
     private var _rubinSmall:Image;
+    private var _txt:TextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -59,6 +60,10 @@ public class WOFabricaWorkListItem {
 
         if (type == SMALL_CELL) {
             _source.visible = false;
+            _txt = new TextField(50, 30, 'пусто', g.allData.fonts['BloggerBold'], 15, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt.x = -1;
+            _txt.y = 5;
+            source.addChild(_txt);
         }
 
         if (_type == BIG_CELL) {
@@ -73,7 +78,10 @@ public class WOFabricaWorkListItem {
             _timerBlock.addChild(_txtTimer);
             _source.addChild(_timerBlock);
             _timerBlock.visible = false;
-
+            _txt = new TextField(100, 90, 'загрузите ячейку очереди', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt.x = 2;
+            _txt.y = 5;
+            _source.addChild(_txt);
             _btnSkip = new CButton();
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
             _txtSkip = new TextField(100,35,"25",g.allData.fonts['BloggerBold'], 20, Color.WHITE);
@@ -149,8 +157,15 @@ public class WOFabricaWorkListItem {
         } else {
             _txtNumberCreate.x = 27;
             _txtNumberCreate.y = 25;
+            _source.hoverCallback =  function():void {
+                g.hint.showIt("в очереди");
+            };
+            _source.outCallback =  function():void {
+                g.hint.hideIt();
+            };
         }
         _source.addChild(_txtNumberCreate);
+        _txt.visible = false;
     }
 
     public function destroyTimer():void {
@@ -196,14 +211,20 @@ public class WOFabricaWorkListItem {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_type == SMALL_CELL) {
             _source.visible = true;
+            _txt.visible = false;
             if (_proposeBtn) return;
             _proposeBtn = new CButton();
-            var txt:TextField = new TextField(46, 28, "+" + String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+            var txt:TextField = new TextField(46, 28, "+", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _proposeBtn.addChild(txt);
+            txt = new TextField(46, 28, String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            txt.y = 20;
+            txt.x = -10;
             _proposeBtn.addChild(txt);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(_rubinSmall, 20, 20);
-            _rubinSmall.x = 14;
+            _rubinSmall.x = 21;
             _rubinSmall.y = 23;
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _proposeBtn.addChild(_rubinSmall);
@@ -216,6 +237,7 @@ public class WOFabricaWorkListItem {
                         callback.apply();
                     }
                     unfillIt();
+                    _txt.visible = true;
                     _source.visible = true;
                     var p:Point = new Point(_source.width / 2, _source.height / 2);
                     p = _source.localToGlobal(p);
@@ -228,8 +250,14 @@ public class WOFabricaWorkListItem {
                 }
             };
             _proposeBtn.clickCallback = f1;
-            _proposeBtn.hoverCallback = function():void { _proposeBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER};
-            _proposeBtn.outCallback = function():void { _proposeBtn.filter = null};
+            _proposeBtn.hoverCallback = function():void {
+                _proposeBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+                    g.hint.showIt("докупить ячейки");
+            };
+            _proposeBtn.outCallback = function():void {
+                _proposeBtn.filter = null;
+                g.hint.hideIt();
+            };
         }
     }
 

@@ -51,7 +51,6 @@ public class XPStar {
         _source.y = _y;
         _source.addChild(_txtStar);
         flyItStar();
-
     }
 
     private function flyItStar():void {
@@ -77,7 +76,7 @@ public class XPStar {
         var dist:int = int(Math.sqrt((_source.x - endX)*(_source.x - endX) + (_source.y - endY)*(_source.y - endY)));
         var v:Number;
         if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;
-        else v = 430;
+        else v = 460;
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], ease:Linear.easeOut ,onComplete: f1, delay:.5});
     }
 

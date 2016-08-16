@@ -29,6 +29,7 @@ public class ManagerFilters {
     public static var TEXT_GRAY_HARD_COLOR:int = 0x444444;
     public static var TEXT_BLUE_HARD:int = 0x0184df;
     public static var TEXT_BLUE2:int = 0x0a6899;
+    public static var TEXT_LIGHT_BROWN:int = 0xa57728;
 
     public static var TEXT_STROKE_ORANGE:Array = [new GlowFilter(TEXT_ORANGE_COLOR, 1, 4, 4, 5)];
     public static var TEXT_STROKE_GREEN:Array = [new GlowFilter(TEXT_GREEN_COLOR, 1, 4, 4, 5)];

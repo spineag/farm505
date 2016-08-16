@@ -32,6 +32,7 @@ public class WONoPlaces extends WindowMain {
     private var _exitCallback:Function;
     private var _imageItem:Image;
     private var _last:Boolean;
+    private var _txtIcon:TextField;
 
     public function WONoPlaces() {
         super();
@@ -77,6 +78,12 @@ public class WONoPlaces extends WindowMain {
         _txtAdd = new TextField(100,100,"",g.allData.fonts['BloggerBold'],16,Color.WHITE);
         _txtAdd.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _last = false;
+
+        _txtIcon = new TextField(80,200,"добавить ячейку очереди",g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
+        _txtIcon.x = -37;
+        _txtIcon.y = -102;
+        _source.addChild(_txtIcon);
+        _txtIcon.visible = false;
     }
 
     private function onClickExit(e:Event=null):void {
@@ -108,6 +115,7 @@ public class WONoPlaces extends WindowMain {
             _txtAdd.y = -15;
             _txtText.x = -175;
             _txtText.y = -115;
+            _txtIcon.visible = false;
 //            _txtButton.text = 'Ускорить за '
         } else {
             _txtText.text = 'У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.';
@@ -119,6 +127,7 @@ public class WONoPlaces extends WindowMain {
             _txtText.x = -170;
             _txtText.y = -115;
 //            _txtButton.text = 'Добавить ячейку за '
+            _txtIcon.visible = true;
         }
 
         super.showIt();

@@ -44,6 +44,7 @@ public class User extends Someone {
     public var userGAcid:String = 'unknown';
     public var paperShift:int;
     public var buyShopTab:int;
+    public var animalIdArrow:int;
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;
     private var g:Vars = Vars.getInstance();
