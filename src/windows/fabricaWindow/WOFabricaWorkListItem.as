@@ -104,6 +104,7 @@ public class WOFabricaWorkListItem {
             _btnSkip.visible = false;
             _btnSkip.clickCallback = makeSkip;
         }
+        _txt.alpha = .5;
     }
 
     public function get source():Sprite {

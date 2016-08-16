@@ -720,8 +720,8 @@ public class WOOrder extends WindowMain{
     }
 
     public function showBtnSellArrow():void {
-        _arrowBtnCell = new SimpleArrow(SimpleArrow.POSITION_TOP, _rightBlock);
-        _arrowBtnCell.animateAtPosition(_btnSell.x + 5, _btnSell.y - 20);
+        _arrowBtnCell = new SimpleArrow(SimpleArrow.POSITION_LEFT, _rightBlock);
+        _arrowBtnCell.animateAtPosition(_btnSell.x - 55, _btnSell.y);
         _arrowBtnCell.activateTimer(3, deleteBtnCellArrow);
     }
     
