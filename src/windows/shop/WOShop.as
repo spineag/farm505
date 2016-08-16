@@ -273,6 +273,27 @@ public class WOShop extends WindowMain {
         g.user.animalIdArrow = -1;
     }
 
+    public function onClickItemClose ():void {
+        if (g.user.allNotification > 0) {
+            switch (curentTab) {
+                case VILLAGE:
+                    _btnTab1.closeNotification();
+                    break;
+                case ANIMAL:
+                    break;
+                case FABRICA:
+                    _btnTab3.closeNotification();
+                    break;
+                case PLANT:
+                    _btnTab4.closeNotification();
+                    break;
+                case DECOR:
+                    _btnTab5.closeNotification();
+                    break;
+            }
+        }
+    }
+
     private function createMoneyBlock():void {
         var txt:TextField = new TextField(250, 40, 'Ваши сбережения:', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

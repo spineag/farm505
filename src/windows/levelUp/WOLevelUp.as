@@ -296,6 +296,9 @@ public class WOLevelUp extends WindowMain {
                 }
             }
             _arrItems.push(arr[i]);
+            if (_arrItems[i].buildType == BuildType.RESOURCE) {
+                g.user.fabricItemNotification.push(_arrItems[i]);
+            }
             im = new WOLevelUpItem(arr[i],true, true, 3);
             im.source.x = int(i) * (90);
             _arrCells.push(im);

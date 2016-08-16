@@ -550,9 +550,9 @@ public class Animal {
     }
 
     public function clearIt():void {
-        animation.stopIt();
-        animation.deleteIt();
-        animation = null;
+        if (animation) animation.stopIt();
+        if (animation) animation.deleteIt();
+        if (animation) animation = null;
         _farm = null;
         g.mouseHint.hideIt();
         source.filter = null;

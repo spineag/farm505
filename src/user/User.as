@@ -47,6 +47,8 @@ public class User extends Someone {
     public var animalIdArrow:int;
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;
+    public var fabricItemNotification:Array = [];
+
     private var g:Vars = Vars.getInstance();
 
     public function User() {

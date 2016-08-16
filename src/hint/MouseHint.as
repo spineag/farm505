@@ -108,14 +108,14 @@ public class MouseHint {
             case VEDRO:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(VEDRO));
                 _image.x = 7;
-                _image.y = 7;
+                _image.y = 10;
                 _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_2'));
 
                 break;
             case KORZINA:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(KORZINA));
                 _image.x = 7;
-                _image.y = 14;
+                _image.y = 7;
                 _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_2'));
 
                 break;

@@ -60,12 +60,11 @@ public class WildHint {
         _source.addChild(bg);
         _source.addChild(_btn);
         _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
-        _bgItem.x = -_bgItem.width/2;
-        _bgItem.y = -_bgItem.height - 35;
+//        _bgItem.x = -_bgItem.width/2;
+//        _bgItem.y = -_bgItem.height - 35;
         _btn.addDisplayObject(_bgItem);
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
-
-        _txtCount = new TextField(50,50,"", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        _txtCount = new TextField(30,30,"", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName = new TextField(100,50,"", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -74,10 +73,13 @@ public class WildHint {
         _circle.x = +_bgItem.width/2 -20;
         _circle.y = -_bgItem.height - 50;
         _source.addChild(_circle);
+        _source.addChild(_txtCount);
         _source.addChild(_txtName);
         _btn.clickCallback = onClick;
         _source.outCallback = onOutHint;
         _source.hoverCallback = onHover;
+        _btn.x = -33;
+        _btn.y = -_bgItem.height - 35;
     }
 
     public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function,buildType:int = 0):void {
@@ -102,8 +104,8 @@ public class WildHint {
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
-        _txtCount.x = +_bgItem.width/2 -28;
-        _txtCount.y = -_bgItem.height - 56;
+        _txtCount.x = _circle.x + 2;
+        _txtCount.y = _circle.y + 3;
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         if (!_iconResource) {
             Cc.error('WildHint showIt:: no such image: ' + g.dataResource.objectResources[idResourceForRemoving].imageShop);
@@ -111,9 +113,8 @@ public class WildHint {
             return;
         }
         MCScaler.scale(_iconResource, 60, 60);
-        _iconResource.x = -_bgItem.width/2 +3;
-        _iconResource.y = -_bgItem.height - 32;
-        _source.addChild(_txtCount);
+//        _iconResource.x = -_bgItem.width/2 +3;
+//        _iconResource.y = -_bgItem.height - 32;
         _btn.addChild(_iconResource);
         _source.x = x;
         _source.y = y;

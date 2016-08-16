@@ -98,7 +98,7 @@ public class ShopItem {
 
         _txtAvailable = new TextField(145, 80, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
         _txtAvailable.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtAvailable.y = 135;
+        _txtAvailable.y = 145;
         source.addChild(_txtAvailable);
         _txtAvailable.visible = false;
         _txtAvailable.touchable = false;
@@ -608,6 +608,7 @@ public class ShopItem {
             _arrow.deleteIt();
             _arrow = null;
         }
+        _wo.onClickItemClose();
         var i:int;
         if (_shopLimitSprite) return;
         if (_txtAvailable.visible) {
