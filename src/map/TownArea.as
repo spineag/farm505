@@ -1273,6 +1273,7 @@ public class TownArea extends Sprite {
         if (g.isAway) {
             while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
             removeAwayTownAreaSortCheking();
+            g.managerOrderCats.removeAwayCats();
             clearAwayCity();
         } else {
             g.cont.craftAwayCont.visible = true;
@@ -1383,6 +1384,7 @@ public class TownArea extends Sprite {
         }
         g.managerCats.makeAwayCats();
         g.managerChest.createChest(true);
+        g.managerOrderCats.addAwayCats();
         zAwaySort();
         decorAwayTailSort();
         sortAwayAtLockedLands();
@@ -1686,6 +1688,7 @@ public class TownArea extends Sprite {
         removeAwayTownAreaSortCheking();
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(true);
+        g.managerOrderCats.removeAwayCats();
         clearAwayCity();
         _freePlace.deleteAway();
         g.isAway = false;
@@ -1885,6 +1888,15 @@ public class TownArea extends Sprite {
 
     public function removeOrderCatFromCityObjects(cat:OrderCat):void {
         if (_cityObjects.indexOf(cat) > -1) _cityObjects.splice(_cityObjects.indexOf(cat), 1);
+    }
+
+
+    public function addOrderCatToAwayCityObjects(cat:OrderCat):void {
+        _cityAwayObjects.push(cat);
+    }
+
+    public function removeOrderCatFromAwayCityObjects(cat:OrderCat):void {
+        if (_cityAwayObjects.indexOf(cat) > -1) _cityObjects.splice(_cityObjects.indexOf(cat), 1);
     }
 }
 }

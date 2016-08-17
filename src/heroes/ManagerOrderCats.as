@@ -11,11 +11,13 @@ import windows.WindowsManager;
 
 public class ManagerOrderCats {
     [ArrayElementType('heroes.OrderCat')]
-    public var _arrCats:Array;
+    private var _arrCats:Array;
+    private var _arrAwayCats:Array;
     private var g:Vars = Vars.getInstance();
 
     public function ManagerOrderCats() {
         _arrCats = [];
+        _arrAwayCats = [];
     }
 
     public function addCatsOnStartGame():void {
@@ -269,6 +271,35 @@ public class ManagerOrderCats {
             cat.sayHIAnimation(onFinishArrive);
             cat.checkArriveCallback();
         }
+    }
+
+    public function addAwayCats():void {
+        if (!g.isAway) return;
+        if (!g.visitedUser) return;
+        var cat:OrderCat;
+        var ob:Object;
+        var l:int = g.managerOrder.getMaxCountForLevel(g.visitedUser.level);
+        if (l>5) l = 5;
+        for (var i:int=0; i<l; i++) {
+            ob = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
+            cat = new OrderCat(ob);
+            cat.setTailPositions(30, 25 - i*2);
+            cat.walkPosition = OrderCat.STAY_IN_QUEUE;
+            cat.setPositionInQueue(i);
+            g.townArea.addOrderCatToCont(cat);
+            g.townArea.addOrderCatToAwayCityObjects(cat);
+            _arrAwayCats.push(cat);
+            cat.idleFrontAnimation();
+        }
+    }
+
+    public function removeAwayCats():void {
+        for (var i:int=0; i<_arrAwayCats.length; i++) {
+            g.townArea.addOrderCatToCont(_arrAwayCats[i]);
+            g.townArea.addOrderCatToAwayCityObjects(_arrAwayCats[i]);
+            (_arrAwayCats[i] as OrderCat).deleteIt();
+        }
+        _arrAwayCats.length = 0;
     }
 
 
