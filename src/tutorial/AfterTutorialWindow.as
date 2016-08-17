@@ -3,6 +3,7 @@
  */
 package tutorial {
 import flash.display.Bitmap;
+import flash.geom.Point;
 
 import manager.ManagerFilters;
 
@@ -80,6 +81,19 @@ public class AfterTutorialWindow {
             _callback = null;
         }
         hideIt();
+    }
+
+    public function  btnNext():Object {
+        var ob:Object = {};
+        ob.x = _btn.x - _btn.width/2;
+        ob.y = _btn.y - 28;
+        var p:Point = new Point(ob.x, ob.y);
+        p = _source.localToGlobal(p);
+        ob.x = p.x;
+        ob.y = p.y;
+        ob.width = _btn.width;
+        ob.height = _btn.height/2;
+        return ob;
     }
 }
 }
