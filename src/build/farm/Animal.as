@@ -335,6 +335,7 @@ public class Animal {
 
     public function onStartClick():void {
         if(_farm.isAnyCrafted) return;
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
             if (!g.managerTutorial.isTutorial) {
                 g.managerAnimal.activeFeedAnimalId = _data.id;
@@ -344,7 +345,9 @@ public class Animal {
         }
     }
 
-    public function onEndClick(last:Boolean = false):void {
+import flash.geom.Point;
+
+public function onEndClick(last:Boolean = false):void {
         g.managerHelpers.onUserAction();
         if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;

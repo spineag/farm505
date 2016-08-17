@@ -19,6 +19,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import particle.CraftItemParticle;
 
 import starling.core.Starling;
@@ -99,6 +101,7 @@ public class CraftItem {
     }
     
     private function onStart():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.cont.deleteDragPoint();
     }
 

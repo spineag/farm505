@@ -229,6 +229,7 @@ public class Fabrica extends WorldObject {
     }
 
     private function onClick():void {
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialBuilding(this)) {
@@ -365,26 +366,29 @@ public class Fabrica extends WorldObject {
         return _heroCat;
     }
 
-    public function getRecipeFromServer(resItem:ResourceItem, dataRecipe:Object, deltaTime:int = 0):void {
-        resItem.leftTime -= deltaTime;
-        resItem.deltaTime = deltaTime;
+    public function onRecipeFromServer(resItem:ResourceItem, dataRecipe:Object, timeInWork:int, delayTime:int):void {
+        resItem.leftTime -= timeInWork;
+        resItem.delayTime = delayTime;
         resItem.currentRecipeID = dataRecipe.id;
         _arrList.push(resItem);
     }
 
     public function onLoadFromServer():void {
-        _arrList.sortOn('deltaTime', Array.NUMERIC);
+        if (!_arrList.length) return;
+        _arrList.sortOn('delayTime', Array.NUMERIC);
         if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
         if (_heroCat) {
             _heroCat.isFree = false;
             _heroCat.setPosition(new Point(posX, posY));
             _heroCat.updatePosition();
+            onHeroAnimation();
         } else {
             Cc.error('Fabrica onLoadFromServer:: _heroCat == null');
         }
+        g.gameDispatcher.addToTimer(render);
     }
 
-    public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object, isFromServer:Boolean = false, deltaTime:int = 0):void {
+    public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object):void {
         if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
         if (!_arrList.length && !_heroCat) {
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
@@ -394,56 +398,43 @@ public class Fabrica extends WorldObject {
             }
             return;
         }
-
+        var i:int;
+        var delay:int = 0;
         _heroCat.isFree = false;
         _arrList.push(resItem);
-        resItem.leftTime -= deltaTime;
         resItem.currentRecipeID = dataRecipe.id;
         if (_arrList.length == 1) {
             g.gameDispatcher.addToTimer(render);
         }
-
-        if (isFromServer) {
-            _heroCat.setPosition(new Point(posX, posY));
-            _heroCat.updatePosition();
+        if (_arrList.length > 1) {
             onHeroAnimation();
-        } else {
-            var i:int;
-            if (_arrList.length > 1) {
-                onHeroAnimation();
-            } else {
-                g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
+            // delay before start make this new recipe
+            for (i = 0; i < _arrList.length - 1; i++) {
+                delay += _arrList[i].buildTime;
             }
+        } else g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
 
-            var delay:int = 0;  // delay before start make this new recipe
-            if (_arrList.length > 1) {
-                for (i = 0; i < _arrList.length - 1; i++) {
-                    delay += _arrList[i].buildTime;
-                }
+        var f1:Function = function(t:String):void {
+            resItem.idFromServer = t;
+            for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+                g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
             }
-            var f1:Function = function(t:String):void {
-                resItem.idFromServer = t;
-                for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
-                    g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
-                }
-            };
+        };
+        Cc.ch('temp', 'fabrica delay: ' + delay);
+        g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
 
-            Cc.ch('temp', 'fabrica delay: ' + delay);
-            g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
-
-            // animation of uploading resources to fabrica
-            var p:Point = new Point(source.x, source.y);
-            p = source.parent.localToGlobal(p);
-            var obj:Object;
-            var texture:Texture;
-            for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
-                obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
-                if (obj.buildType == BuildType.PLANT)
-                    texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
-                else
-                    texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
-                new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i * .1);
-            }
+        // animation of uploading resources to fabrica
+        var p:Point = new Point(source.x, source.y);
+        p = source.parent.localToGlobal(p);
+        var obj:Object;
+        var texture:Texture;
+        for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
+            obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
+            if (obj.buildType == BuildType.PLANT)
+                texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
+            else
+                texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
+            new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i * .1);
         }
     }
 
@@ -479,7 +470,12 @@ public class Fabrica extends WorldObject {
         if (_arrList[0].leftTime <= 0) {
             craftResource(_arrList.shift());
             if (!_arrList.length) {
-                render();
+                if (_heroCat) {
+                    _heroCat.visible = true;
+                    _heroCat.isFree = true;
+                }
+                stopAnimation();
+                g.gameDispatcher.removeFromTimer(render);
             }
         }
     }

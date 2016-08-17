@@ -21,7 +21,7 @@ public class ResourceItem {
     private var _buildType:int;
     public var craftXP:int;
     public var leftTime:int;
-    public var deltaTime:int;
+    public var delayTime:int;
     public var currentRecipeID:int;
     public var placeBuild:int;
     public var idFromServer:String; // в табличке user_recipe_fabrica
@@ -46,6 +46,7 @@ public class ResourceItem {
         dataResource.placeBuild ? placeBuild = dataResource.placeBuild : BuildType.PLACE_NONE;
         leftTime = _buildTime;
         currentRecipeID= 0;
+        delayTime = 0;
     }
 
     public function get resourceID():int { return _id}
