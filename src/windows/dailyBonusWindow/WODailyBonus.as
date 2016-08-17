@@ -122,7 +122,7 @@ public class WODailyBonus extends WindowMain {
     }
 
     private function checkBtns():void {
-        if (_source) return;
+//        if (_source) return;
         _isAnimate = false;
         grayExitButton(false);
         if (g.managerDailyBonus.count <= 0) {
