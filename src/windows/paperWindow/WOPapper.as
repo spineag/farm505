@@ -403,6 +403,7 @@ public class WOPapper extends WindowMain {
     }
 
     private function preloader():void {
+        if(!_leftPage) return;
         var arr:Array = _leftPage.arrItems.concat(_rightPage.arrItems);
         for (var i:int = 0; i < arr.length; i++) {
             if (_preloader) {

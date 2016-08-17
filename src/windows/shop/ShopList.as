@@ -229,7 +229,7 @@ public class ShopList {
             if (!g.user.decorShop) g.user.decorShop = true;
         }
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
-        if (animalId >= 0) {
+        if (animalId >= 0 && !g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) {
             addArrow(animalId);
         }
     }
