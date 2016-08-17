@@ -4198,6 +4198,9 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipRecipeOnFabrica: wrong JSON:' + String(response));
             return;
         }
+        if (d.warning != '') {
+            Cc.error('DirectServer completeSkipRecipeOnFabrica:: warning: ' + d.warning);
+        }
 
         if (d.id == 0) {
             Cc.ch('server', 'skipRecipeOnFabrica OK', 5);
