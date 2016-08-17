@@ -276,20 +276,24 @@ public class ManagerOrderCats {
     public function addAwayCats():void {
         if (!g.isAway) return;
         if (!g.visitedUser) return;
-        var cat:OrderCat;
-        var ob:Object;
-        var l:int = g.managerOrder.getMaxCountForLevel(g.visitedUser.level);
-        if (l>5) l = 5;
-        for (var i:int=0; i<l; i++) {
-            ob = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
-            cat = new OrderCat(ob);
-            cat.setTailPositions(30, 25 - i*2);
-            cat.walkPosition = OrderCat.STAY_IN_QUEUE;
-            cat.setPositionInQueue(i);
-            g.townArea.addOrderCatToCont(cat);
-            g.townArea.addOrderCatToAwayCityObjects(cat);
-            _arrAwayCats.push(cat);
-            cat.idleFrontAnimation();
+        try {
+            var cat:OrderCat;
+            var ob:Object;
+            var l:int = g.managerOrder.getMaxCountForLevel(g.visitedUser.level);
+            if (l > 5) l = 5;
+            for (var i:int = 0; i < l; i++) {
+                ob = g.dataOrderCats.arrCats[int(Math.random() * g.dataOrderCats.arrCats.length)];
+                cat = new OrderCat(ob);
+                cat.setTailPositions(30, 25 - i * 2);
+                cat.walkPosition = OrderCat.STAY_IN_QUEUE;
+                cat.setPositionInQueue(i);
+                g.townArea.addOrderCatToCont(cat);
+                g.townArea.addOrderCatToAwayCityObjects(cat);
+                _arrAwayCats.push(cat);
+                cat.idleFrontAnimation();
+            }
+        } catch (e:Error) {
+            Cc.error('ManagerOrderCats addAWayCats:: error ' + e.errorID);
         }
     }
 

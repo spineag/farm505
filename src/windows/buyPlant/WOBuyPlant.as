@@ -13,6 +13,9 @@ import media.SoundConst;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
+
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import windows.WOComponents.Birka;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -228,7 +231,11 @@ public class WOBuyPlant extends WindowMain {
     }
 
     private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {
-        if (g.managerCutScenes.isCutScene) return;
+        if (g.managerCutScenes.isCutScene) {
+            if (g.managerCutScenes.curCutSceneProperties.reason == ManagerCutScenes.REASON_OPEN_WO_PLANT && n == 2) {
+                g.managerCutScenes.checkCutSceneCallback();
+            } else return;
+        }
         if (needUpdate && _shift == n-1) return;
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
             _arrShiftBtns[i].source.y = -_woHeight/2 + 117;
