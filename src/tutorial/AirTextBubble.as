@@ -33,7 +33,7 @@ public class AirTextBubble {
     private var _dust:DustRectangle;
     private var _arrow:SimpleArrow;
     private var _fonClickable:CSprite;
-    private var _callback:Function
+    private var _callback:Function;
     private var g:Vars = Vars.getInstance();
 
     public function AirTextBubble() {
