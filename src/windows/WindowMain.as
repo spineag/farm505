@@ -146,7 +146,7 @@ public class WindowMain {
         g.cont.windowsCont.addChildAt(_black, 0);
         _black.alpha = .0;
         _black.endClickCallback = onBGClick;
-        TweenMax.to(_black, .2, {alpha:.3});
+        TweenMax.to(_black, .2, {alpha:.5});
     }
 
     private function removeBlackBG():void {

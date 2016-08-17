@@ -667,13 +667,18 @@ public class ManagerCutScenes {
             _arrow.scaleIt(.5);
             _arrow.animateAtPosition(ob.x, ob.y);
             _airBubble = new AirTextBubble();
-            _airBubble.showIt(_curCutScenePropertie.text, g.cont.popupCont, ob.x + 70, ob.y, onWoPlant);
+            _airBubble.showIt(_curCutScenePropertie.text, g.cont.popupCont, ob.x + 70, ob.y);
+            _cutSceneCallback = onWoPlant;
         } else {
             isCutScene = false;
         }
     }
 
     private function onWoPlant():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
@@ -685,7 +690,7 @@ public class ManagerCutScenes {
         }
         g.user.cutScenes[7] = 1;
         isCutScene = false;
-        saveUserCutScenesData();
+//        saveUserCutScenesData();
     }
 
     private function releaseAddToPapper(it:MarketItem):void {
@@ -742,6 +747,9 @@ public class ManagerCutScenes {
         saveUserCutScenesData();
     }
 
+    public function get curCutSceneProperties():Object {
+        return _curCutScenePropertie;
+    }
 
 
     public function isCutSceneResource(id:int):Boolean {

@@ -38,7 +38,7 @@ public class AwayPreloader {
         _bg.x = -Starling.current.nativeStage.stageWidth/2;
         _bg.y = -Starling.current.nativeStage.stageHeight/2;
         _source.addChildAt(_bg, 0);
-        _bg.alpha = .7;
+        _bg.alpha = .8;
         if (!isBackHome) {
             _armatureSprite.scaleX = -1;
         } else {
@@ -53,7 +53,7 @@ public class AwayPreloader {
 
         isShowing = true;
         afterTimer = false;
-        counter = 2;
+        counter = 1;
         g.gameDispatcher.addToTimer(onTimer);
         g.managerButterfly.hideButterfly(true);
     }

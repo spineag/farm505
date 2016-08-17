@@ -250,9 +250,8 @@ public class OrderCat {
         var cast:Bone = armature.getBone('sharf');
         cast.display.dispose();
         cast.display = im;
-//        b.display.x = _catData.x;
-//        b.display.y = _catData.y;
     }
+
     private function changeBant(n:int):void {
         var str:String = 'bant_'+ n;
         bant = n;
@@ -338,7 +337,6 @@ public class OrderCat {
 
     private var count:int;
     public function idleFrontAnimation():void {
-        if (g.isAway) return;
         var r:int = int(Math.random()*50);
         if (r != 10) {
             armature.addEventListener(AnimationEvent.COMPLETE, onFinishIdle);

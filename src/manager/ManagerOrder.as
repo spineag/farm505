@@ -146,6 +146,18 @@ public class ManagerOrder {
         }
     }
 
+    public function getMaxCountForLevel(l:int):int {
+        var c:int = 1;
+        for (var i:int=0; i<_countCellOnLevel.length; i++) {
+            if (_countCellOnLevel[i].level <= l) {
+                c = _countCellOnLevel[i].count;
+            } else {
+                break;
+            }
+        }
+        return c;
+    }
+
     //types for order:
     // 1 - usual resource fromFabrica
     // 2 - resources made from resources from cave
