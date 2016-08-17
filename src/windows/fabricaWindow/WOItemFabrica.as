@@ -84,6 +84,19 @@ public class WOItemFabrica {
         _icon.x = _bg.width/2 - _icon.width/2;
         _icon.y = _bg.height/2 - _icon.height/2;
         source.addChild(_icon);
+        if (g.user.fabricItemNotification.length > 0) {
+            var arr:Array = g.user.fabricItemNotification;
+            var im:Image;
+            for (var i:int = 0; i < arr.length; i++){
+                if (arr[i].id == _dataRecipe.idResource) {
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+                    im.x = _icon.width - im.width/2 + 3;
+                    im.y = _icon.y -14;
+                    source.addChild(im);
+                    g.user.fabricItemNotification.splice(i);
+                }
+            }
+        }
     }
 
     public function showAnimateIt(delay:Number):void {

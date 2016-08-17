@@ -167,8 +167,10 @@ public class Farm extends WorldObject{
                     checkForCraft();
                 }
             } else {
-                g.user.animalIdArrow = _dataAnimal.id;
-                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null,  WOShop.ANIMAL);
+                if (!isFull) {
+                    g.user.animalIdArrow = _dataAnimal.id;
+                    g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
+                }
             }
         } else {
             Cc.error('Farm:: unknown g.toolsModifier.modifierType and convert to NONE');
