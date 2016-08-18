@@ -52,7 +52,7 @@ public class WOLockedLand extends WindowMain {
 
         _btnOpen = new CButton();
         _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
-        var txt:TextField = new TextField(158,46,'Открыть участок',g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        var txt:TextField = new TextField(158,46,'Открыть участок',g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnOpen.addChild(txt);
         _btnOpen.registerTextField(txt, ManagerFilters.TEXT_STROKE_BLUE);
@@ -65,7 +65,7 @@ public class WOLockedLand extends WindowMain {
         _pl.y = -_woHeight/2 + 109;
         _pl.addShadow();
         _source.addChild(_pl);
-        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.fonts['BloggerMedium'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.bFonts['BloggerMedium18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
         _pl.inSprite.addChild(txt);
         addAnimation();
     }

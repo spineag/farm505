@@ -82,7 +82,7 @@ public class WODailyBonus extends WindowMain {
 
         _btnFree = new CButton();
         _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
-        var txt:TextField  = new TextField(146, 40, 'Вращать колесо', g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        var txt:TextField  = new TextField(146, 40, 'Вращать колесо', g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btnFree.addChild(txt);
         _btnFree.y = 260;
@@ -90,7 +90,7 @@ public class WODailyBonus extends WindowMain {
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
-        _txtBtnBuy = new TextField(170, 40, 'Вращать колесо за 10', g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        _txtBtnBuy = new TextField(170, 40, 'Вращать колесо за 10', g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
         _txtBtnBuy.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuy.addChild(_txtBtnBuy);
         _btnBuy.y = 260;

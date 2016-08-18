@@ -5,13 +5,13 @@ package data {
 public class AllData {
     public var lockedLandData:Object;
     public var atlas:Object;
-    public var fonts:Object;
+    public var bFonts:Object; // bitmap fonts
     public var factory:Object;  // StarlingFactory
     public var dataBuyMoney:Array;
 
     public function AllData() {
         atlas = {};
-        fonts = {};
+        bFonts = {};
         factory = {};
         dataBuyMoney = [];
     }

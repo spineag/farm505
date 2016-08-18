@@ -90,19 +90,19 @@ public class MarketItem {
         isFill = 0;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtAdditem = new TextField(70,70,'',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtAdditem = new TextField(70,70,'',g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtAdditem.x = 20;
         _txtAdditem.y = 30;
         _txtAdditem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.addChild(_txtAdditem);
 
-        _costTxt = new TextField(122, 30, '', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
+        _costTxt = new TextField(122, 30, '', g.allData.bFonts['BloggerBold18'], 15, Color.WHITE);
         _costTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _costTxt.y = 101;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
 
-        _countTxt = new TextField(30, 30, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _countTxt = new TextField(30, 30, '', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _countTxt.x = 77;
         _countTxt.y = 7;
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
@@ -125,7 +125,7 @@ public class MarketItem {
 
         _plawkaLvl.visible = false;
 
-        _txtPlawka = new TextField(90,60, 'Продано', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtPlawka = new TextField(90,60, 'Продано', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtPlawka.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtPlawka.x = 10;
         _txtPlawka.y = 85;
@@ -191,14 +191,14 @@ public class MarketItem {
             if (numberCell == 5) _countBuyCell = 5;
             else _countBuyCell = (numberCell - 5) * 2 + 5;
             source.addChild(buyCont);
-            var txt:TextField = new TextField(100,90,'Докупить торговое место',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+            var txt:TextField = new TextField(100,90,'Докупить торговое место',g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
             txt.x = 5;
             txt.y = 20;
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
             buyCont.addChild(txt);
             var _btnBuyCont:CButton = new CButton();
             _btnBuyCont.addButtonTexture(90,30,CButton.GREEN, true);
-            txt = new TextField(30,30,String(String(_countBuyCell)),g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+            txt = new TextField(30,30,String(String(_countBuyCell)),g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
             txt.x = 10;
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             _btnBuyCont.addChild(txt);
@@ -728,7 +728,7 @@ public class MarketItem {
 
         _btnGoAwaySaleItem = new CButton();
         _btnGoAwaySaleItem.addButtonTexture(70, 24, CButton.BLUE, true);
-        var txt:TextField = new TextField(60, 30, 'посетить', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        var txt:TextField = new TextField(60, 30, 'посетить', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         txt.x = 4;
         txt.y = -4;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

@@ -49,7 +49,7 @@ public class WOBuyPlantItem {
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtNumber = new TextField(40,30,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
+        _txtNumber = new TextField(40,30,'',g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
         _txtNumber.hAlign = HAlign.RIGHT;
         _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
 

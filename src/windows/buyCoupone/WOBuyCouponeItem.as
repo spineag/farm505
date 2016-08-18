@@ -50,7 +50,7 @@ public class WOBuyCouponeItem {
             source.addChild(_carton);
             _btn = new CButton();
             _btn.addButtonTexture(80, 50, CButton.GREEN, true);
-            var txt:TextField = new TextField(50,50,'+' + String(_cost),g.allData.fonts['BloggerBold'],16,Color.WHITE);
+            var txt:TextField = new TextField(50,50,'+' + String(_cost),g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
 //            txt.x = 5;
             _btn.addChild(txt);
@@ -67,7 +67,7 @@ public class WOBuyCouponeItem {
             _imageCoupone.x = 30;
             _imageCoupone.y = 20;
             source.addChild(_imageCoupone);
-            _txtCount = new TextField(50,50,String(_count),g.allData.fonts['BloggerBold'],16,Color.WHITE);
+            _txtCount = new TextField(50,50,String(_count),g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
             _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _txtCount.x = 23;
             _txtCount.y = 50;

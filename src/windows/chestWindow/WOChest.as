@@ -65,7 +65,7 @@ public class WOChest  extends WindowMain{
             im.x = 120;
             im.y = 4;
             _btnOpen.addChild(im);
-            var txt:TextField = new TextField(150,30,'Открыть за ' + ManagerChest.COST_OPEN, g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+            var txt:TextField = new TextField(150,30,'Открыть за ' + ManagerChest.COST_OPEN, g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
             txt.text = 'Открыть за ' + String(ManagerChest.COST_OPEN);
             txt.x = - 10;
             txt.y = 5;

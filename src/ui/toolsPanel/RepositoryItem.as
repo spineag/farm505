@@ -55,7 +55,7 @@ public class RepositoryItem {
         im.y = 30 - im.height/2;
         source.addChild(im);
 
-        _txtCount = new TextField(30,20,String(_count),g.allData.fonts['BloggerMedium'],14, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtCount = new TextField(30,20,String(_count),g.allData.bFonts['BloggerMedium14'],14, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
         _txtCount.x = 30;
         _txtCount.y = 40;

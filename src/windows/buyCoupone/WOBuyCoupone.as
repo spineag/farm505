@@ -23,7 +23,7 @@ public class WOBuyCoupone extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        var txt:TextField = new TextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары', g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        var txt:TextField = new TextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары', g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -200;
         txt.y = -130;

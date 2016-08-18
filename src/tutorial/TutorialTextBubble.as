@@ -44,7 +44,7 @@ public class TutorialTextBubble {
         switch (_type) {
             case BIG:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
-                _txt = new TextField(278, 180, st, g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE_COLOR);
+                _txt = new TextField(278, 180, st, g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
                 if (_isFlip) {
                     _im.x = -12;
                     _im.y = -210;
@@ -60,7 +60,7 @@ public class TutorialTextBubble {
                 break;
             case MIDDLE:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_2'));
-                _txt = new TextField(270, 134, st, g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE_COLOR);
+                _txt = new TextField(270, 134, st, g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
 //                    txt.border = 10;
                 if (_isFlip) {
                     _im.x = -12;
@@ -77,7 +77,7 @@ public class TutorialTextBubble {
                 break;
             case SMALL:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
-                _txt = new TextField(270, 90, st, g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE_COLOR);
+                _txt = new TextField(270, 90, st, g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
 //                _txt.border = 10;
                 if (_isFlip) {
                     _im.x = -15;

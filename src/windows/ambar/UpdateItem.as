@@ -44,7 +44,7 @@ public class UpdateItem {
         _contImage.hoverCallback = onHover;
         _contImage.outCallback = onOut;
 
-        _txtCount = new TextField(80,40,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
+        _txtCount = new TextField(80,40,'',g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.x = 40;
         _txtCount.y = 65;
@@ -57,7 +57,7 @@ public class UpdateItem {
         source.addChild(_btn);
         _btn.clickCallback = onBuy;
 
-        _btnTxt = new TextField(50,20,'50',g.allData.fonts['BloggerMedium'],18, Color.WHITE);
+        _btnTxt = new TextField(50,20,'50',g.allData.bFonts['BloggerMedium18'],18, Color.WHITE);
         _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnTxt.x = 16;
         _btnTxt.y = 10;

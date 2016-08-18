@@ -31,18 +31,18 @@ public class WOLastResource extends WindowMain {
         createExitButton(hideIt);
 
         var txt:TextField;
-        txt = new TextField(150,50,"ВНИМАНИЕ!",g.allData.fonts['BloggerBold'],22,Color.WHITE);
+        txt = new TextField(150,50,"ВНИМАНИЕ!",g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -75;
         txt.y = -130;
         _source.addChild(txt);
-        txt = new TextField(420,60,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!",g.allData.fonts['BloggerMedium'],18,Color.WHITE);
+        txt = new TextField(420,60,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!",g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -210;
         txt.y = -90;
         _source.addChild(txt);
         _btnYes = new CButton();
-        txt = new TextField(50, 50, "ДА", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(50, 50, "ДА", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 15;
         txt.y = -5;
@@ -51,7 +51,7 @@ public class WOLastResource extends WindowMain {
         _source.addChild(_btnYes);
 
         _btnNo = new CButton();
-        txt = new TextField(50, 50, "НЕТ", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(50, 50, "НЕТ", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         txt.x = 15;
         txt.y = -5;

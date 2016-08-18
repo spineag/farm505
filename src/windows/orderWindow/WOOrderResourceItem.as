@@ -45,13 +45,13 @@ public class WOOrderResourceItem {
         source.addChild(_check);
         _check.visible = false;
 
-        _countTxt = new TextField(80, 40, "10/10", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _countTxt = new TextField(80, 40, "10/10", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _countTxt.hAlign = HAlign.RIGHT;
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
 
         _countTxt.y = 60;
         source.addChild(_countTxt);
-        _countRed = new TextField(30, 30, "", g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
+        _countRed = new TextField(30, 30, "", g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
         _countRed.hAlign = HAlign.RIGHT;
         _countRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countRed.y = 65;

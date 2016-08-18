@@ -42,7 +42,7 @@ public class RawItem {
         _source.y = endPoint.y - 100;
         g.cont.animationsResourceCont.addChild(_source);
 
-        var _countTxt:TextField = new TextField(50,30,'-' + String(count),g.allData.fonts['BloggerBold'],18, Color.WHITE);
+        var _countTxt:TextField = new TextField(50,30,'-' + String(count),g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
         _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = im.width - 30;
         _countTxt.y = im.height - 15;

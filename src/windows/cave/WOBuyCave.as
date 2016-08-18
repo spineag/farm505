@@ -39,14 +39,14 @@ public class WOBuyCave extends WindowMain {
         im.x = 215;
         im.y = 7;
         _btn.addChild(im);
-        _priceTxt = new TextField(217, 30, '',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _priceTxt = new TextField(217, 30, '',g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _priceTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _priceTxt.y = 5;
         _btn.addChild(_priceTxt);
         _source.addChild(_btn);
         _btn.clickCallback = onClickBuy;
 
-        _txt = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txt = new TextField(300, 30, '', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txt.x = -150;
         _txt.y = -20;
         _source.addChild(_txt);

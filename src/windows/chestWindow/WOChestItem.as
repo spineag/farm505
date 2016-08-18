@@ -65,7 +65,7 @@ public class WOChestItem {
         im.y = -im.height/2;
         _source = new Sprite();
         _source.addChild(im);
-        var txt:TextField = new TextField(80, 60, '+'+String(obj.count), g.allData.fonts['BloggerMedium'], 30, Color.WHITE);
+        var txt:TextField = new TextField(80, 60, '+'+String(obj.count), g.allData.bFonts['BloggerMedium30'], 30, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 0;
         txt.y = 5;

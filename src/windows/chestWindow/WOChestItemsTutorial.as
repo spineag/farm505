@@ -65,7 +65,7 @@ internal class ItemChest {
         source = new Sprite();
         var im:Image = createImage();
         source.addChild(im);
-        _txt = new TextField(80, 60, '+'+String(_data.count), g.allData.fonts['BloggerMedium'], 26, Color.WHITE);
+        _txt = new TextField(80, 60, '+'+String(_data.count), g.allData.bFonts['BloggerMedium30'], 26, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txt.x = 0;
         _txt.y = 5;

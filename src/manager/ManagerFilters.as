@@ -19,13 +19,14 @@ public class ManagerFilters {
     private static var _SHADOW_TINY:BlurFilter;
     private static var _SHADOW_TOP:BlurFilter;
 
-    public static var TEXT_BROWN_COLOR:int = 0x593b02;
-    public static var TEXT_ORANGE_COLOR:int = 0xd06d0a;
-    public static var TEXT_LIGHT_GREEN_COLOR:int = 0x40f61c;
+    public static var TEXT_BROWN_COLOR:int = 0x593b02;  //
+    public static var TEXT_ORANGE_COLOR:int = 0xd06d0a; //
+    public static var TEXT_LIGHT_GREEN_COLOR:int = 0x40f61c;  //
     public static var TEXT_GREEN_COLOR:int = 0x10650a;
     public static var TEXT_YELLOW_COLOR:int = 0xa37b01;
-    public static var TEXT_BLUE_COLOR:int = 0x0659b6;
+    public static var TEXT_BLUE_COLOR:int = 0x0659b6; 
     public static var TEXT_LIGHT_BLUE_COLOR:int = 0x1377ab;
+    public static var TEXT_OPTIMAL_BLUE_COLOR:int = 0x0968b1; //
     public static var TEXT_GRAY_HARD_COLOR:int = 0x444444;
     public static var TEXT_BLUE_HARD:int = 0x0184df;
     public static var TEXT_BLUE2:int = 0x0a6899;

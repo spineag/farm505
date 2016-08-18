@@ -40,11 +40,11 @@ public class WOLevelUpItem {
         _bolAnimal = false;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtNew = new TextField(80,20,'',g.allData.fonts['BloggerBold'],16,Color.WHITE);
+        _txtNew = new TextField(80,20,'',g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
         _txtNew.nativeFilters = ManagerFilters.TEXT_STROKE_RED;
         _txtNew.y = 65;
         _txtNew.x = -5;
-        _txtCount = new TextField(80,20,'',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtCount = new TextField(80,20,'',g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_RED;
         _txtCount.x = 15;
         _txtCount.y = 10;

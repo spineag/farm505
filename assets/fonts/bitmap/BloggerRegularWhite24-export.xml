@@ -1,0 +1,21 @@
+<font>
+	<info face="/Users/andy/Desktop\BloggerRegularWhite24-export" size="24" />
+	<common lineHeight="80" scaleW="408" scaleH="201" pages="1" />
+	<pages>
+		<page id="0" file="/Users/andy/Desktop\BloggerRegularWhite24-export.png" />
+	</pages>
+	<chars count="96">
+		<char id="33" x="0" y="0" width="407" height="24" xoffset="0" yoffset="56" xadvance="408" /><!-- ! -->
+		<char id="34" x="0" y="177" width="9" height="23" xoffset="0" yoffset="56" xadvance="10" /><!-- " -->
+		<char id="35" x="0" y="104" width="182" height="24" xoffset="0" yoffset="56" xadvance="183" /><!-- # -->
+		<char id="36" x="0" y="129" width="172" height="24" xoffset="0" yoffset="56" xadvance="173" /><!-- $ -->
+		<char id="37" x="0" y="25" width="370" height="26" xoffset="0" yoffset="52" xadvance="371" /><!-- % -->
+		<char id="38" x="0" y="154" width="49" height="22" xoffset="0" yoffset="56" xadvance="50" /><!-- & -->
+		<char id="39" x="0" y="81" width="202" height="22" xoffset="0" yoffset="56" xadvance="203" /><!-- ' -->
+		<char id="40" x="0" y="52" width="284" height="28" xoffset="0" yoffset="52" xadvance="285" /><!-- ( -->
+		<char id="32" x="0" y="0" width="0" height="0" xoffset="0" yoffset="0" xadvance="20" /><!--   -->
+		<char id="9" x="0" y="0" width="0" height="0" xoffset="0" yoffset="0" xadvance="160" /><!-- 	 -->
+	</chars>
+	<kernings count="0">
+	</kernings>
+</font>

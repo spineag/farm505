@@ -34,9 +34,9 @@ public class Hint {
 
     public function Hint() {
         source = new Sprite();
-        _txtHint = new TextField(150,20,"", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtHint = new TextField(150,20,"", g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtHint.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtHintTime = new TextField(150,20,"", g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtHintTime = new TextField(150,20,"", g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtHintTime.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         source.touchable = false;
         _isShow = false;

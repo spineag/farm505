@@ -33,7 +33,7 @@ public class ShopTabBtn {
         _type = type;
         _bg = new CartonBackground(123, 100);
         _source.addChild(_bg);
-        var _txt:TextField = new TextField(123, 100, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        var _txt:TextField = new TextField(123, 100, '', g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txt.y = 10;
         var f1:Function = function():void {
@@ -55,7 +55,7 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.villageNotification), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.villageNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -73,7 +73,7 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.fabricaNotification), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.fabricaNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -87,7 +87,7 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.plantNotification), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.plantNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -101,7 +101,7 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.decorNotification), g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.decorNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);

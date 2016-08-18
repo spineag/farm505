@@ -75,12 +75,12 @@ public class WOMarketChoose extends WindowMain {
         _source.addChild(_countMoneyBlock.source);
         _source.addChild(_countResourceBlock.source);
 
-        var t:TextField = new TextField(100, 30, 'Количество:',  g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        var t:TextField = new TextField(100, 30, 'Количество:',  g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         t.x = -190;
         t.y = 145;
         _source.addChild(t);
-        t = new TextField(150, 30, 'Цена продажи:', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        t = new TextField(150, 30, 'Цена продажи:', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         t.x = -55;
         t.y = 145;
@@ -91,7 +91,7 @@ public class WOMarketChoose extends WindowMain {
         var im:Image  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_market'));
         im.x = 10;
         _btnSell.addChild(im);
-        t = new TextField(100, 50, 'Выставить на продажу', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        t = new TextField(100, 50, 'Выставить на продажу', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         t.y = 45;
         _btnSell.addChild(t);
@@ -121,7 +121,7 @@ public class WOMarketChoose extends WindowMain {
         im.x = 12;
         im.y = 1;
         _tabAmbar.addChild(im);
-        var txt:TextField = new TextField(90, 40, "Амбар", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        var txt:TextField = new TextField(90, 40, "Амбар", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 31;
         txt.y = 2;
@@ -153,7 +153,7 @@ public class WOMarketChoose extends WindowMain {
         im.x = 12;
         im.y = 2;
         _tabSklad.addChild(im);
-        txt = new TextField(90, 40, "Склад", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(90, 40, "Склад", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 34;
         txt.y = 2;

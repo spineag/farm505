@@ -112,28 +112,28 @@ public class WOPapperItem {
         _imageCoins.y = 60;
         source.addChild(_imageCoins);
 
-        _txtCost = new TextField(84, 62, "", g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCost = new TextField(84, 62, "", g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCost.hAlign = HAlign.RIGHT;
         _txtCost.touchable = false;
         _txtCost.x = 53;
         _txtCost.y = 42;
         source.addChild(_txtCost);
 
-        _txtCountResource = new TextField(84, 62, "", g.allData.fonts['BloggerMedium'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCountResource = new TextField(84, 62, "", g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCountResource.hAlign = HAlign.RIGHT;
         _txtCountResource.touchable = false;
         _txtCountResource.x = 80;
         _txtCountResource.y = 70;
         source.addChild(_txtCountResource);
 
-        _txtResourceName = new TextField(200, 30, "", g.allData.fonts['BloggerMedium'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtResourceName = new TextField(200, 30, "", g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtResourceName.hAlign = HAlign.RIGHT;
         _txtResourceName.touchable = false;
         _txtResourceName.x = -38;
         _txtResourceName.y = 103;
         source.addChild(_txtResourceName);
 
-        _txtUserName = new TextField(110, 50, "", g.allData.fonts['BloggerBold'], 16, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtUserName = new TextField(110, 50, "", g.allData.bFonts['BloggerBold18'], 16, ManagerFilters.TEXT_BLUE_COLOR);
         _txtUserName.hAlign = HAlign.LEFT;
         _txtUserName.touchable = false;
         _txtUserName.x = 58;
@@ -201,7 +201,7 @@ public class WOPapperItem {
         }
         _btnBuyBot = new CButton();
         _btnBuyBot.addButtonTexture(70, 24, CButton.GREEN, true);
-        var txt:TextField = new TextField(60, 30, 'купить', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        var txt:TextField = new TextField(60, 30, 'купить', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         txt.x = 4;
         txt.y = -4;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
@@ -268,13 +268,13 @@ public class WOPapperItem {
         im.x = 50;
         im.y = 5;
         source.addChild(im);
-        var txt:TextField = new TextField(60,30,'я куплю', g.allData.fonts['BloggerBold'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        var txt:TextField = new TextField(60,30,'я куплю', g.allData.bFonts['BloggerBold14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = 80;
         txt.y = 10;
         source.addChild(txt);
         _btnBuyBot = new CButton();
         _btnBuyBot.addButtonTexture(70, 30, CButton.GREEN, true);
-        txt = new TextField(60, 30, 'продать', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
+        txt = new TextField(60, 30, 'продать', g.allData.bFonts['BloggerBold18'], 15, Color.WHITE);
         txt.x = 4;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnBuyBot.addChild(txt);
@@ -292,7 +292,7 @@ public class WOPapperItem {
         _btnDelete.outCallback = function ():void { g.hint.hideIt();  };
         source.addChild(_btnDelete);
 
-        _txtSale =  new TextField(120,30,'продано', g.allData.fonts['BloggerBold'], 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtSale =  new TextField(120,30,'продано', g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txtSale.x = 48;
         _txtSale.y = 95;
         _txtSale.visible = false;

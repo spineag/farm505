@@ -31,14 +31,14 @@ public class WOMarketDeleteItem extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        var txt:TextField = new TextField(300,30,'Этот продукт будет возвращен в хранилище.',g.allData.fonts['BloggerMedium'],20,Color.WHITE);
+        var txt:TextField = new TextField(300,30,'Этот продукт будет возвращен в хранилище.',g.allData.bFonts['BloggerMedium24'],20,Color.WHITE);
         txt.autoScale = true;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -150;
         txt.y = -20;
         txt.touchable = false;
         _source.addChild(txt);
-        txt = new TextField(300,30,'УБРАТЬ ТОВАР С ПРИЛАВКА?',g.allData.fonts['BloggerBold'],22,Color.WHITE);
+        txt = new TextField(300,30,'УБРАТЬ ТОВАР С ПРИЛАВКА?',g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -157;
         txt.y = -60;
@@ -49,7 +49,7 @@ public class WOMarketDeleteItem extends WindowMain{
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        txt = new TextField(200, 34, "Убрать за 1", g.allData.fonts['BloggerMedium'], 16, Color.WHITE);
+        txt = new TextField(200, 34, "Убрать за 1", g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _b.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

@@ -71,7 +71,7 @@ public class WOBuyCurrencyItem {
         _im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_im);
 
-        var txt:TextField = new TextField(135, 52, String(count), g.allData.fonts['BloggerBold'], 24, ManagerFilters.TEXT_BLUE_COLOR);
+        var txt:TextField = new TextField(135, 52, String(count), g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
         txt.x = 70;
         txt.y = 4;
@@ -79,7 +79,7 @@ public class WOBuyCurrencyItem {
 
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        txt = new TextField(120, 38, String(cost) + ' голосов', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(120, 38, String(cost) + ' голосов', g.allData.bFonts['BloggerBold24'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btn.addChild(txt);
         _btn.x = 493;

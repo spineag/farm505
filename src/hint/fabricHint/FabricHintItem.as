@@ -34,13 +34,13 @@ public class FabricHintItem {
         source = new Sprite();
         _needCount = needCount;
         _id = obId;
-        _txtWhite = new TextField(50,50,'',g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtWhite = new TextField(50,50,'',g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtWhite.hAlign = HAlign.LEFT;
 //        _txtWhite.y = 55;
 //        _txtWhite.x = 43;
         _txtWhite.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtWhite.text = String("/" + String(_needCount));
-        _txtOrange = new TextField(50,50,'',g.allData.fonts['BloggerBold'],14,ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtOrange = new TextField(50,50,'',g.allData.bFonts['BloggerBold14'],14,ManagerFilters.TEXT_ORANGE_COLOR);
         _txtOrange.hAlign = HAlign.LEFT;
         _txtOrange.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
 //        _txtOrange.y = 55;

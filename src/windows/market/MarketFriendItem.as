@@ -58,7 +58,7 @@ public class MarketFriendItem {
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
             }
         }
-        _txt = new TextField(100, 30, 'loading...', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txt = new TextField(100, 30, 'loading...', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txt.y = 70;
         if (_person.name) _txt.text = _person.name;
@@ -68,7 +68,7 @@ public class MarketFriendItem {
         source.outCallback = onOut;
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
-        var txtBtn:TextField = new TextField(80, 25, "Посетить", g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        var txtBtn:TextField = new TextField(80, 25, "Посетить", g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txtBtn.x = -5;
         txtBtn.y = 3;

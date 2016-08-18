@@ -44,7 +44,7 @@ public class ShopList {
         _source.addChild(_itemsSprite);
         addArrows(parent);
 
-        _txtPageNumber = new TextField(100, 40, '657', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtPageNumber = new TextField(100, 40, '657', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtPageNumber.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtPageNumber.x = 283;
         _txtPageNumber.y = 268;

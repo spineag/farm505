@@ -28,7 +28,7 @@ public class UseMoneyMessage {
         else if (typeMoney == DataMoney.BLUE_COUPONE || typeMoney == DataMoney.GREEN_COUPONE || typeMoney == DataMoney.RED_COUPONE || typeMoney == DataMoney.YELLOW_COUPONE) st += 'ваучера';
         else st += 'монет';
 
-        var txt:TextField = new TextField(150,50, st, g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        var txt:TextField = new TextField(150,50, st, g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = -75;
         txt.y = -25;

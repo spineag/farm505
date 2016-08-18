@@ -246,7 +246,11 @@ public class HintBackground extends Sprite {
 
     public function addTextField(size:int):void {
         deleteTextField();
-        _txt = new TextField(_width - 10, _height - 20,'',g.allData.fonts['BloggerBold'], size, ManagerFilters.TEXT_BLUE_COLOR);
+        var s:String;
+        if (size >= 20) s = '24';
+        else if (size > 14) s = '18';
+        else s = '14';
+        _txt = new TextField(_width - 10, _height - 20,'',g.allData.bFonts['BloggerBold'+s], size, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.x = _bg.x + 5;
         _txt.y = _bg.y + 5;
         addChild(_txt);

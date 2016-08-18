@@ -48,7 +48,7 @@ public class WOPapper extends WindowMain {
         _source.addChild(_contSprite);
         _btnRefreshGreen = new CButton();
         _btnRefreshGreen.addButtonTexture(130, 40, CButton.GREEN, true);
-        var txt:TextField = new TextField(100, 40, "Обновить 1", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        var txt:TextField = new TextField(100, 40, "Обновить 1", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 2;
         _btnRefreshGreen.addChild(txt);
@@ -71,7 +71,7 @@ public class WOPapper extends WindowMain {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
         im.x = 5;
         im.y = 5;
-        _txtTimer = new TextField(100,30,'',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtTimer = new TextField(100,30,'',g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtTimer.y = 5;
         _btnRefreshBlue.addChild(im);

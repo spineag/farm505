@@ -73,7 +73,7 @@ public class MainBottomPanel {
         _imNotification.x = 40;
         _imNotification.y = -5;
         _shopBtn.addChild(_imNotification);
-        _txtNotification = new TextField(30,30,'',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtNotification = new TextField(30,30,'',g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtNotification.x = 38;
         _txtNotification.y = -7;
         _shopBtn.addChild(_txtNotification);
@@ -180,7 +180,7 @@ public class MainBottomPanel {
         im.x = 60;
         im.y = 6;
         _homeBtn.addDisplayObject(im);
-        var txt:TextField = new TextField(100, 70, "Домой", g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        var txt:TextField = new TextField(100, 70, "Домой", g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_ORANGE;
         txt.x = 105;
         _homeBtn.addChild(txt);
@@ -424,7 +424,7 @@ public class MainBottomPanel {
     }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
         _friendBoard.addChild(im);
-        txt = new TextField(150,40,_person.name,g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new TextField(150,40,_person.name,g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = 20;
         _friendBoard.addChild(txt);
@@ -433,7 +433,7 @@ public class MainBottomPanel {
         im.y = 50;
         MCScaler.scale(im,45,45);
         _friendBoard.addChild(im);
-        txt = new TextField(50,50,String(_person.level),g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt = new TextField(50,50,String(_person.level),g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         if (_person is NeighborBot) txt.text = '10';
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 57;

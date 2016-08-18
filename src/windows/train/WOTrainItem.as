@@ -38,12 +38,12 @@ public class WOTrainItem {
     public function WOTrainItem() {
         _index = -1;
         source = new CSprite();
-        _txtWhite = new TextField(60,30,'-3', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtWhite = new TextField(60,30,'-3', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtWhite.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtWhite.hAlign = HAlign.RIGHT;
         _txtWhite.x = 23;
         _txtWhite.y = 60;
-        _txtRed = new TextField(30,30,'', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtRed = new TextField(30,30,'', g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
         _txtRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtRed.hAlign = HAlign.RIGHT;
         _txtRed.y = 60;

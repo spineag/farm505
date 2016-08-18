@@ -37,14 +37,14 @@ public class WOInviteFriends extends WindowMain {
         _cartonBackground.y = -165;
         _cartonBackground.x = -165;
         _source.addChild(_cartonBackground);
-        _txt = new TextField(300,30,'ПРИГЛАСИ ДРУЗЕЙ', g.allData.fonts['BloggerBold'],22,Color.WHITE);
+        _txt = new TextField(300,30,'ПРИГЛАСИ ДРУЗЕЙ', g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
         _txt.x = -150;
         _txt.y = -200;
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _source.addChild(_txt);
         _btn = new CButton();
         _btn.addButtonTexture(100, 34, CButton.BLUE, true);
-        var txt:TextField = new TextField(100,30,'Пригласить', g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        var txt:TextField = new TextField(100,30,'Пригласить', g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
         _btn.x = 0;

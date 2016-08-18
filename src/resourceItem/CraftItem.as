@@ -93,7 +93,7 @@ public class CraftItem {
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }
-        _txtNumber = new TextField(50,50,'',g.allData.fonts['BloggerBold'],18, Color.WHITE);
+        _txtNumber = new TextField(50,50,'',g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
         _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
 //        _txtNumber.x = -5;
         _txtNumber.y = 10;

@@ -50,12 +50,12 @@ public class PostOpenLand  extends WindowMain {
         _btn = new CButton();
         _btn.addButtonTexture(176, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
-        var txt:TextField = new TextField(100,30,'Рассказать',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        var txt:TextField = new TextField(100,30,'Рассказать',g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         txt.x = 5;
         txt.y = 7;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
-        txt = new TextField(50,50,'3',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt = new TextField(50,50,'3',g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         txt.x = 95;
         txt.y = -2;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

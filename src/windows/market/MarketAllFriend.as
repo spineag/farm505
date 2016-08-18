@@ -66,7 +66,7 @@ public class MarketAllFriend {
             _scrollSprite.addNewCell(item.source);
         }
         source.addChild(_scrollSprite.source);
-        var txtPanel:TextField = new TextField(220, 25, 'Быстрый доступ к друзьям:', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        var txtPanel:TextField = new TextField(220, 25, 'Быстрый доступ к друзьям:', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         txtPanel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txtPanel.x = 80;
         txtPanel.y = 16;

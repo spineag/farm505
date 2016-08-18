@@ -36,14 +36,14 @@ public class WOTipsItem {
         source.addChild(_bg);
         _btn = new CButton();
         _btn.addButtonTexture(95, 34, CButton.GREEN, true);
-        _txtBtn = new TextField(95, 34, "Показать", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtBtn = new TextField(95, 34, "Показать", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btn.addChild(_txtBtn);
         _btn.registerTextField(_txtBtn, ManagerFilters.TEXT_STROKE_GREEN);
         _btn.x = 365;
         _btn.y = 34;
         source.addChild(_btn);
-        _txt = new TextField(230, 40, "", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txt = new TextField(230, 40, "", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _txt.autoScale = true;
         _txt.x = 75;

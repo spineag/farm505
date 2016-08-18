@@ -69,7 +69,7 @@ public class WOOrderItem {
         _delImage.y = 10;
         source.addChild(_delImage);
 
-        _txtName = new TextField(112, 20, "Васько", g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtName = new TextField(112, 20, "Васько", g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_txtName);
 
@@ -79,7 +79,7 @@ public class WOOrderItem {
 //        MCScaler.scale(_starImage, 31, 31);
         _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
-        _txtXP = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtXP = new TextField(52, 30, "8888", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtXP.x = 48;
         _txtXP.y = 26;
@@ -91,7 +91,7 @@ public class WOOrderItem {
 //        MCScaler.scale(_coinsImage, 31, 31);
         _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
-        _txtCoins = new TextField(52, 30, "8888", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtCoins = new TextField(52, 30, "8888", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCoins.x = 48;
         _txtCoins.y = 55;

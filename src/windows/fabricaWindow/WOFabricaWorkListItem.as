@@ -49,18 +49,18 @@ public class WOFabricaWorkListItem {
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
             MCScaler.scale(_bg, 50, 50);
-            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerBold'], 13,Color.WHITE);
+            _txtNumberCreate = new TextField(20,20,"",g.allData.bFonts['BloggerBold14'], 13,Color.WHITE);
             _txtNumberCreate.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         } else {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
-            _txtNumberCreate = new TextField(20,20,"",g.allData.fonts['BloggerBold'], 16,Color.WHITE);
+            _txtNumberCreate = new TextField(20,20,"",g.allData.bFonts['BloggerBold18'], 16,Color.WHITE);
             _txtNumberCreate.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         }
         _source.addChild(_bg);
 
         if (type == SMALL_CELL) {
             _source.visible = false;
-            _txt = new TextField(50, 30, 'пусто', g.allData.fonts['BloggerBold'], 15, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt = new TextField(50, 30, 'пусто', g.allData.bFonts['BloggerBold18'], 15, ManagerFilters.TEXT_LIGHT_BROWN);
             _txt.x = -1;
             _txt.y = 5;
             source.addChild(_txt);
@@ -72,19 +72,19 @@ public class WOFabricaWorkListItem {
             im.x = 13;
             im.y = -20;
             _timerBlock.addChild(im);
-            _txtTimer = new TextField(78, 33, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+            _txtTimer = new TextField(78, 33, '', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
             _txtTimer.x = 13;
             _txtTimer.y = -20;
             _timerBlock.addChild(_txtTimer);
             _source.addChild(_timerBlock);
             _timerBlock.visible = false;
-            _txt = new TextField(100, 90, 'загрузите ячейку очереди', g.allData.fonts['BloggerBold'], 18, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt = new TextField(100, 90, 'загрузите ячейку очереди', g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_LIGHT_BROWN);
             _txt.x = 2;
             _txt.y = 5;
             _source.addChild(_txt);
             _btnSkip = new CButton();
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
-            _txtSkip = new TextField(100,35,"25",g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+            _txtSkip = new TextField(100,35,"25",g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
             _txtSkip.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             _txtSkip.y = 11;
             _btnSkip.addChild(_txtSkip);
@@ -95,7 +95,7 @@ public class WOFabricaWorkListItem {
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
-            var txt:TextField = new TextField(65,35,"ускорить",g.allData.fonts['BloggerBold'], 14,Color.WHITE);
+            var txt:TextField = new TextField(65,35,"ускорить",g.allData.bFonts['BloggerBold14'], 14,Color.WHITE);
             txt.x = 10;
             txt.y = -8;
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
@@ -215,10 +215,10 @@ public class WOFabricaWorkListItem {
             _txt.visible = false;
             if (_proposeBtn) return;
             _proposeBtn = new CButton();
-            var txt:TextField = new TextField(46, 28, "+", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+            var txt:TextField = new TextField(46, 28, "+", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _proposeBtn.addChild(txt);
-            txt = new TextField(46, 28, String(buyCount), g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+            txt = new TextField(46, 28, String(buyCount), g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             txt.y = 20;
             txt.x = -10;

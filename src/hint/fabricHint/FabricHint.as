@@ -58,28 +58,31 @@ public class FabricHint {
         im.y = 155;
         _source.addChild(im);
 
-        _txtName = new TextField(240,70,'',g.allData.fonts['BloggerBold'],22,Color.WHITE);
+        _txtName = new TextField(240,70,'',g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtName.y = 5;
         _txtName.x = -20;
         _source.addChild(_txtName);
 
-        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+//        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCreate.y = 50;
         _source.addChild(_txtCreate);
 
-        _txtTimeCreate = new TextField(50, 30 ,'Время:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+//        _txtTimeCreate = new TextField(50, 30 ,'Время:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        _txtTimeCreate = new TextField(50, 30 ,'Время:', g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtTimeCreate.x = 20;
         _txtTimeCreate.y = 130;
-        _txtOnSklad = new TextField(100, 30 ,'На складе:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+//        _txtOnSklad = new TextField(100, 30 ,'На складе:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        _txtOnSklad = new TextField(100, 30 ,'На складе:', g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtOnSklad.x = 100;
         _txtOnSklad.y = 130;
-        _txtItem = new TextField(50, 40 ,'', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtItem = new TextField(50, 40 ,'', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtItem.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtItem.hAlign = HAlign.LEFT;
         _txtItem.x = 160;
         _txtItem.y = 150;
-        _txtTime = new TextField(100, 40 ,'', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtTime = new TextField(100, 40 ,'', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtTime.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtItem.hAlign = HAlign.LEFT;
         _txtTime.x = 20;

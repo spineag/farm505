@@ -67,7 +67,7 @@ public class WODailyBonusCraftItem {
         _source = new Sprite();
         _source.addChild(im);
 //        if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
-            var txt:TextField = new TextField(80, 60, '+'+String(obj.count), g.allData.fonts['BloggerMedium'], 30, Color.WHITE);
+            var txt:TextField = new TextField(80, 60, '+'+String(obj.count), g.allData.bFonts['BloggerMedium30'], 30, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
             txt.x = 0;
             txt.y = 5;

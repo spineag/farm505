@@ -76,7 +76,7 @@ public class WOTrain extends WindowMain {
         _btnSend.addButtonTexture(120, 40, CButton.GREEN, true);
         _btnSend.x = _woWidth/2 - 180;
         _btnSend.y = 205;
-        var txt:TextField = new TextField(89,62,"Отправить",g.allData.fonts['BloggerBold'],16,Color.WHITE);
+        var txt:TextField = new TextField(89,62,"Отправить",g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.x = 5;
         txt.y = -10;
@@ -89,12 +89,12 @@ public class WOTrain extends WindowMain {
         _source.addChild(_btnSend);
         _btnSend.setEnabled = false;
 
-        _txt = new TextField(150, 40, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txt = new TextField(150, 40, '', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txt.x = 120;
         _txt.y = 110;
         _source.addChild(_txt);
-        _txtCounter = new TextField(150, 40, '', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtCounter = new TextField(150, 40, '', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtCounter.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCounter.x = 110;
         _txtCounter.y = 130;
@@ -119,7 +119,7 @@ public class WOTrain extends WindowMain {
         _rightBlockBG.filter = ManagerFilters.SHADOW;
         _rightBlock.addChild(_rightBlockBG);
 
-        _txtLoad = new TextField(240, 50, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtLoad = new TextField(240, 50, '', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtLoad.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtLoad.x = 25;
         _txtLoad.y = 5;
@@ -137,7 +137,7 @@ public class WOTrain extends WindowMain {
 
         _btnLoad = new CButton();
         _btnLoad.addButtonTexture(130, 36, CButton.YELLOW, true);
-        txt = new TextField(80,30,'Загрузить', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        txt = new TextField(80,30,'Загрузить', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 25;
         txt.y = 3;
@@ -163,29 +163,29 @@ public class WOTrain extends WindowMain {
 //        _txtHelp.x = 50;
 //        _btnHelp.addChild(_txtHelp);
 
-        txt = new TextField(240,50,'Награда за полную загрузку:', g.allData.fonts['BloggerBold'], 15, Color.WHITE);
+        txt = new TextField(240,50,'Награда за полную загрузку:', g.allData.bFonts['BloggerBold18'], 15, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 240;
         txt.x = 23;
         txt.touchable = false;
         _rightBlock.addChild(txt);
 
-        _txtCostItem = new TextField(40,30,'-3', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtCostItem = new TextField(40,30,'-3', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtCostItem.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCostItem.x = 226;
         _txtCostItem.y = 80;
         _txtCostItem.hAlign = HAlign.LEFT;
-        _txtXpItem = new TextField(40,30,'-3', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtXpItem = new TextField(40,30,'-3', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtXpItem.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtXpItem.x = 155;
         _txtXpItem.y = 80;
         _txtXpItem.hAlign = HAlign.LEFT;
-        _txtCostAll = new TextField(40,30,'-5', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtCostAll = new TextField(40,30,'-5', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtCostAll.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCostAll.x = 160;
         _txtCostAll.y = 280;
         _txtCostAll.hAlign = HAlign.LEFT;
-        _txtXpAll = new TextField(40,30,'-5', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtXpAll = new TextField(40,30,'-5', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtXpAll.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtXpAll.x = 75;
         _txtXpAll.y = 280;
@@ -220,7 +220,7 @@ public class WOTrain extends WindowMain {
         im.y = 80;
 //        MCScaler.scale(im,30,30);
         _rightBlock.addChild(im);
-        txt = new TextField(20,20,'1',g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        txt = new TextField(20,20,'1',g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 225;
         txt.y = 283;
@@ -240,7 +240,7 @@ public class WOTrain extends WindowMain {
         _leftBlock.y = -205;
         _leftBlock.x = -_woWidth/2 + 40;
         _source.addChild(_leftBlock);
-        var txt:TextField = new TextField(200,30,'Требуются продукты:', g.allData.fonts['BloggerBold'], 19, Color.WHITE);
+        var txt:TextField = new TextField(200,30,'Требуются продукты:', g.allData.bFonts['BloggerBold18'], 19, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 15;
         txt.x = 60;

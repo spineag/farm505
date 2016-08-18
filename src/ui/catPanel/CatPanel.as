@@ -2,29 +2,12 @@
  * Created by user on 10/27/15.
  */
 package ui.catPanel {
-
-import data.BuildType;
-import data.DataMoney;
-
-import flash.filters.GlowFilter;
-import flash.geom.Point;
-
 import manager.ManagerFilters;
-import manager.ManagerWallPost;
-
 import manager.Vars;
-
 import starling.core.Starling;
-
 import starling.display.Image;
-import starling.display.Sprite;
 import starling.text.TextField;
-import starling.utils.Color;
-
-import tutorial.AfterTutorialWindow;
-
 import utils.CSprite;
-
 import windows.WOComponents.HorizontalPlawka;
 import windows.WindowsManager;
 
@@ -48,8 +31,8 @@ public class CatPanel {
         im.x = -19;
         im.y = -5;
         _source.addChild(im);
-        _txtCount = new TextField(77, 40, '55', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtZero = new TextField(30, 40, '', g.allData.fonts['BloggerBold'], 22, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtCount = new TextField(77, 40, '55', g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtZero = new TextField(30, 40, '', g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_ORANGE_COLOR);
         _source.addChild(_txtCount);
         _source.addChild(_txtZero);
 

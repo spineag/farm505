@@ -64,9 +64,9 @@ public class WildHint {
 //        _bgItem.y = -_bgItem.height - 35;
         _btn.addDisplayObject(_bgItem);
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
-        _txtCount = new TextField(30,30,"", g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        _txtCount = new TextField(30,30,"", g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtName = new TextField(100,50,"", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtName = new TextField(100,50,"", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -50;
         _txtName.y = -150;

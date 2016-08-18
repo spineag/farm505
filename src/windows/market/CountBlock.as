@@ -53,7 +53,7 @@ public class CountBlock {
         im.x = 6;
         im.y = 6;
         _btnPlus.addDisplayObject(im);
-        _txt = new TextField(50, 30, '0', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txt = new TextField(50, 30, '0', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         _btnPlus.startClickCallback = onStartPlus;

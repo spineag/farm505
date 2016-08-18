@@ -43,7 +43,7 @@ public class WOAmbarFilled extends WindowMain {
         _btn = new CButton();
         _btn.clickCallback = onClick;
         _btn.addButtonTexture(130, 40, CButton.YELLOW, true);
-        _txtBtn = new TextField(150,50,"",g.allData.fonts['BloggerBold'],12,Color.WHITE);
+        _txtBtn = new TextField(150,50,"",g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
         _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
         _txtBtn.y = -5;
         _txtBtn.x = -10;
@@ -56,13 +56,13 @@ public class WOAmbarFilled extends WindowMain {
         _imageAmbar.y = -20;
         _imageAmbar.touchable = false;
         MCScaler.scale(_imageAmbar,49,320);
-        _txtAmbarFilled = new TextField(200,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtAmbarFilled = new TextField(200,50,"",g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtAmbarFilled.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtAmbarFilled.x = -100;
         _txtAmbarFilled.y = -125;
         _txtAmbarFilled.touchable = false;
         _source.addChild(_txtAmbarFilled);
-        _txtCount = new TextField(200,50,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtCount = new TextField(200,50,"",g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCount.x = -95;
         _txtCount.y = 20;

@@ -71,7 +71,7 @@ public class StartPreloader {
 //        _preloaderSprite.x = _source.width/2 - _preloaderBG.width/2;
 //        _preloaderSprite.y = 600;
 //        _source.addChild(_preloaderSprite);
-        _txt = new TextField(75,50,'0',g.allData.fonts['BloggerBold'], 24, 0x0659b6);
+        _txt = new TextField(75,50,'0',g.allData.bFonts['BloggerBold24'], 24, 0x0659b6);
         _source.addChild(_txt);
         _txt.x = _bg.width/2 - 42;
         _txt.y = _bg.height/2 + 185;

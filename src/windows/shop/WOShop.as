@@ -295,7 +295,7 @@ public class WOShop extends WindowMain {
     }
 
     private function createMoneyBlock():void {
-        var txt:TextField = new TextField(250, 40, 'Ваши сбережения:', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        var txt:TextField = new TextField(250, 40, 'Ваши сбережения:', g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -_woWidth/2 + 238;
         txt.y = -_woHeight/2 + 461;
@@ -405,32 +405,32 @@ public class WOShop extends WindowMain {
         im.y = -_woHeight/2 + 505;
         _contCoupone.addChild(im);
 
-        _txtHardMoney = new TextField(63, 33, '88888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtHardMoney = new TextField(63, 33, '88888', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtHardMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtHardMoney.x = -_woWidth/2 + 81;
         _txtHardMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtHardMoney);
-        _txtSoftMoney = new TextField(63, 33, '88888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtSoftMoney = new TextField(63, 33, '88888', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtSoftMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtSoftMoney.x = -_woWidth/2 + 239;
         _txtSoftMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtSoftMoney);
-        _txtRedMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtRedMoney = new TextField(39, 33, '888', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtRedMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtRedMoney.x = -_woWidth/2 + 400;
         _txtRedMoney.y = -_woHeight/2 + 512;
         _contCoupone.addChild(_txtRedMoney);
-        _txtYellowMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtYellowMoney = new TextField(39, 33, '888', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtYellowMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtYellowMoney.x = -_woWidth/2 + 475;
         _txtYellowMoney.y = -_woHeight/2 + 512;
         _contCoupone.addChild(_txtYellowMoney);
-        _txtGreenMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtGreenMoney = new TextField(39, 33, '888', g.allData.bFonts['BloggerBold18'], 14, Color.WHITE);
         _txtGreenMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtGreenMoney.x = -_woWidth/2 + 550;
         _txtGreenMoney.y = -_woHeight/2 + 512;
         _contCoupone.addChild(_txtGreenMoney);
-        _txtBlueMoney = new TextField(39, 33, '888', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
+        _txtBlueMoney = new TextField(39, 33, '888', g.allData.bFonts['BloggerBold18'], 14, Color.WHITE);
         _txtBlueMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtBlueMoney.x = -_woWidth/2 + 625;
         _txtBlueMoney.y = -_woHeight/2 + 512;

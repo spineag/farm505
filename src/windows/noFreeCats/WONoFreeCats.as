@@ -31,14 +31,14 @@ public class WONoFreeCats extends WindowMain {
         _source.addChild(_woBG);
         _callbackClickBG = hideIt;
         createExitButton(hideIt);
-        var txt:TextField = new TextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!",g.allData.fonts['BloggerBold'],20,Color.WHITE);
+        var txt:TextField = new TextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!",g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         txt.touchable = false;
         txt.x = -200;
         txt.y = -155;
         txt.touchable = false;
         _source.addChild(txt);
-        txt = new TextField(400,100,'Подождите окончания производства или купите еще одного!',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt = new TextField(400,100,'Подождите окончания производства или купите еще одного!',g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         txt.x = -200;
         txt.y = -120;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
@@ -49,7 +49,7 @@ public class WONoFreeCats extends WindowMain {
         _btn.clickCallback = onClick;
         _btn.y = 100;
         _source.addChild(_btn);
-        txt = new TextField(130, 40, "КУПИТЬ", g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(130, 40, "КУПИТЬ", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         txt.touchable = false;
         _btn.addChild(txt);

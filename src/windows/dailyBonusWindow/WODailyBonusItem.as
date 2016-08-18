@@ -104,7 +104,7 @@ public class WODailyBonusItem {
         _source.rotation = (Math.PI/6)*index;
         _parent.addChild(_source);
         if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
-            var txt:TextField = new TextField(60, 40, '+'+String(obj.count), g.allData.fonts['BloggerMedium'], 20, Color.WHITE);
+            var txt:TextField = new TextField(60, 40, '+'+String(obj.count), g.allData.bFonts['BloggerMedium24'], 20, Color.WHITE);
             txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
             txt.x = -20;
             txt.y = -5;

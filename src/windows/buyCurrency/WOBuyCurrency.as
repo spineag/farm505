@@ -70,7 +70,7 @@ public class WOBuyCurrency extends WindowMain {
         _cartonHardTab.touchable = true;
         _tabHard.addChild(_cartonHardTab);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        var txt:TextField = new TextField(160, 67, 'Рубины', g.allData.fonts['BloggerBold'], 24, Color.WHITE);
+        var txt:TextField = new TextField(160, 67, 'Рубины', g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
         txt.touchable = false;
@@ -90,7 +90,7 @@ public class WOBuyCurrency extends WindowMain {
         _cartonSoftTab.touchable = true;
         _tabSoft.addChild(_cartonSoftTab);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
-        txt= new TextField(160, 67, 'Монеты', g.allData.fonts['BloggerBold'], 24, Color.WHITE);
+        txt= new TextField(160, 67, 'Монеты', g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
         txt.touchable = false;

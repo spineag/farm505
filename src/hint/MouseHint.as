@@ -50,7 +50,7 @@ public class MouseHint {
 //        _imageCircle.x = _source.width - 27;
 //        _imageCircle.y = _source.height - 23;
 //        _source.addChild(_imageCircle);
-        _txtCount = new TextField(30,30,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtCount = new TextField(30,30,"",g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCount.x = 29;
         _txtCount.y = 39;

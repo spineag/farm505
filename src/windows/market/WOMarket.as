@@ -99,7 +99,7 @@ public class WOMarket  extends WindowMain {
         c.y = -_woHeight/2 + 40;
         _cont.filter = _SHADOW;
         _cont.addChild(c);
-        var txt:TextField = new TextField(80, 25, 'Все друзья', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        var txt:TextField = new TextField(80, 25, 'Все друзья', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         txt.nativeFilters = [new GlowFilter(0x4b3600, 1, 4, 4, 5)];
         txt.x = 8;
         txt.y = 8;
@@ -155,7 +155,7 @@ public class WOMarket  extends WindowMain {
         im.x = -250;
         im.y = 165;
         _source.addChild(im);
-        _txtNumberPage = new TextField(50, 50, '', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtNumberPage = new TextField(50, 50, '', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtNumberPage.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtNumberPage.x = -253;
         _txtNumberPage.y = 153;
@@ -179,7 +179,7 @@ public class WOMarket  extends WindowMain {
 //        MCScaler.scale(im,30,30);
         im.x = 35;
         _btnPaper.addChild(im);
-        txt = new TextField(30,30,'1',g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        txt = new TextField(30,30,'1',g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.x = 10;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
         _btnPaper.addChild(txt);
@@ -194,13 +194,13 @@ public class WOMarket  extends WindowMain {
 //        _contPaper.addChild(_imCheck);
 //        _imCheck.visible = false;
 
-        txt = new TextField(200,30,'Выставить в газету:',g.allData.fonts['BloggerBold'], 12, Color.WHITE);
+        txt = new TextField(200,30,'Выставить в газету:',g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 8;
         txt.y = 135;
         _contPaper.addChild(txt);
 
-        _txtTimerPaper = new TextField(80,30,'',g.allData.fonts['BloggerBold'], 16, Color.WHITE);
+        _txtTimerPaper = new TextField(80,30,'',g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtTimerPaper.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtTimerPaper.x = 46;
         _txtTimerPaper.y = 165;
@@ -220,7 +220,7 @@ public class WOMarket  extends WindowMain {
         }
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
-        _txtName = new TextField(300, 30, '', g.allData.fonts['BloggerBold'], 20, Color.WHITE);
+        _txtName = new TextField(300, 30, '', g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
         _txtName.x = -195;

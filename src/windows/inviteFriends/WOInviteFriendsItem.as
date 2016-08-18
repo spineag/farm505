@@ -32,7 +32,7 @@ public class WOInviteFriendsItem {
         _ava.y = 2;
         source.addChild(_ava);
         g.load.loadImage(data.photo, onLoadPhoto);
-        var txt:TextField = new TextField(100,100,data.name + ' ' + data.lastName, g.allData.fonts['BloggerBold'], 12, Color.BLACK);
+        var txt:TextField = new TextField(100,100,data.name + ' ' + data.lastName, g.allData.bFonts['BloggerBold14'], 12, Color.BLACK);
         txt.y = 20;
         source.addChild(txt);
         check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));

@@ -55,12 +55,12 @@ public class XPPanel {
         _imageStar.pivotX = _imageStar.width/2;
         _imageStar.pivotY = _imageStar.height/2;
         _source.addChild(_imageStar);
-        _txtLevel = new TextField(60, 60, '55', g.allData.fonts['BloggerBold'], 24, Color.WHITE);
+        _txtLevel = new TextField(60, 60, '55', g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
         _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtLevel.x = -27;
         _txtLevel.y = -12;
         _source.addChild(_txtLevel);
-        _txtXPCount = new TextField(123, 30, '6784/247289', g.allData.fonts['BloggerBold'], 18, Color.WHITE);
+        _txtXPCount = new TextField(123, 30, '6784/247289', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtXPCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
         _txtXPCount.x = 35;
         _txtXPCount.y = 4;

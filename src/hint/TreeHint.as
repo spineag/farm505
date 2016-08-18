@@ -85,15 +85,15 @@ public class TreeHint {
         _imageCircle.x = 45;
         _imageCircle.y = -110;
 
-        _txtItem = new TextField(50,50,"",g.allData.fonts['BloggerBold'],14,Color.WHITE);
+        _txtItem = new TextField(50,50,"",g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtItem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtItem.x = 38;
         _txtItem.y = -117;
-        _txtName = new TextField(200,50,"",g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        _txtName = new TextField(200,50,"",g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -100;
         _txtName.y = -140;
-        _txtText = new TextField(50,30,'УСКОРИТЬ',g.allData.fonts['BloggerBold]'],16,ManagerFilters.TEXT_BLUE_COLOR);
+        _txtText = new TextField(50,30,'УСКОРИТЬ',g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BLUE_COLOR);
 
         _contDelete.addDisplayObject(_imageBgItem);
         _contWatering.addDisplayObject(_imageBgItemHelp);
