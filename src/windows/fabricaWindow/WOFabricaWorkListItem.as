@@ -253,7 +253,7 @@ public class WOFabricaWorkListItem {
             _proposeBtn.clickCallback = f1;
             _proposeBtn.hoverCallback = function():void {
                 _proposeBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-                    g.hint.showIt("докупить ячейки");
+                    g.hint.showIt("докупить ячейку");
             };
             _proposeBtn.outCallback = function():void {
                 _proposeBtn.filter = null;
@@ -332,6 +332,7 @@ public class WOFabricaWorkListItem {
             _txtSkip.text = '';
             _btnSkip.visible = false;
         }
+        _txt.visible = true;
     }
 
     public function deleteIt():void {

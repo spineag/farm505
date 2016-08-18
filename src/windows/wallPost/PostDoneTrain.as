@@ -56,7 +56,7 @@ public class PostDoneTrain extends WindowMain {
         txt.y = 7;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
-        txt = new TextField(50,50,'200',g.allData.fonts['BloggerBold'],18,Color.WHITE);
+        txt = new TextField(50,50,'100',g.allData.fonts['BloggerBold'],18,Color.WHITE);
         txt.x = 95;
         txt.y = -2;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;

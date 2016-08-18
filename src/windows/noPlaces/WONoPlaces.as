@@ -46,7 +46,7 @@ public class WONoPlaces extends WindowMain {
         SOUND_OPEN = SoundConst.WO_AHTUNG;
 
         _btn = new CButton();
-        _btn.addButtonTexture(200, 40, CButton.GREEN, true);
+        _btn.addButtonTexture(220, 40, CButton.GREEN, true);
         _btn.y = 120;
         _source.addChild(_btn);
         _btn.clickCallback = onClick;
@@ -62,16 +62,16 @@ public class WONoPlaces extends WindowMain {
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_medium"));
         MCScaler.scale(im,35,35);
-        im.x = 155;
+        im.x = 178;
         im.y = 4;
         _btn.addChild(im);
         im.filter = ManagerFilters.SHADOW_TINY;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         im.x = -50;
         im.y = -50;
-        _txtCost = new TextField(150,50,"",g.allData.fonts['BloggerBold'],16,Color.WHITE);
+        _txtCost = new TextField(200,50,"",g.allData.fonts['BloggerBold'],16,Color.WHITE);
         _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
-        _txtCost.x = 5;
+        _txtCost.x = -8;
         _txtCost.y = -3;
         _btn.addChild(_txtCost);
         _source.addChild(im);
