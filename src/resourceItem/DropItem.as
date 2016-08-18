@@ -80,7 +80,6 @@ public class DropItem {
                     endPoint = g.couponePanel.getPoint();
                     break;
             }
-            g.userInventory.addMoney(prise.id, prise.count);
         }
         if (!_image) {
             Cc.error('DropItem:: no image for type: ' + prise.id);
@@ -106,30 +105,32 @@ public class DropItem {
                 _source.removeChildAt(0);
             }
             _source = null;
-            switch (prise.id) {
-                case DataMoney.HARD_CURRENCY:
-                    g.softHardCurrency.animationBuy(true);
-                    break;
-                case DataMoney.SOFT_CURRENCY:
-                    g.softHardCurrency.animationBuy(false);
-                    break;
-                case DataMoney.BLUE_COUPONE:
-                    g.couponePanel.animationBuy();
-                    break;
-                case DataMoney.GREEN_COUPONE:
-                    g.couponePanel.animationBuy();
-                    break;
-                case DataMoney.RED_COUPONE:
-                    g.couponePanel.animationBuy();
-                    break;
-                case DataMoney.YELLOW_COUPONE:
-                    g.couponePanel.animationBuy();
-                    break;
-            }
             if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
                 var item:ResourceItem = new ResourceItem();
                 item.fillIt(g.dataResource.objectResources[prise.id]);
                 g.craftPanel.afterFly(item);
+            } else {
+                switch (prise.id) {
+                    case DataMoney.HARD_CURRENCY:
+                        g.softHardCurrency.animationBuy(true);
+                        break;
+                    case DataMoney.SOFT_CURRENCY:
+                        g.softHardCurrency.animationBuy(false);
+                        break;
+                    case DataMoney.BLUE_COUPONE:
+                        g.couponePanel.animationBuy();
+                        break;
+                    case DataMoney.GREEN_COUPONE:
+                        g.couponePanel.animationBuy();
+                        break;
+                    case DataMoney.RED_COUPONE:
+                        g.couponePanel.animationBuy();
+                        break;
+                    case DataMoney.YELLOW_COUPONE:
+                        g.couponePanel.animationBuy();
+                        break;
+                }
+                g.userInventory.addMoney(prise.id, prise.count);
             }
         };
         var tempX:int = _source.x - 140 + int(Math.random()*140);

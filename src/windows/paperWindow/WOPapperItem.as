@@ -122,15 +122,16 @@ public class WOPapperItem {
         _txtCountResource = new TextField(84, 62, "", g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCountResource.hAlign = HAlign.RIGHT;
         _txtCountResource.touchable = false;
+        _txtCountResource.leading = 10;
         _txtCountResource.x = 80;
         _txtCountResource.y = 70;
         source.addChild(_txtCountResource);
 
-        _txtResourceName = new TextField(200, 30, "", g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtResourceName = new TextField(100, 30, "", g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtResourceName.hAlign = HAlign.RIGHT;
         _txtResourceName.touchable = false;
-        _txtResourceName.x = -38;
-        _txtResourceName.y = 103;
+        _txtResourceName.x = 70;
+        _txtResourceName.y = 98;
         source.addChild(_txtResourceName);
 
         _txtUserName = new TextField(110, 50, "", g.allData.bFonts['BloggerBold18'], 16, ManagerFilters.TEXT_BLUE_COLOR);

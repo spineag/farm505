@@ -172,6 +172,30 @@ public class WorldObject {
             _dataBuild.isFlip = _flip;
             return;
         }
+        if (_dataBuild.buildType == BuildType.DECOR_TAIL) {
+            if (_flip) {
+                g.townArea.unFillTailMatrix(posX, posY, _sizeY, _sizeX);
+            } else {
+                g.townArea.unFillTailMatrix(posX, posY, _sizeX, _sizeY);
+            }
+
+            if (_flip) {
+                if (g.toolsModifier.checkFreeTailGrids(posX, posY, _sizeX, _sizeY)) {
+                    _flip = false;
+                    g.townArea.fillTailMatrix(posX, posY, _sizeX, _sizeY, this);
+                } else {
+                    g.townArea.fillTailMatrix(posX, posY, _sizeY, _sizeX, this);
+                }
+            } else {
+                if (g.toolsModifier.checkFreeTailGrids(posX, posY, _sizeY, _sizeX)) {
+                    _flip = true;
+                    g.townArea.fillTailMatrix(posX, posY, _sizeY, _sizeX, this);
+                } else {
+                    g.townArea.fillTailMatrix(posX, posY, _sizeX, _sizeY, this);
+                }
+            }
+
+        }
         if (_flip) {
             g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
         } else {

@@ -102,7 +102,7 @@ public class ResourceHint {
             _txtText = new TextField(200,100,"Будет доступно на: " + g.dataRecipe.objectRecipe[_id].blockByLevel + ' уровне', g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
             _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
-            _txtText.y = -5;
+//            _txtText.y = -5;
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);

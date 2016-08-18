@@ -225,7 +225,7 @@ public class WOFabricaWorkListItem {
             _proposeBtn.addChild(txt);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(_rubinSmall, 20, 20);
-            _rubinSmall.x = 21;
+            _rubinSmall.x = 23;
             _rubinSmall.y = 23;
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _proposeBtn.addChild(_rubinSmall);

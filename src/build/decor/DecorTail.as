@@ -52,6 +52,7 @@ public class DecorTail extends WorldObject{
             g.townArea.deleteTailBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
+            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             if (!g.selectedBuild) {
                 g.directServer.addToInventory(_dbBuildingId, null);
