@@ -21,6 +21,8 @@ import starling.textures.Texture;
 import starling.utils.Color;
 import temp.DropResourceVariaty;
 import tutorial.TutorialAction;
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import user.NeighborBot;
 import user.Someone;
 import utils.CButton;
@@ -313,7 +315,11 @@ public class MarketItem {
     }
 
     private function onPaper():void {
-        if (g.managerCutScenes.isCutScene) return;
+        if (g.managerCutScenes.isCutScene) {
+            if (g.managerCutScenes.curCutSceneProperties.reason == ManagerCutScenes.REASON_ADD_TO_PAPPER) {
+                g.managerCutScenes.checkCutSceneCallback();
+            } else return;
+        }
         if (_inPapper || !_wo.booleanPaper) return;
         _inPapper = true;
         _dataFromServer.inPapper = true;

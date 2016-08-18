@@ -675,6 +675,7 @@ public class ManagerCutScenes {
     }
 
     private function onWoPlant():void {
+        _cutSceneCallback = null;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -701,15 +702,17 @@ public class ManagerCutScenes {
             var ob:Object = it.getBoundsProperties('papperIcon');
             _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
             _arrow.scaleIt(.5);
-            _arrow.animateAtPosition(ob.x + 25, ob.y + ob.height/2);
+            _arrow.animateAtPosition(ob.x + 30, ob.y + ob.height/2);
             _airBubble = new AirTextBubble();
-            _airBubble.showIt(_curCutScenePropertie.text, g.cont.popupCont, ob.x + 10, ob.y + 70, onAddToPapper);
+            _airBubble.showIt(_curCutScenePropertie.text, g.cont.popupCont, ob.x + 10, ob.y + 70);
+            _cutSceneCallback = onAddToPapper;
         } else {
             isCutScene = false;
         }
     }
 
     private function onAddToPapper():void {
+        _cutSceneCallback = null;
         _cutSceneStep = 2;
         _temp = null;
         if (_arrow) {
