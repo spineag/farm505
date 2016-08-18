@@ -41,6 +41,8 @@ public class WOOrderItem {
     private var _wo:WOOrder;
     private var _deleteOrSell:Boolean;
     private var _recheck:Boolean;
+    private var _timer:int;
+    private var _isHover:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
@@ -106,7 +108,7 @@ public class WOOrderItem {
         source.addChild(_check);
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-
+        _isHover = false;
     }
 
     public function activateIt(v:Boolean):void {
@@ -340,17 +342,33 @@ public class WOOrderItem {
     }
 
     private function onHover():void {
+        if (_isHover) return;
+        _isHover = true;
         _bgCarton.filter = null;
         _bgCarton.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+        _timer = 3;
+        g.gameDispatcher.addEnterFrame(onEnterFram);
     }
 
     private function onOut():void {
+        _isHover = false;
         if (_act) {
             _bgCarton.filter = null;
             _bgCarton.filter = ManagerFilters.YELLOW_STROKE;
         } else {
             _bgCarton.filter = null;
             _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
+        }
+        g.gameDispatcher.removeEnterFrame(onEnterFram);
+        _timer = 0;
+        g.hint.hideIt();
+    }
+
+    private function onEnterFram():void {
+        _timer --;
+        if (_timer <= 0) {
+            g.hint.showIt('Заказ');
+            g.gameDispatcher.removeEnterFrame(onEnterFram);
         }
     }
 
