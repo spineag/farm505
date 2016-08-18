@@ -7,7 +7,6 @@ import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.tree.Tree;
 import com.greensock.TweenMax;
-import com.greensock.easing.Quad;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
@@ -18,6 +17,7 @@ import manager.Vars;
 import mouse.ToolsModifier;
 import resourceItem.UseMoneyMessage;
 
+import com.greensock.easing.Quad;
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -588,15 +588,14 @@ public class ShopItem {
                         break;
                     } else b = false;
                 }
+                createButtons('blue');
+                _txtBtnBuyBlue.text = String(_countCost);
                 if (g.user.allNotification > 0 && g.user.villageNotification > 0 && b) {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
                     im.x = 102;
                     source.addChild(im);
                     if(!g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene)addArrow(_data.id);
-
                 }
-                createButtons('blue');
-                _txtBtnBuyBlue.text = String(_countCost);
             }
         }
 
@@ -1025,9 +1024,10 @@ public class ShopItem {
     }
 
     public function addArrow(t:int = 0):void {
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, source);
         _arrow.scaleIt(.5);
-        _arrow.animateAtPosition(73, 10);
+        if (_btnBuyBlue)_arrow.animateAtPosition(_btnBuyBlue.x, _btnBuyBlue.y);
+        else if (_btnBuyGreen)_arrow.animateAtPosition(_btnBuyGreen.x, _btnBuyGreen.y);
         if (t>0) {
             _arrow.activateTimer(t, deleteArrow);
         }
