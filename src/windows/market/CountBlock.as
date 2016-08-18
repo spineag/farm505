@@ -60,7 +60,7 @@ public class CountBlock {
         _btnPlus.clickCallback = onEndPlus;
         _btnMinus.startClickCallback = onStartMinus;
         _btnMinus.clickCallback = onEndMinus;
-        btnFilter();
+//        btnFilter();
     }
 
     public function btnNull():void {
@@ -122,7 +122,8 @@ public class CountBlock {
     }
 
     private function onEndPlus():void {
-        _btnMinus.filter = null;
+//        _btnMinus.filter = null;
+        _btnMinus.setEnabled = true;
         g.gameDispatcher.removeEnterFrame(plusRender);
         if (timer <= 15 && _curCount < _max) {
             _curCount++;
@@ -153,7 +154,8 @@ public class CountBlock {
     }
 
     private function onEndMinus():void {
-        _btnPlus.filter = null;
+//        _btnPlus.filter = null;
+        _btnPlus.setEnabled = true;
         g.gameDispatcher.removeEnterFrame(minusRender);
         if (timer <= 15 && _curCount > _min) {
             _curCount--;
@@ -179,22 +181,26 @@ public class CountBlock {
 
     private function checkPlusBtn():void {
         if (_curCount >= _max) {
-            _btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//            _btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+            _btnPlus.setEnabled = false;
         } else {
-            _btnPlus.filter = null;
+//            _btnPlus.filter = null;
+            _btnPlus.setEnabled = true;
         }
     }
 
     private function checkMinusBtn():void {
         if (_curCount <= _min) {
-            _btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//            _btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+            _btnMinus.setEnabled = false;
         } else {
-            _btnMinus.filter = null;
+//            _btnMinus.filter = null;
+            _btnMinus.setEnabled = true;
         }
     }
 
     public function deleteIt():void {
-        btnNull();
+//        btnNull();
         source.removeChild(_btnMinus);
         _btnMinus.deleteIt();
         _btnMinus = null;
