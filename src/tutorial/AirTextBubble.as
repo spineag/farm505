@@ -44,7 +44,7 @@ public class AirTextBubble {
         _source.addChild(_bg);
         _txt = new TextField(260, 90, "", g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.x = 36;
-        _txt.y = 27;
+        _txt.y = 32;
         _txt.autoScale = true;
         _source.addChild(_txt);
         _btn = new CButton();

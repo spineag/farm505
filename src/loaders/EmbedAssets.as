@@ -9,6 +9,7 @@ import flash.events.Event;
 import starling.text.BitmapFont;
 import starling.text.TextField;
 import starling.textures.Texture;
+import starling.textures.TextureSmoothing;
 
 public class EmbedAssets {
     // Texture
@@ -106,36 +107,42 @@ public class EmbedAssets {
         var texture:Texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite30png);
         var xml:XML = XML(new BitmapBloggerBoldWhite30xml());
         var bFont:BitmapFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerBold30'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite24png);
         xml = XML(new BitmapBloggerBoldWhite24xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerBold24'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite18png);
         xml = XML(new BitmapBloggerBoldWhite18xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerBold18'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite14png);
         xml = XML(new BitmapBloggerBoldWhite14xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerBold14'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerMediumWhite30png);
         xml = XML(new BitmapBloggerMediumWhite30xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerMedium30'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerMediumWhite24png);
         xml = XML(new BitmapBloggerMediumWhite24xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerMedium24'] = bFont;
         TextField.registerBitmapFont(bFont);
 
@@ -148,36 +155,42 @@ public class EmbedAssets {
         texture = Texture.fromEmbeddedAsset(BitmapBloggerMediumWhite14png);
         xml = XML(new BitmapBloggerMediumWhite14xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerMedium14'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerRegularWhite30png);
         xml = XML(new BitmapBloggerRegularWhite30xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerRegular30'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerRegularWhite24png);
         xml = XML(new BitmapBloggerRegularWhite24xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerRegular24'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerRegularWhite18png);
         xml = XML(new BitmapBloggerRegularWhite18xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerRegular18'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerRegularWhite14png);
         xml = XML(new BitmapBloggerRegularWhite14xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerRegular14'] = bFont;
         TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBold72png);
         xml = XML(new BitmapBloggerBold72xml());
         bFont = new BitmapFont(texture, xml);
+        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerBold72'] = bFont;
         TextField.registerBitmapFont(bFont);
     }
