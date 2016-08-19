@@ -322,7 +322,6 @@
             <filename>cursor_click.png</filename>
             <filename>cursor_default.png</filename>
             <filename>cursor_hover.png</filename>
-            <filename>red_m_big.png</filename>
             <filename>new_m.png</filename>
             <filename>avatar_2.png</filename>
             <filename>avatar_3.png</filename>
@@ -338,6 +337,7 @@
             <filename>cursor_circle_1.png</filename>
             <filename>cursor_circle_2.png</filename>
             <filename>cursor_circle_3.png</filename>
+            <filename>red_m_big.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

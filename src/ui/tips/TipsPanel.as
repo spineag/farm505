@@ -8,6 +8,7 @@ import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
+import utils.MCScaler;
 import utils.SimpleArrow;
 import windows.WindowsManager;
 
@@ -27,6 +28,11 @@ public class TipsPanel {
         var im:Image = new Image(g.allData.atlas['tipsAtlas'].getTexture('helper_cat_1'));
         im.x = -im.width/2;
         im.y = -im.height/2;
+        _source.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+        MCScaler.scale(im,35,35);
+        im.x = 16;
+        im.y = 30;
         _source.addChild(im);
         _txt= new TextField(30,30,"", g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
         _txt.x = 18;

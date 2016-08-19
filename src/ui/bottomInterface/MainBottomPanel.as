@@ -70,6 +70,7 @@ public class MainBottomPanel {
 
         createBtns();
         _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+        MCScaler.scale(_imNotification,25,25);
         _imNotification.x = 40;
         _imNotification.y = -5;
         _shopBtn.addChild(_imNotification);
