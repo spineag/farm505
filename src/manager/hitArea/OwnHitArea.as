@@ -34,7 +34,7 @@ public class OwnHitArea {
     }
 
     private function createBitmapData(sp:Sprite):void {
-        var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapScale(sp));
+        var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapData(sp));
         _w = int(bm.width * bitmapScaling);
         _h = int(bm.height * bitmapScaling);
         _rect.x = int(_rect.x * bitmapScaling);

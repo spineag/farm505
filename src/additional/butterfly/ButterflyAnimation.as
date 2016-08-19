@@ -3,9 +3,11 @@
  */
 package additional.butterfly {
 import dragonBones.Armature;
-import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingFactory;
+
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -20,7 +22,7 @@ public class ButterflyAnimation {
 
     public function ButterflyAnimation(type:int) {
         _source = new Sprite();
-        _armature = g.allData.factory['bfly'].buildArmature("bfly");
+        _armature = (g.allData.factory['bfly'] as StarlingFactory).buildArmature("bfly");
         if (type != Butterfly.TYPE_PINK) {
             changeTexture(type);
         }
@@ -45,7 +47,7 @@ public class ButterflyAnimation {
 
     private function changeBoneTexture(oldName:String, newName:String):void {
         var im:Image = g.allData.factory['bfly'].getTextureDisplay(newName) as Image;
-        var b:Bone = _armature.getBone(oldName);
+        var b:Slot = _armature.getSlot(oldName);
         if (im) {
             im.x = b.display.x;
             im.y = b.display.y;
@@ -66,27 +68,27 @@ public class ButterflyAnimation {
         removeListener();
         addListener();
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay(_label);
+        _armature.animation.gotoAndPlayByFrame(_label);
     }
 
     private function addListener():void {
-        if (!_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
-        if (!_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
+        if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, onCompleteAnimation);
+        if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
     }
 
     private function removeListener():void {
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
     }
 
-    private function onCompleteAnimation(e:AnimationEvent):void {
+    private function onCompleteAnimation(e:EventObject):void {
         if (_playOnce) {
             stopIt();
             if (_callback != null) {
                 _callback.apply();
             }
         } else {
-            _armature.animation.gotoAndPlay(_label);
+            _armature.animation.gotoAndPlayByFrame(_label);
         }
     }
 

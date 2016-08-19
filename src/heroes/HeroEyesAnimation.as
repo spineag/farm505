@@ -3,10 +3,10 @@
  */
 package heroes {
 import dragonBones.Armature;
-import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
-import dragonBones.factories.StarlingFactory;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingFactory;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -20,32 +20,32 @@ public class HeroEyesAnimation {
         isAnimated = false;
         _armatureEyes = fact.buildArmature("eyes");
 
-        var headBone:Bone = catArmature.getBone('head');
+        var headBone:Slot = catArmature.getSlot('head');
         headBone.display.dispose();
         _armatureClip = _armatureEyes.display as Sprite;
         headBone.display = _armatureClip;
 
-        var b:Bone;
+        var b:Slot;
         var im:Image;
         im = fact.getTextureDisplay(path) as Image;
-        b = _armatureEyes.getBone('head');
+        b = _armatureEyes.getSlot('head');
         b.display.dispose();
         b.display = im;
 
-        b = _armatureEyes.getBone('lid_r');
+        b = _armatureEyes.getSlot('lid_r');
         im = fact.getTextureDisplay('eye/lid_r' + path2) as Image;
         b.display.dispose();
         b.display = im;
-        b = _armatureEyes.getBone('lid_l');
+        b = _armatureEyes.getSlot('lid_l');
         im = fact.getTextureDisplay('eye/lid_l' + path2) as Image;
         b.display.dispose();
         b.display = im;
 
         if (!isWoman) {
-            b = _armatureEyes.getBone('vii1');
-            _armatureEyes.removeBone(b);
-            b = _armatureEyes.getBone('vii2');
-            _armatureEyes.removeBone(b);
+            b = _armatureEyes.getSlot('vii1');
+            _armatureEyes.removeSlot(b);
+            b = _armatureEyes.getSlot('vii2');
+            _armatureEyes.removeSlot(b);
         }
 
         //changeColorEyes(fact);
@@ -56,34 +56,34 @@ public class HeroEyesAnimation {
         if (isAnimated) return;
         WorldClock.clock.add(_armatureEyes);
         isAnimated = true;
-        _armatureEyes.addEventListener(dragonBones.events.AnimationEvent.LOOP_COMPLETE, armatureEventHandler);
+        _armatureEyes.addEventListener(EventObject.LOOP_COMPLETE, armatureEventHandler);
         playIt();
     }
 
-    private function armatureEventHandler(e:dragonBones.events.AnimationEvent):void {
+    private function armatureEventHandler(e:EventObject):void {
         playIt();
     }
 
     private function playIt():void {
         var r:Number = Math.random();
         if (r < .2) {
-            _armatureEyes.animation.gotoAndPlay("idle");
+            _armatureEyes.animation.gotoAndPlayByFrame("idle");
         } else if (r < .4) {
-            _armatureEyes.animation.gotoAndPlay("idle1");
+            _armatureEyes.animation.gotoAndPlayByFrame("idle1");
         } else if (r < .6) {
-            _armatureEyes.animation.gotoAndPlay("idle2");
+            _armatureEyes.animation.gotoAndPlayByFrame("idle2");
         } else if (r < .8) {
-            _armatureEyes.animation.gotoAndPlay("idle3");
+            _armatureEyes.animation.gotoAndPlayByFrame("idle3");
         } else {
-            _armatureEyes.animation.gotoAndPlay("idle4");
+            _armatureEyes.animation.gotoAndPlayByFrame("idle4");
         }
     }
 
     public function stopAnimations():void {
         if (!isAnimated) return;
         isAnimated  = false;
-        _armatureEyes.removeEventListener(dragonBones.events.AnimationEvent.LOOP_COMPLETE, armatureEventHandler);
-        _armatureEyes.animation.gotoAndStop("idle", 0);
+        _armatureEyes.removeEventListener(EventObject.LOOP_COMPLETE, armatureEventHandler);
+        _armatureEyes.animation.stop("idle");
         WorldClock.clock.remove(_armatureEyes);
     }
 
@@ -92,10 +92,10 @@ public class HeroEyesAnimation {
         var k:int = int(Math.random()*arr.length);
         var im:Image = fact.getTextureDisplay(arr[k]) as Image;
         var im2:Image = fact.getTextureDisplay(arr[k]) as Image;
-        var b:Bone = _armatureEyes.getBone('eye_l');
+        var b:Slot = _armatureEyes.getSlot('eye_l');
         b.display.dispose();
         b.display = im;
-        b = _armatureEyes.getBone('eye_r');
+        b = _armatureEyes.getSlot('eye_r');
         b.display.dispose();
         b.display = im2;
     }

@@ -9,6 +9,7 @@ import build.ridge.Ridge;
 import com.greensock.TweenMax;
 import dragonBones.Armature;
 import dragonBones.Bone;
+import dragonBones.Slot;
 
 import flash.geom.Point;
 
@@ -173,7 +174,7 @@ public class HeroCat extends BasicCat{
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
         var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
-        var b:Bone = arma.getBone(oldName);
+        var b:Slot = arma.getSlot(oldName);
         b.display.dispose();
         b.display = im;
     }

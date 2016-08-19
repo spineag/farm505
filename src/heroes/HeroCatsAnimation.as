@@ -4,7 +4,7 @@
 package heroes {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
 import starling.display.Sprite;
 
 public class HeroCatsAnimation {
@@ -72,55 +72,55 @@ public class HeroCatsAnimation {
             _catImage.visible = true;
             _catBackImage.visible = false;
             WorldClock.clock.add(_armature);
-            _armature.animation.gotoAndPlay(_label);
+            _armature.animation.gotoAndPlayByFrame(_label);
         } else if (_state == STATE_BACK) {
             if (_catWorkerImage) _catWorkerImage.visible = false;
             _catImage.visible = false;
             _catBackImage.visible = true;
             WorldClock.clock.add(_armatureBack);
-            _armatureBack.animation.gotoAndPlay(_label);
+            _armatureBack.animation.gotoAndPlayByFrame(_label);
         } else if (_state == STATE_WORKER && _armatureWorker) {
             if (_catWorkerImage) _catWorkerImage.visible = true;
             _catImage.visible = false;
             _catBackImage.visible = false;
             WorldClock.clock.add(_armatureWorker);
-            _armatureWorker.animation.gotoAndPlay(_label);
+            _armatureWorker.animation.gotoAndPlayByFrame(_label);
         }
     }
 
     private function addListener():void {
         if (_state == STATE_FRONT) {
-            if (_armature && !_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
-            if (_armature && !_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
+            if (_armature && !_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, onCompleteAnimation);
+            if (_armature && !_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
         } else if (_state == STATE_BACK) {
-            if (_armatureBack && !_armatureBack.hasEventListener(AnimationEvent.COMPLETE)) _armatureBack.addEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
-            if (_armatureBack && !_armatureBack.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureBack.addEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
+            if (_armatureBack && !_armatureBack.hasEventListener(EventObject.COMPLETE)) _armatureBack.addEventListener(EventObject.COMPLETE, onCompleteAnimation);
+            if (_armatureBack && !_armatureBack.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureBack.addEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
         } else if (_state == STATE_WORKER) {
-            if (_armatureWorker && !_armatureWorker.hasEventListener(AnimationEvent.COMPLETE)) {
-                _armatureWorker.addEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
+            if (_armatureWorker && !_armatureWorker.hasEventListener(EventObject.COMPLETE)) {
+                _armatureWorker.addEventListener(EventObject.COMPLETE, onCompleteAnimation);
             }
-            if (_armatureWorker && !_armatureWorker.hasEventListener(AnimationEvent.LOOP_COMPLETE)) {
-                _armatureWorker.addEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
+            if (_armatureWorker && !_armatureWorker.hasEventListener(EventObject.LOOP_COMPLETE)) {
+                _armatureWorker.addEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
             }
         }
     }
 
     private function removeListener():void {
-        if (_armature && _armature.hasEventListener(AnimationEvent.COMPLETE)) {
-            _armature.removeEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
+        if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) {
+            _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
         }
-        if (_armature && _armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
-        if (_armatureBack && _armatureBack.hasEventListener(AnimationEvent.COMPLETE)) {
-            _armatureBack.removeEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
+        if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
+        if (_armatureBack && _armatureBack.hasEventListener(EventObject.COMPLETE)) {
+            _armatureBack.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
         }
-        if (_armatureBack && _armatureBack.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureBack.removeEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
-        if (_armatureWorker && _armatureWorker.hasEventListener(AnimationEvent.COMPLETE)) {
-            _armatureWorker.removeEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
+        if (_armatureBack && _armatureBack.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureBack.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
+        if (_armatureWorker && _armatureWorker.hasEventListener(EventObject.COMPLETE)) {
+            _armatureWorker.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
         }
-        if (_armatureWorker && _armatureWorker.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureWorker.removeEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
+        if (_armatureWorker && _armatureWorker.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureWorker.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
     }
 
-    private function onCompleteAnimation(e:AnimationEvent):void {
+    private function onCompleteAnimation(e:EventObject):void {
         if (_playOnce) {
             stopIt();
             if (_callback != null) {
@@ -180,8 +180,8 @@ public class HeroCatsAnimation {
 
     public function deleteArmature(arma:Armature):void {
         WorldClock.clock.remove(arma);
-        if (arma.hasEventListener(AnimationEvent.COMPLETE)) arma.removeEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
-        if (arma.hasEventListener(AnimationEvent.LOOP_COMPLETE)) arma.removeEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
+        if (arma.hasEventListener(EventObject.COMPLETE)) arma.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
+        if (arma.hasEventListener(EventObject.LOOP_COMPLETE)) arma.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
         arma.dispose();
         arma = null;
     }

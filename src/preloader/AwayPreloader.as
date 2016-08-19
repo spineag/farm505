@@ -45,7 +45,7 @@ public class AwayPreloader {
             _armatureSprite.scaleX = 1;
         }
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay('run');
+        _armature.animation.gotoAndPlayByFrame('run');
 
         _source.x = Starling.current.nativeStage.stageWidth/2;
         _source.y = Starling.current.nativeStage.stageHeight/2;

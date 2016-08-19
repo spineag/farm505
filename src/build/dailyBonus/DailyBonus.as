@@ -4,17 +4,13 @@
 package build.dailyBonus {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
-import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
-import starling.display.Sprite;
 import windows.WindowsManager;
 
 public class DailyBonus extends WorldObject{
@@ -35,7 +31,7 @@ public class DailyBonus extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndStop('idle', 0);
+        _armature.animation.stop('idle');
         if (!g.isAway) {
             _source.endClickCallback = onClick;
             _hitArea = g.managerHitArea.getHitArea(_source, 'dailyBonusBuild');
@@ -56,15 +52,15 @@ public class DailyBonus extends WorldObject{
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             var fEndOver:Function = function():void {
-                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-                _armature.animation.gotoAndStop('idle', 0);
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.stop('idle');
                 showLights();
 
 
             };
-            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
             hoverIdle();
         }
         _isOnHover = true;
@@ -136,21 +132,21 @@ public class DailyBonus extends WorldObject{
 
     public function showLights():void {
         WorldClock.clock.add(_armature);
-        if (_armature) _armature.animation.gotoAndPlay('work');
+        if (_armature) _armature.animation.gotoAndPlayByFrame('work');
     }
 
     private function hoverIdle():void {
         WorldClock.clock.add(_armature);
-        if (_armature) _armature.animation.gotoAndPlay('idle_2');
+        if (_armature) _armature.animation.gotoAndPlayByFrame('idle_2');
     }
 
     private function hoverout():void {
-        if (_armature) _armature.animation.gotoAndStop('idle', 0);
+        if (_armature) _armature.animation.stop('idle');
         WorldClock.clock.remove(_armature);
     }
 
     public function hideLights():void {
-        if (_armature)  _armature.animation.gotoAndStop('idle', 0);
+        if (_armature)  _armature.animation.stop('idle');
         WorldClock.clock.remove(_armature);
     }
 

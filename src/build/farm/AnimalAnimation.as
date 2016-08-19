@@ -3,17 +3,11 @@
  */
 package build.farm {
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
-import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
-
-import starling.display.DisplayObject;
-
-import starling.display.DisplayObjectContainer;
+import dragonBones.events.EventObject;
 import starling.display.Image;
-
 import starling.display.Sprite;
 
 public class AnimalAnimation {
@@ -40,15 +34,15 @@ public class AnimalAnimation {
 
     private function tryUnTouchableZZZ():void {
         try {
-            var b:Bone = _armature.getBone('zzz');
+            var b:Slot = _armature.getSlot('zzz');
             if (b && b.display is Image) {
                 (b.display as Image).touchable = false;
             }
-            b = _armature.getBone('zzz copy');
+            b = _armature.getSlot('zzz copy');
             if (b && b.display is Image) {
                 (b.display as Image).touchable = false;
             }
-            b = _armature.getBone('zzz copy 2');
+            b = _armature.getSlot('zzz copy 2');
             if (b && b.display is Image) {
                 (b.display as Image).touchable = false;
             }
@@ -71,26 +65,26 @@ public class AnimalAnimation {
     public function stopItAtLabel(label:String):void {
         _label = label;
         if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndStop(_label, 0);
+        _armature.animation.stop(_label);
     }
 
     private function startAnimation():void {
         if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay(_label);
+        _armature.animation.gotoAndPlayByFrame(_label);
     }
 
     private function addListener():void {
-        if (_armature && !_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
-        if (_armature && !_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
+        if (_armature && !_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, onCompleteAnimation);
+        if (_armature && !_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
     }
 
     private function removeListener():void {
-        if (_armature && _armature.hasEventListener(AnimationEvent.COMPLETE)) {
-            _armature.removeEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
+        if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) {
+            _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
         }
     }
 
-    private function onCompleteAnimation(e:AnimationEvent):void {
+    private function onCompleteAnimation(e:EventObject):void {
         if (_playOnce) {
             stopIt();
             if (_callback != null) {

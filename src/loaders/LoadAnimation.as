@@ -2,12 +2,9 @@
  * Created by andy on 5/19/16.
  */
 package loaders {
+import dragonBones.starling.StarlingFactory;
 import manager.*;
-
-import dragonBones.factories.StarlingFactory;
 import dragonBones.objects.DragonBonesData;
-import dragonBones.objects.XMLDataParser;
-import dragonBones.textures.StarlingTextureAtlas;
 import flash.display.Bitmap;
 import starling.textures.Texture;
 
@@ -35,12 +32,19 @@ public class LoadAnimation {
         _count--;
         if (_count <=0) {
             var factory:StarlingFactory = new StarlingFactory();
-            var skeletonData:DragonBonesData = XMLDataParser.parseDragonBonesData(g.pXMLs[_url + '/skeleton.xml' + g.getVersion(_name)]);
-            factory.addSkeletonData(skeletonData);
-            var texture:Texture = Texture.fromBitmap(g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)].create() as Bitmap);
-            var textureAtlas:StarlingTextureAtlas = new StarlingTextureAtlas(texture, g.pXMLs[_url + '/texture.xml' + g.getVersion(_name)]);
-            factory.addTextureAtlas(textureAtlas);
+            var dragonBonesData:DragonBonesData = factory.parseDragonBonesData(g.pXMLs[_url + '/skeleton.xml' + g.getVersion(_name)]);
+            factory.parseTextureAtlasData(g.pXMLs[_url + '/texture.xml' + g.getVersion(_name)], Texture.fromBitmap(g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)].create() as Bitmap));
+//            _armatureDisplay = factory.buildArmatureDisplay(dragonBonesData.armatureNames[0]); as example
+
+// old
+//            var skeletonData:DragonBonesData = factory.parseDragonBonesData(g.pXMLs[_url + '/skeleton.xml' + g.getVersion(_name)]);
+//            factory.addSkeletonData(skeletonData);
+//            var texture:Texture = Texture.fromBitmap(g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)].create() as Bitmap);
+//            var textureAtlas:StarlingTextureAtlasData = new StarlingTextureAtlasData(texture, g.pXMLs[_url + '/texture.xml' + g.getVersion(_name)]);
+//            factory.addTextureAtlas(textureAtlas);
+
             g.allData.factory[_name] = factory;
+            g.allData.factoryData[_name] = dragonBonesData;
             delete g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)];
             delete g.pXMLs[_url + '/texture.xml' + g.getVersion(_name)];
             delete g.pXMLs[_url + '/skeleton.png' + g.getVersion(_name)];

@@ -20,7 +20,7 @@ public class FlashAnimatedPreloader {
         _arma = g.allData.factory['preloader_2'].buildArmature("preloader");
         _source.addChild(_arma.display as Sprite);
         WorldClock.clock.add(_arma);
-        _arma.animation.gotoAndPlay('start');
+        _arma.animation.gotoAndPlayByFrame('start');
     }
 
     public function get source():Sprite {

@@ -7,33 +7,26 @@ import data.BuildType;
 import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
 import flash.geom.Point;
-import heroes.HeroEyesAnimation;
 import heroes.OrderCat;
 import manager.ManagerFilters;
 import manager.ManagerOrder;
 import manager.ManagerOrderItem;
-
 import media.SoundConst;
-
 import resourceItem.DropItem;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
-import temp.catCharacters.DataCat;
-
 import utils.SimpleArrow;
-
 import tutorial.TutorialAction;
 import tutorial.TutorialTextBubble;
 import ui.xpPanel.XPStar;
 import utils.CButton;
-import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
 import windows.WOComponents.Birka;
@@ -738,10 +731,10 @@ public class WOOrder extends WindowMain{
     private function createTopCats():void {
         _armatureCustomer = g.allData.factory['order_window'].buildArmature("cat_customer");
         _armatureSeller = g.allData.factory['order_window'].buildArmature("cat_seller");
-        _armatureCustomer.display.x = 110;
-        _armatureCustomer.display.y = -170;
-        _armatureSeller.display.x = -110;
-        _armatureSeller.display.y = -170;
+        (_armatureCustomer.display as Sprite).x = 110;
+        (_armatureCustomer.display as Sprite).y = -170;
+        (_armatureSeller.display as Sprite).x = -110;
+        (_armatureSeller.display as Sprite).y = -170;
         _source.addChild(_armatureCustomer.display as Sprite);
         _source.addChild(_armatureSeller.display as Sprite);
         var viyi:Bone = _armatureSeller.getBone('viyi');
@@ -770,15 +763,15 @@ public class WOOrder extends WindowMain{
         }
 
         releaseFrontTexture(st);
-        var b:Bone = _armatureCustomer.getBone('bant');
-        var viyi:Bone = _armatureCustomer.getBone('viyi');
+        var b:Slot = _armatureCustomer.getSlot('bant');
+        var viyi:Slot= _armatureCustomer.getSlot('viyi');
         if (!_arrOrders[pos].catOb.isWoman) {
-            b.visible = false;
-            viyi.visible = false;
+            b.display.visible = false;
+            viyi.display.visible = false;
         }
         else {
             changeBant(_arrOrders[pos].cat.bant, b);
-            viyi.visible = true;
+            viyi.display.visible = true;
         }
         var okuli:Bone = _armatureCustomer.getBone('okuli');
         var sharf:Bone = _armatureCustomer.getBone('sharf');
@@ -854,12 +847,12 @@ public class WOOrder extends WindowMain{
 //        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);
     }
 
-    private function changeBant(n:int, b:Bone):void {
+    private function changeBant(n:int, b:Slot):void {
         var str:String = 'bant_'+ String(n);
         if (n == 1) str = 'bant';
         var im:Image = g.allData.factory['order_window'].getTextureDisplay('bants/' + str) as Image;
         if (b) {
-            b.visible = true;
+            b..display.visible = true;
             if (b.display) {
                 if (im) {
                     b.display.dispose();
@@ -885,7 +878,7 @@ public class WOOrder extends WindowMain{
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
         var im:Image = g.allData.factory['order_window'].getTextureDisplay(newName) as Image;
-        var b:Bone = arma.getBone(oldName);
+        var b:Slot = arma.getSlot(oldName);
         if (b) {
             if (im) {
                 if (b.display) {
@@ -908,37 +901,37 @@ public class WOOrder extends WindowMain{
 //        animateSellerCat();
     }
 
-    private function animateCustomerCat(e:AnimationEvent=null):void {
-        if (_armatureCustomer.hasEventListener(AnimationEvent.COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
-        if (_armatureCustomer.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+    private function animateCustomerCat(e:EventObject=null):void {
+        if (_armatureCustomer.hasEventListener(EventObject.COMPLETE)) _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerCat);
+        if (_armatureCustomer.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
 
-        _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
-        _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(EventObject.COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
         var l:int = int(Math.random()*6);
         switch (l) {
-            case 0: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
-            case 1: _armatureCustomer.animation.gotoAndPlay('idle_4'); break;
-            case 2: _armatureCustomer.animation.gotoAndPlay('speak'); break;
-            case 3: _armatureCustomer.animation.gotoAndPlay('idle_3'); break;
-            case 4: _armatureCustomer.animation.gotoAndPlay('idle_2'); break;
-            case 5: _armatureCustomer.animation.gotoAndPlay('speak_2'); break;
+            case 0: _armatureCustomer.animation.gotoAndPlayByFrame('idle1'); break;
+            case 1: _armatureCustomer.animation.gotoAndPlayByFrame('idle_4'); break;
+            case 2: _armatureCustomer.animation.gotoAndPlayByFrame('speak'); break;
+            case 3: _armatureCustomer.animation.gotoAndPlayByFrame('idle_3'); break;
+            case 4: _armatureCustomer.animation.gotoAndPlayByFrame('idle_2'); break;
+            case 5: _armatureCustomer.animation.gotoAndPlayByFrame('speak_2'); break;
         }
     }
 
-    private function animateSellerCat(e:AnimationEvent=null):void {
-        if (_armatureSeller.hasEventListener(AnimationEvent.COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerCat);
-        if (_armatureSeller.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+    private function animateSellerCat(e:EventObject=null):void {
+        if (_armatureSeller.hasEventListener(EventObject.COMPLETE)) _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerCat);
+        if (_armatureSeller.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
 
-        _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerCat);
-        _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(EventObject.COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
         var l:int = int(Math.random()*6);
         switch (l) {
-            case 0: _armatureSeller.animation.gotoAndPlay('idle1'); break;
-            case 1: _armatureSeller.animation.gotoAndPlay('speak_5'); break;
-            case 2: _armatureSeller.animation.gotoAndPlay('speak_4'); break;
-            case 3: _armatureSeller.animation.gotoAndPlay('speak'); break;
-            case 4: _armatureSeller.animation.gotoAndPlay('speak_3'); break;
-            case 5: _armatureSeller.animation.gotoAndPlay('speak_2'); break;
+            case 0: _armatureSeller.animation.gotoAndPlayByFrame('idle1'); break;
+            case 1: _armatureSeller.animation.gotoAndPlayByFrame('speak_5'); break;
+            case 2: _armatureSeller.animation.gotoAndPlayByFrame('speak_4'); break;
+            case 3: _armatureSeller.animation.gotoAndPlayByFrame('speak'); break;
+            case 4: _armatureSeller.animation.gotoAndPlayByFrame('speak_3'); break;
+            case 5: _armatureSeller.animation.gotoAndPlayByFrame('speak_2'); break;
         }
     }
 
@@ -958,37 +951,37 @@ public class WOOrder extends WindowMain{
         if (!_armatureCustomer || !_armatureSeller) {
             return;
         }
-        _armatureCustomer.animation.gotoAndStop('idle1', 0);
-        _armatureSeller.animation.gotoAndStop('idle1', 0);
-        if (_armatureSeller.hasEventListener(AnimationEvent.COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerCat);
-        if (_armatureSeller.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
-        if (_armatureCustomer.hasEventListener(AnimationEvent.COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
-        if (_armatureCustomer.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+        _armatureCustomer.animation.stop('idle1');
+        _armatureSeller.animation.stop('idle1');
+        if (_armatureSeller.hasEventListener(EventObject.COMPLETE)) _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerCat);
+        if (_armatureSeller.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
+        if (_armatureCustomer.hasEventListener(EventObject.COMPLETE)) _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerCat);
+        if (_armatureCustomer.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
     }
 
     private function animateCatsOnSell():void {
         stopCatsAnimations();
         if (_armatureSeller) {
-            _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerOnSell);
-            _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerOnSell);
-            _armatureSeller.animation.gotoAndPlay('coin');
+            _armatureSeller.addEventListener(EventObject.COMPLETE, animateSellerOnSell);
+            _armatureSeller.addEventListener(EventObject.LOOP_COMPLETE, animateSellerOnSell);
+            _armatureSeller.animation.gotoAndPlayByFrame('coin');
         }
         if (_armatureCustomer) {
-            _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
-            _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
-            _armatureCustomer.animation.gotoAndPlay('love');
+            _armatureCustomer.addEventListener(EventObject.COMPLETE, animateCustomerOnSell);
+            _armatureCustomer.addEventListener(EventObject.LOOP_COMPLETE, animateCustomerOnSell);
+            _armatureCustomer.animation.gotoAndPlayByFrame('love');
         }
     }
 
-    private function animateSellerOnSell(e:AnimationEvent):void {
-        _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerOnSell);
-        _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerOnSell);
+    private function animateSellerOnSell(e:EventObject):void {
+        _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerOnSell);
+        _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerOnSell);
         animateSellerCat();
     }
 
-    private function animateCustomerOnSell(e:AnimationEvent):void {
-        _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
-        _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
+    private function animateCustomerOnSell(e:EventObject):void {
+        _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerOnSell);
+        _armatureCustomer.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerOnSell);
 
         emptyCarCustomer();
 //      changeCatTexture(_activeOrderItem.position);
@@ -1027,24 +1020,24 @@ public class WOOrder extends WindowMain{
     }
 
     private function helloStart():void {
-        _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerCat);
-        _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(EventObject.COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
         var l:int = int(Math.random()*2);
         switch (l) {
-            case 0: _armatureSeller.animation.gotoAndPlay('hi'); break;
-            case 1: _armatureSeller.animation.gotoAndPlay('hi2'); break;
+            case 0: _armatureSeller.animation.gotoAndPlayByFrame('hi'); break;
+            case 1: _armatureSeller.animation.gotoAndPlayByFrame('hi2'); break;
         }
-        _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
-        _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(EventObject.COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
          l = int(Math.random()*2);
         switch (l) {
-            case 0: _armatureCustomer.animation.gotoAndPlay('hi'); break;
-            case 1: _armatureCustomer.animation.gotoAndPlay('hi2'); break;
+            case 0: _armatureCustomer.animation.gotoAndPlayByFrame('hi'); break;
+            case 1: _armatureCustomer.animation.gotoAndPlayByFrame('hi2'); break;
         }
     }
 
     private function emptyCarCustomer():void {
-        _armatureCustomer.animation.gotoAndPlay('empty');
+        _armatureCustomer.animation.gotoAndPlayByFrame('empty');
     }
 }
 }

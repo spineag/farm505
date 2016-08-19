@@ -3,20 +3,18 @@
  */
 package build.fabrica {
 import analytic.AnalyticManager;
-
 import build.WorldObject;
 import data.BuildType;
 import dragonBones.Armature;
 import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
 import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.HeroCat;
 import manager.ManagerFilters;
-
 import media.SoundConst;
-
 import resourceItem.CraftItem;
 import com.junkbyte.console.Cc;
 import resourceItem.RawItem;
@@ -27,7 +25,6 @@ import starling.display.Sprite;
 import starling.textures.Texture;
 import tutorial.TutorialAction;
 import tutorial.helpers.HelperReason;
-
 import ui.xpPanel.XPStar;
 import windows.WindowsManager;
 
@@ -153,13 +150,13 @@ public class Fabrica extends WorldObject {
 
             if (!_isOnHover && !_arrList.length && _armature) {
                 var fEndOver:Function = function():void {
-                    _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-                    _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-                    _armature.animation.gotoAndStop('idle', 0);
+                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                    _armature.animation.stop('idle');
                 };
-                _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-                _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-                _armature.animation.gotoAndPlay('over');
+                _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlayByFrame('over');
             }
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) {
@@ -532,42 +529,42 @@ public class Fabrica extends WorldObject {
 
     private function startAnimation():void {
         if (!_armature) return;
-        _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
+        _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
         releaseHeroCatWoman();
         chooseAnimation();
     }
 
     private function stopAnimation():void {
-        if (_armature && _armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, chooseAnimation);
-        if (_armature && _armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
-        if (_armature) _armature.animation.gotoAndStop('idle', 0);
+        if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
+        if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
+        if (_armature) _armature.animation.stop('idle');
     }
 
-    private function chooseAnimation(e:AnimationEvent = null):void {
+    private function chooseAnimation(e:EventObject = null):void {
         if (!_armature) return;
-        if (!_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, chooseAnimation);
-        if (!_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, chooseAnimation);
+        if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
+        if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
         var k:int = int(Math.random() * 6);
         switch (k) {
             case 0:
-                _armature.animation.gotoAndPlay('idle1');
+                _armature.animation.gotoAndPlayByFrame('idle1');
                 break;
             case 1:
-                _armature.animation.gotoAndPlay('idle1');
+                _armature.animation.gotoAndPlayByFrame('idle1');
                 break;
             case 2:
-                _armature.animation.gotoAndPlay('idle1');
+                _armature.animation.gotoAndPlayByFrame('idle1');
                 break;
             case 3:
-                _armature.animation.gotoAndPlay('idle2');
+                _armature.animation.gotoAndPlayByFrame('idle2');
                 break;
             case 4:
-                _armature.animation.gotoAndPlay('idle3');
+                _armature.animation.gotoAndPlayByFrame('idle3');
                 break;
             case 5:
-                if (_armature.animation.hasAnimation('idle4')) _armature.animation.gotoAndPlay('idle4');
-                else _armature.animation.gotoAndPlay('idle3');
+                if (_armature.animation.hasAnimation('idle4')) _armature.animation.gotoAndPlayByFrame('idle4');
+                else _armature.animation.gotoAndPlayByFrame('idle3');
                 break;
         }
     }
@@ -704,7 +701,7 @@ public class Fabrica extends WorldObject {
 
     private function changeTexture(oldName:String, newName:String):void {
         var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
-        if (_armature) var b:Bone = _armature.getBone(oldName);
+        if (_armature) var b:Slot = _armature.getSlot(oldName);
         if (b) {
             im.pivotX = b.display.pivotX;
             im.pivotY = b.display.pivotY;
@@ -718,18 +715,18 @@ public class Fabrica extends WorldObject {
     private function showBoom():void {
         _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
         if (!_armatureOpen) return;
-        _armatureOpen.display.scaleX = _armatureOpen.display.scaleY = 1.5;
+        (_armatureOpen.display as Sprite).scaleX = (_armatureOpen.display as Sprite).scaleY = 1.5;
         _source.addChild(_armatureOpen.display as Sprite);
         WorldClock.clock.add(_armatureOpen);
-        _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
-        _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
-        _armatureOpen.animation.gotoAndPlay("start");
+        _armatureOpen.addEventListener(EventObject.COMPLETE, onBoom);
+        _armatureOpen.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
+        _armatureOpen.animation.gotoAndPlayByFrame("start");
 
     }
 
-    private function onBoom(e:AnimationEvent=null):void {
-        if (_armatureOpen.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.COMPLETE, onBoom);
-        if (_armatureOpen.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+    private function onBoom(e:EventObject=null):void {
+        if (_armatureOpen.hasEventListener(EventObject.COMPLETE)) _armatureOpen.removeEventListener(EventObject.COMPLETE, onBoom);
+        if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armatureOpen);
         _source.removeChild(_armatureOpen.display as Sprite);
         _armatureOpen.dispose();

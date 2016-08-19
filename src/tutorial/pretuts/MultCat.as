@@ -5,7 +5,7 @@ package tutorial.pretuts {
 import com.greensock.TweenMax;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
 import manager.Vars;
 import starling.display.Sprite;
 
@@ -32,31 +32,31 @@ public class MultCat {
 
     public function moveTo(newX:int, newY:int, d:Number):void {
         WorldClock.clock.add(_armature);
-        _armature.addEventListener(AnimationEvent.COMPLETE, onWalk);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onWalk);
-        _armature.animation.gotoAndPlay('run');
+        _armature.addEventListener(EventObject.COMPLETE, onWalk);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, onWalk);
+        _armature.animation.gotoAndPlayByFrame('run');
         TweenMax.to(_source, 1.2, {x:newX, y:newY, onComplete:showHello, delay:d});
     }
 
-    private function onWalk(e:AnimationEvent):void {
-        _armature.animation.gotoAndPlay('run');
+    private function onWalk(e:EventObject):void {
+        _armature.animation.gotoAndPlayByFrame('run');
     }
 
     private function showHello():void {
-        _armature.removeEventListener(AnimationEvent.COMPLETE, onWalk);
-        _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onWalk);
-        _armature.addEventListener(AnimationEvent.COMPLETE, onHello);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onHello);
-        _armature.animation.gotoAndPlay('hello');
+        _armature.removeEventListener(EventObject.COMPLETE, onWalk);
+        _armature.removeEventListener(EventObject.LOOP_COMPLETE, onWalk);
+        _armature.addEventListener(EventObject.COMPLETE, onHello);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, onHello);
+        _armature.animation.gotoAndPlayByFrame('hello');
     }
 
-    private function onHello(e:AnimationEvent):void {
-        _armature.animation.gotoAndPlay('hello');
+    private function onHello(e:EventObject):void {
+        _armature.animation.gotoAndPlayByFrame('hello');
     }
 
     public function deleteIt():void {
-        _armature.removeEventListener(AnimationEvent.COMPLETE, onHello);
-        _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onHello);
+        _armature.removeEventListener(EventObject.COMPLETE, onHello);
+        _armature.removeEventListener(EventObject.LOOP_COMPLETE, onHello);
         WorldClock.clock.remove(_armature);
         _parent.removeChild(_source);
         _source.dispose();

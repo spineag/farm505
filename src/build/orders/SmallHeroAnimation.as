@@ -3,7 +3,7 @@
  */
 package build.orders {
 import dragonBones.Armature;
-import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import starling.display.Sprite;
 
@@ -19,7 +19,7 @@ public class SmallHeroAnimation {
     
     public function set armature(arma:Armature):void {
         if (!arma) return;
-        var b:Bone = _building.getArmature.getBone('table');
+        var b:Slot = _building.getArmature.getSlot('table');
         b.display.dispose();
         _arma = arma;
         _armaClip = arma.display as Sprite;
@@ -34,10 +34,10 @@ public class SmallHeroAnimation {
         if (!_arma) return;
         if (v) {
             WorldClock.clock.add(_arma);
-            _arma.animation.gotoAndPlay('start');
+            _arma.animation.gotoAndPlayByFrame('start');
             _armaClip.visible = true;
         } else {
-            _arma.animation.gotoAndStop('start', 0);
+            _arma.animation.stop('start');
             WorldClock.clock.remove(_arma);
             _armaClip.visible = false;
         }

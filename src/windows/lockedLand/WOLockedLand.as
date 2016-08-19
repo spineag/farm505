@@ -7,6 +7,8 @@ import com.junkbyte.console.Cc;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
 
@@ -148,26 +150,26 @@ public class WOLockedLand extends WindowMain {
 
     private function addAnimation():void {
         _armature = g.allData.factory['plot_seller'].buildArmature("cat_customer");
-        _armature.display.x = -150;
-        _armature.display.y = -150;
-        _armature.display.scaleX = -1;
+        (_armature.display as Sprite).x = -150;
+        (_armature.display as Sprite).y = -150;
+        (_armature.display as Sprite).scaleX = -1;
         _source.addChild(_armature.display as Sprite);
     }
 
-    private function showAnimation(e:AnimationEvent = null):void {
+    private function showAnimation(e:EventObject = null):void {
         if(!_armature) return;
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, showAnimation);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, showAnimation);
 
-        _armature.addEventListener(AnimationEvent.COMPLETE, showAnimation);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+        _armature.addEventListener(EventObject.COMPLETE, showAnimation);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, showAnimation);
         var l:int = int(Math.random()*5);
         switch (l) {
-            case 0: _armature.animation.gotoAndPlay('idle1'); break;
-            case 1: _armature.animation.gotoAndPlay('idle1'); break;
-            case 2: _armature.animation.gotoAndPlay('hi'); break;
-            case 3: _armature.animation.gotoAndPlay('idle_2'); break;
-            case 4: _armature.animation.gotoAndPlay('idle_3'); break;
+            case 0: _armature.animation.gotoAndPlayByFrame('idle1'); break;
+            case 1: _armature.animation.gotoAndPlayByFrame('idle1'); break;
+            case 2: _armature.animation.gotoAndPlayByFrame('hi'); break;
+            case 3: _armature.animation.gotoAndPlayByFrame('idle_2'); break;
+            case 4: _armature.animation.gotoAndPlayByFrame('idle_3'); break;
         }
     }
 
@@ -178,8 +180,8 @@ public class WOLockedLand extends WindowMain {
         }
         _arrItems.length = 0;
         WorldClock.clock.remove(_armature);
-        if (_armature) if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
-        if (_armature) if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+        if (_armature) if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, showAnimation);
+        if (_armature) if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, showAnimation);
         if (_armature) _source.removeChild(_armature.display as Sprite);
         if (_armature) _armature.dispose();
         if (_armature) _armature = null;

@@ -73,7 +73,6 @@ public class WOPapperPage {
         txt.x = 170;
         txt.y = 460;
         _bg.addChild(txt);
-        _bg.flatten();
         source.addChild(_bg);
     }
 
@@ -107,7 +106,7 @@ public class WOPapperPage {
     }
 
     public function get getScreenshot():Bitmap {
-        var b:Bitmap = DrawToBitmap.drawToBitmap2(source);
+        var b:Bitmap = DrawToBitmap.drawToBitmap(source);
         return b;
     }
 

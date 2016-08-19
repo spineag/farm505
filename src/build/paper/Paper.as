@@ -4,16 +4,12 @@
 package build.paper {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
-import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
-import starling.display.Sprite;
 import windows.WindowsManager;
 
 public class Paper extends WorldObject{
@@ -34,7 +30,7 @@ public class Paper extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndStop('idle', 0);
+        _armature.animation.stop('idle');
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
@@ -49,7 +45,7 @@ public class Paper extends WorldObject{
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         }
         if (_isOnHover) return;
-        _armature.animation.gotoAndPlay('idle_2');
+        _armature.animation.gotoAndPlayByFrame('idle_2');
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
     }

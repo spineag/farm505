@@ -9,13 +9,11 @@ import com.junkbyte.console.Cc;
 import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -84,7 +82,6 @@ public class LockedLand extends WorldObject {
         im.x = -36 * g.scaleFactor;
         im.y = -9 * g.scaleFactor;
         _topRibbon.addChild(im);
-        _topRibbon.flatten();
 
         im = new Image(g.allData.atlas['buildAtlas'].getTexture('ribbon_dark_green'));
         im.rotation = 24*Math.PI/180;
@@ -109,7 +106,6 @@ public class LockedLand extends WorldObject {
         im.x = -36 * g.scaleFactor;
         im.y = 333 * g.scaleFactor;
         _bottomRibbon.addChild(im);
-        _bottomRibbon.flatten();
     }
 
     override public function get depth():Number {
@@ -307,14 +303,14 @@ public class LockedLand extends WorldObject {
         onEndAnimation();
         _build.addChild(_contOpen);
         _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
-        _armatureOpen.display.scaleX = _armatureOpen.display.scaleY = 1.5;
-        _armatureOpen.display.x = 10;
-        _armatureOpen.display.y = _source.height/2 - 20;
+        (_armatureOpen.display as Sprite).scale = 1.5;
+        (_armatureOpen.display as Sprite).x = 10;
+        (_armatureOpen.display as Sprite).y = _source.height/2 - 20;
         _contOpen.addChild(_armatureOpen.display as Sprite);
         WorldClock.clock.add(_armatureOpen);
-        _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
-        _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
-        _armatureOpen.animation.gotoAndPlay("start");
+        _armatureOpen.addEventListener(EventObject.COMPLETE, onBoom);
+        _armatureOpen.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
+        _armatureOpen.animation.gotoAndPlayByFrame("start");
     }
 
     private function onEndAnimation():void {
@@ -322,9 +318,9 @@ public class LockedLand extends WorldObject {
         TweenMax.to(_topRibbon, 1, {alpha: 0, delay: .3});
     }
 
-    private function onBoom(e:AnimationEvent=null):void {
-        if (_armatureOpen.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.COMPLETE, onBoom);
-        if (_armatureOpen.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+    private function onBoom(e:EventObject=null):void {
+        if (_armatureOpen.hasEventListener(EventObject.COMPLETE)) _armatureOpen.removeEventListener(EventObject.COMPLETE, onBoom);
+        if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armatureOpen);
         _contOpen.removeChild(_armatureOpen.display as Sprite);
         _armatureOpen.dispose();

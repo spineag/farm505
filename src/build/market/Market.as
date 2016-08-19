@@ -2,25 +2,17 @@
 package build.market {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
-import dragonBones.Armature;
 import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
-import starling.display.Image;
-import starling.display.Sprite;
 import tutorial.TutorialAction;
-
 import user.NeighborBot;
-
-import user.Someone;
-
 import windows.WindowsManager;
 
 public class Market extends WorldObject{
@@ -44,7 +36,7 @@ public class Market extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndStop('work', 0);
+        _armature.animation.stop('work');
         _fruits1 = _armature.getBone('fr');
         _fruits2 = _armature.getBone('fr2');
         _coins = _armature.getBone('coins');
@@ -65,12 +57,12 @@ public class Market extends WorldObject{
         super.onHover();
         if (_isOnHover)  return;
         var fEndOver:Function = function():void {
-            _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
         };
-        _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-        _armature.animation.gotoAndPlay('idle_2');
+        _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+        _armature.animation.gotoAndPlayByFrame('idle_2');
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
@@ -154,16 +146,16 @@ public class Market extends WorldObject{
     private function fillIt():void {
         var coins:int = 0;
         var res:int = 0;
-        var b:Bone;
+        var b:Slot;
         if (g.isAway) _arrItem = g.visitedUser.marketItems;
         else _arrItem = g.user.marketItems;
         if (!_arrItem) {
-            b = _armature.getBone('fr');
-            if (b != null) _armature.removeBone(b,true);
-            b = _armature.getBone('fr2');
-            if (b != null) _armature.removeBone(b,true);
-            b = _armature.getBone('coins');
-            if (b != null) _armature.removeBone(b,true);
+            b = _armature.getSlot('fr');
+            if (b != null) _armature.removeSlot(b);
+            b = _armature.getSlot('fr2');
+            if (b != null) _armature.removeSlot(b);
+            b = _armature.getSlot('coins');
+            if (b != null) _armature.removeSlot(b);
             return;
         }
         for (var i:int = 0; i < _arrItem.length; i++) {
@@ -174,21 +166,21 @@ public class Market extends WorldObject{
             }
         }
 
-        _armature.animation.gotoAndStop('work', 0);
+        _armature.animation.stop('work');
         if (coins <= 0) {
-            b = _armature.getBone('coins');
-            if (b != null) _armature.removeBone(b,true);
+            b = _armature.getSlot('coins');
+            if (b != null) _armature.removeSlot(b);
 
         } else {
             _armature.addBone(_coins);
         }
         if (res <= 0) {
-                b = _armature.getBone('fr');
+                b = _armature.getSlot('fr');
             if (b != null) {
-                _armature.removeBone(b,true);
+                _armature.removeSlot(b);
 
-                b = _armature.getBone('fr2');
-                _armature.removeBone(b,true);
+                b = _armature.getSlot('fr2');
+                _armature.removeSlot(b);
             }
         } else {
             _armature.addBone(_fruits1);

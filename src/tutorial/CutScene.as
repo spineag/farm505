@@ -6,7 +6,8 @@ import com.greensock.TweenMax;
 
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Sprite;
@@ -69,17 +70,17 @@ public class CutScene {
 
     private var label:String;
     private var d:Number;
-    private function animateCat(e:AnimationEvent = null):void {
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCat);
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, animateCat);
+    private function animateCat(e:EventObject = null):void {
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, animateCat);
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, animateCat);
 
         d = Math.random();
         if (d < .5) label = 'idle1';
             else if (d < .75) label = 'idle2';
             else label = 'idle3';
-        _armature.addEventListener(AnimationEvent.COMPLETE, animateCat);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCat);
-        _armature.animation.gotoAndPlay(label);
+        _armature.addEventListener(EventObject.COMPLETE, animateCat);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, animateCat);
+        _armature.animation.gotoAndPlayByFrame(label);
     }
 
     public function onResize():void {
@@ -91,8 +92,8 @@ public class CutScene {
         if (_source) {
             _cont.removeChild(_source);
             _source.removeChild(_armature.display as Sprite);
-            if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCat);
-            if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, animateCat);
+            if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, animateCat);
+            if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, animateCat);
             WorldClock.clock.remove(_armature);
             _armature.dispose();
             _armature = null;

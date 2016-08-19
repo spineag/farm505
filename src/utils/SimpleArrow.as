@@ -66,7 +66,7 @@ public class SimpleArrow {
 
     private function animateIt():void {
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay('start');
+        _armature.animation.gotoAndPlayByFrame('start');
     }
     
     public function activateTimer(n:Number, f:Function):void {

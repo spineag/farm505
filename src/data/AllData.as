@@ -7,12 +7,14 @@ public class AllData {
     public var atlas:Object;
     public var bFonts:Object; // bitmap fonts
     public var factory:Object;  // StarlingFactory
+    public var factoryData:Object;  // StarlingFactory
     public var dataBuyMoney:Array;
 
     public function AllData() {
         atlas = {};
         bFonts = {};
         factory = {};
+        factoryData = {};
         dataBuyMoney = [];
     }
 }

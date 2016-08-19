@@ -4,11 +4,7 @@
 package build {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
-import dragonBones.factories.StarlingFactory;
-
-import flash.events.Event;
-import loaders.EmbedAssets;
+import dragonBones.events.EventObject;
 import manager.Vars;
 
 import starling.display.Sprite;
@@ -35,11 +31,11 @@ public class BuildingBuild {
     }
 
     public function workAnimation():void {
-        armature.animation.gotoAndPlay("work");
+        armature.animation.gotoAndPlayByFrame("work");
     }
 
     public function doneAnimation():void {
-        armature.animation.gotoAndStop("done", 0);
+        armature.animation.stop("done");
     }
 
     public function deleteIt():void {
@@ -55,15 +51,15 @@ public class BuildingBuild {
     public function overItFoundation():void {
         if (armature && !_isOverAnim) {
             _isOverAnim = true;
-            armature.addEventListener(AnimationEvent.COMPLETE, onOverFoundation);
-            armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onOverFoundation);
-            armature.animation.gotoAndPlay('over2');
+            armature.addEventListener(EventObject.COMPLETE, onOverFoundation);
+            armature.addEventListener(EventObject.LOOP_COMPLETE, onOverFoundation);
+            armature.animation.gotoAndPlayByFrame('over2');
         }
     }
 
-    private function onOverFoundation(e:AnimationEvent):void {
-        armature.removeEventListener(AnimationEvent.COMPLETE, onOverFoundation);
-        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onOverFoundation);
+    private function onOverFoundation(e:EventObject):void {
+        armature.removeEventListener(EventObject.COMPLETE, onOverFoundation);
+        armature.removeEventListener(EventObject.LOOP_COMPLETE, onOverFoundation);
         _isOverAnim = false;
         workAnimation();
     }
@@ -71,15 +67,15 @@ public class BuildingBuild {
     public function overItDone():void {
         if (armature && !_isOverAnim) {
             _isOverAnim = true;
-            armature.addEventListener(AnimationEvent.COMPLETE, onOverDone);
-            armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onOverDone);
-            armature.animation.gotoAndPlay('over');
+            armature.addEventListener(EventObject.COMPLETE, onOverDone);
+            armature.addEventListener(EventObject.LOOP_COMPLETE, onOverDone);
+            armature.animation.gotoAndPlayByFrame('over');
         }
     }
 
-    private function onOverDone(e:AnimationEvent):void {
-        armature.removeEventListener(AnimationEvent.COMPLETE, onOverDone);
-        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onOverDone);
+    private function onOverDone(e:EventObject):void {
+        armature.removeEventListener(EventObject.COMPLETE, onOverDone);
+        armature.removeEventListener(EventObject.LOOP_COMPLETE, onOverDone);
         _isOverAnim = false;
         doneAnimation();
     }
