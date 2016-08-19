@@ -419,7 +419,6 @@ public class Fabrica extends WorldObject {
         };
         Cc.ch('temp', 'fabrica delay: ' + delay);
         g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
-
         // animation of uploading resources to fabrica
         var p:Point = new Point(source.x, source.y);
         p = source.parent.localToGlobal(p);

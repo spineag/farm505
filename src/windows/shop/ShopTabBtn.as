@@ -10,6 +10,8 @@ import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
+import utils.MCScaler;
+
 import windows.WOComponents.CartonBackground;
 
 public class ShopTabBtn {
@@ -52,6 +54,7 @@ public class ShopTabBtn {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_court'));
                 if (g.user.villageNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+                    MCScaler.scale(_imNotification,25,25);
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
@@ -70,6 +73,7 @@ public class ShopTabBtn {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_fabric'));
                 if (g.user.fabricaNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+                    MCScaler.scale(_imNotification,25,25);
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
@@ -84,6 +88,7 @@ public class ShopTabBtn {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_plants'));
                 if (g.user.plantNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+                    MCScaler.scale(_imNotification,25,25);
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
@@ -98,6 +103,7 @@ public class ShopTabBtn {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_decor'));
                 if (g.user.decorNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+                    MCScaler.scale(_imNotification,25,25);
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
