@@ -37,7 +37,7 @@ public class WOTips  extends WindowMain {
         txt.autoScale = true;
         txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN2;
         txt.x = -210;
-        txt.y = -244;
+        txt.y = -240;
         txt.touchable = false;
         _source.addChild(txt);
 
