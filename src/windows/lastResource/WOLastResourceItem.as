@@ -79,8 +79,9 @@ public class WOLastResourceItem {
             source.addChild(_image);
         }
 
-        _txtCount = new TextField(50,50,String(g.userInventory.getCountResourceById(id)),g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
-        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCount = new TextField(50,50,String(g.userInventory.getCountResourceById(id)));
+        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
+        _txtCount.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.x = 25;
         _txtCount.y = 30;
         source.addChild(_txtCount);

@@ -50,10 +50,11 @@ public class PostOpenCave extends WindowMain {
         _btn = new CButton();
         _btn.addButtonTexture(176, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
-        var txt:TextField = new TextField(140,30,'Рассказать 100',g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        var txt:TextField = new TextField(140,30,'Рассказать 100');
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         txt.x = 5;
         txt.y = 7;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(txt);
 //        txt = new TextField(50,50,'200',g.allData.fonts['BloggerBold'],18,Color.WHITE);
 //        txt.x = 95;

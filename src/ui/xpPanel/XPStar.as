@@ -36,8 +36,9 @@ public class XPStar {
     public function XPStar(_x:int, _y:int,xp:int) {
         _source = new Sprite();
         _source.touchable = false;
-        _txtStar = new TextField(80,50,'',g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
-        _txtStar.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtStar = new TextField(80,50,'');
+        _txtStar.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
+        _txtStar.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtStar.x = -15;
         _txtStar.y = 25;
         _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));

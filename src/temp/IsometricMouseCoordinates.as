@@ -26,10 +26,14 @@ public class IsometricMouseCoordinates {
 
     public function IsometricMouseCoordinates() {
         source = new Sprite();
-        _textPosX = new TextField(30, 20, "IsoX: ", "Arial", 10, Color.BLACK);
-        _textPosY = new TextField(30, 20, "IsoY: ", "Arial", 10, Color.BLACK);
-        _mousePosX = new TextField(30, 20, " ", "Arial", 10, Color.BLACK);
-        _mousePosY = new TextField(30, 20, " ", "Arial", 10, Color.BLACK);
+        _textPosX = new TextField(30, 20, "IsoX: ");
+        _textPosX.format.setTo("Arial", 10, Color.BLACK);
+        _textPosY = new TextField(30, 20, "IsoY: ");
+        _textPosY.format.setTo("Arial", 10, Color.BLACK);
+        _mousePosX = new TextField(30, 20, " ");
+        _mousePosX.format.setTo("Arial", 10, Color.BLACK);
+        _mousePosY = new TextField(30, 20, " ");
+        _mousePosY.format.setTo("Arial", 10, Color.BLACK);
         var quad:Quad = new Quad(55, 35, Color.WHITE);
         source.addChild(quad);
         _textPosX.x = 3;

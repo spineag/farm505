@@ -18,6 +18,7 @@ import starling.animation.Tween;
 import starling.core.Starling;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 
@@ -58,7 +59,8 @@ public class FriendPanel {
         im.x = 20;
         im.y = -23;
         _source.addChild(im);
-        var txt:TextField = new TextField(106, 27, "Мои друзья", g.allData.bFonts['BloggerBold14'], 14, ManagerFilters.TEXT_BROWN_COLOR);
+        var txt:TextField = new TextField(106, 27, "Мои друзья");
+        txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 30;
         txt.y = -23;
         _source.addChild(txt);
@@ -67,7 +69,7 @@ public class FriendPanel {
         _mask.x = 105;
         _mask.y = 7;
         _cont = new Sprite();
-        _mask.clipRect = new flash.geom.Rectangle(0,0,328,90);
+        _mask.mask = new Quad(328, 90);
         _mask.addChild(_cont);
         _source.addChild(_mask);
 
@@ -167,7 +169,8 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга", g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new TextField(64, 50,"Добавить друга");
+            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
             bt.addChild(txt);
@@ -180,7 +183,8 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга", g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new TextField(64, 50,"Добавить друга");
+            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
             bt.addChild(txt);
@@ -193,7 +197,8 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга", g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new TextField(64, 50,"Добавить друга");
+            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
             bt.addChild(txt);
@@ -207,7 +212,8 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга", g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new TextField(64, 50,"Добавить друга");
+            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
             bt.addChild(txt);
@@ -220,7 +226,8 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга", g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new TextField(64, 50,"Добавить друга");
+            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
             bt.addChild(txt);
@@ -234,7 +241,8 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга", g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new TextField(64, 50,"Добавить друга");
+            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
             bt.addChild(txt);

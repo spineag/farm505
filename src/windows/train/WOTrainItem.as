@@ -5,20 +5,14 @@ package windows.train {
 import build.train.TrainCell;
 import com.junkbyte.console.Cc;
 import data.BuildType;
-import data.DataMoney;
-import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
-import resourceItem.DropItem;
 import starling.display.Image;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.HAlign;
-import temp.DropResourceVariaty;
-import ui.xpPanel.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
 public class WOTrainItem {
@@ -38,14 +32,16 @@ public class WOTrainItem {
     public function WOTrainItem() {
         _index = -1;
         source = new CSprite();
-        _txtWhite = new TextField(60,30,'-3', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtWhite.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtWhite.hAlign = HAlign.RIGHT;
+        _txtWhite = new TextField(60,30,'-3');
+        _txtWhite.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtWhite.filter = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtWhite.format.horizontalAlign = Align.RIGHT;
         _txtWhite.x = 23;
         _txtWhite.y = 60;
-        _txtRed = new TextField(30,30,'', g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
-        _txtRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-        _txtRed.hAlign = HAlign.RIGHT;
+        _txtRed = new TextField(30,30,'');
+        _txtRed.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtRed.filter = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtRed.format.horizontalAlign = Align.RIGHT;
         _txtRed.y = 60;
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
@@ -92,9 +88,9 @@ public class WOTrainItem {
         }
         var curCount:int = g.userInventory.getCountResourceById(_info.id);
         if (curCount >= _info.count) {
-           _txtRed.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+           _txtRed.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
         } else {
-            _txtRed.color = ManagerFilters.TEXT_ORANGE_COLOR;
+            _txtRed.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
         }
         _txtRed.text = String(curCount);
         _txtWhite.text = '/' + String(_info.count);
@@ -226,9 +222,9 @@ public class WOTrainItem {
 //                    _txtRed.x = 50 -_txtWhite.textBounds.width ;
 //                }
                 if (curCount >= _info.count) {
-                    _txtRed.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+                    _txtRed.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
                 } else {
-                    _txtRed.color = ManagerFilters.TEXT_ORANGE_COLOR;
+                    _txtRed.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
                 }
             }
         }

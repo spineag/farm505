@@ -44,8 +44,9 @@ public class MarketFriendsPanelItem{
         _ava.x = 1;
         _ava.y = 1;
         source.addChild(_ava);
-        _txtPersonName = new TextField(100, 30, 'loading...', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtPersonName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtPersonName = new TextField(100, 30, 'loading...');
+        _txtPersonName.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtPersonName.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtPersonName.x = -15;
         _txtPersonName.y = 50;
         if (_person.name) _txtPersonName.text = _person.name;
@@ -70,8 +71,9 @@ public class MarketFriendsPanelItem{
         if (_person.userSocialId != g.user.userSocialId) {
             _planet = new CSprite();
             _planetBtn = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
-            var txtBtn:TextField = new TextField(80, 25, "Посетить", g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
-            txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+            var txtBtn:TextField = new TextField(80, 25, "Посетить");
+            txtBtn.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
+            txtBtn.filter = ManagerFilters.TEXT_STROKE_BROWN;
             txtBtn.x = -8;
             _planet.addChild(_planetBtn);
             _planet.addChild(txtBtn);

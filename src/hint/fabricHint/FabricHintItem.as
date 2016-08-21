@@ -3,21 +3,15 @@
  */
 package hint.fabricHint {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.HAlign;
-
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
 public class FabricHintItem {
@@ -34,15 +28,17 @@ public class FabricHintItem {
         source = new Sprite();
         _needCount = needCount;
         _id = obId;
-        _txtWhite = new TextField(50,50,'',g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtWhite.hAlign = HAlign.LEFT;
+        _txtWhite = new TextField(50,50,'');
+        _txtWhite.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
+        _txtWhite.format.horizontalAlign = Align.LEFT;
 //        _txtWhite.y = 55;
 //        _txtWhite.x = 43;
-        _txtWhite.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtWhite.filter = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtWhite.text = String("/" + String(_needCount));
-        _txtOrange = new TextField(50,50,'',g.allData.bFonts['BloggerBold14'],14,ManagerFilters.TEXT_ORANGE_COLOR);
-        _txtOrange.hAlign = HAlign.LEFT;
-        _txtOrange.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtOrange = new TextField(50,50,'');
+        _txtOrange.format.setTo(g.allData.bFonts['BloggerBold14'],14,ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtOrange.format.horizontalAlign = Align.LEFT;
+        _txtOrange.filter = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
 //        _txtOrange.y = 55;
 //        _txtOrange.x = 34;
         source.addChild(_txtWhite);
@@ -50,9 +46,9 @@ public class FabricHintItem {
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[obId].id);
         _txtOrange.text = String(userCount);
         if (userCount >= needCount) {
-            _txtOrange.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+            _txtOrange.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
         } else {
-            _txtOrange.color = ManagerFilters.TEXT_ORANGE_COLOR;
+            _txtOrange.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
         }
         _txtOrange.x = 34;
         _txtOrange.y = 55;
@@ -88,9 +84,9 @@ public class FabricHintItem {
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[_id].id);
         userCount -= _needCount;
         if (userCount >= _needCount) {
-            _txtOrange.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+            _txtOrange.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
         } else {
-            _txtOrange.color = ManagerFilters.TEXT_ORANGE_COLOR;
+            _txtOrange.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
         }
     }
 }

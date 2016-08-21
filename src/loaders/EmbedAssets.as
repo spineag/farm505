@@ -3,8 +3,8 @@
  */
 package loaders {
 import data.AllData;
+import dragonBones.starling.StarlingFactory;
 import manager.*;
-import dragonBones.factories.StarlingFactory;
 import flash.events.Event;
 import starling.text.BitmapFont;
 import starling.text.TextField;
@@ -234,7 +234,7 @@ public class EmbedAssets {
             if (onLoad != null) onLoad.apply();
         };
         factory.addEventListener(Event.COMPLETE, f);
-        factory.parseData(new clas());
+        factory.parseDragonBonesData(new clas());
     }
 }
 }

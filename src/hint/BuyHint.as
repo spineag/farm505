@@ -25,8 +25,9 @@ public class BuyHint {
     private var _open:Boolean;
     public function BuyHint() {
         _source = new Sprite();
-        _txtHint = new TextField(100,50,"", g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtHint.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtHint = new TextField(100,50,"");
+        _txtHint.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        _txtHint.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _source.touchable = false;
         _open = false;
     }

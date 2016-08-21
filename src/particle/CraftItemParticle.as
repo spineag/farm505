@@ -28,7 +28,6 @@ public class CraftItemParticle {
         im.x = -im.width/2;
         im.y = -im.height/2;
         _source.addChild(im);
-        _source.flatten();
         _source.touchable = false;
         makeTween();
     }
@@ -38,7 +37,6 @@ public class CraftItemParticle {
     }
 
     public function deleteIt():void {
-        _source.unflatten();
         TweenMax.killTweensOf(_source);
         _parent.removeChild(_source);
         _source.dispose();

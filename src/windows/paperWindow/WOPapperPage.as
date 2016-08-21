@@ -5,19 +5,14 @@ package windows.paperWindow {
 import flash.display.Bitmap;
 import manager.ManagerFilters;
 import manager.Vars;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.HAlign;
-
 import utils.CSprite;
-
-
 import utils.DrawToBitmap;
-
 import utils.MCScaler;
 
 public class WOPapperPage {
@@ -43,7 +38,7 @@ public class WOPapperPage {
     private function createBG(n:int, nMax:int):void {
         _bg = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_p1'));
-        _quad = new Quad(im.width, im.height,Color.WHITE ,false);
+        _quad = new Quad(im.width, im.height,Color.WHITE);
         _quad.alpha = 0;
         source.addChild(_quad);
         im.touchable = false;
@@ -63,12 +58,14 @@ public class WOPapperPage {
         q.y = 38;
         _bg.addChild(q);
 //        var txt:TextField = new TextField(300, 100, "НьюсМяу", g.allData.fonts['BloggerBold'], 26, ManagerFilters.TEXT_BLUE_HARD);
-        var txt:TextField = new TextField(300, 100, "НьюсМяу", g.allData.bFonts['BloggerBold30'], 26, ManagerFilters.TEXT_BLUE_HARD);
-        txt.hAlign = HAlign.LEFT;
+        var txt:TextField = new TextField(300, 100, "НьюсМяу");
+        txt.format.setTo(g.allData.bFonts['BloggerBold30'], 26, ManagerFilters.TEXT_BLUE_HARD);
+        txt.format.horizontalAlign = Align.LEFT;
         txt.x = 66;
         txt.y = -23;
         _bg.addChild(txt);
-        txt = new TextField(100, 100, String(n) + '/' + String(nMax), g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new TextField(100, 100, String(n) + '/' + String(nMax));
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BROWN_COLOR);
         if (n > nMax) txt.text = '';
         txt.x = 170;
         txt.y = 460;

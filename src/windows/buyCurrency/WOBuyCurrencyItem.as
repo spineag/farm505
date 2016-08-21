@@ -57,7 +57,6 @@ public class WOBuyCurrencyItem {
             _bg.addChild(_im);
         }
         _im.width = 71;
-        _bg.flatten();
         source.addChild(_bg);
 
         if (_currency == DataMoney.HARD_CURRENCY) {
@@ -71,16 +70,18 @@ public class WOBuyCurrencyItem {
         _im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_im);
 
-        var txt:TextField = new TextField(135, 52, String(count), g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+        var txt:TextField = new TextField(135, 52, String(count));
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.filter = ManagerFilters.TEXT_STROKE_WHITE;
         txt.x = 70;
         txt.y = 4;
         source.addChild(txt);
 
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        txt = new TextField(120, 38, String(cost) + ' голосов', g.allData.bFonts['BloggerBold24'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        txt = new TextField(120, 38, String(cost) + ' голосов');
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 18, Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
         _btn.addChild(txt);
         _btn.x = 493;
         _btn.y = 31;

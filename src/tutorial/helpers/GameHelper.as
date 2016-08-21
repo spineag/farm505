@@ -45,7 +45,8 @@ public class GameHelper {
         _bg.x = -208;
         _bg.y = -81;
         _source.addChild(_bg);
-        _txt = new TextField(220, 90, "", g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt = new TextField(220, 90, "");
+        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.x = -100;
         _txt.y = -60;
         _txt.autoScale = true;
@@ -95,8 +96,9 @@ public class GameHelper {
     private function createShowButton():void {
         _btnShow = new CButton();
         _btnShow.addButtonTexture(126, 40, CButton.YELLOW, true);
-        var txt:TextField = new TextField(125, 40, 'ПОКАЗАТЬ', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+        var txt:TextField = new TextField(125, 40, 'ПОКАЗАТЬ');
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_YELLOW;
         _btnShow.addChild(txt);
         _btnShow.x = 4;
         _btnShow.y = 52;

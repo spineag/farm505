@@ -18,8 +18,9 @@ public class FlyMessage {
 
     public function FlyMessage(p:Point, text:String) {
         _source = new Sprite();
-        _txtMessage = new TextField(300,30,text,g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtMessage.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtMessage = new TextField(300,30,text);
+        _txtMessage.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtMessage.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtMessage.x = -150;
         _source.x = p.x;
         _source.y = p.y;

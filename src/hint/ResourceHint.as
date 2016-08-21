@@ -99,30 +99,30 @@ public class ResourceHint {
         };
         g.starling.juggler.add(tween);
         if (_fabrickBoo) {
-            _txtText = new TextField(200,100,"Будет доступно на: " + g.dataRecipe.objectRecipe[_id].blockByLevel + ' уровне', g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText = new TextField(200,100,"Будет доступно на: " + g.dataRecipe.objectRecipe[_id].blockByLevel + ' уровне');
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
+            _txtText.filter = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
 //            _txtText.y = -5;
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtText);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             _source.x = start.x;
             _source.y = start.y;
             return;
         }
         if (g.dataResource.objectResources[_id].blockByLevel > g.user.level) {
-            _txtText = new TextField(200,100,"Будет доступно на: " + g.dataResource.objectResources[_id].blockByLevel + ' уровне', g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText = new TextField(200,100,"Будет доступно на: " + g.dataResource.objectResources[_id].blockByLevel + ' уровне');
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
+            _txtText.filter = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
             _txtText.y = -5;
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtText);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             _source.x = start.x;
             _source.y = start.y;
@@ -132,18 +132,21 @@ public class ResourceHint {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -40;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_id].name), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_id].name));
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(80, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtTime = new TextField(80, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime));
+            _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             if (_txtTime.textBounds.width >= 50) {
                 _txtTime.x = -20;
             } else {
                 _txtTime.x = -30;
             }
             _txtTime.y = 60;
-            _txtText = new TextField(200,100,'',g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText = new TextField(200,100,'');
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
+            _txtText.filter = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
             _txtText.y = 5;
 
@@ -165,16 +168,17 @@ public class ResourceHint {
             _source.addChild(_txtText);
             _source.addChild(_txtTime);
             _source.addChild(_imageClock);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
         if (g.dataResource.objectResources[_id].buildType == BuildType.INSTRUMENT) {
-            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_id].name), g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_id].name));
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtText = new TextField(200,100,String(g.dataResource.objectResources[_id].opys),g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText = new TextField(200,100,String(g.dataResource.objectResources[_id].opys));
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
+            _txtText.filter = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
             _txtText.y = 15;
             wText = _txtText.textBounds.width + 20;
@@ -195,7 +199,6 @@ public class ResourceHint {
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
@@ -204,14 +207,17 @@ public class ResourceHint {
             if (_id == objTrees[i].craftIdResource) {
                 _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
                 _imageClock.y = 70;
-                _txtName = new TextField(150,30,String(g.dataResource.objectResources[_id].name), g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
+                _txtName = new TextField(150,30,String(g.dataResource.objectResources[_id].name));
+                _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -75;
                 _txtName.y = 20;
-                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime),g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
+                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime));
+                _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtTime.x = -10;
                 _txtTime.y = 60;
-                _txtText = new TextField(200,100,"Растет на: " + objTrees[i].name,g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-                _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+                _txtText = new TextField(200,100,"Растет на: " + objTrees[i].name);
+                _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
+                _txtText.filter = ManagerFilters.TEXT_STROKE_BLUE;
                 _txtText.x = -100;
                 _txtText.y = 5;
                 if (_txtTime.textBounds.width >= 40) {
@@ -228,7 +234,6 @@ public class ResourceHint {
                 _source.addChild(_txtText);
                 _source.addChild(_txtTime);
                 _source.addChild(_imageClock);
-                _source.flatten();
                 g.cont.hintCont.addChild(_source);
                 return;
             }
@@ -239,14 +244,16 @@ public class ResourceHint {
                 //                _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
                 //                _imageClock.y = 70;
                 //                _imageClock.x = -30;
-                _txtName = new TextField(200,30,String(g.dataResource.objectResources[_id].name), g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
+                _txtName = new TextField(200,30,String(g.dataResource.objectResources[_id].name));
+                _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -100;
                 _txtName.y = 20;
                 //                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime),g.allData.fonts['BloggerBold'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 //                _txtTime.x = -10;
                 //                _txtTime.y = 60;
-                _txtText = new TextField(200,100,"Место производства: Пещера",g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-                _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+                _txtText = new TextField(200,100,"Место производства: Пещера");
+                _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
+                _txtText.filter = ManagerFilters.TEXT_STROKE_BLUE;
                 _txtText.x = -100;
                 _txtText.y = 5;
 
@@ -259,7 +266,6 @@ public class ResourceHint {
                 _source.addChild(_txtText);
                 //                _source.addChild(_txtTime);
                 //                _source.addChild(_imageClock);
-                _source.flatten();
                 g.cont.hintCont.addChild(_source);
                 return;
             }
@@ -268,14 +274,17 @@ public class ResourceHint {
         if (objRecipes[_id]) {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.x = -30;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_id].name), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_id].name));
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(100, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtTime = new TextField(100, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime));
+            _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtTime.x = -20;
 
-            _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_id].buildingId].name, g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_id].buildingId].name);
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
+            _txtText.filter = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
@@ -301,7 +310,6 @@ public class ResourceHint {
             _source.addChild(_txtText);
             _source.addChild(_txtTime);
             _source.addChild(_imageClock);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
@@ -310,14 +318,17 @@ public class ResourceHint {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -30;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_id].name), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_id].name));
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime));
+            _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtTime.x = -10;
             _txtTime.y = 60;
-            _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_id].buildId].name, g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_id].buildId].name);
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
+            _txtText.filter = ManagerFilters.TEXT_STROKE_BLUE;
             _txtText.x = -100;
             _txtText.y = 5;
 
@@ -330,7 +341,6 @@ public class ResourceHint {
             _source.addChild(_txtText);
             _source.addChild(_txtTime);
             _source.addChild(_imageClock);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
@@ -339,7 +349,6 @@ public class ResourceHint {
 
 
     public function hideIt():void {
-        _source.unflatten();
         if (bg) bg.deleteIt();
         while (_source.numChildren) {
             _source.removeChildAt(0);

@@ -39,7 +39,6 @@ public class WOCave extends WindowMain {
             im.x = 50*(i+1);
             _topBG.addChildAt(im, 0);
         }
-        _topBG.flatten();
         _topBG.x = -_woWidth/2;
         _topBG.y = -_woHeight/2 + 80;
         _source.addChild(_topBG);

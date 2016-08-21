@@ -28,12 +28,12 @@ public class UseMoneyMessage {
         else if (typeMoney == DataMoney.BLUE_COUPONE || typeMoney == DataMoney.GREEN_COUPONE || typeMoney == DataMoney.RED_COUPONE || typeMoney == DataMoney.YELLOW_COUPONE) st += 'ваучера';
         else st += 'монет';
 
-        var txt:TextField = new TextField(150,50, st, g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(150,50, st);
+        txt..format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = -75;
         txt.y = -25;
         source.addChild(txt);
-        source.flatten();
         source.x = p.x;
         source.y = p.y;
         g.cont.animationsResourceCont.addChild(source);
@@ -42,7 +42,6 @@ public class UseMoneyMessage {
 
     private function onComplete():void {
         g.cont.animationsResourceCont.removeChild(source);
-        source.unflatten();
         while (source.numChildren) source.removeChildAt(0);
         source.dispose();
         source = null;

@@ -34,7 +34,8 @@ public class TipsPanel {
         im.x = 16;
         im.y = 30;
         _source.addChild(im);
-        _txt= new TextField(30,30,"", g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
+        _txt= new TextField(30,30,"");
+        _txt.format.setTo(g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
         _txt.x = 18;
         _txt.y = 35;
         _txt.touchable = false;

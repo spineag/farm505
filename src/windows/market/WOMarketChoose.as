@@ -6,6 +6,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.filters.BlurFilter;
+import starling.filters.DropShadowFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
@@ -38,7 +39,7 @@ public class WOMarketChoose extends WindowMain {
     private var booleanMinus:Boolean;
     private var _woBG:WindowBackground;
     private var _defaultY:int = -232;
-    private var _SHADOW:BlurFilter;
+    private var _SHADOW:DropShadowFilter;
     private var _cartonAmbar:CartonBackground;
     private var _cartonSklad:CartonBackground;
     private var _carton:CartonBackground;
@@ -75,13 +76,15 @@ public class WOMarketChoose extends WindowMain {
         _source.addChild(_countMoneyBlock.source);
         _source.addChild(_countResourceBlock.source);
 
-        var t:TextField = new TextField(100, 30, 'Количество:',  g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var t:TextField = new TextField(100, 30, 'Количество:');
+        t.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        t.filter = ManagerFilters.TEXT_STROKE_BROWN;
         t.x = -190;
         t.y = 145;
         _source.addChild(t);
-        t = new TextField(150, 30, 'Цена продажи:', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        t = new TextField(150, 30, 'Цена продажи:');
+        t.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        t.filter = ManagerFilters.TEXT_STROKE_BROWN;
         t.x = -55;
         t.y = 145;
         _source.addChild(t);
@@ -91,8 +94,9 @@ public class WOMarketChoose extends WindowMain {
         var im:Image  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_market'));
         im.x = 10;
         _btnSell.addChild(im);
-        t = new TextField(100, 50, 'Выставить на продажу', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        t = new TextField(100, 50, 'Выставить на продажу');
+        t.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        t.filter = ManagerFilters.TEXT_STROKE_BROWN;
         t.y = 45;
         _btnSell.addChild(t);
         _btnSell.x = 160;
@@ -121,14 +125,14 @@ public class WOMarketChoose extends WindowMain {
         im.x = 12;
         im.y = 1;
         _tabAmbar.addChild(im);
-        var txt:TextField = new TextField(90, 40, "Амбар", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(90, 40, "Амбар");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 31;
         txt.y = 2;
         _tabAmbar.addChild(txt);
         _tabAmbar.x = -205;
         _tabAmbar.y = _defaultY;
-        _tabAmbar.flatten();
         var fAmbar:Function = function():void {
             _type = AMBAR;
             updateItems();
@@ -153,14 +157,14 @@ public class WOMarketChoose extends WindowMain {
         im.x = 12;
         im.y = 2;
         _tabSklad.addChild(im);
-        txt = new TextField(90, 40, "Склад", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt = new TextField(90, 40, "Склад");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 34;
         txt.y = 2;
         _tabSklad.addChild(txt);
         _tabSklad.x = -75;
         _tabSklad.y = _defaultY;
-        _tabSklad.flatten();
         var fSklad:Function = function():void {
             _type = SKLAD;
             updateItems();

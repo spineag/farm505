@@ -63,7 +63,8 @@ public class ToolsModifier {
         _modifierType = NONE;
         _mouseIcon = new Sprite();
         _plantId = -1;
-        _txtCount = new TextField(50,40,"",g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        _txtCount = new TextField(50,40,"");
+        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtCount.x = 18;
         _txtCount.y = 29;
     }

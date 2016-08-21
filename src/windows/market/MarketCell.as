@@ -63,8 +63,9 @@ public class MarketCell {
             return;
         }
 
-        _countTxt = new TextField(60,20,String(g.userInventory.getCountResourceById(_data.id)),g.allData.bFonts['BloggerBold18'],16, Color.WHITE);
-        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _countTxt = new TextField(60,20,String(g.userInventory.getCountResourceById(_data.id)));
+        _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'],16, Color.WHITE);
+        _countTxt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = 50;
         _countTxt.y = 77;
         _cont.addChild(_countTxt);

@@ -59,8 +59,9 @@ public class AfterTutorialWindow {
         _btn.clickCallback = onClick;
         g.cont.popupCont.addChild(_source);
         _source.addChild(_btn);
-        var txt:TextField = new TextField(110,100,"Дальше", g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var txt:TextField = new TextField(110,100,"Дальше");
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.y = -25;
         txt.x = 30;
         _btn.addChild(txt);

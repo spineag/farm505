@@ -18,7 +18,6 @@ public class CreateTile{
         q.rotation = Math.PI/4;
         s.addChild(q);
         s.scaleY = 1/2;
-        s.flatten();
         return s;
     }
 }

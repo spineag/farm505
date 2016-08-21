@@ -69,16 +69,15 @@ public class AmbarCell {
             source.addChild(_image);
         }
 
-        _countTxt = new TextField(60,20,String(g.userInventory.getCountResourceById(_data.id)),g.allData.bFonts['BloggerBold18'],16, Color.WHITE);
-        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _countTxt = new TextField(60,20,String(g.userInventory.getCountResourceById(_data.id)));
+        _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'],16, Color.WHITE);
+        _countTxt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = 50;
         _countTxt.y = 77;
         source.addChild(_countTxt);
-        source.flatten();
     }
 
     public function deleteIt():void {
-        source.unflatten();
         while (source.numChildren) {
             source.removeChildAt(0);
         }

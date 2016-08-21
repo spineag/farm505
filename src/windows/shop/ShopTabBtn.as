@@ -7,6 +7,7 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
+import starling.filters.DropShadowFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
@@ -16,7 +17,7 @@ import windows.WOComponents.CartonBackground;
 
 public class ShopTabBtn {
     private var _source:CSprite;
-    private var _SHADOW:BlurFilter;
+    private var _SHADOW:DropShadowFilter;
     private var _shopSprite:Sprite;
     private var _shopSource:Sprite;
     private var _defaultX:int;
@@ -27,7 +28,7 @@ public class ShopTabBtn {
     private var _type:int;
     private var g:Vars = Vars.getInstance();
 
-    public function ShopTabBtn(type:int, f:Function, shopSprite:Sprite, shopSource:Sprite, shadow:BlurFilter) {
+    public function ShopTabBtn(type:int, f:Function, shopSprite:Sprite, shopSource:Sprite, shadow:DropShadowFilter) {
         _SHADOW = shadow;
         _shopSprite = shopSprite;
         _shopSource = shopSource;
@@ -35,8 +36,9 @@ public class ShopTabBtn {
         _type = type;
         _bg = new CartonBackground(123, 100);
         _source.addChild(_bg);
-        var _txt:TextField = new TextField(123, 100, '', g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
-        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var _txt:TextField = new TextField(123, 100, '');
+        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
+        _txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txt.y = 10;
         var f1:Function = function():void {
             if (g.managerCutScenes.isCutScene) return;
@@ -58,7 +60,8 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.villageNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.villageNotification));
+                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -77,7 +80,8 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.fabricaNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.fabricaNotification));
+                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -92,7 +96,8 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.plantNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.plantNotification));
+                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -107,7 +112,8 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.decorNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.decorNotification));
+                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -118,7 +124,6 @@ public class ShopTabBtn {
         im.y = 38 - im.height/2;
         _source.addChild(im);
         _source.addChild(_txt);
-        _source.flatten();
     }
 
     public function activateIt(value:Boolean):void {

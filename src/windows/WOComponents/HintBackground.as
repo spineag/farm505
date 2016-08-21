@@ -224,7 +224,6 @@ public class HintBackground extends Sprite {
         }
 
         arr.length = 0;
-        _bg.flatten();
     }
 
     public function addShadow():void {
@@ -250,7 +249,8 @@ public class HintBackground extends Sprite {
         if (size >= 20) s = '24';
         else if (size > 14) s = '18';
         else s = '14';
-        _txt = new TextField(_width - 10, _height - 20,'',g.allData.bFonts['BloggerBold'+s], size, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt = new TextField(_width - 10, _height - 20,'');
+        _txt.format.setTo(g.allData.bFonts['BloggerBold'+s], size, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.x = _bg.x + 5;
         _txt.y = _bg.y + 5;
         addChild(_txt);

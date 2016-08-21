@@ -26,9 +26,10 @@ public class WOAnotherGame extends WindowMain {
         _woHeight = 360;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        var txt:TextField = new TextField(420,130,'Игра уже запущена в другом окне',g.allData.bFonts['BloggerMedium24'],24,Color.WHITE);
+        var txt:TextField = new TextField(420,130,'Игра уже запущена в другом окне');
+        txt.format.setTo(g.allData.bFonts['BloggerMedium24'],24,Color.WHITE);
         txt.autoScale = true;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -210;
         txt.y = -130;
         txt.touchable = false;

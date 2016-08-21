@@ -48,12 +48,14 @@ public class LockedLandItem {
         _iconCoins.y = 12;
         _iconCoins.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(_iconCoins);
-        var txt:TextField = new TextField(150,40,String(count),g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(150,40,String(count));
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         txt.x = -30;
         source.addChild(txt);
-        txt = new TextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (спишутся после открытия)',g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new TextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (спишутся после открытия)');
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = -2;
         source.addChild(txt);
@@ -68,8 +70,9 @@ public class LockedLandItem {
         } else {
             _btn= new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
-            txt = new TextField(120,30,'Купить',g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            txt = new TextField(120,30,'Купить');
+            txt.format.setTo(g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
+            txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
             _btn.addChild(txt);
             _btn.x = 362;
             _btn.y = 50;
@@ -105,12 +108,14 @@ public class LockedLandItem {
         icon.x = 41 - icon.width/2;
         icon.y = 34 - icon.height/2;
         source.addChild(icon);
-        var txt:TextField = new TextField(150,40,String(g.userInventory.getCountResourceById(id)) + '/' + String(count),g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(150,40,String(g.userInventory.getCountResourceById(id)) + '/' + String(count));
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         txt.x = -40;
         source.addChild(txt);
-        txt = new TextField(200,90,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name + ' (пропадут после открытия)',g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new TextField(200,90,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name + ' (пропадут после открытия)');
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = -2;
         source.addChild(txt);
@@ -125,8 +130,9 @@ public class LockedLandItem {
         } else {
             _btn = new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
-            txt = new TextField(120,30,'Купить ' + String(g.dataResource.objectResources[id].priceHard *(count - g.userInventory.getCountResourceById(id))), g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            txt = new TextField(120,30,'Купить ' + String(g.dataResource.objectResources[id].priceHard *(count - g.userInventory.getCountResourceById(id))));
+            txt.format.setTo(g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
+            txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
             txt.x = -15;
             _btn.addChild(txt);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -157,12 +163,14 @@ public class LockedLandItem {
         icon.x = 41 - icon.width/2;
         icon.y = 34 - icon.height/2;
         source.addChild(icon);
-        var txt:TextField = new TextField(150,40,'0/' +String(count),g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(150,40,'0/' +String(count));
+        txt.format.setTo(g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = -35;
         txt.y = 55;
         source.addChild(txt);
-        txt = new TextField(200,60,'Пригласить ' +String(count) + ' друзей',g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new TextField(200,60,'Пригласить ' +String(count) + ' друзей');
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = 15;
         source.addChild(txt);
@@ -177,8 +185,9 @@ public class LockedLandItem {
         } else {
             _btn = new CButton();
             _btn.addButtonTexture(120, 30, CButton.YELLOW, true);
-            txt = new TextField(120,30,'Пригласить',g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
+            txt = new TextField(120,30,'Пригласить');
+            txt.format.setTo(g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
+            txt.filter = ManagerFilters.TEXT_STROKE_YELLOW;
             _btn.addChild(txt);
             _btn.x = 362;
             _btn.y = 50;

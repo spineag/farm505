@@ -20,6 +20,7 @@ import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.filters.ColorMatrixFilter;
+import starling.filters.GlowFilter;
 import starling.text.TextField;
 import windows.WOComponents.WOSimpleButtonTexture;
 
@@ -76,7 +77,7 @@ public class CButton extends Sprite {
 //        _bg.flatten();
     }
 
-    public function registerTextField(tx:TextField, strokeFilter:Array):void {
+    public function registerTextField(tx:TextField, strokeFilter:GlowFilter):void {
         _arrTextFields.push({t:tx, c:strokeFilter});
     }
 

@@ -3,32 +3,23 @@
  */
 package build.farm {
 import analytic.AnalyticManager;
-
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import data.BuildType;
-
-import dragonBones.Bone;
-import dragonBones.events.AnimationEvent;
-
-import flash.events.MouseEvent;
-import flash.geom.Point;
+import dragonBones.events.EventObject;
 import hint.MouseHint;
 import manager.ManagerFilters;
 import manager.Vars;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
 import resourceItem.RawItem;
 import starling.textures.Texture;
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
-
 import utils.CSprite;
-
 import windows.WindowsManager;
+import flash.geom.Rectangle;
 
 public class Animal {
     private const WALK_SPEED:int = 20;
@@ -46,7 +37,7 @@ public class Animal {
     private var _farm:Farm;
     public var animal_db_id:String;  // id в табличке user_animal
     private var _arrow:SimpleArrow;
-    private var _rect:flash.geom.Rectangle;
+    private var _rect:Rectangle;
     private var _tutorialCallback:Function;
     private var _needShowArrow:Boolean = false;
     private var _wasStartActiveFeeding:Boolean;
@@ -160,7 +151,7 @@ public class Animal {
         return _data;
     }
 
-    public function get rect():flash.geom.Rectangle {
+    public function get rect():Rectangle {
         return _rect;
     }
 
@@ -467,7 +458,7 @@ public function onEndClick(last:Boolean = false):void {
         if (animation) animation.playIt(idleLabels[0]);
     }
 
-    private function completeDirectIdleAnimation(e:AnimationEvent):void {
+    private function completeDirectIdleAnimation(e:EventObject):void {
         animation.playIt(idleLabels[0]);
     }
 
@@ -481,7 +472,7 @@ public function onEndClick(last:Boolean = false):void {
         } else currentLabelAfterLoading = hungryLabel;
     }
 
-    private function playHungry(e:AnimationEvent):void {
+    private function playHungry(e:EventObject):void {
         animation.playIt(hungryLabel);
     }
 

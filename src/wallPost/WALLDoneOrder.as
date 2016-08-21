@@ -7,6 +7,8 @@ import flash.display.Bitmap;
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.textures.Texture;
+
 import utils.DrawToBitmap;
 
 public class WALLDoneOrder {
@@ -25,7 +27,7 @@ public class WALLDoneOrder {
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_done_order.jpg'].create() as Bitmap;
-        _source.addChild(Image.fromBitmap(bitmap));
+        _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Заказ Лавки в Умелых Лапках готов! За мою хорошую работу Жители Долины Рукоделия меня щедро отблагодарили!'),bitMap,'interfaceAtlas');
     }

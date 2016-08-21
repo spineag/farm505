@@ -32,19 +32,19 @@ public class ManagerFilters {
     public static var TEXT_BLUE2:int = 0x0a6899;
     public static var TEXT_LIGHT_BROWN:int = 0xa57728;
 
-    public static var TEXT_STROKE_ORANGE:Array = [new GlowFilter(TEXT_ORANGE_COLOR, 1, 4, 4)];
-    public static var TEXT_STROKE_GREEN:Array = [new GlowFilter(TEXT_GREEN_COLOR, 1, 4, 4)];
-    public static var TEXT_STROKE_GREEN2:Array = [new GlowFilter(TEXT_BLUE2, 1, 4, 4)];
-    public static var TEXT_STROKE_YELLOW:Array = [new GlowFilter(TEXT_YELLOW_COLOR, 1, 4, 4)];
-    public static var TEXT_STROKE_BLUE:Array = [new GlowFilter(TEXT_BLUE_COLOR, 1, 4, 4)];
-    public static var TEXT_STROKE_LIGHT_BLUE:Array = [new GlowFilter(TEXT_LIGHT_BLUE_COLOR, 1, 4, 4)];
-    public static var TEXT_STROKE_WHITE:Array = [new GlowFilter(Color.WHITE, 1, 4, 4)];
-    public static var TEXT_STROKE_BROWN:Array = [new GlowFilter(TEXT_BROWN_COLOR, 1, 4, 4)];
-    public static var TEXT_STROKE_RED:Array = [new GlowFilter(Color.RED, 1, 4, 4)];
-    public static var TEXT_STROKE_GRAY:Array = [new GlowFilter(TEXT_GRAY_HARD_COLOR, 1, 4, 4)];
-    public static var TEXT_STROKE_BROWN_BIG:Array = [new GlowFilter(TEXT_BROWN_COLOR, 1, 6, 6)];
-    public static var TEXT_STROKE_BLUE_BIG:Array = [new GlowFilter(TEXT_BLUE_COLOR, 1, 6, 6)];
-    public static var TEXT_STROKE_GREEN_BIG:Array = [new GlowFilter(TEXT_GREEN_COLOR, 1, 6, 6)];
+    public static var TEXT_STROKE_ORANGE:GlowFilter = new GlowFilter(TEXT_ORANGE_COLOR, 1, 4, 4);
+    public static var TEXT_STROKE_GREEN:GlowFilter = new GlowFilter(TEXT_GREEN_COLOR, 1, 4, 4);
+    public static var TEXT_STROKE_GREEN2:GlowFilter = new GlowFilter(TEXT_BLUE2, 1, 4, 4);
+    public static var TEXT_STROKE_YELLOW:GlowFilter = new GlowFilter(TEXT_YELLOW_COLOR, 1, 4, 4);
+    public static var TEXT_STROKE_BLUE:GlowFilter = new GlowFilter(TEXT_BLUE_COLOR, 1, 4, 4);
+    public static var TEXT_STROKE_LIGHT_BLUE:GlowFilter = new GlowFilter(TEXT_LIGHT_BLUE_COLOR, 1, 4, 4);
+    public static var TEXT_STROKE_WHITE:GlowFilter = new GlowFilter(Color.WHITE, 1, 4, 4);
+    public static var TEXT_STROKE_BROWN:GlowFilter = new GlowFilter(TEXT_BROWN_COLOR, 1, 4, 4);
+    public static var TEXT_STROKE_RED:GlowFilter = new GlowFilter(Color.RED, 1, 4, 4);
+    public static var TEXT_STROKE_GRAY:GlowFilter = new GlowFilter(TEXT_GRAY_HARD_COLOR, 1, 4, 4);
+    public static var TEXT_STROKE_BROWN_BIG:GlowFilter = new GlowFilter(TEXT_BROWN_COLOR, 1, 6, 6);
+    public static var TEXT_STROKE_BLUE_BIG:GlowFilter = new GlowFilter(TEXT_BLUE_COLOR, 1, 6, 6);
+    public static var TEXT_STROKE_GREEN_BIG:GlowFilter = new GlowFilter(TEXT_GREEN_COLOR, 1, 6, 6);
 
 
     private static var _BUILDING_HOVER_FILTER:ColorMatrixFilter;

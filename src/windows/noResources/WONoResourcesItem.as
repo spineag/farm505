@@ -95,8 +95,9 @@ public class WONoResourcesItem {
             source.addChild(_image);
         }
 
-        _txtCount = new TextField(66, 20, String(count), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCount = new TextField(66, 20, String(count));
+        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtCount.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.y = 40;
         _txtCount.x = 20;
         source.addChild(_txtCount);
@@ -112,8 +113,9 @@ public class WONoResourcesItem {
         _image.y = 33 - _image.height / 2;
         source.addChild(_image);
 
-        _txtCount = new TextField(66, 20, String(count), g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCount = new TextField(66, 20, String(count));
+        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtCount.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtCount.y = 45;
         source.addChild(_txtCount);
         _money = true;

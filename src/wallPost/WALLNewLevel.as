@@ -47,9 +47,10 @@ public class WALLNewLevel {
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_new_level.jpg'].create() as Bitmap;
-        _source.addChild(Image.fromBitmap(bitmap));
-        _txtLevel = new TextField(500,200,String(g.user.level),g.allData.bFonts['BloggerBold72'],83,Color.WHITE);
-        _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _source.addChild(new Image(Texture.fromBitmap(bitmap)));
+        _txtLevel = new TextField(500,200,String(g.user.level));
+        _txtLevel.format.setTo(g.allData.bFonts['BloggerBold72'],83,Color.WHITE);
+        _txtLevel.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtLevel.x = 60;
         _txtLevel.y = 90;
         _source.addChild(_txtLevel);

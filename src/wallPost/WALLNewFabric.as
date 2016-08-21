@@ -29,7 +29,7 @@ public class WALLNewFabric {
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_new_fabric.jpg'].create() as Bitmap;
-        _source.addChild(Image.fromBitmap(bitmap));
+        _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
             if (!texture) {

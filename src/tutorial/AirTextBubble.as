@@ -42,7 +42,8 @@ public class AirTextBubble {
         _bg.scaleX = -1;
         _bg.x = _bg.width;
         _source.addChild(_bg);
-        _txt = new TextField(260, 90, "", g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt = new TextField(260, 90, "");
+        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.x = 36;
         _txt.y = 32;
         _txt.autoScale = true;
@@ -51,8 +52,9 @@ public class AirTextBubble {
         _btn.addButtonTexture(120, 40, CButton.BLUE, true);
         _btn.x = 180;
         _btn.y = 140;
-        _btnTxt = new TextField(120, 38, 'Далее', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _btnTxt = new TextField(120, 38, 'Далее');
+        _btnTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _btnTxt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _btn.addChild(_btnTxt);
         _source.addChild(_btn);
         createCatHead();

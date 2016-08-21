@@ -10,6 +10,7 @@ import media.SoundConst;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
+import starling.filters.DropShadowFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
@@ -32,7 +33,7 @@ public class WOBuyCurrency extends WindowMain {
     private var _cartonSoftTab:CartonBackground;
     private var _contItems:Sprite;
     private var _arrItems:Array;
-    private var SHADOW:BlurFilter;
+    private var SHADOW:DropShadowFilter;
     private var _defaultY:int;
 
     public function WOBuyCurrency() {
@@ -70,8 +71,9 @@ public class WOBuyCurrency extends WindowMain {
         _cartonHardTab.touchable = true;
         _tabHard.addChild(_cartonHardTab);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        var txt:TextField = new TextField(160, 67, 'Рубины', g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(160, 67, 'Рубины');
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
         txt.touchable = false;
         _tabHard.addChild(txt);
@@ -90,8 +92,9 @@ public class WOBuyCurrency extends WindowMain {
         _cartonSoftTab.touchable = true;
         _tabSoft.addChild(_cartonSoftTab);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
-        txt= new TextField(160, 67, 'Монеты', g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt= new TextField(160, 67, 'Монеты');
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
         txt.touchable = false;
         _tabSoft.addChild(txt);

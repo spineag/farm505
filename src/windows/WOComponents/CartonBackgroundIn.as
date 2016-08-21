@@ -125,7 +125,6 @@ public class CartonBackgroundIn extends Sprite{
 
         arr.length = 0;
         touchable = false;
-        flatten();
     }
 
     public function deleteIt():void {

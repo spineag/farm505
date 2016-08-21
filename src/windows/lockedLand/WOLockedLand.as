@@ -6,12 +6,8 @@ import build.lockedLand.LockedLand;
 import com.junkbyte.console.Cc;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
 import dragonBones.events.EventObject;
-
 import manager.ManagerFilters;
-import manager.ManagerWallPost;
-
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -54,8 +50,9 @@ public class WOLockedLand extends WindowMain {
 
         _btnOpen = new CButton();
         _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
-        var txt:TextField = new TextField(158,46,'Открыть участок',g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var txt:TextField = new TextField(158,46,'Открыть участок');
+        txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _btnOpen.addChild(txt);
         _btnOpen.registerTextField(txt, ManagerFilters.TEXT_STROKE_BLUE);
         _btnOpen.x = 0;
@@ -67,7 +64,8 @@ public class WOLockedLand extends WindowMain {
         _pl.y = -_woHeight/2 + 109;
         _pl.addShadow();
         _source.addChild(_pl);
-        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.bFonts['BloggerMedium18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок');
+        txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
         _pl.inSprite.addChild(txt);
         addAnimation();
     }

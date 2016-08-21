@@ -4,21 +4,16 @@
 package windows.chestWindow {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
 import dragonBones.events.EventObject;
-
 import manager.ManagerChest;
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
 import utils.MCScaler;
-
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -66,11 +61,12 @@ public class WOChest  extends WindowMain{
             im.x = 120;
             im.y = 4;
             _btnOpen.addChild(im);
-            var txt:TextField = new TextField(150,30,'Открыть за ' + ManagerChest.COST_OPEN, g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+            var txt:TextField = new TextField(150,30,'Открыть за ' + ManagerChest.COST_OPEN);
+            txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
             txt.text = 'Открыть за ' + String(ManagerChest.COST_OPEN);
             txt.x = - 10;
             txt.y = 5;
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
             _btnOpen.addChild(txt);
             _btnOpen.clickCallback = onClickOpen;
             _source.addChild(_btnOpen);

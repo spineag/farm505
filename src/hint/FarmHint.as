@@ -35,15 +35,17 @@ public class FarmHint {
         source.addChild(_textureHint);
         source.pivotX = source.width/2;
         source.pivotY = source.height;
-        var quad:Quad = new Quad(source.width, source.height,Color.WHITE ,false);
+        var quad:Quad = new Quad(source.width, source.height,Color.WHITE);
         quad.alpha = 0;
         source.addChildAt(quad,0);
         source.hoverCallback = onHover;
         source.outCallback = outHover;
         source.endClickCallback = onClick;
 
-        _countTxt = new TextField(50,30," ","Arial",18,Color.WHITE);
-        _nameTxt = new TextField(70,30," ","Arial",14,Color.BLACK);
+        _countTxt = new TextField(50,30," ");
+        _countTxt.format.setTo(g.allData.bFonts['BloggerRegular18'], 18, Color.WHITE);
+        _nameTxt = new TextField(70,30," ");
+        _nameTxt.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, Color.BLACK);
         _nameTxt.x = 10;
         _nameTxt.y = 65;
         source.addChild(_nameTxt);

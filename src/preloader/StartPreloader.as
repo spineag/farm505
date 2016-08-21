@@ -4,26 +4,14 @@
 package preloader {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
-import dragonBones.factories.StarlingFactory;
-
-import flash.events.Event;
-
-
-import flash.geom.Rectangle;
-import flash.text.Font;
-
 import loaders.EmbedAssets;
-
 import manager.Vars;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
-import starling.utils.Color;
 import utils.FarmDispatcher;
 
 public class StartPreloader {
@@ -71,7 +59,8 @@ public class StartPreloader {
 //        _preloaderSprite.x = _source.width/2 - _preloaderBG.width/2;
 //        _preloaderSprite.y = 600;
 //        _source.addChild(_preloaderSprite);
-        _txt = new TextField(75,50,'0',g.allData.bFonts['BloggerBold24'], 24, 0x0659b6);
+        _txt = new TextField(75,50,'0');
+        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, 0x0659b6);
         _source.addChild(_txt);
         _txt.x = _bg.width/2 - 42;
         _txt.y = _bg.height/2 + 185;
@@ -79,8 +68,8 @@ public class StartPreloader {
 
     private function create():void {
         _armature = g.allData.factory['preloader'].buildArmature("splash_screen");
-        _armature.display.x = _bg.width/2;
-        _armature.display.y = _bg.height/2;
+        (_armature.display as Sprite).x = _bg.width/2;
+        (_armature.display as Sprite).y = _bg.height/2;
         _source.addChild(_armature.display as Sprite);
         WorldClock.clock.add(_armature);
 //        _armature.animation.gotoAndStop('default', 0);

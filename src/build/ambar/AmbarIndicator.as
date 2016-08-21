@@ -5,6 +5,7 @@ package build.ambar {
 import flash.geom.Rectangle;
 import manager.Vars;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 
 public class AmbarIndicator {
@@ -21,7 +22,7 @@ public class AmbarIndicator {
         _minY *= g.scaleFactor;
         source = new Sprite();
         _cont = new Sprite();
-        _cont.clipRect = new flash.geom.Rectangle(0, 0, 74, 272);
+        _cont.mask = new Quad(74, 272);
         source.addChild(_cont);
         imLenta = new Image(g.allData.atlas['buildAtlas'].getTexture('ambar_indicator_main'));
 //        imLenta.pivotX = imLenta.width/2;

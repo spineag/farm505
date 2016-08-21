@@ -104,18 +104,17 @@ public class WODailyBonusItem {
         _source.rotation = (Math.PI/6)*index;
         _parent.addChild(_source);
         if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
-            var txt:TextField = new TextField(60, 40, '+'+String(obj.count), g.allData.bFonts['BloggerMedium24'], 20, Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+            var txt:TextField = new TextField(60, 40, '+'+String(obj.count));
+            txt.format.setTo(g.allData.bFonts['BloggerMedium24'], 20, Color.WHITE);
+            txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
             txt.x = -20;
             txt.y = -5;
             _source.addChild(txt);
         }
-        _source.flatten();
     }
 
     public function deleteIt():void {
         im.filter = null;
-        _source.unflatten();
         _parent.removeChild(_source);
         _source.dispose();
         _parent = null;

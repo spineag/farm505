@@ -8,9 +8,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
 import manager.hitArea.OwnHitArea;
-
 import preloader.miniPreloader.FlashAnimatedPreloader;
-
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Quad;
@@ -21,7 +19,6 @@ import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import utils.IsoUtils;
 import utils.Point3D;
-import utils.CSprite;
 import windows.WindowsManager;
 
 public class WorldObject {

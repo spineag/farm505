@@ -2,29 +2,18 @@
  * Created by user on 7/13/15.
  */
 package hint.fabricHint {
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import starling.animation.Tween;
-
 import starling.display.Image;
-
-import starling.display.Quad;
 import starling.display.Sprite;
-
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.HAlign;
-
 import utils.MCScaler;
 import utils.TimeUtils;
-
 import windows.WOComponents.HintBackground;
 import windows.WindowsManager;
 
@@ -58,33 +47,39 @@ public class FabricHint {
         im.y = 155;
         _source.addChild(im);
 
-        _txtName = new TextField(240,70,'',g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
-        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtName = new TextField(240,70,'');
+        _txtName.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
+        _txtName.filter = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtName.y = 5;
         _txtName.x = -20;
         _source.addChild(_txtName);
 
 //        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
-        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:');
+        _txtCreate.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCreate.y = 50;
         _source.addChild(_txtCreate);
 
 //        _txtTimeCreate = new TextField(50, 30 ,'Время:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
-        _txtTimeCreate = new TextField(50, 30 ,'Время:', g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTimeCreate = new TextField(50, 30 ,'Время:');
+        _txtTimeCreate.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtTimeCreate.x = 20;
         _txtTimeCreate.y = 130;
 //        _txtOnSklad = new TextField(100, 30 ,'На складе:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
-        _txtOnSklad = new TextField(100, 30 ,'На складе:', g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtOnSklad = new TextField(100, 30 ,'На складе:');
+        _txtOnSklad.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtOnSklad.x = 100;
         _txtOnSklad.y = 130;
-        _txtItem = new TextField(50, 40 ,'', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtItem.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
-        _txtItem.hAlign = HAlign.LEFT;
+        _txtItem = new TextField(50, 40 ,'');
+        _txtItem.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtItem.filter = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtItem.format.horizontalAlign = Align.LEFT;
         _txtItem.x = 160;
         _txtItem.y = 150;
-        _txtTime = new TextField(100, 40 ,'', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtTime.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
-        _txtItem.hAlign = HAlign.LEFT;
+        _txtTime = new TextField(100, 40 ,'');
+        _txtItem.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtTime.filter = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txtItem.format.horizontalAlign = Align.LEFT;
         _txtTime.x = 20;
         _txtTime.y = 150;
         _source.addChild(_txtTimeCreate);

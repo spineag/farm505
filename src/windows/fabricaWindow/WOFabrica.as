@@ -220,7 +220,6 @@ public class WOFabrica extends WindowMain {
             im.x = 50*(i+1);
             _topBG.addChildAt(im, 0);
         }
-        _topBG.flatten();
         _topBG.x = -_woWidth/2;
         _topBG.y = -_woHeight/2 + 80;
         _source.addChild(_topBG);
@@ -290,7 +289,6 @@ public class WOFabrica extends WindowMain {
             im.x = 50*(i+1);
             _bottomBG.addChildAt(im, 0);
         }
-        _bottomBG.flatten();
         _bottomBG.x = -_bottomBG.width/2;
         _bottomBG.y = -_woHeight/2 + 260;
         _source.addChild(_bottomBG);

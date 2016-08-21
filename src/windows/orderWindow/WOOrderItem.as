@@ -71,8 +71,9 @@ public class WOOrderItem {
         _delImage.y = 10;
         source.addChild(_delImage);
 
-        _txtName = new TextField(112, 20, "Васько", g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtName = new TextField(112, 20, "Васько");
+        _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtName.filter = ManagerFilters.TEXT_STROKE_BROWN;
         source.addChild(_txtName);
 
         _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
@@ -81,8 +82,9 @@ public class WOOrderItem {
 //        MCScaler.scale(_starImage, 31, 31);
         _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
-        _txtXP = new TextField(52, 30, "8888", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtXP = new TextField(52, 30, "8888");
+        _txtXP.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtXP.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtXP.x = 48;
         _txtXP.y = 26;
         source.addChild(_txtXP);
@@ -93,8 +95,9 @@ public class WOOrderItem {
 //        MCScaler.scale(_coinsImage, 31, 31);
         _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
-        _txtCoins = new TextField(52, 30, "8888", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtCoins = new TextField(52, 30, "8888");
+        _txtCoins.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtCoins.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCoins.x = 48;
         _txtCoins.y = 55;
         source.addChild(_txtCoins);
@@ -392,9 +395,9 @@ public class WOOrderItem {
     }
 
     public function deleteIt():void {
-        _txtCoins.nativeFilters = [];
-        _txtName.nativeFilters = [];
-        _txtXP.nativeFilters = [];
+        _txtCoins.filter = null;
+        _txtName.filter = null;
+        _txtXP.filter = null;
         _starImage.filter = null;
         _coinsImage.filter = null;
         _order = null;

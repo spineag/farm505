@@ -133,8 +133,9 @@ public class WOOrder extends WindowMain{
         _rightBlockBG.filter = ManagerFilters.SHADOW_LIGHT;
         _rightBlock.addChild(_rightBlockBG);
 
-        _txtName = new TextField(320, 35, "Самбука заказывает", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtName = new TextField(320, 35, "Самбука заказывает");
+        _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtName.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.x = 407;
         _txtName.y = 175;
         _rightBlock.addChild(_txtName);
@@ -149,8 +150,9 @@ public class WOOrder extends WindowMain{
             _arrResourceItems.push(item);
         }
 
-        var txt:TextField = new TextField(90, 30, "Награда:", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(90, 30, "Награда:");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 411;
         txt.y = 418;
         _rightBlock.addChild(txt);
@@ -159,8 +161,9 @@ public class WOOrder extends WindowMain{
         _starSmall.y = 417;
         _starSmall.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(_starSmall);
-        _txtXP = new TextField(52, 30, "8888", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtXP = new TextField(52, 30, "8888");
+        _txtXP.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtXP.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtXP.x = 523;
         _txtXP.y = 418;
         _rightBlock.addChild(_txtXP);
@@ -174,14 +177,16 @@ public class WOOrder extends WindowMain{
         _imCoup.y = 422;
         _imCoup.visible = false;
         _rightBlock.addChild(_imCoup);
-        _txtCoupone = new TextField(30, 30, "1", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtCoupone.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtCoupone = new TextField(30, 30, "1");
+        _txtCoupone.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtCoupone.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCoupone.x = 650;
         _txtCoupone.y = 418;
         _txtCoupone.visible = false;
         _rightBlock.addChild(_txtCoupone);
-        _txtCoins = new TextField(52, 30, "8888", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtCoins = new TextField(52, 30, "8888");
+        _txtCoins.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtCoins.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCoins.x = 590;
         _txtCoins.y = 418;
         _rightBlock.addChild(_txtCoins);
@@ -217,9 +222,10 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = -15;
         _btnSell.addDisplayObject(im);
-        var txt:TextField = new TextField(110, 60, "Продать", g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
+        var txt:TextField = new TextField(110, 60, "Продать");
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
         txt.y = -10;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSell.addChild(txt);
         _btnSell.registerTextField(txt, ManagerFilters.TEXT_STROKE_GREEN);
         _btnSell.x = 547;
@@ -236,17 +242,19 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = 15;
         _btnSkipDelete.addDisplayObject(im);
-        var txt:TextField = new TextField(80, 50, "Получить сейчас", g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        var txt:TextField = new TextField(80, 50, "Получить сейчас");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSkipDelete.addChild(txt);
-        txt = new TextField(20, 50, '', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        txt = new TextField(20, 50, '');
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         if (g.user.level <= 6) txt.text = String(ManagerOrder.COST_FIRST_SKIP_WAIT);
         else if (g.user.level <= 9) txt.text = String(ManagerOrder.COST_SECOND_SKIP_WAIT);
         else if (g.user.level <= 15) txt.text = String(ManagerOrder.COST_THIRD_SKIP_WAIT);
         else if (g.user.level <= 19) txt.text = String(ManagerOrder.COST_FOURTH_SKIP_WAIT);
         else if (g.user.level >= 20) txt.text = String(ManagerOrder.COST_FIFTH_SKIP_WAIT);
         txt.x = 80;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
         _btnSkipDelete.addChild(txt);
         _btnSkipDelete.x = 160;
         _btnSkipDelete.y = 220;
@@ -584,16 +592,18 @@ public class WOOrder extends WindowMain{
         bgIn.y = 32;
         _rightBlockTimer.addChild(bgIn);
 
-        _txtOrder = new TextField(280, 30, "", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtOrder = new TextField(280, 30, "");
+        _txtOrder.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtOrder.x = 14;
         _txtOrder.y = 40;
-        _txtOrder.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtOrder.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _rightBlockTimer.addChild(_txtOrder);
 
-        var t:TextField = new TextField(280, 30, "следующий поступит через:", g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
+        var t:TextField = new TextField(280, 30, "следующий поступит через:");
+        t.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
         t.x = 14;
         t.y = 65;
-        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        t.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _rightBlockTimer.addChild(t);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
@@ -601,10 +611,11 @@ public class WOOrder extends WindowMain{
         im.y = 110;
         _rightBlockTimer.addChild(im);
 
-        _txtTimer = new TextField(165, 50, "", g.allData.bFonts['BloggerBold30'], 30, Color.WHITE);
+        _txtTimer = new TextField(165, 50, "");
+        _txtTimer.format.setTo(g.allData.bFonts['BloggerBold30'], 30, Color.WHITE);
         _txtTimer.x = 101;
         _txtTimer.y = 102;
-        _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtTimer.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _rightBlockTimer.addChild(_txtTimer);
     }
 
@@ -650,12 +661,12 @@ public class WOOrder extends WindowMain{
         if (!_source) return;
         _starSmall.filter = null;
         _coinSmall.filter = null;
-        if (_txtCoins) _txtCoins.nativeFilters = [];
-        if (_txtCoupone) _txtCoupone.nativeFilters = [];
-        if (_txtName) _txtName.nativeFilters = [];
-        if (_txtOrder) _txtOrder.nativeFilters = [];
-        if (_txtTimer) _txtTimer.nativeFilters = [];
-        if (_txtXP) _txtXP.nativeFilters = [];
+        if (_txtCoins) _txtCoins.filter = null;
+        if (_txtCoupone) _txtCoupone.filter = null;
+        if (_txtName) _txtName.filter = null;
+        if (_txtOrder) _txtOrder.filter = null;
+        if (_txtTimer) _txtTimer.filter = null;
+        if (_txtXP) _txtXP.filter = null;
         deleteBtnCellArrow();
         deleteCats();
         _activeOrderItem = null;
