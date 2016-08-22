@@ -11,10 +11,14 @@ import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.events.Event;
+
 import temp.catCharacters.DataCat;
 import utils.IsoUtils;
 import utils.Point3D;
@@ -67,8 +71,8 @@ public class OrderCat {
         _catBackImage = new Sprite();
         armature = g.allData.factory['cat_queue'].buildArmature("cat");
         armatureBack = g.allData.factory['cat_queue'].buildArmature("cat_back");
-        _catImage.addChild(armature.display as Sprite);
-        _catBackImage.addChild(armatureBack.display as Sprite);
+        _catImage.addChild(armature.display as StarlingArmatureDisplay);
+        _catBackImage.addChild(armatureBack.display as StarlingArmatureDisplay);
         WorldClock.clock.add(armature);
         WorldClock.clock.add(armatureBack);
         bant = 0;
@@ -151,10 +155,12 @@ public class OrderCat {
     public function showFront(v:Boolean):void {
         _catImage.visible = v;
         _catBackImage.visible = !v;
-        if (v) {
-            heroEyes.startAnimations();
-        } else {
-            heroEyes.stopAnimations();
+        if (heroEyes) {
+            if (v) {
+                heroEyes.startAnimations();
+            } else {
+                heroEyes.stopAnimations();
+            }
         }
     }
 
@@ -173,77 +179,73 @@ public class OrderCat {
 
         releaseFrontTexture(st);
         releaseBackTexture(st);
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, _catData.isWoman);
+//        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, _catData.isWoman);
 
 
         if (!_catData.isWoman) {
-            var b:Bone = armature.getBone('bant');
-            b.visible = false;
+            var b:Slot = armature.getSlot('bant');
+            if (b && b.display) b.display.visible = false;
 
         } else  changeBant(int(Math.random() * 8 + 1));
-        var okuli:Bone = armature.getBone('okuli');
-        var sharf:Bone = armature.getBone('sharf');
+        var okuli:Slot = armature.getSlot('okuli');
+        var sharf:Slot = armature.getSlot('sharf');
         switch (_catData.type) {
             case DataCat.AKRIL:
-                okuli.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
                 break;
             case DataCat.ASHUR:
-                okuli.visible = false;
-                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
+                if (sharf && sharf.display) sharf.display.visible = false;
                 break;
             case DataCat.BULAVKA:
-                okuli.visible = false;
-                sharf.visible = false;
+                if (okuli && okuli.display)  okuli.display.visible = false;
+                if (sharf && sharf.display) sharf.display.visible = false;
                 break;
             case DataCat.BUSINKA:
-                okuli.visible = false;
-//                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
                 break;
             case DataCat.IGOLOCHKA:
-                okuli.visible = false;
-                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
+                if (sharf && sharf.display) sharf.display.visible = false;
                 break;
             case DataCat.IRIS:
-                okuli.visible = false;
-                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
+                if (sharf && sharf.display) sharf.display.visible = false;
                 break;
             case DataCat.KRUCHOK:
-                okuli.visible = false;
-//                sharf.visible = false;
-
+                if (okuli && okuli.display) okuli.display.visible = false;
                 break;
             case DataCat.LENTOCHKA:
-                okuli.visible = false;
-                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
+                if (sharf && sharf.display) sharf.display.visible = false;
                 break;
             case DataCat.NAPERSTOK:
-                okuli.visible = false;
-                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
+                if (sharf && sharf.display) sharf.display.visible = false;
                 break;
             case DataCat.PETELKA:
-                okuli.visible = false;
-                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
+                if (sharf && sharf.display) sharf.display.visible = false;
                 break;
             case DataCat.PRYAGA:
-                okuli.visible = false;
-                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
+                if (sharf && sharf.display) sharf.display.visible = false;
                 break;
             case DataCat.SINTETIKA:
-                sharf.visible = false;
+                if (okuli && okuli.display) sharf.display.visible = false;
                 break;
             case DataCat.STESHOK:
-                okuli.visible = false;
-                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
+                if (sharf && sharf.display) sharf.display.visible = false;
                 break;
             case DataCat.YZELOK:
-                okuli.visible = false;
-//                sharf.visible = false;
+                if (okuli && okuli.display) okuli.display.visible = false;
                 break;
         }
         var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(_catData.png) as Image;
         if (!im)return;
         var cast:Slot = armature.getSlot('sharf');
-        cast.display.dispose();
+        if (cast.display) cast.display.dispose();
         cast.display = im;
     }
 
@@ -252,7 +254,7 @@ public class OrderCat {
         bant = n;
         var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
         var b:Slot = armature.getSlot('bant');
-        b.display.dispose();
+        if (b.display) b.display.dispose();
         b.display = im;
     }
 
@@ -280,7 +282,7 @@ public class OrderCat {
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
         var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
         var b:Slot = arma.getSlot(oldName);
-        b.display.dispose();
+        if (b.display) b.display.dispose();
         b.display = im;
     }
 
@@ -297,6 +299,10 @@ public class OrderCat {
         g.townArea.removeOrderCatFromCityObjects(this);
         g.townArea.removeOrderCatFromCont(this);
         forceStopAnimation();
+        if (heroEyes) {
+            heroEyes.stopAnimations();
+            heroEyes = null;
+        }
         WorldClock.clock.remove(armature);
         WorldClock.clock.remove(armatureBack);
         TweenMax.killTweensOf(_source);
@@ -366,7 +372,6 @@ public class OrderCat {
                         break;
                     case DataCat.BUSINKA:
                         armature.animation.gotoAndPlayByFrame("businka");
-
                         break;
                     case DataCat.IGOLOCHKA:
                         armature.animation.gotoAndPlayByFrame("igolochka");
@@ -404,7 +409,7 @@ public class OrderCat {
         }
     }
 
-    private function onFinishIdle(e:EventObject):void {
+    private function onFinishIdle(e:Event=null):void {
         armature.removeEventListener(EventObject.COMPLETE, onFinishIdle);
         armature.removeEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
         idleFrontAnimation();
@@ -418,7 +423,7 @@ public class OrderCat {
         armatureBack.animation.gotoAndPlayByFrame("idle");
     }
 
-    private function onFinishIdleBack(e:EventObject):void {
+    private function onFinishIdleBack(e:Event=null):void {
         count--;
         armatureBack.removeEventListener(EventObject.COMPLETE, onFinishIdleBack);
         armatureBack.removeEventListener(EventObject.LOOP_COMPLETE, onFinishIdleBack);
@@ -448,25 +453,25 @@ public class OrderCat {
     }
 
     public function walkAnimation():void {
-        heroEyes.startAnimations();
+        if (heroEyes) heroEyes.startAnimations();
         armature.animation.gotoAndPlayByFrame("walk");
         armatureBack.animation.gotoAndPlayByFrame("walk");
     }
 
     public function walkPackAnimation():void {
-        heroEyes.startAnimations();
+        if (heroEyes) heroEyes.startAnimations();
         armature.animation.gotoAndPlayByFrame("walk_pack");
         armatureBack.animation.gotoAndPlayByFrame("walk_pack");
     }
 
     public function runAnimation():void {
-        heroEyes.startAnimations();
+        if (heroEyes) heroEyes.startAnimations();
         armature.animation.gotoAndPlayByFrame("run");
         armatureBack.animation.gotoAndPlayByFrame("run");
     }
 
     public function sayHIAnimation(callback:Function):void {
-        var onSayHI:Function = function():void {
+        var onSayHI:Function = function(e:Event=null):void {
             if (armature.hasEventListener(EventObject.COMPLETE)) armature.removeEventListener(EventObject.COMPLETE, onSayHI);
             if (armature.hasEventListener(EventObject.LOOP_COMPLETE)) armature.removeEventListener(EventObject.LOOP_COMPLETE, onSayHI);
             if (callback != null) {

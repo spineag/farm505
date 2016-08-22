@@ -183,7 +183,7 @@ public class MainBottomPanel {
         im.y = 6;
         _homeBtn.addDisplayObject(im);
         var txt:TextField = new TextField(100, 70, "Домой");
-        txt..format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
         txt.filter = ManagerFilters.TEXT_STROKE_ORANGE;
         txt.x = 105;
         _homeBtn.addChild(txt);

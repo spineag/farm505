@@ -120,6 +120,7 @@ public class Vars {
     public var loadAnimation:LoadAnimationManager;
     public var pBitmaps:Object;
     public var pXMLs:Object;
+    public var pJSONs:Object;
     public var managerOrder:ManagerOrder;
     public var managerOrderCats:ManagerOrderCats;
     public var managerDailyBonus:ManagerDailyBonus;

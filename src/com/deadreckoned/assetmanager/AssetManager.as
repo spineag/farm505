@@ -94,6 +94,11 @@ package com.deadreckoned.assetmanager
 		 * The XML asset type id.
 		 */
 		static public const TYPE_XML:String = "xml";
+
+		/**
+		 * The XML asset type id.
+		 */
+		static public const TYPE_JSON:String = "json";
 		
 		// Static constructor
 		{
@@ -105,6 +110,7 @@ package com.deadreckoned.assetmanager
 			registerFormat(SoundHandler);
 			registerFormat(SWFHandler);
 			registerFormat(XMLHandler);
+			registerFormat(JSONHandler);
 		}
 		
 		/**

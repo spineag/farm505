@@ -13,6 +13,8 @@ import manager.ManagerFilters;
 import media.SoundConst;
 import mouse.ToolsModifier;
 import starling.display.Sprite;
+import starling.events.Event;
+
 import tutorial.helpers.HelperReason;
 import windows.WindowsManager;
 import windows.orderWindow.WOOrder;
@@ -55,7 +57,7 @@ public class Order extends WorldObject{
             _smallHero.armature = g.allData.factory[_dataBuild.url].buildArmature('table');
         } else {
             var b:Slot = _armature.getSlot('table');
-            b.display.dispose();
+            if (b.display) b.display.dispose();
             var s:Sprite = new Sprite();
             b.display = s;
         }
@@ -77,7 +79,7 @@ public class Order extends WorldObject{
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            var fEndOver:Function = function():void {
+            var fEndOver:Function = function(e:Event=null):void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
@@ -170,7 +172,7 @@ public class Order extends WorldObject{
         super.clearIt();
     }
 
-    private function makeAnimation(e:EventObject=null):void {
+    private function makeAnimation(e:Event=null):void {
         var k:Number = Math.random();
         if (k < .2)
             _armature.animation.gotoAndPlayByFrame('idle');

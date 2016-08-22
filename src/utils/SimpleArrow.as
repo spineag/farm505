@@ -6,6 +6,7 @@ import com.greensock.TweenMax;
 
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
+import dragonBones.starling.StarlingArmatureDisplay;
 
 import flash.events.TimerEvent;
 import flash.utils.Timer;
@@ -32,7 +33,7 @@ public class SimpleArrow {
         _source.visible = false;
         _source.touchable = false;
         _armature = g.allData.factory['arrow'].buildArmature("arrow");
-        _source.addChild(_armature.display as Sprite);
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
         _source.scaleX = _source.scaleY = .7;
         switch (posType) {
             case POSITION_TOP: _source.rotation = 0; break;

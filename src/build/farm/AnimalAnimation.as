@@ -7,8 +7,11 @@ import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class AnimalAnimation {
     private var _source:Sprite;
@@ -28,7 +31,7 @@ public class AnimalAnimation {
             return;
         }
         _armature = a;
-        _source.addChild(_armature.display as Sprite);
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
         if (id!=6) tryUnTouchableZZZ();
     }
 
@@ -84,7 +87,7 @@ public class AnimalAnimation {
         }
     }
 
-    private function onCompleteAnimation(e:EventObject):void {
+    private function onCompleteAnimation(e:Event=null):void {
         if (_playOnce) {
             stopIt();
             if (_callback != null) {

@@ -4,6 +4,8 @@
 package preloader {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import loaders.EmbedAssets;
 import manager.Vars;
 import starling.display.Image;
@@ -68,9 +70,9 @@ public class StartPreloader {
 
     private function create():void {
         _armature = g.allData.factory['preloader'].buildArmature("splash_screen");
-        (_armature.display as Sprite).x = _bg.width/2;
-        (_armature.display as Sprite).y = _bg.height/2;
-        _source.addChild(_armature.display as Sprite);
+        (_armature.display as StarlingArmatureDisplay).x = _bg.width/2;
+        (_armature.display as StarlingArmatureDisplay).y = _bg.height/2;
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
         WorldClock.clock.add(_armature);
 //        _armature.animation.gotoAndStop('default', 0);
 

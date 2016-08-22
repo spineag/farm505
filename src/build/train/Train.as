@@ -6,6 +6,8 @@ import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
@@ -14,6 +16,8 @@ import mouse.ToolsModifier;
 import resourceItem.DropItem;
 import starling.core.Starling;
 import starling.display.Sprite;
+import starling.events.Event;
+
 import temp.DropResourceVariaty;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.xpPanel.XPStar;
@@ -122,7 +126,7 @@ public class Train extends WorldObject{
         makeIdleAnimation();
     }
 
-    private function makeIdleAnimation(e:EventObject=null):void {
+    private function makeIdleAnimation(e:Event=null):void {
         _bolAnimation = false;
         if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, makeIdleAnimation);
         if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeIdleAnimation);
@@ -240,7 +244,7 @@ public class Train extends WorldObject{
         if (_isOnHover) return;
         _build.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         if (_stateBuild == STATE_UNACTIVE) {
-            var fEndOver:Function = function():void {
+            var fEndOver:Function = function(e:Event=null):void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 _armature.animation.stop('close');
@@ -598,14 +602,14 @@ public class Train extends WorldObject{
 
     private function showBoom():void {
         _armatureOpenBoom = g.allData.factory['explode'].buildArmature("expl");
-        _source.addChild(_armatureOpenBoom.display as Sprite);
+        _source.addChild(_armatureOpenBoom.display as StarlingArmatureDisplay);
         WorldClock.clock.add(_armatureOpenBoom);
         _armatureOpenBoom.addEventListener(EventObject.COMPLETE, onBoom);
         _armatureOpenBoom.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
         _armatureOpenBoom.animation.gotoAndPlayByFrame("start");
     }
 
-    private function onBoom(e:EventObject=null):void {
+    private function onBoom(e:Event=null):void {
         if (_armatureOpenBoom.hasEventListener(EventObject.COMPLETE)) _armatureOpenBoom.removeEventListener(EventObject.COMPLETE, onBoom);
         if (_armatureOpenBoom.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpenBoom.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armatureOpenBoom);

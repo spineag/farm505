@@ -5,6 +5,8 @@ package windows.chestWindow {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import manager.ManagerChest;
 import manager.ManagerFilters;
 import starling.display.Image;
@@ -29,7 +31,7 @@ public class WOChest  extends WindowMain{
         _woWidth = 400;
         _woHeight = 340;
         _armature = g.allData.factory['chest_interface'].buildArmature("box");
-        _source.addChild(_armature.display as Sprite);
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
         WorldClock.clock.add(_armature);
         (_armature.display as Sprite).scale = .6;
     }
@@ -77,7 +79,7 @@ public class WOChest  extends WindowMain{
     }
 
     private function closeAnimation():void {
-            var fEndOver:Function = function():void {
+            var fEndOver:Function = function(e:Event=null):void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 if (g.managerTutorial.isTutorial) hideItTutorial();

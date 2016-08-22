@@ -10,6 +10,8 @@ import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import heroes.OrderCat;
 import manager.ManagerFilters;
@@ -742,18 +744,18 @@ public class WOOrder extends WindowMain{
     private function createTopCats():void {
         _armatureCustomer = g.allData.factory['order_window'].buildArmature("cat_customer");
         _armatureSeller = g.allData.factory['order_window'].buildArmature("cat_seller");
-        (_armatureCustomer.display as Sprite).x = 110;
-        (_armatureCustomer.display as Sprite).y = -170;
-        (_armatureSeller.display as Sprite).x = -110;
-        (_armatureSeller.display as Sprite).y = -170;
-        _source.addChild(_armatureCustomer.display as Sprite);
-        _source.addChild(_armatureSeller.display as Sprite);
-        var viyi:Bone = _armatureSeller.getBone('viyi');
-        if (viyi) {
-            viyi.visible = false;
+        (_armatureCustomer.display as StarlingArmatureDisplay).x = 110;
+        (_armatureCustomer.display as StarlingArmatureDisplay).y = -170;
+        (_armatureSeller.display as StarlingArmatureDisplay).x = -110;
+        (_armatureSeller.display as StarlingArmatureDisplay).y = -170;
+        _source.addChild(_armatureCustomer.display as StarlingArmatureDisplay);
+        _source.addChild(_armatureSeller.display as StarlingArmatureDisplay);
+        var viyi:Slot = _armatureSeller.getSlot('viyi');
+        if (viyi && viyi.display) {
+            viyi.display.visible = false;
         }
-        var bant:Bone = _armatureCustomer.getBone('bant');
-        if (bant) bant.visible = false;
+        var bant:Slot = _armatureCustomer.getSlot('bant');
+        if (bant && bant.display) bant.display.visible = false;
 
     }
 
@@ -777,17 +779,17 @@ public class WOOrder extends WindowMain{
         var b:Slot = _armatureCustomer.getSlot('bant');
         var viyi:Slot= _armatureCustomer.getSlot('viyi');
         if (!_arrOrders[pos].catOb.isWoman) {
-            b.display.visible = false;
-            viyi.display.visible = false;
+            if (b.display) b.display.visible = false;
+            if (viyi.display) viyi.display.visible = false;
         }
         else {
             changeBant(_arrOrders[pos].cat.bant, b);
-            viyi.display.visible = true;
+            if (viyi.display) viyi.display.visible = true;
         }
-        var okuli:Bone = _armatureCustomer.getBone('okuli');
-        var sharf:Bone = _armatureCustomer.getBone('sharf');
-        okuli.visible = false;
-        sharf.visible = false;
+        var okuli:Slot = _armatureCustomer.getSlot('okuli');
+        var sharf:Slot = _armatureCustomer.getSlot('sharf');
+        if (okuli.display) okuli.display.visible = false;
+        if (sharf.display) sharf.display.visible = false;
 //        switch (_arrOrders[pos].catOb.type) {
 //            case DataCat.AKRIL:
 //                okuli.visible = false;
@@ -894,10 +896,10 @@ public class WOOrder extends WindowMain{
             if (im) {
                 if (b.display) {
                     b.display.dispose();
-                    b.display = im;
                 } else {
-                    Cc.error('WOOrder changeTexture:: no bone.display - ' + oldName);
+//                    Cc.error('WOOrder changeTexture:: no bone.display - ' + oldName);
                 }
+                b.display = im;
             } else {
                 Cc.error('WOOrder changeTexture:: no such image - ' + newName);
             }
@@ -984,13 +986,13 @@ public class WOOrder extends WindowMain{
         }
     }
 
-    private function animateSellerOnSell(e:EventObject):void {
+    private function animateSellerOnSell(e:Event=null):void {
         _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerOnSell);
         _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerOnSell);
         animateSellerCat();
     }
 
-    private function animateCustomerOnSell(e:EventObject):void {
+    private function animateCustomerOnSell(e:Event=null):void {
         _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerOnSell);
         _armatureCustomer.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerOnSell);
 

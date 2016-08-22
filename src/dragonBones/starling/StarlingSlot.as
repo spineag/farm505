@@ -131,7 +131,7 @@
 		 */
 		override protected function _disposeDisplay(value:Object):void
 		{
-			(value as DisplayObject).dispose();
+			if (value) (value as DisplayObject).dispose();
 		}
 		
 		/**

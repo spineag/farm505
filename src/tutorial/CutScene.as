@@ -7,10 +7,12 @@ import com.greensock.TweenMax;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
 
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class CutScene {
     private var _source:Sprite;
@@ -27,8 +29,8 @@ public class CutScene {
         _xStart = -95;
         _xEnd = 125;
         _armature = g.allData.factory['tutorialCatBig'].buildArmature('cat');
-        (_armature.display as Sprite).scaleX = -1;
-        _source.addChild(_armature.display as Sprite);
+        (_armature.display as StarlingArmatureDisplay).scaleX = -1;
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
         onResize();
     }
 
@@ -70,7 +72,7 @@ public class CutScene {
 
     private var label:String;
     private var d:Number;
-    private function animateCat(e:EventObject = null):void {
+    private function animateCat(e:Event=null):void {
         if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, animateCat);
         if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, animateCat);
 

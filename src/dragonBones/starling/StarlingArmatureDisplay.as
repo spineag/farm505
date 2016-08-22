@@ -61,6 +61,7 @@ package dragonBones.starling
 		 */
 		public function _dispatchEvent(eventObject:EventObject):void
 		{
+			if (eventObject.type == 'loopComplete') return;
 			if (useDefaultStarlingEvent)
 			{
 				this.dispatchEventWith(eventObject.type, false, eventObject);

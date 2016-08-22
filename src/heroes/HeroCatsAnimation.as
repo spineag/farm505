@@ -5,7 +5,10 @@ package heroes {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class HeroCatsAnimation {
     private var STATE_FRONT:int = 1;
@@ -42,7 +45,7 @@ public class HeroCatsAnimation {
         _catImage.visible = false;
         _catBackImage.visible = false;
         _armatureWorker = a;
-        _catWorkerImage.addChild(_armatureWorker.display as Sprite);
+        _catWorkerImage.addChild(_armatureWorker.display as StarlingArmatureDisplay);
         _state = STATE_WORKER;
     }
 
@@ -120,7 +123,7 @@ public class HeroCatsAnimation {
         if (_armatureWorker && _armatureWorker.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureWorker.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
     }
 
-    private function onCompleteAnimation(e:EventObject):void {
+    private function onCompleteAnimation(e:Event=null):void {
         if (_playOnce) {
             stopIt();
             if (_callback != null) {

@@ -6,8 +6,11 @@ import com.greensock.TweenMax;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import manager.Vars;
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class MultCat {
     private var _source:Sprite;
@@ -18,7 +21,7 @@ public class MultCat {
     public function MultCat(_x:int, _y:int, p:Sprite) {
         _source = new Sprite();
         _armature = g.allData.factory['tutorial_mult'].buildArmature('cat');
-        _source.addChild(_armature.display as Sprite);
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
         _source.x = _x;
         _source.y = _y;
         _parent = p;
@@ -38,7 +41,7 @@ public class MultCat {
         TweenMax.to(_source, 1.2, {x:newX, y:newY, onComplete:showHello, delay:d});
     }
 
-    private function onWalk(e:EventObject):void {
+    private function onWalk(e:Event=null):void {
         _armature.animation.gotoAndPlayByFrame('run');
     }
 
@@ -50,7 +53,7 @@ public class MultCat {
         _armature.animation.gotoAndPlayByFrame('hello');
     }
 
-    private function onHello(e:EventObject):void {
+    private function onHello(e:Event=null):void {
         _armature.animation.gotoAndPlayByFrame('hello');
     }
 

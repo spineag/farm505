@@ -20,6 +20,8 @@ import resourceItem.ResourceItem;
 import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.events.Event;
+
 import ui.xpPanel.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
@@ -396,7 +398,7 @@ public class Tree extends WorldObject {
             else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
                     _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) g.mouseHint.showMouseHint(MouseHint.CLOCK);
         }
-        var fEndOver:Function = function():void {
+        var fEndOver:Function = function(e:Event=null):void {
             _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
             _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
             quickCheckState();

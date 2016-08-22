@@ -857,7 +857,7 @@ package dragonBones
 		 */
 		public function hasEventListener(type:String):void
 		{
-			_display.hasEvent(type);
+			if (_display) _display.hasEvent(type);
 		}
 		
 		/**
@@ -869,7 +869,7 @@ package dragonBones
 		 */
 		public function addEventListener(type:String, listener:Function):void
 		{
-			_display.addEvent(type, listener);
+			if (_display) _display.addEvent(type, listener);
 		}
 		
 		/**
@@ -881,7 +881,7 @@ package dragonBones
 		 */
 		public function removeEventListener(type:String, listener:Function):void
 		{
-			_display.removeEvent(type, listener);
+			if (_display) _display.removeEvent(type, listener);
 		}
 	}
 }

@@ -10,6 +10,7 @@ import dragonBones.starling.StarlingFactory;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class HeroEyesAnimation {
     private var _armatureEyes:Armature;
@@ -21,7 +22,7 @@ public class HeroEyesAnimation {
         _armatureEyes = fact.buildArmature("eyes");
 
         var headBone:Slot = catArmature.getSlot('head');
-        headBone.display.dispose();
+        if (headBone.display) headBone.display.dispose();
         _armatureClip = _armatureEyes.display as Sprite;
         headBone.display = _armatureClip;
 
@@ -29,16 +30,16 @@ public class HeroEyesAnimation {
         var im:Image;
         im = fact.getTextureDisplay(path) as Image;
         b = _armatureEyes.getSlot('head');
-        b.display.dispose();
+        if (b.display) b.display.dispose();
         b.display = im;
 
         b = _armatureEyes.getSlot('lid_r');
         im = fact.getTextureDisplay('eye/lid_r' + path2) as Image;
-        b.display.dispose();
+        if (b.display) b.display.dispose();
         b.display = im;
         b = _armatureEyes.getSlot('lid_l');
         im = fact.getTextureDisplay('eye/lid_l' + path2) as Image;
-        b.display.dispose();
+        if (b.display) b.display.dispose();
         b.display = im;
 
         if (!isWoman) {
@@ -60,7 +61,7 @@ public class HeroEyesAnimation {
         playIt();
     }
 
-    private function armatureEventHandler(e:EventObject):void {
+    private function armatureEventHandler(e:Event=null):void {
         playIt();
     }
 
@@ -93,10 +94,10 @@ public class HeroEyesAnimation {
         var im:Image = fact.getTextureDisplay(arr[k]) as Image;
         var im2:Image = fact.getTextureDisplay(arr[k]) as Image;
         var b:Slot = _armatureEyes.getSlot('eye_l');
-        b.display.dispose();
+        if (b.display) b.display.dispose();
         b.display = im;
         b = _armatureEyes.getSlot('eye_r');
-        b.display.dispose();
+        if (b.display) b.display.dispose();
         b.display = im2;
     }
 }

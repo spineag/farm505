@@ -8,6 +8,9 @@ import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import manager.ManagerFilters;
 import mouse.ToolsModifier;
+
+import starling.events.Event;
+
 import windows.WindowsManager;
 import windows.ambar.WOAmbars;
 
@@ -48,7 +51,7 @@ public class Sklad extends WorldObject{
         }
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            var fEndOver:Function = function():void {
+            var fEndOver:Function = function(e:Event=null):void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 _armature.animation.stop();

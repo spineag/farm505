@@ -7,6 +7,8 @@ import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import manager.Vars;
 import mouse.ToolsModifier;
 import starling.display.Sprite;
@@ -36,7 +38,7 @@ public class PlantOnRidge {
         _source = new Sprite();
         _ridge.addChildPlant(_source);
         armature = g.allData.factory[_data.url].buildArmature(_data.imageShop);
-        _source.addChild(armature.display as Sprite);
+        _source.addChild(armature.display as StarlingArmatureDisplay);
         WorldClock.clock.add(armature);
         _source.y = 35 * g.scaleFactor;
         _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);

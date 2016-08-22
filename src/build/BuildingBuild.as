@@ -5,14 +5,17 @@ package build {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import manager.Vars;
 
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class BuildingBuild {
     public var source:Sprite;
     private var armature:Armature;
-    private var armatureClip:Sprite;
+    private var armatureClip:StarlingArmatureDisplay;
     private var g:Vars = Vars.getInstance();
     private var _isOverAnim:Boolean;
 
@@ -20,7 +23,7 @@ public class BuildingBuild {
         _isOverAnim = false;
         source = new Sprite();
         armature = g.allData.factory['buildingBuild'].buildArmature("building");
-        armatureClip = armature.display as Sprite;
+        armatureClip = armature.display as StarlingArmatureDisplay;
         source.addChild(armatureClip);
         WorldClock.clock.add(armature);
         if (st == 'work') {
@@ -57,7 +60,7 @@ public class BuildingBuild {
         }
     }
 
-    private function onOverFoundation(e:EventObject):void {
+    private function onOverFoundation(e:Event=null):void {
         armature.removeEventListener(EventObject.COMPLETE, onOverFoundation);
         armature.removeEventListener(EventObject.LOOP_COMPLETE, onOverFoundation);
         _isOverAnim = false;
@@ -73,7 +76,7 @@ public class BuildingBuild {
         }
     }
 
-    private function onOverDone(e:EventObject):void {
+    private function onOverDone(e:Event=null):void {
         armature.removeEventListener(EventObject.COMPLETE, onOverDone);
         armature.removeEventListener(EventObject.LOOP_COMPLETE, onOverDone);
         _isOverAnim = false;

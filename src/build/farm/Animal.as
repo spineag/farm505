@@ -70,7 +70,7 @@ public class Animal {
         if (g.allData.factory[_data.url]) {
             createAnimal();
         } else {
-            g.loadAnimation.load('animations/x1/' + _data.url, _data.url, createAnimal);
+            g.loadAnimation.load('animations_json/x1/' + _data.url, _data.url, createAnimal);
         }
 
         _state = HUNGRY;

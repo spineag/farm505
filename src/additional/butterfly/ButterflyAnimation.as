@@ -6,11 +6,13 @@ import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
 import dragonBones.starling.StarlingFactory;
 
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class ButterflyAnimation {
     private var _source:Sprite;
@@ -26,7 +28,7 @@ public class ButterflyAnimation {
         if (type != Butterfly.TYPE_PINK) {
             changeTexture(type);
         }
-        _source.addChild(_armature.display as Sprite);
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
     }
 
     public function get source():Sprite {
@@ -54,7 +56,7 @@ public class ButterflyAnimation {
             im.scaleX = b.display.scaleX;
             im.scaleY = b.display.scaleY;
             im.rotation = b.display.rotation;
-            b.display.dispose();
+            if (b.display) b.display.dispose();
             b.display = im;
         }
     }
@@ -81,7 +83,7 @@ public class ButterflyAnimation {
         if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
     }
 
-    private function onCompleteAnimation(e:EventObject):void {
+    private function onCompleteAnimation(e:Event=null):void {
         if (_playOnce) {
             stopIt();
             if (_callback != null) {

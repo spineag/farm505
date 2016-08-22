@@ -11,6 +11,9 @@ import hint.FlyMessage;
 import manager.ManagerFilters;
 import media.SoundConst;
 import mouse.ToolsModifier;
+
+import starling.events.Event;
+
 import tutorial.TutorialAction;
 import user.NeighborBot;
 import windows.WindowsManager;
@@ -56,7 +59,7 @@ public class Market extends WorldObject{
         if (g.selectedBuild) return;
         super.onHover();
         if (_isOnHover)  return;
-        var fEndOver:Function = function():void {
+        var fEndOver:Function = function(e:Event=null):void {
             _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
             _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
         };

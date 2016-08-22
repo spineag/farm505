@@ -7,8 +7,11 @@ import com.junkbyte.console.Cc;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import manager.ManagerFilters;
 import starling.display.Sprite;
+import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
@@ -148,13 +151,13 @@ public class WOLockedLand extends WindowMain {
 
     private function addAnimation():void {
         _armature = g.allData.factory['plot_seller'].buildArmature("cat_customer");
-        (_armature.display as Sprite).x = -150;
-        (_armature.display as Sprite).y = -150;
-        (_armature.display as Sprite).scaleX = -1;
-        _source.addChild(_armature.display as Sprite);
+        (_armature.display as StarlingArmatureDisplay).x = -150;
+        (_armature.display as StarlingArmatureDisplay).y = -150;
+        (_armature.display as StarlingArmatureDisplay).scaleX = -1;
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
     }
 
-    private function showAnimation(e:EventObject = null):void {
+    private function showAnimation(e:Event=null):void {
         if(!_armature) return;
         if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, showAnimation);
         if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, showAnimation);

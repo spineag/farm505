@@ -90,12 +90,12 @@ public class LoadComponents {
         g.startPreloader.setProgress(39);
         count = 0;
 
-        g.loadAnimation.load('animations/arrow', 'arrow', onLoadDB);
-        g.loadAnimation.load('animations/chest_interface', 'chest_interface', onLoadDB);
-        g.loadAnimation.load('animations/order_window', 'order_window', onLoadDB);
-        g.loadAnimation.load('animations/plot_seller', 'plot_seller', onLoadDB);
-        g.loadAnimation.load('animations/preloader_2', 'preloader_2', onLoadDB);
-        g.loadAnimation.load('animations/visit_preloader', 'visit_preloader', onLoadDB);
+        g.loadAnimation.load('animations_json/arrow', 'arrow', onLoadDB);
+        g.loadAnimation.load('animations_json/chest_interface', 'chest_interface', onLoadDB);
+        g.loadAnimation.load('animations_json/order_window', 'order_window', onLoadDB);
+        g.loadAnimation.load('animations_json/plot_seller', 'plot_seller', onLoadDB);
+        g.loadAnimation.load('animations_json/preloader_2', 'preloader_2', onLoadDB);
+        g.loadAnimation.load('animations_json/visit_preloader', 'visit_preloader', onLoadDB);
     }
 
     private function onLoadDB():void {
@@ -110,15 +110,15 @@ public class LoadComponents {
         g.startPreloader.setProgress(52);
         count = 0;
 
-        g.loadAnimation.load('animations/x1/bfly', 'bfly', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_main', 'cat_main', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_watering_can', 'cat_watering_can', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_feed', 'cat_feed', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_queue', 'cat_queue', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/explode', 'explode', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/explode_gray', 'explode_gray', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/plant', 'plant', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/tools', 'tools', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/bfly', 'bfly', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/cat_main', 'cat_main', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/cat_watering_can', 'cat_watering_can', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/cat_feed', 'cat_feed', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/cat_queue', 'cat_queue', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/explode', 'explode', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/explode_gray', 'explode_gray', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/plant', 'plant', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/tools', 'tools', onLoadDB_X);
     }
 
     private function onLoadDB_X():void {

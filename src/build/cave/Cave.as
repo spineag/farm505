@@ -7,6 +7,8 @@ import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
@@ -15,6 +17,8 @@ import mouse.ToolsModifier;
 import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
 import starling.display.Sprite;
+import starling.events.Event;
+
 import ui.xpPanel.XPStar;
 import windows.WindowsManager;
 
@@ -198,7 +202,7 @@ public class Cave extends WorldObject{
         if (_isAnimate) return;
         if (_stateBuild == STATE_ACTIVE) {
             if (!_isOnHover && !_isAnimate) {
-                var fEndOver2:Function = function():void {
+                var fEndOver2:Function = function(e:Event=null):void {
                     _armature.removeEventListener(EventObject.COMPLETE, fEndOver2);
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver2);
                     _armature.animation.stop('open');
@@ -210,7 +214,7 @@ public class Cave extends WorldObject{
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             if (!_isOnHover) {
-                var fEndOver:Function = function():void {
+                var fEndOver:Function = function(e:Event=null):void {
                     _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                     _armature.animation.stop('close');
@@ -384,7 +388,7 @@ public class Cave extends WorldObject{
     private function onStartBuildingResponse(value:Boolean):void {}
 
     private function onItemClick(id:int):void {
-        var fOut:Function = function():void {
+        var fOut:Function = function(e:Event=null):void {
             _armature.removeEventListener(EventObject.COMPLETE, fOut);
             _armature.removeEventListener(EventObject.LOOP_COMPLETE, fOut);
             _armature.animation.stop('crafting');
@@ -461,7 +465,7 @@ public class Cave extends WorldObject{
             _isAnimate = false;
         };
 
-        var fIn:Function = function():void {
+        var fIn:Function = function(e:Event=null):void {
             _armature.removeEventListener(EventObject.COMPLETE, fIn);
             _armature.removeEventListener(EventObject.LOOP_COMPLETE, fIn);
             _armature.addEventListener(EventObject.COMPLETE, fOut);
@@ -485,14 +489,14 @@ public class Cave extends WorldObject{
 
     private function showBoom():void {
         _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
-        _source.addChild(_armatureOpen.display as Sprite);
+        _source.addChild(_armatureOpen.display as StarlingArmatureDisplay);
         WorldClock.clock.add(_armatureOpen);
         _armatureOpen.addEventListener(EventObject.COMPLETE, onBoom);
         _armatureOpen.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
         _armatureOpen.animation.gotoAndPlayByFrame("start");
     }
 
-    private function onBoom(e:EventObject=null):void {
+    private function onBoom(e:Event=null):void {
         if (_armatureOpen.hasEventListener(EventObject.COMPLETE)) _armatureOpen.removeEventListener(EventObject.COMPLETE, onBoom);
         if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armatureOpen);

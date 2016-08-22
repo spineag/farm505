@@ -9,10 +9,13 @@ import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class TutorialMult {
     private var _isLoad:Boolean;
@@ -34,7 +37,7 @@ public class TutorialMult {
     public function TutorialMult() {
         _isLoad = false;
         _needStart = false;
-        g.loadAnimation.load('animations/tuts/box_mult_m/', 'tutorial_mult', onLoad);
+        g.loadAnimation.load('animations_json/tuts/box_mult_m/', 'tutorial_mult', onLoad);
     }
 
     private function onLoad():void {
@@ -51,9 +54,9 @@ public class TutorialMult {
 
     private function startMult():void {
         _armature = g.allData.factory['tutorial_mult'].buildArmature('mult');
-        (_armature.display as Sprite).x = g.stageWidth/2;
-        (_armature.display as Sprite).y = g.stageHeight/2;
-        g.cont.popupCont.addChild(_armature.display as Sprite);
+        (_armature.display as StarlingArmatureDisplay).x = g.stageWidth/2;
+        (_armature.display as StarlingArmatureDisplay).y = g.stageHeight/2;
+        g.cont.popupCont.addChild(_armature.display as StarlingArmatureDisplay);
         if (_startCallback != null) {
             _startCallback.apply();
         }
@@ -93,7 +96,7 @@ public class TutorialMult {
         _armature.animation.gotoAndPlayByFrame('idle');
     }
 
-    private function onIdle1(e:EventObject):void {
+    private function onIdle1(e:Event=null):void {
         _armature.removeEventListener(EventObject.COMPLETE, onIdle1);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle1);
         _armature.addEventListener(EventObject.COMPLETE, onIdle2);
@@ -101,7 +104,7 @@ public class TutorialMult {
         _armature.animation.gotoAndPlayByFrame('idle2');
     }
 
-    private function onIdle2(e:EventObject):void {
+    private function onIdle2(e:Event=null):void {
         _armature.removeEventListener(EventObject.COMPLETE, onIdle2);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle2);
         _armature.addEventListener(EventObject.COMPLETE, onIdle3);
@@ -133,7 +136,7 @@ public class TutorialMult {
         TweenMax.to(walls[0], 16, {alpha:1, ease:Linear.easeNone, useFrames:true, onComplete:f});
     }
 
-    private function onIdle3(e:EventObject):void {
+    private function onIdle3(e:Event=null):void {
         _armature.removeEventListener(EventObject.COMPLETE, onIdle3);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle3);
         _boneBlue.display = null;
@@ -147,7 +150,7 @@ public class TutorialMult {
         _armature.animation.gotoAndPlayByFrame('idle4');
     }
 
-    private function onIdle4(e:EventObject):void {
+    private function onIdle4(e:Event=null):void {
         _armature.removeEventListener(EventObject.COMPLETE, onIdle4);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle4);
         _armature.addEventListener(EventObject.COMPLETE, onIdle5);
@@ -161,7 +164,7 @@ public class TutorialMult {
         TweenMax.to(_tempBlack, 10, {alpha:1, ease:Linear.easeNone, useFrames:true, delay: 21});
     }
 
-    private function onIdle5(e:EventObject):void {
+    private function onIdle5(e:Event=null):void {
         _armature.removeEventListener(EventObject.COMPLETE, onIdle5);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle5);
         _armature.addEventListener(EventObject.COMPLETE, onIdle6);
@@ -169,7 +172,7 @@ public class TutorialMult {
         _armature.animation.gotoAndPlayByFrame('idle6');
     }
 
-    private function onIdle6(e:EventObject):void {
+    private function onIdle6(e:Event=null):void {
         deleteCats();
         _armature.removeEventListener(EventObject.COMPLETE, onIdle6);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle6);

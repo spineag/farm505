@@ -10,6 +10,8 @@ import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.HeroCat;
@@ -22,6 +24,7 @@ import resourceItem.ResourceItem;
 import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.events.Event;
 import starling.textures.Texture;
 import tutorial.TutorialAction;
 import tutorial.helpers.HelperReason;
@@ -149,7 +152,7 @@ public class Fabrica extends WorldObject {
             else g.hint.showIt(_dataBuild.name);
 
             if (!_isOnHover && !_arrList.length && _armature) {
-                var fEndOver:Function = function():void {
+                var fEndOver:Function = function(e:Event=null):void {
                     _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                     _armature.animation.stop('idle');
@@ -540,7 +543,7 @@ public class Fabrica extends WorldObject {
         if (_armature) _armature.animation.stop('idle');
     }
 
-    private function chooseAnimation(e:EventObject = null):void {
+    private function chooseAnimation(e:Event=null):void {
         if (!_armature) return;
         if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
         if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
@@ -702,9 +705,11 @@ public class Fabrica extends WorldObject {
         var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
         if (_armature) var b:Slot = _armature.getSlot(oldName);
         if (b) {
-            im.pivotX = b.display.pivotX;
-            im.pivotY = b.display.pivotY;
-            b.display.dispose();
+            if (b.display) {
+                im.pivotX = b.display.pivotX;
+                im.pivotY = b.display.pivotY;
+                b.display.dispose();
+            }
             b.display = im;
         } else {
             Cc.error('Fabrica changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
@@ -714,7 +719,7 @@ public class Fabrica extends WorldObject {
     private function showBoom():void {
         _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
         if (!_armatureOpen) return;
-        (_armatureOpen.display as Sprite).scaleX = (_armatureOpen.display as Sprite).scaleY = 1.5;
+        (_armatureOpen.display as Sprite).scaleX = (_armatureOpen.display as StarlingArmatureDisplay).scaleY = 1.5;
         _source.addChild(_armatureOpen.display as Sprite);
         WorldClock.clock.add(_armatureOpen);
         _armatureOpen.addEventListener(EventObject.COMPLETE, onBoom);
@@ -723,7 +728,7 @@ public class Fabrica extends WorldObject {
 
     }
 
-    private function onBoom(e:EventObject=null):void {
+    private function onBoom(e:Event=null):void {
         if (_armatureOpen.hasEventListener(EventObject.COMPLETE)) _armatureOpen.removeEventListener(EventObject.COMPLETE, onBoom);
         if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armatureOpen);
