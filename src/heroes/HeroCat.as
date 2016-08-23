@@ -56,7 +56,7 @@ public class HeroCat extends BasicCat{
         }
         var st2:String = '';
         if (_type == WOMAN) st2 = '_w';
-//        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_main'], _animation.catArmature, 'heads/head' + st2, st2, _type == WOMAN);
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_main'], _animation.catArmature, 'head' + st2, st2, _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);
@@ -157,28 +157,29 @@ public class HeroCat extends BasicCat{
 
     private function releaseFrontWoman(arma:Armature):void {
         changeTexture("head", "head_w", arma);
-        changeTexture("body", "bodys/body_w", arma);
-        changeTexture("handLeft", "left_hand/handLeft_w", arma);
-        changeTexture("legLeft", "left_leg/legLeft_w", arma);
-        changeTexture("handRight", "right_hand/handRight_w", arma);
-        changeTexture("legRight", "right_leg/legRight_w", arma);
-        changeTexture("tail", "tails/tail_w", arma);
+        changeTexture("body", "body_w", arma);
+        changeTexture("handLeft", "hand_w_l", arma);
+        changeTexture("legLeft", "leg_w_l", arma);
+        changeTexture("handRight", "hand_w_r", arma);
+        changeTexture("legRight", "leg_w_r", arma);
+        changeTexture("tail", "tail_w", arma);
     }
 
     private function releaseBackWoman(arma:Armature):void {
-        changeTexture("head", "heads_b/head_w_b", arma);
-        changeTexture("body", "bodys_b/body_w_b", arma);
-        changeTexture("handLeft", "left_hand_b/handLeft_w_b", arma);
-        changeTexture("legLeft", "left_leg_b/legLeft_w_b", arma);
-        changeTexture("handRight", "right_hand_b/handRight_w_b", arma);
-        changeTexture("legRight", "right_leg_b/legRight_w_b", arma);
-        changeTexture("tail11", "tails/tail_w", arma);
+        changeTexture("head", "head_w_b", arma);
+        changeTexture("body", "body_w_b", arma);
+        changeTexture("handLeft", "hand_w_l_b", arma);
+        changeTexture("legLeft", "leg_w_l_b", arma);
+        changeTexture("handRight", "hand_w_r_b", arma);
+        changeTexture("legRight", "leg_w_r_b", arma);
+        changeTexture("tail11", "tail_w", arma);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['cat_main'].getTextureDisplay('clothTextureTemp', newName) as Image;
+//        var im:Image = g.allData.factory['cat_main'].getTextureDisplay('clothTextureTemp', newName) as Image;
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
         var b:Slot = arma.getSlot(oldName);
-        if (b.display) b.display.dispose();
+        b.displayList = null;
         b.display = im;
     }
 

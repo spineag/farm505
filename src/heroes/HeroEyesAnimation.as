@@ -6,7 +6,10 @@ import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
 import dragonBones.starling.StarlingFactory;
+
+import manager.Vars;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -16,30 +19,39 @@ public class HeroEyesAnimation {
     private var _armatureEyes:Armature;
     private var _armatureClip:Sprite;
     private var isAnimated:Boolean;
+    private var g:Vars = Vars.getInstance();
 
     public function HeroEyesAnimation(fact:StarlingFactory, catArmature:Armature, path:String, path2:String, isWoman:Boolean = false) {
         isAnimated = false;
         _armatureEyes = fact.buildArmature("eyes");
 
         var headBone:Slot = catArmature.getSlot('head');
-        if (headBone.display) headBone.display.dispose();
-        _armatureClip = _armatureEyes.display as Sprite;
-        headBone.display = _armatureClip;
+        headBone.displayList = null;
+        _armatureClip = _armatureEyes.display as StarlingArmatureDisplay;
+//        headBone.childArmature = _armatureEyes;
+        var sp:Sprite = new Sprite();
+        sp.addChild(_armatureClip);
+        _armatureClip.x = 17;
+        _armatureClip.y = 45;
+        headBone.display = sp;
 
         var b:Slot;
         var im:Image;
-        im = fact.getTextureDisplay(path) as Image;
+//        im = fact.getTextureDisplay(path) as Image;
+        im = new Image(g.allData.atlas['customisationAtlas'].getTexture(path));
         b = _armatureEyes.getSlot('head');
-        if (b.display) b.display.dispose();
+        b.displayList = null;
         b.display = im;
 
         b = _armatureEyes.getSlot('lid_r');
-        im = fact.getTextureDisplay('eye/lid_r' + path2) as Image;
-        if (b.display) b.display.dispose();
+//        im = fact.getTextureDisplay('eye/lid_r' + path2) as Image;
+        im = new Image(g.allData.atlas['customisationAtlas'].getTexture('lid_r' + path2));
+        b.displayList = null;
         b.display = im;
         b = _armatureEyes.getSlot('lid_l');
-        im = fact.getTextureDisplay('eye/lid_l' + path2) as Image;
-        if (b.display) b.display.dispose();
+//        im = fact.getTextureDisplay('eye/lid_l' + path2) as Image;
+        im = new Image(g.allData.atlas['customisationAtlas'].getTexture('lid_l' + path2));
+        b.displayList = null;
         b.display = im;
 
         if (!isWoman) {

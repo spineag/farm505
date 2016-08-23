@@ -42,12 +42,14 @@ public class LoadComponents {
         g.load.loadXML(st + 'x1/farmAtlas.xml' + g.getVersion('farmAtlas'), onLoad);
         g.load.loadImage(st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas'), onLoad);
         g.load.loadXML(st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas'), onLoad);
+        g.load.loadImage(st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas'), onLoad);
+        g.load.loadXML(st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas'), onLoad);
     }
 
     private function onLoad(smth:*=null):void {
         count++;
         g.startPreloader.setProgress(6 + 2*count);
-        if (count >=16) createAtlases();
+        if (count >=18) createAtlases();
     }
 
     private function createAtlases():void {
@@ -82,6 +84,10 @@ public class LoadComponents {
         g.allData.atlas['wildAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')]);
         delete  g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')];
         delete  g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')];
+
+        g.allData.atlas['customisationAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas')]);
+        delete  g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')];
+        delete  g.pXMLs[st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas')];
 
         loadDBAnimations();
     }
